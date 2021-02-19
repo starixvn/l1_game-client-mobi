@@ -11,6 +11,12 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
+        <p className={styles.title}>
+          <a href="testSentry" target="_blank">
+              Test Sentry
+          </a>
+        </p>
+      
         <SieDie></SieDie>
       </main>
 

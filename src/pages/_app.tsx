@@ -1,4 +1,7 @@
 import "../styles/globals.scss";
+import { init } from '../utils/sentry'
+
+init()
 
 import { wrapper } from "../redux";
 

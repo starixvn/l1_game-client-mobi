@@ -9,6 +9,10 @@
     "test": "jest --env=jsdom"
   },
   "dependencies": {
+    "@sentry/browser": "^6.2.0",
+    "@sentry/integrations": "^6.2.0",
+    "@sentry/node": "^6.2.0",
+    "@sentry/webpack-plugin": "^1.14.1",
     "next": "10.0.7",
     "next-redux-wrapper": "^6.0.2",
     "react": "17.0.1",
