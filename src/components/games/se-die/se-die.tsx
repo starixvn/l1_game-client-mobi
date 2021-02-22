@@ -1,11 +1,11 @@
 import React from "react";
+import Styles from "./se-die.module.scss";
 import BetTable from "../../shared/bet-table/bet-table";
 import GameHeader from "../../shared/game-header/game-header";
 
 export default function SeDie() {
   return (
-    <div>
-      Se Die
+    <div className={Styles.container}>
       <GameHeader
         gameName="SieDie"
         roundId={13}

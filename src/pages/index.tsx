@@ -13,11 +13,13 @@ export default function Home() {
       <main className={styles.main}>
         <p className={styles.title}>
           <a href="testSentry" target="_blank">
-              Test Sentry
+            Test Sentry
           </a>
         </p>
-      
-        <SieDie></SieDie>
+
+        <div className={styles["game-container"]}>
+          <SieDie></SieDie>
+        </div>
       </main>
 
       <footer className={styles.footer}>

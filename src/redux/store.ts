@@ -5,6 +5,11 @@ import thunkMiddleware from "redux-thunk";
 
 import reducers from "./reducers";
 
-const makeStore = (initialState = {}) => createStore(reducers, initialState, composeWithDevTools(applyMiddleware(thunkMiddleware)));
+const makeStore = (initialState = {}) =>
+  createStore(
+    reducers,
+    initialState,
+    composeWithDevTools(applyMiddleware(thunkMiddleware))
+  );
 
 export const wrapper = createWrapper(makeStore);
