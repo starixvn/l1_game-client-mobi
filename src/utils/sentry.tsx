@@ -33,3 +33,53 @@ export const init = () => {
     });
   }
 };
+
+export const sentryLogger = {
+  log: (message:any) => {
+    Sentry.captureMessage(message);
+  },
+
+  logError: (exception:any) => {
+    Sentry.captureException(exception);
+  },
+
+  setUser: (user:any) => {
+    if (user) {
+        setTimeout(function () {
+            try {
+                Sentry &&
+                    Sentry.configureScope(function (scope) {
+                        scope.setUser(user);
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        }, 5000);
+    }
+},
+
+  setTag: (tag:any) => {
+    try {
+      Sentry &&
+          Sentry.configureScope(function (scope) {
+              scope.setTag(tag.id, tag.value);
+          });
+    } catch (ex) {
+        console.log(ex);
+    }
+  },
+
+  setCharacterName: (name:string) => {
+      sentryLogger.setTag({ id: "character-name", value: name });
+  },
+
+  setSocketIoId: (socketId:number) => {
+      sentryLogger.setTag({ id: "socket-io-id", value: socketId });
+  }
+};
+
+
+export default function () {
+  return sentryLogger;
+}
+

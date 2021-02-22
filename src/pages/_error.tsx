@@ -1,5 +1,6 @@
 import NextErrorComponent from "next/error";
-import * as Sentry from "@sentry/node";
+import Sentry from "@sentry/node";
+import {NextPageContext}  from "next/dist/next-server/lib/utils";
 
 const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   if (!hasGetInitialPropsRun && err) {
@@ -13,10 +14,10 @@ const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
   return <NextErrorComponent statusCode={statusCode} />;
 };
 
-MyError.getInitialProps = async ({ res, err, asPath }) => {
+MyError.getInitialProps = async ({ res, err, asPath }:NextPageContext) => {
   const errorInitialProps = await NextErrorComponent.getInitialProps({
     res,
-    err,
+    err
   });
 
   // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
