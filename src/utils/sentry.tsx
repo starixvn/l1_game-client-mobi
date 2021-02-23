@@ -78,8 +78,3 @@ export const sentryLogger = {
   }
 };
 
-
-export default function () {
-  return sentryLogger;
-}
-

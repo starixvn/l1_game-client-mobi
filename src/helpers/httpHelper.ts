@@ -12,7 +12,7 @@ const createCORSRequest = (method, url) => {
 };
 
 // Make the actual CORS request.
-export const makeCorsRequest = (url, callback, alsoExecuteError) => {
+const makeCorsRequest = (url, callback, alsoExecuteError) => {
   // This is a sample server that supports CORS.
   var xhr = createCORSRequest("GET", url);
   if (!xhr) {
@@ -34,3 +34,5 @@ export const makeCorsRequest = (url, callback, alsoExecuteError) => {
 
   xhr.send();
 };
+
+export { makeCorsRequest as get }

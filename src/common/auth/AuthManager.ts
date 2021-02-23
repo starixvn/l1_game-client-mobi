@@ -1,10 +1,8 @@
 // import BaseSocketIOController from "../../BaseSocketIOController";
 import { configs } from "../../../Configs";
-import { makeCorsRequest } from "../../helpers/httpHelper";
+import * as httpHelper from "../../helpers/httpHelper";
 import { buildServerUrl } from "../../helpers/UrlHelper";
-import logger from "../../utils/sentry";
-
-const sentryLogger = logger();
+import { sentryLogger } from "../../utils/sentry";
 
 const sessionIdStorageName = "scss";
 const sessionExpiredTimeoutMinutes = 19.8;
@@ -14,7 +12,7 @@ export function preChecking(cb) {
 
   const urlParams = new URLSearchParams(window.location.search);
 
-  makeCorsRequest(
+  httpHelper.get(
     settingUrl,
     function (settingResponse) {
       try {
@@ -56,7 +54,7 @@ export function checkSSO(labelMessage, onSuccessFunc) {
     );
 
     try {
-      makeCorsRequest(
+      httpHelper.get(
         url,
         function (response) {
           if (response.isAuthenticated) {
