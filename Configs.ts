@@ -20,4 +20,5 @@ export const configs = {
     },
   },
   userServiceUrl: "http://localhost:5000",
+  sedieServiceUrl: "http://localhost:8082",
 };
