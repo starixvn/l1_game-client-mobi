@@ -1,0 +1,24 @@
+.container {
+  height: 150px;
+
+  .statistic-board {
+    display: flex;
+    flex-direction: row;
+
+    .result-chain {
+      flex: 1;
+      width: 5%;
+    }
+
+    .result-item {
+      font-weight: 600;
+      line-height: 14px;
+      text-align: center;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      margin: 3px;
+    }
+  }
+}

@@ -1,6 +1,8 @@
 .container {
   background-color: #bdd0f7;
   border: 1px solid #ffffff;
+  color: #365c9a;
+  height: 70px;
 
   &:hover {
     background-color: #f5eeb8;
@@ -8,11 +10,13 @@
   }
 
   &.highlight {
+    color: #b53f39;
     animation: winningAnimation 1.7s;
   }
 
   @keyframes winningAnimation {
     0% {
+      color: #000;
       background-color: #f5d9cc;
     }
     25% {
@@ -26,6 +30,7 @@
     }
     100% {
       background-color: #f5d9cc;
+      color: #000;
     }
   }
 

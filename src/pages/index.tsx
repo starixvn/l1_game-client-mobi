@@ -3,14 +3,18 @@ import SieDie from "../components/games/se-die/se-die";
 import styles from "../styles/Home.module.scss";
 import { useRouter } from "next/router";
 import * as Auth from "../common/auth/AuthManager";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [isFirstLoad, updateState] = useState<boolean>(true);
+
   const router = useRouter();
   const getToken = () => {
     const tmpToken = "daed176d-7b93-484e-8bcc-48ec6566379c";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
+    updateState(false);
   };
 
   const checkSSO = () => {
@@ -22,6 +26,9 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    isFirstLoad && getToken();
+  });
   const reCheckIn = () => {
     const  status = Auth.reCheckIn();
     // if (!status) {
@@ -29,8 +36,8 @@ export default function Home() {
     // }
   };
 
+
   return (
-    
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
@@ -59,4 +66,3 @@ export default function Home() {
     </div>
   );
 }
-
