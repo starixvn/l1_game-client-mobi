@@ -78,19 +78,19 @@ export function checkAndUpdateRecheckIn(dontClearSession) {
   return isSessionExpired;
 }
 
-export function reCheckIn() {
+export function reCheckIn(onSuccessFunc) {
   const session = SessionManager.getSession();
   if (!session) {
-    return false;
+    return onSuccessFunc(false);
   }
 
   UserServiceClient.getInstance()
     .reCheckIn(session.ss, session.username)
     .then((response) => {
       if (response.isSuccessful) {
-        return true;
+        return onSuccessFunc(true);
       } else {
-        return false;
+        return onSuccessFunc(false);
       }
     })
     .catch(sentryLogger.logError);

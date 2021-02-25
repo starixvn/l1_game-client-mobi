@@ -4,18 +4,17 @@ import styles from "../styles/Home.module.scss";
 import { useRouter } from "next/router";
 import * as Auth from "../common/auth/AuthManager";
 import { useEffect, useState, useContext } from "react";
-// import { SocketContext } from '../components/contexts/socket/socket-context';
 import * as SessionManager from "../common/auth/session-manager";
 import * as socketIO from "socket.io-client";
 import { configs } from "../../Configs";
 
 export default function Home() {
   const [isFirstLoad, updateState] = useState<boolean>(true);
-  // const socket = useContext(SocketContext);
   const router = useRouter();
+  let interval: NodeJS.Timeout;
 
   const getToken = () => {
-    const tmpToken = "780ffb85-5e0b-4daf-ba99-111c74393c11";
+    const tmpToken = "d0ba1619-5e11-40d1-b0bf-d6259ea48105";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
@@ -53,15 +52,21 @@ export default function Home() {
     socket.on("disconnect", (err) => console.log(err));
   };
 
+  const reCheckIn = () => {
+    Auth.reCheckIn((status:boolean) => {
+      if (!status) {
+        router.push("timeout", "timeout", { shallow: true });
+      }
+    });
+  };
+
   useEffect(() => {
     isFirstLoad && getToken();
+    const interval = setInterval(() => {
+      reCheckIn();
+    }, 60000);
+    return () => clearInterval(interval);
   });
-  const reCheckIn = () => {
-    const status = Auth.reCheckIn();
-    if (!status) {
-      router.push("timeout", "timeout", { shallow: true });
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -72,7 +77,6 @@ export default function Home() {
 
       <main className={styles.main}>
         <button onClick={checkSSO}>SSO</button>
-        <button onClick={reCheckIn}>reCheckIn</button>
         <div className={styles["game-container"]}>
           <SieDie></SieDie>
         </div>
