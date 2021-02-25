@@ -80,7 +80,6 @@ export function checkAndUpdateRecheckIn(dontClearSession) {
 
 export function reCheckIn() {
   const session = SessionManager.getSession();
-  console.log(session);
   if (!session) {
     return false;
   }

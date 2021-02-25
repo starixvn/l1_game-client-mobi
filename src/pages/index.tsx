@@ -15,7 +15,7 @@ export default function Home() {
   const router = useRouter();
 
   const getToken = () => {
-    const tmpToken = "61ff7936-12df-4df5-8163-c2486ad7b058";
+    const tmpToken = "780ffb85-5e0b-4daf-ba99-111c74393c11";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
@@ -25,6 +25,7 @@ export default function Home() {
   const checkSSO = () => {
     const status = Auth.checkSSO(() => {
       console.log("SSO Success");
+      Auth.authorize();
       connectSocket();
     });
     if (!status) {

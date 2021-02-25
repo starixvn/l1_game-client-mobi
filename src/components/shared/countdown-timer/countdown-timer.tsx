@@ -46,8 +46,8 @@ export default class CountdownTimer extends React.Component<Props, State> {
   }
 
   render() {
-    const { currentTime, timeRecheckIn } = this.state;
+    const { currentTime } = this.state;
 
-    return <div>{currentTime} <div>{timeRecheckIn}</div></div>;
+    return <div>{currentTime}</div>;
   }
 }
