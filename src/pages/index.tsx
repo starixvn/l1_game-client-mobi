@@ -6,7 +6,7 @@ import * as Auth from "../common/auth/AuthManager";
 import { useEffect, useState, useContext } from "react";
 // import { SocketContext } from '../components/contexts/socket/socket-context';
 import * as SessionManager from "../common/auth/session-manager";
-import socketIOClient from "socket.io-client";
+import * as socketIO from "socket.io-client";
 import { configs } from "../../Configs";
 
 export default function Home() {
@@ -15,7 +15,7 @@ export default function Home() {
   const router = useRouter();
 
   const getToken = () => {
-    const tmpToken = "d9368a44-18b3-4d25-b221-a4c42f1e28d6";
+    const tmpToken = "61ff7936-12df-4df5-8163-c2486ad7b058";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
@@ -34,15 +34,22 @@ export default function Home() {
 
   const connectSocket = () => {
     console.log("connect ws----------------");
-    const socket = socketIOClient(configs.sedieServiceUrl, {
-      forceNew: true,
-      transports: ["websocket"],
-      upgrade: false,
-      path: configs.serverGameEndPoints[1].path,
-    });
+    const socket = socketIO(
+      configs.sedieServiceUrl + configs.serverGameEndPoints[1].path,
+      {
+        forceNew: true,
+        transports: ["websocket"],
+        upgrade: false,
+        path: "",
+      }
+    );
+
     socket.on("connect", () => {
       socket.emit("signin", SessionManager.getSession());
     });
+    socket.on("connect_error", (err) => console.log(err));
+    socket.on("connect_failed", (err) => console.log(err));
+    socket.on("disconnect", (err) => console.log(err));
   };
 
   useEffect(() => {
