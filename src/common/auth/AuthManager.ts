@@ -15,6 +15,8 @@ export function checkSSO(onSuccessFunc) {
             .authenticate(urlParams.get("token"))
             .then((response:Session) => {
                 if (response.isAuthenticated) {
+                  window.authData = response;
+                  window.authData.time = new Date();
                     // sentryLogger.setUser(response);
                     SessionManager.storeSessionData(response);
                     clearTokenOnUrl();

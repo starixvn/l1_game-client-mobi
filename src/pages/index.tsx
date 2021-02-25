@@ -4,15 +4,18 @@ import styles from "../styles/Home.module.scss";
 import { useRouter } from "next/router";
 import * as Auth from "../common/auth/AuthManager";
 import { useEffect, useState, useContext } from "react";
-import { SocketContext } from '../components/contexts/socket/socket-context';
-import * as SessionManager from "../common/auth/session-manager"
+// import { SocketContext } from '../components/contexts/socket/socket-context';
+import * as SessionManager from "../common/auth/session-manager";
+import socketIOClient from "socket.io-client";
+import { configs } from "../../Configs";
 
 export default function Home() {
   const [isFirstLoad, updateState] = useState<boolean>(true);
-  const socket = useContext(SocketContext);
+  // const socket = useContext(SocketContext);
   const router = useRouter();
+
   const getToken = () => {
-    const tmpToken = "4723ddc7-78f1-4a39-a570-a0977dc60d6c";
+    const tmpToken = "d9368a44-18b3-4d25-b221-a4c42f1e28d6";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
@@ -30,22 +33,27 @@ export default function Home() {
   };
 
   const connectSocket = () => {
+    console.log("connect ws----------------");
+    const socket = socketIOClient(configs.sedieServiceUrl, {
+      forceNew: true,
+      transports: ["websocket"],
+      upgrade: false,
+      path: configs.serverGameEndPoints[1].path,
+    });
     socket.on("connect", () => {
       socket.emit("signin", SessionManager.getSession());
-  });
-
-  }
+    });
+  };
 
   useEffect(() => {
     isFirstLoad && getToken();
   });
   const reCheckIn = () => {
-    const  status = Auth.reCheckIn();
+    const status = Auth.reCheckIn();
     if (!status) {
       router.push("timeout", "timeout", { shallow: true });
     }
   };
-
 
   return (
     <div className={styles.container}>

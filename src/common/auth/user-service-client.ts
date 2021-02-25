@@ -36,7 +36,7 @@ export default class UserServiceClient {
 
   async authenticate(token: string) {
     const response = await this.axiosInstance.get<AuthenticateResponse>(
-      `/authenticate?token=${token}`
+      `/auth/sso?token=${token}`
     );
     return response.data;
   }
@@ -48,7 +48,7 @@ export default class UserServiceClient {
       browserUserAgent: navigator.userAgent,
     };
     const response = await this.axiosInstance.post<ReCheckInResponse>(
-      "/reCheckIn",
+      "auth/reCheckIn",
       request
     );
     return response.data;
@@ -60,7 +60,7 @@ export default class UserServiceClient {
       username: username,
       browserUserAgent: navigator.userAgent,
     };
-    const response = await this.axiosInstance.post("/authorize", request);
+    const response = await this.axiosInstance.post("auth/authorize", request);
     return response.data;
   }
 
@@ -71,7 +71,7 @@ export default class UserServiceClient {
       nickname: nickname,
       browserUserAgent: navigator.userAgent,
     };
-    const response = await this.axiosInstance.post("/signName", request);
+    const response = await this.axiosInstance.post("auth/signName", request);
     return response.data;
   }
 }

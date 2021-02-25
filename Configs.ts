@@ -12,9 +12,9 @@ export const configs = {
       path: "",
       proxyRoute: "/main",
     },
-    2: {
+    1: {
       subDomain: "",
-      port: "7000",
+      port: "8082",
       path: "/user/xocxoc",
       proxyRoute: "/sedie/socket.io",
     },

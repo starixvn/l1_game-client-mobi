@@ -4,8 +4,8 @@ export interface Session {
   username: string;
   language: string;
   ss: string;
-  //   currency: string;
-  //   time: Date;
+  currency?: string;
+  time?: Date;
   isAuthenticated: boolean;
 }
 
