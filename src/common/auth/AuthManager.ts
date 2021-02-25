@@ -1,40 +1,39 @@
 import { sentryLogger } from "../../utils/sentry";
-import {Session} from "./session-manager"
+import { Session } from "./session-manager";
 import * as SessionManager from "./session-manager";
 import UserServiceClient from "./user-service-client";
 
 const sessionExpiredTimeoutMinutes = 19.8;
 
-
 export function checkSSO(onSuccessFunc) {
   let isSuccess = false;
-    const urlParams = new URLSearchParams(window.location.search);
-    const authData = SessionManager.getSession();
-    if (urlParams.has("token")) {
-        UserServiceClient.getInstance()
-            .authenticate(urlParams.get("token"))
-            .then((response:Session) => {
-                if (response.isAuthenticated) {
-                  window.authData = response;
-                  window.authData.time = new Date();
-                    // sentryLogger.setUser(response);
-                    SessionManager.storeSessionData(response);
-                    clearTokenOnUrl();
-                    onSuccessFunc();
-                }
-            })
-            .catch((error) => {
-                sentryLogger.logError(error);
-            });
-        isSuccess = true;
-    } else if (authData && authData.isAuthenticated && authData.ss) {
-        isSuccess = true;
-        window.authData = authData;
-        sentryLogger.setUser(authData);
-        onSuccessFunc();
-    }
+  const urlParams = new URLSearchParams(window.location.search);
+  const authData = SessionManager.getSession();
+  if (urlParams.has("token")) {
+    UserServiceClient.getInstance()
+      .authenticate(urlParams.get("token"))
+      .then((response: Session) => {
+        if (response.isAuthenticated) {
+          window.authData = response;
+          window.authData.time = new Date();
+          // sentryLogger.setUser(response);
+          SessionManager.storeSessionData(response);
+          clearTokenOnUrl();
+          onSuccessFunc();
+        }
+      })
+      .catch((error) => {
+        sentryLogger.logError(error);
+      });
+    isSuccess = true;
+  } else if (authData && authData.isAuthenticated && authData.ss) {
+    isSuccess = true;
+    window.authData = authData;
+    sentryLogger.setUser(authData);
+    onSuccessFunc();
+  }
 
-    return isSuccess;
+  return isSuccess;
 }
 
 export function clearTokenOnUrl() {
@@ -83,17 +82,28 @@ export function reCheckIn() {
   const session = SessionManager.getSession();
   console.log(session);
   if (!session) {
-     return false;
+    return false;
   }
 
   UserServiceClient.getInstance()
-      .reCheckIn(session.ss, session.username)
-      .then((response) => {
-          if (response.isSuccessful) {
-              return true;
-          } else {
-             return false;
-          }
-      })
-      .catch(sentryLogger.logError);
+    .reCheckIn(session.ss, session.username)
+    .then((response) => {
+      if (response.isSuccessful) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+    .catch(sentryLogger.logError);
+}
+
+export function authorize() {
+  const session = SessionManager.getSession();
+  if (!session) {
+    return false;
+  }
+
+  UserServiceClient.getInstance()
+    .authorize(session.ss, session.username)
+    .catch(sentryLogger.logError);
 }

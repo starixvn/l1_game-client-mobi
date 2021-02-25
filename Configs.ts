@@ -16,7 +16,7 @@ export const configs = {
       subDomain: "",
       port: "8082",
       path: "/user/xocxoc",
-      proxyRoute: "/sedie/socket.io",
+      proxyRoute: "",
     },
   },
   userServiceUrl: "http://localhost:5000",
