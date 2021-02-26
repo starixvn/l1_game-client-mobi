@@ -1,7 +1,7 @@
-export const configs = {
+const configs = {
   ssl: false,
   serverDomainMapper: {
-    localhost: "127.0.0.1",
+    localhost: "localhost",
     "10.5.10.14": "lumigame.com",
   },
   serverGameEndPoints: {
@@ -10,7 +10,7 @@ export const configs = {
       subDomain: "",
       port: 5000,
       path: "",
-      proxyRoute: "/main",
+      proxyRoute: "",
     },
     1: {
       subDomain: "",
@@ -19,6 +19,10 @@ export const configs = {
       proxyRoute: "",
     },
   },
+  sentryUrl:
+    "https://bb445a2db0534a549906991ccf4bf895@sentryuat.sabagame.com/20",
   userServiceUrl: "http://localhost:5000",
   sedieServiceUrl: "http://localhost:8082",
 };
+
+export default configs;

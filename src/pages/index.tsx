@@ -3,18 +3,16 @@ import SieDie from "../components/games/se-die/se-die";
 import styles from "../styles/Home.module.scss";
 import { useRouter } from "next/router";
 import * as Auth from "../common/auth/AuthManager";
-import { useEffect, useState, useContext } from "react";
-import * as SessionManager from "../common/auth/session-manager";
-import * as socketIO from "socket.io-client";
-import { configs } from "../../Configs";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [isFirstLoad, updateState] = useState<boolean>(true);
+  const [isSSO, updateSSOState] = useState<boolean>(false);
   const router = useRouter();
   let interval: NodeJS.Timeout;
 
   const getToken = () => {
-    const tmpToken = "d0ba1619-5e11-40d1-b0bf-d6259ea48105";
+    const tmpToken = "355ed50c-1a5b-4602-bf74-0f9f0067ec97";
     const href = `/?token=${tmpToken}`;
 
     router.push(href, href, { shallow: true });
@@ -23,33 +21,13 @@ export default function Home() {
 
   const checkSSO = () => {
     const status = Auth.checkSSO(() => {
-      console.log("SSO Success");
+      console.log("SSO Success---------------");
+      updateSSOState(true);
       Auth.authorize();
-      connectSocket();
     });
     if (!status) {
       router.push("timeout", "timeout", { shallow: true });
     }
-  };
-
-  const connectSocket = () => {
-    console.log("connect ws----------------");
-    const socket = socketIO(
-      configs.sedieServiceUrl + configs.serverGameEndPoints[1].path,
-      {
-        forceNew: true,
-        transports: ["websocket"],
-        upgrade: false,
-        path: "",
-      }
-    );
-
-    socket.on("connect", () => {
-      socket.emit("signin", SessionManager.getSession());
-    });
-    socket.on("connect_error", (err) => console.log(err));
-    socket.on("connect_failed", (err) => console.log(err));
-    socket.on("disconnect", (err) => console.log(err));
   };
 
   const reCheckIn = () => {
@@ -65,6 +43,10 @@ export default function Home() {
     const interval = setInterval(() => {
       reCheckIn();
     }, 60000);
+
+    if(!isFirstLoad){
+      checkSSO();
+    }
     return () => clearInterval(interval);
   });
 
@@ -76,9 +58,8 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <button onClick={checkSSO}>SSO</button>
         <div className={styles["game-container"]}>
-          <SieDie></SieDie>
+          <SieDie isSSO={isSSO}></SieDie>
         </div>
       </main>
 

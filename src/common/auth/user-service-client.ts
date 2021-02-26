@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { configs } from "../../../Configs";
+import configs from "../../../Configs";
 
 export interface AuthenticateResponse {
   username: string;
