@@ -1,24 +1,71 @@
 .container {
-  height: 150px;
+  .statistic-header {
+    display: flex;
+    justify-content: space-evenly;
+
+    .statistic-tab {
+      &:hover {
+        cursor: pointer;
+      }
+
+      border: 1px solid #000;
+      border-bottom: 0px;
+      padding: 2px;
+    }
+  }
 
   .statistic-board {
-    display: flex;
-    flex-direction: row;
+    border: 1px solid #000;
 
-    .result-chain {
-      flex: 1;
-      width: 5%;
+    .ratio-summary {
+      display: flex;
+      justify-content: space-evenly;
     }
 
-    .result-item {
-      font-weight: 600;
-      line-height: 14px;
-      text-align: center;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #000;
-      border-radius: 50%;
-      margin: 3px;
+    .road-map {
+      display: flex;
+      flex-direction: row;
+      min-height: 130px;
+
+      .result-chain {
+        width: calc(100% / 18);
+      }
     }
+  }
+}
+
+.road-map-node {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  margin: 3px;
+  color: #fff;
+
+  &.waiting-result {
+    border: none;
+    animation: watingAnimation 1s infinite ease-in-out;
+  }
+
+  @keyframes watingAnimation {
+    50% {
+      background-color: #f5d9cc;
+    }
+
+    100% {
+      background-color: none;
+    }
+  }
+
+  &.odd {
+    background-color: red;
+  }
+
+  &.even {
+    background-color: blue;
   }
 }

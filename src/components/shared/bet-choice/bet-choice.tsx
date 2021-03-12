@@ -9,7 +9,6 @@ export default function BetChoice(props: { data: BetChoiceModel }) {
 
   return (
     <Col
-      xs={12 / props.data.size}
       className={`${Styles.container} 
       ${props.data.isHighlight ? Styles.highlight : ""}`}
       onClick={() => updateState(true)}
@@ -23,7 +22,7 @@ export default function BetChoice(props: { data: BetChoiceModel }) {
         betChoiceInfo={{
           betChoice: props.data.name,
           gameName: "Se Die",
-          roundId: props.data.size,
+          roundId: 0,
         }}
       ></PlaceBetModal>
     </Col>
