@@ -1,22 +1,32 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 import * as Auth from "../common/auth/AuthManager";
 import SieDie from "../components/games/se-die/se-die";
 import { UserService } from "../services";
 import styles from "../styles/Home.module.scss";
+import * as SessionManager from "../common/auth/session-manager";
 
 export default function Home() {
     const router = useRouter();
     let interval: NodeJS.Timeout;
+    const { token } = router.query;
+    const [isFirstLoad, updateState] = useState<boolean>(true);
+    const [isSSO, updateSSOState] = useState<boolean>(false);
 
     const checkSSO = async () => {
-        const { token } = useParams();
         const signInResponse = await UserService.signIn(token);
-        if (signInResponse.isAuthenticated) {
-        }
+            if (signInResponse.isAuthenticated) {
+                SessionManager.storeSessionData(signInResponse);
+                const session = SessionManager.getSession();
+                const username = signInResponse.username;
+                UserService.authorize(session.ss, username);
+                updateSSOState(true);
+            }
+    
+            updateState(false);
+       
     };
 
     const reCheckIn = () => {
@@ -28,12 +38,10 @@ export default function Home() {
     };
 
     useEffect(() => {
-        checkSSO();
+        if(isFirstLoad && token != undefined){
+            checkSSO();
+        }
     });
-
-    useEffect(() => {
-        checkSSO();
-    }, []);
 
     return (
         <div className={styles.container}>
