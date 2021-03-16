@@ -9,7 +9,7 @@ import styles from "../styles/Home.module.scss";
 import * as SessionManager from "../common/auth/session-manager";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Link from "next/link";
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
 
 export default function Home() {
   const router = useRouter();
@@ -19,6 +19,7 @@ export default function Home() {
   const [isSSO, updateSSOState] = useState<boolean>(false);
 
   const checkSSO = async () => {
+   
     const signInResponse = await UserService.signIn(token);
     if (signInResponse.isAuthenticated) {
       SessionManager.storeSessionData(signInResponse);
@@ -54,7 +55,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>{t("title")}</h1>
-        <Link href="/" locale={router.locale === "en" ? "de" : "en"}>
+        <Link href="/" locale={router.locale === "en" ? "vi" : "en"}>
           <button>{t("change-locale")}</button>
         </Link>
         <div className={styles["game-container"]}>

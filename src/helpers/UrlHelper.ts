@@ -6,7 +6,7 @@ export const buildUrl = (
   ssl: boolean,
   protocol = "http",
   path = "/",
-  port = 80
+  port: string | number
 ) => {
   const subDomainText = `${subDomain}.`;
   const portText = `:${port}`;
