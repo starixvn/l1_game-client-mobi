@@ -1,9 +1,11 @@
 import React from "react";
+import { Container } from "reactstrap";
 
 import { UserService } from "../../services";
-import { Session } from "../../services/user/user";
+import { Session, User } from "../../services/user/user";
 import { AuthContext } from "../contexts/auth";
-import Register from "../shared/register"
+import Header from "../header";
+import Register from "../shared/register";
 
 type Props = {
     balance: number;
@@ -12,7 +14,7 @@ type Props = {
 
 type State = {
     isFistLogin: boolean;
-    user: any;
+    user: User;
 };
 
 class Dashboard extends React.Component<Props, State> {
@@ -40,16 +42,22 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
-    handleStateLogin(){
+    handleStateLogin() {
         this.setState({ isFistLogin: false });
     }
 
     render() {
-        const { isFistLogin } = this.state;
+        const { isFistLogin, user } = this.state;
+
         if (isFistLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
-            return <div>{this.props.balance}</div>;
+            const props = { ...user, balance: this.props.balance };
+            return (
+                <Container>
+                    <Header {...props} />
+                </Container>
+            );
         }
     }
 }

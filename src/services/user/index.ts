@@ -7,7 +7,7 @@ const axiosInstance = axios.create({ baseURL: appSettings.userServiceBaseUrl });
 
 export const UserService = {
     signIn: async (token: string): Promise<Session> => {
-        const response = await axiosInstance.get<Session>(`/auth/sso?token=${token}`);
+        const response = await axiosInstance.get<Session>(`/auth/sso?token=${token}&system=2`);
         return response.data;
     },
 

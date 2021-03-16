@@ -1,33 +1,33 @@
 export interface Session {
-  isAuthenticated: boolean;
-  username: string;
-  language: string;
-  ss: string;
+    isAuthenticated: boolean;
+    username: string;
+    language: string;
+    ss: string;
 }
 
 export interface ReCheckInResponse extends BaseResponse {
-  balance: number;
-  isDisableAccount: boolean;
+    balance: number;
+    isDisableAccount: boolean;
 }
 
 export interface AuthorizeResponse extends BaseResponse {
-  authorized: boolean;
-  user: any;
+    authorized: boolean;
+    user: User;
 }
 
 export interface SignNameResponse extends BaseResponse {
-  user: any;
+    user: User;
 }
 
 export interface BaseResponse {
-  isSuccessful: boolean;
-  message: string;
+    isSuccessful: boolean;
+    message: string;
 }
 
-export interface UserBase {
-  UID: number;
-  avatarId: number;
-  currency: string;
-  name: string;
-  red: double;
+export interface User {
+    UID: number;
+    avatarId: number;
+    currency: string;
+    name: string;
+    red: number;
 }
