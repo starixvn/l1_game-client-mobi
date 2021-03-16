@@ -1,5 +1,8 @@
 {
   "h1": "Một ví dụ đơn giản",
   "change-locale": "Thay đổi ngôn ngữ",
-  "title": "Trò chơi cho khách hàng"
+  "title": "Trò chơi cho khách hàng",
+  "registerName": "tạo tên nhân vật",
+  "btnSubmit": "Gửi",
+  "labelUserName":"Tên nhân vật"
 }

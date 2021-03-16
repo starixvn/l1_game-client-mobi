@@ -1,5 +1,8 @@
 {
   "h1": "A simple example",
   "change-locale": "Change locale",
-  "title": "Game Client"
+  "title": "Game Client",
+  "registerName": "Register Name",
+  "btnSubmit": "Submit",
+  "labelUserName":"Character's name"
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { UserService } from "../../services";
 import { Session } from "../../services/user/user";
 import { AuthContext } from "../contexts/auth";
+import Register from "../shared/register"
 
 type Props = {
     balance: number;
@@ -22,6 +23,8 @@ class Dashboard extends React.Component<Props, State> {
             isFistLogin: false,
             user: null,
         };
+
+        this.handleStateLogin = this.handleStateLogin.bind(this);
     }
 
     async componentDidMount() {
@@ -37,10 +40,14 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
+    handleStateLogin(){
+        this.setState({ isFistLogin: false });
+    }
+
     render() {
         const { isFistLogin } = this.state;
         if (isFistLogin) {
-            return <div>Nickname</div>;
+            return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
             return <div>{this.props.balance}</div>;
         }
