@@ -4,6 +4,7 @@ import { Container } from "reactstrap";
 import { UserService } from "../../services";
 import { Session, User } from "../../services/user/user";
 import { AuthContext } from "../contexts/auth";
+import Games from "../games";
 import Header from "../header";
 import Register from "../shared/register";
 
@@ -56,6 +57,7 @@ class Dashboard extends React.Component<Props, State> {
             return (
                 <Container>
                     <Header {...props} />
+                    <Games />
                 </Container>
             );
         }

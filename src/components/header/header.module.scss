@@ -1,19 +1,16 @@
-.header{
-    display: flex;
-}
-
-.logo{
-    height: 61px;
-
-    img{
-        height: 100%;
-    }
-}
 
 .user-info{
     display: flex;    
     align-items: center;
-    justify-content: center;    
+    justify-content: flex-end;    
     margin: auto;
     margin-right: 0;
+
+    div{
+        padding: 0 5px;
+    }
+}
+
+.logo{
+    height: 50px;
 }

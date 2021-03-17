@@ -46,6 +46,7 @@ export default function Home() {
         setSession(userSession);
         SessionManager.storeSessionData(userSession);
         reCheckIn(userSession);
+        window.history.pushState(null, "", location.href.split("?")[0]);
         setTimeout(() => setLoading(false), 1000);
     }
 
@@ -79,6 +80,6 @@ export default function Home() {
 
 export const getStaticProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale, ["common", "footer"])),
+        ...(await serverSideTranslations(locale, ["common", "footer", "header"])),
     },
 });
