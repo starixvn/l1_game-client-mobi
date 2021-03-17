@@ -1,8 +1,6 @@
 import * as SessionManager from "../../common/auth/session-manager";
 
 export const SignIn = (socket) => {
-  console.log("-------SignIn-----------");
-  console.log(SessionManager.getSession());
   socket.emit("signin", SessionManager.getSession());
 };
 export const inGame = (socket) => {

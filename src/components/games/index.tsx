@@ -6,7 +6,7 @@ import SeDie from "./se-die/se-die";
 export const Games: React.FC = () => {
     return (
         <div className={styles["game-list"]}>
-            <SeDie isSSO={true} />
+           <SeDie></SeDie>
         </div>
     );
 };
