@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import useSocket from "../../../hooks/use-socket";
 import BetTable from "../../shared/bet-table/bet-table";
@@ -14,90 +14,90 @@ type State = {
     showDisconnected: boolean;
 };
 
+enum GameState {
+    Disabled,
+    InRound,
+    LockingBet,
+    Waiting,
+    DisplayResult,
+}
+
+interface GameConfigs {
+    odds: object;
+    minbet: number;
+    maxbet: number;
+    choices_maxbet: object;
+    enableFreeBet: boolean;
+}
+
 export default function SeDie() {
     const fakeData = ["odd", "even", "even", "even", "odd"];
-    const socket = useSocket("http://haproxy.lumigame.com:7002/user/sedie/", "/sedie/socket.io");
+    const socket = useSocket("http://haproxy.lumigame.com:7002/user/xocxoc", "/sedie/socket.io");
+    const [signedIn, setSignedIn] = useState<boolean>(false);
+    const [remainingTime, setRemainingTime] = useState<number>(0);
+    const [gameState, setGameState] = useState<GameState>(GameState.Disabled);
+    const [gameConfigs, setGameConfigs] = useState<GameConfigs>(null);
+    const [roundHistory, setRoundHistory] = useState(null);
+
+    function handleEvent(payload: any) {
+        if (payload.um) {
+            setGameState(GameState.Disabled);
+        }
+        if (payload.remainingTime) {
+            handleRemainingTime(payload.remainingTime);
+        }
+        if (payload.gameConfigs) {
+            handleGameConfigs(payload.gameConfigs);
+        }
+        if (payload.roundHistory) {
+            setRoundHistory(payload.roundHistory);
+        }
+    }
+
+    function handleRoundHistory(rounds) {}
+
+    function handleGameConfigs(configs: GameConfigs) {
+        setGameConfigs(configs);
+    }
+
+    function handleRemainingTime(time: number) {
+        setRemainingTime(time);
+        setGameState(getGameState(time));
+    }
+
+    function getGameState(time: number) {
+        if (time > 30) {
+            return GameState.Waiting;
+        }
+
+        if (time > 5 && time <= 30) {
+            return GameState.InRound;
+        }
+
+        if (time <= 5) {
+            return GameState.LockingBet;
+        }
+    }
 
     useEffect(() => {
-        if (socket && socket.connected) {
+        if (socket) {
             socket.on("signedIn", () => {
-                console.log("signedIn");
+                setSignedIn(true);
+                socket.emit("inGame");
             });
+            socket.on("XocXoc", handleEvent);
         }
     }, [socket]);
 
-    return (
-        <div className={styles.container}>
-            <GameHeader gameName="SeDie" roundId={13} gameState={1} remainingTime={40}></GameHeader>
-            <BetTable></BetTable>
-            <RoadMapStatistic results={fakeData} isWaitingResult={false}></RoadMapStatistic>
-        </div>
-    );
+    if (signedIn) {
+        return (
+            <div className={styles.container}>
+                <GameHeader gameName="SeDie" roundId={13} gameState={gameState} remainingTime={remainingTime}></GameHeader>
+                <BetTable></BetTable>
+                <RoadMapStatistic results={fakeData} isWaitingResult={false}></RoadMapStatistic>
+            </div>
+        );
+    } else {
+        return <div>Loading...</div>;
+    }
 }
-
-// export default class SeDie extends React.Component {
-
-//   const socket = useSocket("http://haproxy.lumigame.com:7002/sedie/", "/sedie/socket.io");
-//   public state: State;
-
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       gameName: "SeDie",
-//       roundId: 13,
-//       remainingTime: 40,
-//       gameState: 1,
-//       showDisconnected: false,
-//     };
-//   }
-
-//   async componentDidUpdate(prevProps) {
-//     const gameServerUrl = UrlHelper.buildServerUrl(
-//       configs.ssl,
-//       "http",
-//       "",
-//       1,
-//       "localhost"
-//     );
-//     const proxyRoute = configs.serverGameEndPoints[1].proxyRoute;
-//     const nameSocket = "XocXoc";
-//     const onConnectFailed = () => {};
-
-//     const socket = initSockets(gameServerUrl, "", proxyRoute, onConnectFailed());
-
-//     if(socket){
-//       socket.on(nameSocket, (data) => {});
-//     }
-
-//   }
-
-//   showWebSocketDisconnected() {
-//     this.setState({ showDisconnected: true });
-//   }
-
-//   render() {
-//     const betChoiceNameMapper = {
-//       odd: "Odd",
-//       even: "Even",
-//     };
-
-//     const fakeData = ["odd", "even", "even", "even", "odd"];
-
-//     return (
-//       <div className={styles.container}>
-//         <GameHeader
-//           gameName="SeDie"
-//           roundId={13}
-//           gameState={1}
-//           remainingTime={40}
-//         ></GameHeader>
-//         <BetTable></BetTable>
-//         <RoadMapStatistic
-//           results={fakeData}
-//           isWaitingResult={false}
-//         ></RoadMapStatistic>
-//       </div>
-//     );
-//   }
-// }

@@ -16,7 +16,7 @@ export default function useSocket(socketUri: string, proxyRoute: string) {
         });
 
         socketIO.on("connect", () => {
-            socket.emit("signin", session);
+            socketIO.emit("signin", session);
         });
 
         setSocket(socketIO);
