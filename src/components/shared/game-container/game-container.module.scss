@@ -1,0 +1,15 @@
+.game-container {
+    height: auto;
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: inherit;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-bottom: 5px;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

@@ -18,14 +18,14 @@ export default function GameHeader(props: Props) {
     const { t } = useTranslation(gameName.toLowerCase());
 
     return (
-        <Row className={Styles.container}>
+        <Row className={Styles.header}>
             <Col xs={6}>
-                <h3>{t(GameResourceKeys.GAME_NAME)}</h3>
-                <p>
+                <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
+                <div className={Styles.round}>
                     {t(GameResourceKeys.ROUND)}: {roundId}
-                </p>
+                </div>
             </Col>
-            <Col xs={6}>
+            <Col xs={6} className={Styles.right}>
                 <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
             </Col>
         </Row>

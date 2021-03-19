@@ -1,3 +1,26 @@
-.container {
-  background-color: #5476a7;
+.header {
+    background-color: #f2c531;
+    position: relative;
+    height: 60px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.title {
+    color: #824303;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+}
+
+.round {
+    color: #824303;
+    font-size: 13px;
+    width: 100%;
+}
+
+.right {
+    justify-content: flex-end;
 }

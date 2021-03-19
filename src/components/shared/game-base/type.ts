@@ -22,6 +22,22 @@ export interface GameSettings {
     durations: GameDurations;
 }
 
+export interface GameBaseProps {
+    id: number;
+    gameName: string;
+    socketInfo: SocketInfo;
+    durations: GameDurations;
+}
+
+export interface GameBaseState {
+    signedIn: boolean;
+    gameState: GameState;
+    remainingTime: number;
+    gameConfigs: GameConfigs;
+    roundHistory: any[];
+    roundId: number;
+}
+
 export interface SocketInfo {
     uri: string;
     proxyRoute: string;

@@ -1,6 +1,6 @@
-import { GameSettings } from "../../components/shared/game-base/type";
+import { GameBaseProps } from "../../components/shared/game-base/type";
 
 export default interface AppSettings {
     userServiceBaseUrl: string;
-    seDie: GameSettings;
+    seDie: GameBaseProps;
 }
