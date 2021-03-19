@@ -2,6 +2,8 @@
   .statistic-header {
     display: flex;
     justify-content: space-evenly;
+    border: 1px solid #000;
+    border-bottom: none;
 
     .statistic-tab {
       &:hover {
@@ -11,6 +13,33 @@
       border: 1px solid #000;
       border-bottom: 0px;
       padding: 2px;
+    }
+
+    .titleOdd{
+      font-size: 20px;
+      font-weight: 500;
+      display: inline-block;
+      margin-right: 5px;
+      color:red;
+    }
+
+    .titleEven{
+      font-size: 20px;
+      font-weight: 500;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .title{
+      font-size: 20px;
+      font-weight: 500;
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    .number{
+      font-weight: 400;
+      font-size: 20px;
     }
   }
 
@@ -69,3 +98,62 @@
     background-color: blue;
   }
 }
+
+
+.statistic-container {
+  overflow-x: auto;
+  max-width: 1000px;
+  .scoreboard-container{
+    display: grid;
+    grid-template-columns: repeat(19, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    flex-wrap: nowrap;
+    justify-content: left;
+    grid-gap: 1rem;
+    margin: auto;
+    max-width: 1000px;
+    .dot{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      height: 2rem;
+      width: 2rem;
+      background-color: gray;
+    }
+    .dot-red {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      height: 2rem;
+      width: 2rem;
+      background-color: #de4b56;
+    }
+    
+    .dot-white {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      height: 2rem;
+      width: 2rem;
+      background-color: #fff;
+    }
+
+    .blink {
+      animation: blinker 1s linear infinite;
+    }
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+

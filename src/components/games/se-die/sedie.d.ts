@@ -35,3 +35,9 @@ export interface Player {
   red: number;
   type: boolean;
 }
+
+export interface RoundHistory {
+  result: Result;
+  roundId: number;
+  settlementResult: SettlementResult;
+}
