@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 
-import { useAuthContext } from "../components/contexts/auth";
+import { Session } from "../services/user/user";
 
-export default function useSocket(socketUri: string, proxyRoute: string) {
-    const session = useAuthContext();
+export default function useSocket(socketUri: string, proxyRoute: string, session: Session) {
     const [socket, setSocket] = useState<SocketIOClient.Socket>(null);
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import appSettings from "../../app-settings";
+import appSettings from "../../common/app-settings";
 import { AuthorizeResponse, BaseResponse, ReCheckInResponse, Session, SignNameResponse } from "./user";
 
 const axiosInstance = axios.create({ baseURL: appSettings.userServiceBaseUrl });
