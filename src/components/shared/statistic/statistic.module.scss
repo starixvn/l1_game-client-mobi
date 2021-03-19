@@ -102,7 +102,6 @@
 
 .statistic-container {
   overflow-x: auto;
-  max-width: 1000px;
   .scoreboard-container{
     display: grid;
     grid-template-columns: repeat(19, 1fr);
@@ -111,7 +110,6 @@
     justify-content: left;
     grid-gap: 1rem;
     margin: auto;
-    max-width: 1000px;
     .dot{
       display: flex;
       align-items: center;

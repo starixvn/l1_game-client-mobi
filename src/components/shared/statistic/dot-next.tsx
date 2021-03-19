@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-
-import { GameState } from "../game-container/type";
-import styles from "./road-map-statistic.module.scss";
+import React from "react";
+import styles from "./statistic.module.scss";
 
 type Props = {
   col: number;
@@ -17,7 +15,6 @@ export default function Dot(props: Props) {
         gridColumnStart: col.toString(),
         gridRowStart: row.toString(),
       }}
-      id="dot-next"
     ></div>
   );
 }

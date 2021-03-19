@@ -5,10 +5,11 @@ import {
   Result,
   RoundHistory,
 } from "../../games/se-die/sedie";
-import { GameState } from "../game-container/type";
-import styles from "./road-map-statistic.module.scss";
+import styles from "./statistic.module.scss";
 import Dot from "./dot";
 import DotNext from "./dot-next";
+
+import { GameState } from "../game-base/type";
 
 type Props = {
   results: RoundHistory[];
@@ -162,6 +163,7 @@ export function drawStatistic(
 
 function addNextMark(rowMax, row, col, nextCol) {
   const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
+  const randomKey = Math.random();
   if (row < max - 1) {
     row++;
   } else {
@@ -174,7 +176,7 @@ function addNextMark(rowMax, row, col, nextCol) {
     row = 0;
   }
 
-  return <DotNext col={col} row={row}></DotNext>;
+  return <DotNext key={randomKey} col={col} row={row}></DotNext>;
 }
 
 export default function RoadMapStatistic(props: Props) {
