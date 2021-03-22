@@ -1,12 +1,7 @@
 import GameBase from "../../shared/game-base";
-import {
-  GameBaseProps,
-  GameBaseState,
-  GameState,
-} from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import GameContainer from "../../shared/game-container";
 import Statistic from "../../shared/statistic/statistic";
-
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState> {
   constructor(props: GameBaseProps) {
@@ -33,10 +28,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
         gameState={gameState}
       >
         <div></div>
-        <Statistic
-          results={roundHistory}
-          gameState={gameState}
-        ></Statistic>
+        <Statistic results={roundHistory} gameState={gameState}></Statistic>
       </GameContainer>
     );
   }
