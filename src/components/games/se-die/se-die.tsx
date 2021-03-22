@@ -1,9 +1,9 @@
 import { Col, Row } from "reactstrap";
 
 import BetContainer from "../../shared/bet-containter";
-    GameBaseState,
-    GameState,
-} from "../../shared/game-base/type"
+import GameBase from "../../shared/game-base";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import GameContainer from "../../shared/game-container";
 import MiniStatistic from "../../shared/statistic/line";
 import Statistic from "../../shared/statistic/scoreboard";
 import SeDieBetOption from "./se-die-bet-option";
@@ -33,11 +33,11 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
     }
 
     render() {
-        const { gameName, id } = this.props
+        const { gameName, id } = this.props;
         const { remainingTime, roundId, gameState, roundHistory, gameConfigs, signedIn } = this.state;
         const typeDiceResult = ["red1", "red2", "red3", "red4"];
         return signedIn ? (
-            <GameContainer gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
+            <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
                 <BetContainer>
                     <Row>
                         <Col xs="4">
@@ -70,4 +70,4 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
     }
 }
 
-export default SeDie
+export default SeDie;

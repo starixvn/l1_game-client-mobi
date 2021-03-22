@@ -1,15 +1,10 @@
-import GameBase from "../../shared/game-base"
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-} from "../../shared/game-base/type"
-import GameContainer from "../../shared/game-container"
-import Statistic from "../../shared/statistic/statistic"
+import GameBase from "../../shared/game-base";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import GameContainer from "../../shared/game-container";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState> {
     constructor(props: GameBaseProps) {
-        super(props)
+        super(props);
 
         this.state = {
             signedIn: false,
@@ -18,27 +13,18 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState> {
             gameConfigs: null,
             roundHistory: [],
             roundId: 0,
-        }
+        };
     }
 
     render() {
-        const { gameName } = this.props
-        const { remainingTime, roundId, gameState, roundHistory } = this.state
+        const { gameName, id } = this.props;
+        const { remainingTime, roundId, gameState, roundHistory } = this.state;
         return (
-            <GameContainer
-                gameName={gameName}
-                remainingTime={remainingTime}
-                roundId={roundId}
-                gameState={gameState}
-            >
+            <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
                 <div></div>
-                <Statistic
-                    results={roundHistory}
-                    gameState={gameState}
-                ></Statistic>
             </GameContainer>
-        )
+        );
     }
 }
 
-export default KenoProMax
+export default KenoProMax;

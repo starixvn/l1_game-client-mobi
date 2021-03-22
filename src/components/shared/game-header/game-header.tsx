@@ -1,23 +1,23 @@
-import { useTranslation } from "next-i18next"
-import React from "react"
+import { useTranslation } from "next-i18next";
+import React from "react";
 
-import { GameResourceKeys } from "../../../common/resources/game-resource-keys"
-import { useFavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context"
-import CountdownTimer from "../countdown-timer/countdown-timer"
-import Styles from "./game-header.module.scss"
+import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
+import { useFavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
+import CountdownTimer from "../countdown-timer/countdown-timer";
+import Styles from "./game-header.module.scss";
 
 type Props = {
-    gameId: number
-    gameName: string
-    roundId: number
-    gameState: number
-    remainingTime: number
-}
+    gameId: number;
+    gameName: string;
+    roundId: number;
+    gameState: number;
+    remainingTime: number;
+};
 
 export default function GameHeader(props: Props) {
-    const { gameName, roundId, gameState, remainingTime } = props
-    const { t } = useTranslation(gameName.toLowerCase())
-    const favoriteContext = useFavoriteGameContext()
+    const { gameName, roundId, gameState, remainingTime } = props;
+    const { t } = useTranslation(gameName.toLowerCase());
+    const favoriteContext = useFavoriteGameContext();
 
     return (
         <div className={Styles.header}>
@@ -35,17 +35,15 @@ export default function GameHeader(props: Props) {
                     </svg>
                     <div className={Styles["edge-cut"]}></div>
                 </div>
-                <div className={Styles.title}>
-                    {t(GameResourceKeys.GAME_NAME)}
-                </div>
+                <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
+                <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                 <div className={Styles.round}>
                     {t(GameResourceKeys.ROUND)}: {roundId}
                 </div>
             </div>
             <div className={Styles.right}>
-                <CountdownTimer
-                    remainingTime={remainingTime}
-                    key={gameState}
-                ></CountdownTimer>
-    )
+                <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
+            </div>
+        </div>
+    );
 }
