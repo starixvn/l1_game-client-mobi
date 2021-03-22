@@ -1,9 +1,11 @@
 .container {
+  box-shadow: 0px 15px 10px -15px #bebfc1;
   .statistic-header {
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid #000;
-    border-bottom: none;
+    border-radius: 5px;
+    padding: 17px 8px;
+    background-color: #fff;
 
     .statistic-tab {
       &:hover {
@@ -44,8 +46,6 @@
   }
 
   .statistic-board {
-    border: 1px solid #000;
-
     .ratio-summary {
       display: flex;
       justify-content: space-evenly;
@@ -65,6 +65,8 @@
 
 .statistic-container {
   overflow-x: auto;
+  background-color: #efefef;
+  padding: 16px;
   .scoreboard-container{
     display: grid;
     grid-template-columns: repeat(19, 1fr);
@@ -73,42 +75,62 @@
     justify-content: left;
     grid-gap: 1rem;
     margin: auto;
-    .dot{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-      height: 2rem;
-      width: 2rem;
-      background-color: gray;
-    }
-    .dot-red {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-      height: 2rem;
-      width: 2rem;
-      background-color: #de4b56;
-    }
-    
-    .dot-white {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid #ddd;
-      border-radius: 50%;
-      height: 2rem;
-      width: 2rem;
-      background-color: #fff;
-    }
 
     .blink {
       animation: blinker 1s linear infinite;
     }
   }
+}
+
+.mini-statistic-container{
+  background-color: #e6e9f8;
+  padding: 7px;
+  border-radius: 5px;
+  min-height: 40px;
+  margin: 8px 0;
+
+  .line-container{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    padding: 7px 0;
+    .item-red, .item-white{
+      margin-right: 4px;;
+    }
+  }
+}
+
+.item-red {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  background-color: #de4b56;
+}
+
+.item-white {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  background-color: #fff;
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  background-color: gray;
 }
 
 @keyframes blinker {

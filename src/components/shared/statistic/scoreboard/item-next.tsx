@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./statistic.module.scss";
+import styles from "../statistic.module.scss";
 
 type Props = {
   col: number;
@@ -10,7 +10,7 @@ export default function ItemNext(props: Props) {
   const { col, row } = props;
   return (
     <div
-      className={styles["dot"] + " " + styles["blink"]}
+      className={styles["item"] + " " + styles["blink"]}
       style={{
         gridColumnStart: col.toString(),
         gridRowStart: row.toString(),

@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import React, { useState } from "react";
 import { WithStylesProps } from "react-jss";
 
@@ -12,11 +11,11 @@ type Props = {
 
 const BetOption: React.FunctionComponent<Props> = (props) => {
     const [isShowBetModal, updateState] = useState<boolean>(false);
-    const { choice, odd } = props;
+    const { choice, odd, classes } = props;
     return (
         <div className={Styles.container} onClick={() => updateState(true)}>
             <div className={Styles.odd}>{odd}</div>
-            <div className={classes.choice}></div>
+            <div className={classes[choice]}></div>
             <PlaceBetModal
                 isShow={isShowBetModal}
                 handleModalStatus={(isShow: boolean) => updateState(isShow)}

@@ -4,7 +4,8 @@ import BetContainer from "../../shared/bet-containter";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import GameContainer from "../../shared/game-container";
-import Statistic from "../../shared/statistic/statistic";
+import MiniStatistic from "../../shared/statistic/line";
+import Statistic from "../../shared/statistic/scoreboard";
 import SeDieBetOption from "./se-die-bet-option";
 
 const Choices = {
@@ -34,6 +35,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
     render() {
         const { gameName } = this.props;
         const { remainingTime, roundId, gameState, roundHistory, gameConfigs, signedIn } = this.state;
+        const typeDiceResult = ["red1", "red2", "red3", "red4"];
         return signedIn ? (
             <GameContainer gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
                 <BetContainer>
@@ -59,7 +61,8 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
                         </Col>
                     </Row>
                 </BetContainer>
-                <Statistic results={roundHistory} gameState={gameState}></Statistic>
+                <MiniStatistic results={roundHistory} gameState={gameState} countItem={20} typeDiceResult={typeDiceResult}></MiniStatistic>
+                <Statistic results={roundHistory} gameState={gameState} typeDiceResult={typeDiceResult}></Statistic>
             </GameContainer>
         ) : (
             <div>Loading...</div>

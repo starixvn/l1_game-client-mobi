@@ -95,7 +95,13 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.C
     }
 
     handleFinish(finish) {
-        this.setState({ gameState: GameState.DisplayResult });
+        const { roundHistory } = this.state;
+        roundHistory.unshift(finish);
+        roundHistory.pop();
+        this.setState({
+            gameState: GameState.DisplayResult,
+            roundHistory,
+        });
     }
 
     placeBet(betChoice: string, amount: number) {

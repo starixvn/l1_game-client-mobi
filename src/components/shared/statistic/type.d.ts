@@ -1,21 +1,28 @@
 export interface DiceColor {
-  class: string;
-  count: number;
+    class: string;
+    count: number;
 }
 
 export interface ResultDice {
-  odd: number;
-  even: number;
+    odd: number;
+    even: number;
 }
 
 export interface DataType {
-  type: DiceColor;
-  value: number;
-  roundId: number;
+    type: DiceColor;
+    value: number;
+    roundId: number;
 }
 
 export interface StatisticType {
-  data: Array<DataType>;
-  statistic: ResultDice;
-  resultDiceRed: Array<number>;
+    data: Array<DataType>;
+    statistic: ResultDice;
+    resultDiceRed: Array<number>;
+}
+
+export interface MiniItemType {
+    class: string;
+    count: number;
+    settlementResult: settlementResult;
+    roundId: roundId;
 }
