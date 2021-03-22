@@ -1,8 +1,8 @@
-import React from "react"
-import io from "socket.io-client"
+import React from "react";
+import io from "socket.io-client";
 
-import { AuthContext } from "../../contexts/auth"
-import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type"
+import { AuthContext } from "../../contexts/auth";
+import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 
 class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.Component<P, S> {
     private socket: SocketIOClient.Socket;
@@ -25,7 +25,6 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.C
         });
         this.socket.on("signedIn", () => {
             this.socket.emit("inGame");
-            this.setState({ signedIn: true });
         });
 
         this.socket.on(this.props.gameName, this.handleEvent.bind(this));
@@ -65,7 +64,7 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.C
     }
 
     handleGameConfigs(gameConfigs: GameConfigs) {
-        this.setState({ gameConfigs });
+        this.setState({ gameConfigs, signedIn: true });
     }
 
     determineGameState(remainingTime: number) {

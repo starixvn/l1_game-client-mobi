@@ -1,0 +1,48 @@
+.container {
+    background-color: #bdd0f7;
+    border: 1px solid #ffffff;
+    color: #365c9a;
+    height: 70px;
+
+    &:hover {
+        background-color: #f5eeb8;
+        cursor: pointer;
+    }
+
+    &.highlight {
+        color: #b53f39;
+        animation: winningAnimation 1.7s;
+    }
+
+    @keyframes winningAnimation {
+        0% {
+            color: #000;
+            background-color: #f5d9cc;
+        }
+        25% {
+            background-color: #bdd0f7;
+        }
+        50% {
+            background-color: #f5d9cc;
+        }
+        75% {
+            background-color: #bdd0f7;
+        }
+        100% {
+            background-color: #f5d9cc;
+            color: #000;
+        }
+    }
+
+    .odd {
+        position: relative;
+        top: 3px;
+        left: 3px;
+        font-size: 14px;
+    }
+
+    .choice {
+        text-align: center;
+        font-weight: bold;
+    }
+}

@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
-import { Col, Row } from "reactstrap";
 
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import CountdownTimer from "../countdown-timer/countdown-timer";
@@ -18,16 +17,16 @@ export default function GameHeader(props: Props) {
     const { t } = useTranslation(gameName.toLowerCase());
 
     return (
-        <Row className={Styles.header}>
-            <Col xs={6}>
+        <div className={Styles.header}>
+            <div className={Styles.left}>
                 <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                 <div className={Styles.round}>
                     {t(GameResourceKeys.ROUND)}: {roundId}
                 </div>
-            </Col>
-            <Col xs={6} className={Styles.right}>
+            </div>
+            <div className={Styles.right}>
                 <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
-            </Col>
-        </Row>
+            </div>
+        </div>
     );
 }
