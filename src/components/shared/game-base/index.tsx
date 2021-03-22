@@ -1,8 +1,8 @@
-import React from "react";
-import io from "socket.io-client";
+import React from "react"
+import io from "socket.io-client"
 
-import { AuthContext } from "../../contexts/auth";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
+import { AuthContext } from "../../contexts/auth"
+import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type"
 
 class GameBase<
     P extends GameBaseProps,
@@ -18,15 +18,15 @@ class GameBase<
 
         this.socket = io(socketInfo.uri, {
             forceNew: true,
-            transports: ['websocket'],
+            transports: ["websocket"],
             upgrade: false,
             path: socketInfo.proxyRoute,
         })
-        this.socket.on('connect', () => {
-            this.socket.emit('signin', this.context)
+        this.socket.on("connect", () => {
+            this.socket.emit("signin", this.context)
         })
-        this.socket.on('signedIn', () => {
-            this.socket.emit('inGame')
+        this.socket.on("signedIn", () => {
+            this.socket.emit("inGame")
             this.setState({ signedIn: true })
         })
 
@@ -106,7 +106,7 @@ class GameBase<
     }
 
     placeBet(betChoice: string, amount: number) {
-        this.socket.emit('bet', { betChoice, amount })
+        this.socket.emit("bet", { betChoice, amount })
     }
 }
 

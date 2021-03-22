@@ -7,7 +7,7 @@ type Props = {
   row: number;
 };
 
-export default function Dot(props: Props) {
+export default function Item(props: Props) {
   const { result, col, row } = props;
   return (
     <div

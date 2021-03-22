@@ -6,7 +6,7 @@ import { Session, User } from "../../services/user/user";
 import { AuthContext } from "../contexts/auth";
 import Games from "../games";
 import Header from "../header";
-import Register from "../shared/register";
+import Register from "../register";
 
 type Props = {
     balance: number;

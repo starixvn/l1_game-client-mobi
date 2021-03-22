@@ -6,8 +6,9 @@ import {
   RoundHistory,
 } from "../../games/se-die/sedie";
 import styles from "./statistic.module.scss";
-import Dot from "./dot";
-import DotNext from "./dot-next";
+import Item from "./item";
+import ItemNext from "./item-next";
+import { StatisticType, DiceColor } from "./type";
 
 import { GameState } from "../game-base/type";
 
@@ -16,33 +17,11 @@ type Props = {
   gameState: number;
 };
 
-type DiceColorType = {
-  class: string;
-  count: number;
-};
-
-type ResultDice = {
-  odd: number;
-  even: number;
-};
-
-type DataType = {
-  type: DiceColorType;
-  value: number;
-  roundId: number;
-};
-
-type StatisticType = {
-  data: Array<DataType>;
-  statistic: ResultDice;
-  resultDiceRed: Array<number>;
-};
-
 const typeDice = ["red1", "red2", "red3", "red4"];
 const rowTotal = 7;
 
-function handleColorDice(data: Result): DiceColorType {
-  const result: DiceColorType = {
+function handleColorDice(data: Result): DiceColor {
+  const result: DiceColor = {
     class: "dot-red",
     count: 0,
   };
@@ -151,7 +130,9 @@ export function drawStatistic(
     }
     previousResult = result.value;
 
-    return <Dot key={result.roundId} result={result} col={col} row={row}></Dot>;
+    return (
+      <Item key={result.roundId} result={result} col={col} row={row}></Item>
+    );
   });
 
   if (isDotNext) {
@@ -176,12 +157,11 @@ function addNextMark(rowMax, row, col, nextCol) {
     row = 0;
   }
 
-  return <DotNext key={randomKey} col={col} row={row}></DotNext>;
+  return <ItemNext key={randomKey} col={col} row={row}></ItemNext>;
 }
 
-export default function RoadMapStatistic(props: Props) {
+export default function Statistic(props: Props) {
   const { results, gameState } = props;
-  console.log(gameState);
   const data: StatisticType = handleData(results);
   const reducer = (accumulator, currentValue) => accumulator + currentValue;
   const totalDiceRed = data.resultDiceRed.reduce(reducer);

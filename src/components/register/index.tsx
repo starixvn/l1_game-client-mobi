@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Styles from "./register.module.scss";
-import { UserService } from "../../../services";
-import { AuthContext } from "../../contexts/auth/index";
-import { Session } from "../../../services/user/user";
-import NameGenerator from "../../../helpers/name-generator/NameGenerator";
+import { UserService } from "../../services";
+import { AuthContext } from "../contexts/auth/index";
+import { Session } from "../../services/user/user";
+import NameGenerator from "../../helpers/name-generator/NameGenerator";
 import { useTranslation } from "next-i18next";
 
 
