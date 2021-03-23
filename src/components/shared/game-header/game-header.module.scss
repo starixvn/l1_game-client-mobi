@@ -1,10 +1,12 @@
 .header {
+    display: flex;
+    justify-content: space-between;
     background-color: #f2c531;
     position: relative;
     height: 60px;
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
-    padding-left: 15px;
+    padding: 0 5px;
     margin: 0;
 }
 
@@ -14,46 +16,28 @@
     font-size: 16px;
     display: flex;
     flex-direction: row;
-    margin: 10px 20px;
+    margin: 5px 30px;
 }
 
 .round {
     color: #824303;
     font-size: 13px;
     width: 100%;
+    margin: 0 30px;
 }
 
-.right {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-right: 5px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    z-index: 1;
-}
-
-.left {
-    height: 100%;
-    width: 100%;
-    padding-left: 26px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-}
-
-.favorite {
+.favorite-btn {
     background-color: #824303;
     color: #f2c531;
     width: 25px;
     height: 30px;
     position: absolute;
     text-align: center;
-    margin-left: -15px;
+    top: 0;
+
+    &.isFavorite {
+        color: #365c9a;
+    }
 
     &:hover {
         color: #fff;

@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useState } from "react";
 
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
@@ -15,14 +15,21 @@ type Props = {
 };
 
 export default function GameHeader(props: Props) {
-    const { gameName, roundId, gameState, remainingTime } = props;
-    const { t } = useTranslation(gameName.toLowerCase());
     const favoriteContext = useFavoriteGameContext();
+    const { gameName, roundId, gameState, remainingTime, gameId } = props;
+    const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
+
+    const { t } = useTranslation(gameName.toLowerCase());
+
+    const favoriteClickHandle = () => {
+        favoriteContext.setFavorite(gameId, !isFavorite);
+        updateFavorite(!isFavorite);
+    };
 
     return (
         <div className={Styles.header}>
             <div className={Styles.left}>
-                <div className={Styles.favorite}>
+                <div className={`${Styles["favorite-btn"]} ${isFavorite ? Styles.isFavorite : ""}`} onClick={() => favoriteClickHandle()}>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -35,7 +42,6 @@ export default function GameHeader(props: Props) {
                     </svg>
                     <div className={Styles["edge-cut"]}></div>
                 </div>
-                <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                 <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                 <div className={Styles.round}>
                     {t(GameResourceKeys.ROUND)}: {roundId}

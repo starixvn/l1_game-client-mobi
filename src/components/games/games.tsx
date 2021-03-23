@@ -1,60 +1,64 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-import appSettings from "../../common/app-settings"
-import { FavoriteGameContext } from "../contexts/favorite-games/favorite-games-context"
-import BigSmall from "./big-small/big-small"
-import styles from "./games.module.scss"
-import KenoProMax from "./keno-pro-max/keno-pro-max"
-import SeDie from "./se-die/se-die"
+import * as LocalStorageManager from "../../common/local-storage/local-storage-manager";
+import appSettings from "../../common/app-settings";
+import { FavoriteGameContext } from "../contexts/favorite-games/favorite-games-context";
+import BigSmall from "./big-small/big-small";
+import styles from "./games.module.scss";
+import KenoProMax from "./keno-pro-max/keno-pro-max";
+import SeDie from "./se-die/se-die";
 
 export const Games: React.FC = () => {
-    const games = [2, 8, 1]
-    const [favoriteGames, updateFavoriteGames] = useState<number[]>([])
+    const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
+    const favoriteGamesOnStorage = LocalStorageManager.getLocalStorageItem<number[]>(storageKey);
 
-    const isFavorite = (gameId) => favoriteGames.includes(gameId)
+    const games = [2, 8, 1];
+    const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
+
+    const isFavorite = (gameId) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
-        const gameIndex = favoriteGames.indexOf(gameId)
+        const newFavoriteList = [...favoriteGames];
+        const gameIndex = newFavoriteList.indexOf(gameId);
 
-        gameIndex && favoriteGames.slice(gameIndex, 1)
-        isFavorite && favoriteGames.unshift(gameId)
+        gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
+        isFavorite && newFavoriteList.unshift(gameId);
 
-        updateFavoriteGames(favoriteGames)
-    }
+        updateFavoriteGames(newFavoriteList);
+        LocalStorageManager.storeLocalStorageItem(storageKey, newFavoriteList);
+    };
 
     const renderListGames = () => {
-        const unfavoriteGames = games.filter(
-            (gameId) => !favoriteGames.includes(gameId)
-        )
+        const unfavoriteGames = games.filter((gameId) => !favoriteGames.includes(gameId));
 
-        const orderedGames = favoriteGames.concat(unfavoriteGames)
+        const orderedGames = favoriteGames.concat(unfavoriteGames);
 
-        return orderedGames.map((gameId) => getGameComponentById(gameId))
-    }
+        return orderedGames.map((gameId) => getGameComponentById(gameId));
+    };
 
     const getGameComponentById = (gameId: number) => {
         switch (gameId) {
             case 2:
-                return <SeDie {...appSettings.seDie} />
+                return <SeDie {...appSettings.seDie} />;
             case 8:
-                return <KenoProMax {...appSettings.kenoProMax} />
+                return <KenoProMax {...appSettings.kenoProMax} />;
             case 1:
-                return <BigSmall {...appSettings.bigSmall} />
+                return <BigSmall {...appSettings.bigSmall} />;
             default:
-                return null
+                return null;
         }
-    }
+    };
 
     const favoriteGameContextValue = {
         setFavorite: (gameId, isFavorite) => setFavorite(gameId, isFavorite),
         isFavorite: (gameId) => isFavorite(gameId),
-    }
+    };
 
     return (
         <FavoriteGameContext.Provider value={favoriteGameContextValue}>
             <div className={styles["game-list"]}>{renderListGames()}</div>
         </FavoriteGameContext.Provider>
-    )
-}
+    );
+};
 
-export default Games
+export default Games;
