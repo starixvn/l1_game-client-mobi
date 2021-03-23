@@ -3,26 +3,15 @@ export interface DiceColor {
     count: number;
 }
 
-export interface ResultDice {
-    odd: number;
-    even: number;
-}
-
-export interface DataType {
+export interface StatisticItem {
     type: DiceColor;
     value: number;
     roundId: number;
 }
 
-export interface StatisticType {
-    data: Array<DataType>;
-    statistic: ResultDice;
-    resultDiceRed: Array<number>;
-}
-
-export interface MiniItemType {
+export interface MiniStatisticItem {
     class: string;
     count: number;
-    settlementResult: settlementResult;
-    roundId: roundId;
+    settlementResult: {};
+    roundId: number;
 }

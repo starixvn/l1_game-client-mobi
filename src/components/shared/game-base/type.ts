@@ -48,5 +48,3 @@ export interface GameDurations {
     placingBets: number;
     lockingBet: number;
 }
-
-
