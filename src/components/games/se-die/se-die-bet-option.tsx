@@ -8,6 +8,8 @@ const styles = {
     red2: {},
     red3: {},
     red4: {},
+    white3: {},
+    white4: {},
 };
 
 export default withStyles(styles)(BetOption);
