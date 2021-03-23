@@ -26,7 +26,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
         return signedIn ? (
             <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
                 <SeDieBetOptions odds={gameConfigs.odds}></SeDieBetOptions>
-                <MiniStatistic results={roundHistory} gameState={gameState} countItem={20} typeDiceResult={typeDiceResult}></MiniStatistic>
+                <MiniStatistic results={roundHistory} gameState={gameState} countItem={14} typeDiceResult={typeDiceResult}></MiniStatistic>
                 <Statistic results={roundHistory} gameState={gameState} typeDiceResult={typeDiceResult}></Statistic>
             </GameContainer>
         ) : (

@@ -64,10 +64,10 @@
 }
 
 .statistic-container {
-  overflow-x: auto;
   background-color: #efefef;
-  padding: 16px;
+  padding: 8px;
   .scoreboard-container{
+    overflow-x: scroll;
     display: grid;
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -106,8 +106,8 @@
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 50%;
-  height: 2rem;
-  width: 2rem;
+  height: 2.4rem;
+  width: 2.4rem;
   background-color: #de4b56;
 }
 
@@ -117,8 +117,8 @@
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 50%;
-  height: 2rem;
-  width: 2rem;
+  height: 2.4rem;
+  width: 2.4rem;
   background-color: #fff;
 }
 
@@ -128,8 +128,8 @@
   justify-content: center;
   border: 1px solid #ddd;
   border-radius: 50%;
-  height: 2rem;
-  width: 2rem;
+  height: 2.4rem;
+  width: 2.4rem;
   background-color: gray;
 }
 

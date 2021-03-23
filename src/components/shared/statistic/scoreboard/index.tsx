@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { SettlementResult, Result, RoundHistory } from "../../../games/se-die/sedie";
 import styles from "../statistic.module.scss";
 import Item from "./item";
 import ItemNext from "./item-next";
 import { StatisticType, DiceColor } from "../type";
-
 import { GameState } from "../../game-base/type";
 
 type Props = {
@@ -17,7 +16,7 @@ type Props = {
 const typeDice = ["red1", "red2", "red3", "red4"];
 const rowTotal = 7;
 
-function handleColorDice(data: Result): DiceColor {
+const handleColorDice = (data: Result): DiceColor => {
     const result: DiceColor = {
         class: "item-red",
         count: 0,
@@ -37,9 +36,9 @@ function handleColorDice(data: Result): DiceColor {
     }
 
     return result;
-}
+};
 
-export function convertData(result: StatisticType, settlementResult: SettlementResult, resultDices: Result, roundId: number) {
+const convertData = (result: StatisticType, settlementResult: SettlementResult, resultDices: Result, roundId: number) => {
     const tmpData = {
         type: {
             class: "",
@@ -70,9 +69,9 @@ export function convertData(result: StatisticType, settlementResult: SettlementR
     result.data.push(tmpData);
 
     return result;
-}
+};
 
-function handleData(data: RoundHistory[]): StatisticType {
+const handleData = (data: RoundHistory[]): StatisticType => {
     let result: StatisticType = {
         data: [],
         statistic: { odd: 0, even: 0 },
@@ -84,9 +83,9 @@ function handleData(data: RoundHistory[]): StatisticType {
         result = convertData(result, settlementResult, resultDices, value.roundId);
     });
     return result;
-}
+};
 
-export function drawStatistic(statistic: StatisticType, isItemNext: boolean) {
+const drawStatistic = (statistic: StatisticType, isItemNext: boolean) => {
     let col = 1,
         row = 1;
     let nextCol = 1;
@@ -127,9 +126,9 @@ export function drawStatistic(statistic: StatisticType, isItemNext: boolean) {
     }
 
     return resultHandle;
-}
+};
 
-function addNextMark(rowMax, row, col, nextCol) {
+const addNextMark = (rowMax, row, col, nextCol) => {
     const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
     const randomKey = Math.random();
     if (row < max - 1) {
@@ -145,13 +144,40 @@ function addNextMark(rowMax, row, col, nextCol) {
     }
 
     return <ItemNext key={randomKey} col={col} row={row}></ItemNext>;
-}
+};
 
 export default function Statistic(props: Props) {
     const { results, gameState } = props;
     const data: StatisticType = handleData(results);
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     const totalDiceRed = data.resultDiceRed.reduce(reducer);
+    const wheel = (e) => {
+        e.target.scrollLeft -= e.deltaY;
+    };
+
+    let mouseDown = false;
+    let startX, scrollLeft;
+
+    let startDragging = function (e) {
+        mouseDown = true;
+        startX = e.pageX - e.target.offsetLeft;
+        scrollLeft = e.target.scrollLeft;
+    };
+    let stopDragging = function (e) {
+        mouseDown = false;
+    };
+
+    const handleDragging = (e) => {
+        e.preventDefault();
+        if (!mouseDown) {
+            return;
+        }
+
+        const x = e.pageX - e.target.offsetLeft;
+        const scroll = x - startX;
+        e.target.scrollLeft = scrollLeft - scroll;
+    };
+
     return (
         <div className={styles["container"]}>
             <div className={styles["statistic-header"]}>
@@ -182,7 +208,14 @@ export default function Statistic(props: Props) {
             </div>
             <div className={styles["statistic-board"]}>
                 <div className={styles["statistic-container"]}>
-                    <div className={styles["scoreboard-container"]}>
+                    <div
+                        className={styles["scoreboard-container"]}
+                        onWheel={(e) => wheel(e)}
+                        onMouseDown={(e) => startDragging(e)}
+                        onMouseUp={(e) => stopDragging(e)}
+                        onMouseLeave={(e) => stopDragging(e)}
+                        onMouseMove={(e) => handleDragging(e)}
+                    >
                         {gameState === GameState.LockingBet ? drawStatistic(data, true) : drawStatistic(data, false)}
                     </div>
                 </div>

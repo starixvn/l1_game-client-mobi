@@ -1,4 +1,5 @@
 import React from "react";
+import Styles from "./countdown-timer.module.scss";
 
 type Props = {
     remainingTime: number;
@@ -36,6 +37,6 @@ export default class CountdownTimer extends React.Component<Props, State> {
     render() {
         const { currentTime } = this.state;
 
-        return <div>{currentTime}</div>;
+        return <div className={Styles["timer"]}>{currentTime}</div>;
     }
 }
