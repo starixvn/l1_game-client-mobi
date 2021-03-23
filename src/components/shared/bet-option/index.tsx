@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { WithStylesProps } from "react-jss";
 
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Styles from "./bet-option.module.scss";
@@ -7,15 +6,16 @@ import Styles from "./bet-option.module.scss";
 type Props = {
     choice: string;
     odd: number;
-} & WithStylesProps<{}>;
+    children: React.ReactNode;
+};
 
 const BetOption: React.FunctionComponent<Props> = (props) => {
     const [isShowBetModal, updateState] = useState<boolean>(false);
-    const { choice, odd, classes } = props;
+    const { choice, odd, children } = props;
     return (
-        <div className={Styles.container} onClick={() => updateState(true)}>
+        <div className={Styles["bet-option"]} onClick={() => updateState(true)}>
             <div className={Styles.odd}>{odd}</div>
-            <div className={classes[choice]}></div>
+            {children}
             <PlaceBetModal
                 isShow={isShowBetModal}
                 handleModalStatus={(isShow: boolean) => updateState(isShow)}

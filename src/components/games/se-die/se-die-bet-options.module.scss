@@ -1,0 +1,58 @@
+.first-row {
+    height: 94px;
+}
+
+.second-row {
+    height: 47px;
+}
+
+.half {
+    height: 50%;
+}
+
+.dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #efefef;
+    border: solid 0.5px #7a7a7a;
+    margin-left: 2px;
+    margin-top: 10px;
+    box-shadow: 1px 1px 1px #aaa;
+}
+
+.red {
+    background-color: #e2606a;
+}
+
+.wrapper {
+    height: 100%;
+    width: 52px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    > div {
+        margin-top: 0px;
+        margin-bottom: 1px;
+    }
+}
+.name {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-transform: uppercase;
+}
+
+.odd {
+    color: #365c9a;
+}
+.even {
+    color: #b53f39;
+}
