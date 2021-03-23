@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/auth";
 import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 
 class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.Component<P, S> {
-    private socket: SocketIOClient.Socket;
+    protected socket: SocketIOClient.Socket;
 
     constructor(props: P) {
         super(props);

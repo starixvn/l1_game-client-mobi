@@ -1,15 +1,19 @@
-.bet-option {
+.container {
     height: 100%;
     width: 100%;
+    border: 1px solid #eaf3fc;
+    background-color: #d2e8ff;
+    position: relative;
+}
+
+.bet-option {
+    height: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     top: 0;
     left: 0;
-    position: relative;
-    border: 1px solid #eaf3fc;
-    background-color: #d2e8ff;
 
     .odd {
         left: 5px;
