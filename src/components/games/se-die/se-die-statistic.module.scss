@@ -1,56 +1,52 @@
-.item-red, .mini-item-red {
+
+.item-red, .mini-item-red, .item-white, .mini-item-white{
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid #ddd;
     border-radius: 50%;
-    height: 2.4rem;
-    width: 2.4rem;
+    height: 2.2rem;
+    width: 2.2rem;
+    &:last-child{
+      margin-right: 0;
+    }
+}
+.item-red, .mini-item-red {
     background-color: #de4b56;
 }
   
 .item-white, .mini-item-white {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  height: 2.4rem;
-  width: 2.4rem;
   background-color: #fff;
 }
 
 .mini-item-red, .mini-item-white{  margin-right: 4px;}
 
-
 .statistic-header {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: start;
   border-radius: 5px;
   padding: 0.5rem 0.8rem;
   background-color: #fff;
   box-shadow: 0px 15px 10px -15px #bebfc1;
 
-  .titleOdd{
+  .titleOdd, .titleEven{
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 700;
     display: inline-block;
-    margin-right: 5px;
+    margin-right: 0.3rem;
+  }
+  .titleOdd{
     color:#e2606a;
   }
 
   .titleEven{
     color: #fff;
-    font-size: 1.6rem;
-    font-weight: 500;
-    display: inline-block;
-    margin-right: 5px;
     text-shadow: 2px 1px 2px #b6b6b6;
   }
 
   .wrapper-header{
-
     justify-content: center;
+    margin-right: 1rem;
 
     .title-white, .title-red{
       display: flex;
@@ -71,10 +67,15 @@
     }
   
     .number{
-      font-weight: 400;
-      font-size: 1.6rem;
+      font-weight: 500;
+      font-size: 1.5rem;
       color: #656364;
     }
+  }
+
+  .percent-right{
+    margin-left: 1rem;
+    display: flex;
   }
 
   
