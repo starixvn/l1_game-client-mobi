@@ -1,8 +1,11 @@
 import React from "react";
 import { Col, Row } from "reactstrap";
 
+import { Result, SettlementResult } from "./sedie";
 import BetContainer from "../../shared/bet-container";
 import BetOption from "../../shared/bet-option";
+import { GameState } from "../../shared/game-base/type";
+import SeDieResult from "./se-die-result";
 import Styles from "./se-die-bet-options.module.scss";
 
 const Choices = {
@@ -16,7 +19,10 @@ const Choices = {
 };
 
 type Props = {
+    result: Result;
+    settlementResult: SettlementResult;
     odds: {};
+    gameState: GameState;
 };
 
 const SeDieDot = ({ className = "white" }) => {
@@ -24,9 +30,9 @@ const SeDieDot = ({ className = "white" }) => {
 };
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { odds } = props;
+    const { odds, gameState } = props;
     return (
-        <BetContainer>
+        <BetContainer gameState={props.gameState}>
             <Row noGutters className={Styles["first-row"]}>
                 <Col xs="5" className={Styles.col}>
                     <Row noGutters className={Styles.half}>
@@ -87,6 +93,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </Col>
             </Row>
+            {props.result && <SeDieResult result={props.result} settlementResult={props.settlementResult}></SeDieResult>}
         </BetContainer>
     );
 };

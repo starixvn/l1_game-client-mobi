@@ -113,7 +113,7 @@ const miniItemStatistic = (result) => {
     return <div key={result.roundId} className={Styles[result.class]}></div>;
 };
 
-class SeDie extends GameBase<GameBaseProps, GameBaseState> {
+class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
@@ -129,11 +129,17 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState> {
 
     render() {
         const { gameName, id } = this.props;
-        const { remainingTime, roundId, gameState, roundHistory, gameConfigs, signedIn } = this.state;
+        const { remainingTime, roundId, gameState, roundHistory, gameConfigs, signedIn, result, settlementResult } = this.state;
+
         return signedIn ? (
             <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
                 <SocketContextProvider value={this.socket}>
-                    <SeDieBetOptions odds={gameConfigs.odds}></SeDieBetOptions>
+                    <SeDieBetOptions
+                        odds={gameConfigs.odds}
+                        gameState={gameState}
+                        result={result}
+                        settlementResult={settlementResult}
+                    ></SeDieBetOptions>
                 </SocketContextProvider>
 
                 <MiniStatistic

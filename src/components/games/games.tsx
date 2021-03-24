@@ -39,11 +39,11 @@ export const Games: React.FC = () => {
     const getGameComponentById = (gameId: number) => {
         switch (gameId) {
             case 2:
-                return <SeDie key={gameId} {...appSettings.seDie} />;
+                return <SeDie key={`game-${gameId}`} {...appSettings.seDie} />;
             case 8:
-                return <KenoProMax key={gameId} {...appSettings.kenoProMax} />;
+                return <KenoProMax key={`game-${gameId}`} {...appSettings.kenoProMax} />;
             case 1:
-                return <BigSmall key={gameId} {...appSettings.bigSmall} />;
+                return <BigSmall key={`game-${gameId}`} {...appSettings.bigSmall} />;
             default:
                 return null;
         }

@@ -29,13 +29,21 @@ export interface GameBaseProps {
     durations: GameDurations;
 }
 
-export interface GameBaseState {
+export interface GameBaseState<Result, SettlementResult> {
     signedIn: boolean;
     gameState: GameState;
     remainingTime: number;
     gameConfigs: GameConfigs;
-    roundHistory: any[];
+    roundHistory: RoundHistory<Result, SettlementResult>[];
     roundId: number;
+    result?: Result;
+    settlementResult?: SettlementResult;
+}
+
+interface RoundHistory<Result, SettlementResult> {
+    roundId: number;
+    result: Result;
+    settlementResult: SettlementResult;
 }
 
 export interface SocketInfo {

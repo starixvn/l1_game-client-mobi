@@ -1,10 +1,11 @@
 import React from "react";
 import io from "socket.io-client";
+import { Type } from "typescript";
 
 import { AuthContext } from "../../contexts/auth";
 import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 
-class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.Component<P, S> {
+class GameBase<P extends GameBaseProps, S extends GameBaseState<Type, Type>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
 
     constructor(props: P) {
@@ -101,6 +102,8 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState> extends React.C
         this.setState({
             gameState: GameState.DisplayResult,
             roundHistory,
+            result: finish.result,
+            settlementResult: finish.settlementResult,
         });
     }
 
