@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Styles from "./se-die-statistic.module.scss";
 import MiniStatistic from "../../shared/statistic/line";
 import Statistic from "../../shared/statistic/scoreboard";
 import { StatisticItem, MiniStatisticItem } from "../../shared/statistic/type";
 import { Result, SettlementResult, DiceColor } from "./sedie";
+import { ToolTip, ToolTipChild } from "../../shared/tool-tip";
+import { useTranslation } from "next-i18next";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 
@@ -103,6 +105,7 @@ const handleStatisticDiceMini = (result: Result, roundId: number, settlementResu
         count: 0,
         settlementResult: settlementResult,
         roundId: roundId,
+        result: result,
     };
     let countType = 0;
     typeDiceResult.forEach((type) => {
@@ -185,8 +188,47 @@ const itemStatistic = (data: StatisticItem, col: number, row: number, roundId: n
     }
 };
 
+const ToolTipItem = (props) => {
+    const { t } = useTranslation("xocxoc");
+    const { roundId, settlementResult, count } = props.data;
+    const totalDiceRed = 4;
+    return (
+        <div>
+            <span className={Styles["tooltip-round"]}>#{roundId}</span>
+            <div>
+                <span className={Styles["tooltip-title"]}>{settlementResult.even ? t("even") : t("odd")}</span>
+                <div className={Styles["tooltip-display"]}>
+                    <span className={Styles["tooltip-dice-red"]}></span>
+                    <span className={Styles["tooltip-number"]}>{count}</span>
+                </div>
+                <div className={Styles["tooltip-display"]}>
+                    <span className={Styles["tooltip-dice-white"]}></span>
+                    <span className={Styles["tooltip-number"]}>{totalDiceRed - count}</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const miniItemStatistic = (result: MiniStatisticItem) => {
-    return <div key={result.roundId} className={Styles[result.class]}></div>;
+    const [tooltipIsOpen, setIsTooltipOpen] = useState(false);
+    const openToolTip = () => {
+        setIsTooltipOpen(!tooltipIsOpen);
+    };
+    const closeToolTip = () => {
+        setIsTooltipOpen(false);
+    };
+    return (
+        <div key={result.roundId} className={`${Styles[result.class]}`} onClick={() => openToolTip()}>
+            <ToolTip>
+                {tooltipIsOpen && (
+                    <ToolTipChild key={"tip" + result.roundId}>
+                        <ToolTipItem data={result}></ToolTipItem>
+                    </ToolTipChild>
+                )}
+            </ToolTip>
+        </div>
+    );
 };
 
 const SeDieStatistic = (props: Props) => {

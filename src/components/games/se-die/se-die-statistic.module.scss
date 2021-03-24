@@ -58,11 +58,11 @@
       width: 1.8rem;
     }
   
-    .title-white{
+    .title-white, .item-hover-white{
       background-color: #fff;
     }
   
-    .title-red{
+    .title-red, .item-hover-red{
       background-color: #de4b56;
     }
   
@@ -77,6 +77,38 @@
     margin-left: 1rem;
     display: flex;
   }
-
-  
 }
+
+.tooltip-number, .tooltip-round{
+  font-size: 1.1rem;
+}
+
+.tooltip-title{
+  font-size: 1.1rem;
+  margin-right: 3px;
+}
+
+.tooltip-display{
+  display: inline-flex;
+  align-items: center;
+  margin-left: 5px;
+
+  .tooltip-dice-red, .tooltip-dice-white{
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    height: 1rem;
+    width: 1rem;
+    display: inline-block;
+    margin-right: 3px;
+  }
+  
+  .tooltip-dice-white{
+    background-color: #fff;
+  }
+  
+  .tooltip-dice-red{
+    background-color: #de4b56;
+  }
+}
+
+

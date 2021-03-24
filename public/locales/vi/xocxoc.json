@@ -1,4 +1,6 @@
 {
     "game_name": "Xóc Dĩa",
-    "round": "Phiên"
+    "round": "Phiên",
+    "odd":"LẺ",
+    "even":"CHẴN"
 }

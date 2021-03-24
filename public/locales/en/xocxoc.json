@@ -1,4 +1,6 @@
 {
     "game_name": "Se Die",
-    "round": "Round"
+    "round": "Round",
+    "odd":"ODD",
+    "even":"EVEN"
 }

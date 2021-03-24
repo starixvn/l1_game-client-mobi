@@ -12,6 +12,7 @@ export interface StatisticItem {
 export interface MiniStatisticItem {
     class: string;
     count: number;
-    settlementResult: {};
+    settlementResult: any;
     roundId: number;
+    result: any;
 }
