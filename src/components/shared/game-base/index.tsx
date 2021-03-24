@@ -11,6 +11,9 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> exten
 
     constructor(props: P) {
         super(props);
+
+        this.placeBet = this.placeBet.bind(this);
+        this.updateGameState = this.updateGameState.bind(this);
     }
 
     componentDidMount() {
@@ -123,9 +126,10 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> exten
     render() {
         const { gameName, id } = this.props;
         const { remainingTime, roundId, gameState, signedIn } = this.state;
+
         const gameContext = {
-            placeBet: (betChoice: string, amount: number) => this.placeBet(betChoice, amount),
-            updateGameState: (gameState: GameState) => this.updateGameState(gameState),
+            placeBet: this.placeBet,
+            updateGameState: this.updateGameState,
         };
 
         return signedIn ? (
