@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { useSocketContext } from "../../contexts/socket";
+import { useGameContext } from "../../contexts/game-context/game-context";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Styles from "./bet-option.module.scss";
 
@@ -13,7 +13,7 @@ type Props = {
 const BetOption: React.FunctionComponent<Props> = (props) => {
     const [isOpenBetModal, setIsOpenBetModal] = useState<boolean>(false);
     const { choice, odd, children } = props;
-    const socket = useSocketContext();
+    const gameContext = useGameContext();
 
     function openPlaceBetModal() {
         setIsOpenBetModal(true);
@@ -24,7 +24,7 @@ const BetOption: React.FunctionComponent<Props> = (props) => {
     };
 
     const placeBet = (betChoice: string, amount: number) => {
-        socket.emit("bet", { betChoice, amount });
+        gameContext.placeBet(betChoice, amount);
     };
 
     return (

@@ -1,13 +1,12 @@
-import React from "react"
+import React from "react";
 
 export const FavoriteGameContext = React.createContext<{
-    setFavorite: Function
-    isFavorite: Function
-}>(null)
+    setFavorite: Function;
+    isFavorite: Function;
+}>(null);
 
-FavoriteGameContext.displayName = "FavoriteGameContext"
+FavoriteGameContext.displayName = "FavoriteGameContext";
 
-export const AuthContextProvider = FavoriteGameContext.Provider
-export const AuthContextConsumer = FavoriteGameContext.Consumer
-export const useFavoriteGameContext = () =>
-    React.useContext(FavoriteGameContext)
+export const FavoriteContextProvider = FavoriteGameContext.Provider;
+export const FavoriteContextConsumer = FavoriteGameContext.Consumer;
+export const useFavoriteGameContext = () => React.useContext(FavoriteGameContext);

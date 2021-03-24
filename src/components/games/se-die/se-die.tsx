@@ -1,12 +1,10 @@
-import { SocketContextProvider } from "../../contexts/socket";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import GameContainer from "../../shared/game-container";
 import SeDieBetOptions from "./se-die-bet-options";
 import { Result, SettlementResult } from "./sedie";
 import SeDieStatistic from "./se-die-statistic";
-
-
+import React from "react";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -22,24 +20,19 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         };
     }
 
-    render() {
-        const { gameName, id } = this.props;
-        const { remainingTime, roundId, gameState, roundHistory, gameConfigs, signedIn, result, settlementResult } = this.state;
+    renderGame() {
+        const { gameState, roundHistory, gameConfigs, result, settlementResult } = this.state;
 
-        return signedIn ? (
-            <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
-                <SocketContextProvider value={this.socket}>
-                    <SeDieBetOptions
-                        odds={gameConfigs.odds}
-                        gameState={gameState}
-                        result={result}
-                        settlementResult={settlementResult}
-                    ></SeDieBetOptions>
-                </SocketContextProvider>
+        return (
+            <React.Fragment>
+                <SeDieBetOptions
+                    odds={gameConfigs.odds}
+                    gameState={gameState}
+                    result={result}
+                    settlementResult={settlementResult}
+                ></SeDieBetOptions>
                 <SeDieStatistic roundHistory={roundHistory} gameState={gameState}></SeDieStatistic>
-            </GameContainer>
-        ) : (
-            <div>Loading...</div>
+            </React.Fragment>
         );
     }
 }

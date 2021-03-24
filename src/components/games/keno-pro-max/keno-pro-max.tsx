@@ -1,8 +1,9 @@
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import GameContainer from "../../shared/game-container";
+import { SettlementResult } from "./keno-pro-max-type";
+import KenoBetOptions from "./keno-pro-max-bet-options";
 
-class KenoProMax extends GameBase<GameBaseProps, GameBaseState> {
+class KenoProMax extends GameBase<GameBaseProps, GameBaseState<number[], SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
@@ -16,14 +17,10 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState> {
         };
     }
 
-    render() {
-        const { gameName, id } = this.props;
-        const { remainingTime, roundId, gameState, roundHistory } = this.state;
-        return (
-            <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
-                <div></div>
-            </GameContainer>
-        );
+    renderGame() {
+        const { gameState, roundHistory, gameConfigs, result, settlementResult } = this.state;
+
+        return <KenoBetOptions odds={gameConfigs.odds} gameState={gameState} result={result} settlementResult={settlementResult} />;
     }
 }
 

@@ -93,7 +93,9 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </Col>
             </Row>
-            {props.result && <SeDieResult result={props.result} settlementResult={props.settlementResult}></SeDieResult>}
+            {gameState === GameState.DisplayResult && (
+                <SeDieResult result={props.result} settlementResult={props.settlementResult}></SeDieResult>
+            )}
         </BetContainer>
     );
 };
