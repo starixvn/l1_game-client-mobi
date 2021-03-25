@@ -1,10 +1,10 @@
+import React from "react";
+
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import GameContainer from "../../shared/game-container";
 import SeDieBetOptions from "./se-die-bet-options";
-import { Result, SettlementResult } from "./sedie";
 import SeDieStatistic from "./se-die-statistic";
-import React from "react";
+import { Result, SettlementResult } from "./sedie";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -17,6 +17,8 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             gameConfigs: null,
             roundHistory: [],
             roundId: 0,
+            ownBets: {},
+            totalBets: {},
         };
     }
 

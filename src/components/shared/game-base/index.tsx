@@ -2,11 +2,11 @@ import React from "react";
 import io from "socket.io-client";
 
 import { AuthContext } from "../../contexts/auth";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 import { GameContextProvider } from "../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
+import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 
-class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
+abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
 
     constructor(props: P) {
@@ -54,6 +54,12 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> exten
         }
         if (payload.finish) {
             this.handleFinish(payload.finish);
+        }
+        if (payload.totalBets) {
+            this.setState({ totalBets: payload.totalBets });
+        }
+        if (payload.ownBets) {
+            this.setState({ ownBets: payload.ownBets });
         }
     }
 
@@ -119,17 +125,17 @@ class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> exten
         this.setState({ gameState });
     }
 
-    renderGame(): React.ReactElement {
-        return <div></div>;
-    }
+    abstract renderGame(): React.ReactElement;
 
     render() {
         const { gameName, id } = this.props;
-        const { remainingTime, roundId, gameState, signedIn } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
             updateGameState: this.updateGameState,
+            totalBets,
+            ownBets,
         };
 
         return signedIn ? (

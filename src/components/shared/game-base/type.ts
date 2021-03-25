@@ -38,6 +38,8 @@ export interface GameBaseState<Result, SettlementResult> {
     roundId: number;
     result?: Result;
     settlementResult?: SettlementResult;
+    totalBets: object;
+    ownBets: object;
 }
 
 interface RoundHistory<Result, SettlementResult> {

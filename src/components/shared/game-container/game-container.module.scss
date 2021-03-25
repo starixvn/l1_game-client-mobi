@@ -12,6 +12,18 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    flex: 1 1 calc(100% / 3 - 0.5px);
-    max-width: calc(100% / 3 - 0.5px);
+}
+
+@media print, screen and (min-width: 43em) {
+    .product-container {
+        flex: 1 1 calc(50% - 0.5px);
+        max-width: calc(50% - 0.5px);
+    }
+}
+
+@media print, screen and (min-width: 63em) {
+    .product-container {
+        flex: 1 1 calc(100% / 3 - 0.5px);
+        max-width: calc(100% / 3 - 0.5px);
+    }
 }

@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -11,7 +10,6 @@ import { Session } from "../services/user/user";
 
 export default function Home() {
     const router = useRouter();
-    const { t } = useTranslation("common");
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<Session>(null);
     const [balance, setBalance] = useState<number>(0);
@@ -30,6 +28,7 @@ export default function Home() {
             }
         } else {
             const userSession = LocalStorageManager.getLocalStorageItem<Session>(sessionKey);
+            console.log(userSession);
             if (!userSession) {
                 router.push("/timeout");
             }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { useGameContext } from "../../contexts/game-context/game-context";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
@@ -11,9 +11,9 @@ type Props = {
 };
 
 const BetOption: React.FunctionComponent<Props> = (props) => {
-    const [isOpenBetModal, setIsOpenBetModal] = useState<boolean>(false);
     const { choice, odd, children } = props;
-    const gameContext = useGameContext();
+    const { totalBets, ownBets, placeBet } = useGameContext();
+    const [isOpenBetModal, setIsOpenBetModal] = useState<boolean>(false);
 
     function openPlaceBetModal() {
         setIsOpenBetModal(true);
@@ -23,15 +23,13 @@ const BetOption: React.FunctionComponent<Props> = (props) => {
         setIsOpenBetModal(false);
     };
 
-    const placeBet = (betChoice: string, amount: number) => {
-        gameContext.placeBet(betChoice, amount);
-    };
-
     return (
         <div className={Styles.container}>
             <div className={Styles["bet-option"]} onClick={openPlaceBetModal}>
                 <div className={Styles.odd}>{odd}</div>
+                <div>{totalBets?.[choice]}</div>
                 {children}
+                <div>{ownBets?.[choice]}</div>
             </div>
             {isOpenBetModal && (
                 <PlaceBetModal
