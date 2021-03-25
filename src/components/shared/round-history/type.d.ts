@@ -9,9 +9,8 @@ export interface StatisticItem {
     roundId: number;
 }
 
-export interface MiniStatisticItem {
-    class: string;
-    count: number;
+export interface MiniRoundHistoryType {
+    type: number;
     settlementResult: any;
     roundId: number;
     result: any;

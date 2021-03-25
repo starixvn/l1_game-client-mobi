@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Styles from "./se-die-statistic.module.scss";
-import MiniStatistic from "../../shared/statistic/line";
-import Statistic from "../../shared/statistic/scoreboard";
-import { StatisticItem, MiniStatisticItem } from "../../shared/statistic/type";
+import RoundHistory from "../../shared/round-history/scoreboard";
+import MiniRoundHistory from "../../shared/round-history/line";
+import { StatisticItem } from "../../shared/round-history/type";
 import { Result, SettlementResult, DiceColor } from "./sedie";
-import { ToolTip, ToolTipChild } from "../../shared/tool-tip";
-import { useTranslation } from "next-i18next";
+import MiniRound from "./mini-round-history";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 
@@ -99,31 +98,6 @@ const handlePercent = (data: resultDiceRed[]): resultDiceRed[] => {
     return result;
 };
 
-const handleStatisticDiceMini = (result: Result, roundId: number, settlementResult: SettlementResult): MiniStatisticItem => {
-    const resultHandle: MiniStatisticItem = {
-        class: "item-red",
-        count: 0,
-        settlementResult: settlementResult,
-        roundId: roundId,
-        result: result,
-    };
-    let countType = 0;
-    typeDiceResult.forEach((type) => {
-        if (result[type]) {
-            countType++;
-        }
-    });
-    resultHandle.count = countType;
-
-    if (countType % 2) {
-        resultHandle.class = "mini-item-red";
-    } else {
-        resultHandle.class = "mini-item-white";
-    }
-
-    return resultHandle;
-};
-
 const handleColorDice = (data: Result): DiceColor => {
     const result: DiceColor = {
         class: "item-red",
@@ -146,7 +120,7 @@ const handleColorDice = (data: Result): DiceColor => {
     return result;
 };
 
-const convertDataStatistic = (settlementResult: SettlementResult, resultDices: Result, roundId: number) => {
+const getDataFromChild = (settlementResult: SettlementResult, resultDices: Result, roundId: number) => {
     const tmpData: StatisticItem = {
         type: {
             class: "",
@@ -169,7 +143,7 @@ const convertDataStatistic = (settlementResult: SettlementResult, resultDices: R
     return tmpData;
 };
 
-const itemStatistic = (data: StatisticItem, col: number, row: number, roundId: number) => {
+const getElementRound = (data: StatisticItem, col: number, row: number, roundId: number) => {
     if (data.type) {
         return (
             <div
@@ -188,62 +162,15 @@ const itemStatistic = (data: StatisticItem, col: number, row: number, roundId: n
     }
 };
 
-const ToolTipItem = (props) => {
-    const { t } = useTranslation("xocxoc");
-    const { roundId, settlementResult, count } = props.data;
-    const totalDiceRed = 4;
-    return (
-        <div>
-            <span className={Styles["tooltip-round"]}>#{roundId}</span>
-            <div>
-                <span className={Styles["tooltip-title"]}>{settlementResult.even ? t("even") : t("odd")}</span>
-                <div className={Styles["tooltip-display"]}>
-                    <span className={Styles["tooltip-dice-red"]}></span>
-                    <span className={Styles["tooltip-number"]}>{count}</span>
-                </div>
-                <div className={Styles["tooltip-display"]}>
-                    <span className={Styles["tooltip-dice-white"]}></span>
-                    <span className={Styles["tooltip-number"]}>{totalDiceRed - count}</span>
-                </div>
-            </div>
-        </div>
-    );
-};
-
-const miniItemStatistic = (result: MiniStatisticItem) => {
-    const [tooltipIsOpen, setIsTooltipOpen] = useState(false);
-    const openToolTip = () => {
-        setIsTooltipOpen(!tooltipIsOpen);
-    };
-    const closeToolTip = () => {
-        setIsTooltipOpen(false);
-    };
-    return (
-        <div key={result.roundId} className={`${Styles[result.class]}`} onClick={() => openToolTip()}>
-            <ToolTip>
-                {tooltipIsOpen && (
-                    <ToolTipChild key={"tip" + result.roundId}>
-                        <ToolTipItem data={result}></ToolTipItem>
-                    </ToolTipChild>
-                )}
-            </ToolTip>
-        </div>
-    );
-};
-
 const SeDieStatistic = (props: Props) => {
     const { roundHistory, gameState } = props;
     const dataHeader = handleHeaderData(roundHistory, gameState);
     const resultPercentDice = handlePercent(dataHeader.resultDiceRed);
     return (
         <div>
-            <MiniStatistic
-                results={roundHistory}
-                gameState={gameState}
-                countItem={14}
-                miniItemStatistic={miniItemStatistic}
-                handleStatisticDiceMini={handleStatisticDiceMini}
-            ></MiniStatistic>
+            <MiniRoundHistory gameState={gameState}>
+                <MiniRound roundHistory={roundHistory} countItem={30} gameState={gameState}></MiniRound>
+            </MiniRoundHistory>
             <div className={Styles["statistic-header"]}>
                 <div className={Styles["wrapper-header"]}>
                     <span className={Styles["titleOdd"]}> Odd</span>
@@ -279,12 +206,12 @@ const SeDieStatistic = (props: Props) => {
                 </div>
             </div>
 
-            <Statistic
-                results={roundHistory}
+            <RoundHistory
+                roundHistory={roundHistory}
                 gameState={gameState}
-                itemStatistic={itemStatistic}
-                convertDataStatistic={convertDataStatistic}
-            ></Statistic>
+                getElementRound={getElementRound}
+                getDataFromChild={getDataFromChild}
+            ></RoundHistory>
         </div>
     );
 };

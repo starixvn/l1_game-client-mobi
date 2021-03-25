@@ -31,11 +31,11 @@
     justify-content: left;
     grid-gap: 1rem;
     margin: auto;
-
-    .blink {
-      animation: blinker 1s linear infinite;
-    }
   }
+}
+
+.blink {
+  animation: blinker 1s linear infinite;
 }
 
 .mini-statistic-container{
