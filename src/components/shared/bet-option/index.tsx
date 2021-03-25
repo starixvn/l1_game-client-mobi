@@ -26,10 +26,10 @@ const BetOption: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={Styles.container}>
             <div className={Styles["bet-option"]} onClick={openPlaceBetModal}>
-                <div className={Styles.odd}>{odd}</div>
-                <div>{totalBets?.[choice]}</div>
+                <div className={Styles.odd}>{`1:${odd}`}</div>
+                <div className={Styles["total-bet"]}>{totalBets?.[choice]}</div>
                 {children}
-                <div>{ownBets?.[choice]}</div>
+                <div className={Styles["own-bet"]}>{ownBets?.[choice]}</div>
             </div>
             {isOpenBetModal && (
                 <PlaceBetModal
