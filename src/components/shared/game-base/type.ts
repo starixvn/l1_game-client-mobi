@@ -13,6 +13,7 @@ export enum GameState {
     LockingBet,
     Waiting,
     DisplayResult,
+    BeforeStartRound,
 }
 
 export interface GameSettings {
@@ -57,4 +58,6 @@ export interface GameDurations {
     wholeRound: number;
     placingBets: number;
     lockingBet: number;
+    showResult: number;
+    beforeStartRound: number;
 }

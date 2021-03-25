@@ -8,6 +8,8 @@ import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
+    protected interval: NodeJS.Timeout;
+    protected timeCounter: number;
 
     constructor(props: P) {
         super(props);
@@ -36,6 +38,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentWillUnmount() {
+        this.interval && clearInterval(this.interval);
         this.socket.disconnect();
     }
 
@@ -70,8 +73,31 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleRemainingTime(remainingTime: number) {
-        const gameState = this.determineGameState(remainingTime);
-        this.setState({ remainingTime, gameState });
+        this.timeCounter = remainingTime;
+
+        this.interval && clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            this.timeCounter > 0 && this.timeCounter--;
+
+            this.handleGamePlay(this.timeCounter);
+        }, 1000);
+
+        this.handleGamePlay(remainingTime);
+    }
+
+    handleGamePlay(remainingTime: number) {
+        const { roundId, gameState } = this.state;
+        const newGameState = this.determineGameState(remainingTime);
+        const timeCounter = this.getTimeCounter(this.timeCounter, newGameState);
+        const newRoundId = gameState !== GameState.InRound && newGameState === GameState.InRound ? roundId + 1 : roundId;
+
+        const newState = {
+            remainingTime: timeCounter,
+            gameState: newGameState,
+            roundId: newRoundId,
+        };
+
+        this.setState(newState);
     }
 
     handleGameConfigs(gameConfigs: GameConfigs) {
@@ -81,6 +107,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     determineGameState(remainingTime: number) {
         const { durations } = this.props;
 
+        if (remainingTime >= durations.wholeRound - durations.showResult) {
+            return GameState.DisplayResult;
+        }
+
+        if (durations.beforeStartRound && remainingTime > durations.placingBets + durations.beforeStartRound) {
+            return GameState.BeforeStartRound;
+        }
+
         if (remainingTime > durations.placingBets) {
             return GameState.Waiting;
         }
@@ -89,11 +123,25 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             return GameState.InRound;
         }
 
-        if (remainingTime <= durations.lockingBet) {
+        if (remainingTime <= durations.lockingBet && remainingTime >= 0) {
             return GameState.LockingBet;
         }
 
         return GameState.None;
+    }
+
+    getTimeCounter(remainingTime: number, gameState: GameState) {
+        const { durations } = this.props;
+
+        switch (gameState) {
+            case GameState.Waiting:
+                return remainingTime - (durations.placingBets + (durations.beforeStartRound ?? 0));
+            case GameState.InRound:
+            case GameState.LockingBet:
+                return remainingTime;
+            default:
+                return 0;
+        }
     }
 
     handleRoundHistory(roundHistory) {
@@ -110,7 +158,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         roundHistory.unshift(finish);
         roundHistory.pop();
         this.setState({
-            gameState: GameState.DisplayResult,
             roundHistory,
             result: finish.result,
             settlementResult: finish.settlementResult,
