@@ -1,12 +1,13 @@
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 
-import * as LocalStorageManager from "../common/local-storage/local-storage-manager";
-import { AuthContextProvider } from "../components/contexts/auth";
-import Dashboard from "../components/dashboard";
-import { UserService } from "../services";
-import { Session } from "../services/user/user";
+import * as LocalStorageManager from '../common/local-storage/local-storage-manager';
+import { AuthContextProvider } from '../components/contexts/auth';
+import Dashboard from '../components/dashboard';
+import SplashScreen from '../components/splash-screen/splash-screen';
+import { UserService } from '../services';
+import { Session } from '../services/user/user';
 
 export default function Home() {
     const router = useRouter();
@@ -68,7 +69,7 @@ export default function Home() {
     }, [router.isReady]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <SplashScreen></SplashScreen>;
     } else {
         return (
             <AuthContextProvider value={session}>
