@@ -1,33 +1,3 @@
-.item-red,
-.mini-item-red,
-.item-white,
-.mini-item-white {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ddd;
-    border-radius: 50%;
-    height: 2.2rem;
-    width: 2.2rem;
-    &:last-child {
-        margin-right: 0;
-    }
-}
-.item-red,
-.mini-item-red {
-    background-color: #de4b56;
-}
-
-.item-white,
-.mini-item-white {
-    background-color: #fff;
-}
-
-.mini-item-red,
-.mini-item-white {
-    margin-right: 4px;
-}
-
 .tooltip-number,
 .tooltip-round {
     font-size: 1.1rem;

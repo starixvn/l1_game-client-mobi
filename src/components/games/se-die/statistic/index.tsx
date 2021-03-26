@@ -1,10 +1,16 @@
-import React from "react";
-import Styles from "./statistic.module.scss";
-import { handlePercentData, processHistorySettlement, processHistoryResult } from "../../../shared/statistic";
-import { StatisticType } from "../../../shared/statistic/statistic";
-import { Props, ResultDiceRed } from "./statistic";
-import Statistic, { WrapperHeader } from "../../../shared/statistic";
-import { useTranslation } from "next-i18next";
+import { useTranslation } from 'next-i18next';
+import React from 'react';
+
+import Statistic, {
+    handlePercentData,
+    processHistoryResult,
+    processHistorySettlement,
+    WrapperHeader,
+} from '../../../shared/statistic';
+import { StatisticType } from '../../../shared/statistic/statistic';
+import DotStyles from '../dot/dot.module.scss';
+import { Props, ResultDiceRed } from './statistic';
+import Styles from './statistic.module.scss';
 
 const ElementLeft = ({ data, titleText }) => {
     return (
@@ -31,7 +37,7 @@ const ElementRight = ({ data, titleText }) => {
     return (
         <div className={Styles["percent-right"]}>
             {titleText.map((title, index) => {
-                const classString = index % 2 ? Styles["title-red"] : Styles["title-white"];
+                const classString = index % 2 ? DotStyles["dot-red"] : DotStyles["dot-white"];
                 const value = index === 0 ? data[4] : data[index];
                 return <Element classString={classString} title={title} value={value}></Element>;
             })}

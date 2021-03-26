@@ -1,12 +1,14 @@
-import React from "react";
-import Styles from "./se-die-statistic.module.scss";
-import RoundHistory from "../../../shared/round-history/scoreboard";
-import MiniRoundHistory from "../../../shared/round-history/line";
-import { StatisticItem } from "../../../shared/round-history/type";
-import { Result, SettlementResult, DiceColor } from "./../sedie";
-import { useTranslation } from "next-i18next";
-import { Props } from "./round-history";
-import SeDiceStatistic from "../statistic";
+import { useTranslation } from 'next-i18next';
+import React from 'react';
+
+import MiniRoundHistory from '../../../shared/round-history/line';
+import RoundHistory from '../../../shared/round-history/scoreboard';
+import { StatisticItem } from '../../../shared/round-history/type';
+import DotStyles from '../dot/dot.module.scss';
+import SeDiceStatistic from '../statistic';
+import { DiceColor, Result, SettlementResult } from './../sedie';
+import { Props } from './round-history';
+import Styles from './se-die-statistic.module.scss';
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 const handleColorDice = (data: Result): DiceColor => {
@@ -23,9 +25,9 @@ const handleColorDice = (data: Result): DiceColor => {
     result.count = countType;
 
     if (countType % 2) {
-        result.class = "item-red";
+        result.class = "dot-red";
     } else {
-        result.class = "item-white";
+        result.class = "dot-white";
     }
 
     return result;
@@ -59,7 +61,7 @@ const getElementRound = (data: StatisticItem, col: number, row: number, roundId:
         return (
             <div
                 key={roundId}
-                className={Styles[data.type.class]}
+                className={DotStyles[data.type.class]}
                 style={{
                     gridColumnStart: col.toString(),
                     gridRowStart: row.toString(),
@@ -109,7 +111,7 @@ const renderToolTipItem = (props: any) => {
 
 const SeDieHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
-    const classNameDice = [Styles["mini-item-red"], Styles["mini-item-white"]];
+    const classNameDice = [DotStyles["dot-red"], DotStyles["dot-white"]];
     return (
         <div>
             <MiniRoundHistory
