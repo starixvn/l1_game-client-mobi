@@ -22,7 +22,7 @@ export default function GameHeader(props: Props) {
     const gameContext = useGameContext();
     const { gameName, roundId, gameState, remainingTime, gameId } = props;
     const rebetStorageKey = localStorageKeys.rebet;
-    const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey);
+    const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
 
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
