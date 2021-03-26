@@ -1,0 +1,15 @@
+@import "./components/fonts";
+@import "./components/icons";
+
+html {
+    font-size: 10px;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Rubik", arial, sans-serif;
+    height: 100%;
+    font-size: 1.3rem;
+}

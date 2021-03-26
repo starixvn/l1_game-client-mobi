@@ -1,0 +1,43 @@
+@font-face {
+    font-family: "SabaClub";
+    src: url("/static/fonts/icons/saba-club.eot?uarmrv");
+    src: url("/static/fonts/icons/saba-club.eot?uarmrv#iefix") format("embedded-opentype"),
+        url("/static/fonts/icons/saba-club.ttf?uarmrv") format("truetype"), url("/static/fonts/icons/saba-club.woff?uarmrv") format("woff"),
+        url("/static/fonts/icons/saba-club.svg?uarmrv#sabasclb") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("/static/fonts/rubik-v12-latin-regular.eot");
+    src: url("/static/fonts/rubik-v12-latin-regular.eot?#iefix") format("embedded-opentype"),
+        url("/static/fonts/rubik-v12-latin-regular.woff2") format("woff2"), url("/static/fonts/rubik-v12-latin-regular.woff") format("woff"),
+        url("/static/fonts/rubik-v12-latin-regular.ttf") format("truetype"),
+        url("/static/fonts/rubik-v12-latin-regular.svg#svgFontName") format("svg");
+    font-weight: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("/static/fonts/rubik-v12-latin-500.eot");
+    src: url("/static/fonts/rubik-v12-latin-500.eot?#iefix") format("embedded-opentype"),
+        url("/static/fonts/rubik-v12-latin-500.woff2") format("woff2"), url("/static/fonts/rubik-v12-latin-500.woff") format("woff"),
+        url("/static/fonts/rubik-v12-latin-500.ttf") format("truetype"),
+        url("/static/fonts/rubik-v12-latin-500.svg#svgFontName") format("svg");
+    font-weight: bold;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Rubik";
+    src: url("/static/fonts/rubik-v12-latin-700.eot");
+    src: url("/static/fonts/rubik-v12-latin-700.eot?#iefix") format("embedded-opentype"),
+        url("/static/fonts/rubik-v12-latin-700.woff2") format("woff2"), url("/static/fonts/rubik-v12-latin-700.woff") format("woff"),
+        url("/static/fonts/rubik-v12-latin-700.ttf") format("truetype"),
+        url("/static/fonts/rubik-v12-latin-700.svg#svgFontName") format("svg");
+    font-weight: bold;
+    font-display: swap;
+}
