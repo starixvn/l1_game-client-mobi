@@ -1,14 +1,14 @@
-import { useTranslation } from 'next-i18next';
-import React from 'react';
+import { useTranslation } from "next-i18next";
+import React from "react";
 
-import MiniRoundHistory from '../../../shared/round-history/line';
-import RoundHistory from '../../../shared/round-history/scoreboard';
-import { StatisticItem } from '../../../shared/round-history/type';
-import DotStyles from '../dot/dot.module.scss';
-import SeDiceStatistic from '../statistic';
-import { DiceColor, Result, SettlementResult } from './../sedie';
-import { Props } from './round-history';
-import Styles from './se-die-statistic.module.scss';
+import { GameState } from "../../../shared/game-base/type";
+import RoundHistoryContainer from "../../../shared/round-history/container";
+import RoundHistoryItem from "../../../shared/round-history/item";
+import { StatisticItem } from "../../../shared/round-history/type";
+import SeDieDot from "../dot";
+import { DiceColor, Result, SettlementResult } from "./../sedie";
+import { Props } from "./round-history";
+import Styles from "./se-die-statistic.module.scss";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 const handleColorDice = (data: Result): DiceColor => {
@@ -56,40 +56,30 @@ const getDataFromChild = (settlementResult: SettlementResult, resultDices: Resul
     return tmpData;
 };
 
-const getElementRound = (data: StatisticItem, col: number, row: number, roundId: number) => {
-    if (data.type) {
-        return (
-            <div
-                key={roundId}
-                className={DotStyles[data.type.class]}
-                style={{
-                    gridColumnStart: col.toString(),
-                    gridRowStart: row.toString(),
-                }}
-            >
-                {data.type.count}
-            </div>
-        );
-    } else {
-        return <div></div>;
-    }
-};
+// const getElementRound = (data: StatisticItem, col: number, row: number, roundId: number) => {
+//     if (data.type) {
+//         return (
+//             <div
+//                 key={roundId}
+//                 className={DotStyles[data.type.class]}
+//                 style={{
+//                     gridColumnStart: col.toString(),
+//                     gridRowStart: row.toString(),
+//                 }}
+//             >
+//                 {data.type.count}
+//             </div>
+//         );
+//     } else {
+//         return <div></div>;
+//     }
+// };
 
-const renderToolTipItem = (props: any) => {
+const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
     const { t } = useTranslation("xocxoc");
-    const { roundId, settlementResult, result } = props;
+    const { roundId, settlementResult, result } = round;
     const totalDiceRed = 4;
-    const countDiceRed = (result, typeDiceResult) => {
-        let countType = 0;
-        typeDiceResult.forEach((type) => {
-            if (result[type]) {
-                countType++;
-            }
-        });
-
-        return countType;
-    };
-    const countRed = countDiceRed(result, typeDiceResult);
+    const countRed = countRedDot(result);
 
     return (
         <div>
@@ -109,28 +99,47 @@ const renderToolTipItem = (props: any) => {
     );
 };
 
-const SeDieHistory = (props: Props) => {
-    const { roundHistory, gameState } = props;
-    const classNameDice = [DotStyles["dot-red"], DotStyles["dot-white"]];
+// const SeDieHistory = (props: Props) => {
+//     const { roundHistory, gameState } = props;
+//     const classNameDice = [Styles["mini-item-red"], Styles["mini-item-white"]];
+//     return (
+//         <div>
+//             <MiniRoundHistory
+//                 gameState={gameState}
+//                 roundHistory={roundHistory}
+//                 countItem={20}
+//                 diceType={typeDiceResult}
+//                 classNameDice={classNameDice}
+//                 renderToolTipItem={renderRoundDetail}
+//             ></MiniRoundHistory>
+//             <SeDiceStatistic roundHistory={roundHistory}></SeDiceStatistic>
+//             <RoundHistory
+//                 roundHistory={roundHistory}
+//                 gameState={gameState}
+//                 getElementRound={getElementRound}
+//                 getDataFromChild={getDataFromChild}
+//             ></RoundHistory>
+//         </div>
+//     );
+// };
+
+const countRedDot = (result: Result) => Object.keys(result).reduce((total, key) => (result[key] ? total + 1 : total), 0);
+
+const isEven = (numberOfRedDot: number) => numberOfRedDot % 2 > 0;
+
+const SeDieRoundHistory = (props: Props) => {
+    const { gameState, roundHistory } = props;
+    const numberOfItems = gameState === GameState.LockingBet ? 19 : 20;
+
     return (
-        <div>
-            <MiniRoundHistory
-                gameState={gameState}
-                roundHistory={roundHistory}
-                countItem={20}
-                diceType={typeDiceResult}
-                classNameDice={classNameDice}
-                renderToolTipItem={renderToolTipItem}
-            ></MiniRoundHistory>
-            <SeDiceStatistic roundHistory={roundHistory}></SeDiceStatistic>
-            <RoundHistory
-                roundHistory={roundHistory}
-                gameState={gameState}
-                getElementRound={getElementRound}
-                getDataFromChild={getDataFromChild}
-            ></RoundHistory>
-        </div>
+        <RoundHistoryContainer>
+            {roundHistory.slice(0, numberOfItems).map((round, index) => (
+                <RoundHistoryItem key={round.roundId} round={round} renderRoundDetail={renderRoundDetail}>
+                    <SeDieDot red={isEven(countRedDot(round.result))} />
+                </RoundHistoryItem>
+            ))}
+        </RoundHistoryContainer>
     );
 };
 
-export default SeDieHistory;
+export default SeDieRoundHistory;

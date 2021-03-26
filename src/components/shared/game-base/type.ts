@@ -35,18 +35,12 @@ export interface GameBaseState<Result, SettlementResult> {
     gameState: GameState;
     remainingTime: number;
     gameConfigs: GameConfigs;
-    roundHistory: RoundHistory<Result, SettlementResult>[];
+    roundHistory: Round<Result, SettlementResult>[];
     roundId: number;
     result?: Result;
     settlementResult?: SettlementResult;
     totalBets: object;
     ownBets: object;
-}
-
-interface RoundHistory<Result, SettlementResult> {
-    roundId: number;
-    result: Result;
-    settlementResult: SettlementResult;
 }
 
 export interface SocketInfo {

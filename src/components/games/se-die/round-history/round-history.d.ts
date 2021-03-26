@@ -1,4 +1,6 @@
+import { Result, SettlementResult } from "../sedie";
+
 export type Props = {
-    roundHistory: any;
+    roundHistory: Round<Result, SettlementResult>[];
     gameState: number;
 };

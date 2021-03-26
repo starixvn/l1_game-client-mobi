@@ -3,7 +3,7 @@ import React from "react";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import SeDieBetOptions from "./bet-options";
-import SeDieHistory from "./round-history";
+import SeDieRoundHistory from "./round-history";
 import { Result, SettlementResult } from "./sedie";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
@@ -28,7 +28,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return (
             <React.Fragment>
                 <SeDieBetOptions odds={gameConfigs.odds} gameState={gameState} result={result} settlementResult={settlementResult} />
-                <SeDieHistory roundHistory={roundHistory} gameState={gameState}></SeDieHistory>
+                <SeDieRoundHistory roundHistory={roundHistory} gameState={gameState}></SeDieRoundHistory>
             </React.Fragment>
         );
     }

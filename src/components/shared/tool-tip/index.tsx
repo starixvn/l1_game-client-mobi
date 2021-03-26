@@ -1,17 +1,14 @@
 // import React from "react";
-import Styles from "./tooltip.module.scss";
 import React, { Component } from "react";
 
-export const ToolTipChild: React.FC = (props) => {
-    return <div className={Styles["tooltiptext"]}>{props.children}</div>;
-};
+import Styles from "./tooltip.module.scss";
 
 type Props = {
     isOpen: boolean;
     onClose: Function;
 };
 
-export default class ToolTipModal extends Component<Props> {
+export default class ToolTip extends Component<Props> {
     wrapperRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: Props) {
@@ -41,7 +38,7 @@ export default class ToolTipModal extends Component<Props> {
     render() {
         return (
             <div ref={this.wrapperRef} className={Styles["tooltip"]}>
-                {this.props.children}
+                <div className={Styles["tooltiptext"]}>{this.props.children}</div>;
             </div>
         );
     }
