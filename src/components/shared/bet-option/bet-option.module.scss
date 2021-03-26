@@ -2,7 +2,6 @@
     height: 100%;
     width: 100%;
     border: 1px solid #eaf3fc;
-    background-color: #d2e8ff;
     position: relative;
 }
 
@@ -14,17 +13,14 @@
     align-items: center;
     top: 0;
     left: 0;
-    font-size: 14px;
-    line-height: 14px;
 
     .odd {
         left: 5px;
         top: 3px;
         position: absolute;
-        color: black;
+        color: #a8aeb8;
         text-align: left;
-
-        font-weight: normal;
+        font-size: 1.2rem;
     }
 
     .total-bet {
@@ -32,7 +28,8 @@
         width: 100%;
         top: 3px;
         text-align: center;
-        color: black;
+        color: #2c2f3e;
+        font-size: 1.4rem;
     }
 
     .own-bet {
@@ -40,6 +37,7 @@
         width: 100%;
         bottom: 3px;
         text-align: center;
-        color: yellow;
+        color: #ff9a00;
+        font-size: 1.6rem;
     }
 }

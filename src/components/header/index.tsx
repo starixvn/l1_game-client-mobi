@@ -2,7 +2,7 @@ import { WithTranslation, withTranslation } from 'next-i18next';
 import React, { useState } from 'react';
 import { Container, Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from 'reactstrap';
 
-import { HeaderResourceKeys, ResourceTypes } from '../../common/resources';
+import { ResourceTypes } from '../../common/resources';
 import styles from './header.module.scss';
 
 type Props = {
@@ -19,28 +19,22 @@ const Header: React.FC<Props> = (props) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <header>
-            <Navbar color="light" light expand="md">
+        <header className={styles.header}>
+            <Navbar expand="md" className={styles["navbar-custom"]}>
                 <Container>
                     <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>
                         <NavbarBrand href="/">
-                            <img className={styles.logo} alt="logo" src="/static/images/Logo.png" />
+                            <img className={styles.logo} alt="logo" src="/static/images/small-logo.svg" />
                         </NavbarBrand>
                     </UncontrolledCollapse>
                     <NavbarToggler id="navbar" onClick={toggle} />
                     <div className={styles["user-info"]}>
                         <div className="user-name">
-                            <label>
-                                <span className="icon-user"></span>
-                                {props.t(HeaderResourceKeys.ACCOUNT)}:
-                            </label>
+                            <span className={`icon-user ${styles["icon-user"]}`}></span>
                             <span>{props.name}</span>
                         </div>
-                        <div className="balance">
-                            <label>{props.t(HeaderResourceKeys.BALANCE)}:</label>
-                            <span>
-                                {props.currency} {props.balance}
-                            </span>
+                        <div className={styles.balance}>
+                            {props.currency} {props.balance}
                         </div>
                     </div>
                 </Container>
