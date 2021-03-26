@@ -1,13 +1,13 @@
-import React from "react";
-import { Col, Row } from "reactstrap";
+import React from 'react';
+import { Col, Row } from 'reactstrap';
 
-import BetContainer from "../../../shared/bet-container";
-import BetOption from "../../../shared/bet-option";
-import { GameState } from "../../../shared/game-base/type";
-import SeDieDot from "../dot";
-import SeDieResult from "../se-die-result";
-import { Result, SettlementResult } from "../sedie";
-import Styles from "./bet-options.module.scss";
+import BetContainer from '../../../shared/bet-container';
+import BetOption from '../../../shared/bet-option';
+import { GameState } from '../../../shared/game-base/type';
+import SeDieDot from '../dot';
+import SeDieResult from '../se-die-result';
+import { Result, SettlementResult } from '../sedie';
+import Styles from './bet-options.module.scss';
 
 const Choices = {
     odd: "odd",
@@ -34,10 +34,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                 <Col xs="5" className={Styles.col}>
                     <Row noGutters className={Styles.half}>
                         <BetOption choice={Choices.red4} odd={odds[Choices.red4]}>
-                            <SeDieDot red />
-                            <SeDieDot red />
-                            <SeDieDot red />
-                            <SeDieDot red />
+                            <div className={Styles["list-dots"]}>
+                                <SeDieDot red />
+                                <SeDieDot red />
+                                <SeDieDot red />
+                                <SeDieDot red />
+                            </div>
                         </BetOption>
                     </Row>
                     <Row noGutters className={Styles.half}>

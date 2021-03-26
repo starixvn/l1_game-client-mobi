@@ -25,6 +25,7 @@
         margin-bottom: 1px;
     }
 }
+
 .name {
     font-weight: bold;
     text-align: center;
@@ -35,9 +36,21 @@
     text-transform: uppercase;
 }
 
-.odd {
-    color: #365c9a;
+%odd-even {
+    font-weight: bold;
+    font-size: 28px;
 }
+
+.odd {
+    @extend %odd-even;
+    color: #de4b56;
+}
+
 .even {
-    color: #b53f39;
+    @extend %odd-even;
+    color: #a6a6a6;
+}
+
+.list-dots {
+    display: flex;
 }
