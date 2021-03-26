@@ -7,12 +7,13 @@ import BigSmall from "./big-small/big-small";
 import styles from "./games.module.scss";
 import KenoProMax from "./keno-pro-max/keno-pro-max";
 import SeDie from "./se-die/se-die";
+import FishPrawnCrab from "./fish-prawn-crab";
 
 export const Games: React.FC = () => {
     const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
     const favoriteGamesOnStorage = LocalStorageManager.getLocalStorageItem<number[]>(storageKey);
 
-    const games = [2, 8, 1];
+    const games = [2, 3, 1];
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
 
     const isFavorite = (gameId) => favoriteGames.includes(gameId);
@@ -40,6 +41,8 @@ export const Games: React.FC = () => {
         switch (gameId) {
             case 2:
                 return <SeDie key={`game-${gameId}`} {...appSettings.seDie} />;
+            case 3:
+                return <FishPrawnCrab key={`game-${gameId}`} {...appSettings.fishPrawnCrab} />;
             case 8:
                 return <KenoProMax key={`game-${gameId}`} {...appSettings.kenoProMax} />;
             case 1:

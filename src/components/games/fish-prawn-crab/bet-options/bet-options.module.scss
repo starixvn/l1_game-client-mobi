@@ -1,0 +1,30 @@
+.first-row,
+.first-second {
+    height: 160px;
+}
+
+.wrapper {
+    height: 100%;
+    width: 52px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    >div {
+        margin-top: 0px;
+        margin-bottom: 1px;
+    }
+}
+
+.element {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-transform: uppercase;
+}

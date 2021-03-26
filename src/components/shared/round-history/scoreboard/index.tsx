@@ -9,10 +9,11 @@ type Props = {
     gameState: number;
     getElementRound: (result: StatisticItem, col: number, row: number, roundId: number) => {};
     getDataFromChild: (settlementResult: any, resultDices: any, roundId: number) => {};
+    isDragonTail: boolean;
 };
 
 const rowTotal = 7;
-const drawHistory = (statistic: StatisticItem[], getElementRound: Function, isItemNext: boolean) => {
+const drawDragonTailHistory = (statistic: StatisticItem[], getElementRound: Function, isItemNext: boolean) => {
     let col = 1,
         row = 1;
     let nextCol = 1;
@@ -73,7 +74,7 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number) =
 };
 
 export default function RoundHistory(props: Props) {
-    const { roundHistory, gameState, getElementRound, getDataFromChild } = props;
+    const { roundHistory, gameState, getElementRound, getDataFromChild, isDragonTail } = props;
 
     const renderRoundHistory = (history: any[], isBlockBet: boolean) => {
         const data: StatisticItem[] = history.map((value) => {
@@ -81,11 +82,14 @@ export default function RoundHistory(props: Props) {
             const settlementResult = value.settlementResult;
             return getDataFromChild(settlementResult, resultDices, value.roundId) as StatisticItem;
         });
-
-        if (isBlockBet) {
-            return drawHistory(data, getElementRound, true);
+        if (isDragonTail) {
+            if (isBlockBet) {
+                return drawDragonTailHistory(data, getElementRound, true);
+            } else {
+                return drawDragonTailHistory(data, getElementRound, false);
+            }
         } else {
-            return drawHistory(data, getElementRound, false);
+            // console.log(data);
         }
     };
 

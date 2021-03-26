@@ -5,4 +5,5 @@ export default interface AppSettings {
     seDie: GameBaseProps
     kenoProMax: GameBaseProps
     bigSmall: GameBaseProps
+    fishPrawnCrab: GameBaseProps
 }

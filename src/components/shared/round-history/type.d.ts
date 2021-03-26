@@ -4,7 +4,7 @@ export interface DiceColor {
 }
 
 export interface StatisticItem {
-    type: DiceColor;
+    type: DiceColor[];
     value: number;
     roundId: number;
 }

@@ -1,0 +1,29 @@
+.icon{
+    font-size: 2.6rem;
+    background-color: #fff;
+    padding: .3rem .5rem;
+    border-radius: .3rem;
+    margin-bottom: 1.2rem;
+    &:last-child{
+        margin-bottom: 0;
+    }
+
+}
+
+.round{
+    margin-right: .5rem;
+    &:last-child{
+        margin-right: 0;
+    }
+    &.latest{
+        border: 1px solid #F38938;
+        border-radius: 3px;
+    }
+}
+
+.container{
+    width: auto;
+    background-color: #EFEFEF;
+    display: flex;
+    padding: 1rem 1.9rem;
+}
