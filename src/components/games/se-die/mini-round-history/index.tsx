@@ -79,7 +79,7 @@ const MiniRoundElement = (props: PropsMiniRound) => {
     const [tooltipIsOpen, setIsTooltipOpen] = useState(false);
     const className = round.type === DiceTypeColor.red ? "mini-item-red" : "mini-item-white";
     const openToolTip = () => {
-        setIsTooltipOpen(true);
+        setIsTooltipOpen(!tooltipIsOpen);
     };
     const closeToolTip = () => {
         setIsTooltipOpen(false);

@@ -4,7 +4,8 @@ import RoundHistory from "../../shared/round-history/scoreboard";
 import MiniRoundHistory from "../../shared/round-history/line";
 import { StatisticItem } from "../../shared/round-history/type";
 import { Result, SettlementResult, DiceColor } from "./sedie";
-import MiniRound from "./mini-round-history";
+// import MiniRound from "./mini-round-history";
+import { useTranslation } from "next-i18next";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 
@@ -162,15 +163,55 @@ const getElementRound = (data: StatisticItem, col: number, row: number, roundId:
     }
 };
 
+const renderToolTipItem = (props: any) => {
+    const { t } = useTranslation("xocxoc");
+    const { roundId, settlementResult, result } = props;
+    const totalDiceRed = 4;
+    const countDiceRed = (result, typeDiceResult) => {
+        let countType = 0;
+        typeDiceResult.forEach((type) => {
+            if (result[type]) {
+                countType++;
+            }
+        });
+
+        return countType;
+    };
+    const countRed = countDiceRed(result, typeDiceResult);
+
+    return (
+        <div>
+            <span className={Styles["tooltip-round"]}>#{roundId}</span>
+            <div>
+                <span className={Styles["tooltip-title"]}>{settlementResult.even ? t("even") : t("odd")}</span>
+                <div className={Styles["tooltip-display"]}>
+                    <span className={Styles["tooltip-dice-red"]}></span>
+                    <span className={Styles["tooltip-number"]}>{countRed}</span>
+                </div>
+                <div className={Styles["tooltip-display"]}>
+                    <span className={Styles["tooltip-dice-white"]}></span>
+                    <span className={Styles["tooltip-number"]}>{totalDiceRed - countRed}</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const SeDieStatistic = (props: Props) => {
     const { roundHistory, gameState } = props;
     const dataHeader = handleHeaderData(roundHistory, gameState);
     const resultPercentDice = handlePercent(dataHeader.resultDiceRed);
+    const classNameDice = [Styles["mini-item-red"], Styles["mini-item-white"]];
     return (
         <div>
-            <MiniRoundHistory gameState={gameState}>
-                <MiniRound roundHistory={roundHistory} countItem={30} gameState={gameState}></MiniRound>
-            </MiniRoundHistory>
+            <MiniRoundHistory
+                gameState={gameState}
+                roundHistory={roundHistory}
+                countItem={30}
+                diceType={typeDiceResult}
+                classNameDice={classNameDice}
+                renderToolTipItem={renderToolTipItem}
+            ></MiniRoundHistory>
             <div className={Styles["statistic-header"]}>
                 <div className={Styles["wrapper-header"]}>
                     <span className={Styles["titleOdd"]}> Odd</span>
