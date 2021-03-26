@@ -1,8 +1,8 @@
 import React from "react";
 import io from "socket.io-client";
 
-import { AuthContext } from "../../contexts/auth";
-import { GameContextProvider } from "../../contexts/game-context/game-context";
+import { AuthContext } from "../../../contexts/auth";
+import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
 import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
 

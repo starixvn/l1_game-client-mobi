@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Session } from "../../../services/user/user";
+import { Session } from "../../services/user/user";
 
 export const AuthContext = React.createContext<Session>({ isAuthenticated: false, ss: "", username: "", language: "" });
 AuthContext.displayName = "AuthContext";

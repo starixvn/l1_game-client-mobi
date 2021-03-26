@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { useGameContext } from "../../contexts/game-context/game-context";
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Styles from "./bet-option.module.scss";
 

@@ -1,4 +1,4 @@
-import { GameState } from "../../shared/game-base/type";
+import { GameState } from "../../components/shared/game-base/type";
 
 export type GameContextModel = {
     updateGameState: (gameState: GameState) => void;

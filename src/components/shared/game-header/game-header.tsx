@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
-import { useFavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
+import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import Styles from "./game-header.module.scss";
 
