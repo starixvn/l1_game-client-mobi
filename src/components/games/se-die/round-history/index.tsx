@@ -6,77 +6,10 @@ import { StatisticItem } from "../../../shared/round-history/type";
 import { Result, SettlementResult, DiceColor } from "./../sedie";
 import { useTranslation } from "next-i18next";
 import { Props, SeDieStatistic, resultDiceRed } from "./round-history";
+import { handlePercentData, processHistorySettlement, processHistoryResult } from "../../../shared/statistic";
+import { StatisticType } from "../../../shared/statistic/statistic";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
-const handleHeaderData = (data: any, gameState): SeDieStatistic => {
-    const result: SeDieStatistic = {
-        statistic: {
-            odd: 0,
-            even: 0,
-        },
-        resultDiceRed: [0, 0, 0, 0, 0],
-    };
-    data.forEach((history: any) => {
-        const settlementResult = history.settlementResult;
-        const resultDices = history.result;
-        let countDiceRed = 0;
-        if (settlementResult.even) {
-            result.statistic.even++;
-        }
-
-        if (settlementResult.odd) {
-            result.statistic.odd++;
-        }
-
-        typeDiceResult.forEach((name, index) => {
-            if (resultDices[name]) {
-                countDiceRed++;
-            }
-        });
-
-        switch (countDiceRed) {
-            case 1:
-                result.resultDiceRed[0]++;
-                break;
-            case 2:
-                result.resultDiceRed[1]++;
-                break;
-            case 3:
-                result.resultDiceRed[2]++;
-                break;
-            case 4:
-                result.resultDiceRed[3]++;
-                break;
-            default:
-                result.resultDiceRed[4]++;
-                break;
-        }
-    });
-
-    return result;
-};
-
-const handlePercent = (data: resultDiceRed[]): resultDiceRed[] => {
-    const result: resultDiceRed[] = [0, 0, 0, 0, 0];
-    const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
-    const totalDiceRed = data.reduce(reducer);
-    let totalPercent = 0;
-    data.forEach((diceTotal, index) => {
-        const percent = Math.round((diceTotal / totalDiceRed) * 100);
-        if (totalPercent + percent > 100) {
-            result[index] = 100 - totalPercent;
-        } else if (totalPercent === 100) {
-            result[index] = 0;
-        } else {
-            result[index] = percent;
-        }
-
-        totalPercent += percent;
-    });
-
-    return result;
-};
-
 const handleColorDice = (data: Result): DiceColor => {
     const result: DiceColor = {
         class: "item-red",
@@ -177,8 +110,14 @@ const renderToolTipItem = (props: any) => {
 
 const SeDieHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
-    const dataHeader = handleHeaderData(roundHistory, gameState);
-    const resultPercentDice = handlePercent(dataHeader.resultDiceRed);
+    const dataStatistic: StatisticType = {
+        settlementResult: [0, 0],
+        result: [0, 0, 0, 0, 0],
+    };
+    dataStatistic.settlementResult = processHistorySettlement(roundHistory, ["odd", "even"], dataStatistic.settlementResult);
+    dataStatistic.result = processHistoryResult(roundHistory, ["red1", "red2", "red3", "red4"], dataStatistic.result, true);
+    let resultPercentDice: resultDiceRed[] = [0, 0, 0, 0, 0];
+    resultPercentDice = handlePercentData(dataStatistic.result, resultPercentDice);
     const classNameDice = [Styles["mini-item-red"], Styles["mini-item-white"]];
     return (
         <div>
@@ -193,11 +132,11 @@ const SeDieHistory = (props: Props) => {
             <div className={Styles["statistic-header"]}>
                 <div className={Styles["wrapper-header"]}>
                     <span className={Styles["titleOdd"]}> Odd</span>
-                    <span className={Styles["number"]}>{dataHeader.statistic.odd}%</span>
+                    <span className={Styles["number"]}>{dataStatistic.settlementResult[0]}%</span>
                 </div>
                 <div className={Styles["wrapper-header"]}>
                     <span className={Styles["titleEven"]}> Even</span>
-                    <span className={Styles["number"]}>{dataHeader.statistic.even}%</span>
+                    <span className={Styles["number"]}>{dataStatistic.settlementResult[1]}%</span>
                 </div>
 
                 <div className={Styles["percent-right"]}>
