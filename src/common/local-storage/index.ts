@@ -1,6 +1,8 @@
 export const localStorageKeys = {
-    session: buildLocalStorageKey("authData"),
+    session: buildLocalStorageKey("auth-data"),
     favoriteGames: buildLocalStorageKey("favorite-game"),
+    rebet: buildLocalStorageKey("rebet"),
+    betSetting: buildLocalStorageKey("bet-settings"),
 };
 
 export function removeLocalStorageItem(key: string) {

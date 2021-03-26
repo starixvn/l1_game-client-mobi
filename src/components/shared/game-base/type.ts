@@ -61,3 +61,12 @@ export interface GameDurations {
     showResult: number;
     beforeStartRound: number;
 }
+
+export interface RebetStorageModel {
+    [gameId: string]: RebetStorageDetail;
+}
+
+export interface RebetStorageDetail {
+    roundId: number;
+    betInfo: object;
+}

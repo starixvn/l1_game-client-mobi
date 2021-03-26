@@ -2,7 +2,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
-import * as LocalStorageManager from "../common/local-storage/local-storage-manager";
+import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";

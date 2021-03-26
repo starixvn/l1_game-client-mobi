@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import appSettings from "../../common/app-settings";
-import * as LocalStorageManager from "../../common/local-storage/local-storage-manager";
+import * as LocalStorageManager from "../../common/local-storage";
 import { FavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
 import BigSmall from "./big-small/big-small";
 import styles from "./games.module.scss";

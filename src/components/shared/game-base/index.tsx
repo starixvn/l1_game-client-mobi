@@ -4,15 +4,21 @@ import io from "socket.io-client";
 import { AuthContext } from "../../../contexts/auth";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState } from "./type";
+import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel } from "./type";
+import * as LocalStorageManager from "../../../common/local-storage";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
+    protected reBetStorageKey: string;
+    protected betSettingStorageKey: string;
 
     constructor(props: P) {
         super(props);
+
+        this.reBetStorageKey = LocalStorageManager.localStorageKeys.rebet;
+        this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
 
         this.placeBet = this.placeBet.bind(this);
         this.updateGameState = this.updateGameState.bind(this);
@@ -163,6 +169,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleFinish(finish) {
         const { roundHistory } = this.state;
+
+        this.storeOwnBet(finish.roundId);
+
         roundHistory.unshift(finish);
         roundHistory.pop();
         this.setState({
@@ -170,6 +179,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             result: finish.result,
             settlementResult: finish.settlementResult,
         });
+    }
+
+    storeOwnBet(roundId: number) {
+        const { ownBets } = this.state;
+        const gameId = this.props.id;
+        const rebetStorage = LocalStorageManager.getLocalStorageItem<RebetStorageModel>(this.reBetStorageKey) || {};
+
+        rebetStorage[gameId] = {
+            roundId,
+            betInfo: Object.keys(ownBets).length > 0 ? ownBets : undefined,
+        };
+
+        LocalStorageManager.storeLocalStorageItem(this.reBetStorageKey, rebetStorage);
     }
 
     placeBet(betChoice: string, amount: number) {
