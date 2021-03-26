@@ -28,67 +28,6 @@
     margin-right: 4px;
 }
 
-.statistic-header {
-    display: flex;
-    border-radius: 5px;
-    padding: 0.5rem 0.8rem;
-    background-color: #fff;
-    box-shadow: 0px 15px 10px -15px #bebfc1;
-
-    .titleOdd,
-    .titleEven {
-        font-size: 1.6rem;
-        font-weight: 700;
-        display: inline-block;
-        margin-right: 0.3rem;
-    }
-    .titleOdd {
-        color: #e2606a;
-    }
-
-    .titleEven {
-        color: #fff;
-        text-shadow: 2px 1px 2px #b6b6b6;
-    }
-
-    .wrapper-header {
-        justify-content: center;
-        margin-right: 1rem;
-
-        .title-white,
-        .title-red {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            height: 1.8rem;
-            width: 1.8rem;
-        }
-
-        .title-white,
-        .item-hover-white {
-            background-color: #fff;
-        }
-
-        .title-red,
-        .item-hover-red {
-            background-color: #de4b56;
-        }
-
-        .number {
-            font-weight: 500;
-            font-size: 1.5rem;
-            color: #656364;
-        }
-    }
-
-    .percent-right {
-        margin-left: 1rem;
-        display: flex;
-    }
-}
-
 .tooltip-number,
 .tooltip-round {
     font-size: 1.1rem;

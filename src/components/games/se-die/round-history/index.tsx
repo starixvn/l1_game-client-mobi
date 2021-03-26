@@ -5,9 +5,8 @@ import MiniRoundHistory from "../../../shared/round-history/line";
 import { StatisticItem } from "../../../shared/round-history/type";
 import { Result, SettlementResult, DiceColor } from "./../sedie";
 import { useTranslation } from "next-i18next";
-import { Props, SeDieStatistic, resultDiceRed } from "./round-history";
-import { handlePercentData, processHistorySettlement, processHistoryResult } from "../../../shared/statistic";
-import { StatisticType } from "../../../shared/statistic/statistic";
+import { Props } from "./round-history";
+import SeDiceStatistic from "../statistic";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
 const handleColorDice = (data: Result): DiceColor => {
@@ -110,14 +109,6 @@ const renderToolTipItem = (props: any) => {
 
 const SeDieHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
-    const dataStatistic: StatisticType = {
-        settlementResult: [0, 0],
-        result: [0, 0, 0, 0, 0],
-    };
-    dataStatistic.settlementResult = processHistorySettlement(roundHistory, ["odd", "even"], dataStatistic.settlementResult);
-    dataStatistic.result = processHistoryResult(roundHistory, ["red1", "red2", "red3", "red4"], dataStatistic.result, true);
-    let resultPercentDice: resultDiceRed[] = [0, 0, 0, 0, 0];
-    resultPercentDice = handlePercentData(dataStatistic.result, resultPercentDice);
     const classNameDice = [Styles["mini-item-red"], Styles["mini-item-white"]];
     return (
         <div>
@@ -129,41 +120,7 @@ const SeDieHistory = (props: Props) => {
                 classNameDice={classNameDice}
                 renderToolTipItem={renderToolTipItem}
             ></MiniRoundHistory>
-            <div className={Styles["statistic-header"]}>
-                <div className={Styles["wrapper-header"]}>
-                    <span className={Styles["titleOdd"]}> Odd</span>
-                    <span className={Styles["number"]}>{dataStatistic.settlementResult[0]}%</span>
-                </div>
-                <div className={Styles["wrapper-header"]}>
-                    <span className={Styles["titleEven"]}> Even</span>
-                    <span className={Styles["number"]}>{dataStatistic.settlementResult[1]}%</span>
-                </div>
-
-                <div className={Styles["percent-right"]}>
-                    <div className={Styles["wrapper-header"]}>
-                        <span className={Styles["title-white"]}> 0</span>
-                        <span className={Styles["number"]}>{resultPercentDice[4]}%</span>
-                    </div>
-
-                    <div className={Styles["wrapper-header"]}>
-                        <span className={Styles["title-red"]}> 1</span>
-                        <span className={Styles["number"]}>{resultPercentDice[0]}%</span>
-                    </div>
-                    <div className={Styles["wrapper-header"]}>
-                        <span className={Styles["title-white"]}> 2</span>
-                        <span className={Styles["number"]}>{resultPercentDice[1]}%</span>
-                    </div>
-                    <div className={Styles["wrapper-header"]}>
-                        <span className={Styles["title-red"]}> 3</span>
-                        <span className={Styles["number"]}>{resultPercentDice[2]}%</span>
-                    </div>
-                    <div className={Styles["wrapper-header"]}>
-                        <span className={Styles["title-white"]}> 4</span>
-                        <span className={Styles["number"]}>{resultPercentDice[3]}%</span>
-                    </div>
-                </div>
-            </div>
-
+            <SeDiceStatistic roundHistory={roundHistory}></SeDiceStatistic>
             <RoundHistory
                 roundHistory={roundHistory}
                 gameState={gameState}

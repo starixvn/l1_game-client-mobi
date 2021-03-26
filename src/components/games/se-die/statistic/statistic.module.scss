@@ -1,0 +1,51 @@
+.titleOdd,
+.titleEven {
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 0.3rem;
+}
+
+.titleOdd {
+    color: #e2606a;
+}
+
+.titleEven {
+    color: #fff;
+    text-shadow: 2px 1px 2px #b6b6b6;
+}
+
+.title-white,
+.title-red {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    height: 1.8rem;
+    width: 1.8rem;
+}
+
+.title-white,
+.item-hover-white {
+    background-color: #fff;
+}
+
+.title-red,
+.item-hover-red {
+    background-color: #de4b56;
+}
+
+.number {
+    font-weight: 500;
+    font-size: 1.5rem;
+    color: #656364;
+}
+
+.percent-right, .percent-left {
+    display: flex;
+}
+
+.percent-right{
+    margin-left: 1rem;
+}

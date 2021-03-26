@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import Styles from "./statistic.module.scss";
 import { historyData } from "./statistic";
 
 export function handlePercentData(data: any[], templateResult: number[]) {
@@ -55,3 +57,12 @@ export function processHistoryResult(historyData: historyData[], keyChoices: str
 
     return templateResult;
 }
+const Statistic = (props: any) => {
+    return <div className={Styles["statistic-header"]}>{props.children}</div>;
+};
+
+export const WrapperHeader = (props) => {
+    return <div className={Styles["wrapper-header"]}>{props.children}</div>;
+};
+
+export default Statistic;
