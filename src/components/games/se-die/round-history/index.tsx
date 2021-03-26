@@ -1,35 +1,13 @@
 import React from "react";
 import Styles from "./se-die-statistic.module.scss";
-import RoundHistory from "../../shared/round-history/scoreboard";
-import MiniRoundHistory from "../../shared/round-history/line";
-import { StatisticItem } from "../../shared/round-history/type";
-import { Result, SettlementResult, DiceColor } from "./sedie";
-// import MiniRound from "./mini-round-history";
+import RoundHistory from "../../../shared/round-history/scoreboard";
+import MiniRoundHistory from "../../../shared/round-history/line";
+import { StatisticItem } from "../../../shared/round-history/type";
+import { Result, SettlementResult, DiceColor } from "./../sedie";
 import { useTranslation } from "next-i18next";
+import { Props, SeDieStatistic, resultDiceRed } from "./round-history";
 
 export const typeDiceResult = ["red1", "red2", "red3", "red4"];
-
-type Props = {
-    roundHistory: any;
-    gameState: number;
-};
-
-interface SeDieStatistic {
-    statistic: {
-        odd: number;
-        even: number;
-    };
-    resultDiceRed: resultDiceRed[];
-}
-
-enum resultDiceRed {
-    red1,
-    red2,
-    red3,
-    red4,
-    white,
-}
-
 const handleHeaderData = (data: any, gameState): SeDieStatistic => {
     const result: SeDieStatistic = {
         statistic: {
@@ -197,7 +175,7 @@ const renderToolTipItem = (props: any) => {
     );
 };
 
-const SeDieStatistic = (props: Props) => {
+const SeDieHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
     const dataHeader = handleHeaderData(roundHistory, gameState);
     const resultPercentDice = handlePercent(dataHeader.resultDiceRed);
@@ -207,7 +185,7 @@ const SeDieStatistic = (props: Props) => {
             <MiniRoundHistory
                 gameState={gameState}
                 roundHistory={roundHistory}
-                countItem={30}
+                countItem={20}
                 diceType={typeDiceResult}
                 classNameDice={classNameDice}
                 renderToolTipItem={renderToolTipItem}
@@ -257,4 +235,4 @@ const SeDieStatistic = (props: Props) => {
     );
 };
 
-export default SeDieStatistic;
+export default SeDieHistory;

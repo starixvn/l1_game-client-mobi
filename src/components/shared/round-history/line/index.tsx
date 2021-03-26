@@ -38,25 +38,23 @@ type PropMain = {
 const MiniRoundHistory = (props: PropMain) => {
     const { gameState, roundHistory, countItem, diceType, renderToolTipItem, classNameDice } = props;
     const data: MiniRoundHistoryType[] = getDataHistoryRound(roundHistory, countItem, diceType);
+    let listRoundDot = data.map((round) => {
+        return (
+            <MiniRoundElement
+                key={round.roundId}
+                round={round}
+                classNameDice={classNameDice}
+                renderToolTipItem={renderToolTipItem(round)}
+            ></MiniRoundElement>
+        );
+    });
     if (gameState === GameState.LockingBet) {
-        data.pop();
+        listRoundDot.pop();
+        listRoundDot.push(<MiniItemNext key={Math.random()}></MiniItemNext>);
     }
     return (
         <div className={Styles["mini-statistic-container"]}>
-            <div className={Styles["line-container"]}>
-                {data.map((round) => {
-                    return (
-                        <MiniRoundElement
-                            key={round.roundId}
-                            round={round}
-                            classNameDice={classNameDice}
-                            renderToolTipItem={renderToolTipItem(round)}
-                        ></MiniRoundElement>
-                    );
-                })}
-
-                {gameState === GameState.LockingBet ? <MiniItemNext key={Math.random()}></MiniItemNext> : ""}
-            </div>
+            <div className={Styles["line-container"]}>{listRoundDot}</div>
         </div>
     );
 };
@@ -75,7 +73,6 @@ const countDiceColor = (result, diceType) => {
 export const getDataHistoryRound = (roundHistory, countItem, diceType): MiniRoundHistoryType[] => {
     const dataFilter = roundHistory.slice(0, countItem);
     const result = [...dataFilter].reverse();
-
     return result.map(
         (round: MiniRoundHistoryType): MiniRoundHistoryType => {
             const dataTemplate: MiniRoundHistoryType = {
