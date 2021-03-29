@@ -3,19 +3,21 @@ import React, { useState } from "react";
 
 import { AuthContext } from "../../contexts/auth";
 import NameGenerator from "../../helpers/name-generator/NameGenerator";
-import { UserService } from "../../services";
-import { Session } from "../../services/user/user";
+import { UserClientCommunication } from "../../services";
+import { SSOResponse } from "sc-user-service-client/dist/auth";
 import Styles from "./register.module.scss";
 
 export default function Register(props) {
     const { t } = useTranslation("common");
     const { handleStateLogin } = props;
-    const session = React.useContext<Session>(AuthContext);
+    const session = React.useContext<SSOResponse>(AuthContext);
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
+    const authService = UserClientCommunication.getUserClientInstance();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const re = await UserService.signName(session, name);
+        const re = await authService.signName(session.ss, session.username, name);
         if (re.isSuccessful) {
             handleStateLogin();
         }

@@ -6,36 +6,37 @@ import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
-import { UserService } from "../services";
-import { Session } from "../services/user/user";
+import { UserClientCommunication } from "../services";
+import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 export default function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
-    const [session, setSession] = useState<Session>(null);
+    const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
+    const authService = UserClientCommunication.getUserClientInstance();
 
     async function signIn() {
         const { token } = router.query;
 
         if (token) {
-            const userSession = await UserService.signIn(token as string);
+            const userSession = await authService.sso(token as string);
             if (userSession && userSession.isAuthenticated) {
                 handleSignInSuccess(userSession);
             } else {
                 router.push("/timeout");
             }
         } else {
-            const userSession = LocalStorageManager.getLocalStorageItem<Session>(sessionKey);
+            const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
             console.log(userSession);
             if (!userSession) {
                 router.push("/timeout");
             }
 
-            const verifySessionResponse = await UserService.verifySession(userSession);
-            if (verifySessionResponse && verifySessionResponse.isSuccessful) {
+            const verifySessionResponse = await authService.authorize(userSession.ss, userSession.username);
+            if (verifySessionResponse && verifySessionResponse.authorized) {
                 handleSignInSuccess(userSession);
             } else {
                 router.push("/timeout");
@@ -43,17 +44,17 @@ export default function Home() {
         }
     }
 
-    function handleSignInSuccess(userSession: Session) {
+    function handleSignInSuccess(userSession: SSOResponse) {
         setSession(userSession);
-        LocalStorageManager.storeLocalStorageItem<Session>(sessionKey, userSession);
+        LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
         reCheckIn(userSession);
         window.history.pushState(null, "", location.href.split("?")[0]);
         setTimeout(() => setLoading(false), 1000);
     }
 
-    function reCheckIn(userSession: Session) {
+    function reCheckIn(userSession: SSOResponse) {
         timer.current = setInterval(async () => {
-            const reCheckInResult = await UserService.reCheckIn(userSession);
+            const reCheckInResult = await authService.reCheckIn(userSession.ss, userSession.username);
             if (!reCheckInResult || !reCheckInResult.isSuccessful) {
                 router.push("/timeout");
             } else {

@@ -4792,6 +4792,13 @@ saxes@^5.0.0:
   dependencies:
     xmlchars "^2.2.0"
 
+sc-user-service-client@1.0.0-beta.3:
+  version "1.0.0-beta.3"
+  resolved "http://npm.lumigame.com/sc-user-service-client/-/sc-user-service-client-1.0.0-beta.3.tgz#8cfb7bda04408132c2d24deeecbba1fe009d246a"
+  integrity sha512-uxpTUdSZ37HOxqDXqlrUary2rBZPq3x/5bBYT16uJ3NDxWA3seni44//r8UeuxCdRxxdSc0ZUxGmci58xnQ67Q==
+  dependencies:
+    axios "^0.21.1"
+
 scheduler@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.20.1.tgz#da0b907e24026b01181ecbc75efdc7f27b5a000c"

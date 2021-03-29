@@ -2,8 +2,8 @@ import React from "react";
 import { Container } from "reactstrap";
 
 import { AuthContext } from "../../contexts/auth";
-import { UserService } from "../../services";
-import { Session, User } from "../../services/user/user";
+import { UserClientCommunication } from "../../services";
+import Auth, { SSOResponse, User } from "sc-user-service-client/dist/auth";
 import Games from "../games/games";
 import Header from "../header";
 import Register from "../register";
@@ -19,6 +19,8 @@ type State = {
 };
 
 class Dashboard extends React.Component<Props, State> {
+    authService: Auth = null;
+
     constructor(props: Props) {
         super(props);
 
@@ -28,11 +30,12 @@ class Dashboard extends React.Component<Props, State> {
         };
 
         this.handleStateLogin = this.handleStateLogin.bind(this);
+        this.authService = UserClientCommunication.getUserClientInstance();
     }
 
     async componentDidMount() {
-        const session: Session = this.context;
-        const response = await UserService.authorize(session);
+        const session: SSOResponse = this.context;
+        const response = await this.authService.authorize(session.ss, session.username);
 
         if (response.authorized) {
             const user = response.user;
