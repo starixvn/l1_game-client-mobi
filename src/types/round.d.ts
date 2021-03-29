@@ -1,5 +1,5 @@
 interface Round<R, S> {
-    id: number;
+    roundId: number;
     result: R;
     settlementResult: S;
     time: Date;
