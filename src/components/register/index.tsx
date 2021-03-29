@@ -13,7 +13,7 @@ export default function Register(props) {
     const session = React.useContext<SSOResponse>(AuthContext);
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
-    const authService = UserClientCommunication.getUserClientInstance();
+    const authService = UserClientCommunication.getUserClientInstance().auth;
 
     const handleSubmit = async (event) => {
         event.preventDefault();

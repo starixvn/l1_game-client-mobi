@@ -16,7 +16,7 @@ export default function Home() {
     const [balance, setBalance] = useState<number>(0);
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
-    const authService = UserClientCommunication.getUserClientInstance();
+    const authService = UserClientCommunication.getUserClientInstance().auth;
 
     async function signIn() {
         const { token } = router.query;

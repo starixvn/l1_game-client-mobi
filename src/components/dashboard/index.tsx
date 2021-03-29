@@ -30,7 +30,7 @@ class Dashboard extends React.Component<Props, State> {
         };
 
         this.handleStateLogin = this.handleStateLogin.bind(this);
-        this.authService = UserClientCommunication.getUserClientInstance();
+        this.authService = UserClientCommunication.getUserClientInstance().auth;
     }
 
     async componentDidMount() {
