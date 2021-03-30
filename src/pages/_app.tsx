@@ -1,9 +1,9 @@
-import '../assets/main.scss';
-import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "../assets/main.scss";
 
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation } from "next-i18next";
 
-import { init } from '../utils/sentry';
+import { init } from "../utils/sentry";
 
 init();
 
