@@ -1,13 +1,13 @@
-import React from 'react';
-import { Col, Row } from 'reactstrap';
+import React from "react";
+import { Col, Row } from "reactstrap";
 
-import BetContainer from '../../../shared/bet-container';
-import BetOption from '../../../shared/bet-option';
-import { GameState } from '../../../shared/game-base/type';
-import SeDieDot from '../dot';
-import SeDieResult from '../se-die-result';
-import { Result, SettlementResult } from '../sedie';
-import Styles from './bet-options.module.scss';
+import BetContainer from "../../../shared/bet-container";
+import BetOption from "../../../shared/bet-option";
+import { GameState } from "../../../shared/game-base/type";
+import SeDieDot from "../dot";
+import SeDieResult from "../se-die-result";
+import { Result, SettlementResult } from "../sedie";
+import Styles from "./bet-options.module.scss";
 
 const Choices = {
     odd: "odd",
@@ -30,28 +30,18 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { odds, gameState } = props;
     return (
         <BetContainer gameState={props.gameState}>
-            <Row noGutters className={Styles["first-row"]}>
-                <Col xs="5" className={Styles.col}>
-                    <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.red4} odd={odds[Choices.red4]}>
-                            <div className={Styles["list-dots"]}>
-                                <SeDieDot red />
-                                <SeDieDot red />
-                                <SeDieDot red />
-                                <SeDieDot red />
-                            </div>
-                        </BetOption>
-                    </Row>
-                    <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.red3} odd={odds[Choices.red3]}>
-                            <SeDieDot />
+            <div className={Styles["layout"]}>
+                <div className={Styles["bet-choice-4red"]}>
+                    <BetOption choice={Choices.red4} odd={odds[Choices.red4]}>
+                        <div className={Styles["list-dots"]}>
                             <SeDieDot red />
                             <SeDieDot red />
                             <SeDieDot red />
-                        </BetOption>
-                    </Row>
-                </Col>
-                <Col xs="2">
+                            <SeDieDot red />
+                        </div>
+                    </BetOption>
+                </div>
+                <div className={Styles["bet-choice-2red"]}>
                     <BetOption choice={Choices.red2} odd={odds[Choices.red2]}>
                         <div className={Styles.wrapper}>
                             <SeDieDot />
@@ -60,38 +50,42 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                             <SeDieDot red />
                         </div>
                     </BetOption>
-                </Col>
-                <Col xs="5">
-                    <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.white4} odd={odds[Choices.white4]}>
-                            <SeDieDot />
-                            <SeDieDot />
-                            <SeDieDot />
-                            <SeDieDot />
-                        </BetOption>
-                    </Row>
-                    <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.white3} odd={odds[Choices.white3]}>
-                            <SeDieDot red />
-                            <SeDieDot />
-                            <SeDieDot />
-                            <SeDieDot />
-                        </BetOption>
-                    </Row>
-                </Col>
-            </Row>
-            <Row noGutters className={Styles["second-row"]}>
-                <Col xs="6">
+                </div>
+                <div className={Styles["bet-choice-4white"]}>
+                    <BetOption choice={Choices.white4} odd={odds[Choices.white4]}>
+                        <SeDieDot />
+                        <SeDieDot />
+                        <SeDieDot />
+                        <SeDieDot />
+                    </BetOption>
+                </div>
+                <div className={Styles["bet-choice-3red"]}>
+                    <BetOption choice={Choices.red3} odd={odds[Choices.red3]}>
+                        <SeDieDot />
+                        <SeDieDot red />
+                        <SeDieDot red />
+                        <SeDieDot red />
+                    </BetOption>
+                </div>
+                <div className={Styles["bet-choice-1red"]}>
+                    <BetOption choice={Choices.white3} odd={odds[Choices.white3]}>
+                        <SeDieDot red />
+                        <SeDieDot />
+                        <SeDieDot />
+                        <SeDieDot />
+                    </BetOption>
+                </div>
+                <div className={Styles["bet-choice-even"]}>
                     <BetOption choice={Choices.odd} odd={odds[Choices.odd]}>
                         <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
-                </Col>
-                <Col xs="6">
+                </div>
+                <div className={Styles["bet-choice-odd"]}>
                     <BetOption choice={Choices.even} odd={odds[Choices.even]}>
                         <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
-                </Col>
-            </Row>
+                </div>
+            </div>
             {gameState === GameState.DisplayResult && (
                 <SeDieResult result={props.result} settlementResult={props.settlementResult}></SeDieResult>
             )}

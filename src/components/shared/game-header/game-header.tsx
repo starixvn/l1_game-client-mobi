@@ -65,7 +65,6 @@ export default function GameHeader(props: Props) {
             </div>
             <div className={Styles["header-right"]}>
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => onClickRebet()}>
-                    <img alt="rebet" src="/static/images/icon-rebet.svg" />
                     <label>Rebet</label>
                 </button>
                 <div className={Styles["count-down"]}>
