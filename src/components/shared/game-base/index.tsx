@@ -94,6 +94,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleGamePlay(remainingTime: number) {
         const { roundId, gameState } = this.state;
         const newGameState = this.determineGameState(remainingTime);
+        console.log(GameState[newGameState]);
 
         if (newGameState === GameState.BeforeStartRound) {
             this.setState({
@@ -125,12 +126,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             return GameState.DisplayResult;
         }
 
-        if (durations.beforeStartRound && remainingTime > durations.placingBets + durations.beforeStartRound) {
-            return GameState.BeforeStartRound;
+        if (remainingTime > durations.placingBets + (durations.beforeStartRound ?? 0)) {
+            return GameState.Waiting;
         }
 
-        if (remainingTime > durations.placingBets) {
-            return GameState.Waiting;
+        if (durations.beforeStartRound && remainingTime > durations.placingBets) {
+            return GameState.BeforeStartRound;
         }
 
         if (remainingTime <= durations.placingBets && remainingTime > durations.lockingBet) {

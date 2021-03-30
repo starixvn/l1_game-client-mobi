@@ -86,8 +86,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
             </div>
-            {gameState === GameState.DisplayResult && (
-                <SeDieResult result={props.result} settlementResult={props.settlementResult}></SeDieResult>
+            {[GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState) && (
+                <SeDieResult gameState={gameState} result={props.result} settlementResult={props.settlementResult}></SeDieResult>
             )}
         </BetContainer>
     );
