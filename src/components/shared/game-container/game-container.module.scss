@@ -14,14 +14,14 @@
     user-select: none;
 }
 
-@media print, screen and (min-width: 43em) {
+@media print, screen and (min-width: 992px) {
     .game-container {
         flex: 1 1 calc(50% - 0.5px);
         max-width: calc(50% - 0.5px);
     }
 }
 
-@media print, screen and (min-width: 63em) {
+@media print, screen and (min-width: 1400px) {
     .game-container {
         flex: 1 1 calc(100% / 3 - 0.5px);
         max-width: calc(100% / 3 - 0.5px);
