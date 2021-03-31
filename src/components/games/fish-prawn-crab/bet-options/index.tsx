@@ -5,6 +5,7 @@ import { SettlementResult } from "./../fish-prawn-crab";
 import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
+import { Result } from "../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
@@ -17,7 +18,7 @@ const Choices = {
 };
 
 type Props = {
-    result: number[];
+    result: Result;
     settlementResult: SettlementResult;
     odds: {};
     gameState: GameState;

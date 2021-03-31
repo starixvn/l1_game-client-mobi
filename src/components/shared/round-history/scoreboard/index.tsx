@@ -1,63 +1,69 @@
 import React from "react";
 import Styles from "../round-history.module.scss";
 import ItemNext from "./item-next";
-import { StatisticItem } from "../type";
 import { GameState } from "../../game-base/type";
+import { RoundHistoryType } from "../type";
 
 type Props = {
     roundHistory: any[];
     gameState: number;
-    getElementRound: (result: StatisticItem, col: number, row: number, roundId: number) => {};
-    getDataFromChild: (settlementResult: any, resultDices: any, roundId: number) => {};
-    isDragonTail: boolean;
+    getElementRound: Function;
+    checkCondition: Function;
+    roundNext: Function;
 };
 
 const rowTotal = 7;
-const drawDragonTailHistory = (statistic: StatisticItem[], getElementRound: Function, isItemNext: boolean) => {
+const drawDragonTailHistory = (
+    roundHistory: any,
+    getElementRound: Function,
+    checkCondition: Function,
+    isItemNext: boolean,
+    roundNext: Function
+) => {
     let col = 1,
         row = 1;
     let nextCol = 1;
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    const data = [...statistic].reverse();
+    let resultHandle = roundHistory.map((round: RoundHistoryType) => {
+        if (checkCondition) {
+            let value = checkCondition(round.settlementResult);
+            if (value === previousResult) {
+                const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
 
-    let resultHandle: any = data.map((result) => {
-        if (result.value === previousResult) {
-            const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
-
-            if (row < max - 1) {
-                row++;
-            } else if (row === 0 && max === 1) {
+                if (row < max - 1) {
+                    row++;
+                } else if (row === 0 && max === 1) {
+                    col = nextCol;
+                    nextCol++;
+                } else {
+                    col++;
+                    rowMax[col] = row;
+                }
+            } else {
+                row = 1;
                 col = nextCol;
                 nextCol++;
-            } else {
-                col++;
-                rowMax[col] = row;
             }
-        } else {
-            row = 1;
-            col = nextCol;
-            nextCol++;
-        }
 
-        if (col > colMax) {
-            colMax = col;
-        }
-        previousResult = result.value;
+            if (col > colMax) {
+                colMax = col;
+            }
+            previousResult = value;
 
-        return getElementRound(result, col, row, result.roundId);
+            return getElementRound(round.result, col, row, round.roundId);
+        }
     });
 
-    if (isItemNext) {
-        resultHandle.push(addNextElement(rowMax, row, col, nextCol));
+    if (isItemNext && roundNext) {
+        resultHandle.push(addNextElement(rowMax, row, col, nextCol, roundNext));
     }
 
     return resultHandle;
 };
-const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number) => {
+const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, roundNext: Function) => {
     const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
-    const randomKey = Math.random();
     if (row < max - 1) {
         row++;
     } else {
@@ -70,27 +76,18 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number) =
         row = 0;
     }
 
-    return <ItemNext key={randomKey} col={col} row={row}></ItemNext>;
+    // return roundNext(col, row);
+    return roundNext(col, row);
 };
 
-export default function RoundHistory(props: Props) {
-    const { roundHistory, gameState, getElementRound, getDataFromChild, isDragonTail } = props;
-
-    const renderRoundHistory = (history: any[], isBlockBet: boolean) => {
-        const data: StatisticItem[] = history.map((value) => {
-            const resultDices = value.result;
-            const settlementResult = value.settlementResult;
-            return getDataFromChild(settlementResult, resultDices, value.roundId) as StatisticItem;
-        });
-        if (isDragonTail) {
-            if (isBlockBet) {
-                return drawDragonTailHistory(data, getElementRound, true);
-            } else {
-                return drawDragonTailHistory(data, getElementRound, false);
-            }
-        } else {
-            // console.log(data);
+const ScoreboardRoundHistory = (props: Props) => {
+    const { roundHistory, gameState, getElementRound, checkCondition, roundNext } = props;
+    const renderRoundHistory = (roundHistory: any) => {
+        let isBlockBet = false;
+        if (gameState === GameState.LockingBet) {
+            isBlockBet = true;
         }
+        return drawDragonTailHistory(roundHistory, getElementRound, checkCondition, isBlockBet, roundNext);
     };
 
     const handleWheel = (e) => {
@@ -120,23 +117,17 @@ export default function RoundHistory(props: Props) {
     };
 
     return (
-        <div className={Styles["container"]}>
-            <div className={Styles["statistic-board"]}>
-                <div className={Styles["statistic-container"]}>
-                    <div
-                        className={Styles["scoreboard-container"]}
-                        onWheel={(e) => handleWheel(e)}
-                        onMouseDown={(e) => startDragging(e)}
-                        onMouseUp={(e) => stopDragging(e)}
-                        onMouseLeave={(e) => stopDragging(e)}
-                        onMouseMove={(e) => handleDragging(e)}
-                    >
-                        {gameState === GameState.LockingBet
-                            ? renderRoundHistory(roundHistory, true)
-                            : renderRoundHistory(roundHistory, false)}
-                    </div>
-                </div>
-            </div>
+        <div
+            className={Styles["scoreboard-container"]}
+            onWheel={(e) => handleWheel(e)}
+            onMouseDown={(e) => startDragging(e)}
+            onMouseUp={(e) => stopDragging(e)}
+            onMouseLeave={(e) => stopDragging(e)}
+            onMouseMove={(e) => handleDragging(e)}
+        >
+            {renderRoundHistory(roundHistory)}
         </div>
     );
-}
+};
+
+export default ScoreboardRoundHistory;

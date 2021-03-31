@@ -5,7 +5,7 @@ import ToolTip from "../../tool-tip";
 interface Props<R, S> {
     children: React.ReactNode;
     round: Round<R, S>;
-    renderRoundDetail: (round: Round<R, S>) => void;
+    renderRoundDetail: JSX.Element;
 }
 
 const RoundHistoryItem = <R, S>({ children, round, renderRoundDetail }: Props<R, S>) => {
@@ -22,10 +22,12 @@ const RoundHistoryItem = <R, S>({ children, round, renderRoundDetail }: Props<R,
     return (
         <div onClick={openToolTip}>
             {children}
-            {isOpenTooltip && (
+            {isOpenTooltip ? (
                 <ToolTip isOpen={isOpenTooltip} onClose={closeToolTip}>
-                    {() => renderRoundDetail(round)}
+                    {renderRoundDetail}
                 </ToolTip>
+            ) : (
+                ""
             )}
         </div>
     );

@@ -1,23 +1,18 @@
-import { useTranslation } from 'next-i18next';
-import React from 'react';
+import { useTranslation } from "next-i18next";
+import React from "react";
 
-import Statistic, {
-    handlePercentData,
-    processHistoryResult,
-    processHistorySettlement,
-    WrapperHeader,
-} from '../../../shared/statistic';
-import { StatisticType } from '../../../shared/statistic/statistic';
-import DotStyles from '../dot/dot.module.scss';
-import { Props, ResultDiceRed } from './statistic';
-import Styles from './statistic.module.scss';
+import Statistic, { handlePercentData, processHistoryResult, processHistorySettlement, WrapperHeader } from "../../../shared/statistic";
+import { StatisticType } from "../../../shared/statistic/statistic";
+import DotStyles from "../dot/dot.module.scss";
+import { Props, ResultDiceRed } from "./statistic";
+import Styles from "./statistic.module.scss";
 
 const ElementLeft = ({ data, titleText }) => {
     return (
         <div className={Styles["percent-left"]}>
             {titleText.map((title, index) => {
                 const value = data[index];
-                return <Element classString={Styles["titleOdd"]} title={title} value={value}></Element>;
+                return <Element key={"left-" + index} classString={Styles["titleOdd"]} title={title} value={value}></Element>;
             })}
         </div>
     );
@@ -39,7 +34,7 @@ const ElementRight = ({ data, titleText }) => {
             {titleText.map((title, index) => {
                 const classString = index % 2 ? DotStyles["dot-red"] : DotStyles["dot-white"];
                 const value = index === 0 ? data[4] : data[index];
-                return <Element classString={classString} title={title} value={value}></Element>;
+                return <Element key={"right-" + index} classString={classString} title={title} value={value}></Element>;
             })}
         </div>
     );
@@ -50,6 +45,7 @@ const SeDiceStatistic = (props: Props) => {
     const dataStatistic: StatisticType = {
         settlementResult: [0, 0],
         result: [0, 0, 0, 0, 0],
+        roundId: 0,
     };
     dataStatistic.settlementResult = processHistorySettlement(roundHistory, ["odd", "even"], dataStatistic.settlementResult);
     dataStatistic.result = processHistoryResult(roundHistory, ["red1", "red2", "red3", "red4"], dataStatistic.result, true);

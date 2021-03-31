@@ -2,7 +2,7 @@ import React from "react";
 
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import { Result, SettlementResult, ResultBase } from "./fish-prawn-crab";
+import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabBetOptions from "./bet-options";
 import FishPrawnCrabHistory from "./round-history";
 
@@ -17,6 +17,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             gameConfigs: null,
             roundHistory: [],
             roundId: 0,
+            ownBets: {},
+            totalBets: {},
         };
     }
 

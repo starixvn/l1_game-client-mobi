@@ -1,3 +1,4 @@
+import { RoundHistory } from "./../../games/se-die/sedie.d";
 export interface DiceColor {
     class: string;
     count: number;
@@ -14,4 +15,10 @@ export interface MiniRoundHistoryType {
     settlementResult: any;
     roundId: number;
     result: any;
+}
+
+export interface RoundHistoryType {
+    settlementResult: any;
+    result: any;
+    roundId: number;
 }

@@ -38,7 +38,7 @@ export default class ToolTip extends Component<Props> {
     render() {
         return (
             <div ref={this.wrapperRef} className={Styles["tooltip"]}>
-                <div className={Styles["tooltiptext"]}>{this.props.children}</div>;
+                <div className={Styles["tooltiptext"]}>{this.props.children}</div>
             </div>
         );
     }

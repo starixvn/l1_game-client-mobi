@@ -27,3 +27,18 @@
     color: #828282;
     font-weight: 500;
 }
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+.dot-next{
+    @extend %dot;
+    background: #828282!important;
+}
+
+@keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+  

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Styles from "./statistic.module.scss";
 import { historyData } from "./statistic";
 

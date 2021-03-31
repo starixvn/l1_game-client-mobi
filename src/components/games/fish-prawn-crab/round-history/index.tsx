@@ -9,49 +9,6 @@ import { Props } from "./round-history";
 
 export const typeDiceResult = ["dice1", "dice2", "dice3"];
 
-const handleColorDice = (data: Result): DiceColor => {
-    const result: DiceColor = {
-        class: "item-red",
-        count: 0,
-    };
-    let countType = 0;
-    typeDiceResult.forEach((type) => {
-        if (data[type]) {
-            countType++;
-        }
-    });
-    result.count = countType;
-
-    if (countType % 2) {
-        result.class = "item-red";
-    } else {
-        result.class = "item-white";
-    }
-
-    return result;
-};
-
-const getDataFromChild = (settlementResult: SettlementResult, resultDices: Result, roundId: number) => {
-    const tmpData: StatisticItem = {
-        type: [],
-        value: 0,
-        roundId: 0,
-    };
-
-    if (settlementResult.even) {
-        tmpData.value = 0;
-    }
-
-    if (settlementResult.odd) {
-        tmpData.value = 1;
-    }
-
-    tmpData.type = handleColorDice(resultDices);
-    tmpData.roundId = roundId;
-
-    return tmpData;
-};
-
 const getElementRound = (data: StatisticItem, roundId: number) => {
     const items = data.type.map((item) => {
         return <div className={Styles[item.class]}></div>;
@@ -68,13 +25,11 @@ const FishPrawnCrabHistory = (props: Props) => {
     return (
         <div className={Styles.container}>
             {/* <SeDiceStatistic roundHistory={roundHistory}></SeDiceStatistic> */}
-            <RoundHistory
+            {/* <RoundHistory
                 roundHistory={roundHistory}
                 gameState={gameState}
                 getElementRound={getElementRound}
-                getDataFromChild={getDataFromChild}
-                isDragonTail={false}
-            ></RoundHistory>
+            ></RoundHistory> */}
             {/* <div className={Styles.round}>
                 <div className={`${Styles.icon} icon-tom`}></div>
                 <div className={`${Styles.icon} icon-bau`}></div>
