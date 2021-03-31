@@ -1,11 +1,11 @@
-import { useTranslation } from 'next-i18next';
-import React, { useState } from 'react';
-import { SSOResponse } from 'sc-user-service-client/dist/auth';
+import { useTranslation } from "next-i18next";
+import React, { useState } from "react";
+import { SSOResponse } from "sc-user-service-client/dist/auth";
 
-import { AuthContext } from '../../contexts/auth';
-import NameGenerator from '../../helpers/name-generator/NameGenerator';
-import { UserClientCommunication } from '../../services';
-import Styles from './register.module.scss';
+import { AuthContext } from "../../contexts/auth";
+import NameGenerator from "../../helpers/name-generator/NameGenerator";
+import { UserClientCommunication } from "../../services";
+import Styles from "./register.module.scss";
 
 export default function Register(props) {
     const { t } = useTranslation("register");
@@ -29,12 +29,17 @@ export default function Register(props) {
 
                 <form onSubmit={(event) => handleSubmit(event)}>
                     <div className={Styles["user-box"]}>
-                        <input type="text" value={name} onChange={(e) => updateNameState(e.target.value)} />
-                        <button className={Styles["btn-name"]}>{t("otherName")}</button>
+                        <input
+                            type="text"
+                            className={Styles["custom-form-control"]}
+                            value={name}
+                            onChange={(e) => updateNameState(e.target.value)}
+                        />
+                        <button className={`${Styles["btn-green"]} ${Styles["btn-name"]}`}>{t("otherName")}</button>
                         <label className={Styles["message-error"]}></label>
                     </div>
 
-                    <button className={Styles["btn-submit"]}>{t("submit")}</button>
+                    <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
                 </form>
                 <div className={Styles["note"]}>
                     <h3>{t("yourNickName")}</h3>

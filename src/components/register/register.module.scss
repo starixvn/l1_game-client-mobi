@@ -1,3 +1,6 @@
+@import "../../assets/components/buttons";
+@import "../../assets/components/form";
+
 .register-bg {
     background: url("/static/images/register_bg.jpg") no-repeat;
     background-size: 100%;
@@ -38,18 +41,8 @@
         flex-wrap: wrap;
         margin-bottom: 1.6rem;
 
-        input {
-            height: 4.9rem;
+        .custom-form-control {
             width: calc(100% - 12.6rem);
-            padding: 0 1.6rem;
-            background: #ffffff;
-            outline: none;
-            border: 2px solid #ebedef;
-            box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
-            border-radius: 0.5rem;
-            color: #2c2f3e;
-            font-size: 1.8rem;
-            font-weight: 500;
         }
 
         .message-error {
@@ -61,27 +54,13 @@
         }
     }
 
-    %btn {
-        height: 4.9rem;
-        padding: 1.2rem 2rem;
-        border-radius: 0.5rem;
-        border: none;
-        text-align: center;
-        color: #fff;
-        font-size: 1.6rem;
-    }
-
     .btn-name {
-        @extend %btn;
         width: 11rem;
-        background-color: #5bb379;
         margin-left: 1.6rem;
     }
 
     .btn-submit {
-        @extend %btn;
         width: 100%;
-        background-color: #ffb335;
     }
 
     .note {

@@ -1,7 +1,7 @@
 import React, { ChangeEvent, Component } from "react";
-import { Button, Col, Row } from "reactstrap";
+import { Button, InputGroupAddon, InputGroup, InputGroupText, Input } from "reactstrap";
 
-import styles from "./place-bet-modal.module.scss";
+import Styles from "./place-bet-modal.module.scss";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -69,24 +69,70 @@ export default class PlaceBetModal extends Component<Props, State> {
         const { gameName, roundId, betChoice } = this.props.betChoiceInfo;
 
         return (
-            <div ref={this.wrapperRef} className={`${styles.container} container`}>
-                <Row className={styles.header}>
-                    <p>
-                        {gameName} Draw No. {roundId}
-                    </p>
-                    <p>{betChoice} @ ...</p>
-                </Row>
-                <Row className={styles["bet-info"]}>
-                    <input value={this.state.betAmount} type={"number"} onChange={this.updateBetAmount}></input>
-                    <Button onClick={this.placeBet}>Bet</Button>
-                </Row>
-                <Row>
-                    <Col xs={6}></Col>
-                    <Col xs={6} className={"text-right"}></Col>
-                </Row>
-                <Row>
-                    <Button onClick={this.closeModal}>Cancel</Button>
-                </Row>
+            <div ref={this.wrapperRef} className={Styles["modal"]}>
+                <div className={Styles["logo"]}>
+                    <span className="icon-small-logo"></span>
+                </div>
+                <div className={Styles["icon-closed"]} onClick={this.closeModal}>
+                    <span className="icon-close"></span>
+                </div>
+                <div className={Styles["modal-header"]}>
+                    <h1 className={Styles["modal-title"]}>{gameName}</h1>
+                    <p className={Styles["modal-sub-title"]}>{roundId}</p>
+                </div>
+                <div className={`w-100 ${Styles["btn-green"]} ${Styles["bet-choice"]}`}>
+                    <strong>{betChoice}</strong> @ 1:1.96
+                </div>
+                <InputGroup>
+                    <InputGroupAddon addonType="prepend">
+                        <InputGroupText className={Styles["input-group-text"]}>UUS</InputGroupText>
+                    </InputGroupAddon>
+                    <Input
+                        className={Styles["custom-form-control"]}
+                        value={this.state.betAmount}
+                        type={"number"}
+                        onChange={this.updateBetAmount}
+                    />
+                </InputGroup>
+                <ul className={Styles["bet-info"]}>
+                    <li>
+                        Bet Credit: <span className={Styles["highlight"]}>4,137.79</span>
+                    </li>
+                    <li>
+                        Payout: <span className={Styles["highlight"]}>0.00</span>
+                    </li>
+                </ul>
+                <div className={Styles["keyboard"]}>
+                    <div className={Styles["board-common"]}>
+                        <div className={Styles["item"]}>1</div>
+                        <div className={Styles["item"]}>2</div>
+                        <div className={Styles["item"]}>3</div>
+                        <div className={Styles["item"]}>4</div>
+                        <div className={Styles["item"]}>5</div>
+                        <div className={Styles["item"]}>
+                            <span className="icon-remove"></span>
+                        </div>
+                        <div className={Styles["item"]}>6</div>
+                        <div className={Styles["item"]}>7</div>
+                        <div className={Styles["item"]}>8</div>
+                        <div className={Styles["item"]}>9</div>
+                        <div className={Styles["item"]}>0</div>
+                        <div className={Styles["item"]}>00</div>
+                    </div>
+                    <div className={Styles["board-special"]}>
+                        <div className={Styles["item"]}>+1</div>
+                        <div className={Styles["item"]}>+5</div>
+                        <div className={Styles["item"]}>+10</div>
+                        <div className={Styles["item"]}>+50</div>
+                        <div className={Styles["item"]}>+100</div>
+                        <div className={Styles["item"]}>+200</div>
+                        <div className={Styles["item"]}>+500</div>
+                        <div className={Styles["item"]}>Max</div>
+                    </div>
+                </div>
+                <button onClick={this.placeBet} className={`w-100 ${Styles["btn-orange"]}`}>
+                    Bet
+                </button>
             </div>
         );
     }

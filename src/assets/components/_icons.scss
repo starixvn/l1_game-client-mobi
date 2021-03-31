@@ -14,6 +14,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-small-logo:before {
+    content: "\e908";
+    color: #ffb335;
+}
+
 .icon-tom:before {
     content: "\e903";
     color: #0870a3;
