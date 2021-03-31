@@ -1,9 +1,3 @@
-.shake-the-plate {
-}
-
-.open-the-plate {
-}
-
 .container {
     position: absolute;
     top: 0;
@@ -49,31 +43,23 @@
     position: absolute;
     top: 0;
     width: 100%;
-    /*animation*/
-    animation-name: frAnimation-sedie-copy, frAnimation-sd;
-    animation-delay: 1s, 3s;
-    animation-duration: 2s, 1s;
-    animation-iteration-count: 1, 2;
-    animation-fill-mode: forwards, forwards;
-    animation-timing-function: linear, linear;
 }
 
-.flipResult-sedie-bowl {
-    position: absolute;
-    z-index: 2;
-    width: 150px;
-    height: 128.91px;
-    left: calc(50% - 75px);
-    top: 120px;
-    pointer-events: none;
-    background: url("/static/images/sedie_b.png") no-repeat center;
-    background-size: 100%;
-    /*animation*/
-    animation-name: animation-sedie-opening-bowl, frAnimation-sedie-hide, animation-sedie-bowl-show, animation-sedie-close-bowl;
-    animation-delay: 5s, 6s, 9s, 9s;
-    animation-duration: 2s, 0.5s, 0.5s, 0.75s;
-    animation-fill-mode: forwards, forwards, forwards, forwards;
-    animation-timing-function: linear, linear, linear, linear;
+.shake-the-plate {
+    .flipResult-sedie-set {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+        width: 100%;
+        /*animation*/
+        animation-name: frAnimation-sedie-copy, frAnimation-sd, frAnimation-sedie-hide-shake;
+        animation-delay: 0, 0.5s, 3s;
+        animation-duration: 0.5s, 0.5s, 1s;
+        animation-fill-mode: forwards, forwards, forwards;
+        animation-timing-function: linear, linear, linear;
+    }
 }
 
 .flipResult-sedie-plate {
@@ -87,6 +73,29 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.flipResult-sedie-bowl {
+    position: absolute;
+    z-index: 2;
+    width: 150px;
+    height: 128.91px;
+    left: calc(50% - 75px);
+    top: 120px;
+    pointer-events: none;
+    background: url("/static/images/sedie_b.png") no-repeat center;
+    background-size: 100%;
+}
+
+.open-the-plate {
+    .flipResult-sedie-bowl {
+        /*animation*/
+        animation-name: animation-sedie-opening-bowl, frAnimation-sedie-bowl-hide;
+        animation-delay: 0, 2s;
+        animation-duration: 1s, 1s;
+        animation-fill-mode: forwards, forwards;
+        animation-timing-function: linear, linear;
+    }
 }
 
 .result-dot {
@@ -241,79 +250,48 @@
         transform: translateY(0) rotateX(0);
     }
 }
-@-webkit-keyframes frAnimation-sedie-b {
-    4%,
-    36% {
-        transform: translate3d(-1px, 0, 0);
-    }
-    8%,
-    32% {
-        transform: translate3d(2px, 0, 0);
-    }
-    12%,
-    20%,
-    28% {
-        transform: translate3d(-4px, 0, 0);
-    }
-    16%,
-    24% {
-        transform: translate3d(4px, 0, 0);
-    }
-    40% {
-        transform: translate(0, 0) rotate(0);
+
+@-webkit-keyframes frAnimation-sedie-hide-shake {
+    90% {
+        opacity: 1;
+        transform: scale(1);
+        transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translate(30px, -100px) rotate(30deg);
+        opacity: 0;
+        transform: scale(0.2);
+        transform: translate3d(0, -100px, -50px);
     }
 }
-@keyframes frAnimation-sedie-b {
-    4%,
-    36% {
-        transform: translate3d(-1px, 0, 0);
-    }
-    8%,
-    32% {
-        transform: translate3d(2px, 0, 0);
-    }
-    12%,
-    20%,
-    28% {
-        transform: translate3d(-4px, 0, 0);
-    }
-    16%,
-    24% {
-        transform: translate3d(4px, 0, 0);
-    }
-    40% {
-        transform: translate(0, 0) rotate(0);
+
+@keyframes frAnimation-sedie-hide-shake {
+    90% {
+        opacity: 1;
+        transform: scale(1);
+        transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translate(30px, -100px) rotate(30deg);
+        opacity: 0;
+        transform: scale(0.2);
+        transform: translate3d(0, -200px, -50px);
     }
 }
-@keyframes frAnimation-sedie-moveUp {
-    100% {
-        transform: translateY(-90px);
+
+@-webkit-keyframes frAnimation-sedie-bowl-hide {
+    70% {
+        opacity: 1;
     }
-}
-@-webkit-keyframes frAnimation-sedie-hide {
     100% {
         opacity: 0;
     }
 }
-@keyframes frAnimation-sedie-hide {
+
+@keyframes frAnimation-sedie-bowl-hide {
+    70% {
+        opacity: 1;
+    }
     100% {
         opacity: 0;
-    }
-}
-@-webkit-keyframes frAnimation-sedie-show {
-    100% {
-        opacity: 1;
-    }
-}
-@keyframes frAnimation-sedie-show {
-    100% {
-        opacity: 1;
     }
 }
 
@@ -323,21 +301,6 @@
         transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translate(30px, -150px) rotate(30deg);
-    }
-}
-
-@keyframes animation-sedie-bowl-show {
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes animation-sedie-close-bowl {
-    40% {
-        transform: translate3d(10px, -50px, 0) rotate(0);
-    }
-    100% {
-        transform: translate3d(0, 0, 0) rotate(0);
+        transform: translate(50px, -100px) rotate(45deg);
     }
 }
