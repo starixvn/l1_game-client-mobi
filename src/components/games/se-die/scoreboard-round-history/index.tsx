@@ -4,7 +4,6 @@ import { SettlementResult } from "../sedie";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import { countRedDot, checkIsEven } from "../mini-round-history";
-import RoundHistoryContainer from "../../../shared/round-history/container";
 import Styles from "./scoreboard-round-history.module.scss";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
@@ -31,17 +30,16 @@ const ScoreboardHistory = (props: Props) => {
         return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
     };
     return (
-        <RoundHistoryContainer>
-            <ScoreboardComponent>
-                <ScoreboardRoundHistory
-                    roundHistory={roundHistory}
-                    gameState={gameState}
-                    getElementRound={getElementRound}
-                    checkCondition={checkCondition}
-                    roundNext={roundNext}
-                ></ScoreboardRoundHistory>
-            </ScoreboardComponent>
-        </RoundHistoryContainer>
+        <ScoreboardComponent>
+            <ScoreboardRoundHistory
+                roundHistory={roundHistory}
+                gameState={gameState}
+                isDragonTail={true}
+                getElementRound={getElementRound}
+                checkCondition={checkCondition}
+                roundNext={roundNext}
+            ></ScoreboardRoundHistory>
+        </ScoreboardComponent>
     );
 };
 

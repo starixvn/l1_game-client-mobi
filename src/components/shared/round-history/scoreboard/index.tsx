@@ -7,9 +7,10 @@ import { RoundHistoryType } from "../type";
 type Props = {
     roundHistory: any[];
     gameState: number;
+    isDragonTail: boolean;
     getElementRound: Function;
-    checkCondition: Function;
-    roundNext: Function;
+    checkCondition?: Function;
+    roundNext?: Function;
 };
 
 const rowTotal = 7;
@@ -80,14 +81,24 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
     return roundNext(col, row);
 };
 
+const drawHistory = (roundHistory, getElementRound) => {
+    return roundHistory.map((round: RoundHistoryType) => {
+        getElementRound(round.result, round.roundId);
+    });
+};
+
 const ScoreboardRoundHistory = (props: Props) => {
-    const { roundHistory, gameState, getElementRound, checkCondition, roundNext } = props;
+    const { roundHistory, gameState, isDragonTail, getElementRound, checkCondition, roundNext } = props;
     const renderRoundHistory = (roundHistory: any) => {
-        let isBlockBet = false;
-        if (gameState === GameState.LockingBet) {
-            isBlockBet = true;
+        if (isDragonTail) {
+            let isBlockBet = false;
+            if (gameState === GameState.LockingBet) {
+                isBlockBet = true;
+            }
+            return drawDragonTailHistory(roundHistory, getElementRound, checkCondition, isBlockBet, roundNext);
+        } else {
+            return drawHistory(roundHistory, getElementRound);
         }
-        return drawDragonTailHistory(roundHistory, getElementRound, checkCondition, isBlockBet, roundNext);
     };
 
     const handleWheel = (e) => {

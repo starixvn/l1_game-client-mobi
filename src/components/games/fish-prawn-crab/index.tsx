@@ -4,7 +4,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabBetOptions from "./bet-options";
-import FishPrawnCrabHistory from "./round-history";
+import ScoreboardHistory from "./scoreboard-round-history";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -33,7 +33,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                     result={result}
                     settlementResult={settlementResult}
                 />
-                <FishPrawnCrabHistory roundHistory={roundHistory} gameState={gameState}></FishPrawnCrabHistory>
+                <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>
             </React.Fragment>
         );
     }
