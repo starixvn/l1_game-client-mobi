@@ -14,7 +14,7 @@ const getElementRound = (result: any, roundId: number) => {
     return (
         <ContainerItem key={roundId}>
             {itemValues.map((value: number, index) => {
-                return <Item key={roundId + "_" + index} type={value} isLatest={isLatest}></Item>;
+                return <Item key={roundId + "_" + index} type={value}></Item>;
             })}
         </ContainerItem>
     );
