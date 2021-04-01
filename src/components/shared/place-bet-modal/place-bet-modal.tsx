@@ -78,10 +78,10 @@ export default class PlaceBetModal extends Component<Props, State> {
                 </div>
                 <div className={Styles["modal-header"]}>
                     <h1 className={Styles["modal-title"]}>{gameName}</h1>
-                    <p className={Styles["modal-sub-title"]}>{roundId}</p>
+                    <p className={Styles["modal-sub-title"]}>#{roundId}</p>
                 </div>
                 <div className={`w-100 ${Styles["btn-green"]} ${Styles["bet-choice"]}`}>
-                    <strong>{betChoice}</strong> @ 1:{odds}
+                    <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odds}
                 </div>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">
