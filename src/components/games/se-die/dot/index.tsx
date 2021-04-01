@@ -7,10 +7,11 @@ type Props = {
     count?: number;
     row?: number;
     col?: number;
+    value?: string;
 };
 
-const SeDieDot: React.FunctionComponent<Props> = ({ red = false }) => {
-    return <div className={`${red ? Styles["dot-red"] : Styles["dot-white"]}`}></div>;
+const SeDieDot: React.FunctionComponent<Props> = ({ red = false, value }) => {
+    return <div className={`${red ? Styles["dot-red"] : Styles["dot-white"]}`}>{value}</div>;
 };
 
 export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, count, col, row }) => {

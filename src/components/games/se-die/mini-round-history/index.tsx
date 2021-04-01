@@ -36,17 +36,17 @@ export const countRedDot = (result: Result) => Object.keys(result).reduce((total
 export const checkIsEven = (numberOfRedDot: number) => numberOfRedDot % 2 > 0;
 const MiniRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
-    const numberOfItems = 21;
+    let numberOfItems = 21;
     const renderRounds = (numberOfItems: number) => {
         let listRound: JSX.Element[] = roundHistory.slice(0, numberOfItems).map((round, index) => (
             <RoundHistoryItem key={round.roundId} round={round} renderRoundDetail={renderRoundDetail(round)}>
-                <SeDieDot red={checkIsEven(countRedDot(round.result))} />
+                {gameState === GameState.LockingBet && index === numberOfItems - 1 ? (
+                    <MiniItemNext></MiniItemNext>
+                ) : (
+                    <SeDieDot red={checkIsEven(countRedDot(round.result))} />
+                )}
             </RoundHistoryItem>
         ));
-        if (gameState === GameState.LockingBet) {
-            listRound.pop();
-            listRound.push(<MiniItemNext key={Math.random()}></MiniItemNext>);
-        }
         return listRound;
     };
 

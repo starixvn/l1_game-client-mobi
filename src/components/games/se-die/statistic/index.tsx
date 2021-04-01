@@ -5,6 +5,7 @@ import Statistic, { handlePercentData, processHistoryResult, processHistorySettl
 import { StatisticType } from "../../../shared/statistic/statistic";
 import DotStyles from "../dot/dot.module.scss";
 import { Props, ResultDiceRed } from "./statistic";
+import SeDieDot from "../dot";
 import Styles from "./statistic.module.scss";
 
 const ElementLeft = ({ data, titleText }) => {
@@ -32,9 +33,13 @@ const ElementRight = ({ data, titleText }) => {
     return (
         <div className={Styles["percent-right"]}>
             {titleText.map((title, index) => {
-                const classString = index % 2 ? DotStyles["dot-red"] : DotStyles["dot-white"];
                 const value = index === 0 ? data[4] : data[index];
-                return <Element key={"right-" + index} classString={classString} title={title} value={value}></Element>;
+                return (
+                    <WrapperHeader key={"left-" + index}>
+                        <SeDieDot red={index % 2 > 0} value={title} />
+                        <span className={Styles["number"]}>{value}%</span>
+                    </WrapperHeader>
+                );
             })}
         </div>
     );
