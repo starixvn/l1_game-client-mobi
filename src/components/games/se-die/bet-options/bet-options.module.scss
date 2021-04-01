@@ -14,11 +14,12 @@
     height: 100%;
     width: 5.2rem;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
     align-content: center;
-    justify-content: center;
+
+    @media (min-width: 768px) {
+        width: 4.2rem;
+    }
 
     > div {
         margin-top: 0;

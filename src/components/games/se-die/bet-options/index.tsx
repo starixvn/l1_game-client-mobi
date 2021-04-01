@@ -74,14 +74,15 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         <SeDieDot />
                     </BetOption>
                 </div>
+
                 <div className={Styles["bet-choice-even"]}>
-                    <BetOption choice={Choices.odd} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.odd]}>
-                        <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
+                    <BetOption choice={Choices.even} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}>
+                        <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-odd"]}>
-                    <BetOption choice={Choices.even} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}>
-                        <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
+                    <BetOption choice={Choices.odd} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.odd]}>
+                        <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
                 </div>
             </div>

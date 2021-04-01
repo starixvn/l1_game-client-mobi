@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Component } from "react";
-import { Button, InputGroupAddon, InputGroup, InputGroupText, Input } from "reactstrap";
+import { InputGroupAddon, InputGroup, InputGroupText, Input } from "reactstrap";
 
 import Styles from "./place-bet-modal.module.scss";
 

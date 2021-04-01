@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
@@ -29,6 +30,9 @@ export default function GameHeader(props: Props) {
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
 
     const { t } = useTranslation(gameName.toLowerCase());
+
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen((prevState) => !prevState);
 
     const onClickRebet = () => {
         const betChoices = rebetInfo.betInfo;
@@ -70,6 +74,19 @@ export default function GameHeader(props: Props) {
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => onClickRebet()}>
                     <label>Rebet</label>
                 </button>
+
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
+                    <DropdownToggle className={Styles["dropdown-toggle"]}>
+                        <div className={Styles["hamburger-dot"]}></div>
+                        <div className={Styles["hamburger-dot"]}></div>
+                        <div className={Styles["hamburger-dot"]}></div>
+                    </DropdownToggle>
+                    <DropdownMenu right className={Styles["dropdown-menu"]}>
+                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]}>Game guide</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </div>
         </div>
     );
