@@ -31,7 +31,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
         <BetContainer gameState={props.gameState}>
             <div className={Styles["layout"]}>
                 <div className={Styles["bet-choice-4red"]}>
-                    <BetOption choice={Choices.red4} isHighlight={settlementResult[Choices.red4]}>
+                    <BetOption choice={Choices.red4} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red4]}>
                         <div className={Styles["list-dots"]}>
                             <SeDieDot red />
                             <SeDieDot red />
@@ -41,7 +41,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-2red"]}>
-                    <BetOption choice={Choices.red2} isHighlight={settlementResult[Choices.red2]}>
+                    <BetOption choice={Choices.red2} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red2]}>
                         <div className={Styles.wrapper}>
                             <SeDieDot />
                             <SeDieDot red />
@@ -51,7 +51,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-4white"]}>
-                    <BetOption choice={Choices.white4} isHighlight={settlementResult[Choices.white4]}>
+                    <BetOption choice={Choices.white4} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white4]}>
                         <SeDieDot />
                         <SeDieDot />
                         <SeDieDot />
@@ -59,7 +59,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-3red"]}>
-                    <BetOption choice={Choices.red3} isHighlight={settlementResult[Choices.red3]}>
+                    <BetOption choice={Choices.red3} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red3]}>
                         <SeDieDot />
                         <SeDieDot red />
                         <SeDieDot red />
@@ -67,7 +67,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-1red"]}>
-                    <BetOption choice={Choices.white3} isHighlight={settlementResult[Choices.white3]}>
+                    <BetOption choice={Choices.white3} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white3]}>
                         <SeDieDot red />
                         <SeDieDot />
                         <SeDieDot />
@@ -75,12 +75,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-even"]}>
-                    <BetOption choice={Choices.odd} isHighlight={settlementResult[Choices.odd]}>
+                    <BetOption choice={Choices.odd} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.odd]}>
                         <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-odd"]}>
-                    <BetOption choice={Choices.even} isHighlight={settlementResult[Choices.even]}>
+                    <BetOption choice={Choices.even} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}>
                         <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
                 </div>

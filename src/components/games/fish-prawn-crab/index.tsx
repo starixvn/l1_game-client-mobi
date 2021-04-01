@@ -31,7 +31,9 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                     odds={gameConfigs.odds}
                     gameState={gameState}
                     result={result}
-                    settlementResult={settlementResult}
+                    settlementResult={
+                        settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }
+                    }
                 />
                 <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>
             </React.Fragment>
