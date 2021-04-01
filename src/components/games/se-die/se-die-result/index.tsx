@@ -10,7 +10,7 @@ const SeDieResult: React.FC<Props> = (props) => {
     const generateResult = (result: boolean[]) => {
         return result.map((value, index) => (
             <div key={`dot-${index + 1}`} className={`${styles[`flipResult-sedie-dot${index + 1}`]} ${styles["flipResult-sedie-dot"]}`}>
-                <div className={`${styles["result-dot"]} ${value ? styles["result-dot-red"] : styles["result-dot-white"]}`}></div>
+                <div className={`${value ? styles["result-dot-red"] : styles["result-dot-white"]}`}></div>
             </div>
         ));
     };
