@@ -28,6 +28,7 @@ export interface GameBaseProps {
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
+    
 }
 
 export interface GameBaseState<Result, SettlementResult> {

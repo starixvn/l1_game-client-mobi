@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React from "react";
+import { useBetContext } from "../../../contexts/bet-context";
 
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Styles from "./bet-option.module.scss";
 
 type Props = {
@@ -12,16 +12,15 @@ type Props = {
 
 const BetOption: React.FunctionComponent<Props> = (props) => {
     const { choice, odd, children } = props;
-    const { totalBets, ownBets, placeBet } = useGameContext();
-    const [isOpenBetModal, setIsOpenBetModal] = useState<boolean>(false);
+    const { totalBets, ownBets } = useGameContext();
+    const { handleShowBetModal, updateBetModalInfo } = useBetContext();
 
     function openPlaceBetModal() {
-        setIsOpenBetModal(true);
+        updateBetModalInfo({
+            choice: props.choice,
+        });
+        handleShowBetModal(true);
     }
-
-    const closePlaceBetModal = () => {
-        setIsOpenBetModal(false);
-    };
 
     return (
         <div className={Styles.container}>
@@ -31,18 +30,6 @@ const BetOption: React.FunctionComponent<Props> = (props) => {
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice]}</div>
             </div>
-            {isOpenBetModal && (
-                <PlaceBetModal
-                    isOpen={isOpenBetModal}
-                    onCloseModal={closePlaceBetModal}
-                    onPlaceBet={placeBet}
-                    betChoiceInfo={{
-                        betChoice: choice,
-                        gameName: "Se Die",
-                        roundId: 0,
-                    }}
-                ></PlaceBetModal>
-            )}
         </div>
     );
 };
