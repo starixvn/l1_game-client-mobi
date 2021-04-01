@@ -20,27 +20,26 @@ const Choices = {
 type Props = {
     result: Result;
     settlementResult: SettlementResult;
-    odds: {};
     gameState: GameState;
 };
 
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { odds, gameState } = props;
+    const { gameState, settlementResult } = props;
     return (
-        <BetContainer gameState={props.gameState}>
+        <BetContainer gameState={gameState}>
             <Row noGutters className={Styles["first-row"]}>
                 <Col xs="4">
-                    <BetOption choice={Choices.stag} odd={odds[Choices.stag]}>
+                    <BetOption choice={Choices.stag} isHighlight={settlementResult[Choices.stag]}>
                         <div className={`${Styles.element} icon-nai`}></div>
                     </BetOption>
                 </Col>
                 <Col xs="4">
-                    <BetOption choice={Choices.gourd} odd={odds[Choices.gourd]}>
+                    <BetOption choice={Choices.gourd} isHighlight={settlementResult[Choices.gourd]}>
                         <div className={`${Styles.element} icon-bau`}></div>
                     </BetOption>
                 </Col>
                 <Col xs="4">
-                    <BetOption choice={Choices.rooster} odd={odds[Choices.rooster]}>
+                    <BetOption choice={Choices.rooster} isHighlight={settlementResult[Choices.rooster]}>
                         <div className={`${Styles.element} icon-ga`}></div>
                     </BetOption>
                 </Col>
@@ -48,17 +47,17 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
 
             <Row noGutters className={Styles["first-second"]}>
                 <Col xs="4">
-                    <BetOption choice={Choices.fish} odd={odds[Choices.fish]}>
+                    <BetOption choice={Choices.fish} isHighlight={settlementResult[Choices.fish]}>
                         <div className={`${Styles.element} icon-ca`}></div>
                     </BetOption>
                 </Col>
                 <Col xs="4">
-                    <BetOption choice={Choices.crab} odd={odds[Choices.crab]}>
+                    <BetOption choice={Choices.crab} isHighlight={settlementResult[Choices.crab]}>
                         <div className={`${Styles.element} icon-cua`}></div>
                     </BetOption>
                 </Col>
                 <Col xs="4">
-                    <BetOption choice={Choices.prawn} odd={odds[Choices.prawn]}>
+                    <BetOption choice={Choices.prawn} isHighlight={settlementResult[Choices.prawn]}>
                         <div className={`${Styles.element} icon-tom`}></div>
                     </BetOption>
                 </Col>

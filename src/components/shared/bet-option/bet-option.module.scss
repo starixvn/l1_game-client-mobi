@@ -40,4 +40,12 @@
         color: #ff9a00;
         font-size: 1.6rem;
     }
+
+    &:hover {
+        background-color: #ededed;
+    }
+
+    &.hightlight-winning {
+        background-color: #fff5e3;
+    }
 }

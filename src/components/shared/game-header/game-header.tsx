@@ -63,13 +63,13 @@ export default function GameHeader(props: Props) {
                     <div className={Styles.round}>#{roundId}</div>
                 </div>
             </div>
+            <div className={Styles["count-down"]}>
+                <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
+            </div>
             <div className={Styles["header-right"]}>
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => onClickRebet()}>
                     <label>Rebet</label>
                 </button>
-                <div className={Styles["count-down"]}>
-                    <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
-                </div>
             </div>
         </div>
     );

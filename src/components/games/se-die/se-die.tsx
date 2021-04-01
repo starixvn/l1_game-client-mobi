@@ -25,10 +25,10 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderGame() {
-        const { gameState, roundHistory, gameConfigs, result, settlementResult } = this.state;
+        const { gameState, roundHistory, result, settlementResult } = this.state;
         return (
             <React.Fragment>
-                <SeDieBetOptions odds={gameConfigs.odds} gameState={gameState} result={result} settlementResult={settlementResult} />
+                <SeDieBetOptions gameState={gameState} result={result} settlementResult={settlementResult} />
                 <MiniRoundHistory roundHistory={roundHistory} gameState={gameState}></MiniRoundHistory>
                 <SeDiceStatistic roundHistory={roundHistory}></SeDiceStatistic>
                 <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>
