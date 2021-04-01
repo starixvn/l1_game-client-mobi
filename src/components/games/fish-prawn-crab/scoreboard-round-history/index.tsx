@@ -1,50 +1,26 @@
 import React from "react";
-import { SettlementResult } from "../fish-prawn-crab.d";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
+import Item from "../item";
 import Styles from "./scoreboard-round-history.module.scss";
 
+const ContainerItem = (props) => {
+    return <div className={Styles["container-element"]}>{props.children}</div>;
+};
+
 const getElementRound = (result: any, roundId: number) => {
-    const keys = Object.values(result);
+    const itemValues = Object.values(result);
+    const isLatest = false;
     return (
-        <ContainerItem>
-            {keys.forEach((value) => {
-                return <Item key={roundId} type={value}></Item>;
+        <ContainerItem key={roundId}>
+            {itemValues.map((value: number, index) => {
+                return <Item key={roundId + "_" + index} type={value} isLatest={isLatest}></Item>;
             })}
         </ContainerItem>
     );
 };
 
-const Item = ({ type }) => {
-    let iconName = "";
-    switch (type) {
-        case 1:
-            iconName = "icon-bau";
-            break;
-        case 2:
-            iconName = "icon-ga";
-            break;
-        case 3:
-            iconName = "icon-ca";
-            break;
-        case 4:
-            iconName = "icon-cua";
-            break;
-        case 5:
-            iconName = "icon-tom";
-            break;
-        default:
-            iconName = "icon-nai";
-            break;
-    }
-    return <div className={`${Styles.icon} ${iconName}`}></div>;
-};
-
-const ContainerItem = (props) => {
-    return <div className={Styles.container}>{props.children}</div>;
-};
-
-const ScoreboardComponent = (props) => {
+const ScoreboardComponent: React.FunctionComponent = (props) => {
     return <div className={Styles["round-history-container"]}>{props.children}</div>;
 };
 

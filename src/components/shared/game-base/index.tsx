@@ -94,7 +94,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleGamePlay(remainingTime: number) {
         const { roundId, gameState } = this.state;
         const newGameState = this.determineGameState(remainingTime);
-        console.log(GameState[newGameState]);
 
         if (newGameState === GameState.BeforeStartRound) {
             this.setState({

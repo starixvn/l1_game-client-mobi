@@ -1,6 +1,5 @@
 import React from "react";
-import Styles from "../round-history.module.scss";
-import ItemNext from "./item-next";
+import Styles from "./round-history.module.scss";
 import { GameState } from "../../game-base/type";
 import { RoundHistoryType } from "../type";
 
@@ -15,7 +14,7 @@ type Props = {
 
 const rowTotal = 7;
 const drawDragonTailHistory = (
-    roundHistory: any,
+    roundHistory: any[],
     getElementRound: Function,
     checkCondition: Function,
     isItemNext: boolean,
@@ -77,19 +76,19 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
         row = 0;
     }
 
-    // return roundNext(col, row);
     return roundNext(col, row);
 };
 
 const drawHistory = (roundHistory, getElementRound) => {
     return roundHistory.map((round: RoundHistoryType) => {
-        getElementRound(round.result, round.roundId);
+        return getElementRound(round.result, round.roundId);
     });
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
     const { roundHistory, gameState, isDragonTail, getElementRound, checkCondition, roundNext } = props;
-    const renderRoundHistory = (roundHistory: any) => {
+    const dataOrder = [...roundHistory].reverse();
+    const renderRoundHistory = (roundHistory) => {
         if (isDragonTail) {
             let isBlockBet = false;
             if (gameState === GameState.LockingBet) {
@@ -102,6 +101,8 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     const handleWheel = (e) => {
+        console.log(e.deltaY);
+        console.log(e.target);
         e.target.scrollLeft -= e.deltaY;
     };
 
@@ -129,14 +130,14 @@ const ScoreboardRoundHistory = (props: Props) => {
 
     return (
         <div
-            className={Styles["scoreboard-container"]}
+            className={isDragonTail ? Styles["scoreboard-dragon-container"] : Styles["scoreboard-container"]}
             onWheel={(e) => handleWheel(e)}
             onMouseDown={(e) => startDragging(e)}
             onMouseUp={(e) => stopDragging(e)}
             onMouseLeave={(e) => stopDragging(e)}
             onMouseMove={(e) => handleDragging(e)}
         >
-            {renderRoundHistory(roundHistory)}
+            {renderRoundHistory(dataOrder)}
         </div>
     );
 };
