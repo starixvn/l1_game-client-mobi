@@ -6,14 +6,14 @@ import Styles from "./bet-option.module.scss";
 
 type Props = {
     choice: string;
-    odd: number;
     children: React.ReactNode;
 };
 
 const BetOption: React.FunctionComponent<Props> = (props) => {
-    const { choice, odd, children } = props;
-    const { totalBets, ownBets } = useGameContext();
+    const { choice, children } = props;
+    const { totalBets, ownBets, gameConfigs } = useGameContext();
     const { handleShowBetModal, updateBetChoice } = useBetContext();
+    const odds = gameConfigs.odds;
 
     function openPlaceBetModal() {
         updateBetChoice(props.choice);
@@ -23,7 +23,7 @@ const BetOption: React.FunctionComponent<Props> = (props) => {
     return (
         <div className={Styles.container}>
             <div className={Styles["bet-option"]} onClick={openPlaceBetModal}>
-                <div className={Styles.odd}>{`1:${odd}`}</div>
+                <div className={Styles.odd}>{`1:${odds[choice]}`}</div>
                 <div className={Styles["total-bet"]}>{totalBets?.[choice]}</div>
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice]}</div>

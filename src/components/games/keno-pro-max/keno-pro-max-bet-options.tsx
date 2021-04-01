@@ -35,7 +35,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
             <Row noGutters className={Styles["first-row"]}>
                 <Col xs="5" className={Styles.col}>
                     <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.red4} odd={odds[Choices.red4]}>
+                        <BetOption choice={Choices.red4}>
                             <SeDieDot className="red" />
                             <SeDieDot className="red" />
                             <SeDieDot className="red" />
@@ -43,7 +43,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         </BetOption>
                     </Row>
                     <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.red3} odd={odds[Choices.red3]}>
+                        <BetOption choice={Choices.red3}>
                             <SeDieDot />
                             <SeDieDot className="red" />
                             <SeDieDot className="red" />
@@ -52,7 +52,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </Row>
                 </Col>
                 <Col xs="2">
-                    <BetOption choice={Choices.red2} odd={odds[Choices.red2]}>
+                    <BetOption choice={Choices.red2}>
                         <div className={Styles.wrapper}>
                             <SeDieDot />
                             <SeDieDot className="red" />
@@ -63,7 +63,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                 </Col>
                 <Col xs="5">
                     <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.white4} odd={odds[Choices.white4]}>
+                        <BetOption choice={Choices.white4}>
                             <SeDieDot />
                             <SeDieDot />
                             <SeDieDot />
@@ -71,7 +71,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         </BetOption>
                     </Row>
                     <Row noGutters className={Styles.half}>
-                        <BetOption choice={Choices.white3} odd={odds[Choices.white3]}>
+                        <BetOption choice={Choices.white3}>
                             <SeDieDot className="red" />
                             <SeDieDot />
                             <SeDieDot />
@@ -82,12 +82,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
             </Row>
             <Row noGutters className={Styles["second-row"]}>
                 <Col xs="6">
-                    <BetOption choice={Choices.odd} odd={odds[Choices.odd]}>
+                    <BetOption choice={Choices.odd}>
                         <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
                 </Col>
                 <Col xs="6">
-                    <BetOption choice={Choices.even} odd={odds[Choices.even]}>
+                    <BetOption choice={Choices.even}>
                         <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
                 </Col>

@@ -22,17 +22,16 @@ const Choices = {
 type Props = {
     result: Result;
     settlementResult: SettlementResult;
-    odds: {};
     gameState: GameState;
 };
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { odds, gameState } = props;
+    const { gameState } = props;
     return (
         <BetContainer gameState={props.gameState}>
             <div className={Styles["layout"]}>
                 <div className={Styles["bet-choice-4red"]}>
-                    <BetOption choice={Choices.red4} odd={odds[Choices.red4]}>
+                    <BetOption choice={Choices.red4}>
                         <div className={Styles["list-dots"]}>
                             <SeDieDot red />
                             <SeDieDot red />
@@ -42,7 +41,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-2red"]}>
-                    <BetOption choice={Choices.red2} odd={odds[Choices.red2]}>
+                    <BetOption choice={Choices.red2}>
                         <div className={Styles.wrapper}>
                             <SeDieDot />
                             <SeDieDot red />
@@ -52,7 +51,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-4white"]}>
-                    <BetOption choice={Choices.white4} odd={odds[Choices.white4]}>
+                    <BetOption choice={Choices.white4}>
                         <SeDieDot />
                         <SeDieDot />
                         <SeDieDot />
@@ -60,7 +59,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-3red"]}>
-                    <BetOption choice={Choices.red3} odd={odds[Choices.red3]}>
+                    <BetOption choice={Choices.red3}>
                         <SeDieDot />
                         <SeDieDot red />
                         <SeDieDot red />
@@ -68,7 +67,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-1red"]}>
-                    <BetOption choice={Choices.white3} odd={odds[Choices.white3]}>
+                    <BetOption choice={Choices.white3}>
                         <SeDieDot red />
                         <SeDieDot />
                         <SeDieDot />
@@ -76,12 +75,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-even"]}>
-                    <BetOption choice={Choices.odd} odd={odds[Choices.odd]}>
+                    <BetOption choice={Choices.odd}>
                         <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-odd"]}>
-                    <BetOption choice={Choices.even} odd={odds[Choices.even]}>
+                    <BetOption choice={Choices.even}>
                         <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
                 </div>

@@ -1,4 +1,4 @@
-import { GameState } from "../../components/shared/game-base/type";
+import { GameState, GameConfigs } from "../../components/shared/game-base/type";
 
 export type GameContextModel = {
     updateGameState: (gameState: GameState) => void;
@@ -7,4 +7,5 @@ export type GameContextModel = {
     ownBets: object;
     gameName: string;
     roundId: number;
+    gameConfigs: GameConfigs;
 };

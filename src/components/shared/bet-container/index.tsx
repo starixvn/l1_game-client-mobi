@@ -11,7 +11,8 @@ import Styles from "./bet-container.module.scss";
 const BetContainer: React.FC<Props> = (props) => {
     const [isOpenModal, updateModalState] = useState<boolean>(false);
     const [betChoice, updateBetChoice] = useState<string>(null);
-    const { placeBet, roundId, gameName } = useGameContext();
+    const { placeBet, roundId, gameName, gameConfigs } = useGameContext();
+    const { odds } = gameConfigs;
 
     const betContext: BetContextModel = {
         updateBetChoice: updateBetChoice,
@@ -32,6 +33,7 @@ const BetContainer: React.FC<Props> = (props) => {
                             betChoice,
                             gameName,
                             roundId,
+                            odds: odds[betChoice],
                         }}
                     ></PlaceBetModal>
                 )}

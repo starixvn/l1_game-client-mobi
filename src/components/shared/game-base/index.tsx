@@ -207,7 +207,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
@@ -216,6 +216,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             ownBets,
             gameName,
             roundId,
+            gameConfigs,
         };
 
         return signedIn ? (

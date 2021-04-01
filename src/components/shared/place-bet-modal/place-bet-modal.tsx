@@ -7,7 +7,7 @@ type BetChoiceInfo = {
     gameName: string;
     roundId: number;
     betChoice: string;
-    //Get odds, min/max bet ... on config (local storage or cache)
+    odds: number;
 };
 
 type Props = {
@@ -66,7 +66,7 @@ export default class PlaceBetModal extends Component<Props, State> {
     };
 
     render() {
-        const { gameName, roundId, betChoice } = this.props.betChoiceInfo;
+        const { gameName, roundId, betChoice, odds } = this.props.betChoiceInfo;
 
         return (
             <div ref={this.wrapperRef} className={Styles["modal"]}>
@@ -81,7 +81,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                     <p className={Styles["modal-sub-title"]}>{roundId}</p>
                 </div>
                 <div className={`w-100 ${Styles["btn-green"]} ${Styles["bet-choice"]}`}>
-                    <strong>{betChoice}</strong> @ 1:1.96
+                    <strong>{betChoice}</strong> @ 1:{odds}
                 </div>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">
