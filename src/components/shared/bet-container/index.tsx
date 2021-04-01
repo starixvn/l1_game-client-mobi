@@ -10,11 +10,11 @@ import Styles from "./bet-container.module.scss";
 
 const BetContainer: React.FC<Props> = (props) => {
     const [isOpenModal, updateModalState] = useState<boolean>(false);
-    const [betInfo, updateBetInfo] = useState<BetModalInfo>(null);
-    const { placeBet } = useGameContext();
+    const [betChoice, updateBetChoice] = useState<string>(null);
+    const { placeBet, roundId, gameName } = useGameContext();
 
     const betContext: BetContextModel = {
-        updateBetModalInfo: updateBetInfo,
+        updateBetChoice: updateBetChoice,
         handleShowBetModal: updateModalState,
     };
 
@@ -29,9 +29,9 @@ const BetContainer: React.FC<Props> = (props) => {
                         onCloseModal={() => updateModalState(false)}
                         onPlaceBet={placeBet}
                         betChoiceInfo={{
-                            betChoice: betInfo.choice,
-                            gameName: betInfo.gameName,
-                            roundId: betInfo.roundId,
+                            betChoice,
+                            gameName,
+                            roundId,
                         }}
                     ></PlaceBetModal>
                 )}

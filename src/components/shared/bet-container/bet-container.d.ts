@@ -5,8 +5,5 @@ type Props = {
 };
 
 type BetModalInfo = {
-    gameId: string;
-    gameName: string;
     choice: string;
-    roundId: number;
 };

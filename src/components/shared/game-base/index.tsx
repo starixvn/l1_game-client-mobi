@@ -214,6 +214,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             updateGameState: this.updateGameState,
             totalBets,
             ownBets,
+            gameName,
+            roundId,
         };
 
         return signedIn ? (

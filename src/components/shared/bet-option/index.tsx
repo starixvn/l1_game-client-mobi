@@ -13,12 +13,10 @@ type Props = {
 const BetOption: React.FunctionComponent<Props> = (props) => {
     const { choice, odd, children } = props;
     const { totalBets, ownBets } = useGameContext();
-    const { handleShowBetModal, updateBetModalInfo } = useBetContext();
+    const { handleShowBetModal, updateBetChoice } = useBetContext();
 
     function openPlaceBetModal() {
-        updateBetModalInfo({
-            choice: props.choice,
-        });
+        updateBetChoice(props.choice);
         handleShowBetModal(true);
     }
 

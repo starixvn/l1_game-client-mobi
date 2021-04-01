@@ -5,4 +5,6 @@ export type GameContextModel = {
     placeBet: (betChoice: string, amount: number) => void;
     totalBets: object;
     ownBets: object;
+    gameName: string;
+    roundId: number;
 };
