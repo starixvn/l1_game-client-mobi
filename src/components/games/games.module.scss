@@ -1,8 +1,6 @@
-.game-list{
+.game-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-left: -3px;
-    margin-right: -3px;
-    margin-bottom: -5px;
+    margin: 0 -0.3rem -0.5rem;
 }

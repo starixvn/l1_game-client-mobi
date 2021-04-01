@@ -1,13 +1,13 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useRouter } from 'next/router';
-import { useEffect, useRef, useState } from 'react';
-import { SSOResponse } from 'sc-user-service-client/dist/auth';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { SSOResponse } from "sc-user-service-client/dist/auth";
 
-import * as LocalStorageManager from '../common/local-storage';
-import Dashboard from '../components/dashboard';
-import SplashScreen from '../components/splash-screen/splash-screen';
-import { AuthContextProvider } from '../contexts/auth';
-import { UserClientCommunication } from '../services';
+import * as LocalStorageManager from "../common/local-storage";
+import Dashboard from "../components/dashboard";
+import SplashScreen from "../components/splash-screen/splash-screen";
+import { AuthContextProvider } from "../contexts/auth";
+import { UserClientCommunication } from "../services";
 
 export default function Home() {
     const router = useRouter();
@@ -82,15 +82,6 @@ export default function Home() {
 
 export const getStaticProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale, [
-            "common",
-            "footer",
-            "header",
-            "xocxoc",
-            "kenopromax",
-            "bigsmall",
-            "fishprawncrab",
-            "register",
-        ])),
+        ...(await serverSideTranslations(locale, ["common", "header", "xocxoc", "kenopromax", "bigsmall", "fishprawncrab", "register"])),
     },
 });

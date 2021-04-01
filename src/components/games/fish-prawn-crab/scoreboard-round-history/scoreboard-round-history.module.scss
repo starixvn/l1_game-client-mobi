@@ -1,34 +1,33 @@
 .round-history-container {
     width: 100%;
-    padding: 8px;
+    padding: 0.8rem;
 }
 
-.icon{
+.icon {
     font-size: 2.6rem;
     background-color: #fff;
-    padding: .3rem .5rem;
-    border-radius: .3rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
     margin-bottom: 1.2rem;
-    &:last-child{
+    &:last-child {
         margin-bottom: 0;
     }
-
 }
 
-.round{
-    margin-right: .5rem;
-    &:last-child{
+.round {
+    margin-right: 0.5rem;
+    &:last-child {
         margin-right: 0;
     }
-    &.latest{
-        border: 1px solid #F38938;
+    &.latest {
+        border: 1px solid #f38938;
         border-radius: 3px;
     }
 }
 
-.container{
+.container {
     width: auto;
-    background-color: #EFEFEF;
+    background-color: #efefef;
     display: flex;
     padding: 1rem 1.9rem;
 }

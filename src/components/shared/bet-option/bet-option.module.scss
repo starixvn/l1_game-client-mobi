@@ -2,7 +2,6 @@
     height: 100%;
     width: 100%;
     background-color: #fff;
-    border: 1px solid #dce2f3;
     position: relative;
 }
 
@@ -16,8 +15,8 @@
     left: 0;
 
     .odd {
-        left: 5px;
-        top: 3px;
+        left: 0.5rem;
+        top: 0.3rem;
         position: absolute;
         color: #a8aeb8;
         text-align: left;
@@ -27,7 +26,7 @@
     .total-bet {
         position: absolute;
         width: 100%;
-        top: 3px;
+        top: 0.3rem;
         text-align: center;
         color: #2c2f3e;
         font-size: 1.4rem;
@@ -36,7 +35,7 @@
     .own-bet {
         position: absolute;
         width: 100%;
-        bottom: 3px;
+        bottom: 0.3rem;
         text-align: center;
         color: #ff9a00;
         font-size: 1.6rem;
