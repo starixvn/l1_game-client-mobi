@@ -1,11 +1,15 @@
-.icon{
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-bottom: 0.5rem;
     pointer-events: none;
-    font-size: 2.6rem;
-    background-color: #fff;
-    padding: .3rem .5rem;
-    border-radius: .3rem;
-    margin-bottom: 1.2rem;
-    &:last-child{
+    background-color: #e3e3e3;
+    font-size: 2.4rem;
+
+    &:last-child {
         margin-bottom: 0;
     }
 }

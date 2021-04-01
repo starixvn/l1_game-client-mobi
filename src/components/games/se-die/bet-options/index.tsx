@@ -42,7 +42,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                 </div>
                 <div className={Styles["bet-choice-2red"]}>
                     <BetOption choice={Choices.red2} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red2]}>
-                        <div className={Styles.wrapper}>
+                        <div className={Styles["wrapper-2red"]}>
                             <SeDieDot />
                             <SeDieDot red />
                             <SeDieDot />

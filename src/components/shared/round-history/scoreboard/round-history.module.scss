@@ -1,7 +1,3 @@
-.container {
-    box-shadow: 0px 15px 10px -15px #bebfc1;
-}
-
 .scoreboard-dragon-container {
     overflow-x: scroll;
     display: grid;
@@ -13,8 +9,8 @@
     margin: auto;
 }
 
-.scoreboard-container{
-    background-color: #EFEFEF;
+.scoreboard-container {
+    background-color: #efefef;
     display: inline-flex;
     overflow-x: scroll;
     justify-content: left;

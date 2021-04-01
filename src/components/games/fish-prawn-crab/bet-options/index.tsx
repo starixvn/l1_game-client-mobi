@@ -1,6 +1,4 @@
 import React from "react";
-import { Col, Row } from "reactstrap";
-
 import { SettlementResult } from "./../fish-prawn-crab";
 import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
@@ -37,7 +35,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 
     return (
         <BetOption choice={choice} isHighlight={isHighLight}>
-            <div className={`${Styles.element} icon-${IconMapper[choice]}`}></div>
+            <div className={`${Styles["item"]} icon-${IconMapper[choice]}`}></div>
         </BetOption>
     );
 };
@@ -46,17 +44,14 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     return (
         <BetContainer gameState={gameState}>
-            <Row noGutters className={Styles["first-row"]}>
-                <Col xs="4">{renderBetOptionByChoice(Choices.stag, gameState, settlementResult)}</Col>
-                <Col xs="4">{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult)}</Col>
-                <Col xs="4">{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult)}</Col>
-            </Row>
-
-            <Row noGutters className={Styles["first-second"]}>
-                <Col xs="4">{renderBetOptionByChoice(Choices.fish, gameState, settlementResult)}</Col>
-                <Col xs="4">{renderBetOptionByChoice(Choices.crab, gameState, settlementResult)}</Col>
-                <Col xs="4">{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult)}</Col>
-            </Row>
+            <div className={Styles["layout"]}>
+                <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult)}</div>
+                <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult)}</div>
+                <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult)}</div>
+                <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult)}</div>
+                <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult)}</div>
+                <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult)}</div>
+            </div>
         </BetContainer>
     );
 };
