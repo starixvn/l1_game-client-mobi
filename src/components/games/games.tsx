@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import { FavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
+import { BetSettings } from "../bet-settings";
 import BigSmall from "./big-small/big-small";
 import styles from "./games.module.scss";
 import KenoProMax from "./keno-pro-max/keno-pro-max";
@@ -60,6 +61,9 @@ export const Games: React.FC = () => {
     return (
         <FavoriteGameContext.Provider value={favoriteGameContextValue}>
             <div className={styles["game-list"]}>{renderListGames()}</div>
+            <div className={styles["bet-settings"]}>
+                <BetSettings></BetSettings>
+            </div>
         </FavoriteGameContext.Provider>
     );
 };
