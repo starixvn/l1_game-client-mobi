@@ -205,7 +205,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderGame(): React.ReactElement;
 
     render() {
-        const { gameName, id } = this.props;
+        const { gameName, id, socketInfo } = this.props;
         const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs } = this.state;
 
         const gameContext = {
@@ -220,7 +220,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         return signedIn ? (
             <GameContextProvider value={gameContext}>
-                <GameContainer gameId={id} gameName={gameName} remainingTime={remainingTime} roundId={roundId} gameState={gameState}>
+                <GameContainer
+                    gameId={id}
+                    gameName={gameName}
+                    remainingTime={remainingTime}
+                    roundId={roundId}
+                    gameState={gameState}
+                    apiUrl={socketInfo.api}
+                >
                     {this.renderGame()}
                 </GameContainer>
             </GameContextProvider>

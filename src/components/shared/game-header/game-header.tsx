@@ -16,12 +16,13 @@ type Props = {
     roundId: number;
     gameState: number;
     remainingTime: number;
+    apiUrl: string;
 };
 
 export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
-    const { gameName, roundId, gameState, remainingTime, gameId } = props;
+    const { gameName, roundId, gameState, remainingTime, gameId, apiUrl } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
@@ -47,6 +48,7 @@ export default function GameHeader(props: Props) {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
+    const [isOpenModal, updateModalState] = useState<boolean>(false);
 
     useEffect(() => {
         props.gameState != GameState.InRound && updateRebetStatus(true);
@@ -82,7 +84,7 @@ export default function GameHeader(props: Props) {
                         <div className={Styles["hamburger-dot"]}></div>
                     </DropdownToggle>
                     <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history: {apiUrl}</DropdownItem>
                         <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
                         <DropdownItem className={Styles["dropdown-item"]}>Game guide</DropdownItem>
                     </DropdownMenu>

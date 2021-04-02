@@ -24,7 +24,7 @@ const StatisticComponent = (props: Props) => {
     return (
         <div className={Styles.layout}>
             {result.map((value, index) => {
-                return <Element type={index} value={value}></Element>;
+                return <Element key={"icon-" + index} type={index} value={value}></Element>;
             })}
         </div>
     );

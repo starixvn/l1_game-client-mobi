@@ -28,7 +28,6 @@ export interface GameBaseProps {
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
-    
 }
 
 export interface GameBaseState<Result, SettlementResult> {
@@ -47,6 +46,7 @@ export interface GameBaseState<Result, SettlementResult> {
 export interface SocketInfo {
     uri: string;
     proxyRoute: string;
+    api: string;
 }
 
 export interface GameDurations {
