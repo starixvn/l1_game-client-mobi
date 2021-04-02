@@ -29,7 +29,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     return (
         <BetContainer gameState={props.gameState}>
-            <div className={Styles["layout"]}>
+            <div className={`bet-options-container ${Styles["layout-sedie"]}`}>
                 <div className={Styles["bet-choice-4red"]}>
                     <BetOption choice={Choices.red4} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red4]}>
                         <div className={Styles["list-dots"]}>
@@ -42,7 +42,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                 </div>
                 <div className={Styles["bet-choice-2red"]}>
                     <BetOption choice={Choices.red2} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red2]}>
-                        <div className={Styles["wrapper-2red"]}>
+                        <div className={Styles["wrapper-dots-2red"]}>
                             <SeDieDot />
                             <SeDieDot red />
                             <SeDieDot />
@@ -77,12 +77,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
                 <div className={Styles["bet-choice-even"]}>
                     <BetOption choice={Choices.even} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}>
-                        <div className={`${Styles.name} ${Styles.even}`}>{Choices.even}</div>
+                        <div className={`${Styles["bet-choice-name"]} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-odd"]}>
                     <BetOption choice={Choices.odd} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.odd]}>
-                        <div className={`${Styles.name} ${Styles.odd}`}>{Choices.odd}</div>
+                        <div className={`${Styles["bet-choice-name"]} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>
                 </div>
             </div>

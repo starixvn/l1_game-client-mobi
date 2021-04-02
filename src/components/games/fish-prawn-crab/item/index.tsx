@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./item.module.scss";
 
 type Props = {
     type: number;
@@ -28,7 +27,7 @@ const Item: React.FunctionComponent<Props> = ({ type }) => {
             break;
     }
 
-    return <div className={`${Styles.icon} ${iconName}`}></div>;
+    return <div className={`score-board-item ${iconName}`}></div>;
 };
 
 export default Item;

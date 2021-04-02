@@ -4,7 +4,6 @@ import { SettlementResult } from "../sedie";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import { countRedDot, checkIsEven } from "../mini-round-history";
-import Styles from "./scoreboard-round-history.module.scss";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
     const isEven = checkIsEven(countRedDot(result));
@@ -21,7 +20,7 @@ const checkCondition = (settlementResult: SettlementResult) => {
 };
 
 const ScoreboardComponent = (props) => {
-    return <div className={Styles["round-history-container"]}>{props.children}</div>;
+    return <div className="score-board-container">{props.children}</div>;
 };
 
 const ScoreboardHistory = (props: Props) => {

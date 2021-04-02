@@ -1,4 +1,4 @@
-.wrapper-2red {
+.wrapper-dots-2red {
     height: 100%;
     width: 5.2rem;
     display: flex;
@@ -15,7 +15,7 @@
     }
 }
 
-.name {
+.bet-choice-name {
     font-weight: bold;
     text-align: center;
     display: flex;
@@ -44,12 +44,9 @@
     display: flex;
 }
 
-.layout {
-    display: grid;
+.layout-sedie {
     grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
     grid-template-rows: 8.4rem 8.4rem 11.7rem;
-    grid-gap: 0.1rem;
-    border-bottom: 1px solid #dce2f3;
 }
 
 .bet-choice-4red {

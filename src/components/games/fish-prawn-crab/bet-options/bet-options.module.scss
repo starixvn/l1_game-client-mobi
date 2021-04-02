@@ -1,11 +1,8 @@
-.layout {
-    display: grid;
+.layout-FPC {
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 14.45rem 14.45rem;
-    grid-gap: 0.1rem;
-    border-bottom: 1px solid #dce2f3;
+    grid-template-rows: repeat(2, 1fr);
 }
 
-.item {
+.symbol-size {
     font-size: 5rem;
 }

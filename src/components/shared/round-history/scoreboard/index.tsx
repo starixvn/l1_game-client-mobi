@@ -130,7 +130,7 @@ const ScoreboardRoundHistory = (props: Props) => {
 
     return (
         <div
-            className={isDragonTail ? Styles["scoreboard-dragon-container"] : Styles["scoreboard-container"]}
+            className={isDragonTail ? Styles["score-board-dragon-container"] : Styles["score-board-container"]}
             onWheel={(e) => handleWheel(e)}
             onMouseDown={(e) => startDragging(e)}
             onMouseUp={(e) => stopDragging(e)}

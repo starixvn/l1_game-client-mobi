@@ -28,7 +28,7 @@ const SeDieResult: React.FC<Props> = (props) => {
 
     return (
         <div className={`${styles["container"]} ${styles[getClassNameByGameState(currentState)]}`}>
-            <div className={styles["flipResult-overlay-black"]}>
+            <div className="overlay-mask">
                 <div className={styles["flipResult-sedie-fadeOutDelay"]}>
                     <div className={`${styles["flipResult-sedie-container"]} ${styles["flipResult-fadeIn-animation"]}`}>
                         <div className={styles["flipResult-sedie-set"]}>

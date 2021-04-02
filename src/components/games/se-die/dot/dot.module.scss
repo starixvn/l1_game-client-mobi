@@ -33,9 +33,14 @@
     box-sizing: border-box;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
     color: #828282;
-}  
+}
 
-.current-result {
+.dot-next {
+    @extend %dot;
+    background: #828282 !important;
+}
+
+.highlight-current-result {
     border: 1px solid #f38938;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
 }
@@ -44,23 +49,17 @@
     animation: blinker 1s linear infinite;
 }
 
-.dot-next {
-    @extend %dot;
-    background: #828282 !important;
-    border: 1px solid #F38938;
-}
-
 @keyframes blinker {
     25% {
         transform: scale(1);
     }
     50% {
-        transform: scale(0.8);
+        transform: scale(0.9);
     }
     75% {
         transform: scale(1);
     }
     100% {
-        transform: scale(1.2);
+        transform: scale(1.1);
     }
 }

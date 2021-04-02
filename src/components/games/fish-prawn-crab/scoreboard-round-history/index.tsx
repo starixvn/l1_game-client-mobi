@@ -2,10 +2,9 @@ import React from "react";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import Item from "../item";
-import Styles from "./scoreboard-round-history.module.scss";
 
 const ContainerItem = (props) => {
-    return <div className={Styles["container-element"]}>{props.children}</div>;
+    return <div className="score-board-col">{props.children}</div>;
 };
 
 const getElementRound = (result: any, roundId: number) => {
@@ -21,7 +20,7 @@ const getElementRound = (result: any, roundId: number) => {
 };
 
 const ScoreboardComponent: React.FunctionComponent = (props) => {
-    return <div className={Styles["round-history-container"]}>{props.children}</div>;
+    return <div className="score-board-container">{props.children}</div>;
 };
 
 const ScoreboardHistory = (props: Props) => {

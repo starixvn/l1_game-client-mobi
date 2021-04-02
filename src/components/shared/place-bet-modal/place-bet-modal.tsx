@@ -69,18 +69,18 @@ export default class PlaceBetModal extends Component<Props, State> {
         const { gameName, roundId, betChoice, odds } = this.props.betChoiceInfo;
 
         return (
-            <div ref={this.wrapperRef} className={Styles["modal"]}>
-                <div className={Styles["logo"]}>
+            <div ref={this.wrapperRef} className={`popup ${Styles["place-bet-modal"]}`}>
+                <div className="popup-logo">
                     <span className="icon-small-logo"></span>
                 </div>
-                <div className={Styles["icon-closed"]} onClick={this.closeModal}>
+                <div className="popup-closed-icon" onClick={this.closeModal}>
                     <span className="icon-close"></span>
                 </div>
-                <div className={Styles["modal-header"]}>
-                    <h1 className={Styles["modal-title"]}>{gameName}</h1>
-                    <p className={Styles["modal-sub-title"]}>#{roundId}</p>
+                <div className="popup-header">
+                    <h1 className="popup-title">{gameName}</h1>
+                    <p className="popup-sub-title">#{roundId}</p>
                 </div>
-                <div className={`w-100 ${Styles["btn-green"]} ${Styles["bet-choice"]}`}>
+                <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                     <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odds}
                 </div>
                 <InputGroup>
@@ -130,7 +130,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                         <div className={Styles["item"]}>Max</div>
                     </div>
                 </div>
-                <button onClick={this.placeBet} className={`w-100 ${Styles["btn-orange"]}`}>
+                <button onClick={this.placeBet} className="btn-orange w-100">
                     Bet
                 </button>
             </div>

@@ -35,7 +35,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 
     return (
         <BetOption choice={choice} isHighlight={isHighLight}>
-            <div className={`${Styles["item"]} icon-${IconMapper[choice]}`}></div>
+            <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]}`}></div>
         </BetOption>
     );
 };
@@ -44,7 +44,7 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     return (
         <BetContainer gameState={gameState}>
-            <div className={Styles["layout"]}>
+            <div className={`bet-options-container ${Styles["layout-FPC"]}`}>
                 <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult)}</div>
                 <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult)}</div>
                 <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult)}</div>

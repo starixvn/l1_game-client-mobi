@@ -23,12 +23,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderGame() {
-        const { gameState, roundHistory, gameConfigs, result, settlementResult } = this.state;
+        const { gameState, roundHistory, result, settlementResult } = this.state;
 
         return (
             <React.Fragment>
                 <FishPrawnCrabBetOptions
-                    odds={gameConfigs.odds}
                     gameState={gameState}
                     result={result}
                     settlementResult={

@@ -1,4 +1,4 @@
-.scoreboard-dragon-container {
+.score-board-dragon-container {
     overflow-x: scroll;
     display: grid;
     grid-template-columns: repeat(19, 1fr);
@@ -9,12 +9,9 @@
     margin: auto;
 }
 
-.scoreboard-container {
-    background-color: #efefef;
+.score-board-container {
     display: inline-flex;
     overflow-x: scroll;
     justify-content: left;
-    margin: auto;
     width: 100%;
-    padding: 1rem 1.9rem;
 }
