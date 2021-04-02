@@ -29,7 +29,7 @@ const Item: React.FunctionComponent<Props> = ({ type, isSmall }) => {
             break;
     }
 
-    return <div className={`${isSmall ? Styles["icon-mini"] : "score-board-item"} ${iconName}`}></div>;
+    return <div className={`${isSmall ? Styles["icon-mini"] : Styles["score-board-item"]} ${iconName}`}></div>;
 };
 
 export default Item;

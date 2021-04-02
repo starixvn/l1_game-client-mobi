@@ -1,0 +1,103 @@
+@import "../components/games/se-die/dot/dot.module.scss";
+
+ul {
+    list-style: none;
+    padding-left: 0;
+
+    li {
+        line-height: 2rem;
+    }
+}
+
+.game-guide {
+    counter-reset: guide-list;
+    color: #2c2f3e;
+    font-size: 1.4rem;
+
+    .guide-item {
+        counter-increment: guide-list;
+
+        &:before {
+            content: counter(guide-list) ". ";
+            color: #ff9a00;
+            font-weight: 500;
+            font-size: 1.6rem;
+        }
+
+        h2 {
+            display: inline-block;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #ff9a00;
+        }
+    }
+
+    .align-center {
+        text-align: center;
+    }
+
+    .content {
+        padding-left: 1rem;
+    }
+
+    .desc {
+        padding-left: 1rem;
+        margin-bottom: 1rem;
+
+        > li {
+            margin: 0.5rem 0;
+
+            &:before {
+                content: "- ";
+            }
+        }
+    }
+
+    .table-container {
+        padding: 1rem;
+    }
+
+    .table {
+        border-collapse: none;
+        border: none;
+        background: #ffd487;
+        box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
+        border-radius: 0.5rem 0.5rem 0 0;
+
+        th,
+        td {
+            min-height: 3.6rem;
+            vertical-align: middle;
+        }
+
+        th {
+            border: none;
+            font-weight: 500;
+        }
+
+        tbody {
+            background-color: #fff;
+        }
+
+        td {
+            border: 1px solid #dce2f3;
+        }
+    }
+
+    .game-rules {
+        padding-left: 1rem;
+        counter-reset: rule-list;
+        margin-bottom: 1rem;
+
+        .rule {
+            margin: 0.5rem 0;
+            counter-increment: rule-list;
+
+            &:before {
+                content: counter(guide-list) "." counter(rule-list) ". ";
+                font-size: 1.4rem;
+                font-weight: 500;
+            }
+        }
+    }
+}
