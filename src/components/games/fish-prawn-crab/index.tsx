@@ -5,6 +5,8 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabBetOptions from "./bet-options";
 import ScoreboardHistory from "./scoreboard-round-history";
+import OddComponent from "./odd";
+import StatisticComponent from "./statistic";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -34,6 +36,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                         settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }
                     }
                 />
+                <OddComponent></OddComponent>
+                <StatisticComponent roundHistory={roundHistory}></StatisticComponent>
                 <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>
             </React.Fragment>
         );

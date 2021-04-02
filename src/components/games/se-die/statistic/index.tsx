@@ -1,9 +1,13 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import Statistic, { handlePercentData, processHistoryResult, processHistorySettlement, WrapperHeader } from "../../../shared/statistic";
+import Statistic, {
+    handlePercentData,
+    processHistoryResultBoolean,
+    processHistorySettlement,
+    WrapperHeader,
+} from "../../../shared/statistic";
 import { StatisticType } from "../../../shared/statistic/statistic";
-import DotStyles from "../dot/dot.module.scss";
 import { Props, ResultDiceRed } from "./statistic";
 import SeDieDot from "../dot";
 import Styles from "./statistic.module.scss";
@@ -50,10 +54,9 @@ const SeDiceStatistic = (props: Props) => {
     const dataStatistic: StatisticType = {
         settlementResult: [0, 0],
         result: [0, 0, 0, 0, 0],
-        roundId: 0,
     };
     dataStatistic.settlementResult = processHistorySettlement(roundHistory, ["odd", "even"], dataStatistic.settlementResult);
-    dataStatistic.result = processHistoryResult(roundHistory, ["red1", "red2", "red3", "red4"], dataStatistic.result, true);
+    dataStatistic.result = processHistoryResultBoolean(roundHistory, dataStatistic.result, true);
     let resultPercentDice: ResultDiceRed[] = [0, 0, 0, 0, 0];
     resultPercentDice = handlePercentData(dataStatistic.result, resultPercentDice);
     const titleTextRight = [0, 1, 2, 3, 4];

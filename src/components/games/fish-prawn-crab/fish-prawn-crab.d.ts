@@ -21,3 +21,7 @@ export enum BaseResult{
     crab,
     prawn
 }
+
+export interface ResultStatistic {
+    result:BaseResult[]
+}

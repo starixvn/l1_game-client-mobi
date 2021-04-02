@@ -1,0 +1,18 @@
+
+.layout{
+    background: #FFFFFF;
+    padding: .7rem;
+    display: flex;
+    justify-content: space-around;
+    .container{
+        display: flex;
+        align-items: center;
+        .number{
+            color: #000;
+            font-weight: 500;
+            font-size: 1.4rem;
+            line-height: 1.6rem;
+        }
+    }
+  
+}

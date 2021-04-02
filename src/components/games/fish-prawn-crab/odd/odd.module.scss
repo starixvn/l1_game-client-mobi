@@ -1,0 +1,29 @@
+.layout{
+    background-color: #E5EAF8;
+    padding: 0.5rem;
+
+    .odd-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+    }
+    
+    .element{
+        margin-right: 1rem;
+        .title{
+            color: #3087D7;
+            font-weight: 500;
+            font-size: 1.4rem;
+            line-height: 1.6rem;
+            margin-right: 0.5rem;
+        }
+        
+        .number{
+            font-weight: 500;
+            font-size: 1.4rem;
+        }
+    }
+}
+
+

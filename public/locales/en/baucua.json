@@ -1,4 +1,7 @@
 {
     "game_name": "Fish Prawn Crab",
-    "round": "Round"
+    "round": "Round",
+    "single": "Single",
+    "double": "Double",
+    "triple": "Triple"
 }

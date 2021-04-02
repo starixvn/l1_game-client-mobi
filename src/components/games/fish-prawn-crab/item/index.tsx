@@ -1,10 +1,12 @@
 import React from "react";
+import Styles from "./item.module.scss";
 
 type Props = {
     type: number;
+    isSmall?: boolean;
 };
 
-const Item: React.FunctionComponent<Props> = ({ type }) => {
+const Item: React.FunctionComponent<Props> = ({ type, isSmall }) => {
     let iconName = "";
     switch (type) {
         case 1:
@@ -27,7 +29,7 @@ const Item: React.FunctionComponent<Props> = ({ type }) => {
             break;
     }
 
-    return <div className={`score-board-item ${iconName}`}></div>;
+    return <div className={`${isSmall ? Styles["icon-mini"] : "score-board-item"} ${iconName}`}></div>;
 };
 
 export default Item;

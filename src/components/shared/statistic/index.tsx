@@ -34,10 +34,11 @@ export function processHistorySettlement(historyData: historyData[], keyChoices:
     return templateResult;
 }
 
-export function processHistoryResult(historyData: historyData[], keyChoices: string[], templateResult: number[], isOtherKeyChoice = false) {
+export function processHistoryResultBoolean(historyData: historyData[], templateResult: number[], isOtherKeyChoice = false) {
     historyData.forEach((history: any) => {
         let countDice = 0;
         const resultDices = history.result;
+        const keyChoices = Object.keys(resultDices);
 
         keyChoices.forEach((name) => {
             if (resultDices[name]) {
@@ -57,6 +58,19 @@ export function processHistoryResult(historyData: historyData[], keyChoices: str
 
     return templateResult;
 }
+
+export const processHistoryResultNumber = (historyData: historyData[], templateResult: number[]) => {
+    historyData.forEach((history: any) => {
+        const resultDices = history.result;
+        const keyChoices = Object.keys(resultDices);
+
+        keyChoices.forEach((name) => {
+            templateResult[resultDices[name]]++;
+        });
+    });
+
+    return templateResult;
+};
 const Statistic = (props: any) => {
     return <div className={Styles["statistic-header"]}>{props.children}</div>;
 };

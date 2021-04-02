@@ -1,4 +1,7 @@
 {
     "game_name": "Bầu Cua Tôm Cá",
-    "round": "Round"
+    "round": "Round",
+    "single": "Dơn",
+    "double": "Bộ Đôi",
+    "triple": "Bộ Ba"
 }

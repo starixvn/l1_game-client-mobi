@@ -32,7 +32,7 @@ type Props = {
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult) => {
     const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
-
+    console.log(choice);
     return (
         <BetOption choice={choice} isHighlight={isHighLight}>
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]}`}></div>

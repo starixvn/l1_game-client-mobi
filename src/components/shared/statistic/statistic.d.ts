@@ -4,9 +4,8 @@ export type Props = {
 };
 
 export interface StatisticType {
-    settlementResult: number[];
-    result: number[];
-    roundId: number;
+    settlementResult?: number[];
+    result?: number[];
 }
 
 export interface historyData {
