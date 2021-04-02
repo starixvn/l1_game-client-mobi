@@ -1,5 +1,7 @@
 import "bootstrap/dist/css/bootstrap.css";
 import "../assets/main.scss";
+import "../assets/session-timeout.scss";
+import "../assets/um.scss";
 
 import { appWithTranslation } from "next-i18next";
 
