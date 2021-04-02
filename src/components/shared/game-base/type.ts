@@ -41,6 +41,7 @@ export interface GameBaseState<Result, SettlementResult> {
     settlementResult?: SettlementResult;
     totalBets: object;
     ownBets: object;
+    history?: GameHistory;
 }
 
 export interface SocketInfo {
@@ -64,4 +65,11 @@ export interface RebetStorageModel {
 export interface RebetStorageDetail {
     roundId: number;
     betInfo: object;
+}
+
+export interface GameHistory {
+    betLogs: object;
+    page: number;
+    pageSize: number;
+    total: number;
 }

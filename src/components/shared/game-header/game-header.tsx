@@ -10,8 +10,9 @@ import { getLocalStorageItem, localStorageKeys } from "../../../common/local-sto
 import { GameState, RebetStorageModel } from "../game-base/type";
 import { GameContext, useGameContext } from "../../../contexts/game-context/game-context";
 import BaseModal from "../base-modal";
-import SeDieGuide from "../../game-guide/se-die";
-import BauCuaGuide from "../../game-guide/fish-prawn-crab";
+import SeDieGuide from "../../games/se-die/game-guide";
+import BauCuaGuide from "../../games/fish-prawn-crab/game-guide";
+import SeDieTicketHistory from "../../games/se-die/ticket-history";
 
 type Props = {
     gameId: number;
@@ -25,7 +26,7 @@ type Props = {
 export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
-    const { gameName, roundId, gameState, remainingTime, gameId, apiUrl } = props;
+    const { gameName, roundId, gameState, remainingTime, gameId, apiUrl, history } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
@@ -51,9 +52,9 @@ export default function GameHeader(props: Props) {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
-    const [isOpenModal, updateModalState] = useState<boolean>(false);
-    const openModal = () => {
-        updateModalState(!isOpenModal);
+    const [isOpenGameGuide, updateGameGuideState] = useState<boolean>(false);
+    const openGameGuide = () => {
+        updateGameGuideState(!isOpenGameGuide);
     };
     const renderGameGuide = () => {
         switch (gameId) {
@@ -61,6 +62,21 @@ export default function GameHeader(props: Props) {
                 return <SeDieGuide />;
             case 3:
                 return <BauCuaGuide />;
+            default:
+                return null;
+        }
+    };
+
+    const [isOpenTicketHistory, updateTicketHistoryState] = useState<boolean>(false);
+    const openTicketHistory = () => {
+        updateTicketHistoryState(!isOpenTicketHistory);
+        gameContext.getHistory(1);
+    };
+
+    const renderGameHistory = () => {
+        switch (gameId) {
+            case 2:
+                return <SeDieTicketHistory/>;
             default:
                 return null;
         }
@@ -100,18 +116,26 @@ export default function GameHeader(props: Props) {
                         <div className={Styles["hamburger-dot"]}></div>
                     </DropdownToggle>
                     <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => openTicketHistory()}>
+                            Ticket history
+                        </DropdownItem>
                         <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
-                        <DropdownItem className={Styles["dropdown-item"]} onClick={openModal}>
+                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => openGameGuide()}>
                             Game guide
                         </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>
 
-            {isOpenModal && (
-                <BaseModal isOpen={isOpenModal} onCloseModal={() => updateModalState(false)}>
+            {isOpenGameGuide && (
+                <BaseModal isOpen={isOpenGameGuide} onCloseModal={() => updateGameGuideState(false)}>
                     {renderGameGuide()}
+                </BaseModal>
+            )}
+
+            {isOpenTicketHistory && (
+                <BaseModal isOpen={isOpenTicketHistory} onCloseModal={() => updateTicketHistoryState(false)}>
+                    {renderGameHistory()}
                 </BaseModal>
             )}
         </div>

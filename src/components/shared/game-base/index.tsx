@@ -21,6 +21,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
 
         this.placeBet = this.placeBet.bind(this);
+        this.getHistory = this.getHistory.bind(this);
         this.updateGameState = this.updateGameState.bind(this);
     }
 
@@ -69,6 +70,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
         if (payload.ownBets) {
             this.setState({ ownBets: payload.ownBets });
+        }
+        if (payload.history) {
+            this.handleHistory(payload.history);
         }
     }
 
@@ -167,6 +171,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
+    handleHistory(history) {
+        this.setState({ history });
+    }
+
     handleFinish(finish) {
         const { roundHistory } = this.state;
 
@@ -198,6 +206,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.socket.emit("bet", { betChoice, amount });
     }
 
+    getHistory(page = 1) {
+        this.socket.emit("getHistory", { page: page });
+    }
+
     updateGameState(gameState: GameState) {
         this.setState({ gameState });
     }
@@ -206,7 +218,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, history } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
@@ -216,6 +228,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameName,
             roundId,
             gameConfigs,
+            getHistory: this.getHistory,
+            history,
         };
 
         return signedIn ? (

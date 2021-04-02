@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GameState } from "../game-base/type";
+import { GameState, GameHistory } from "../game-base/type";
 import GameHeader from "../game-header/game-header";
 import styles from "./game-container.module.scss";
 
