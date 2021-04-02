@@ -13,9 +13,7 @@ export default class BaseModal extends Component<Props> {
 
     constructor(props: Props) {
         super(props);
-
         this.wrapperRef = React.createRef();
-
         this.closeModal = this.closeModal.bind(this);
     }
 
@@ -37,15 +35,16 @@ export default class BaseModal extends Component<Props> {
         this.props.onCloseModal();
     }
     render() {
+        const { children } = this.props;
         return (
-            <div ref={this.wrapperRef} className={`popup ${Styles["place-bet-modal"]}`}>
+            <div ref={this.wrapperRef} className={`popup ${Styles["base-modal"]}`}>
                 <div className="popup-logo">
                     <span className="icon-small-logo"></span>
                 </div>
                 <div className="popup-closed-icon" onClick={this.closeModal}>
                     <span className="icon-close"></span>
                 </div>
-                <div className="popup-content">{this.props.children}</div>
+                <div className={Styles["popup-content"]}>{children}</div>
             </div>
         );
     }

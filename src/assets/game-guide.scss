@@ -8,6 +8,12 @@ ul {
         line-height: 2rem;
     }
 }
+.title{
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 
 .game-guide {
     counter-reset: guide-list;

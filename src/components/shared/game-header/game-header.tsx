@@ -9,6 +9,9 @@ import Styles from "./game-header.module.scss";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameState, RebetStorageModel } from "../game-base/type";
 import { GameContext, useGameContext } from "../../../contexts/game-context/game-context";
+import BaseModal from "../base-modal";
+import SeDieGuide from "../../game-guide/se-die";
+import BauCuaGuide from "../../game-guide/fish-prawn-crab";
 
 type Props = {
     gameId: number;
@@ -49,6 +52,19 @@ export default function GameHeader(props: Props) {
         updateFavorite(!isFavorite);
     };
     const [isOpenModal, updateModalState] = useState<boolean>(false);
+    const openModal = () => {
+        updateModalState(!isOpenModal);
+    };
+    const renderGameGuide = () => {
+        switch (gameId) {
+            case 2:
+                return <SeDieGuide />;
+            case 3:
+                return <BauCuaGuide />;
+            default:
+                return null;
+        }
+    };
 
     useEffect(() => {
         props.gameState != GameState.InRound && updateRebetStatus(true);
@@ -84,12 +100,20 @@ export default function GameHeader(props: Props) {
                         <div className={Styles["hamburger-dot"]}></div>
                     </DropdownToggle>
                     <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history: {apiUrl}</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]}>Ticket history</DropdownItem>
                         <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
-                        <DropdownItem className={Styles["dropdown-item"]}>Game guide</DropdownItem>
+                        <DropdownItem className={Styles["dropdown-item"]} onClick={openModal}>
+                            Game guide
+                        </DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </div>
+
+            {isOpenModal && (
+                <BaseModal isOpen={isOpenModal} onCloseModal={() => updateModalState(false)}>
+                    {renderGameGuide()}
+                </BaseModal>
+            )}
         </div>
     );
 }
