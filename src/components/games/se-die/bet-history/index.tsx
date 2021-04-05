@@ -46,8 +46,8 @@ const SeDieTicketHistory: React.FunctionComponent<Props> = () => {
                     </tr>
                     <tr className="highlight">
                         <td>
-                            <div className={Styles["time"]}>13:49</div>
-                            <div className={Styles["date"]}>25/03/21</div>
+                            <div className="time">13:49</div>
+                            <div className="date">25/03/21</div>
                         </td>
                         <td>801802</td>
                         <td>
