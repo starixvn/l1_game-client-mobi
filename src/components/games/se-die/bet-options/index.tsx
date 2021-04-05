@@ -1,5 +1,4 @@
 import React from "react";
-import { Col, Row } from "reactstrap";
 
 import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
@@ -25,6 +24,8 @@ type Props = {
     gameState: GameState;
 };
 
+const renderIcons = (dots: boolean[]) => dots.map((isRed) => <SeDieDot red={isRed} />);
+
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     return (
@@ -32,49 +33,29 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
             <div className={`bet-options-container ${Styles["layout-sedie"]}`}>
                 <div className={Styles["bet-choice-4red"]}>
                     <BetOption choice={Choices.red4} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red4]}>
-                        <div className={Styles["list-dots"]}>
-                            <SeDieDot red />
-                            <SeDieDot red />
-                            <SeDieDot red />
-                            <SeDieDot red />
-                        </div>
+                        {renderIcons([true, true, true, true])}
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-2red"]}>
                     <BetOption choice={Choices.red2} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red2]}>
-                        <div className={Styles["wrapper-dots-2red"]}>
-                            <SeDieDot />
-                            <SeDieDot red />
-                            <SeDieDot />
-                            <SeDieDot red />
-                        </div>
+                        <div className={Styles["wrapper-dots-2red"]}>{renderIcons([false, true, false, true])}</div>
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-4white"]}>
                     <BetOption choice={Choices.white4} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white4]}>
-                        <SeDieDot />
-                        <SeDieDot />
-                        <SeDieDot />
-                        <SeDieDot />
+                        {renderIcons([false, false, false, false])}
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-3red"]}>
                     <BetOption choice={Choices.red3} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red3]}>
-                        <SeDieDot />
-                        <SeDieDot red />
-                        <SeDieDot red />
-                        <SeDieDot red />
+                        {renderIcons([false, true, true, true])}
                     </BetOption>
                 </div>
                 <div className={Styles["bet-choice-1red"]}>
                     <BetOption choice={Choices.white3} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white3]}>
-                        <SeDieDot red />
-                        <SeDieDot />
-                        <SeDieDot />
-                        <SeDieDot />
+                        {renderIcons([true, false, false, false])}
                     </BetOption>
                 </div>
-
                 <div className={Styles["bet-choice-even"]}>
                     <BetOption choice={Choices.even} isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}>
                         <div className={`${Styles["bet-choice-name"]} ${Styles.even}`}>{Choices.even}</div>

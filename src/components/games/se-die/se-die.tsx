@@ -21,7 +21,6 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             roundId: 0,
             ownBets: {},
             totalBets: {},
-            history: null,
         };
     }
 
