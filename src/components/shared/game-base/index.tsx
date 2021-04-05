@@ -21,7 +21,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
 
         this.placeBet = this.placeBet.bind(this);
-        this.getHistory = this.getHistory.bind(this);
+        this.getBetHistory = this.getBetHistory.bind(this);
         this.updateGameState = this.updateGameState.bind(this);
     }
 
@@ -171,8 +171,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    handleHistory(history) {
-        this.setState({ history });
+    handleHistory(betHistory) {
+        this.setState({ betHistory });
     }
 
     handleFinish(finish) {
@@ -206,7 +206,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.socket.emit("bet", { betChoice, amount });
     }
 
-    getHistory(page = 1) {
+    getBetHistory(page = 1) {
         this.socket.emit("getHistory", { page: page });
     }
 
@@ -218,7 +218,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, history } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
@@ -228,8 +228,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameName,
             roundId,
             gameConfigs,
-            getHistory: this.getHistory,
-            history,
+            getBetHistory: this.getBetHistory,
+            betHistory,
         };
 
         return signedIn ? (

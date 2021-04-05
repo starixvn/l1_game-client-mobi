@@ -10,8 +10,8 @@ export const GameContext = React.createContext<GameContextModel>({
     gameName: "",
     roundId: 0,
     gameConfigs: null,
-    getHistory: () => {},
-    history: null,
+    getBetHistory: () => {},
+    betHistory: null,
 });
 GameContext.displayName = "GameContext";
 

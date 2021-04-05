@@ -12,8 +12,8 @@ import { GameContext, useGameContext } from "../../../contexts/game-context/game
 import BaseModal from "../base-modal";
 import SeDieGuide from "../../games/se-die/game-guide";
 import BauCuaGuide from "../../games/fish-prawn-crab/game-guide";
-import SeDieTicketHistory from "../../games/se-die/ticket-history";
-
+import SeDieBetHistory from "../../games/se-die/bet-history";
+import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
 type Props = {
     gameId: number;
     gameName: string;
@@ -26,7 +26,7 @@ type Props = {
 export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
-    const { gameName, roundId, gameState, remainingTime, gameId, apiUrl, history } = props;
+    const { gameName, roundId, gameState, remainingTime, gameId } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
@@ -70,13 +70,15 @@ export default function GameHeader(props: Props) {
     const [isOpenTicketHistory, updateTicketHistoryState] = useState<boolean>(false);
     const openTicketHistory = () => {
         updateTicketHistoryState(!isOpenTicketHistory);
-        gameContext.getHistory(1);
+        gameContext.getBetHistory(1);
     };
 
     const renderGameHistory = () => {
         switch (gameId) {
             case 2:
-                return <SeDieTicketHistory/>;
+                return <SeDieBetHistory />;
+            case 3:
+                return <FishPrawnCrabBetHistory />;
             default:
                 return null;
         }

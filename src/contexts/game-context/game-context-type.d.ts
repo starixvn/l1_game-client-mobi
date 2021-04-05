@@ -8,6 +8,6 @@ export type GameContextModel = {
     gameName: string;
     roundId: number;
     gameConfigs: GameConfigs;
-    getHistory: (page: number) => void;
-    history: object;
+    getBetHistory: (page: number) => void;
+    betHistory: object;
 };
