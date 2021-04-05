@@ -4,6 +4,7 @@ import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { Result } from "../fish-prawn-crab";
+import FishPrawnCrabResult from "../fish-prawn-crab-result";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
@@ -51,6 +52,9 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
                 <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult)}</div>
                 <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult)}</div>
             </div>
+            {gameState === GameState.DisplayResult && (
+                <FishPrawnCrabResult result={props.result} settlementResult={props.settlementResult}></FishPrawnCrabResult>
+            )}
         </BetContainer>
     );
 };
