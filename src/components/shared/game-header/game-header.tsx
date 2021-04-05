@@ -57,6 +57,7 @@ export default function GameHeader(props: Props) {
         updateGameGuideState(!isOpenGameGuide);
     };
     const renderGameGuide = () => {
+        let popupContentTitle = "";
         switch (gameId) {
             case 2:
                 return <SeDieGuide />;
@@ -74,11 +75,12 @@ export default function GameHeader(props: Props) {
     };
 
     const renderGameHistory = () => {
+        let popupContentTitle = "";
         switch (gameId) {
             case 2:
-                return <SeDieBetHistory />;
+                return <SeDieBetHistory popupContentTitle={popupContentTitle} />;
             case 3:
-                return <FishPrawnCrabBetHistory />;
+                return <FishPrawnCrabBetHistory popupContentTitle={popupContentTitle} />;
             default:
                 return null;
         }

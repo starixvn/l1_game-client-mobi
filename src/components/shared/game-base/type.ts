@@ -68,7 +68,7 @@ export interface RebetStorageDetail {
 }
 
 export interface GameBetHistory {
-    betLogs: object;
+    betLogs: object[];
     page: number;
     pageSize: number;
     total: number;

@@ -3,7 +3,7 @@ import Styles from "./bet-history.module.scss";
 import { GameContext, useGameContext } from "../../../../contexts/game-context/game-context";
 
 type Props = {
-    gameContext?: any;
+    popupContentTitle: string;
 };
 
 const FishPrawnCrabBetHistory: React.FunctionComponent<Props> = () => {

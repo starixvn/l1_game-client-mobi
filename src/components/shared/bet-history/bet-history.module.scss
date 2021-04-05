@@ -1,0 +1,15 @@
+.list-choices {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .choice {
+        display: flex;
+        align-items: center;
+    }
+
+    .bet-amount {
+        margin-left: 0.6rem;
+    }
+}

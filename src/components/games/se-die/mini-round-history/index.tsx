@@ -38,15 +38,18 @@ const MiniRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
     let numberOfItems = 21;
     const renderRounds = (numberOfItems: number) => {
-        let listRound: JSX.Element[] = roundHistory.slice(0, numberOfItems).map((round, index) => (
-            <RoundHistoryItem key={round.roundId} round={round} renderRoundDetail={renderRoundDetail(round)}>
-                {gameState === GameState.LockingBet && index === numberOfItems - 1 ? (
-                    <MiniItemNext></MiniItemNext>
-                ) : (
-                    <SeDieDot red={checkIsEven(countRedDot(round.result))} />
-                )}
-            </RoundHistoryItem>
-        ));
+        let listRound: JSX.Element[] = roundHistory
+            .slice(0, numberOfItems)
+            .reverse()
+            .map((round, index) => (
+                <RoundHistoryItem key={round.roundId} round={round} renderRoundDetail={renderRoundDetail(round)}>
+                    {gameState === GameState.LockingBet && index === numberOfItems - 1 ? (
+                        <MiniItemNext></MiniItemNext>
+                    ) : (
+                        <SeDieDot red={checkIsEven(countRedDot(round.result))} />
+                    )}
+                </RoundHistoryItem>
+            ));
         return listRound;
     };
 

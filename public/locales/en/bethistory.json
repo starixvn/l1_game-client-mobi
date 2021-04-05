@@ -1,0 +1,9 @@
+{
+    "roundTime":"RoundTime", 
+    "round":"Round", 
+    "result":"Result", 
+    "choice":"Choice", 
+    "stake":"Stake",
+    "stakeReturn":"Stake Return",
+     "win":"Win"
+}
