@@ -168,6 +168,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({
             roundHistory,
             roundId: gameState === GameState.InRound ? lastRoundId + 1 : lastRoundId,
+            result: roundHistory[0]?.result,
+            settlementResult: roundHistory[0]?.settlementResult,
         });
     }
 
