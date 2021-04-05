@@ -4,6 +4,7 @@
 @import "./components/bet-options";
 @import "./components/score-board";
 @import "./components/modals";
+@import "./components/table";
 @import "./game-guide.scss";
 
 html {
@@ -16,6 +17,15 @@ body {
     font-family: "Rubik", arial, sans-serif;
     font-size: 1.3rem;
     color: #2c2f3e;
+}
+
+.game-container {
+    width: 100%;
+    margin: auto;
+
+    @media (min-width: 1400px) {
+        width: 130rem;
+    }
 }
 
 label {

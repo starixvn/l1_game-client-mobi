@@ -31,7 +31,7 @@ const SeDieGuide = (props) => {
                         <li>
                             Giới hạn cược:
                             <div className="table-container">
-                                <table className="table align-center">
+                                <table className="table text-center">
                                     <thead>
                                         <tr>
                                             <th></th>

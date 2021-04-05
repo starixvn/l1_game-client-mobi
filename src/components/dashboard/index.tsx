@@ -1,5 +1,4 @@
 import React from "react";
-import { Container } from "reactstrap";
 
 import { AuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
@@ -58,10 +57,10 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             const props = { ...user, balance: this.props.balance };
             return (
-                <Container>
+                <div className="game-container">
                     <Header {...props} />
                     <Games />
-                </Container>
+                </div>
             );
         }
     }
