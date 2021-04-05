@@ -1,0 +1,43 @@
+.error-page {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    font-size: 2rem;
+    color: #2aa2d2;
+
+    @media (min-width: 768px) {
+        font-size: 2.4rem;
+    }
+
+    .session-timeout-title {
+        margin: 1rem 0 3rem;
+        font-weight: 500;
+
+        @media (min-width: 768px) {
+            margin-top: 4rem;
+        }
+    }
+
+    .um-title {
+        @extend .session-timeout-title;
+        line-height: 1.5;
+        font-size: 2.2rem;
+
+        @media (min-width: 768px) {
+            font-size: 3rem;
+        }
+    }
+
+    .highlight {
+        color: #ff8800;
+    }
+}

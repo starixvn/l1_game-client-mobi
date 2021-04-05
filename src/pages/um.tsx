@@ -2,9 +2,9 @@ import React from "react";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const UM = () => (
-    <div className="um">
+    <div className="error-page">
         <img alt="SessionTimeout" src="/static/images/um-bg.jpg" className="img-fluid" />
-        <p className="title">
+        <p className="um-title">
             HỆ THỐNG ĐANG ĐƯỢC BẢO TRÌ.
             <br /> VUI LÒNG QUAY LẠI SAU.
         </p>
