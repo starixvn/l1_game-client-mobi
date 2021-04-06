@@ -1,3 +1,5 @@
+import { Round } from "../../../types";
+
 export interface GameConfigs {
     odds: object;
     minbet: number;

@@ -228,18 +228,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const {
-            remainingTime,
-            roundId,
-            gameState,
-            signedIn,
-            totalBets,
-            ownBets,
-            gameConfigs,
-            betHistory,
-            result,
-            settlementResult,
-        } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,

@@ -5,10 +5,10 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import SeDieBetOptions from "./bet-options";
 import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
-import { Result, SettlementResult } from "./sedie";
+import { SeDieResult, SeDieSettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
-class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
+class SeDie extends GameBase<GameBaseProps, GameBaseState<SeDieResult, SeDieSettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 

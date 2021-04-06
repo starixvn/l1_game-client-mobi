@@ -4,11 +4,11 @@ import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import { FavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
 import { BetSettings } from "../bet-settings";
-import BigSmall from "./big-small/big-small";
+import BigSmall from "./big-small";
+import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import KenoProMax from "./keno-pro-max/keno-pro-max";
 import SeDie from "./se-die/se-die";
-import FishPrawnCrab from "./fish-prawn-crab";
 
 export const Games: React.FC = () => {
     const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
