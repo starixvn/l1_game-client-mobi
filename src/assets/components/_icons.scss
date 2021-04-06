@@ -14,6 +14,21 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow2-right:before {
+    content: "\e90b";
+    color: #fff;
+}
+
+.icon-arrow-right:before {
+    content: "\e909";
+    color: #ff9a00;
+}
+
+.icon-quick-bet:before {
+    content: "\e90a";
+    color: #9298a4;
+}
+
 .icon-small-logo:before {
     content: "\e908";
     color: #ffb335;

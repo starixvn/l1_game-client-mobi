@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles.module.scss";
+import Styles from "./bet-setting.module.scss";
 
 export const BetSettings: React.FC = (props) => {
     const [isShowSettings, setShowSettings] = useState(false);
@@ -9,19 +9,26 @@ export const BetSettings: React.FC = (props) => {
     };
 
     return (
-        <div className={styles.container}>
-            <div className={styles["active-btn"]} onClick={HandleClickActiveBtn}>
-                Click me
+        <div>
+            <div className={Styles["betting-setting-collapsed"]} onClick={HandleClickActiveBtn}>
+                <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
+                <img src="/static/images/chip-reset.png" alt="chip" className="img-fluid" />
             </div>
             {isShowSettings && (
-                <div className={styles["settings-container"]}>
-                    <input className={styles["quick-bet-checkbox"]} type={"checkbox"} value={"Quick Bet"}></input>
-                    <div className={styles["chips-container"]}>
-                        <div className={styles.chip}>0</div>
-                        <div className={styles.chip}>10</div>
-                        <div className={styles.chip}>50</div>
-                        <div className={styles.chip}>500</div>
-                        <div className={styles.chip}>2000</div>
+                <div className={Styles["settings-container"]}>
+                    <div className={Styles["toggle"]}>
+                        <input className={Styles["toggle-checkbox"]} id="toggle-quickbet" type={"checkbox"} value={"Quick Bet"} />
+                        <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                            <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
+                        </label>
+                    </div>
+
+                    <div className={Styles["chips-container"]}>
+                        <span className={`icon-arrow-right ${Styles["prev"]} ${Styles["disabled"]}`}></span>
+                        <div className={Styles.chip}></div>
+                        <div className={`${Styles.chip} ${Styles.highlight}`}>1</div>
+                        <div className={Styles.chip}>5</div>
+                        <span className={`icon-arrow-right ${Styles["next"]}`}></span>
                     </div>
                 </div>
             )}
