@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./bet-history.module.scss";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import BetHistory, { BetHistoryContainer } from "../../../shared/bet-history";
+import BetHistoryContainer from "../../../shared/bet-history";
 import { countRedDot, checkIsEven } from "../mini-round-history";
 import SeDieDot from "../dot";
 import { useTranslation } from "next-i18next";
@@ -41,28 +41,13 @@ const renderBet = (bet: BetLogs) => {
 };
 
 const SeDieTicketHistory: React.FunctionComponent = () => {
-    const gameContext = useGameContext();
-
-    if (gameContext.betHistory) {
-        const { betLogs } = gameContext.betHistory;
-        return (
-            <BetHistoryContainer isRefund={false}>
-                {betLogs.map((bet: BetLogs) => {
-                    return (
-                        <BetHistory
-                            key={bet.phien}
-                            renderResult={() => renderResult(bet)}
-                            renderBet={() => renderBet(bet)}
-                            betHistoryItem={bet}
-                            isRefund={false}
-                        ></BetHistory>
-                    );
-                })}
-            </BetHistoryContainer>
-        );
-    } else {
-        return <div></div>;
-    }
+    return (
+        <BetHistoryContainer
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            renderBet={(bet: BetLogs) => renderBet(bet)}
+        ></BetHistoryContainer>
+    );
 };
 
 export default SeDieTicketHistory;

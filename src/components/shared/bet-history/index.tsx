@@ -1,35 +1,56 @@
-import React from "react";
-import Styles from "./bet-history.module.scss";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
+import { PropsBetContainer, Props, BetHistoryItem, BetLogs } from "./bet-history";
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import { GameBetHistory } from "../../../components/shared/game-base/type";
 
-type Props = {
-    betHistoryItem: any;
-    renderResult: Function;
-    renderBet: Function;
-    isRefund: boolean;
-};
+import Styles from "./bet-history.module.scss";
 
-type BetHistoryItem = {
-    time: string;
-    phien: number;
-    betwin: number;
-    refund?: number;
-    amount?: number;
-    totalAmount?: number;
-};
-
-type PropsContainer = {
-    isRefund: boolean;
-    children: React.ReactNode;
-};
-
-export const BetHistoryContainer = (props: PropsContainer) => {
-    const { isRefund } = props;
+const BetHistoryContainer = (props: PropsBetContainer) => {
+    const { renderResult, renderBet, isRefund } = props;
+    const gameContext = useGameContext();
+    const [isFetching, setIsFetching] = useState(false);
+    const [listBetHistory, setListBetHistory] = useState([]);
+    const [page, setPage] = useState(1);
     const { t } = useTranslation("bethistory");
+    const betHistory: GameBetHistory = gameContext.betHistory;
+
+    useEffect(() => {
+        fetchBetHistory();
+    }, [betHistory]);
+
+    const handleScroll = (e) => {
+        if (Math.ceil(e.target.scrollHeight - e.target.scrollTop) !== e.target.offsetHeight || isFetching) return;
+        setIsFetching(true);
+    };
+
+    const fetchBetHistory = () => {
+        if (betHistory && betHistory.betLogs.length > 0) {
+            const data = betHistory.betLogs;
+            if (betHistory.page === page) {
+                setPage(page + 1);
+                setListBetHistory(() => {
+                    return [...listBetHistory, ...data];
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (!isFetching) return;
+        fetchMoreListBets();
+    }, [isFetching]);
+
+    const fetchMoreListBets = () => {
+        gameContext.getBetHistory(page);
+        fetchBetHistory();
+        setIsFetching(false);
+    };
+
     return (
         <React.Fragment>
-            <div className="table-container">
+            <div className="table-container" onScroll={(e) => handleScroll(e)}>
                 <table className="table text-center">
                     <thead>
                         <tr>
@@ -42,9 +63,20 @@ export const BetHistoryContainer = (props: PropsContainer) => {
                             <th>{t("win")}</th>
                         </tr>
                     </thead>
-                    {props.children}
+                    {listBetHistory.map((bet: any) => {
+                        return (
+                            <BetHistory
+                                key={bet.phien}
+                                renderResult={() => renderResult(bet)}
+                                renderBet={() => renderBet(bet)}
+                                betHistoryItem={bet}
+                                isRefund={false}
+                            ></BetHistory>
+                        );
+                    })}
                 </table>
             </div>
+            {isFetching && <h1>Fetching bets history...</h1>}
         </React.Fragment>
     );
 };
@@ -77,4 +109,4 @@ const BetHistory: React.FunctionComponent<Props> = (props: Props) => {
     );
 };
 
-export default BetHistory;
+export default BetHistoryContainer;
