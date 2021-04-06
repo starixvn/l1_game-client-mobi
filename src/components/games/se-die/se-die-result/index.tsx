@@ -9,7 +9,7 @@ const SeDieResult: React.FC<Props> = (props) => {
 
     const generateResult = (result: boolean[]) => {
         return result.map((value, index) => (
-            <div key={`dot-${index + 1}`} className={`${styles[`flipResult-sedie-dot${index + 1}`]} ${styles["flipResult-sedie-dot"]}`}>
+            <div key={`dot-${index + 1}`} className={`${styles[`result-sedie-dot${index + 1}`]} ${styles["result-sedie-dot"]}`}>
                 <div className={`${value ? styles["result-dot-red"] : styles["result-dot-white"]}`}></div>
             </div>
         ));
@@ -29,12 +29,12 @@ const SeDieResult: React.FC<Props> = (props) => {
     return (
         <div className={`${styles["container"]} ${styles[getClassNameByGameState(currentState)]}`}>
             <div className="overlay-mask">
-                <div className={styles["flipResult-sedie-fadeOutDelay"]}>
-                    <div className={`${styles["flipResult-sedie-container"]} ${styles["flipResult-fadeIn-animation"]}`}>
-                        <div className={styles["flipResult-sedie-set"]}>
-                            <div className={styles["flipResult-sedie-plate"]}></div>
+                <div className={styles["result-sedie-fadeOutDelay"]}>
+                    <div className={`${styles["result-sedie-container"]} ${styles["result-fadeIn-animation"]}`}>
+                        <div className={styles["result-sedie-set"]}>
+                            <div className={styles["result-sedie-plate"]}></div>
                             {generateResult(result)}
-                            <div className={styles["flipResult-sedie-bowl"]}></div>
+                            <div className={styles["result-sedie-bowl"]}></div>
                         </div>
                     </div>
                 </div>

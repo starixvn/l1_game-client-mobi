@@ -9,15 +9,15 @@
     height: 100%;
 }
 
-.flipResult-fadeIn-animation {
-    animation-name: flipResult-fadeInAnimation;
+.result-fadeIn-animation {
+    animation-name: result-fadeInAnimation;
     animation-delay: 0ms;
     animation-duration: 500ms;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
 }
 
-.flipResult-sedie-container {
+.result-sedie-container {
     position: absolute;
     z-index: 10;
     left: 0;
@@ -26,7 +26,7 @@
     height: 100%;
 }
 
-.flipResult-sedie-set {
+.result-sedie-set {
     position: absolute;
     top: 0;
     width: 100%;
@@ -34,7 +34,7 @@
 }
 
 .shake-the-plate {
-    .flipResult-sedie-set {
+    .result-sedie-set {
         z-index: 1;
         position: absolute;
         top: 0;
@@ -50,7 +50,7 @@
     }
 }
 
-.flipResult-sedie-plate {
+.result-sedie-plate {
     position: absolute;
     z-index: 1;
     width: 13.4rem;
@@ -63,7 +63,7 @@
     background-position: center;
 }
 
-.flipResult-sedie-bowl {
+.result-sedie-bowl {
     position: absolute;
     z-index: 2;
     width: 12.3rem;
@@ -76,7 +76,7 @@
 }
 
 .open-the-plate {
-    .flipResult-sedie-bowl {
+    .result-sedie-bowl {
         /*animation*/
         animation-name: animation-sedie-opening-bowl, frAnimation-sedie-bowl-hide;
         animation-delay: 0, 2s;
@@ -106,28 +106,28 @@
 }
 
 /*Position of 4 buttons*/
-.flipResult-sedie-dot {
+.result-sedie-dot {
     position: absolute;
     z-index: 1;
     width: 2rem;
 }
 
-.flipResult-sedie-dot1 {
+.result-sedie-dot1 {
     top: 12.5rem;
     left: calc(50% - 3rem);
 }
 
-.flipResult-sedie-dot2 {
+.result-sedie-dot2 {
     top: 15rem;
     left: calc(50% - 2rem);
 }
 
-.flipResult-sedie-dot3 {
+.result-sedie-dot3 {
     top: 12rem;
     left: calc(50% + 1rem);
 }
 
-.flipResult-sedie-dot4 {
+.result-sedie-dot4 {
     top: 14.8rem;
     left: calc(50% + 1rem);
 }

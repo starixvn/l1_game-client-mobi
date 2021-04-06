@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles.module.scss";
+import Styles from "./fish-prawn-crab-result.module.scss";
 import { Props } from "./type";
 
 const FishPrawnCrabResult: React.FC<Props> = (props) => {
@@ -7,21 +7,34 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
 
     const generateResult = (result: boolean[]) => {
         return result.map((value, index) => (
-            <div key={`dot-${index + 1}`} className={`${styles[`flipResult-sedie-dot${index + 1}`]} ${styles["flipResult-sedie-dot"]}`}>
-                <div className={`${value ? styles["result-dot-red"] : styles["result-dot-white"]}`}></div>
+            <div key={`dot-${index + 1}`} className={`${Styles[`flipResult-dot${index + 1}`]} ${Styles["flipResult-dot"]}`}>
+                {/* <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div> */}
             </div>
         ));
     };
 
     return (
-        <div className={`${styles["container"]} ${styles["show-result"]}`}>
+        <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
             <div className="overlay-mask">
-                <div className={styles["flipResult-sedie-fadeOutDelay"]}>
-                    <div className={`${styles["flipResult-sedie-container"]} ${styles["flipResult-fadeIn-animation"]}`}>
-                        <div className={styles["flipResult-sedie-set"]}>
-                            <div className={styles["flipResult-sedie-plate"]}></div>
-                            {generateResult(result)}
-                            <div className={styles["flipResult-sedie-bowl"]}></div>
+                <div className={Styles["flipResult-sedie-fadeOutDelay"]}>
+                    <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
+                        <div className={Styles["shake-plate"]}>
+                            <img src="/static/images/shake-baucua.gif" alt="shake" />
+                        </div>
+                        <div className={Styles["result-set"]}>
+                            <div className={Styles["result-plate"]}></div>
+                            <div className={Styles["result-container"]}>
+                                <div className={Styles["result-1"]}>
+                                    <img src="/static/images/dice-bau.png" className={Styles["dice"]} alt="dice" />
+                                </div>
+                                <div className={Styles["result-2"]}>
+                                    <img src="/static/images/dice-cua.png" className={Styles["dice"]} alt="dice" />
+                                </div>
+                                <div className={Styles["result-3"]}>
+                                    <img src="/static/images/dice-ca.png" className={Styles["dice"]} alt="dice" />
+                                </div>
+                            </div>
+                            <div className={Styles["result-bowl"]}></div>
                         </div>
                     </div>
                 </div>
