@@ -49,4 +49,32 @@
     &.hightlight-winning {
         background-color: #fff5e3;
     }
+
+    &.winning-effect {
+        background-color: #fff;
+        animation: betChoiceWinningEffect 1s 0.5s infinite forwards;
+    }
+
+    @keyframes betChoiceWinningEffect {
+        0%,
+        100% {
+            background-color: #fff5e3;
+        }
+        10%,
+        80% {
+            background-color: #fff5e3;
+        }
+        20%,
+        70% {
+            background-color: #fff;
+        }
+        30%,
+        60% {
+            background-color: #fff5e3;
+        }
+        40%,
+        50% {
+            background-color: #fff;
+        }
+    }
 }
