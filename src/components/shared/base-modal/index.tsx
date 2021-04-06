@@ -1,56 +1,47 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Styles from "./base-modal.module.scss";
 
 type Props = {
     isOpen: boolean;
+    isSmall?: boolean;
     onCloseModal: Function;
     children: React.ReactNode;
-    popupTitle: string;
+    title: string;
+    subTitle?: string;
 };
 
-export default class BaseModal extends Component<Props> {
-    wrapperRef: React.RefObject<HTMLDivElement>;
+const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, isSmall = false }: Props) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
-    constructor(props: Props) {
-        super(props);
-        this.wrapperRef = React.createRef();
-        this.closeModal = this.closeModal.bind(this);
-    }
-
-    componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
-    }
-
-    componentWillUnmountMount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
-    }
-
-    handleClickOutside = (event) => {
-        if (this.props.isOpen && this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
-            this.closeModal();
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                onCloseModal();
+            }
         }
-    };
 
-    closeModal() {
-        this.props.onCloseModal();
-    }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
 
-    render() {
-        const { popupTitle, children } = this.props;
-        return (
-            <div ref={this.wrapperRef} className={`popup ${Styles["base-modal"]}`}>
-                <div className="popup-logo">
-                    <span className="icon-small-logo"></span>
-                </div>
-                <div className="popup-closed-icon" onClick={this.closeModal}>
-                    <span className="icon-close"></span>
-                </div>
-                <div className="popup-header">
-                    <h1 className="popup-title">{popupTitle}</h1>
-                </div>
-                <div className={Styles["popup-content"]}>{children}</div>
+    return (
+        <div ref={wrapperRef} className={`popup ${Styles["base-modal"]} ${isSmall ? Styles.small : ""}`}>
+            <div className="popup-logo">
+                <span className="icon-small-logo"></span>
             </div>
-        );
-    }
-}
+            <div className="popup-closed-icon" onClick={() => onCloseModal()}>
+                <span className="icon-close"></span>
+            </div>
+            <div className="popup-header">
+                <h1 className="popup-title">{title}</h1>
+                {subTitle && <p className="popup-sub-title">{subTitle}</p>}
+            </div>
+            <div className={Styles["popup-content"]}>{children}</div>
+        </div>
+    );
+};
+
+export default BaseModal;

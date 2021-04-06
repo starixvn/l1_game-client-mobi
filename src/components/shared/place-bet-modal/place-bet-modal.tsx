@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component } from "react";
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 
 import { GameContext } from "../../../contexts/game-context/game-context";
+import BaseModal from "../base-modal";
 import Styles from "./place-bet-modal.module.scss";
 
 type BetChoiceInfo = {
@@ -144,17 +145,7 @@ export default class PlaceBetModal extends Component<Props, State> {
         const { payout, betAmount } = this.state;
 
         return (
-            <div ref={this.wrapperRef} className={`popup ${Styles["place-bet-modal"]}`}>
-                <div className="popup-logo">
-                    <span className="icon-small-logo"></span>
-                </div>
-                <div className="popup-closed-icon" onClick={this.closeModal}>
-                    <span className="icon-close"></span>
-                </div>
-                <div className="popup-header">
-                    <h1 className="popup-title">{gameName}</h1>
-                    <p className="popup-sub-title">#{roundId}</p>
-                </div>
+            <BaseModal title={gameName} subTitle={`#${roundId}`} isOpen={this.props.isOpen} onCloseModal={this.closeModal} isSmall>
                 <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                     <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odd}
                 </div>
@@ -182,7 +173,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                 <button onClick={this.placeBet} className="btn-orange w-100">
                     Bet
                 </button>
-            </div>
+            </BaseModal>
         );
     }
 }
