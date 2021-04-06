@@ -1,10 +1,12 @@
 import React from "react";
-import { SettlementResult } from "./../fish-prawn-crab";
+
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { Result } from "../fish-prawn-crab";
 import FishPrawnCrabResult from "../fish-prawn-crab-result";
+import { SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
@@ -25,6 +27,12 @@ const IconMapper = {
     stag: "nai",
 };
 
+const OddNames = {
+    single: "single",
+    double: "double",
+    triple: "triple",
+};
+
 type Props = {
     result: Result;
     settlementResult: SettlementResult;
@@ -32,9 +40,11 @@ type Props = {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult) => {
+    const { gameConfigs } = useGameContext();
+    const { odds } = gameConfigs;
     const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
     return (
-        <BetOption choice={choice} isHighlight={isHighLight}>
+        <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight}>
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]}`}></div>
         </BetOption>
     );

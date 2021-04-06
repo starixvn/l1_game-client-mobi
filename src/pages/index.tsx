@@ -72,8 +72,9 @@ export default function Home() {
     if (loading) {
         return <SplashScreen></SplashScreen>;
     } else {
+        const authContextValue = { session, setBalance };
         return (
-            <AuthContextProvider value={session}>
+            <AuthContextProvider value={authContextValue}>
                 <Dashboard balance={balance} updateBalance={setBalance} />
             </AuthContextProvider>
         );

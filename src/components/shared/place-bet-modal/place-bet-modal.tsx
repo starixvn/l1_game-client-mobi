@@ -1,14 +1,14 @@
 import React, { ChangeEvent, Component } from "react";
-import { InputGroupAddon, InputGroup, InputGroupText, Input } from "reactstrap";
-import { GameContext, useGameContext } from "../../../contexts/game-context/game-context";
+import { Input, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 
+import { GameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./place-bet-modal.module.scss";
 
 type BetChoiceInfo = {
     gameName: string;
     roundId: number;
     betChoice: string;
-    odds: number;
+    odd: number;
 };
 
 type Props = {
@@ -70,10 +70,10 @@ export default class PlaceBetModal extends Component<Props, State> {
     };
 
     updateBetAmount = (betAmount: number) => {
-        const { odds } = this.props.betChoiceInfo;
+        const { odd } = this.props.betChoiceInfo;
         const maxBet = this.getMaxBet();
         const amount = betAmount > maxBet ? maxBet : betAmount;
-        const payout = amount * odds;
+        const payout = amount * odd;
 
         this.setState({
             betAmount: amount,
@@ -140,7 +140,7 @@ export default class PlaceBetModal extends Component<Props, State> {
         });
 
     render() {
-        const { gameName, roundId, betChoice, odds } = this.props.betChoiceInfo;
+        const { gameName, roundId, betChoice, odd } = this.props.betChoiceInfo;
         const { payout, betAmount } = this.state;
 
         return (
@@ -156,7 +156,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                     <p className="popup-sub-title">#{roundId}</p>
                 </div>
                 <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
-                    <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odds}
+                    <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odd}
                 </div>
                 <InputGroup>
                     <InputGroupAddon addonType="prepend">

@@ -1,8 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
-import { SSOResponse } from "sc-user-service-client/dist/auth";
 
-import { AuthContext } from "../../contexts/auth";
+import { useAuthContext } from "../../contexts/auth";
 import NameGenerator from "../../helpers/name-generator/NameGenerator";
 import { UserClientCommunication } from "../../services";
 import Styles from "./register.module.scss";
@@ -10,7 +9,7 @@ import Styles from "./register.module.scss";
 export default function Register(props) {
     const { t } = useTranslation("register");
     const { handleStateLogin } = props;
-    const session = React.useContext<SSOResponse>(AuthContext);
+    const { session } = useAuthContext();
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
     const authService = UserClientCommunication.getUserClientInstance().auth;

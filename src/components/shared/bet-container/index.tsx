@@ -1,23 +1,28 @@
 import React, { useState } from "react";
-import { GameState } from "../game-base/type";
-import PlaceBetModal from "../place-bet-modal/place-bet-modal";
-import { BetModalInfo, Props } from "./bet-container";
+
 import { BetContextProvider } from "../../../contexts/bet-context";
 import { BetContextModel } from "../../../contexts/bet-context/type";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-
+import { GameState } from "../game-base/type";
+import PlaceBetModal from "../place-bet-modal/place-bet-modal";
+import { Props } from "./bet-container";
 import Styles from "./bet-container.module.scss";
 
 const BetContainer: React.FC<Props> = (props) => {
-    const [isOpenModal, updateModalState] = useState<boolean>(false);
-    const [betChoice, updateBetChoice] = useState<string>(null);
-    const { placeBet, roundId, gameName, gameConfigs } = useGameContext();
-    const { odds } = gameConfigs;
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+    const [betChoice, setBetChoice] = useState<string>(null);
+    const [odd, setOdd] = useState<number>(0);
+    const { placeBet, roundId, gameName } = useGameContext();
 
     const betContext: BetContextModel = {
-        updateBetChoice: updateBetChoice,
-        handleShowBetModal: updateModalState,
+        handleShowBetModal: openBetModal,
     };
+
+    function openBetModal(choice: string, odd: number) {
+        setBetChoice(choice);
+        setOdd(odd);
+        setIsOpenModal(true);
+    }
 
     return (
         <BetContextProvider value={betContext}>
@@ -27,13 +32,13 @@ const BetContainer: React.FC<Props> = (props) => {
                 {isOpenModal && (
                     <PlaceBetModal
                         isOpen={isOpenModal}
-                        onCloseModal={() => updateModalState(false)}
+                        onCloseModal={() => setIsOpenModal(false)}
                         onPlaceBet={placeBet}
                         betChoiceInfo={{
                             betChoice,
                             gameName,
                             roundId,
-                            odds: odds[betChoice],
+                            odd,
                         }}
                     ></PlaceBetModal>
                 )}

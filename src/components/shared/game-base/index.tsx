@@ -1,11 +1,11 @@
 import React from "react";
 import io from "socket.io-client";
 
+import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
 import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel } from "./type";
-import * as LocalStorageManager from "../../../common/local-storage";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -27,6 +27,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentDidMount() {
         const { socketInfo } = this.props;
+        const { session } = this.context;
 
         this.socket = io(socketInfo.uri, {
             forceNew: true,
@@ -35,7 +36,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             path: socketInfo.proxyRoute,
         });
         this.socket.on("connect", () => {
-            this.socket.emit("signin", this.context);
+            this.socket.emit("signin", session);
         });
         this.socket.on("signedIn", () => {
             this.socket.emit("inGame");
@@ -74,6 +75,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (payload.history) {
             this.handleHistory(payload.history);
         }
+        if (payload.user) {
+            this.handleUserData(payload.user);
+        }
+    }
+
+    handleUserData(user) {
+        this.context.setBalance(user.red);
     }
 
     handleUM(isUM: boolean) {
@@ -220,7 +228,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory } = this.state;
+        const {
+            remainingTime,
+            roundId,
+            gameState,
+            signedIn,
+            totalBets,
+            ownBets,
+            gameConfigs,
+            betHistory,
+            result,
+            settlementResult,
+        } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,

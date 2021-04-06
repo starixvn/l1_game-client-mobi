@@ -1,8 +1,12 @@
 import React from "react";
-
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
-export const AuthContext = React.createContext<SSOResponse>({ isAuthenticated: false, ss: "", username: "", language: "" });
+type AuthContextModel = {
+    session: SSOResponse;
+    setBalance: (balance: number) => void;
+};
+
+export const AuthContext = React.createContext<AuthContextModel>(null);
 AuthContext.displayName = "AuthContext";
 
 export const AuthContextProvider = AuthContext.Provider;

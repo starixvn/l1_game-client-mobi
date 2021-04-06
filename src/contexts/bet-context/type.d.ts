@@ -1,4 +1,3 @@
 export interface BetContextModel {
-    updateBetChoice: Function;
-    handleShowBetModal: Function;
+    handleShowBetModal: (choice: string, odd: number) => void;
 }

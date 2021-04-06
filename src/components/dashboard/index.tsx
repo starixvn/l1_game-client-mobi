@@ -1,8 +1,8 @@
 import React from "react";
+import Auth, { User } from "sc-user-service-client/dist/auth";
 
 import { AuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
-import Auth, { SSOResponse, User } from "sc-user-service-client/dist/auth";
 import Games from "../games/games";
 import Header from "../header";
 import Register from "../register";
@@ -33,7 +33,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     async componentDidMount() {
-        const session: SSOResponse = this.context;
+        const { session } = this.context;
         const response = await this.authService.authorize(session.ss, session.username);
 
         if (response.authorized) {

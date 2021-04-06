@@ -35,6 +35,7 @@ export default class BaseModal extends Component<Props> {
     closeModal() {
         this.props.onCloseModal();
     }
+
     render() {
         const { popupTitle, children } = this.props;
         return (
