@@ -6,9 +6,9 @@ import { useTranslation } from "next-i18next";
 const OddItem = ({ name, number }) => {
     const { t } = useTranslation("baucua");
     return (
-        <div className={Styles.element}>
-            <span className={Styles.title}>{t(name)}</span>
-            <span className={Styles.number}>1:{number}</span>
+        <div className={Styles["odd-item"]}>
+            <span className={Styles.type}>{t(name)}</span>
+            <span className={Styles.value}>1:{number}</span>
         </div>
     );
 };

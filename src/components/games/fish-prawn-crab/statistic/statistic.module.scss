@@ -1,18 +1,15 @@
-
-.layout{
-    background: #FFFFFF;
-    padding: .7rem;
+.statistic-container {
     display: flex;
-    justify-content: space-around;
-    .container{
-        display: flex;
-        align-items: center;
-        .number{
-            color: #000;
-            font-weight: 500;
-            font-size: 1.4rem;
-            line-height: 1.6rem;
-        }
+    justify-content: space-between;
+    height: 3.2rem;
+    padding: 0.5rem 0.8rem;
+    background-color: #fff;
+    box-shadow: 0 1.5rem 1rem -1.5rem #bebfc1;
+    border: 0.4rem solid #dce2f3;
+    border-bottom-width: 0;
+
+    .number {
+        color: #2c2f3e;
+        font-size: 1.4rem;
     }
-  
 }

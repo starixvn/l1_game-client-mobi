@@ -1,29 +1,31 @@
-.layout{
-    background-color: #E5EAF8;
-    padding: 0.5rem;
+.layout {
+    display: flex;
+    justify-content: center;
+    min-height: 3.6rem;
+    padding: 0 0.5rem;
+    border: 0.4rem solid #dce2f3;
+    border-top-width: 0;
+    background-color: #fff;
 
-    .odd-container{
+    .odd-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #fff;
+        font-weight: 500;
+        font-size: 1.4rem;
     }
-    
-    .element{
-        margin-right: 1rem;
-        .title{
-            color: #3087D7;
-            font-weight: 500;
-            font-size: 1.4rem;
-            line-height: 1.6rem;
+
+    .odd-item {
+        margin: 0 1rem;
+
+        .type {
+            color: #2c2f3e;
             margin-right: 0.5rem;
         }
-        
-        .number{
+
+        .value {
             font-weight: 500;
-            font-size: 1.4rem;
+            color: #a8aeb8;
         }
     }
 }
-
-
