@@ -2,5 +2,13 @@
     "game_name": "Xóc Dĩa",
     "round": "Phiên",
     "odd":"LẺ",
-    "even":"CHẴN"
+    "even":"CHẴN",
+    "red1": "1 Đỏ",
+    "red2": "2 Đỏ",
+    "red3": "3 Đỏ",
+    "red4": "4 Đỏ",
+    "white3": "3 Trắng",
+    "white4": "4 Trắng",
+    "titleModalBetHistory": "Lịch Sử",
+    "titleModalGameGuide": "Hướng Dẫn"
 }

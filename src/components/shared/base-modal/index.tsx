@@ -6,6 +6,7 @@ type Props = {
     isOpen: boolean;
     onCloseModal: Function;
     children: React.ReactNode;
+    popupTitle: string;
 };
 
 export default class BaseModal extends Component<Props> {
@@ -35,7 +36,7 @@ export default class BaseModal extends Component<Props> {
         this.props.onCloseModal();
     }
     render() {
-        const { children } = this.props;
+        const { popupTitle, children } = this.props;
         return (
             <div ref={this.wrapperRef} className={`popup ${Styles["base-modal"]}`}>
                 <div className="popup-logo">
@@ -43,6 +44,9 @@ export default class BaseModal extends Component<Props> {
                 </div>
                 <div className="popup-closed-icon" onClick={this.closeModal}>
                     <span className="icon-close"></span>
+                </div>
+                <div className="popup-header">
+                    <h1 className="popup-title">{popupTitle}</h1>
                 </div>
                 <div className={Styles["popup-content"]}>{children}</div>
             </div>

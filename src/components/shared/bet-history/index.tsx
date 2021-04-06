@@ -7,7 +7,7 @@ type Props = {
     betHistoryItem: any;
     renderResult: Function;
     renderBet: Function;
-    isStakeReturn: boolean;
+    isRefund: boolean;
 };
 
 type BetHistoryItem = {
@@ -20,17 +20,15 @@ type BetHistoryItem = {
 };
 
 type PropsContainer = {
-    popupContentTitle: string;
-    isStakeReturn: boolean;
+    isRefund: boolean;
     children: React.ReactNode;
 };
 
 export const BetHistoryContainer = (props: PropsContainer) => {
-    const { popupContentTitle, isStakeReturn } = props;
+    const { isRefund } = props;
     const { t } = useTranslation("bethistory");
     return (
         <React.Fragment>
-            <h2 className={"popup-content-title"}>{popupContentTitle}</h2>
             <div className="table-container">
                 <table className="table text-center">
                     <thead>
@@ -39,7 +37,7 @@ export const BetHistoryContainer = (props: PropsContainer) => {
                             <th>{t("round")}</th>
                             <th>{t("result")}</th>
                             <th>{t("choice")}</th>
-                            {isStakeReturn ? <th>t("stakeReturn")</th> : null}
+                            {isRefund ? <th>t("refund")</th> : null}
 
                             <th>{t("win")}</th>
                         </tr>
@@ -52,7 +50,7 @@ export const BetHistoryContainer = (props: PropsContainer) => {
 };
 
 const BetHistory: React.FunctionComponent<Props> = (props: Props) => {
-    const { betHistoryItem, renderResult, renderBet, isStakeReturn } = props;
+    const { betHistoryItem, renderResult, renderBet, isRefund } = props;
     const { time, phien, betwin, refund, amount, totalAmount } = betHistoryItem as BetHistoryItem;
     return (
         <React.Fragment>
@@ -71,7 +69,7 @@ const BetHistory: React.FunctionComponent<Props> = (props: Props) => {
                     <td>
                         <div className={Styles["list-choices"]}>{renderBet()}</div>
                     </td>
-                    {isStakeReturn ? <td>{refund}</td> : null}
+                    {isRefund ? <td>{refund}</td> : null}
                     <td>{betwin}</td>
                 </tr>
             </tbody>

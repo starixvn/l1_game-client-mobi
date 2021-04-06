@@ -2,11 +2,7 @@ import React from "react";
 import Styles from "./bet-history.module.scss";
 import { GameContext, useGameContext } from "../../../../contexts/game-context/game-context";
 
-type Props = {
-    popupContentTitle: string;
-};
-
-const FishPrawnCrabBetHistory: React.FunctionComponent<Props> = () => {
+const FishPrawnCrabBetHistory: React.FunctionComponent = () => {
     const gameContext = useGameContext();
     return <div>Ticket History BauCua</div>;
 };

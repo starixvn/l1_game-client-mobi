@@ -1,12 +1,9 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
-import { useTranslation } from "next-i18next";
 
 const SeDieGuide = (props) => {
-    const { t } = useTranslation("common");
     return (
         <div>
-            <h2 className="title">{t("gameGuide")}</h2>
             <ul className="game-guide">
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>

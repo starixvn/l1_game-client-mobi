@@ -8,7 +8,7 @@ import CountdownTimer from "../countdown-timer/countdown-timer";
 import Styles from "./game-header.module.scss";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameState, RebetStorageModel } from "../game-base/type";
-import { GameContext, useGameContext } from "../../../contexts/game-context/game-context";
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import BaseModal from "../base-modal";
 import SeDieGuide from "../../games/se-die/game-guide";
 import BauCuaGuide from "../../games/fish-prawn-crab/game-guide";
@@ -57,7 +57,6 @@ export default function GameHeader(props: Props) {
         updateGameGuideState(!isOpenGameGuide);
     };
     const renderGameGuide = () => {
-        let popupContentTitle = "";
         switch (gameId) {
             case 2:
                 return <SeDieGuide />;
@@ -75,12 +74,11 @@ export default function GameHeader(props: Props) {
     };
 
     const renderGameHistory = () => {
-        let popupContentTitle = "";
         switch (gameId) {
             case 2:
-                return <SeDieBetHistory popupContentTitle={popupContentTitle} />;
+                return <SeDieBetHistory />;
             case 3:
-                return <FishPrawnCrabBetHistory popupContentTitle={popupContentTitle} />;
+                return <FishPrawnCrabBetHistory />;
             default:
                 return null;
         }
@@ -132,13 +130,17 @@ export default function GameHeader(props: Props) {
             </div>
 
             {isOpenGameGuide && (
-                <BaseModal isOpen={isOpenGameGuide} onCloseModal={() => updateGameGuideState(false)}>
+                <BaseModal popupTitle={t("titleModalGameGuide")} isOpen={isOpenGameGuide} onCloseModal={() => updateGameGuideState(false)}>
                     {renderGameGuide()}
                 </BaseModal>
             )}
 
             {isOpenTicketHistory && (
-                <BaseModal isOpen={isOpenTicketHistory} onCloseModal={() => updateTicketHistoryState(false)}>
+                <BaseModal
+                    popupTitle={t("titleModalBetHistory")}
+                    isOpen={isOpenTicketHistory}
+                    onCloseModal={() => updateTicketHistoryState(false)}
+                >
                     {renderGameHistory()}
                 </BaseModal>
             )}

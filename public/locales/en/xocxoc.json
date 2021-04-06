@@ -2,5 +2,13 @@
     "game_name": "Se Die",
     "round": "Round",
     "odd": "Odd",
-    "even": "Even"
+    "even": "Even",
+    "red1": "1 Red",
+    "red2": "2 Red",
+    "red3": "3 Red",
+    "red4": "4 Red",
+    "white3": "3 White",
+    "white4": "4 White",
+    "titleModalBetHistory": "Ticket History",
+    "titleModalGameGuide": "Game Guide"
 }

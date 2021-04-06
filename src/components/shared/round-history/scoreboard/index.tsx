@@ -101,8 +101,6 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     const handleWheel = (e) => {
-        console.log(e.deltaY);
-        console.log(e.target);
         e.target.scrollLeft -= e.deltaY;
     };
 

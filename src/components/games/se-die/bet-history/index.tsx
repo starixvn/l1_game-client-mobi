@@ -5,13 +5,9 @@ import BetHistory, { BetHistoryContainer } from "../../../shared/bet-history";
 import { countRedDot, checkIsEven } from "../mini-round-history";
 import SeDieDot from "../dot";
 import { useTranslation } from "next-i18next";
+import { BetLogs } from "./bet-history";
 
-type Props = {
-    popupContentTitle: string;
-    isReFun?: boolean;
-};
-
-const renderResult = (bet) => {
+const renderResult = (bet: BetLogs) => {
     if (bet.result) {
         const countRed = countRedDot(bet.result);
         return (
@@ -24,50 +20,48 @@ const renderResult = (bet) => {
     }
 };
 
-const renderBet = (bet) => {
+const renderBet = (bet: BetLogs) => {
     const { gameConfigs } = useGameContext();
     const { t } = useTranslation("xocxoc");
     const odds = gameConfigs.odds;
-    const keys = Object.keys(odds);
+    const keysChoices = Object.keys(odds);
     return (
         <div className={Styles["choice"]}>
-            {keys.map((name, index) => {
+            {keysChoices.map((name, index) => {
                 if (bet[name] > 0) {
                     return (
                         <div key={"choice-" + index}>
-                            {t(name)}_{bet[name]} @ {odds[name]}
+                            {t(name)}_{bet[name]}@{odds[name]}
                         </div>
                     );
                 }
-                return "";
             })}
         </div>
     );
 };
 
-const SeDieTicketHistory = (props: Props) => {
-    const { popupContentTitle } = props;
+const SeDieTicketHistory: React.FunctionComponent = () => {
     const gameContext = useGameContext();
 
     if (gameContext.betHistory) {
         const { betLogs } = gameContext.betHistory;
         return (
-            <BetHistoryContainer popupContentTitle={popupContentTitle} isStakeReturn={false}>
-                {betLogs.map((bet: any) => {
+            <BetHistoryContainer isRefund={false}>
+                {betLogs.map((bet: BetLogs) => {
                     return (
                         <BetHistory
                             key={bet.phien}
                             renderResult={() => renderResult(bet)}
                             renderBet={() => renderBet(bet)}
                             betHistoryItem={bet}
-                            isStakeReturn={false}
+                            isRefund={false}
                         ></BetHistory>
                     );
                 })}
             </BetHistoryContainer>
         );
     } else {
-        return "";
+        return <div></div>;
     }
 };
 
