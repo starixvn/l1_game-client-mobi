@@ -1,3 +1,11 @@
+.layout-sedie {
+    display: grid;
+    grid-gap: 0.1rem;
+    height: 28.7rem;
+    grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
+    grid-template-rows: 8.4rem 8.4rem 11.5rem;
+}
+
 .wrapper-dots-2red {
     display: grid;
     align-items: center;
@@ -29,14 +37,6 @@
 .even {
     @extend %odd-even;
     color: #a6a6a6;
-}
-
-.layout-sedie {
-    display: grid;
-    grid-gap: 0.1rem;
-    height: 28.7rem;
-    grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
-    grid-template-rows: 8.4rem 8.4rem 11.6rem;
 }
 
 .bet-choice-4red {
