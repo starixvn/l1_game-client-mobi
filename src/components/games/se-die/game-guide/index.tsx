@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
 
-const SeDieGuide = (props) => {
+const SeDieGuide = () => {
     return (
         <div>
             <ul className="game-guide">

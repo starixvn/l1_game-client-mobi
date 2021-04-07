@@ -9,11 +9,9 @@ import Styles from "./game-header.module.scss";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameState, RebetStorageModel } from "../game-base/type";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import BaseModal from "../base-modal";
-import SeDieGuide from "../../games/se-die/game-guide";
-import BauCuaGuide from "../../games/fish-prawn-crab/game-guide";
-import SeDieBetHistory from "../../games/se-die/bet-history";
-import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
+
+import { usePopupContext } from "../../../contexts/popup-context";
+
 type Props = {
     gameId: number;
     gameName: string;
@@ -26,6 +24,7 @@ type Props = {
 export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
+    const { handleShowPopupGuide, handleShowPopupBetHistory } = usePopupContext();
     const { gameName, roundId, gameState, remainingTime, gameId } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -54,34 +53,13 @@ export default function GameHeader(props: Props) {
     };
     const [isOpenGameGuide, updateGameGuideState] = useState<boolean>(false);
     const openGameGuide = () => {
+        handleShowPopupGuide();
         updateGameGuideState(!isOpenGameGuide);
     };
-    const renderGameGuide = () => {
-        switch (gameId) {
-            case 2:
-                return <SeDieGuide />;
-            case 3:
-                return <BauCuaGuide />;
-            default:
-                return null;
-        }
-    };
 
-    const [isOpenTicketHistory, updateTicketHistoryState] = useState<boolean>(false);
     const openTicketHistory = () => {
-        updateTicketHistoryState(!isOpenTicketHistory);
+        handleShowPopupBetHistory();
         gameContext.getBetHistory(1);
-    };
-
-    const renderGameHistory = () => {
-        switch (gameId) {
-            case 2:
-                return <SeDieBetHistory />;
-            case 3:
-                return <FishPrawnCrabBetHistory />;
-            default:
-                return null;
-        }
     };
 
     useEffect(() => {
@@ -128,22 +106,6 @@ export default function GameHeader(props: Props) {
                     </DropdownMenu>
                 </Dropdown>
             </div>
-
-            {isOpenGameGuide && (
-                <BaseModal popupTitle={t("titleModalGameGuide")} isOpen={isOpenGameGuide} onCloseModal={() => updateGameGuideState(false)}>
-                    {renderGameGuide()}
-                </BaseModal>
-            )}
-
-            {isOpenTicketHistory && (
-                <BaseModal
-                    popupTitle={t("titleModalBetHistory")}
-                    isOpen={isOpenTicketHistory}
-                    onCloseModal={() => updateTicketHistoryState(false)}
-                >
-                    {renderGameHistory()}
-                </BaseModal>
-            )}
         </div>
     );
 }
