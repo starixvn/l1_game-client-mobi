@@ -17,7 +17,7 @@ const OddComponent: React.FunctionComponent = () => {
     const { gameConfigs } = useGameContext();
     const { odds } = gameConfigs;
     return (
-        <div className={Styles.layout}>
+        <div className="d-flex">
             <div className={Styles["odd-container"]}>
                 <OddItem name={"single"} number={odds.single}></OddItem>
                 <OddItem name={"double"} number={odds.double}></OddItem>

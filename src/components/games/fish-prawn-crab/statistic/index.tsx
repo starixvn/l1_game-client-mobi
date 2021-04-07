@@ -10,7 +10,7 @@ type Props = {
 
 const Element = ({ type, value }) => {
     return (
-        <div className="d-flex align-items-center">
+        <div className={Styles["odd-group"]}>
             <Item type={type} isSmall={true}></Item>
             <span className={Styles.number}>{value}</span>
         </div>
@@ -22,7 +22,7 @@ const StatisticComponent = (props: Props) => {
     const tmpData = [0, 0, 0, 0, 0, 0];
     const result = processHistoryResultNumber(roundHistory, tmpData);
     return (
-        <div className={Styles["statistic-container"]}>
+        <div className="d-flex">
             {result.map((value, index) => {
                 return <Element key={"icon-" + index} type={index} value={value}></Element>;
             })}

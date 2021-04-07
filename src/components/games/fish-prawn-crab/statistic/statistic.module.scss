@@ -1,12 +1,8 @@
-.statistic-container {
+.odd-group {
     display: flex;
-    justify-content: space-between;
-    height: 3.2rem;
-    padding: 0.5rem 0.8rem;
-    background-color: #fff;
-    box-shadow: 0 1.5rem 1rem -1.5rem #bebfc1;
-    border: 0.4rem solid #dce2f3;
-    border-bottom-width: 0;
+    justify-content: center;
+    align-items: center;
+    margin: 0 1rem;
 
     .number {
         color: #2c2f3e;

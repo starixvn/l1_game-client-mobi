@@ -1,19 +1,9 @@
-.layout {
+.odd-container {
     display: flex;
     justify-content: center;
-    min-height: 3.6rem;
-    padding: 0 0.5rem;
-    border: 0.4rem solid #dce2f3;
-    border-top-width: 0;
-    background-color: #fff;
-
-    .odd-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 500;
-        font-size: 1.4rem;
-    }
+    align-items: center;
+    font-weight: 500;
+    font-size: 1.4rem;
 
     .odd-item {
         margin: 0 1rem;
