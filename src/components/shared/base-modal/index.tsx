@@ -30,10 +30,10 @@ const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, i
     return (
         <div ref={wrapperRef} className={` ${Styles["popup"]} ${isSmall ? Styles.small : ""}`}>
             <div className={Styles["popup-logo"]}>
-                <span className={Styles["icon-small-logo"]}></span>
+                <span className="icon-small-logo"></span>
             </div>
             <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
-                <span className={Styles["icon-close"]}></span>
+                <span className="icon-close"></span>
             </div>
             <div className={Styles["popup-header"]}>
                 <h1 className={Styles["popup-title"]}>{title}</h1>
