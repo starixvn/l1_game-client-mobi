@@ -2,10 +2,10 @@ import React from "react";
 
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
 import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
-import SeDieResult from "./se-die-result";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
@@ -26,9 +26,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderBetOptions() {
-        const { gameState, result, settlementResult } = this.state;
+        const { gameState, settlementResult } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
-        return <SeDieBetOptions gameState={gameState} result={result} settlementResult={settlementResult ?? fakeSettlementResult} />;
+        return <SeDieBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
     }
 
     renderRoundHistory() {
@@ -45,9 +45,17 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
     }
 
+    get isShowStartRoundAnimation() {
+        return this.state.gameState === GameState.BeforeStartRound;
+    }
+
+    renderStartRoundAnimation() {
+        return <ShakeThePlate />;
+    }
+
     renderResult() {
-        const { gameState, result, settlementResult } = this.state;
-        return <SeDieResult gameState={gameState} result={result} settlementResult={settlementResult}></SeDieResult>;
+        const { result } = this.state;
+        return <OpenThePlate result={result}></OpenThePlate>;
     }
 }
 

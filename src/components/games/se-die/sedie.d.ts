@@ -8,7 +8,7 @@ export interface SettlementResult {
     white4: boolean;
 }
 
-export interface esult {
+export interface Result {
     red1: boolean;
     red2: boolean;
     red3: boolean;
