@@ -42,6 +42,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[`icon-${IconMapper[choice]}`]}`}></div>
+            <div className={Styles["highlight-result-label"]}></div>
         </BetOption>
     );
 };

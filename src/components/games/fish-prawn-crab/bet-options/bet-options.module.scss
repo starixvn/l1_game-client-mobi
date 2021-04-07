@@ -17,3 +17,38 @@
         font-size: 6.6rem;
     }
 }
+
+.highlight-result-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 3.6rem;
+    width: 3.6rem;
+    background: linear-gradient(221.79deg, #f9d07a 0%, #a87725 98.88%);
+    background-size: 100%;
+    clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+    transform: rotate(90deg);
+
+    &:before {
+        position: absolute;
+        top: 1.7rem;
+        left: 0.4rem;
+        display: inline-block;
+        transform: rotate(-90deg);
+        font-weight: 500;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    &.x2 {
+        content: "X2";
+    }
+
+    &.x3 {
+        content: "X3";
+    }
+
+    &.prev-round {
+        background: linear-gradient(221.79deg, #f0f0f0 0%, #bebebe 98.88%);
+    }
+}
