@@ -1,9 +1,11 @@
 import React from "react";
 
+import BaseModal from "../../shared/base-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
+import SeDieGuide from "./game-guide";
 import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";

@@ -1,16 +1,15 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
-import CountdownTimer from "../countdown-timer/countdown-timer";
-import Styles from "./game-header.module.scss";
-import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
-import { GameState, RebetStorageModel } from "../game-base/type";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-
 import { usePopupContext } from "../../../contexts/popup-context";
+import CountdownTimer from "../countdown-timer/countdown-timer";
+import { GameState, RebetStorageModel } from "../game-base/type";
+import Styles from "./game-header.module.scss";
 
 type Props = {
     gameId: number;
@@ -25,7 +24,7 @@ export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
     const { handleShowPopupGuide, handleShowPopupBetHistory } = usePopupContext();
-    const { gameName, roundId, gameState, remainingTime, gameId } = props;
+    const { gameName, roundId, gameState, gameId } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
@@ -82,7 +81,7 @@ export default function GameHeader(props: Props) {
                 </div>
             </div>
             <div className={Styles["count-down"]}>
-                <CountdownTimer remainingTime={remainingTime} key={gameState}></CountdownTimer>
+                <CountdownTimer remainingTime={props.remainingTime} key={gameState} />
             </div>
             <div className={Styles["header-right"]}>
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => onClickRebet()}>

@@ -1,42 +1,18 @@
 import React from "react";
-import Styles from "./countdown-timer.module.scss";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
+import styles from "./countdown-timer.module.scss";
 
 type Props = {
     remainingTime: number;
 };
 
-type State = {
-    currentTime: number;
-};
+const CountdownTimer: React.FC<Props> = (props) => (
+    <div className={styles.timer}>
+        <CountdownCircleTimer isPlaying size={40} strokeWidth={6} duration={props.remainingTime} colors={[["#004777", 1]]}>
+            {({ remainingTime }) => remainingTime}
+        </CountdownCircleTimer>
+    </div>
+);
 
-export default class CountdownTimer extends React.Component<Props, State> {
-    private interval: NodeJS.Timeout;
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            currentTime: props.remainingTime,
-        };
-    }
-
-    componentDidMount() {
-        this.interval = setInterval(() => {
-            if (this.state.currentTime > 0) {
-                this.setState({ currentTime: this.state.currentTime - 1 });
-            }
-        }, 1000);
-    }
-
-    componentWillUnmount() {
-        if (this.interval) {
-            clearInterval(this.interval);
-        }
-    }
-
-    render() {
-        const { currentTime } = this.state;
-
-        return <div className={Styles["timer"]}>{currentTime}</div>;
-    }
-}
+export default CountdownTimer;
