@@ -6,6 +6,8 @@ import { AuthContext } from "../../../contexts/auth";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
 import BetContainer from "../bet-container";
+import Styles from "./game-base.module.scss";
+
 import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -266,12 +268,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     apiUrl={socketInfo.api}
                 >
                     <BetContainer gameState={gameState}>
-                        <div className={`bet-options-container`}>{this.renderBetOptions()}</div>
+                        <div className={Styles["bet-options"]}>{this.renderBetOptions()}</div>
                         {this.isDisplayResult() && this.renderResult()}
                     </BetContainer>
-                    <div className={"mini-round-history-container"}>{this.renderRoundHistory()}</div>
-                    {this.renderStatistic()}
-                    {this.renderBoard()}
+                    <div className={Styles["mini-round-history"]}>{this.renderRoundHistory()}</div>
+                    <div className={Styles["statistic"]}>{this.renderStatistic()}</div>
+                    <div className={Styles["board"]}>{this.renderBoard()}</div>
                 </GameContainer>
             </GameContextProvider>
         ) : (

@@ -1,7 +1,6 @@
 @import "./components/fonts";
 @import "./components/icons";
 @import "./components/buttons";
-@import "./components/bet-options";
 @import "./components/score-board";
 @import "./components/table";
 @import "./game-guide.scss";
@@ -23,7 +22,7 @@ body {
     margin: auto;
 
     @media (min-width: 1400px) {
-        width: 130rem;
+        width: 123.2rem;
     }
 }
 

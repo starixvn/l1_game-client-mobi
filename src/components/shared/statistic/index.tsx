@@ -72,11 +72,11 @@ export const processHistoryResultNumber = (historyData: historyData[], templateR
     return templateResult;
 };
 const Statistic = (props: any) => {
-    return <div className={Styles["statistic-header"]}>{props.children}</div>;
+    return <div className="d-flex">{props.children}</div>;
 };
 
 export const WrapperHeader = (props) => {
-    return <div className={Styles["wrapper-header"]}>{props.children}</div>;
+    return <div className={Styles["statistic-group"]}>{props.children}</div>;
 };
 
 export default Statistic;
