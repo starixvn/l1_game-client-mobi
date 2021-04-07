@@ -1,5 +1,7 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
+import React from "react";
+
+import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
 import RoundHistoryContainer from "../../../shared/round-history/container";
 import RoundHistoryItem from "../../../shared/round-history/item";

@@ -1,11 +1,8 @@
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import BetContainer from "../../../shared/bet-container";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
-import { Result } from "../fish-prawn-crab";
-import FishPrawnCrabResult from "../fish-prawn-crab-result";
 import { SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
@@ -34,7 +31,6 @@ const OddNames = {
 };
 
 type Props = {
-    result: Result;
     settlementResult: SettlementResult;
     gameState: GameState;
 };
@@ -53,19 +49,14 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     return (
-        <BetContainer gameState={gameState}>
-            <div className={`bet-options-container ${Styles["layout-FPC"]}`}>
-                <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult)}</div>
-                <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult)}</div>
-                <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult)}</div>
-                <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult)}</div>
-                <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult)}</div>
-                <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult)}</div>
-            </div>
-            {gameState === GameState.DisplayResult && (
-                <FishPrawnCrabResult result={props.result} settlementResult={props.settlementResult}></FishPrawnCrabResult>
-            )}
-        </BetContainer>
+        <div className={`${Styles["layout-FPC"]}`}>
+            <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult)}</div>
+        </div>
     );
 };
 

@@ -2,10 +2,11 @@ import React from "react";
 
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabBetOptions from "./bet-options";
-import ScoreboardHistory from "./scoreboard-round-history";
+import { Result, SettlementResult } from "./fish-prawn-crab";
+import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
+import ScoreboardHistory from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
@@ -24,23 +25,32 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         };
     }
 
-    renderGame() {
-        const { gameState, roundHistory, result, settlementResult } = this.state;
-
+    renderBetOptions() {
+        const { gameState, settlementResult } = this.state;
         return (
-            <React.Fragment>
-                <FishPrawnCrabBetOptions
-                    gameState={gameState}
-                    result={result}
-                    settlementResult={
-                        settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }
-                    }
-                />
-                <OddComponent></OddComponent>
-                <StatisticComponent roundHistory={roundHistory}></StatisticComponent>
-                <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>
-            </React.Fragment>
+            <FishPrawnCrabBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }}
+            />
         );
+    }
+
+    renderRoundHistory() {
+        return <OddComponent />;
+    }
+
+    renderStatistic() {
+        return <StatisticComponent roundHistory={this.state.roundHistory}></StatisticComponent>;
+    }
+
+    renderResult() {
+        const { result, settlementResult } = this.state;
+        return <FishPrawnCrabResult result={result} settlementResult={settlementResult}></FishPrawnCrabResult>;
+    }
+
+    renderBoard() {
+        const { gameState, roundHistory } = this.state;
+        return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
     }
 }
 

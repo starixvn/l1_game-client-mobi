@@ -1,4 +1,4 @@
-export interface SeDieSettlementResult {
+export interface SettlementResult {
     even: boolean;
     odd: boolean;
     red2: boolean;
@@ -8,7 +8,7 @@ export interface SeDieSettlementResult {
     white4: boolean;
 }
 
-export interface SeDieResult {
+export interface esult {
     red1: boolean;
     red2: boolean;
     red3: boolean;

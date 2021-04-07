@@ -5,6 +5,7 @@ import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
+import BetContainer from "../bet-container";
 import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -224,7 +225,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ gameState });
     }
 
-    abstract renderGame(): React.ReactElement;
+    abstract renderBetOptions(): React.ReactElement;
+
+    abstract renderRoundHistory(): React.ReactElement;
+
+    abstract renderStatistic(): React.ReactElement;
+
+    abstract renderBoard(): React.ReactElement;
+
+    abstract renderResult(): React.ReactElement;
+
+    isDisplayResult() {
+        return this.state.gameState == GameState.DisplayResult;
+    }
 
     render() {
         const { gameName, id, socketInfo } = this.props;
@@ -252,7 +265,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     gameState={gameState}
                     apiUrl={socketInfo.api}
                 >
-                    {this.renderGame()}
+                    <BetContainer gameState={gameState}>
+                        <div className={`bet-options-container`}>{this.renderBetOptions()}</div>
+                        {this.isDisplayResult() && this.renderResult()}
+                    </BetContainer>
+                    <div className={"mini-round-history-container"}>{this.renderRoundHistory()}</div>
+                    {this.renderStatistic()}
+                    {this.renderBoard()}
                 </GameContainer>
             </GameContextProvider>
         ) : (

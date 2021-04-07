@@ -20,11 +20,24 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<BigSmallResult, Big
         };
     }
 
-    renderGame() {
-        const { gameState, roundHistory, result, settlementResult } = this.state;
-        const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
+    renderBetOptions() {
+        return <></>;
+    }
 
-        return <React.Fragment></React.Fragment>;
+    renderRoundHistory() {
+        return <></>;
+    }
+
+    renderStatistic() {
+        return <></>;
+    }
+
+    renderResult() {
+        return <></>;
+    }
+
+    renderBoard() {
+        return <></>;
     }
 }
 
