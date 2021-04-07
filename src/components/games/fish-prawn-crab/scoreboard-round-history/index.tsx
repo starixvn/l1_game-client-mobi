@@ -1,6 +1,7 @@
 import React from "react";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
+import ScoreboardBasic from "../../../shared/round-history/scoreboard/basic";
 import Item from "../item";
 
 const ContainerItem = (props) => {
@@ -19,21 +20,12 @@ const getElementRound = (result: any, roundId: number) => {
     );
 };
 
-const ScoreboardComponent: React.FunctionComponent = (props) => {
-    return <div className="score-board-container">{props.children}</div>;
-};
-
 const ScoreboardHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
     return (
-        <ScoreboardComponent>
-            <ScoreboardRoundHistory
-                roundHistory={roundHistory}
-                gameState={gameState}
-                isDragonTail={false}
-                getElementRound={getElementRound}
-            ></ScoreboardRoundHistory>
-        </ScoreboardComponent>
+        <ScoreboardRoundHistory>
+            <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={getElementRound}></ScoreboardBasic>
+        </ScoreboardRoundHistory>
     );
 };
 

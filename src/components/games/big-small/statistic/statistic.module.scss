@@ -1,0 +1,34 @@
+.titleBig,
+.titleSmall {
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 0.3rem;
+
+    @media (min-width: 1400px) {
+        font-size: 1.2rem;
+    }
+}
+
+.titleBig{
+    color: #3087D7;
+}
+.titleSmall{
+    color: #DE4B56;
+}
+
+.number {
+    margin-left: 0.2rem;
+    font-size: 1.4rem;
+    color: #2c2f3e;
+
+    @media (min-width: 1400px) {
+        font-size: 1.2rem;
+    }
+}
+
+.element-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}

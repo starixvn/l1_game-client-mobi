@@ -1,8 +1,9 @@
 import React from "react";
 import { SeDieDotNumber, ScoreboardItemNext } from "../dot";
-import { SettlementResult } from "../sedie";
+import { SeDieSettlementResult } from "../sedie";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
+import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
 import { countRedDot, checkIsEven } from "../mini-round-history";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
@@ -11,16 +12,12 @@ const getElementRound = (result: any, col: number, row: number, roundId: number)
     return <SeDieDotNumber key={roundId} red={isEven} count={count} col={col} row={row}></SeDieDotNumber>;
 };
 
-const checkCondition = (settlementResult: SettlementResult) => {
+const checkCondition = (settlementResult: SeDieSettlementResult) => {
     let value = 1;
     if (settlementResult.even) {
         value = 0;
     }
     return value;
-};
-
-const ScoreboardComponent = (props) => {
-    return <div className="score-board-container">{props.children}</div>;
 };
 
 const ScoreboardHistory = (props: Props) => {
@@ -29,16 +26,15 @@ const ScoreboardHistory = (props: Props) => {
         return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
     };
     return (
-        <ScoreboardComponent>
-            <ScoreboardRoundHistory
+        <ScoreboardRoundHistory>
+            <ScoreboardDragon
                 roundHistory={roundHistory}
                 gameState={gameState}
-                isDragonTail={true}
                 getElementRound={getElementRound}
                 checkCondition={checkCondition}
                 roundNext={roundNext}
-            ></ScoreboardRoundHistory>
-        </ScoreboardComponent>
+            ></ScoreboardDragon>
+        </ScoreboardRoundHistory>
     );
 };
 

@@ -88,7 +88,7 @@ export const getStaticProps = async ({ locale }) => ({
             "header",
             "xocxoc",
             "kenopromax",
-            "bigsmall",
+            "taixiu",
             "baucua",
             "register",
             "bethistory",
