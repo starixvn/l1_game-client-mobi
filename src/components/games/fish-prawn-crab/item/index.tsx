@@ -6,30 +6,16 @@ type Props = {
     isSmall?: boolean;
 };
 
-const Item: React.FunctionComponent<Props> = ({ type, isSmall }) => {
-    let iconName = "";
-    switch (type) {
-        case 1:
-            iconName = "icon-bau";
-            break;
-        case 2:
-            iconName = "icon-ga";
-            break;
-        case 3:
-            iconName = "icon-ca";
-            break;
-        case 4:
-            iconName = "icon-cua";
-            break;
-        case 5:
-            iconName = "icon-tom";
-            break;
-        default:
-            iconName = "icon-nai";
-            break;
-    }
+const listIconName = ["icon-bau", "icon-ga", "icon-ca", "icon-cua", "icon-tom", "icon-nai"];
 
-    return <div className={`${isSmall ? Styles["icon-mini"] : Styles["score-board-item"]} ${iconName} ${Styles[iconName]} `}></div>;
+const Item: React.FunctionComponent<Props> = ({ type, isSmall }) => {
+    const iconName = listIconName.filter((name, index) => {
+        return index === type;
+    });
+
+    return (
+        <div className={`${isSmall ? Styles["icon-mini"] : Styles["score-board-item"]} ${iconName} ${Styles[iconName.toString()]} `}></div>
+    );
 };
 
 export default Item;

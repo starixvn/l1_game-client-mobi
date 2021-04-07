@@ -8,9 +8,6 @@ import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import SeDieGuide from "./game-guide";
-import PopUpContainer from "../../shared/popup-container";
-import BaseModal from "../../shared/base-modal";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -59,14 +56,6 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     renderResult() {
         const { result } = this.state;
         return <OpenThePlate result={result}></OpenThePlate>;
-    }
-
-    renderGuide({ isOpenGameGuide, updatePopupGuideState }) {
-        return (
-            <BaseModal title={""} isOpen={isOpenGameGuide} onCloseModal={updatePopupGuideState}>
-                <SeDieGuide></SeDieGuide>
-            </BaseModal>
-        );
     }
 }
 
