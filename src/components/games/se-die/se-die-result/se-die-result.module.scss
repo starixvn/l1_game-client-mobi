@@ -39,14 +39,13 @@
         position: absolute;
         top: 0;
         opacity: 1;
-        transform: translate3d(0, 0, 0);
         width: 100%;
         /*animation*/
         animation-name: frAnimation-sedie-copy, frAnimation-sd, frAnimation-sedie-hide-shake;
         animation-delay: 0, 0.5s, 3s;
         animation-duration: 0.5s, 0.5s, 1s;
         animation-fill-mode: forwards, forwards, forwards;
-        animation-timing-function: linear, linear, linear;
+        animation-timing-function: linear, linear, ease-out;
     }
 }
 
@@ -242,35 +241,12 @@
     }
 }
 
-@-webkit-keyframes frAnimation-sedie-hide-shake {
-    90% {
-        opacity: 1;
-        transform: scale(1);
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.2);
-        transform: translate3d(0, -10rem, -5rem);
-    }
-}
-
 @keyframes frAnimation-sedie-hide-shake {
+    80% {
+        opacity: 1;
+    }
     90% {
-        opacity: 1;
-        transform: scale(1);
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.2);
-        transform: translate3d(0, -20rem, -5rem);
-    }
-}
-
-@-webkit-keyframes frAnimation-sedie-bowl-hide {
-    70% {
-        opacity: 1;
+        opacity: 0.4;
     }
     100% {
         opacity: 0;
@@ -289,7 +265,7 @@
 @keyframes animation-sedie-opening-bowl {
     4%,
     36% {
-        transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0) scale(1);
     }
     100% {
         transform: translate(5rem, -10rem) rotate(45deg);

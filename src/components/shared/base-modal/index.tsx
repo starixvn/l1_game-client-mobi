@@ -28,18 +28,18 @@ const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, i
     }, [wrapperRef]);
 
     return (
-        <div ref={wrapperRef} className={`popup ${Styles["base-modal"]} ${isSmall ? Styles.small : ""}`}>
-            <div className="popup-logo">
-                <span className="icon-small-logo"></span>
+        <div ref={wrapperRef} className={` ${Styles["popup"]} ${isSmall ? Styles.small : ""}`}>
+            <div className={Styles["popup-logo"]}>
+                <span className={Styles["icon-small-logo"]}></span>
             </div>
-            <div className="popup-closed-icon" onClick={() => onCloseModal()}>
-                <span className="icon-close"></span>
+            <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
+                <span className={Styles["icon-close"]}></span>
             </div>
-            <div className="popup-header">
-                <h1 className="popup-title">{title}</h1>
-                {subTitle && <p className="popup-sub-title">{subTitle}</p>}
+            <div className={Styles["popup-header"]}>
+                <h1 className={Styles["popup-title"]}>{title}</h1>
+                {subTitle && <p className={Styles["popup-sub-title"]}>{subTitle}</p>}
             </div>
-            <div className={Styles["popup-content"]}>{children}</div>
+            <div>{children}</div>
         </div>
     );
 };

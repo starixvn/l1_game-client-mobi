@@ -1,18 +1,9 @@
 .wrapper-dots-2red {
-    height: 100%;
-    width: 5.2rem;
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-
-    @media (min-width: 768px) {
-        width: 4.2rem;
-    }
-
-    > div {
-        margin-top: 0;
-        margin-bottom: 0.1rem;
-    }
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-gap: 0.4rem 0;
 }
 
 .bet-choice-name {

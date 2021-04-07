@@ -4,17 +4,14 @@
     justify-content: center;
     width: 1.6rem;
     height: 1.6rem;
-    margin: 0 0.1rem;
+    margin: 0 0.2rem;
     border-radius: 50%;
     font-size: 1.2rem;
     font-weight: 500;
+    pointer-events: none;
 
     @media (min-width: 768px) {
-        width: 1.5rem;
-        height: 1.5rem;
-        font-size: 1.2rem;
     }
-    pointer-events: none;
 }
 
 .dot-red {

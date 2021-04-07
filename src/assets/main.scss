@@ -3,7 +3,6 @@
 @import "./components/buttons";
 @import "./components/bet-options";
 @import "./components/score-board";
-@import "./components/modals";
 @import "./components/table";
 @import "./game-guide.scss";
 
@@ -26,6 +25,16 @@ body {
     @media (min-width: 1400px) {
         width: 130rem;
     }
+}
+
+.overlay-mask {
+    position: absolute;
+    top: 0.1rem;
+    bottom: 0.1rem;
+    left: 0.4rem;
+    right: 0.4rem;
+    z-index: 11;
+    background: rgba(0, 0, 0, 0.36);
 }
 
 label {
