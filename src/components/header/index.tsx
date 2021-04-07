@@ -1,9 +1,9 @@
-import { WithTranslation, withTranslation } from 'next-i18next';
-import React, { useState } from 'react';
-import { Container, Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from 'reactstrap';
+import { WithTranslation, withTranslation } from "next-i18next";
+import React, { useState } from "react";
+import { Container, Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
 
-import { ResourceTypes } from '../../common/resources';
-import styles from './header.module.scss';
+import { ResourceTypes } from "../../common/resources";
+import Styles from "./header.module.scss";
 
 type Props = {
     UID: number;
@@ -19,25 +19,25 @@ const Header: React.FC<Props> = (props) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <header className={styles.header}>
-            <Navbar expand="md" className={styles["navbar-custom"]}>
-                <Container>
+        <header className={Styles.header}>
+            <Navbar expand="md" className={Styles["navbar-custom"]}>
+                <div className={Styles["header-container"]}>
                     <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>
                         <NavbarBrand href="/">
-                            <img className={styles.logo} alt="logo" src="/static/images/small-logo.svg" />
+                            <img className={Styles.logo} alt="logo" src="/static/images/small-logo.svg" />
                         </NavbarBrand>
                     </UncontrolledCollapse>
                     <NavbarToggler id="navbar" onClick={toggle} />
-                    <div className={styles["user-info"]}>
+                    <div className={Styles["user-info"]}>
                         <div className="user-name">
-                            <span className={`icon-user ${styles["icon-user"]}`}></span>
+                            <span className={`icon-user ${Styles["icon-user"]}`}></span>
                             <span>{props.name}</span>
                         </div>
-                        <div className={styles.balance}>
+                        <div className={Styles.balance}>
                             {props.currency} {props.balance}
                         </div>
                     </div>
-                </Container>
+                </div>
             </Navbar>
         </header>
     );
