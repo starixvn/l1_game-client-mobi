@@ -7,15 +7,28 @@
     margin-bottom: 0.5rem;
     pointer-events: none;
     background-color: #e3e3e3;
-    font-size: 2.4rem;
+    font-size: 2.6rem;
 
     &:last-child {
         margin-bottom: 0;
     }
+
+    &.icon-bau {
+        font-size: 2.4rem;
+    }
+
+    &.icon-ca,
+    &.icon-nai {
+        font-size: 2.8rem;
+    }
 }
 
 .icon-mini {
-    font-size: 1.8rem;
-    margin-right: 0.5rem;
+    font-size: 2.2rem;
+    margin-right: 1rem;
     background-color: none !important;
+
+    &.icon-bau {
+        font-size: 1.8rem;
+    }
 }
