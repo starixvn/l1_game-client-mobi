@@ -19,7 +19,7 @@ const ElementLeft = ({ data, titleText }) => {
             {titleText.map((title, index) => {
                 const value = data[index];
                 return (
-                    <WrapperHeader>
+                    <WrapperHeader key={"right-" + index}>
                         <span className={title === "odd" ? Styles["titleOdd"] : Styles["titleEven"]}> {t(title)}</span>
                         <span className={Styles["number"]}>{value}%</span>
                     </WrapperHeader>
@@ -35,7 +35,7 @@ const ElementRight = ({ data, titleText }) => {
             {titleText.map((title, index) => {
                 const value = index === 0 ? data[4] : data[index];
                 return (
-                    <WrapperHeader key={"left-" + index}>
+                    <WrapperHeader key={"right-" + index}>
                         <SeDieDot red={index % 2 > 0} value={title} />
                         <span className={Styles["number"]}>{value}%</span>
                     </WrapperHeader>

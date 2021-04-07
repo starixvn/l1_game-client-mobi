@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Styles from "./round-history.module.scss";
 
 type Props = {
@@ -6,18 +6,22 @@ type Props = {
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const scrollWrapperCurrent = wrapperRef.current;
+    let mouseDown = false;
+    let startX, scrollLeft;
+
     const handleWheel = (e) => {
         e.target.scrollLeft -= e.deltaY;
     };
 
-    let mouseDown = false;
-    let startX, scrollLeft;
-    let startDragging = function (e) {
+    const startDragging = (e) => {
         mouseDown = true;
         startX = e.pageX - e.target.offsetLeft;
         scrollLeft = e.target.scrollLeft;
     };
-    let stopDragging = function (e) {
+
+    const stopDragging = (e) => {
         mouseDown = false;
     };
 
@@ -32,17 +36,18 @@ const ScoreboardRoundHistory = (props: Props) => {
         e.target.scrollLeft = scrollLeft - scroll;
     };
 
-    return (
-        <div
-            onWheel={(e) => handleWheel(e)}
-            onMouseDown={(e) => startDragging(e)}
-            onMouseUp={(e) => stopDragging(e)}
-            onMouseLeave={(e) => stopDragging(e)}
-            onMouseMove={(e) => handleDragging(e)}
-        >
-            {props.children}
-        </div>
-    );
+    useEffect(() => {
+        if (wrapperRef.current) {
+            wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
+            wrapperRef.current.onwheel = handleWheel;
+            wrapperRef.current.onmousedown = startDragging;
+            wrapperRef.current.onmouseup = stopDragging;
+            wrapperRef.current.onmouseleave = stopDragging;
+            wrapperRef.current.onmousemove = handleDragging;
+        }
+    }, [scrollWrapperCurrent]);
+
+    return <div ref={wrapperRef}>{props.children}</div>;
 };
 
 export default ScoreboardRoundHistory;
