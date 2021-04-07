@@ -39,7 +39,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.red4}
                         odd={odds[Choices.red4]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red4]}
+                        isHighlight={settlementResult[Choices.red4]}
+                        gameState={gameState}
                     >
                         {renderIcons([true, true, true, true])}
                     </BetOption>
@@ -48,7 +49,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.red2}
                         odd={odds[Choices.red2]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red2]}
+                        isHighlight={settlementResult[Choices.red2]}
+                        gameState={gameState}
                     >
                         <div className={Styles["wrapper-dots-2red"]}>{renderIcons([false, true, false, true])}</div>
                     </BetOption>
@@ -57,7 +59,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.white4}
                         odd={odds[Choices.white4]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white4]}
+                        isHighlight={settlementResult[Choices.white4]}
+                        gameState={gameState}
                     >
                         {renderIcons([false, false, false, false])}
                     </BetOption>
@@ -66,7 +69,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.red3}
                         odd={odds[Choices.red3]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.red3]}
+                        isHighlight={settlementResult[Choices.red3]}
+                        gameState={gameState}
                     >
                         {renderIcons([false, true, true, true])}
                     </BetOption>
@@ -75,7 +79,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.white3}
                         odd={odds[Choices.white3]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.white3]}
+                        isHighlight={settlementResult[Choices.white3]}
+                        gameState={gameState}
                     >
                         {renderIcons([true, false, false, false])}
                     </BetOption>
@@ -84,7 +89,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.even}
                         odd={odds[Choices.even]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.even]}
+                        isHighlight={settlementResult[Choices.even]}
+                        gameState={gameState}
                     >
                         <div className={`${Styles["bet-choice-name"]} ${Styles.even}`}>{Choices.even}</div>
                     </BetOption>
@@ -93,7 +99,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                     <BetOption
                         choice={Choices.odd}
                         odd={odds[Choices.odd]}
-                        isHighlight={gameState == GameState.Waiting && settlementResult[Choices.odd]}
+                        isHighlight={settlementResult[Choices.odd]}
+                        gameState={gameState}
                     >
                         <div className={`${Styles["bet-choice-name"]} ${Styles.odd}`}>{Choices.odd}</div>
                     </BetOption>

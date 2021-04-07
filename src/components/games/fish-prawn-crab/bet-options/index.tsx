@@ -42,9 +42,9 @@ type Props = {
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult) => {
     const { gameConfigs } = useGameContext();
     const { odds } = gameConfigs;
-    const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
+    const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     return (
-        <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight}>
+        <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]}`}></div>
         </BetOption>
     );
