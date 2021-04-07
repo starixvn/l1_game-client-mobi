@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+
+import Chip from "../chip";
 import Styles from "./bet-setting.module.scss";
 
 export const BetSettings: React.FC = (props) => {
     const [isShowSettings, setShowSettings] = useState(false);
+    const [selectedChipValue, setSelectedChipValue] = useState(1);
 
     const HandleClickActiveBtn = () => {
         setShowSettings(!isShowSettings);
     };
+
+    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
 
     return (
         <div>
@@ -25,9 +30,15 @@ export const BetSettings: React.FC = (props) => {
 
                     <div className={Styles["chips-container"]}>
                         <span className={`icon-arrow-right ${Styles["prev"]} ${Styles["disabled"]}`}></span>
-                        <div className={Styles.chip}></div>
-                        <div className={`${Styles.chip} ${Styles.highlight}`}>1</div>
-                        <div className={Styles.chip}>5</div>
+                        {Object.keys(chipList).map((key) => (
+                            <Chip
+                                key={key}
+                                display={key}
+                                value={chipList[key]}
+                                onSelected={setSelectedChipValue}
+                                selected={selectedChipValue === chipList[key]}
+                            />
+                        ))}
                         <span className={`icon-arrow-right ${Styles["next"]}`}></span>
                     </div>
                 </div>

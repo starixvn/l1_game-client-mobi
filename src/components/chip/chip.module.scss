@@ -1,0 +1,22 @@
+.chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 40px;
+    margin: 0 1rem;
+    background-image: url(/static/images/chip-reset.png);
+    max-width: 100%;
+    background-size: cover;
+    font-weight: bold;
+    font-size: 1.4rem;
+
+    &:hover,
+    &.highlight {
+        transform: scale(1.5);
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
