@@ -1,6 +1,6 @@
 import React from "react";
 import { SeDieDotNumber, ScoreboardItemNext } from "../dot";
-import { SeDieSettlementResult } from "../sedie";
+import { SettlementResult } from "../sedie";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
@@ -12,7 +12,7 @@ const getElementRound = (result: any, col: number, row: number, roundId: number)
     return <SeDieDotNumber key={roundId} red={isEven} count={count} col={col} row={row}></SeDieDotNumber>;
 };
 
-const checkCondition = (settlementResult: SeDieSettlementResult) => {
+const checkCondition = (settlementResult: SettlementResult) => {
     let value = 1;
     if (settlementResult.even) {
         value = 0;

@@ -13,23 +13,19 @@ import SeDieDot from "../dot";
 import Styles from "./statistic.module.scss";
 
 const ElementLeft = ({ data, titleText }) => {
+    const { t } = useTranslation("xocxoc");
     return (
         <div className={Styles["percent-left"]}>
             {titleText.map((title, index) => {
                 const value = data[index];
-                return <Element key={"left-" + index} classString={Styles["titleOdd"]} title={title} value={value}></Element>;
+                return (
+                    <WrapperHeader>
+                        <span className={title === "odd" ? Styles["titleOdd"] : Styles["titleEven"]}> {t(title)}</span>
+                        <span className={Styles["number"]}>{value}%</span>
+                    </WrapperHeader>
+                );
             })}
         </div>
-    );
-};
-
-const Element = ({ classString, title, value }) => {
-    const { t } = useTranslation("xocxoc");
-    return (
-        <WrapperHeader>
-            <span className={classString}> {t(title)}</span>
-            <span className={Styles["number"]}>{value}%</span>
-        </WrapperHeader>
     );
 };
 
