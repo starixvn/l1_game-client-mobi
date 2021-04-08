@@ -6,7 +6,7 @@
 
 .table {
     border: none;
-    color: $tableColor;
+    color: $table-color;
     font-size: 1.4rem;
 
     thead {
@@ -15,7 +15,7 @@
         th {
             border: none;
             font-weight: 500;
-            background: $tableHeaderBackground;
+            background: $table-header-background;
             border-bottom: none;
 
             &:first-child {
@@ -36,13 +36,13 @@
     }
 
     tbody {
-        background-color: $tableBackground;
+        background-color: $table-background;
 
         tr {
-            border-bottom: 1px solid $tableBorderColor;
+            border-bottom: 1px solid $table-border-color;
 
             &.highlight {
-                background-color: $tableHighlightBackground;
+                background-color: $table-highlight-background;
             }
         }
 
