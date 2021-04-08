@@ -1,4 +1,6 @@
 {
     "game_name": "Big Small",
-    "round": "Round"
+    "round": "Round",
+    "big": "Big",
+    "small": "Small"
 }

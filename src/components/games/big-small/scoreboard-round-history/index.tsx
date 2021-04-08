@@ -1,19 +1,19 @@
 import React from "react";
-import { SeDieDotNumber, ScoreboardItemNext } from "../dot";
-import { SettlementResult } from "../sedie";
+import { BigSmallDotNumber, ScoreboardItemNext } from "../dot";
+import { SettlementResult } from "../big-small";
 import { Props } from "./scoreboard-round-history";
-import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
-import { countRedDot, checkIsEven } from "../mini-round-history";
+import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
+import { countRedDot, checkIsSmall } from "../mini-round-history";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
-    const isEven = checkIsEven(countRedDot(result));
-    const count = countRedDot(result);
-    return <SeDieDotNumber key={roundId} red={isEven} count={count} col={col} row={row}></SeDieDotNumber>;
+    const isSmall = checkIsSmall(countRedDot(result));
+    const textInner = isSmall ? "M" : "B";
+    return <BigSmallDotNumber key={roundId} red={isSmall} textInner={textInner} col={col} row={row}></BigSmallDotNumber>;
 };
 
 const checkCondition = (settlementResult: SettlementResult) => {
     let value = 1;
-    if (settlementResult.even) {
+    if (settlementResult.small) {
         value = 0;
     }
     return value;
@@ -30,14 +30,13 @@ const ScoreboardHistory = (props: Props) => {
     };
     return (
         <ScoreboardComponent>
-            <ScoreboardRoundHistory
+            <ScoreboardDragon
                 roundHistory={roundHistory}
                 gameState={gameState}
-                isDragonTail={true}
                 getElementRound={getElementRound}
                 checkCondition={checkCondition}
                 roundNext={roundNext}
-            ></ScoreboardRoundHistory>
+            ></ScoreboardDragon>
         </ScoreboardComponent>
     );
 };

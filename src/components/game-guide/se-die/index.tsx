@@ -10,11 +10,10 @@ export enum GuideType {
 
 const SeDieGuide = () => {
     const router = useRouter();
-    const { locale } = router;
-    const listLocale = ["en", "vi"];
+    const { locale, locales } = router;
     const component: JSX.Element[] = [<SeDieGuideEN></SeDieGuideEN>, <SeDieGuideVI></SeDieGuideVI>];
     let result: JSX.Element = <></>;
-    listLocale.forEach((name, index) => {
+    locales.forEach((name, index) => {
         if (name === locale) {
             result = component[index];
         }

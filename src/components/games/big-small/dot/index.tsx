@@ -4,7 +4,7 @@ import Styles from "./dot.module.scss";
 
 type Props = {
     red?: boolean;
-    count?: number;
+    textInner?: string;
     row?: number;
     col?: number;
     value?: string;
@@ -14,7 +14,7 @@ const BigSmallDot: React.FunctionComponent<Props> = ({ red = false, value }) => 
     return <div className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}>{value}</div>;
 };
 
-export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, count, col, row }) => {
+export const BigSmallDotNumber: React.FunctionComponent<Props> = ({ red = false, textInner, col, row }) => {
     return (
         <div
             className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}
@@ -23,7 +23,7 @@ export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, co
                 gridRowStart: row.toString(),
             }}
         >
-            {count}
+            {textInner}
         </div>
     );
 };

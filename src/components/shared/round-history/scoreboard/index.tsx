@@ -12,6 +12,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     let startX, scrollLeft;
 
     const handleWheel = (e) => {
+        console.log(e);
         e.target.scrollLeft -= e.deltaY;
     };
 

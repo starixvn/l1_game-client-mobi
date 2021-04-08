@@ -1,9 +1,9 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import Statistic, { handlePercentData, processHistorySettlement, WrapperHeader } from "../../../shared/statistic";
+import Statistic, { processHistorySettlement, WrapperHeader } from "../../../shared/statistic";
 import { StatisticType } from "../../../shared/statistic/statistic";
-import { Props, ResultDiceRed } from "./statistic";
+import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
 
 const Element = ({ data, titleText }) => {

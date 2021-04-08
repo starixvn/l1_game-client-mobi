@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
 
-const BigSmallGuide = () => {
+const BigSmallGuideVI = () => {
     return (
         <div>
             <ul className="game-guide">
@@ -339,4 +339,4 @@ const BigSmallGuide = () => {
         </div>
     );
 };
-export default BigSmallGuide;
+export default BigSmallGuideVI;

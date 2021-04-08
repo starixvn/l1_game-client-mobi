@@ -4,11 +4,15 @@ import { GameState } from "../../../shared/game-base/type";
 import RoundHistoryContainer from "../../../shared/round-history/container";
 import RoundHistoryItem from "../../../shared/round-history/item";
 import BigSmallDot, { MiniItemNext } from "../dot";
-import { BigSmallResult, BigSmallSettlementResult } from "../big-small";
+import { Result, SettlementResult } from "../big-small";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
+import { Round } from "../../../../types";
 
-const renderRoundDetail = (round: Round<BigSmallResult, BigSmallSettlementResult>) => {
+export const countRedDot = (result: Result) => Object.values(result).reduce((total, value) => total + value, 0);
+export const checkIsSmall = (numberOfRed: number) => numberOfRed <= 10;
+
+const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
     const { t } = useTranslation("taixiu");
     const { roundId, settlementResult, result } = round;
     const ResultValue = Object.values(result);
@@ -18,9 +22,13 @@ const renderRoundDetail = (round: Round<BigSmallResult, BigSmallSettlementResult
             <span className={Styles["tooltip-round"]}>#{roundId}</span>
             <div>
                 <span className={Styles["tooltip-title"]}>
-                    {settlementResult.big ? t("big") : t("small")}(
-                    {ResultValue.map((value) => {
-                        return value + "-";
+                    {settlementResult.big ? t("big") : t("small")} (
+                    {ResultValue.map((value, index, arr) => {
+                        if(arr.length - 1 === index){
+                            return value;
+                        }else{
+                            return value + "-";
+                        }
                     })}
                     )
                 </span>

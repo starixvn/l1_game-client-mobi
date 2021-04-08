@@ -1,17 +1,17 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
 
-const BigSmallGuide = () => {
+const BigSmallGuideEN = () => {
     return (
         <div>
             <ul className="game-guide">
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Tài Xĩu là trò chơi có nguồn gốc dân gian từ lâu đời, được Saba.club triển khai cho tất cả thị trường trên thế giới.
-                        Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1 bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được thiết kế
-                        2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc vào số mặt
-                        đỏ hoặc trắng được lật của đồng xu sau khi xóc.
+                        Big Small là trò chơi có nguồn gốc dân gian từ lâu đời, được Saba.club triển khai cho tất cả thị trường trên thế
+                        giới. Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1 bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được
+                        thiết kế 2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc
+                        vào số mặt đỏ hoặc trắng được lật của đồng xu sau khi xóc.
                     </p>
                 </li>
                 <li className="guide-item">
@@ -339,4 +339,4 @@ const BigSmallGuide = () => {
         </div>
     );
 };
-export default BigSmallGuide;
+export default BigSmallGuideEN;
