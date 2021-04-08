@@ -7,7 +7,7 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import GameContainer from "../../shared/game-container";
 import BetContainer from "../bet-container";
 import Styles from "./game-base.module.scss";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel } from "./type";
+import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel, PopupState, PopupType } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -25,6 +25,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.placeBet = this.placeBet.bind(this);
         this.getBetHistory = this.getBetHistory.bind(this);
         this.updateGameState = this.updateGameState.bind(this);
+        this.updateOpenPopup = this.updateOpenPopup.bind(this);
+        this.updateStatePopup = this.updateStatePopup.bind(this);
     }
 
     componentDidMount() {
@@ -226,6 +228,21 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ gameState });
     }
 
+    updateOpenPopup() {
+        this.setState({ isOpenPopup: { guide: false, betHistory: false } });
+    }
+
+    updateStatePopup(popupState: PopupState) {
+        const isOpenPopup: PopupType = { guide: false, betHistory: false };
+        const popupName = Object.keys(isOpenPopup);
+        popupName.forEach((value, index) => {
+            if (index === popupState) {
+                isOpenPopup[value] = true;
+            }
+        });
+        this.setState({ isOpenPopup });
+    }
+
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -235,6 +252,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderBoard(): React.ReactElement;
 
     abstract renderResult(): React.ReactElement;
+
+    abstract renderGuide(popupState: PopupState): JSX.Element;
+
+    abstract renderBetHistory(popupState: PopupState): React.ReactElement;
 
     renderStartRoundAnimation() {
         return <></>;
@@ -250,7 +271,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory, isOpenPopup } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
@@ -262,6 +283,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameConfigs,
             getBetHistory: this.getBetHistory,
             betHistory,
+            updateStatePopup: this.updateStatePopup,
         };
 
         return signedIn ? (
@@ -282,6 +304,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     <div className={Styles["mini-round-history"]}>{this.renderRoundHistory()}</div>
                     <div className={Styles["statistic"]}>{this.renderStatistic()}</div>
                     <div className={Styles["board"]}>{this.renderBoard()}</div>
+                    {isOpenPopup.guide && this.renderGuide(PopupState.guide)}
+                    {isOpenPopup.betHistory && this.renderBetHistory(PopupState.betHistory)}
                 </GameContainer>
             </GameContextProvider>
         ) : (

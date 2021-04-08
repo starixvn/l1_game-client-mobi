@@ -6,9 +6,8 @@ import { getLocalStorageItem, localStorageKeys } from "../../../common/local-sto
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { usePopupContext } from "../../../contexts/popup-context";
 import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, RebetStorageModel } from "../game-base/type";
+import { GameState, RebetStorageModel, PopupState } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
 type Props = {
@@ -23,7 +22,6 @@ type Props = {
 export default function GameHeader(props: Props) {
     const favoriteContext = useFavoriteGameContext();
     const gameContext = useGameContext();
-    const { handleShowPopupGuide, handleShowPopupBetHistory } = usePopupContext();
     const { gameName, roundId, gameState, gameId } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -50,14 +48,12 @@ export default function GameHeader(props: Props) {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
-    const [isOpenGameGuide, updateGameGuideState] = useState<boolean>(false);
     const openGameGuide = () => {
-        handleShowPopupGuide();
-        updateGameGuideState(!isOpenGameGuide);
+        gameContext.updateStatePopup(PopupState.guide);
     };
 
     const openTicketHistory = () => {
-        handleShowPopupBetHistory();
+        gameContext.updateStatePopup(PopupState.betHistory);
         gameContext.getBetHistory(1);
     };
 

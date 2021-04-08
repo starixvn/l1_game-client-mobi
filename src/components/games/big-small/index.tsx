@@ -17,6 +17,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<BigSmallResult, Big
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            isOpenPopup: { guide: false, betHistory: false },
         };
     }
 
@@ -37,6 +38,14 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<BigSmallResult, Big
     }
 
     renderBoard() {
+        return <></>;
+    }
+
+    renderBetHistory() {
+        return <></>;
+    }
+
+    renderGuide() {
         return <></>;
     }
 }

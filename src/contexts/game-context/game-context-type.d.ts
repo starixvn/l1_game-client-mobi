@@ -1,4 +1,4 @@
-import { GameState, GameConfigs, GameBetHistory } from "../../components/shared/game-base/type";
+import { GameState, GameConfigs, GameBetHistory, PopupState } from "../../components/shared/game-base/type";
 
 export type GameContextModel = {
     updateGameState: (gameState: GameState) => void;
@@ -10,4 +10,5 @@ export type GameContextModel = {
     gameConfigs: GameConfigs;
     getBetHistory: (page: number) => void;
     betHistory: GameBetHistory;
+    updateStatePopup: (popupState: PopupState) => void;
 };

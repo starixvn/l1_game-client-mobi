@@ -22,6 +22,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            isOpenPopup: { guide: false, betHistory: false },
         };
     }
 
@@ -51,6 +52,14 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     renderBoard() {
         const { gameState, roundHistory } = this.state;
         return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
+    }
+
+    renderBetHistory() {
+        return <></>;
+    }
+
+    renderGuide() {
+        return <></>;
     }
 }
 

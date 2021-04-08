@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useTranslation } from "next-i18next";
 
 import Styles from "./base-modal.module.scss";
 
@@ -13,6 +14,7 @@ type Props = {
 
 const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, isSmall = false }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation("common");
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -36,8 +38,8 @@ const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, i
                 <span className="icon-close"></span>
             </div>
             <div className={Styles["popup-header"]}>
-                <h1 className={Styles["popup-title"]}>{title}</h1>
-                {subTitle && <p className={Styles["popup-sub-title"]}>{subTitle}</p>}
+                <h1 className={Styles["popup-title"]}>{t(title)}</h1>
+                {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
             </div>
             <div>{children}</div>
         </div>

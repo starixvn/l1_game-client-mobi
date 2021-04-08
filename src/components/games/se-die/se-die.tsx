@@ -2,14 +2,15 @@ import React from "react";
 
 import BaseModal from "../../shared/base-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
-import SeDieGuide from "./game-guide";
+import SeDieGuide from "../../game-guide/se-die/en";
 import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
+import SeDieBetHistory from "../../games/se-die/bet-history";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -24,6 +25,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            isOpenPopup: { guide: false, betHistory: false },
         };
     }
 
@@ -58,6 +60,23 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     renderResult() {
         const { result } = this.state;
         return <OpenThePlate result={result}></OpenThePlate>;
+    }
+
+    renderGuide(popupState: PopupState) {
+        return this.renderContentPopup("popupTitleGuide", this.state.isOpenPopup.guide, popupState);
+    }
+
+    renderBetHistory(popupState: PopupState) {
+        return this.renderContentPopup("popupTitleHistory", this.state.isOpenPopup.betHistory, popupState);
+    }
+
+    renderContentPopup(title: string, isOpen: boolean, popupState: PopupState) {
+        const component: JSX.Element[] = [<SeDieGuide></SeDieGuide>, <SeDieBetHistory></SeDieBetHistory>];
+        return (
+            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.updateOpenPopup()}>
+                {component[popupState]}
+            </BaseModal>
+        );
     }
 }
 

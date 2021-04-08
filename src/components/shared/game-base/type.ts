@@ -17,6 +17,10 @@ export enum GameState {
     DisplayResult,
     BeforeStartRound,
 }
+export enum PopupState {
+    guide,
+    betHistory,
+}
 
 export interface GameSettings {
     id: number;
@@ -44,6 +48,7 @@ export interface GameBaseState<Result, SettlementResult> {
     totalBets: object;
     ownBets: object;
     betHistory?: GameBetHistory;
+    isOpenPopup?: PopupType;
 }
 
 export interface SocketInfo {
@@ -74,4 +79,9 @@ export interface GameBetHistory {
     page: number;
     pageSize: number;
     total: number;
+}
+
+export interface PopupType {
+    guide: boolean;
+    betHistory: boolean;
 }
