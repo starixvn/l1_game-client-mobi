@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
 
-const SeDieGuide = () => {
+const SeDieGuideVI = () => {
     return (
         <div>
             <ul className="game-guide">
@@ -339,4 +339,4 @@ const SeDieGuide = () => {
         </div>
     );
 };
-export default SeDieGuide;
+export default SeDieGuideVI;

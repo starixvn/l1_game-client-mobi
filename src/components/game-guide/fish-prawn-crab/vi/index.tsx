@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./fish-prawn-crab.module.scss";
 
-const FishPrawnCrabGuide = () => {
+const FishPrawnCrabGuideVI = () => {
     return (
         <div>
             <ul className="game-guide">
@@ -339,4 +339,4 @@ const FishPrawnCrabGuide = () => {
         </div>
     );
 };
-export default FishPrawnCrabGuide;
+export default FishPrawnCrabGuideVI;

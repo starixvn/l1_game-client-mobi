@@ -5,12 +5,12 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
-import SeDieGuide from "../../game-guide/se-die/en";
 import MiniRoundHistory from "./mini-round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import SeDieBetHistory from "../../games/se-die/bet-history";
+import SeDieBetHistory from "./bet-history";
+import SeDieGuide from "../../game-guide/se-die";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {

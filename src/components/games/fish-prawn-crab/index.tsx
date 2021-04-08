@@ -1,13 +1,16 @@
 import React from "react";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import ScoreboardHistory from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
+import BaseModal from "../../shared/base-modal";
+import FishPrawnCrabBetHistory from "./bet-history";
+import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -54,12 +57,21 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
     }
 
-    renderBetHistory() {
-        return <></>;
+    renderGuide(popupState: PopupState) {
+        return this.renderContentPopup("popupTitleGuide", this.state.isOpenPopup.guide, popupState);
     }
 
-    renderGuide() {
-        return <></>;
+    renderBetHistory(popupState: PopupState) {
+        return this.renderContentPopup("popupTitleHistory", this.state.isOpenPopup.betHistory, popupState);
+    }
+
+    renderContentPopup(title: string, isOpen: boolean, popupState: PopupState) {
+        const component: JSX.Element[] = [<FishPrawnCrabGuide></FishPrawnCrabGuide>, <FishPrawnCrabBetHistory></FishPrawnCrabBetHistory>];
+        return (
+            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.updateOpenPopup()}>
+                {component[popupState]}
+            </BaseModal>
+        );
     }
 }
 
