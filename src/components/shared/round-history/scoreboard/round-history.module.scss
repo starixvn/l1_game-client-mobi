@@ -1,6 +1,4 @@
 .score-board-dragon-container {
-    overflow-x: scroll;
-    overflow-y: hidden;
     display: grid;
     grid-template-columns: repeat(19, 1fr);
     grid-template-rows: repeat(6, 1fr);
@@ -12,7 +10,6 @@
 
 .score-board-container {
     display: inline-flex;
-    overflow-x: scroll;
     justify-content: left;
     width: 100%;
 }
