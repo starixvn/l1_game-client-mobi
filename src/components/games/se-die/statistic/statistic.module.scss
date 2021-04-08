@@ -3,16 +3,15 @@
     font-size: 1.4rem;
     font-weight: 500;
     display: inline-block;
-    margin-right: 0.3rem;
+    margin-right: 0.2rem;
 }
 
 .titleOdd {
-    color: #e2606a;
+    color: #de4b56;
 }
 
 .titleEven {
-    color: #fff;
-    text-shadow: 2px 1px 2px #b6b6b6;
+    color: #838383;
 }
 
 .title-white,
@@ -38,12 +37,6 @@
 
 .number {
     margin-left: 0.2rem;
-    font-size: 1.4rem;
-    color: #2c2f3e;
-
-    @media (min-width: 1400px) {
-        font-size: 1.2rem;
-    }
 }
 
 .percent-right,

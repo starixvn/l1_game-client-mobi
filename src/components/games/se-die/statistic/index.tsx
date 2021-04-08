@@ -15,7 +15,7 @@ import Styles from "./statistic.module.scss";
 const ElementLeft = ({ data, titleText }) => {
     const { t } = useTranslation("xocxoc");
     return (
-        <div className={Styles["percent-left"]}>
+        <div className="d-flex">
             {titleText.map((title, index) => {
                 const value = data[index];
                 return (
@@ -31,7 +31,7 @@ const ElementLeft = ({ data, titleText }) => {
 
 const ElementRight = ({ data, titleText }) => {
     return (
-        <div className={Styles["percent-right"]}>
+        <div className="d-flex">
             {titleText.map((title, index) => {
                 const value = index === 0 ? data[4] : data[index];
                 return (

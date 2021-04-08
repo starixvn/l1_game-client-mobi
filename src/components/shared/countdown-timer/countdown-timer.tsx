@@ -9,7 +9,15 @@ type Props = {
 
 const CountdownTimer: React.FC<Props> = (props) => (
     <div className={styles.timer}>
-        <CountdownCircleTimer isPlaying size={40} strokeWidth={6} duration={props.remainingTime} colors={[["#004777", 1]]}>
+        <CountdownCircleTimer
+            isPlaying
+            size={40}
+            strokeWidth={4}
+            trailStrokeWidth={2}
+            trailColor="#fff"
+            duration={props.remainingTime}
+            colors="#fff"
+        >
             {({ remainingTime }) => remainingTime}
         </CountdownCircleTimer>
     </div>

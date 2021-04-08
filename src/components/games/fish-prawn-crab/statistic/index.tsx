@@ -12,7 +12,7 @@ const Element = ({ type, value }) => {
     return (
         <div className={Styles["odd-group"]}>
             <Item type={type} isSmall={true}></Item>
-            <span className={Styles.number}>{value}</span>
+            <span>{value}</span>
         </div>
     );
 };
