@@ -18,16 +18,16 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
 
     return (
         <div>
-            <span className={Styles["tooltip-round"]}>#{roundId}</span>
-            <div>
-                <span className={Styles["tooltip-title"]}>{settlementResult.even ? t("even") : t("odd")}</span>
-                <div className={Styles["tooltip-display"]}>
-                    <span className={Styles["tooltip-dice-red"]}></span>
-                    <span className={Styles["tooltip-number"]}>{countRed}</span>
+            <div className={Styles["tooltip-roundID"]}>#{roundId}</div>
+            <div className={Styles["tooltip-content"]}>
+                <span className={Styles["tooltip-result"]}>{settlementResult.even ? t("even") : t("odd")}</span>
+                <div className={Styles["tooltip-group"]}>
+                    <span className={Styles["dot-red"]}></span>
+                    <span className={Styles["number"]}>{countRed}</span>
                 </div>
-                <div className={Styles["tooltip-display"]}>
-                    <span className={Styles["tooltip-dice-white"]}></span>
-                    <span className={Styles["tooltip-number"]}>{totalDiceRed - countRed}</span>
+                <div className={Styles["tooltip-group"]}>
+                    <span className={Styles["dot-white"]}></span>
+                    <span className={Styles["number"]}>{totalDiceRed - countRed}</span>
                 </div>
             </div>
         </div>
