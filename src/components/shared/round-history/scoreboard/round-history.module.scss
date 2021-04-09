@@ -6,10 +6,43 @@
     justify-content: left;
     grid-gap: 0.4rem;
     margin: auto;
+    overflow: hidden;
 }
 
 .score-board-container {
     display: inline-flex;
     justify-content: left;
     width: 100%;
+    overflow: hidden;
+}
+
+.score-board-dragon-container, .score-board-container{
+    &:hover {
+        overflow-x: auto;
+        padding-right: 1px;
+    }
+    &:active {
+        overflow-x: auto;
+        padding-right: 1px;
+    }
+
+    &::-webkit-scrollbar-track
+    {
+    -webkit-box-shadow: none;
+    border-radius: 10px;
+    background-color: white;
+    }
+
+    &::-webkit-scrollbar
+    {
+    width: 12px;
+    background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+    border-radius: 10px;
+    background-color: #dce2f3;
+    background-image:white;
+    }
 }
