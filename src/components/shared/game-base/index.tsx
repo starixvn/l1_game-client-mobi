@@ -215,7 +215,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.socket.emit("bet", { betChoice, amount });
     }
 
-    async getBetHistory(page = 1) {
+    getBetHistory(page = 1) {
         this.socket.emit("getHistory", { page: page });
     }
 

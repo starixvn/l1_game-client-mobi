@@ -1,7 +1,9 @@
 import React from "react";
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
 import { useBetContext } from "../../../contexts/bet-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { BetSettingStorageType } from "../../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 
@@ -29,16 +31,22 @@ const getAnimationByGameState = (gameState: GameState) => {
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
     const { totalBets, ownBets } = useGameContext();
     const { handleShowBetModal } = useBetContext();
+    const betSettingKey = localStorageKeys.betSetting;
+    const gameContext = useGameContext();
 
-    function openPlaceBetModal() {
-        handleShowBetModal(choice, odd);
+    function onClickBet() {
+        const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
+
+        betSettings.enabledQuickBet
+            ? gameContext.placeBet(choice, betSettings.betValue)
+            : handleShowBetModal(choice, odd, betSettings.betValue);
     }
 
     return (
         <div className={Styles.container}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight ? Styles[getAnimationByGameState(gameState)] : ""}`}
-                onClick={openPlaceBetModal}
+                onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{`1:${odd}`}</div>}
                 <div className={Styles["total-bet"]}>{totalBets?.[choice]}</div>

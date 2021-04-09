@@ -1,17 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 
 import Chip from "../chip";
 import Styles from "./bet-setting.module.scss";
+import { BetSettingStorageType } from "./type";
 
-export const BetSettings: React.FC = (props) => {
+export const BetSettings: React.FC = () => {
     const [isShowSettings, setShowSettings] = useState(false);
     const [selectedChipValue, setSelectedChipValue] = useState(1);
+    const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
+    const [enabledNextBtn, setEnabledNextBtn] = useState(true);
+    const [enabledQuickBet, setEnabledQuickBet] = useState(false);
+    const betSettingStorageKey = localStorageKeys.betSetting;
+
+    useEffect(() => {
+        const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingStorageKey);
+
+        setEnabledQuickBet(betSettings.enabledQuickBet);
+        setSelectedChipValue(betSettings.betValue);
+    }, []);
 
     const HandleClickActiveBtn = () => {
         setShowSettings(!isShowSettings);
     };
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
+    const chipValues = Object.values(chipList);
+
+    const onClickNext = () => {
+        if (enabledNextBtn) {
+            const chipIndex = chipValues.indexOf(selectedChipValue);
+            const newSelectedChip = chipValues[chipIndex + 1];
+
+            handleSelectChip(newSelectedChip);
+        }
+    };
+
+    const onClickPrev = () => {
+        if (enabledPrevBtn) {
+            const chipIndex = chipValues.indexOf(selectedChipValue);
+            const newSelectedChip = chipValues[chipIndex - 1];
+
+            handleSelectChip(newSelectedChip);
+        }
+    };
+
+    const onClickQuickBet = () => {
+        const betSettingStorage: BetSettingStorageType = {
+            betValue: selectedChipValue,
+            enabledQuickBet: !enabledQuickBet,
+        };
+
+        storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
+        setEnabledQuickBet(!enabledQuickBet);
+    };
+
+    const handleSelectChip = (chipValue: number) => {
+        const chipIndex = chipValues.indexOf(chipValue);
+
+        chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
+        chipIndex === chipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
+        const betSettingStorage: BetSettingStorageType = {
+            betValue: chipValue,
+            enabledQuickBet: enabledQuickBet,
+        };
+
+        storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
+        setSelectedChipValue(chipValue);
+    };
 
     return (
         <div>
@@ -22,24 +78,37 @@ export const BetSettings: React.FC = (props) => {
             {isShowSettings && (
                 <div className={Styles["settings-container"]}>
                     <div className={Styles["toggle"]}>
-                        <input className={Styles["toggle-checkbox"]} id="toggle-quickbet" type={"checkbox"} value={"Quick Bet"} />
+                        <input
+                            className={Styles["toggle-checkbox"]}
+                            id="toggle-quickbet"
+                            type={"checkbox"}
+                            value={"Quick Bet"}
+                            checked={enabledQuickBet}
+                            onChange={onClickQuickBet}
+                        />
                         <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                             <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
                         </label>
                     </div>
 
                     <div className={Styles["chips-container"]}>
-                        <span className={`icon-arrow-right ${Styles["prev"]} ${Styles["disabled"]}`}></span>
+                        <span
+                            className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
+                            onClick={onClickPrev}
+                        ></span>
                         {Object.keys(chipList).map((key) => (
                             <Chip
                                 key={key}
                                 display={key}
                                 value={chipList[key]}
-                                onSelected={setSelectedChipValue}
+                                onSelected={handleSelectChip}
                                 selected={selectedChipValue === chipList[key]}
                             />
                         ))}
-                        <span className={`icon-arrow-right ${Styles["next"]}`}></span>
+                        <span
+                            className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
+                            onClick={onClickNext}
+                        ></span>
                     </div>
                 </div>
             )}
