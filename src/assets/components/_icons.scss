@@ -14,6 +14,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-favorite-normal:before {
+    content: "\e90d";
+    color: #fff;
+}
+
 .icon-chip-symbol:before {
     content: "\e90c";
     color: #fff;
