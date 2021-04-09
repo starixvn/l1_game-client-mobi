@@ -3,6 +3,7 @@ import React from "react";
 import { GameState } from "../game-base/type";
 import GameHeader from "../game-header/game-header";
 import styles from "./game-container.module.scss";
+import Rebet from "../rebet";
 
 type Props = {
     gameId: number;

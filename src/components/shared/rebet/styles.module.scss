@@ -1,0 +1,40 @@
+.container {
+}
+
+.bet-list {
+}
+
+.bet-info {
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+
+    &.waiting {
+        background-color: #f2f5fb;
+    }
+
+    &.success {
+        background-color: #e3ffda;
+    }
+
+    &.error {
+        background-color: #ffdede;
+    }
+}
+
+.bet-choice {
+}
+
+.bet-amount {
+}
+
+.error-message {
+}
+
+.bet-state-icon {
+}
+
+.action {
+    &.waiting {
+    }
+}

@@ -11,4 +11,5 @@ export type GameContextModel = {
     getBetHistory: (page: number) => void;
     betHistory: GameBetHistory;
     updateStatePopup: (popupState: PopupState) => void;
+    handleMessage: Function;
 };

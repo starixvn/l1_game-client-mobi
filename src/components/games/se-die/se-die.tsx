@@ -2,7 +2,7 @@ import React from "react";
 
 import BaseModal from "../../shared/base-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
 import MiniRoundHistory from "./mini-round-history";
@@ -11,6 +11,7 @@ import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 import SeDieBetHistory from "./bet-history";
 import SeDieGuide from "../../game-guide/se-die";
+import Rebet from "../../shared/rebet";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -25,7 +26,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             roundId: 0,
             ownBets: {},
             totalBets: {},
-            isOpenPopup: { guide: false, betHistory: false },
+            displayPopup: null,
         };
     }
 
@@ -62,19 +63,27 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return <OpenThePlate result={result}></OpenThePlate>;
     }
 
-    renderGuide(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleGuide", this.state.isOpenPopup.guide, popupState);
+    renderGuide() {
+        return this.renderContentPopup("popupTitleGuide", this.state.displayPopup === PopupType.Guide);
     }
 
-    renderBetHistory(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleHistory", this.state.isOpenPopup.betHistory, popupState);
+    renderBetHistory() {
+        return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderContentPopup(title: string, isOpen: boolean, popupState: PopupState) {
-        const component: JSX.Element[] = [<SeDieGuide></SeDieGuide>, <SeDieBetHistory></SeDieBetHistory>];
+    renderReBet() {
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.updateOpenPopup()}>
-                {component[popupState]}
+            <BaseModal title={"game_name"} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
+                <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()}></Rebet>
+            </BaseModal>
+        );
+    }
+
+    renderContentPopup(title: string, isOpen: boolean) {
+        const component: JSX.Element[] = [<SeDieGuide />, <SeDieBetHistory />];
+        return (
+            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+                {component[this.state.displayPopup]}
             </BaseModal>
         );
     }

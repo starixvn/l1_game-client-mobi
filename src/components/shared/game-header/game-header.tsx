@@ -7,7 +7,7 @@ import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, RebetStorageModel, PopupState } from "../game-base/type";
+import { GameState, RebetStorageModel, PopupType } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
 type Props = {
@@ -29,32 +29,27 @@ export default function GameHeader(props: Props) {
 
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const { t } = useTranslation(gameName.toLowerCase());
 
-    const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen((prevState) => !prevState);
-
-    const onClickRebet = () => {
-        const betChoices = rebetInfo.betInfo;
-        Object.keys(betChoices).forEach((key) => {
-            gameContext.placeBet(key, betChoices[key]);
-        });
-
-        updateRebetStatus(true);
-    };
 
     const favoriteClickHandle = () => {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
     const openGameGuide = () => {
-        gameContext.updateStatePopup(PopupState.guide);
+        gameContext.updateStatePopup(PopupType.Guide);
     };
 
     const openTicketHistory = () => {
-        gameContext.updateStatePopup(PopupState.betHistory);
+        gameContext.updateStatePopup(PopupType.BetHistory);
         gameContext.getBetHistory(1);
+    };
+
+    const onClickRebet = () => {
+        gameContext.updateStatePopup(PopupType.Rebet);
     };
 
     useEffect(() => {

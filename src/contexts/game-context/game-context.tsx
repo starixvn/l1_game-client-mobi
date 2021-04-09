@@ -13,6 +13,7 @@ export const GameContext = React.createContext<GameContextModel>({
     getBetHistory: () => {},
     betHistory: null,
     updateStatePopup: () => {},
+    handleMessage: () => {},
 });
 GameContext.displayName = "GameContext";
 

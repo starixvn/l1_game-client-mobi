@@ -7,7 +7,9 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import GameContainer from "../../shared/game-container";
 import BetContainer from "../bet-container";
 import Styles from "./game-base.module.scss";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel, PopupState, PopupType } from "./type";
+import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel, PopupType } from "./type";
+import MessageTransmitter from "./message-transmitter";
+import { MessageTransmitterType } from "./message-transmitter/type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -15,17 +17,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected timeCounter: number;
     protected reBetStorageKey: string;
     protected betSettingStorageKey: string;
+    protected messageTransmitter: MessageTransmitterType;
 
     constructor(props: P) {
         super(props);
 
         this.reBetStorageKey = LocalStorageManager.localStorageKeys.rebet;
         this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
-
+        this.messageTransmitter = MessageTransmitter();
+        this.registerMessageHandler();
         this.placeBet = this.placeBet.bind(this);
         this.getBetHistory = this.getBetHistory.bind(this);
         this.updateGameState = this.updateGameState.bind(this);
-        this.updateOpenPopup = this.updateOpenPopup.bind(this);
+        this.closePopup = this.closePopup.bind(this);
         this.updateStatePopup = this.updateStatePopup.bind(this);
     }
 
@@ -46,55 +50,46 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.socket.emit("inGame");
         });
 
-        this.socket.on(this.props.gameName, this.handleEvent.bind(this));
+        this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
     }
 
     componentWillUnmount() {
         this.interval && clearInterval(this.interval);
+        this.messageTransmitter.clearAllListener();
         this.socket.disconnect();
     }
 
-    handleEvent(payload: any) {
-        if (payload.um) {
-            this.handleUM(payload.um);
-        }
-        if (payload.remainingTime) {
-            this.handleRemainingTime(payload.remainingTime);
-        }
-        if (payload.gameConfigs) {
-            this.handleGameConfigs(payload.gameConfigs);
-        }
-        if (payload.roundHistory) {
-            this.handleRoundHistory(payload.roundHistory);
-        }
-        if (payload.finish) {
-            this.handleFinish(payload.finish);
-        }
-        if (payload.totalBets) {
-            this.setState({ totalBets: payload.totalBets });
-        }
-        if (payload.ownBets) {
-            this.setState({ ownBets: payload.ownBets });
-        }
-        if (payload.history) {
-            this.handleHistory(payload.history);
-        }
-        if (payload.user) {
-            this.handleUserData(payload.user);
-        }
-    }
+    registerMessageHandler = () => {
+        this.messageTransmitter.addListener("um", this.handleUM.bind(this));
+        this.messageTransmitter.addListener("remainingTime", this.handleRemainingTime.bind(this));
+        this.messageTransmitter.addListener("gameConfigs", this.handleGameConfigs.bind(this));
+        this.messageTransmitter.addListener("roundHistory", this.handleRoundHistory.bind(this));
+        this.messageTransmitter.addListener("finish", this.handleFinish.bind(this));
+        this.messageTransmitter.addListener("history", this.handleHistory.bind(this));
+        this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
+        this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
+        this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
+    };
 
-    handleUserData(user) {
+    handleTotalBet = ({ totalBets }) => {
+        this.setState({ totalBets });
+    };
+
+    handleOwnBets = ({ ownBets }) => {
+        this.setState({ ownBets });
+    };
+
+    handleUserData({ user }) {
         this.context.setBalance(user.red);
     }
 
-    handleUM(isUM: boolean) {
-        if (isUM) {
+    handleUM({ isUm }) {
+        if (isUm) {
             this.setState({ gameState: GameState.Disabled });
         }
     }
 
-    handleRemainingTime(remainingTime: number) {
+    handleRemainingTime({ remainingTime }) {
         this.timeCounter = remainingTime;
 
         this.interval && clearInterval(this.interval);
@@ -130,7 +125,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState(newState);
     }
 
-    handleGameConfigs(gameConfigs: GameConfigs) {
+    handleGameConfigs({ gameConfigs }) {
         this.setState({ gameConfigs, signedIn: true });
     }
 
@@ -174,7 +169,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     }
 
-    handleRoundHistory(roundHistory) {
+    handleRoundHistory({ roundHistory }) {
         const { gameState } = this.state;
         const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
         this.setState({
@@ -185,11 +180,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    handleHistory(betHistory) {
+    handleHistory({ betHistory }) {
         this.setState({ betHistory });
     }
 
-    handleFinish(finish) {
+    handleFinish({ finish }) {
         const { roundHistory } = this.state;
 
         this.storeOwnBet(finish.roundId);
@@ -228,19 +223,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ gameState });
     }
 
-    updateOpenPopup() {
-        this.setState({ isOpenPopup: { guide: false, betHistory: false } });
-    }
-
-    updateStatePopup(popupState: PopupState) {
-        const isOpenPopup: PopupType = { guide: false, betHistory: false };
-        const popupName = Object.keys(isOpenPopup);
-        popupName.forEach((value, index) => {
-            if (index === popupState) {
-                isOpenPopup[value] = true;
-            }
-        });
-        this.setState({ isOpenPopup });
+    updateStatePopup(popupType: PopupType) {
+        this.setState({ displayPopup: popupType });
     }
 
     abstract renderBetOptions(): React.ReactElement;
@@ -253,12 +237,31 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderResult(): React.ReactElement;
 
-    abstract renderGuide(popupState: PopupState): JSX.Element;
+    abstract renderGuide(): JSX.Element;
 
-    abstract renderBetHistory(popupState: PopupState): React.ReactElement;
+    abstract renderBetHistory(): React.ReactElement;
+
+    abstract renderReBet(): React.ReactElement;
 
     renderStartRoundAnimation() {
         return <></>;
+    }
+
+    renderPopup(popupType: PopupType) {
+        switch (popupType) {
+            case PopupType.Guide:
+                return this.renderGuide();
+            case PopupType.Rebet:
+                return this.renderReBet();
+            case PopupType.BetHistory:
+                return this.renderBetHistory();
+            default:
+                return null;
+        }
+    }
+
+    closePopup() {
+        this.setState({ displayPopup: null });
     }
 
     get isDisplayResult() {
@@ -271,7 +274,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     render() {
         const { gameName, id, socketInfo } = this.props;
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory, isOpenPopup } = this.state;
+        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory, displayPopup } = this.state;
 
         const gameContext = {
             placeBet: this.placeBet,
@@ -284,6 +287,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             getBetHistory: this.getBetHistory,
             betHistory,
             updateStatePopup: this.updateStatePopup,
+            handleMessage: this.messageTransmitter.addListener,
         };
 
         return signedIn ? (
@@ -304,8 +308,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     <div className={Styles["mini-round-history"]}>{this.renderRoundHistory()}</div>
                     <div className={Styles["statistic"]}>{this.renderStatistic()}</div>
                     <div className={Styles["board"]}>{this.renderBoard()}</div>
-                    {isOpenPopup.guide && this.renderGuide(PopupState.guide)}
-                    {isOpenPopup.betHistory && this.renderBetHistory(PopupState.betHistory)}
+                    {this.renderPopup(displayPopup)}
                 </GameContainer>
             </GameContextProvider>
         ) : (
