@@ -5,32 +5,25 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
+import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, RebetStorageModel, PopupType } from "../game-base/type";
+import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
-type Props = {
-    gameId: number;
-    gameName: string;
-    roundId: number;
-    gameState: number;
-    remainingTime: number;
-    apiUrl: string;
-};
-
-export default function GameHeader(props: Props) {
+export default function GameHeader() {
     const favoriteContext = useFavoriteGameContext();
-    const gameContext = useGameContext();
-    const { gameName, roundId, gameState, gameId } = props;
+    const gameActions = useGameActionContext();
+    const { roundId, gameState, gameSetting } = useGameContext();
+    const { id: gameId, gameName } = gameSetting;
+
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
-    const rebetInfo = rebetStorage[props.gameId];
+    const rebetInfo = rebetStorage[gameId];
 
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-
     const { t } = useTranslation(gameName.toLowerCase());
 
     const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -39,26 +32,14 @@ export default function GameHeader(props: Props) {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
-    const openGameGuide = () => {
-        gameContext.updateStatePopup(PopupType.Guide);
-    };
-
-    const openTicketHistory = () => {
-        gameContext.updateStatePopup(PopupType.BetHistory);
-        gameContext.getBetHistory(1);
-    };
-
-    const onClickRebet = () => {
-        gameContext.updateStatePopup(PopupType.Rebet);
-    };
 
     useEffect(() => {
-        props.gameState != GameState.InRound && updateRebetStatus(true);
-    }, [props.gameState]);
+        gameState != GameState.InRound && updateRebetStatus(true);
+    }, [gameState]);
 
     useEffect(() => {
         updateRebetStatus(rebetInfo?.betInfo == undefined);
-    }, [props.roundId]);
+    }, [roundId]);
 
     return (
         <div className={Styles.header}>
@@ -72,10 +53,10 @@ export default function GameHeader(props: Props) {
                 </div>
             </div>
             <div className={Styles["count-down"]}>
-                <CountdownTimer remainingTime={props.remainingTime} key={gameState} />
+                <CountdownTimer key={gameState} />
             </div>
             <div className={Styles["header-right"]}>
-                <button className={Styles.rebet} disabled={disabledRebet} onClick={() => onClickRebet()}>
+                <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
                     <label>Rebet</label>
                 </button>
 
@@ -86,11 +67,11 @@ export default function GameHeader(props: Props) {
                         <div className={Styles["hamburger-dot"]}></div>
                     </DropdownToggle>
                     <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => openTicketHistory()}>
+                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.BetHistory)}>
                             Ticket history
                         </DropdownItem>
                         <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
-                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => openGameGuide()}>
+                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.Guide)}>
                             Game guide
                         </DropdownItem>
                     </DropdownMenu>

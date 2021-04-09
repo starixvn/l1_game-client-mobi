@@ -1,33 +1,13 @@
 import React from "react";
 
-import { GameState } from "../game-base/type";
 import GameHeader from "../game-header/game-header";
 import styles from "./game-container.module.scss";
-import Rebet from "../rebet";
 
-type Props = {
-    gameId: number;
-    gameName: string;
-    roundId: number;
-    remainingTime: number;
-    gameState: GameState;
-    children: React.ReactNode;
-    apiUrl: string;
-};
-
-const GameContainer: React.FC<Props> = (props) => {
-    const { gameName, roundId, gameState, remainingTime, gameId, apiUrl } = props;
+const GameContainer: React.FC = ({ children }) => {
     return (
         <div className={styles["game-container"]}>
-            <GameHeader
-                gameId={gameId}
-                gameName={gameName}
-                roundId={roundId}
-                gameState={gameState}
-                remainingTime={remainingTime}
-                apiUrl={apiUrl}
-            />
-            {props.children}
+            <GameHeader />
+            {children}
         </div>
     );
 };

@@ -3,13 +3,14 @@ import io from "socket.io-client";
 
 import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
+import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
 import BetContainer from "../bet-container";
 import Styles from "./game-base.module.scss";
-import { GameBaseProps, GameBaseState, GameConfigs, GameState, RebetStorageModel, PopupType } from "./type";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -28,9 +29,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.registerMessageHandler();
         this.placeBet = this.placeBet.bind(this);
         this.getBetHistory = this.getBetHistory.bind(this);
-        this.updateGameState = this.updateGameState.bind(this);
         this.closePopup = this.closePopup.bind(this);
-        this.updateStatePopup = this.updateStatePopup.bind(this);
+        this.openPopup = this.openPopup.bind(this);
     }
 
     componentDidMount() {
@@ -219,11 +219,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.socket.emit("getHistory", { page: page });
     }
 
-    updateGameState(gameState: GameState) {
-        this.setState({ gameState });
-    }
-
-    updateStatePopup(popupType: PopupType) {
+    openPopup(popupType: PopupType) {
         this.setState({ displayPopup: popupType });
     }
 
@@ -273,43 +269,42 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        const { gameName, id, socketInfo } = this.props;
         const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory, displayPopup } = this.state;
 
         const gameContext = {
-            placeBet: this.placeBet,
-            updateGameState: this.updateGameState,
             totalBets,
             ownBets,
-            gameName,
+            gameSetting: this.props,
             roundId,
             gameConfigs,
-            getBetHistory: this.getBetHistory,
             betHistory,
-            updateStatePopup: this.updateStatePopup,
+            gameState,
+            remainingTime,
+        };
+
+        const gameActionsContext = {
+            placeBet: this.placeBet,
+            getBetHistory: this.getBetHistory,
+            openPopup: this.openPopup,
+            closePopup: this.closePopup,
             handleMessage: this.messageTransmitter.addListener,
         };
 
         return signedIn ? (
             <GameContextProvider value={gameContext}>
-                <GameContainer
-                    gameId={id}
-                    gameName={gameName}
-                    remainingTime={remainingTime}
-                    roundId={roundId}
-                    gameState={gameState}
-                    apiUrl={socketInfo.api}
-                >
-                    <BetContainer gameState={gameState}>
-                        <div className={Styles["bet-options"]}>{this.renderBetOptions()}</div>
-                        {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                        {this.isDisplayResult && this.renderResult()}
-                    </BetContainer>
-                    <div className={Styles["mini-round-history"]}>{this.renderRoundHistory()}</div>
-                    <div className={Styles["statistic"]}>{this.renderStatistic()}</div>
-                    <div className={Styles["board"]}>{this.renderBoard()}</div>
-                    {this.renderPopup(displayPopup)}
-                </GameContainer>
+                <GameActionsContextProvider value={gameActionsContext}>
+                    <GameContainer>
+                        <BetContainer gameState={gameState}>
+                            <div className={Styles["bet-options"]}>{this.renderBetOptions()}</div>
+                            {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
+                            {this.isDisplayResult && this.renderResult()}
+                        </BetContainer>
+                        <div className={Styles["mini-round-history"]}>{this.renderRoundHistory()}</div>
+                        <div className={Styles["statistic"]}>{this.renderStatistic()}</div>
+                        <div className={Styles["board"]}>{this.renderBoard()}</div>
+                        {this.renderPopup(displayPopup)}
+                    </GameContainer>
+                </GameActionsContextProvider>
             </GameContextProvider>
         ) : (
             <div>Loading...</div>

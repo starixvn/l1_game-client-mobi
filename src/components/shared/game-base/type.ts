@@ -1,4 +1,3 @@
-import { NextRouter } from "next/router";
 import { Round } from "../../../types";
 
 export interface GameConfigs {
@@ -36,7 +35,6 @@ export interface GameBaseProps {
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
-    router: NextRouter;
 }
 
 export interface GameBaseState<Result, SettlementResult> {
