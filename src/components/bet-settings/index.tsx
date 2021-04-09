@@ -16,8 +16,10 @@ export const BetSettings: React.FC = () => {
     useEffect(() => {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingStorageKey);
 
-        setEnabledQuickBet(betSettings.enabledQuickBet);
-        setSelectedChipValue(betSettings.betValue);
+        if (betSettings) {
+            setEnabledQuickBet(betSettings.enabledQuickBet);
+            setSelectedChipValue(betSettings.betValue);
+        }
     }, []);
 
     const HandleClickActiveBtn = () => {
