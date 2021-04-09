@@ -40,7 +40,7 @@ const renderBet = (bet: BetLogs) => {
     );
 };
 
-const SeDieTicketHistory: React.FunctionComponent = () => {
+const SeDieBetHistory: React.FunctionComponent = () => {
     return (
         <BetHistoryContainer
             isRefund={false}
@@ -50,4 +50,4 @@ const SeDieTicketHistory: React.FunctionComponent = () => {
     );
 };
 
-export default SeDieTicketHistory;
+export default SeDieBetHistory;

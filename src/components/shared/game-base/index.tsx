@@ -65,7 +65,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("gameConfigs", this.handleGameConfigs.bind(this));
         this.messageTransmitter.addListener("roundHistory", this.handleRoundHistory.bind(this));
         this.messageTransmitter.addListener("finish", this.handleFinish.bind(this));
-        this.messageTransmitter.addListener("history", this.handleHistory.bind(this));
+        this.messageTransmitter.addListener("history", this.handleBetHistory.bind(this));
         this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
         this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
@@ -180,8 +180,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    handleHistory({ betHistory }) {
-        this.setState({ betHistory });
+    handleBetHistory({ history }) {
+        this.setState({ betHistory: history });
     }
 
     handleFinish({ finish }) {

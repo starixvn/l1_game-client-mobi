@@ -1,7 +1,7 @@
 import React from "react";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallGuide from "../../game-guide/big-small";
@@ -24,7 +24,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
             roundId: 0,
             ownBets: {},
             totalBets: {},
-            isOpenPopup: { guide: false, betHistory: false },
+            displayPopup: null,
         };
     }
 
@@ -56,19 +56,23 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return this.state.gameState === GameState.BeforeStartRound;
     }
 
-    renderGuide(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleGuide", this.state.isOpenPopup.guide, popupState);
+    renderGuide() {
+        return this.renderContentPopup("popupTitleGuide", this.state.displayPopup === PopupType.Guide);
     }
 
-    renderBetHistory(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleHistory", this.state.isOpenPopup.betHistory, popupState);
+    renderBetHistory() {
+        return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderContentPopup(title: string, isOpen: boolean, popupState: PopupState) {
-        const component: JSX.Element[] = [<BigSmallGuide></BigSmallGuide>, <BigSmallBetHistory></BigSmallBetHistory>];
+    renderReBet() {
+        return <></>;
+    }
+
+    renderContentPopup(title: string, isOpen: boolean) {
+        const component: JSX.Element[] = [<BigSmallGuide />, <BigSmallBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.updateOpenPopup()}>
-                {component[popupState]}
+            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+                {component[this.state.displayPopup]}
             </BaseModal>
         );
     }

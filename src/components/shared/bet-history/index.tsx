@@ -13,6 +13,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isFetching, setIsFetching] = useState(false);
     const [listBetHistory, setListBetHistory] = useState([]);
     const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
     const { t } = useTranslation("bethistory");
     const betHistory: GameBetHistory = gameContext.betHistory;
 
@@ -27,12 +28,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     const fetchBetHistory = () => {
         if (betHistory && betHistory.betLogs.length > 0) {
+            setTotalPage(Math.ceil(betHistory.total / betHistory.pageSize));
             const data = betHistory.betLogs;
-            if (betHistory.page === page) {
-                setPage(page + 1);
+
+            if (page === betHistory.page) {
                 setListBetHistory(() => {
                     return [...listBetHistory, ...data];
                 });
+                setPage(page + 1);
             }
         }
     };
@@ -43,14 +46,17 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     }, [isFetching]);
 
     const fetchMoreListBets = () => {
-        gameContext.getBetHistory(page);
-        fetchBetHistory();
+        if (page <= totalPage) {
+            gameContext.getBetHistory(page);
+            fetchBetHistory();
+        }
+
         setIsFetching(false);
     };
 
     return (
         <React.Fragment>
-            <div className="table-container" onScroll={(e) => handleScroll(e)}>
+            <div className="table-container" onWheel={(e) => handleScroll(e)}>
                 <table className="table text-center">
                     <thead>
                         <tr>
@@ -65,13 +71,13 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     </thead>
                     {listBetHistory.map((bet: any) => {
                         return (
-                            <BetHistory
+                            <BetHistoryRow
                                 key={bet.phien}
                                 renderResult={() => renderResult(bet)}
                                 renderBet={() => renderBet(bet)}
                                 betHistoryItem={bet}
                                 isRefund={false}
-                            ></BetHistory>
+                            ></BetHistoryRow>
                         );
                     })}
                 </table>
@@ -81,7 +87,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     );
 };
 
-const BetHistory: React.FunctionComponent<Props> = (props: Props) => {
+const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
     const { betHistoryItem, renderResult, renderBet, isRefund } = props;
     const { time, phien, betwin, refund, amount, totalAmount } = betHistoryItem as BetHistoryItem;
     return (

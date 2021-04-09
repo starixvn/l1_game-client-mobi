@@ -1,7 +1,7 @@
 import React from "react";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult from "./fish-prawn-crab-result";
@@ -25,7 +25,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             roundId: 0,
             ownBets: {},
             totalBets: {},
-            isOpenPopup: { guide: false, betHistory: false },
+            displayPopup: null,
         };
     }
 
@@ -57,19 +57,23 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
     }
 
-    renderGuide(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleGuide", this.state.isOpenPopup.guide, popupState);
+    renderGuide() {
+        return this.renderContentPopup("popupTitleGuide", this.state.displayPopup === PopupType.Guide);
     }
 
-    renderBetHistory(popupState: PopupState) {
-        return this.renderContentPopup("popupTitleHistory", this.state.isOpenPopup.betHistory, popupState);
+    renderBetHistory() {
+        return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderContentPopup(title: string, isOpen: boolean, popupState: PopupState) {
-        const component: JSX.Element[] = [<FishPrawnCrabGuide></FishPrawnCrabGuide>, <FishPrawnCrabBetHistory></FishPrawnCrabBetHistory>];
+    renderReBet() {
+        return <></>;
+    }
+
+    renderContentPopup(title: string, isOpen: boolean) {
+        const component: JSX.Element[] = [<FishPrawnCrabGuide />, <FishPrawnCrabBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.updateOpenPopup()}>
-                {component[popupState]}
+            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+                {component[this.state.displayPopup]}
             </BaseModal>
         );
     }
