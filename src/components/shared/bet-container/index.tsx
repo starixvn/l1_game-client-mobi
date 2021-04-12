@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { BetContextProvider } from "../../../contexts/bet-context";
 import { BetContextModel } from "../../../contexts/bet-context/type";
+import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameState } from "../game-base/type";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
@@ -12,7 +13,9 @@ const BetContainer: React.FC<Props> = (props) => {
     const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
     const [betChoice, setBetChoice] = useState<string>(null);
     const [odd, setOdd] = useState<number>(0);
-    const { placeBet, roundId, gameName } = useGameContext();
+    const { roundId, gameSetting } = useGameContext();
+    const { gameName } = gameSetting;
+    const { placeBet } = useGameActionContext();
 
     const betContext: BetContextModel = {
         handleShowBetModal: openBetModal,
