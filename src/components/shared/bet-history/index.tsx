@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { PropsBetContainer, Props, BetHistoryItem, BetLogs } from "./bet-history";
+import { PropsBetContainer, Props, BetHistoryItem } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameBetHistory } from "../../../components/shared/game-base/type";
+import { useGameActionContext } from "../../../contexts/game-actions-context";
 
 import Styles from "./bet-history.module.scss";
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, renderBet, isRefund } = props;
     const gameContext = useGameContext();
+    const gameActions = useGameActionContext();
     const [isFetching, setIsFetching] = useState(false);
     const [listBetHistory, setListBetHistory] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const { t } = useTranslation("bethistory");
     const betHistory: GameBetHistory = gameContext.betHistory;
+
+    useEffect(() => {
+        gameActions.getBetHistory(1);
+    }, []);
 
     useEffect(() => {
         fetchBetHistory();
@@ -47,7 +53,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     const fetchMoreListBets = () => {
         if (page <= totalPage) {
-            gameContext.getBetHistory(page);
+            gameActions.getBetHistory(page);
             fetchBetHistory();
         }
 
