@@ -8,70 +8,101 @@ const DragonTigerGuideVI = () => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Rồng Hổ là trò chơi có nguồn gốc dân gian từ lâu đời, được Saba.club triển khai cho tất cả thị trường trên thế giới.
-                        Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1 bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được thiết kế
-                        2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc vào số mặt
-                        đỏ hoặc trắng được lật của đồng xu sau khi xóc.
+                        Rồng Hổ hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới.
+                        Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng, cửa Hổ
+                        và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
                     </p>
                 </li>
                 <li className="guide-item">
                     <h2>Cách chơi</h2>
                     <ul className="desc">
                         <li>
-                            Người chơi chọn mệnh giá và nhấp vào lựa chọn bạn muốn đặt cược trước khi bát được mở. Nếu kết quả mở ra trùng
-                            với lựa chọn của bạn, người chơi sẽ thắng và ngược lại sẽ thua toàn bộ tiền cược nếu lựa chọn sai.{" "}
-                        </li>
-                        <li>
-                            Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là 2,000. Lưu ý, không thể hủy cược sau khi đặt.
-                        </li>
-                        <li>
-                            Giới hạn cược:
+                            Hai cửa Rồng và Hổ, mỗi cửa sẽ được chia 1 lá bài trong bộ bài 52 lá. Người chơi đặt cược và dự đoán lá bài ở
+                            cửa nào sẽ có điểm số cao hơn, hoặc có thể đặt cược vào lựa chọn Hòa nếu dự đoán 2 cửa có kết quả bằng nhau.
                             <div className="table-container">
                                 <table className="table text-center">
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th>Lựa Chọn</th>
-                                            <th>Giới Hạn Cược (Min - Max)</th>
+                                            <th>Thắng</th>
+                                            <th>Thua</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td rowSpan={2}>2 cửa chính</td>
-                                            <td>Chẵn</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
+                                            <td>Rồng</td>
+                                            <td>Điểm số cửa Rồng lớn hơn cửa Hổ.</td>
+                                            <td>Điểm số cửa Hổ lớn hơn cửa Rồng.</td>
                                         </tr>
                                         <tr>
-                                            <td>Lẻ</td>
+                                            <td>Hổ</td>
+                                            <td>Điểm số cửa Hổ lớn hơn cửa Rồng.</td>
+                                            <td>Điểm số cửa Rồng lớn hơn cửa Hổ.</td>
                                         </tr>
                                         <tr>
-                                            <td rowSpan={5}>5 cửa phụ</td>
-                                            <td>4 đỏ</td>
-                                            <td rowSpan={2}>1 - 500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>1 - 2,000</td>
+                                            <td>Hoà</td>
+                                            <td>Điểm số cửa Rồng bằng cửa Hổ.</td>
+                                            <td>Điểm số cửa Rồng khác cửa Hổ.</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </li>
                         <li>
-                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược.Thời gian đặt cược cho mỗi phiên
-                            sẽ được hiển thị đếm ngược trên bàn chơi.
+                            Thang sức mạnh các lá bài trong Rồng Hổ sẽ được tính dựa trên điểm số của lá bài, không so sánh chất của lá bài.
                         </li>
+                        <li>
+                            Điểm số các lá bài trong Rồng Hổ sẽ được tính như sau:
+                            <div className="table-container">
+                                <table className="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bài</th>
+                                            <th>A</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>7</th>
+                                            <th>8</th>
+                                            <th>9</th>
+                                            <th>10</th>
+                                            <th>J</th>
+                                            <th>Q</th>
+                                            <th>K</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Điểm</td>
+                                            <td>1</td>
+                                            <td>2</td>
+                                            <td>3</td>
+                                            <td>4</td>
+                                            <td>5</td>
+                                            <td>6</td>
+                                            <td>7</td>
+                                            <td>8</td>
+                                            <td>9</td>
+                                            <td>10</td>
+                                            <td>11</td>
+                                            <td>12</td>
+                                            <td>13</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                        <li>
+                            Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
+                            đa cho 1 phiên là 2,000. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
+                        </li>
+                        <li>
+                            Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, các lá
+                            bài sẽ được lật và kết quả sẽ được hiển thị.
+                        </li>
+                        <li>Bộ bài 52 lá (không bao gồm lá Joker) sẽ được sử dụng khi bắt đầu phiên mới.</li>
                     </ul>
                 </li>
                 <li className="guide-item">
@@ -79,240 +110,39 @@ const DragonTigerGuideVI = () => {
                     <ul className="desc">
                         <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
                         <li>
-                            Tỷ lệ trả thưởng đã bao gồm tiền cược.
+                            Giới hạn cược và tỷ lệ trả thưởng khi đặt vào Rồng, Hổ hoặc Hòa như sau:
                             <div className="table-container">
-                                <table className="table align-center">
+                                <table className="table text-center">
                                     <thead>
                                         <tr>
                                             <th>Lựa Chọn</th>
-                                            <th>Điều Kiện Thắng</th>
-                                            <th>Mô Tả</th>
+                                            <th>
+                                                Giới Hạn Cược <br /> (Min - Max)
+                                            </th>
                                             <th>Tỷ Lệ Trả Thưởng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td rowSpan={2}>Lẻ</td>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={5}>1:1.96</td>
+                                            <td>Rồng</td>
+                                            <td rowSpan={2}>1 - 2,000</td>
+                                            <td rowSpan={2}>1:2</td>
                                         </tr>
                                         <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
+                                            <td>Hổ</td>
                                         </tr>
                                         <tr>
-                                            <td rowSpan={3}>Chẵn</td>
-                                            <td>4 đỏ</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 đỏ</td>
-                                            <td>4 đỏ</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={2}>1:1.96</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                            <td>4 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={2}>1:1.96</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td>1:1.96</td>
+                                            <td>Hoà</td>
+                                            <td>1 - 500</td>
+                                            <td>1:11</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </li>
+                        <li>Trong trường hợp kết quả Hòa, người chơi sẽ mất 50% số tiền cược đặt vào 2 cửa Rồng, Hổ.</li>
+                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
                     </ul>
-                </li>
-                <li className="guide-item">
-                    <h2>Bảng thống kê kết quả</h2>
-                    <div className="table-container">
-                        <table className="table align-center">
-                            <thead>
-                                <tr>
-                                    <th>Kết Quả</th>
-                                    <th>Mô Tả</th>
-                                    <th>Ký Hiệu</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>4 đỏ</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">4</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">0</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2 đỏ, 2 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">2</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3 đỏ, 1 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red">3</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1 đỏ, 3 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red">1</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </li>
                 <li className="guide-item">
                     <h2>Các quy định trong game</h2>

@@ -30,7 +30,7 @@ const FishPrawnCrabGuideVI = () => {
                         </li>
                         <li>
                             Người chơi sẽ thắng nếu trong ba viên xúc xắc xuất hiện linh vật mà người chơi đã đặt cược.
-                            <ul>
+                            <ul className="detail">
                                 <li>Nếu linh vật được chọn xuất hiện 1 lần &#8658; Tỷ lệ trả thưởng 1 ăn 2</li>
                                 <li>Nếu linh vật được chọn xuất hiện 2 lần &#8658; Tỷ lệ trả thưởng 1 ăn 3.5</li>
                                 <li>Nếu linh vật được chọn xuất hiện 3 lần &#8658; Tỷ lệ trả thưởng 1 ăn 6</li>

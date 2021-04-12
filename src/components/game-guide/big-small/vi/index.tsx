@@ -8,69 +8,40 @@ const BigSmallGuideVI = () => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Tài Xĩu là trò chơi có nguồn gốc dân gian từ lâu đời, được Saba.club triển khai cho tất cả thị trường trên thế giới.
-                        Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1 bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được thiết kế
-                        2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc vào số mặt
-                        đỏ hoặc trắng được lật của đồng xu sau khi xóc.
+                        Tài Xỉu là trò chơi đổ xúc xắc đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới. Trò chơi sử
+                        dụng 3 viên xúc xắc (xí ngầu) 6 mặt và người chơi sẽ dự đoán xem kết quả là Tài hay Xỉu.
                     </p>
                 </li>
                 <li className="guide-item">
                     <h2>Cách chơi</h2>
                     <ul className="desc">
+                        <li>Người chơi dự đoán tổng điểm xúc xắc bằng cách chọn cửa Tài hoặc Xỉu cùng với mức cược mong muốn.</li>
+                        <ul className="detail">
+                            <li>Tài: tổng điểm 3 viên xúc xắc &gt;= 11</li>
+                            <li>Xỉu: tổng điểm 3 viên xúc xắc &lt;= 10</li>
+                        </ul>
+                        <li>Trong 1 phiên cược, người chơi chỉ được chọn 1 cửa duy nhất Tài hoặc Xỉu.</li>
+                        <li>Sau khi chọn mức tiền cược, nhấn nút Đồng Ý để xác nhận hoặc chọn Xóa nếu muốn nhập lại số tiền khác.</li>
                         <li>
-                            Người chơi chọn mệnh giá và nhấp vào lựa chọn bạn muốn đặt cược trước khi bát được mở. Nếu kết quả mở ra trùng
-                            với lựa chọn của bạn, người chơi sẽ thắng và ngược lại sẽ thua toàn bộ tiền cược nếu lựa chọn sai.{" "}
+                            Người chơi có thể tăng lượng tiền đặt cược bằng cách đặt thêm vào cùng 1 lựa chọn trước khi thời gian đặt cược
+                            kết thúc.
                         </li>
                         <li>
-                            Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là 2,000. Lưu ý, không thể hủy cược sau khi đặt.
+                            Số tiền cược phải nằm trong khoảng từ 1 đến 2,000 cho một lần đặt cược và tổng tiền cược tối đa cho 1 phiên là
+                            2,000
                         </li>
                         <li>
-                            Giới hạn cược:
-                            <div className="table-container">
-                                <table className="table text-center">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Lựa Chọn</th>
-                                            <th>Giới Hạn Cược (Min - Max)</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td rowSpan={2}>2 cửa chính</td>
-                                            <td>Chẵn</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lẻ</td>
-                                        </tr>
-                                        <tr>
-                                            <td rowSpan={5}>5 cửa phụ</td>
-                                            <td>4 đỏ</td>
-                                            <td rowSpan={2}>1 - 500</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>1 - 2,000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, xúc xắc
+                            sẽ bắt đầu lắc và tổng điểm xúc xắc sẽ được hiển thị.
                         </li>
                         <li>
-                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược.Thời gian đặt cược cho mỗi phiên
-                            sẽ được hiển thị đếm ngược trên bàn chơi.
+                            Nhà cái cân cửa: trong trường hợp tiền đặt cược giữa 2 cửa chênh lệch nhau, số tiền chênh lệch sẽ được hoàn trả
+                            vào tài khoản người chơi đặt cược sau.
+                            <p>
+                                <strong>Ví dụ:</strong> Người chơi A đặt 100 vào cửa Tài, người chơi B đặt 40 vào cửa Xỉu, người chơi C đặt
+                                80 vào cửa Xỉu. Hệ thống sẽ tính toán cân bằng lượng tiền giữa 2 cửa và sẽ trả lại cho C (người chơi đặt
+                                cược sau) 20
+                            </p>
                         </li>
                     </ul>
                 </li>
@@ -78,241 +49,9 @@ const BigSmallGuideVI = () => {
                     <h2>Trả thưởng</h2>
                     <ul className="desc">
                         <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
-                        <li>
-                            Tỷ lệ trả thưởng đã bao gồm tiền cược.
-                            <div className="table-container">
-                                <table className="table align-center">
-                                    <thead>
-                                        <tr>
-                                            <th>Lựa Chọn</th>
-                                            <th>Điều Kiện Thắng</th>
-                                            <th>Mô Tả</th>
-                                            <th>Tỷ Lệ Trả Thưởng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td rowSpan={2}>Lẻ</td>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={5}>1:1.96</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td rowSpan={3}>Chẵn</td>
-                                            <td>4 đỏ</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 đỏ</td>
-                                            <td>4 đỏ</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={2}>1:1.96</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                            <td>4 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td rowSpan={2}>1:1.96</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
-                                            <td>1:1.96</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
+                        <li>Tỷ lệ trả thưởng khi đặt vào Tài, Xỉu là 1 ăn 1.97</li>
+                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
                     </ul>
-                </li>
-                <li className="guide-item">
-                    <h2>Bảng thống kê kết quả</h2>
-                    <div className="table-container">
-                        <table className="table align-center">
-                            <thead>
-                                <tr>
-                                    <th>Kết Quả</th>
-                                    <th>Mô Tả</th>
-                                    <th>Ký Hiệu</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>4 đỏ</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">4</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">0</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2 đỏ, 2 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-white">2</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3 đỏ, 1 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red">3</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1 đỏ, 3 trắng</td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                            <span className="dot-white"></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="d-flex justify-content-center">
-                                            <span className="dot-red">1</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </li>
                 <li className="guide-item">
                     <h2>Các quy định trong game</h2>

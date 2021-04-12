@@ -33,7 +33,9 @@ const SeDieGuideVI = () => {
                                         <tr>
                                             <th></th>
                                             <th>Lựa Chọn</th>
-                                            <th>Giới Hạn Cược (Min - Max)</th>
+                                            <th>
+                                                Giới Hạn Cược <br /> (Min - Max)
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -81,7 +83,7 @@ const SeDieGuideVI = () => {
                         <li>
                             Tỷ lệ trả thưởng đã bao gồm tiền cược.
                             <div className="table-container">
-                                <table className="table align-center">
+                                <table className="table text-center">
                                     <thead>
                                         <tr>
                                             <th>Lựa Chọn</th>
@@ -221,7 +223,7 @@ const SeDieGuideVI = () => {
                 <li className="guide-item">
                     <h2>Bảng thống kê kết quả</h2>
                     <div className="table-container">
-                        <table className="table align-center">
+                        <table className="table text-center">
                             <thead>
                                 <tr>
                                     <th>Kết Quả</th>
