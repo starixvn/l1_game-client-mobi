@@ -5,16 +5,20 @@ import { RebetStorageModel } from "../game-base/type";
 import Styles from "./styles.module.scss";
 import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
+import { useTranslation } from "next-i18next";
+import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 
 const Rebet: React.FC<Props> = (props) => {
-    const gameContext = useGameContext();
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
     const lastBetChoices = rebetInfo.betInfo;
-    const { gameConfigs } = useGameContext();
+    const { gameConfigs, roundId, gameSetting } = useGameContext();
     const gameActionContext = useGameActionContext();
     const { odds } = gameConfigs;
+    const { gameName } = gameSetting;
+
+    const { t } = useTranslation(gameName.toLowerCase());
 
     const [betTrack, updateBetTrack] = useState<{ [key: string]: BetTrackModel }>({});
     const [isWaiting, updateIsWaiting] = useState(false);
@@ -93,21 +97,25 @@ const Rebet: React.FC<Props> = (props) => {
 
     return (
         <div className={Styles["container"]}>
+            <div className={Styles.header}>
+                <div className={Styles["game-name"]}>{t(GameResourceKeys.GAME_NAME)}</div>
+                <div className={Styles["round-number"]}>#{roundId}</div>
+            </div>
             <div className={Styles["bet-list"]}>{renderLastRoundBet()}</div>
             <div className={`${Styles["action"]} ${isWaiting && Styles["waiting"]}`}>
                 {!isSubmit && (
                     <div className={Styles["button-group"]}>
                         <button onClick={handleCloseModal} className="btn-grey w-5">
-                            Cancel
+                            {t("cancel")}
                         </button>
                         <button onClick={handleSubmit} className="btn-orange w-5">
-                            Submit
+                            {t("submit")}
                         </button>
                     </div>
                 )}
                 {isSubmit && (
                     <button onClick={handleCloseModal} className="btn-orange w-100">
-                        Ok
+                        {t("ok")}
                     </button>
                 )}
             </div>
