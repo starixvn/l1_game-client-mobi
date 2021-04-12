@@ -1,34 +1,27 @@
-.titleBig,
-.titleSmall {
+%title {
     font-size: 1.4rem;
     font-weight: 500;
     display: inline-block;
-    margin-right: 0.3rem;
-
-    @media (min-width: 1400px) {
-        font-size: 1.2rem;
-    }
+    margin-right: 0.4rem;
+    margin-left: 1rem;
 }
 
-.titleBig{
-    color: #3087D7;
+.titleBig {
+    @extend %title;
+    color: #3087d7;
 }
-.titleSmall{
-    color: #DE4B56;
+
+.titleSmall {
+    @extend %title;
+    color: #de4b56;
 }
 
 .number {
     margin-left: 0.2rem;
-    font-size: 1.4rem;
-    color: #2c2f3e;
-
-    @media (min-width: 1400px) {
-        font-size: 1.2rem;
-    }
 }
 
-.element-container {
-   display: flex;
-   justify-content: center;
-   align-items: center;
+.statistic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

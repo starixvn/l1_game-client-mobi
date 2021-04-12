@@ -9,12 +9,12 @@ import Styles from "./statistic.module.scss";
 const Element = ({ data, titleText }) => {
     const { t } = useTranslation("taixiu");
     return (
-        <div className={Styles["element-container"]}>
+        <div className={Styles["statistic-container"]}>
             {titleText.map((title, index) => {
                 const value = data[index];
                 return (
                     <WrapperHeader key={"center-" + index}>
-                        <span className={title === "big" ? "titleBig" : "titleSmall"}> {t(title)}</span>
+                        <span className={title === "big" ? Styles["titleBig"] : Styles["titleSmall"]}> {t(title)}</span>
                         <span className={Styles["number"]}>{value}%</span>
                     </WrapperHeader>
                 );

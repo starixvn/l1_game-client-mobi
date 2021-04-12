@@ -8,7 +8,7 @@ import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
     const isSmall = checkIsSmall(countRedDot(result));
-    const textInner = isSmall ? "M" : "B";
+    const textInner = "";
     return <BigSmallDotNumber key={roundId} red={isSmall} textInner={textInner} col={col} row={row}></BigSmallDotNumber>;
 };
 
