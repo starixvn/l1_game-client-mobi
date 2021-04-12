@@ -31,6 +31,7 @@ const CountdownTimer: React.FC = () => {
         isPlaying: true,
         size: 40,
         strokeWidth: 4,
+        trailColor: "#fff",
         trailStrokeWidth: 2,
         initialRemainingTime: remainingTime,
         duration: getTimerDuration(gameState),
