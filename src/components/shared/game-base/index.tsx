@@ -69,6 +69,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
         this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
+        this.messageTransmitter.addListener("betPercentage", this.handlePercentageBets.bind(this));
     };
 
     handleTotalBet = ({ totalBets }) => {
@@ -77,6 +78,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleOwnBets = ({ ownBets }) => {
         this.setState({ ownBets });
+    };
+
+    handlePercentageBets = ({ betPercentage }) => {
+        this.setState({ betPercentage });
     };
 
     handleUserData({ user }) {

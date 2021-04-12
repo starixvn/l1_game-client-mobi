@@ -50,6 +50,7 @@ export interface GameBaseState<Result, SettlementResult> {
     ownBets: object;
     betHistory?: GameBetHistory;
     displayPopup?: PopupType;
+    betPercentage?: object;
 }
 
 export interface SocketInfo {

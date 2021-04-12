@@ -25,13 +25,20 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
             ownBets: {},
             totalBets: {},
             displayPopup: null,
+            betPercentage: {},
         };
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult } = this.state;
+        const { gameState, settlementResult, betPercentage } = this.state;
         const fakeSettlementResult = { big: false, small: false };
-        return <BigSmallBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
+        return (
+            <BigSmallBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? fakeSettlementResult}
+                betPercentage={betPercentage}
+            />
+        );
     }
 
     renderRoundHistory() {

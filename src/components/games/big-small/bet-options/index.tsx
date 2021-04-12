@@ -21,9 +21,10 @@ const OddNames = {
 type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
+    betPercentage: object;
 };
 
-const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult) => {
+const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, betPercentage: object) => {
     const { gameConfigs } = useGameContext();
     const { t } = useTranslation("taixiu");
     const { odds } = gameConfigs;
@@ -34,7 +35,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
                 {t(choice)}
                 <div className={Styles["statistic-user-bet"]}>
                     <span className={`icon-user-group ${Styles["user-group"]}`}></span>
-                    <span className={Styles["number"]}>54%</span>
+                    <span className={Styles["number"]}>{betPercentage && betPercentage[choice]}%</span>
                 </div>
             </div>
         </BetOption>
@@ -42,11 +43,11 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 };
 
 const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult } = props;
+    const { gameState, settlementResult, betPercentage } = props;
     return (
         <div className={`bet-options-container ${Styles["layout-BS"]}`}>
-            <div>{renderBetOptionByChoice(Choices.big, gameState, settlementResult)}</div>
-            <div>{renderBetOptionByChoice(Choices.small, gameState, settlementResult)}</div>
+            <div>{renderBetOptionByChoice(Choices.big, gameState, settlementResult, betPercentage)}</div>
+            <div>{renderBetOptionByChoice(Choices.small, gameState, settlementResult, betPercentage)}</div>
         </div>
     );
 };
