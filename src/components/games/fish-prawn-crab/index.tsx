@@ -30,11 +30,12 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult } = this.state;
+        const { gameState, settlementResult, result } = this.state;
         return (
             <FishPrawnCrabBetOptions
                 gameState={gameState}
                 settlementResult={settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }}
+                result={result}
             />
         );
     }
