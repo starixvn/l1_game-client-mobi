@@ -8,7 +8,7 @@ import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import ScoreboardHistory from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
-import BaseModal from "../../shared/base-modal";
+import AdvanceModal from "../../shared/advance-modal";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 
@@ -73,9 +73,9 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<FishPrawnCrabGuide />, <FishPrawnCrabBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
                 {component[this.state.displayPopup]}
-            </BaseModal>
+            </AdvanceModal>
         );
     }
 }

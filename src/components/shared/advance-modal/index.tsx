@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 import BaseDialog from "../base-dialog";
 
-import Styles from "./base-modal.module.scss";
+import Styles from "./styles.module.scss";
 
 type Props = {
     isOpen: boolean;
@@ -13,8 +13,7 @@ type Props = {
     subTitle?: string;
 };
 
-const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, isSmall = false }: Props) => {
-    const wrapperRef = useRef<HTMLDivElement>(null);
+const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, isSmall = false }: Props) => {
     const { t } = useTranslation("common");
 
     return (
@@ -36,4 +35,4 @@ const BaseModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, i
     );
 };
 
-export default BaseModal;
+export default AdvanceModal;

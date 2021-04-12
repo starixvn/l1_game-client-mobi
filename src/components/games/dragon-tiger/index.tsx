@@ -5,7 +5,7 @@ import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared
 import { Result, SettlementResult } from "./dragon-tiger";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerGuide from "../../game-guide/dragon-tiger";
-import BaseModal from "../../shared/base-modal";
+import AdvanceModal from "../../shared/advance-modal";
 import DragonTigerBetOptions from "./bet-options";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
@@ -21,19 +21,14 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
             roundId: 0,
             ownBets: {},
             totalBets: {},
-            displayPopup: null
+            displayPopup: null,
         };
     }
 
     renderBetOptions() {
         const { gameState, settlementResult } = this.state;
-        const fakeSettlementResult = { dragon: true, tiger: false, tie:false};
-        return (
-            <DragonTigerBetOptions
-                gameState={gameState}
-                settlementResult={settlementResult ?? fakeSettlementResult}
-            />
-        );
+        const fakeSettlementResult = { dragon: true, tiger: false, tie: false };
+        return <DragonTigerBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
     }
 
     renderRoundHistory() {
@@ -71,9 +66,9 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<DragonTigerGuide />, <DragonTigerBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
                 {component[this.state.displayPopup]}
-            </BaseModal>
+            </AdvanceModal>
         );
     }
 }

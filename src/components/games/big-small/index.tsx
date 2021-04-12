@@ -5,7 +5,7 @@ import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared
 import { Result, SettlementResult } from "./big-small";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallGuide from "../../game-guide/big-small";
-import BaseModal from "../../shared/base-modal";
+import AdvanceModal from "../../shared/advance-modal";
 import BigSmallBetOptions from "./bet-options";
 import MiniRoundHistory from "./mini-round-history";
 import BigSmallStatistic from "./statistic";
@@ -78,9 +78,9 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<BigSmallGuide />, <BigSmallBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
                 {component[this.state.displayPopup]}
-            </BaseModal>
+            </AdvanceModal>
         );
     }
 }

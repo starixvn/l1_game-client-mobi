@@ -1,6 +1,6 @@
 import React from "react";
 
-import BaseModal from "../../shared/base-modal";
+import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
@@ -83,9 +83,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<SeDieGuide />, <SeDieBetHistory />];
         return (
-            <BaseModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
                 {component[this.state.displayPopup]}
-            </BaseModal>
+            </AdvanceModal>
         );
     }
 }
