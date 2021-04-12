@@ -14,6 +14,16 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-dragon:before {
+    content: "\e911";
+    color: #ff9a00;
+}
+
+.icon-tiger:before {
+    content: "\e912";
+    color: #de4b56;
+}
+
 .icon-error:before {
     content: "\e90f";
     color: #f00;
