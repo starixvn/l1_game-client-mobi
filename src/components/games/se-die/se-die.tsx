@@ -13,6 +13,7 @@ import SeDieRoundHistory from "./round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
+import { ModalType } from "../../shared/base-dialog/type";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -74,7 +75,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderReBet() {
         return (
-            <BaseDialog size={"md"} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
+            <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
                 <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()} />
             </BaseDialog>
         );

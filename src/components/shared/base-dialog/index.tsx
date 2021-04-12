@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import Styles from "./styles.module.scss";
+import { ModalType } from "./type";
 
 type Props = {
     isOpen: boolean;
     onCloseModal: Function;
     children: React.ReactNode;
-    size: string;
+    type: ModalType;
 };
 
-const BaseDialog: React.FC<Props> = ({ children, onCloseModal, isOpen, size }: Props) => {
+const BaseDialog: React.FC<Props> = ({ children, onCloseModal, isOpen, type }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -25,7 +26,7 @@ const BaseDialog: React.FC<Props> = ({ children, onCloseModal, isOpen, size }: P
     }, [wrapperRef]);
 
     return (
-        <div ref={wrapperRef} className={`${Styles.popup} ${Styles[`size-${size}`]}`}>
+        <div ref={wrapperRef} className={`${Styles.popup} ${Styles[`modal-${ModalType[type].toLocaleLowerCase()}`]}`}>
             {children}
         </div>
     );

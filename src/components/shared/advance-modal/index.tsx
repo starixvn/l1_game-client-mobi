@@ -3,22 +3,23 @@ import { useTranslation } from "next-i18next";
 import BaseDialog from "../base-dialog";
 
 import Styles from "./styles.module.scss";
+import { ModalType } from "../base-dialog/type";
 
 type Props = {
     isOpen: boolean;
-    isSmall?: boolean;
+    type?: ModalType;
     onCloseModal: Function;
     children: React.ReactNode;
     title: string;
     subTitle?: string;
 };
 
-const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, isSmall = false }: Props) => {
+const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full }: Props) => {
     const { t } = useTranslation("common");
 
     return (
-        <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} size={"lg"}>
-            <div className={`${Styles.modal} ${isSmall ? Styles.small : ""}`}>
+        <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
+            <div className={Styles.modal}>
                 <div className={Styles["popup-logo"]}>
                     <span className="icon-small-logo"></span>
                 </div>
