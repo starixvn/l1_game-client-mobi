@@ -158,3 +158,33 @@
         transform: rotate(180deg);
     }
 }
+
+.collapse-settings {
+    position: absolute;
+    right: 10px;
+
+    .collapse-btn {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.quick-bet-mark-container {
+    position: absolute;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background: #fff;
+    align-items: center;
+    bottom: 0;
+    right: 0;
+
+    .quick-bet-mark {
+        &::before {
+            color: #ff9a00;
+            height: 1.7rem;
+            width: 1.7rem;
+        }
+    }
+}

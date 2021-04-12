@@ -71,12 +71,24 @@ export const BetSettings: React.FC = () => {
         setSelectedChipValue(chipValue);
     };
 
+    const getChipDisplayByValue = (value: number) => {
+        return Object.keys(chipList).find((key) => chipList[key] === value);
+    };
+
     return (
         <div>
-            <div className={Styles["betting-setting-collapsed"]} onClick={HandleClickActiveBtn}>
-                <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
-                <img src="/static/images/chip-reset.png" alt="chip" className="img-fluid" />
-            </div>
+            {!isShowSettings && (
+                <div className={Styles["betting-setting-collapsed"]} onClick={HandleClickActiveBtn}>
+                    <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
+                    <img src="/static/images/chip-reset.png" alt="chip" className="img-fluid" />
+                    {enabledQuickBet && (
+                        <div className={Styles["quick-bet-mark-container"]}>
+                            <span className={`icon-quick-bet ${Styles["quick-bet-mark"]}`}></span>{" "}
+                        </div>
+                    )}
+                </div>
+            )}
+
             {isShowSettings && (
                 <div className={Styles["settings-container"]}>
                     <div className={Styles["toggle"]}>
@@ -111,6 +123,10 @@ export const BetSettings: React.FC = () => {
                             className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
                             onClick={onClickNext}
                         ></span>
+                    </div>
+
+                    <div className={Styles["collapse-settings"]}>
+                        <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`} onClick={HandleClickActiveBtn}></span>
                     </div>
                 </div>
             )}
