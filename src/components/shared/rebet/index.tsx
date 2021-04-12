@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { RebetStorageModel } from "../game-base/type";
-import styles from "./styles.module.scss";
+import Styles from "./styles.module.scss";
 import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 
@@ -48,15 +48,25 @@ const Rebet: React.FC<Props> = (props) => {
     const renderLastRoundBet = () => {
         return lastBetChoices
             ? Object.keys(lastBetChoices).map((betChoice) => (
-                  <div className={`${styles["bet-info"]} ${betTrack[betChoice] && styles[getClassByBetState(betTrack[betChoice].state)]}`}>
-                      <div className={styles["bet-choice"]}>
-                          {betChoice} {getOddsByChoice(betChoice)}
+                  <div>
+                      <div
+                          className={`${Styles["bet-info"]} ${
+                              betTrack[betChoice] && Styles[getClassByBetState(betTrack[betChoice].state)]
+                          }`}
+                      >
+                          <div className={Styles["bet-choice"]}>
+                              <span className={Styles["choice"]}>{betChoice}</span> {getOddsByChoice(betChoice)}
+                          </div>
+                          <div className="d-flex align-items-center">
+                              <div className={Styles["bet-amount"]}>{lastBetChoices[betChoice]}</div>
+                              {betTrack[betChoice] && (
+                                  <div className={`icon-${getClassByBetState(betTrack[betChoice].state)} ${Styles["icon"]}`}></div>
+                              )}
+                          </div>
                       </div>
-                      <div className={styles["bet-amount"]}>{lastBetChoices[betChoice]}</div>
                       {betTrack[betChoice]?.state === BetState.Error && (
-                          <div className={styles["error-message"]}>{betTrack[betChoice].message}</div>
+                          <div className={Styles["error-message"]}>{betTrack[betChoice].message}</div>
                       )}
-                      {betTrack[betChoice] && <div className={styles["bet-state-icon"]}></div>}
                   </div>
               ))
             : null;
@@ -82,12 +92,24 @@ const Rebet: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={styles["container"]}>
-            <div className={styles["bet-list"]}>{renderLastRoundBet()}</div>
-            <div className={`${styles["action"]} ${isWaiting && styles["waiting"]}`}>
-                {!isSubmit && <button onClick={handleCloseModal}>Cancel</button>}
-                {!isSubmit && <button onClick={handleSubmit}>Submit</button>}
-                {isSubmit && <button onClick={handleCloseModal}>Ok</button>}
+        <div className={Styles["container"]}>
+            <div className={Styles["bet-list"]}>{renderLastRoundBet()}</div>
+            <div className={`${Styles["action"]} ${isWaiting && Styles["waiting"]}`}>
+                {!isSubmit && (
+                    <div className={Styles["button-group"]}>
+                        <button onClick={handleCloseModal} className="btn-grey w-5">
+                            Cancel
+                        </button>
+                        <button onClick={handleSubmit} className="btn-orange w-5">
+                            Submit
+                        </button>
+                    </div>
+                )}
+                {isSubmit && (
+                    <button onClick={handleCloseModal} className="btn-orange w-100">
+                        Ok
+                    </button>
+                )}
             </div>
         </div>
     );

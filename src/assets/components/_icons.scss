@@ -14,6 +14,16 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-error:before {
+    content: "\e90f";
+    color: #f00;
+}
+
+.icon-success:before {
+    content: "\e910";
+    color: #5bb379;
+}
+
 .icon-user-group:before {
     content: "\e90e";
     color: #9e9e9e;

@@ -49,9 +49,14 @@
         margin-right: 1rem;
         border: 1px solid #fff;
         border-radius: 2rem;
+        background: none;
         color: #fff;
         text-align: center;
         font-size: 1.4rem;
+
+        &:disabled {
+            opacity: 0.6;
+        }
     }
 
     .dropdown {

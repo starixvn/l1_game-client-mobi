@@ -1,40 +1,67 @@
-.container {
-}
+$waiting-color: #ffb335;
+$success-color: #5bb379;
+$error-color: #ff0000;
 
 .bet-list {
+    max-height: 18rem;
+    overflow-y: auto;
 }
 
 .bet-info {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    border-left: 0.3rem solid;
     height: 40px;
-
-    &.waiting {
-        background-color: #f2f5fb;
-    }
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    border-left-color: $waiting-color;
+    background-color: #f2f5fb;
 
     &.success {
+        border-left-color: $success-color;
         background-color: #e3ffda;
     }
 
     &.error {
+        border-left-color: $error-color;
         background-color: #ffdede;
+    }
+
+    .icon {
+        font-size: 2rem;
     }
 }
 
 .bet-choice {
+    font-size: 1.6rem;
+
+    .choice {
+        font-weight: 500;
+    }
 }
 
 .bet-amount {
+    margin-right: 0.5rem;
+    font-weight: 500;
+    font-size: 1.6rem;
+    color: #ff9a00;
 }
 
 .error-message {
-}
-
-.bet-state-icon {
+    font-size: 13px;
+    line-height: 15px;
+    color: #ff0000;
 }
 
 .action {
+    margin-top: 1.6rem;
     &.waiting {
+    }
+
+    .button-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1.6rem;
     }
 }

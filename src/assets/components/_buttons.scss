@@ -18,3 +18,9 @@
     @extend %btn;
     background-color: #ffb335;
 }
+
+.btn-grey {
+    @extend %btn;
+    background-color: #d2d2d2;
+    color: #2c2f3e;
+}
