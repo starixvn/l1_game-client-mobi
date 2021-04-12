@@ -59,10 +59,6 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderReBet() {
-        return <></>;
-    }
-
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<DragonTigerGuide />, <DragonTigerBetHistory />];
         return (

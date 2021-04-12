@@ -6,7 +6,11 @@ import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
+import BaseDialog from "../base-dialog";
+import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
+import ErrorMessage from "../error-message";
+import Rebet from "../rebet";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
@@ -70,6 +74,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
         this.messageTransmitter.addListener("betPercentage", this.handlePercentageBets.bind(this));
+        this.messageTransmitter.addListener("endBet", this.handleEndBet.bind(this));
+    };
+
+    handleEndBet = ({ endBet, notice }) => {
+        if (endBet == -1) {
+            this.state.displayPopup !== PopupType.Rebet && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
+        }
     };
 
     handleTotalBet = ({ totalBets }) => {
@@ -228,6 +239,22 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
+    renderErrorMessage() {
+        return (
+            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={() => this.closePopup()}>
+                <ErrorMessage message={this.state.errorMessage} closeModal={() => this.closePopup()}></ErrorMessage>
+            </BaseDialog>
+        );
+    }
+
+    renderReBet() {
+        return (
+            <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
+                <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()} />
+            </BaseDialog>
+        );
+    }
+
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -242,8 +269,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderBetHistory(): React.ReactElement;
 
-    abstract renderReBet(): React.ReactElement;
-
     renderStartRoundAnimation() {
         return <></>;
     }
@@ -256,6 +281,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 return this.renderReBet();
             case PopupType.BetHistory:
                 return this.renderBetHistory();
+            case PopupType.Error:
+                return this.renderErrorMessage();
             default:
                 return null;
         }

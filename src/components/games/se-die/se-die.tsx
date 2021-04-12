@@ -73,14 +73,6 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderReBet() {
-        return (
-            <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
-                <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()} />
-            </BaseDialog>
-        );
-    }
-
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<SeDieGuide />, <SeDieBetHistory />];
         return (

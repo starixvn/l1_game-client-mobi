@@ -66,10 +66,6 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderReBet() {
-        return <></>;
-    }
-
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<FishPrawnCrabGuide />, <FishPrawnCrabBetHistory />];
         return (

@@ -73,10 +73,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
     }
 
-    renderReBet() {
-        return <></>;
-    }
-
     renderContentPopup(title: string, isOpen: boolean) {
         const component: JSX.Element[] = [<BigSmallGuide />, <BigSmallBetHistory />];
         return (

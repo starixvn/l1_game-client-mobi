@@ -21,6 +21,7 @@ export enum PopupType {
     Guide,
     BetHistory,
     Rebet,
+    Error,
 }
 
 export interface GameSettings {
@@ -51,6 +52,7 @@ export interface GameBaseState<Result, SettlementResult> {
     betHistory?: GameBetHistory;
     displayPopup?: PopupType;
     betPercentage?: object;
+    errorMessage?: string;
 }
 
 export interface SocketInfo {
