@@ -40,15 +40,18 @@
         color: #fff;
     }
 
-    &.x2 {
+    &.x2:before {
         content: "X2";
     }
 
-    &.x3 {
+    &.x3:before {
         content: "X3";
     }
 
     &.prev-round {
         background: linear-gradient(221.79deg, #f0f0f0 0%, #bebebe 98.88%);
+        &:before {
+            color: #666;
+        }
     }
 }
