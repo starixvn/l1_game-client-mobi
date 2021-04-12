@@ -4,6 +4,7 @@ import { getLocalStorageItem, localStorageKeys } from "../../../common/local-sto
 import { RebetStorageModel } from "../game-base/type";
 import styles from "./styles.module.scss";
 import { BetState, BetTrackModel, Props } from "./type";
+import { useGameActionContext } from "../../../contexts/game-actions-context";
 
 const Rebet: React.FC<Props> = (props) => {
     const gameContext = useGameContext();
@@ -12,6 +13,7 @@ const Rebet: React.FC<Props> = (props) => {
     const rebetInfo = rebetStorage[props.gameId];
     const lastBetChoices = rebetInfo.betInfo;
     const { gameConfigs } = useGameContext();
+    const gameActionContext = useGameActionContext();
     const { odds } = gameConfigs;
 
     const [betTrack, updateBetTrack] = useState<{ [key: string]: BetTrackModel }>({});
@@ -20,7 +22,7 @@ const Rebet: React.FC<Props> = (props) => {
 
     useEffect(
         () =>
-            gameContext.handleMessage("endBet", (payload) => {
+            gameActionContext.handleMessage("endBet", (payload) => {
                 const { endBet, betChoice, notice } = payload;
 
                 if (betTrack[betChoice]) {
@@ -67,7 +69,7 @@ const Rebet: React.FC<Props> = (props) => {
     const handleSubmit = () => {
         Object.keys(lastBetChoices).forEach((betChoice) => {
             betTrack[betChoice] = { state: BetState.Waiting };
-            gameContext.placeBet(betChoice, lastBetChoices[betChoice]);
+            gameActionContext.placeBet(betChoice, lastBetChoices[betChoice]);
         });
 
         updateBetTrack(betTrack);
