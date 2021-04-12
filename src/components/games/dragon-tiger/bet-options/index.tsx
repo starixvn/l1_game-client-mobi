@@ -23,7 +23,6 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
     const { gameConfigs } = useGameContext();
     const { t } = useTranslation("dragontiger");
     const { odds } = gameConfigs;
-    // console.log(odds);
     const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
     return (
         <BetOption choice={choice} odd={odds[choice]} isHighlight={isHighLight} gameState={gameState}>

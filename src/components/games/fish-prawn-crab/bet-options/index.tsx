@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
@@ -45,43 +45,56 @@ enum ResultBet {
     prawn,
 }
 
-const renderHighLightNumber = (result: Result, choice, countsAppear) => {
-    let numberAppear = "";
-    Object.keys(countsAppear).forEach((number) => {
+const renderHighLightNumber = (choice: string, countsAppearDice: object, classCount: string) => {
+    Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
-            if (+countsAppear[number] === 2) {
-                numberAppear = "x2";
+            if (+countsAppearDice[number] === 2) {
+                classCount = "x2";
                 return;
             }
 
-            if (+countsAppear[number] === 3) {
-                numberAppear = "x3";
+            if (+countsAppearDice[number] === 3) {
+                classCount = "x3";
                 return;
             }
         }
     });
 
-    return numberAppear;
+    return classCount;
+};
+
+const getClassPrevRound = (gameState: GameState) => {
+    switch (gameState) {
+        case GameState.BeforeStartRound:
+        case GameState.InRound:
+            return "prev-round";
+        default:
+            return "";
+    }
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, result: Result) => {
     const { gameConfigs } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
+    const isShowCountOfDice = gameState !== GameState.LockingBet && gameState !== GameState.DisplayResult;
     const isRenderHighLightNumber = result && Object.values(result).indexOf(ResultBet[choice]) > -1;
-    const countsAppear = {};
-    let numberAppear = "";
+    const countsAppearDice = {};
+    let classCount = "";
+
     if (result && isRenderHighLightNumber) {
         Object.values(result).forEach((value) => {
-            countsAppear[value] = (countsAppear[value] || 0) + 1;
+            countsAppearDice[value] = (countsAppearDice[value] || 0) + 1;
         });
-        numberAppear = renderHighLightNumber(result, choice, countsAppear);
+        classCount = renderHighLightNumber(choice, countsAppearDice, classCount);
     }
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[`icon-${IconMapper[choice]}`]}`}></div>
-            {isHighLight && numberAppear != "" && <div className={`${Styles["highlight-result-label"]} ${Styles[numberAppear]}`}></div>}
+            {isShowCountOfDice && classCount != "" && (
+                <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
+            )}
         </BetOption>
     );
 };

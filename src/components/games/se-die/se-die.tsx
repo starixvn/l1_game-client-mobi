@@ -62,7 +62,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderResult() {
         const { result } = this.state;
-        return <OpenThePlate result={result}></OpenThePlate>;
+        return <OpenThePlate result={result ?? { red1: false, red2: false, red3: true, red4: false }}></OpenThePlate>;
     }
 
     renderGuide() {

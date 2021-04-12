@@ -10,6 +10,7 @@ import BigSmallBetOptions from "./bet-options";
 import MiniRoundHistory from "./mini-round-history";
 import BigSmallStatistic from "./statistic";
 import ScoreboardHistory from "./scoreboard-round-history";
+import BigSmallResult from "./big-small-result";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -51,7 +52,8 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        return <></>;
+        const { result, settlementResult } = this.state;
+        return <BigSmallResult result={result} settlementResult={settlementResult}></BigSmallResult>;
     }
 
     renderBoard() {
