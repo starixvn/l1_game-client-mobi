@@ -9,31 +9,38 @@ const CountdownTimer: React.FC = () => {
     const { remainingTime, gameState, gameSetting } = useGameContext();
     const { durations } = gameSetting;
 
-    const getTimerPropsByState = (state: GameState) => {
+    const timerColors = {
+        [GameState.LockingBet]: "#FF0000",
+        [GameState.InRound]: "#fff",
+        [GameState.Waiting]: "#3AA55F",
+    };
+
+    const getTimerDuration = (state: GameState) => {
         switch (state) {
             case GameState.LockingBet:
-                return { duration: durations.lockingBet, colors: "#FF0000" };
             case GameState.InRound:
-                return { duration: durations.placingBets, colors: "#fff" };
+                return durations.placingBets;
             case GameState.Waiting:
-                return {
-                    duration: durations.wholeRound - durations.placingBets - durations.beforeStartRound - durations.showResult,
-                    colors: "#3AA55F",
-                };
+                return durations.wholeRound - durations.placingBets - durations.beforeStartRound - durations.showResult;
+            default:
+                return 0;
         }
     };
+
     const timerProps = {
         isPlaying: true,
         size: 40,
         strokeWidth: 4,
         trailStrokeWidth: 2,
         initialRemainingTime: remainingTime,
-        ...getTimerPropsByState(gameState),
+        duration: getTimerDuration(gameState),
     };
 
     return (
         <div className={styles.timer}>
-            <CountdownCircleTimer {...timerProps}>{({ remainingTime }) => remainingTime}</CountdownCircleTimer>
+            <CountdownCircleTimer {...timerProps} colors={[[timerColors[gameState], 1]]}>
+                {({ remainingTime }) => remainingTime}
+            </CountdownCircleTimer>
         </div>
     );
 };

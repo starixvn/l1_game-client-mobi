@@ -1,6 +1,6 @@
 import { WithTranslation, withTranslation } from "next-i18next";
 import React, { useState } from "react";
-import { Container, Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
+import { Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
 
 import { ResourceTypes } from "../../common/resources";
 import Styles from "./header.module.scss";

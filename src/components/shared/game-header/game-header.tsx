@@ -41,6 +41,8 @@ export default function GameHeader() {
         updateRebetStatus(rebetInfo?.betInfo == undefined);
     }, [roundId]);
 
+    const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet || gameState === GameState.Waiting;
+
     return (
         <div className={Styles.header}>
             <div className={Styles["header-left"]}>
@@ -52,9 +54,12 @@ export default function GameHeader() {
                     <div className={Styles.round}>#{roundId}</div>
                 </div>
             </div>
-            <div className={Styles["count-down"]}>
-                <CountdownTimer key={gameState} />
-            </div>
+            {isShowTimer() && (
+                <div className={Styles["count-down"]}>
+                    <CountdownTimer key={gameState} />
+                </div>
+            )}
+
             <div className={Styles["header-right"]}>
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
                     <label>Rebet</label>
