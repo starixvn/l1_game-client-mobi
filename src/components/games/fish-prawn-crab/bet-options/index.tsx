@@ -45,7 +45,8 @@ enum ResultBet {
     prawn,
 }
 
-const renderHighLightNumber = (choice: string, countsAppearDice: object, classCount: string) => {
+const renderHighLightNumber = (choice: string, countsAppearDice: object) => {
+    let classCount = "";
     Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
             if (+countsAppearDice[number] === 2) {
@@ -73,21 +74,12 @@ const getClassPrevRound = (gameState: GameState) => {
     }
 };
 
-const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, result: Result) => {
+const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
     const { gameConfigs } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const isShowCountOfDice = gameState !== GameState.LockingBet && gameState !== GameState.DisplayResult;
-    const isRenderHighLightNumber = result && Object.values(result).indexOf(ResultBet[choice]) > -1;
-    const countsAppearDice = {};
-    let classCount = "";
-
-    if (result && isRenderHighLightNumber) {
-        Object.values(result).forEach((value) => {
-            countsAppearDice[value] = (countsAppearDice[value] || 0) + 1;
-        });
-        classCount = renderHighLightNumber(choice, countsAppearDice, classCount);
-    }
+    const classCount = renderHighLightNumber(choice, countsAppearDice);
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
@@ -101,14 +93,21 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, result } = props;
+    const countsAppearDice = {};
+    if (result) {
+        Object.values(result).forEach((value) => {
+            countsAppearDice[value] = (countsAppearDice[value] || 0) + 1;
+        });
+    }
+
     return (
         <div className={`${Styles["layout-FPC"]}`}>
-            <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult, result)}</div>
-            <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult, result)}</div>
-            <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult, result)}</div>
-            <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult, result)}</div>
-            <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult, result)}</div>
-            <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult, result)}</div>
+            <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult, countsAppearDice)}</div>
+            <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult, countsAppearDice)}</div>
+            <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult, countsAppearDice)}</div>
+            <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult, countsAppearDice)}</div>
+            <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult, countsAppearDice)}</div>
+            <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult, countsAppearDice)}</div>
         </div>
     );
 };
