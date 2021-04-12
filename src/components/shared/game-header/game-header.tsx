@@ -62,7 +62,7 @@ export default function GameHeader() {
 
             <div className={Styles["header-right"]}>
                 <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
-                    <label>Rebet</label>
+                    Rebet
                 </button>
 
                 <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
