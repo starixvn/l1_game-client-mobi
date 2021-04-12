@@ -4,11 +4,10 @@ import ToolTip from "../../tool-tip";
 
 interface Props<R, S> {
     children: React.ReactNode;
-    round: Round<R, S>;
     renderRoundDetail: JSX.Element;
 }
 
-const RoundHistoryItem = <R, S>({ children, round, renderRoundDetail }: Props<R, S>) => {
+const RoundHistoryItem = <R, S>({ children, renderRoundDetail }: Props<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
 
     const openToolTip = () => {

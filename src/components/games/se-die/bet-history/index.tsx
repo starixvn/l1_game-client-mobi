@@ -1,11 +1,12 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
-import Styles from "./bet-history.module.scss";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetHistoryContainer from "../../../shared/bet-history";
-import { countRedDot, checkIsEven } from "../mini-round-history";
 import SeDieDot from "../dot";
-import { useTranslation } from "next-i18next";
+import { checkIsEven, countRedDot } from "../se-die-helper";
 import { BetLogs } from "./bet-history";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {

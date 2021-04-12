@@ -1,18 +1,18 @@
 import React from "react";
 
+import SeDieGuide from "../../game-guide/se-die";
 import AdvanceModal from "../../shared/advance-modal";
+import BaseDialog from "../../shared/base-dialog";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import Rebet from "../../shared/rebet";
 import { OpenThePlate, ShakeThePlate } from "./animations";
+import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
-import MiniRoundHistory from "./mini-round-history";
+import SeDieRoundHistory from "./round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import SeDieBetHistory from "./bet-history";
-import SeDieGuide from "../../game-guide/se-die";
-import Rebet from "../../shared/rebet";
-import BaseDialog from "../../shared/base-dialog";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -39,7 +39,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
-        return <MiniRoundHistory roundHistory={roundHistory} gameState={gameState}></MiniRoundHistory>;
+        return <SeDieRoundHistory roundHistory={roundHistory} gameState={gameState}></SeDieRoundHistory>;
     }
 
     renderStatistic() {

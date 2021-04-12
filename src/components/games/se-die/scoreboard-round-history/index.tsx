@@ -1,14 +1,16 @@
 import React from "react";
-import { SeDieDotNumber, ScoreboardItemNext } from "../dot";
-import { SettlementResult } from "../sedie";
-import { Props } from "./scoreboard-round-history";
+
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
-import { countRedDot, checkIsEven } from "../mini-round-history";
+import { ScoreboardItemNext, SeDieDotNumber } from "../dot";
+import { checkIsEven, countRedDot } from "../se-die-helper";
+import { SettlementResult } from "../sedie";
+import { Props } from "./scoreboard-round-history";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
-    const isEven = checkIsEven(countRedDot(result));
     const count = countRedDot(result);
+    const isEven = checkIsEven(count);
+
     return <SeDieDotNumber key={roundId} red={isEven} count={count} col={col} row={row}></SeDieDotNumber>;
 };
 
