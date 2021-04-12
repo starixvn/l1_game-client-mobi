@@ -92,6 +92,7 @@ export const getStaticProps = async ({ locale }) => ({
             "baucua",
             "register",
             "bethistory",
+            "dragontiger",
         ])),
     },
 });

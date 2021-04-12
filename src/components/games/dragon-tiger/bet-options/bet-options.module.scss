@@ -1,0 +1,43 @@
+.layout-BS {
+    display: grid;
+    height: 100%;
+    grid-gap: 0.1rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+}
+
+%bet-choice {
+    text-align: center;
+    font-size: 3.6rem;
+    font-weight: bold;
+}
+
+.big {
+    @extend %bet-choice;
+    color: #3b7bc6;
+}
+
+.small {
+    @extend %bet-choice;
+    color: #de4b56;
+}
+
+.statistic-user-bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.4rem;
+
+    .user-group {
+        position: relative;
+        top: -0.2rem;
+        font-size: 20px;
+    }
+
+    .number {
+        margin-left: 0.4rem;
+        font-weight: 500;
+        font-size: 1.4rem;
+        color: #9e9e9e;
+    }
+}

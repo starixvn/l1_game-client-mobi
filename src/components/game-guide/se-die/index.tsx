@@ -1,24 +1,9 @@
 import React from "react";
-import { useRouter } from "next/router";
 import SeDieGuideEN from "./en";
 import SeDieGuideVI from "./vi";
-
-export enum GuideType {
-    en,
-    vi,
-}
+import GameGuide from "../game-guide";
 
 const SeDieGuide = () => {
-    const router = useRouter();
-    const { locale, locales } = router;
-    const component: JSX.Element[] = [<SeDieGuideEN></SeDieGuideEN>, <SeDieGuideVI></SeDieGuideVI>];
-    let result: JSX.Element = <></>;
-    locales.forEach((name, index) => {
-        if (name === locale) {
-            result = component[index];
-        }
-    });
-
-    return result;
+    return <GameGuide component={[<SeDieGuideEN />, <SeDieGuideVI />]}></GameGuide>;
 };
 export default SeDieGuide;
