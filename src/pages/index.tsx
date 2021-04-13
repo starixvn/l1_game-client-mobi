@@ -2,6 +2,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
+import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -16,11 +17,17 @@ export default function Home() {
     const [balance, setBalance] = useState<number>(0);
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
-    const authService = UserClientCommunication.getUserClientInstance().auth;
+    const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
 
     async function signIn() {
-        const { token } = router.query;
+        const settings = await settingsService.getSettings();
+        if (settings.isUM) {
+            LocalStorageManager.storeLocalStorageItem<UMInfo>("um_info", settings.umInfo);
+            router.push("um");
+            return;
+        }
 
+        const { token } = router.query;
         if (token) {
             const userSession = await authService.sso(token as string);
             if (userSession && userSession.isAuthenticated) {
@@ -30,7 +37,6 @@ export default function Home() {
             }
         } else {
             const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
-            console.log(userSession);
             if (!userSession) {
                 router.push("/timeout");
             }
