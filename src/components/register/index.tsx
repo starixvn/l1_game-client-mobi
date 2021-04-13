@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
 import { useAuthContext } from "../../contexts/auth";
-import NameGenerator from "../../helpers/name-generator/NameGenerator";
+import NameGenerator from "./name-generator";
 import { UserClientCommunication } from "../../services";
 import Styles from "./register.module.scss";
 

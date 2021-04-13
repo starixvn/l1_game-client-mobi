@@ -1,10 +1,10 @@
 import { Round } from "../../../types";
 
 export interface GameConfigs {
-    odds: object;
+    odds: any;
     minbet: number;
     maxbet: number;
-    choices_maxbet: object;
+    choices_maxbet: any;
     enableFreeBet: boolean;
 }
 
@@ -87,6 +87,6 @@ export interface GameBetHistory {
 }
 
 export interface UserStakeLevel {
-    minBet:number,
-    maxBet:number
+    minBet: number;
+    maxBet: number;
 }

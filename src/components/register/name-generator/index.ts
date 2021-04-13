@@ -6,7 +6,7 @@ import {colors} from "./name-dictionaries/colors";
 import {cools} from "./name-dictionaries/cools";
 import {fruits} from "./name-dictionaries/fruits";
 import {marvels} from "./name-dictionaries/marvels";
-import { uniqueNamesGenerator } from "./unique-names-generator/unique-names-generator";
+import { uniqueNamesGenerator} from 'unique-names-generator';
 
 export default class NameGenerator {
     static chance = new Chance();
