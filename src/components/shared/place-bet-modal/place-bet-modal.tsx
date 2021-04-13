@@ -158,33 +158,30 @@ export default class PlaceBetModal extends Component<Props, State> {
                 onCloseModal={this.closeModal}
                 type={ModalType.Bottom}
             >
-                <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
-                    <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odd}
-                </div>
-                <InputGroup>
-                    <InputGroupAddon addonType="prepend">
-                        <InputGroupText className={Styles["input-group-text"]}>UUS</InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                        className={Styles["custom-form-control"]}
+                <div className={Styles["place-bet-container"]}>
+                    <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
+                        <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odd}
+                    </div>
+                    <input
+                        className={`w-100 ${Styles["custom-form-control"]}`}
                         value={betAmount}
                         type={"number"}
                         onChange={this.handleInputBetAmount}
                         min={0}
                     />
-                </InputGroup>
-                <ul className={Styles["bet-info"]}>
-                    <li>
-                        Payout: <span className={Styles["highlight"]}>{payout.toFixed(2)}</span>
-                    </li>
-                </ul>
-                <div className={Styles["keyboard"]}>
-                    <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div>
-                    <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
+                    <ul className={Styles["bet-info"]}>
+                        <li>
+                            Payout: <span className={Styles["highlight"]}>{payout.toFixed(2)}</span>
+                        </li>
+                    </ul>
+                    <div className={Styles["keyboard"]}>
+                        <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div>
+                        <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
+                    </div>
+                    <button onClick={this.placeBet} className="btn-orange w-100">
+                        Bet
+                    </button>
                 </div>
-                <button onClick={this.placeBet} className="btn-orange w-100">
-                    Bet
-                </button>
             </AdvanceModal>
         );
     }

@@ -1,7 +1,7 @@
 @import "../../../assets/components/form";
 
-.place-bet-modal {
-    top: 45.98%;
+.place-bet-container {
+    padding: 0 1.6rem 1.6rem;
 }
 
 .bet-choice {
@@ -80,11 +80,4 @@
             cursor: pointer;
         }
     }
-}
-
-.input-group-text {
-    background: #d7d7d7;
-    border: 2px solid #ebedef;
-    font-size: 1.6rem;
-    color: #2c2f3e;
 }
