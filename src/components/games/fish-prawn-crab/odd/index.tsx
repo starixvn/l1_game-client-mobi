@@ -1,7 +1,8 @@
-import React from "react";
-import Styles from "./odd.module.scss";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { useTranslation } from "next-i18next";
+import React from "react";
+
+import { useGameContext } from "../../../../contexts/game-context/game-context";
+import Styles from "./odd.module.scss";
 
 const OddItem = ({ name, number }) => {
     const { t } = useTranslation("baucua");
@@ -19,9 +20,9 @@ const OddComponent: React.FunctionComponent = () => {
     return (
         <div className="d-flex">
             <div className={Styles["odd-container"]}>
-                <OddItem name={"single"} number={odds.single}></OddItem>
-                <OddItem name={"double"} number={odds.double}></OddItem>
-                <OddItem name={"triple"} number={odds.triple}></OddItem>
+                <OddItem name={"single"} number={odds["single"]}></OddItem>
+                <OddItem name={"double"} number={odds["double"]}></OddItem>
+                <OddItem name={"triple"} number={odds["triple"]}></OddItem>
             </div>
         </div>
     );

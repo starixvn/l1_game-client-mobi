@@ -1,13 +1,14 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
+import React from "react";
+
+import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
 import RoundHistoryContainer from "../../../shared/round-history/container";
 import RoundHistoryItem from "../../../shared/round-history/item";
-import BigSmallDot, { MiniItemNext } from "../dot";
 import { Result, SettlementResult } from "../big-small";
+import BigSmallDot, { MiniItemNext } from "../dot";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
-import { Round } from "../../../../types";
 
 export const countRedDot = (result: Result) => Object.values(result).reduce((total, value) => total + value, 0);
 export const checkIsSmall = (numberOfRed: number) => numberOfRed <= 10;
@@ -24,9 +25,9 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
                 <span className={Styles["tooltip-title"]}>
                     {settlementResult.big ? t("big") : t("small")} (
                     {ResultValue.map((value, index, arr) => {
-                        if(arr.length - 1 === index){
+                        if (arr.length - 1 === index) {
                             return value;
-                        }else{
+                        } else {
                             return value + "-";
                         }
                     })}
@@ -46,7 +47,7 @@ const MiniRoundHistory = (props: Props) => {
             .slice(0, numberOfItems)
             .reverse()
             .map((round, index) => (
-                <RoundHistoryItem key={round.roundId} round={round} renderRoundDetail={renderRoundDetail(round)}>
+                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round)}>
                     {gameState === GameState.LockingBet && index === numberOfItems - 1 ? (
                         <MiniItemNext></MiniItemNext>
                     ) : (

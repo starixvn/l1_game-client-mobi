@@ -5,11 +5,10 @@ import * as LocalStorageManager from "../../common/local-storage";
 import { FavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
 import { BetSettings } from "../bet-settings";
 import BigSmall from "./big-small";
+import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
-import KenoProMax from "./keno-pro-max/keno-pro-max";
 import SeDie from "./se-die/se-die";
-import DragonTiger from "./dragon-tiger/";
 
 export const Games: React.FC = () => {
     const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
@@ -47,8 +46,6 @@ export const Games: React.FC = () => {
                 return <FishPrawnCrab key={`game-${gameId}`} {...appSettings.fishPrawnCrab} />;
             case 7:
                 return <DragonTiger key={`game-${gameId}`} {...appSettings.dragonTiger} />;
-            case 8:
-                return <KenoProMax key={`game-${gameId}`} {...appSettings.kenoProMax} />;
             case 1:
                 return <BigSmall key={`game-${gameId}`} {...appSettings.bigSmall} />;
             default:
