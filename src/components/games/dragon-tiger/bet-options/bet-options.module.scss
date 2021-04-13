@@ -1,43 +1,47 @@
-.layout-BS {
+$dragon-color: #ff9a00;
+$tiger-color: #de4b56;
+$tie-color: #235f6a;
+
+.layout-dragon-tiger {
     display: grid;
     height: 100%;
     grid-gap: 0.1rem;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(1, 1fr);
+    grid-template-rows: 20.4rem 8rem;
 }
 
-%bet-choice {
-    text-align: center;
-    font-size: 3.6rem;
-    font-weight: bold;
+.choice-tie {
+    grid-column: 1/3;
 }
 
-.big {
-    @extend %bet-choice;
-    color: #3b7bc6;
+.icon {
+    margin-bottom: 1rem;
+    font-size: 9rem;
 }
 
-.small {
-    @extend %bet-choice;
-    color: #de4b56;
-}
-
-.statistic-user-bet {
+.icon-group {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 0.4rem;
+    align-items: center;
+}
 
-    .user-group {
-        position: relative;
-        top: -0.2rem;
-        font-size: 20px;
-    }
+%text {
+    font-weight: bold;
+    font-size: 2.8rem;
+}
 
-    .number {
-        margin-left: 0.4rem;
-        font-weight: 500;
-        font-size: 1.4rem;
-        color: #9e9e9e;
-    }
+.text-dragon {
+    @extend %text;
+    color: $dragon-color;
+}
+
+.text-tiger {
+    @extend %text;
+    color: $tiger-color;
+}
+
+.text-tie {
+    @extend %text;
+    color: $tie-color;
 }
