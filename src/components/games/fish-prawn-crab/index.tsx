@@ -25,6 +25,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            userStakeLevel: null,
             displayPopup: null,
         };
     }

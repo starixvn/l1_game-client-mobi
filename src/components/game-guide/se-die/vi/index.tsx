@@ -1,7 +1,17 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
+import { PropsGuide } from "../../game-guide";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const SeDieGuideVI = () => {
+const SeDieGuideVI: React.FC<PropsGuide> = (props) => {
+    const { gameConfigs, userStakeLevel } = props;
+    const { odds, choices_maxbet, minbet, maxbet } = gameConfigs;
+    const maxBetStake = userStakeLevel.maxBet;
+    const maxBetMain = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.even));
+    const maxBetRed4 = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.red4));
+    const maxBetRed3 = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.red3));
+    const maxBetRed2 = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.red2));
+    const maxBetRound = numberWithCommas(Math.min(maxBetStake, maxbet, maxbet));
     return (
         <div>
             <ul className="game-guide">
@@ -23,7 +33,7 @@ const SeDieGuideVI = () => {
                         </li>
                         <li>
                             Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là 2,000. Lưu ý, không thể hủy cược sau khi đặt.
+                            đa cho 1 phiên là {maxBetRound}. Lưu ý, không thể hủy cược sau khi đặt.
                         </li>
                         <li>
                             Giới hạn cược:
@@ -42,7 +52,9 @@ const SeDieGuideVI = () => {
                                         <tr>
                                             <td rowSpan={2}>2 cửa chính</td>
                                             <td>Chẵn</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetMain}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Lẻ</td>
@@ -50,21 +62,27 @@ const SeDieGuideVI = () => {
                                         <tr>
                                             <td rowSpan={5}>5 cửa phụ</td>
                                             <td>4 đỏ</td>
-                                            <td rowSpan={2}>1 - 500</td>
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetRed4}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>4 trắng</td>
                                         </tr>
                                         <tr>
                                             <td>3 đỏ, 1 trắng</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetRed3}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>1 đỏ, 3 trắng</td>
                                         </tr>
                                         <tr>
                                             <td>2 đỏ, 2 trắng</td>
-                                            <td>1 - 2,000</td>
+                                            <td>
+                                                {minbet} - {maxBetRed2}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -104,7 +122,7 @@ const SeDieGuideVI = () => {
                                                     <span className="dot-white"></span>
                                                 </div>
                                             </td>
-                                            <td rowSpan={5}>1:1.96</td>
+                                            <td rowSpan={5}>1:{odds.even}</td>
                                         </tr>
                                         <tr>
                                             <td>1 đỏ, 3 trắng</td>
@@ -162,7 +180,7 @@ const SeDieGuideVI = () => {
                                                     <span className="dot-red"></span>
                                                 </div>
                                             </td>
-                                            <td rowSpan={2}>1:1.96</td>
+                                            <td rowSpan={2}>1:{odds.red4}</td>
                                         </tr>
                                         <tr>
                                             <td>4 trắng</td>
@@ -187,7 +205,7 @@ const SeDieGuideVI = () => {
                                                     <span className="dot-white"></span>
                                                 </div>
                                             </td>
-                                            <td rowSpan={2}>1:1.96</td>
+                                            <td rowSpan={2}>1:{odds.red3}</td>
                                         </tr>
                                         <tr>
                                             <td>1 đỏ, 3 trắng</td>
@@ -212,7 +230,7 @@ const SeDieGuideVI = () => {
                                                     <span className="dot-white"></span>
                                                 </div>
                                             </td>
-                                            <td>1:1.96</td>
+                                            <td>1:{odds.red2}</td>
                                         </tr>
                                     </tbody>
                                 </table>

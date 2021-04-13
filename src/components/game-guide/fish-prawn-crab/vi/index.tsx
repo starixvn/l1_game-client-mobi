@@ -1,7 +1,12 @@
 import React from "react";
 import Styles from "./fish-prawn-crab.module.scss";
+import { PropsGuide } from "../../game-guide";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const FishPrawnCrabGuideVI = () => {
+const FishPrawnCrabGuideVI: React.FC<PropsGuide> = (props) => {
+    const { gameConfigs, userStakeLevel } = props;
+    const { odds, minbet, maxbet } = gameConfigs;
+    const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
     return (
         <div>
             <ul className="game-guide">
@@ -21,8 +26,8 @@ const FishPrawnCrabGuideVI = () => {
                             đặt cược. Lưu ý, không thể hủy cược sau khi đặt.
                         </li>
                         <li>
-                            Số tiền cược phải nằm trong khoảng từ 1 đến 2,000 cho một lần đặt cược và tổng tiền cược tối đa cho 1 phiên là
-                            2,000
+                            Số tiền cược phải nằm trong khoảng từ {numberWithCommas(minbet)} đến {numberWithCommas(maxbet)} cho một lần đặt
+                            cược và tổng tiền cược tối đa cho 1 phiên là {maxBetRound}
                         </li>
                         <li>
                             Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, xúc xắc
@@ -31,9 +36,9 @@ const FishPrawnCrabGuideVI = () => {
                         <li>
                             Người chơi sẽ thắng nếu trong ba viên xúc xắc xuất hiện linh vật mà người chơi đã đặt cược.
                             <ul className="detail">
-                                <li>Nếu linh vật được chọn xuất hiện 1 lần &#8658; Tỷ lệ trả thưởng 1 ăn 2</li>
-                                <li>Nếu linh vật được chọn xuất hiện 2 lần &#8658; Tỷ lệ trả thưởng 1 ăn 3.5</li>
-                                <li>Nếu linh vật được chọn xuất hiện 3 lần &#8658; Tỷ lệ trả thưởng 1 ăn 6</li>
+                                <li>Nếu linh vật được chọn xuất hiện 1 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.single}</li>
+                                <li>Nếu linh vật được chọn xuất hiện 2 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.double}</li>
+                                <li>Nếu linh vật được chọn xuất hiện 3 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.triple}</li>
                             </ul>
                         </li>
                         <li>Nếu linh vật người chơi chọn không xuất hiện, đồng nghĩa với việc người chơi thua và mất số tiền cược.</li>

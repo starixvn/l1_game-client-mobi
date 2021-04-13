@@ -12,6 +12,7 @@ export const GameContext = React.createContext<GameContextModel>({
     gameSetting: null,
     gameConfigs: null,
     betHistory: null,
+    userStakeLevel: null, 
 });
 GameContext.displayName = "GameContext";
 

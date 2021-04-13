@@ -21,6 +21,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            userStakeLevel: null,
             displayPopup: null,
         };
     }

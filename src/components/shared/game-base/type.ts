@@ -49,6 +49,7 @@ export interface GameBaseState<Result, SettlementResult> {
     settlementResult?: SettlementResult;
     totalBets: object;
     ownBets: object;
+    userStakeLevel: UserStakeLevel;
     betHistory?: GameBetHistory;
     displayPopup?: PopupType;
     betPercentage?: object;
@@ -83,4 +84,9 @@ export interface GameBetHistory {
     page: number;
     pageSize: number;
     total: number;
+}
+
+export interface UserStakeLevel {
+    minBet:number,
+    maxBet:number
 }

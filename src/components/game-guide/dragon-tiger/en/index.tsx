@@ -1,14 +1,19 @@
 import React from "react";
 import Styles from "./dragon-tiger.module.scss";
+import { PropsGuide } from "../../game-guide";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const DragonTigerGuideEN = () => {
+const DragonTigerGuideEN: React.FC<PropsGuide> = (props) => {
+    const { gameConfigs, userStakeLevel } = props;
+    const { odds, minbet, maxbet, choices_maxbet } = gameConfigs;
+    const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
     return (
         <div>
             <ul className="game-guide">
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Rồng Hổ hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới.
+                        Dragon Tiger hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới.
                         Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng, cửa Hổ
                         và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
                     </p>
@@ -96,7 +101,7 @@ const DragonTigerGuideEN = () => {
                         </li>
                         <li>
                             Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là 2,000. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
+                            đa cho 1 phiên là {maxBetRound}. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
                         </li>
                         <li>
                             Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, các lá
@@ -125,16 +130,16 @@ const DragonTigerGuideEN = () => {
                                     <tbody>
                                         <tr>
                                             <td>Rồng</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
-                                            <td rowSpan={2}>1:2</td>
+                                            <td rowSpan={2}>{minbet} - {numberWithCommas(choices_maxbet.dragon)}</td>
+                                            <td rowSpan={2}>1:{odds.dragon}</td>
                                         </tr>
                                         <tr>
                                             <td>Hổ</td>
                                         </tr>
                                         <tr>
                                             <td>Hoà</td>
-                                            <td>1 - 500</td>
-                                            <td>1:11</td>
+                                            <td>{minbet} - {numberWithCommas(choices_maxbet.dragon)}</td>
+                                            <td>1:{odds.tie}</td>
                                         </tr>
                                     </tbody>
                                 </table>

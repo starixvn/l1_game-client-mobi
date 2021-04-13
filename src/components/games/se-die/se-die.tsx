@@ -2,10 +2,8 @@ import React from "react";
 
 import SeDieGuide from "../../game-guide/se-die";
 import AdvanceModal from "../../shared/advance-modal";
-import BaseDialog from "../../shared/base-dialog";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
-import Rebet from "../../shared/rebet";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
@@ -13,7 +11,6 @@ import SeDieRoundHistory from "./round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import { ModalType } from "../../shared/base-dialog/type";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -28,6 +25,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            userStakeLevel: null,
             displayPopup: null,
         };
     }

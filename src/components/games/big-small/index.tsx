@@ -25,6 +25,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
             roundId: 0,
             ownBets: {},
             totalBets: {},
+            userStakeLevel: null,
             displayPopup: null,
             betPercentage: {},
         };

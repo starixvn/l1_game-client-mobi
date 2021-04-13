@@ -1,7 +1,12 @@
 import React from "react";
 import Styles from "./dragon-tiger.module.scss";
+import { PropsGuide } from "../../game-guide";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const DragonTigerGuideVI = () => {
+const DragonTigerGuideVI: React.FC<PropsGuide> = (props) => {
+    const { gameConfigs, userStakeLevel } = props;
+    const { odds, minbet, maxbet, choices_maxbet } = gameConfigs;
+    const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
     return (
         <div>
             <ul className="game-guide">
@@ -96,7 +101,7 @@ const DragonTigerGuideVI = () => {
                         </li>
                         <li>
                             Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là 2,000. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
+                            đa cho 1 phiên là {maxBetRound}. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
                         </li>
                         <li>
                             Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, các lá
@@ -125,16 +130,16 @@ const DragonTigerGuideVI = () => {
                                     <tbody>
                                         <tr>
                                             <td>Rồng</td>
-                                            <td rowSpan={2}>1 - 2,000</td>
-                                            <td rowSpan={2}>1:2</td>
+                                            <td rowSpan={2}>{minbet} - {numberWithCommas(choices_maxbet.dragon)}</td>
+                                            <td rowSpan={2}>1:{odds.dragon}</td>
                                         </tr>
                                         <tr>
                                             <td>Hổ</td>
                                         </tr>
                                         <tr>
                                             <td>Hoà</td>
-                                            <td>1 - 500</td>
-                                            <td>1:11</td>
+                                            <td>{minbet} - {numberWithCommas(choices_maxbet.dragon)}</td>
+                                            <td>1:{odds.tie}</td>
                                         </tr>
                                     </tbody>
                                 </table>

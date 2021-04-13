@@ -54,6 +54,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.socket.emit("inGame");
         });
 
+        this.socket.on("message", this.setUserStakeLevel.bind(this));
+
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
     }
 
@@ -80,6 +82,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleEndBet = ({ endBet, notice }) => {
         if (endBet == -1) {
             this.state.displayPopup !== PopupType.Rebet && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
+        }
+    };
+
+    setUserStakeLevel = (payload: any) => {
+        if (payload.userStakeLevel) {
+            this.setState({ userStakeLevel: payload.userStakeLevel });
         }
     };
 
@@ -301,7 +309,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        const { remainingTime, roundId, gameState, signedIn, totalBets, ownBets, gameConfigs, betHistory, displayPopup } = this.state;
+        const {
+            remainingTime,
+            roundId,
+            gameState,
+            signedIn,
+            totalBets,
+            ownBets,
+            gameConfigs,
+            betHistory,
+            displayPopup,
+            userStakeLevel,
+        } = this.state;
 
         const gameContext = {
             totalBets,
@@ -312,6 +331,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             betHistory,
             gameState,
             remainingTime,
+            userStakeLevel,
         };
 
         const gameActionsContext = {

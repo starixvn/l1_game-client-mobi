@@ -1,7 +1,12 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
+import { PropsGuide } from "../../game-guide";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const BigSmallGuideVI = () => {
+const BigSmallGuideVI: React.FC<PropsGuide> = (props) => {
+    const { gameConfigs, userStakeLevel } = props;
+    const { odds, minbet, maxbet } = gameConfigs;
+    const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
     return (
         <div>
             <ul className="game-guide">
@@ -27,8 +32,8 @@ const BigSmallGuideVI = () => {
                             kết thúc.
                         </li>
                         <li>
-                            Số tiền cược phải nằm trong khoảng từ 1 đến 2,000 cho một lần đặt cược và tổng tiền cược tối đa cho 1 phiên là
-                            2,000
+                            Số tiền cược phải nằm trong khoảng từ {numberWithCommas(minbet)} đến {numberWithCommas(maxbet)} cho một lần đặt
+                            cược và tổng tiền cược tối đa cho 1 phiên là {maxBetRound}
                         </li>
                         <li>
                             Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, xúc xắc
@@ -49,7 +54,7 @@ const BigSmallGuideVI = () => {
                     <h2>Trả thưởng</h2>
                     <ul className="desc">
                         <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
-                        <li>Tỷ lệ trả thưởng khi đặt vào Tài, Xỉu là 1 ăn 1.97</li>
+                        <li>Tỷ lệ trả thưởng khi đặt vào Tài, Xỉu là 1 ăn {odds.big}</li>
                         <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
                     </ul>
                 </li>
