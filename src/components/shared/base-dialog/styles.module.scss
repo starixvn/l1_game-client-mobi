@@ -5,7 +5,7 @@
     border: 1px solid #d7d7d7;
     box-sizing: border-box;
     box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.3);
-    border-radius: 0.8rem;
+    border-radius: 3rem 3rem 0 0;
     overflow-y: auto;
     z-index: 999;
 
@@ -15,16 +15,17 @@
     }
 
     &.modal-full {
-        top: 5.6rem;
-        bottom: 1.2rem;
-        left: 0.8rem;
-        right: 0.8rem;
+        top: 6rem;
+        bottom: 1rem;
+        left: 0.2rem;
+        right: 0.2rem;
     }
 
     &.modal-top {
-        top: 4rem;
-        left: 3rem;
-        right: 3rem;
+        top: 4.7rem;
+        left: 4rem;
+        right: 4rem;
+        border-radius: 0.5rem;
     }
 
     &.modal-center {
@@ -34,9 +35,9 @@
     }
 
     &.modal-bottom {
-        top: 9rem;
-        bottom: 0;
-        left: 0.8rem;
-        right: 0.8rem;
+        top: 4rem;
+        bottom: 1rem;
+        left: 0;
+        right: 0;
     }
 }

@@ -17,6 +17,7 @@ ul {
 }
 
 .game-guide {
+    padding: 0 1.6rem;
     counter-reset: guide-list;
     color: #2c2f3e;
     font-size: 1.4rem;
@@ -62,7 +63,8 @@ ul {
     }
 
     .table-container {
-        padding: 1rem;
+        margin: 0 -0.6rem;
+        padding: 0.2rem;
     }
 
     .table {

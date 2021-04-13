@@ -45,4 +45,14 @@
         position: absolute;
         top: 0;
     }
+
+    .popup-content {
+        position: absolute;
+        bottom: 0;
+        top: 7rem;
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
 }

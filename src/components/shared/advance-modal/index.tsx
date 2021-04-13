@@ -30,7 +30,7 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
                     <h1 className={Styles["popup-title"]}>{t(title)}</h1>
                     {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
                 </div>
-                <div>{children}</div>
+                <div className={Styles["popup-content"]}>{children}</div>
             </div>
         </BaseDialog>
     );

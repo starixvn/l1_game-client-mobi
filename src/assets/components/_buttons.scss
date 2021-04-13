@@ -1,3 +1,5 @@
+@import "../abstracts/variables";
+
 %btn {
     height: 4.4rem;
     padding: 1.2rem 2rem;
@@ -7,20 +9,42 @@
     text-align: center;
     color: #fff;
     font-size: 1.6rem;
+
+    &:disabled {
+        opacity: 0.6;
+    }
+
+    &:hover:enabled {
+        cursor: pointer;
+    }
 }
 
 .btn-green {
     @extend %btn;
-    background-color: #5bb379;
+    background-color: $btn-green-background;
+    color: $btn-green-color;
+
+    &:hover:enabled {
+        background-color: $btn-green-background-hover;
+    }
 }
 
 .btn-orange {
     @extend %btn;
-    background-color: #ffb335;
+    background-color: $btn-orange-background;
+    color: $btn-orange-color;
+
+    &:hover:enabled {
+        background-color: $btn-orange-background-hover;
+    }
 }
 
 .btn-grey {
     @extend %btn;
-    background-color: #d2d2d2;
-    color: #2c2f3e;
+    background-color: $btn-grey-background;
+    color: $btn-grey-color;
+
+    &:hover:enabled {
+        background-color: $btn-grey-background-hover;
+    }
 }

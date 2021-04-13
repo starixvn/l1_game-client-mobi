@@ -13,3 +13,21 @@ $table-color: #2c2f3e;
 $table-border-color: #dce2f3;
 $table-background: #fff;
 $table-highlight-background: #fff5e3;
+
+// buttons
+$btn-green-background: #5bb379;
+$btn-green-background-hover: darken($btn-green-background, 10);
+$btn-green-color: #fff;
+
+$btn-orange-background: #ffb335;
+$btn-orange-background-hover: darken($btn-orange-background, 10);
+$btn-orange-color: #fff;
+
+$btn-grey-background: #d2d2d2;
+$btn-grey-background-hover: darken($btn-grey-background, 10);
+$btn-grey-color: #2c2f3e;
+
+$btn-rebet-background: transparent;
+$btn-rebet-color: #fff;
+$btn-rebet-background-hover: #fff;
+$btn-rebet-color-hover: #ff9a00;

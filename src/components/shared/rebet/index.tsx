@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { RebetStorageModel } from "../game-base/type";
-import Styles from "./styles.module.scss";
+import Styles from "./rebet.module.scss";
 import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useTranslation } from "next-i18next";
