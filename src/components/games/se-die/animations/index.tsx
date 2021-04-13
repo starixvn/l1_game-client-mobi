@@ -1,16 +1,17 @@
 import React from "react";
 
 import { Result } from "../sedie";
-import styles from "./sedie-animations.module.scss";
+import Styles from "./sedie-animations.module.scss";
+import StartRound from "./start-round.module.scss";
 
 const Plate: React.FC = ({ children }) => (
     <div className="overlay-mask">
-        <div className={styles["result-sedie-fadeOutDelay"]}>
-            <div className={`${styles["result-sedie-container"]} ${styles["result-fadeIn-animation"]}`}>
-                <div className={styles["result-sedie-set"]}>
-                    <div className={styles["result-sedie-plate"]}></div>
+        <div className={Styles["result-sedie-fadeOutDelay"]}>
+            <div className={`${Styles["result-sedie-container"]} ${Styles["result-fadeIn-animation"]}`}>
+                <div className={Styles["result-sedie-set"]}>
+                    <div className={Styles["result-sedie-plate"]}></div>
                     {children}
-                    <div className={styles["result-sedie-bowl"]}></div>
+                    <div className={Styles["result-sedie-bowl"]}></div>
                 </div>
             </div>
         </div>
@@ -18,8 +19,10 @@ const Plate: React.FC = ({ children }) => (
 );
 
 export const ShakeThePlate = () => (
-    <div className={styles["shake-the-plate"]}>
+    <div className={Styles["shake-the-plate"]}>
         <Plate />
+
+        <div className={StartRound["start-round"]}>Bắt đầu phiên mới</div>
     </div>
 );
 
@@ -28,11 +31,11 @@ type Props = {
 };
 
 export const OpenThePlate: React.FC<Props> = ({ result }) => (
-    <div className={styles["open-the-plate"]}>
+    <div className={Styles["open-the-plate"]}>
         <Plate>
             {Object.values(result).map((value, index) => (
-                <div key={index} className={`${styles[`result-sedie-dot${index + 1}`]} ${styles["result-sedie-dot"]}`}>
-                    <div className={`${value ? styles["result-dot-red"] : styles["result-dot-white"]}`}></div>
+                <div key={index} className={`${Styles[`result-sedie-dot${index + 1}`]} ${Styles["result-sedie-dot"]}`}>
+                    <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
                 </div>
             ))}
         </Plate>
