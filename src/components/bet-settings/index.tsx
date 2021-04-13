@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 
 import Chip from "../chip";
+import BaseDialog from "../shared/base-dialog";
+import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
 
@@ -27,6 +29,11 @@ export const BetSettings: React.FC = () => {
     };
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
+    const chipColorMapper = Object.values(chipList).reduce((result, chip, index) => {
+        result[chip] = `chip-${index + 1}`;
+
+        return result;
+    }, {});
     const chipValues = Object.values(chipList);
 
     const onClickNext = () => {
@@ -78,9 +85,12 @@ export const BetSettings: React.FC = () => {
     return (
         <div>
             {!isShowSettings && (
-                <div className={Styles["betting-setting-collapsed"]} onClick={HandleClickActiveBtn}>
+                <div
+                    className={`${Styles["betting-setting-collapsed"]} ${enabledQuickBet && Styles["quick-bet"]}`}
+                    onClick={HandleClickActiveBtn}
+                >
                     <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
-                    <div className={`${Styles.chip} ${Styles["chip-1"]}`}>
+                    <div className={`${Styles.chip} ${Styles[chipColorMapper[selectedChipValue]]}`}>
                         <div className={Styles["layer1"]}></div>
                         <div className={Styles["layer2"]}></div>
                         <div className={Styles["group-list"]}>
@@ -89,7 +99,7 @@ export const BetSettings: React.FC = () => {
                             <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
                             <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
                         </div>
-                        <div className={Styles["number"]}>1</div>
+                        <div className={Styles["number"]}>{getChipDisplayByValue(selectedChipValue)}</div>
                     </div>
                     {enabledQuickBet && (
                         <div className={Styles["quick-bet-mark-container"]}>
@@ -127,6 +137,7 @@ export const BetSettings: React.FC = () => {
                                 value={chipList[key]}
                                 onSelected={handleSelectChip}
                                 selected={selectedChipValue === chipList[key]}
+                                color={chipColorMapper[chipList[key]]}
                             />
                         ))}
                         <span

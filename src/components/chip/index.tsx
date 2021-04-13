@@ -7,15 +7,16 @@ type Props = {
     value: number;
     selected?: boolean;
     onSelected: (value: number) => void;
+    color: string;
 };
 
-const Chip: React.FC<Props> = ({ display, value, onSelected, selected = false }) => {
+const Chip: React.FC<Props> = ({ display, value, onSelected, selected = false, color }) => {
     const handleClick = () => {
         onSelected(value);
     };
 
     return (
-        <div className={`${Styles.chip} ${Styles["chip-12"]} ${selected ? Styles.selected : ""}`} onClick={handleClick}>
+        <div className={`${Styles.chip} ${Styles[color]} ${selected ? Styles.selected : ""}`} onClick={handleClick}>
             <div className={Styles["layer1"]}></div>
             <div className={Styles["layer2"]}></div>
             <div className={Styles["group-list"]}>
