@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Styles from "./styles.module.scss";
+import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
 type Props = {

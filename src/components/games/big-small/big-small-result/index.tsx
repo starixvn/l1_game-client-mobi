@@ -7,8 +7,7 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
 
     const generateResult = (result: boolean[]) => {
         return result.map((value, index) => (
-            <div key={`dot-${index + 1}`} className={`${Styles[`flipResult-dot${index + 1}`]} ${Styles["flipResult-dot"]}`}>
-            </div>
+            <div key={`dot-${index + 1}`} className={`${Styles[`flipResult-dot${index + 1}`]} ${Styles["flipResult-dot"]}`}></div>
         ));
     };
 
@@ -17,23 +16,20 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
             <div className="overlay-mask">
                 <div className={Styles["flipResult-sedie-fadeOutDelay"]}>
                     <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
-                        <div className={Styles["shake-plate"]}>
-                            <img src="/static/images/shake-baucua.gif" alt="shake" />
+                        <div className={Styles["result-plate"]}></div>
+                        <div className={Styles["toss-dices"]}>
+                            <img src="/static/images/bigsmall_dice.gif" alt="shake" />
                         </div>
-                        <div className={Styles["result-set"]}>
-                            <div className={Styles["result-plate"]}></div>
-                            <div className={Styles["result-container"]}>
-                                <div className={Styles["result-1"]}>
-                                    <img src="/static/images/dice-bau.png" className={Styles["dice"]} alt="dice" />
-                                </div>
-                                <div className={Styles["result-2"]}>
-                                    <img src="/static/images/dice-cua.png" className={Styles["dice"]} alt="dice" />
-                                </div>
-                                <div className={Styles["result-3"]}>
-                                    <img src="/static/images/dice-ca.png" className={Styles["dice"]} alt="dice" />
-                                </div>
+                        <div className={Styles["result-container"]}>
+                            <div className={Styles["result-1"]}>
+                                <img src="/static/images/bigsmall-dice-1.png" className={Styles["dice"]} alt="dice" />
                             </div>
-                            <div className={Styles["result-bowl"]}></div>
+                            <div className={Styles["result-2"]}>
+                                <img src="/static/images/bigsmall-dice-2.png" className={Styles["dice"]} alt="dice" />
+                            </div>
+                            <div className={Styles["result-3"]}>
+                                <img src="/static/images/bigsmall-dice-3.png" className={Styles["dice"]} alt="dice" />
+                            </div>
                         </div>
                     </div>
                 </div>

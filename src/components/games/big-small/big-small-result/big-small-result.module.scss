@@ -1,10 +1,10 @@
-.shake-plate {
+.toss-dices {
     position: absolute;
     left: calc(50% - 9rem);
     top: calc(50% - 9rem);
     animation-name: shakePlateAnimation;
     animation-delay: 0ms;
-    animation-duration: 0.8s;
+    animation-duration: 1.8s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
 }
@@ -41,17 +41,32 @@
     top: 0;
     width: 100%;
     height: 100%;
+    transform: scale(0.8);
 }
 
-.result-set {
+.result-plate {
     position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: 1;
+    width: 19.8rem;
+    height: 19.8rem;
+    left: calc(50% - 9.9rem);
+    top: calc(50% - 9.9rem);
+    background: url("/static/images/bigsmall-plate.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.result-container {
+    position: absolute;
+    top: calc(50% - 6.5rem);
+    left: calc(50% - 6.5rem);
+    height: 132px;
+    width: 132px;
+    z-index: 2;
     opacity: 0;
     animation-name: showResultAnimation;
-    animation-delay: 1s;
-    animation-duration: 0.2;
+    animation-delay: 1.8s;
+    animation-duration: 0.5;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
 }
@@ -70,120 +85,28 @@
     }
 }
 
-.result-plate {
-    position: absolute;
-    z-index: 1;
-    width: 13.3rem;
-    height: 12.7rem;
-    left: calc(50% - 6.6rem);
-    top: calc(50% + 6.6rem);
-    background: url("/static/images/sedie-plate.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.result-bowl {
-    position: absolute;
-    z-index: 2;
-    width: 9.8rem;
-    height: 9.8rem;
-    left: calc(50% - 4.8rem);
-    top: calc(50% + 8rem);
-    pointer-events: none;
-    background: url("/static/images/fpc-bowl.png") no-repeat center;
-    background-size: 100%;
-    animation-name: animation-sedie-opening-bowl, frAnimation-sedie-bowl-hide;
-    animation-delay: 1s, 2s;
-    animation-duration: 1s, 0.5s;
-    animation-fill-mode: forwards, forwards;
-    animation-timing-function: linear, linear;
-}
-
-.result-container {
-    position: absolute;
-    top: calc(50% + 6.6rem);
-    left: calc(50% - 6.6rem);
-    height: 132px;
-    width: 132px;
-    z-index: 2;
-}
-
 .result-1 {
     position: absolute;
-    left: 36px;
-    top: 32px;
-    transform: rotate(3.36deg);
+    left: 38px;
+    top: 11px;
+    transform: rotate(357deg);
 }
 
 .result-2 {
     position: absolute;
     left: 70px;
-    top: 55px;
-    transform: rotate(-5deg);
+    top: 57px;
+    transform: rotate(15deg);
 }
 
 .result-3 {
     position: absolute;
-    left: 36px;
-    top: 67px;
-    transform: rotate(-2deg);
+    left: 12px;
+    top: 64px;
+    transform: rotate(40deg);
 }
 
 .dice {
-    width: 3.2rem;
-    height: 3.2rem;
-}
-
-/*Position of 4 buttons*/
-%result {
-    position: absolute;
-    z-index: 1;
-    width: 2rem;
-}
-
-.result1 {
-    @extend %result;
-    top: 12.5rem;
-    left: 14.4rem;
-}
-
-.result2 {
-    @extend %result;
-    top: 15rem;
-    left: calc(50% - 2rem);
-}
-
-.result3 {
-    @extend %result;
-    top: 12rem;
-    left: calc(50% + 1rem);
-}
-
-@-webkit-keyframes frAnimation-sedie-bowl-hide {
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes frAnimation-sedie-bowl-hide {
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes animation-sedie-opening-bowl {
-    4%,
-    36% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate(-73px, 71px) rotate(45deg);
-    }
+    width: 5.4rem;
+    height: 5.4rem;
 }

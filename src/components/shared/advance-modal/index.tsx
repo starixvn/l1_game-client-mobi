@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 import BaseDialog from "../base-dialog";
 
-import Styles from "./styles.module.scss";
+import Styles from "./advance-dialog.module.scss";
 import { ModalType } from "../base-dialog/type";
 
 type Props = {
