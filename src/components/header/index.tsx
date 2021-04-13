@@ -15,7 +15,6 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
     const [isOpen, setIsOpen] = useState(false);
-
     const toggle = () => setIsOpen(!isOpen);
 
     return (

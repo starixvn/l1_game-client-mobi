@@ -45,13 +45,12 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
-    handleStateLogin() {
-        this.setState({ isFistLogin: false });
+    handleStateLogin(responseUser) {
+        this.setState({ isFistLogin: false, user: responseUser });
     }
 
     render() {
         const { isFistLogin, user } = this.state;
-
         if (isFistLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {

@@ -18,9 +18,14 @@ export default function Register(props) {
         event.preventDefault();
         const re = await authService.signName(session.ss, session.username, name);
         if (re.isSuccessful) {
-            handleStateLogin();
+            handleStateLogin(re.user);
         }
     };
+    const generateName = (event) => {
+        event.preventDefault();
+        updateNameState(NameGenerator.generateName);
+    };
+
     return (
         <div className={Styles["register-bg"]}>
             <div className={Styles["login-box"]}>
@@ -34,7 +39,9 @@ export default function Register(props) {
                             value={name}
                             onChange={(e) => updateNameState(e.target.value)}
                         />
-                        <button className={`${Styles["btn-green"]} ${Styles["btn-name"]}`}>{t("otherName")}</button>
+                        <button className={`${Styles["btn-green"]} ${Styles["btn-name"]}`} onClick={(event) => generateName(event)}>
+                            {t("otherName")}
+                        </button>
                         <label className={Styles["message-error"]}></label>
                     </div>
 
