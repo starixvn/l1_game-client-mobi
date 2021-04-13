@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
@@ -7,14 +8,14 @@ import SeDieDot from "../dot";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
-const Choices = {
-    odd: "odd",
-    even: "even",
-    red2: "red2",
-    red3: "red3",
-    red4: "red4",
-    white3: "white3",
-    white4: "white4",
+const ChoiceIconMapper = {
+    red4: [true, true, true, true],
+    red2: [false, true, false, true],
+    white4: [false, false, false, false],
+    red3: [false, true, true, true],
+    white3: [true, false, false, false],
+    even: [],
+    odd: [],
 };
 
 type Props = {
@@ -22,82 +23,34 @@ type Props = {
     gameState: GameState;
 };
 
-const renderIcons = (dots: boolean[]) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
-
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs } = useGameContext();
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
-    return (
-        <div className={`${Styles["layout-sedie"]}`}>
-            <div className={Styles["bet-choice-4red"]}>
-                <BetOption
-                    choice={Choices.red4}
-                    odd={odds[Choices.red4]}
-                    isHighlight={settlementResult[Choices.red4]}
-                    gameState={gameState}
-                >
-                    {renderIcons([true, true, true, true])}
+    const renderDots = (dots) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
+
+    const renderIcons = (choice: string) => {
+        return choice === "red2" ? (
+            <div className={Styles["wrapper-dots-red2"]}>{renderDots(ChoiceIconMapper[choice])}</div>
+        ) : (
+            renderDots(ChoiceIconMapper[choice])
+        );
+    };
+
+    const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
+
+    const renderBetOptions = (odds, gameState, settlementResult) =>
+        Object.keys(ChoiceIconMapper).map((choice) => (
+            <div className={Styles[`bet-choice-${choice}`]}>
+                <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+                    {ChoiceIconMapper[choice].length ? renderIcons(choice) : renderLabel(choice)}
                 </BetOption>
             </div>
-            <div className={Styles["bet-choice-2red"]}>
-                <BetOption
-                    choice={Choices.red2}
-                    odd={odds[Choices.red2]}
-                    isHighlight={settlementResult[Choices.red2]}
-                    gameState={gameState}
-                >
-                    <div className={Styles["wrapper-dots-2red"]}>{renderIcons([false, true, false, true])}</div>
-                </BetOption>
-            </div>
-            <div className={Styles["bet-choice-4white"]}>
-                <BetOption
-                    choice={Choices.white4}
-                    odd={odds[Choices.white4]}
-                    isHighlight={settlementResult[Choices.white4]}
-                    gameState={gameState}
-                >
-                    {renderIcons([false, false, false, false])}
-                </BetOption>
-            </div>
-            <div className={Styles["bet-choice-3red"]}>
-                <BetOption
-                    choice={Choices.red3}
-                    odd={odds[Choices.red3]}
-                    isHighlight={settlementResult[Choices.red3]}
-                    gameState={gameState}
-                >
-                    {renderIcons([false, true, true, true])}
-                </BetOption>
-            </div>
-            <div className={Styles["bet-choice-1red"]}>
-                <BetOption
-                    choice={Choices.white3}
-                    odd={odds[Choices.white3]}
-                    isHighlight={settlementResult[Choices.white3]}
-                    gameState={gameState}
-                >
-                    {renderIcons([true, false, false, false])}
-                </BetOption>
-            </div>
-            <div className={Styles["bet-choice-even"]}>
-                <BetOption
-                    choice={Choices.even}
-                    odd={odds[Choices.even]}
-                    isHighlight={settlementResult[Choices.even]}
-                    gameState={gameState}
-                >
-                    <div className={`${Styles["bet-choice-name"]} ${Styles.even}`}>{Choices.even}</div>
-                </BetOption>
-            </div>
-            <div className={Styles["bet-choice-odd"]}>
-                <BetOption choice={Choices.odd} odd={odds[Choices.odd]} isHighlight={settlementResult[Choices.odd]} gameState={gameState}>
-                    <div className={`${Styles["bet-choice-name"]} ${Styles.odd}`}>{Choices.odd}</div>
-                </BetOption>
-            </div>
-        </div>
-    );
+        ));
+
+    return <div className={`${Styles["layout-sedie"]}`}>{renderBetOptions(odds, gameState, settlementResult)}</div>;
 };
 
 export default SeDieBetOptions;

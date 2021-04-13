@@ -17,6 +17,10 @@
     justify-content: center;
     width: 3.6rem;
     height: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .header-left {
