@@ -80,7 +80,17 @@ export const BetSettings: React.FC = () => {
             {!isShowSettings && (
                 <div className={Styles["betting-setting-collapsed"]} onClick={HandleClickActiveBtn}>
                     <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
-                    <img src="/static/images/chip-reset.png" alt="chip" className="img-fluid" />
+                    <div className={`${Styles.chip} ${Styles["chip-1"]}`}>
+                        <div className={Styles["layer1"]}></div>
+                        <div className={Styles["layer2"]}></div>
+                        <div className={Styles["group-list"]}>
+                            <span className={`icon-chip-symbol ${Styles["symbol1"]}`}></span>
+                            <span className={`icon-chip-symbol ${Styles["symbol2"]}`}></span>
+                            <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
+                            <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
+                        </div>
+                        <div className={Styles["number"]}>1</div>
+                    </div>
                     {enabledQuickBet && (
                         <div className={Styles["quick-bet-mark-container"]}>
                             <span className={`icon-quick-bet ${Styles["quick-bet-mark"]}`}></span>{" "}
@@ -125,8 +135,8 @@ export const BetSettings: React.FC = () => {
                         ></span>
                     </div>
 
-                    <div className={Styles["collapse-settings"]}>
-                        <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`} onClick={HandleClickActiveBtn}></span>
+                    <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
+                        <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`}></span>
                     </div>
                 </div>
             )}
