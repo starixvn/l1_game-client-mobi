@@ -1,6 +1,10 @@
+import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import Auth, { User } from "sc-user-service-client/dist/auth";
+import { UMInfo } from "sc-user-service-client/dist/settings";
 
+import appSettings from "../../common/app-settings";
+import * as LocalStorageManager from "../../common/local-storage";
 import { AuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
 import Games from "../games/games";
@@ -10,6 +14,7 @@ import Register from "../register";
 type Props = {
     balance: number;
     updateBalance: (balance: number) => void;
+    router: NextRouter;
 };
 
 type State = {
@@ -19,6 +24,7 @@ type State = {
 
 class Dashboard extends React.Component<Props, State> {
     authService: Auth = null;
+    private mainSocket: WebSocket = null;
 
     constructor(props: Props) {
         super(props);
@@ -35,18 +41,59 @@ class Dashboard extends React.Component<Props, State> {
     async componentDidMount() {
         const { session } = this.context;
         const response = await this.authService.authorize(session.ss, session.username);
+        this.mainSocket = this.connectMainSocket();
 
         if (response.authorized) {
-            const user = response.user;
-            this.setState({ user });
-            this.props.updateBalance(user.red);
+            this.handleStateLogin(response.user);
         } else {
             this.setState({ isFistLogin: true });
         }
     }
 
-    handleStateLogin(responseUser) {
-        this.setState({ isFistLogin: false, user: responseUser });
+    componentWillUnmount() {
+        this.mainSocket.close();
+    }
+
+    handleStateLogin(user: User) {
+        this.props.updateBalance(user.red);
+        const { session } = this.context;
+        const authentication = { username: session.username, data: session };
+
+        setTimeout(() => {
+            this.mainSocket.readyState === 1 && this.mainSocket.send(JSON.stringify({ authentication }));
+        }, 500);
+        this.setState({ isFistLogin: false, user });
+    }
+
+    connectMainSocket() {
+        const socket = new WebSocket(appSettings.mainSocketUrl);
+        socket.onmessage = this.onSocketData;
+
+        return socket;
+    }
+
+    onSocketData(data: any) {
+        if (data.kickedOut) {
+            this.handleKickedOut(data.kickedOut);
+        }
+    }
+
+    handleKickedOut(data) {
+        const { umInfo } = data;
+        const { router } = this.props;
+        LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
+
+        if (umInfo) {
+            LocalStorageManager.storeLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo, {
+                time: umInfo.startTime,
+                start: umInfo.startTime,
+                end: umInfo.endTime,
+                finish: false,
+            });
+            router.push("/um");
+        } else {
+            router.push("/timeout");
+        }
     }
 
     render() {
@@ -67,4 +114,4 @@ class Dashboard extends React.Component<Props, State> {
 
 Dashboard.contextType = AuthContext;
 
-export default Dashboard;
+export default withRouter(Dashboard);

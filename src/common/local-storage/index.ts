@@ -3,6 +3,7 @@ export const localStorageKeys = {
     favoriteGames: buildLocalStorageKey("favorite-game"),
     rebet: buildLocalStorageKey("rebet"),
     betSetting: buildLocalStorageKey("bet-settings"),
+    umInfo: buildLocalStorageKey("um_info"),
 };
 
 export function removeLocalStorageItem(key: string) {
