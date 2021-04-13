@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
 import { GameContext } from "../../../contexts/game-context/game-context";
+import { BetSettingStorageType } from "../../bet-settings/type";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
@@ -36,9 +38,12 @@ export default class PlaceBetModal extends Component<Props, State> {
 
         this.wrapperRef = React.createRef();
 
+        const betSettingKey = localStorageKeys.betSetting;
+        const betSetting = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
+
         this.state = {
-            betAmount: 0,
-            payout: 0,
+            betAmount: betSetting?.betValue ?? 0,
+            payout: betSetting?.betValue ? betSetting.betValue * props.betChoiceInfo.odd : 0,
         };
 
         this.closeModal = this.closeModal.bind(this);

@@ -8,6 +8,7 @@ type GameActionsContextType = {
     openPopup: (type: PopupType) => void;
     closePopup: () => void;
     handleMessage: Function;
+    openPlaceBetModal: Function;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

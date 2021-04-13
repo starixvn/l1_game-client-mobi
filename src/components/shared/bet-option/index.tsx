@@ -1,7 +1,6 @@
 import React from "react";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
-import { useBetContext } from "../../../contexts/bet-context";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { BetSettingStorageType } from "../../bet-settings/type";
@@ -31,16 +30,14 @@ const getAnimationByGameState = (gameState: GameState) => {
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
     const { totalBets, ownBets } = useGameContext();
-    const { handleShowBetModal } = useBetContext();
+    const { openPlaceBetModal } = useGameActionContext();
     const betSettingKey = localStorageKeys.betSetting;
     const gameActionContext = useGameActionContext();
 
     function onClickBet() {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
 
-        betSettings?.enabledQuickBet
-            ? gameActionContext.placeBet(choice, betSettings.betValue)
-            : handleShowBetModal(choice, odd, betSettings?.betValue ?? 0);
+        betSettings?.enabledQuickBet ? gameActionContext.placeBet(choice, betSettings.betValue) : openPlaceBetModal(choice);
     }
 
     return (

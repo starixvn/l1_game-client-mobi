@@ -1,7 +1,7 @@
 import { Round } from "../../../types";
 
 export interface GameConfigs {
-    odds: any;
+    odds: { [key: string]: number };
     minbet: number;
     maxbet: number;
     choices_maxbet: any;
@@ -22,6 +22,7 @@ export enum PopupType {
     BetHistory,
     Rebet,
     Error,
+    PlaceBet,
 }
 
 export interface GameSettings {
@@ -54,6 +55,7 @@ export interface GameBaseState<Result, SettlementResult> {
     displayPopup?: PopupType;
     betPercentage?: object;
     errorMessage?: string;
+    selectedBetChoice?: string;
 }
 
 export interface SocketInfo {

@@ -10,6 +10,7 @@ import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
 import ErrorMessage from "../error-message";
+import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
@@ -35,6 +36,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.getBetHistory = this.getBetHistory.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
+        this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
     }
 
     componentDidMount() {
@@ -235,6 +237,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(this.reBetStorageKey, rebetStorage);
     }
 
+    openPlaceBetModal(betChoice: string) {
+        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice });
+    }
+
     placeBet(betChoice: string, amount: number) {
         this.socket.emit("bet", { betChoice, amount });
     }
@@ -260,6 +266,26 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
                 <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()} />
             </BaseDialog>
+        );
+    }
+
+    renderPlaceBet() {
+        const { displayPopup, selectedBetChoice, roundId, gameConfigs } = this.state;
+        const { gameName } = this.props;
+        const { odds } = gameConfigs;
+
+        return (
+            <PlaceBetModal
+                isOpen={displayPopup === PopupType.PlaceBet}
+                onCloseModal={() => this.closePopup()}
+                onPlaceBet={this.placeBet}
+                betChoiceInfo={{
+                    betChoice: selectedBetChoice,
+                    gameName: gameName,
+                    roundId: roundId,
+                    odd: odds[selectedBetChoice],
+                }}
+            ></PlaceBetModal>
         );
     }
 
@@ -291,6 +317,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 return this.renderBetHistory();
             case PopupType.Error:
                 return this.renderErrorMessage();
+            case PopupType.PlaceBet:
+                return this.renderPlaceBet();
             default:
                 return null;
         }
@@ -340,6 +368,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             openPopup: this.openPopup,
             closePopup: this.closePopup,
             handleMessage: this.messageTransmitter.addListener,
+            openPlaceBetModal: this.openPlaceBetModal,
         };
 
         return signedIn ? (
