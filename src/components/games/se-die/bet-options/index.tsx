@@ -27,9 +27,9 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const { t } = useTranslation([gameSetting.gameName.toLowerCase()]);
 
-    const renderDots = (dots) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
+    const renderDots = (dots: boolean[]) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
 
     const renderIcons = (choice: string) => {
         return choice === "red2" ? (
@@ -41,16 +41,17 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
-    const renderBetOptions = (odds, gameState, settlementResult) =>
-        Object.keys(ChoiceIconMapper).map((choice) => (
-            <div className={Styles[`bet-choice-${choice}`]}>
-                <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
-                    {ChoiceIconMapper[choice].length ? renderIcons(choice) : renderLabel(choice)}
-                </BetOption>
-            </div>
-        ));
-
-    return <div className={`${Styles["layout-sedie"]}`}>{renderBetOptions(odds, gameState, settlementResult)}</div>;
+    return (
+        <div className={`${Styles["layout-sedie"]}`}>
+            {Object.keys(ChoiceIconMapper).map((choice) => (
+                <div key={choice} className={Styles[`bet-choice-${choice}`]}>
+                    <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+                        {ChoiceIconMapper[choice].length ? renderIcons(choice) : renderLabel(choice)}
+                    </BetOption>
+                </div>
+            ))}
+        </div>
+    );
 };
 
 export default SeDieBetOptions;

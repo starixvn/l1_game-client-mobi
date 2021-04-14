@@ -1,8 +1,9 @@
 import React from "react";
+
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import GameGuide from "../game-guide";
 import BigSmallGuideEN from "./en";
 import BigSmallGuideVI from "./vi";
-import GameGuide from "../game-guide";
-import { useGameContext } from "../../../contexts/game-context/game-context";
 
 const BigSmallGuide = () => {
     const { gameConfigs, userStakeLevel } = useGameContext();

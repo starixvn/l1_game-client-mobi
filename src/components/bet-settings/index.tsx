@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
-import BaseDialog from "../shared/base-dialog";
-import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
 
