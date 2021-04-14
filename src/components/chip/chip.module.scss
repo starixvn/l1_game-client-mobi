@@ -1,3 +1,5 @@
+@import "../../assets/abstracts/variables";
+
 .chip {
     position: relative;
     display: flex;
@@ -227,7 +229,7 @@
         top: 0.1rem;
         font-family: "BebasNeue";
         font-size: 1.6rem;
-        color: #2c2f3e;
+        color: $text-color;
         z-index: 14;
     }
 

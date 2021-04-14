@@ -1,4 +1,5 @@
 @import "../components/games/se-die/dot/dot.module.scss";
+@import "./abstracts/variables";
 
 ul {
     list-style: none;
@@ -19,7 +20,7 @@ ul {
 .game-guide {
     padding: 0 1.6rem;
     counter-reset: guide-list;
-    color: #2c2f3e;
+    color: $text-color;
     font-size: 1.4rem;
 
     .guide-item {
@@ -27,7 +28,7 @@ ul {
 
         &:before {
             content: counter(guide-list) ". ";
-            color: #ff9a00;
+            color: $main-color;
             font-weight: 500;
             font-size: 1.6rem;
         }
@@ -36,7 +37,7 @@ ul {
             display: inline-block;
             font-size: 1.6rem;
             font-weight: 500;
-            color: #ff9a00;
+            color: $main-color;
         }
     }
 
@@ -90,7 +91,7 @@ ul {
         }
 
         td {
-            border: 1px solid #dce2f3;
+            border: 1px solid $border-color;
         }
     }
 

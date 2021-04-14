@@ -1,8 +1,10 @@
+@import "../../assets/abstracts/variables";
+
 .header {
     display: flex;
     height: 5.5rem;
     margin-bottom: 0.6rem;
-    background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
+    background: $header-background;
 
     .navbar-custom {
         width: 100%;
@@ -30,7 +32,7 @@
 
     .balance {
         margin-left: 2.4rem;
-        color: #ff9a00;
+        color: $main-color;
     }
 }
 

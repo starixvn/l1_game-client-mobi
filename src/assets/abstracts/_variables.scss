@@ -1,11 +1,19 @@
-$page-background: #fff;
+$page-background: #dce2f3;
 $text-color: #2c2f3e;
+$main-color: #ff9a00;
+$border-color: #dce2f3;
 
 // Splash Screen
 $splash-screen-background: #1f3c69;
 
 // header
-$header-background: #fff;
+$header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
+
+// game header
+$header-game-header: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
+
+// dropdown
+$dropdown-item-background-hover: #ffd487;
 
 // table
 $table-header-background: #ffd487;
@@ -31,3 +39,10 @@ $btn-rebet-background: transparent;
 $btn-rebet-color: #fff;
 $btn-rebet-background-hover: #fff;
 $btn-rebet-color-hover: #ff9a00;
+
+// game header
+
+// message icons
+$waiting-color: #ffb335;
+$success-color: #5bb379;
+$error-color: #ff0000;

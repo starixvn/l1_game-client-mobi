@@ -1,3 +1,5 @@
+@import "../../../assets/abstracts/variables";
+
 .container {
     height: 100%;
     width: 100%;
@@ -35,7 +37,7 @@
         width: 100%;
         bottom: 0.3rem;
         text-align: center;
-        color: #ff9a00;
+        color: $main-color;
         font-size: 1.6rem;
     }
 

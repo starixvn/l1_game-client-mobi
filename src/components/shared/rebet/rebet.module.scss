@@ -1,6 +1,4 @@
-$waiting-color: #ffb335;
-$success-color: #5bb379;
-$error-color: #ff0000;
+@import "../../../assets/abstracts/variables";
 
 .header {
     margin-bottom: 1rem;
@@ -60,19 +58,17 @@ $error-color: #ff0000;
     margin-right: 0.5rem;
     font-weight: 500;
     font-size: 1.6rem;
-    color: #ff9a00;
+    color: $main-color;
 }
 
 .error-message {
     font-size: 13px;
     line-height: 15px;
-    color: #ff0000;
+    color: $error-color;
 }
 
 .action {
     margin-top: 1.6rem;
-    &.waiting {
-    }
 
     .button-group {
         display: grid;

@@ -1,4 +1,5 @@
 @import "../../../assets/components/form";
+@import "../../../assets/abstracts/variables";
 
 .place-bet-container {
     padding: 0 1.6rem 1.6rem;
@@ -25,7 +26,7 @@
     }
 
     .highlight {
-        color: #ff9a00;
+        color: $main-color;
     }
 }
 
