@@ -1,9 +1,9 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
-import { PropsGuide } from "../../game-guide";
+import { GameGuide} from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const SeDieGuideEN: React.FC<PropsGuide> = (props) => {
+const SeDieGuideEN: React.FC<GameGuide> = (props) => {
     const { gameConfigs, userStakeLevel } = props;
     const { odds, choices_maxbet, minbet, maxbet } = gameConfigs;
     const maxBetStake = userStakeLevel.maxBet;

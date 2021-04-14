@@ -91,3 +91,8 @@ export interface UserStakeLevel {
     minBet: number;
     maxBet: number;
 }
+
+export type GameGuide = {
+    gameConfigs: GameConfigs;
+    userStakeLevel: UserStakeLevel;
+};

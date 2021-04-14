@@ -1,9 +1,9 @@
 import React from "react";
 import Styles from "./se-die.module.scss";
-import { PropsGuide } from "../../game-guide";
+import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
-const BigSmallGuideEN: React.FC<PropsGuide> = (props) => {
+const BigSmallGuideEN: React.FC<GameGuide> = (props) => {
     const { gameConfigs, userStakeLevel } = props;
     const { odds, minbet, maxbet } = gameConfigs;
     const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
