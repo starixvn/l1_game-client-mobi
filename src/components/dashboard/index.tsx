@@ -35,6 +35,8 @@ class Dashboard extends React.Component<Props, State> {
         };
 
         this.handleStateLogin = this.handleStateLogin.bind(this);
+        this.onSocketData = this.onSocketData.bind(this);
+        this.handleKickedOut = this.handleKickedOut.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
     }
 
@@ -72,13 +74,14 @@ class Dashboard extends React.Component<Props, State> {
         return socket;
     }
 
-    onSocketData(data: any) {
+    onSocketData(message: any) {
+        const data = JSON.parse(message.data);
         if (data.kickedOut) {
             this.handleKickedOut(data.kickedOut);
         }
     }
 
-    handleKickedOut(data) {
+    handleKickedOut(data: any) {
         const { umInfo } = data;
         const { router } = this.props;
         LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
