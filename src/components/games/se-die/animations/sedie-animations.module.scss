@@ -1,3 +1,4 @@
+@import "../../../../assets/components/shake-animation";
 @import "./start-round.module.scss";
 
 @keyframes hide-start-round-animation {
@@ -144,82 +145,6 @@
 .result-sedie-dot4 {
     top: 14.8rem;
     left: calc(50% + 1rem);
-}
-
-@keyframes show-plate-animation {
-    10% {
-        opacity: 0.2;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes shake-plate-animation {
-    0%,
-    50%,
-    100% {
-        transform: translate(0) rotateX(0);
-    }
-    10%,
-    15% {
-        transform: translate(0, -0.5rem);
-    }
-
-    35%,
-    40%,
-    60% {
-        transform: translate(-0.5rem, -0.5rem) rotateX(10deg);
-    }
-    65%,
-    85%,
-    90% {
-        transform: translate(1rem, -0.5rem) rotateX(5deg);
-    }
-    13%,
-    37%,
-    63%,
-    87% {
-        transform: translate(-0.5rem, -1rem) rotateX(15deg);
-    }
-    25%,
-    75% {
-        transform: translate(0) rotateX(0);
-    }
-}
-/* Same as frAnimation-sd - duplicate it because ie and safari cannot run the same animation twice in a set*/
-@keyframes shake-plate-animation-copy {
-    0%,
-    50%,
-    100% {
-        transform: translate(0) rotateX(0);
-    }
-    10%,
-    15% {
-        transform: translate(0, -0.5rem);
-    }
-
-    35%,
-    40%,
-    60% {
-        transform: translate(-0.5rem, -0.5rem) rotateX(10deg);
-    }
-    65%,
-    85%,
-    90% {
-        transform: translate(1rem, -0.5rem) rotateX(5deg);
-    }
-    13%,
-    37%,
-    63%,
-    87% {
-        transform: translate(-0.5rem, -1rem) rotateX(15deg);
-    }
-    25%,
-    75% {
-        transform: translate(0) rotateX(0);
-    }
 }
 
 @keyframes hide-shake-plate-animation {

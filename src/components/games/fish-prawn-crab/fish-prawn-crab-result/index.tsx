@@ -28,16 +28,11 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
     return (
         <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
             <div className="overlay-mask">
-                <div className={Styles["flipResult-sedie-fadeOutDelay"]}>
-                    <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
-                        <div className={Styles["shake-plate"]}>
-                            <img src="/static/images/shake-baucua.gif" alt="shake" />
-                        </div>
-                        <div className={Styles["result-set"]}>
-                            <div className={Styles["result-plate"]}></div>
-                            <div className={Styles["result-container"]}>{generateResult(result)}</div>
-                            <div className={Styles["result-bowl"]}></div>
-                        </div>
+                <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
+                    <div className={Styles["result-set"]}>
+                        <div className={Styles["plate"]}></div>
+                        <div className={Styles["result-container"]}>{generateResult(result)}</div>
+                        <div className={Styles["bowl"]}></div>
                     </div>
                 </div>
             </div>

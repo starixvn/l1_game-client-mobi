@@ -14,22 +14,20 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
     return (
         <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
             <div className="overlay-mask">
-                <div className={Styles["flipResult-sedie-fadeOutDelay"]}>
-                    <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
-                        <div className={Styles["result-plate"]}></div>
-                        <div className={Styles["toss-dices"]}>
-                            <img src="/static/images/bigsmall_dice.gif" alt="shake" />
+                <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
+                    <div className={Styles["result-plate"]}></div>
+                    <div className={Styles["toss-dices"]}>
+                        <img src="/static/images/bigsmall_dice.gif" alt="shake" />
+                    </div>
+                    <div className={Styles["result-container"]}>
+                        <div className={Styles["result-1"]}>
+                            <img src="/static/images/bigsmall-dice-1.png" className={Styles["dice"]} alt="dice" />
                         </div>
-                        <div className={Styles["result-container"]}>
-                            <div className={Styles["result-1"]}>
-                                <img src="/static/images/bigsmall-dice-1.png" className={Styles["dice"]} alt="dice" />
-                            </div>
-                            <div className={Styles["result-2"]}>
-                                <img src="/static/images/bigsmall-dice-2.png" className={Styles["dice"]} alt="dice" />
-                            </div>
-                            <div className={Styles["result-3"]}>
-                                <img src="/static/images/bigsmall-dice-3.png" className={Styles["dice"]} alt="dice" />
-                            </div>
+                        <div className={Styles["result-2"]}>
+                            <img src="/static/images/bigsmall-dice-2.png" className={Styles["dice"]} alt="dice" />
+                        </div>
+                        <div className={Styles["result-3"]}>
+                            <img src="/static/images/bigsmall-dice-3.png" className={Styles["dice"]} alt="dice" />
                         </div>
                     </div>
                 </div>
