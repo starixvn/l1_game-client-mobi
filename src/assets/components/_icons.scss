@@ -14,6 +14,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-warning:before {
+    content: "\e913";
+    color: #ffb52a;
+}
+
 .icon-dragon:before {
     content: "\e911";
     color: #ff9a00;

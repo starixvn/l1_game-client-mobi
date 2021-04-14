@@ -1,3 +1,32 @@
 .error-message-container {
-    color: #ff0000;
+    position: relative;
+    color: #2c2f3e;
+    text-align: center;
+    padding: 2.8rem 3rem;
+    background-color: #fff;
+    box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
+    border-radius: 0.5rem;
+    font-size: 1.6rem;
+}
+
+.icon-close {
+    position: absolute;
+    right: 0.4rem;
+    top: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.2rem;
+    width: 3.2rem;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.icon-warning {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.6rem;
+    font-size: 4.2rem;
 }

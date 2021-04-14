@@ -18,9 +18,9 @@
 
 @media print, screen and (min-width: 992px) {
     .game-container {
-        flex: 1 1 calc(50% - 0.6rem);
-        max-width: calc(50% - 0.6rem);
-        margin: 0 0.6rem 0.6rem 0;
+        flex: 1 1 calc(50% - 1.2rem);
+        max-width: calc(50% - 1.2rem);
+
         &:last-child {
             margin-right: 0;
         }
@@ -31,5 +31,6 @@
     .game-container {
         flex: 1 1 calc(100% / 3 - 0.6rem);
         max-width: calc(100% / 3 - 0.6rem);
+        margin: 0 0.6rem 0.6rem 0;
     }
 }

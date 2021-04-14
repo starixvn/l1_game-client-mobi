@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styles from "./error-message.module.scss";
+import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
 const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
@@ -12,11 +12,10 @@ const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     }, []);
 
     return (
-        <div className={styles["error-message-container"]}>
-            <div className={styles.header}>
-                <span className="icon-close" onClick={() => closeModal()}></span>
-            </div>
-            <div className={styles.message}>{message}</div>
+        <div className={Styles["error-message-container"]}>
+            <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
+            <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></div>
+            <div className={Styles.message}>{message}</div>
         </div>
     );
 };
