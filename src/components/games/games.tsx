@@ -14,7 +14,6 @@ export const Games: React.FC = () => {
     const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
     const favoriteGamesOnStorage = LocalStorageManager.getLocalStorageItem<number[]>(storageKey);
 
-    const games = [2, 3, 1, 7];
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
 
     const isFavorite = (gameId) => favoriteGames.includes(gameId);
@@ -31,7 +30,7 @@ export const Games: React.FC = () => {
     };
 
     const renderListGames = () => {
-        const unfavoriteGames = games.filter((gameId) => !favoriteGames.includes(gameId));
+        const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
 
         const orderedGames = favoriteGames.concat(unfavoriteGames);
 
@@ -39,15 +38,17 @@ export const Games: React.FC = () => {
     };
 
     const getGameComponentById = (gameId: number) => {
+        const { gameConfigs } = appSettings;
+        const gameProps = gameConfigs[gameId];
         switch (gameId) {
             case 2:
-                return <SeDie key={`game-${gameId}`} {...appSettings.seDie} />;
+                return <SeDie key={`game-${gameId}`} {...gameProps} />;
             case 3:
-                return <FishPrawnCrab key={`game-${gameId}`} {...appSettings.fishPrawnCrab} />;
+                return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
             case 7:
-                return <DragonTiger key={`game-${gameId}`} {...appSettings.dragonTiger} />;
+                return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
             case 1:
-                return <BigSmall key={`game-${gameId}`} {...appSettings.bigSmall} />;
+                return <BigSmall key={`game-${gameId}`} {...gameProps} />;
             default:
                 return null;
         }

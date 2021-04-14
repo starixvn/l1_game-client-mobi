@@ -16,9 +16,7 @@ const COMMIT_SHA = VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCE
 process.env.SENTRY_DSN = SENTRY_DSN;
 const basePath = "";
 
-const appSettings = {
-    ...require("./_configs/appsettings.json"),
-};
+const configuration = require("./src/configuration");
 const { i18n } = require("./next-i18next.config");
 
 module.exports = {
@@ -31,7 +29,7 @@ module.exports = {
         NEXT_PUBLIC_COMMIT_SHA: COMMIT_SHA,
     },
     excludeFile: (str) => /\*.{spec,test}.js/.test(str),
-    publicRuntimeConfig: appSettings,
+    publicRuntimeConfig: configuration,
     webpack: (config, options) => {
         // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
         // @sentry/node will run in a Node.js environment. @sentry/node will use
@@ -71,7 +69,6 @@ module.exports = {
                     ignore: ["node_modules"],
                     stripPrefix: ["webpack://_N_E/"],
                     urlPrefix: `~${basePath}/_next`,
-                    release: COMMIT_SHA,
                 })
             );
         }

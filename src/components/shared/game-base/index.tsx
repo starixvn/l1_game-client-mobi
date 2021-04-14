@@ -1,6 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 
+import appSettings from "../../../common/app-settings";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
@@ -42,12 +43,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentDidMount() {
         const { socketInfo } = this.props;
         const { session } = this.context;
+        const socketUri = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/user/${socketInfo.namespace}`;
 
-        this.socket = io(socketInfo.uri, {
+        this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
             upgrade: false,
-            path: socketInfo.proxyRoute,
+            path: `/${socketInfo.path}/socket.io`,
         });
         this.socket.on("connect", () => {
             this.socket.emit("signin", session);

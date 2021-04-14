@@ -59,9 +59,8 @@ export interface GameBaseState<Result, SettlementResult> {
 }
 
 export interface SocketInfo {
-    uri: string;
-    proxyRoute: string;
-    api: string;
+    namespace: string;
+    path: string;
 }
 
 export interface GameDurations {
