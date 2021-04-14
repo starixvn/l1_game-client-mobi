@@ -59,12 +59,14 @@ export const Games: React.FC = () => {
     };
 
     return (
-        <FavoriteGameContext.Provider value={favoriteGameContextValue}>
-            <div className={styles["game-list"]}>{renderListGames()}</div>
-            <div className={styles["bet-settings"]}>
-                <BetSettings />
-            </div>
-        </FavoriteGameContext.Provider>
+        <div className="game-container">
+            <FavoriteGameContext.Provider value={favoriteGameContextValue}>
+                <div className={styles["game-list"]}>{renderListGames()}</div>
+                <div className={styles["bet-settings"]}>
+                    <BetSettings />
+                </div>
+            </FavoriteGameContext.Provider>
+        </div>
     );
 };
 

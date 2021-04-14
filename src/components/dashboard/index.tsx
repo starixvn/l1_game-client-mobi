@@ -106,7 +106,7 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             const props = { ...user, balance: this.props.balance };
             return (
-                <div className="game-container">
+                <div>
                     <Header {...props} />
                     <Games />
                 </div>

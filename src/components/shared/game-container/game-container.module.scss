@@ -4,7 +4,10 @@
     height: auto;
     max-width: 100%;
     min-width: inherit;
-    padding: 0 0.3rem 0.5rem;
+    margin: 0 0.6rem 0.6rem;
+    border: 1px solid #b3c0e7;
+    border-radius: 0.6rem 0.6rem 0 0;
+    background-color: #fff;
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -15,14 +18,18 @@
 
 @media print, screen and (min-width: 992px) {
     .game-container {
-        flex: 1 1 calc(50% - 0.5px);
-        max-width: calc(50% - 0.5px);
+        flex: 1 1 calc(50% - 0.6rem);
+        max-width: calc(50% - 0.6rem);
+        margin: 0 0.6rem 0.6rem 0;
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }
 
 @media print, screen and (min-width: 1400px) {
     .game-container {
-        flex: 1 1 calc(100% / 3 - 0.5px);
-        max-width: calc(100% / 3 - 0.5px);
+        flex: 1 1 calc(100% / 3 - 0.6rem);
+        max-width: calc(100% / 3 - 0.6rem);
     }
 }

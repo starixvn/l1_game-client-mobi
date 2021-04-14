@@ -19,25 +19,27 @@ const Header: React.FC<Props> = (props) => {
 
     return (
         <header className={Styles.header}>
-            <Navbar expand="md" className={Styles["navbar-custom"]}>
-                <div className={Styles["header-container"]}>
-                    <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>
-                        <NavbarBrand href="/">
-                            <img className={Styles.logo} alt="logo" src="/static/images/small-logo.svg" />
-                        </NavbarBrand>
-                    </UncontrolledCollapse>
-                    <NavbarToggler id="navbar" onClick={toggle} />
-                    <div className={Styles["user-info"]}>
-                        <div className="user-name">
-                            <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                            <span>{props.name}</span>
-                        </div>
-                        <div className={Styles.balance}>
-                            {props.currency} {props.balance}
+            <div className="game-container">
+                <Navbar expand="md" className={Styles["navbar-custom"]}>
+                    <div className={Styles["header-container"]}>
+                        <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>
+                            <NavbarBrand href="/">
+                                <img className={Styles.logo} alt="logo" src="/static/images/small-logo.svg" />
+                            </NavbarBrand>
+                        </UncontrolledCollapse>
+                        <NavbarToggler id="navbar" onClick={toggle} />
+                        <div className={Styles["user-info"]}>
+                            <div className="user-name">
+                                <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                                <span>{props.name}</span>
+                            </div>
+                            <div className={Styles.balance}>
+                                {props.currency} {props.balance}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Navbar>
+                </Navbar>
+            </div>
         </header>
     );
 };

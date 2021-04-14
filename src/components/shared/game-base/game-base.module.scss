@@ -1,7 +1,7 @@
 .bet-options {
     position: relative;
     height: 28.7rem;
-    padding: 0.1rem 0.1rem 0;
+    padding-top: 0.1rem;
     background-color: #dce2f3;
     border-bottom: 1px solid #dce2f3;
 }
@@ -13,9 +13,7 @@
     width: 100%;
     height: 3.6rem;
     padding: 0.7rem 0.5rem;
-    border: 0.1rem solid #dce2f3;
-    border-top-width: 0;
-    background-color: white;
+    border-bottom: 0.1rem solid #dce2f3;
 }
 
 .statistic {
@@ -23,17 +21,14 @@
     justify-content: center;
     height: 3.6rem;
     padding: 0.5rem 0.8rem;
-    background-color: #fff;
     box-shadow: 0 1.5rem 1rem -1.5rem #bebfc1;
-    border-left: 0.1rem solid #dce2f3;
-    border-right: 0.1rem solid #dce2f3;
+    border-top: 0.4rem solid #dce2f3;
 }
 
 .board {
     height: 13.9rem;
     width: 100%;
     padding: 0.8rem 0.8rem 0;
-    border: 0.1rem solid #dce2f3;
-    border-top-width: 0.1rem;
+    border-top: 0.1rem solid #dce2f3;
     // overflow-x: auto;
 }
