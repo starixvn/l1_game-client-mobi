@@ -1,9 +1,9 @@
 {
-    "roundTime":"Thời Gian", 
-    "round":"Phiên", 
-    "result":"Kết Quả", 
-    "choice":"Đặt", 
-    "stake":"Cươc",
-    "refund":"Trả Lại",
-     "win":"Thắng"
+    "roundTime": "Thời Gian",
+    "round": "Phiên",
+    "result": "Kết Quả",
+    "choice": "Đặt",
+    "stake": "Cươc",
+    "refund": "Trả Lại",
+    "win": "Thắng"
 }

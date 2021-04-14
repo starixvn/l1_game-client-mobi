@@ -1,8 +1,7 @@
 {
-    "game_name": "Xóc Dĩa",
-    "round": "Phiên",
-    "odd":"LẺ",
-    "even":"CHẴN",
+    "game_name": "Xóc Đĩa",
+    "odd": "LẺ",
+    "even": "CHẴN",
     "red1": "1 Đỏ",
     "red2": "2 Đỏ",
     "red3": "3 Đỏ",

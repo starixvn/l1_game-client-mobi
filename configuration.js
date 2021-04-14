@@ -63,5 +63,20 @@ module.exports = {
                 beforeStartRound: 1,
             },
         },
+        22: {
+            id: 22,
+            gameName: "VipSeDie",
+            socketInfo: {
+                namespace: "vipsedie",
+                path: "vsedie",
+            },
+            durations: {
+                wholeRound: 39,
+                placingBets: 30,
+                lockingBet: 5,
+                showResult: 3,
+                beforeStartRound: 2,
+            },
+        },
     },
 };

@@ -42,6 +42,7 @@ export const Games: React.FC = () => {
         const gameProps = gameConfigs[gameId];
         switch (gameId) {
             case 2:
+            case 22:
                 return <SeDie key={`game-${gameId}`} {...gameProps} />;
             case 3:
                 return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
