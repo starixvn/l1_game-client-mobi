@@ -16,7 +16,7 @@ const COMMIT_SHA = VERCEL_GITHUB_COMMIT_SHA || VERCEL_GITLAB_COMMIT_SHA || VERCE
 process.env.SENTRY_DSN = SENTRY_DSN;
 const basePath = "";
 
-const configuration = require("./src/configuration");
+const configuration = require("./configuration");
 const { i18n } = require("./next-i18next.config");
 
 module.exports = {
