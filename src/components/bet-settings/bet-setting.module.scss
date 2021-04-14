@@ -3,7 +3,6 @@
 .chip {
     margin: 0;
     transform: scale(1);
-    right: -0.3rem;
 
     &:hover {
         transform: scale(1);
@@ -11,6 +10,16 @@
         @media (min-width: 1200px) {
             transform: scale(1);
         }
+    }
+
+    .layer1 {
+        box-shadow: none;
+        top: calc(50% - 1.4rem);
+    }
+
+    .layer2 {
+        box-shadow: none;
+        top: calc(50% - 1.37rem);
     }
 }
 
