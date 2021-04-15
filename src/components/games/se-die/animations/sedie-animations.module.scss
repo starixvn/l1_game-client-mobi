@@ -1,17 +1,5 @@
 @import "../../../../assets/components/shake-animation";
 
-@keyframes hide-start-round-animation {
-    20% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.3;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
 // Plate and bowl
 .container {
     position: absolute;
@@ -50,7 +38,7 @@
 
 .shake-the-plate {
     .result-sedie-set {
-        z-index: 1;
+        z-index: 20;
         position: absolute;
         top: 0;
         opacity: 0;

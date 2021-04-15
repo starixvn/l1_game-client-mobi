@@ -20,8 +20,8 @@ const Plate: React.FC = ({ children }) => (
 
 export const ShakeThePlate = () => (
     <div className={Styles["shake-the-plate"]}>
-        <Plate />
         <StartRoundAnimation />
+        <Plate />
     </div>
 );
 

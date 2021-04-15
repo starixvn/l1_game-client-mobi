@@ -39,3 +39,15 @@
         transform: scale(1);
     }
 }
+
+@keyframes hide-start-round-animation {
+    20% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+    }
+}
