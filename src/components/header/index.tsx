@@ -1,8 +1,6 @@
-import { WithTranslation, withTranslation } from "next-i18next";
 import React, { useState } from "react";
 import { Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
 
-import { ResourceTypes } from "../../common/resources";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -11,7 +9,7 @@ type Props = {
     currency: string;
     name: string;
     balance: number;
-} & WithTranslation;
+};
 
 const Header: React.FC<Props> = (props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -44,4 +42,4 @@ const Header: React.FC<Props> = (props) => {
     );
 };
 
-export default withTranslation(ResourceTypes.HEADER)(Header);
+export default Header;
