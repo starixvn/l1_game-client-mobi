@@ -1,2 +1,3 @@
 export * from "./type";
-export * from "./header-keys";
+export * from "./common-resource-keys";
+export * from "./game-resource-keys";

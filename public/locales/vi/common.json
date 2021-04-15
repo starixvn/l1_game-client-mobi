@@ -1,5 +1,6 @@
 {
-  "title": "Trò chơi cho khách hàng",
-  "popupTitleGuide":"Hướng Dẫn",
-  "popupTitleHistory":"Lịch Sử"
+    "popupTitleGuide": "Hướng Dẫn",
+    "popupTitleHistory": "Lịch Sử",
+    "rebet": "Cược lại",
+    "startNewRound": "Bắt đầu phiên mới"
 }

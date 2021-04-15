@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -13,33 +14,15 @@ import Styles from "./game-header.module.scss";
 
 export default function GameHeader() {
     const favoriteContext = useFavoriteGameContext();
-    const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting } = useGameContext();
     const { id: gameId, gameName } = gameSetting;
-
-    const rebetStorageKey = localStorageKeys.rebet;
-    const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
-    const rebetInfo = rebetStorage[gameId];
-
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
-    const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const { t } = useTranslation(gameName.toLowerCase());
-
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
+    const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = () => {
         favoriteContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
-
-    useEffect(() => {
-        gameState != GameState.InRound && updateRebetStatus(true);
-    }, [gameState]);
-
-    useEffect(() => {
-        updateRebetStatus(rebetInfo?.betInfo == undefined);
-    }, [roundId]);
 
     const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet || gameState === GameState.Waiting;
 
@@ -60,28 +43,52 @@ export default function GameHeader() {
                 </div>
             )}
 
-            <div className={Styles["header-right"]}>
-                <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
-                    Rebet
-                </button>
-
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
-                    <DropdownToggle className={Styles["dropdown-toggle"]}>
-                        <div className={Styles["hamburger-dot"]}></div>
-                        <div className={Styles["hamburger-dot"]}></div>
-                        <div className={Styles["hamburger-dot"]}></div>
-                    </DropdownToggle>
-                    <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.BetHistory)}>
-                            Ticket history
-                        </DropdownItem>
-                        <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
-                        <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.Guide)}>
-                            Game guide
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            </div>
+            <HeaderRight />
         </div>
     );
 }
+
+const HeaderRight = () => {
+    const gameActions = useGameActionContext();
+    const { roundId, gameState, gameSetting } = useGameContext();
+    const { t } = useTranslation([ResourceTypes.COMMON]);
+    const { id: gameId } = gameSetting;
+    const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const toggle = () => setDropdownOpen((prevState) => !prevState);
+    const rebetStorageKey = localStorageKeys.rebet;
+    const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
+    const rebetInfo = rebetStorage[gameId];
+
+    useEffect(() => {
+        gameState != GameState.InRound && updateRebetStatus(true);
+    }, [gameState]);
+
+    useEffect(() => {
+        updateRebetStatus(rebetInfo?.betInfo == undefined);
+    }, [roundId]);
+    return (
+        <div className={Styles["header-right"]}>
+            <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
+                {t(CommonResourceKeys.REBET)}
+            </button>
+
+            <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
+                <DropdownToggle className={Styles["dropdown-toggle"]}>
+                    <div className={Styles["hamburger-dot"]}></div>
+                    <div className={Styles["hamburger-dot"]}></div>
+                    <div className={Styles["hamburger-dot"]}></div>
+                </DropdownToggle>
+                <DropdownMenu right className={Styles["dropdown-menu"]}>
+                    <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.BetHistory)}>
+                        {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
+                    </DropdownItem>
+                    <DropdownItem className={Styles["dropdown-item"]}>Result</DropdownItem>
+                    <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.Guide)}>
+                        {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
+                    </DropdownItem>
+                </DropdownMenu>
+            </Dropdown>
+        </div>
+    );
+};

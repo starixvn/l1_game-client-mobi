@@ -1,5 +1,6 @@
 {
-    "title": "Game Client",
-    "popupTitleGuide":"Game Guide",
-    "popupTitleHistory":"Game History"
+    "popupTitleGuide": "Game Guide",
+    "popupTitleHistory": "Game History",
+    "rebet": "Rebet",
+    "startNewRound": "Start New Round"
 }
