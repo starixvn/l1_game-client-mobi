@@ -1,0 +1,47 @@
+%dot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 0.1rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 500;
+    pointer-events: none;
+
+    @media print, screen and (min-width: 992px) {
+        width: 1.6rem;
+        height: 1.6rem;
+        margin: 0 0.15rem;
+    }
+}
+
+.dot-next {
+    @extend %dot;
+    background: #828282 !important;
+}
+
+.highlight-current-result {
+    border: 1px solid #f38938;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    25% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.9);
+    }
+    75% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.1);
+    }
+}

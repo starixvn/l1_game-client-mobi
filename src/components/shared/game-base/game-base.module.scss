@@ -25,6 +25,11 @@
     padding: 0.5rem 0.8rem;
     box-shadow: 0 1.5rem 1rem -1.5rem #bebfc1;
     border-top: 0.4rem solid $border-color;
+    font-size: 1.2rem;
+
+    @media print, screen and (min-width: 992px) {
+        font-size: 1.4rem;
+    }
 }
 
 .board {

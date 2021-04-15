@@ -1,10 +1,10 @@
 .game-container {
     position: relative;
-    flex: 1 1 100%;
+    flex: 1 1 calc(100% - 0.8rem);
+    max-width: calc(100% - 0.8rem);
     height: auto;
-    max-width: 100%;
     min-width: inherit;
-    margin: 0 0.6rem 0.6rem;
+    margin: 0 0.4rem 0.4rem;
     border: 1px solid #b3c0e7;
     border-radius: 0.6rem 0.6rem 0 0;
     background-color: #fff;
@@ -18,8 +18,8 @@
 
 @media print, screen and (min-width: 992px) {
     .game-container {
-        flex: 1 1 calc(50% - 1.2rem);
-        max-width: calc(50% - 1.2rem);
+        flex: 1 1 calc(50% - 0.8rem);
+        max-width: calc(50% - 0.8rem);
 
         &:last-child {
             margin-right: 0;
