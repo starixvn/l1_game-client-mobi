@@ -1,21 +1,21 @@
 import React from "react";
 import Styles from "./fish-prawn-crab.module.scss";
-import { GameGuide} from "../../../shared/game-base/type";
+import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
 const FishPrawnCrabGuideEN: React.FC<GameGuide> = (props) => {
-    const { gameConfigs, userStakeLevel } = props;
+    const { gameConfigs, userStakeLevel, gameName } = props;
     const { odds, minbet, maxbet } = gameConfigs;
-    const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
+    const maxBetRound = numberWithCommas(userStakeLevel ? Math.min(userStakeLevel.maxBet, maxbet) : maxbet);
     return (
         <div>
             <ul className="game-guide">
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Fish Prawn Crab hay còn gọi là bầu cua tôm cá, là trò chơi dân gian rất phổ biến ở Châu Á, được Saba.club triển khai
-                        cho tất cả thị trường trên thế giới. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng
-                        (linh vật) ứng với một cửa trên bàn chơi.
+                        {gameName} hay còn gọi là bầu cua tôm cá, là trò chơi dân gian rất phổ biến ở Châu Á, được Saba.club triển khai cho
+                        tất cả thị trường trên thế giới. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh
+                        vật) ứng với một cửa trên bàn chơi.
                     </p>
                 </li>
                 <li className="guide-item">

@@ -4,7 +4,7 @@ import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
 const BigSmallGuideEN: React.FC<GameGuide> = (props) => {
-    const { gameConfigs, userStakeLevel } = props;
+    const { gameConfigs, userStakeLevel, gameName } = props;
     const { odds, minbet, maxbet } = gameConfigs;
     const maxBetRound = numberWithCommas(Math.min(userStakeLevel.maxBet, maxbet));
     return (
@@ -13,7 +13,7 @@ const BigSmallGuideEN: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        Big Small là trò chơi đổ xúc xắc đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới. Trò chơi
+                       {gameName} là trò chơi đổ xúc xắc đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới. Trò chơi
                         sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt và người chơi sẽ dự đoán xem kết quả là Tài hay Xỉu.
                     </p>
                 </li>

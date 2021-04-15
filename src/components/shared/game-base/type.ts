@@ -96,4 +96,5 @@ export interface UserStakeLevel {
 export type GameGuide = {
     gameConfigs: GameConfigs;
     userStakeLevel: UserStakeLevel;
+    gameName: string;
 };
