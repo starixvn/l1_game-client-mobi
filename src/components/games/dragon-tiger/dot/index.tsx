@@ -8,16 +8,17 @@ type Props = {
     row?: number;
     col?: number;
     value?: string;
+    tie: boolean;
 };
 
-const BigSmallDot: React.FunctionComponent<Props> = ({ red = false, value }) => {
-    return <div className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}>{value}</div>;
+const DragonTigerDot: React.FunctionComponent<Props> = ({ red = false, tie = false, value }) => {
+    return <div className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-red"] : Styles["dot-blue"]}`}>{value}</div>;
 };
 
-export const BigSmallDotNumber: React.FunctionComponent<Props> = ({ red = false, textInner, col, row }) => {
+export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ red = false, tie = false, textInner, col, row }) => {
     return (
         <div
-            className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}
+            className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-red"] : Styles["dot-blue"]}`}
             style={{
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),
@@ -44,4 +45,4 @@ export const ScoreboardItemNext = ({ col, row }) => {
     );
 };
 
-export default BigSmallDot;
+export default DragonTigerDot;

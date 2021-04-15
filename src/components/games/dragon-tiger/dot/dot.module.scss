@@ -28,6 +28,15 @@
     color: #828282;
 }
 
+.dot-tie {
+    @extend %dot;
+    background: #235F6A;
+    border: 1px solid #134953;
+    box-sizing: border-box;
+    box-shadow: 0px 1px 1px rgba(58, 91, 97, 0.3);;
+    color: #828282;
+}
+
 .dot-next {
     @extend %dot;
     background: #828282 !important;

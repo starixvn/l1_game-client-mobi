@@ -7,6 +7,8 @@ import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
+import ScoreboardHistory from "./scoreboard-round-history";
+import DragonTigerRoundHistory from "./round-history";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -34,7 +36,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderRoundHistory() {
-        return <></>;
+        const { gameState, roundHistory } = this.state;
+        return <DragonTigerRoundHistory roundHistory={roundHistory} gameState={gameState} />;
     }
 
     renderStatistic() {
@@ -46,7 +49,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBoard() {
-        return <></>;
+        const { gameState, roundHistory } = this.state;
+        return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState} />;
     }
 
     get isShowStartRoundAnimation() {

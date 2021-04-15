@@ -3,7 +3,7 @@ import { BigSmallDotNumber, ScoreboardItemNext } from "../dot";
 import { SettlementResult } from "../big-small";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
-import { countRedDot, checkIsSmall } from "../mini-round-history";
+import { countRedDot, checkIsSmall } from "../round-history";
 import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {

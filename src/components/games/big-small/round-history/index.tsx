@@ -13,8 +13,7 @@ import Styles from "./mini-round-history.module.scss";
 export const countRedDot = (result: Result) => Object.values(result).reduce((total, value) => total + value, 0);
 export const checkIsSmall = (numberOfRed: number) => numberOfRed <= 10;
 
-const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
-    const { t } = useTranslation("taixiu");
+const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
     const { roundId, settlementResult, result } = round;
     const ResultValue = Object.values(result);
 
@@ -39,26 +38,23 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>) => {
     );
 };
 
-const MiniRoundHistory = (props: Props) => {
+const BigSmallRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
-    let numberOfItems = 21;
-    const renderRounds = (numberOfItems: number) => {
-        let listRound: JSX.Element[] = roundHistory
-            .slice(0, numberOfItems)
-            .reverse()
-            .map((round, index) => (
-                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round)}>
-                    {gameState === GameState.LockingBet && index === numberOfItems - 1 ? (
-                        <MiniItemNext></MiniItemNext>
-                    ) : (
-                        <BigSmallDot red={round.settlementResult.small} />
-                    )}
-                </RoundHistoryItem>
-            ));
-        return listRound;
-    };
+    const { t } = useTranslation("taixiu");
+    const isLockingBet = () => gameState === GameState.LockingBet;
+    const numberOfItems = isLockingBet() ? 20 : 21;
+    const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
-    return <RoundHistoryContainer>{renderRounds(numberOfItems)}</RoundHistoryContainer>;
+    return (
+        <RoundHistoryContainer>
+            {rounds.map((round) => (
+                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
+                    <BigSmallDot red={round.settlementResult.small} />
+                </RoundHistoryItem>
+            ))}
+            {isLockingBet() && <MiniItemNext></MiniItemNext>}
+        </RoundHistoryContainer>
+    );
 };
 
-export default MiniRoundHistory;
+export default BigSmallRoundHistory;

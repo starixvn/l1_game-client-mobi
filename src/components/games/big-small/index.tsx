@@ -8,7 +8,7 @@ import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
-import MiniRoundHistory from "./mini-round-history";
+import BigSmallRoundHistory from "./round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import BigSmallStatistic from "./statistic";
 
@@ -46,7 +46,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
-        return <MiniRoundHistory roundHistory={roundHistory} gameState={gameState}></MiniRoundHistory>;
+        return <BigSmallRoundHistory roundHistory={roundHistory} gameState={gameState}/>;
     }
 
     renderStatistic() {
