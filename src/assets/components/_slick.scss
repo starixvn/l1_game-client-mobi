@@ -24,5 +24,9 @@
 }
 
 .slick-list {
-    margin: 0 3rem;
+    margin: 0 1rem;
+
+    @media (min-width: 1024px) {
+        margin: 0 3rem;
+    }
 }
