@@ -135,8 +135,8 @@
 
     &:after {
         position: absolute;
-        left: 0.3rem;
-        top: -0.5rem;
+        left: 0.2rem;
+        top: -0.4rem;
         content: "";
         background-color: #efeff4;
         height: 2.7rem;
@@ -151,7 +151,7 @@
 
         > .toggle-feature {
             position: absolute;
-            left: 1.9rem;
+            left: 2rem;
 
             &:before {
                 color: $main-color;
