@@ -4,6 +4,17 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import Chip from "../chip";
 import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
+import Slider from "react-slick";
+
+const PrevArrow = (props) => {
+    const { className, onClick } = props;
+    return <span className={`icon-arrow-right ${Styles["prev"]} ${className}`} onClick={onClick}></span>;
+};
+
+const NextArrow = (props) => {
+    const { className, onClick } = props;
+    return <span className={`icon-arrow-right ${Styles["next"]} ${className}`} onClick={onClick}></span>;
+};
 
 export const BetSettings: React.FC = () => {
     const [isShowSettings, setShowSettings] = useState(false);
@@ -12,6 +23,24 @@ export const BetSettings: React.FC = () => {
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [enabledQuickBet, setEnabledQuickBet] = useState(false);
     const betSettingStorageKey = localStorageKeys.betSetting;
+
+    const SliderSetting = {
+        speed: 500,
+        infinite: false,
+        adaptiveHeight: true,
+        swipeToSlide: true,
+        slidesToShow: 9,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                },
+            },
+        ],
+    };
 
     useEffect(() => {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingStorageKey);
@@ -124,7 +153,19 @@ export const BetSettings: React.FC = () => {
                     </div>
 
                     <div className={Styles["chips-container"]}>
-                        <span
+                        <Slider {...SliderSetting}>
+                            {Object.keys(chipList).map((key) => (
+                                <Chip
+                                    key={key}
+                                    display={key}
+                                    value={chipList[key]}
+                                    onSelected={handleSelectChip}
+                                    selected={selectedChipValue === chipList[key]}
+                                    color={chipColorMapper[chipList[key]]}
+                                />
+                            ))}
+                        </Slider>
+                        {/* <span
                             className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
                             onClick={onClickPrev}
                         ></span>
@@ -141,7 +182,7 @@ export const BetSettings: React.FC = () => {
                         <span
                             className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
                             onClick={onClickNext}
-                        ></span>
+                        ></span> */}
                     </div>
 
                     <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>

@@ -1,4 +1,6 @@
 import "bootstrap/dist/css/bootstrap.css";
+import "slick-carousel/slick/slick.scss";
+import "slick-carousel/slick/slick-theme.scss";
 import "../assets/main.scss";
 import "../assets/errors.scss";
 
@@ -9,5 +11,4 @@ import { init } from "../utils/sentry";
 init();
 const MyApp = ({ Component, pageProps }) => <Component {...pageProps} />;
 
-// export default wrapper.withRedux(MyApp);
 export default appWithTranslation(MyApp);
