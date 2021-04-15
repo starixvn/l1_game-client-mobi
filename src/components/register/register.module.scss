@@ -9,6 +9,8 @@
     top: 0;
     width: 100%;
     height: 100%;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }
 
 .login-box {
@@ -16,7 +18,7 @@
     width: 100%;
     top: 19%;
     padding: 1.6rem 1.6rem 2.2rem;
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #d7d7d7;
     box-sizing: border-box;
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
@@ -49,7 +51,7 @@
             width: 100%;
             margin: 1rem 0 0;
             font-size: 1.6rem;
-            color: #de4b56;
+            color: #ff0000;
         }
     }
 
