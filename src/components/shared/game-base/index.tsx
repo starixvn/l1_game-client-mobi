@@ -39,6 +39,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
+        this.finishProcessingBet = this.finishProcessingBet.bind(this);
     }
 
     componentDidMount() {
@@ -82,11 +83,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
         this.messageTransmitter.addListener("betPercentage", this.handlePercentageBets.bind(this));
         this.messageTransmitter.addListener("endBet", this.handleEndBet.bind(this));
+        this.messageTransmitter.addListener("apiError", this.handleApiError.bind(this));
+    };
+
+    handleApiError = ({ apiError }) => {
+        this.setState({ errorMessage: apiError.message, displayPopup: PopupType.Error });
     };
 
     handleEndBet = ({ endBet, notice }) => {
-        if (endBet == -1) {
-            this.state.displayPopup !== PopupType.Rebet && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
+        if (this.state.displayPopup !== PopupType.Rebet) {
+            this.setState({ isProcessingBet: false });
+            endBet === -1 && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
         }
     };
 
@@ -245,7 +252,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        this.socket.emit("bet", { betChoice, amount });
+        if (this.state.isProcessingBet) {
+            this.setState({ errorMessage: "Cược đang được xử lý. Vui lòng đợi trong giây lát", displayPopup: PopupType.Error });
+        } else {
+            if (amount > 0) {
+                this.socket.emit("bet", { betChoice, amount });
+                this.setState({ isProcessingBet: true });
+            }
+        }
     }
 
     getBetHistory(page = 1) {
@@ -254,6 +268,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     openPopup(popupType: PopupType) {
         this.setState({ displayPopup: popupType });
+    }
+
+    finishProcessingBet() {
+        this.setState({ isProcessingBet: false });
     }
 
     renderErrorMessage() {
@@ -372,6 +390,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             closePopup: this.closePopup,
             handleMessage: this.messageTransmitter.addListener,
             openPlaceBetModal: this.openPlaceBetModal,
+            finishProcessingBet: this.finishProcessingBet,
         };
 
         return signedIn ? (

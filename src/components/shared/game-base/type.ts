@@ -56,6 +56,7 @@ export interface GameBaseState<Result, SettlementResult> {
     betPercentage?: object;
     errorMessage?: string;
     selectedBetChoice?: string;
+    isProcessingBet?: boolean;
 }
 
 export interface SocketInfo {

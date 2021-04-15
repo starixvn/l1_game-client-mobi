@@ -17,7 +17,7 @@ const NextArrow = (props) => {
 };
 
 export const BetSettings: React.FC = () => {
-    const [isShowSettings, setShowSettings] = useState(false);
+    const [isShowSettings, setShowSettings] = useState(true);
     const [selectedChipValue, setSelectedChipValue] = useState(1);
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);

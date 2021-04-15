@@ -35,7 +35,10 @@ const Rebet: React.FC<Props> = (props) => {
                         message: notice,
                     };
 
-                    updateIsWaiting(checkBetFinish(betTrack));
+                    if (checkBetFinish(betTrack)) {
+                        updateIsWaiting(false);
+                        gameActionContext.finishProcessingBet();
+                    }
                     updateBetTrack(betTrack);
                 }
             }),
