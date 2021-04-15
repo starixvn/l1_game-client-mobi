@@ -17,9 +17,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [listBetHistory, setListBetHistory] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
-    const [hasMore, setHasMore] = useState(true);
-    const { t } = useTranslation("bethistory");
+    const [hasMoreHistory, setHasMoreHistory] = useState(false);
     const betHistory: GameBetHistory = gameContext.betHistory;
+
+    const { t } = useTranslation("bethistory");
 
     useEffect(() => {
         gameActions.getBetHistory(1);
@@ -30,6 +31,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     }, [betHistory]);
 
     const fetchBetHistory = () => {
+        setIsFetching(false);
         if (betHistory && betHistory.betLogs.length > 0) {
             setTotalPage(Math.ceil(betHistory.total / betHistory.pageSize));
             const data = betHistory.betLogs;
@@ -39,18 +41,19 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     return [...listBetHistory, ...data];
                 });
                 setPage(page + 1);
-                setIsFetching(false);
+                setHasMoreHistory(true);
             }
         }
+        return;
     };
 
     const fetchMoreListBets = () => {
         if (page <= totalPage) {
             gameActions.getBetHistory(page);
             fetchBetHistory();
-        } else {
-            setHasMore(false);
+            return;
         }
+        setHasMoreHistory(false);
     };
 
     return (
@@ -58,9 +61,9 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             <InfiniteScroll
                 dataLength={listBetHistory.length}
                 next={fetchMoreListBets}
-                hasMore={hasMore}
+                hasMore={hasMoreHistory}
                 loader={<h4>Loading...</h4>}
-                scrollThreshold={0.4}
+                scrollThreshold={0.1}
                 className={"tableFixHead"}
             >
                 <table className="table text-center">

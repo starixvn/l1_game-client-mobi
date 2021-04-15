@@ -1,9 +1,9 @@
 {
-    "registerName": "Register Name",
+    "registerName": "Tạo Tên Nhân Vật",
     "otherName": "Tên khác",
-    "submit": "Submit",
-    "yourNickName": "Your nickname",
-    "rule1": "Must be between 3 and 14 characters long.",
-    "rule2": "Cannot contain spaces, special, and non-English characters.",
-    "rule3": "Cannot change after submtting."
+    "submit": "Xác Nhận",
+    "yourNickName": "Tên nhân vật",
+    "rule1": "Tên nhân vật phải có từ 3 đến 14 ký tự.",
+    "rule2": "Không gõ dấu tiếng việt, không chứa khoảng trắng và các ký tự đặc biệt.",
+    "rule3": "Không thể đổi tên nhân vật sau khi tạo"
 }
