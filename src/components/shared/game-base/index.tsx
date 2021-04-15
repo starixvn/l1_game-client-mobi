@@ -39,6 +39,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
+        this.updateCompactMode = this.updateCompactMode.bind(this);
         this.finishProcessingBet = this.finishProcessingBet.bind(this);
     }
 
@@ -272,6 +273,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     finishProcessingBet() {
         this.setState({ isProcessingBet: false });
+	}
+
+    updateCompactMode() {
+        this.setState({ isCompactMode: !this.state.isCompactMode });
     }
 
     renderErrorMessage() {
@@ -369,6 +374,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             betHistory,
             displayPopup,
             userStakeLevel,
+            isCompactMode,
         } = this.state;
 
         const gameContext = {
@@ -381,6 +387,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameState,
             remainingTime,
             userStakeLevel,
+            isCompactMode,
         };
 
         const gameActionsContext = {
@@ -391,6 +398,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             handleMessage: this.messageTransmitter.addListener,
             openPlaceBetModal: this.openPlaceBetModal,
             finishProcessingBet: this.finishProcessingBet,
+            updateCompactMode: this.updateCompactMode,
         };
 
         return signedIn ? (

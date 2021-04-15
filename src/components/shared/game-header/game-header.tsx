@@ -5,6 +5,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
+import { useDeviceContext } from "../../../contexts/device";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -15,6 +16,9 @@ import Styles from "./game-header.module.scss";
 export default function GameHeader() {
     const favoriteContext = useFavoriteGameContext();
     const { roundId, gameState, gameSetting } = useGameContext();
+    const { updateCompactMode } = useGameActionContext();
+    const { isMobile } = useDeviceContext();
+
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
@@ -26,8 +30,14 @@ export default function GameHeader() {
 
     const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet || gameState === GameState.Waiting;
 
+    const onHeaderClick = () => {
+        if (isMobile) {
+            updateCompactMode();
+        }
+    };
+
     return (
-        <div className={Styles.header}>
+        <div className={Styles.header} onClick={() => onHeaderClick()}>
             <div className={Styles["header-left"]}>
                 <div className={Styles["favorite-btn"]} onClick={() => favoriteClickHandle()}>
                     <span className={isFavorite ? "icon-favorite" : "icon-favorite-normal"}></span>
@@ -72,7 +82,6 @@ const HeaderRight = () => {
             <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
                 {t(CommonResourceKeys.REBET)}
             </button>
-
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
                 <DropdownToggle className={Styles["dropdown-toggle"]}>
                     <div className={Styles["hamburger-dot"]}></div>

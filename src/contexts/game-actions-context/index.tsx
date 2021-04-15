@@ -10,6 +10,7 @@ type GameActionsContextType = {
     handleMessage: Function;
     openPlaceBetModal: Function;
     finishProcessingBet: Function;
+    updateCompactMode: () => void;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

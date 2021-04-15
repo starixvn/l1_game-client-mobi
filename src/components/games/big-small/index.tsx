@@ -28,6 +28,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
             userStakeLevel: null,
             displayPopup: null,
             betPercentage: {},
+            isCompactMode: false,
         };
     }
 

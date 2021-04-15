@@ -27,6 +27,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             totalBets: {},
             userStakeLevel: null,
             displayPopup: null,
+            isCompactMode: false,
         };
     }
 
