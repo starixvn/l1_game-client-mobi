@@ -3,25 +3,24 @@ import React from "react";
 
 import Statistic, {
     handlePercentData,
-    processHistoryResultBoolean,
-    processHistorySettlement,
+    countHistoryResultIsBoolean,
+    countHistoryResultNotExistKey,
     WrapperHeader,
+    countHistorySettlement,
 } from "../../../shared/statistic";
-import { StatisticType } from "../../../shared/statistic/statistic";
 import { Props, ResultDiceRed } from "./statistic";
 import SeDieDot from "../dot";
 import Styles from "./statistic.module.scss";
 
-const ElementLeft = ({ data, titleText }) => {
+const ChoiceOddEven = ({ data, titleText }) => {
     const { t } = useTranslation("xocxoc");
     return (
         <div className="d-flex">
             {titleText.map((title, index) => {
-                const value = data[index];
                 return (
-                    <WrapperHeader key={"right-" + index}>
+                    <WrapperHeader key={"choice-oddEven-" + index}>
                         <span className={title === "odd" ? Styles["titleOdd"] : Styles["titleEven"]}> {t(title)}</span>
-                        <span className={Styles["number"]}>{value}%</span>
+                        <span className={Styles["number"]}>{data[index]}%</span>
                     </WrapperHeader>
                 );
             })}
@@ -29,13 +28,13 @@ const ElementLeft = ({ data, titleText }) => {
     );
 };
 
-const ElementRight = ({ data, titleText }) => {
+const ChoiceOther = ({ data, titleText }) => {
     return (
         <div className="d-flex">
             {titleText.map((title, index) => {
                 const value = index === 0 ? data[4] : data[index];
                 return (
-                    <WrapperHeader key={"right-" + index}>
+                    <WrapperHeader key={"choice-other-" + index}>
                         <SeDieDot red={index % 2 > 0} value={title} />
                         <span className={Styles["number"]}>{value}%</span>
                     </WrapperHeader>
@@ -47,23 +46,16 @@ const ElementRight = ({ data, titleText }) => {
 
 const SeDiceStatistic = (props: Props) => {
     const { roundHistory } = props;
-    const dataStatistic: StatisticType = {
-        settlementResult: [0, 0],
-        result: [0, 0, 0, 0, 0],
-    };
-    dataStatistic.settlementResult = processHistorySettlement(roundHistory, ["odd", "even"], dataStatistic.settlementResult);
-    dataStatistic.result = processHistoryResultBoolean(roundHistory, dataStatistic.result, true);
-    let resultPercentDice: ResultDiceRed[] = [0, 0, 0, 0, 0];
-    resultPercentDice = handlePercentData(dataStatistic.result, resultPercentDice);
-    const titleTextRight = [0, 1, 2, 3, 4];
-    const titleTextLeft = ["odd", "even"];
+    const percentOddEven = handlePercentData(countHistorySettlement(roundHistory, ["odd", "even"], [0, 0]), [0, 0]);
+    let countDiceRed = countHistoryResultIsBoolean(roundHistory, ["red1", "red2", "red3", "red4"], [0, 0, 0, 0]);
+    const countDiceAllWhite = countHistoryResultNotExistKey(roundHistory);
+    countDiceRed.push(+countDiceAllWhite);
+    const percentOtherChoice: ResultDiceRed[] = handlePercentData(countDiceRed, [0, 0, 0, 0, 0]);
     return (
-        <div>
-            <Statistic>
-                <ElementLeft data={dataStatistic.settlementResult} titleText={titleTextLeft}></ElementLeft>
-                <ElementRight data={resultPercentDice} titleText={titleTextRight}></ElementRight>
-            </Statistic>
-        </div>
+        <Statistic>
+            <ChoiceOddEven data={percentOddEven} titleText={["odd", "even"]} />
+            <ChoiceOther data={percentOtherChoice} titleText={[0, 1, 2, 3, 4]} />
+        </Statistic>
     );
 };
 

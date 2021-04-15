@@ -12,10 +12,16 @@ export default function Register(props) {
     const { session } = useAuthContext();
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
+    const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
     const authService = UserClientCommunication.getUserClientInstance().auth;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (validateUsername(name)) {
+            setIsValidUserName(false);
+            console.log(isValidUserName);
+            return;
+        }
         const re = await authService.signName(session.ss, session.username, name);
         if (re.isSuccessful) {
             handleStateLogin(re.user);
@@ -24,6 +30,11 @@ export default function Register(props) {
     const generateName = (event) => {
         event.preventDefault();
         updateNameState(NameGenerator.generateName);
+    };
+
+    const validateUsername = (username) => {
+        const regex = new RegExp("^[a-zA-Z0-9]+$");
+        return username.length > 14 || username.length < 3 || username.match(regex) === null;
     };
 
     return (
@@ -42,7 +53,7 @@ export default function Register(props) {
                         <button className={`${Styles["btn-green"]} ${Styles["btn-name"]}`} onClick={(event) => generateName(event)}>
                             {t("otherName")}
                         </button>
-                        <label className={Styles["message-error"]}></label>
+                        {!isValidUserName && <label className={Styles["message-error"]}>{t("invalidUsername")}</label>}
                     </div>
 
                     <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>

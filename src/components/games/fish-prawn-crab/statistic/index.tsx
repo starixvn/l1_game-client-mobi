@@ -1,30 +1,24 @@
 import React from "react";
 import Styles from "./statistic.module.scss";
 import Item from "../item";
-import { processHistoryResultNumber } from "../../../shared/statistic";
-import BaseResult from "../fish-prawn-crab";
+import { countHistoryResultIsNumber } from "../../../shared/statistic";
 
 type Props = {
     roundHistory: any;
 };
 
-const Element = ({ type, value }) => {
-    return (
-        <div className={Styles["odd-group"]}>
-            <Item type={type} isSmall={true}></Item>
-            <span>{value}</span>
-        </div>
-    );
-};
-
 const StatisticComponent = (props: Props) => {
     const { roundHistory } = props;
-    const tmpData = [0, 0, 0, 0, 0, 0];
-    const result = processHistoryResultNumber(roundHistory, tmpData);
+    const result = countHistoryResultIsNumber(roundHistory, [0, 0, 0, 0, 0, 0]);
     return (
         <div className="d-flex">
             {result.map((value, index) => {
-                return <Element key={"icon-" + index} type={index} value={value}></Element>;
+                return (
+                    <div key={"icon-" + index} className={Styles["odd-group"]}>
+                        <Item type={index} isSmall={true}></Item>
+                        <span>{value}</span>
+                    </div>
+                );
             })}
         </div>
     );

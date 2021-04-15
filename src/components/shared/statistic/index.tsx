@@ -1,8 +1,9 @@
 import React from "react";
 import Styles from "./statistic.module.scss";
 import { historyData } from "./statistic";
+import { Props } from "./statistic";
 
-export function handlePercentData(data: any[], templateResult: number[]) {
+export function handlePercentData(data: number[], templateResult: number[]): number[] {
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
     const totalDiceRed = data.reduce(reducer);
     let totalPercent = 0;
@@ -18,10 +19,11 @@ export function handlePercentData(data: any[], templateResult: number[]) {
 
         totalPercent += percent;
     });
+
     return templateResult;
 }
 
-export function processHistorySettlement(historyData: historyData[], keyChoices: string[], templateResult: number[]) {
+export function countHistorySettlement(historyData: historyData[], keyChoices: string[], templateResult: number[]) {
     historyData.forEach((history: any) => {
         const settlementResult = history.settlementResult;
         keyChoices.forEach((key, index) => {
@@ -34,48 +36,61 @@ export function processHistorySettlement(historyData: historyData[], keyChoices:
     return templateResult;
 }
 
-export function processHistoryResultBoolean(historyData: historyData[], templateResult: number[], isOtherKeyChoice = false) {
-    historyData.forEach((history: any) => {
+export function countHistoryResultIsBoolean(historyData: historyData[], keyChoices: string[], templateResult: number[]): number[] {
+    historyData.forEach((history) => {
         let countDice = 0;
-        const resultDices = history.result;
-        const keyChoices = Object.keys(resultDices);
-
-        keyChoices.forEach((name) => {
-            if (resultDices[name]) {
+        const result = history.result;
+        keyChoices.forEach((key) => {
+            if (result[key]) {
                 countDice++;
             }
         });
-
-        templateResult.forEach((key, index) => {
-            if (countDice === index + 1) {
-                templateResult[index]++;
-            }
-            if (isOtherKeyChoice && countDice === index) {
-                templateResult[index]++;
-            }
-        });
+        if (countDice > 0) {
+            templateResult[countDice - 1]++;
+        }
     });
 
     return templateResult;
 }
 
-export const processHistoryResultNumber = (historyData: historyData[], templateResult: number[]) => {
-    historyData.forEach((history: any) => {
-        const resultDices = history.result;
-        const keyChoices = Object.keys(resultDices);
+export function countHistoryResultNotExistKey(historyData: historyData[]): number {
+    let count = 0;
+    historyData.forEach((history) => {
+        const result = history.result;
+        const keyResult = Object.keys(result);
+        let allFalse = true;
+        keyResult.forEach((key, index) => {
+            if (result[key]) {
+                allFalse = false;
+                return;
+            }
+        });
+        if (allFalse) {
+            count++;
+        }
+    });
 
-        keyChoices.forEach((name) => {
-            templateResult[resultDices[name]]++;
+    return count;
+}
+
+export const countHistoryResultIsNumber = (historyData: historyData[], templateResult: number[]) => {
+    historyData.forEach((history) => {
+        const resultDices = history.result;
+        const valueChoices = Object.values(resultDices);
+
+        valueChoices.forEach((character: number, index: number) => {
+            templateResult[character] = (templateResult[character] ?? 0) + 1;
         });
     });
 
     return templateResult;
 };
-const Statistic = (props: any) => {
+
+const Statistic = (props: Props) => {
     return <div className="d-flex">{props.children}</div>;
 };
 
-export const WrapperHeader = (props) => {
+export const WrapperHeader = (props: Props) => {
     return <div className={Styles["statistic-group"]}>{props.children}</div>;
 };
 
