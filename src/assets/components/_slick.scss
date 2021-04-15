@@ -1,18 +1,26 @@
 @media (min-width: 1024px) {
     .slick-list {
         overflow: initial;
+        width: 100%;
     }
 }
 
 .slick-initialized .slick-slide {
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 75px;
+    width: 63px !important;
+
+    @media (min-width: 1024px) {
+        width: 77px !important;
+    }
 }
 
 .slick-slider {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .slick-list {

@@ -23,10 +23,10 @@
 
     &:hover,
     &.selected {
-        transform: scale(1.5);
+        transform: scale(1.2);
 
         @media (min-width: 1200px) {
-            transform: scale(1.8);
+            transform: scale(1.7);
         }
     }
 
