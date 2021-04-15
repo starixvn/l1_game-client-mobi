@@ -138,55 +138,39 @@ export const BetSettings: React.FC = () => {
 
             {isShowSettings && (
                 <div className={Styles["settings-container"]}>
-                    <div className={Styles["toggle"]}>
-                        <input
-                            className={Styles["toggle-checkbox"]}
-                            id="toggle-quickbet"
-                            type={"checkbox"}
-                            value={"Quick Bet"}
-                            checked={enabledQuickBet}
-                            onChange={onClickQuickBet}
-                        />
-                        <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                            <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
-                        </label>
-                    </div>
-
-                    <div className={Styles["chips-container"]}>
-                        <Slider {...SliderSetting}>
-                            {Object.keys(chipList).map((key) => (
-                                <Chip
-                                    key={key}
-                                    display={key}
-                                    value={chipList[key]}
-                                    onSelected={handleSelectChip}
-                                    selected={selectedChipValue === chipList[key]}
-                                    color={chipColorMapper[chipList[key]]}
-                                />
-                            ))}
-                        </Slider>
-                        {/* <span
-                            className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
-                            onClick={onClickPrev}
-                        ></span>
-                        {Object.keys(chipList).map((key) => (
-                            <Chip
-                                key={key}
-                                display={key}
-                                value={chipList[key]}
-                                onSelected={handleSelectChip}
-                                selected={selectedChipValue === chipList[key]}
-                                color={chipColorMapper[chipList[key]]}
+                    <div className={`game-container ${Styles["container"]}`}>
+                        <div className={Styles["toggle"]}>
+                            <input
+                                className={Styles["toggle-checkbox"]}
+                                id="toggle-quickbet"
+                                type={"checkbox"}
+                                value={"Quick Bet"}
+                                checked={enabledQuickBet}
+                                onChange={onClickQuickBet}
                             />
-                        ))}
-                        <span
-                            className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
-                            onClick={onClickNext}
-                        ></span> */}
-                    </div>
+                            <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                                <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
+                            </label>
+                        </div>
 
-                    <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
-                        <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`}></span>
+                        <div className={Styles["chips-container"]}>
+                            <Slider {...SliderSetting}>
+                                {Object.keys(chipList).map((key) => (
+                                    <Chip
+                                        key={key}
+                                        display={key}
+                                        value={chipList[key]}
+                                        onSelected={handleSelectChip}
+                                        selected={selectedChipValue === chipList[key]}
+                                        color={chipColorMapper[chipList[key]]}
+                                    />
+                                ))}
+                            </Slider>
+                        </div>
+
+                        <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
+                            <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`}></span>
+                        </div>
                     </div>
                 </div>
             )}

@@ -14,6 +14,7 @@
     border-radius: 50%;
     z-index: 10;
     transition: all 0.1s ease-out;
+    position: relative;
 
     @media (min-width: 992px) {
         transform: scale(1.5);
@@ -92,7 +93,7 @@
         @extend .symbol;
         transform: rotate(0deg);
         position: absolute;
-        top: 0;
+        top: 0.1px;
         left: calc(50% - 0.8rem);
     }
 
@@ -100,24 +101,24 @@
         @extend .symbol;
         transform: rotate(90deg);
         position: absolute;
-        right: -0.5rem;
-        top: calc(50% - 0.3rem);
+        right: -5.3px;
+        top: calc(50% - 0.26rem);
     }
 
     .symbol3 {
         @extend .symbol;
         transform: rotate(180deg);
         position: absolute;
-        bottom: 0;
-        left: calc(50% - 0.8rem);
+        bottom: 0.2px;
+        left: calc(50% - 0.78rem);
     }
 
     .symbol4 {
         @extend .symbol;
         transform: rotate(-90deg);
         position: absolute;
-        left: -0.5rem;
-        top: calc(50% - 0.3rem);
+        left: -5.3px;
+        top: calc(50% - 0.26rem);
     }
 
     &.chip-1 {

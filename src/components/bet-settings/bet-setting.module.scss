@@ -62,6 +62,12 @@
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
 .toggle {
     display: block;
     position: absolute;
@@ -171,6 +177,10 @@
                 color: #b47619;
             }
         }
+
+        &:before {
+            font-family: "SabaClub";
+        }
     }
 
     .next {
@@ -179,12 +189,12 @@
 
     .prev {
         @extend %icon;
+        top: auto;
         transform: rotate(180deg);
     }
 
     @media (min-width: 300px) {
-        width: 154px;
-        transform: scale(1);
+        width: 266px;
     }
 
     @media (min-width: 1028px) {
