@@ -11,7 +11,11 @@
 .bet-settings {
     position: fixed;
     left: 0;
-    bottom: 1.4rem;
+    bottom: 0;
     width: 100%;
     z-index: 999;
+
+    @media (min-width: 1024px) {
+        bottom: 1.4rem;
+    }
 }
