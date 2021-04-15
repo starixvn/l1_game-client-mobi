@@ -49,6 +49,7 @@ export const Games: React.FC = () => {
             case 7:
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
             case 1:
+            case 4:
                 return <BigSmall key={`game-${gameId}`} {...gameProps} />;
             default:
                 return null;

@@ -1,5 +1,6 @@
 import React from "react";
 
+import StartRoundAnimation from "../../../shared/star-round-animation";
 import { Result } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
@@ -20,10 +21,7 @@ const Plate: React.FC = ({ children }) => (
 export const ShakeThePlate = () => (
     <div className={Styles["shake-the-plate"]}>
         <Plate />
-
-        <div className={Styles["start-round-container"]}>
-            <div className={Styles["start-round-content"]}>Bắt đầu phiên mới</div>
-        </div>
+        <StartRoundAnimation />
     </div>
 );
 

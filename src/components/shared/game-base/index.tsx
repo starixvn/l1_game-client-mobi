@@ -13,6 +13,7 @@ import BetContainer from "../bet-container";
 import ErrorMessage from "../error-message";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
+import StartRoundAnimation from "../star-round-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
@@ -306,7 +307,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderBetHistory(): React.ReactElement;
 
     renderStartRoundAnimation() {
-        return <></>;
+        return <StartRoundAnimation />;
     }
 
     renderPopup(popupType: PopupType) {
@@ -335,7 +336,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     get isShowStartRoundAnimation() {
-        return false;
+        return this.state.gameState === GameState.BeforeStartRound;
     }
 
     render() {

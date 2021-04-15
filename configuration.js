@@ -48,6 +48,21 @@ module.exports = {
                 beforeStartRound: 1,
             },
         },
+        4: {
+            id: 4,
+            gameName: "TXTurbo",
+            socketInfo: {
+                namespace: "txturbo",
+                path: "turbobigsmall",
+            },
+            durations: {
+                wholeRound: 36,
+                placingBets: 30,
+                lockingBet: 5,
+                showResult: 3,
+                beforeStartRound: 1,
+            },
+        },
         7: {
             id: 7,
             gameName: "DragonTiger",
