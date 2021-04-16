@@ -1,6 +1,4 @@
 import React from "react";
-
-import StartRoundAnimation from "../../../shared/star-round-animation";
 import { Result } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
@@ -20,7 +18,6 @@ const Plate: React.FC = ({ children }) => (
 
 export const ShakeThePlate = () => (
     <div className={Styles["shake-the-plate"]}>
-        <StartRoundAnimation />
         <Plate />
     </div>
 );

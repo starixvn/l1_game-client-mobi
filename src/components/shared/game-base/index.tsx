@@ -14,13 +14,14 @@ import BetContainer from "../bet-container";
 import ErrorMessage from "../error-message";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
-import StartRoundAnimation from "../star-round-animation";
+import StartRoundAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
 import { UserClientCommunication } from "../../../services";
 import Auth from "sc-user-service-client/dist/auth";
+import WaitingTimeAnimation from "../waiting-time-animation";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -358,7 +359,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderBetHistory(): React.ReactElement;
 
     renderStartRoundAnimation() {
-        return <StartRoundAnimation />;
+        return null;
     }
 
     renderPopup(popupType: PopupType) {
@@ -435,6 +436,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     <GameContainer>
                         <BetContainer gameState={gameState}>
                             <div className={Styles["bet-options"]}>{this.renderBetOptions()}</div>
+                            {gameState === GameState.Waiting && <WaitingTimeAnimation remainingTime={remainingTime} />}
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.isDisplayResult && this.renderResult()}
                         </BetContainer>
