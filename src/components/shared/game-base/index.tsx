@@ -19,6 +19,8 @@ import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
+import { UserClientCommunication } from "../../../services";
+import Auth from "sc-user-service-client/dist/auth";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -27,6 +29,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected reBetStorageKey: string;
     protected betSettingStorageKey: string;
     protected messageTransmitter: MessageTransmitterType;
+    protected authService: Auth;
 
     constructor(props: P) {
         super(props);
@@ -34,6 +37,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.reBetStorageKey = LocalStorageManager.localStorageKeys.rebet;
         this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
         this.messageTransmitter = MessageTransmitter();
+        this.authService = UserClientCommunication.getUserClientInstance().auth;
+
         this.registerMessageHandler();
         this.placeBet = this.placeBet.bind(this);
         this.getBetHistory = this.getBetHistory.bind(this);
@@ -97,6 +102,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ isProcessingBet: false });
             endBet === -1 && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
         }
+
+        this.updateUserBalance();
     };
 
     setUserStakeLevel = (payload: any) => {
@@ -144,12 +151,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { roundId, gameState } = this.state;
         const newGameState = this.determineGameState(remainingTime);
 
-        if (newGameState === GameState.BeforeStartRound) {
+        newGameState === GameState.BeforeStartRound &&
             this.setState({
                 ownBets: {},
                 totalBets: {},
             });
-        }
+
+        newGameState === GameState.Waiting && this.updateUserBalance();
 
         const timeCounter = this.getTimeCounter(this.timeCounter, newGameState);
         const newRoundId = gameState !== GameState.InRound && newGameState === GameState.InRound ? roundId + 1 : roundId;
@@ -161,6 +169,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         this.setState(newState);
+    }
+
+    async updateUserBalance() {
+        const { username, ss } = this.context.session;
+        const balanceResponse = await this.authService.getBalance(ss, username);
+
+        if (balanceResponse.errorCode === 0) {
+            this.context.setBalance(balanceResponse.balance);
+        } else {
+            this.setState({ displayPopup: PopupType.Error, errorMessage: balanceResponse.errorMessage });
+        }
     }
 
     handleGameConfigs({ gameConfigs }) {
