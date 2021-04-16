@@ -61,6 +61,7 @@ export const Games: React.FC = () => {
         isFavorite: (gameId) => isFavorite(gameId),
     };
 
+
     return (
         <div className="game-container">
             <FavoriteGameContext.Provider value={favoriteGameContextValue}>

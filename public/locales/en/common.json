@@ -2,5 +2,8 @@
     "popupTitleGuide": "Game Guide",
     "popupTitleHistory": "Game History",
     "rebet": "Rebet",
-    "startNewRound": "Start New Round"
+    "startNewRound": "Start New Round",
+    "cancel": "Cancel",
+    "ok": "Ok",
+    "messageConfirmQuickBet": "Do you want to confirm bet automatically?"
 }

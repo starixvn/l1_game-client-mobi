@@ -4,7 +4,11 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import Chip from "../chip";
 import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
+import BaseDialog from "../shared/base-dialog";
+import ConfirmMessage from "../shared/confirm-message";
+import { ModalType } from "../shared/base-dialog/type";
 import Slider from "react-slick";
+import { useTranslation } from "next-i18next";
 
 export const BetSettings: React.FC = () => {
     const [isShowSettings, setShowSettings] = useState(true);
@@ -12,8 +16,10 @@ export const BetSettings: React.FC = () => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [enabledQuickBet, setEnabledQuickBet] = useState(false);
+    const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const betSettingStorageKey = localStorageKeys.betSetting;
     let sliderRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation("common");
 
     const SliderSetting = {
         speed: 500,
@@ -75,6 +81,14 @@ export const BetSettings: React.FC = () => {
     };
 
     const onClickQuickBet = () => {
+        if (!enabledQuickBet) {
+            setIsShowPopup(true);
+        } else {
+            setEnabledQuickBet(!enabledQuickBet);
+        }
+    };
+
+    const handleDataQuickBet = () => {
         const betSettingStorage: BetSettingStorageType = {
             betValue: selectedChipValue,
             enabledQuickBet: !enabledQuickBet,
@@ -82,6 +96,8 @@ export const BetSettings: React.FC = () => {
 
         storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
         setEnabledQuickBet(!enabledQuickBet);
+        closeModal();
+        setEnabledQuickBet(true);
     };
 
     const handleSelectChip = (chipValue: number) => {
@@ -104,6 +120,10 @@ export const BetSettings: React.FC = () => {
 
     const getChipDisplayByValue = (value: number) => {
         return Object.keys(chipList).find((key) => chipList[key] === value);
+    };
+
+    const closeModal = () => {
+        setIsShowPopup(false);
     };
 
     return (
@@ -179,6 +199,20 @@ export const BetSettings: React.FC = () => {
                     </div>
                 </div>
             )}
+
+            {isShowSettings && isShowModalConfirm && !enabledQuickBet && (
+                <div className={Styles["modalConfirm"]}>
+                    <BaseDialog type={ModalType.Center} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
+                        <ConfirmMessage
+                            t={t}
+                            message={t("messageConfirmQuickBet")}
+                            closeModal={closeModal}
+                            confirmQuickBet={handleDataQuickBet}
+                        />
+                    </BaseDialog>
+                </div>
+            )}
+            <div id="blue"></div>
         </div>
     );
 };

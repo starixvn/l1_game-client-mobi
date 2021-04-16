@@ -2,5 +2,8 @@
     "popupTitleGuide": "Hướng Dẫn",
     "popupTitleHistory": "Lịch Sử",
     "rebet": "Cược lại",
-    "startNewRound": "Bắt đầu phiên mới"
+    "startNewRound": "Bắt đầu phiên mới",
+    "cancel": "Hủy",
+    "ok": "Đồng Ý",
+    "messageConfirmQuickBet": "Bạn muốn xác nhận cược tự động?"
 }
