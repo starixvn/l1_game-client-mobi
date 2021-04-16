@@ -273,7 +273,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     finishProcessingBet() {
         this.setState({ isProcessingBet: false });
-	}
+    }
 
     updateCompactMode() {
         this.setState({ isCompactMode: !this.state.isCompactMode });
