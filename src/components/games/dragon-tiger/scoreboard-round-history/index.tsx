@@ -4,13 +4,24 @@ import { SettlementResult } from "../dragon-tiger";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
 import { checkIsDragon, checkIsTie } from "../round-history";
-import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
     const isDragon = checkIsDragon(result);
     const isTie = checkIsTie(result);
     const textInner = "";
-    return <DragonTigerDotNumber key={roundId} red={isDragon} tie={isTie} textInner={textInner} col={col} row={row}></DragonTigerDotNumber>;
+    return (
+        <DragonTigerDotNumber
+            key={roundId}
+            choice={{
+                dragon: isDragon,
+                tiger: !isDragon,
+                tie: isTie,
+            }}
+            textInner={textInner}
+            col={col}
+            row={row}
+        ></DragonTigerDotNumber>
+    );
 };
 
 const checkCondition = (settlementResult: SettlementResult) => {

@@ -4,7 +4,6 @@ import { SettlementResult } from "../big-small";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
 import { countRedDot, checkIsSmall } from "../round-history";
-import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
     const isSmall = checkIsSmall(countRedDot(result));

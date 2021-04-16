@@ -1,6 +1,5 @@
 import React from "react";
 import { Props } from "./scoreboard-round-history";
-import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import ScoreboardBasic from "../../../shared/round-history/scoreboard/basic";
 import Item from "../item";
 import IconColumn from "../../../shared/round-history/icon-column";

@@ -56,7 +56,7 @@ const DragonTigerRoundHistory = (props: Props) => {
         <>
             {rounds.map((round) => (
                 <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
-                    <DragonTigerDot red={round.settlementResult.dragon} tie={round.settlementResult.tie} />
+                    <DragonTigerDot choice={round.settlementResult} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}

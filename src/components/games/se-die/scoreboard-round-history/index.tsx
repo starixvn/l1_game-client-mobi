@@ -1,6 +1,5 @@
 import React from "react";
 
-import ScoreboardRoundHistory from "../../../shared/round-history/scoreboard";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
 import { ScoreboardItemNext, SeDieDotNumber } from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
