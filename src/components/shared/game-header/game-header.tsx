@@ -28,7 +28,7 @@ export default function GameHeader() {
         updateFavorite(!isFavorite);
     };
 
-    const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet || gameState === GameState.Waiting;
+    const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet;
 
     const onHeaderClick = () => {
         if (isMobile) {
