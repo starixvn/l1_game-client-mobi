@@ -47,6 +47,41 @@ $waiting-color: #ffb335;
 $success-color: #5bb379;
 $error-color: #ff0000;
 
+// Colors in games
+// Sedie
+$sedie-choice-odd-color: #de4b56;
+$sedie-choice-even-color: #a6a6a6;
+
+$sedie-statistic-red-color: #de4b56;
+$sedie-statistic-red-border: #bc2a34;
+$sedie-statistic-red-text-color: #fff;
+$sedie-statistic-red-shadow: 0px 1px 1px rgba(163, 0, 11, 0.25);
+
+$sedie-statistic-white-color: #fff;
+$sedie-statistic-white-border: #c4c4c4;
+$sedie-statistic-white-text-color: #828282;
+$sedie-statistic-white-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+
+// BigSmall
+$bigSmall-choice-big-color: #3b7bc6;
+$bigSmall-statistic-big-border: #245a99;
+
+$bigSmall-choice-small-color: #de4b56;
+$bigSmall-statistic-small-border: #bc2a34;
+
+// DragonTiger
+$dragonTiger-choice-dragon-color: #ff9a00;
+$dragonTiger-statistic-dragon-border: #d58603;
+$dragonTiger-statistic-dragon-shadow: 0px 1px 1px rgba(114, 94, 0, 0.25);
+
+$dragonTiger-choice-tiger-color: #de4b56;
+$dragonTiger-statistic-tiger-border: #bc2a34;
+$dragonTiger-statistic-tiger-shadow: 0px 1px 1px rgba(163, 0, 11, 0.25);
+
+$dragonTiger-choice-tie-color: #235f6a;
+$dragonTiger-statistic-tie-border: #134953;
+$dragonTiger-statistic-tie-shadow: 0px 1px 1px rgba(58, 91, 97, 0.3);
+
 // chips
 $chip-layer1-background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(55, 55, 55, 0.2) 100%);
 $chip-layer2-background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);

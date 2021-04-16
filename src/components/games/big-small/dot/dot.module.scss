@@ -1,14 +1,14 @@
+@import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/dot";
 
 .dot-red {
     @extend %dot;
-    background-color: #de4b56;
-    border-color: #bc2a34;
-    box-shadow: 0px 1px 1px rgba(163, 0, 11, 0.25);
+    background-color: $bigSmall-choice-small-color;
+    border-color: $bigSmall-statistic-small-border;
 }
 
 .dot-blue {
     @extend %dot;
-    background-color: #3b7bc6;
-    border-color: #245a99;
+    background-color: $bigSmall-choice-big-color;
+    border-color: $bigSmall-statistic-big-border;
 }

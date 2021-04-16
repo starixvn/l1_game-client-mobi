@@ -1,27 +1,12 @@
-%title {
-    font-size: 1.4rem;
-    font-weight: 500;
-    display: inline-block;
-    margin-right: 0.4rem;
-    margin-left: 1rem;
-}
+@import "../../../../assets/abstracts/variables";
+@import "../../../../assets/components/statistic";
 
 .titleBig {
     @extend %title;
-    color: #3087d7;
+    color: $bigSmall-choice-big-color;
 }
 
 .titleSmall {
     @extend %title;
-    color: #de4b56;
-}
-
-.number {
-    margin-left: 0.2rem;
-}
-
-.statistic-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: $bigSmall-choice-small-color;
 }

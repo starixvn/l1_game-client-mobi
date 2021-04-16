@@ -1,22 +1,23 @@
+@import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/dot";
-
-.dot-tiger {
-    @extend %dot;
-    background-color: #de4b56;
-    border-color: #bc2a34;
-    box-shadow: 0px 1px 1px rgba(163, 0, 11, 0.25);
-}
 
 .dot-dragon {
     @extend %dot;
-    background-color: #ff9a00;
-    border-color: #d58603;
-    box-shadow: 0px 1px 1px rgba(114, 94, 0, 0.25);
+    background-color: $dragonTiger-choice-dragon-color;
+    border-color: $dragonTiger-statistic-dragon-border;
+    box-shadow: $dragonTiger-statistic-dragon-shadow;
+}
+
+.dot-tiger {
+    @extend %dot;
+    background-color: $dragonTiger-choice-tiger-color;
+    border-color: $dragonTiger-statistic-tiger-border;
+    box-shadow: $dragonTiger-statistic-tiger-shadow;
 }
 
 .dot-tie {
     @extend %dot;
-    background-color: #235f6a;
-    border-color: #134953;
-    box-shadow: 0px 1px 1px rgba(58, 91, 97, 0.3);
+    background-color: $dragonTiger-choice-tie-color;
+    border-color: $dragonTiger-statistic-tie-border;
+    box-shadow: $dragonTiger-statistic-tie-shadow;
 }

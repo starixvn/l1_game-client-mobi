@@ -26,6 +26,11 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation("dragontiger");
     return (
         <div className={`bet-options-container ${Styles["layout-dragon-tiger"]}`}>
+            <div className={Styles["choice-tie"]}>
+                <BetOption choice={Choices.tie} odd={odds[Choices.tie]} isHighlight={settlementResult[Choices.tie]} gameState={gameState}>
+                    <div className={Styles["text-tie"]}>{t(Choices.tie)}</div>
+                </BetOption>
+            </div>
             <BetOption
                 choice={Choices.dragon}
                 odd={odds[Choices.dragon]}
@@ -43,11 +48,6 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                     <div className={Styles["text-tiger"]}>{t(Choices.tiger)}</div>
                 </div>
             </BetOption>
-            <div className={Styles["choice-tie"]}>
-                <BetOption choice={Choices.tie} odd={odds[Choices.tie]} isHighlight={settlementResult[Choices.tie]} gameState={gameState}>
-                    <div className={Styles["text-tie"]}>{t(Choices.tie)}</div>
-                </BetOption>
-            </div>
         </div>
     );
 };
