@@ -7,6 +7,7 @@ import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import GameContainer from "../../shared/game-container";
+import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
@@ -16,7 +17,6 @@ import Rebet from "../rebet";
 import StartRoundAnimation from "../star-round-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
-import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
 
@@ -412,8 +412,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             {this.isDisplayResult && this.renderResult()}
                         </BetContainer>
                         <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
-                        <div className={`${Styles["statistic"]} d-flex`}>{this.renderStatistic()}</div>
-                        <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+                        {!isCompactMode && (
+                            <>
+                                <div className={`${Styles["statistic"]} d-flex`}>{this.renderStatistic()}</div>
+                                <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+                            </>
+                        )}
                         {this.renderPopup(displayPopup)}
                     </GameContainer>
                 </GameActionsContextProvider>

@@ -14,9 +14,9 @@ const ChoiceIconMapper = {
     white4: [false, false, false, false],
     red3: [false, true, true, true],
     white3: [true, false, false, false],
-    even: [],
-    odd: [],
 };
+
+const MainChoice = ["even", "odd"];
 
 type Props = {
     settlementResult: SettlementResult;
@@ -25,7 +25,7 @@ type Props = {
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs, gameSetting } = useGameContext();
+    const { gameConfigs, gameSetting, isCompactMode } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLowerCase()]);
 
@@ -43,10 +43,19 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div className={`${Styles["layout-sedie"]}`}>
-            {Object.keys(ChoiceIconMapper).map((choice) => (
+            {!isCompactMode &&
+                Object.keys(ChoiceIconMapper).map((choice) => (
+                    <div key={choice} className={Styles[`bet-choice-${choice}`]}>
+                        <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+                            {renderIcons(choice)}
+                        </BetOption>
+                    </div>
+                ))}
+
+            {MainChoice.map((choice) => (
                 <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                     <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
-                        {ChoiceIconMapper[choice].length ? renderIcons(choice) : renderLabel(choice)}
+                        {renderLabel(choice)}
                     </BetOption>
                 </div>
             ))}
