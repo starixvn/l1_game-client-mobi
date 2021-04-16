@@ -12,13 +12,13 @@ type Props = {
 };
 
 const DragonTigerDot: React.FunctionComponent<Props> = ({ red = false, tie = false, value }) => {
-    return <div className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-red"] : Styles["dot-blue"]}`}>{value}</div>;
+    return <div className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-tiger"] : Styles["dot-dragon"]}`}>{value}</div>;
 };
 
 export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ red = false, tie = false, textInner, col, row }) => {
     return (
         <div
-            className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-red"] : Styles["dot-blue"]}`}
+            className={`${tie ? Styles["dot-tie"] : red ? Styles["dot-tiger"] : Styles["dot-dragon"]}`}
             style={{
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),

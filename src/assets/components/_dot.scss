@@ -9,6 +9,8 @@
     font-size: 1.2rem;
     font-weight: 500;
     pointer-events: none;
+    border-width: 0.1rem;
+    border-style: solid;
 
     @media print, screen and (min-width: 992px) {
         width: 1.6rem;
