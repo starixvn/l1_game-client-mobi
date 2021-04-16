@@ -11,6 +11,7 @@ import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import ScoreboardHistory from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
+import { CommonResourceKeys } from "../../../common/resources";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -61,18 +62,17 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderGuide() {
-        return this.renderContentPopup("popupTitleGuide", this.state.displayPopup === PopupType.Guide);
+        return (
+            <AdvanceModal title={CommonResourceKeys.GUIDE_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+                <FishPrawnCrabGuide />
+            </AdvanceModal>
+        );
     }
 
     renderBetHistory() {
-        return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
-    }
-
-    renderContentPopup(title: string, isOpen: boolean) {
-        const component: JSX.Element[] = [<FishPrawnCrabGuide />, <FishPrawnCrabBetHistory />];
         return (
-            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
-                {component[this.state.displayPopup]}
+            <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+                <FishPrawnCrabBetHistory />
             </AdvanceModal>
         );
     }

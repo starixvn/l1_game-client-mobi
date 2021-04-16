@@ -11,6 +11,7 @@ import ScoreboardHistory from "./scoreboard-round-history";
 import DragonTigerRoundHistory from "./round-history";
 import DragonTigerResult from "./dragon-tiger-result";
 import DragonTigerStatistic from "./statistic";
+import { CommonResourceKeys } from "../../../common/resources";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -61,18 +62,17 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderGuide() {
-        return this.renderContentPopup("popupTitleGuide", this.state.displayPopup === PopupType.Guide);
+        return (
+            <AdvanceModal title={CommonResourceKeys.GUIDE_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+                <DragonTigerGuide />
+            </AdvanceModal>
+        );
     }
 
     renderBetHistory() {
-        return this.renderContentPopup("popupTitleHistory", this.state.displayPopup === PopupType.BetHistory);
-    }
-
-    renderContentPopup(title: string, isOpen: boolean) {
-        const component: JSX.Element[] = [<DragonTigerGuide />, <DragonTigerBetHistory />];
         return (
-            <AdvanceModal title={title} isOpen={isOpen} onCloseModal={() => this.closePopup()}>
-                {component[this.state.displayPopup]}
+            <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+                <DragonTigerBetHistory />
             </AdvanceModal>
         );
     }

@@ -18,7 +18,7 @@ export const BetSettings: React.FC = () => {
     const [enabledQuickBet, setEnabledQuickBet] = useState(false);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const betSettingStorageKey = localStorageKeys.betSetting;
-    let sliderRef = useRef<HTMLDivElement>(null);
+    let sliderRef = null;
     const { t } = useTranslation("common");
 
     const SliderSetting = {
