@@ -25,7 +25,7 @@ const renderBet = (bet: BetLogs) => {
     const { gameConfigs } = useGameContext();
     const { t } = useTranslation("xocxoc");
     const odds = gameConfigs.odds;
-    const keysChoices = Object.keys(odds);
+    const keysChoices = Object.keys(bet.settlementResult);
     return (
         <div className={Styles["choice"]}>
             {keysChoices.map((name, index) => {

@@ -19,12 +19,17 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [totalPage, setTotalPage] = useState(0);
     const [hasMoreHistory, setHasMoreHistory] = useState(false);
     const betHistory: GameBetHistory = gameContext.betHistory;
-
     const { t } = useTranslation("bethistory");
 
     useEffect(() => {
         gameActions.getBetHistory(1);
     }, []);
+
+    useEffect(() => {
+        if (listBetHistory.length > 0 && listBetHistory.length % 8 > 0) {
+            setHasMoreHistory(false);
+        }
+    }, [page === 1]);
 
     useEffect(() => {
         fetchBetHistory();
