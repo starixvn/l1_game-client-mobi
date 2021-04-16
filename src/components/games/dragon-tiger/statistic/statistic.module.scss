@@ -1,0 +1,32 @@
+%title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 0.4rem;
+    margin-left: 1rem;
+}
+
+.title-tiger {
+    @extend %title;
+    color: #DE4B56;
+}
+
+.title-dragon {
+    @extend %title;
+    color: #FF9A00;
+}
+
+.title-tie {
+    @extend %title;
+    color: #de4b56;
+}
+
+.number {
+    margin-left: 0.2rem;
+}
+
+.statistic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

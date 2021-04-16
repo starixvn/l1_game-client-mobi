@@ -9,6 +9,8 @@ import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
 import ScoreboardHistory from "./scoreboard-round-history";
 import DragonTigerRoundHistory from "./round-history";
+import DragonTigerResult from "./dragon-tiger-result";
+import DragonTigerStatistic from "./statistic";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -41,11 +43,12 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderStatistic() {
-        return <></>;
+        return <DragonTigerStatistic roundHistory={this.state.roundHistory} />;
     }
 
     renderResult() {
-        return <></>;
+        const { result, settlementResult } = this.state;
+        return <DragonTigerResult result={result} settlementResult={settlementResult} />;
     }
 
     renderBoard() {

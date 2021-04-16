@@ -2,7 +2,7 @@ import React from "react";
 import Styles from "./big-small-result.module.scss";
 import { Props } from "./type";
 
-const FishPrawnCrabResult: React.FC<Props> = (props) => {
+const DragonTigerResult: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
 
     const generateResult = (result: boolean[]) => {
@@ -36,4 +36,4 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
     );
 };
 
-export default FishPrawnCrabResult;
+export default DragonTigerResult;
