@@ -1,14 +1,14 @@
+import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
+import Slider from "react-slick";
 
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
+import BaseDialog from "../shared/base-dialog";
+import { ModalType } from "../shared/base-dialog/type";
+import ConfirmMessage from "../shared/confirm-message";
 import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
-import BaseDialog from "../shared/base-dialog";
-import ConfirmMessage from "../shared/confirm-message";
-import { ModalType } from "../shared/base-dialog/type";
-import Slider from "react-slick";
-import { useTranslation } from "next-i18next";
 
 export const BetSettings: React.FC = () => {
     const [isShowSettings, setShowSettings] = useState(true);
@@ -217,7 +217,6 @@ export const BetSettings: React.FC = () => {
                     </BaseDialog>
                 </div>
             )}
-            <div id="blue"></div>
         </div>
     );
 };

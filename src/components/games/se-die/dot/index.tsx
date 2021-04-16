@@ -29,7 +29,11 @@ export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, co
 };
 
 export const MiniItemNext = () => {
-    return <div className={`${Styles["dot-next"]} ${Styles.blink}`}></div>;
+    return (
+        <div>
+            <div className={`${Styles["dot-next"]} ${Styles.blink}`}></div>
+        </div>
+    );
 };
 
 export const ScoreboardItemNext = ({ col, row }) => {
