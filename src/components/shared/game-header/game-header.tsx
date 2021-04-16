@@ -40,7 +40,13 @@ export default function GameHeader() {
         <div className={Styles.header} onClick={() => onHeaderClick()}>
             <div className={Styles["header-left"]}>
                 <div className={Styles["favorite-btn"]} onClick={() => favoriteClickHandle()}>
-                    <span className={isFavorite ? "icon-favorite" : "icon-favorite-normal"}></span>
+                    <span
+                        className={
+                            isFavorite
+                                ? `icon-favorite ${Styles["icon-favorite"]}`
+                                : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
+                        }
+                    ></span>
                 </div>
                 <div className={Styles["title-roundID"]}>
                     <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>

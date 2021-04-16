@@ -180,13 +180,13 @@
 }
 
 .chips-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 21.2rem;
+    position: relative;
+    width: 20.8rem;
     margin: auto;
 
     %icon {
+        position: absolute;
+        top: calc(50% - 18px);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -213,16 +213,17 @@
 
     .next {
         @extend %icon;
+        right: -2.6rem;
     }
 
     .prev {
         @extend %icon;
-        top: auto;
+        left: -2.6rem;
         transform: rotate(180deg);
     }
 
     @media (min-width: 1024px) {
-        width: 85rem;
+        width: 80rem;
     }
 }
 
