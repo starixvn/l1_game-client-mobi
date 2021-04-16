@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
@@ -23,6 +23,7 @@ export const BetSettings: React.FC = () => {
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [enabledQuickBet, setEnabledQuickBet] = useState(false);
     const betSettingStorageKey = localStorageKeys.betSetting;
+    let sliderRef = useRef<HTMLDivElement>(null);
 
     const SliderSetting = {
         speed: 500,
@@ -30,8 +31,7 @@ export const BetSettings: React.FC = () => {
         adaptiveHeight: true,
         swipeToSlide: true,
         slidesToShow: 9,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
+        arrows: false,
         responsive: [
             {
                 breakpoint: 1024,
@@ -48,6 +48,7 @@ export const BetSettings: React.FC = () => {
         if (betSettings) {
             setEnabledQuickBet(betSettings.enabledQuickBet);
             setSelectedChipValue(betSettings.betValue);
+            updateArrowsByChipValue(betSettings.betValue);
         }
     }, []);
 
@@ -65,6 +66,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickNext = () => {
         if (enabledNextBtn) {
+            sliderRef.slickNext();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
@@ -74,6 +76,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickPrev = () => {
         if (enabledPrevBtn) {
+            sliderRef.slickPrev();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
@@ -92,17 +95,21 @@ export const BetSettings: React.FC = () => {
     };
 
     const handleSelectChip = (chipValue: number) => {
-        const chipIndex = chipValues.indexOf(chipValue);
-
-        chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
-        chipIndex === chipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
         const betSettingStorage: BetSettingStorageType = {
             betValue: chipValue,
             enabledQuickBet: enabledQuickBet,
         };
 
+        updateArrowsByChipValue(chipValue);
         storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
         setSelectedChipValue(chipValue);
+    };
+
+    const updateArrowsByChipValue = (chipValue: number) => {
+        const chipIndex = chipValues.indexOf(chipValue);
+
+        chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
+        chipIndex === chipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
     };
 
     const getChipDisplayByValue = (value: number) => {
@@ -154,7 +161,16 @@ export const BetSettings: React.FC = () => {
                         </div>
 
                         <div className={Styles["chips-container"]}>
-                            <Slider {...SliderSetting}>
+                            <span
+                                className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
+                                onClick={onClickPrev}
+                            ></span>
+                            <Slider
+                                ref={(c) => {
+                                    sliderRef = c;
+                                }}
+                                {...SliderSetting}
+                            >
                                 {Object.keys(chipList).map((key) => (
                                     <Chip
                                         key={key}
@@ -166,6 +182,10 @@ export const BetSettings: React.FC = () => {
                                     />
                                 ))}
                             </Slider>
+                            <span
+                                className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
+                                onClick={onClickNext}
+                            ></span>
                         </div>
 
                         <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
