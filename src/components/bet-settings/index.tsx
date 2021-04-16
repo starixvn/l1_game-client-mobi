@@ -6,16 +6,6 @@ import Styles from "./bet-setting.module.scss";
 import { BetSettingStorageType } from "./type";
 import Slider from "react-slick";
 
-const PrevArrow = (props) => {
-    const { className, onClick } = props;
-    return <span className={`icon-arrow-right ${Styles["prev"]} ${className}`} onClick={onClick}></span>;
-};
-
-const NextArrow = (props) => {
-    const { className, onClick } = props;
-    return <span className={`icon-arrow-right ${Styles["next"]} ${className}`} onClick={onClick}></span>;
-};
-
 export const BetSettings: React.FC = () => {
     const [isShowSettings, setShowSettings] = useState(true);
     const [selectedChipValue, setSelectedChipValue] = useState(1);
@@ -66,7 +56,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickNext = () => {
         if (enabledNextBtn) {
-            sliderRef.slickNext();
+            sliderRef.current.slickNext();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
@@ -76,7 +66,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickPrev = () => {
         if (enabledPrevBtn) {
-            sliderRef.slickPrev();
+            sliderRef.current.slickPrev();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
@@ -165,12 +155,7 @@ export const BetSettings: React.FC = () => {
                                 className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
                                 onClick={onClickPrev}
                             ></span>
-                            <Slider
-                                ref={(c) => {
-                                    sliderRef = c;
-                                }}
-                                {...SliderSetting}
-                            >
+                            <Slider ref={sliderRef} {...SliderSetting}>
                                 {Object.keys(chipList).map((key) => (
                                     <Chip
                                         key={key}
