@@ -11,7 +11,7 @@ module.exports = {
                 path: "bigsmall",
             },
             durations: {
-                wholeRound: 50,
+                wholeRound: 51,
                 placingBets: 45,
                 lockingBet: 5,
                 showResult: 3,
@@ -26,7 +26,7 @@ module.exports = {
                 path: "sedie",
             },
             durations: {
-                wholeRound: 39,
+                wholeRound: 40,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 3,
@@ -41,7 +41,7 @@ module.exports = {
                 path: "fishprawncrab",
             },
             durations: {
-                wholeRound: 39,
+                wholeRound: 40,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 4,
@@ -56,7 +56,7 @@ module.exports = {
                 path: "turbobigsmall",
             },
             durations: {
-                wholeRound: 36,
+                wholeRound: 37,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 3,
@@ -71,7 +71,7 @@ module.exports = {
                 path: "dragontiger",
             },
             durations: {
-                wholeRound: 36,
+                wholeRound: 37,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 4,
@@ -86,7 +86,7 @@ module.exports = {
                 path: "vsedie",
             },
             durations: {
-                wholeRound: 39,
+                wholeRound: 40,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 3,

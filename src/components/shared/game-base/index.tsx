@@ -135,6 +135,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleRemainingTime({ remainingTime }) {
+        const { gameState } = this.state;
+
+        gameState === GameState.None && this.runGame(remainingTime);
+    }
+
+    runGame(remainingTime: number) {
         this.timeCounter = remainingTime;
 
         this.interval && clearInterval(this.interval);
@@ -243,6 +249,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleFinish({ finish }) {
         const { roundHistory } = this.state;
+        const { durations } = this.props;
 
         this.storeOwnBet(finish.roundId);
 
@@ -253,6 +260,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             result: finish.result,
             settlementResult: finish.settlementResult,
         });
+        this.runGame(durations.wholeRound);
     }
 
     storeOwnBet(roundId: number) {

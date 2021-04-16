@@ -62,7 +62,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickNext = () => {
         if (enabledNextBtn) {
-            sliderRef.current.slickNext();
+            sliderRef.slickNext();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
@@ -72,7 +72,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickPrev = () => {
         if (enabledPrevBtn) {
-            sliderRef.current.slickPrev();
+            sliderRef.slickPrev();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
@@ -175,7 +175,12 @@ export const BetSettings: React.FC = () => {
                                 className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
                                 onClick={onClickPrev}
                             ></span>
-                            <Slider ref={sliderRef} {...SliderSetting}>
+                            <Slider
+                                ref={(c) => {
+                                    sliderRef = c;
+                                }}
+                                {...SliderSetting}
+                            >
                                 {Object.keys(chipList).map((key) => (
                                     <Chip
                                         key={key}
