@@ -16,19 +16,25 @@
     top: 0;
     left: 0;
 
+    .odd,
+    .total-bet,
+    .own-bet {
+        font-family: $font-stake;
+    }
+
     .odd {
         left: 0.5rem;
         top: 0.3rem;
         position: absolute;
         color: #a8aeb8;
         text-align: left;
-        font-size: 1.2rem;
     }
 
     .total-bet {
         position: absolute;
         width: 100%;
         top: 0.3rem;
+        font-size: 1.6rem;
         text-align: center;
     }
 

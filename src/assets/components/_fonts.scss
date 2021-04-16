@@ -10,30 +10,29 @@
 }
 
 @font-face {
-    font-family: "Rubik";
-    src: url("/static/fonts/Rubik-Regular.eot");
-    src: url("/static/fonts/Rubik-Regular.eot?#iefix") format("embedded-opentype"), url("/static/fonts/Rubik-Regular.woff2") format("woff2"),
-        url("/static/fonts/Rubik-Regular.woff") format("woff"), url("/static/fonts/Rubik-Regular.ttf") format("truetype"),
-        url("/static/fonts/Rubik-Regular.svg#svgFontName") format("svg");
+    font-family: "BinanceFlex";
+    src: url("/static/fonts/BinancePlex_Regular.woff2") format("woff2"), url("/static/fonts/BinancePlex_Regular.woff") format("woff"),
+        url("/static/fonts/BinancePlex_Regular.ttf") format("truetype");
     font-weight: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Rubik";
-    src: url("/static/fonts/Rubik-Medium.woff2") format("woff2"), url("/static/fonts/Rubik-Medium.woff") format("woff"),
-        url("/static/fonts/Rubik-Medium.ttf") format("truetype");
+    font-family: "BinanceFlex";
+    src: url("/static/fonts/BinanceFlex_Medium.woff2") format("woff2"), url("/static/fonts/BinanceFlex_Medium.woff") format("woff"),
+        url("/static/fonts/BinanceFlex_Medium.ttf") format("truetype");
     font-weight: 500;
     font-display: swap;
 }
 
 @font-face {
-    font-family: "Rubik";
-    src: url("/static/fonts/Rubik-Bold.woff2") format("woff2"), url("/static/fonts/Rubik-Bold.woff") format("woff"),
-        url("/static/fonts/Rubik-Bold.ttf") format("truetype");
+    font-family: "BinanceFlex";
+    src: url("/static/fonts/BinancePlex_SemiBold.woff2") format("woff2"), url("/static/fonts/BinancePlex_SemiBold.woff") format("woff"),
+        url("/static/fonts/BinancePlex_SemiBold.ttf") format("truetype");
     font-weight: bold;
     font-display: swap;
 }
+
 @font-face {
     font-family: "BebasNeue";
     src: url("/static/fonts/BebasNeue-Regular.ttf") format("truetype");
