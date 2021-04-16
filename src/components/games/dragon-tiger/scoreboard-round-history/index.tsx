@@ -30,15 +30,13 @@ const ScoreboardHistory = (props: Props) => {
         return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
     };
     return (
-        <ScoreboardRoundHistory>
-            <ScoreboardDragon
-                roundHistory={roundHistory}
-                gameState={gameState}
-                getElementRound={getElementRound}
-                checkCondition={checkCondition}
-                roundNext={roundNext}
-            ></ScoreboardDragon>
-        </ScoreboardRoundHistory>
+        <ScoreboardDragon
+            roundHistory={roundHistory}
+            gameState={gameState}
+            getElementRound={getElementRound}
+            checkCondition={checkCondition}
+            roundNext={roundNext}
+        ></ScoreboardDragon>
     );
 };
 

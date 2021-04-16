@@ -86,12 +86,8 @@ export const countHistoryResultIsNumber = (historyData: historyData[], templateR
     return templateResult;
 };
 
-const Statistic = (props: Props) => {
-    return <div className="d-flex">{props.children}</div>;
-};
-
 export const WrapperHeader = (props: Props) => {
     return <div className={Styles["statistic-group"]}>{props.children}</div>;
 };
 
-export default Statistic;
+export default WrapperHeader;

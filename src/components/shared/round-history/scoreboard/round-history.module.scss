@@ -1,3 +1,11 @@
+@import "../../../../assets/abstracts/variables";
+.board {
+    height: 13.9rem;
+    width: 100%;
+    padding: 0.8rem 0.8rem 0;
+    border-top: 0.1rem solid $border-color;
+   
+}
 .score-board-dragon-container {
     display: grid;
     grid-template-columns: repeat(19, 1fr);
@@ -19,10 +27,12 @@
 .score-board-dragon-container, .score-board-container{
     &:hover {
         overflow-x: auto;
+        overflow-y: hidden;
         padding-right: 1px;
     }
     &:active {
         overflow-x: auto;
+        overflow-y: hidden;
         padding-right: 1px;
     }
 

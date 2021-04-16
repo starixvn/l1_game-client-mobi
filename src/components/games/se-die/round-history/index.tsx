@@ -3,7 +3,6 @@ import React from "react";
 
 import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
-import RoundHistoryContainer from "../../../shared/round-history/container";
 import RoundHistoryItem from "../../../shared/round-history/item";
 import SeDieDot, { MiniItemNext } from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
@@ -42,14 +41,14 @@ const SeDieRoundHistory = (props: Props) => {
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
     return (
-        <RoundHistoryContainer>
+        <>
             {rounds.map((round) => (
                 <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
                     <SeDieDot red={checkIsEven(countRedDot(round.result))} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}
-        </RoundHistoryContainer>
+        </>
     );
 };
 

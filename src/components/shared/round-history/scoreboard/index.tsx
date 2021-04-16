@@ -47,7 +47,11 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
     }, [scrollWrapperCurrent]);
 
-    return <div ref={wrapperRef}>{props.children}</div>;
+    return (
+        <div ref={wrapperRef} className={Styles["board"]}>
+            {props.children}
+        </div>
+    );
 };
 
 export default ScoreboardRoundHistory;

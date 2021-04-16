@@ -18,11 +18,7 @@ const getElementRound = (result: any, roundId: number) => {
 
 const ScoreboardHistory = (props: Props) => {
     const { roundHistory, gameState } = props;
-    return (
-        <ScoreboardRoundHistory>
-            <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={getElementRound}></ScoreboardBasic>
-        </ScoreboardRoundHistory>
-    );
+    return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={getElementRound}></ScoreboardBasic>;
 };
 
 export default ScoreboardHistory;

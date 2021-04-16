@@ -1,11 +1,10 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import Statistic, {
+import WrapperHeader, {
     handlePercentData,
     countHistoryResultIsBoolean,
     countHistoryResultNotExistKey,
-    WrapperHeader,
     countHistorySettlement,
 } from "../../../shared/statistic";
 import { Props, ResultDiceRed } from "./statistic";
@@ -15,7 +14,7 @@ import Styles from "./statistic.module.scss";
 const ChoiceOddEven = ({ data, titleText }) => {
     const { t } = useTranslation("xocxoc");
     return (
-        <div className="d-flex">
+        <>
             {titleText.map((title, index) => {
                 return (
                     <WrapperHeader key={"choice-oddEven-" + index}>
@@ -24,13 +23,13 @@ const ChoiceOddEven = ({ data, titleText }) => {
                     </WrapperHeader>
                 );
             })}
-        </div>
+        </>
     );
 };
 
 const ChoiceOther = ({ data, titleText }) => {
     return (
-        <div className="d-flex">
+        <>
             {titleText.map((title, index) => {
                 const value = index === 0 ? data[4] : data[index];
                 return (
@@ -40,7 +39,7 @@ const ChoiceOther = ({ data, titleText }) => {
                     </WrapperHeader>
                 );
             })}
-        </div>
+        </>
     );
 };
 
@@ -52,10 +51,10 @@ const SeDiceStatistic = (props: Props) => {
     countDiceRed.push(+countDiceAllWhite);
     const percentOtherChoice: ResultDiceRed[] = handlePercentData(countDiceRed, [0, 0, 0, 0, 0]);
     return (
-        <Statistic>
+        <>
             <ChoiceOddEven data={percentOddEven} titleText={["odd", "even"]} />
             <ChoiceOther data={percentOtherChoice} titleText={[0, 1, 2, 3, 4]} />
-        </Statistic>
+        </>
     );
 };
 

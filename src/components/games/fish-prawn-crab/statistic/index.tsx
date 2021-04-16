@@ -11,7 +11,7 @@ const StatisticComponent = (props: Props) => {
     const { roundHistory } = props;
     const result = countHistoryResultIsNumber(roundHistory, [0, 0, 0, 0, 0, 0]);
     return (
-        <div className="d-flex">
+        <>
             {result.map((value, index) => {
                 return (
                     <div key={"icon-" + index} className={Styles["odd-group"]}>
@@ -20,7 +20,7 @@ const StatisticComponent = (props: Props) => {
                     </div>
                 );
             })}
-        </div>
+        </>
     );
 };
 

@@ -6,7 +6,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
     const result: number[] = props.result ? Object.values(props.result) : [];
     const generateResult = (result: number[]) => {
         return result.map((value, index) => (
-            <div className={`${Styles[`result-${index + 1}`]}`}>
+            <div key={"result-index-" + index} className={`${Styles[`result-${index + 1}`]}`}>
                 <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
             </div>
         ));

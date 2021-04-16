@@ -3,7 +3,6 @@ import React from "react";
 
 import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
-import RoundHistoryContainer from "../../../shared/round-history/container";
 import RoundHistoryItem from "../../../shared/round-history/item";
 import { Result, SettlementResult } from "../big-small";
 import BigSmallDot, { MiniItemNext } from "../dot";
@@ -46,14 +45,14 @@ const BigSmallRoundHistory = (props: Props) => {
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
     return (
-        <RoundHistoryContainer>
+        <>
             {rounds.map((round) => (
                 <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
                     <BigSmallDot red={round.settlementResult.small} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}
-        </RoundHistoryContainer>
+        </>
     );
 };
 
