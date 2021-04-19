@@ -1,13 +1,45 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { PropsBetContainer, Props, BetHistoryItem } from "./bet-history";
+// import { PropsBetContainer, Props, BetHistoryItem } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameBetHistory } from "../../../components/shared/game-base/type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Styles from "./bet-history.module.scss";
+
+export type Props = {
+    betHistoryItem: any;
+    renderResult: Function;
+    renderBet: Function;
+    isRefund: boolean;
+};
+
+export type BetHistoryItem = {
+    time: string;
+    phien: number;
+    betwin: number;
+    refund?: number;
+    amount?: number;
+    totalAmount?: number;
+};
+
+export type PropsBetContainer = {
+    isRefund: boolean;
+    renderResult: Function;
+    renderBet: Function;
+};
+
+export type BetLogs = {
+    betLogDetails: [];
+    betwin: number;
+    freeBet?: boolean;
+    name: string;
+    phien: number;
+    result: object;
+    settlementResult: object;
+    time: string;
+};
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, renderBet, isRefund } = props;
