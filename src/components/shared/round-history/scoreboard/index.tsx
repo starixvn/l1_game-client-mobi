@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Styles from "./round-history.module.scss";
 
 type Props = {
@@ -7,12 +7,13 @@ type Props = {
 
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const scrollWrapperCurrent = wrapperRef.current;
+    const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
+    const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
     let mouseDown = false;
     let startX, scrollLeft;
-
     const handleWheel = (e) => {
         e.target.scrollLeft -= e.deltaY;
+        updateScrollEndRight(e);
     };
 
     const startDragging = (e) => {
@@ -34,18 +35,35 @@ const ScoreboardRoundHistory = (props: Props) => {
         const x: number = e.pageX - e.target.offsetLeft;
         const scroll: number = x - startX;
         e.target.scrollLeft = scrollLeft - scroll;
+        updateScrollEndRight(e);
+    };
+
+    const updateScrollEndRight = (e) => {
+        if (e.target.scrollLeft == scrollLeftWidth) {
+            setIsScrollEndRight(true);
+        } else {
+            setIsScrollEndRight(false);
+        }
     };
 
     useEffect(() => {
         if (wrapperRef.current) {
-            wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
             wrapperRef.current.onwheel = handleWheel;
             wrapperRef.current.onmousedown = startDragging;
             wrapperRef.current.onmouseup = stopDragging;
             wrapperRef.current.onmouseleave = stopDragging;
             wrapperRef.current.onmousemove = handleDragging;
         }
-    }, [scrollWrapperCurrent]);
+    }, [scrollLeftWidth]);
+
+    useEffect(() => {
+        if (isScrollEndRight) {
+            wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
+        }
+        if (wrapperRef.current) {
+            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft));
+        }
+    });
 
     return (
         <div ref={wrapperRef} className={Styles["board"]}>
