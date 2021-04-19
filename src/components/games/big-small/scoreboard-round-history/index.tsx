@@ -1,9 +1,10 @@
 import React from "react";
-import { BigSmallDotNumber, ScoreboardItemNext } from "../dot";
-import { SettlementResult } from "../big-small";
-import { Props } from "./scoreboard-round-history";
+
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
-import { countRedDot, checkIsSmall } from "../round-history";
+import { SettlementResult } from "../big-small";
+import { BigSmallDotNumber, ScoreboardItemNext } from "../dot";
+import { checkIsSmall, countRedDot } from "../round-history";
+import { Props } from "./scoreboard-round-history";
 
 const getElementRound = (result: any, col: number, row: number, roundId: number) => {
     const isSmall = checkIsSmall(countRedDot(result));
@@ -12,11 +13,7 @@ const getElementRound = (result: any, col: number, row: number, roundId: number)
 };
 
 const checkCondition = (settlementResult: SettlementResult) => {
-    let value = 1;
-    if (settlementResult.small) {
-        value = 0;
-    }
-    return value;
+    return settlementResult.small ? 0 : 1;
 };
 
 const ScoreboardHistory = (props: Props) => {
