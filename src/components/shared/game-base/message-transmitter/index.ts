@@ -1,7 +1,7 @@
 import { Listener } from "./type";
 
 export default function messageTransmitter() {
-    let listeners: [Listener?] = [];
+    let listeners: Array<Listener> = [];
 
     return {
         addListener: (key: string, handleMessage: Function) => listeners.push({ key, handleMessage }),
