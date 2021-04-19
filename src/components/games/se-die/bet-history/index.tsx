@@ -1,30 +1,12 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
+import { BetLogs } from "./bet-history";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetHistoryContainer from "../../../shared/bet-history";
 import SeDieDot from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
-import { Result, SettlementResult } from "../sedie";
 import Styles from "./bet-history.module.scss";
-
-export type BetLogs = {
-    betLogDetails: [];
-    betwin: number;
-    even: number;
-    freeBet: boolean;
-    name: string;
-    odd: number;
-    phien: number;
-    red2: number;
-    red3: number;
-    red4: number;
-    result: Result;
-    settlementResult: SettlementResult;
-    time: string;
-    white3: number;
-    white4: number;
-};
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
