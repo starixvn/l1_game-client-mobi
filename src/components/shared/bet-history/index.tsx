@@ -95,28 +95,28 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container">
-            <InfiniteScroll
-                dataLength={listBetHistory.length}
-                next={fetchMoreListBets}
-                hasMore={hasMoreHistory}
-                loader={<h4>Loading...</h4>}
-                scrollThreshold={"200px"}
-                className={"tableFixHead"}
-            >
-                <table className="table text-center">
-                    <thead>
-                        <tr>
-                            <th>{t("roundTime")}</th>
-                            <th>{t("round")}</th>
-                            <th>{t("result")}</th>
-                            <th>{t("choice")}</th>
-                            {isRefund ? <th>t("refund")</th> : null}
-                            <th>{t("win")}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {listBetHistory &&
-                            listBetHistory.map((bet: any) => {
+            {/* {listBetHistory && (
+                <InfiniteScroll
+                    dataLength={listBetHistory.length}
+                    next={fetchMoreListBets}
+                    hasMore={hasMoreHistory}
+                    loader={<h4>Loading...</h4>}
+                    scrollThreshold={"200px"}
+                    className={"tableFixHead"}
+                >
+                    <table className="table text-center">
+                        <thead>
+                            <tr>
+                                <th>{t("roundTime")}</th>
+                                <th>{t("round")}</th>
+                                <th>{t("result")}</th>
+                                <th>{t("choice")}</th>
+                                {isRefund ? <th>t("refund")</th> : null}
+                                <th>{t("win")}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {listBetHistory.map((bet: any) => {
                                 return (
                                     <BetHistoryRow
                                         key={bet.phien}
@@ -127,9 +127,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                                     ></BetHistoryRow>
                                 );
                             })}
-                    </tbody>
-                </table>
-            </InfiniteScroll>
+                        </tbody>
+                    </table>
+                </InfiniteScroll>
+            )} */}
+
             {isFetching && <h1>Fetching bets history...</h1>}
         </div>
     );
