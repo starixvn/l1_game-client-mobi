@@ -28,7 +28,7 @@ const renderBet = (bet: BetLogs) => {
     const keysChoices = Object.keys(bet.settlementResult);
     return (
         <div className={Styles["choice"]}>
-            {keysChoices.map((name, index) => {
+            {keysChoices && keysChoices.map((name, index) => {
                 if (bet[name] > 0) {
                     return (
                         <div key={"choice-" + index}>
