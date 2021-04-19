@@ -13,11 +13,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, renderBet, isRefund } = props;
     const gameContext = useGameContext();
     const gameActions = useGameActionContext();
-    const [isFetching, setIsFetching] = useState(true);
-    const [listBetHistory, setListBetHistory] = useState([]);
-    const [page, setPage] = useState(1);
-    const [totalPage, setTotalPage] = useState(0);
-    const [hasMoreHistory, setHasMoreHistory] = useState(false);
+    const [isFetching, setIsFetching] = useState<boolean>(true);
+    const [listBetHistory, setListBetHistory] = useState<any[]>([]);
+    const [page, setPage] = useState<number>(1);
+    const [totalPage, setTotalPage] = useState<number>(0);
+    const [hasMoreHistory, setHasMoreHistory] = useState<boolean>(false);
     const betHistory: GameBetHistory = gameContext.betHistory;
     const { t } = useTranslation("bethistory");
 
@@ -68,7 +68,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 next={fetchMoreListBets}
                 hasMore={hasMoreHistory}
                 loader={<h4>Loading...</h4>}
-                scrollThreshold={0.1}
+                scrollThreshold={"200px"}
                 className={"tableFixHead"}
             >
                 <table className="table text-center">
@@ -83,17 +83,18 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {listBetHistory.map((bet: any) => {
-                            return (
-                                <BetHistoryRow
-                                    key={bet.phien}
-                                    renderResult={() => renderResult(bet)}
-                                    renderBet={() => renderBet(bet)}
-                                    betHistoryItem={bet}
-                                    isRefund={false}
-                                ></BetHistoryRow>
-                            );
-                        })}
+                        {listBetHistory &&
+                            listBetHistory.map((bet: any) => {
+                                return (
+                                    <BetHistoryRow
+                                        key={bet.phien}
+                                        renderResult={() => renderResult(bet)}
+                                        renderBet={() => renderBet(bet)}
+                                        betHistoryItem={bet}
+                                        isRefund={false}
+                                    ></BetHistoryRow>
+                                );
+                            })}
                     </tbody>
                 </table>
             </InfiniteScroll>
