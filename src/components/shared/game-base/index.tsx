@@ -94,6 +94,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("apiError", this.handleApiError.bind(this));
     };
 
+    handleStatus = ({ bet, win, winningByChoices }) => {
+        win && this.updateUserBalance();
+    };
+
     handleApiError = ({ apiError }) => {
         this.setState({ errorMessage: apiError.message, displayPopup: PopupType.Error });
     };
@@ -163,8 +167,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 ownBets: {},
                 totalBets: {},
             });
-
-        newGameState === GameState.Waiting && this.updateUserBalance();
 
         const timeCounter = this.getTimeCounter(this.timeCounter, newGameState);
         const newRoundId = gameState !== GameState.InRound && newGameState === GameState.InRound ? roundId + 1 : roundId;
