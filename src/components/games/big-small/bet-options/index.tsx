@@ -1,19 +1,13 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
-import { SettlementResult, Result } from "../big-small";
-import { useTranslation } from "next-i18next";
+import { SettlementResult } from "../big-small";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
-    big: "big",
-    small: "small",
-};
-
-const OddNames = {
     big: "big",
     small: "small",
 };
@@ -25,12 +19,12 @@ type Props = {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, betPercentage: object) => {
-    const { gameConfigs } = useGameContext();
-    const { t } = useTranslation("taixiu");
+    const { gameConfigs, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
     const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
     return (
-        <BetOption choice={choice} odd={odds[choice]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
+        <BetOption choice={choice} odd={odds[choice]} isHighlight={isHighLight} gameState={gameState}>
             <div className={Styles[choice]}>
                 {t(choice)}
                 <div className={Styles["statistic-user-bet"]}>

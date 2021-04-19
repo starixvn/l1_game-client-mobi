@@ -27,7 +27,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
     const { gameConfigs, gameSetting, isCompactMode } = useGameContext();
     const { odds } = gameConfigs;
-    const { t } = useTranslation([gameSetting.gameName.toLowerCase()]);
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     const renderDots = (dots: boolean[]) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
 
