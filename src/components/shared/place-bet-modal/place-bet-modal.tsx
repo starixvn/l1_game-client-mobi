@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { GameResourceKeys } from "../../../common/resources";
 import { GameContext } from "../../../contexts/game-context/game-context";
 import { BetSettingStorageType } from "../../bet-settings/type";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
+import { Translation } from "react-i18next";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -34,11 +36,11 @@ export default class PlaceBetModal extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        this.wrapperRef = React.createRef();
-
         const betSettingKey = localStorageKeys.betSetting;
         const betSetting = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
         const betAmount = betSetting?.betValue ?? 1;
+
+        this.wrapperRef = React.createRef();
 
         this.state = {
             betAmount,
@@ -150,38 +152,42 @@ export default class PlaceBetModal extends Component<Props, State> {
         const { payout, betAmount } = this.state;
 
         return (
-            <AdvanceModal
-                title={gameName}
-                subTitle={`#${roundId}`}
-                isOpen={this.props.isOpen}
-                onCloseModal={this.closeModal}
-                type={ModalType.Bottom}
-            >
-                <div className={Styles["place-bet-container"]}>
-                    <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
-                        <span className={Styles["choice-name"]}>{betChoice}</span> @ 1:{odd}
-                    </div>
-                    <input
-                        className={`w-100 ${Styles["custom-form-control"]}`}
-                        value={betAmount}
-                        type={"number"}
-                        onChange={this.handleInputBetAmount}
-                        min={0}
-                    />
-                    <ul className={Styles["bet-info"]}>
-                        <li>
-                            Payout: <span className={Styles["highlight"]}>{payout.toFixed(2)}</span>
-                        </li>
-                    </ul>
-                    <div className={Styles["keyboard"]}>
-                        <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div>
-                        <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
-                    </div>
-                    <button onClick={this.placeBet} className="btn-orange w-100">
-                        Bet
-                    </button>
-                </div>
-            </AdvanceModal>
+            <Translation ns={[gameName.toLocaleLowerCase(), "common"]}>
+                {(t) => (
+                    <AdvanceModal
+                        title={t(GameResourceKeys.GAME_NAME)}
+                        subTitle={`#${roundId}`}
+                        isOpen={this.props.isOpen}
+                        onCloseModal={this.closeModal}
+                        type={ModalType.Bottom}
+                    >
+                        <div className={Styles["place-bet-container"]}>
+                            <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
+                                <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
+                            </div>
+                            <input
+                                className={`w-100 ${Styles["custom-form-control"]}`}
+                                value={betAmount}
+                                type={"number"}
+                                onChange={this.handleInputBetAmount}
+                                min={0}
+                            />
+                            <ul className={Styles["bet-info"]}>
+                                <li>
+                                    {t("common:payout")}: <span className={Styles["highlight"]}>{payout.toFixed(2)}</span>
+                                </li>
+                            </ul>
+                            <div className={Styles["keyboard"]}>
+                                <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div>
+                                <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
+                            </div>
+                            <button onClick={this.placeBet} className="btn-orange w-100">
+                                {t("common:bet")}
+                            </button>
+                        </div>
+                    </AdvanceModal>
+                )}
+            </Translation>
         );
     }
 }

@@ -22,9 +22,9 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
     const { gameConfigs, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
-    const isHighLight = gameState === GameState.Waiting && settlementResult[choice];
+
     return (
-        <BetOption choice={choice} odd={odds[choice]} isHighlight={isHighLight} gameState={gameState}>
+        <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
             <div className={Styles[choice]}>
                 {t(choice)}
                 <div className={Styles["statistic-user-bet"]}>

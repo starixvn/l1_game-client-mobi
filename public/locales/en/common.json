@@ -6,5 +6,7 @@
     "cancel": "Cancel",
     "ok": "Ok",
     "messageConfirmQuickBet": "Do you want to confirm bet automatically?",
-    "result": "Result"
+    "result": "Result",
+    "bet": "Bet",
+    "payout": "Payout"
 }
