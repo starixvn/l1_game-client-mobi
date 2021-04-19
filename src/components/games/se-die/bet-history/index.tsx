@@ -46,7 +46,7 @@ const renderBet = (bet: BetLogs) => {
     const keysChoices = Object.keys(bet.settlementResult);
     return (
         <div className={Styles["choice"]}>
-            {/* {keysChoices &&
+            {keysChoices &&
                 keysChoices.map((name, index) => {
                     if (bet[name] > 0) {
                         return (
@@ -55,20 +55,19 @@ const renderBet = (bet: BetLogs) => {
                             </div>
                         );
                     }
-                })} */}
+                })}
         </div>
     );
 };
 
 const SeDieBetHistory: React.FunctionComponent = () => {
-    // return (
-    //     <BetHistoryContainer
-    //         isRefund={false}
-    //         renderResult={(bet: BetLogs) => renderResult(bet)}
-    //         renderBet={(bet: BetLogs) => renderBet(bet)}
-    //     ></BetHistoryContainer>
-    // );
-    return <></>;
+    return (
+        <BetHistoryContainer
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            renderBet={(bet: BetLogs) => renderBet(bet)}
+        ></BetHistoryContainer>
+    );
 };
 
 export default SeDieBetHistory;

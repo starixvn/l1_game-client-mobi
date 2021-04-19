@@ -95,7 +95,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container">
-            {/* {listBetHistory && (
+            {listBetHistory && (
                 <InfiniteScroll
                     dataLength={listBetHistory.length}
                     next={fetchMoreListBets}
@@ -130,7 +130,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </tbody>
                     </table>
                 </InfiniteScroll>
-            )} */}
+            )}
 
             {isFetching && <h1>Fetching bets history...</h1>}
         </div>

@@ -76,7 +76,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     renderBetHistory() {
         return (
             <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
-                {/* <SeDieBetHistory /> */}
+                <SeDieBetHistory />
             </AdvanceModal>
         );
     }
