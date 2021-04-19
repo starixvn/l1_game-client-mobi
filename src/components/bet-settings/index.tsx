@@ -84,7 +84,7 @@ export const BetSettings: React.FC = () => {
         if (!enabledQuickBet) {
             setIsShowPopup(true);
         } else {
-            setEnabledQuickBet(!enabledQuickBet);
+            handleDataQuickBet();
         }
     };
 
@@ -96,6 +96,10 @@ export const BetSettings: React.FC = () => {
 
         storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
         setEnabledQuickBet(!enabledQuickBet);
+    };
+
+    const confirmQuickBet = () => {
+        handleDataQuickBet();
         closeModal();
         setEnabledQuickBet(true);
     };
@@ -205,14 +209,15 @@ export const BetSettings: React.FC = () => {
                 </div>
             )}
 
-            {isShowSettings && isShowModalConfirm && !enabledQuickBet && (
+            {isShowSettings && isShowModalConfirm && enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
-                    <BaseDialog type={ModalType.Center} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
+                    <div className={Styles["bg-opacity"]}></div>
+                    <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
                         <ConfirmMessage
                             t={t}
                             message={t("messageConfirmQuickBet")}
                             closeModal={closeModal}
-                            confirmQuickBet={handleDataQuickBet}
+                            confirmQuickBet={confirmQuickBet}
                         />
                     </BaseDialog>
                 </div>

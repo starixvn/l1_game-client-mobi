@@ -68,7 +68,18 @@
 }
 
 .modalConfirm {
-    top: 50%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+
+    .bg-opacity{
+        height: 100vh;
+        background: black;
+        opacity: 0.5;
+        width: 100%;
+        display: block;
+    }
 }
 
 .container {

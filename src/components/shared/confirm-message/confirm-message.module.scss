@@ -9,7 +9,10 @@
     border-radius: 0.5rem;
     font-size: 1.6rem;
 }
-
+.btn-submit, .btn-cancel{
+    height: 4.4rem;
+    border-radius: .5rem;
+}
 .btn-submit{
     color: #fff;
     background: linear-gradient(90.01deg, #FFAA2C 0.38%, #FFBC29 99.99%);
@@ -20,4 +23,12 @@
     color: #2C2F3E;
     background: #CACACA;
     box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
+    margin-right: 2rem;
+}
+
+.message{
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    align-items: center;
+    margin-bottom: 2.8rem;
 }
