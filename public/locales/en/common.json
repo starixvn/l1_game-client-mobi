@@ -5,5 +5,6 @@
     "startNewRound": "Start New Round",
     "cancel": "Cancel",
     "ok": "Ok",
-    "messageConfirmQuickBet": "Do you want to confirm bet automatically?"
+    "messageConfirmQuickBet": "Do you want to confirm bet automatically?",
+    "result": "Result"
 }

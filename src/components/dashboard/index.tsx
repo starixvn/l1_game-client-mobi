@@ -1,3 +1,4 @@
+import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import Auth, { User } from "sc-user-service-client/dist/auth";
@@ -6,6 +7,7 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import { AuthContext } from "../../contexts/auth";
+import { RoundResultContextProvider } from "../../contexts/round-result";
 import { UserClientCommunication } from "../../services";
 import Games from "../games/games";
 import Header from "../header";
@@ -15,11 +17,16 @@ type Props = {
     balance: number;
     updateBalance: (balance: number) => void;
     router: NextRouter;
-};
+} & WithRouterProps;
 
 type State = {
     isFistLogin: boolean;
     user: User;
+};
+
+const LanguageMapper = {
+    en: "en-US",
+    vi: "vi-VN",
 };
 
 class Dashboard extends React.Component<Props, State> {
@@ -62,9 +69,13 @@ class Dashboard extends React.Component<Props, State> {
         const authentication = { username: session.username, data: session };
 
         setTimeout(() => {
-            this.mainSocket.readyState === 1 && this.mainSocket.send(JSON.stringify({ authentication }));
+            this.sendMessage({ authentication });
         }, 500);
         this.setState({ isFistLogin: false, user });
+    }
+
+    sendMessage(data: any) {
+        this.mainSocket.readyState === 1 && this.mainSocket.send(JSON.stringify(data));
     }
 
     connectMainSocket() {
@@ -79,6 +90,17 @@ class Dashboard extends React.Component<Props, State> {
         const data = JSON.parse(message.data);
         if (data.kickedOut) {
             this.handleKickedOut(data.kickedOut);
+        }
+
+        if (data.gameResult) {
+            const { redirectUrl } = data.gameResult;
+
+            const resultPage = window.open(redirectUrl, "", "width=700,height=500");
+            resultPage.focus();
+
+            window.onbeforeunload = () => {
+                resultPage.close();
+            };
         }
     }
 
@@ -100,6 +122,11 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
+    getRoundResultUrl(gameId: number) {
+        const data = { language: LanguageMapper[this.props.router.locale], gameId };
+        this.sendMessage({ gameResult: data });
+    }
+
     render() {
         const { isFistLogin, user } = this.state;
         if (isFistLogin) {
@@ -109,7 +136,9 @@ class Dashboard extends React.Component<Props, State> {
             return (
                 <div>
                     <Header {...props} />
-                    <Games />
+                    <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
+                        <Games />
+                    </RoundResultContextProvider>
                 </div>
             );
         }
