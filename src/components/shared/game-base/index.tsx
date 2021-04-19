@@ -1,4 +1,5 @@
 import React from "react";
+import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 
 import appSettings from "../../../common/app-settings";
@@ -6,6 +7,7 @@ import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
+import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import BaseDialog from "../base-dialog";
@@ -14,14 +16,11 @@ import BetContainer from "../bet-container";
 import ErrorMessage from "../error-message";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
-import StartRoundAnimation from "../waiting-time-animation";
+import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
-import { UserClientCommunication } from "../../../services";
-import Auth from "sc-user-service-client/dist/auth";
-import WaitingTimeAnimation from "../waiting-time-animation";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     protected socket: SocketIOClient.Socket;
@@ -386,11 +385,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     get isDisplayResult() {
-        return this.state.gameState == GameState.DisplayResult;
+        return this.state.gameState === GameState.DisplayResult;
     }
 
     get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
+        return false;
     }
 
     render() {

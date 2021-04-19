@@ -1,9 +1,10 @@
 import React from "react";
 
+import { CommonResourceKeys } from "../../../common/resources";
 import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
@@ -11,7 +12,6 @@ import BigSmallResult from "./big-small-result";
 import BigSmallRoundHistory from "./round-history";
 import ScoreboardHistory from "./scoreboard-round-history";
 import BigSmallStatistic from "./statistic";
-import { CommonResourceKeys } from "../../../common/resources";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
