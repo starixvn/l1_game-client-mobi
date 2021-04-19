@@ -1,11 +1,10 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult } from "../dragon-tiger";
-import { useTranslation } from "next-i18next";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
@@ -21,9 +20,10 @@ type Props = {
 
 const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs } = useGameContext();
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
-    const { t } = useTranslation("dragontiger");
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+
     return (
         <div className={`bet-options-container ${Styles["layout-dragon-tiger"]}`}>
             <div className={Styles["choice-tie"]}>
