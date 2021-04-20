@@ -8,7 +8,7 @@ const balancedBettingTimeInSecond = 3;
 
 const BigSmallResult: React.FC<Props> = (props) => {
     const [isDisplayResult, setIsDisplayResult] = useState(false);
-    const result: number[] = props.result ? Object.values(props.result) : [];
+
     const generateResult = (result: number[]) => {
         return result.map((value, index) => (
             <div key={index} className={Styles[`result-${index + 1}`]}>
@@ -34,7 +34,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
                         <div className={Styles["toss-dices"]}>
                             <img src="/static/images/bigsmall_dice.gif" alt="shake" />
                         </div>
-                        <div className={Styles["result-container"]}>{generateResult(result)}</div>
+                        <div className={Styles["result-container"]}>{generateResult(Object.values(props.result))}</div>
                     </div>
                 </div>
             </div>

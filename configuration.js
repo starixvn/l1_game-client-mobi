@@ -11,12 +11,12 @@ module.exports = {
                 path: "bigsmall",
             },
             durations: {
-                wholeRound: 51,
-                placingBets: 45,
+                wholeRound: 61,
+                placingBets: 50,
                 lockingBet: 5,
-                showResult: 3,
+                showResult: 5,
                 highlightBeforeWaiting: 2,
-                beforeStartRound: 1,
+                beforeStartRound: 0,
             },
         },
         2: {
@@ -27,7 +27,7 @@ module.exports = {
                 path: "sedie",
             },
             durations: {
-                wholeRound: 41,
+                wholeRound: 40,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 2,
@@ -48,7 +48,7 @@ module.exports = {
                 lockingBet: 5,
                 showResult: 4,
                 highlightBeforeWaiting: 2,
-                beforeStartRound: 1,
+                beforeStartRound: 0,
             },
         },
         4: {
@@ -62,9 +62,9 @@ module.exports = {
                 wholeRound: 37,
                 placingBets: 30,
                 lockingBet: 5,
-                showResult: 3,
+                showResult: 5,
                 highlightBeforeWaiting: 2,
-                beforeStartRound: 1,
+                beforeStartRound: 0,
             },
         },
         7: {
@@ -80,7 +80,7 @@ module.exports = {
                 lockingBet: 5,
                 showResult: 4,
                 highlightBeforeWaiting: 2,
-                beforeStartRound: 1,
+                beforeStartRound: 0,
             },
         },
         22: {
@@ -91,7 +91,7 @@ module.exports = {
                 path: "vsedie",
             },
             durations: {
-                wholeRound: 41,
+                wholeRound: 40,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 2,

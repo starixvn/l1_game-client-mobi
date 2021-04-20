@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { useCountUp } from "react-countup";
 
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { BetSettingStorageType } from "../../bet-settings/type";
@@ -19,8 +20,11 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     const { openPlaceBetModal } = useGameActionContext();
     const betSettingKey = localStorageKeys.betSetting;
     const gameActionContext = useGameActionContext();
-
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
+    const { countUp, reset, update } = useCountUp({
+        start: 0,
+        end: 0,
+    });
 
     const actionByGameState = {
         [GameState.DisplayResult]: () => {
@@ -43,6 +47,14 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         actionByGameState[gameState] && actionByGameState[gameState]();
     }, [gameState]);
 
+    useEffect(() => {
+        if (totalBets[choice]) {
+            update(totalBets[choice]);
+        } else {
+            reset();
+        }
+    }, [totalBets]);
+
     function onClickBet() {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
 
@@ -56,7 +68,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{`1:${odd}`}</div>}
-                <div className={Styles["total-bet"]}>{totalBets?.[choice]}</div>
+                <div className={Styles["total-bet"]}>{countUp}</div>
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice]}</div>
             </div>

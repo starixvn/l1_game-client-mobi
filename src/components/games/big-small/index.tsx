@@ -34,6 +34,17 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         };
     }
 
+    handleFinish({ finish }) {
+        super.handleFinish({ finish });
+
+        const { totalBets } = this.state;
+        const balancedBetAmount = Math.min(...Object.values(totalBets));
+        Object.keys(totalBets).forEach((choice) => {
+            totalBets[choice] = balancedBetAmount;
+        });
+        this.setState({ totalBets });
+    }
+
     renderBetOptions() {
         const { gameState, settlementResult, betPercentage } = this.state;
         const fakeSettlementResult = { big: false, small: false };
