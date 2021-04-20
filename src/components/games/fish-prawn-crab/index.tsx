@@ -12,6 +12,7 @@ import OddComponent from "./odd";
 import ScoreboardHistory from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 import { CommonResourceKeys } from "../../../common/resources";
+import PlaceBetModal from "../../shared/place-bet-modal/place-bet-modal";
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -30,6 +31,28 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             displayPopup: null,
             isCompactMode: false,
         };
+    }
+
+    renderPlaceBet() {
+        const DefaultOdds = "single";
+
+        const { displayPopup, selectedBetChoice, roundId, gameConfigs } = this.state;
+        const { gameName } = this.props;
+        const { odds } = gameConfigs;
+
+        return (
+            <PlaceBetModal
+                isOpen={displayPopup === PopupType.PlaceBet}
+                onCloseModal={() => this.closePopup()}
+                onPlaceBet={this.placeBet}
+                betChoiceInfo={{
+                    betChoice: selectedBetChoice,
+                    gameName: gameName,
+                    roundId: roundId,
+                    odd: odds[DefaultOdds],
+                }}
+            ></PlaceBetModal>
+        );
     }
 
     renderBetOptions() {
