@@ -63,7 +63,7 @@ export default function Register(props) {
                     <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
                 </form>
                 <div className={Styles["note"]}>
-                    <h3>{t("note")}</h3>
+                    <h3>{t("note")}:</h3>
                     <ul>
                         <li>{t("rule1")}</li>
                         <li>{t("rule2")}</li>

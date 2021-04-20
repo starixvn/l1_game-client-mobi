@@ -123,7 +123,7 @@ const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
                 <div className={Styles["list-choices"]}>{renderBet()}</div>
             </td>
             {isRefund ? <td>{refund}</td> : null}
-            <td>{betwin}</td>
+            <td className="text-bold">{betwin}</td>
         </tr>
     );
 };

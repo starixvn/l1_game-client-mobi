@@ -29,15 +29,12 @@ const renderBet = (bet: BetLogs) => {
         <div className={Styles["choice"]}>
             {keysChoices &&
                 keysChoices.map((name, index) => {
-                    if (bet[name] > 0) {
-                        return (
-                            <div key={index}>
-                                {t(name)}_{bet[name]}@{odds[name]}
-                            </div>
-                        );
-                    }
-
-                    return <></>;
+                    const classHighLight = bet.settlementResult[name] ? "text-bold" : "";
+                    return (
+                        <div key={index} className={classHighLight}>
+                            {t(name)}_{bet[name]}@{odds[name]}
+                        </div>
+                    );
                 })}
         </div>
     );
