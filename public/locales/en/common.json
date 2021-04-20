@@ -8,5 +8,6 @@
     "messageConfirmQuickBet": "Do you want to confirm bet automatically?",
     "result": "Result",
     "bet": "Bet",
-    "payout": "Payout"
+    "payout": "Payout",
+    "balancedBettingPool": "Balanced betting pool"
 }

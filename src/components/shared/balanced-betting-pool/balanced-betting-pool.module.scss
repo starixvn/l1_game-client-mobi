@@ -1,0 +1,59 @@
+.balanced-betting-pool-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.balanced-betting-pool-content {
+    width: 60%;
+    padding: 0.8rem 3rem;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    background: linear-gradient(
+        90deg,
+        rgba(55, 55, 57, 0) 0%,
+        rgba(55, 55, 57, 0.4) 35%,
+        rgba(55, 55, 57, 0.4) 65%,
+        rgba(55, 55, 57, 0) 100%
+    );
+    opacity: 0;
+    animation-name: show-balanced-betting-pool-animation, hide-balanced-betting-pool-animation;
+    animation-delay: 0s, 4.9s;
+    animation-duration: 0.1s, 0.1s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: linear, linear;
+}
+
+@keyframes show-balanced-betting-pool-animation {
+    20% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hide-balanced-betting-pool-animation {
+    20% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+    }
+}
