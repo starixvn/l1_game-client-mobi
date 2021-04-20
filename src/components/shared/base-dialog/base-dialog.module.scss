@@ -26,7 +26,7 @@
     }
 
     &.modal-bottom {
-        top: 9rem;
+        top: 17rem;
     }
 
     &.modal-top {
@@ -49,8 +49,8 @@
     }
 
     &.modal-message {
-        border-radius: .5rem!important;
-        padding: 0!important;
+        border-radius: 0.5rem !important;
+        padding: 0 !important;
         top: 30%;
         left: 50%;
         transform: translate(-50%, 0);

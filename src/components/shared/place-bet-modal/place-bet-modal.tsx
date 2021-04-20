@@ -178,7 +178,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                                 </li>
                             </ul>
                             <div className={Styles["keyboard"]}>
-                                <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div>
+                                {/* <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div> */}
                                 <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
                             </div>
                             <button onClick={this.placeBet} className="btn-orange w-100">
