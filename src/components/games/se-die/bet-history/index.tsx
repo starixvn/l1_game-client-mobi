@@ -6,6 +6,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetHistoryContainer from "../../../shared/bet-history";
 import SeDieDot from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
@@ -20,6 +21,18 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
+const renderStake = (bet: BetLogs) => {
+    const keysChoices = Object.keys(bet.settlementResult);
+    return (
+        <div className={Styles["choice"]}>
+            {keysChoices &&
+                keysChoices.map((name, index) => {
+                    return <div key={index}>{numberWithCommas(bet[name])}</div>;
+                })}
+        </div>
+    );
+};
+
 const renderBet = (bet: BetLogs) => {
     const { gameConfigs } = useGameContext();
     const { t } = useTranslation("xocxoc");
@@ -32,7 +45,7 @@ const renderBet = (bet: BetLogs) => {
                     const classHighLight = bet.settlementResult[name] ? "text-bold" : "";
                     return (
                         <div key={index} className={classHighLight}>
-                            {t(name)}_{bet[name]}@{odds[name]}
+                            {t(name)}@{odds[name]}
                         </div>
                     );
                 })}
@@ -46,6 +59,7 @@ const SeDieBetHistory: React.FunctionComponent = () => {
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             renderBet={(bet: BetLogs) => renderBet(bet)}
+            renderStake={(bet: BetLogs) => renderStake(bet)}
         ></BetHistoryContainer>
     );
 };

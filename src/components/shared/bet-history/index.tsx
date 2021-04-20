@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Styles from "./bet-history.module.scss";
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, renderBet, isRefund } = props;
+    const { renderResult, renderBet, renderStake, isRefund } = props;
     const gameContext = useGameContext();
     const gameActions = useGameActionContext();
     const [isFetching, setIsFetching] = useState<boolean>(true);
@@ -78,7 +78,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                                 <th>{t("round")}</th>
                                 <th>{t("result")}</th>
                                 <th>{t("choice")}</th>
-                                {isRefund ? <th>t("refund")</th> : null}
+                                {isRefund ? <th>{t("refund")}</th> : <th>{t("stake")}</th>}
                                 <th>{t("win")}</th>
                             </tr>
                         </thead>
@@ -89,6 +89,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                                         key={bet.phien}
                                         renderResult={() => renderResult(bet)}
                                         renderBet={() => renderBet(bet)}
+                                        renderStake={() => renderStake(bet)}
                                         betHistoryItem={bet}
                                         isRefund={false}
                                     ></BetHistoryRow>
@@ -105,7 +106,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 };
 
 const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
-    const { betHistoryItem, renderResult, renderBet, isRefund } = props;
+    const { betHistoryItem, renderResult, renderBet, renderStake, isRefund } = props;
     const { time, phien, betwin, refund, amount, totalAmount } = betHistoryItem as BetHistoryItem;
     return (
         <tr className={betwin > 0 ? "highlight" : ""}>
@@ -122,6 +123,7 @@ const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
             <td>
                 <div className={Styles["list-choices"]}>{renderBet()}</div>
             </td>
+            <td>{renderStake()}</td>
             {isRefund ? <td>{refund}</td> : null}
             <td className="text-bold">{betwin}</td>
         </tr>

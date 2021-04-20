@@ -2,6 +2,7 @@ export type Props = {
     betHistoryItem: any;
     renderResult: Function;
     renderBet: Function;
+    renderStake: Function;
     isRefund: boolean;
 };
 
@@ -18,6 +19,7 @@ export type PropsBetContainer = {
     isRefund: boolean;
     renderResult: Function;
     renderBet: Function;
+    renderStake: Function;
 };
 
 export type BetLogs = {
