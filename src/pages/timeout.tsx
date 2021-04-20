@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const NotFound = () => (

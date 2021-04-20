@@ -27,7 +27,7 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
                         if (arr.length - 1 === index) {
                             return value;
                         } else {
-                            return value + "-";
+                            return `${value}-`;
                         }
                     })}
                     )

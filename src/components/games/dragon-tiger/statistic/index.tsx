@@ -12,7 +12,7 @@ const DragonTigerStatistic = (props: Props) => {
         <>
             {["dragon", "tiger", "tie"].map((title, index) => {
                 return (
-                    <WrapperHeader key={"center-" + index}>
+                    <WrapperHeader key={index}>
                         <span className={Styles["title-" + title]}> {t(title)}</span>
                         <span className={Styles["number"]}>{percentOddEven[index]}%</span>
                     </WrapperHeader>

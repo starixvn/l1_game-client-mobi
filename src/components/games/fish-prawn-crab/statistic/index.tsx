@@ -14,7 +14,7 @@ const StatisticComponent = (props: Props) => {
         <>
             {result.map((value, index) => {
                 return (
-                    <div key={"icon-" + index} className={Styles["odd-group"]}>
+                    <div key={index} className={Styles["odd-group"]}>
                         <Item type={index} isSmall={true}></Item>
                         <span>{value}</span>
                     </div>

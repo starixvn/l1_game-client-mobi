@@ -3,7 +3,7 @@ import React from "react";
 import SeDieGuide from "../../game-guide/se-die";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";

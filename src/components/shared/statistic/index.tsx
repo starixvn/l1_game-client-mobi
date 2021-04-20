@@ -1,7 +1,6 @@
 import React from "react";
 import Styles from "./statistic.module.scss";
-import { historyData } from "./statistic";
-import { Props } from "./statistic";
+import { historyData, Props } from "./statistic";
 
 export function handlePercentData(data: number[], templateResult: number[]): number[] {
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
@@ -62,7 +61,6 @@ export function countHistoryResultNotExistKey(historyData: historyData[]): numbe
         keyResult.forEach((key, index) => {
             if (result[key]) {
                 allFalse = false;
-                return;
             }
         });
         if (allFalse) {

@@ -9,7 +9,7 @@ const getElementRound = (result: any, roundId: number) => {
     return (
         <IconColumn key={roundId}>
             {itemValues.map((value: number, index) => {
-                return <Item key={roundId + "_" + index} type={value}></Item>;
+                return <Item key={`${roundId}_${index}`} type={value}></Item>;
             })}
         </IconColumn>
     );

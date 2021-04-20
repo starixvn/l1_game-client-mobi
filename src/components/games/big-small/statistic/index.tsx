@@ -12,7 +12,7 @@ const BigSmallStatistic = (props: Props) => {
         <>
             {["big", "small"].map((title, index) => {
                 return (
-                    <WrapperHeader key={"center-" + index}>
+                    <WrapperHeader key={index}>
                         <span className={title === "big" ? Styles["titleBig"] : Styles["titleSmall"]}> {t(title)}</span>
                         <span className={Styles["number"]}>{percentOddEven[index]}%</span>
                     </WrapperHeader>

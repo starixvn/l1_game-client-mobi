@@ -17,7 +17,7 @@ const ChoiceOddEven = ({ data, titleText }) => {
         <>
             {titleText.map((title, index) => {
                 return (
-                    <WrapperHeader key={"choice-oddEven-" + index}>
+                    <WrapperHeader key={index}>
                         <span className={title === "odd" ? Styles["titleOdd"] : Styles["titleEven"]}> {t(title)}</span>
                         <span className={Styles["number"]}>{data[index]}%</span>
                     </WrapperHeader>
@@ -33,7 +33,7 @@ const ChoiceOther = ({ data, titleText }) => {
             {titleText.map((title, index) => {
                 const value = index === 0 ? data[4] : data[index];
                 return (
-                    <WrapperHeader key={"choice-other-" + index}>
+                    <WrapperHeader key={index}>
                         <SeDieDot red={index % 2 > 0} value={title} />
                         <span className={Styles["number"]}>{value}%</span>
                     </WrapperHeader>

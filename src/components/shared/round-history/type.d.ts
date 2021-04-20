@@ -1,4 +1,3 @@
-import { RoundHistory } from "./../../games/se-die/sedie.d";
 export interface DiceColor {
     class: string;
     count: number;

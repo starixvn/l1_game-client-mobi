@@ -1,12 +1,12 @@
-import  Chance from "chance";
+import Chance from "chance";
 
-import {new_202010} from "./name-dictionaries/202010_new";
-import {animals} from "./name-dictionaries/animals";
-import {colors} from "./name-dictionaries/colors";
-import {cools} from "./name-dictionaries/cools";
-import {fruits} from "./name-dictionaries/fruits";
-import {marvels} from "./name-dictionaries/marvels";
-import { uniqueNamesGenerator} from 'unique-names-generator';
+import { new_202010 } from "./name-dictionaries/202010_new";
+import { animals } from "./name-dictionaries/animals";
+import { colors } from "./name-dictionaries/colors";
+import { cools } from "./name-dictionaries/cools";
+import { fruits } from "./name-dictionaries/fruits";
+import { marvels } from "./name-dictionaries/marvels";
+import { uniqueNamesGenerator } from "unique-names-generator";
 
 export default class NameGenerator {
     static chance = new Chance();
@@ -20,7 +20,7 @@ export default class NameGenerator {
         const shortName = uniqueNamesGenerator({
             dictionaries: [pickedDictionary],
             separator: "",
-            length: 1
+            length: 1,
         });
 
         const numberLength = shortName.length < 10 ? 5 : 14 - shortName.length;

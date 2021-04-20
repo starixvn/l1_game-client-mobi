@@ -28,7 +28,7 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
     const choiceResult = { dragon: {}, tiger: {} };
     choice.forEach((name) => {
         choiceResult[name] = Object.values(result[name]).map((value) => {
-            return value + " ";
+            return `${value} `;
         });
     });
 

@@ -53,6 +53,7 @@ const drawDragonTailHistory = (
 
             return getElementRound(round.result, col, row, round.roundId);
         }
+        return <></>;
     });
 
     if (isItemNext && roundNext) {

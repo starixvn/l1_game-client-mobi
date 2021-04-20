@@ -13,7 +13,7 @@ const generateResult = (result: Result) => {
     return (
         result &&
         Object.keys(result).map((dice, index) => {
-            const src = "/static/images/" + nameDices[result[dice]] + ".png";
+            const src = `/static/images/${nameDices[result[dice]]}.png`;
             return (
                 <div key={index} className={Styles[classResult[dice]]}>
                     <img src={src} className={Styles["dice"]} alt="dice" />

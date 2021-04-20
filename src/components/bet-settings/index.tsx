@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";

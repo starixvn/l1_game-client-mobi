@@ -3,7 +3,7 @@ import React from "react";
 import DragonTigerGuide from "../../game-guide/dragon-tiger";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
