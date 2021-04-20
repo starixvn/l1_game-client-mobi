@@ -13,18 +13,22 @@ export default function Register(props) {
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
     const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
+    const [nameInValid, setNameInValid] = useState<string>("");
     const authService = UserClientCommunication.getUserClientInstance().auth;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (validateUsername(name)) {
             setIsValidUserName(false);
-            console.log(isValidUserName);
+            setNameInValid(t("invalidUsername"));
             return;
         }
         const re = await authService.signName(session.ss, session.username, name);
         if (re.isSuccessful) {
             handleStateLogin(re.user);
+        } else {
+            setNameInValid(re.message.toString());
+            setIsValidUserName(false);
         }
     };
     const generateName = (event) => {
@@ -53,13 +57,13 @@ export default function Register(props) {
                         <button className={`${Styles["btn-green"]} ${Styles["btn-name"]}`} onClick={(event) => generateName(event)}>
                             {t("otherName")}
                         </button>
-                        {!isValidUserName && <label className={Styles["message-error"]}>{t("invalidUsername")}</label>}
+                        {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
                     </div>
 
                     <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
                 </form>
                 <div className={Styles["note"]}>
-                    <h3>{t("yourNickName")}</h3>
+                    <h3>{t("note")}</h3>
                     <ul>
                         <li>{t("rule1")}</li>
                         <li>{t("rule2")}</li>

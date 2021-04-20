@@ -2,7 +2,7 @@
     "registerName": "Tạo Tên Nhân Vật",
     "otherName": "Tên khác",
     "submit": "Xác Nhận",
-    "yourNickName": "Tên nhân vật",
+    "note": "Lưu ý",
     "rule1": "Tên nhân vật phải có từ 3 đến 14 ký tự.",
     "rule2": "Không gõ dấu tiếng việt, không chứa khoảng trắng và các ký tự đặc biệt.",
     "rule3": "Không thể đổi tên nhân vật sau khi tạo",

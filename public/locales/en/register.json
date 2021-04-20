@@ -2,7 +2,7 @@
     "registerName": "Register Name",
     "otherName": "Tên khác",
     "submit": "Submit",
-    "yourNickName": "Your nickname",
+    "yourNickName": "Note",
     "rule1": "Must be between 3 and 14 characters long.",
     "rule2": "Cannot contain spaces, special, and non-English characters.",
     "rule3": "Cannot change after submtting.",
