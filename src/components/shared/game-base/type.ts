@@ -70,6 +70,7 @@ export interface GameDurations {
     placingBets: number;
     lockingBet: number;
     showResult: number;
+    highlightBeforeWaiting: number;
     beforeStartRound: number;
 }
 
