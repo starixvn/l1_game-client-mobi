@@ -21,6 +21,14 @@ export const BetSettings: React.FC = () => {
     let sliderRef = null;
     const { t } = useTranslation("common");
 
+    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
+    const chipColorMapper = Object.values(chipList).reduce((result, chip, index) => {
+        result[chip] = `chip-${index + 1}`;
+
+        return result;
+    }, {});
+    const chipValues = Object.values(chipList);
+
     const SliderSetting = {
         speed: 500,
         infinite: false,
@@ -45,6 +53,11 @@ export const BetSettings: React.FC = () => {
             setEnabledQuickBet(betSettings.enabledQuickBet);
             setSelectedChipValue(betSettings.betValue);
             updateArrowsByChipValue(betSettings.betValue);
+
+            sliderRef.slickGoTo(
+                chipValues.findIndex((value) => value === betSettings.betValue),
+                true
+            );
         }
     }, []);
 
@@ -52,30 +65,22 @@ export const BetSettings: React.FC = () => {
         setShowSettings(!isShowSettings);
     };
 
-    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
-    const chipColorMapper = Object.values(chipList).reduce((result, chip, index) => {
-        result[chip] = `chip-${index + 1}`;
-
-        return result;
-    }, {});
-    const chipValues = Object.values(chipList);
-
     const onClickNext = () => {
         if (enabledNextBtn) {
-            sliderRef.slickNext();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
+            sliderRef.slickGoTo(chipIndex + 1);
             handleSelectChip(newSelectedChip);
         }
     };
 
     const onClickPrev = () => {
         if (enabledPrevBtn) {
-            sliderRef.slickPrev();
             const chipIndex = chipValues.indexOf(selectedChipValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
+            sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
         }
     };
