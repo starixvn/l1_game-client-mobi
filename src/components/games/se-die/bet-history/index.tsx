@@ -16,9 +16,8 @@ const renderResult = (bet: BetLogs) => {
                 <SeDieDot red={checkIsEven(countRed)} value={countRed.toString()} />
             </div>
         );
-    } else {
-        return "";
     }
+    return <></>;
 };
 
 const renderBet = (bet: BetLogs) => {
@@ -32,11 +31,13 @@ const renderBet = (bet: BetLogs) => {
                 keysChoices.map((name, index) => {
                     if (bet[name] > 0) {
                         return (
-                            <div key={"choice-" + index}>
+                            <div key={index}>
                                 {t(name)}_{bet[name]}@{odds[name]}
                             </div>
                         );
                     }
+
+                    return <></>;
                 })}
         </div>
     );
