@@ -10,7 +10,8 @@ import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
 import BigSmallRoundHistory from "./round-history";
-import ScoreboardHistory from "./scoreboard-round-history";
+import GetElementRound from "./scoreboard-round-history";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import BigSmallStatistic from "./statistic";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
@@ -61,7 +62,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
+        return <ScoreboardDragon roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound} />;
     }
 
     get isShowStartRoundAnimation() {

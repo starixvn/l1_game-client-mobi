@@ -8,7 +8,8 @@ import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import SeDieRoundHistory from "./round-history";
-import ScoreboardHistory from "./scoreboard-round-history";
+import GetElementRound from "./scoreboard-round-history";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 import { CommonResourceKeys } from "../../../common/resources";
@@ -49,7 +50,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return <ScoreboardHistory roundHistory={roundHistory} gameState={gameState}></ScoreboardHistory>;
+        return <ScoreboardDragon roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound} />;
     }
 
     get isShowStartRoundAnimation() {

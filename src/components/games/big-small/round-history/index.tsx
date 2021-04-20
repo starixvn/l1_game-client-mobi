@@ -10,9 +10,6 @@ import { MiniItemNext } from "../../../shared/round-history/item-next";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
 
-export const countRedDot = (result: Result) => Object.values(result).reduce((total, value) => total + value, 0);
-export const checkIsSmall = (numberOfRed: number) => numberOfRed <= 10;
-
 const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
     const { roundId, settlementResult, result } = round;
     const ResultValue = Object.values(result);

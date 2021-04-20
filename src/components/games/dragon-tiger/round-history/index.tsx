@@ -10,23 +10,11 @@ import { MiniItemNext } from "../../../shared/round-history/item-next";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
 
-const choice = ["dragon", "tiger"];
-const getValueCard = (result: Result, name: string) => {
-    return result[name].card;
-};
-
-export const checkIsDragon = (result: Result) => {
-    return getValueCard(result, choice[0]) > getValueCard(result, choice[1]);
-};
-export const checkIsTie = (result: Result) => {
-    return getValueCard(result, choice[0]) === getValueCard(result, choice[1]);
-};
-
 const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
     const { roundId, settlementResult, result } = round;
 
     const choiceResult = { dragon: {}, tiger: {} };
-    choice.forEach((name) => {
+    ["dragon", "tiger"].forEach((name) => {
         choiceResult[name] = Object.values(result[name]).map((value) => {
             return `${value} `;
         });
