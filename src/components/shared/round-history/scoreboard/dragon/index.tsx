@@ -25,9 +25,9 @@ const drawDragonTailHistory = (
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    let resultHandle = roundHistory.map((round: RoundHistoryType) => {
+    const resultHandle = roundHistory.map((round: RoundHistoryType) => {
         if (checkCondition) {
-            let value = checkCondition(round.settlementResult);
+            const value = checkCondition(round.settlementResult);
             if (value === previousResult) {
                 const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
 

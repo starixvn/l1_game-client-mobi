@@ -46,7 +46,7 @@ const ChoiceOther = ({ data, titleText }) => {
 const SeDiceStatistic = (props: Props) => {
     const { roundHistory } = props;
     const percentOddEven = handlePercentData(countHistorySettlement(roundHistory, ["odd", "even"], [0, 0]), [0, 0]);
-    let countDiceRed = countHistoryResultIsBoolean(roundHistory, ["red1", "red2", "red3", "red4"], [0, 0, 0, 0]);
+    const countDiceRed = countHistoryResultIsBoolean(roundHistory, ["red1", "red2", "red3", "red4"], [0, 0, 0, 0]);
     const countDiceAllWhite = countHistoryResultNotExistKey(roundHistory);
     countDiceRed.push(+countDiceAllWhite);
     const percentOtherChoice: ResultDiceRed[] = handlePercentData(countDiceRed, [0, 0, 0, 0, 0]);

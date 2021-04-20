@@ -79,11 +79,11 @@ const HeaderRight = () => {
     const { getRoundResultUrl } = useRoundResultContext();
 
     useEffect(() => {
-        gameState != GameState.InRound && updateRebetStatus(true);
+        gameState !== GameState.InRound && updateRebetStatus(true);
     }, [gameState]);
 
     useEffect(() => {
-        updateRebetStatus(rebetInfo?.betInfo == undefined);
+        updateRebetStatus(rebetInfo?.betInfo === undefined);
     }, [roundId]);
     return (
         <div className={Styles["header-right"]}>

@@ -39,7 +39,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     const updateScrollEndRight = (e) => {
-        if (e.target.scrollLeft == scrollLeftWidth) {
+        if (e.target.scrollLeft === scrollLeftWidth) {
             setIsScrollEndRight(true);
         } else {
             setIsScrollEndRight(false);
