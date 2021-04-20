@@ -1,7 +1,8 @@
 import React from "react";
 
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
-import { ScoreboardItemNext, SeDieDotNumber } from "../dot";
+import { SeDieDotNumber } from "../dot";
+import { ScoreboardItemNext } from "../../../shared/round-history/item-next";
 import { checkIsEven, countRedDot } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import { Props } from "./scoreboard-round-history";

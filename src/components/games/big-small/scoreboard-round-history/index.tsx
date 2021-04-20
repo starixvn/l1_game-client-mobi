@@ -2,7 +2,8 @@ import React from "react";
 
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";
 import { SettlementResult } from "../big-small";
-import { BigSmallDotNumber, ScoreboardItemNext } from "../dot";
+import { BigSmallDotNumber } from "../dot";
+import { ScoreboardItemNext } from "../../../shared/round-history/item-next";
 import { checkIsSmall, countRedDot } from "../round-history";
 import { Props } from "./scoreboard-round-history";
 

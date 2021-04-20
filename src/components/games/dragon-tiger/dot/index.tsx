@@ -28,24 +28,4 @@ export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ choice, t
     );
 };
 
-export const MiniItemNext = () => {
-    return (
-        <div>
-            <div className={`${Styles["dot-next"]} ${Styles.blink}`}></div>
-        </div>
-    );
-};
-
-export const ScoreboardItemNext = ({ col, row }) => {
-    return (
-        <div
-            className={`${Styles["dot-next"]} ${Styles["blink"]}`}
-            style={{
-                gridColumnStart: col.toString(),
-                gridRowStart: row.toString(),
-            }}
-        ></div>
-    );
-};
-
 export default DragonTigerDot;

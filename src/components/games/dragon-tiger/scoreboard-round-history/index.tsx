@@ -1,5 +1,6 @@
 import React from "react";
-import { DragonTigerDotNumber, ScoreboardItemNext } from "../dot";
+import { DragonTigerDotNumber } from "../dot";
+import { ScoreboardItemNext } from "../../../shared/round-history/item-next";
 import { SettlementResult } from "../dragon-tiger";
 import { Props } from "./scoreboard-round-history";
 import ScoreboardDragon from "../../../shared/round-history/scoreboard/dragon";

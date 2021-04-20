@@ -5,7 +5,8 @@ import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
 import RoundHistoryItem from "../../../shared/round-history/item";
 import { Result, SettlementResult } from "../big-small";
-import BigSmallDot, { MiniItemNext } from "../dot";
+import BigSmallDot from "../dot";
+import { MiniItemNext } from "../../../shared/round-history/item-next";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
 
