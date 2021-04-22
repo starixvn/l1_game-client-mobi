@@ -19,6 +19,10 @@ const ScoreboardRoundHistory = (props: Props) => {
         updateScrollEndRight(e);
     };
 
+    const handleScroll = (e) => {
+        updateScrollEndRight(e);
+    };
+
     const startDragging = (e) => {
         mouseDown = true;
         startX = e.pageX - e.target.offsetLeft;
@@ -52,6 +56,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     useEffect(() => {
         if (wrapperRef.current) {
             wrapperRef.current.onwheel = handleWheel;
+            wrapperRef.current.onscroll = handleScroll;
             wrapperRef.current.onmousedown = startDragging;
             wrapperRef.current.onmouseup = stopDragging;
             wrapperRef.current.onmouseleave = stopDragging;
