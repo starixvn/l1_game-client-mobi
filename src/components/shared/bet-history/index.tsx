@@ -5,6 +5,7 @@ import { PropsBetContainer, Props, BetHistoryItem } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameBetHistory } from "../../../components/shared/game-base/type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
+import { numberWithCommas } from "../../../helpers/NumberHelper";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Styles from "./bet-history.module.scss";
 
@@ -125,7 +126,7 @@ const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
             </td>
             <td className={Styles["stake"]}>{renderStake()}</td>
             {isRefund ? <td>{refund}</td> : null}
-            <td className={`${Styles["bet-win"]} ${betwin > 0 ? "font-weight-bold" : ""}`}>{betwin}</td>
+            <td className={`${Styles["bet-win"]} ${betwin > 0 ? "font-weight-bold" : ""}`}>{numberWithCommas(betwin)}</td>
         </tr>
     );
 };

@@ -14,6 +14,7 @@
 }
 
 .result-fadeIn-animation {
+    z-index: $result-animation-index;
     animation-name: result-fadeInAnimation;
     animation-delay: 0ms;
     animation-duration: 500ms;
@@ -81,6 +82,7 @@
 .open-the-plate {
     .result-sedie-bowl {
         /*animation*/
+        z-index: $result-animation-index;
         animation-name: opening-bowl-animation, hide-bowl-animation;
         animation-delay: 0, 1s;
         animation-duration: 1s, 1s;
