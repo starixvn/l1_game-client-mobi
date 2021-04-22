@@ -65,6 +65,12 @@ label {
     background-color: #828282;
 }
 
-.text-bold {
-    font-weight: 700;
+.tooltip {
+    .tooltip-inner{
+        background: rgba(255, 172, 43, 0.6)!important;
+        color: #2c2f3e!important;
+    }
+    .arrow::before{
+        border-top-color: rgba(255, 172, 43, 0.6)!important;
+    }
 }
