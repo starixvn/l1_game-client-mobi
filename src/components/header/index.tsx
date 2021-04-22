@@ -32,7 +32,7 @@ const Header: React.FC<Props> = (props) => {
                                 <span>{props.name}</span>
                             </div>
                             <div className={Styles.balance}>
-                                {props.currency} {props.balance}
+                                {props.balance} {props.currency}
                             </div>
                         </div>
                     </div>
