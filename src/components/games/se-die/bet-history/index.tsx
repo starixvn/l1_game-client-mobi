@@ -27,11 +27,14 @@ const renderStake = (bet: BetLogs) => {
         <>
             {keysChoices &&
                 keysChoices.map((name, index) => {
-                    return (
-                        <div key={index} className={bet.settlementResult[name] ? "text-bold" : ""}>
-                            {numberWithCommas(bet[name])}
-                        </div>
-                    );
+                    if (bet[name] > 0) {
+                        return (
+                            <div key={index} className={bet.settlementResult[name] ? "text-bold" : ""}>
+                                {numberWithCommas(bet[name])}
+                            </div>
+                        );
+                    }
+                    return "";
                 })}
         </>
     );
@@ -47,11 +50,14 @@ const renderBet = (bet: BetLogs) => {
             {keysChoices &&
                 keysChoices.map((name, index) => {
                     const classHighLight = bet.settlementResult[name] ? "text-bold" : "";
-                    return (
-                        <div key={index} className={classHighLight}>
-                            {t(name)}@{odds[name]}
-                        </div>
-                    );
+                    if (bet[name] > 0) {
+                        return (
+                            <div key={index} className={classHighLight}>
+                                {t(name)}@{odds[name]}
+                            </div>
+                        );
+                    }
+                    return "";
                 })}
         </>
     );
