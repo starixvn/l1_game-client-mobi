@@ -1,0 +1,39 @@
+@import "../../../../assets/abstracts/variables";
+@import "../../../../assets/components/card";
+
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: $result-animation-index;
+    width: 100%;
+    height: 100%;
+}
+
+.animation-container {
+    position: absolute;
+    z-index: $result-animation-index;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(0.8);
+}
+
+%custom-card {
+    @extend .card-back-1;
+    transform: scale(0.33, 0.324);
+}
+
+%custom-card-shadow {
+    @extend .card-back-2;
+    transform: scale(0.32, 0.326);
+}
+
+.start-new-round {
+    .card1 {
+        @extend %custom-card;
+    }
+}
