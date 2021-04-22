@@ -13,6 +13,7 @@ import DragonTigerRoundHistory from "./round-history";
 import DragonTigerResult from "./dragon-tiger-result";
 import DragonTigerStatistic from "./statistic";
 import { CommonResourceKeys } from "../../../common/resources";
+import { CardsAnimation } from "./animations";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -60,6 +61,10 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     get isShowStartRoundAnimation() {
         return this.state.gameState === GameState.BeforeStartRound;
+    }
+
+    renderStartRoundAnimation() {
+        return <CardsAnimation />;
     }
 
     renderGuide() {

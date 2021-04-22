@@ -80,7 +80,7 @@ module.exports = {
                 lockingBet: 5,
                 showResult: 4,
                 highlightBeforeWaiting: 2,
-                beforeStartRound: 0,
+                beforeStartRound: 2,
             },
         },
         22: {

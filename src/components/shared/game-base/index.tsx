@@ -445,7 +445,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         {!isCompactMode && (
                             <>
                                 <div className={`${Styles["statistic"]} d-flex`}>{this.renderStatistic()}</div>
-                                <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+                                <ScoreboardRoundHistory gameState={gameState}>{this.renderBoard()}</ScoreboardRoundHistory>
                             </>
                         )}
                         {this.renderPopup(displayPopup)}
