@@ -7,6 +7,7 @@ import RoundHistoryItem from "../../../shared/round-history/item";
 import { Result, SettlementResult } from "../big-small";
 import BigSmallDot from "../dot";
 import { MiniItemNext } from "../../../shared/round-history/item-next";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
 
@@ -15,7 +16,7 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
     const ResultValue = Object.values(result);
 
     return (
-        <div>
+        <>
             <span className={Styles["tooltip-round"]}>#{roundId}</span>
             <div>
                 <span className={Styles["tooltip-title"]}>
@@ -31,12 +32,13 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
                 </span>
                 <div className={Styles["tooltip-display"]}></div>
             </div>
-        </div>
+        </>
     );
 };
 
 const BigSmallRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
+    const { gameSetting } = useGameContext();
     const { t } = useTranslation("taixiu");
     const isLockingBet = () => gameState === GameState.LockingBet;
     const numberOfItems = isLockingBet() ? 20 : 21;
@@ -45,7 +47,7 @@ const BigSmallRoundHistory = (props: Props) => {
     return (
         <>
             {rounds.map((round) => (
-                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
+                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)} targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}>
                     <BigSmallDot red={round.settlementResult.small} />
                 </RoundHistoryItem>
             ))}

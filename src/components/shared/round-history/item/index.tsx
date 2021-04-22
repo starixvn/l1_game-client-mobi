@@ -1,34 +1,26 @@
 import React, { useState } from "react";
-
-import ToolTip from "../../tool-tip";
+import { Tooltip } from "reactstrap";
+import ContainerToolTip from "../../tool-tip";
 
 interface Props<R, S> {
     children: React.ReactNode;
     renderRoundDetail: JSX.Element;
+    targetName: string;
 }
 
-const RoundHistoryItem = <R, S>({ children, renderRoundDetail }: Props<R, S>) => {
+const RoundHistoryItem = <R, S>({ children, renderRoundDetail, targetName }: Props<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
-
-    const openToolTip = () => {
-        setIsOpenTooltip(true);
-    };
-
-    const closeToolTip = () => {
-        setIsOpenTooltip(false);
-    };
+    const toggle = () => setIsOpenTooltip(!isOpenTooltip);
 
     return (
-        <div onClick={openToolTip}>
-            {children}
-            {isOpenTooltip ? (
-                <ToolTip isOpen={isOpenTooltip} onClose={closeToolTip}>
+        <>
+            <div id={targetName}>{children}</div>
+            <ContainerToolTip isOpen={isOpenTooltip} onClose={toggle}>
+                <Tooltip trigger="click" placement="top" isOpen={isOpenTooltip} target={targetName} toggle={toggle}>
                     {renderRoundDetail}
-                </ToolTip>
-            ) : (
-                ""
-            )}
-        </div>
+                </Tooltip>
+            </ContainerToolTip>
+        </>
     );
 };
 

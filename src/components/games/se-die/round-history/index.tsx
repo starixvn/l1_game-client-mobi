@@ -9,6 +9,7 @@ import { MiniItemNext } from "../../../shared/round-history/item-next";
 import { checkIsEven, countRedDot } from "../se-die-helper";
 import { Result, SettlementResult } from "../sedie";
 import { Props } from "./mini-round-history";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./mini-round-history.module.scss";
 
 const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
@@ -36,6 +37,7 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
 
 const SeDieRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
+    const { gameSetting } = useGameContext();
     const { t } = useTranslation("xocxoc");
     const isLockingBet = () => gameState === GameState.LockingBet;
     const numberOfItems = isLockingBet() ? 20 : 21;
@@ -44,8 +46,8 @@ const SeDieRoundHistory = (props: Props) => {
     return (
         <>
             {rounds.map((round) => (
-                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
-                    <SeDieDot red={checkIsEven(countRedDot(round.result))} />
+                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)} targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}>
+                    <SeDieDot red={checkIsEven(countRedDot(round.result))}/>
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}

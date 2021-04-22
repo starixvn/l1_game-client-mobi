@@ -7,6 +7,7 @@ import RoundHistoryItem from "../../../shared/round-history/item";
 import { Result, SettlementResult } from "../dragon-tiger";
 import DragonTigerDot from "../dot";
 import { MiniItemNext } from "../../../shared/round-history/item-next";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Props } from "./mini-round-history";
 import Styles from "./mini-round-history.module.scss";
 
@@ -36,6 +37,7 @@ const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) 
 
 const DragonTigerRoundHistory = (props: Props) => {
     const { gameState, roundHistory } = props;
+    const { gameSetting } = useGameContext();
     const { t } = useTranslation("dragontiger");
     const isLockingBet = () => gameState === GameState.LockingBet;
     const numberOfItems = isLockingBet() ? 20 : 21;
@@ -44,7 +46,11 @@ const DragonTigerRoundHistory = (props: Props) => {
     return (
         <>
             {rounds.map((round) => (
-                <RoundHistoryItem key={round.roundId} renderRoundDetail={renderRoundDetail(round, t)}>
+                <RoundHistoryItem
+                    key={round.roundId}
+                    renderRoundDetail={renderRoundDetail(round, t)}
+                    targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
+                >
                     <DragonTigerDot choice={round.settlementResult} />
                 </RoundHistoryItem>
             ))}
