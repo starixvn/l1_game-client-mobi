@@ -1,7 +1,7 @@
 import React from "react";
 import Styles from "./statistic.module.scss";
 import Item from "../item";
-import { countHistoryResultIsNumber } from "../../../shared/statistic";
+import { countResultValueWithNumber } from "../../../shared/statistic";
 
 type Props = {
     roundHistory: any;
@@ -9,7 +9,7 @@ type Props = {
 
 const StatisticComponent = (props: Props) => {
     const { roundHistory } = props;
-    const result = countHistoryResultIsNumber(roundHistory, [0, 0, 0, 0, 0, 0]);
+    const result = countResultValueWithNumber(roundHistory, [0, 0, 0, 0, 0, 0]);
     return (
         <>
             {result.map((value, index) => {

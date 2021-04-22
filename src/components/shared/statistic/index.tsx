@@ -2,7 +2,7 @@ import React from "react";
 import Styles from "./statistic.module.scss";
 import { historyData, Props } from "./statistic";
 
-export function handlePercentData(data: number[], templateResult: number[]): number[] {
+export function handlePercent(data: number[], templateResult: number[]): number[] {
     const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
     const totalDiceRed = data.reduce(reducer);
     let totalPercent = 0;
@@ -22,7 +22,7 @@ export function handlePercentData(data: number[], templateResult: number[]): num
     return templateResult;
 }
 
-export function countHistorySettlement(historyData: historyData[], keyChoices: string[], templateResult: number[]) {
+export function countSettlement(historyData: historyData[], keyChoices: string[], templateResult: number[]) {
     historyData.forEach((history: any) => {
         const settlementResult = history.settlementResult;
         keyChoices.forEach((key, index) => {
@@ -35,7 +35,7 @@ export function countHistorySettlement(historyData: historyData[], keyChoices: s
     return templateResult;
 }
 
-export function countHistoryResultIsBoolean(historyData: historyData[], keyChoices: string[], templateResult: number[]): number[] {
+export function countResultWithValueBoolean(historyData: historyData[], keyChoices: string[], templateResult: number[]): number[] {
     historyData.forEach((history) => {
         let countDice = 0;
         const result = history.result;
@@ -52,7 +52,7 @@ export function countHistoryResultIsBoolean(historyData: historyData[], keyChoic
     return templateResult;
 }
 
-export function countHistoryResultNotExistKey(historyData: historyData[]): number {
+export function countResultNotExistKey(historyData: historyData[]): number {
     let count = 0;
     historyData.forEach((history) => {
         const result = history.result;
@@ -71,7 +71,7 @@ export function countHistoryResultNotExistKey(historyData: historyData[]): numbe
     return count;
 }
 
-export const countHistoryResultIsNumber = (historyData: historyData[], templateResult: number[]) => {
+export const countResultValueWithNumber = (historyData: historyData[], templateResult: number[]) => {
     historyData.forEach((history) => {
         const resultDices = history.result;
         const valueChoices = Object.values(resultDices);
