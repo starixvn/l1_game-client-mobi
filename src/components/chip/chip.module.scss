@@ -12,7 +12,7 @@
     background-size: cover;
     font-size: 1.4rem;
     border-radius: 50%;
-    z-index: 10;
+    z-index: $chip-index;
     transition: all 0.1s ease-out;
     position: relative;
 
@@ -55,7 +55,7 @@
         position: absolute;
         top: calc(50% - 1.57rem);
         left: calc(50% - 1.57rem);
-        z-index: 11;
+        z-index: $chip-index + 1;
         width: 3.14rem;
         height: 3.14rem;
         border-radius: 50%;
@@ -67,7 +67,7 @@
         position: absolute;
         top: calc(50% - 1.412rem);
         left: calc(50% - 1.412rem);
-        z-index: 12;
+        z-index: $chip-index + 2;
         width: 2.835rem;
         height: 2.835rem;
         border-radius: 50%;
@@ -230,7 +230,7 @@
         font-family: $font-money;
         font-size: 1.6rem;
         color: $text-color;
-        z-index: 14;
+        z-index: $chip-index + 3;
     }
 
     @keyframes rotateAnimation {

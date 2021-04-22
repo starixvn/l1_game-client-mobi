@@ -1,4 +1,5 @@
 @import "../../../../assets/components/shake-animation";
+@import "../../../../assets/abstracts/variables";
 
 // Plate and bowl
 .container {
@@ -7,7 +8,7 @@
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 80;
+    z-index: $result-animation-index;
     width: 100%;
     height: 100%;
 }
@@ -22,7 +23,7 @@
 
 .result-sedie-container {
     position: absolute;
-    z-index: 10;
+    z-index: $result-animation-index;
     left: 0;
     top: 0;
     width: 100%;
@@ -33,12 +34,12 @@
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: $result-animation-index;
 }
 
 .shake-the-plate {
     .result-sedie-set {
-        z-index: 20;
+        z-index: $result-animation-index;
         position: absolute;
         top: 0;
         opacity: 0;
@@ -54,7 +55,7 @@
 
 .result-sedie-plate {
     position: absolute;
-    z-index: 1;
+    z-index: $result-animation-index;
     width: 13.4rem;
     height: 12.7rem;
     left: calc(50% - 6.7rem);
@@ -67,7 +68,7 @@
 
 .result-sedie-bowl {
     position: absolute;
-    z-index: 2;
+    z-index: $result-animation-index;
     width: 12.3rem;
     height: 11.8rem;
     left: calc(50% - 6.15rem);
@@ -110,7 +111,7 @@
 /*Position of 4 buttons*/
 .result-sedie-dot {
     position: absolute;
-    z-index: 1;
+    z-index: $result-animation-index;
     width: 2rem;
 }
 

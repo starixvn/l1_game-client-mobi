@@ -1,3 +1,5 @@
+@import "../../../assets/abstracts/variables";
+
 .start-round-container {
     position: absolute;
     top: 0;
@@ -7,7 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 100;
+    z-index: $waiting-time-index;
 }
 
 .start-round-content {

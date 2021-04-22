@@ -7,7 +7,7 @@
     background: $header-background;
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: $header-index;
 
     .navbar-custom {
         width: 100%;

@@ -1,3 +1,5 @@
+@import "../../../assets/abstracts/variables";
+
 .popup {
     position: absolute;
     padding: 1.6rem;
@@ -7,7 +9,7 @@
     box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.3);
     border-radius: 3rem 3rem 0 0;
     overflow-y: auto;
-    z-index: 101;
+    z-index: $popup-index;
 
     .popup-content-title {
         position: absolute;
@@ -37,23 +39,24 @@
     }
 
     &.modal-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         top: 5.6rem;
         left: 0;
         right: 0;
         border-radius: 0;
         bottom: 209px;
         background: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     &.modal-message {
-        border-radius: .5rem!important;
-        padding: 0!important;
+        border-radius: 0.5rem !important;
+        padding: 0 !important;
         left: 29%;
         transform: translate(-50%, 0);
         bottom: 7.5rem;
+
         @media (max-width: 575.98px) {
             left: 34%;
         }

@@ -73,7 +73,7 @@
     position: fixed;
     width: 100%;
 
-    .bg-opacity{
+    .bg-opacity {
         height: 100vh;
         background: black;
         opacity: 0.5;
@@ -151,7 +151,7 @@
     transition: left 100ms ease-in;
 
     &:before {
-        z-index: 200;
+        z-index: $bet-setting-index;
         position: relative;
         font-size: 1.6rem;
         left: 0.5rem;
@@ -269,7 +269,7 @@
     width: 2.5rem;
     border-radius: 50%;
     background: #fff;
-    z-index: 10;
+    z-index: $bet-setting-index;
 
     .quick-bet-mark {
         &::before {

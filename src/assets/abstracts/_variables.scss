@@ -119,3 +119,14 @@ $chip-12-number-color: #fff;
 $chip-13-background: linear-gradient(180deg, #333333 0%, #626262 100%);
 $chip-13-layer2-border: #f5cc5d;
 $chip-13-layer2-background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
+
+// z-index
+
+$header-index: 300;
+$bet-setting-index: 200;
+$popup-index: 100;
+$result-animation-index: 90;
+$balance-betting-pool-index: 80;
+$waiting-time-index: 80;
+$overlay-index: 70;
+$chip-index: 10;

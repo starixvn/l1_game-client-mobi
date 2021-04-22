@@ -1,4 +1,5 @@
 @import "../../../../assets/components/shake-animation";
+@import "../../../../assets/abstracts/variables";
 
 .container {
     position: absolute;
@@ -13,7 +14,7 @@
 
 .animation-container {
     position: absolute;
-    z-index: 10;
+    z-index: $result-animation-index;
     left: 0;
     top: 0;
     width: 100%;
@@ -24,7 +25,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: $result-animation-index;
     opacity: 0;
     animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
     animation-delay: 1s, 1.1s, 1.25s;
@@ -35,7 +36,7 @@
 
 .plate {
     position: absolute;
-    z-index: 1;
+    z-index: $result-animation-index;
     width: 13.3rem;
     height: 12.7rem;
     left: calc(50% - 6.6rem);
@@ -48,7 +49,7 @@
 
 .bowl {
     position: absolute;
-    z-index: 2;
+    z-index: $result-animation-index;
     width: 9.8rem;
     height: 9.8rem;
     left: calc(50% - 4.8rem);
@@ -69,7 +70,7 @@
     left: calc(50% - 6.6rem);
     height: 132px;
     width: 132px;
-    z-index: 2;
+    z-index: $result-animation-index;
 }
 
 .result-1 {
@@ -101,7 +102,7 @@
 /*Position of 4 buttons*/
 %result {
     position: absolute;
-    z-index: 1;
+    z-index: $result-animation-index;
     width: 2rem;
 }
 
