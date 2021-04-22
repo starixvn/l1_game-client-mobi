@@ -20,9 +20,18 @@
     font-size: 1.6rem;
     overflow: hidden;
 
-    li {
-        float: right;
+    .payout,
+    .error-message {
+        width: 100%;
         margin-left: 1rem;
+    }
+
+    .payout {
+        text-align: right;
+    }
+
+    .error-message {
+        color: #ff0000;
     }
 
     .highlight {
@@ -32,8 +41,27 @@
 
 .custom-form-control {
     text-align: right;
+    padding-right: 2rem;
     font-size: 2rem;
     color: #9298a4;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+.reset-button {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 3px;
+    font-size: 9px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .keyboard {

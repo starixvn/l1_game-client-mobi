@@ -7,6 +7,7 @@ import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
 import { Translation } from "react-i18next";
+import { isMobile } from "react-device-detect";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -24,7 +25,8 @@ type Props = {
 
 type State = {
     betAmount: number;
-    payout: number;
+    noticeKey: string;
+    noticeAmount: number;
 };
 
 export default class PlaceBetModal extends Component<Props, State> {
@@ -44,7 +46,8 @@ export default class PlaceBetModal extends Component<Props, State> {
 
         this.state = {
             betAmount,
-            payout: betAmount * props.betChoiceInfo.odd,
+            noticeKey: "",
+            noticeAmount: 0,
         };
 
         this.closeModal = this.closeModal.bind(this);
@@ -78,15 +81,48 @@ export default class PlaceBetModal extends Component<Props, State> {
     };
 
     updateBetAmount = (betAmount: number) => {
-        const { odd } = this.props.betChoiceInfo;
-        const maxBet = this.getMaxBet();
-        const amount = betAmount > maxBet ? maxBet : betAmount;
-        const payout = amount * odd;
+        const failedCriterion = this.validateBetAmount(betAmount);
 
-        this.setState({
-            betAmount: amount,
-            payout,
-        });
+        if (failedCriterion) {
+            this.setState({
+                betAmount: failedCriterion.validAmount,
+                noticeKey: failedCriterion.notice.key,
+                noticeAmount: failedCriterion.notice.value,
+            });
+        } else {
+            this.setState({
+                betAmount,
+            });
+        }
+    };
+
+    validateBetAmount = (betAmount: number) => {
+        debugger;
+        const { betChoice } = this.props.betChoiceInfo;
+        const { gameConfigs, ownBets } = this.context;
+        const { maxbet, choices_maxbet, minbet } = gameConfigs;
+        const currentAmountOnChoice = ownBets[betChoice] ?? 0;
+        const totalBet = Object.keys(choices_maxbet).reduce((total, choice) => total + (ownBets[choice] ?? 0), 0);
+
+        const criteria = [
+            {
+                failure: betAmount < minbet,
+                notice: { key: "minBet", value: minbet },
+                validAmount: minbet,
+            },
+            {
+                failure: betAmount + currentAmountOnChoice > choices_maxbet[betChoice],
+                notice: { key: "maxBetChoice", value: choices_maxbet[betChoice] },
+                validAmount: choices_maxbet[betChoice] - currentAmountOnChoice,
+            },
+            {
+                failure: totalBet + betAmount > maxbet,
+                notice: { key: "maxBet", value: maxbet },
+                validAmount: maxbet - totalBet,
+            },
+        ];
+
+        return criteria.find((criterion) => criterion.failure);
     };
 
     getMaxBet = () => {
@@ -149,7 +185,7 @@ export default class PlaceBetModal extends Component<Props, State> {
 
     render() {
         const { gameName, roundId, betChoice, odd } = this.props.betChoiceInfo;
-        const { payout, betAmount } = this.state;
+        const { betAmount, noticeKey, noticeAmount } = this.state;
 
         return (
             <Translation ns={[gameName.toLocaleLowerCase(), "common"]}>
@@ -165,23 +201,33 @@ export default class PlaceBetModal extends Component<Props, State> {
                             <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                                 <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
                             </div>
-                            <input
-                                className={`w-100 ${Styles["custom-form-control"]}`}
-                                value={betAmount}
-                                type={"number"}
-                                onChange={this.handleInputBetAmount}
-                                min={0}
-                            />
+                            <form>
+                                <input
+                                    className={`w-100 ${Styles["custom-form-control"]}`}
+                                    value={betAmount}
+                                    type={"number"}
+                                    onChange={this.handleInputBetAmount}
+                                    min={0}
+                                    disabled={isMobile}
+                                />
+                                <span className={`icon-close ${Styles["reset-button"]}`} onClick={() => this.updateBetAmount(0)}></span>
+                            </form>
+
                             <ul className={Styles["bet-info"]}>
-                                <li>
-                                    {t("common:payout")}: <span className={Styles["highlight"]}>{payout.toFixed(2)}</span>
+                                <li className={Styles.payout}>
+                                    {t("common:payout")}: <span className={Styles["highlight"]}>{(betAmount * odd).toFixed(2)}</span>
                                 </li>
+                                {noticeKey && (
+                                    <li className={Styles["error-message"]}>
+                                        {t(`common:${noticeKey}`).replace(`{${noticeKey}}`, noticeAmount.toString())}
+                                    </li>
+                                )}
                             </ul>
                             <div className={Styles["keyboard"]}>
                                 {/* <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div> */}
                                 <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
                             </div>
-                            <button onClick={this.placeBet} className="btn-orange w-100">
+                            <button onClick={this.placeBet} className="btn-orange w-100" disabled={betAmount <= 0}>
                                 {t("common:bet")}
                             </button>
                         </div>
