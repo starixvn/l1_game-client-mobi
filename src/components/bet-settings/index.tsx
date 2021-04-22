@@ -51,6 +51,7 @@ export const BetSettings: React.FC = () => {
                 },
             },
         ],
+        afterChange: (current: number) => setSelectedChipValue(chipValues[current]),
     };
 
     useEffect(() => {
@@ -58,11 +59,11 @@ export const BetSettings: React.FC = () => {
 
         if (betSettings && sliderRef) {
             setEnabledQuickBet(betSettings.enabledQuickBet);
-            setSelectedChipValue(betSettings.betValue);
-            updateArrowsByChipValue(betSettings.betValue);
+            setSelectedChipValue(selectedChipValue);
+            updateArrowsByChipValue(selectedChipValue);
 
             sliderRef.slickGoTo(
-                chipValues.findIndex((value) => value === betSettings.betValue),
+                chipValues.findIndex((value) => value === selectedChipValue),
                 true
             );
         }
@@ -102,7 +103,6 @@ export const BetSettings: React.FC = () => {
 
     const handleDataQuickBet = () => {
         const betSettingStorage: BetSettingStorageType = {
-            betValue: selectedChipValue,
             enabledQuickBet: !enabledQuickBet,
         };
 
@@ -118,7 +118,6 @@ export const BetSettings: React.FC = () => {
 
     const handleSelectChip = (chipValue: number) => {
         const betSettingStorage: BetSettingStorageType = {
-            betValue: chipValue,
             enabledQuickBet: enabledQuickBet,
         };
 
