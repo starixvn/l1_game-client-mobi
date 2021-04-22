@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useCountUp } from "react-countup";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -22,10 +21,6 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     const betSettingKey = localStorageKeys.betSetting;
     const gameActionContext = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
-    const { countUp, reset, update } = useCountUp({
-        start: 0,
-        end: 0,
-    });
 
     const actionByGameState = {
         [GameState.DisplayResult]: () => {
@@ -48,14 +43,6 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         actionByGameState[gameState] && actionByGameState[gameState]();
     }, [gameState]);
 
-    useEffect(() => {
-        if (totalBets[choice]) {
-            update(totalBets[choice]);
-        } else {
-            reset();
-        }
-    }, [totalBets]);
-
     function onClickBet() {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
 
@@ -69,7 +56,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{`1:${odd}`}</div>}
-                <div className={Styles["total-bet"]}>{numberWithCommas(+countUp)}</div>
+                <div className={Styles["total-bet"]}>{totalBets?.[choice] ? numberWithCommas(totalBets[choice]) : ""}</div>
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>
             </div>
