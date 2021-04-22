@@ -1,167 +1,168 @@
-@import "../../../../assets/components/shake-animation";
 @import "../../../../assets/abstracts/variables";
+@import "../../../../assets/components/card";
 
-// Plate and bowl
-.container {
+$time-draw-card: 0.3s;
+$time-open-card: 0.5s;
+
+.animation-container {
     position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: $result-animation-index;
-    width: 100%;
-    height: 100%;
-}
-
-.result-fadeIn-animation {
-    animation-name: result-fadeInAnimation;
-    animation-delay: 0ms;
-    animation-duration: 500ms;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-}
-
-.result-sedie-container {
-    position: absolute;
-    z-index: $result-animation-index;
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: center;
+    transform: scale(0.33, 0.324);
 }
 
-.result-sedie-set {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    z-index: $result-animation-index;
+.card-shadow {
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.shake-the-plate {
-    .result-sedie-set {
-        z-index: $result-animation-index;
-        position: absolute;
-        top: 0;
+.draw-cards {
+    .card-bg {
+        transform: rotateY(180deg);
+        @extend .card-back-1;
+    }
+
+    .result {
+        display: none;
+    }
+
+    %draw-card {
+        animation-name: draw-card-animation;
+        animation-duration: $time-draw-card/2;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+    }
+
+    .card1 {
+        @extend %draw-card;
+        animation-delay: 0s;
+    }
+
+    .card2 {
+        @extend %draw-card;
+        animation-delay: $time-draw-card/2;
+    }
+}
+
+@keyframes draw-card-animation {
+    0% {
         opacity: 0;
-        width: 100%;
-        /*animation*/
-        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, hide-shake-plate-animation;
-        animation-delay: 1s, 1.1s, 1.25s, 3s;
-        animation-duration: 0.1s, 0.5s, 0.5s, 1s;
-        animation-fill-mode: forwards, forwards, forwards, forwards;
-        animation-timing-function: linear, linear, linear, ease-out;
+        transform: translate3d(0, -400px, 0);
     }
-}
 
-.result-sedie-plate {
-    position: absolute;
-    z-index: $result-animation-index;
-    width: 13.4rem;
-    height: 12.7rem;
-    left: calc(50% - 6.7rem);
-    top: calc(50% + 8rem);
-    background-image: url("/static/images/sedie-plate.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.result-sedie-bowl {
-    position: absolute;
-    z-index: $result-animation-index;
-    width: 12.3rem;
-    height: 11.8rem;
-    left: calc(50% - 6.15rem);
-    top: calc(50% + 8.5rem);
-    pointer-events: none;
-    background: url("/static/images/sedie-bowl.png") no-repeat center;
-    background-size: 100%;
-}
-
-.open-the-plate {
-    .result-sedie-bowl {
-        /*animation*/
-        animation-name: opening-bowl-animation, hide-bowl-animation;
-        animation-delay: 0, 1s;
-        animation-duration: 1s, 1s;
-        animation-fill-mode: forwards, forwards;
-        animation-timing-function: linear, linear;
+    50% {
+        opacity: 0.3;
+        transform: translate3d(0, -250px, 0);
     }
-}
 
-%result-dot {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    box-shadow: 0px 0px 5px rgba(4, 4, 4, 0.5);
-}
-
-.result-dot-red {
-    @extend %result-dot;
-    background: #de4b56;
-    border: 1px solid #bc2a34;
-}
-
-.result-dot-white {
-    @extend %result-dot;
-    background: #fff;
-    border: 1px solid #cbcbcb;
-}
-
-/*Position of 4 buttons*/
-.result-sedie-dot {
-    position: absolute;
-    z-index: $result-animation-index;
-    width: 2rem;
-}
-
-.result-sedie-dot1 {
-    top: 12.5rem;
-    left: calc(50% - 3rem);
-}
-
-.result-sedie-dot2 {
-    top: 15rem;
-    left: calc(50% - 2rem);
-}
-
-.result-sedie-dot3 {
-    top: 12rem;
-    left: calc(50% + 1rem);
-}
-
-.result-sedie-dot4 {
-    top: 14.8rem;
-    left: calc(50% + 1rem);
-}
-
-@keyframes hide-shake-plate-animation {
-    80% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 0.4;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes hide-bowl-animation {
     70% {
-        opacity: 1;
+        opacity: 0.6;
+        transform: translate3d(0, -50px, 0);
     }
-    100% {
-        opacity: 0;
+
+    90% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
     }
 }
 
-@keyframes opening-bowl-animation {
-    4%,
-    36% {
-        transform: translate3d(0, 0, 0) scale(1);
+.open-cards {
+    .animation-container {
+        transition: transform 0.7s;
+        animation-name: zoon-out-animation;
+        animation-duration: 0.1s;
+        animation-delay: 0s;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
     }
+
+    .result {
+        display: block;
+    }
+
+    .text-red {
+        color: #960000;
+    }
+
+    .text-black {
+        color: #000;
+    }
+
+    .card-group-left {
+        position: absolute;
+        z-index: 2;
+        left: 20px;
+        top: 18px;
+
+        .card-number {
+            font-size: 44px;
+            font-weight: bold;
+            font-family: Arial;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .card-suite-small {
+            display: block;
+        }
+    }
+
+    .card-group-right {
+        position: absolute;
+        z-index: 1;
+        right: 19px;
+        bottom: 21px;
+
+        .card-picture {
+            position: relative;
+            top: -2px;
+            right: 0px;
+        }
+    }
+
+    %open-card {
+        position: relative;
+        animation-name: open-card-animation;
+        animation-duration: 0.2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        transition: transform 0.7s;
+    }
+
+    .card1 {
+        .card-bg {
+            @extend %open-card;
+            animation-delay: 0.1s;
+        }
+    }
+
+    .card2 {
+        .card-bg {
+            @extend %open-card;
+            animation-delay: 0.3s;
+        }
+    }
+}
+
+@keyframes zoon-out-animation {
     100% {
-        transform: translate(5rem, -10rem) rotate(45deg);
+        transform: scale(0.52, 0.51);
+    }
+}
+
+@keyframes open-card-animation {
+    30% {
+        transform: scaleX(0.1);
+    }
+
+    50% {
+        background-position: -212px -10px;
+        transform: rotateY(180deg) scaleX(0.5);
+    }
+
+    100% {
+        transform: scaleX(1);
     }
 }

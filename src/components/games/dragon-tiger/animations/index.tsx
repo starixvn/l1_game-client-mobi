@@ -1,15 +1,32 @@
 import React from "react";
-import { Result } from "../dragon-tiger";
+import { Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
-const Plate: React.FC = ({ children }) => (
-    <div className="overlay-mask">
-        <div className={Styles["result-sedie-fadeOutDelay"]}>
-            <div className={`${Styles["result-sedie-container"]} ${Styles["result-fadeIn-animation"]}`}>
-                <div className={Styles["result-sedie-set"]}>
-                    <div className={Styles["result-sedie-plate"]}></div>
-                    {children}
-                    <div className={Styles["result-sedie-bowl"]}></div>
+const Cards: React.FC = ({ children }) => (
+    <div className={`${Styles["animation-container"]}`}>
+        <div className={`${Styles["card-shadow"]} ${Styles["card1"]}`}>
+            <div className={Styles["card-bg"]}>
+                <div className={Styles["result"]}>
+                    <div className={Styles["card-group-left"]}>
+                        <div className={`${Styles["text-red"]} ${Styles["card-number"]}`}>2</div>
+                        <div className={`${Styles["card-heart-small"]} ${Styles["card-suite-small"]}`}></div>
+                    </div>
+                    <div className={Styles["card-group-right"]}>
+                        <div className={`${Styles["card-heart"]} ${Styles["card-suite-large"]}`}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className={`${Styles["card-shadow"]} ${Styles["card2"]}`}>
+            <div className={Styles["card-bg"]}>
+                <div className={Styles["result"]}>
+                    <div className={Styles["card-group-left"]}>
+                        <div className={`${Styles["text-black"]} ${Styles["card-number"]}`}>A</div>
+                        <div className={`${Styles["card-club-small"]} ${Styles["card-suite-small"]}`}></div>
+                    </div>
+                    <div className={Styles["card-group-right"]}>
+                        <div className={`${Styles["card-k-picture"]} ${Styles["card-picture"]}`}></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -17,23 +34,28 @@ const Plate: React.FC = ({ children }) => (
 );
 
 export const CardsAnimation = () => (
-    <div className={Styles["shake-the-plate"]}>
-        <Plate />
+    <div className={Styles["draw-cards"]}>
+        <Cards />
     </div>
 );
 
 type Props = {
-    result: Result;
+    result?: Result;
+    settlementResult?: SettlementResult;
 };
 
-export const OpenThePlate: React.FC<Props> = ({ result }) => (
-    <div className={Styles["open-the-plate"]}>
-        <Plate>
-            {Object.values(result).map((value, index) => (
-                <div key={index} className={`${Styles[`result-sedie-dot${index + 1}`]} ${Styles["result-sedie-dot"]}`}>
-                    <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                </div>
-            ))}
-        </Plate>
-    </div>
-);
+export const DragonTigerResult: React.FC<Props> = (props) => {
+    const result = props.result ? Object.values(props.result) : [];
+
+    const generateResult = (result: boolean[]) => {
+        return result.map((value, index) => <div></div>);
+    };
+
+    return (
+        <div className={Styles["open-cards"]}>
+            <div className="overlay-mask">
+                <Cards />
+            </div>
+        </div>
+    );
+};

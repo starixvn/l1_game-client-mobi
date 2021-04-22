@@ -10,10 +10,9 @@ import { Result, SettlementResult } from "./dragon-tiger";
 import GetElementRound from "./scoreboard-round-history";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import DragonTigerRoundHistory from "./round-history";
-import DragonTigerResult from "./dragon-tiger-result";
+import { CardsAnimation, DragonTigerResult } from "./animations";
 import DragonTigerStatistic from "./statistic";
 import { CommonResourceKeys } from "../../../common/resources";
-import { CardsAnimation } from "./animations";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -60,7 +59,11 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
+        return (
+            this.state.gameState === GameState.BeforeStartRound ||
+            this.state.gameState === GameState.InRound ||
+            this.state.gameState === GameState.LockingBet
+        );
     }
 
     renderStartRoundAnimation() {
