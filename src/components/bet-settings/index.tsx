@@ -22,14 +22,21 @@ export const BetSettings: React.FC = () => {
     const { t } = useTranslation("common");
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
-    const chipColorMapper = Object.values(chipList).reduce((result, chip, index) => {
-        result[chip] = `chip-${index + 1}`;
-
-        return result;
-    }, {});
+    const chipColorMapper = {
+        "1": "chip-1",
+        "5": "chip-2",
+        "10": "chip-3",
+        "50": "chip-5",
+        "100": "chip-6",
+        "200": "chip-7",
+        "500": "chip-8",
+        "1000": "chip-9",
+        "2000": "chip-10",
+    };
     const chipValues = Object.values(chipList);
 
     const SliderSetting = {
+        focusOnSelect: true,
         speed: 500,
         infinite: false,
         adaptiveHeight: true,
@@ -49,7 +56,7 @@ export const BetSettings: React.FC = () => {
     useEffect(() => {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingStorageKey);
 
-        if (betSettings) {
+        if (betSettings && sliderRef) {
             setEnabledQuickBet(betSettings.enabledQuickBet);
             setSelectedChipValue(betSettings.betValue);
             updateArrowsByChipValue(betSettings.betValue);
@@ -59,7 +66,7 @@ export const BetSettings: React.FC = () => {
                 true
             );
         }
-    }, []);
+    }, [isShowSettings]);
 
     const HandleClickActiveBtn = () => {
         setShowSettings(!isShowSettings);
