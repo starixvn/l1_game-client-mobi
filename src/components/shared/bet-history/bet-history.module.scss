@@ -1,7 +1,6 @@
 .list-choices {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     text-align: left;
 
@@ -13,4 +12,12 @@
     .bet-amount {
         margin-left: 0.6rem;
     }
+}
+.stake{
+    text-align: right;
+}
+
+
+.bet-win{
+    text-align: right;
 }

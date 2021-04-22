@@ -24,12 +24,16 @@ const renderResult = (bet: BetLogs) => {
 const renderStake = (bet: BetLogs) => {
     const keysChoices = Object.keys(bet.settlementResult);
     return (
-        <div className={Styles["choice"]}>
+        <>
             {keysChoices &&
                 keysChoices.map((name, index) => {
-                    return <div key={index}>{numberWithCommas(bet[name])}</div>;
+                    return (
+                        <div key={index} className={bet.settlementResult[name] ? "text-bold" : ""}>
+                            {numberWithCommas(bet[name])}
+                        </div>
+                    );
                 })}
-        </div>
+        </>
     );
 };
 
@@ -39,7 +43,7 @@ const renderBet = (bet: BetLogs) => {
     const odds = gameConfigs.odds;
     const keysChoices = Object.keys(bet.settlementResult);
     return (
-        <div className={Styles["choice"]}>
+        <>
             {keysChoices &&
                 keysChoices.map((name, index) => {
                     const classHighLight = bet.settlementResult[name] ? "text-bold" : "";
@@ -49,7 +53,7 @@ const renderBet = (bet: BetLogs) => {
                         </div>
                     );
                 })}
-        </div>
+        </>
     );
 };
 

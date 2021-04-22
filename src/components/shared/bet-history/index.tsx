@@ -123,9 +123,9 @@ const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
             <td>
                 <div className={Styles["list-choices"]}>{renderBet()}</div>
             </td>
-            <td>{renderStake()}</td>
+            <td className={Styles["stake"]}>{renderStake()}</td>
             {isRefund ? <td>{refund}</td> : null}
-            <td className="text-bold">{betwin}</td>
+            <td className={`${Styles["bet-win"]} ${betwin > 0 ? "text-bold" : ""}`}>{betwin}</td>
         </tr>
     );
 };
