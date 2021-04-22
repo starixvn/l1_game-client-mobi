@@ -5,6 +5,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import SeDieDot from "../dot";
+import { MainChoice } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
@@ -15,8 +16,6 @@ const ChoiceIconMapper = {
     red3: [false, true, true, true],
     white3: [true, false, false, false],
 };
-
-const MainChoice = ["even", "odd"];
 
 type Props = {
     settlementResult: SettlementResult;

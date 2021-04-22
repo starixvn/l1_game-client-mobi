@@ -1,23 +1,30 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
-import WrapperHeader, { handlePercent, countSettlement } from "../../../shared/statistic";
+import React from "react";
+
+import { useGameContext } from "../../../../contexts/game-context/game-context";
+import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
+import { Choices } from "../big-small-helper";
 import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
 
+const StatisticRuleEntries = Object.entries({
+    [Choices.big]: (countResult: object, total: number) => Math.round((countResult[Choices.big] * 100) / total),
+    [Choices.small]: (countResult: object, total: number) => 100 - Math.round((countResult[Choices.small] * 100) / total),
+});
+
 const BigSmallStatistic = (props: Props) => {
     const { roundHistory } = props;
-    const { t } = useTranslation("taixiu");
-    const percentOddEven = handlePercent(countSettlement(roundHistory, ["big", "small"], [0, 0]), [0, 0]);
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const statisticResult = calculatePercent(StatisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+
     return (
         <>
-            {["big", "small"].map((title, index) => {
-                return (
-                    <WrapperHeader key={index}>
-                        <span className={title === "big" ? Styles["titleBig"] : Styles["titleSmall"]}> {t(title)}</span>
-                        <span className={Styles["number"]}>{percentOddEven[index]}%</span>
-                    </WrapperHeader>
-                );
-            })}
+            {Object.keys(statisticResult).map((choice) => (
+                <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
+                    <span className={Styles[choice]}>{t(choice)}</span>
+                </StatisticItem>
+            ))}
         </>
     );
 };

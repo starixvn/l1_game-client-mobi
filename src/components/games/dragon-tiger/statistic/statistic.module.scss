@@ -1,17 +1,17 @@
 @import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/statistic";
 
-.title-dragon {
+.dragon {
     @extend %title;
     color: $dragonTiger-choice-dragon-color;
 }
 
-.title-tiger {
+.tiger {
     @extend %title;
     color: $dragonTiger-choice-tiger-color;
 }
 
-.title-tie {
+.tie {
     @extend %title;
     color: $dragonTiger-choice-tie-color;
 }

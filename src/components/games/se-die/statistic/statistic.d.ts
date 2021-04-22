@@ -1,5 +1,8 @@
+import { Round } from "../../../../types";
+import { Result, SettlementResult } from "../sedie";
+
 export type Props = {
-    roundHistory: any;
+    roundHistory: Round<Result, SettlementResult>[];
 };
 
 export enum ResultDiceRed {

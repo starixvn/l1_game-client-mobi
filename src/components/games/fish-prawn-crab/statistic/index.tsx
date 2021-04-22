@@ -1,23 +1,24 @@
 import React from "react";
-import Styles from "./statistic.module.scss";
+
+import StatisticItem, { countSettlementResult } from "../../../shared/statistic";
 import Item from "../item";
-import { countResultValueWithNumber } from "../../../shared/statistic";
 
 type Props = {
     roundHistory: any;
 };
+const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 
 const StatisticComponent = (props: Props) => {
     const { roundHistory } = props;
-    const result = countResultValueWithNumber(roundHistory, [0, 0, 0, 0, 0, 0]);
+    const statisticResult = countSettlementResult(roundHistory);
+
     return (
         <>
-            {result.map((value, index) => {
+            {Object.keys(choicesMapper).map((choice) => {
                 return (
-                    <div key={index} className={Styles["odd-group"]}>
-                        <Item type={index} isSmall={true}></Item>
-                        <span>{value}</span>
-                    </div>
+                    <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
+                        <Item type={choicesMapper[choice]} isSmall={true}></Item>
+                    </StatisticItem>
                 );
             })}
         </>

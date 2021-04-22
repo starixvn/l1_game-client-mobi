@@ -1,58 +1,54 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import WrapperHeader, {
-    handlePercent,
-    countResultWithValueBoolean,
-    countResultNotExistKey,
-    countSettlement,
-} from "../../../shared/statistic";
-import { Props, ResultDiceRed } from "./statistic";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
+import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
 import SeDieDot from "../dot";
+import { checkIsEven, Choices, MainChoice } from "../se-die-helper";
+import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
 
-const ChoiceOddEven = ({ data, titleText }) => {
-    const { t } = useTranslation("xocxoc");
-    return (
-        <>
-            {titleText.map((title, index) => {
-                return (
-                    <WrapperHeader key={index}>
-                        <span className={title === "odd" ? Styles["titleOdd"] : Styles["titleEven"]}> {t(title)}</span>
-                        <span className={Styles["number"]}>{data[index]}%</span>
-                    </WrapperHeader>
-                );
-            })}
-        </>
-    );
-};
+const StatisticRuleEntries = Object.entries({
+    [Choices.even]: (countResult: object, total: number) => 100 - Math.round((countResult[Choices.odd] * 100) / total),
+    [Choices.odd]: (countResult: object, total: number) => Math.round((countResult[Choices.odd] * 100) / total),
+    [Choices.white4]: (countResult: object, total: number) => Math.round((countResult[Choices.white4] * 100) / total),
+    [Choices.white3]: (countResult: object, total: number) =>
+        Math.round((countResult[Choices.odd] * 100) / total) - Math.round((countResult[Choices.red3] * 100) / total),
+    [Choices.red2]: (countResult: object, total: number) =>
+        100 -
+        Math.round((countResult[Choices.odd] * 100) / total) -
+        Math.round((countResult[Choices.red4] * 100) / total) -
+        Math.round((countResult[Choices.white4] * 100) / total),
+    [Choices.red3]: (countResult: object, total: number) => Math.round((countResult[Choices.red3] * 100) / total),
+    [Choices.red4]: (countResult: object, total: number) => Math.round((countResult[Choices.red4] * 100) / total),
+});
 
-const ChoiceOther = ({ data, titleText }) => {
-    return (
-        <>
-            {titleText.map((title, index) => {
-                return (
-                    <WrapperHeader key={index}>
-                        <SeDieDot red={index % 2 > 0} value={title} />
-                        <span className={Styles["number"]}>{data[index]}%</span>
-                    </WrapperHeader>
-                );
-            })}
-        </>
-    );
+const RedDotMapper = {
+    [Choices.white4]: 0,
+    [Choices.white3]: 1,
+    [Choices.red2]: 2,
+    [Choices.red3]: 3,
+    [Choices.red4]: 4,
 };
 
 const SeDiceStatistic = (props: Props) => {
     const { roundHistory } = props;
-    const percentOddEven = handlePercent(countSettlement(roundHistory, ["odd", "even"], [0, 0]), [0, 0]);
-    const countDiceRed = countResultWithValueBoolean(roundHistory, ["red1", "red2", "red3", "red4"], [0, 0, 0, 0]);
-    const countDiceAllWhite = countResultNotExistKey(roundHistory);
-    countDiceRed.unshift(+countDiceAllWhite);
-    const percentOtherChoice: ResultDiceRed[] = handlePercent(countDiceRed, [0, 0, 0, 0, 0]);
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+
+    const statisticResult = calculatePercent(StatisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+
     return (
         <>
-            <ChoiceOddEven data={percentOddEven} titleText={["odd", "even"]} />
-            <ChoiceOther data={percentOtherChoice} titleText={[0, 1, 2, 3, 4]} />
+            {Object.keys(statisticResult).map((choice) => (
+                <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
+                    {MainChoice.includes(choice) ? (
+                        <span className={`${Styles.title} ${choice == Choices.odd ? Styles.red : ""}`}>{t(choice)}</span>
+                    ) : (
+                        <SeDieDot red={checkIsEven(RedDotMapper[choice])} value={RedDotMapper[choice]} />
+                    )}
+                </StatisticItem>
+            ))}
         </>
     );
 };

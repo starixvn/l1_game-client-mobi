@@ -1,12 +1,12 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { BetLogs } from "./bet-history";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { numberWithCommas } from "../../../../helpers/NumberHelper";
 import BetHistoryContainer from "../../../shared/bet-history";
 import SeDieDot from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
-import { numberWithCommas } from "../../../../helpers/NumberHelper";
+import { BetLogs } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
@@ -14,7 +14,7 @@ const renderResult = (bet: BetLogs) => {
         const countRed = countRedDot(bet.result);
         return (
             <div className="d-flex justify-content-center">
-                <SeDieDot red={checkIsEven(countRed)} value={countRed.toString()} />
+                <SeDieDot red={checkIsEven(countRed)} value={countRed} />
             </div>
         );
     }

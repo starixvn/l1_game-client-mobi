@@ -1,12 +1,12 @@
 @import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/statistic";
 
-.titleBig {
+.big {
     @extend %title;
     color: $bigSmall-choice-big-color;
 }
 
-.titleSmall {
+.small {
     @extend %title;
     color: $bigSmall-choice-small-color;
 }

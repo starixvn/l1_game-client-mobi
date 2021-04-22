@@ -7,7 +7,7 @@ type Props = {
     count?: number;
     row?: number;
     col?: number;
-    value?: string;
+    value?: number;
 };
 
 const SeDieDot: React.FunctionComponent<Props> = ({ red = false, value }) => {
