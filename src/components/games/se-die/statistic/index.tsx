@@ -43,7 +43,7 @@ const SeDiceStatistic = (props: Props) => {
             {Object.keys(statisticResult).map((choice) => (
                 <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
                     {MainChoice.includes(choice) ? (
-                        <span className={`${Styles.title} ${choice == Choices.odd ? Styles.red : ""}`}>{t(choice)}</span>
+                        <span className={`${Styles.title} ${choice === Choices.odd ? Styles.red : ""}`}>{t(choice)}</span>
                     ) : (
                         <SeDieDot red={checkIsEven(RedDotMapper[choice])} value={RedDotMapper[choice]} />
                     )}

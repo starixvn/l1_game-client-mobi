@@ -1,8 +1,12 @@
 import React from "react";
 
 import { Round } from "../../../types";
-import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
+
+type Props = {
+    children: React.ReactNode;
+    value: string | number;
+};
 
 export const countSettlementResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((result, { settlementResult }) => {
