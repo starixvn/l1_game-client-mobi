@@ -1,7 +1,7 @@
 import React from "react";
 
 import StatisticItem, { countSettlementResult } from "../../../shared/statistic";
-import Item from "../item";
+import ChoiceIcon from "../item";
 
 type Props = {
     roundHistory: any;
@@ -17,7 +17,7 @@ const StatisticComponent = (props: Props) => {
             {Object.keys(choicesMapper).map((choice) => {
                 return (
                     <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
-                        <Item type={choicesMapper[choice]} isSmall={true}></Item>
+                        <ChoiceIcon type={choicesMapper[choice]} isSmall={true}></ChoiceIcon>
                     </StatisticItem>
                 );
             })}

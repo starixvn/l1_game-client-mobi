@@ -8,14 +8,14 @@ type Props = {
 
 const listIconName = ["icon-nai", "icon-bau", "icon-ga", "icon-ca", "icon-cua", "icon-tom"];
 
-const Item: React.FunctionComponent<Props> = ({ type, isSmall }) => {
-    const iconName = listIconName.filter((name, index) => {
-        return index === type;
-    });
-
+const ChoiceIcon: React.FunctionComponent<Props> = ({ type, isSmall }) => {
     return (
-        <div className={`${isSmall ? Styles["icon-mini"] : Styles["score-board-item"]} ${iconName} ${Styles[iconName.toString()]} `}></div>
+        <div
+            className={`${isSmall ? Styles["icon-mini"] : Styles["score-board-item"]} ${listIconName[type]} ${
+                Styles[listIconName[type].toString()]
+            } `}
+        ></div>
     );
 };
 
-export default Item;
+export default ChoiceIcon;
