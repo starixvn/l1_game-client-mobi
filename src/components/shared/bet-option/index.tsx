@@ -4,6 +4,7 @@ import { useCountUp } from "react-countup";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { numberWithCommas } from "../../../helpers/NumberHelper";
 import { BetSettingStorageType } from "../../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
@@ -68,9 +69,9 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{`1:${odd}`}</div>}
-                <div className={Styles["total-bet"]}>{countUp}</div>
+                <div className={Styles["total-bet"]}>{numberWithCommas(+countUp)}</div>
                 {children}
-                <div className={Styles["own-bet"]}>{ownBets?.[choice]}</div>
+                <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>
             </div>
         </div>
     );

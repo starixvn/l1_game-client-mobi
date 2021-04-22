@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
 
+import { numberWithCommas } from "../../helpers/NumberHelper";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -32,7 +33,7 @@ const Header: React.FC<Props> = (props) => {
                                 <span>{props.name}</span>
                             </div>
                             <div className={Styles.balance}>
-                                {props.balance} {props.currency}
+                                {numberWithCommas(props.balance)} {props.currency}
                             </div>
                         </div>
                     </div>
