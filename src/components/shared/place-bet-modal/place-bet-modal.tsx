@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Translation } from "react-i18next";
+
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameResourceKeys } from "../../../common/resources";
 import { GameContext } from "../../../contexts/game-context/game-context";
@@ -6,8 +8,8 @@ import { BetSettingStorageType } from "../../bet-settings/type";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
-import { Translation } from "react-i18next";
-import { isMobile } from "react-device-detect";
+
+//import { isMobile } from "react-device-detect";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -40,7 +42,7 @@ export default class PlaceBetModal extends Component<Props, State> {
 
         const betSettingKey = localStorageKeys.betSetting;
         const betSetting = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
-        const betAmount = betSetting?.betValue ?? 1;
+        const betAmount = 1;
 
         this.wrapperRef = React.createRef();
 
@@ -208,7 +210,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                                     type={"number"}
                                     onChange={this.handleInputBetAmount}
                                     min={0}
-                                    disabled={isMobile}
+                                    disabled={true}
                                 />
                                 <span className={`icon-close ${Styles["reset-button"]}`} onClick={() => this.updateBetAmount(0)}></span>
                             </form>

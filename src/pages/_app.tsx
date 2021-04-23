@@ -10,16 +10,14 @@ import { init } from "../utils/sentry";
 init();
 
 class SabaMobiApp extends App<{ isMobile: boolean }> {
-    static async getInitialProps({ Component, ctx }: AppContext) {
-        let pageProps = {};
-        let isMobile = false;
-        if (Component.getInitialProps) {
-            const mobilePattern = /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i;
-            const userAgent = ctx?.req?.headers["user-agent"] ?? navigator.userAgent;
-            isMobile = mobilePattern.test(userAgent);
-            pageProps = await Component.getInitialProps(ctx);
-        }
-        return { isMobile, pageProps };
+    static async getInitialProps(appContext: AppContext) {
+        const mobilePattern = /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i;
+        const userAgent = appContext.ctx?.req?.headers["user-agent"] ?? navigator.userAgent;
+        const isMobile = mobilePattern.test(userAgent);
+
+        const appProps = await App.getInitialProps(appContext);
+
+        return { isMobile, ...appProps };
     }
 
     render() {
