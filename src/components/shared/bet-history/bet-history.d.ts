@@ -20,6 +20,7 @@ export type PropsBetContainer = {
     renderResult: Function;
     renderBet: Function;
     renderStake: Function;
+    translate?: Function;
 };
 
 export type BetLogs = {

@@ -6,33 +6,89 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameBetHistory } from "../../../components/shared/game-base/type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
-import InfiniteScroll from "react-infinite-scroll-component";
+// import InfiniteScroll from "react-infinite-scroll-component";
 import Styles from "./bet-history.module.scss";
+import { Table } from "react-infinite-table";
+import { Spinner } from "reactstrap";
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, renderBet, renderStake, isRefund } = props;
+    const { renderResult, renderBet, renderStake, isRefund, translate } = props;
     const gameContext = useGameContext();
     const gameActions = useGameActionContext();
     const [isFetching, setIsFetching] = useState<boolean>(true);
     const [listBetHistory, setListBetHistory] = useState<any[]>([]);
+    const [columns, setColumns] = useState<any[]>([]);
     const [page, setPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
-    const [hasMoreHistory, setHasMoreHistory] = useState<boolean>(false);
+    const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
     const betHistory: GameBetHistory = gameContext.betHistory;
     const { t } = useTranslation("bethistory");
+    const { gameConfigs } = useGameContext();
+    const odds = gameConfigs.odds;
+    const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+    const cellRenderer = ({ columnIndex, rowData }) => {
+        const { time, phien, betwin, refund, amount, totalAmount } = rowData as BetHistoryItem;
+        switch (columnIndex) {
+            case 1:
+                return <td>{phien}</td>;
+                break;
+            case 2:
+                return <td>{renderResult(rowData)}</td>;
+                break;
+            case 3:
+                return (
+                    <td>
+                        <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
+                    </td>
+                );
+                break;
+            case 4:
+                return <td className={Styles["stake"]}>{renderStake(rowData)}</td>;
+                break;
+            case 5:
+                return <td className={`${Styles["bet-win"]} ${betwin > 0 ? "font-weight-bold" : ""}`}>{numberWithCommas(betwin)}</td>;
+                break;
+
+            default:
+                return (
+                    <td>
+                        <div className="time">
+                            <Moment format="hh:mm">{time}</Moment>
+                        </div>
+                        <div className="date">
+                            <Moment format="DD/MM/YY">{time}</Moment>
+                        </div>
+                    </td>
+                );
+                break;
+        }
+    };
+
+    const headerRenderer = ({ column, className }) => {
+        return <td className={className}>{t(headerName[column.i])}</td>;
+    };
+
+    const createColumns = () => {
+        const numberOfColumns = isRefund ? 7 : 6;
+        const _columns = [];
+        for (let index = 0; index < numberOfColumns; index++) {
+            _columns.push({
+                i: index,
+                cellRenderer: cellRenderer,
+                headerRenderer: headerRenderer,
+                width: 50,
+            });
+        }
+        return _columns;
+    };
 
     useEffect(() => {
         gameActions.getBetHistory(1);
     }, []);
 
     useEffect(() => {
-        if (listBetHistory.length > 0 && listBetHistory.length % 8 > 0) {
-            setHasMoreHistory(false);
-        }
-    }, [page === 1]);
-
-    useEffect(() => {
         fetchBetHistory();
+        setColumns(createColumns());
     }, [betHistory]);
 
     const fetchBetHistory = () => {
@@ -45,89 +101,44 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 setListBetHistory(() => {
                     return [...listBetHistory, ...data];
                 });
+
                 setPage(page + 1);
-                setHasMoreHistory(true);
+                setIsInfiniteLoading(false);
             }
         }
-        return;
     };
 
-    const fetchMoreListBets = () => {
+    const onInfiniteLoad = () => {
+        setIsInfiniteLoading(true);
         if (page <= totalPage) {
             gameActions.getBetHistory(page);
             fetchBetHistory();
             return;
         }
-        setHasMoreHistory(false);
+        setIsInfiniteLoading(false);
     };
 
     return (
         <div className="table-container">
-            {listBetHistory && (
-                <InfiniteScroll
-                    dataLength={listBetHistory.length}
-                    next={fetchMoreListBets}
-                    hasMore={hasMoreHistory}
-                    loader={<h4>Loading...</h4>}
-                    scrollThreshold={0.1}
-                    className={"tableFixHead"}
-                >
-                    <table className="table text-center">
-                        <thead>
-                            <tr>
-                                <th>{t("roundTime")}</th>
-                                <th>{t("round")}</th>
-                                <th>{t("result")}</th>
-                                <th>{t("choice")}</th>
-                                {isRefund ? <th>{t("refund")}</th> : <th>{t("stake")}</th>}
-                                <th>{t("win")}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {listBetHistory.map((bet: any) => {
-                                return (
-                                    <BetHistoryRow
-                                        key={bet.phien}
-                                        renderResult={() => renderResult(bet)}
-                                        renderBet={() => renderBet(bet)}
-                                        renderStake={() => renderStake(bet)}
-                                        betHistoryItem={bet}
-                                        isRefund={false}
-                                    ></BetHistoryRow>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </InfiniteScroll>
+            {listBetHistory && columns && (
+                <Table
+                    className="table"
+                    tableClassName="table table-bordered table-striped text-center"
+                    height={400}
+                    rowHeight={50}
+                    rows={listBetHistory}
+                    columns={columns}
+                    fillTableWidth={true}
+                    noRowsRenderer={() => "No rows"}
+                    infiniteLoadBeginEdgeOffset={5}
+                    isInfiniteLoading={isInfiniteLoading}
+                    onInfiniteLoad={onInfiniteLoad}
+                    getLoadingSpinner={() => <Spinner color="primary" />}
+                />
             )}
 
-            {isFetching && <h1>Fetching bets history...</h1>}
+            {isFetching && <Spinner color="primary" />}
         </div>
-    );
-};
-
-const BetHistoryRow: React.FunctionComponent<Props> = (props: Props) => {
-    const { betHistoryItem, renderResult, renderBet, renderStake, isRefund } = props;
-    const { time, phien, betwin, refund, amount, totalAmount } = betHistoryItem as BetHistoryItem;
-    return (
-        <tr className={betwin > 0 ? "highlight" : ""}>
-            <td>
-                <div className="time">
-                    <Moment format="hh:mm">{time}</Moment>
-                </div>
-                <div className="date">
-                    <Moment format="DD/MM/YY">{time}</Moment>
-                </div>
-            </td>
-            <td>{phien}</td>
-            <td>{renderResult()}</td>
-            <td>
-                <div className={Styles["list-choices"]}>{renderBet()}</div>
-            </td>
-            <td className={Styles["stake"]}>{renderStake()}</td>
-            {isRefund ? <td>{refund}</td> : null}
-            <td className={`${Styles["bet-win"]} ${betwin > 0 ? "font-weight-bold" : ""}`}>{numberWithCommas(betwin)}</td>
-        </tr>
     );
 };
 

@@ -22,11 +22,11 @@ const renderResult = (bet: BetLogs) => {
 };
 
 const renderStake = (bet: BetLogs) => {
-    const keysChoices = Object.keys(bet.settlementResult);
-    return (
-        <>
-            {keysChoices &&
-                keysChoices.map((name, index) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        return (
+            <>
+                {keysChoices.map((name, index) => {
                     if (bet[name] > 0) {
                         return (
                             <div key={index} className={bet.settlementResult[name] ? "font-weight-bold" : ""}>
@@ -34,42 +34,48 @@ const renderStake = (bet: BetLogs) => {
                             </div>
                         );
                     }
-                    return "";
+                    return null;
                 })}
-        </>
-    );
+            </>
+        );
+    }
+
+    return <></>;
 };
 
-const renderBet = (bet: BetLogs) => {
-    const { gameConfigs } = useGameContext();
-    const { t } = useTranslation("xocxoc");
-    const odds = gameConfigs.odds;
-    const keysChoices = Object.keys(bet.settlementResult);
-    return (
-        <>
-            {keysChoices &&
-                keysChoices.map((name, index) => {
-                    const classHighLight = bet.settlementResult[name] ? "font-weight-bold" : "";
-                    if (bet[name] > 0) {
-                        return (
-                            <div key={index} className={classHighLight}>
-                                {t(name)}@{odds[name]}
-                            </div>
-                        );
-                    }
-                    return "";
-                })}
-        </>
-    );
+const renderBet = (bet: BetLogs, t: Function, odds: object) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        return (
+            <>
+                {keysChoices &&
+                    keysChoices.map((name, index) => {
+                        const classHighLight = bet.settlementResult[name] ? "font-weight-bold" : "";
+                        if (bet[name] > 0) {
+                            return (
+                                <div key={index} className={classHighLight}>
+                                    {t(name)}@{odds[name]}
+                                </div>
+                            );
+                        }
+                        return "";
+                    })}
+            </>
+        );
+    }
+
+    return <></>;
 };
 
 const SeDieBetHistory: React.FunctionComponent = () => {
+    const { t } = useTranslation("xocxoc");
     return (
         <BetHistoryContainer
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            renderBet={(bet: BetLogs) => renderBet(bet)}
+            renderBet={(bet: BetLogs, t: Function, odds: object) => renderBet(bet, t, odds)}
             renderStake={(bet: BetLogs) => renderStake(bet)}
+            translate={t}
         ></BetHistoryContainer>
     );
 };
