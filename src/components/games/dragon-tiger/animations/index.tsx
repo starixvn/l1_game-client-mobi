@@ -4,7 +4,8 @@ import Styles from "./dragon-tiger-animations.module.scss";
 
 const Cards: React.FC = ({ children }) => (
     <div className={`${Styles["animation-container"]}`}>
-        <div className={`${Styles["card-shadow"]} ${Styles["card1"]}`}>
+        <div className={Styles["card1"]}>
+            <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>
                     <div className={Styles["card-group-left"]}>
@@ -17,7 +18,8 @@ const Cards: React.FC = ({ children }) => (
                 </div>
             </div>
         </div>
-        <div className={`${Styles["card-shadow"]} ${Styles["card2"]}`}>
+        <div className={Styles["card2"]}>
+            <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>
                     <div className={Styles["card-group-left"]}>
