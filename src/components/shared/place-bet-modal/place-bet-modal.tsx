@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
-import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameResourceKeys } from "../../../common/resources";
 import { DeviceContextConsumer } from "../../../contexts/device";
 import { GameContext } from "../../../contexts/game-context/game-context";
-import { BetSettingStorageType } from "../../bet-settings/type";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
@@ -38,14 +36,12 @@ export default class PlaceBetModal extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const betSettingKey = localStorageKeys.betSetting;
-        const betSetting = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
         const betAmount = 1;
 
         this.wrapperRef = React.createRef();
 
         this.state = {
-            betAmount,
+            betAmount: 1,
             noticeKey: "",
             noticeAmount: 0,
         };
@@ -99,10 +95,13 @@ export default class PlaceBetModal extends Component<Props, State> {
     validateBetAmount = (betAmount: number) => {
         debugger;
         const { betChoice } = this.props.betChoiceInfo;
-        const { gameConfigs, ownBets } = this.context;
+        const { gameConfigs, ownBets, userStakeLevel } = this.context;
+        console.log(userStakeLevel);
         const { maxbet, choices_maxbet, minbet } = gameConfigs;
         const currentAmountOnChoice = ownBets[betChoice] ?? 0;
         const totalBet = Object.keys(choices_maxbet).reduce((total, choice) => total + (ownBets[choice] ?? 0), 0);
+        const maxBetPerChoice = Math.min(choices_maxbet[betChoice], userStakeLevel.maxBet);
+        const maxBetPerRound = Math.min(maxbet, userStakeLevel.maxBet);
 
         const criteria = [
             {
@@ -111,14 +110,14 @@ export default class PlaceBetModal extends Component<Props, State> {
                 validAmount: minbet,
             },
             {
-                failure: betAmount + currentAmountOnChoice > choices_maxbet[betChoice],
-                notice: { key: "maxBetChoice", value: choices_maxbet[betChoice] },
-                validAmount: choices_maxbet[betChoice] - currentAmountOnChoice,
+                failure: betAmount + currentAmountOnChoice > maxBetPerChoice,
+                notice: { key: "maxBetChoice", value: maxBetPerChoice },
+                validAmount: maxBetPerChoice - currentAmountOnChoice,
             },
             {
-                failure: totalBet + betAmount > maxbet,
-                notice: { key: "maxBet", value: maxbet },
-                validAmount: maxbet - totalBet,
+                failure: totalBet + betAmount > maxBetPerRound,
+                notice: { key: "maxBet", value: maxBetPerRound },
+                validAmount: maxBetPerRound - totalBet,
             },
         ];
 

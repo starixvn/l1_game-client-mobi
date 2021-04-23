@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
-import { useDeviceContext } from "../../contexts/device";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
