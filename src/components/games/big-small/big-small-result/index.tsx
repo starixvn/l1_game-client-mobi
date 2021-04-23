@@ -29,7 +29,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
         return (
             <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
                 <div className="overlay-mask">
-                    <div className={`${Styles["animation-container"]} ${Styles["result-fadeIn-animation"]}`}>
+                    <div className={Styles["animation-container"]}>
                         <div className={Styles["result-plate"]}></div>
                         <div className={Styles["toss-dices"]}>
                             <img src="/static/images/bigsmall_dice.gif" alt="shake" />

@@ -73,3 +73,12 @@
         transform: translate(0) rotateX(0);
     }
 }
+
+@keyframes hide-bowl-animation {
+    70% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

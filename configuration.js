@@ -32,7 +32,7 @@ module.exports = {
                 lockingBet: 5,
                 showResult: 2,
                 highlightBeforeWaiting: 1.5,
-                beforeStartRound: 2,
+                beforeStartRound: 1,
             },
         },
         3: {

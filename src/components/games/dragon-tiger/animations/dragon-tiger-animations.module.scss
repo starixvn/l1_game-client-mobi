@@ -1,13 +1,14 @@
 @import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/card";
 
-$time-draw-card: 0.3s;
-$time-open-card: 0.5s;
+$time-draw-card-animation: 0.3s;
+$time-open-card-animation: 0.5s;
+$time-zoom-in-card-animation: 0.1s;
 
 .animation-container {
     position: absolute;
     left: 0;
-    top: -11px;
+    top: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -21,12 +22,12 @@ $time-open-card: 0.5s;
 
 .card-shadow {
     position: absolute;
-    left: 13px;
-    right: 14px;
-    top: 18px;
-    bottom: 18px;
+    left: 1.3rem;
+    right: 1.4rem;
+    top: 1.8rem;
+    bottom: 1.8rem;
     box-shadow: 1px 1px 6px rgb(0 0 0 / 20%);
-    border-radius: 16px;
+    border-radius: 1.6rem;
 }
 
 .draw-cards {
@@ -41,7 +42,7 @@ $time-open-card: 0.5s;
 
     %draw-card {
         animation-name: draw-card-animation;
-        animation-duration: $time-draw-card/2;
+        animation-duration: $time-draw-card-animation/2;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
@@ -53,24 +54,24 @@ $time-open-card: 0.5s;
 
     .card2 {
         @extend %draw-card;
-        animation-delay: $time-draw-card/2;
+        animation-delay: $time-draw-card-animation/2;
     }
 }
 
 @keyframes draw-card-animation {
     0% {
         opacity: 0;
-        transform: translate3d(0, -400px, 0);
+        transform: translate3d(0, -40rem, 0);
     }
 
     50% {
         opacity: 0.3;
-        transform: translate3d(0, -250px, 0);
+        transform: translate3d(0, -25rem, 0);
     }
 
     70% {
         opacity: 0.6;
-        transform: translate3d(0, -50px, 0);
+        transform: translate3d(0, -5rem, 0);
     }
 
     90% {
@@ -82,8 +83,8 @@ $time-open-card: 0.5s;
 .open-cards {
     .animation-container {
         transition: transform 0.7s;
-        animation-name: zoon-out-animation;
-        animation-duration: 0.1s;
+        animation-name: zoon-in-animation;
+        animation-duration: $time-zoom-in-card-animation;
         animation-delay: 0s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
@@ -104,11 +105,11 @@ $time-open-card: 0.5s;
     .card-group-left {
         position: absolute;
         z-index: 2;
-        left: 20px;
-        top: 18px;
+        left: 2rem;
+        top: 1.8rem;
 
         .card-number {
-            font-size: 44px;
+            font-size: 4.4rem;
             font-weight: bold;
             font-family: Arial;
             text-align: center;
@@ -123,54 +124,58 @@ $time-open-card: 0.5s;
     .card-group-right {
         position: absolute;
         z-index: 1;
-        right: 19px;
-        bottom: 21px;
+        right: 2rem;
+        bottom: 2rem;
 
         .card-picture {
             position: relative;
-            top: -2px;
-            right: 0px;
+            top: -0.2rem;
+            right: 0;
         }
     }
 
     %open-card {
         position: relative;
         animation-name: open-card-animation;
-        animation-duration: 0.2s;
+        animation-duration: $time-open-card-animation/2;
         animation-fill-mode: forwards;
-        animation-timing-function: linear;
-        transition: transform 0.7s;
+        animation-timing-function: ease-in;
+        transition: transform 0.1s;
     }
 
-    .card1 {
-        .card-bg {
-            @extend %open-card;
-            animation-delay: 0.1s;
-        }
+    .card1 .card-bg {
+        @extend %open-card;
+        animation-delay: $time-zoom-in-card-animation;
     }
 
-    .card2 {
-        .card-bg {
-            @extend %open-card;
-            animation-delay: 0.3s;
-        }
+    .card2 .card-bg {
+        @extend %open-card;
+        animation-delay: $time-open-card-animation/2 + $time-zoom-in-card-animation;
     }
 }
 
-@keyframes zoon-out-animation {
+@keyframes zoon-in-animation {
+    70% {
+        transform: scale(0.41, 0.41);
+    }
+
     100% {
-        transform: scale(0.52, 0.51);
+        transform: scale(0.51, 0.515);
     }
 }
 
 @keyframes open-card-animation {
     30% {
-        transform: scaleX(0.1);
+        transform: rotateY(60deg) scaleX(0.4);
     }
 
-    50% {
-        background-position: -212px -10px;
-        transform: rotateY(180deg) scaleX(0.5);
+    60% {
+        background-position: -21.2rem -1rem;
+        transform: rotateY(180deg) scaleX(0.6);
+    }
+
+    80% {
+        transform: scaleX(0.7);
     }
 
     100% {

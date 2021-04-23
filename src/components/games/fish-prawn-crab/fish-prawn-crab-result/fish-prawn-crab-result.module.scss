@@ -1,25 +1,13 @@
-@import "../../../../assets/components/shake-animation";
 @import "../../../../assets/abstracts/variables";
+@import "../../../../assets/components/animation-container";
+@import "../../../../assets/components/shake-animation";
 
-.container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 80;
-    width: 100%;
-    height: 100%;
-}
+$time-show-plate-animation: 0.1s;
+$time-shake-plate-animation: 1s;
 
-.animation-container {
-    position: absolute;
-    z-index: $result-animation-index;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-}
+$time-delay-open-bowl-animation: $time-show-plate-animation + $time-shake-plate-animation;
+$time-opening-bowl-animation: 1s;
+$time-bowl-hide-animation: 0.5s;
 
 .result-set {
     position: absolute;
@@ -28,8 +16,8 @@
     z-index: $result-animation-index;
     opacity: 0;
     animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
-    animation-delay: 1s, 1.1s, 1.25s;
-    animation-duration: 0.1s, 0.5s, 0.5s;
+    animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2);
+    animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2;
     animation-fill-mode: forwards, forwards, forwards;
     animation-timing-function: linear, linear, linear;
 }
@@ -57,9 +45,9 @@
     pointer-events: none;
     background: url("/static/images/fpc-bowl.png") no-repeat center;
     background-size: 100%;
-    animation-name: animation-sedie-opening-bowl, frAnimation-sedie-bowl-hide;
-    animation-delay: 2s, 3s;
-    animation-duration: 1s, 0.5s;
+    animation-name: opening-bowl-animation, hide-bowl-animation;
+    animation-delay: $time-delay-open-bowl-animation, ($time-delay-open-bowl-animation + $time-opening-bowl-animation);
+    animation-duration: $time-opening-bowl-animation, $time-bowl-hide-animation;
     animation-fill-mode: forwards, forwards;
     animation-timing-function: linear, linear;
 }
@@ -68,29 +56,29 @@
     position: absolute;
     top: calc(50% + 6.6rem);
     left: calc(50% - 6.6rem);
-    height: 132px;
-    width: 132px;
+    height: 13.2rem;
+    width: 13.2rem;
     z-index: $result-animation-index;
 }
 
 .result-1 {
     position: absolute;
-    left: 36px;
-    top: 32px;
+    left: 3.6rem;
+    top: 3.2rem;
     transform: rotate(3.36deg);
 }
 
 .result-2 {
     position: absolute;
-    left: 70px;
-    top: 55px;
+    left: 7rem;
+    top: 5.5rem;
     transform: rotate(-5deg);
 }
 
 .result-3 {
     position: absolute;
-    left: 36px;
-    top: 67px;
+    left: 3.6rem;
+    top: 6.7rem;
     transform: rotate(-2deg);
 }
 
@@ -124,30 +112,12 @@
     left: calc(50% + 1rem);
 }
 
-@-webkit-keyframes frAnimation-sedie-bowl-hide {
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes frAnimation-sedie-bowl-hide {
-    70% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
-@keyframes animation-sedie-opening-bowl {
+@keyframes opening-bowl-animation {
     4%,
     36% {
         transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translate(-73px, 71px) rotate(45deg);
+        transform: translate(-7.3rem, 7rem) rotate(45deg);
     }
 }
