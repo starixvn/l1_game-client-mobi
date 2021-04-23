@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
-
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { GameResourceKeys } from "../../../common/resources";
+import { DeviceContextConsumer } from "../../../contexts/device";
 import { GameContext } from "../../../contexts/game-context/game-context";
 import { BetSettingStorageType } from "../../bet-settings/type";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";
-
-//import { isMobile } from "react-device-detect";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -203,18 +201,24 @@ export default class PlaceBetModal extends Component<Props, State> {
                             <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                                 <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
                             </div>
-                            <form>
-                                <input
-                                    className={`w-100 ${Styles["custom-form-control"]}`}
-                                    value={betAmount}
-                                    type={"number"}
-                                    onChange={this.handleInputBetAmount}
-                                    min={0}
-                                    disabled={true}
-                                />
-                                <span className={`icon-close ${Styles["reset-button"]}`} onClick={() => this.updateBetAmount(0)}></span>
-                            </form>
-
+                            <DeviceContextConsumer>
+                                {(device) => (
+                                    <form>
+                                        <input
+                                            className={`w-100 ${Styles["custom-form-control"]}`}
+                                            value={betAmount}
+                                            type={"number"}
+                                            onChange={this.handleInputBetAmount}
+                                            min={0}
+                                            disabled={device.isMobile}
+                                        />
+                                        <span
+                                            className={`icon-close ${Styles["reset-button"]}`}
+                                            onClick={() => this.updateBetAmount(0)}
+                                        ></span>
+                                    </form>
+                                )}
+                            </DeviceContextConsumer>
                             <ul className={Styles["bet-info"]}>
                                 <li className={Styles.payout}>
                                     {t("common:payout")}: <span className={Styles["highlight"]}>{(betAmount * odd).toFixed(2)}</span>
