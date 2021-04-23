@@ -93,7 +93,6 @@ export default class PlaceBetModal extends Component<Props, State> {
     };
 
     validateBetAmount = (betAmount: number) => {
-        debugger;
         const { betChoice } = this.props.betChoiceInfo;
         const { gameConfigs, ownBets, userStakeLevel } = this.context;
         console.log(userStakeLevel);
@@ -202,7 +201,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                             </div>
                             <DeviceContextConsumer>
                                 {(device) => (
-                                    <form>
+                                    <form className="position-relative">
                                         <input
                                             className={`w-100 ${Styles["custom-form-control"]}`}
                                             value={betAmount}
@@ -212,7 +211,7 @@ export default class PlaceBetModal extends Component<Props, State> {
                                             disabled={device.isMobile}
                                         />
                                         <span
-                                            className={`icon-close ${Styles["reset-button"]}`}
+                                            className={`icon-cancel ${Styles["reset-button"]}`}
                                             onClick={() => this.updateBetAmount(0)}
                                         ></span>
                                     </form>

@@ -14,6 +14,11 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cancel:before {
+    content: "\e914";
+    color: #9298a4;
+}
+
 .icon-warning:before {
     content: "\e913";
     color: #ffb52a;
