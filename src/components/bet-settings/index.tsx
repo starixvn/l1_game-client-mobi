@@ -21,7 +21,7 @@ export const BetSettings: React.FC = () => {
     let sliderRef = null;
     const { t } = useTranslation("common");
 
-    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000 };
+    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000, "3k": 3000 };
     const chipColorMapper = {
         "1": "chip-1",
         "5": "chip-2",
@@ -32,6 +32,7 @@ export const BetSettings: React.FC = () => {
         "500": "chip-8",
         "1000": "chip-9",
         "2000": "chip-10",
+        "3000": "chip-11",
     };
     const chipValues = Object.values(chipList);
 
@@ -41,7 +42,7 @@ export const BetSettings: React.FC = () => {
         infinite: false,
         adaptiveHeight: true,
         swipeToSlide: true,
-        slidesToShow: 9,
+        slidesToShow: 10,
         arrows: false,
         responsive: [
             {
