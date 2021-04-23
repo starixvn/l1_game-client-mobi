@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { useDeviceContext } from "../../contexts/device";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
@@ -17,6 +18,7 @@ export const BetSettings: React.FC = () => {
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [enabledQuickBet, setEnabledQuickBet] = useState(false);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
+    const [isSwipe, setIsSwipe] = useState(true);
     const betSettingStorageKey = localStorageKeys.betSetting;
     let sliderRef = null;
     const { t } = useTranslation("common");
@@ -44,6 +46,13 @@ export const BetSettings: React.FC = () => {
         swipeToSlide: true,
         slidesToShow: 10,
         arrows: false,
+        onSwipe: () => setIsSwipe(true),
+        beforeChange: (oldIndex, newIndex) => {
+            if (isSwipe) {
+                oldIndex > newIndex && handleSelectChip(chipValues[newIndex + 2]);
+                oldIndex < newIndex && handleSelectChip(chipValues[newIndex]);
+            }
+        },
         responsive: [
             {
                 breakpoint: 1024,
@@ -52,7 +61,6 @@ export const BetSettings: React.FC = () => {
                 },
             },
         ],
-        afterChange: (current: number) => setSelectedChipValue(chipValues[current]),
     };
 
     useEffect(() => {
@@ -81,6 +89,7 @@ export const BetSettings: React.FC = () => {
 
             sliderRef.slickGoTo(chipIndex + 1);
             handleSelectChip(newSelectedChip);
+            setIsSwipe(false);
         }
     };
 
@@ -91,6 +100,7 @@ export const BetSettings: React.FC = () => {
 
             sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
+            setIsSwipe(false);
         }
     };
 
