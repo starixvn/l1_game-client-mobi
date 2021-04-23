@@ -15,23 +15,14 @@
 }
 
 .bet-info {
+    display: flex;
+    justify-content: space-between;
     margin-top: 0.6rem;
-    list-style: none;
-    font-size: 1.6rem;
-    overflow: hidden;
-
-    .payout,
-    .error-message {
-        width: 100%;
-        margin-left: 1rem;
-    }
+    margin-bottom: 0.6rem;
 
     .payout {
+        font-size: 1.6rem;
         text-align: right;
-    }
-
-    .error-message {
-        color: #ff0000;
     }
 
     .highlight {
@@ -39,9 +30,15 @@
     }
 }
 
+.error-message {
+    margin-bottom: 0.4rem;
+    color: $error-color;
+}
+
 .custom-form-control {
-    text-align: right;
+    width: 100%;
     padding-right: 3.5rem;
+    text-align: right;
     font-size: 2rem;
     color: #9298a4;
     -moz-appearance: textfield;

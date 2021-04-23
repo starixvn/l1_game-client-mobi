@@ -199,11 +199,18 @@ export default class PlaceBetModal extends Component<Props, State> {
                             <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                                 <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
                             </div>
+
+                            {noticeKey && (
+                                <div className={Styles["error-message"]}>
+                                    {t(`common:${noticeKey}`).replace(`{${noticeKey}}`, noticeAmount.toString())}
+                                </div>
+                            )}
+
                             <DeviceContextConsumer>
                                 {(device) => (
                                     <form className="position-relative">
                                         <input
-                                            className={`w-100 ${Styles["custom-form-control"]}`}
+                                            className={`${Styles["custom-form-control"]}`}
                                             value={betAmount}
                                             type={"number"}
                                             onChange={this.handleInputBetAmount}
@@ -217,16 +224,14 @@ export default class PlaceBetModal extends Component<Props, State> {
                                     </form>
                                 )}
                             </DeviceContextConsumer>
-                            <ul className={Styles["bet-info"]}>
-                                <li className={Styles.payout}>
+
+                            <div className={Styles["bet-info"]}>
+                                <div className={Styles["bet-limit"]}>Hạn mức cược: 1 - 100</div>
+                                <div className={Styles["payout"]}>
                                     {t("common:payout")}: <span className={Styles["highlight"]}>{(betAmount * odd).toFixed(2)}</span>
-                                </li>
-                                {noticeKey && (
-                                    <li className={Styles["error-message"]}>
-                                        {t(`common:${noticeKey}`).replace(`{${noticeKey}}`, noticeAmount.toString())}
-                                    </li>
-                                )}
-                            </ul>
+                                </div>
+                            </div>
+
                             <div className={Styles["keyboard"]}>
                                 {/* <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div> */}
                                 <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
