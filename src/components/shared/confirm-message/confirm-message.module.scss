@@ -1,13 +1,17 @@
 @import "../../../assets/components/buttons";
 
 .error-message-container {
-    position: relative;
-    text-align: center;
     padding: 2.8rem 3rem;
-    background-color: #fff;
-    box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
-    border-radius: 0.5rem;
+    text-align: center;
     font-size: 1.6rem;
+
+    @media (min-width: 1024px) {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        background-color: #fff;
+        border-radius: 0.5rem !important;
+    }
 }
 
 .btn-submit,
@@ -17,10 +21,6 @@
 
 .btn-cancel {
     margin-right: 2rem;
-    @media (max-width: 575.98px) {
-        margin-right: 0;
-        margin-bottom: 2rem;
-    }
 }
 
 .message {

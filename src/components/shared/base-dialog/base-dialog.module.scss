@@ -53,12 +53,16 @@
     &.modal-message {
         border-radius: 0.5rem !important;
         padding: 0 !important;
-        left: 29%;
-        transform: translate(-50%, 0);
-        bottom: 7.5rem;
+        left: 5px;
+        bottom: 8rem;
+        right: 5px;
 
-        @media (max-width: 575.98px) {
-            left: 34%;
+        @media (min-width: 1024px) {
+            display: flex;
+            top: 0;
+            bottom: 10rem;
+            background: none;
+            border: none;
         }
     }
 }

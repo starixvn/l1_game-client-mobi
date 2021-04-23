@@ -23,8 +23,9 @@ body {
 }
 
 .game-container {
+    position: relative;
     width: 100%;
-    margin: auto;
+    margin: 0 auto;
 
     @media (min-width: 1280px) {
         width: 123.2rem;
@@ -66,11 +67,11 @@ label {
 }
 
 .tooltip {
-    .tooltip-inner{
-        background: rgba(255, 172, 43, 0.6)!important;
-        color: #2c2f3e!important;
+    .tooltip-inner {
+        background: rgba(255, 172, 43, 0.6) !important;
+        color: #2c2f3e !important;
     }
-    .arrow::before{
-        border-top-color: rgba(255, 172, 43, 0.6)!important;
+    .arrow::before {
+        border-top-color: rgba(255, 172, 43, 0.6) !important;
     }
 }
