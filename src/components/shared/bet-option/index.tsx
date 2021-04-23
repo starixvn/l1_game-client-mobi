@@ -46,7 +46,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     function onClickBet() {
         const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
 
-        betSettings?.enabledQuickBet ? gameActionContext.placeBet(choice, betSettings.betValue) : openPlaceBetModal(choice);
+        betSettings?.enabledQuickBet ? gameActionContext.placeBet(choice, 0) : openPlaceBetModal(choice);
     }
 
     return (
