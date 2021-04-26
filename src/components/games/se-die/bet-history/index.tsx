@@ -1,7 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { numberWithCommas } from "../../../../helpers/NumberHelper";
 import BetHistoryContainer from "../../../shared/bet-history";
 import SeDieDot from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
@@ -19,64 +18,9 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderStake = (bet: BetLogs) => {
-    if (bet.settlementResult) {
-        const keysChoices = Object.keys(bet.settlementResult);
-        return (
-            <>
-                {keysChoices.map((name, index) => {
-                    if (bet[name] > 0) {
-                        return (
-                            <div key={index} className={bet.settlementResult[name] ? "font-weight-medium" : ""}>
-                                {numberWithCommas(bet[name])}
-                            </div>
-                        );
-                    }
-                    return null;
-                })}
-            </>
-        );
-    }
-
-    return <></>;
-};
-
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
-    if (bet.settlementResult) {
-        const keysChoices = Object.keys(bet.settlementResult);
-        const odds = bet.odds ? bet.odds : mainOdds;
-        return (
-            <>
-                {keysChoices &&
-                    keysChoices.map((name, index) => {
-                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
-                        if (bet[name] > 0) {
-                            return (
-                                <div key={index} className={classHighLight}>
-                                    {t(name)}@{odds[name]}
-                                </div>
-                            );
-                        }
-                        return "";
-                    })}
-            </>
-        );
-    }
-
-    return <></>;
-};
-
 const SeDieBetHistory: React.FunctionComponent = () => {
     const { t } = useTranslation("xocxoc");
-    return (
-        <BetHistoryContainer
-            isRefund={false}
-            renderResult={(bet: BetLogs) => renderResult(bet)}
-            renderBet={(bet: BetLogs, t: Function, mainOdds: object) => renderBet(bet, t, mainOdds)}
-            renderStake={(bet: BetLogs) => renderStake(bet)}
-            translate={t}
-        ></BetHistoryContainer>
-    );
+    return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
 };
 
 export default SeDieBetHistory;

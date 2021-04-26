@@ -18,13 +18,11 @@ export type BetHistoryItem = {
 export type PropsBetContainer = {
     isRefund: boolean;
     renderResult: Function;
-    renderBet: Function;
-    renderStake: Function;
     translate?: Function;
 };
 
 export type BetLogs = {
-    betLogDetails: [];
+    betLogDetails?: [];
     betwin: number;
     freeBet?: boolean;
     name: string;

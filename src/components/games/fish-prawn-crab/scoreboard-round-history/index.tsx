@@ -1,5 +1,5 @@
 import React from "react";
-import ChoiceIcon from "../item";
+import ChoiceIcon from "../choice-icon";
 import IconColumn from "../../../shared/round-history/icon-column";
 
 const GetElementRound = (result: any, roundId: number) => {

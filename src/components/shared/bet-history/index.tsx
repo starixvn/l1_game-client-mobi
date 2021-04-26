@@ -13,8 +13,56 @@ import axios from "axios";
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
 
+const renderStake = (bet: any) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        return (
+            <>
+                {keysChoices.map((name, index) => {
+                    if (bet[name] > 0) {
+                        return (
+                            <div key={index} className={bet.settlementResult[name] ? "font-weight-medium" : ""}>
+                                {numberWithCommas(bet[name])}
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
+            </>
+        );
+    }
+
+    return <></>;
+};
+
+let renderBet = (bet: any, t: Function, mainOdds: object) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        const odds = bet.odds ? bet.odds : mainOdds;
+        return (
+            <>
+                {keysChoices &&
+                    keysChoices.map((name, index) => {
+                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
+                        if (bet[name] > 0) {
+                            return (
+                                <div key={index} className={classHighLight}>
+                                    {t(name)}
+                                    {odds[name] ? "@" + odds[name] : ""}
+                                </div>
+                            );
+                        }
+                        return "";
+                    })}
+            </>
+        );
+    }
+
+    return <></>;
+};
+
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, renderBet, renderStake, isRefund, translate } = props;
+    const { renderResult, isRefund, translate } = props;
     const { gameConfigs, gameSetting } = useGameContext();
     const historyAPI = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/${gameSetting.socketInfo.path}/api/history`;
     const { session } = useAuthContext();
@@ -147,7 +195,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container">
-            {listBetHistory && columns && (
+            {listBetHistory && columns.length && (
                 <Table
                     className="table"
                     tableClassName="table text-center"
@@ -156,7 +204,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     rows={listBetHistory}
                     columns={columns}
                     fillTableWidth={true}
-                    noRowsRenderer={() => "No rows"}
+                    noRowsRenderer={() => t("noBetHistory")}
                     infiniteLoadBeginEdgeOffset={5}
                     isInfiniteLoading={isInfiniteLoading}
                     onInfiniteLoad={onInfiniteLoad}

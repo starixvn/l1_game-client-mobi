@@ -15,6 +15,7 @@ import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 
+export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);

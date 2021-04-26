@@ -7,7 +7,6 @@ type Props = {
 };
 
 const listIconName = ["icon-nai", "icon-bau", "icon-ga", "icon-ca", "icon-cua", "icon-tom"];
-
 const ChoiceIcon: React.FunctionComponent<Props> = ({ type, isSmall }) => {
     return (
         <div
