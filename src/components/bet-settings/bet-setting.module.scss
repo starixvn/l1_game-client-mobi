@@ -1,6 +1,12 @@
 @import "../chip/chip.module.scss";
 @import "../../assets/abstracts/variables";
 
+.bet-settings {
+    position: relative;
+    z-index: $bet-setting-index;
+    width: 100%;
+}
+
 .chip {
     margin: 0;
     transform: scale(1);

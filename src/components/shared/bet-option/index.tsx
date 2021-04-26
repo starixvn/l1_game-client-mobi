@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
-import { BetSettingStorageType } from "../../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
@@ -18,7 +17,7 @@ const HighlightClassNameMapper = {
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
     const { totalBets, ownBets, gameSetting } = useGameContext();
     const { openPlaceBetModal } = useGameActionContext();
-    const betSettingKey = localStorageKeys.betSetting;
+    const { enabledQuickBet, betValue } = useSystemContext();
     const gameActionContext = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
 
@@ -44,9 +43,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     }, [gameState]);
 
     function onClickBet() {
-        const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingKey);
-
-        betSettings?.enabledQuickBet ? gameActionContext.placeBet(choice, 0) : openPlaceBetModal(choice);
+        enabledQuickBet ? gameActionContext.placeBet(choice, betValue) : openPlaceBetModal(choice);
     }
 
     return (

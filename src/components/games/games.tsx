@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import appSettings from "../../common/app-settings";
-import * as LocalStorageManager from "../../common/local-storage";
-import { FavoriteGameContext } from "../../contexts/favorite-games/favorite-games-context";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
@@ -11,12 +11,14 @@ import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
 export const Games: React.FC = () => {
-    const storageKey = LocalStorageManager.localStorageKeys.favoriteGames;
-    const favoriteGamesOnStorage = LocalStorageManager.getLocalStorageItem<number[]>(storageKey);
-
+    const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
+    const [betValue, setBetValue] = useState<number>(1);
+    const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(
+        getLocalStorageItem<boolean>(localStorageKeys.enabledQuickBet) ?? false
+    );
 
-    const isFavorite = (gameId) => favoriteGames.includes(gameId);
+    const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const newFavoriteList = [...favoriteGames];
@@ -26,7 +28,7 @@ export const Games: React.FC = () => {
         isFavorite && newFavoriteList.unshift(gameId);
 
         updateFavoriteGames(newFavoriteList);
-        LocalStorageManager.storeLocalStorageItem(storageKey, newFavoriteList);
+        storeLocalStorageItem(localStorageKeys.favoriteGames, newFavoriteList);
     };
 
     const renderListGames = () => {
@@ -56,20 +58,19 @@ export const Games: React.FC = () => {
         }
     };
 
-    const favoriteGameContextValue = {
-        setFavorite: (gameId, isFavorite) => setFavorite(gameId, isFavorite),
-        isFavorite: (gameId) => isFavorite(gameId),
+    const betSettingProps = {
+        betValue,
+        updateBetValue: setBetValue,
+        enabledQuickBet,
+        updateEnabledQuickBet: setEnabledQuickBet,
     };
-
 
     return (
         <div className="game-container">
-            <FavoriteGameContext.Provider value={favoriteGameContextValue}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
-                <div className={styles["bet-settings"]}>
-                    <BetSettings />
-                </div>
-            </FavoriteGameContext.Provider>
+                <BetSettings {...betSettingProps} />
+            </SystemContextProvider>
         </div>
     );
 };

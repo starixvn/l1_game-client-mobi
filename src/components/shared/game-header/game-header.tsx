@@ -6,25 +6,25 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
-import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useRoundResultContext } from "../../../contexts/round-result";
+import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
 export default function GameHeader() {
-    const favoriteContext = useFavoriteGameContext();
+    const systemContext = useSystemContext();
     const { roundId, gameState, gameSetting } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
 
     const { id: gameId, gameName } = gameSetting;
-    const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));
+    const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = () => {
-        favoriteContext.setFavorite(gameId, !isFavorite);
+        systemContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
 

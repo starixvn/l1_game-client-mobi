@@ -27,7 +27,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
     protected reBetStorageKey: string;
-    protected betSettingStorageKey: string;
     protected messageTransmitter: MessageTransmitterType;
     protected authService: Auth;
 
@@ -35,7 +34,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         super(props);
 
         this.reBetStorageKey = LocalStorageManager.localStorageKeys.rebet;
-        this.betSettingStorageKey = LocalStorageManager.localStorageKeys.betSetting;
         this.messageTransmitter = MessageTransmitter();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 

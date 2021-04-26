@@ -213,7 +213,6 @@ export default class PlaceBetModal extends Component<Props, State> {
                                 />
                                 <span className={`icon-cancel ${Styles["reset-button"]}`} onClick={() => this.updateBetAmount(0)}></span>
                             </form>
-                            )
                             <div className={Styles["bet-info"]}>
                                 <div className={Styles["bet-limit"]}>Hạn mức cược: 1 - 100</div>
                                 <div className={Styles["payout"]}>

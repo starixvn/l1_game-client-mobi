@@ -2,23 +2,26 @@ import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import ConfirmMessage from "../shared/confirm-message";
 import Styles from "./bet-setting.module.scss";
-import { BetSettingStorageType } from "./type";
 
-export const BetSettings: React.FC = () => {
+type Props = {
+    betValue: number;
+    updateBetValue: (betValue: number) => void;
+    enabledQuickBet: boolean;
+    updateEnabledQuickBet: (value: boolean) => void;
+};
+
+export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
     const [isShowSettings, setShowSettings] = useState(true);
-    const [selectedChipValue, setSelectedChipValue] = useState(1);
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
-    const [enabledQuickBet, setEnabledQuickBet] = useState(false);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSwipe, setIsSwipe] = useState(true);
-    const betSettingStorageKey = localStorageKeys.betSetting;
     let sliderRef = null;
     const { t } = useTranslation("common");
 
@@ -46,7 +49,7 @@ export const BetSettings: React.FC = () => {
         slidesToShow: 10,
         arrows: false,
         onSwipe: () => setIsSwipe(true),
-        beforeChange: (oldIndex, newIndex) => {
+        beforeChange: (oldIndex: number, newIndex: number) => {
             if (isSwipe) {
                 oldIndex > newIndex && handleSelectChip(chipValues[newIndex + 2]);
                 oldIndex < newIndex && handleSelectChip(chipValues[newIndex]);
@@ -63,15 +66,11 @@ export const BetSettings: React.FC = () => {
     };
 
     useEffect(() => {
-        const betSettings = getLocalStorageItem<BetSettingStorageType>(betSettingStorageKey);
-
-        if (betSettings && sliderRef) {
-            setEnabledQuickBet(betSettings.enabledQuickBet);
-            setSelectedChipValue(selectedChipValue);
-            updateArrowsByChipValue(selectedChipValue);
+        if (sliderRef) {
+            updateArrowsByChipValue(betValue);
 
             sliderRef.slickGoTo(
-                chipValues.findIndex((value) => value === selectedChipValue),
+                chipValues.findIndex((value) => value === betValue),
                 true
             );
         }
@@ -83,7 +82,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickNext = () => {
         if (enabledNextBtn) {
-            const chipIndex = chipValues.indexOf(selectedChipValue);
+            const chipIndex = chipValues.indexOf(betValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
             sliderRef.slickGoTo(chipIndex + 1);
@@ -94,7 +93,7 @@ export const BetSettings: React.FC = () => {
 
     const onClickPrev = () => {
         if (enabledPrevBtn) {
-            const chipIndex = chipValues.indexOf(selectedChipValue);
+            const chipIndex = chipValues.indexOf(betValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
             sliderRef.slickGoTo(chipIndex - 2);
@@ -112,28 +111,19 @@ export const BetSettings: React.FC = () => {
     };
 
     const handleDataQuickBet = () => {
-        const betSettingStorage: BetSettingStorageType = {
-            enabledQuickBet: !enabledQuickBet,
-        };
-
-        storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
-        setEnabledQuickBet(!enabledQuickBet);
+        storeLocalStorageItem(localStorageKeys.enabledQuickBet, !enabledQuickBet);
+        updateEnabledQuickBet(!enabledQuickBet);
     };
 
     const confirmQuickBet = () => {
         handleDataQuickBet();
         closeModal();
-        setEnabledQuickBet(true);
+        updateEnabledQuickBet(true);
     };
 
     const handleSelectChip = (chipValue: number) => {
-        const betSettingStorage: BetSettingStorageType = {
-            enabledQuickBet: enabledQuickBet,
-        };
-
         updateArrowsByChipValue(chipValue);
-        storeLocalStorageItem(betSettingStorageKey, betSettingStorage);
-        setSelectedChipValue(chipValue);
+        updateBetValue(chipValue);
     };
 
     const updateArrowsByChipValue = (chipValue: number) => {
@@ -152,14 +142,14 @@ export const BetSettings: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className={Styles["bet-settings"]}>
             {!isShowSettings && (
                 <div
                     className={`${Styles["betting-setting-collapsed"]} ${enabledQuickBet && Styles["quick-bet"]}`}
                     onClick={HandleClickActiveBtn}
                 >
                     <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
-                    <div className={`${Styles.chip} ${Styles[chipColorMapper[selectedChipValue]]}`}>
+                    <div className={`${Styles.chip} ${Styles[chipColorMapper[betValue]]}`}>
                         <div className={Styles["layer1"]}></div>
                         <div className={Styles["layer2"]}></div>
                         <div className={Styles["group-list"]}>
@@ -168,7 +158,7 @@ export const BetSettings: React.FC = () => {
                             <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
                             <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
                         </div>
-                        <div className={Styles["number"]}>{getChipDisplayByValue(selectedChipValue)}</div>
+                        <div className={Styles["number"]}>{getChipDisplayByValue(betValue)}</div>
                     </div>
                     {enabledQuickBet && (
                         <div className={Styles["quick-bet-mark-container"]}>
@@ -212,7 +202,7 @@ export const BetSettings: React.FC = () => {
                                         display={key}
                                         value={chipList[key]}
                                         onSelected={handleSelectChip}
-                                        selected={selectedChipValue === chipList[key]}
+                                        selected={betValue === chipList[key]}
                                         color={chipColorMapper[chipList[key]]}
                                     />
                                 ))}
