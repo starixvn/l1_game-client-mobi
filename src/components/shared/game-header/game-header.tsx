@@ -1,11 +1,11 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
-import { useDeviceContext } from "../../../contexts/device";
 import { useFavoriteGameContext } from "../../../contexts/favorite-games/favorite-games-context";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -18,7 +18,6 @@ export default function GameHeader() {
     const favoriteContext = useFavoriteGameContext();
     const { roundId, gameState, gameSetting } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
-    const { isMobile } = useDeviceContext();
 
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteContext.isFavorite(gameId));

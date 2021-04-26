@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { isMobile } from "react-device-detect";
 import { Translation } from "react-i18next";
+
 import { GameResourceKeys } from "../../../common/resources";
-import { DeviceContextConsumer } from "../../../contexts/device";
 import { GameContext } from "../../../contexts/game-context/game-context";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
@@ -35,9 +36,6 @@ export default class PlaceBetModal extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
-        const betAmount = 1;
-
         this.wrapperRef = React.createRef();
 
         this.state = {
@@ -199,39 +197,29 @@ export default class PlaceBetModal extends Component<Props, State> {
                             <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
                                 <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
                             </div>
-
                             {noticeKey && (
                                 <div className={Styles["error-message"]}>
                                     {t(`common:${noticeKey}`).replace(`{${noticeKey}}`, noticeAmount.toString())}
                                 </div>
                             )}
-
-                            <DeviceContextConsumer>
-                                {(device) => (
-                                    <form className="position-relative">
-                                        <input
-                                            className={`${Styles["custom-form-control"]}`}
-                                            value={betAmount}
-                                            type={"number"}
-                                            onChange={this.handleInputBetAmount}
-                                            min={0}
-                                            disabled={device.isMobile}
-                                        />
-                                        <span
-                                            className={`icon-cancel ${Styles["reset-button"]}`}
-                                            onClick={() => this.updateBetAmount(0)}
-                                        ></span>
-                                    </form>
-                                )}
-                            </DeviceContextConsumer>
-
+                            <form className="position-relative">
+                                <input
+                                    className={`${Styles["custom-form-control"]}`}
+                                    value={betAmount}
+                                    type={"number"}
+                                    onChange={this.handleInputBetAmount}
+                                    min={0}
+                                    disabled={isMobile}
+                                />
+                                <span className={`icon-cancel ${Styles["reset-button"]}`} onClick={() => this.updateBetAmount(0)}></span>
+                            </form>
+                            )
                             <div className={Styles["bet-info"]}>
                                 <div className={Styles["bet-limit"]}>Hạn mức cược: 1 - 100</div>
                                 <div className={Styles["payout"]}>
                                     {t("common:payout")}: <span className={Styles["highlight"]}>{(betAmount * odd).toFixed(2)}</span>
                                 </div>
                             </div>
-
                             <div className={Styles["keyboard"]}>
                                 {/* <div className={Styles["board-common"]}>{this.renderKeyBoard(this.commonKeyBoard, "push")}</div> */}
                                 <div className={Styles["board-special"]}>{this.renderKeyBoard(this.specialKeyBoard, "add")}</div>
