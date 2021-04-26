@@ -9,7 +9,14 @@
         -webkit-overflow-scrolling: touch;
         overflow: auto;
 
-        .table-striped {
+        .table {
+            th,
+            td {
+                min-height: 3.6rem;
+                vertical-align: middle;
+                border: none;
+            }
+
             thead {
                 box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
                 box-sizing: border-box;
@@ -37,7 +44,7 @@
                     position: -o-sticky;
                     top: 0;
                     z-index: 2;
-                    background: #FFD487;
+                    background: #ffd487;
                     font-weight: 700;
                     min-height: 4.9rem;
                 }
@@ -51,8 +58,6 @@
 
                     &:nth-of-type(odd) {
                         background-color: #fff;
-                    }
-
                     &:last-child {
                         border-bottom: none !important;
                     }
@@ -68,7 +73,6 @@
                         background-color: $table-highlight-background;
                     }
                 }
-
             }
 
             td,
@@ -91,4 +95,8 @@
         pointer-events: none;
     }
 
+    .date {
+        color: #9298a4;
+        font-size: 1.2rem;
+    }
 }
