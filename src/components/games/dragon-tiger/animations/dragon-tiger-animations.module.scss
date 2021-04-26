@@ -2,9 +2,14 @@
 @import "../../../../assets/components/card";
 
 $time-draw-card-animation: 0.3s;
+
 $time-open-card-animation: 0.5s;
+
 $time-zoom-in-card-animation: 0.1s;
-$time-result-highlight-animation: 0.1s;
+$time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
+
+$time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animation + $time-open-card-animation;
+$time-result-highlight-animation: 0.2s;
 
 .animation-container {
     position: absolute;
@@ -19,6 +24,7 @@ $time-result-highlight-animation: 0.1s;
 .card1,
 .card2 {
     position: relative;
+    z-index: 1;
 }
 
 .card-shadow {
@@ -138,12 +144,12 @@ $time-result-highlight-animation: 0.1s;
 
     .card1 .card-bg {
         @extend %open-card;
-        animation-delay: $time-zoom-in-card-animation;
+        animation-delay: $time-delay-zoom-in-card-animation;
     }
 
     .card2 .card-bg {
         @extend %open-card;
-        animation-delay: $time-open-card-animation/2 + $time-zoom-in-card-animation;
+        animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
     }
 }
 
@@ -160,12 +166,13 @@ $time-result-highlight-animation: 0.1s;
     font-size: 2.4rem;
     font-weight: 500;
     color: #fff;
-    z-index: 1;
+    z-index: 2;
+    opacity: 0;
     animation-name: show-result-highlight-animation;
-    animation-delay: $time-open-card-animation + $time-zoom-in-card-animation + $time-open-card-animation/2;
+    animation-delay: $time-delay-result-highlight-animation;
     animation-duration: $time-result-highlight-animation;
     animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
+    animation-timing-function: linear;
 }
 
 @keyframes zoon-in-animation {
@@ -183,39 +190,28 @@ $time-result-highlight-animation: 0.1s;
         transform: rotateY(60deg) scaleX(0.4);
     }
 
-    60% {
-        background-position: -21.2rem -1rem;
-        transform: rotateY(180deg) scaleX(0.6);
-    }
-
     80% {
-        transform: scaleX(0.7);
-    }
-
-    100% {
-        transform: scaleX(1);
+        transform: rotateY(120deg) scaleX(1);
+        background-position: -21.2rem -1rem;
     }
 }
 
 @keyframes show-result-highlight-animation {
     0% {
         opacity: 0;
-        transform: scaleX(0);
     }
     20% {
         opacity: 0.2;
-        transform: scaleX(0.2);
     }
 
     35% {
-        opacity: 0.8;
+        opacity: 0.4;
     }
 
     50% {
-        opacity: 1;
-        transform: scaleX(0.6);
+        opacity: 0.6;
     }
     100% {
-        transform: scaleX(1);
+        opacity: 1;
     }
 }
