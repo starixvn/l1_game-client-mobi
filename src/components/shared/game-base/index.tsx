@@ -134,8 +134,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.context.setBalance(user.red);
     }
 
-    handleUM({ isUm, um_message }) {
-        if (isUm) {
+    handleUM({ um, um_message }) {
+        if (um) {
+            this.interval && clearInterval(this.interval);
             this.setState({ gameState: GameState.Disabled, disabledMessage: um_message });
         }
     }
