@@ -58,6 +58,7 @@ export interface GameBaseState<Result, SettlementResult> {
     selectedBetChoice?: string;
     isProcessingBet?: boolean;
     isCompactMode: boolean;
+    disabledMessage?: string;
 }
 
 export interface SocketInfo {

@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
+
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
 type Props = {
-    isOpen: boolean;
-    onCloseModal: Function;
-    children: React.ReactNode;
-    type: ModalType;
+    isOpen?: boolean;
+    onCloseModal?: Function;
+    children?: React.ReactNode;
+    type?: ModalType;
 };
 
-const BaseDialog: React.FC<Props> = ({ children, onCloseModal, isOpen, type }: Props) => {
+const BaseDialog: React.FC<Props> = ({ children, onCloseModal = null, isOpen = true, type = ModalType.Full }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {

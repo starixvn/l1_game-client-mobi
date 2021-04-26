@@ -13,6 +13,7 @@ import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
+import DisabledModal from "../disabled-modal";
 import ErrorMessage from "../error-message";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
@@ -133,9 +134,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.context.setBalance(user.red);
     }
 
-    handleUM({ isUm }) {
+    handleUM({ isUm, um_message }) {
         if (isUm) {
-            this.setState({ gameState: GameState.Disabled });
+            this.setState({ gameState: GameState.Disabled, disabledMessage: um_message });
         }
     }
 
@@ -393,6 +394,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return false;
     }
 
+    get isDisabled() {
+        return this.state.gameState === GameState.Disabled;
+    }
+
     render() {
         const {
             remainingTime,
@@ -406,6 +411,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayPopup,
             userStakeLevel,
             isCompactMode,
+            disabledMessage,
         } = this.state;
 
         const gameContext = {
@@ -450,6 +456,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             </>
                         )}
                         {this.renderPopup(displayPopup)}
+                        {this.isDisabled && <DisabledModal disabledMessage={disabledMessage} />}
                     </GameContainer>
                 </GameActionsContextProvider>
             </GameContextProvider>
