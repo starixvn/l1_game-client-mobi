@@ -50,7 +50,9 @@ export default function GameHeader() {
                 </div>
                 <div className={Styles["title-roundID"]}>
                     <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
-                    <div className={Styles.round}>#{roundId}</div>
+                    <div key={roundId} className={Styles.round}>
+                        #{roundId}
+                    </div>
                 </div>
             </div>
             {isShowTimer() && (

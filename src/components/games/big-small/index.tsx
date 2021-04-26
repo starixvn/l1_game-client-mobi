@@ -5,13 +5,13 @@ import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
 import BigSmallRoundHistory from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import BigSmallStatistic from "./statistic";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
@@ -22,7 +22,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
             signedIn: false,
             gameState: GameState.None,
             remainingTime: 0,
-            gameConfigs: null,
+            gameConfigs: { ...this.defaultGameConfig },
             roundHistory: [],
             roundId: 0,
             ownBets: {},

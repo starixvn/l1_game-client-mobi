@@ -30,6 +30,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected messageTransmitter: MessageTransmitterType;
     protected authService: Auth;
 
+    protected readonly defaultGameConfig = { odds: {}, minbet: 0, maxbet: 0, choices_maxbet: {}, enableFreeBet: false };
+
     constructor(props: P) {
         super(props);
 
@@ -62,6 +64,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.socket.emit("signin", session);
         });
         this.socket.on("signedIn", () => {
+            this.setState({ signedIn: true });
             this.socket.emit("inGame");
         });
 
@@ -189,7 +192,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleGameConfigs({ gameConfigs }) {
-        this.setState({ gameConfigs, signedIn: true });
+        this.setState({ gameConfigs });
     }
 
     determineGameState(remainingTime: number) {

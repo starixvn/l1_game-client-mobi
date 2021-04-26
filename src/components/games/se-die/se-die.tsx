@@ -1,18 +1,18 @@
 import React from "react";
 
+import { CommonResourceKeys } from "../../../common/resources";
 import SeDieGuide from "../../game-guide/se-die";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import SeDieRoundHistory from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import { CommonResourceKeys } from "../../../common/resources";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -22,7 +22,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             signedIn: false,
             gameState: GameState.None,
             remainingTime: 0,
-            gameConfigs: null,
+            gameConfigs: { ...this.defaultGameConfig },
             roundHistory: [],
             roundId: 0,
             ownBets: {},

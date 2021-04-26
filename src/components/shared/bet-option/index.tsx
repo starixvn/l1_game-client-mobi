@@ -52,7 +52,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
                 onClick={onClickBet}
             >
-                {isDisplayOdd && <div className={Styles.odd}>{`1:${odd}`}</div>}
+                {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
                 <div className={Styles["total-bet"]}>{totalBets?.[choice] ? numberWithCommas(totalBets[choice]) : ""}</div>
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>

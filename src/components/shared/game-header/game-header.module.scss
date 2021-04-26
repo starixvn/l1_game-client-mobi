@@ -42,6 +42,28 @@
     .round {
         color: #5a5a5a;
         font-size: 1.4rem;
+        width: auto;
+        overflow: hidden;
+        white-space: nowrap;
+        animation-name: round-animation;
+        animation-delay: 0ms;
+        animation-duration: 1300ms;
+        animation-fill-mode: initial;
+        animation-timing-function: ease-in;
+    }
+
+    @keyframes round-animation {
+        0% {
+            max-width: 0;
+        }
+
+        20% {
+            max-width: 0;
+        }
+
+        100% {
+            max-width: 100%;
+        }
     }
 }
 
