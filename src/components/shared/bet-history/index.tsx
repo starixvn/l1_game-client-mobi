@@ -47,7 +47,9 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 break;
             case 5:
                 return (
-                    <td className={`${betwin > 0 ? "highlight font-weight-bold" : ""} ${Styles["bet-win"]}`}>{numberWithCommas(betwin)}</td>
+                    <td className={`${betwin > 0 ? "highlight font-weight-medimum" : ""} ${Styles["bet-win"]}`}>
+                        {numberWithCommas(betwin)}
+                    </td>
                 );
                 break;
 
@@ -125,7 +127,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             {listBetHistory && columns && (
                 <Table
                     className="table"
-                    tableClassName="table table-bordered table-striped text-center"
+                    tableClassName="table text-center"
                     height={400}
                     rowHeight={50}
                     rows={listBetHistory}
