@@ -30,28 +30,30 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         const { time, phien, betwin, refund, amount, totalAmount } = rowData as BetHistoryItem;
         switch (columnIndex) {
             case 1:
-                return <td>{phien}</td>;
+                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
                 break;
             case 2:
-                return <td>{renderResult(rowData)}</td>;
+                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
                 break;
             case 3:
                 return (
-                    <td>
+                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
                         <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
                     </td>
                 );
                 break;
             case 4:
-                return <td className={Styles["stake"]}>{renderStake(rowData)}</td>;
+                return <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>{renderStake(rowData)}</td>;
                 break;
             case 5:
-                return <td className={`${Styles["bet-win"]} ${betwin > 0 ? "font-weight-bold" : ""}`}>{numberWithCommas(betwin)}</td>;
+                return (
+                    <td className={`${betwin > 0 ? "highlight font-weight-bold" : ""} ${Styles["bet-win"]}`}>{numberWithCommas(betwin)}</td>
+                );
                 break;
 
             default:
                 return (
-                    <td>
+                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
                         <div className="time">
                             <Moment format="hh:mm">{time}</Moment>
                         </div>

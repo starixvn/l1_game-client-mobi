@@ -49,8 +49,8 @@
                 tr {
                     border-bottom: 1px solid $table-border-color;
 
-                    &.tr-odd {
-                        background-color: $table-highlight-background;
+                    &:nth-of-type(odd) {
+                        background-color: #fff;
                     }
 
                     &:last-child {
@@ -64,6 +64,9 @@
 
                 td {
                     padding: 0.2rem;
+                    &.highlight {
+                        background-color: $table-highlight-background;
+                    }
                 }
 
             }

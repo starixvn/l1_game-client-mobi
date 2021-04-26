@@ -19,7 +19,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         updateScrollEndRight(e);
     };
 
-    const handleScroll = (e) => {
+    const handleTouchEnd = (e) => {
         updateScrollEndRight(e);
     };
 
@@ -56,7 +56,6 @@ const ScoreboardRoundHistory = (props: Props) => {
     useEffect(() => {
         if (wrapperRef.current) {
             wrapperRef.current.onwheel = handleWheel;
-            wrapperRef.current.onscroll = handleScroll;
             wrapperRef.current.onmousedown = startDragging;
             wrapperRef.current.onmouseup = stopDragging;
             wrapperRef.current.onmouseleave = stopDragging;
@@ -74,7 +73,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     });
 
     return (
-        <div ref={wrapperRef} className={Styles["board"]}>
+        <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
             {props.children}
         </div>
     );
