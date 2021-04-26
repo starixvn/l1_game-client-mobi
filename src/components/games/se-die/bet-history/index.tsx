@@ -1,13 +1,11 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 import BetHistoryContainer from "../../../shared/bet-history";
 import SeDieDot from "../dot";
 import { checkIsEven, countRedDot } from "../se-die-helper";
 import { BetLogs } from "./bet-history";
-import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
@@ -43,9 +41,10 @@ const renderStake = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderBet = (bet: BetLogs, t: Function, odds: object) => {
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
+        const odds = bet.odds ? bet.odds : mainOdds;
         return (
             <>
                 {keysChoices &&
@@ -73,7 +72,7 @@ const SeDieBetHistory: React.FunctionComponent = () => {
         <BetHistoryContainer
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            renderBet={(bet: BetLogs, t: Function, odds: object) => renderBet(bet, t, odds)}
+            renderBet={(bet: BetLogs, t: Function, mainOdds: object) => renderBet(bet, t, mainOdds)}
             renderStake={(bet: BetLogs) => renderStake(bet)}
             translate={t}
         ></BetHistoryContainer>

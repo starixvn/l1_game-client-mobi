@@ -6,26 +6,34 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameBetHistory } from "../../../components/shared/game-base/type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
-// import InfiniteScroll from "react-infinite-scroll-component";
 import Styles from "./bet-history.module.scss";
 import { Table } from "react-infinite-table";
 import { Spinner } from "reactstrap";
+import axios from "axios";
+import appSettings from "../../../common/app-settings";
+import { useAuthContext } from "../../../contexts/auth";
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, renderBet, renderStake, isRefund, translate } = props;
+    const { gameConfigs, gameSetting } = useGameContext();
+    const historyAPI = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/${gameSetting.socketInfo.path}/api/history`;
+    const { session } = useAuthContext();
     const gameContext = useGameContext();
     const gameActions = useGameActionContext();
     const [isFetching, setIsFetching] = useState<boolean>(true);
-    const [listBetHistory, setListBetHistory] = useState<any[]>([]);
-    const [columns, setColumns] = useState<any[]>([]);
+    const [listBetHistory, setListBetHistory] = useState<object[]>([]);
+    const [columns, setColumns] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
     const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
+    const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const betHistory: GameBetHistory = gameContext.betHistory;
+
     const { t } = useTranslation("bethistory");
-    const { gameConfigs } = useGameContext();
+
     const odds = gameConfigs.odds;
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+
     const cellRenderer = ({ columnIndex, rowData }) => {
         const { time, phien, betwin, refund, amount, totalAmount } = rowData as BetHistoryItem;
         switch (columnIndex) {
@@ -68,14 +76,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         }
     };
 
-    const headerRenderer = ({ column, className }) => {
-        return <td className={className}>{t(headerName[column.i])}</td>;
+    const headerRenderer = ({ column, className, columnIndex }) => {
+        return <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>{t(headerName[column.i])}</td>;
     };
 
     const createColumns = () => {
-        const numberOfColumns = isRefund ? 7 : 6;
         const _columns = [];
-        for (let index = 0; index < numberOfColumns; index++) {
+        for (let index = 0; index < headerName.length; index++) {
+            if (headerName[index] === "stake") {
+                setStakeLocation(index);
+            }
             _columns.push({
                 i: index,
                 cellRenderer: cellRenderer,
@@ -88,6 +98,19 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     useEffect(() => {
         gameActions.getBetHistory(1);
+        // axios
+        //     .get(historyAPI, {
+        //         params: {
+        //             session: session.ss,
+        //             page: 1,
+        //             pageSize: 20,
+        //             username: session.username,
+        //         },
+        //     })
+        //     .then((res) => {
+        //         const persons = res.data;
+        //         console.log(persons);
+        //     });
     }, []);
 
     useEffect(() => {

@@ -100,3 +100,15 @@ export type GameGuide = {
     userStakeLevel: UserStakeLevel;
     gameName: string;
 };
+
+export interface BetLogsBase<Result, SettlementResult> {
+    betLogDetails: [];
+    betwin: number;
+    freeBet: boolean;
+    name: string;
+    phien: number;
+    result: Result;
+    settlementResult: SettlementResult;
+    time: string;
+    odds?: object;
+}
