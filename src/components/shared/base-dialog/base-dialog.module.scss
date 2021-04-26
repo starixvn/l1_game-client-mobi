@@ -65,4 +65,8 @@
             border: none;
         }
     }
+
+    &.compact-mode {
+        position: fixed;
+    }
 }

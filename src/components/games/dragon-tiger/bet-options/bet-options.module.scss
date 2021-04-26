@@ -6,6 +6,18 @@
     grid-gap: 0.1rem;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 20.4rem 8rem;
+
+    &.compact-mode {
+        grid-template-rows: 1fr;
+        .icon {
+            margin-bottom: 0;
+            font-size: 5rem;
+        }
+
+        .text {
+            font-size: 1.6rem;
+        }
+    }
 }
 
 .choice-tie {
@@ -24,22 +36,22 @@
     align-items: center;
 }
 
-%text {
+.text {
     font-weight: bold;
     font-size: 2.8rem;
 }
 
 .text-dragon {
-    @extend %text;
+    @extend .text;
     color: $dragonTiger-choice-dragon-color;
 }
 
 .text-tiger {
-    @extend %text;
+    @extend .text;
     color: $dragonTiger-choice-tiger-color;
 }
 
 .text-tie {
-    @extend %text;
+    @extend .text;
     color: $dragonTiger-choice-tie-color;
 }

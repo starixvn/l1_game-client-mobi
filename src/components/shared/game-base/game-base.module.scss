@@ -6,6 +6,10 @@
     padding-top: 0.1rem;
     background-color: $border-color;
     border-bottom: 1px solid $border-color;
+
+    &.compact-mode {
+        height: 11.7rem;
+    }
 }
 
 .mini-round-history {

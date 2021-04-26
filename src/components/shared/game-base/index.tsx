@@ -6,7 +6,7 @@ import appSettings from "../../../common/app-settings";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
-import { GameContextProvider } from "../../../contexts/game-context/game-context";
+import { GameContextConsumer, GameContextProvider } from "../../../contexts/game-context/game-context";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
@@ -446,7 +446,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameContainer>
                         <BetContainer gameState={gameState}>
-                            <div className={Styles["bet-options"]}>{this.renderBetOptions()}</div>
+                            <div className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+                                {this.renderBetOptions()}
+                            </div>
                             {gameState === GameState.Waiting && <WaitingTimeAnimation remainingTime={remainingTime} />}
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.isDisplayResult && this.renderResult()}

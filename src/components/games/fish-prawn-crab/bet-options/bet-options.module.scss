@@ -18,6 +18,18 @@
     }
 }
 
+.compact-mode {
+    font-size: 2rem;
+
+    &.icon-bau {
+        font-size: 1.6rem;
+    }
+
+    &.icon-ca {
+        font-size: 2.6rem;
+    }
+}
+
 .highlight-result-label {
     position: absolute;
     left: 0;

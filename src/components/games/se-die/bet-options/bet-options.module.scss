@@ -4,6 +4,10 @@
     height: 28.7rem;
     grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
     grid-template-rows: 11.5rem 8.4rem 8.4rem;
+
+    &.compact-mode {
+        grid-template-rows: 1fr;
+    }
 }
 
 .wrapper-dots-red2 {

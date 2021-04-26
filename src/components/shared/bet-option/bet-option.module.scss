@@ -23,28 +23,28 @@
     }
 
     .odd {
+        position: absolute;
         left: 0.5rem;
         top: 0.3rem;
-        position: absolute;
         color: #a8aeb8;
         text-align: left;
     }
 
-    .total-bet {
-        position: absolute;
-        width: 100%;
-        top: 0.3rem;
-        font-size: 1.6rem;
-        text-align: center;
-    }
-
+    .total-bet,
     .own-bet {
         position: absolute;
         width: 100%;
-        bottom: 0.3rem;
         text-align: center;
-        color: $main-color;
         font-size: 1.6rem;
+    }
+
+    .total-bet {
+        top: 0.3rem;
+    }
+
+    .own-bet {
+        bottom: 0.3rem;
+        color: $main-color;
     }
 
     &:hover {
@@ -60,27 +60,37 @@
         background-color: #fff;
         animation: betChoiceWinningEffect 1s 0.5s infinite forwards;
     }
+}
 
-    @keyframes betChoiceWinningEffect {
-        0%,
-        100% {
-            background-color: #fff5e3;
-        }
-        10%,
-        80% {
-            background-color: #fff5e3;
-        }
-        20%,
-        70% {
-            background-color: #fff;
-        }
-        30%,
-        60% {
-            background-color: #fff5e3;
-        }
-        40%,
-        50% {
-            background-color: #fff;
-        }
+.compact-mode {
+    .total-bet {
+        top: 0.1rem;
+    }
+
+    .own-bet {
+        bottom: 0.1rem;
+    }
+}
+
+@keyframes betChoiceWinningEffect {
+    0%,
+    100% {
+        background-color: #fff5e3;
+    }
+    10%,
+    80% {
+        background-color: #fff5e3;
+    }
+    20%,
+    70% {
+        background-color: #fff;
+    }
+    30%,
+    60% {
+        background-color: #fff5e3;
+    }
+    40%,
+    50% {
+        background-color: #fff;
     }
 }

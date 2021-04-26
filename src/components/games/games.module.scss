@@ -4,8 +4,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    margin-bottom: 7rem;
 
-    @media print, screen and (min-width: 1400px) {
-        margin: 0 -0.3rem -0.5rem;
+    @media print, screen and (min-width: 1280px) {
+        margin: 0 -0.3rem 8rem;
     }
 }

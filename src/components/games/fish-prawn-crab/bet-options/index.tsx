@@ -75,7 +75,7 @@ const getClassPrevRound = (gameState: GameState) => {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
-    const { gameConfigs } = useGameContext();
+    const { gameConfigs, isCompactMode } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const isShowCountOfDice = gameState !== GameState.LockingBet && gameState !== GameState.DisplayResult;
@@ -83,7 +83,11 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
-            <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[`icon-${IconMapper[choice]}`]}`}></div>
+            <div
+                className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[`icon-${IconMapper[choice]}`]} ${
+                    isCompactMode ? Styles["compact-mode"] : ""
+                }`}
+            ></div>
             {isShowCountOfDice && classCount != "" && (
                 <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
             )}

@@ -15,7 +15,7 @@ const HighlightClassNameMapper = {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting } = useGameContext();
+    const { totalBets, ownBets, gameSetting, isCompactMode } = useGameContext();
     const { openPlaceBetModal } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
     const gameActionContext = useGameActionContext();
@@ -47,7 +47,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     }
 
     return (
-        <div className={Styles.container}>
+        <div className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
                 onClick={onClickBet}
