@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 
 import BalancedBettingPool from "../../../shared/balanced-betting-pool";
 import Styles from "./big-small-result.module.scss";
@@ -8,6 +9,7 @@ const balancedBettingTimeInSecond = 3;
 
 const BigSmallResult: React.FC<Props> = (props) => {
     const [isDisplayResult, setIsDisplayResult] = useState(false);
+    const { isCompactMode } = useGameContext();
 
     const generateResult = (result: number[]) => {
         return result.map((value, index) => (
@@ -29,7 +31,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
         return (
             <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
                 <div className="overlay-mask">
-                    <div className={Styles["animation-container"]}>
+                    <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                         <div className={Styles["result-plate"]}></div>
                         <div className={Styles["toss-dices"]}>
                             <img src="/static/images/bigsmall_dice.gif" alt="shake" />

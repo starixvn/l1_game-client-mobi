@@ -12,13 +12,19 @@ $time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animatio
 $time-result-highlight-animation: 0.2s;
 
 .animation-container {
+    --animation-scale: scale(0.32, 0.325);
     position: absolute;
     left: 0;
     top: -1rem;
     width: 100%;
     display: flex;
     justify-content: center;
-    transform: scale(0.32, 0.325);
+    transform: var(--animation-scale);
+
+    &.compact-mode {
+        --animation-scale: scale(0.28, 0.321);
+        top: -5.5rem;
+    }
 }
 
 .card1,
@@ -85,12 +91,17 @@ $time-result-highlight-animation: 0.2s;
 
 .open-cards {
     .animation-container {
+        --animation-scale: scale(0.51, 0.515);
         transition: transform 0.7s;
         animation-name: zoon-in-animation;
         animation-duration: $time-zoom-in-card-animation;
         animation-delay: 0s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
+
+        &.compact-mode {
+            --animation-scale: scale(0.45, 0.455);
+        }
     }
 
     .text-red {
@@ -181,7 +192,7 @@ $time-result-highlight-animation: 0.2s;
     }
 
     100% {
-        transform: scale(0.51, 0.515);
+        transform: var(--animation-scale);
     }
 }
 

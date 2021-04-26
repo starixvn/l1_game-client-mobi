@@ -1,21 +1,26 @@
 import React from "react";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
-export const CardsAnimation = () => (
-    <div className={Styles["draw-cards"]}>
-        <div className={`${Styles["animation-container"]}`}>
-            <div className={Styles["card1"]}>
-                <div className={Styles["card-shadow"]}></div>
-                <div className={Styles["card-bg"]}></div>
-            </div>
-            <div className={Styles["card2"]}>
-                <div className={Styles["card-shadow"]}></div>
-                <div className={Styles["card-bg"]}></div>
+export const CardsAnimation = () => {
+    const { isCompactMode } = useGameContext();
+
+    return (
+        <div className={Styles["draw-cards"]}>
+            <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+                <div className={Styles["card1"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-bg"]}></div>
+                </div>
+                <div className={Styles["card2"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-bg"]}></div>
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
+};
 
 type Props = {
     result?: Result;
@@ -24,6 +29,7 @@ type Props = {
 
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
+    const { isCompactMode } = useGameContext();
 
     const generateResult = (result: boolean[]) => {
         return result.map((value, index) => <div></div>);
@@ -32,7 +38,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     return (
         <div className={Styles["open-cards"]}>
             <div className="overlay-mask">
-                <div className={`${Styles["animation-container"]}`}>
+                <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                     <div className={Styles["card1"]}>
                         <div className={Styles["card-shadow"]}></div>
                         <div className={Styles["card-bg"]}>

@@ -2,6 +2,7 @@ import React from "react";
 import Styles from "./fish-prawn-crab-result.module.scss";
 import { Props } from "./type";
 import { Result } from "./../fish-prawn-crab";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 
 const nameDices = ["dice-nai", "dice-bau", "dice-ga", "dice-ca", "dice-cua", "dice-tom"];
 const classResult = {
@@ -24,11 +25,12 @@ const generateResult = (result: Result) => {
 };
 const FishPrawnCrabResult: React.FC<Props> = (props) => {
     const { result } = props;
+    const { isCompactMode } = useGameContext();
 
     return (
-        <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
+        <div className={Styles["container"]}>
             <div className="overlay-mask">
-                <div className={Styles["animation-container"]}>
+                <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                     <div className={Styles["result-set"]}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>
