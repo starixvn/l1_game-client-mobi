@@ -144,7 +144,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
 
-        gameState === GameState.None && this.runGame(remainingTime);
+        if (gameState === GameState.None || gameState === GameState.Disabled) {
+            this.runGame(remainingTime);
+        }
     }
 
     runGame(remainingTime: number) {
