@@ -129,7 +129,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     className="table"
                     tableClassName="table text-center"
                     height={400}
-                    rowHeight={50}
+                    rowHeight={36}
                     rows={listBetHistory}
                     columns={columns}
                     fillTableWidth={true}
