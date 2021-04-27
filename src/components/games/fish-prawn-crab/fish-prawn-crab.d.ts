@@ -13,15 +13,15 @@ export interface Result {
     dice3: boolean;
 }
 
-export enum BaseResult{
+export enum BaseResult {
     stag,
     gourd,
     rooster,
     fish,
     crab,
-    prawn
+    prawn,
 }
 
 export interface ResultStatistic {
-    result:BaseResult[]
+    result: BaseResult[];
 }

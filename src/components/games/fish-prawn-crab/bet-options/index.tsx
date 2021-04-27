@@ -5,6 +5,7 @@ import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult, Result } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
+import { OddNames, ResultBet } from "../index";
 
 const Choices = {
     crab: "crab",
@@ -24,26 +25,11 @@ const IconMapper = {
     prawn: "tom",
 };
 
-const OddNames = {
-    single: "single",
-    double: "double",
-    triple: "triple",
-};
-
 type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     result: Result;
 };
-
-enum ResultBet {
-    stag,
-    gourd,
-    rooster,
-    fish,
-    crab,
-    prawn,
-}
 
 const renderHighLightNumber = (choice: string, countsAppearDice: object) => {
     let classCount = "";

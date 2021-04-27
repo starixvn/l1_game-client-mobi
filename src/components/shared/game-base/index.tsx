@@ -57,7 +57,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.registerMessageHandler();
         this.placeBet = this.placeBet.bind(this);
-        this.getBetHistory = this.getBetHistory.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
@@ -101,7 +100,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("gameConfigs", this.handleGameConfigs.bind(this));
         this.messageTransmitter.addListener("roundHistory", this.handleRoundHistory.bind(this));
         this.messageTransmitter.addListener("finish", this.handleFinish.bind(this));
-        this.messageTransmitter.addListener("history", this.handleBetHistory.bind(this));
         this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
         this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
@@ -268,10 +266,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    handleBetHistory({ history }) {
-        this.setState({ betHistory: history });
-    }
-
     handleFinish({ finish }) {
         const { roundHistory } = this.state;
         const { durations } = this.props;
@@ -317,10 +311,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 this.setState({ isProcessingBet: true });
             }
         }
-    }
-
-    getBetHistory(page = 1) {
-        this.socket.emit("getHistory", { page: page });
     }
 
     openPopup(popupType: PopupType) {
@@ -432,7 +422,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             totalBets,
             ownBets,
             gameConfigs,
-            betHistory,
             displayPopup,
             userStakeLevel,
             isCompactMode,
@@ -445,7 +434,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameSetting: this.props,
             roundId,
             gameConfigs,
-            betHistory,
             gameState,
             remainingTime,
             userStakeLevel,
@@ -454,7 +442,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         const gameActionsContext = {
             placeBet: this.placeBet,
-            getBetHistory: this.getBetHistory,
             openPopup: this.openPopup,
             closePopup: this.closePopup,
             handleMessage: this.messageTransmitter.addListener,

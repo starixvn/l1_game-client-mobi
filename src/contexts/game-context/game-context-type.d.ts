@@ -1,6 +1,5 @@
 import {
     GameBaseProps,
-    GameBetHistory,
     GameConfigs,
     GameState,
     UserStakeLevel,
@@ -13,7 +12,6 @@ export type GameContextModel = {
     roundId: number;
     remainingTime: number;
     gameConfigs: GameConfigs;
-    betHistory: GameBetHistory;
     gameState: GameState;
     userStakeLevel: UserStakeLevel;
     isCompactMode: boolean;

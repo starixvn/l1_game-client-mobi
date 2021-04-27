@@ -9,3 +9,9 @@ export interface BetLogs extends BetLogsBase<Result, SettlementResult> {
     rooster: number;
     stag: number;
 }
+
+export type Odds = {
+    single: number;
+    double: number;
+    triple: number;
+};

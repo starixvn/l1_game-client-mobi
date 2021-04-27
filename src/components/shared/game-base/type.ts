@@ -51,7 +51,6 @@ export interface GameBaseState<Result, SettlementResult> {
     totalBets: object;
     ownBets: object;
     userStakeLevel: UserStakeLevel;
-    betHistory?: GameBetHistory;
     displayPopup?: PopupType;
     betPercentage?: object;
     errorMessage?: string;
@@ -83,13 +82,6 @@ export interface RebetStorageModel {
 export interface RebetStorageDetail {
     roundId: number;
     betInfo: object;
-}
-
-export interface GameBetHistory {
-    betLogs: object[];
-    page: number;
-    pageSize: number;
-    total: number;
 }
 
 export interface UserStakeLevel {

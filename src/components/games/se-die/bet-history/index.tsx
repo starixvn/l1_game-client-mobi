@@ -22,5 +22,4 @@ const SeDieBetHistory: React.FunctionComponent = () => {
     const { t } = useTranslation("xocxoc");
     return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
 };
-
 export default SeDieBetHistory;

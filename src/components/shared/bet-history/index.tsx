@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { PropsBetContainer, Props, BetHistoryItem } from "./bet-history";
+import { BetHistoryItem } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { GameBetHistory } from "../../../components/shared/game-base/type";
-import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
 import Styles from "./bet-history.module.scss";
 import { Table } from "react-infinite-table";
@@ -35,7 +33,7 @@ const renderStake = (bet: any) => {
     return <></>;
 };
 
-let renderBet = (bet: any, t: Function, mainOdds: object) => {
+const renderBetBase = (bet: any, t: Function, mainOdds: object) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -61,21 +59,29 @@ let renderBet = (bet: any, t: Function, mainOdds: object) => {
     return <></>;
 };
 
+export type PropsBetContainer = {
+    isRefund: boolean;
+    renderResult: Function;
+    translate?: Function;
+    renderBet?: Function;
+};
+
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, isRefund, translate } = props;
+    let { renderBet } = props;
+    if (!props.renderBet) {
+        renderBet = renderBetBase;
+    }
     const { gameConfigs, gameSetting } = useGameContext();
     const historyAPI = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/${gameSetting.socketInfo.path}/api/history`;
     const { session } = useAuthContext();
-    const gameContext = useGameContext();
-    const gameActions = useGameActionContext();
-    const [isInitial, setIsInitial] = useState<boolean>(true);
     const [listBetHistory, setListBetHistory] = useState<object[]>([{}]);
     const [columns, setColumns] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
     const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
-    const betHistory: GameBetHistory = gameContext.betHistory;
+    const [betHistory, setBetHistory] = useState<any>();
 
     const { t } = useTranslation("bethistory");
 
@@ -87,27 +93,22 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         switch (columnIndex) {
             case 1:
                 return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
-                break;
             case 2:
                 return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
-                break;
             case 3:
                 return (
                     <td className={`${betwin > 0 ? "highlight" : ""}`}>
                         <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
                     </td>
                 );
-                break;
             case 4:
                 return <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>{renderStake(rowData)}</td>;
-                break;
             case 5:
                 return (
                     <td className={`${betwin > 0 ? "highlight font-weight-medimum" : ""} ${Styles["bet-win"]}`}>
                         {betwin && numberWithCommas(betwin)}
                     </td>
                 );
-                break;
 
             default:
                 return (
@@ -116,7 +117,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
                     </td>
                 );
-                break;
         }
     };
 
@@ -141,36 +141,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return _columns;
     };
 
-    useEffect(() => {
-        gameActions.getBetHistory(1);
-        // axios
-        //     .get(historyAPI, {
-        //         params: {
-        //             session: session.ss,
-        //             page: 1,
-        //             pageSize: 20,
-        //             username: session.username,
-        //         },
-        //     })
-        //     .then((res) => {
-        //         const persons = res.data;
-        //         console.log(persons);
-        //     });
-    }, []);
-
-    useEffect(() => {
-        fetchBetHistory();
-    }, [betHistory]);
-
     const fetchBetHistory = async () => {
-        setIsInitial(false);
-
         if (betHistory && betHistory.betLogs.length > 0) {
-            setTotalPage(Math.ceil(betHistory.total / betHistory.pageSize));
             const data = betHistory.betLogs;
             if (page === betHistory.page) {
                 setListBetHistory([...listBetHistory, ...data]);
-                setPage(page + 1);
                 setColumns(createColumns());
             }
         }
@@ -178,12 +153,44 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     const onInfiniteLoad = async () => {
         setIsInfiniteLoading(true);
-        if (page <= totalPage) {
-            gameActions.getBetHistory(page);
-            await fetchBetHistory();
+        if (page + 1 <= totalPage) {
+            axios
+                .get(historyAPI, {
+                    params: {
+                        session: session.ss,
+                        page: page,
+                        pageSize: 8,
+                        username: session.username,
+                    },
+                })
+                .then((res) => {
+                    setBetHistory(res.data.history);
+                    setPage(page + 1);
+                });
         }
         setIsInfiniteLoading(false);
     };
+
+    useEffect(() => {
+        axios
+            .get(historyAPI, {
+                params: {
+                    session: session.ss,
+                    page: 1,
+                    pageSize: 8,
+                    username: session.username,
+                },
+            })
+            .then((res) => {
+                const bets = res.data.history;
+                setBetHistory(bets);
+                setTotalPage(Math.ceil(bets.total / bets.pageSize));
+            });
+    }, []);
+
+    useEffect(() => {
+        fetchBetHistory();
+    }, [betHistory]);
 
     return (
         <div className="table-container">
@@ -205,8 +212,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
-
-            {isInitial && <Spinner color="primary" />}
         </div>
     );
 };

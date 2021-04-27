@@ -19,6 +19,7 @@ export type PropsBetContainer = {
     isRefund: boolean;
     renderResult: Function;
     translate?: Function;
+    renderBet?: Function;
 };
 
 export type BetLogs = {

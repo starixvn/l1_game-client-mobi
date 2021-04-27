@@ -4,7 +4,6 @@ import { PopupType } from "../../components/shared/game-base/type";
 
 type GameActionsContextType = {
     placeBet: (betChoice: string, amount: number) => void;
-    getBetHistory: (page: number) => void;
     openPopup: (type: PopupType) => void;
     closePopup: () => void;
     handleMessage: Function;
