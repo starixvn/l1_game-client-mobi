@@ -1,4 +1,5 @@
 import React from "react";
+
 import { DragonTigerDotNumber } from "../dot";
 import { checkIsDragon, checkIsTie } from "../dragon-tiger-helper";
 
@@ -13,7 +14,6 @@ const GetElementRound = (result: any, col: number, row: number, roundId: number)
                 tiger: !isDragon,
                 tie: isTie,
             }}
-            textInner={""}
             col={col}
             row={row}
         ></DragonTigerDotNumber>
