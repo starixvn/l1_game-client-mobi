@@ -29,7 +29,7 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
 
     return (
         <div className={Styles["container"]}>
-            <div className="overlay-mask">
+            <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                     <div className={Styles["result-set"]}>
                         <div className={Styles["plate"]}></div>

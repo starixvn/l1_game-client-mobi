@@ -30,7 +30,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
     if (isDisplayResult) {
         return (
             <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
-                <div className="overlay-mask">
+                <div className="overlay-mask-no-bg">
                     <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                         <div className={Styles["result-plate"]}></div>
                         <div className={Styles["toss-dices"]}>

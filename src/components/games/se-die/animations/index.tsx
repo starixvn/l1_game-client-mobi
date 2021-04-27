@@ -7,7 +7,7 @@ const Plate: React.FC = ({ children }) => {
     const { isCompactMode } = useGameContext();
 
     return (
-        <div className="overlay-mask">
+        <div className="overlay-mask-no-bg">
             <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                 <div className={Styles["result-sedie-set"]}>
                     <div className={Styles["result-sedie-plate"]}></div>
