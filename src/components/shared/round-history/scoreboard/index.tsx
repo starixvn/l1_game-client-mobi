@@ -15,6 +15,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     let mouseDown = false;
     let startX, scrollLeft;
     const handleWheel = (e) => {
+        e.preventDefault();
         e.target.scrollLeft -= e.deltaY;
         updateScrollEndRight(e);
     };

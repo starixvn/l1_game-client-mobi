@@ -171,19 +171,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const onInfiniteLoad = async () => {
         setIsInfiniteLoading(true);
         if (page + 1 <= totalPage) {
-            axios
-                .get(historyAPI, {
-                    params: {
-                        session: session.ss,
-                        page: page,
-                        pageSize: 8,
-                        username: session.username,
-                    },
-                })
-                .then((res) => {
-                    setBetHistory(res.data.history);
-                    setPage(page + 1);
-                });
+            setPage(page + 1);
         }
         setIsInfiniteLoading(false);
     };
@@ -208,6 +196,24 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     useEffect(() => {
         fetchBetHistory();
     }, [betHistory]);
+
+    useEffect(() => {
+        if (page <= totalPage) {
+            setIsInfiniteLoading(false);
+            axios
+                .get(historyAPI, {
+                    params: {
+                        session: session.ss,
+                        page: page,
+                        pageSize: 8,
+                        username: session.username,
+                    },
+                })
+                .then((res) => {
+                    setBetHistory(res.data.history);
+                });
+        }
+    }, [page]);
 
     return (
         <div className="table-container">
