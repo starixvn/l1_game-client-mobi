@@ -18,7 +18,7 @@ const Header: React.FC<Props> = (props) => {
 
     return (
         <header className={Styles.header}>
-            <div className="game-container">
+            <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
                         <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>

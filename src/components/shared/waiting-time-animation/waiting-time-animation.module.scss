@@ -1,26 +1,6 @@
-@import "../../../assets/abstracts/variables";
+@import "../../../assets/components/_popover";
 
-.start-round-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: $waiting-time-index;
-}
-
-.start-round-content {
-    position: relative;
-    z-index: $overlay-index + 1;
-    padding: 1.2rem 3rem 0.8rem;
-    background-color: #fff;
-    border-radius: 0.5rem;
-    color: #2c2f3e;
-    text-align: center;
-    font-size: 1.6rem;
+.popover-content {
     opacity: 0;
     transform: scale(0);
     animation-name: show-start-round-animation, hide-start-round-animation;
