@@ -37,6 +37,10 @@
         line-height: 2rem;
         font-weight: 500;
         font-size: 1.8rem;
+
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            font-size: 1.6rem;
+        }
     }
 
     .round {
@@ -72,7 +76,7 @@
     align-items: center;
 
     .rebet {
-        width: 8.4rem;
+        width: 7.7rem;
         height: 3.2rem;
         margin-right: 1rem;
         border: 1px solid $btn-rebet-background-hover;
@@ -81,6 +85,10 @@
         color: $btn-rebet-color;
         text-align: center;
         font-size: 1.4rem;
+
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            margin-right: 0;
+        }
 
         &:disabled {
             opacity: 0.6;

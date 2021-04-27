@@ -12,12 +12,6 @@
     border-width: 0.1rem;
     border-style: solid;
 
-    @media print, screen and (min-width: 1024px) {
-        width: 1.35rem;
-        height: 1.35rem;
-        margin: 0 0.15rem;
-    }
-
     @media print, screen and (min-width: 1200px) {
         width: 1.6rem;
         height: 1.6rem;
