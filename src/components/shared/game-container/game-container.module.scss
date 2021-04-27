@@ -16,7 +16,7 @@
     user-select: none;
 }
 
-@media print, screen and (min-width: 992px) {
+@media print, screen and (min-width: 768px) {
     .game-container {
         flex: 1 1 calc(50% - 0.8rem);
         max-width: calc(50% - 0.8rem);
@@ -27,7 +27,7 @@
     }
 }
 
-@media print, screen and (min-width: 1280px) {
+@media print, screen and (min-width: 1024px) {
     .game-container {
         flex: 1 1 calc(100% / 3 - 0.6rem);
         max-width: calc(100% / 3 - 0.6rem);
