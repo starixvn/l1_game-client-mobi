@@ -25,7 +25,7 @@
     &.selected {
         transform: scale(1.2);
 
-        @media (min-width: 1200px) {
+        @media (min-width: 1024px) {
             transform: scale(1.8);
         }
     }
