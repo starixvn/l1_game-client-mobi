@@ -33,6 +33,19 @@ const renderStake = (bet: any) => {
     return <></>;
 };
 
+const renderStakeRefund = (bet: any) => {
+    if (bet.settlementResult) {
+        return (
+            <>
+                <div className={bet.betwin > 0 ? "font-weight-medium" : ""}>{bet.amount}</div>
+                <div className={bet.refund > 0 ? Styles["refund"] : ""}>{bet.refund}</div>
+            </>
+        );
+    }
+
+    return <></>;
+};
+
 const renderBetBase = (bet: any, t: Function, mainOdds: object) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
@@ -102,10 +115,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     </td>
                 );
             case 4:
-                return <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>{renderStake(rowData)}</td>;
+                return (
+                    <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
+                        {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
+                    </td>
+                );
             case 5:
                 return (
-                    <td className={`${betwin > 0 ? "highlight font-weight-medimum" : ""} ${Styles["bet-win"]}`}>
+                    <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
                         {betwin && numberWithCommas(betwin)}
                     </td>
                 );
