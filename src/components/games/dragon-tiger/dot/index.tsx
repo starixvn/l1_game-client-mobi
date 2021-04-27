@@ -1,20 +1,26 @@
 import React from "react";
+
 import { SettlementResult } from "../dragon-tiger";
 import Styles from "./dot.module.scss";
 
 type Props = {
     choice?: SettlementResult;
-    textInner?: string;
     row?: number;
     col?: number;
-    value?: string;
+    highlight?: boolean;
 };
 
-const DragonTigerDot: React.FunctionComponent<Props> = ({ choice, value }) => {
-    return <div className={`${choice.tie ? Styles["dot-tie"] : choice.tiger ? Styles["dot-tiger"] : Styles["dot-dragon"]}`}>{value}</div>;
+const DragonTigerDot: React.FunctionComponent<Props> = ({ choice, highlight = false }) => {
+    return (
+        <div
+            className={`${choice.tie ? Styles["dot-tie"] : choice.tiger ? Styles["dot-tiger"] : Styles["dot-dragon"]} ${
+                highlight ? "highlight-current-result" : ""
+            }`}
+        />
+    );
 };
 
-export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ choice, textInner, col, row }) => {
+export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ choice, col, row }) => {
     return (
         <div
             className={`${choice.tie ? Styles["dot-tie"] : choice.tiger ? Styles["dot-tiger"] : Styles["dot-dragon"]}`}
@@ -22,9 +28,7 @@ export const DragonTigerDotNumber: React.FunctionComponent<Props> = ({ choice, t
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),
             }}
-        >
-            {textInner}
-        </div>
+        />
     );
 };
 

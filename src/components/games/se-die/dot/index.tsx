@@ -8,10 +8,11 @@ type Props = {
     row?: number;
     col?: number;
     value?: number;
+    highlight?: boolean;
 };
 
-const SeDieDot: React.FunctionComponent<Props> = ({ red = false, value }) => {
-    return <div className={`${red ? Styles["dot-red"] : Styles["dot-white"]}`}>{value}</div>;
+const SeDieDot: React.FunctionComponent<Props> = ({ red = false, value, highlight = false }) => {
+    return <div className={`${red ? Styles["dot-red"] : Styles["dot-white"]} ${highlight ? "highlight-current-result" : ""}`}>{value}</div>;
 };
 
 export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, count, col, row }) => {

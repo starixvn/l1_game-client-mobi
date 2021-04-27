@@ -4,17 +4,16 @@ import Styles from "./dot.module.scss";
 
 type Props = {
     red?: boolean;
-    textInner?: string;
     row?: number;
     col?: number;
-    value?: string;
+    highlight?: boolean;
 };
 
-const BigSmallDot: React.FunctionComponent<Props> = ({ red = false, value }) => {
-    return <div className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}>{value}</div>;
+const BigSmallDot: React.FunctionComponent<Props> = ({ red = false, highlight = false }) => {
+    return <div className={`${red ? Styles["dot-red"] : Styles["dot-blue"]} ${highlight ? "highlight-current-result" : ""}`} />;
 };
 
-export const BigSmallDotNumber: React.FunctionComponent<Props> = ({ red = false, textInner, col, row }) => {
+export const BigSmallDotNumber: React.FunctionComponent<Props> = ({ red = false, col, row }) => {
     return (
         <div
             className={`${red ? Styles["dot-red"] : Styles["dot-blue"]}`}
@@ -22,9 +21,7 @@ export const BigSmallDotNumber: React.FunctionComponent<Props> = ({ red = false,
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),
             }}
-        >
-            {textInner}
-        </div>
+        />
     );
 };
 

@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
-import { isMobile } from "react-device-detect";
+import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
@@ -31,7 +31,7 @@ export default function GameHeader() {
     const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet;
 
     const onHeaderClick = () => {
-        if (isMobile) {
+        if (isMobileOnly) {
             updateCompactMode();
         }
     };
