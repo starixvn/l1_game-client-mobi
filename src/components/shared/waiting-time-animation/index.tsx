@@ -13,7 +13,7 @@ const WaitingTimeAnimation: React.FC<{ remainingTime: number }> = (props) => {
         return () => clearInterval(interval);
     }, [remainingTime]);
 
-    return <div className={Styles["waiting-time"]}>{remainingTime.toLocaleString("en-us", { minimumIntegerDigits: 2 })}</div>;
+    return <div className={Styles["mini-notice"]}>{remainingTime.toLocaleString("en-us", { minimumIntegerDigits: 2 })}</div>;
 };
 
 export default WaitingTimeAnimation;

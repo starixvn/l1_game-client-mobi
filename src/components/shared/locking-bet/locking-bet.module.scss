@@ -1,0 +1,8 @@
+@import "../../../assets/components/mini-notice";
+
+.mini-notice {
+    width: 30rem;
+    left: calc(50% - 15rem);
+    top: calc(50% - 2rem);
+    font-size: 1.6rem;
+}

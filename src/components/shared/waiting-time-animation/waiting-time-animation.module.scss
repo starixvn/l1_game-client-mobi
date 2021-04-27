@@ -1,16 +1,8 @@
-@import "../../../assets/abstracts/variables";
+@import "../../../assets/components/mini-notice";
 
-.waiting-time {
-    position: absolute;
-    bottom: 2.4rem;
-    left: calc(50% - 10rem);
-    right: 20%;
-    z-index: $overlay-index + 1;
-    padding: 0.6rem 3rem;
+.mini-notice {
     width: 20rem;
-    background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
+    left: calc(50% - 10rem);
+    bottom: 2.4rem;
     font-size: 1.8rem;
-    font-weight: 500;
-    text-align: center;
-    color: #fff;
 }
