@@ -13,15 +13,7 @@ const WaitingTimeAnimation: React.FC<{ remainingTime: number }> = (props) => {
         return () => clearInterval(interval);
     }, [remainingTime]);
 
-    return (
-        <div className={Styles["popover-container"]}>
-            <div className="overlay-mask"></div>
-            <div className={Styles["popover-content"]}>
-                <div className={Styles["start-round"]}>Bắt đầu phiên mới</div>
-                <div className={Styles["time-count-down"]}>{remainingTime.toLocaleString("en-us", { minimumIntegerDigits: 2 })}</div>
-            </div>
-        </div>
-    );
+    return <div className={Styles["waiting-time"]}>{remainingTime.toLocaleString("en-us", { minimumIntegerDigits: 2 })}</div>;
 };
 
 export default WaitingTimeAnimation;
