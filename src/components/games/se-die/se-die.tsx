@@ -10,7 +10,7 @@ import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import SeDieRoundHistory from "./round-history";
-import GetElementRound from "./scoreboard-round-history";
+import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
@@ -38,7 +38,14 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound} />;
+        return (
+            <ScoreboardDragon
+                roundHistory={roundHistory}
+                gameState={gameState}
+                getElementRound={GetElementRound}
+                checkCondition={CheckCondition}
+            />
+        );
     }
 
     get isShowStartRoundAnimation() {
@@ -65,7 +72,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     renderBetHistory() {
         return (
             <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
-                <SeDieBetHistory/>
+                <SeDieBetHistory />
             </AdvanceModal>
         );
     }

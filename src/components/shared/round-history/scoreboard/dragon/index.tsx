@@ -8,11 +8,12 @@ type Props = {
     roundHistory: any[];
     gameState: number;
     getElementRound: Function;
+    checkCondition?: Function;
 };
 
 const rowTotal = 7;
 
-const checkCondition = (settlementResult: object) => {
+const checkConditionBase = (settlementResult: object) => {
     let value = 0;
     Object.keys(settlementResult).forEach((name, index) => {
         if (settlementResult[name]) {
@@ -23,7 +24,13 @@ const checkCondition = (settlementResult: object) => {
     return value;
 };
 
-const drawDragonTailHistory = (roundHistory: any[], getElementRound: Function, isItemNext: boolean, roundNext: Function) => {
+const drawDragonTailHistory = (
+    roundHistory: any[],
+    getElementRound: Function,
+    isItemNext: boolean,
+    roundNext: Function,
+    checkCondition: Function
+) => {
     let col = 1,
         row = 1;
     let nextCol = 1;
@@ -83,6 +90,10 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
 
 const ScoreboardDragon = (props: Props) => {
     const { roundHistory, gameState, getElementRound } = props;
+    let { checkCondition } = props;
+    if (!checkCondition) {
+        checkCondition = checkConditionBase;
+    }
     const roundNext = (col: number, row: number) => {
         return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
     };
@@ -92,7 +103,7 @@ const ScoreboardDragon = (props: Props) => {
         if (gameState === GameState.LockingBet) {
             isBlockBet = true;
         }
-        return drawDragonTailHistory(roundHistory, getElementRound, isBlockBet, roundNext);
+        return drawDragonTailHistory(roundHistory, getElementRound, isBlockBet, roundNext, checkCondition);
     };
 
     return <div className={Styles["score-board-dragon-container"]}>{renderRoundHistory([...roundHistory].reverse())}</div>;
