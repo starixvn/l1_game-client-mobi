@@ -68,8 +68,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const { session } = useAuthContext();
     const gameContext = useGameContext();
     const gameActions = useGameActionContext();
-    const [isFetching, setIsFetching] = useState<boolean>(true);
-    const [listBetHistory, setListBetHistory] = useState<object[]>([]);
+    const [isInitial, setIsInitial] = useState<boolean>(true);
+    const [listBetHistory, setListBetHistory] = useState<object[]>([{}]);
     const [columns, setColumns] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
     const [totalPage, setTotalPage] = useState<number>(0);
@@ -104,7 +104,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             case 5:
                 return (
                     <td className={`${betwin > 0 ? "highlight font-weight-medimum" : ""} ${Styles["bet-win"]}`}>
-                        {numberWithCommas(betwin)}
+                        {betwin && numberWithCommas(betwin)}
                     </td>
                 );
                 break;
@@ -112,19 +112,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             default:
                 return (
                     <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                        <div className="time">
-                            <Moment format="hh:mm">{time}</Moment>
-                        </div>
-                        <div className="date">
-                            <Moment format="DD/MM/YY">{time}</Moment>
-                        </div>
+                        <div className="time">{time && <Moment format="hh:mm">{time}</Moment>}</div>
+                        <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
                     </td>
                 );
                 break;
         }
     };
 
-    const headerRenderer = ({ column, className, columnIndex }) => {
+    const headerRenderer = (props) => {
+        const { column, className, columnIndex, rowData } = props;
         return <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>{t(headerName[column.i])}</td>;
     };
 
@@ -163,44 +160,39 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     useEffect(() => {
         fetchBetHistory();
-        setColumns(createColumns());
     }, [betHistory]);
 
-    const fetchBetHistory = () => {
-        setIsFetching(false);
+    const fetchBetHistory = async () => {
+        setIsInitial(false);
+
         if (betHistory && betHistory.betLogs.length > 0) {
             setTotalPage(Math.ceil(betHistory.total / betHistory.pageSize));
             const data = betHistory.betLogs;
-
             if (page === betHistory.page) {
-                setListBetHistory(() => {
-                    return [...listBetHistory, ...data];
-                });
-
+                setListBetHistory([...listBetHistory, ...data]);
                 setPage(page + 1);
-                setIsInfiniteLoading(false);
+                setColumns(createColumns());
             }
         }
     };
 
-    const onInfiniteLoad = () => {
+    const onInfiniteLoad = async () => {
         setIsInfiniteLoading(true);
         if (page <= totalPage) {
             gameActions.getBetHistory(page);
-            fetchBetHistory();
-            return;
+            await fetchBetHistory();
         }
         setIsInfiniteLoading(false);
     };
 
     return (
         <div className="table-container">
-            {listBetHistory && columns.length && (
+            {listBetHistory.length > 1 ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"
                     height={400}
-                    rowHeight={36}
+                    rowHeight={50}
                     rows={listBetHistory}
                     columns={columns}
                     fillTableWidth={true}
@@ -210,9 +202,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     onInfiniteLoad={onInfiniteLoad}
                     getLoadingSpinner={() => <Spinner color="primary" />}
                 />
+            ) : (
+                t("noBetHistory")
             )}
 
-            {isFetching && <Spinner color="primary" />}
+            {isInitial && <Spinner color="primary" />}
         </div>
     );
 };
