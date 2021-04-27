@@ -96,8 +96,8 @@ export default class PlaceBetModal extends Component<Props, State> {
         console.log(userStakeLevel);
         const { maxbet, choices_maxbet, minbet } = gameConfigs;
         const currentAmountOnChoice = ownBets[betChoice] ?? 0;
-        const totalBet = Object.keys(choices_maxbet).reduce((total, choice) => total + (ownBets[choice] ?? 0), 0);
-        const maxBetPerChoice = Math.min(choices_maxbet[betChoice], userStakeLevel.maxBet);
+        const totalBet = Object.values(ownBets).reduce((total: number, betOnChoice: number) => total + betOnChoice, 0);
+        const maxBetPerChoice = Math.min(choices_maxbet ? choices_maxbet[betChoice] : maxbet, userStakeLevel.maxBet);
         const maxBetPerRound = Math.min(maxbet, userStakeLevel.maxBet);
 
         const criteria = [
@@ -112,9 +112,9 @@ export default class PlaceBetModal extends Component<Props, State> {
                 validAmount: maxBetPerChoice - currentAmountOnChoice,
             },
             {
-                failure: totalBet + betAmount > maxBetPerRound,
+                failure: +totalBet + betAmount > maxBetPerRound,
                 notice: { key: "maxBet", value: maxBetPerRound },
-                validAmount: maxBetPerRound - totalBet,
+                validAmount: maxBetPerRound - +totalBet,
             },
         ];
 

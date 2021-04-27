@@ -167,7 +167,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.interval && clearInterval(this.interval);
         this.interval = setInterval(() => {
-            this.timeCounter > 0 && this.timeCounter--;
+            if (this.timeCounter > 0) {
+                this.timeCounter = this.timeCounter - 1;
+            }
 
             this.handleGamePlay(this.timeCounter);
         }, 1000);
@@ -176,28 +178,54 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleGamePlay(remainingTime: number) {
-        const { durations } = this.props;
-        const { roundId, gameState } = this.state;
         const newGameState = this.determineGameState(remainingTime);
 
-        if (remainingTime === durations.placingBets + durations.beforeStartRound) {
-            this.setState({
-                ownBets: {},
-                totalBets: {},
-                showWaitingTime: false,
-            });
-        }
-
-        const timeCounter = this.getTimeCounter(this.timeCounter, newGameState);
-        const newRoundId = gameState !== GameState.InRound && newGameState === GameState.InRound ? roundId + 1 : roundId;
-
         const newState = {
-            remainingTime: timeCounter,
             gameState: newGameState,
-            roundId: newRoundId,
+            ...this.getStateByNextGameState(newGameState),
         };
 
         this.setState(newState);
+    }
+
+    getStateByNextGameState(nextGameState: GameState) {
+        const { roundId, gameState, displayPopup } = this.state;
+
+        const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
+
+        const newStateDetector = [
+            {
+                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState) && gameState !== nextGameState,
+                state: {
+                    ownBets: {},
+                    totalBets: {},
+                    showWaitingTime: false,
+                },
+            },
+            {
+                condition: gameState !== GameState.InRound && nextGameState === GameState.InRound,
+                state: {
+                    roundId: roundId + 1,
+                },
+            },
+            {
+                condition: nextGameState === GameState.LockingBet && [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup),
+                state: {
+                    displayPopup: null,
+                },
+            },
+        ];
+
+        return newStateDetector.reduce(
+            (newState, stateDetector) => {
+                if (stateDetector.condition) {
+                    newState = Object.assign(newState, stateDetector.state);
+                }
+
+                return newState;
+            },
+            { remainingTime: timeCounter }
+        );
     }
 
     async updateUserBalance() {
