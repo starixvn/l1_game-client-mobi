@@ -59,6 +59,7 @@ export interface GameBaseState<Result, SettlementResult> {
     isProcessingBet?: boolean;
     isCompactMode: boolean;
     disabledMessage?: string;
+    showWaitingTime: boolean;
 }
 
 export interface SocketInfo {
@@ -71,7 +72,7 @@ export interface GameDurations {
     placingBets: number;
     lockingBet: number;
     showResult: number;
-    highlightBeforeWaiting: number;
+    resultAnimation: number;
     beforeStartRound: number;
 }
 

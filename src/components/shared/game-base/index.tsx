@@ -6,7 +6,7 @@ import appSettings from "../../../common/app-settings";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
-import { GameContextConsumer, GameContextProvider } from "../../../contexts/game-context/game-context";
+import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
@@ -31,7 +31,22 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected messageTransmitter: MessageTransmitterType;
     protected authService: Auth;
 
-    protected readonly defaultGameConfig = { odds: {}, minbet: 0, maxbet: 0, choices_maxbet: {}, enableFreeBet: false };
+    private readonly defaultGameConfig = { odds: {}, minbet: 0, maxbet: 0, choices_maxbet: {}, enableFreeBet: false };
+    protected readonly defaultState = {
+        signedIn: false,
+        gameState: GameState.None,
+        remainingTime: 0,
+        gameConfigs: { ...this.defaultGameConfig },
+        roundHistory: [],
+        roundId: 0,
+        ownBets: {},
+        totalBets: {},
+        userStakeLevel: null,
+        displayPopup: null,
+        betPercentage: {},
+        isCompactMode: false,
+        showWaitingTime: false,
+    };
 
     constructor(props: P) {
         super(props);
@@ -170,6 +185,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({
                 ownBets: {},
                 totalBets: {},
+                showWaitingTime: false,
             });
 
         const timeCounter = this.getTimeCounter(this.timeCounter, newGameState);
@@ -263,10 +279,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         roundHistory.unshift(finish);
         roundHistory.pop();
         this.setState({
-            roundHistory,
             result: finish.result,
             settlementResult: finish.settlementResult,
         });
+
+        setTimeout(() => {
+            this.setState({ roundHistory, showWaitingTime: true });
+        }, durations.resultAnimation * 1000);
         this.runGame(durations.wholeRound);
     }
 
@@ -346,7 +365,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     roundId: roundId,
                     odd: odds[selectedBetChoice],
                 }}
-            ></PlaceBetModal>
+            />
         );
     }
 
@@ -402,6 +421,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
+        const { durations } = this.props;
         const {
             remainingTime,
             roundId,
@@ -449,7 +469,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             <div className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                                 {this.renderBetOptions()}
                             </div>
-                            {gameState === GameState.Waiting && <WaitingTimeAnimation remainingTime={remainingTime} />}
+                            {this.state.showWaitingTime && (
+                                <WaitingTimeAnimation
+                                    remainingTime={
+                                        durations.wholeRound -
+                                        durations.placingBets -
+                                        durations.beforeStartRound -
+                                        durations.resultAnimation -
+                                        1
+                                    }
+                                />
+                            )}
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.isDisplayResult && this.renderResult()}
                         </BetContainer>

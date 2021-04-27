@@ -4,7 +4,7 @@ import { CommonResourceKeys } from "../../../common/resources";
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, PopupType } from "../../shared/game-base/type";
 import PlaceBetModal from "../../shared/place-bet-modal/place-bet-modal";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
@@ -20,19 +20,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     constructor(props: GameBaseProps) {
         super(props);
 
-        this.state = {
-            signedIn: false,
-            gameState: GameState.None,
-            remainingTime: 0,
-            gameConfigs: { ...this.defaultGameConfig },
-            roundHistory: [],
-            roundId: 0,
-            ownBets: {},
-            totalBets: {},
-            userStakeLevel: null,
-            displayPopup: null,
-            isCompactMode: false,
-        };
+        this.state = { ...this.defaultState };
     }
 
     renderPlaceBet() {

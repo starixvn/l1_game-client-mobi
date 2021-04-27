@@ -23,9 +23,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
 
     const actionByGameState = {
         [GameState.DisplayResult]: () => {
-            const highLightTime = gameSetting.durations.showResult - gameSetting.durations.highlightBeforeWaiting;
-
-            setTimeout(() => updateHighlightType(HighlightType.Blink), highLightTime * 1000);
+            setTimeout(() => updateHighlightType(HighlightType.Blink), gameSetting.durations.resultAnimation * 1000);
         },
         [GameState.Waiting]: () => {
             updateHighlightType(HighlightType.Blink);

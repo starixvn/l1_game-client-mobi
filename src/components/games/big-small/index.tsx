@@ -18,20 +18,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     constructor(props: GameBaseProps) {
         super(props);
 
-        this.state = {
-            signedIn: false,
-            gameState: GameState.None,
-            remainingTime: 0,
-            gameConfigs: { ...this.defaultGameConfig },
-            roundHistory: [],
-            roundId: 0,
-            ownBets: {},
-            totalBets: {},
-            userStakeLevel: null,
-            displayPopup: null,
-            betPercentage: {},
-            isCompactMode: false,
-        };
+        this.state = { ...this.defaultState };
     }
 
     handleFinish({ finish }) {

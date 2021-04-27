@@ -18,19 +18,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     constructor(props: GameBaseProps) {
         super(props);
 
-        this.state = {
-            signedIn: false,
-            gameState: GameState.None,
-            remainingTime: 0,
-            gameConfigs: { ...this.defaultGameConfig },
-            roundHistory: [],
-            roundId: 0,
-            ownBets: {},
-            totalBets: {},
-            userStakeLevel: null,
-            displayPopup: null,
-            isCompactMode: false,
-        };
+        this.state = { ...this.defaultState };
     }
 
     renderBetOptions() {
