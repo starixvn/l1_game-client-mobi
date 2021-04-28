@@ -32,9 +32,9 @@ type Props = {
 const suffixClassMapping = ["card-heart", "card-diamond", "card-club", "card-spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
 const pictureCard = {
-    j: "card-j-picture",
-    q: "card-q-picture",
-    k: "card-k-picture",
+    J: "card-j-picture",
+    Q: "card-q-picture",
+    K: "card-k-picture",
 };
 
 export const DragonTigerResult: React.FC<Props> = (props) => {
