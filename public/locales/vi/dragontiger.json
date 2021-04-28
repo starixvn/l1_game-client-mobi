@@ -2,5 +2,7 @@
     "game_name": "Rồng Hổ",
     "tiger": "Hổ",
     "dragon": "Rồng",
-    "tie": "Hòa"
+    "tie": "Hòa",
+    "tigerWin": "Hổ thắng",
+    "dragonWin": "Rồng thắng"
 }

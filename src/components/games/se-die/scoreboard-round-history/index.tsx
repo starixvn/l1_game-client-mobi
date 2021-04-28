@@ -7,7 +7,7 @@ export const GetElementRound = (result: any, col: number, row: number, roundId: 
     const count = countRedDot(result);
     const isEven = checkIsEven(count);
 
-    return <SeDieDotNumber key={roundId} red={isEven} count={count} col={col} row={row}></SeDieDotNumber>;
+    return <SeDieDotNumber key={roundId} red={isEven} value={count} col={col} row={row}></SeDieDotNumber>;
 };
 
 export const CheckCondition = (settlementResult: SettlementResult) => {

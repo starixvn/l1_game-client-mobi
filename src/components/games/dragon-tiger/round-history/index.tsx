@@ -8,27 +8,30 @@ import { GameState } from "../../../shared/game-base/type";
 import RoundHistoryItem from "../../../shared/round-history/item";
 import { MiniItemNext } from "../../../shared/round-history/item-next";
 import DragonTigerDot from "../dot";
-import { Result, SettlementResult } from "../dragon-tiger";
+import { Result, SettlementResult, ObjectResult } from "../dragon-tiger";
 import { Props } from "./mini-round-history";
+import { convertRank } from "../dragon-tiger-helper";
 import Styles from "./mini-round-history.module.scss";
 
+const suffix = ["card-heart-tiny", "card-diamond-tiny", "card-club-tiny", "card-spade-tiny"];
 const renderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
     const { roundId, settlementResult, result } = round;
-
-    const choiceResult = { dragon: {}, tiger: {} };
-    ["dragon", "tiger"].forEach((name) => {
-        choiceResult[name] = Object.values(result[name]).map((value) => {
-            return `${value} `;
-        });
-    });
+    const renderValueCard = (card: ObjectResult) => {
+        return (
+            <>
+                {convertRank(card.card)}
+                <span className={`${Styles[suffix[card.type]]} ${Styles["card-suite-small"]}`}></span>
+            </>
+        );
+    };
 
     return (
         <div>
             <span className={Styles["tooltip-round"]}>#{roundId}</span>
             <div>
                 <span className={Styles["tooltip-title"]}>
-                    {settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragon") : t("tiger")} {choiceResult.dragon} |
-                    {choiceResult.tiger}
+                    {settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragon") : t("tiger")}{" "}
+                    {renderValueCard(result["dragon"])} | {renderValueCard(result["tiger"])}
                 </span>
                 <div className={Styles["tooltip-display"]}></div>
             </div>

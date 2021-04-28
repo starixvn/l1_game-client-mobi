@@ -2,5 +2,7 @@
     "game_name": "Dragon Tiger",
     "tiger": "Tiger",
     "dragon": "Dragon",
-    "tie": "Tie"
+    "tie": "Tie",
+    "tigerWin": "Tiger win",
+    "dragonWin": "Dragon win"
 }

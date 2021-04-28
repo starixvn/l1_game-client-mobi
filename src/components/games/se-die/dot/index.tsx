@@ -4,7 +4,6 @@ import Styles from "./dot.module.scss";
 
 type Props = {
     red?: boolean;
-    count?: number;
     row?: number;
     col?: number;
     value?: number;
@@ -15,7 +14,7 @@ const SeDieDot: React.FunctionComponent<Props> = ({ red = false, value, highligh
     return <div className={`${red ? Styles["dot-red"] : Styles["dot-white"]} ${highlight ? "highlight-current-result" : ""}`}>{value}</div>;
 };
 
-export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, count, col, row }) => {
+export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, value, col, row }) => {
     return (
         <div
             className={`${red ? Styles["dot-red"] : Styles["dot-white"]}`}
@@ -24,7 +23,7 @@ export const SeDieDotNumber: React.FunctionComponent<Props> = ({ red = false, co
                 gridRowStart: row.toString(),
             }}
         >
-            {count}
+            {value}
         </div>
     );
 };

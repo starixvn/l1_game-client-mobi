@@ -1,3 +1,5 @@
+@import "../../../../assets/components/card";
+
 .tooltip-number,
 .tooltip-round {
     font-size: 1.1rem;
@@ -6,6 +8,9 @@
 .tooltip-title {
     font-size: 1.1rem;
     margin-right: 3px;
+    .card-suite-small {
+        display: inline-block;
+    }
 }
 
 .tooltip-display {
