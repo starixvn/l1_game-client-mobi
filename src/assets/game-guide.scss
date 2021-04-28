@@ -55,6 +55,9 @@ ul {
             &:before {
                 content: "- ";
             }
+            &.contentBeforeEmpty:before{
+                content: ""!important;
+            }
         }
     }
 
@@ -66,7 +69,7 @@ ul {
     .table-container {
         margin: 0 -0.6rem;
         padding: 0.2rem;
-        overflow-x: auto;
+        overflow: auto;
     }
 
     .table {
@@ -112,4 +115,21 @@ ul {
             }
         }
     }
+    .icon-wrapper{
+        display: flex;
+        justify-content: center;
+        .symbol-size {
+            font-size: 5rem;
+            padding: .5rem;
+        
+            &.icon-bau {
+                font-size: 4.6rem;
+            }
+        
+            &.icon-ca {
+                font-size: 5.6rem;
+            }
+        }
+    }
+    
 }

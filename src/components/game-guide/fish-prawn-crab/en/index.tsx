@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./fish-prawn-crab.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -12,64 +11,77 @@ const FishPrawnCrabGuideEN: React.FC<GameGuide> = (props) => {
         <div>
             <ul className="game-guide">
                 <li className="guide-item">
-                    <h2>Giới thiệu</h2>
+                    <h2>Introduction</h2>
                     <p className="content">
-                        {gameName} hay còn gọi là bầu cua tôm cá, là trò chơi dân gian rất phổ biến ở Châu Á, được Saba.club triển khai cho
-                        tất cả thị trường trên thế giới. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh
-                        vật) ứng với một cửa trên bàn chơi.
+                        {gameName}, also known as Hoo Hey How, is a popular game in Asia using three dice. Each dice contains six unique
+                        symbols (fish, prawn, crab, rooster, gourd, and stag). There are 6 betting options available, one for each symbol.
+                        Players place bets on which symbols will appear.
                     </p>
+                    <div className="icon-wrapper">
+                        <div className="symbol-size icon-bau"></div>
+                        <div className="symbol-size icon-cua"></div>
+                        <div className="symbol-size icon-tom"></div>
+                        <div className="symbol-size icon-ga"></div>
+                        <div className="symbol-size icon-ca"></div>
+                        <div className="symbol-size icon-nai"></div>
+                    </div>
                 </li>
                 <li className="guide-item">
-                    <h2>Cách chơi</h2>
+                    <h2>Game Rules</h2>
                     <ul className="desc">
+                        <li>The dice will be shaken and the result will be shown. If the symbol you have bet on shows up, you win.</li>
                         <li>
-                            Người chơi có thể đặt cược vào 1 hoặc nhiều linh vật cùng lúc trong cùng 1 lượt chơi và không bị giới hạn số lần
-                            đặt cược. Lưu ý, không thể hủy cược sau khi đặt.
+                            Min bet and Max bet must be between {numberWithCommas(minbet)} - {maxChoiceRound} and the maximum total stake
+                            per round is {maxBetRound}
                         </li>
                         <li>
-                            Số tiền cược phải nằm trong khoảng từ {numberWithCommas(minbet)} đến {maxChoiceRound} cho một lần đặt cược và
-                            tổng tiền cược tối đa cho 1 phiên là {maxBetRound}
-                        </li>
-                        <li>
-                            Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, xúc xắc
-                            sẽ bắt đầu lắc và kết quả sẽ được hiển thị.
-                        </li>
-                        <li>
-                            Người chơi sẽ thắng nếu trong ba viên xúc xắc xuất hiện linh vật mà người chơi đã đặt cược.
+                            Payouts::
                             <ul className="detail">
-                                <li>Nếu linh vật được chọn xuất hiện 1 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.single}</li>
-                                <li>Nếu linh vật được chọn xuất hiện 2 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.double}</li>
-                                <li>Nếu linh vật được chọn xuất hiện 3 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.triple}</li>
+                                <li>{odds.single} if the chosen symbol appears once.</li>
+                                <li>{odds.double} if the chosen symbol appears twice.</li>
+                                <li> {odds.triple} if the chosen symbol appears three times.</li>
                             </ul>
                         </li>
-                        <li>Nếu linh vật người chơi chọn không xuất hiện, đồng nghĩa với việc người chơi thua và mất số tiền cược.</li>
+                        <li>
+                            Players can bet on one or more betting options shown on the game table. Note, placed bets cannot be canceled.
+                        </li>
+                        <li>
+                            The winning amount is calculated according to the payout ratio. Note, the Payout includes the initial stake.
+                        </li>
+                        <li>
+                            All winning amounts are instantly added to your account balance when bets are settled.
+                            <div>
+                                <strong>Example:</strong>
+                                <ul className="detail">
+                                    <li>
+                                        Betting 10 on “Fish” and having one Fish symbol turns up, then you will be paid <strong>20</strong>
+                                    </li>
+                                    <li>
+                                        Betting 10 on “Crab” and having two Crab symbols turn up, then you will be paid <strong>35</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li className="guide-item">
-                    <h2>Trả thưởng</h2>
-                    <ul className="desc">
-                        <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
-                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
-                    </ul>
-                </li>
-                <li className="guide-item">
-                    <h2>Các quy định trong game</h2>
+                    <h2>Terms and Conditions</h2>
                     <ul className="game-rules">
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực đối với mọi lượt cược trong trường hợp hệ thống xảy ra bất kỳ lỗi kỹ
-                            thuật nào, bao gồm nhưng không hạn chế bởi các lỗi về phần mềm, phần cứng hoặc mạng kết nối.
+                            The Company reserves the right to cancel or void any bets because of a force majeure event including but not
+                            limited to any technical errors, network service failures, power failures.
                         </li>
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực đối với mọi lượt cược khi nghi ngờ khách hàng có những hoạt động gian
-                            lận, tham gia lừa đảo, câu kết, rửa tiền hay các hoạt động bất hợp pháp khác.
+                            The Company reserves the right to cancel or void any bets of players we believe to be involved in fraud, money
+                            laundering, or any other form of illegal or suspicious activities.
                         </li>
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực mọi lượt cược khi có lỗi (thuộc về con người hay yếu tố khác) hoặc sự
-                            cố hệ thống dẫn đến việc sử dụng sai tỷ lệ trả thưởng.
+                            The Company reserves the right to cancel or void any bets when there is an error (caused by human or any other
+                            factors), or a system failure resulting in an incorrect payout ratio.
                         </li>
                         <li className="rule">
-                            Tất cả các lượt cược vào các phiên cược đã được chấp nhận vẫn sẽ có hiệu lực ngay cả khi sau đó thành viên đăng
-                            xuất hoặc bị ngắt kết nối khỏi hệ thống game vì bất kỳ lý do gì.
+                            All accepted bets will still be effective even if the member subsequently logs out or is disconnected from the
+                            site for any reason.
                         </li>
                     </ul>
                 </li>

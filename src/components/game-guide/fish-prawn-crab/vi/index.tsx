@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./fish-prawn-crab.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -18,6 +17,14 @@ const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
                         tất cả thị trường trên thế giới. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh
                         vật) ứng với một cửa trên bàn chơi.
                     </p>
+                    <div className="icon-wrapper">
+                        <div className="symbol-size icon-bau"></div>
+                        <div className="symbol-size icon-cua"></div>
+                        <div className="symbol-size icon-tom"></div>
+                        <div className="symbol-size icon-ga"></div>
+                        <div className="symbol-size icon-ca"></div>
+                        <div className="symbol-size icon-nai"></div>
+                    </div>
                 </li>
                 <li className="guide-item">
                     <h2>Cách chơi</h2>
@@ -42,14 +49,23 @@ const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
                                 <li>Nếu linh vật được chọn xuất hiện 3 lần &#8658; Tỷ lệ trả thưởng 1 ăn {odds.triple}</li>
                             </ul>
                         </li>
-                        <li>Nếu linh vật người chơi chọn không xuất hiện, đồng nghĩa với việc người chơi thua và mất số tiền cược.</li>
-                    </ul>
-                </li>
-                <li className="guide-item">
-                    <h2>Trả thưởng</h2>
-                    <ul className="desc">
-                        <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
-                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
+                        <div>
+                            <strong>Lưu ý</strong>: Tỷ lệ trả thưởng đã bao gồm tiền cược.
+                        </div>
+                        <li>
+                            Nếu linh vật người chơi chọn không xuất hiện, đồng nghĩa với việc người chơi thua và mất số tiền cược.
+                            <div>
+                                <strong>Ví dụ:</strong>
+                                <ul className="detail">
+                                    <li>
+                                        Cược 10 vào “Cá” và có một biểu tượng Cá trong kết quả. Tiền thắng <strong>20</strong>
+                                    </li>
+                                    <li>
+                                        Cược 10 vào “Cua” và có hai biểu tượng Cua trong kết quả. Tiền thắng <strong>35</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </li>
                 <li className="guide-item">

@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./dragon-tiger.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -13,9 +12,9 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        {gameName} hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới.
-                        Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng, cửa Hổ
-                        và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
+                        {gameName} hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế
+                        giới. Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng,
+                        cửa Hổ và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
                     </p>
                 </li>
                 <li className="guide-item">
@@ -98,6 +97,13 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                                     </tbody>
                                 </table>
                             </div>
+                            <ul className="detail">
+                                <li>Xếp hạng các lá bài từ thấp đến cao: Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King.</li>
+                                <li>
+                                    Các lá bài từ 2 đến 10 có giá trị tùy theo số trên mỗi lá bài; lá A được tính là 1 điểm; lá J là 11
+                                    điểm, lá Q là 12 điểm và K là 13.
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
@@ -114,6 +120,7 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                     <h2>Trả thưởng</h2>
                     <ul className="desc">
                         <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
+                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
                         <li>
                             Giới hạn cược và tỷ lệ trả thưởng khi đặt vào Rồng, Hổ hoặc Hòa như sau:
                             <div className="table-container">
@@ -149,8 +156,9 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                                 </table>
                             </div>
                         </li>
-                        <li>Trong trường hợp kết quả Hòa, người chơi sẽ mất 50% số tiền cược đặt vào 2 cửa Rồng, Hổ.</li>
-                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
+                        <li>
+                            <strong>Lưu ý</strong>: trong trường hợp kết quả Hòa, người chơi sẽ mất 50% số tiền cược đặt vào 2 cửa Rồng, Hổ.
+                        </li>
                     </ul>
                 </li>
                 <li className="guide-item">

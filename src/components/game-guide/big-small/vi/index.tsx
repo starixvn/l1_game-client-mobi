@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./se-die.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -25,8 +24,6 @@ const BigSmallGuideVI: React.FC<GameGuide> = (props) => {
                             <li>Tài: tổng điểm 3 viên xúc xắc &gt;= 11</li>
                             <li>Xỉu: tổng điểm 3 viên xúc xắc &lt;= 10</li>
                         </ul>
-                        <li>Trong 1 phiên cược, người chơi chỉ được chọn 1 cửa duy nhất Tài hoặc Xỉu.</li>
-                        <li>Sau khi chọn mức tiền cược, nhấn nút Đồng Ý để xác nhận hoặc chọn Xóa nếu muốn nhập lại số tiền khác.</li>
                         <li>
                             Người chơi có thể tăng lượng tiền đặt cược bằng cách đặt thêm vào cùng 1 lựa chọn trước khi thời gian đặt cược
                             kết thúc.

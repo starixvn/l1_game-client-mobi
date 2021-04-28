@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./dragon-tiger.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -11,58 +10,31 @@ const DragonTigerGuideEN: React.FC<GameGuide> = (props) => {
         <div>
             <ul className="game-guide">
                 <li className="guide-item">
-                    <h2>Giới thiệu</h2>
+                    <h2>Introduction</h2>
                     <p className="content">
-                        {gameName} hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế
-                        giới. Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng,
-                        cửa Hổ và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
+                        {gameName} is a simple card game similar to Baccarat. The game is played with one standard 52-cards deck (excluding
+                        Joker). There are 3 betting options Dragon, Tiger, and Tie.
                     </p>
                 </li>
                 <li className="guide-item">
-                    <h2>Cách chơi</h2>
+                    <h2>Game Rules</h2>
                     <ul className="desc">
+                        <li>Two cards are drawn, one for the Dragon and one for the Tiger. </li>
                         <li>
-                            Hai cửa Rồng và Hổ, mỗi cửa sẽ được chia 1 lá bài trong bộ bài 52 lá. Người chơi đặt cược và dự đoán lá bài ở
-                            cửa nào sẽ có điểm số cao hơn, hoặc có thể đặt cược vào lựa chọn Hòa nếu dự đoán 2 cửa có kết quả bằng nhau.
+                            The players bet on Dragon or Tiger which one will win with the higher value card. The players can also bet on
+                            “Tie” option if they predict Dragon and Tiger will have the same value card, irrespective of suit.
+                        </li>
+                        <li>
+                            The game determines the win or loss by comparing the point of the card instead of its suit. K is the maximum,
+                            while Ace is the minimum.
+                        </li>
+                        <li>
+                            Card’s point values:
                             <div className="table-container">
                                 <table className="table text-center">
                                     <thead>
                                         <tr>
-                                            <th>Lựa Chọn</th>
-                                            <th>Thắng</th>
-                                            <th>Thua</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Rồng</td>
-                                            <td>Điểm số cửa Rồng lớn hơn cửa Hổ.</td>
-                                            <td>Điểm số cửa Hổ lớn hơn cửa Rồng.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hổ</td>
-                                            <td>Điểm số cửa Hổ lớn hơn cửa Rồng.</td>
-                                            <td>Điểm số cửa Rồng lớn hơn cửa Hổ.</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hoà</td>
-                                            <td>Điểm số cửa Rồng bằng cửa Hổ.</td>
-                                            <td>Điểm số cửa Rồng khác cửa Hổ.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            Thang sức mạnh các lá bài trong Rồng Hổ sẽ được tính dựa trên điểm số của lá bài, không so sánh chất của lá bài.
-                        </li>
-                        <li>
-                            Điểm số các lá bài trong Rồng Hổ sẽ được tính như sau:
-                            <div className="table-container">
-                                <table className="table text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>Bài</th>
+                                            <th>Card</th>
                                             <th>A</th>
                                             <th>2</th>
                                             <th>3</th>
@@ -80,7 +52,7 @@ const DragonTigerGuideEN: React.FC<GameGuide> = (props) => {
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Điểm</td>
+                                            <td>Point</td>
                                             <td>1</td>
                                             <td>2</td>
                                             <td>3</td>
@@ -98,79 +70,88 @@ const DragonTigerGuideEN: React.FC<GameGuide> = (props) => {
                                     </tbody>
                                 </table>
                             </div>
+                            <ul className="detail">
+                                <li>
+                                    The ranking of cards from the lowest to the highest is as follows: Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                    Jack, Queen, and King.
+                                </li>
+                                <li>
+                                    Ace stands for 1 point; Jack is 11 points; Queen stands for 12 points and King is 13 points. The rest of
+                                    the cards (2 to 10) are counted at face value.
+                                </li>
+                            </ul>
                         </li>
                         <li>
-                            Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là {maxBetRound}. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
+                            Players can bet on one or more betting options shown on the game table. All bets must be placed before the
+                            betting time expires. Note, placed bets cannot be canceled.
                         </li>
-                        <li>
-                            Thời gian đặt cược cho mỗi phiên sẽ được hiển thị đếm ngược trên bàn chơi. Khi hết thời gian đặt cược, các lá
-                            bài sẽ được lật và kết quả sẽ được hiển thị.
-                        </li>
-                        <li>Bộ bài 52 lá (không bao gồm lá Joker) sẽ được sử dụng khi bắt đầu phiên mới.</li>
+                        <li>The standard deck with 52 cards (excluding Joker) is shuffled after every round.</li>
                     </ul>
                 </li>
                 <li className="guide-item">
-                    <h2>Trả thưởng</h2>
+                    <h2>Payouts </h2>
                     <ul className="desc">
-                        <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
                         <li>
-                            Giới hạn cược và tỷ lệ trả thưởng khi đặt vào Rồng, Hổ hoặc Hòa như sau:
+                            The winning amount is calculated according to the payout ratio. Note, the Payout includes the initial stake.
+                        </li>
+                        <li>
+                            All winning amounts are instantly added to your account balance when bets are settled.
                             <div className="table-container">
                                 <table className="table text-center">
                                     <thead>
                                         <tr>
-                                            <th>Lựa Chọn</th>
+                                            <th>Options</th>
+                                            <th>Payouts</th>
                                             <th>
-                                                Giới Hạn Cược <br /> (Min - Max)
+                                                Bet Limit <br /> (Min - Max)
                                             </th>
-                                            <th>Tỷ Lệ Trả Thưởng</th>
+                                            <th>Max Total Stake Per Round</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>Rồng</td>
+                                            <td>Dragon</td>
+                                            <td rowSpan={2}>1:{odds.dragon}</td>
                                             <td rowSpan={2}>
                                                 {minbet} - {numberWithCommas(choices_maxbet.dragon)}
                                             </td>
-                                            <td rowSpan={2}>1:{odds.dragon}</td>
+                                            <td rowSpan={3}>{maxBetRound}</td>
                                         </tr>
                                         <tr>
-                                            <td>Hổ</td>
+                                            <td>Tiger</td>
                                         </tr>
                                         <tr>
-                                            <td>Hoà</td>
+                                            <td>Tie</td>
+                                            <td>1:{odds.tie}</td>
                                             <td>
                                                 {minbet} - {numberWithCommas(choices_maxbet.dragon)}
                                             </td>
-                                            <td>1:{odds.tie}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            <strong>Note</strong>:The players bet on Dragon or Tiger will lose 50% of their stake if the result is a draw.
                         </li>
-                        <li>Trong trường hợp kết quả Hòa, người chơi sẽ mất 50% số tiền cược đặt vào 2 cửa Rồng, Hổ.</li>
-                        <li>Tỷ lệ trả thưởng đã bao gồm tiền cược.</li>
                     </ul>
                 </li>
                 <li className="guide-item">
-                    <h2>Các quy định trong game</h2>
+                    <h2> Terms and Conditions</h2>
                     <ul className="game-rules">
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực đối với mọi lượt cược trong trường hợp hệ thống xảy ra bất kỳ lỗi kỹ
-                            thuật nào, bao gồm nhưng không hạn chế bởi các lỗi về phần mềm, phần cứng hoặc mạng kết nối.
+                            The Company reserves the right to cancel or void any bets because of a force majeure event including but not
+                            limited to any technical errors, network service failures, power failures.
                         </li>
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực đối với mọi lượt cược khi nghi ngờ khách hàng có những hoạt động gian
-                            lận, tham gia lừa đảo, câu kết, rửa tiền hay các hoạt động bất hợp pháp khác.
+                            The Company reserves the right to cancel or void any bets of players we believe to be involved in fraud, money
+                            laundering, or any other form of illegal or suspicious activities.
                         </li>
                         <li className="rule">
-                            Công ty có quyền hủy hoặc làm mất hiệu lực mọi lượt cược khi có lỗi (thuộc về con người hay yếu tố khác) hoặc sự
-                            cố hệ thống dẫn đến việc sử dụng sai tỷ lệ trả thưởng.
+                            The Company reserves the right to cancel or void any bets when there is an error (caused by human or any other
+                            factors), or a system failure resulting in an incorrect payout ratio.
                         </li>
                         <li className="rule">
-                            Tất cả các lượt cược vào các phiên cược đã được chấp nhận vẫn sẽ có hiệu lực ngay cả khi sau đó thành viên đăng
-                            xuất hoặc bị ngắt kết nối khỏi hệ thống game vì bất kỳ lý do gì.
+                            All accepted bets will still be effective even if the member subsequently logs out or is disconnected from the
+                            site for any reason.
                         </li>
                     </ul>
                 </li>

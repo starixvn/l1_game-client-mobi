@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./se-die.module.scss";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/NumberHelper";
 
@@ -33,73 +32,9 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                         </li>
                         <li>
                             Người chơi có thể đặt cược vào nhiều lựa chọn cùng lúc và không bị giới hạn số lần đặt cược. Tổng tiền cược tối
-                            đa cho 1 phiên là {maxBetRound}. Lưu ý, không thể hủy cược sau khi đặt.
+                            đa cho 1 phiên là {maxBetRound}. <strong>Lưu ý</strong>, không thể hủy cược sau khi đặt.
                         </li>
-                        <li>
-                            Giới hạn cược:
-                            <div className="table-container">
-                                <table className="table text-center">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Lựa Chọn</th>
-                                            <th>
-                                                Giới Hạn Cược <br /> (Min - Max)
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td rowSpan={2}>2 cửa chính</td>
-                                            <td>Chẵn</td>
-                                            <td rowSpan={2}>
-                                                {minbet} - {maxBetMain}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Lẻ</td>
-                                        </tr>
-                                        <tr>
-                                            <td rowSpan={5}>5 cửa phụ</td>
-                                            <td>4 đỏ</td>
-                                            <td rowSpan={2}>
-                                                {minbet} - {maxBetRed4}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td rowSpan={2}>
-                                                {minbet} - {maxBetRed3}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                        </tr>
-                                        <tr>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                {minbet} - {maxBetRed2}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược.Thời gian đặt cược cho mỗi phiên
-                            sẽ được hiển thị đếm ngược trên bàn chơi.
-                        </li>
-                    </ul>
-                </li>
-                <li className="guide-item">
-                    <h2>Trả thưởng</h2>
-                    <ul className="desc">
-                        <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
-                        <li>
-                            Tỷ lệ trả thưởng đã bao gồm tiền cược.
+                        <li className="contentBeforeEmpty">
                             <div className="table-container">
                                 <table className="table text-center">
                                     <thead>
@@ -107,13 +42,12 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                                             <th>Lựa Chọn</th>
                                             <th>Điều Kiện Thắng</th>
                                             <th>Mô Tả</th>
-                                            <th>Tỷ Lệ Trả Thưởng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td rowSpan={2}>Lẻ</td>
-                                            <td>3 đỏ, 1 trắng</td>
+                                            <td>3 đỏ, 1 trắng </td>
                                             <td>
                                                 <div className="d-flex justify-content-center">
                                                     <span className="dot-red"></span>
@@ -122,7 +56,6 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                                                     <span className="dot-white"></span>
                                                 </div>
                                             </td>
-                                            <td rowSpan={5}>1:{odds.even}</td>
                                         </tr>
                                         <tr>
                                             <td>1 đỏ, 3 trắng</td>
@@ -180,57 +113,120 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                                                     <span className="dot-red"></span>
                                                 </div>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 trắng</td>
+                                            <td>4 trắng</td>
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3 đỏ, 1 trắng</td>
+                                            <td>3 đỏ, 1 trắng</td>
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-white"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>1 đỏ, 3 trắng</td>
+                                            <td>1 đỏ, 3 trắng</td>
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2 đỏ, 2 trắng</td>
+                                            <td>2 đỏ, 2 trắng</td>
+                                            <td>
+                                                <div className="d-flex justify-content-center">
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-red"></span>
+                                                    <span className="dot-white"></span>
+                                                    <span className="dot-white"></span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                        <li>
+                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược.Thời gian đặt cược cho mỗi phiên
+                            sẽ được hiển thị đếm ngược trên bàn chơi.
+                        </li>
+                    </ul>
+                </li>
+                <li className="guide-item">
+                    <h2>Trả thưởng</h2>
+                    <ul className="desc">
+                        <li>Hệ thống sẽ tiến hành trả thưởng ngay khi phiên chơi có kết quả.</li>
+                        <li>
+                            Tỷ lệ trả thưởng đã bao gồm tiền cược.
+                            <div className="table-container">
+                                <table className="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Lựa Chọn</th>
+                                            <th>Trả Thưởng</th>
+                                            <th>
+                                                Giới Hạn Cược <br /> (Min - Max)
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Lẻ</td>
+                                            <td rowSpan={2}>1:{odds.even}</td>
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetMain}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Chẵn</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4 đỏ</td>
                                             <td rowSpan={2}>1:{odds.red4}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>4 trắng</td>
-                                            <td>4 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
+
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetRed4}
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>4 trắng</td>
+                                        </tr>
+                                        <tr>
                                             <td>3 đỏ, 1 trắng</td>
-                                            <td>3 đỏ, 1 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
                                             <td rowSpan={2}>1:{odds.red3}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>1 đỏ, 3 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
+                                            <td rowSpan={2}>
+                                                {minbet} - {maxBetRed3}
                                             </td>
                                         </tr>
                                         <tr>
+                                            <td>1 đỏ, 3 trắng</td>
+                                        </tr>
+                                        <tr>
                                             <td>2 đỏ, 2 trắng</td>
-                                            <td>2 đỏ, 2 trắng</td>
-                                            <td>
-                                                <div className="d-flex justify-content-center">
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-red"></span>
-                                                    <span className="dot-white"></span>
-                                                    <span className="dot-white"></span>
-                                                </div>
-                                            </td>
                                             <td>1:{odds.red2}</td>
+                                            <td>
+                                                {minbet} - {maxBetRed2}
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
