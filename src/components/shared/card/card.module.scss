@@ -1,6 +1,11 @@
 @import "../../../assets/abstracts/variables";
 @import "../../../assets/components/card";
 
+.card {
+    position: relative;
+    z-index: 1;
+}
+
 .card-shadow {
     position: absolute;
     left: 1.3rem;

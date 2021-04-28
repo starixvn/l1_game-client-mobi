@@ -24,7 +24,7 @@ export const convertRank = (num: number): string => {
 const Card: React.FC<Props> = (props) => {
     const { result } = props;
     return (
-        <>
+        <div className={Styles["card"]}>
             <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>
@@ -45,7 +45,7 @@ const Card: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
