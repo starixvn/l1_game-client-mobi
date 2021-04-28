@@ -10,7 +10,7 @@ import { MiniItemNext } from "../../../shared/round-history/item-next";
 import DragonTigerDot from "../dot";
 import { Result, SettlementResult, ObjectResult } from "../dragon-tiger";
 import { Props } from "./mini-round-history";
-import { convertRank } from "../dragon-tiger-helper";
+import { convertRank } from "../../../shared/card";
 import Styles from "./mini-round-history.module.scss";
 
 const suffix = ["card-heart-tiny", "card-diamond-tiny", "card-club-tiny", "card-spade-tiny"];
