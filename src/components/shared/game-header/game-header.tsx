@@ -70,7 +70,7 @@ export default function GameHeader() {
 
 const HeaderRight = () => {
     const gameActions = useGameActionContext();
-    const { roundId, gameState, gameSetting } = useGameContext();
+    const { roundId, gameState, gameSetting, ownBets } = useGameContext();
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
@@ -90,7 +90,11 @@ const HeaderRight = () => {
     }, [roundId]);
     return (
         <div className={Styles["header-right"]}>
-            <button className={Styles.rebet} disabled={disabledRebet} onClick={() => gameActions.openPopup(PopupType.Rebet)}>
+            <button
+                className={Styles.rebet}
+                disabled={disabledRebet || Object.keys(ownBets).length !== 0}
+                onClick={() => gameActions.openPopup(PopupType.Rebet)}
+            >
                 {t(CommonResourceKeys.REBET)}
             </button>
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
