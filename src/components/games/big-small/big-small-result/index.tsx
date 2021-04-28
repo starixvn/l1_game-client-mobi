@@ -23,7 +23,7 @@ const BigSmallResult: React.FC<Props> = (props) => {
                     <div className={Styles["toss-dices"]}>
                         <img src="/static/images/bigsmall_dice.gif" alt="shake" />
                     </div>
-                    <div className={Styles["result-container"]}>{generateResult(Object.values(props.result) ?? [])}</div>
+                    <div className={Styles["result-container"]}>{props.result && generateResult(Object.values(props.result) ?? [])}</div>
                 </div>
             </div>
         </div>
