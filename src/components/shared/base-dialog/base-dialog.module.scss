@@ -1,7 +1,7 @@
 @import "../../../assets/abstracts/variables";
 
 .popup {
-    position: absolute;
+    position: fixed;
     padding: 1.6rem;
     background: #fff;
     border: 1px solid #d7d7d7;
@@ -10,6 +10,10 @@
     border-radius: 3rem 3rem 0 0;
     overflow-y: auto;
     z-index: $popup-index;
+
+    @media (min-width: 768px) {
+        position: absolute;
+    }
 
     .popup-content-title {
         position: absolute;
@@ -28,7 +32,7 @@
     }
 
     &.modal-bottom {
-        top: 28rem;
+        height: 27.5rem;
     }
 
     &.modal-top {
