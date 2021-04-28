@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useCountUp } from "react-countup";
 
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -20,8 +21,16 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     const { enabledQuickBet, betValue } = useSystemContext();
     const gameActionContext = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
+    const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
+    const { countUp, update } = useCountUp({
+        start: 0,
+        end: 0,
+    });
 
     const actionByGameState = {
+        [GameState.LockingBet]: () => {
+            updateHighlightType(HighlightType.None);
+        },
         [GameState.DisplayResult]: () => {
             setTimeout(() => updateHighlightType(HighlightType.Blink), gameSetting.durations.resultAnimation * 1000);
         },
@@ -38,7 +47,9 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
 
     useEffect(() => {
         actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState]);
+        setTotalBet(totalBets[choice]);
+        update(totalBet);
+    }, [gameState, totalBets?.[choice]]);
 
     function onClickBet() {
         enabledQuickBet ? gameActionContext.placeBet(choice, betValue) : openPlaceBetModal(choice);
@@ -51,7 +62,15 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
-                <div className={Styles["total-bet"]}>{totalBets?.[choice] ? numberWithCommas(totalBets[choice]) : ""}</div>
+                <div className={Styles["total-bet"]}>
+                    {gameState == GameState.BalancingBet
+                        ? countUp
+                            ? numberWithCommas(+countUp)
+                            : ""
+                        : totalBet
+                        ? numberWithCommas(totalBet)
+                        : ""}
+                </div>
                 {children}
                 <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>
             </div>

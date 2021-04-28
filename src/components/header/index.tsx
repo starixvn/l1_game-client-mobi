@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import CountUp, { useCountUp } from "react-countup";
 import { Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/NumberHelper";
@@ -15,6 +16,13 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const toggle = () => setIsOpen(!isOpen);
+    const { countUp, update } = useCountUp({
+        end: props.balance,
+    });
+
+    useEffect(() => {
+        update(props.balance);
+    }, [props.balance]);
 
     return (
         <header className={Styles.header}>
@@ -33,7 +41,7 @@ const Header: React.FC<Props> = (props) => {
                                 <span>{props.name}</span>
                             </div>
                             <div className={Styles.balance}>
-                                {numberWithCommas(props.balance)} {props.currency}
+                                {countUp ? numberWithCommas(+countUp) : 0} {props.currency}
                             </div>
                         </div>
                     </div>
