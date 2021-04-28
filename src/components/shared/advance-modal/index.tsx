@@ -20,9 +20,11 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
     return (
         <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
             <div className={Styles.modal}>
-                <div className={Styles["popup-logo"]}>
-                    <span className="icon-small-logo"></span>
-                </div>
+                {type !== ModalType.Bottom && (
+                    <div className={Styles["popup-logo"]}>
+                        <span className="icon-small-logo"></span>
+                    </div>
+                )}
                 <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
                     <span className="icon-close"></span>
                 </div>

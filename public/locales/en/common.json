@@ -10,7 +10,6 @@
     "bet": "Bet",
     "payout": "Payout",
     "balancedBettingPool": "Balanced betting pool",
-    "minBet": "The minimum bet of a round is {minBet}",
-    "maxBet": "The maximum bet of a round is {maxBet}",
-    "maxBetChoice": "The maximum bet for this option is {maxBetChoice}"
+    "betConfirm": "Bet Confirmation",
+    "stake": "Stake"
 }
