@@ -7,35 +7,18 @@
 
 .general-info {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-    height: auto;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    text-transform: capitalize;
+}
 
-    .info-left {
-        display: flex;
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .game-name {
-        line-height: 2rem;
-        font-size: 1.8rem;
-        font-weight: bold;
-    }
-
-    .choice-name {
-        line-height: 2.2rem;
-        font-size: 2rem;
-        text-transform: capitalize;
-    }
-
-    .logo {
-        font-size: 5rem;
-        &:before {
-            color: #fff;
-        }
-    }
+.confirm-text {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-top: 1rem;
 }
 
 .payout,
@@ -60,5 +43,5 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 3rem;
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
 }

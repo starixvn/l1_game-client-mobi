@@ -20,19 +20,15 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
     return (
         <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
             <div className={Styles.modal}>
-                {type !== ModalType.Bottom && (
-                    <div className={Styles["popup-logo"]}>
-                        <span className="icon-small-logo"></span>
-                    </div>
-                )}
                 <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
                     <span className="icon-close"></span>
                 </div>
+
                 <div className={Styles["popup-header"]}>
                     <h1 className={Styles["popup-title"]}>{t(title)}</h1>
                     {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
                 </div>
-                <div className={Styles["popup-content"]}>{children}</div>
+                <div className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""}`}>{children}</div>
             </div>
         </BaseDialog>
     );

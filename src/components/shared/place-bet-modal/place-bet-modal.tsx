@@ -40,18 +40,16 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     return (
-        <AdvanceModal title={t("common:betConfirm")} isOpen={props.isOpen} onCloseModal={closeModal} type={ModalType.Bottom}>
+        <AdvanceModal
+            title={t(GameResourceKeys.GAME_NAME)}
+            subTitle={`#${roundId}`}
+            isOpen={props.isOpen}
+            onCloseModal={closeModal}
+            type={ModalType.Bottom}
+        >
             <div className={Styles["place-bet-container"]}>
                 <div className={`w-100 btn-green ${Styles["general-info"]}`}>
-                    <div className={Styles["info-left"]}>
-                        <span className={Styles["game-name"]}>{t(GameResourceKeys.GAME_NAME)}</span>
-                        <span className={Styles["round-id"]}>{`#${roundId}`}</span>
-                        <div className={Styles["choice-name"]}>
-                            <span className="font-weight-bold">{t(betChoice)}</span> @1:{odd}
-                        </div>
-                    </div>
-
-                    <span className={`icon-small-logo ${Styles["logo"]}`}></span>
+                    <span className="font-weight-bold">{t(betChoice)}</span> @1:{odd}
                 </div>
 
                 <div className={Styles["stake"]}>
@@ -60,7 +58,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                 <div className={Styles["payout"]}>
                     <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
                 </div>
-
+                <p className={Styles["confirm-text"]}>Do you want to confirm bet?</p>
                 <div className={Styles["actions"]}>
                     <button onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
                         {t("common:cancel")}

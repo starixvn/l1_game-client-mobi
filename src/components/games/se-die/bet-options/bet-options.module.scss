@@ -13,8 +13,7 @@
 .wrapper-dots-red2 {
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 0.4rem 0;
 }
 
@@ -44,7 +43,7 @@
 
 .bet-choice-red4 {
     grid-column-start: 1;
-    grid-row-start: 2;
+    grid-row-start: 3;
 }
 
 .bet-choice-red2 {
@@ -54,17 +53,17 @@
 
 .bet-choice-white4 {
     grid-column-start: 4;
-    grid-row-start: 2;
+    grid-row-start: 3;
 }
 
 .bet-choice-red3 {
     grid-column-start: 1;
-    grid-row-start: 3;
+    grid-row-start: 2;
 }
 
 .bet-choice-white3 {
     grid-column-start: 4;
-    grid-row-start: 3;
+    grid-row-start: 2;
 }
 
 .bet-choice-even {
