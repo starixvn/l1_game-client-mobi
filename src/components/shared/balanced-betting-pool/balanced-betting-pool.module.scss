@@ -3,6 +3,7 @@
 
 .balanced-betting-pool-content {
     @extend .mini-notice;
+    font-weight: normal;
     color: #000;
     background: linear-gradient(90deg, rgba(252, 226, 135, 0) 0%, #ffab2b 50%, rgba(252, 226, 135, 0) 100%);
 }

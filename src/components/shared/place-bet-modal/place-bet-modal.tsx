@@ -42,26 +42,33 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     return (
         <AdvanceModal title={t("common:betConfirm")} isOpen={props.isOpen} onCloseModal={closeModal} type={ModalType.Bottom}>
             <div className={Styles["place-bet-container"]}>
-                <div className={`w-100 btn-green ${Styles["bet-choice"]}`}>
-                    <span className={Styles["game-name"]}>{t(GameResourceKeys.GAME_NAME)}</span>
-                    <span className={Styles["round-id"]}>{`#${roundId}`}</span>
-                    <span className={Styles["choice-name"]}>{t(betChoice)}</span> @ 1:{odd}
-                    <span className="icon-small-logo"></span>
-                </div>
-                <div className={Styles["bet-info"]}>
-                    <div className={Styles["stake"]}>
-                        {t("common:stake")}: <span className={Styles["highlight"]}>{betValue}</span>
+                <div className={`w-100 btn-green ${Styles["general-info"]}`}>
+                    <div className={Styles["info-left"]}>
+                        <span className={Styles["game-name"]}>{t(GameResourceKeys.GAME_NAME)}</span>
+                        <span className={Styles["round-id"]}>{`#${roundId}`}</span>
+                        <div className={Styles["choice-name"]}>
+                            <span className="font-weight-bold">{t(betChoice)}</span> @1:{odd}
+                        </div>
                     </div>
-                    <div className={Styles["payout"]}>
-                        {t("common:payout")}: <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
-                    </div>
+
+                    <span className={`icon-small-logo ${Styles["logo"]}`}></span>
                 </div>
-                <button onClick={closeModal} className="btn-grey w-50" disabled={betValue <= 0}>
-                    {t("common:cancel")}
-                </button>
-                <button onClick={placeBet} className="btn-orange w-50" disabled={betValue <= 0}>
-                    {t("common:bet")}
-                </button>
+
+                <div className={Styles["stake"]}>
+                    <label>{t("common:stake")}:</label> <span className={Styles["highlight"]}>{betValue}</span>
+                </div>
+                <div className={Styles["payout"]}>
+                    <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
+                </div>
+
+                <div className={Styles["actions"]}>
+                    <button onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
+                        {t("common:cancel")}
+                    </button>
+                    <button onClick={placeBet} className="btn-orange" disabled={betValue <= 0}>
+                        {t("common:bet")}
+                    </button>
+                </div>
             </div>
         </AdvanceModal>
     );
