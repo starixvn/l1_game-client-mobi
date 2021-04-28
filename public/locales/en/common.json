@@ -15,5 +15,6 @@
     "maxBetChoice": "The maximum bet for this option is {maxBetChoice}",
     "lockingBet": "No more bets",
     "betConfirm": "Bet Confirmation",
-    "stake": "Stake"
+    "stake": "Stake",
+    "confirm": "Xác nhận"
 }

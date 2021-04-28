@@ -15,5 +15,6 @@
     "maxBetChoice": "Tiền cược tối đa ở cửa này là {maxBetChoice}",
     "lockingBet": "Ngừng nhận cược",
     "betConfirm": "Xác nhận cược",
-    "stake": "Tiền cược"
+    "stake": "Tiền cược",
+    "confirm": "Xác nhận"
 }

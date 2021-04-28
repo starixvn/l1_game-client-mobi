@@ -64,7 +64,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         {t("common:cancel")}
                     </button>
                     <button onClick={placeBet} className="btn-orange" disabled={betValue <= 0}>
-                        {t("common:bet")}
+                        {t("common:confirm")}
                     </button>
                 </div>
             </div>
