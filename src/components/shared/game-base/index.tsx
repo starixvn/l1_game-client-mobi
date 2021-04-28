@@ -251,7 +251,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             return GameState.BalancingBet;
         }
 
-        if (remainingTime >= durations.wholeRound - durations.showResult - durations.balancingBet ?? 0) {
+        if (remainingTime >= durations.wholeRound - durations.showResult - (durations.balancingBet ?? 0)) {
             return GameState.DisplayResult;
         }
 
