@@ -1,14 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
-import { GameState } from "../../game-base/type";
 import Styles from "./round-history.module.scss";
 
 type Props = {
-    gameState: GameState;
     children: React.ReactNode;
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
-    const { gameState } = props;
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
     const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
@@ -16,7 +13,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     let startX, scrollLeft;
     const handleWheel = (e) => {
         e.preventDefault();
-        e.target.scrollLeft -= e.deltaY;
+        e.target.scrollLeft += e.deltaY;
         updateScrollEndRight(e);
     };
 
@@ -68,7 +65,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         if (isScrollEndRight) {
             wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
         }
-        if (wrapperRef.current && gameState === GameState.DisplayResult) {
+        if (wrapperRef.current) {
             setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft));
         }
     });

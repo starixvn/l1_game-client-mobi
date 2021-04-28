@@ -102,7 +102,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
 
     const cellRenderer = ({ columnIndex, rowData }) => {
-        const { time, phien, betwin, refund, amount, totalAmount } = rowData as BetHistoryItem;
+        const { time, phien, betwin } = rowData as BetHistoryItem;
         switch (columnIndex) {
             case 1:
                 return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
@@ -177,11 +177,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     };
 
     useEffect(() => {
+        fetchBetHistory();
+    }, [betHistory]);
+
+    useEffect(() => {
+        setIsInfiniteLoading(false);
         axios
             .get(historyAPI, {
                 params: {
                     session: session.ss,
-                    page: 1,
+                    page: page,
                     pageSize: 8,
                     username: session.username,
                 },
@@ -189,30 +194,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             .then((res) => {
                 const bets = res.data.history;
                 setBetHistory(bets);
-                setTotalPage(Math.ceil(bets.total / bets.pageSize));
+                if (page === 1) {
+                    setTotalPage(Math.ceil(bets.total / bets.pageSize));
+                }
             });
-    }, []);
-
-    useEffect(() => {
-        fetchBetHistory();
-    }, [betHistory]);
-
-    useEffect(() => {
-        if (page <= totalPage) {
-            setIsInfiniteLoading(false);
-            axios
-                .get(historyAPI, {
-                    params: {
-                        session: session.ss,
-                        page: page,
-                        pageSize: 8,
-                        username: session.username,
-                    },
-                })
-                .then((res) => {
-                    setBetHistory(res.data.history);
-                });
-        }
     }, [page]);
 
     return (
