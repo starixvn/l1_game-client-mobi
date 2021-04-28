@@ -1,61 +1,8 @@
 @import "../../../assets/abstracts/variables";
-
-.balanced-betting-pool-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: $balance-betting-pool-index;
-}
+@import "../../../assets/components/mini-notice";
 
 .balanced-betting-pool-content {
-    width: 60%;
-    padding: 0.8rem 4rem;
-    color: #2c2f3e;
-    text-align: center;
-    font-size: 1.6rem;
+    @extend .mini-notice;
+    color: #000;
     background: linear-gradient(90deg, rgba(252, 226, 135, 0) 0%, #ffab2b 50%, rgba(252, 226, 135, 0) 100%);
-    animation-name: show-balanced-betting-pool-animation, hide-balanced-betting-pool-animation;
-    animation-delay: 0s, 4.9s;
-    animation-duration: 0.1s, 0.1s;
-    animation-fill-mode: forwards, forwards;
-    animation-timing-function: linear, linear;
-}
-
-@keyframes show-balanced-betting-pool-animation {
-    0% {
-        transform: scaleX(0);
-    }
-    20% {
-        opacity: 0.2;
-        transform: scaleX(0.2);
-    }
-
-    35% {
-        opacity: 0.8;
-    }
-
-    50% {
-        opacity: 1;
-        transform: scaleX(0.6);
-    }
-    100% {
-        transform: scaleX(1);
-    }
-}
-
-@keyframes hide-balanced-betting-pool-animation {
-    20% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.3;
-    }
-    100% {
-        opacity: 0;
-    }
 }

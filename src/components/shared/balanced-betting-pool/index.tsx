@@ -7,7 +7,7 @@ import Styles from "./balanced-betting-pool.module.scss";
 const BalancedBettingPool = () => {
     const { t } = useTranslation(ResourceTypes.COMMON);
     return (
-        <div className={Styles["balanced-betting-pool-container"]}>
+        <div className="overlay-mask-no-bg">
             <div className={Styles["balanced-betting-pool-content"]}>{t(CommonResourceKeys.BALANCED_BETTING_POOL)}</div>
         </div>
     );

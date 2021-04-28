@@ -55,12 +55,14 @@ export default function GameHeader() {
                     </div>
                 </div>
             </div>
-            {isShowTimer() && (
+            {isShowTimer() ? (
                 <div className={Styles["count-down"]}>
                     <CountdownTimer key={gameState} />
                 </div>
+            ) : (
+                <div className="loader-show-result"></div>
+                // <div className="loader-balance-pool"></div>
             )}
-
             <HeaderRight />
         </div>
     );
