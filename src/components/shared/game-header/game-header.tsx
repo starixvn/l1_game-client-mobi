@@ -28,16 +28,16 @@ export default function GameHeader() {
         updateFavorite(!isFavorite);
     };
 
-    const isShowTimer = () => gameState === GameState.InRound || gameState === GameState.LockingBet;
-
-    const onHeaderClick = () => {
+    const onHeaderClick = (e: React.MouseEvent) => {
         if (isMobileOnly) {
             updateCompactMode();
         }
+
+        e.preventDefault();
     };
 
     return (
-        <div className={Styles.header} onClick={() => onHeaderClick()}>
+        <div className={Styles.header} onClick={(e) => onHeaderClick(e)}>
             <div className={Styles["header-left"]}>
                 <div className={Styles["favorite-btn"]} onClick={() => favoriteClickHandle()}>
                     <span
@@ -55,14 +55,7 @@ export default function GameHeader() {
                     </div>
                 </div>
             </div>
-            {isShowTimer() ? (
-                <div className={Styles["count-down"]}>
-                    <CountdownTimer key={gameState} />
-                </div>
-            ) : (
-                <div className="loader-show-result"></div>
-                // <div className="loader-balance-pool"></div>
-            )}
+            <CountdownTimer key={gameState} />
             <HeaderRight />
         </div>
     );

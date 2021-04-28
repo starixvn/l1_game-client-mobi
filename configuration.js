@@ -15,8 +15,9 @@ module.exports = {
                 placingBets: 50,
                 lockingBet: 5,
                 showResult: 5,
-                resultAnimation: 5,
+                resultAnimation: 2,
                 beforeStartRound: 0,
+                balancingBet: 3
             },
         },
         2: {
@@ -62,9 +63,10 @@ module.exports = {
                 wholeRound: 37,
                 placingBets: 30,
                 lockingBet: 5,
-                showResult: 5,
-                resultAnimation: 4,
+                showResult: 3,
+                resultAnimation: 1,
                 beforeStartRound: 0,
+                balancingBet: 3
             },
         },
         7: {

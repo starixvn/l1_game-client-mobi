@@ -10,6 +10,7 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
+import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
@@ -246,7 +247,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     determineGameState(remainingTime: number) {
         const { durations } = this.props;
 
-        if (remainingTime >= durations.wholeRound - durations.showResult) {
+        if (durations.balancingBet && remainingTime > durations.wholeRound - durations.balancingBet) {
+            return GameState.BalancingBet;
+        }
+
+        if (remainingTime >= durations.wholeRound - durations.showResult - durations.balancingBet ?? 0) {
             return GameState.DisplayResult;
         }
 
@@ -309,7 +314,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         setTimeout(() => {
             this.setState({ roundHistory, showWaitingTime: true });
-        }, durations.resultAnimation * 1000);
+        }, (durations.resultAnimation + durations.balancingBet ?? 0) * 1000);
         this.runGame(durations.wholeRound);
     }
 
@@ -428,16 +433,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: null });
     }
 
-    get isDisplayResult() {
-        return this.state.gameState === GameState.DisplayResult;
-    }
-
     get isShowStartRoundAnimation() {
         return false;
-    }
-
-    get isDisabled() {
-        return this.state.gameState === GameState.Disabled;
     }
 
     render() {
@@ -493,12 +490,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                         durations.placingBets -
                                         durations.beforeStartRound -
                                         durations.resultAnimation -
+                                        (durations.balancingBet ?? 0) -
                                         1
                                     }
                                 />
                             )}
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                            {this.isDisplayResult && this.renderResult()}
+                            {this.state.gameState === GameState.DisplayResult && this.renderResult()}
+                            {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                         </BetContainer>
                         <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
                         {!isCompactMode && (
@@ -508,7 +507,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             </>
                         )}
                         {this.renderPopup(displayPopup)}
-                        {this.isDisabled && <DisabledModal disabledMessage={disabledMessage} />}
+                        {this.state.gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                     </GameContainer>
                 </GameActionsContextProvider>
             </GameContextProvider>

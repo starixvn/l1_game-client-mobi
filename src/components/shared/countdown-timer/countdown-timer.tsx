@@ -24,13 +24,21 @@ const CountdownTimer: React.FC = () => {
         duration: durations.placingBets,
     };
 
-    return (
-        <div className={styles.timer}>
-            <CountdownCircleTimer {...timerProps} colors={[[timerColors[ctx.gameState], 1]]}>
-                {({ remainingTime }) => remainingTime.toLocaleString("en-US", { minimumIntegerDigits: 2 })}
-            </CountdownCircleTimer>
-        </div>
-    );
+    switch (ctx.gameState) {
+        case GameState.InRound:
+        case GameState.LockingBet:
+            return (
+                <div className={styles.timer}>
+                    <CountdownCircleTimer {...timerProps} colors={[[timerColors[ctx.gameState], 1]]}>
+                        {({ remainingTime }) => remainingTime.toLocaleString("en-US", { minimumIntegerDigits: 2 })}
+                    </CountdownCircleTimer>
+                </div>
+            );
+        case GameState.BalancingBet:
+            return <div className="loader-balance-pool"></div>;
+        default:
+            return <div className="loader-show-result"></div>;
+    }
 };
 
 export default CountdownTimer;

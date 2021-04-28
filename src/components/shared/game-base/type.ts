@@ -16,6 +16,7 @@ export enum GameState {
     Waiting,
     DisplayResult,
     BeforeStartRound,
+    BalancingBet,
 }
 export enum PopupType {
     Guide,
@@ -73,6 +74,7 @@ export interface GameDurations {
     showResult: number;
     resultAnimation: number;
     beforeStartRound: number;
+    balancingBet?: number;
 }
 
 export interface RebetStorageModel {

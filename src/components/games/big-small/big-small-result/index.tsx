@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
+import React from "react";
 
-import BalancedBettingPool from "../../../shared/balanced-betting-pool";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./big-small-result.module.scss";
 import { Props } from "./type";
 
-const balancedBettingTimeInSecond = 3;
-
 const BigSmallResult: React.FC<Props> = (props) => {
-    const [isDisplayResult, setIsDisplayResult] = useState(false);
     const { isCompactMode } = useGameContext();
 
     const generateResult = (result: number[]) => {
@@ -19,31 +15,19 @@ const BigSmallResult: React.FC<Props> = (props) => {
         ));
     };
 
-    useEffect(() => {
-        const timer = setTimeout(() => setIsDisplayResult(true), balancedBettingTimeInSecond * 1000);
-
-        return () => {
-            clearTimeout(timer);
-        };
-    }, []);
-
-    if (isDisplayResult) {
-        return (
-            <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
-                <div className="overlay-mask-no-bg">
-                    <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
-                        <div className={Styles["result-plate"]}></div>
-                        <div className={Styles["toss-dices"]}>
-                            <img src="/static/images/bigsmall_dice.gif" alt="shake" />
-                        </div>
-                        <div className={Styles["result-container"]}>{generateResult(Object.values(props.result))}</div>
+    return (
+        <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
+            <div className="overlay-mask-no-bg">
+                <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+                    <div className={Styles["result-plate"]}></div>
+                    <div className={Styles["toss-dices"]}>
+                        <img src="/static/images/bigsmall_dice.gif" alt="shake" />
                     </div>
+                    <div className={Styles["result-container"]}>{generateResult(Object.values(props.result) ?? [])}</div>
                 </div>
             </div>
-        );
-    } else {
-        return <BalancedBettingPool />;
-    }
+        </div>
+    );
 };
 
 export default BigSmallResult;
