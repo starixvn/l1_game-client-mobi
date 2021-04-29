@@ -10,6 +10,7 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
+import FadeOutUp from "../animations/fade-out-up";
 import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
@@ -25,6 +26,7 @@ import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
+    private readonly animationTime = 3000;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -47,6 +49,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betPercentage: {},
         isCompactMode: false,
         showWaitingTime: false,
+        acceptedBetQueue: {},
+        showWinningBet: false,
     };
 
     constructor(props: P) {
@@ -120,11 +124,27 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleEndBet = ({ endBet, notice }) => {
         if (this.state.displayPopup !== PopupType.Rebet) {
             this.setState({ isProcessingBet: false });
-            endBet === -1 && this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
+            if (endBet === -1) {
+                this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
+            } else {
+                const key = Date.now();
+                const { acceptedBetQueue } = this.state;
+                acceptedBetQueue[key] = endBet;
+                this.setState({ acceptedBetQueue });
+                setTimeout(() => {
+                    this.removeAcceptedBetQueue(key);
+                }, this.animationTime);
+            }
         }
 
         this.updateUserBalance();
     };
+
+    removeAcceptedBetQueue(key: number) {
+        const { acceptedBetQueue } = this.state;
+        delete acceptedBetQueue[key];
+        this.setState({ acceptedBetQueue });
+    }
 
     setUserStakeLevel = (payload: any) => {
         if (payload.userStakeLevel) {
@@ -437,6 +457,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return false;
     }
 
+    showAcceptedBetAnimation() {}
+
     render() {
         const { durations } = this.props;
         const {
@@ -498,6 +520,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                            {Object.keys(this.state.acceptedBetQueue).map((key) => (
+                                <FadeOutUp>{`-${this.state.acceptedBetQueue[key]}`}</FadeOutUp>
+                            ))}
                         </BetContainer>
                         <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
                         {!isCompactMode && (

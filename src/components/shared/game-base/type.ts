@@ -60,6 +60,8 @@ export interface GameBaseState<Result, SettlementResult> {
     isCompactMode: boolean;
     disabledMessage?: string;
     showWaitingTime: boolean;
+    acceptedBetQueue: { [key: number]: number };
+    showWinningBet: boolean;
 }
 
 export interface SocketInfo {
