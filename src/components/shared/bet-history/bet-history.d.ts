@@ -1,11 +1,3 @@
-export type Props = {
-    betHistoryItem: any;
-    renderResult: Function;
-    renderBet: Function;
-    renderStake: Function;
-    isRefund: boolean;
-};
-
 export type BetHistoryItem = {
     time: string;
     phien: number;
@@ -19,7 +11,7 @@ export type PropsBetContainer = {
     isRefund: boolean;
     renderResult: Function;
     translate?: Function;
-    renderBet?: Function;
+    renderBet?: (bet: BetLogs, t: Function, mainOdds: object) => JSX.Element;
 };
 
 export type BetLogs = {
@@ -34,4 +26,9 @@ export type BetLogs = {
     refund?: number;
     odds?: object;
     amount?: number;
+};
+
+export type CellProps = {
+    columnIndex: number;
+    rowData: BetLogs;
 };

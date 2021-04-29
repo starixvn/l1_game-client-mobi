@@ -41,7 +41,7 @@ const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
     if (bet.settlementResult && bet.result) {
-        const keysChoices = Object.keys(bet.settlementResult);
+        const keysChoices = bet.settlementResult ? Object.keys(bet.settlementResult) : [];
         const odds = bet.odds ? bet.odds : mainOdds;
         const countsAppearDice = {};
         Object.values(bet.result).forEach((value) => {
@@ -49,20 +49,18 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
         });
         return (
             <>
-                {keysChoices &&
-                    keysChoices.map((choice, index) => {
-                        const classHighLight = bet.settlementResult[choice] ? "font-weight-medium" : "";
-                        if (bet[choice] > 0) {
-                            if (ResultBet[choice])
-                                return (
-                                    <div key={index} className={classHighLight}>
-                                        {t(choice)}
-                                        {renderOdd(choice, countsAppearDice, odds)}
-                                    </div>
-                                );
-                        }
-                        return "";
-                    })}
+                {keysChoices.map((choice, index) => {
+                    const classHighLight = bet.settlementResult[choice] ? "font-weight-medium" : "";
+                    if (bet[choice] > 0 && ResultBet[choice]) {
+                        return (
+                            <div key={index} className={classHighLight}>
+                                {t(choice)}
+                                {renderOdd(choice, countsAppearDice, odds)}
+                            </div>
+                        );
+                    }
+                    return "";
+                })}
             </>
         );
     }

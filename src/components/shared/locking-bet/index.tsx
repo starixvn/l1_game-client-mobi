@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import Styles from "./locking-bet.module.scss";

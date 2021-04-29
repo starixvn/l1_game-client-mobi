@@ -58,7 +58,7 @@ const DragonTigerRoundHistory = (props: Props) => {
                     renderRoundDetail={renderRoundDetail(round, t)}
                     targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
                 >
-                    <DragonTigerDot choice={round.settlementResult} highlight={!isLockingBet() && index == numberOfItems - 1} />
+                    <DragonTigerDot choice={round.settlementResult} highlight={!isLockingBet() && index === numberOfItems - 1} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}

@@ -61,6 +61,11 @@ export default function GameHeader() {
     );
 }
 
+enum ClassType {
+    hamburgerDot,
+    dropdownItem,
+}
+
 const HeaderRight = () => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets } = useGameContext();
@@ -73,6 +78,7 @@ const HeaderRight = () => {
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[gameId];
     const { getRoundResultUrl } = useRoundResultContext();
+    const classList = ["hamburger-dot", "dropdown-item"];
 
     useEffect(() => {
         gameState !== GameState.InRound && updateRebetStatus(true);
@@ -92,18 +98,24 @@ const HeaderRight = () => {
             </button>
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
                 <DropdownToggle className={Styles["dropdown-toggle"]}>
-                    <div className={Styles["hamburger-dot"]}></div>
-                    <div className={Styles["hamburger-dot"]}></div>
-                    <div className={Styles["hamburger-dot"]}></div>
+                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
+                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
+                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
                 </DropdownToggle>
                 <DropdownMenu right className={Styles["dropdown-menu"]}>
-                    <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.BetHistory)}>
+                    <DropdownItem
+                        className={Styles[classList[ClassType.dropdownItem]]}
+                        onClick={() => gameActions.openPopup(PopupType.BetHistory)}
+                    >
                         {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
                     </DropdownItem>
-                    <DropdownItem className={Styles["dropdown-item"]} onClick={() => getRoundResultUrl(gameId)}>
+                    <DropdownItem className={Styles[classList[ClassType.dropdownItem]]} onClick={() => getRoundResultUrl(gameId)}>
                         {t(CommonResourceKeys.RESULT)}
                     </DropdownItem>
-                    <DropdownItem className={Styles["dropdown-item"]} onClick={() => gameActions.openPopup(PopupType.Guide)}>
+                    <DropdownItem
+                        className={Styles[classList[ClassType.dropdownItem]]}
+                        onClick={() => gameActions.openPopup(PopupType.Guide)}
+                    >
                         {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
                     </DropdownItem>
                 </DropdownMenu>

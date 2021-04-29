@@ -56,7 +56,7 @@ const BigSmallRoundHistory = (props: Props) => {
                     renderRoundDetail={renderRoundDetail(round, t)}
                     targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
                 >
-                    <BigSmallDot red={round.settlementResult.small} highlight={!isLockingBet() && index == numberOfItems - 1} />
+                    <BigSmallDot red={round.settlementResult.small} highlight={!isLockingBet() && index === numberOfItems - 1} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}

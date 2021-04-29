@@ -13,7 +13,7 @@ type Props = {
 const BaseDialog: React.FC<Props> = ({ children, onCloseModal = null, isOpen = true, type = ModalType.Full }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { isCompactMode } = useGameContext();
-
+    const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
     useEffect(() => {
         function handleClickOutside(event) {
             if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
@@ -28,12 +28,7 @@ const BaseDialog: React.FC<Props> = ({ children, onCloseModal = null, isOpen = t
     }, [wrapperRef]);
 
     return (
-        <div
-            ref={wrapperRef}
-            className={`${Styles.popup} ${Styles[`modal-${ModalType[type].toLocaleLowerCase()}`]} ${
-                isCompactMode ? Styles["compact-mode"] : ""
-            }`}
-        >
+        <div ref={wrapperRef} className={`${Styles.popup} ${Styles[classModal]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
             {children}
         </div>
     );

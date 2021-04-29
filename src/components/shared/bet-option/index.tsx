@@ -63,7 +63,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
                 <div className={Styles["total-bet"]}>
-                    {gameState == GameState.BalancingBet
+                    {gameState === GameState.BalancingBet
                         ? countUp
                             ? numberWithCommas(+countUp)
                             : ""

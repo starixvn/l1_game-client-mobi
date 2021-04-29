@@ -1,6 +1,6 @@
 {
     "sonarlint.connectedMode.project": {
-        "serverId": "l1-game-client-mobi",
+        "connectionId": "l1-game-client-mobi",
         "projectKey": "l1-game-client-mobi"
     }
 }

@@ -1,6 +1,10 @@
 import React from "react";
 import Styles from "./item-next.module.scss";
 
+type Props = {
+    col: number;
+    row: number;
+};
 export const MiniItemNext = () => {
     return (
         <div>
@@ -9,7 +13,7 @@ export const MiniItemNext = () => {
     );
 };
 
-export const ScoreboardItemNext = ({ col, row }) => {
+export const ScoreboardItemNext = ({ col, row }: Props) => {
     return (
         <div
             className={`${Styles["dot-next"]} ${Styles["blink"]}`}

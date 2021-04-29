@@ -66,15 +66,16 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const isShowCountOfDice = gameState !== GameState.LockingBet && gameState !== GameState.DisplayResult;
     const classCount = renderHighLightNumber(choice, countsAppearDice);
+    const classChoice = `icon-${IconMapper[choice]}`;
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div
-                className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[`icon-${IconMapper[choice]}`]} ${
+                className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]} ${
                     isCompactMode ? Styles["compact-mode"] : ""
                 }`}
             ></div>
-            {isShowCountOfDice && classCount != "" && (
+            {isShowCountOfDice && classCount !== "" && (
                 <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
             )}
         </BetOption>

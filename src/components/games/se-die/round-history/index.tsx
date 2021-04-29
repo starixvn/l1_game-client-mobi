@@ -55,7 +55,7 @@ const SeDieRoundHistory = (props: Props) => {
                     renderRoundDetail={renderRoundDetail(round, t)}
                     targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
                 >
-                    <SeDieDot red={checkIsEven(countRedDot(round.result))} highlight={!isLockingBet() && index == numberOfItems - 1} />
+                    <SeDieDot red={checkIsEven(countRedDot(round.result))} highlight={!isLockingBet() && index === numberOfItems - 1} />
                 </RoundHistoryItem>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}

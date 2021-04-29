@@ -1,19 +1,19 @@
 import React from "react";
 import { GameState } from "../../../game-base/type";
-import { RoundHistoryType } from "../../type";
 import Styles from "../round-history.module.scss";
 import { ScoreboardItemNext } from "../../item-next";
+import { Round } from "../../../../../types";
 
-type Props = {
-    roundHistory: any[];
+interface Props<R, S> {
+    roundHistory: Round<R, S>[];
     gameState: number;
-    getElementRound: Function;
-    checkCondition?: Function;
-};
+    getElementRound: (result: any, col: number, row: number, roundId: number) => void;
+    checkCondition?: (settlementResult: S) => void;
+}
 
 const rowTotal = 7;
 
-const checkConditionBase = (settlementResult: object) => {
+const checkConditionBase = (settlementResult: any) => {
     let value = 0;
     Object.keys(settlementResult).forEach((name, index) => {
         if (settlementResult[name]) {
@@ -24,12 +24,15 @@ const checkConditionBase = (settlementResult: object) => {
     return value;
 };
 
-const drawDragonTailHistory = (
-    roundHistory: any[],
-    getElementRound: Function,
+const roundNext = (col: number, row: number) => {
+    return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
+};
+
+const drawDragonTailHistory = <R, S>(
+    roundHistory: Round<R, S>[],
+    getElementRound: (result: any, col: number, row: number, roundId: number) => void,
     isItemNext: boolean,
-    roundNext: Function,
-    checkCondition: Function
+    checkCondition?: (settlementResult: any) => void
 ) => {
     let col = 1,
         row = 1;
@@ -37,7 +40,7 @@ const drawDragonTailHistory = (
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    const resultHandle = roundHistory.map((round: RoundHistoryType) => {
+    const result = roundHistory.map((round: Round<R, S>) => {
         const value = checkCondition(round.settlementResult);
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
@@ -65,11 +68,7 @@ const drawDragonTailHistory = (
         return getElementRound(round.result, col, row, round.roundId);
     });
 
-    if (isItemNext && roundNext) {
-        resultHandle.push(addNextElement(rowMax, row, col, nextCol, roundNext));
-    }
-
-    return resultHandle;
+    return isItemNext ? result.push(addNextElement(rowMax, row, col, nextCol, roundNext)) : result;
 };
 const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, roundNext: Function) => {
     const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
@@ -88,22 +87,19 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
     return roundNext(col, row);
 };
 
-const ScoreboardDragon = (props: Props) => {
+const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     const { roundHistory, gameState, getElementRound } = props;
     let { checkCondition } = props;
     if (!checkCondition) {
         checkCondition = checkConditionBase;
     }
-    const roundNext = (col: number, row: number) => {
-        return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
-    };
 
     let isBlockBet = false;
-    const renderRoundHistory = (roundHistory) => {
+    const renderRoundHistory = <R, S>(roundHistory: Round<R, S>[]) => {
         if (gameState === GameState.LockingBet) {
             isBlockBet = true;
         }
-        return drawDragonTailHistory(roundHistory, getElementRound, isBlockBet, roundNext, checkCondition);
+        return drawDragonTailHistory(roundHistory, getElementRound, isBlockBet, checkCondition);
     };
 
     return <div className={Styles["score-board-dragon-container"]}>{renderRoundHistory([...roundHistory].reverse())}</div>;

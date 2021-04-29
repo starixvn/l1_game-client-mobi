@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { BetLogs, BetHistoryItem, PropsBetContainer } from "./bet-history";
+import { BetLogs, BetHistoryItem, PropsBetContainer, CellProps } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
-import Styles from "./bet-history.module.scss";
 import { Table } from "react-infinite-table";
 import { Spinner } from "reactstrap";
 import axios from "axios";
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
+import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
     roundTime = 0,
@@ -102,8 +102,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const odds = gameConfigs.odds;
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
 
-    const cellRenderer = ({ columnIndex, rowData }) => {
-        const { time, phien, betwin } = rowData as BetHistoryItem;
+    const cellRenderer = ({ columnIndex, rowData }: CellProps) => {
+        const { time, phien, betwin } = rowData;
         switch (columnIndex) {
             case OrderRenderCell.roundTime:
                 return (
@@ -205,7 +205,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container">
-            {listBetHistory ? (
+            {listBetHistory.length > 1 ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"
