@@ -22,7 +22,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
             <>
                 <div className={bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}>
                     {t(bet.choice)}
-                    {`@ ${odds[bet.choice]}`}
+                    {`@${odds[bet.choice]}`}
                 </div>
             </>
         );

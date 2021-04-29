@@ -1,10 +1,23 @@
 import React from "react";
-import Styles from "./bet-history.module.scss";
-import { GameContext, useGameContext } from "../../../../contexts/game-context/game-context";
+import BetHistoryContainer from "../../../shared/bet-history";
+import { useTranslation } from "next-i18next";
+import { BetLogs } from "./bet-history";
+import Card from "../../../shared/card";
+
+const renderResult = (bet: BetLogs) => {
+    if (bet.result) {
+        return (
+            <div className="d-flex justify-content-center">
+                <Card result={bet.result.dragon} isSmall={true} isAnimation={false}></Card> | <Card result={bet.result.tiger}></Card>
+            </div>
+        );
+    }
+    return <></>;
+};
 
 const DragonTigerBetHistory: React.FunctionComponent = () => {
-    const gameContext = useGameContext();
-    return <div>Ticket History DragonTiger</div>;
+    const { t } = useTranslation("dragontiger");
+    return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
 };
 
 export default DragonTigerBetHistory;

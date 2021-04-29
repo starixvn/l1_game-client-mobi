@@ -36,16 +36,13 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     const { t } = useTranslation("dragontiger");
 
     const generateResult = (result: ObjectResult[]) => {
-        return (
-            result &&
-            result.map((result, index) => {
-                return (
-                    <div key={index} className={Styles["card" + (index + 1)]}>
-                        <Card result={result}></Card>
-                    </div>
-                );
-            })
-        );
+        return result.map((result, index) => {
+            return (
+                <div key={index} className={Styles["card" + (index + 1)]}>
+                    <Card result={result}></Card>
+                </div>
+            );
+        });
     };
 
     return (
