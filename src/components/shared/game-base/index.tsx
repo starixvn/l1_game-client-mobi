@@ -27,6 +27,7 @@ import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel }
 
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     private readonly animationTime = 3000;
+    private betWin: number;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -105,6 +106,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("gameConfigs", this.handleGameConfigs.bind(this));
         this.messageTransmitter.addListener("roundHistory", this.handleRoundHistory.bind(this));
         this.messageTransmitter.addListener("finish", this.handleFinish.bind(this));
+        this.messageTransmitter.addListener("status", this.handleStatus.bind(this));
         this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
         this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
         this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
@@ -113,8 +115,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.addListener("apiError", this.handleApiError.bind(this));
     };
 
-    handleStatus = ({ bet, win, winningByChoices }) => {
-        win && this.updateUserBalance();
+    handleStatus = ({ status }) => {
+        const { durations } = this.props;
+        const { win, bet } = status;
+        if (win) {
+            this.betWin = bet;
+            setTimeout(() => {
+                this.setState({ showWinningBet: true });
+                setTimeout(() => {
+                    this.setState({ showWinningBet: false });
+                }, this.animationTime);
+            }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
+
+            this.updateUserBalance();
+        }
     };
 
     handleApiError = ({ apiError }) => {
@@ -520,8 +534,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                            {this.state.showWinningBet && <FadeOutUp>{`+${this.betWin}`}</FadeOutUp>}
                             {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                <FadeOutUp>{`-${this.state.acceptedBetQueue[key]}`}</FadeOutUp>
+                                <FadeOutUp key={key}>{`-${this.state.acceptedBetQueue[key]}`}</FadeOutUp>
                             ))}
                         </BetContainer>
                         <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
