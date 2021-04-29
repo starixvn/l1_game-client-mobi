@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -14,6 +14,7 @@ export const Games: React.FC = () => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
+    const [cursorImage, setCursorImage] = useState<string>("");
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(
         getLocalStorageItem<boolean>(localStorageKeys.enabledQuickBet) ?? false
     );
@@ -65,8 +66,12 @@ export const Games: React.FC = () => {
         updateEnabledQuickBet: setEnabledQuickBet,
     };
 
+    useEffect(() => {
+        setCursorImage(`"/static/images/small_chip_${betValue}.png"`);
+    }, [betValue]);
+
     return (
-        <div className="game-container">
+        <div className="game-container" style={{ cursor: `url(${cursorImage}), auto` }}>
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
