@@ -11,26 +11,26 @@ $time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animatio
 $time-result-highlight-animation: 0.2s;
 
 .animation-container {
-    --animation-scale: scale(0.32, 0.325);
+    --animation-scale: scale(0.6, 0.6);
     position: absolute;
     left: 0;
-    top: -1rem;
+    top: 4.5rem;
     width: 100%;
     display: flex;
     justify-content: center;
     transform: var(--animation-scale);
 
     &.compact-mode {
-        --animation-scale: scale(0.28, 0.321);
-        top: -5.5rem;
+        --animation-scale: scale(0.5, 0.5);
+        top: 0;
     }
 }
 
 .card-back {
-    background: url("/static/images/cards.png") no-repeat center;
-    width: 182px;
-    height: 228px;
-    background-position: -10px -10px;
+    background: url("/static/images/card-back.png") no-repeat center;
+    background-size: 93px 117px;
+    height: 117px;
+    width: 93px;
 }
 
 .draw-cards {
@@ -86,7 +86,7 @@ $time-result-highlight-animation: 0.2s;
     }
 
     .animation-container {
-        --animation-scale: scale(0.51, 0.515);
+        --animation-scale: scale(1);
         transition: transform 0.7s;
         animation-name: zoon-in-animation;
         animation-duration: $time-zoom-in-card-animation;
@@ -95,7 +95,7 @@ $time-result-highlight-animation: 0.2s;
         animation-timing-function: ease-out;
 
         &.compact-mode {
-            --animation-scale: scale(0.45, 0.455);
+            --animation-scale: scale(0.9, 0.9);
         }
     }
 
@@ -157,14 +157,14 @@ $time-result-highlight-animation: 0.2s;
 .result-highlight {
     position: absolute;
     left: 3.2rem;
-    bottom: 1.8rem;
+    bottom: 0.8rem;
     right: 3.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5.4rem;
+    height: 4rem;
     background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
-    font-size: 2.4rem;
+    font-size: 1.6rem;
     font-weight: 500;
     color: #fff;
     z-index: 2;
@@ -178,11 +178,11 @@ $time-result-highlight-animation: 0.2s;
 
 @keyframes zoon-in-animation {
     0% {
-        transform: scale(0.28, 0.321);
+        transform: scale(0.6, 0.6);
     }
 
     50% {
-        transform: scale(0.41, 0.41);
+        transform: scale(0.8, 0.8);
     }
 
     80% {

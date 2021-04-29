@@ -1,34 +1,19 @@
 @import "../../../assets/abstracts/variables";
-@import "../../../assets/components/card";
 
-.card {
+.card-bg {
     position: relative;
-    z-index: 1;
-
-    &.small {
-        transform: scale(0.2);
-        height: 4.1rem;
-        width: 3.8rem;
-        position: relative;
-        top: -1.8rem;
-        left: -1.4rem;
-
-        .card-shadow {
-            left: 1.3rem;
-            right: -13.2rem;
-            top: 1.8rem;
-            bottom: -17rem;
-            box-shadow: 0 0 1rem rgb(0 0 0 / 25%);
-        }
-    }
+    background: url("/static/images/card-bg.png") no-repeat center;
+    background-size: 93px 117px;
+    height: 117px;
+    width: 93px;
 }
 
 .card-shadow {
     position: absolute;
-    left: 1.3rem;
-    right: 1.4rem;
-    top: 1.8rem;
-    bottom: 1.8rem;
+    left: 0.9rem;
+    right: 0.9rem;
+    top: 0.9rem;
+    bottom: 0.9rem;
     border-radius: 1.6rem;
     box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.25);
 }
@@ -44,34 +29,93 @@
 .card-group-left {
     position: absolute;
     z-index: 2;
-    left: -0.5rem;
-    top: 2.5rem;
+    left: 1.2rem;
+    top: 1rem;
 
     .card-number {
         position: relative;
         top: 6px;
-        font-size: 4rem;
+        line-height: 2.3rem;
+        font-size: 2rem;
         font-weight: bold;
         font-family: "CardFont";
         text-align: center;
-        line-height: 1;
     }
 
     .card-suite-small {
-        position: relative;
-        top: -2.8rem;
+        width: 2rem;
     }
 }
 
 .card-group-right {
     position: absolute;
     z-index: 1;
-    right: 2rem;
-    bottom: 3rem;
+    right: 1rem;
+    bottom: 1rem;
+
+    .card-suite-large {
+        width: 5.4rem;
+        position: relative;
+        bottom: 4px;
+    }
 
     .card-picture {
         position: relative;
-        right: 0.2rem;
-        top: 0.4rem;
+        top: -0.2rem;
+        width: 7.3rem;
+        right: 0.1rem;
+    }
+}
+
+.card {
+    position: relative;
+    z-index: 1;
+
+    &.small {
+        .card-bg {
+            position: relative;
+            background-size: 3.6rem 4.5rem;
+            width: 3.6rem;
+            height: 4.5rem;
+        }
+
+        .card-shadow {
+            left: 0.3rem;
+            right: 0.3rem;
+            top: 0.4rem;
+            bottom: 0.4rem;
+            border-radius: 0.3rem;
+            box-shadow: 0 0 0.4rem rgb(0 0 0 / 25%);
+        }
+
+        .card-group-left {
+            left: 0.4rem;
+            top: 0.2rem;
+
+            .card-number {
+                line-height: 0.5;
+                font-size: 0.8rem;
+            }
+
+            .card-suite-small {
+                width: 0.8rem;
+            }
+        }
+
+        .card-group-right {
+            right: 0.3rem;
+            bottom: 0.4rem;
+
+            .card-suite-large {
+                width: 2.4rem;
+                bottom: 0.1rem;
+            }
+
+            .card-picture {
+                top: -0.1rem;
+                width: 2.7rem;
+                right: 0.1rem;
+            }
+        }
     }
 }

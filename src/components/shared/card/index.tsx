@@ -5,9 +5,9 @@ import Styles from "./card.module.scss";
 const suffixClassMapping = ["card-heart", "card-diamond", "card-club", "card-spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
 const pictureCard = {
-    J: "card-j-picture",
-    Q: "card-q-picture",
-    K: "card-k-picture",
+    J: "card-picture-j",
+    Q: "card-picture-q",
+    K: "card-picture-k",
 };
 
 export const convertRank = (num: number): string => {
@@ -23,6 +23,7 @@ export const convertRank = (num: number): string => {
 
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall } = props;
+    const iconLarge = pictureCard[convertRank(result.card)] ? pictureCard[convertRank(result.card)] : suffixClassMapping[result.type];
     return (
         <div className={`${Styles["card"]} ${isSmall ? Styles["small"] : ""}`}>
             <div className={Styles["card-shadow"]}></div>
@@ -32,16 +33,13 @@ const Card: React.FC<Props> = (props) => {
                         <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>
                             {convertRank(result.card)}
                         </div>
-                        <div className={`${Styles[suffixClassMapping[result.type] + "-small"]} ${Styles["card-suite-small"]}`}></div>
+                        <img src={`/static/images/${suffixClassMapping[result.type]}.png`} className={Styles["card-suite-small"]} />
                     </div>
                     <div className={Styles["card-group-right"]}>
-                        <div
-                            className={`${
-                                pictureCard[convertRank(result.card)]
-                                    ? `${Styles[pictureCard[convertRank(result.card)]]} ${Styles["card-picture"]}`
-                                    : Styles[suffixClassMapping[result.type]]
-                            }`}
-                        ></div>
+                        <img
+                            src={`/static/images/${iconLarge}.png`}
+                            className={`${pictureCard[convertRank(result.card)] ? Styles["card-picture"] : Styles["card-suite-large"]}`}
+                        />
                     </div>
                 </div>
             </div>
