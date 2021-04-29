@@ -36,7 +36,7 @@ module.exports = {
         );
 
         config.module.rules.push({
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3)$/,
             use: {
                 loader: "url-loader",
                 options: {

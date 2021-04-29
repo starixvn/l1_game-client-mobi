@@ -24,6 +24,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isSwipe, setIsSwipe] = useState(true);
     let sliderRef = null;
     const { t } = useTranslation("common");
+    const chipClickSound = new Audio("./static/sounds/chip-click.mp3");
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000, "3k": 3000 };
     const chipColorMapper = {
@@ -122,6 +123,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
+        chipClickSound.play();
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
