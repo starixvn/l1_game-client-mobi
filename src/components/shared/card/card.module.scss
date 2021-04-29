@@ -4,6 +4,23 @@
 .card {
     position: relative;
     z-index: 1;
+
+    &.small {
+        transform: scale(0.2);
+        height: 4.1rem;
+        width: 3.8rem;
+        position: relative;
+        top: -1.8rem;
+        left: -1.4rem;
+
+        .card-shadow {
+            left: 1.3rem;
+            right: -13.2rem;
+            top: 1.8rem;
+            bottom: -17rem;
+            box-shadow: 0 0 1rem rgb(0 0 0 / 25%);
+        }
+    }
 }
 
 .card-shadow {
@@ -27,19 +44,22 @@
 .card-group-left {
     position: absolute;
     z-index: 2;
-    left: 2rem;
-    top: 1.8rem;
+    left: -0.5rem;
+    top: 2.5rem;
 
     .card-number {
-        font-size: 4.4rem;
+        position: relative;
+        top: 6px;
+        font-size: 4rem;
         font-weight: bold;
-        font-family: Arial;
+        font-family: "CardFont";
         text-align: center;
         line-height: 1;
     }
 
     .card-suite-small {
-        display: block;
+        position: relative;
+        top: -2.8rem;
     }
 }
 
@@ -47,11 +67,11 @@
     position: absolute;
     z-index: 1;
     right: 2rem;
-    bottom: 2rem;
+    bottom: 3rem;
 
     .card-picture {
         position: relative;
-        top: -0.2rem;
-        right: 0;
+        right: 0.2rem;
+        top: 0.4rem;
     }
 }

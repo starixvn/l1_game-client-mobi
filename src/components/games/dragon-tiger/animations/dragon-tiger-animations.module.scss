@@ -1,5 +1,4 @@
 @import "../../../../assets/abstracts/variables";
-@import "../../../../assets/components/card";
 
 $time-draw-card-animation: 0.3s;
 
@@ -28,7 +27,10 @@ $time-result-highlight-animation: 0.2s;
 }
 
 .card-back {
-    @extend .card-back-1;
+    background: url("/static/images/cards.png") no-repeat center;
+    width: 182px;
+    height: 228px;
+    background-position: -10px -10px;
 }
 
 .draw-cards {
@@ -103,10 +105,10 @@ $time-result-highlight-animation: 0.2s;
 
     .card-back {
         position: absolute;
-        left: 2px;
-        right: 2px;
-        top: 2px;
-        bottom: 2px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
         z-index: 2;
         animation-name: hide-card-back-animation;
         animation-duration: $time-open-card-animation/2;

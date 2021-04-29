@@ -7,8 +7,9 @@ import Card from "../../../shared/card";
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
         return (
-            <div className="d-flex justify-content-center">
-                <Card result={bet.result.dragon} isSmall={true} isAnimation={false}></Card> | <Card result={bet.result.tiger}></Card>
+            <div className="d-flex justify-content-center align-items-center">
+                <Card result={bet.result.dragon} isSmall={true} isAnimation={false}></Card> |{" "}
+                <Card result={bet.result.tiger} isSmall={true}></Card>
             </div>
         );
     }

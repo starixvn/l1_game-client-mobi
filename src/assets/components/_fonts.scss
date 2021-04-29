@@ -39,3 +39,11 @@
     font-weight: normal;
     font-display: swap;
 }
+
+@font-face {
+    font-family: "CardFont";
+    src: url("/static/fonts/CardFont.woff2") format("woff2"), url("/static/fonts/CardFont.woff") format("woff"),
+        url("/static/fonts/CardFont.ttf") format("truetype");
+    font-weight: 500;
+    font-display: swap;
+}

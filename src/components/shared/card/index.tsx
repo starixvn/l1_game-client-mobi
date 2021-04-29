@@ -22,9 +22,9 @@ export const convertRank = (num: number): string => {
 };
 
 const Card: React.FC<Props> = (props) => {
-    const { result } = props;
+    const { result, isSmall } = props;
     return (
-        <div className={Styles["card"]}>
+        <div className={`${Styles["card"]} ${isSmall ? Styles["small"] : ""}`}>
             <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>
@@ -38,7 +38,7 @@ const Card: React.FC<Props> = (props) => {
                         <div
                             className={`${
                                 pictureCard[convertRank(result.card)]
-                                    ? Styles[pictureCard[convertRank(result.card)]]
+                                    ? `${Styles[pictureCard[convertRank(result.card)]]} ${Styles["card-picture"]}`
                                     : Styles[suffixClassMapping[result.type]]
                             }`}
                         ></div>
