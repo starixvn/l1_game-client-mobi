@@ -31,4 +31,7 @@ export type BetLogs = {
     result: object;
     settlementResult: object;
     time: string;
+    refund?: number;
+    odds?: object;
+    amount?: number;
 };

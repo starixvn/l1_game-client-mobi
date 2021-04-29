@@ -1,7 +1,7 @@
-import { Result, SettlementResult } from "../fish-prawn-crab";
+import { Result, SettlementResult, Odd } from "../fish-prawn-crab";
 import { BetLogsBase } from "../../../shared/game-base/type";
 
-export interface BetLogs extends BetLogsBase<Result, SettlementResult> {
+export interface BetLogs extends BetLogsBase<Result, SettlementResult, Odd> {
     crab: number;
     fish: number;
     gourd: number;
@@ -9,9 +9,3 @@ export interface BetLogs extends BetLogsBase<Result, SettlementResult> {
     rooster: number;
     stag: number;
 }
-
-export type Odds = {
-    single: number;
-    double: number;
-    triple: number;
-};

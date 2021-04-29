@@ -14,3 +14,12 @@ export type Result = {
     red3: boolean;
     red4: boolean;
 };
+export type Odd = {
+    even: number;
+    odd: number;
+    red2: number;
+    red3: number;
+    red4: number;
+    white3: number;
+    white4: number;
+};

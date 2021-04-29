@@ -13,3 +13,9 @@ export interface ObjectResult {
     card: number;
     type: number;
 }
+
+export type Odd = {
+    dragon: number;
+    tiger: number;
+    tie: number;
+};

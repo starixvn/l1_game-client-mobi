@@ -1,7 +1,7 @@
-import { Result, SettlementResult } from "../sedie";
+import { Result, SettlementResult, Odd } from "../sedie";
 import { BetLogsBase } from "../../../shared/game-base/type";
 
-export interface BetLogs extends BetLogsBase<Result, SettlementResult> {
+export interface BetLogs extends BetLogsBase<Result, SettlementResult, Odd> {
     even: number;
     odd: number;
     red2: number;

@@ -99,7 +99,7 @@ export type GameGuide = {
     gameName: string;
 };
 
-export interface BetLogsBase<Result, SettlementResult> {
+export interface BetLogsBase<Result, SettlementResult, Odd> {
     betLogDetails: [];
     betwin: number;
     freeBet: boolean;
@@ -108,5 +108,5 @@ export interface BetLogsBase<Result, SettlementResult> {
     result: Result;
     settlementResult: SettlementResult;
     time: string;
-    odds?: object;
+    odds?: Odd;
 }

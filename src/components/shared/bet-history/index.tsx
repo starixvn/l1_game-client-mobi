@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { BetHistoryItem } from "./bet-history";
+import { BetLogs, BetHistoryItem, PropsBetContainer } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
 import Styles from "./bet-history.module.scss";
@@ -11,7 +11,15 @@ import axios from "axios";
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
 
-const renderStake = (bet: any) => {
+enum OrderRenderCell {
+    roundTime = 0,
+    round,
+    result,
+    choice,
+    refundOrStake,
+    win,
+}
+const renderStake = (bet: BetLogs) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         return (
@@ -33,7 +41,7 @@ const renderStake = (bet: any) => {
     return <></>;
 };
 
-const renderStakeRefund = (bet: any) => {
+const renderStakeRefund = (bet: BetLogs) => {
     if (bet.settlementResult) {
         return (
             <>
@@ -46,7 +54,7 @@ const renderStakeRefund = (bet: any) => {
     return <></>;
 };
 
-const renderBetBase = (bet: any, t: Function, mainOdds: object) => {
+const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -70,13 +78,6 @@ const renderBetBase = (bet: any, t: Function, mainOdds: object) => {
     }
 
     return <></>;
-};
-
-export type PropsBetContainer = {
-    isRefund: boolean;
-    renderResult: Function;
-    translate?: Function;
-    renderBet?: Function;
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
@@ -104,41 +105,43 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const cellRenderer = ({ columnIndex, rowData }) => {
         const { time, phien, betwin } = rowData as BetHistoryItem;
         switch (columnIndex) {
-            case 1:
-                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
-            case 2:
-                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
-            case 3:
-                return (
-                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                        <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
-                    </td>
-                );
-            case 4:
-                return (
-                    <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
-                        {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
-                    </td>
-                );
-            case 5:
-                return (
-                    <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
-                        {betwin && numberWithCommas(betwin)}
-                    </td>
-                );
-
-            default:
+            case OrderRenderCell.roundTime:
                 return (
                     <td className={`${betwin > 0 ? "highlight" : ""}`}>
                         <div className="time">{time && <Moment format="hh:mm">{time}</Moment>}</div>
                         <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
                     </td>
                 );
+
+            case OrderRenderCell.round:
+                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
+
+            case OrderRenderCell.result:
+                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
+
+            case OrderRenderCell.choice:
+                return (
+                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
+                        <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
+                    </td>
+                );
+
+            case OrderRenderCell.refundOrStake:
+                return (
+                    <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
+                        {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
+                    </td>
+                );
+            default:
+                return (
+                    <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
+                        {betwin && numberWithCommas(betwin)}
+                    </td>
+                );
         }
     };
 
-    const headerRenderer = (props) => {
-        const { column, className, columnIndex, rowData } = props;
+    const headerRenderer = ({ column, className, columnIndex }) => {
         return <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>{t(headerName[column.i])}</td>;
     };
 
@@ -158,7 +161,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return _columns;
     };
 
-    const fetchBetHistory = async () => {
+    const fetchBetHistory = () => {
         if (betHistory && betHistory.betLogs.length > 0) {
             const data = betHistory.betLogs;
             if (page === betHistory.page) {
@@ -168,7 +171,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         }
     };
 
-    const onInfiniteLoad = async () => {
+    const onInfiniteLoad = () => {
         setIsInfiniteLoading(true);
         if (page + 1 <= totalPage) {
             setPage(page + 1);
@@ -202,7 +205,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container">
-            {listBetHistory.length > 1 ? (
+            {listBetHistory ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"

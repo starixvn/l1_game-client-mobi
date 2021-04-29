@@ -8,3 +8,8 @@ export interface Result {
     dice2: number;
     dice3: number;
 }
+
+export type Odd = {
+    big: number;
+    small: number;
+};

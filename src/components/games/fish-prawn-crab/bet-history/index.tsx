@@ -1,7 +1,8 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import BetHistoryContainer from "../../../shared/bet-history";
-import { BetLogs, Odds } from "./bet-history";
+import { BetLogs } from "./bet-history";
+import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
 import ChoiceIcon from "../choice-icon";
 
@@ -19,7 +20,7 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderOdd = (choice: string, countsAppearDice: object, odds: Odds) => {
+const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
     let classCount = `@${odds[OddNames.single]}`;
     Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
@@ -38,7 +39,7 @@ const renderOdd = (choice: string, countsAppearDice: object, odds: Odds) => {
     return classCount;
 };
 
-const renderBet = (bet: any, t: Function, mainOdds: object) => {
+const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
     if (bet.settlementResult && bet.result) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -76,7 +77,7 @@ const FishPrawnCrabBetHistory: React.FunctionComponent = () => {
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}
-            renderBet={(bet: BetLogs, t: Function, mainOdds: object) => renderBet(bet, t, mainOdds)}
+            renderBet={(bet: BetLogs, t: Function, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
         ></BetHistoryContainer>
     );
 };

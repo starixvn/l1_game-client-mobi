@@ -25,3 +25,9 @@ export enum BaseResult {
 export interface ResultStatistic {
     result: BaseResult[];
 }
+
+export type Odd = {
+    single: number;
+    double: number;
+    triple: number;
+};
