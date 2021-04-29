@@ -13,11 +13,11 @@ export const CardsAnimation = () => {
             <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                 <div className={Styles["card1"]}>
                     <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-bg"]}></div>
+                    <div className={Styles["card-back"]}></div>
                 </div>
                 <div className={Styles["card2"]}>
                     <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-bg"]}></div>
+                    <div className={Styles["card-back"]}></div>
                 </div>
             </div>
         </div>
@@ -39,7 +39,10 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
         return result.map((result, index) => {
             return (
                 <div key={index} className={Styles["card" + (index + 1)]}>
-                    <Card result={result}></Card>
+                    <div className={Styles["rotate-card"]}>
+                        <Card result={result}></Card>
+                    </div>
+                    <div className={Styles["card-back"]}></div>
                 </div>
             );
         });

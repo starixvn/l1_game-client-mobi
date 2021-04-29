@@ -5,7 +5,7 @@ $time-draw-card-animation: 0.3s;
 
 $time-open-card-animation: 0.5s;
 
-$time-zoom-in-card-animation: 0.1s;
+$time-zoom-in-card-animation: 0.15s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
 $time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animation + $time-open-card-animation;
@@ -27,12 +27,11 @@ $time-result-highlight-animation: 0.2s;
     }
 }
 
-.draw-cards {
-    .card-bg {
-        transform: rotateY(180deg);
-        @extend .card-back-1;
-    }
+.card-back {
+    @extend .card-back-1;
+}
 
+.draw-cards {
     %draw-card {
         animation-name: draw-card-animation;
         animation-duration: $time-draw-card-animation/2;
@@ -91,11 +90,29 @@ $time-result-highlight-animation: 0.2s;
         animation-duration: $time-zoom-in-card-animation;
         animation-delay: 0s;
         animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        animation-timing-function: ease-out;
 
         &.compact-mode {
             --animation-scale: scale(0.45, 0.455);
         }
+    }
+
+    .rotate-card {
+        transform: rotateY(180deg);
+    }
+
+    .card-back {
+        position: absolute;
+        left: 2px;
+        right: 2px;
+        top: 2px;
+        bottom: 2px;
+        z-index: 2;
+        animation-name: hide-card-back-animation;
+        animation-duration: $time-open-card-animation/2;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        transition: transform 0.1s;
     }
 
     %open-card {
@@ -107,14 +124,31 @@ $time-result-highlight-animation: 0.2s;
         transition: transform 0.1s;
     }
 
+    .card1,
+    .card2 {
+        position: relative;
+    }
+
     .card1 {
-        @extend %open-card;
-        animation-delay: $time-delay-zoom-in-card-animation;
+        .card-back {
+            animation-delay: $time-delay-zoom-in-card-animation;
+        }
+
+        .rotate-card {
+            @extend %open-card;
+            animation-delay: $time-delay-zoom-in-card-animation;
+        }
     }
 
     .card2 {
-        @extend %open-card;
-        animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+        .card-back {
+            animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+        }
+
+        .rotate-card {
+            @extend %open-card;
+            animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+        }
     }
 }
 
@@ -141,23 +175,63 @@ $time-result-highlight-animation: 0.2s;
 }
 
 @keyframes zoon-in-animation {
-    70% {
+    0% {
+        transform: scale(0.28, 0.321);
+    }
+
+    50% {
         transform: scale(0.41, 0.41);
     }
 
-    100% {
+    80% {
         transform: var(--animation-scale);
     }
 }
 
-@keyframes open-card-animation {
+@keyframes hide-card-back-animation {
+    0% {
+        transform: rotateY(30deg) scaleX(0.9);
+        opacity: 1;
+    }
+
     30% {
-        transform: rotateY(60deg) scaleX(0.4);
+        transform: rotateY(80deg) scaleX(0.6);
+        opacity: 1;
+    }
+
+    60% {
+        transform: rotateY(120deg) scaleX(0);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes open-card-animation {
+    0% {
+        opacity: 0;
+        transform: rotateY(180deg) scaleX(0.1);
+    }
+
+    30% {
+        transform: rotateY(120deg) scaleX(0.4);
+    }
+
+    60% {
+        opacity: 0.9;
+        transform: rotateY(80deg) scaleX(0.7);
     }
 
     80% {
-        transform: rotateY(120deg) scaleX(1);
-        background-position: -21.2rem -1rem;
+        opacity: 1;
+        transform: rotateY(30deg) scaleX(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) scaleX(1);
     }
 }
 
