@@ -16,11 +16,14 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
+const SlidingTimeInMillisecond = 350;
+
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
     const [isShowSettings, setShowSettings] = useState(true);
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
+    const [isSliding, setIsSliding] = useState(false);
     const [isSwipe, setIsSwipe] = useState(true);
     let sliderRef = null;
     const { t } = useTranslation("common");
@@ -42,7 +45,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const chipValues = Object.values(chipList);
 
     const SliderSetting = {
-        speed: 300,
+        speed: SlidingTimeInMillisecond,
         infinite: false,
         adaptiveHeight: true,
         swipeToSlide: true,
@@ -76,24 +79,26 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const onClickNext = () => {
-        if (enabledNextBtn) {
+        if (enabledNextBtn && !isSliding) {
             const chipIndex = chipValues.indexOf(betValue);
             const newSelectedChip = chipValues[chipIndex + 1];
 
             sliderRef.slickGoTo(chipIndex + 1);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
+            disableSelectChipWhenSliding();
         }
     };
 
     const onClickPrev = () => {
-        if (enabledPrevBtn) {
+        if (enabledPrevBtn && !isSliding) {
             const chipIndex = chipValues.indexOf(betValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
             sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
+            disableSelectChipWhenSliding();
         }
     };
 
@@ -103,6 +108,15 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         } else {
             handleDataQuickBet();
         }
+    };
+
+    const disableSelectChipWhenSliding = () => {
+        setIsSliding(true);
+
+        const slidingTimeOut = setTimeout(() => {
+            setIsSliding(false);
+            clearTimeout(slidingTimeOut);
+        }, SlidingTimeInMillisecond);
     };
 
     const handleDataQuickBet = () => {
