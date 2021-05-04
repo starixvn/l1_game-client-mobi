@@ -3,5 +3,11 @@
     "round": "Round",
     "single": "Single",
     "double": "Double",
-    "triple": "Triple"
+    "triple": "Triple",
+    "stag" : "Stag",
+    "gourd": "Gourd",
+    "rooster": "Rooster",
+    "fish": "Fish",
+    "crab": "Crab",
+    "prawn": "Prawn"
 }
