@@ -29,7 +29,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
                 {t(choice)}
                 <div className={Styles["statistic-user-bet"]}>
                     <span className={`icon-user-group ${Styles["user-group"]}`}></span>
-                    <span className={Styles["number"]}>{betPercentage && betPercentage[choice]}%</span>
+                    <span className={Styles["number"]}>{betPercentage && betPercentage[choice] ? betPercentage[choice] : 0}%</span>
                 </div>
             </div>
         </BetOption>
