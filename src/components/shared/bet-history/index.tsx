@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
 import { BetLogs, PropsBetContainer, CellProps } from "./bet-history";
@@ -96,6 +96,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [betHistory, setBetHistory] = useState<any>();
+    const [heightHistory, setHeightHistory] = useState<number>(0);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const { t } = useTranslation("bethistory");
 
@@ -198,7 +200,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 params: {
                     session: session.ss,
                     page: page,
-                    pageSize: 8,
+                    pageSize: 16,
                     username: session.username,
                 },
             })
@@ -206,18 +208,24 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 const bets = res.data.history;
                 setBetHistory(bets);
                 if (page === 1) {
-                    setTotalPage(Math.ceil(bets.total / bets.pageSize));
+                    setTotalPage(Math.ceil(bets.total / 16));
                 }
             });
     }, [page]);
 
+    useEffect(() => {
+        if (wrapperRef.current) {
+            setHeightHistory(wrapperRef.current.clientHeight);
+        }
+    }, []);
+
     return (
-        <div className="table-container">
+        <div className="table-container" ref={wrapperRef}>
             {listBetHistory.length > 1 ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"
-                    height={400}
+                    height={heightHistory}
                     rowHeight={50}
                     rows={listBetHistory}
                     columns={columns}

@@ -2,6 +2,7 @@
 
 .react-infinite-table {
     .react-infinite-table-wrapper {
+        margin-bottom: 6px;
         max-height: 100%;
         max-width: 100%;
         box-sizing: border-box;
@@ -92,5 +93,7 @@
 }
 
 .table-container {
-    padding: 0 0.6rem;
+    height: 100%;
+    padding: 0.6rem;
+    padding-top: 0;
 }
