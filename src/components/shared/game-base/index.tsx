@@ -53,6 +53,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         showWaitingTime: false,
         acceptedBetQueue: {},
         showWinningBet: false,
+        playResultAnimation: false,
     };
 
     constructor(props: P) {
@@ -345,6 +346,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         roundHistoryClone.pop();
         
         this.setState({
+            playResultAnimation: true,
             result: finish.result,
             settlementResult: finish.settlementResult,
         });

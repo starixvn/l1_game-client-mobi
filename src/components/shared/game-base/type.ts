@@ -62,6 +62,7 @@ export interface GameBaseState<Result, SettlementResult> {
     showWaitingTime: boolean;
     acceptedBetQueue: { [key: number]: number };
     showWinningBet: boolean;
+    playResultAnimation: boolean;
 }
 
 export interface SocketInfo {

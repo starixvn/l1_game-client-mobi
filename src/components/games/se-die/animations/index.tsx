@@ -1,4 +1,5 @@
 import React from "react";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
@@ -19,18 +20,14 @@ const Plate: React.FC = ({ children }) => {
     );
 };
 
-export const ShakeThePlate = () => (
-    <div className={Styles["shake-the-plate"]}>
+export const ShakeThePlate: React.FC<{ hasAnimation?: boolean }> = ({ hasAnimation = false }) => (
+    <div className={hasAnimation ? Styles["shake-the-plate"] : ""}>
         <Plate />
     </div>
 );
 
-type Props = {
-    result: Result;
-};
-
-export const OpenThePlate: React.FC<Props> = ({ result }) => (
-    <div className={`${Styles["open-the-plate"]} ${Styles["has-animation"]}`}>
+export const OpenThePlate: React.FC<{ result: Result; hasAnimation?: boolean }> = ({ result, hasAnimation = false }) => (
+    <div className={`${Styles["open-the-plate"]} ${hasAnimation ? Styles["has-animation"] : ""}`}>
         <Plate>
             <div className={Styles["result-container"]}>
                 {Object.values(result).map((value, index) => (

@@ -54,8 +54,8 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        const { result, settlementResult } = this.state;
-        return <BigSmallResult result={result} settlementResult={settlementResult}></BigSmallResult>;
+        const { result, playResultAnimation } = this.state;
+        return <BigSmallResult result={result} hasAnimation={playResultAnimation}></BigSmallResult>;
     }
 
     renderBoard() {

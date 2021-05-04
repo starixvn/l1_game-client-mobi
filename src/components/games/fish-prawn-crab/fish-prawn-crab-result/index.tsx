@@ -1,8 +1,8 @@
 import React from "react";
-import Styles from "./fish-prawn-crab-result.module.scss";
-import { Props } from "./type";
-import { Result } from "./../fish-prawn-crab";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { Result } from "./../fish-prawn-crab";
+import Styles from "./fish-prawn-crab-result.module.scss";
 
 const nameDices = ["dice-nai", "dice-bau", "dice-ga", "dice-ca", "dice-cua", "dice-tom"];
 const classResult = {
@@ -23,15 +23,14 @@ const generateResult = (result: Result) => {
         })
     );
 };
-const FishPrawnCrabResult: React.FC<Props> = (props) => {
-    const { result } = props;
+const FishPrawnCrabResult: React.FC<{ result?: Result; hasAnimation?: boolean }> = ({ result, hasAnimation = false }) => {
     const { isCompactMode } = useGameContext();
 
     return (
         <div className={Styles["container"]}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
-                    <div className={`${Styles["result-set"]} ${Styles["has-animation"]}`}>
+                    <div className={`${Styles["result-set"]} ${hasAnimation ? Styles["has-animation"] : ""}`}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>
                         <div className={Styles["bowl"]}></div>

@@ -62,7 +62,6 @@ $time-hide-bowl-animation: 1s;
 .open-the-plate {
     .result-sedie-bowl {
         opacity: 0;
-        @extend %result-no-animation;
     }
 
     &.has-animation {
