@@ -15,9 +15,9 @@ const OddItem = ({ name, number }) => {
 };
 
 const OddComponent: React.FunctionComponent = () => {
-    const { gameConfigs } = useGameContext();
+    const { gameConfigs, isCompactMode } = useGameContext();
     const { odds } = gameConfigs;
-    return (
+    return !isCompactMode ? (
         <div className="d-flex">
             <div className={Styles["odd-container"]}>
                 <OddItem name={"single"} number={odds["single"]}></OddItem>
@@ -25,6 +25,8 @@ const OddComponent: React.FunctionComponent = () => {
                 <OddItem name={"triple"} number={odds["triple"]}></OddItem>
             </div>
         </div>
+    ) : (
+        <></>
     );
 };
 

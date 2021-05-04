@@ -51,7 +51,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
             <>
                 {keysChoices.map((choice, index) => {
                     const classHighLight = bet.settlementResult[choice] ? "font-weight-medium" : "";
-                    if (bet[choice] > 0 && ResultBet[choice]) {
+                    if (bet[choice] > 0) {
                         return (
                             <div key={index} className={classHighLight}>
                                 {t(choice)}

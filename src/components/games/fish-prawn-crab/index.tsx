@@ -75,7 +75,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderStatistic() {
-        return <StatisticComponent roundHistory={this.state.roundHistory}></StatisticComponent>;
+        return <StatisticComponent roundHistory={this.state.roundHistory.slice(0, 30)}></StatisticComponent>;
     }
 
     renderResult() {
@@ -85,7 +85,13 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound}></ScoreboardBasic>;
+        return (
+            <ScoreboardBasic
+                roundHistory={roundHistory.slice(0, 30)}
+                gameState={gameState}
+                getElementRound={GetElementRound}
+            ></ScoreboardBasic>
+        );
     }
 
     renderGuide() {
