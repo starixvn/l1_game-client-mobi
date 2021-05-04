@@ -29,11 +29,6 @@ const Header: React.FC<Props> = (props) => {
             <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
-                        <UncontrolledCollapse toggler="#navbar" isOpen={isOpen} navbar>
-                            <NavbarBrand href="/">
-                                <img className={Styles.logo} alt="logo" src="/static/images/small-logo.svg" />
-                            </NavbarBrand>
-                        </UncontrolledCollapse>
                         <NavbarToggler id="navbar" onClick={toggle} />
                         <div className={Styles["user-info"]}>
                             <div className="user-name">

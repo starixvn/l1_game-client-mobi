@@ -94,6 +94,7 @@
         color: $btn-rebet-color;
         text-align: center;
         font-size: 1.4rem;
+        white-space: nowrap;
 
         @media (min-width: 1024px) and (max-width: 1278px) {
             margin-right: 0;

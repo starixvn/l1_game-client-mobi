@@ -14,13 +14,10 @@
     }
 }
 
-.btn-submit,
-.btn-cancel {
-    width: 16.7rem;
-}
-
-.btn-cancel {
-    margin-right: 2rem;
+.list-button {
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .message {
