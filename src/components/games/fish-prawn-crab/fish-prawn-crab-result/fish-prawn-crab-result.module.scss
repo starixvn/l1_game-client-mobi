@@ -10,20 +10,33 @@ $time-opening-bowl-animation: 1s;
 $time-bowl-hide-animation: 0.5s;
 
 .result-set {
+    @extend %result-no-animation;
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
     height: 12.7rem;
     width: 13.3rem;
-    z-index: $result-animation-index;
-    opacity: 0;
-    animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
-    animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2);
-    animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2;
-    animation-fill-mode: forwards, forwards, forwards;
-    animation-timing-function: linear, linear, linear;
     border-radius: 50%;
     box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.3);
+    z-index: $result-animation-index;
+
+    &.has-animation {
+        opacity: 0;
+        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
+        animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2);
+        animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2;
+        animation-fill-mode: forwards, forwards, forwards;
+        animation-timing-function: linear, linear, linear;
+
+        .bowl {
+            transform: translate3d(0, 0, 0);
+            animation-name: opening-bowl-animation, hide-bowl-animation;
+            animation-delay: $time-delay-open-bowl-animation, ($time-delay-open-bowl-animation + $time-opening-bowl-animation);
+            animation-duration: $time-opening-bowl-animation, $time-bowl-hide-animation;
+            animation-fill-mode: forwards, forwards;
+            animation-timing-function: linear, linear;
+        }
+    }
 }
 
 .plate {
@@ -49,11 +62,7 @@ $time-bowl-hide-animation: 0.5s;
     pointer-events: none;
     background: url("/static/images/fpc-bowl.png") no-repeat center;
     background-size: 100%;
-    animation-name: opening-bowl-animation, hide-bowl-animation;
-    animation-delay: $time-delay-open-bowl-animation, ($time-delay-open-bowl-animation + $time-opening-bowl-animation);
-    animation-duration: $time-opening-bowl-animation, $time-bowl-hide-animation;
-    animation-fill-mode: forwards, forwards;
-    animation-timing-function: linear, linear;
+    transform: translate(-7.3rem, 7rem) rotate(45deg);
 }
 
 .result-container {

@@ -2,7 +2,7 @@
 
 $time-draw-card-animation: 0.3s;
 
-$time-open-card-animation: 0.5s;
+$time-open-card-animation: 0.4s;
 
 $time-zoom-in-card-animation: 0.15s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
@@ -33,7 +33,7 @@ $time-result-highlight-animation: 0.2s;
     width: 93px;
 }
 
-.draw-cards {
+.draw-cards.has-animation {
     %draw-card {
         animation-name: draw-card-animation;
         animation-duration: $time-draw-card-animation/2;
@@ -55,12 +55,12 @@ $time-result-highlight-animation: 0.2s;
 @keyframes draw-card-animation {
     0% {
         opacity: 0;
-        transform: translate3d(0, -40rem, 0);
+        transform: translate3d(0, -30rem, 0);
     }
 
     50% {
         opacity: 0.3;
-        transform: translate3d(0, -25rem, 0);
+        transform: translate3d(0, -15rem, 0);
     }
 
     70% {
@@ -88,42 +88,15 @@ $time-result-highlight-animation: 0.2s;
     .animation-container {
         --animation-scale: scale(1);
         transition: transform 0.7s;
-        animation-name: zoon-in-animation;
-        animation-duration: $time-zoom-in-card-animation;
-        animation-delay: 0s;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-out;
+        transform: var(--animation-scale);
 
         &.compact-mode {
             --animation-scale: scale(0.9, 0.9);
         }
     }
 
-    .rotate-card {
-        transform: rotateY(180deg);
-    }
-
     .card-back {
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 2;
-        animation-name: hide-card-back-animation;
-        animation-duration: $time-open-card-animation/2;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
-        transition: transform 0.1s;
-    }
-
-    %open-card {
-        position: relative;
-        animation-name: open-card-animation;
-        animation-duration: $time-open-card-animation/2;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in;
-        transition: transform 0.1s;
+        display: none;
     }
 
     .card1,
@@ -131,48 +104,89 @@ $time-result-highlight-animation: 0.2s;
         position: relative;
     }
 
-    .card1 {
-        .card-back {
-            animation-delay: $time-delay-zoom-in-card-animation;
+    .result-highlight {
+        position: absolute;
+        bottom: 0.8rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 19rem;
+        height: 4rem;
+        background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #fff;
+        z-index: 2;
+    }
+
+    &.has-animation {
+        .animation-container {
+            animation-name: zoon-in-animation;
+            animation-duration: $time-zoom-in-card-animation;
+            animation-delay: 0s;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-out;
         }
 
         .rotate-card {
-            @extend %open-card;
-            animation-delay: $time-delay-zoom-in-card-animation;
+            transform: rotateY(180deg);
         }
-    }
 
-    .card2 {
         .card-back {
-            animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            animation-name: hide-card-back-animation;
+            animation-duration: $time-open-card-animation/2;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            transition: transform 0.1s;
         }
 
-        .rotate-card {
-            @extend %open-card;
-            animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+        %open-card {
+            position: relative;
+            animation-name: open-card-animation;
+            animation-duration: $time-open-card-animation/2;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-in;
+            transition: transform 0.1s;
+        }
+
+        .card1 {
+            .card-back {
+                animation-delay: $time-delay-zoom-in-card-animation;
+            }
+
+            .rotate-card {
+                @extend %open-card;
+                animation-delay: $time-delay-zoom-in-card-animation;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+            }
+
+            .rotate-card {
+                @extend %open-card;
+                animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
+            }
+        }
+
+        .result-highlight {
+            opacity: 0;
+            animation-name: show-result-highlight-animation;
+            animation-delay: $time-delay-result-highlight-animation;
+            animation-duration: $time-result-highlight-animation;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
         }
     }
-}
-
-.result-highlight {
-    position: absolute;
-    bottom: 0.8rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 19rem;
-    height: 4rem;
-    background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: #fff;
-    z-index: 2;
-    opacity: 0;
-    animation-name: show-result-highlight-animation;
-    animation-delay: $time-delay-result-highlight-animation;
-    animation-duration: $time-result-highlight-animation;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
 }
 
 @keyframes zoon-in-animation {

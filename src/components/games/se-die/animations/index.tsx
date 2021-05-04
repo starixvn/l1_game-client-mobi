@@ -30,7 +30,7 @@ type Props = {
 };
 
 export const OpenThePlate: React.FC<Props> = ({ result }) => (
-    <div className={Styles["open-the-plate"]}>
+    <div className={`${Styles["open-the-plate"]} ${Styles["has-animation"]}`}>
         <Plate>
             <div className={Styles["result-container"]}>
                 {Object.values(result).map((value, index) => (

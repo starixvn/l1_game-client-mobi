@@ -31,7 +31,7 @@ const FishPrawnCrabResult: React.FC<Props> = (props) => {
         <div className={Styles["container"]}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
-                    <div className={Styles["result-set"]}>
+                    <div className={`${Styles["result-set"]} ${Styles["has-animation"]}`}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>
                         <div className={Styles["bowl"]}></div>

@@ -9,7 +9,7 @@ export const CardsAnimation = () => {
     const { isCompactMode } = useGameContext();
 
     return (
-        <div className={Styles["draw-cards"]}>
+        <div className={`${Styles["draw-cards"]} ${Styles["has-animation"]}`}>
             <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                 <div className={Styles["card1"]}>
                     <div className={Styles["card-shadow"]}></div>
@@ -49,7 +49,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={Styles["open-cards"]}>
+        <div className={`${Styles["open-cards"]} ${Styles["has-animation"]}`}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                     {generateResult(result)}

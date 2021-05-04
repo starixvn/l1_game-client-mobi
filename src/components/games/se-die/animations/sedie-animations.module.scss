@@ -61,13 +61,21 @@ $time-hide-bowl-animation: 1s;
 
 .open-the-plate {
     .result-sedie-bowl {
-        /*animation*/
-        z-index: $result-animation-index;
-        animation-name: opening-bowl-animation, hide-bowl-animation;
-        animation-delay: 0, $time-show-result-animation + $time-opening-bowl-animation;
-        animation-duration: $time-opening-bowl-animation, $time-hide-bowl-animation;
-        animation-fill-mode: forwards, forwards;
-        animation-timing-function: linear, linear;
+        opacity: 0;
+        @extend %result-no-animation;
+    }
+
+    &.has-animation {
+        .result-sedie-bowl {
+            opacity: 1;
+            /*animation*/
+            z-index: $result-animation-index;
+            animation-name: opening-bowl-animation, hide-bowl-animation;
+            animation-delay: 0, $time-show-result-animation + $time-opening-bowl-animation;
+            animation-duration: $time-opening-bowl-animation, $time-hide-bowl-animation;
+            animation-fill-mode: forwards, forwards;
+            animation-timing-function: linear, linear;
+        }
     }
 }
 

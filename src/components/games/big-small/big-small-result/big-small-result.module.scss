@@ -1,19 +1,12 @@
 @import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/animation-container";
 
-$time-hide-toss-dices-animation: 1.6s;
+$time-hide-toss-dices-animation: 1.5s;
 $time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
 $time-show-result-animation: 0.1s;
 
 .toss-dices {
-    position: absolute;
-    left: calc(50% - 9rem);
-    top: calc(50% - 9rem);
-    animation-name: hide-toss-dices-animation;
-    animation-delay: 0ms;
-    animation-duration: $time-hide-toss-dices-animation;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
+    display: none;
 }
 
 @keyframes hide-toss-dices-animation {
@@ -57,12 +50,35 @@ $time-show-result-animation: 0.1s;
     height: 132px;
     width: 132px;
     z-index: $result-animation-index;
-    opacity: 0;
-    animation-name: show-result-animation;
-    animation-delay: $time-delay-show-result-animation;
-    animation-duration: $time-show-result-animation;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
+}
+
+.animation-container {
+    @extend %result-no-animation;
+}
+
+.has-animation {
+    animation: none;
+
+    .toss-dices {
+        display: block;
+        position: absolute;
+        left: calc(50% - 9rem);
+        top: calc(50% - 9rem);
+        animation-name: hide-toss-dices-animation;
+        animation-delay: 0ms;
+        animation-duration: $time-hide-toss-dices-animation;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+    }
+
+    .result-container {
+        opacity: 0;
+        animation-name: show-result-animation;
+        animation-delay: $time-delay-show-result-animation;
+        animation-duration: $time-show-result-animation;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+    }
 }
 
 @keyframes show-result-animation {
