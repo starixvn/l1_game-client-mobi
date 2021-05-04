@@ -156,12 +156,11 @@ $time-result-highlight-animation: 0.2s;
 
 .result-highlight {
     position: absolute;
-    left: 3.2rem;
     bottom: 0.8rem;
-    right: 3.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 19rem;
     height: 4rem;
     background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
     font-size: 1.6rem;
