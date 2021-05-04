@@ -23,23 +23,23 @@ export default function GameHeader() {
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
 
-    const favoriteClickHandle = () => {
+    const favoriteClickHandle = (e: React.MouseEvent) => {
+        e.stopPropagation();
         systemContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
 
     const onHeaderClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
         if (isMobileOnly) {
             updateCompactMode();
         }
-
-        e.preventDefault();
     };
 
     return (
-        <div className={Styles.header} onClick={(e) => onHeaderClick(e)}>
+        <div className={Styles.header} onClick={onHeaderClick}>
             <div className={Styles["header-left"]}>
-                <div className={Styles["favorite-btn"]} onClick={() => favoriteClickHandle()}>
+                <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
                     <span
                         className={
                             isFavorite
@@ -73,12 +73,19 @@ const HeaderRight = () => {
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen((prevState) => !prevState);
+    const toggle = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setDropdownOpen((prevState) => !prevState);
+    };
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[gameId];
     const { getRoundResultUrl } = useRoundResultContext();
     const classList = ["hamburger-dot", "dropdown-item"];
+    const rebetClickHandle = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        gameActions.openPopup(PopupType.Rebet);
+    };
 
     useEffect(() => {
         gameState !== GameState.InRound && updateRebetStatus(true);
@@ -89,11 +96,7 @@ const HeaderRight = () => {
     }, [roundId]);
     return (
         <div className={Styles["header-right"]}>
-            <button
-                className={Styles.rebet}
-                disabled={disabledRebet || Object.keys(ownBets).length !== 0}
-                onClick={() => gameActions.openPopup(PopupType.Rebet)}
-            >
+            <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
                 {t(CommonResourceKeys.REBET)}
             </button>
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>

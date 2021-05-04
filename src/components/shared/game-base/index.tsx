@@ -513,10 +513,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             updateCompactMode: this.updateCompactMode,
         };
 
-        if (this.props.id == 3) {
-            console.log(this.state.showWaitingTime);
-        }
-
         return signedIn ? (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
