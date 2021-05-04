@@ -1,3 +1,5 @@
+@import "./../../../../assets/abstracts/variables";
+
 .fade-out-up {
     position: absolute;
     left: 0;
@@ -9,14 +11,7 @@
     font-family: "BinanceFlex";
     animation-name: fadeOutUp;
     animation-duration: 3s;
-
-    &.accepted-bet {
-        color: #ff9a00;
-    }
-
-    &.winning-bet {
-        color: #2c2f3e;
-    }
+    z-index: $result-animation-index + 1;
 }
 
 @keyframes fadeOutUp {

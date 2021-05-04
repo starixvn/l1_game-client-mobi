@@ -10,7 +10,8 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
-import FadeOutUp from "../animations/fade-out-up";
+import AcceptBet from "../animations/accept-bet";
+import WinningBet from "../animations/winning-bet";
 import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
@@ -534,9 +535,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                             {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
-                            {this.state.showWinningBet && <FadeOutUp>{`+${this.betWin}`}</FadeOutUp>}
+                            {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                             {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                <FadeOutUp key={key}>{`-${this.state.acceptedBetQueue[key]}`}</FadeOutUp>
+                                <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                             ))}
                         </BetContainer>
                         <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
