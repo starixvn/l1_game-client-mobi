@@ -75,6 +75,16 @@ export default function Home() {
         }
     }, [router.isReady]);
 
+    const workerRef = useRef(null);
+
+    useEffect(() => {
+        workerRef.current = new Worker("/worker.js", { type: "module" });
+        workerRef.current.onmessage = (evt) => workerRef.current.postMessage(evt.data);
+        return () => {
+            workerRef.current.terminate();
+        };
+    }, []);
+
     if (loading) {
         return <SplashScreen></SplashScreen>;
     } else {

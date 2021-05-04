@@ -5,7 +5,9 @@ const { i18n } = require("./next-i18next.config");
 module.exports = {
     i18n,
     productionBrowserSourceMaps: true,
-
+    future: {
+        webpack5: true,
+    },
     excludeFile: (str) => /\*.{spec,test}.js/.test(str),
     publicRuntimeConfig: configuration,
     webpack: (config, options) => {
