@@ -42,8 +42,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const chipValues = Object.values(chipList);
 
     const SliderSetting = {
-        focusOnSelect: true,
-        speed: 500,
+        speed: 300,
         infinite: false,
         adaptiveHeight: true,
         swipeToSlide: true,
@@ -69,11 +68,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     useEffect(() => {
         if (sliderRef) {
             updateArrowsByChipValue(betValue);
-
-            sliderRef.slickGoTo(
-                chipValues.findIndex((value) => value === betValue),
-                true
-            );
         }
     }, [isShowSettings]);
 
