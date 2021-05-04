@@ -68,7 +68,8 @@ const drawDragonTailHistory = <R, S>(
         return getElementRound(round.result, col, row, round.roundId);
     });
 
-    return isItemNext ? result.push(addNextElement(rowMax, row, col, nextCol, roundNext)) : result;
+    isItemNext && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
+    return result;
 };
 const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, roundNext: Function) => {
     const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
