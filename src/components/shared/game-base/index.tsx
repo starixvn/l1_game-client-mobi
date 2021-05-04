@@ -338,18 +338,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleFinish({ finish }) {
         const { roundHistory } = this.state;
         const { durations } = this.props;
+        const roundHistoryClone = [...roundHistory];
 
         this.storeOwnBet(finish.roundId);
-
-        roundHistory.unshift(finish);
-        roundHistory.pop();
+        roundHistoryClone.unshift(finish);
+        roundHistoryClone.pop();
+        
         this.setState({
             result: finish.result,
             settlementResult: finish.settlementResult,
         });
 
         setTimeout(() => {
-            this.setState({ roundHistory, showWaitingTime: true });
+            this.setState({ roundHistory: roundHistoryClone, showWaitingTime: true });
         }, (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000);
         this.runGame(durations.wholeRound);
     }
