@@ -1,16 +1,18 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { withOrientationChange } from "react-device-detect";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
+import LandscapeMode from "../components/landscape-mode";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
 
-export default function Home() {
+function Home({ isLandscape }) {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
@@ -91,7 +93,7 @@ export default function Home() {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
-                <Dashboard balance={balance} updateBalance={setBalance} />
+                {isLandscape ? <LandscapeMode /> : <Dashboard balance={balance} updateBalance={setBalance} />}
             </AuthContextProvider>
         );
     }
@@ -112,3 +114,5 @@ export const getStaticProps = async ({ locale }) => ({
         ])),
     },
 });
+
+export default withOrientationChange(Home);
