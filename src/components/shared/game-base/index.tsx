@@ -350,7 +350,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         setTimeout(() => {
             this.setState({ roundHistory, showWaitingTime: true });
-        }, (durations.resultAnimation + durations.balancingBet ?? 0) * 1000);
+        }, (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000);
         this.runGame(durations.wholeRound);
     }
 
@@ -513,6 +513,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             updateCompactMode: this.updateCompactMode,
         };
 
+        if (this.props.id == 3) {
+            console.log(this.state.showWaitingTime);
+        }
+
         return signedIn ? (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
@@ -521,6 +525,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             <div className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                                 {this.renderBetOptions()}
                             </div>
+
+                            {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
+                            {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.showWaitingTime && (
                                 <WaitingTimeAnimation
                                     remainingTime={
@@ -533,8 +540,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     }
                                 />
                             )}
-                            {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                            {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                             {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                             {Object.keys(this.state.acceptedBetQueue).map((key) => (
