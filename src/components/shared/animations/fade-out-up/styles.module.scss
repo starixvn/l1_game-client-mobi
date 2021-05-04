@@ -7,20 +7,25 @@
     bottom: 1rem;
     text-align: center;
     font-size: 2rem;
-    font-weight: 500;
+    font-weight: bold;
     font-family: "BinanceFlex";
     animation-name: fadeOutUp;
-    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    animation-duration: 2s;
     z-index: $result-animation-index + 1;
 }
 
 @keyframes fadeOutUp {
-    from {
+    10% {
         opacity: 1;
     }
 
-    to {
+    80% {
+        opacity: 0.8;
+    }
+
+    100% {
         opacity: 0;
-        transform: translate3d(0, -10rem, 0);
+        transform: translate3d(0, -8rem, 0);
     }
 }

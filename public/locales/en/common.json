@@ -16,5 +16,6 @@
     "lockingBet": "No more bets",
     "betConfirm": "Bet Confirmation",
     "stake": "Stake",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "confirmBetAutomatic": "Do you want to confirm bet automatically?"
 }

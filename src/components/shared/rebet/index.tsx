@@ -18,7 +18,7 @@ const Rebet: React.FC<Props> = (props) => {
     const { odds } = gameConfigs;
     const { gameName } = gameSetting;
 
-    const { t } = useTranslation(gameName.toLowerCase());
+    const { t } = useTranslation([gameName.toLowerCase(), "common"]);
 
     const [betTrack, updateBetTrack] = useState<{ [key: string]: BetTrackModel }>({});
     const [isWaiting, updateIsWaiting] = useState(false);
@@ -109,16 +109,16 @@ const Rebet: React.FC<Props> = (props) => {
                 {!isSubmit && (
                     <div className={Styles["button-group"]}>
                         <button onClick={handleCloseModal} className="btn-grey w-5">
-                            {t("cancel")}
+                            {t("common:cancel")}
                         </button>
                         <button onClick={handleSubmit} className="btn-orange w-5">
-                            {t("submit")}
+                            {t("common:ok")}
                         </button>
                     </div>
                 )}
                 {isSubmit && (
                     <button onClick={handleCloseModal} className="btn-orange w-100">
-                        {t("ok")}
+                        {t("common:ok")}
                     </button>
                 )}
             </div>

@@ -58,7 +58,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                 <div className={Styles["payout"]}>
                     <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
                 </div>
-                <p className={Styles["confirm-text"]}>Do you want to confirm bet?</p>
+                <p className={Styles["confirm-text"]}>{t("common:confirmBetAutomatic")}</p>
                 <div className={Styles["actions"]}>
                     <button onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
                         {t("common:cancel")}

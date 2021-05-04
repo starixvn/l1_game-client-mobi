@@ -16,5 +16,6 @@
     "lockingBet": "Ngừng nhận cược",
     "betConfirm": "Xác nhận cược",
     "stake": "Tiền cược",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "confirmBetAutomatic": "Bạn muốn xác nhận cược tự động?"
 }
