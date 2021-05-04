@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { BetLogs, BetHistoryItem, PropsBetContainer, CellProps } from "./bet-history";
+import { BetLogs, PropsBetContainer, CellProps } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
 import { Table } from "react-infinite-table";
@@ -101,6 +101,9 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     const odds = gameConfigs.odds;
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+    const headerObjectName = {
+        refund: "refund",
+    };
 
     const cellRenderer = ({ columnIndex, rowData }: CellProps) => {
         const { time, phien, betwin } = rowData;
@@ -142,7 +145,12 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     };
 
     const headerRenderer = ({ column, className, columnIndex }) => {
-        return <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>{t(headerName[column.i])}</td>;
+        return (
+            <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>
+                {headerName[column.i] === headerObjectName.refund && <div>{t("stake")}</div>}
+                {t(headerName[column.i])}
+            </td>
+        );
     };
 
     const createColumns = () => {

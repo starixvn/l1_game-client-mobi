@@ -46,19 +46,19 @@
 
 @keyframes blinker {
     0% {
-        transform: scale(1);
+        transform: scale(0.85);
     }
     25% {
-        transform: scale(1.15);
+        transform: scale(1);
     }
     50% {
-        transform: scale(1);
+        transform: scale(0.85);
     }
     75% {
-        transform: scale(1.15);
+        transform: scale(1);
     }
     100% {
-        transform: scale(1);
+        transform: scale(0.85);
     }
 }
 
