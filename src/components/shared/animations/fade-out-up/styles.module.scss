@@ -1,3 +1,24 @@
+.fade-out-up {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 500;
+    font-family: "BinanceFlex";
+    animation-name: fadeOutUp;
+    animation-duration: 3s;
+
+    &.accepted-bet {
+        color: #ff9a00;
+    }
+
+    &.winning-bet {
+        color: #2c2f3e;
+    }
+}
+
 @keyframes fadeOutUp {
     from {
         opacity: 1;
@@ -5,11 +26,6 @@
 
     to {
         opacity: 0;
-        transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -10rem, 0);
     }
-}
-
-.fade-out-up {
-    animation-name: fadeOutUp;
-    animation-duration: 3s;
 }
