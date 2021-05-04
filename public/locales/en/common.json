@@ -17,5 +17,6 @@
     "betConfirm": "Bet Confirmation",
     "stake": "Stake",
     "confirm": "Xác nhận",
-    "confirmBetAutomatic": "Do you want to confirm bet automatically?"
+    "confirmBetAutomatic": "Do you want to confirm bet automatically?",
+    "rotateDevice": "Please rotate your device."
 }
