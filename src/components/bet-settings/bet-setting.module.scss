@@ -46,12 +46,6 @@
     box-shadow: 0.1rem 0 1rem rgba(0, 0, 0, 0.3);
     border-radius: 1.5rem 0 0 1.5rem;
 
-    .expand-icon {
-        display: inline-block;
-        transform: rotate(180deg);
-        font-size: 2.2rem;
-    }
-
     img {
         width: 60%;
     }
@@ -62,6 +56,10 @@
 
     &:hover {
         cursor: pointer;
+
+        .expand-icon {
+            text-shadow: 0 -1px 6px rgb(255 255 255 / 70%), 0px 1px 6px rgb(255 255 255 / 70%);
+        }
     }
 }
 
@@ -162,8 +160,8 @@
         z-index: $bet-setting-index;
         position: relative;
         font-size: 1.6rem;
-        left: 0.5rem;
-        top: -0.2rem;
+        left: 0.3rem;
+        top: -0.1rem;
     }
 
     &:after {
@@ -200,40 +198,39 @@
 
     %icon {
         position: absolute;
-        top: calc(50% - 18px);
+        top: calc(50% - 2.5rem);
         display: flex;
-        justify-content: center;
         align-items: center;
-        height: 3.6rem;
-        width: 3.6rem;
+        justify-content: center;
+        height: 5rem;
+        width: 5rem;
+        color: #ff9a00;
         font-size: 2rem;
 
-        &:hover {
+        &:hover:not(.disabled) {
             cursor: pointer;
+            text-shadow: 0 -1px 6px rgb(255 154 0 / 70%), 0px 1px 6px rgb(255 154 0 / 70%);
         }
 
         &.disabled {
+            color: #b47619;
             opacity: 0.5;
-
-            &::before {
-                color: #b47619;
-            }
         }
 
         &:before {
-            font-family: "SabaClub";
+            content: "▲";
         }
     }
-
-    .next {
+    .icon-prev {
         @extend %icon;
-        right: -2.6rem;
+        left: -4rem;
+        transform: rotate(-90deg);
     }
 
-    .prev {
+    .icon-next {
         @extend %icon;
-        left: -2.6rem;
-        transform: rotate(180deg);
+        right: -4rem;
+        transform: rotate(90deg);
     }
 
     @media (min-width: 1024px) {
@@ -255,10 +252,6 @@
     @media (min-width: 1024px) {
         width: 7rem;
         padding-right: 2rem;
-    }
-
-    .collapse-btn {
-        font-size: 2.2rem;
     }
 
     &:hover {
@@ -285,5 +278,34 @@
             height: 1.7rem;
             width: 1.7rem;
         }
+    }
+}
+
+%icon-collapse-expand {
+    font-size: 4rem;
+    color: #fff;
+
+    &:hover {
+        text-shadow: 0 -1px 6px rgb(255 255 255 / 70%), 0px 1px 6px rgb(255 255 255 / 70%);
+    }
+}
+
+.collapse-icon {
+    @extend %icon-collapse-expand;
+    position: relative;
+    top: -4px;
+
+    &:before {
+        content: "\203A";
+    }
+}
+
+.expand-icon {
+    @extend %icon-collapse-expand;
+    width: 25px;
+    text-align: center;
+
+    &:before {
+        content: "\2039";
     }
 }

@@ -148,7 +148,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                     className={`${Styles["betting-setting-collapsed"]} ${enabledQuickBet && Styles["quick-bet"]}`}
                     onClick={HandleClickActiveBtn}
                 >
-                    <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
+                    <span className={Styles["expand-icon"]}></span>
                     <div className={`${Styles.chip} ${Styles[ChipMapper[betValue]]}`}>
                         <div className={Styles["layer1"]}></div>
                         <div className={Styles["layer2"]}></div>
@@ -187,7 +187,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
                         <div className={Styles["chips-container"]}>
                             <span
-                                className={`icon-arrow-right ${Styles["prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
+                                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
                                 onClick={onClickPrev}
                             ></span>
                             <Slider
@@ -208,13 +208,13 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 ))}
                             </Slider>
                             <span
-                                className={`icon-arrow-right ${Styles["next"]} ${!enabledNextBtn && Styles["disabled"]}`}
+                                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`}
                                 onClick={onClickNext}
                             ></span>
                         </div>
 
                         <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
-                            <span className={`icon-arrow2-right ${Styles["collapse-btn"]}`}></span>
+                            <span className={`${Styles["collapse-icon"]}`}></span>
                         </div>
                     </div>
                 </div>
