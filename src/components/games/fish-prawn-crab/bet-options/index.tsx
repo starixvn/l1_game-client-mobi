@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
@@ -61,12 +61,34 @@ const getClassPrevRound = (gameState: GameState) => {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
-    const { gameConfigs, isCompactMode } = useGameContext();
+    const { gameConfigs, isCompactMode, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
-    const isShowCountOfDice = gameState !== GameState.LockingBet && gameState !== GameState.DisplayResult;
     const classCount = renderHighLightNumber(choice, countsAppearDice);
+    const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const classChoice = `icon-${IconMapper[choice]}`;
+
+    const actionByGameState = {
+        [GameState.LockingBet]: () => {
+            setIsShowCountOfDice(false);
+        },
+        [GameState.DisplayResult]: () => {
+            setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
+        },
+        [GameState.Waiting]: () => {
+            setIsShowCountOfDice(true);
+        },
+        [GameState.InRound]: () => {
+            setIsShowCountOfDice(true);
+        },
+        [GameState.BeforeStartRound]: () => {
+            setIsShowCountOfDice(true);
+        },
+    };
+
+    useEffect(() => {
+        actionByGameState[gameState] && actionByGameState[gameState]();
+    }, [gameState]);
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>

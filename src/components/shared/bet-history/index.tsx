@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
-import { BetLogs, PropsBetContainer, CellProps } from "./bet-history";
+import { BetLogs, PropsBetContainer } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
 import { Table } from "react-infinite-table";
@@ -67,7 +67,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
                             return (
                                 <div key={index} className={classHighLight}>
                                     {t(name)}
-                                    {odds[name] ? "@" + odds[name] : ""}
+                                    {odds[name] ? `@${odds[name]}` : ""}
                                 </div>
                             );
                         }
@@ -78,6 +78,54 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
     }
 
     return <></>;
+};
+
+const checkCondition = (
+    columnIndex: number,
+    rowData: BetLogs,
+    isRefund: boolean,
+    gameConfigs: any,
+    renderResult: Function,
+    renderBet: (rowData: BetLogs, translate: Function, odds: object) => {},
+    translate: Function
+) => {
+    const { time, phien, betwin } = rowData;
+    const odds = gameConfigs.odds;
+    switch (columnIndex) {
+        case OrderRenderCell.roundTime:
+            return (
+                <td className={`${betwin > 0 ? "highlight" : ""}`}>
+                    <div className="time">{time && <Moment format="hh:mm">{time}</Moment>}</div>
+                    <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
+                </td>
+            );
+
+        case OrderRenderCell.round:
+            return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
+
+        case OrderRenderCell.result:
+            return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
+
+        case OrderRenderCell.choice:
+            return (
+                <td className={`${betwin > 0 ? "highlight" : ""}`}>
+                    <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
+                </td>
+            );
+
+        case OrderRenderCell.refundOrStake:
+            return (
+                <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
+                    {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
+                </td>
+            );
+        default:
+            return (
+                <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
+                    {betwin && numberWithCommas(betwin)}
+                </td>
+            );
+    }
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
@@ -97,53 +145,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [betHistory, setBetHistory] = useState<any>();
     const [heightHistory, setHeightHistory] = useState<number>(0);
+    const paddingBottom = 6;
     const wrapperRef = useRef<HTMLDivElement>(null);
-
     const { t } = useTranslation("bethistory");
-
-    const odds = gameConfigs.odds;
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
     const headerObjectName = {
         refund: "refund",
     };
 
-    const cellRenderer = ({ columnIndex, rowData }: CellProps) => {
-        const { time, phien, betwin } = rowData;
-        switch (columnIndex) {
-            case OrderRenderCell.roundTime:
-                return (
-                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                        <div className="time">{time && <Moment format="hh:mm">{time}</Moment>}</div>
-                        <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
-                    </td>
-                );
-
-            case OrderRenderCell.round:
-                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
-
-            case OrderRenderCell.result:
-                return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
-
-            case OrderRenderCell.choice:
-                return (
-                    <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                        <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
-                    </td>
-                );
-
-            case OrderRenderCell.refundOrStake:
-                return (
-                    <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
-                        {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
-                    </td>
-                );
-            default:
-                return (
-                    <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
-                        {betwin && numberWithCommas(betwin)}
-                    </td>
-                );
-        }
+    const cellRenderer = ({ columnIndex, rowData }) => {
+        return checkCondition(columnIndex, rowData, isRefund, gameConfigs, renderResult, renderBet, translate);
     };
 
     const headerRenderer = ({ column, className, columnIndex }) => {
@@ -166,6 +177,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 cellRenderer: cellRenderer,
                 headerRenderer: headerRenderer,
                 width: 50,
+                name: "anhle",
             });
         }
         return _columns;
@@ -215,7 +227,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     useEffect(() => {
         if (wrapperRef.current) {
-            setHeightHistory(wrapperRef.current.clientHeight);
+            setHeightHistory(wrapperRef.current.clientHeight - paddingBottom);
         }
     }, []);
 

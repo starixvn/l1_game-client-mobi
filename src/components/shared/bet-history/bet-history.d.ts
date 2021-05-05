@@ -27,8 +27,3 @@ export type BetLogs = {
     odds?: object;
     amount?: number;
 };
-
-export type CellProps = {
-    columnIndex: number;
-    rowData: BetLogs;
-};
