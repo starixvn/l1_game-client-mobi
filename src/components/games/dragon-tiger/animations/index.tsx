@@ -33,7 +33,7 @@ type Props = {
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
-    const { isCompactMode } = useGameContext();
+    const { isCompactMode, playResultAnimation } = useGameContext();
     const { t } = useTranslation("dragontiger");
 
     const generateResult = (result: ObjectResult[]) => {
@@ -50,7 +50,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["has-animation"]}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                     {generateResult(result)}
