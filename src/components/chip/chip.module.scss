@@ -13,7 +13,7 @@
     font-size: 1.4rem;
     border-radius: 50%;
     z-index: $chip-index;
-    transition: all 0.1s ease-out;
+    transition: top 0.1s ease-in-out;
     position: relative;
 
     @media (min-width: 992px) {
@@ -94,8 +94,8 @@
         @extend .symbol;
         transform: rotate(0deg);
         position: absolute;
-        top: 0.1px;
-        left: calc(50% - 0.8rem);
+        top: 0;
+        left: calc(50% - 0.85rem);
     }
 
     .symbol2 {
@@ -110,8 +110,8 @@
         @extend .symbol;
         transform: rotate(180deg);
         position: absolute;
-        bottom: 0.2px;
-        left: calc(50% - 0.78rem);
+        bottom: 0;
+        left: calc(50% - 0.8rem);
     }
 
     .symbol4 {
