@@ -10,10 +10,11 @@ import { CardsAnimation, DragonTigerResult } from "./animations";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
-import DragonTigerRoundHistory from "./round-history";
+import { RenderRoundDetail, RenderDragonTigerDot } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { StatisticFollowPercent } from "../../shared/statistic";
+import ChainRoundHistory from "../../shared/round-history/chain";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -30,11 +31,23 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
-        return <DragonTigerRoundHistory roundHistory={roundHistory} gameState={gameState} />;
+        return (
+            <ChainRoundHistory
+                roundHistory={roundHistory}
+                gameState={gameState}
+                renderGameDot={RenderDragonTigerDot}
+                renderRoundDetail={RenderRoundDetail}
+            ></ChainRoundHistory>
+        );
     }
 
     renderStatistic() {
-        return <StatisticFollowPercent roundHistory={this.state.roundHistory} statisticRuleEntries={StatisticRuleEntries}></StatisticFollowPercent>;
+        return (
+            <StatisticFollowPercent
+                roundHistory={this.state.roundHistory}
+                statisticRuleEntries={StatisticRuleEntries}
+            ></StatisticFollowPercent>
+        );
     }
 
     renderResult() {

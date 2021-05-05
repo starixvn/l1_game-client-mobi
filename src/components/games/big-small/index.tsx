@@ -10,10 +10,11 @@ import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
-import BigSmallRoundHistory from "./round-history";
+import { RenderRoundDetail, RenderBigSmallDot } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { StatisticFollowPercent } from "../../shared/statistic";
+import ChainRoundHistory from "../../shared/round-history/chain";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -47,7 +48,14 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
-        return <BigSmallRoundHistory roundHistory={roundHistory} gameState={gameState} />;
+        return (
+            <ChainRoundHistory
+                roundHistory={roundHistory}
+                gameState={gameState}
+                renderGameDot={RenderBigSmallDot}
+                renderRoundDetail={RenderRoundDetail}
+            ></ChainRoundHistory>
+        );
     }
 
     renderStatistic() {

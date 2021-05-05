@@ -9,10 +9,11 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
-import SeDieRoundHistory from "./round-history";
+import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
+import ChainRoundHistory from "../../shared/round-history/chain";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -29,7 +30,14 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
-        return <SeDieRoundHistory roundHistory={roundHistory} gameState={gameState}></SeDieRoundHistory>;
+        return (
+            <ChainRoundHistory
+                roundHistory={roundHistory}
+                gameState={gameState}
+                renderGameDot={RenderSeDieDot}
+                renderRoundDetail={RenderRoundDetail}
+            ></ChainRoundHistory>
+        );
     }
 
     renderStatistic() {
