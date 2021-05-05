@@ -493,6 +493,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             userStakeLevel,
             isCompactMode,
             disabledMessage,
+            playResultAnimation,
         } = this.state;
 
         const gameContext = {
@@ -505,6 +506,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             remainingTime,
             userStakeLevel,
             isCompactMode,
+            playResultAnimation,
         };
 
         const gameActionsContext = {

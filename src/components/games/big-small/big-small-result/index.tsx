@@ -4,8 +4,8 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../big-small";
 import Styles from "./big-small-result.module.scss";
 
-const BigSmallResult: React.FC<{ result?: Result; hasAnimation?: boolean }> = ({ result, hasAnimation = false }) => {
-    const { isCompactMode } = useGameContext();
+const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
+    const { isCompactMode, playResultAnimation } = useGameContext();
 
     const generateResult = () => {
         return (
@@ -22,7 +22,7 @@ const BigSmallResult: React.FC<{ result?: Result; hasAnimation?: boolean }> = ({
         <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
             <div className="overlay-mask-no-bg">
                 <div
-                    className={`${Styles["animation-container"]} ${hasAnimation ? Styles["has-animation"] : ""} ${
+                    className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
                         isCompactMode ? Styles["compact-mode"] : ""
                     }`}
                 >

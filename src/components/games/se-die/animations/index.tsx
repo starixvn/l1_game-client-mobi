@@ -20,22 +20,25 @@ const Plate: React.FC = ({ children }) => {
     );
 };
 
-export const ShakeThePlate: React.FC<{ hasAnimation?: boolean }> = ({ hasAnimation = false }) => (
-    <div className={hasAnimation ? Styles["shake-the-plate"] : ""}>
+export const ShakeThePlate: React.FC<{ playAnimation?: boolean }> = ({ playAnimation = false }) => (
+    <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
         <Plate />
     </div>
 );
 
-export const OpenThePlate: React.FC<{ result: Result; hasAnimation?: boolean }> = ({ result, hasAnimation = false }) => (
-    <div className={`${Styles["open-the-plate"]} ${hasAnimation ? Styles["has-animation"] : ""}`}>
-        <Plate>
-            <div className={Styles["result-container"]}>
-                {Object.values(result).map((value, index) => (
-                    <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                        <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                    </div>
-                ))}
-            </div>
-        </Plate>
-    </div>
-);
+export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
+    const { playResultAnimation } = useGameContext();
+    return (
+        <div className={`${Styles["open-the-plate"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <Plate>
+                <div className={Styles["result-container"]}>
+                    {Object.values(result).map((value, index) => (
+                        <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                            <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                        </div>
+                    ))}
+                </div>
+            </Plate>
+        </div>
+    );
+};

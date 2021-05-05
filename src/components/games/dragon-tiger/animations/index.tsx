@@ -1,15 +1,16 @@
-import React from "react";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result, SettlementResult, ObjectResult } from "../dragon-tiger";
 import { useTranslation } from "next-i18next";
+import React from "react";
+
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Card from "../../../shared/card";
+import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
-export const CardsAnimation = () => {
+export const CardsAnimation = ({ playAnimation = false }) => {
     const { isCompactMode } = useGameContext();
 
     return (
-        <div className={`${Styles["draw-cards"]} ${Styles["has-animation"]}`}>
+        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
             <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
                 <div className={Styles["card1"]}>
                     <div className={Styles["card-shadow"]}></div>

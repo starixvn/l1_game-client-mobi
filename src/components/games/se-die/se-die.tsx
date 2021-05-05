@@ -54,12 +54,12 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderStartRoundAnimation() {
         const { durations } = this.props;
-        return <ShakeThePlate hasAnimation={this.state.remainingTime == durations.placingBets + durations.beforeStartRound} />;
+        return <ShakeThePlate playAnimation={this.state.remainingTime == durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {
-        const { result, playResultAnimation } = this.state;
-        return <OpenThePlate result={result ?? { red1: false, red2: false, red3: true, red4: false }} hasAnimation={playResultAnimation} />;
+        const { result } = this.state;
+        return <OpenThePlate result={result ?? { red1: false, red2: false, red3: true, red4: false }} />;
     }
 
     renderGuide() {

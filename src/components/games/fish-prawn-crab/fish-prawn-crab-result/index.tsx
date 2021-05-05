@@ -23,14 +23,14 @@ const generateResult = (result: Result) => {
         })
     );
 };
-const FishPrawnCrabResult: React.FC<{ result?: Result; hasAnimation?: boolean }> = ({ result, hasAnimation = false }) => {
-    const { isCompactMode } = useGameContext();
+const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
+    const { isCompactMode, playResultAnimation } = useGameContext();
 
     return (
         <div className={Styles["container"]}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
-                    <div className={`${Styles["result-set"]} ${hasAnimation ? Styles["has-animation"] : ""}`}>
+                    <div className={`${Styles["result-set"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>
                         <div className={Styles["bowl"]}></div>

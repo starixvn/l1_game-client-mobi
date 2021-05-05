@@ -79,8 +79,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderResult() {
-        const { result, playResultAnimation } = this.state;
-        return <FishPrawnCrabResult result={result} hasAnimation={playResultAnimation}></FishPrawnCrabResult>;
+        const { result } = this.state;
+        return <FishPrawnCrabResult result={result}></FishPrawnCrabResult>;
     }
 
     renderBoard() {
