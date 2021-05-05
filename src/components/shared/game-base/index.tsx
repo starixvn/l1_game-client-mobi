@@ -57,7 +57,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         acceptedBetQueue: {},
         showWinningBet: false,
         playResultAnimation: false,
-        displayChips: [],
+        displayChips: {},
     };
 
     constructor(props: P) {
