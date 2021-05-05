@@ -18,6 +18,7 @@ import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import ErrorMessage from "../error-message";
+import GameLoading from "../game-loading";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
@@ -344,7 +345,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
         roundHistoryClone.pop();
-        
+
         this.setState({
             playResultAnimation: true,
             result: finish.result,
@@ -558,7 +559,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 </GameActionsContextProvider>
             </GameContextProvider>
         ) : (
-            <div>Loading...</div>
+            <GameLoading />
         );
     }
 }
