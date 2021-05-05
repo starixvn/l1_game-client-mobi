@@ -45,8 +45,8 @@ const renderStakeRefund = (bet: BetLogs) => {
     if (bet.settlementResult) {
         return (
             <>
-                <div className={bet.betwin > 0 ? "font-weight-medium" : ""}>{bet.amount}</div>
-                <div className={bet.refund > 0 ? Styles["refund"] : ""}>{bet.refund}</div>
+                <div className={bet.betwin > 0 ? "font-weight-medium" : ""}>{numberWithCommas(bet.amount)}</div>
+                <div className={bet.refund > 0 ? Styles["refund"] : ""}>{numberWithCommas(bet.refund)}</div>
             </>
         );
     }
