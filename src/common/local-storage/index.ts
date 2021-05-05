@@ -4,6 +4,7 @@ export const localStorageKeys = {
     rebet: buildLocalStorageKey("rebet"),
     enabledQuickBet: buildLocalStorageKey("enabled-quick-bet"),
     umInfo: buildLocalStorageKey("um_info"),
+    userBetChips: buildLocalStorageKey("user-bet-chips"),
 };
 
 export function removeLocalStorageItem(key: string) {

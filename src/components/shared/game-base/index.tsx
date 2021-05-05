@@ -25,10 +25,12 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel } from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
 
+const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     private readonly animationTime = 3000;
+    private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
@@ -55,12 +57,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         acceptedBetQueue: {},
         showWinningBet: false,
         playResultAnimation: false,
+        displayChips: [],
     };
 
     constructor(props: P) {
         super(props);
 
-        this.reBetStorageKey = LocalStorageManager.localStorageKeys.rebet;
         this.messageTransmitter = MessageTransmitter();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
@@ -138,16 +140,26 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ errorMessage: apiError.message, displayPopup: PopupType.Error });
     };
 
-    handleEndBet = ({ endBet, notice }) => {
-        if (this.state.displayPopup !== PopupType.Rebet) {
+    handleEndBet = ({ endBet, betChoice, notice }) => {
+        const { id } = this.props;
+        const { displayPopup, acceptedBetQueue, roundId } = this.state;
+
+        if (displayPopup !== PopupType.Rebet) {
             this.setState({ isProcessingBet: false });
+
             if (endBet === -1) {
                 this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
             } else {
                 const key = Date.now();
-                const { acceptedBetQueue } = this.state;
+                const newDisplayChips = this.getDisplayChips(betChoice, endBet);
+
+                this.placeBetSound.play();
                 acceptedBetQueue[key] = endBet;
-                this.setState({ acceptedBetQueue });
+                LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
+                    [id]: { roundId: roundId, chips: newDisplayChips },
+                });
+
+                this.setState({ acceptedBetQueue, displayChips: newDisplayChips });
                 setTimeout(() => {
                     this.removeAcceptedBetQueue(key);
                 }, this.animationTime);
@@ -155,6 +167,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
 
         this.updateUserBalance();
+    };
+
+    getDisplayChips = (betChoice: string, chipValue: number) => {
+        const { displayChips } = this.state;
+
+        displayChips[betChoice] ? displayChips[betChoice].push(chipValue) : Object.assign(displayChips, { [betChoice]: [chipValue] });
+
+        return displayChips;
     };
 
     removeAcceptedBetQueue(key: number) {
@@ -239,6 +259,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     totalBets: {},
                     showWaitingTime: false,
                     betPercentage: {},
+                    displayChips: {},
                 },
             },
             {
@@ -329,11 +350,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRoundHistory({ roundHistory }) {
         const { gameState } = this.state;
         const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
+        const roundId = gameState !== GameState.DisplayResult ? lastRoundId + 1 : lastRoundId;
+        const displayChips = this.getUserBetChipsOnStorage(roundId);
+
         this.setState({
             roundHistory,
-            roundId: gameState === GameState.InRound ? lastRoundId + 1 : lastRoundId,
+            roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
+            displayChips,
         });
     }
 
@@ -358,17 +383,24 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.runGame(durations.wholeRound);
     }
 
+    getUserBetChipsOnStorage(roundId: number) {
+        const { id } = this.props;
+        const userBetChips = LocalStorageManager.getLocalStorageItem<UserBetChipStorageModal>(userBetChipsKey);
+
+        return userBetChips && userBetChips[id]?.roundId === roundId ? userBetChips[id].chips : {};
+    }
+
     storeOwnBet(roundId: number) {
         const { ownBets } = this.state;
         const gameId = this.props.id;
-        const rebetStorage = LocalStorageManager.getLocalStorageItem<RebetStorageModel>(this.reBetStorageKey) || {};
+        const rebetStorage = LocalStorageManager.getLocalStorageItem<RebetStorageModel>(reBetStorageKey) || {};
 
         rebetStorage[gameId] = {
             roundId,
             betInfo: Object.keys(ownBets).length > 0 ? ownBets : undefined,
         };
 
-        LocalStorageManager.storeLocalStorageItem(this.reBetStorageKey, rebetStorage);
+        LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
     openPlaceBetModal(betChoice: string) {
@@ -493,6 +525,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             userStakeLevel,
             isCompactMode,
             disabledMessage,
+            displayChips,
             playResultAnimation,
         } = this.state;
 
@@ -506,6 +539,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             remainingTime,
             userStakeLevel,
             isCompactMode,
+            displayChips,
             playResultAnimation,
         };
 

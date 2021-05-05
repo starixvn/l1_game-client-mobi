@@ -95,7 +95,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             const chipIndex = chipValues.indexOf(betValue);
             const newSelectedChip = chipValues[chipIndex - 1];
 
-            sliderRef.slickGoTo(chipIndex - 2);
+            sliderRef.slickGoTo(chipIndex - 1);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
             disableSelectChipWhenSliding();

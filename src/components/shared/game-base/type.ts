@@ -63,6 +63,11 @@ export interface GameBaseState<Result, SettlementResult> {
     acceptedBetQueue: { [key: number]: number };
     showWinningBet: boolean;
     playResultAnimation: boolean;
+    displayChips: DisplayChips;
+}
+
+export interface DisplayChips {
+    [betChoice: string]: number[];
 }
 
 export interface SocketInfo {
@@ -78,6 +83,13 @@ export interface GameDurations {
     resultAnimation: number;
     beforeStartRound: number;
     balancingBet?: number;
+}
+
+export interface UserBetChipStorageModal {
+    [gameId: string]: {
+        roundId: number;
+        chips: DisplayChips;
+    };
 }
 
 export interface RebetStorageModel {

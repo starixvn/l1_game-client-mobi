@@ -13,6 +13,7 @@ export const GameContext = React.createContext<GameContextModel>({
     gameConfigs: null,
     userStakeLevel: null,
     isCompactMode: false,
+    displayChips: {},
     playResultAnimation: false,
 });
 GameContext.displayName = "GameContext";

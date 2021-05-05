@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
+import { gameConfigs } from "../../../../configuration";
 
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -7,6 +8,7 @@ import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/NumberHelper";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
+import DisplayChip from "./DisplayChip";
 import { HighlightType, Props } from "./types";
 
 const HighlightClassNameMapper = {
@@ -16,7 +18,8 @@ const HighlightClassNameMapper = {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, isCompactMode } = useGameContext();
+    const { totalBets, ownBets, gameSetting, isCompactMode, displayChips } = useGameContext();
+    const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
     const gameActionContext = useGameActionContext();
@@ -51,9 +54,13 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
 
-    function onClickBet() {
+    const onClickBet = () => {
         enabledQuickBet ? gameActionContext.placeBet(choice, betValue) : openPlaceBetModal(choice);
-    }
+    };
+
+    const renderUserBetChips = () => {
+        return chips.map((value, index) => <DisplayChip chipValue={value} chipKey={index}></DisplayChip>);
+    };
 
     return (
         <div className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
@@ -72,6 +79,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                         : ""}
                 </div>
                 {children}
+                <div className={`${Styles["user-bet-chips"]} ${Styles[gameSetting.gameName]}`}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>
             </div>
         </div>
