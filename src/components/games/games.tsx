@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -25,7 +25,10 @@ export const Games: React.FC = () => {
         const gameIndex = newFavoriteList.indexOf(gameId);
 
         gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
-        isFavorite && newFavoriteList.unshift(gameId);
+        if (isFavorite) {
+            newFavoriteList.unshift(gameId);
+            window.scrollTo(0, 0);
+        }
 
         updateFavoriteGames(newFavoriteList);
         storeLocalStorageItem(localStorageKeys.favoriteGames, newFavoriteList);
