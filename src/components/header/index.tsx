@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import CountUp, { useCountUp } from "react-countup";
-import { Navbar, NavbarBrand, NavbarToggler, UncontrolledCollapse } from "reactstrap";
+import React, { useEffect } from "react";
+import { useCountUp } from "react-countup";
+import { Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/NumberHelper";
 import Styles from "./header.module.scss";
@@ -14,8 +14,6 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
     const { countUp, update } = useCountUp({
         end: props.balance,
     });

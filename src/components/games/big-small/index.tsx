@@ -12,7 +12,8 @@ import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
 import BigSmallRoundHistory from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import BigSmallStatistic from "./statistic";
+import StatisticRuleEntries from "./statistic";
+import { StatisticFollowPercent } from "../../shared/statistic";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -50,7 +51,12 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderStatistic() {
-        return <BigSmallStatistic roundHistory={this.state.roundHistory}></BigSmallStatistic>;
+        return (
+            <StatisticFollowPercent
+                roundHistory={this.state.roundHistory}
+                statisticRuleEntries={StatisticRuleEntries}
+            ></StatisticFollowPercent>
+        );
     }
 
     renderResult() {

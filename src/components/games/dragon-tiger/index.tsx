@@ -12,7 +12,8 @@ import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
 import DragonTigerRoundHistory from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import DragonTigerStatistic from "./statistic";
+import StatisticRuleEntries from "./statistic";
+import { StatisticFollowPercent } from "../../shared/statistic";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -33,7 +34,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderStatistic() {
-        return <DragonTigerStatistic roundHistory={this.state.roundHistory} />;
+        return <StatisticFollowPercent roundHistory={this.state.roundHistory} statisticRuleEntries={StatisticRuleEntries}></StatisticFollowPercent>;
     }
 
     renderResult() {

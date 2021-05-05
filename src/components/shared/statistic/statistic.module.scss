@@ -1,3 +1,5 @@
+@import "../../../assets/abstracts/variables";
+@import "../../../assets/components/statistic";
 .statistic-group {
     display: flex;
     align-items: center;
@@ -11,3 +13,29 @@
         font-size: 1.2rem;
     }
 }
+
+.big {
+    @extend %title;
+    color: $bigSmall-choice-big-color;
+}
+
+.small {
+    @extend %title;
+    color: $bigSmall-choice-small-color;
+}
+
+.dragon {
+    @extend %title;
+    color: $dragonTiger-choice-dragon-color;
+}
+
+.tiger {
+    @extend %title;
+    color: $dragonTiger-choice-tiger-color;
+}
+
+.tie {
+    @extend %title;
+    color: $dragonTiger-choice-tie-color;
+}
+
