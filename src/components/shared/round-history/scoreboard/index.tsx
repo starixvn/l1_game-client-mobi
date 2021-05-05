@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./round-history.module.scss";
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
+    const { isCompactMode } = useGameContext();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
     const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
@@ -71,7 +73,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     });
 
     return (
-        <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
+        <div ref={wrapperRef} className={isCompactMode ? Styles["board-inline"] : Styles["board"]} onTouchEnd={handleTouchEnd}>
             {props.children}
         </div>
     );

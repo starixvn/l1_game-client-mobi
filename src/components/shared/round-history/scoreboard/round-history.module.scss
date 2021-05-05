@@ -7,6 +7,12 @@
     cursor: auto;
    
 }
+
+.board-inline{
+    height: 3.6rem;
+    width: 100%;
+    border-top: 0.1rem solid $border-color;
+}
 .score-board-dragon-container {
     display: grid;
     grid-template-columns: repeat(19, 1fr);

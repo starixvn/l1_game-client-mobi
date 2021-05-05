@@ -12,8 +12,9 @@ import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
-import GetElementRound from "./scoreboard-round-history";
+import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
+import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const OddNames = {
@@ -71,7 +72,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderRoundHistory() {
-        return <OddComponent />;
+        return this.state.isCompactMode ? <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory> : <OddComponent />;
     }
 
     renderStatistic() {
@@ -89,7 +90,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             <ScoreboardBasic
                 roundHistory={roundHistory.slice(0, 30)}
                 gameState={gameState}
-                getElementRound={GetElementRound}
+                getElementRound={this.state.isCompactMode ? GetElementRoundOfCompactMode : GetElementRound}
             ></ScoreboardBasic>
         );
     }

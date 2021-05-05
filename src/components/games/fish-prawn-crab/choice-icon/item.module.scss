@@ -36,3 +36,18 @@
         font-size: 1.8rem;
     }
 }
+
+.icon-compact-mode {
+    font-size: 1.8rem;
+    margin-right: 0.6rem;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 1024px) and (max-width: 1278px) {
+        margin-right: 0.2rem;
+    }
+
+    &.icon-bau {
+        font-size: 1.4rem;
+    }
+}
