@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { ChipMapper } from "../../common/constants";
 
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
@@ -30,18 +31,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const chipClickSound = new Audio("./static/sounds/chip-click.mp3");
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000, "3k": 3000 };
-    const chipColorMapper = {
-        "1": "chip-1",
-        "5": "chip-2",
-        "10": "chip-3",
-        "50": "chip-5",
-        "100": "chip-6",
-        "200": "chip-7",
-        "500": "chip-8",
-        "1000": "chip-9",
-        "2000": "chip-10",
-        "3000": "chip-11",
-    };
+
     const chipValues = Object.values(chipList);
 
     const SliderSetting = {
@@ -159,7 +149,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                     onClick={HandleClickActiveBtn}
                 >
                     <span className={`icon-arrow2-right ${Styles["expand-icon"]}`}></span>
-                    <div className={`${Styles.chip} ${Styles[chipColorMapper[betValue]]}`}>
+                    <div className={`${Styles.chip} ${Styles[ChipMapper[betValue]]}`}>
                         <div className={Styles["layer1"]}></div>
                         <div className={Styles["layer2"]}></div>
                         <div className={Styles["group-list"]}>
@@ -213,7 +203,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                         value={chipList[key]}
                                         onSelected={handleSelectChip}
                                         selected={betValue === chipList[key]}
-                                        color={chipColorMapper[chipList[key]]}
+                                        color={ChipMapper[chipList[key]]}
                                     />
                                 ))}
                             </Slider>
