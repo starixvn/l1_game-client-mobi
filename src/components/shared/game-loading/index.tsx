@@ -18,10 +18,10 @@ const GameLoading = () => {
                 </div>
             </div>
             <div className={Styles["bet-container"]}>
-                <Skeleton height={285} />
+                <Skeleton height={273} />
             </div>
             <div className={Styles["mini-round-history"]}>
-                <Skeleton className={Styles["border-radius"]} height={22} />
+                <Skeleton className={Styles["border-radius"]} height={19} />
             </div>
             <div className={Styles["statistic"]}>
                 <Skeleton className={Styles["border-radius"]} height={19} />
