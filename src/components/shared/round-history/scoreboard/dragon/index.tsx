@@ -1,18 +1,11 @@
 import React from "react";
 import { GameState } from "../../../game-base/type";
-import Styles from "../round-history.module.scss";
-import { ScoreboardItemNext } from "../../item-next";
+import { ScoreboardItemNext } from "../../dot-next";
 import { Round } from "../../../../../types";
-
-interface Props<R, S> {
-    roundHistory: Round<R, S>[];
-    gameState: number;
-    getElementRound: (result: any, col: number, row: number, roundId: number) => void;
-    checkCondition?: (settlementResult: S) => void;
-}
+import { Props } from "./types";
+import Styles from "../round-history.module.scss";
 
 const rowTotal = 7;
-
 const checkConditionBase = (settlementResult: any) => {
     let value = 0;
     Object.keys(settlementResult).forEach((name, index) => {

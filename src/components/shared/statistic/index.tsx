@@ -2,17 +2,8 @@ import React from "react";
 import { Round } from "../../../types";
 import { useTranslation } from "next-i18next";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { Props, PropsFollowPercent } from "./types";
 import Styles from "./statistic.module.scss";
-
-type Props = {
-    children: React.ReactNode;
-    value: string | number;
-};
-
-type PropsPercent = {
-    roundHistory: Round<any, any>[];
-    statisticRuleEntries: [string, (countResult: object, total: number) => number][];
-};
 
 export const countSettlementResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((result, { settlementResult }) => {
@@ -45,7 +36,7 @@ const StatisticItem: React.FC<Props> = (props) => {
     );
 };
 
-export const StatisticFollowPercent: React.FC<PropsPercent> = (props) => {
+export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
     const { statisticRuleEntries, roundHistory } = props;
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());

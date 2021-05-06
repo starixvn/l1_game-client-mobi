@@ -1,10 +1,7 @@
 import React from "react";
+import { Props } from "./types";
 import Styles from "./item-next.module.scss";
 
-type Props = {
-    col: number;
-    row: number;
-};
 export const MiniItemNext = () => {
     return (
         <div>

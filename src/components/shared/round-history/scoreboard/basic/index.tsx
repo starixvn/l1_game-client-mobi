@@ -1,13 +1,8 @@
 import React from "react";
-import Styles from "../round-history.module.scss";
 import { RoundHistoryType } from "../../type";
 import { Round } from "../../../../../types";
-
-type Props<R, S> = {
-    roundHistory: Round<R, S>[];
-    getElementRound: (round: R, roundId: number) => void;
-    gameState: number;
-};
+import { Props } from "./types";
+import Styles from "../round-history.module.scss";
 
 const drawHistory = <R, S>(roundHistory: Round<R, S>[], getElementRound: (round: R, roundId: number) => void) => {
     return roundHistory.map((round: RoundHistoryType) => {
