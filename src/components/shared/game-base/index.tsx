@@ -76,10 +76,29 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentDidMount() {
+        this.onStart();
+
+        document.addEventListener("visibilitychange", this.onVisibilityChange.bind(this), false);
+    }
+
+    componentWillUnmount() {
+        this.onDestroy();
+
+        this.messageTransmitter.clearAllListener();
+        document.removeEventListener("visibilitychange", this.onVisibilityChange.bind(this));
+    }
+
+    onDestroy() {
+        this.interval && clearInterval(this.interval);
+        this.socket.disconnect();
+    }
+
+    onStart() {
         const { socketInfo } = this.props;
         const { session } = this.context;
         const socketUri = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/user/${socketInfo.namespace}`;
 
+        this.setState(this.defaultState);
         this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
@@ -95,14 +114,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
 
         this.socket.on("message", this.setUserStakeLevel.bind(this));
-
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
     }
 
-    componentWillUnmount() {
-        this.interval && clearInterval(this.interval);
-        this.messageTransmitter.clearAllListener();
-        this.socket.disconnect();
+    onVisibilityChange() {
+        const visibleState = document.visibilityState;
+
+        visibleState === "hidden" ? this.onDestroy() : this.onStart();
     }
 
     registerMessageHandler = () => {
