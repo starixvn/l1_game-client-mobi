@@ -8,4 +8,9 @@
     font-weight: 500;
     color: #fff;
     font-size: 1.8rem;
+
+    &.compact-mode {
+        min-height: 2.6rem;
+        bottom: -1.5rem;
+    }
 }
