@@ -1,22 +1,16 @@
 import React, { useRef } from "react";
-import { ChipMapper } from "../../../../common/constants";
-import styles from "./display-chip.module.scss";
+import Chip from "../../../chip";
 
 const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number }> = ({ chipValue, chipKey }) => {
     const displayChipStyles = useRef({
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
-        "z-index": chipKey,
+        ZIndex: chipKey,
+        transform: "scale(0.6)",
+        position: "absolute" as "absolute",
     });
 
-    return (
-        <img
-            key={`chip-${chipValue}-${chipKey}`}
-            className={styles["chip"]}
-            src={`/static/images/small_${ChipMapper[chipValue]}.png`}
-            style={displayChipStyles.current}
-        ></img>
-    );
+    return <Chip key={`chip-${chipValue}-${chipKey}`} value={chipValue} customStyle={displayChipStyles.current} />;
 };
 
 export default DisplayChip;

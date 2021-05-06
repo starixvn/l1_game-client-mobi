@@ -8,30 +8,6 @@
     cursor: auto;
 }
 
-.chip {
-    margin: 0;
-    transform: scale(1);
-
-    &:hover {
-        transform: scale(1);
-        top: 0;
-
-        @media (min-width: 1200px) {
-            transform: scale(1);
-        }
-    }
-
-    .layer1 {
-        box-shadow: none;
-        top: calc(50% - 1.58rem);
-    }
-
-    .layer2 {
-        box-shadow: none;
-        top: calc(50% - 1.43rem);
-    }
-}
-
 .betting-setting-collapsed {
     display: flex;
     align-items: center;

@@ -279,7 +279,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     totalBets: {},
                     showWaitingTime: false,
                     betPercentage: {},
-                    displayChips: {},
                 },
             },
             {

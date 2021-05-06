@@ -58,7 +58,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     };
 
     const renderUserBetChips = () => {
-        return chips.map((value, index) => <DisplayChip chipValue={value} chipKey={index}></DisplayChip>);
+        return chips.map((value, index) => <DisplayChip key={index} chipValue={value} chipKey={index}></DisplayChip>);
     };
 
     return (

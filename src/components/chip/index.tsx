@@ -1,22 +1,30 @@
 import React from "react";
+import { ChipLabelMapper, ChipMapper } from "../../common/constants";
 
 import Styles from "./chip.module.scss";
 
 type Props = {
-    display: string;
     value: number;
     selected?: boolean;
-    onSelected: (value: number) => void;
-    color: string;
+    onSelected?: (value: number) => void;
+    customStyle?: React.CSSProperties;
 };
 
-const Chip: React.FC<Props> = ({ display, value, onSelected, selected = false, color }) => {
+const getChipDisplayByValue = (value: number) => {
+    return Object.keys(ChipLabelMapper).find((key) => ChipLabelMapper[key] === value);
+};
+
+const Chip: React.FC<Props> = ({ value, onSelected, selected = false, customStyle }) => {
     const handleClick = () => {
-        onSelected(value);
+        onSelected && onSelected(value);
     };
 
     return (
-        <div className={`${Styles.chip} ${Styles[color]} ${selected ? Styles.selected : ""}`} onClick={handleClick}>
+        <div
+            className={`${Styles.chip} ${Styles[ChipMapper[value]]} ${selected ? Styles.selected : ""} ${onSelected && Styles["btn-chip"]}`}
+            onClick={handleClick}
+            style={customStyle}
+        >
             <div className={Styles["layer1"]}></div>
             <div className={Styles["layer2"]}></div>
             <div className={Styles["group-list"]}>
@@ -25,7 +33,7 @@ const Chip: React.FC<Props> = ({ display, value, onSelected, selected = false, c
                 <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
                 <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
             </div>
-            <div className={Styles["number"]}>{display}</div>
+            <div className={Styles["number"]}>{getChipDisplayByValue(value)}</div>
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { ChipMapper, ChipValues } from "../../common/constants";
+import { ChipLabelMapper, ChipValues } from "../../common/constants";
 
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
@@ -17,7 +17,7 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
-const SlidingTimeInMillisecond = 350;
+const SlidingTimeInMillisecond = 250;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
     const [isShowSettings, setShowSettings] = useState(true);
@@ -26,18 +26,15 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSliding, setIsSliding] = useState(false);
     const [isSwipe, setIsSwipe] = useState(true);
-    let sliderRef = null;
     const { t } = useTranslation("common");
     const chipClickSound = new Audio("./static/sounds/chip-click.mp3");
-
-    const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000, "3k": 3000 };
-
     const SliderSetting = {
         speed: SlidingTimeInMillisecond,
         infinite: false,
         adaptiveHeight: true,
         swipeToSlide: true,
         slidesToShow: 10,
+        focusOnSelect: true,
         arrows: false,
         onSwipe: () => setIsSwipe(true),
         beforeChange: (oldIndex: number, newIndex: number) => {
@@ -55,6 +52,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             },
         ],
     };
+
+    let sliderRef = null;
 
     useEffect(() => {
         if (sliderRef) {
@@ -131,10 +130,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         chipIndex === ChipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
     };
 
-    const getChipDisplayByValue = (value: number) => {
-        return Object.keys(chipList).find((key) => chipList[key] === value);
-    };
-
     const closeModal = () => {
         setIsShowPopup(false);
     };
@@ -147,17 +142,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                     onClick={HandleClickActiveBtn}
                 >
                     <span className={Styles["expand-icon"]}></span>
-                    <div className={`${Styles.chip} ${Styles[ChipMapper[betValue]]}`}>
-                        <div className={Styles["layer1"]}></div>
-                        <div className={Styles["layer2"]}></div>
-                        <div className={Styles["group-list"]}>
-                            <span className={`icon-chip-symbol ${Styles["symbol1"]}`}></span>
-                            <span className={`icon-chip-symbol ${Styles["symbol2"]}`}></span>
-                            <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
-                            <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
-                        </div>
-                        <div className={Styles["number"]}>{getChipDisplayByValue(betValue)}</div>
-                    </div>
+                    <Chip value={betValue} />
                     {enabledQuickBet && (
                         <div className={Styles["quick-bet-mark-container"]}>
                             <span className={`icon-quick-bet ${Styles["quick-bet-mark"]}`}></span>{" "}
@@ -194,14 +179,12 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 }}
                                 {...SliderSetting}
                             >
-                                {Object.keys(chipList).map((key) => (
+                                {Object.keys(ChipLabelMapper).map((key) => (
                                     <Chip
                                         key={key}
-                                        display={key}
-                                        value={chipList[key]}
+                                        value={ChipLabelMapper[key]}
                                         onSelected={handleSelectChip}
-                                        selected={betValue === chipList[key]}
-                                        color={ChipMapper[chipList[key]]}
+                                        selected={betValue === ChipLabelMapper[key]}
                                     />
                                 ))}
                             </Slider>
