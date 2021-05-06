@@ -581,7 +581,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameContainer>
                         <BetContainer gameState={gameState}>
-                            <div className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+                            <div
+                                className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""} ${
+                                    Styles[this.props.gameName]
+                                }`}
+                            >
                                 {this.renderBetOptions()}
                             </div>
 
