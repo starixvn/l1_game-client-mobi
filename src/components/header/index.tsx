@@ -16,6 +16,7 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
     const { countUp, update } = useCountUp({
         end: props.balance,
+        decimals: 5,
     });
 
     useEffect(() => {
