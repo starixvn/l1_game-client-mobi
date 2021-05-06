@@ -68,6 +68,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
+
                 <div className={Styles["total-bet"]}>
                     {gameState === GameState.BalancingBet
                         ? countUp
@@ -80,6 +81,15 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 {children}
                 <div className={`${Styles["user-bet-chips"]} ${Styles[`${gameName}-${choice}`]}`}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>{ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}</div>
+
+                {isHighlight && highlightType === HighlightType.Blink && (
+                    <div className={Styles["winning-effect"]}>
+                        <span className={Styles["winning-line"]}></span>
+                        <span className={Styles["winning-line"]}></span>
+                        <span className={Styles["winning-line"]}></span>
+                        <span className={Styles["winning-line"]}></span>
+                    </div>
+                )}
             </div>
         </div>
     );
