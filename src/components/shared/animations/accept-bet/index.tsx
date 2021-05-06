@@ -1,6 +1,6 @@
 import React from "react";
 
-import { numberWithCommas } from "../../../../helpers/NumberHelper";
+import { numberWithCommas } from "../../../../helpers/number-helper";
 import FadeOutUp from "../fade-out-up";
 import Styles from "./styles.module.scss";
 

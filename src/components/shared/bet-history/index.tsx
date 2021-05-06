@@ -3,7 +3,7 @@ import { useTranslation } from "next-i18next";
 import Moment from "react-moment";
 import { BetLogs, PropsBetContainer } from "./bet-history";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { numberWithCommas } from "../../../helpers/NumberHelper";
+import { numberWithCommas } from "../../../helpers/number-helper";
 import { Table } from "react-infinite-table";
 import { Spinner } from "reactstrap";
 import axios from "axios";

@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
-import { numberWithCommas } from "../../../helpers/NumberHelper";
+import { numberWithCommas } from "../../../helpers/number-helper";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./place-bet-modal.module.scss";

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useCountUp } from "react-countup";
 import { Navbar } from "reactstrap";
 
-import { numberWithCommas } from "../../helpers/NumberHelper";
+import { numberWithCommas } from "../../helpers/number-helper";
 import Styles from "./header.module.scss";
 
 type Props = {

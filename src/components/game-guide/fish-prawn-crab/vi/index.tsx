@@ -1,6 +1,6 @@
 import React from "react";
 import { GameGuide } from "../../../shared/game-base/type";
-import { numberWithCommas } from "../../../../helpers/NumberHelper";
+import { numberWithCommas } from "../../../../helpers/number-helper";
 
 const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
     const { gameConfigs, userStakeLevel, gameName } = props;
