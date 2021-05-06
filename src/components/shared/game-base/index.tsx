@@ -33,6 +33,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
+    private showWaitingTimeout: NodeJS.Timeout;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -226,7 +227,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleUM({ um, um_message }) {
         if (um) {
             this.interval && clearInterval(this.interval);
-            this.setState({ gameState: GameState.Disabled, disabledMessage: um_message });
+            this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
+            this.setState({ gameState: GameState.Disabled, disabledMessage: um_message, showWaitingTime: false });
         }
     }
 
@@ -395,9 +397,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             settlementResult: finish.settlementResult,
         });
 
+        const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
         setTimeout(() => {
-            this.setState({ roundHistory: roundHistoryClone, showWaitingTime: true });
-        }, (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000);
+            this.setState({ roundHistory: roundHistoryClone });
+        }, animationDuration);
+
+        this.showWaitingTimeout = setTimeout(() => {
+            this.setState({ showWaitingTime: true });
+        }, animationDuration);
         this.runGame(durations.wholeRound);
     }
 
