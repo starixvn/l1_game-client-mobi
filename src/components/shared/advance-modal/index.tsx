@@ -1,9 +1,9 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
-import BaseDialog from "../base-dialog";
+import React, { useEffect, useRef } from "react";
 
-import Styles from "./advance-dialog.module.scss";
+import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
+import Styles from "./advance-dialog.module.scss";
 
 type Props = {
     isOpen: boolean;
@@ -16,10 +16,15 @@ type Props = {
 
 const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full }: Props) => {
     const { t } = useTranslation("common");
+    const ref = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        ref.current.scrollIntoView(false);
+    }, [ref.current]);
 
     return (
         <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
-            <div className={Styles.modal}>
+            <div className={Styles.modal} ref={ref}>
                 <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
                     <span className="icon-close"></span>
                 </div>

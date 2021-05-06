@@ -30,7 +30,6 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const { roundId } = gameContext;
     const { betValue } = systemContext;
     const { betChoice, odd } = props.betChoiceInfo;
-    const ref = useRef<HTMLInputElement>(null);
 
     const closeModal = () => {
         props.onCloseModal();
@@ -41,10 +40,6 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         closeModal();
     };
 
-    useEffect(() => {
-        ref.current.scrollIntoView(false);
-    }, [ref.current]);
-
     return (
         <AdvanceModal
             title={t(GameResourceKeys.GAME_NAME)}
@@ -53,7 +48,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             onCloseModal={closeModal}
             type={ModalType.Bottom}
         >
-            <div className={Styles["place-bet-container"]} ref={ref}>
+            <div className={Styles["place-bet-container"]}>
                 <div className={`w-100 btn-green ${Styles["general-info"]}`}>
                     <span className="font-weight-bold">{t(betChoice)}</span> @1:{odd}
                 </div>
