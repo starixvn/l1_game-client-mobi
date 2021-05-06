@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { ChipMapper } from "../../common/constants";
+import { ChipMapper, ChipValues } from "../../common/constants";
 
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
@@ -32,8 +32,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const chipList = { "1": 1, "5": 5, "10": 10, "50": 50, "100": 100, "200": 200, "500": 500, "1k": 1000, "2k": 2000, "3k": 3000 };
 
-    const chipValues = Object.values(chipList);
-
     const SliderSetting = {
         speed: SlidingTimeInMillisecond,
         infinite: false,
@@ -44,8 +42,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         onSwipe: () => setIsSwipe(true),
         beforeChange: (oldIndex: number, newIndex: number) => {
             if (isSwipe) {
-                oldIndex > newIndex && handleSelectChip(chipValues[newIndex + 2]);
-                oldIndex < newIndex && handleSelectChip(chipValues[newIndex]);
+                oldIndex > newIndex && handleSelectChip(ChipValues[newIndex + 2]);
+                oldIndex < newIndex && handleSelectChip(ChipValues[newIndex]);
             }
         },
         responsive: [
@@ -70,8 +68,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
-            const chipIndex = chipValues.indexOf(betValue);
-            const newSelectedChip = chipValues[chipIndex + 1];
+            const chipIndex = ChipValues.indexOf(betValue);
+            const newSelectedChip = ChipValues[chipIndex + 1];
 
             sliderRef.slickGoTo(chipIndex + 1);
             handleSelectChip(newSelectedChip);
@@ -82,8 +80,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const onClickPrev = () => {
         if (enabledPrevBtn && !isSliding) {
-            const chipIndex = chipValues.indexOf(betValue);
-            const newSelectedChip = chipValues[chipIndex - 1];
+            const chipIndex = ChipValues.indexOf(betValue);
+            const newSelectedChip = ChipValues[chipIndex - 1];
 
             sliderRef.slickGoTo(chipIndex - 1);
             handleSelectChip(newSelectedChip);
@@ -127,10 +125,10 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const updateArrowsByChipValue = (chipValue: number) => {
-        const chipIndex = chipValues.indexOf(chipValue);
+        const chipIndex = ChipValues.indexOf(chipValue);
 
         chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
-        chipIndex === chipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
+        chipIndex === ChipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
     };
 
     const getChipDisplayByValue = (value: number) => {

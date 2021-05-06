@@ -7,6 +7,7 @@ import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
+import { convertAmountToChips } from "../../../helpers/chip-helper";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
@@ -162,35 +163,34 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { id } = this.props;
         const { displayPopup, acceptedBetQueue, roundId } = this.state;
 
-        if (displayPopup !== PopupType.Rebet) {
-            this.setState({ isProcessingBet: false });
+        if (endBet === -1) {
+            displayPopup !== PopupType.Rebet &&
+                this.setState({ errorMessage: notice, displayPopup: PopupType.Error, isProcessingBet: false });
+        } else {
+            const key = Date.now();
+            const newDisplayChips = this.getDisplayChips(betChoice, endBet);
 
-            if (endBet === -1) {
-                this.setState({ errorMessage: notice, displayPopup: PopupType.Error });
-            } else {
-                const key = Date.now();
-                const newDisplayChips = this.getDisplayChips(betChoice, endBet);
+            this.placeBetSound.play();
+            acceptedBetQueue[key] = endBet;
 
-                this.placeBetSound.play();
-                acceptedBetQueue[key] = endBet;
-                LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
-                    [id]: { roundId: roundId, chips: newDisplayChips },
-                });
+            LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
+                [id]: { roundId: roundId, chips: newDisplayChips },
+            });
 
-                this.setState({ acceptedBetQueue, displayChips: newDisplayChips });
-                setTimeout(() => {
-                    this.removeAcceptedBetQueue(key);
-                }, this.animationTime);
-            }
+            this.setState({ acceptedBetQueue, displayChips: newDisplayChips, isProcessingBet: false });
+            setTimeout(() => {
+                this.removeAcceptedBetQueue(key);
+            }, this.animationTime);
         }
 
         this.updateUserBalance();
     };
 
-    getDisplayChips = (betChoice: string, chipValue: number) => {
+    getDisplayChips = (betChoice: string, amount: number) => {
         const { displayChips } = this.state;
+        const chips = convertAmountToChips(amount);
 
-        displayChips[betChoice] ? displayChips[betChoice].push(chipValue) : Object.assign(displayChips, { [betChoice]: [chipValue] });
+        displayChips[betChoice] ? displayChips[betChoice].push(...chips) : Object.assign(displayChips, { [betChoice]: [...chips] });
 
         return displayChips;
     };
