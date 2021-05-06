@@ -38,6 +38,7 @@ const Rebet: React.FC<Props> = (props) => {
                     if (checkBetFinish(betTrack)) {
                         updateIsWaiting(false);
                         gameActionContext.finishProcessingBet();
+                        !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
                     }
                     updateBetTrack(betTrack);
                 }
