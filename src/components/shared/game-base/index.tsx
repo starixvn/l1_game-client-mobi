@@ -33,6 +33,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
+    private isUM: boolean = false;
     private showWaitingTimeout: NodeJS.Timeout;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
@@ -224,8 +225,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.context.setBalance(user.red);
     }
 
-    handleUM({ um, um_message }) {
-        if (um) {
+    handleUM({ um, um_message, remainingTime }) {
+        const { durations } = this.props;
+
+        if (
+            um &&
+            ((this.timeCounter && this.timeCounter <= durations.placingBets + durations.beforeStartRound) ||
+                remainingTime === durations.wholeRound)
+        ) {
+            this.isUM = true;
             this.interval && clearInterval(this.interval);
             this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
             this.setState({ gameState: GameState.Disabled, disabledMessage: um_message, showWaitingTime: false });
@@ -235,7 +243,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
 
-        if (gameState === GameState.None || gameState === GameState.Disabled) {
+        if (gameState === GameState.None || this.isUM) {
             this.runGame(remainingTime);
         }
     }
