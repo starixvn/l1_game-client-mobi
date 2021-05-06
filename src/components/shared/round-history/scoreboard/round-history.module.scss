@@ -1,18 +1,20 @@
 @import "../../../../assets/abstracts/variables";
+
 .board {
     height: 13.9rem;
     width: 100%;
     padding: 0.8rem 0.8rem 0;
     border-top: 0.1rem solid $border-color;
     cursor: auto;
-   
+
 }
 
-.board-inline{
+.board-inline {
     height: 3.6rem;
     width: 100%;
     border-top: 0.1rem solid $border-color;
 }
+
 .score-board-dragon-container {
     display: grid;
     grid-template-columns: repeat(19, 1fr);
@@ -32,35 +34,31 @@
     padding: .5rem 0;
 }
 
-.score-board-dragon-container, .score-board-container{
-    &:hover {
+.score-board-dragon-container,
+.score-board-container {
+
+    &:hover,
+    &:active,
+    &:focus {
         overflow-x: auto;
         overflow-y: hidden;
         padding-right: 1px;
     }
-    &:active {
-        overflow-x: auto;
-        overflow-y: hidden;
-        padding-right: 1px;
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border-radius: 10px;
+        background-color: white;
     }
 
-    &::-webkit-scrollbar-track
-    {
-    -webkit-box-shadow: none;
-    border-radius: 10px;
-    background-color: white;
+    &::-webkit-scrollbar {
+        width: 12px;
+        background-color: #F5F5F5;
     }
 
-    &::-webkit-scrollbar
-    {
-    width: 12px;
-    background-color: #F5F5F5;
-    }
-
-    &::-webkit-scrollbar-thumb
-    {
-    border-radius: 10px;
-    background-color: #dce2f3;
-    background-image:white;
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #dce2f3;
+        background-image: white;
     }
 }

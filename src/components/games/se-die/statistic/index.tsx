@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
-import SeDieDot from "../dot";
+import { RoundDot } from "../../../shared/round-history/dot";
 import { checkIsEven, Choices, MainChoice } from "../se-die-helper";
 import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
@@ -45,7 +45,7 @@ const SeDiceStatistic = (props: Props) => {
                     {MainChoice.includes(choice) ? (
                         <span className={`${Styles.title} ${choice === Choices.odd ? Styles.red : ""}`}>{t(choice)}</span>
                     ) : (
-                        <SeDieDot red={checkIsEven(RedDotMapper[choice])} value={RedDotMapper[choice]} />
+                        <RoundDot choice={checkIsEven(RedDotMapper[choice]) ? Choices.even : Choices.odd} value={RedDotMapper[choice]} />
                     )}
                 </StatisticItem>
             ))}

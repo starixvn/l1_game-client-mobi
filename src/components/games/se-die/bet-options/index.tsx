@@ -4,8 +4,8 @@ import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
-import SeDieDot from "../dot";
-import { MainChoice } from "../se-die-helper";
+import { RoundDot } from "../../../shared/round-history/dot";
+import { MainChoice, Choices } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
@@ -28,7 +28,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
-    const renderDots = (dots: boolean[]) => dots.map((isRed, index) => <SeDieDot key={index} red={isRed} />);
+    const renderDots = (dots: boolean[]) =>
+        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.even : Choices.odd} />);
 
     const renderIcons = (choice: string) => {
         return choice === "red2" ? (

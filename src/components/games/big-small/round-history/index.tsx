@@ -1,7 +1,8 @@
 import React from "react";
 import { Round } from "../../../../types";
 import { Result, SettlementResult } from "../big-small";
-import BigSmallDot from "../dot";
+import { Choices } from "../big-small-helper";
+import { RoundDot } from "../../../shared/round-history/dot";
 import Styles from "./mini-round-history.module.scss";
 
 export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
@@ -34,5 +35,10 @@ export const RenderBigSmallDot = (
     index: number,
     numberOfItems: number
 ) => {
-    return <BigSmallDot red={round.settlementResult.small} highlight={!isLockingBet() && index === numberOfItems - 1} />;
+    return (
+        <RoundDot
+            choice={round.settlementResult.small ? Choices.small : Choices.big}
+            highlight={!isLockingBet() && index === numberOfItems - 1}
+        />
+    );
 };

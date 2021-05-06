@@ -1,13 +1,13 @@
 import React from "react";
-import { SeDieDotNumber } from "../dot";
-import { checkIsEven, countRedDot } from "../se-die-helper";
+import { RoundDotGrid } from "../../../shared/round-history/dot";
+import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 
 export const GetElementRound = (result: any, col: number, row: number, roundId: number) => {
     const count = countRedDot(result);
     const isEven = checkIsEven(count);
 
-    return <SeDieDotNumber key={roundId} red={isEven} value={count} col={col} row={row}></SeDieDotNumber>;
+    return <RoundDotGrid key={roundId} choice={isEven ? Choices.even : Choices.odd} value={count} col={col} row={row}></RoundDotGrid>;
 };
 
 export const CheckCondition = (settlementResult: SettlementResult) => {

@@ -1,0 +1,53 @@
+@import "../../../../assets/abstracts/variables";
+@import "../../../../assets/components/dot";
+
+.dot-even {
+    @extend %dot;
+    background-color: $sedie-statistic-red-color;
+    border-color: $sedie-statistic-red-border;
+    box-shadow: $sedie-statistic-red-shadow;
+    color: $sedie-statistic-red-text-color;
+}
+
+.dot-odd {
+    @extend %dot;
+    background-color: $sedie-statistic-white-color;
+    border-color: $sedie-statistic-white-border;
+    box-shadow: $sedie-statistic-white-shadow;
+    color: $sedie-statistic-white-text-color;
+}
+
+.dot-dragon {
+    @extend %dot;
+    background-color: $dragonTiger-choice-dragon-color;
+    border-color: $dragonTiger-statistic-dragon-border;
+    box-shadow: $dragonTiger-statistic-dragon-shadow;
+}
+
+.dot-tiger {
+    @extend %dot;
+    background-color: $dragonTiger-choice-tiger-color;
+    border-color: $dragonTiger-statistic-tiger-border;
+    box-shadow: $dragonTiger-statistic-tiger-shadow;
+}
+
+.dot-tie {
+    @extend %dot;
+    background-color: $dragonTiger-choice-tie-color;
+    border-color: $dragonTiger-statistic-tie-border;
+    box-shadow: $dragonTiger-statistic-tie-shadow;
+}
+
+.dot-small {
+    @extend %dot;
+    background-color: $bigSmall-choice-small-color;
+    border-color: $bigSmall-statistic-small-border;
+}
+
+.dot-big {
+    @extend %dot;
+    background-color: $bigSmall-choice-big-color;
+    border-color: $bigSmall-statistic-big-border;
+}
+
+

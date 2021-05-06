@@ -2,8 +2,8 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 
 import BetHistoryContainer from "../../../shared/bet-history";
-import SeDieDot from "../dot";
-import { checkIsEven, countRedDot } from "../se-die-helper";
+import { RoundDot } from "../../../shared/round-history/dot";
+import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
 import { BetLogs } from "./bet-history";
 
 const renderResult = (bet: BetLogs) => {
@@ -11,7 +11,7 @@ const renderResult = (bet: BetLogs) => {
         const countRed = countRedDot(bet.result);
         return (
             <div className="d-flex justify-content-center">
-                <SeDieDot red={checkIsEven(countRed)} value={countRed} />
+                <RoundDot choice={checkIsEven(countRed) ? Choices.even : Choices.odd} value={countRed} />
             </div>
         );
     }

@@ -2,7 +2,8 @@ import React from "react";
 import { Round } from "../../../../types";
 import { Result, SettlementResult, ObjectResult } from "../dragon-tiger";
 import { convertRank } from "../../../shared/card";
-import DragonTigerDot from "../dot";
+import { Choices } from "../dragon-tiger-helper";
+import { RoundDot } from "../../../shared/round-history/dot";
 import Styles from "./mini-round-history.module.scss";
 
 const suffix = ["card-heart", "card-diamond", "card-club", "card-spade"];
@@ -38,5 +39,10 @@ export const RenderDragonTigerDot = (
     index: number,
     numberOfItems: number
 ) => {
-    return <DragonTigerDot choice={round.settlementResult} highlight={!isLockingBet() && index === numberOfItems - 1} />;
+    return (
+        <RoundDot
+            choice={round.settlementResult.tie ? Choices.tie : round.settlementResult.tiger ? Choices.tiger : Choices.dragon}
+            highlight={!isLockingBet() && index === numberOfItems - 1}
+        />
+    );
 };

@@ -9,7 +9,7 @@ import { Tooltip } from "reactstrap";
 import ContainerToolTip from "../../tool-tip";
 import { PropsDot, Props } from "./types";
 
-const RoundDot = <R, S>({ children, renderRoundDetail, targetName }: PropsDot<R, S>) => {
+const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName }: PropsDot<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
     const toggle = () => setIsOpenTooltip(!isOpenTooltip);
 
@@ -39,13 +39,13 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     return (
         <>
             {rounds.map((round: Round<R, S>, index: number) => (
-                <RoundDot
+                <RoundDotWrapper
                     key={round.roundId}
                     renderRoundDetail={renderRoundDetail(round, t)}
                     targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
                 >
                     {renderGameDot(round, isLockingBet, index, numberOfItems)}
-                </RoundDot>
+                </RoundDotWrapper>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}
         </>

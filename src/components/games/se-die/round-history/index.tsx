@@ -1,7 +1,7 @@
 import React from "react";
 import { Round } from "../../../../types";
-import SeDieDot from "../dot";
-import { checkIsEven, countRedDot } from "../se-die-helper";
+import { RoundDot } from "../../../shared/round-history/dot";
+import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
 import { Result, SettlementResult } from "../sedie";
 import Styles from "./mini-round-history.module.scss";
 
@@ -34,5 +34,10 @@ export const RenderSeDieDot = (
     index: number,
     numberOfItems: number
 ) => {
-    return <SeDieDot red={checkIsEven(countRedDot(round.result))} highlight={!isLockingBet() && index === numberOfItems - 1} />;
+    return (
+        <RoundDot
+            choice={checkIsEven(countRedDot(round.result)) ? Choices.even : Choices.odd}
+            highlight={!isLockingBet() && index === numberOfItems - 1}
+        />
+    );
 };
