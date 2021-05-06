@@ -1,6 +1,7 @@
 @import "../abstracts/variables";
 
 %btn {
+    position: relative;
     height: 4.4rem;
     padding: 1.2rem 2rem;
     border-radius: 0.5rem;
@@ -16,6 +17,22 @@
 
     &:hover:enabled {
         cursor: pointer;
+
+        &:before {
+            width: 100%;
+        }
+    }
+
+    &:before {
+        content: "";
+        z-index: -1;
+        position: absolute;
+        height: 100%;
+        left: 0;
+        top: 0;
+        width: 0;
+        transition: all 0.3s;
+        border-radius: 0.5rem;
     }
 }
 
@@ -35,7 +52,9 @@
     color: $btn-orange-color;
 
     &:hover:enabled {
-        background-color: $btn-orange-background-hover;
+        &:before {
+            background-color: $btn-orange-background-hover;
+        }
     }
 }
 
