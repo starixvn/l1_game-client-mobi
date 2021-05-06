@@ -4,7 +4,7 @@ type Props = {
     choice?: string;
     row?: number;
     col?: number;
-    value?: number;
+    value?: number | string | object;
     highlight?: boolean;
 };
 

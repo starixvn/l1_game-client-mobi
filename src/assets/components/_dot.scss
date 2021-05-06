@@ -6,11 +6,12 @@
     height: 1.5rem;
     margin: 0 0.1rem;
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
     pointer-events: none;
     border-width: 0.1rem;
     border-style: solid;
+    color: #fff;
 
     @media print, screen and (min-width: 1200px) {
         width: 1.6rem;
