@@ -536,13 +536,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     showAcceptedBetAnimation() {}
 
-    render() {
+    renderGame() {
         const { durations } = this.props;
         const {
             remainingTime,
             roundId,
             gameState,
-            signedIn,
             totalBets,
             ownBets,
             gameConfigs,
@@ -577,8 +576,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             finishProcessingBet: this.finishProcessingBet,
             updateCompactMode: this.updateCompactMode,
         };
-
-        return signedIn ? (
+        return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameContainer>
@@ -619,9 +617,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     </GameContainer>
                 </GameActionsContextProvider>
             </GameContextProvider>
-        ) : (
-            <GameLoading />
         );
+    }
+
+    render() {
+        return this.state.signedIn ? this.renderGame() : <GameLoading />;
     }
 }
 
