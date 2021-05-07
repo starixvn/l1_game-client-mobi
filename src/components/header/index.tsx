@@ -25,11 +25,11 @@ const Header: React.FC<Props> = (props) => {
 
     return (
         <header className={Styles.header}>
-            <div className="game-container d-flex">
+            <div className="header-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
                         <div className={Styles["user-info"]}>
-                            <div className="user-name">
+                            <div className={Styles["user-name"]}>
                                 <span className={`icon-user ${Styles["icon-user"]}`}></span>
                                 <span>{props.name}</span>
                             </div>

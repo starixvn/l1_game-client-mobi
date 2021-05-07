@@ -24,6 +24,11 @@ body {
 }
 
 .game-container {
+    top: 6.1rem;
+}
+
+.header-container,
+.game-container {
     position: relative;
     width: 100%;
     margin: 0 auto;
@@ -84,6 +89,7 @@ label {
         background: rgba(255, 172, 43, 0.6) !important;
         color: #2c2f3e !important;
     }
+
     .arrow::before {
         border-top-color: rgba(255, 172, 43, 0.6) !important;
     }
