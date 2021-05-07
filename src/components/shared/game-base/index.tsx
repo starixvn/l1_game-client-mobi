@@ -1,4 +1,5 @@
 import React from "react";
+import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 
@@ -26,7 +27,6 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { Spinner } from "reactstrap";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
@@ -34,7 +34,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
-    private isUM = false;
+    private isUMInFirstLoad: boolean = false;
     private showWaitingTimeout: NodeJS.Timeout;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
@@ -236,13 +236,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUM({ um, um_message, remainingTime }) {
         const { durations } = this.props;
+        if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
+            this.isUMInFirstLoad = true;
+        } else {
+            this.isUMInFirstLoad = false;
+        }
 
-        if (
-            um &&
-            ((this.timeCounter && this.timeCounter <= durations.placingBets + durations.beforeStartRound) ||
-                remainingTime === durations.wholeRound)
-        ) {
-            this.isUM = true;
+        if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
             this.interval && clearInterval(this.interval);
             this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
             this.setState({ gameState: GameState.Disabled, disabledMessage: um_message, showWaitingTime: false });
@@ -252,7 +252,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
 
-        if (gameState === GameState.None || this.isUM) {
+        if (gameState == GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
         }
     }
