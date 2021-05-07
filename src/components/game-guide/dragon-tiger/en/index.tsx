@@ -84,7 +84,7 @@ const DragonTigerGuideEN: React.FC<GameGuide> = (props) => {
                                             <td>Tie</td>
                                             <td>1:{odds.tie}</td>
                                             <td>
-                                                {minbet} - {numberWithCommas(choices_maxbet.dragon)}
+                                                {minbet} - {numberWithCommas(choices_maxbet.tie)}
                                             </td>
                                         </tr>
                                     </tbody>

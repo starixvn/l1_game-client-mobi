@@ -58,10 +58,12 @@ const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
                                 <strong>Ví dụ:</strong>
                                 <ul className="detail">
                                     <li>
-                                        Cược 10 vào “Cá” và có một biểu tượng Cá trong kết quả. Tiền thắng <strong>20</strong>
+                                        Cược 10 vào “Cá” và có một biểu tượng Cá trong kết quả. Tiền thắng{" "}
+                                        <strong>{10 * odds.single}</strong>
                                     </li>
                                     <li>
-                                        Cược 10 vào “Cua” và có hai biểu tượng Cua trong kết quả. Tiền thắng <strong>35</strong>
+                                        Cược 10 vào “Cua” và có hai biểu tượng Cua trong kết quả. Tiền thắng{" "}
+                                        <strong>{10 * odds.double}</strong>
                                     </li>
                                 </ul>
                             </div>

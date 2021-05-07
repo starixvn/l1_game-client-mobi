@@ -44,7 +44,7 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                                             <td>Điểm số cửa Rồng lớn hơn cửa Hổ.</td>
                                         </tr>
                                         <tr>
-                                            <td>Hoà</td>
+                                            <td>Hòa</td>
                                             <td>Điểm số cửa Rồng bằng cửa Hổ.</td>
                                             <td>Điểm số cửa Rồng khác cửa Hổ.</td>
                                         </tr>
@@ -106,9 +106,9 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                                             <td>Hổ</td>
                                         </tr>
                                         <tr>
-                                            <td>Hoà</td>
+                                            <td>Hòa</td>
                                             <td>
-                                                {minbet} - {numberWithCommas(choices_maxbet.dragon)}
+                                                {minbet} - {numberWithCommas(choices_maxbet.tie)}
                                             </td>
                                             <td>1:{odds.tie}</td>
                                         </tr>

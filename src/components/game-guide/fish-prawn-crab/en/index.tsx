@@ -54,10 +54,12 @@ const FishPrawnCrabGuideEN: React.FC<GameGuide> = (props) => {
                                 <strong>Example:</strong>
                                 <ul className="detail">
                                     <li>
-                                        Betting 10 on “Fish” and having one Fish symbol turns up, then you will be paid <strong>20</strong>
+                                        Betting 10 on “Fish” and having one Fish symbol turns up, then you will be paid{" "}
+                                        <strong>{10 * odds.single}</strong>
                                     </li>
                                     <li>
-                                        Betting 10 on “Crab” and having two Crab symbols turn up, then you will be paid <strong>35</strong>
+                                        Betting 10 on “Crab” and having two Crab symbols turn up, then you will be paid{" "}
+                                        <strong>{10 * odds.double}</strong>
                                     </li>
                                 </ul>
                             </div>
