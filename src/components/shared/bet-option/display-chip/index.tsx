@@ -10,7 +10,14 @@ const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number 
         position: "absolute" as "absolute",
     });
 
-    return <Chip key={`chip-${chipValue}-${chipKey}`} value={chipValue} customStyle={displayChipStyles.current} />;
+    return (
+        <Chip
+            key={`chip-${chipValue}-${chipKey}`}
+            value={chipValue}
+            customStyle={displayChipStyles.current}
+            additionalClass={"dropAnimation"}
+        />
+    );
 };
 
 export default DisplayChip;

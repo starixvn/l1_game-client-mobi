@@ -8,20 +8,26 @@ type Props = {
     selected?: boolean;
     onSelected?: (value: number) => void;
     customStyle?: React.CSSProperties;
+    additionalClass?: string;
 };
 
 const getChipDisplayByValue = (value: number) => {
     return Object.keys(ChipLabelMapper).find((key) => ChipLabelMapper[key] === value);
 };
 
-const Chip: React.FC<Props> = ({ value, onSelected, selected = false, customStyle }) => {
+const Chip: React.FC<Props> = ({ value, onSelected, selected = false, customStyle, additionalClass }) => {
     const handleClick = () => {
         onSelected && onSelected(value);
     };
 
     return (
         <div
-            className={`${Styles.chip} ${Styles[ChipMapper[value]]} ${selected ? Styles.selected : ""} ${onSelected && Styles["btn-chip"]}`}
+            className={`
+                ${Styles.chip} ${Styles[ChipMapper[value]]} 
+                ${selected ? Styles.selected : ""} 
+                ${onSelected && Styles["btn-chip"]} 
+                ${additionalClass ? Styles[additionalClass] : ""}
+                `}
             onClick={handleClick}
             style={customStyle}
         >
