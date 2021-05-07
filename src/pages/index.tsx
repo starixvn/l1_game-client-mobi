@@ -1,7 +1,7 @@
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { withOrientationChange } from "react-device-detect";
+import { isMobileOnly, withOrientationChange } from "react-device-detect";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 
@@ -93,7 +93,7 @@ function Home({ isLandscape }) {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
-                {isLandscape ? <LandscapeMode /> : <Dashboard balance={balance} updateBalance={setBalance} />}
+                {isLandscape && isMobileOnly ? <LandscapeMode /> : <Dashboard balance={balance} updateBalance={setBalance} />}
             </AuthContextProvider>
         );
     }
