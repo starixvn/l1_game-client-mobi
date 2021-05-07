@@ -32,6 +32,7 @@ import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     private readonly animationTime = 3000;
+    private readonly winningAnimationTime = 4000;
     private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
     private isUMInFirstLoad: boolean = false;
@@ -152,7 +153,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 this.setState({ showWinningBet: true });
                 setTimeout(() => {
                     this.setState({ showWinningBet: false });
-                }, this.animationTime);
+                }, this.winningAnimationTime);
             }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
 
             this.updateUserBalance();
