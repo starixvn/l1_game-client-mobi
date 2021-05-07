@@ -10,7 +10,13 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
         // Flushing is not required in this case as it only happens on the client
     }
 
-    return <NextErrorComponent statusCode={statusCode} />;
+    return (
+        <div>
+            <div className="error-page">
+                <img src="/static/images/error.svg" alt="error" className="img-fluid" />
+            </div>
+        </div>
+    );
 };
 
 export default Error;
