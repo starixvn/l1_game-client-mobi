@@ -2,6 +2,21 @@
     cursor: auto;
     height: 100%;
 
+    .icon-close {
+        display: flex;
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        background: #EAEBF0;
+    
+        &:before {
+            font-size: 1.2rem;
+            color: #4F4F54;
+        }
+    }
+
     .popup-header {
         display: flex;
         flex-direction: column;

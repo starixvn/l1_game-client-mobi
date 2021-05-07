@@ -15,8 +15,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3.2rem;
-    width: 3.2rem;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background: #EAEBF0;
+
+    &:before {
+        font-size: 1.2rem;
+        color: #4F4F54;
+    }
 
     &:hover {
         cursor: pointer;

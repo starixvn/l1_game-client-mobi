@@ -26,7 +26,7 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
         <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
             <div className={Styles.modal} ref={ref}>
                 <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
-                    <span className="icon-close"></span>
+                    <span className={`icon-close ${Styles["icon-close"]}`}></span>
                 </div>
 
                 <div className={Styles["popup-header"]}>
