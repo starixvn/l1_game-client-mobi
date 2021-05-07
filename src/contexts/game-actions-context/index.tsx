@@ -10,6 +10,7 @@ type GameActionsContextType = {
     openPlaceBetModal: Function;
     finishProcessingBet: Function;
     updateCompactMode: () => void;
+    playAcceptedBetAnimation: (amount: number) => void;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

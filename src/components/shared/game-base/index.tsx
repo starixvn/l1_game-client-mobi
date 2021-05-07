@@ -76,6 +76,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
         this.updateCompactMode = this.updateCompactMode.bind(this);
         this.finishProcessingBet = this.finishProcessingBet.bind(this);
+        this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
     }
 
     componentDidMount() {
@@ -163,30 +164,37 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleEndBet = ({ endBet, betChoice, notice }) => {
         const { id } = this.props;
-        const { displayPopup, acceptedBetQueue, roundId } = this.state;
+        const { displayPopup, roundId } = this.state;
 
         if (endBet === -1) {
             displayPopup !== PopupType.Rebet &&
                 this.setState({ errorMessage: notice, displayPopup: PopupType.Error, isProcessingBet: false });
         } else {
-            const key = Date.now();
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
 
             this.placeBetSound.play();
-            acceptedBetQueue[key] = endBet;
 
             LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
                 [id]: { roundId: roundId, chips: newDisplayChips },
             });
 
-            this.setState({ acceptedBetQueue, displayChips: newDisplayChips, isProcessingBet: false });
-            setTimeout(() => {
-                this.removeAcceptedBetQueue(key);
-            }, this.animationTime);
+            displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
+            this.setState({ displayChips: newDisplayChips, isProcessingBet: false });
         }
 
         this.updateUserBalance();
     };
+
+    playAcceptedBetAnimation(amount: number) {
+        const { acceptedBetQueue } = this.state;
+        const key = Date.now();
+        acceptedBetQueue[key] = amount;
+
+        this.setState({ acceptedBetQueue });
+        setTimeout(() => {
+            this.removeAcceptedBetQueue(key);
+        }, this.animationTime);
+    }
 
     getDisplayChips = (betChoice: string, amount: number) => {
         const { displayChips } = this.state;
@@ -583,6 +591,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             openPlaceBetModal: this.openPlaceBetModal,
             finishProcessingBet: this.finishProcessingBet,
             updateCompactMode: this.updateCompactMode,
+            playAcceptedBetAnimation: this.playAcceptedBetAnimation,
         };
         return (
             <GameContextProvider value={gameContext}>
