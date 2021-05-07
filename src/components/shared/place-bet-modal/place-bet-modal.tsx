@@ -50,7 +50,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         >
             <div className={Styles["place-bet-container"]}>
                 <div className={`w-100 btn-green ${Styles["general-info"]}`}>
-                    <span className="font-weight-bold">{t(betChoice)}</span> @1:{odd}
+                    <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
                 </div>
 
                 <div className={Styles["stake"]}>
