@@ -54,7 +54,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                 </div>
 
                 <div className={Styles["stake"]}>
-                    <label>{t("common:stake")}:</label> <span className={Styles["highlight"]}>{betValue}</span>
+                    <label>{t("common:stake")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
                 </div>
                 <div className={Styles["payout"]}>
                     <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>

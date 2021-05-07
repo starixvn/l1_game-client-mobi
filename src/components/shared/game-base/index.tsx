@@ -33,7 +33,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
-    private isUM: boolean = false;
+    private isUM = false;
     private showWaitingTimeout: NodeJS.Timeout;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;

@@ -7,6 +7,7 @@ import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useTranslation } from "next-i18next";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
+import { numberWithCommas } from "../../../helpers/number-helper";
 
 const Rebet: React.FC<Props> = (props) => {
     const rebetStorageKey = localStorageKeys.rebet;
@@ -66,7 +67,7 @@ const Rebet: React.FC<Props> = (props) => {
                               <span className={Styles["choice"]}>{t(betChoice)}</span> {getOddsByChoice(betChoice)}
                           </div>
                           <div className="d-flex align-items-center">
-                              <div className={Styles["bet-amount"]}>{lastBetChoices[betChoice]}</div>
+                              <div className={Styles["bet-amount"]}>{numberWithCommas(lastBetChoices[betChoice])}</div>
                               {betTrack[betChoice] && (
                                   <div className={`icon-${getClassByBetState(betTrack[betChoice].state)} ${Styles["icon"]}`}></div>
                               )}
