@@ -11,25 +11,15 @@
 
 @font-face {
     font-family: "BinanceFlex";
-    src: url("/static/fonts/BinancePlex_Regular.woff2") format("woff2"), url("/static/fonts/BinancePlex_Regular.woff") format("woff"),
-        url("/static/fonts/BinancePlex_Regular.ttf") format("truetype");
+    src: url("/static/fonts/BinancePlex-Regular.woff2") format("woff2"), url("/static/fonts/BinancePlex-Regular.ttf") format("truetype");
     font-weight: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "BinanceFlex";
-    src: url("/static/fonts/BinanceFlex_Medium.woff2") format("woff2"), url("/static/fonts/BinanceFlex_Medium.woff") format("woff"),
-        url("/static/fonts/BinanceFlex_Medium.ttf") format("truetype");
+    src: url("/static/fonts/BinancePlex-Medium.woff2") format("woff2"), url("/static/fonts/BinancePlex-Medium.ttf") format("truetype");
     font-weight: 500;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "BinanceFlex";
-    src: url("/static/fonts/BinancePlex_SemiBold.woff2") format("woff2"), url("/static/fonts/BinancePlex_SemiBold.woff") format("woff"),
-        url("/static/fonts/BinancePlex_SemiBold.ttf") format("truetype");
-    font-weight: bold;
     font-display: swap;
 }
 

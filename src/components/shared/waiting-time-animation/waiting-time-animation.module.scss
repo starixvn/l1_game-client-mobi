@@ -1,6 +1,7 @@
 @import "../../../assets/components/mini-notice";
 
-.mini-notice {
+.waiting-time {
+    @extend %notice;
     width: 11.2rem;
     left: calc(50% - 5.6rem);
     bottom: 2.4rem;

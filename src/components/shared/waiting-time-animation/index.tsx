@@ -16,7 +16,7 @@ const WaitingTimeAnimation: React.FC<{ remainingTime: number }> = (props) => {
     }, [remainingTime]);
 
     return (
-        <div className={`${Styles["mini-notice"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div className={`${Styles["waiting-time"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
             {remainingTime.toLocaleString("en-us", { minimumIntegerDigits: 2 })}
         </div>
     );

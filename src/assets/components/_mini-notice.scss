@@ -1,11 +1,8 @@
 @import "../abstracts/variables";
 
-.mini-notice {
+%notice {
     position: absolute;
     z-index: $result-animation-index + 1;
-    padding: 0.6rem 0;
-    min-height: 4rem;
-    width: 60%;
     text-align: center;
     font-size: 1.6rem;
     animation-name: show-mini-notice-animation;
@@ -13,6 +10,16 @@
     animation-duration: 0.2s;
     animation-fill-mode: forwards;
     animation-timing-function: linear;
+}
+
+.mini-notice {
+    @extend %notice;
+    width: 16rem;
+    height: 4.6rem;
+    line-height: 4.6rem;
+    padding: 0;
+    box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
+    border-radius: 4rem;
 }
 
 @keyframes show-mini-notice-animation {

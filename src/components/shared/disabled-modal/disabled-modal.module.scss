@@ -1,6 +1,7 @@
 @import "../../../assets/components/mini-notice";
 
-.mini-notice {
+.disabled-modal {
+    @extend %notice;
     display: flex;
     align-items: center;
     width: 100%;
