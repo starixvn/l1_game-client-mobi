@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { ChipLabelMapper, ChipValues } from "../../common/constants";
 
+import { ChipLabelMapper, ChipValues } from "../../common/constants";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
@@ -20,7 +20,6 @@ type Props = {
 const SlidingTimeInMillisecond = 250;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
-    const [isShowSettings, setShowSettings] = useState(true);
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
@@ -59,11 +58,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         if (sliderRef) {
             updateArrowsByChipValue(betValue);
         }
-    }, [isShowSettings]);
-
-    const HandleClickActiveBtn = () => {
-        setShowSettings(!isShowSettings);
-    };
+    }, []);
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
@@ -136,72 +131,45 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     return (
         <div className={Styles["bet-settings"]}>
-            {!isShowSettings && (
-                <div
-                    className={`${Styles["betting-setting-collapsed"]} ${enabledQuickBet && Styles["quick-bet"]}`}
-                    onClick={HandleClickActiveBtn}
-                >
-                    <span className={Styles["expand-icon"]}></span>
-                    <Chip value={betValue} />
-                    {enabledQuickBet && (
-                        <div className={Styles["quick-bet-mark-container"]}>
-                            <span className={`icon-quick-bet ${Styles["quick-bet-mark"]}`}></span>{" "}
-                        </div>
-                    )}
-                </div>
-            )}
+            <div className={Styles["settings-container"]}>
+                <div className={`game-container ${Styles["container"]}`}>
+                    <div className={Styles["toggle"]}>
+                        <input
+                            className={Styles["toggle-checkbox"]}
+                            id="toggle-quickbet"
+                            type={"checkbox"}
+                            value={"Quick Bet"}
+                            checked={enabledQuickBet}
+                            onChange={onClickQuickBet}
+                        />
+                        <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                            <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
+                        </label>
+                    </div>
 
-            {isShowSettings && (
-                <div className={Styles["settings-container"]}>
-                    <div className={`game-container ${Styles["container"]}`}>
-                        <div className={Styles["toggle"]}>
-                            <input
-                                className={Styles["toggle-checkbox"]}
-                                id="toggle-quickbet"
-                                type={"checkbox"}
-                                value={"Quick Bet"}
-                                checked={enabledQuickBet}
-                                onChange={onClickQuickBet}
-                            />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                                <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
-                            </label>
-                        </div>
-
-                        <div className={Styles["chips-container"]}>
-                            <span
-                                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
-                                onClick={onClickPrev}
-                            ></span>
-                            <Slider
-                                ref={(c) => {
-                                    sliderRef = c;
-                                }}
-                                {...SliderSetting}
-                            >
-                                {Object.keys(ChipLabelMapper).map((key) => (
-                                    <Chip
-                                        key={key}
-                                        value={ChipLabelMapper[key]}
-                                        onSelected={handleSelectChip}
-                                        selected={betValue === ChipLabelMapper[key]}
-                                    />
-                                ))}
-                            </Slider>
-                            <span
-                                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`}
-                                onClick={onClickNext}
-                            ></span>
-                        </div>
-
-                        <div className={Styles["collapse-settings"]} onClick={HandleClickActiveBtn}>
-                            <span className={`${Styles["collapse-icon"]}`}></span>
-                        </div>
+                    <div className={Styles["chips-container"]}>
+                        <span className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`} onClick={onClickPrev}></span>
+                        <Slider
+                            ref={(c) => {
+                                sliderRef = c;
+                            }}
+                            {...SliderSetting}
+                        >
+                            {Object.keys(ChipLabelMapper).map((key) => (
+                                <Chip
+                                    key={key}
+                                    value={ChipLabelMapper[key]}
+                                    onSelected={handleSelectChip}
+                                    selected={betValue === ChipLabelMapper[key]}
+                                />
+                            ))}
+                        </Slider>
+                        <span className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`} onClick={onClickNext}></span>
                     </div>
                 </div>
-            )}
+            </div>
 
-            {isShowSettings && isShowModalConfirm && enabledQuickBet === false && (
+            {isShowModalConfirm && enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={Styles["bg-opacity"]}></div>
                     <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
