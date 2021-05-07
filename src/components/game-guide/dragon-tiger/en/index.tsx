@@ -30,46 +30,6 @@ const DragonTigerGuideEN: React.FC<GameGuide> = (props) => {
                         </li>
                         <li>
                             Card’s point values:
-                            <div className="table-container">
-                                <table className="table text-center">
-                                    <thead>
-                                        <tr>
-                                            <th>Card</th>
-                                            <th>A</th>
-                                            <th>2</th>
-                                            <th>3</th>
-                                            <th>4</th>
-                                            <th>5</th>
-                                            <th>6</th>
-                                            <th>7</th>
-                                            <th>8</th>
-                                            <th>9</th>
-                                            <th>10</th>
-                                            <th>J</th>
-                                            <th>Q</th>
-                                            <th>K</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Point</td>
-                                            <td>1</td>
-                                            <td>2</td>
-                                            <td>3</td>
-                                            <td>4</td>
-                                            <td>5</td>
-                                            <td>6</td>
-                                            <td>7</td>
-                                            <td>8</td>
-                                            <td>9</td>
-                                            <td>10</td>
-                                            <td>11</td>
-                                            <td>12</td>
-                                            <td>13</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                             <ul className="detail">
                                 <li>
                                     The ranking of cards from the lowest to the highest is as follows: Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10,
