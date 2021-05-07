@@ -50,6 +50,10 @@
         @media (min-width: 1024px) and (max-width: 1278px) {
             font-size: 1.6rem;
         }
+
+        @media (max-width: 575.99px) { 
+            font-size: 1.6rem;
+        }
     }
 
     .round {
