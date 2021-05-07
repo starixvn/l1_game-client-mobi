@@ -6,7 +6,7 @@ const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number 
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         ZIndex: chipKey,
-        transform: "scale(0.6)",
+        transform: "scale(0.56)",
         position: "absolute" as "absolute",
     });
 

@@ -252,7 +252,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
 
-        if (gameState == GameState.None || !this.isUMInFirstLoad) {
+        if (gameState === GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
         }
     }
