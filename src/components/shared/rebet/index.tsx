@@ -34,11 +34,11 @@ const Rebet: React.FC<Props> = (props) => {
                     betTrack[betChoice] = {
                         state: endBet > 0 ? BetState.Success : BetState.Error,
                         message: notice,
-                        amount: endBet > 0 ? endBet : 0,
+                        validAmount: endBet > 0 ? endBet : 0,
                     };
 
                     if (checkBetFinish(betTrack)) {
-                        const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.amount, 0);
+                        const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
 
                         updateIsWaiting(false);
                         gameActionContext.finishProcessingBet();

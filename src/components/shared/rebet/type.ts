@@ -6,7 +6,7 @@ export interface Props {
 export interface BetTrackModel {
     message?: string;
     state: BetState;
-    amount: number;
+    validAmount?: number;
 }
 
 export enum BetState {
