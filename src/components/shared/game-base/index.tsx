@@ -26,6 +26,7 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
+import { Spinner } from "reactstrap";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
@@ -626,11 +627,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                             ))}
                         </BetContainer>
-                        <div className={`${Styles["mini-round-history"]} d-flex`}>{this.renderRoundHistory()}</div>
+                        <div className={`${Styles["mini-round-history"]} d-flex`}>
+                            {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
+                        </div>
                         {!isCompactMode && (
                             <>
-                                <div className={`${Styles["statistic"]} d-flex`}>{this.renderStatistic()}</div>
-                                <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+                                <div className={`${Styles["statistic"]} d-flex`}>
+                                    {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                                </div>
+                                <ScoreboardRoundHistory>
+                                    {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
+                                </ScoreboardRoundHistory>
                             </>
                         )}
                         {this.renderPopup(displayPopup)}

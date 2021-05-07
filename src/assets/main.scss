@@ -24,19 +24,19 @@ body {
 }
 
 .game-container {
-    top: 6.1rem;
-}
-
-.header-container,
-.game-container {
     position: relative;
     width: 100%;
     margin: 0 auto;
+
+    &.game-wrapper {
+        margin-top: 6.1rem;
+    }
 
     @media (min-width: 1280px) {
         width: 123.2rem;
     }
 }
+
 
 .overlay-mask-no-bg {
     position: absolute;

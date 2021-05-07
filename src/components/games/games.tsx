@@ -69,7 +69,7 @@ export const Games: React.FC = () => {
     };
 
     return (
-        <div className="game-container">
+        <div className="game-container game-wrapper">
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />

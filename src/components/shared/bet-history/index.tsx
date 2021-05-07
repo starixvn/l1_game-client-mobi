@@ -246,7 +246,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     infiniteLoadBeginEdgeOffset={5}
                     isInfiniteLoading={isInfiniteLoading}
                     onInfiniteLoad={onInfiniteLoad}
-                    getLoadingSpinner={() => <Spinner color="primary" />}
+                    getLoadingSpinner={() => <Spinner color="secondary" />}
                 />
             ) : (
                 t("noBetHistory")
