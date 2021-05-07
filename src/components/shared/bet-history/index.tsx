@@ -95,7 +95,7 @@ const checkCondition = (
         case OrderRenderCell.roundTime:
             return (
                 <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                    <div className="time">{time && <Moment format="hh:mm">{time}</Moment>}</div>
+                    <div className="time">{time && <Moment format="HH:mm">{time}</Moment>}</div>
                     <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
                 </td>
             );
