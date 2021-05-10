@@ -11,26 +11,26 @@ $time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animatio
 $time-result-highlight-animation: 0.2s;
 
 .animation-container {
-    --animation-scale: scale(0.6, 0.6);
+    --animation-scale: scale(0.52, 0.52);
     position: absolute;
     left: 0;
-    top: 4.5rem;
+    top: 3.3rem;
     width: 100%;
     display: flex;
     justify-content: center;
     transform: var(--animation-scale);
 
     &.compact-mode {
-        --animation-scale: scale(0.5, 0.5);
-        top: 0;
+        --animation-scale: scale(0.4, 0.4);
+        top: -1.2rem;
     }
 }
 
 .card-back {
     background: url("/static/images/card-back.png") no-repeat center;
-    background-size: 93px 117px;
-    height: 117px;
-    width: 93px;
+    background-size: 114px 143px;
+    width: 114px;
+    height: 143px;
 }
 
 .draw-cards.has-animation {
@@ -75,23 +75,19 @@ $time-result-highlight-animation: 0.2s;
 }
 
 .open-cards {
-    .card-shadow {
-        position: absolute;
-        left: 1.3rem;
-        right: 1.4rem;
-        top: 1.8rem;
-        bottom: 1.8rem;
-        border-radius: 1.6rem;
-        box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.25);
-    }
-
     .animation-container {
         --animation-scale: scale(1);
+        top: 8.5rem;
         transition: transform 0.7s;
         transform: var(--animation-scale);
 
         &.compact-mode {
-            --animation-scale: scale(0.9, 0.9);
+            --animation-scale: scale(0.6, 0.6);
+            top: 0;
+
+            .result-highlight {
+                top: -3.5rem;
+            }
         }
     }
 
@@ -106,17 +102,29 @@ $time-result-highlight-animation: 0.2s;
 
     .result-highlight {
         position: absolute;
-        bottom: 0.8rem;
+        top: -4.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 19rem;
+        width: 13rem;
         height: 4rem;
-        background: linear-gradient(90deg, rgba(156, 255, 121, 0) 0%, #13a248 50%, rgba(156, 255, 121, 0) 100%);
+        border-radius: 40px;
         font-size: 1.6rem;
         font-weight: 500;
         color: #fff;
         z-index: 2;
+
+        &.tie {
+            background-color: #235f6a;
+        }
+
+        &.dragon {
+            background-color: #ff9a00;
+        }
+
+        &.tiger {
+            background-color: #de4b56;
+        }
     }
 
     &.has-animation {
