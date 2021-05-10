@@ -8,20 +8,21 @@ import { MiniItemNext } from "../dot-next";
 import { Tooltip } from "reactstrap";
 import ContainerToolTip from "../../tool-tip";
 import { PropsDot, Props } from "./types";
+import Styles from "./styles.module.scss";
 
 const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName }: PropsDot<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
     const toggle = () => setIsOpenTooltip(!isOpenTooltip);
 
     return (
-        <>
+        <div className={Styles["dot-wrapper"]}>
             <div id={targetName}>{children}</div>
             <ContainerToolTip isOpen={isOpenTooltip} onClose={toggle}>
                 <Tooltip trigger="click" placement="top" isOpen={isOpenTooltip} target={targetName} toggle={toggle}>
                     {renderRoundDetail}
                 </Tooltip>
             </ContainerToolTip>
-        </>
+        </div>
     );
 };
 
@@ -37,7 +38,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
     return (
-        <>
+        <div className={Styles["round-dot-wrapper"]}>
             {rounds.map((round: Round<R, S>, index: number) => (
                 <RoundDotWrapper
                     key={round.roundId}
@@ -48,7 +49,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
                 </RoundDotWrapper>
             ))}
             {isLockingBet() && <MiniItemNext></MiniItemNext>}
-        </>
+        </div>
     );
 };
 
