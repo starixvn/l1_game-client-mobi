@@ -13,9 +13,8 @@ const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        {gameName} hay còn gọi là bầu cua tôm cá, là trò chơi dân gian rất phổ biến ở Châu Á, được Saba.club triển khai cho
-                        tất cả thị trường trên thế giới. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh
-                        vật) ứng với một cửa trên bàn chơi.
+                        {gameName} hay còn gọi là bầu cua tôm cá, là trò chơi dân gian rất phổ biến ở Châu Á. Trò chơi sử dụng 3 viên xúc
+                        xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh vật) ứng với một cửa trên bàn chơi.
                     </p>
                     <div className="icon-wrapper">
                         <div className="symbol-size icon-bau"></div>

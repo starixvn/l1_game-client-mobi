@@ -12,8 +12,8 @@ const BigSmallGuideVI: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        {gameName} là trò chơi đổ xúc xắc đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế giới. Trò chơi
-                        sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt và người chơi sẽ dự đoán xem kết quả là Tài hay Xỉu.
+                        {gameName} là trò chơi đổ xúc xắc đơn giản. Trò chơi sử dụng 3 viên xúc xắc (xí ngầu) 6 mặt và người chơi sẽ dự đoán
+                        xem kết quả là Tài hay Xỉu.
                     </p>
                 </li>
                 <li className="guide-item">

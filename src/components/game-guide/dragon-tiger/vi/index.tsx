@@ -12,9 +12,9 @@ const DragonTigerGuideVI: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        {gameName} hấp dẫn người chơi với lối chơi khá đơn giản, được Saba.club triển khai cho tất cả thị trường trên thế
-                        giới. Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker) và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng,
-                        cửa Hổ và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào lựa chọn mà bạn mong muốn.
+                        {gameName} hấp dẫn người chơi với lối chơi khá đơn giản. Trò chơi sử dụng bộ bài tây 52 lá (không bao gồm lá Joker)
+                        và sẽ có 3 lựa chọn (cửa) trên bàn chơi: cửa Rồng, cửa Hổ và cửa Hòa. Người chơi sẽ dự đoán kết quả và đặt cược vào
+                        lựa chọn mà bạn mong muốn.
                     </p>
                 </li>
                 <li className="guide-item">
