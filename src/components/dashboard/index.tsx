@@ -58,6 +58,12 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             this.setState({ isFistLogin: true });
         }
+
+        window.addEventListener("load", function () {
+            setTimeout(function () {
+                window.scrollTo(0, 1);
+            }, 0);
+        });
     }
 
     componentWillUnmount() {
