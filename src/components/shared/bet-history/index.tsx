@@ -177,7 +177,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 cellRenderer: cellRenderer,
                 headerRenderer: headerRenderer,
                 width: 50,
-                name: "anhle",
             });
         }
         return _columns;
@@ -207,22 +206,23 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     useEffect(() => {
         setIsInfiniteLoading(false);
-        axios
-            .get(historyAPI, {
-                params: {
-                    session: session.ss,
-                    page: page,
-                    pageSize: 16,
-                    username: session.username,
-                },
-            })
-            .then((res) => {
-                const bets = res.data.history;
-                setBetHistory(bets);
-                if (page === 1) {
-                    setTotalPage(Math.ceil(bets.total / 16));
-                }
-            });
+        session &&
+            axios
+                .get(historyAPI, {
+                    params: {
+                        session: session.ss,
+                        page: page,
+                        pageSize: 16,
+                        username: session.username,
+                    },
+                })
+                .then((res) => {
+                    const bets = res.data.history;
+                    setBetHistory(bets);
+                    if (page === 1) {
+                        setTotalPage(Math.ceil(bets.total / 16));
+                    }
+                });
     }, [page]);
 
     useEffect(() => {
