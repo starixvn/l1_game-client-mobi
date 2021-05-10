@@ -4,6 +4,8 @@ import Skeleton from "react-loading-skeleton";
 import Styles from "./styles.module.scss";
 
 const GameLoading = () => {
+    const classBorder = "border-radius";
+    const classScoreBoard = "score-board-line";
     return (
         <div className={Styles.container}>
             <div className={Styles.header}>
@@ -21,16 +23,16 @@ const GameLoading = () => {
                 <Skeleton height={273} />
             </div>
             <div className={Styles["mini-round-history"]}>
-                <Skeleton className={Styles["border-radius"]} height={19} />
+                <Skeleton className={Styles[classBorder]} height={19} />
             </div>
             <div className={Styles["statistic"]}>
-                <Skeleton className={Styles["border-radius"]} height={19} />
+                <Skeleton className={Styles[classBorder]} height={19} />
             </div>
             <div className={Styles.scoreboard}>
-                <Skeleton className={`${Styles["border-radius"]} ${Styles["score-board-line"]}`} height={19} />
-                <Skeleton className={`${Styles["border-radius"]} ${Styles["score-board-line"]}`} height={19} width={290} />
-                <Skeleton className={`${Styles["border-radius"]} ${Styles["score-board-line"]}`} height={19} width={190} />
-                <Skeleton className={`${Styles["border-radius"]} ${Styles["score-board-line"]}`} height={19} width={250} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={290} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={190} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={250} />
             </div>
         </div>
     );

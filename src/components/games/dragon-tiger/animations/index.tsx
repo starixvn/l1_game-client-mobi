@@ -39,7 +39,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     const generateResult = (result: ObjectResult[]) => {
         return result.map((result, index) => {
             return (
-                <div key={index} className={Styles["card" + (index + 1)]}>
+                <div key={index} className={Styles[`card${index + 1}`]}>
                     <div className={Styles["rotate-card"]}>
                         <Card result={result}></Card>
                     </div>
