@@ -2,6 +2,8 @@
 
 .accepted-bet {
     @extend %fade-out-up;
+    left: 0;
+    right: 0;
     animation-name: bet-animation;
     animation-duration: 1s;
     animation-delay: 0.1s;

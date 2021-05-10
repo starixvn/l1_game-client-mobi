@@ -2,15 +2,12 @@
 
 %fade-out-up {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 2rem;
+    bottom: calc(50% - 3rem);
     text-align: center;
     font-size: 3.2rem;
     font-weight: bold;
     font-family: $font-number;
     animation-name: fadeOutUp;
     animation-fill-mode: forwards;
-    animation-timing-function: ease-in-out;
     z-index: $result-animation-index + 1;
 }
