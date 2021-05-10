@@ -11,13 +11,13 @@ module.exports = {
                 path: "bigsmall",
             },
             durations: {
-                wholeRound: 61,
+                wholeRound: 62,
                 placingBets: 50,
                 lockingBet: 5,
                 showResult: 5,
                 resultAnimation: 2,
                 beforeStartRound: 0,
-                balancingBet: 3
+                balancingBet: 3,
             },
         },
         2: {
@@ -44,7 +44,7 @@ module.exports = {
                 path: "fishprawncrab",
             },
             durations: {
-                wholeRound: 40,
+                wholeRound: 41,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 5,
@@ -66,7 +66,7 @@ module.exports = {
                 showResult: 3,
                 resultAnimation: 1,
                 beforeStartRound: 0,
-                balancingBet: 3
+                balancingBet: 3,
             },
         },
         7: {

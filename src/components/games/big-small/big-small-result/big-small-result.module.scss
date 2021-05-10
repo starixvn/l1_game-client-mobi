@@ -120,3 +120,20 @@ $time-show-result-animation: 0.1s;
     width: 5.4rem;
     height: 5.4rem;
 }
+
+.total-dice{
+    display: flex;
+    width: 3.8rem;
+    height: 3.8rem;
+    background: linear-gradient(180deg, #535B72 0%, #727C97 100%);
+    border: 2px solid #FFB62A;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: #fff;
+    position: absolute;
+    border-radius: 50%;
+    left: calc(50% + 4rem);
+    top: calc(50% - 8rem);
+    justify-content: center;
+    align-items: center;
+}

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
+import { locales } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
-const locales = { en: "en", vi: "vi" };
 export default function SplashScreen() {
     const router = useRouter();
     const { locale } = router;
