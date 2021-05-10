@@ -5,10 +5,10 @@
     left: calc(50% + 3rem);
     animation-name: winning-animation;
     animation-timing-function: ease-in-out;
-    animation-duration: 0.5s;
+    animation-duration: 1s;
     color: #ff9a00;
-    -webkit-text-stroke: 0.1rem #db4848;
-    text-shadow: 0 0.2rem 0.3rem rgba(192, 127, 0, 0.4);
+    -webkit-text-stroke: 0.1rem #b82c00;
+    text-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.4);
 }
 
 @keyframes winning-animation {
