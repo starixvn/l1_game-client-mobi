@@ -4,6 +4,7 @@ import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 
 import appSettings from "../../../common/app-settings";
+import { AudioCollection, playSound } from "../../../common/audio";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
@@ -33,7 +34,6 @@ const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageMa
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     private readonly animationTime = 3000;
     private readonly winningAnimationTime = 4000;
-    private readonly placeBetSound = new Audio("./static/sounds/place-bet.mp3");
     private betWin: number;
     private isUMInFirstLoad: boolean = false;
     private showWaitingTimeout: NodeJS.Timeout;
@@ -174,14 +174,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
 
-            this.placeBetSound.play();
-
             LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
                 [id]: { roundId: roundId, chips: newDisplayChips },
             });
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             this.setState({ displayChips: newDisplayChips, isProcessingBet: false });
+            playSound(AudioCollection.placeBet);
         }
 
         this.updateUserBalance();

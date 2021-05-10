@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import { AudioCollection, playSound } from "../../common/audio";
 
 import { ChipLabelMapper, ChipValues } from "../../common/constants";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -26,7 +27,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isSliding, setIsSliding] = useState(false);
     const [isSwipe, setIsSwipe] = useState(true);
     const { t } = useTranslation("common");
-    const chipClickSound = new Audio("./static/sounds/chip-click.mp3");
     const SliderSetting = {
         speed: SlidingTimeInMillisecond,
         infinite: false,
@@ -113,7 +113,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
-        chipClickSound.play();
+        playSound(AudioCollection.selectChip);
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
