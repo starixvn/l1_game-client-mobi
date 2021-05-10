@@ -34,21 +34,22 @@
     margin-right: 1rem;
     font-weight: 500;
 
-    .user-name{
+    .user-name {
         margin-right: 1rem;
     }
     .balance {
         min-width: 11rem;
         color: $main-color;
         text-align: right;
+        font-family: $font-number;
     }
 }
 
-.language{
+.language {
     float: right;
-    .dropdown-item{
+    .dropdown-item {
         padding: 0;
-        a{
+        a {
             color: #2c2f3e;
             text-decoration: none;
             display: block;
