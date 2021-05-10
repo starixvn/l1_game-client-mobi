@@ -188,11 +188,7 @@ $time-result-highlight-animation: 0.2s;
 
         .result-highlight {
             opacity: 0;
-            animation-name: show-result-highlight-animation;
-            animation-delay: $time-delay-result-highlight-animation;
-            animation-duration: $time-result-highlight-animation;
-            animation-fill-mode: forwards;
-            animation-timing-function: linear;
+            animation: focus-in-expand-fwd 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
         }
     }
 }
@@ -258,22 +254,19 @@ $time-result-highlight-animation: 0.2s;
     }
 }
 
-@keyframes show-result-highlight-animation {
+@keyframes focus-in-expand-fwd {
     0% {
+        letter-spacing: -0.5em;
+        transform: translateZ(-800px);
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
         opacity: 0;
     }
-    20% {
-        opacity: 0.2;
-    }
-
-    35% {
-        opacity: 0.4;
-    }
-
-    50% {
-        opacity: 0.6;
-    }
     100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-filter: blur(0);
+        filter: blur(0);
         opacity: 1;
     }
 }
