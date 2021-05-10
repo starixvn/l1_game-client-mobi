@@ -11,7 +11,7 @@ const CountdownTimer: React.FC = () => {
 
     const timerColors = {
         [GameState.LockingBet]: "#FF0000",
-        [GameState.InRound]: "#fff",
+        [GameState.InRound]: "#19A32F",
     };
 
     const timerProps = {
@@ -19,7 +19,7 @@ const CountdownTimer: React.FC = () => {
         size: 40,
         strokeWidth: 4,
         trailColor: "#fff",
-        trailStrokeWidth: 2,
+        trailStrokeWidth: 1,
         initialRemainingTime: ctx.remainingTime,
         duration: durations.placingBets,
     };
