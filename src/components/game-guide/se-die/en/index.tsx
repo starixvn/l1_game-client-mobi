@@ -1,10 +1,11 @@
 import React from "react";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/number-helper";
+import { SedDieNameMapping, SedDieName } from "../index";
 import Styles from "../../../shared/round-history/dot/dot.module.scss";
 
 const SeDieGuideEN: React.FC<GameGuide> = (props) => {
-    const { gameConfigs, userStakeLevel, gameName } = props;
+    const { gameConfigs, userStakeLevel, gameName, gameId } = props;
     const { odds, choices_maxbet, minbet, maxbet } = gameConfigs;
     const maxBetStake = userStakeLevel.maxBet;
     const maxBetMain = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.even));
@@ -18,9 +19,12 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Introduction</h2>
                     <p className="content">
-                        {gameName} is a popular game in Asian countries. The game is played with 4 colored buttons, each button has two
-                        sides colored in red and white. The objective of this game is to predict the outcome of 4 buttons. If the outcome
-                        matches the player’s bet, the player wins.
+                        {gameName}{" "}
+                        {SedDieNameMapping[gameId] === SedDieName.VipSeDie
+                            ? " is another version of the Se Die game with higher betting limits. "
+                            : "is a popular game in Asian countries. "}
+                        The game is played with 4 colored buttons, each button has two sides colored in red and white. The objective of this
+                        game is to predict the outcome of 4 buttons. If the outcome matches the player’s bet, the player wins.
                     </p>
                 </li>
                 <li className="guide-item">

@@ -110,6 +110,7 @@ export type GameGuide = {
     gameConfigs: GameConfigs;
     userStakeLevel: UserStakeLevel;
     gameName: string;
+    gameId?: number;
 };
 
 export interface BetLogsBase<Result, SettlementResult, Odd> {

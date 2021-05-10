@@ -1,10 +1,11 @@
 import React from "react";
 import { GameGuide } from "../../../shared/game-base/type";
 import { numberWithCommas } from "../../../../helpers/number-helper";
+import { SedDieNameMapping, SedDieName } from "../index";
 import Styles from "../../../shared/round-history/dot/dot.module.scss";
 
 const SeDieGuideVI: React.FC<GameGuide> = (props) => {
-    const { gameConfigs, userStakeLevel, gameName } = props;
+    const { gameConfigs, userStakeLevel, gameName, gameId } = props;
     const { odds, choices_maxbet, minbet, maxbet } = gameConfigs;
     const maxBetStake = userStakeLevel.maxBet;
     const maxBetMain = numberWithCommas(Math.min(maxBetStake, maxbet, choices_maxbet.even));
@@ -18,10 +19,13 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                 <li className="guide-item">
                     <h2>Giới thiệu</h2>
                     <p className="content">
-                        {gameName} là trò chơi có nguồn gốc dân gian từ lâu đời, được Saba.club triển khai cho tất cả thị trường trên thế
-                        giới. Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1 bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được
-                        thiết kế 2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc
-                        vào số mặt đỏ hoặc trắng được lật của đồng xu sau khi xóc.
+                        {gameName}{" "}
+                        {SedDieNameMapping[gameId] === SedDieName.VipSeDie
+                            ? "là phiên bản đặc biệt của trò Xóc Đĩa, với hạn mức cược được nâng cấp, mở rộng, "
+                            : "là trò chơi có nguồn gốc dân gian từ lâu đời, "}
+                        được Saba.club triển khai cho tất cả thị trường trên thế giới. Trò chơi có luật và cách chơi rất đơn giản, chỉ gồm 1
+                        bát úp, 1 đĩa và 4 đồng xu. Trong đó, 4 đồng xu được thiết kế 2 mặt đỏ và trắng. Người chơi sẽ đặt cược vào các lựa
+                        chọn (cửa) có sẵn. Kết quả thắng thua sẽ phụ thuộc vào số mặt đỏ hoặc trắng được lật của đồng xu sau khi xóc.
                     </p>
                 </li>
                 <li className="guide-item">
