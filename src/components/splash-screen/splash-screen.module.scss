@@ -11,13 +11,15 @@
 }
 
 .logo {
-    height: 11.9rem;
-    width: 22.9rem;
-    background: url("/static/images/logo.svg") no-repeat center;
-    background-size: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .slogan {
+        margin-top: 1rem;
+    }
 }
 
-.slogan {
+.message {
     position: absolute;
     bottom: 3.5rem;
     color: #ffab2c;

@@ -8,7 +8,7 @@ $time-zoom-in-card-animation: 0.15s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
 $time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animation + $time-open-card-animation;
-$time-result-highlight-animation: 0.2s;
+$time-result-highlight-animation: 0.8s;
 
 .animation-container {
     --animation-scale: scale(0.52, 0.52);
@@ -188,7 +188,12 @@ $time-result-highlight-animation: 0.2s;
 
         .result-highlight {
             opacity: 0;
-            animation: focus-in-expand-fwd 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation-name: show-result-highlight-animation;
+            animation-delay: $time-delay-result-highlight-animation;
+            animation-duration: $time-result-highlight-animation;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
         }
     }
 }
@@ -254,19 +259,32 @@ $time-result-highlight-animation: 0.2s;
     }
 }
 
-@keyframes focus-in-expand-fwd {
+@keyframes show-result-highlight-animation {
     0% {
-        letter-spacing: -0.5em;
-        transform: translateZ(-800px);
-        -webkit-filter: blur(12px);
-        filter: blur(12px);
-        opacity: 0;
+        opacity: 1;
+        transform: scale(1);
     }
+
+    20% {
+        transform: scale(1.05);
+    }
+
+    35% {
+        transform: scale(1);
+    }
+
+    50%,
+    70% {
+        transform: scale(1.1);
+    }
+
+    60%,
+    80% {
+        transform: scale(1);
+    }
+
     100% {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-filter: blur(0);
-        filter: blur(0);
+        transform: scale(1);
         opacity: 1;
     }
 }
