@@ -1,13 +1,10 @@
 import React from "react";
 
 import { numberWithCommas } from "../../../../helpers/number-helper";
-import FadeOutUp from "../fade-out-up";
 import Styles from "./styles.module.scss";
 
-const WinningBet: React.FC<{ amount: number }> = ({ amount }) => (
-    <FadeOutUp>
-        <span className={Styles["winning-bet"]}>{`+${numberWithCommas(amount)}`}</span>
-    </FadeOutUp>
-);
+const WinningBet: React.FC<{ amount: number }> = ({ amount }) => {
+    return <div className={Styles["winning-bet"]}>{`+${numberWithCommas(amount)}`}</div>;
+};
 
 export default WinningBet;

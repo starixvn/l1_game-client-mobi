@@ -1,5 +1,26 @@
+@import "../../../../assets/components/animations/fade-out-up";
+
 .accepted-bet {
+    @extend %fade-out-up;
+    animation-name: bet-animation;
+    animation-duration: 2s;
+    animation-delay: 0.2s;
     color: #727272;
     -webkit-text-stroke: 0.1rem #696868;
     text-shadow: 0 0.2rem 0.3rem rgba(24, 24, 24, 0.4);
+}
+
+@keyframes bet-animation {
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0.8;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(0, -8rem, 0);
+    }
 }

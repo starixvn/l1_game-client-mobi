@@ -1,0 +1,14 @@
+@import "../../abstracts/variables";
+
+%fade-out-up {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 2rem;
+    text-align: center;
+    font-size: 3.2rem;
+    font-family: $font-number;
+    animation-name: fadeOutUp;
+    animation-fill-mode: forwards;
+    z-index: $result-animation-index + 1;
+}
