@@ -38,7 +38,6 @@ body {
     }
 }
 
-
 .overlay-mask-no-bg {
     position: absolute;
     top: 0;
@@ -58,7 +57,8 @@ body {
 
 .overlay-mask-white {
     @extend .overlay-mask-no-bg;
-    background: rgba(255, 255, 255, 0.4);
+    background: #e5e5e5;
+    opacity: 0.9;
 }
 
 label {

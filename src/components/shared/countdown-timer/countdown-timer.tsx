@@ -30,7 +30,12 @@ const CountdownTimer: React.FC = () => {
             return (
                 <div className={styles.timer}>
                     <CountdownCircleTimer {...timerProps} colors={[[timerColors[ctx.gameState], 1]]}>
-                        {({ remainingTime }) => remainingTime.toLocaleString("en-US", { minimumIntegerDigits: 2 })}
+                        {({ remainingTime }) => {
+                            if (remainingTime === 0) {
+                                return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });
+                            }
+                            return remainingTime.toLocaleString("en-US", { minimumIntegerDigits: 2 });
+                        }}
                     </CountdownCircleTimer>
                 </div>
             );
