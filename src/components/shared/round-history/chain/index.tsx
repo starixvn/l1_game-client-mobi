@@ -1,14 +1,14 @@
+import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
+import { Tooltip } from "reactstrap";
+
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { useTranslation } from "next-i18next";
-import { isTablet } from "react-device-detect";
-import { MiniItemNext } from "../dot-next";
-import { Tooltip } from "reactstrap";
 import ContainerToolTip from "../../tool-tip";
-import { PropsDot, Props } from "./types";
+import { MiniItemNext } from "../dot-next";
 import Styles from "./styles.module.scss";
+import { Props, PropsDot } from "./types";
 
 const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName }: PropsDot<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
@@ -32,9 +32,6 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const isLockingBet = () => gameState === GameState.LockingBet;
     let numberOfItems = isLockingBet() ? 20 : 21;
-    if (isTablet) {
-        numberOfItems = numberOfItems - 2;
-    }
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
     return (
