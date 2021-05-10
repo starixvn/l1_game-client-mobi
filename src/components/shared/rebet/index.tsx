@@ -51,10 +51,6 @@ const Rebet: React.FC<Props> = (props) => {
         []
     );
 
-    const getOddsByChoice = (choice) => {
-        return odds[choice] && `@1:${odds[choice]}`;
-    };
-
     const checkBetFinish = (betTrack: { [key: string]: BetTrackModel }) =>
         !Object.values(betTrack).some((betTrackInfo) => betTrackInfo.state === BetState.Waiting);
 
@@ -69,7 +65,7 @@ const Rebet: React.FC<Props> = (props) => {
                       >
                           <div className={Styles["bet-choice"]}>
                               <span className={Styles["choice"]}>{t(betChoice)}</span>
-                              {getOddsByChoice(betChoice)}
+                              {`@1:${props.getOddsByChoice(betChoice)}`}
                           </div>
                           <div className="d-flex align-items-center">
                               <div className={Styles["bet-amount"]}>{numberWithCommas(lastBetChoices[betChoice])}</div>

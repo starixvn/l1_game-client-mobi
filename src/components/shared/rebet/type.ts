@@ -1,6 +1,7 @@
 export interface Props {
     gameId: number;
     onCloseModal: Function;
+    getOddsByChoice: Function;
 }
 
 export interface BetTrackModel {

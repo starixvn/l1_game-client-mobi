@@ -483,15 +483,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     renderReBet() {
         return (
             <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
-                <Rebet gameId={this.props.id} onCloseModal={() => this.closePopup()} />
+                <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={() => this.closePopup()} />
             </BaseDialog>
         );
     }
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId, gameConfigs } = this.state;
+        const { displayPopup, selectedBetChoice, roundId } = this.state;
         const { gameName } = this.props;
-        const { odds } = gameConfigs;
 
         return (
             <PlaceBetModal
@@ -502,7 +501,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     betChoice: selectedBetChoice,
                     gameName: gameName,
                     roundId: roundId,
-                    odd: odds[selectedBetChoice],
+                    odd: this.getOddsByChoice(selectedBetChoice),
                 }}
             />
         );
@@ -521,6 +520,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderGuide(): JSX.Element;
 
     abstract renderBetHistory(): React.ReactElement;
+
+    getOddsByChoice(choice: string) {
+        const { gameConfigs } = this.state;
+        const odds = gameConfigs.odds;
+
+        return odds[choice];
+    }
 
     renderStartRoundAnimation() {
         return null;

@@ -31,6 +31,8 @@ export enum ResultBet {
     prawn,
 }
 
+const DefaultOdds = "single";
+
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
@@ -38,26 +40,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         this.state = { ...this.defaultState };
     }
 
-    renderPlaceBet() {
-        const DefaultOdds = "single";
+    getOddsByChoice(choice: string) {
+        const { gameConfigs } = this.state;
+        const odds = gameConfigs.odds;
 
-        const { displayPopup, selectedBetChoice, roundId, gameConfigs } = this.state;
-        const { gameName } = this.props;
-        const { odds } = gameConfigs;
-
-        return (
-            <PlaceBetModal
-                isOpen={displayPopup === PopupType.PlaceBet}
-                onCloseModal={() => this.closePopup()}
-                onPlaceBet={this.placeBet}
-                betChoiceInfo={{
-                    betChoice: selectedBetChoice,
-                    gameName: gameName,
-                    roundId: roundId,
-                    odd: odds[DefaultOdds],
-                }}
-            ></PlaceBetModal>
-        );
+        return odds[DefaultOdds];
     }
 
     renderBetOptions() {
