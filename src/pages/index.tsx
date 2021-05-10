@@ -43,8 +43,8 @@ function Home({ isLandscape }) {
                 router.push("/timeout");
             }
 
-            const verifySessionResponse = await authService.authorize(userSession.ss, userSession.username);
-            if (verifySessionResponse && verifySessionResponse.authorized) {
+            const verifySessionResponse = await authService.verifySession(userSession.ss, userSession.username);
+            if (verifySessionResponse.isSuccessful) {
                 handleSignInSuccess(userSession);
             } else {
                 router.push("/timeout");

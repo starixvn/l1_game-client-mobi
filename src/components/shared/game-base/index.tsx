@@ -329,10 +329,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { username, ss } = this.context.session;
         const balanceResponse = await this.authService.getBalance(ss, username);
 
-        if (balanceResponse.errorCode === 0) {
+        if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);
         } else {
-            this.setState({ displayPopup: PopupType.Error, errorMessage: balanceResponse.errorMessage });
+            this.setState({ displayPopup: PopupType.Error, errorMessage: balanceResponse.message });
         }
     }
 

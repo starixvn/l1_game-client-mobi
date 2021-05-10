@@ -1,9 +1,10 @@
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
+import { AuthorizeResponse, Response } from "sc-user-service-client/dist/auth";
 
 import { useAuthContext } from "../../contexts/auth";
-import NameGenerator from "./name-generator";
 import { UserClientCommunication } from "../../services";
+import NameGenerator from "./name-generator";
 import Styles from "./register.module.scss";
 
 export default function Register(props) {
@@ -23,11 +24,12 @@ export default function Register(props) {
             setNameInValid(t("invalidUsername"));
             return;
         }
-        const re = await authService.signName(session.ss, session.username, name);
-        if (re.isSuccessful) {
-            handleStateLogin(re.user);
+        const response = await authService.signName(session.ss, session.username, name);
+        const authorizeResponse = response as AuthorizeResponse;
+        if (authorizeResponse && authorizeResponse.authorized) {
+            handleStateLogin(authorizeResponse.user);
         } else {
-            setNameInValid(re.message.toString());
+            setNameInValid((response as Response).message.toString());
             setIsValidUserName(false);
         }
     };
