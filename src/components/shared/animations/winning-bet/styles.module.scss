@@ -12,11 +12,12 @@
 }
 
 @keyframes winning-animation {
-    10% {
+    0% {
         opacity: 1;
+        transform: scale(0.8);
     }
 
     100% {
-        transform: translate3d(0, -8rem, 0) scale(1.3);
+        transform: translate3d(0, -7rem, 0) scale(1.3);
     }
 }

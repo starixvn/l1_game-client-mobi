@@ -7,8 +7,15 @@
 
 .general-info {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
+    border-left: 0.3rem solid;
+    min-height: 4.6rem;
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+    border-left-color: $success-color;
+    color: $success-color;
+    background-color: #e3ffda;
     margin-bottom: 0.5rem;
     font-size: 2rem;
     text-transform: capitalize;
@@ -21,18 +28,18 @@
     margin-top: 1rem;
 }
 
-.payout,
-.stake {
+.payout {
     display: flex;
     justify-content: space-between;
-    margin: 0.6rem 0;
+    padding: 0 1rem;
+    margin: 2rem 0;
     font-size: 1.6rem;
 }
 
 .highlight {
     color: $main-color;
     font-family: $font-number;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .error-message {

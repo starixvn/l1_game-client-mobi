@@ -49,13 +49,13 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             type={ModalType.Bottom}
         >
             <div className={Styles["place-bet-container"]}>
-                <div className={`w-100 btn-green ${Styles["general-info"]}`}>
-                    <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
+                <div className={`w-100 ${Styles["general-info"]}`}>
+                    <div className={Styles["left"]}>
+                        <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
+                    </div>
+                    <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
                 </div>
 
-                <div className={Styles["stake"]}>
-                    <label>{t("common:stake")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
-                </div>
                 <div className={Styles["payout"]}>
                     <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
                 </div>
