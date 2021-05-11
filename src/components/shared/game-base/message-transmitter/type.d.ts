@@ -1,10 +1,12 @@
 export interface MessageTransmitterType {
-    addListener(key: string, listener: Function);
+    register(key: string, listener: Function): string;
+    unsubscribe(listenerId: string);
     clearAllListener();
     broadcast(message: any);
 }
 
 export interface Listener {
-    key: string;
+    listenerId: string;
+    messageKey: string;
     handleMessage: Function;
 }

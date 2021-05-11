@@ -131,18 +131,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     registerMessageHandler = () => {
-        this.messageTransmitter.addListener("um", this.handleUM.bind(this));
-        this.messageTransmitter.addListener("remainingTime", this.handleRemainingTime.bind(this));
-        this.messageTransmitter.addListener("gameConfigs", this.handleGameConfigs.bind(this));
-        this.messageTransmitter.addListener("roundHistory", this.handleRoundHistory.bind(this));
-        this.messageTransmitter.addListener("finish", this.handleFinish.bind(this));
-        this.messageTransmitter.addListener("status", this.handleStatus.bind(this));
-        this.messageTransmitter.addListener("user", this.handleUserData.bind(this));
-        this.messageTransmitter.addListener("totalBets", this.handleTotalBet.bind(this));
-        this.messageTransmitter.addListener("ownBets", this.handleOwnBets.bind(this));
-        this.messageTransmitter.addListener("betPercentage", this.handlePercentageBets.bind(this));
-        this.messageTransmitter.addListener("endBet", this.handleEndBet.bind(this));
-        this.messageTransmitter.addListener("apiError", this.handleApiError.bind(this));
+        this.messageTransmitter.register("um", this.handleUM.bind(this));
+        this.messageTransmitter.register("remainingTime", this.handleRemainingTime.bind(this));
+        this.messageTransmitter.register("gameConfigs", this.handleGameConfigs.bind(this));
+        this.messageTransmitter.register("roundHistory", this.handleRoundHistory.bind(this));
+        this.messageTransmitter.register("finish", this.handleFinish.bind(this));
+        this.messageTransmitter.register("status", this.handleStatus.bind(this));
+        this.messageTransmitter.register("user", this.handleUserData.bind(this));
+        this.messageTransmitter.register("totalBets", this.handleTotalBet.bind(this));
+        this.messageTransmitter.register("ownBets", this.handleOwnBets.bind(this));
+        this.messageTransmitter.register("betPercentage", this.handlePercentageBets.bind(this));
+        this.messageTransmitter.register("endBet", this.handleEndBet.bind(this));
+        this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
     };
 
     handleStatus = ({ status }) => {
@@ -597,7 +597,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             placeBet: this.placeBet,
             openPopup: this.openPopup,
             closePopup: this.closePopup,
-            handleMessage: this.messageTransmitter.addListener,
+            registerMessageHandler: this.messageTransmitter.register,
+            unsubscribeMessageHandler: this.messageTransmitter.unsubscribe,
             openPlaceBetModal: this.openPlaceBetModal,
             finishProcessingBet: this.finishProcessingBet,
             updateCompactMode: this.updateCompactMode,

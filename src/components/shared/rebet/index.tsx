@@ -14,9 +14,8 @@ const Rebet: React.FC<Props> = (props) => {
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
     const lastBetChoices = rebetInfo.betInfo;
-    const { gameConfigs, roundId, gameSetting } = useGameContext();
+    const { roundId, gameSetting } = useGameContext();
     const gameActionContext = useGameActionContext();
-    const { odds } = gameConfigs;
     const { gameName } = gameSetting;
 
     const { t } = useTranslation([gameName.toLowerCase(), "common"]);
@@ -25,31 +24,31 @@ const Rebet: React.FC<Props> = (props) => {
     const [isWaiting, updateIsWaiting] = useState(false);
     const [isSubmit, updateIsSummit] = useState(false);
 
-    useEffect(
-        () =>
-            gameActionContext.handleMessage("endBet", (payload) => {
-                const { endBet, betChoice, notice } = payload;
+    useEffect(() => {
+        const listenerId = gameActionContext.registerMessageHandler("endBet", (payload) => {
+            const { endBet, betChoice, notice } = payload;
 
-                if (betTrack[betChoice]) {
-                    betTrack[betChoice] = {
-                        state: endBet > 0 ? BetState.Success : BetState.Error,
-                        message: notice,
-                        validAmount: endBet > 0 ? endBet : 0,
-                    };
+            if (betTrack[betChoice]) {
+                betTrack[betChoice] = {
+                    state: endBet > 0 ? BetState.Success : BetState.Error,
+                    message: notice,
+                    validAmount: endBet > 0 ? endBet : 0,
+                };
 
-                    if (checkBetFinish(betTrack)) {
-                        const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
+                if (checkBetFinish(betTrack)) {
+                    const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
 
-                        updateIsWaiting(false);
-                        gameActionContext.finishProcessingBet();
-                        totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
-                        !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
-                    }
-                    updateBetTrack(betTrack);
+                    updateIsWaiting(false);
+                    gameActionContext.finishProcessingBet();
+                    totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
+                    !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
                 }
-            }),
-        []
-    );
+                updateBetTrack(betTrack);
+            }
+        });
+
+        return () => gameActionContext.unsubscribeMessageHandler(listenerId);
+    }, []);
 
     const checkBetFinish = (betTrack: { [key: string]: BetTrackModel }) =>
         !Object.values(betTrack).some((betTrackInfo) => betTrackInfo.state === BetState.Waiting);
