@@ -47,17 +47,23 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                         </div>
                         <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["language"]}>
-                            <DropdownToggle caret>{toggleName[locale]}</DropdownToggle>
-                            <DropdownMenu>
+                            <DropdownToggle className={Styles["dropdown-toggle"]} caret>
+                                <span className={`${toggleName[locale] == toggleName.vi ? Styles["flag-vn"] : Styles["flag-en"]}`}></span>
+                                {toggleName[locale]}
+                            </DropdownToggle>
+                            <DropdownMenu right className={Styles["dropdown-menu"]}>
                                 <DropdownItem className={Styles["dropdown-item"]}>
                                     <Link href="/" locale="vi">
-                                        VN
+                                        <div className={Styles["lang-item"]}>
+                                            <span className={Styles["flag-vn"]}></span> VN
+                                        </div>
                                     </Link>
                                 </DropdownItem>
-                                <DropdownItem divider />
                                 <DropdownItem className={Styles["dropdown-item"]}>
                                     <Link href="/" locale="en">
-                                        EN
+                                        <div className={Styles["lang-item"]}>
+                                            <span className={Styles["flag-en"]}></span> EN
+                                        </div>
                                     </Link>
                                 </DropdownItem>
                             </DropdownMenu>

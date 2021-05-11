@@ -47,16 +47,35 @@
 
 .language {
     float: right;
-    .dropdown-item {
-        padding: 0;
-        a {
-            color: #2c2f3e;
-            text-decoration: none;
-            display: block;
-            width: 100%;
-            padding: 0.25rem 1.5rem;
-            font-size: 1.4rem;
-        }
+
+    .lang-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+        color: $text-color;
+        text-transform: uppercase;
+    }
+
+    %flag {
+        display: inline-block;
+        width: 2.6rem;
+        height: 1.8rem;
+        margin-right: 0.6rem;
+    }
+
+    .flag-vn {
+        @extend %flag;
+        background-image: url("/static/images/lang-vn.svg");
+    }
+
+    .flag-en {
+        @extend %flag;
+        background-image: url("/static/images/lang-en.svg");
     }
 }
 
