@@ -51,7 +51,7 @@
     user-select: none;
     left: 0.4rem;
 
-    @media (min-width: 1024px) {
+    @media (min-width: 1280px) {
         left: 2rem;
     }
 }
@@ -177,8 +177,16 @@
         transform: rotate(90deg);
     }
 
+    @media (min-width: 768px) {
+        width: 40rem;
+    }
+
     @media (min-width: 1024px) {
-        width: 84rem;
+        width: 70rem;
+    }
+
+    @media (min-width: 1280px) {
+        width: 82rem;
     }
 }
 

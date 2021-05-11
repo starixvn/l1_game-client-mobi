@@ -33,18 +33,31 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         adaptiveHeight: true,
         swipeToSlide: true,
         slidesToShow: 10,
-        focusOnSelect: true,
         arrows: false,
         onSwipe: () => setIsSwipe(true),
         beforeChange: (oldIndex: number, newIndex: number) => {
             if (isSwipe) {
-                oldIndex > newIndex && handleSelectChip(ChipValues[newIndex + 2]);
+                const currentSlideToShow = getCurrentSlidesToShow();
+
+                oldIndex > newIndex && handleSelectChip(ChipValues[newIndex + currentSlideToShow - 1]);
                 oldIndex < newIndex && handleSelectChip(ChipValues[newIndex]);
             }
         },
         responsive: [
             {
-                breakpoint: 1024,
+                breakpoint: 1279,
+                settings: {
+                    slidesToShow: 8,
+                },
+            },
+            {
+                breakpoint: 1023,
+                settings: {
+                    slidesToShow: 6,
+                },
+            },
+            {
+                breakpoint: 767,
                 settings: {
                     slidesToShow: 3,
                 },
@@ -64,8 +77,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         if (enabledNextBtn && !isSliding) {
             const chipIndex = ChipValues.indexOf(betValue);
             const newSelectedChip = ChipValues[chipIndex + 1];
+            const currentSlideToShow = getCurrentSlidesToShow();
 
-            sliderRef.slickGoTo(chipIndex + 1);
+            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
             disableSelectChipWhenSliding();
@@ -76,8 +90,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         if (enabledPrevBtn && !isSliding) {
             const chipIndex = ChipValues.indexOf(betValue);
             const newSelectedChip = ChipValues[chipIndex - 1];
+            const currentSlideToShow = getCurrentSlidesToShow();
 
-            sliderRef.slickGoTo(chipIndex - 1);
+            sliderRef.slickGoTo(chipIndex - currentSlideToShow);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
             disableSelectChipWhenSliding();
@@ -90,6 +105,14 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         } else {
             handleDataQuickBet();
         }
+    };
+
+    const getCurrentSlidesToShow = () => {
+        const currentBreakPoint = sliderRef.state.breakpoint;
+        const sliderResponsiveSettings = sliderRef.props.responsive;
+        const currentResponsiveSettings = sliderResponsiveSettings.find((settings) => settings.breakpoint === currentBreakPoint);
+
+        return currentResponsiveSettings?.settings?.slidesToShow ?? sliderRef.props.slidesToShow;
     };
 
     const disableSelectChipWhenSliding = () => {
@@ -113,6 +136,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
+        setIsSwipe(false);
         playSound(AudioCollection.selectChip);
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);

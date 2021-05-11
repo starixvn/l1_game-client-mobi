@@ -35,7 +35,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly winningAnimationTime = 4000;
     private betWin: number;
-    private isUMInFirstLoad: boolean = false;
+    private isUMInFirstLoad = false;
     private showWaitingTimeout: NodeJS.Timeout;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
