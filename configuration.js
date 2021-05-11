@@ -66,7 +66,7 @@ module.exports = {
                 showResult: 3,
                 resultAnimation: 1,
                 beforeStartRound: 0,
-                balancingBet: 3,
+                balancingBet: 2,
             },
         },
         7: {
