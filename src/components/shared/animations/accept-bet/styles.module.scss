@@ -10,6 +10,7 @@
     color: #858585;
     -webkit-text-stroke: 0.1rem #696868;
     text-shadow: 0 0.2rem 0.3rem rgba(24, 24, 24, 0.4);
+    pointer-events: none;
 }
 
 @keyframes bet-animation {
