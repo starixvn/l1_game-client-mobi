@@ -120,7 +120,13 @@ $time-show-result-animation: 0.1s;
 }
 
 .total-dice {
+    position: absolute;
+    border-radius: 50%;
+    left: calc(50% - 9rem);
+    top: calc(50% - 9rem);
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 4.8rem;
     height: 4.8rem;
     background: linear-gradient(180deg, #535b72 0%, #727c97 100%);
@@ -128,10 +134,21 @@ $time-show-result-animation: 0.1s;
     font-weight: 500;
     font-size: 2rem;
     color: #fff;
-    position: absolute;
-    border-radius: 50%;
-    left: calc(50% - 9rem);
-    top: calc(50% - 9rem);
-    justify-content: center;
-    align-items: center;
+    animation-name: show-total-dices;
+    animation-delay: 0ms;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in;
+}
+
+@keyframes show-total-dices {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
