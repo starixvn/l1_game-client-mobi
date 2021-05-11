@@ -2,7 +2,7 @@
 .error-message-container {
     position: absolute;
     text-align: center;
-    padding: 2.8rem 3rem;
+    padding: 2rem 2.1rem;
     background-color: #fff;
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
     border-radius: 0.5rem;
@@ -12,6 +12,7 @@
     transform: translate(-50%, 0);
     top: 20%;
     z-index: $popup-guide-history-index;
+    min-width: 30rem;
 }
 
 .icon-close {

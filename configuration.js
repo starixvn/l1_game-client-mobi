@@ -60,13 +60,13 @@ module.exports = {
                 path: "turbobigsmall",
             },
             durations: {
-                wholeRound: 37,
+                wholeRound: 38,
                 placingBets: 30,
                 lockingBet: 5,
                 showResult: 3,
-                resultAnimation: 1,
+                resultAnimation: 2,
                 beforeStartRound: 0,
-                balancingBet: 2,
+                balancingBet: 3,
             },
         },
         7: {
