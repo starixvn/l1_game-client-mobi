@@ -39,6 +39,15 @@
     }
 }
 
+.icon-bet-history{
+    margin-right: .2rem;
+    background-color: none !important;
+    font-size: 1.8rem;
+    &.icon-bau {
+        font-size: 1.6rem;
+    }
+}
+
 .icon-compact-mode {
     font-size: 1.8rem;
     margin-right: 0.6rem;

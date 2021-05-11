@@ -17,6 +17,10 @@ const ChoiceIcon: React.FunctionComponent<Props> = ({ type, isSmall }) => {
     );
 };
 
+export const ChoiceIconHistory: React.FunctionComponent<Props> = ({ type }) => {
+    return <div className={`${Styles["icon-bet-history"]} ${listIconName[type]} ${Styles[listIconName[type].toString()]} `}></div>;
+};
+
 export const ChoiceIconCompactMode: React.FunctionComponent<Props> = ({ type }) => {
     return <div className={`${Styles["icon-compact-mode"]} ${listIconName[type]} ${Styles[listIconName[type].toString()]}`}></div>;
 };

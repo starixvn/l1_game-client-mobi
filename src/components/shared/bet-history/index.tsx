@@ -9,6 +9,7 @@ import { Spinner } from "reactstrap";
 import axios from "axios";
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
+import { useRouter } from "next/router";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -130,6 +131,7 @@ const checkCondition = (
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, isRefund, translate } = props;
+    const router = useRouter();
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
@@ -223,7 +225,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         setTotalPage(Math.ceil(bets.total / 16));
                     }
                 })
-                .catch((error) => {});
+                .catch((error) => {
+                    if (error.response.status === 401) {
+                        router.push("/timeout");
+                    }
+                });
     }, [page]);
 
     useEffect(() => {

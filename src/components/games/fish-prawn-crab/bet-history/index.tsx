@@ -4,7 +4,7 @@ import BetHistoryContainer from "../../../shared/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
-import ChoiceIcon from "../choice-icon";
+import { ChoiceIconHistory } from "../choice-icon";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
@@ -12,7 +12,7 @@ const renderResult = (bet: BetLogs) => {
         return (
             <div className="d-flex justify-content-center">
                 {itemValues.map((value: number, index) => {
-                    return <ChoiceIcon key={index} type={value} isSmall={true}></ChoiceIcon>;
+                    return <ChoiceIconHistory key={index} type={value}></ChoiceIconHistory>;
                 })}
             </div>
         );
