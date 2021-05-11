@@ -5,6 +5,25 @@
     width: 100%;
     background-color: #fff;
     position: relative;
+
+    .bet-option {
+        &:active {
+            background-color: #ededed;
+        }
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: #ededed;
+            }
+        }
+
+        @media (hover: none) {
+            &:hover {
+                background-color: none;
+            }
+        }
+    }
+
 }
 
 .bet-option {
@@ -47,10 +66,6 @@
         color: $main-color;
     }
 
-    &:hover {
-        background-color: #ededed !important;
-    }
-
     &.highlight-winning {
         background-color: #fff5e3;
     }
@@ -89,22 +104,27 @@
 }
 
 @keyframes betChoiceWinningEffect {
+
     0%,
     100% {
         background-color: #fff5e3;
     }
+
     10%,
     80% {
         background-color: #fff5e3;
     }
+
     20%,
     70% {
         background-color: #fff;
     }
+
     30%,
     60% {
         background-color: #fff5e3;
     }
+
     40%,
     50% {
         background-color: #fff;
@@ -134,19 +154,23 @@
         animation: animate1 1.2s ease-in infinite;
         animation-delay: 0s;
     }
+
     @keyframes animate1 {
         0% {
             left: -100%;
             opacity: 1;
         }
+
         90% {
             opacity: 1;
         }
+
         100% {
             left: 100%;
             opacity: 0;
         }
     }
+
     .winning-line:nth-child(2) {
         top: -100%;
         right: 0;
@@ -156,19 +180,23 @@
         animation: animate2 1.2s ease-in infinite;
         animation-delay: 0.8s;
     }
+
     @keyframes animate2 {
         0% {
             top: -100%;
             opacity: 1;
         }
+
         90% {
             opacity: 1;
         }
+
         100% {
             top: 100%;
             opacity: 0;
         }
     }
+
     .winning-line:nth-child(3) {
         bottom: 0;
         right: -100%;
@@ -178,14 +206,17 @@
         animation: animate3 1.2s ease-in infinite;
         animation-delay: 0s;
     }
+
     @keyframes animate3 {
         0% {
             right: -100%;
             opacity: 1;
         }
+
         90% {
             opacity: 1;
         }
+
         100% {
             right: 100%;
             opacity: 0;
@@ -207,9 +238,11 @@
             bottom: -100%;
             opacity: 1;
         }
+
         90% {
             opacity: 1;
         }
+
         100% {
             bottom: 100%;
             opacity: 0;
