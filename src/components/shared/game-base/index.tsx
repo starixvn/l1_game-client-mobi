@@ -2,6 +2,7 @@ import React from "react";
 import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
 import { AudioCollection, playSound } from "../../../common/audio";
@@ -191,7 +192,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     playAcceptedBetAnimation(amount: number) {
         const { acceptedBetQueue } = this.state;
-        const key = Date.now();
+        const key = uuidv4();
         acceptedBetQueue[key] = amount;
 
         this.setState({ acceptedBetQueue });

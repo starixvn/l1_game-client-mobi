@@ -1,10 +1,11 @@
 import { Listener } from "./type";
+import { v4 as uuidv4 } from "uuid";
 
 export default function messageTransmitter() {
     let listeners: Array<Listener> = [];
 
     const register = (messageKey: string, handleMessage: Function) => {
-        const listenerId = messageKey + Math.floor(Math.random() * Date.now());
+        const listenerId = uuidv4();
         listeners.push({ messageKey, listenerId, handleMessage });
 
         return listenerId;
