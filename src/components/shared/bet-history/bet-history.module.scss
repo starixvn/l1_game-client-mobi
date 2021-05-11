@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: center;
     text-align: left;
+    min-width: 7.5rem;
+
+    @media (min-width: 768px) {
+        min-width: 8rem;
+    }
 
     .choice {
         display: flex;
@@ -31,6 +36,6 @@
     text-align: right;
 }
 
-.refund{
+.refund {
     color: red;
 }

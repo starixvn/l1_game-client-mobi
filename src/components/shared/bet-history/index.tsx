@@ -222,7 +222,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     if (page === 1) {
                         setTotalPage(Math.ceil(bets.total / 16));
                     }
-                });
+                })
+                .catch((error) => {});
     }, [page]);
 
     useEffect(() => {
@@ -242,7 +243,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     className="table"
                     tableClassName="table text-center"
                     height={heightHistory}
-                    rowHeight={50}
+                    rowHeight={40}
                     rows={listBetHistory}
                     columns={columns}
                     fillTableWidth={true}
