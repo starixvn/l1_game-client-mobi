@@ -67,10 +67,17 @@ const ScoreboardRoundHistory = (props: Props) => {
         if (isScrollEndRight) {
             wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
         }
+
         if (wrapperRef.current) {
             setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft));
         }
     });
+
+    useEffect(() => {
+        return () => {
+            wrapperRef.current = null;
+        };
+    }, []);
 
     return (
         <div ref={wrapperRef} className={isCompactMode ? Styles["board-inline"] : Styles["board"]} onTouchEnd={handleTouchEnd}>

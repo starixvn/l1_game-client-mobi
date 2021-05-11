@@ -31,7 +31,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const isLockingBet = () => gameState === GameState.LockingBet;
-    let numberOfItems = isLockingBet() ? 20 : 21;
+    const numberOfItems = isLockingBet() ? 20 : 21;
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
     return (

@@ -229,6 +229,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         if (wrapperRef.current) {
             setHeightHistory(wrapperRef.current.clientHeight - paddingBottom);
         }
+
+        return () => {
+            wrapperRef.current = null;
+        };
     }, []);
 
     return (
