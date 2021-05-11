@@ -105,6 +105,12 @@
             height: 1.8rem;
             width: 11rem;
             grid-area: 1/1;
+            animation-name: zoom-in-out;
+            animation-delay: 0s;
+            animation-duration: 1.5s;
+            animation-fill-mode: forwards;
+            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            animation-iteration-count: infinite;
         }
     }
 }
@@ -130,6 +136,7 @@
             }
 
             .icon-quick-bet {
+                animation: none;
                 background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
             }
 
@@ -214,5 +221,51 @@
             height: 1.7rem;
             width: 1.7rem;
         }
+    }
+}
+
+@keyframes zoom-in-out {
+    0% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    15% {
+        transform: scale(1.8);
+    }
+
+    20% {
+        transform: scale(1.8) rotate(30deg);
+    }
+
+    25% {
+        transform: scale(1.8) rotate(0deg);
+    }
+
+    30% {
+        transform: scale(1.8) rotate(-30deg);
+    }
+
+    35% {
+        transform: scale(1.8) rotate(0deg);
+    }
+
+    40% {
+        transform: scale(1.8) rotate(30deg);
+    }
+
+    45% {
+        transform: scale(1.8) rotate(0deg);
+    }
+
+    55% {
+        transform: scale(1.8) rotate(-30deg);
+    }
+
+    70%,
+    80%,
+    90%,
+    100% {
+        transform: scale(1.2);
     }
 }
