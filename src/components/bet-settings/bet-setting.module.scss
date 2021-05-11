@@ -40,12 +40,12 @@
     align-items: center;
     height: 100%;
 
-    @media (min-width: 768px) and (max-width: 1270px) {
+    @media (min-width: 768px) and (max-width: 1280px) {
         top: -21px;
         height: 11.5rem;
     }
 
-    @media (min-width: 1280px) {
+    @media (min-width: 1281px) {
         top: auto;
     }
 }
@@ -54,10 +54,10 @@
     display: block;
     position: absolute;
     user-select: none;
-    left: 0.4rem;
+    left: 1.5rem;
 
-    @media (min-width: 1280px) {
-        left: 2rem;
+    @media (min-width: 768px) {
+        left: 2.6rem;
     }
 }
 
@@ -105,12 +105,6 @@
             height: 1.8rem;
             width: 11rem;
             grid-area: 1/1;
-            animation-name: zoom-in-out;
-            animation-delay: 0s;
-            animation-duration: 1.5s;
-            animation-fill-mode: forwards;
-            animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            animation-iteration-count: infinite;
         }
     }
 }
@@ -149,7 +143,7 @@
 
 .chips-container {
     position: relative;
-    width: 20.8rem;
+    width: 20rem;
     margin: auto;
 
     %icon {
@@ -159,7 +153,7 @@
         align-items: center;
         justify-content: center;
         height: 5rem;
-        width: 5rem;
+        width: 3rem;
         color: #ff9a00;
         font-size: 2rem;
 
@@ -177,16 +171,25 @@
             content: "▲";
         }
     }
+
     .icon-prev {
         @extend %icon;
-        left: -4rem;
+        left: -2rem;
         transform: rotate(-90deg);
+
+        @media (min-width: 768px) {
+            left: -4rem;
+        }
     }
 
     .icon-next {
         @extend %icon;
-        right: -4rem;
+        right: -2rem;
         transform: rotate(90deg);
+
+        @media (min-width: 768px) {
+            right: -4rem;
+        }
     }
 
     @media (min-width: 768px) {
@@ -221,51 +224,5 @@
             height: 1.7rem;
             width: 1.7rem;
         }
-    }
-}
-
-@keyframes zoom-in-out {
-    0% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-
-    15% {
-        transform: scale(1.8);
-    }
-
-    20% {
-        transform: scale(1.8) rotate(30deg);
-    }
-
-    25% {
-        transform: scale(1.8) rotate(0deg);
-    }
-
-    30% {
-        transform: scale(1.8) rotate(-30deg);
-    }
-
-    35% {
-        transform: scale(1.8) rotate(0deg);
-    }
-
-    40% {
-        transform: scale(1.8) rotate(30deg);
-    }
-
-    45% {
-        transform: scale(1.8) rotate(0deg);
-    }
-
-    55% {
-        transform: scale(1.8) rotate(-30deg);
-    }
-
-    70%,
-    80%,
-    90%,
-    100% {
-        transform: scale(1.2);
     }
 }
