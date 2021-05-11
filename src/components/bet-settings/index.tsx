@@ -143,7 +143,17 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                             onChange={onClickQuickBet}
                         />
                         <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                            <span className={`icon-quick-bet ${Styles["toggle-feature"]}`}></span>
+                            <div className={Styles.chip}>
+                                <div className={Styles["layer1"]}></div>
+                                <div className={Styles["layer2"]}></div>
+                                <div className={Styles["group-list"]}>
+                                    <span className={`icon-chip-symbol ${Styles["symbol1"]}`}></span>
+                                    <span className={`icon-chip-symbol ${Styles["symbol2"]}`}></span>
+                                    <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
+                                    <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
+                                </div>
+                                <div className={Styles["icon-quick-bet"]}></div>
+                            </div>
                         </label>
                     </div>
 

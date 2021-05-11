@@ -8,37 +8,6 @@
     cursor: auto;
 }
 
-.betting-setting-collapsed {
-    display: flex;
-    align-items: center;
-    position: fixed;
-    bottom: 1.4rem;
-    width: 7.3rem;
-    height: 6rem;
-    right: 0;
-    bottom: 1rem;
-    background-color: rgba(0, 0, 0, 0.7);
-    border: 1px solid #c2c2c2;
-    box-shadow: 0.1rem 0 1rem rgba(0, 0, 0, 0.3);
-    border-radius: 1.5rem 0 0 1.5rem;
-
-    img {
-        width: 60%;
-    }
-
-    &.quick-bet {
-        background-color: #34c759;
-    }
-
-    &:hover {
-        cursor: pointer;
-
-        .expand-icon {
-            text-shadow: 0 -1px 6px rgb(255 255 255 / 70%), 0px 1px 6px rgb(255 255 255 / 70%);
-        }
-    }
-}
-
 .settings-container {
     position: fixed;
     left: 0;
@@ -95,73 +64,72 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: 3.1rem;
-    width: 5.1rem;
+    height: 2rem;
+    width: 4.9rem;
     margin: 0 auto;
-    background: #afafaf;
-    border-radius: 6rem;
-    font-size: 1.4em;
+    background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 15.5px;
     transition: all 350ms ease-in;
 
     &:hover {
         cursor: pointer;
     }
 
-    &:before {
-        height: 2.7rem;
-        width: 2.7rem;
-        background: #fff;
-    }
-}
-
-.toggle-btn,
-.toggle-checkbox {
-    &,
-    &:before,
-    &:after {
-        transition: all 250ms ease-in;
-    }
-    &:before,
-    &:after {
-        display: block;
-    }
-}
-
-.toggle-feature {
-    position: relative;
-    left: 0;
-    transition: left 100ms ease-in;
-
-    &:before {
-        z-index: $bet-setting-index;
-        position: relative;
-        font-size: 1.6rem;
-        left: 0.3rem;
-        top: -0.1rem;
-    }
-
-    &:after {
+    .chip {
         position: absolute;
-        left: 0.2rem;
-        top: -0.4rem;
-        content: "";
-        background-color: #efeff4;
-        height: 2.7rem;
-        width: 2.7rem;
-        border-radius: 50%;
+        left: -0.6rem;
+        transition: left 100ms ease-in;
+        transform: scale(0.75);
+        background: linear-gradient(180deg, #b9b9b9 0%, #989898 100%);
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #bababa;
+
+        .layer1 {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
+            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .layer2 {
+            background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
+            border: 1px solid #e2e2e2;
+            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .icon-quick-bet {
+            background: url("/static/images/icon-quick-bet.svg") no-repeat center;
+            height: 1.8rem;
+            width: 11rem;
+            grid-area: 1/1;
+        }
     }
 }
 
 .toggle-checkbox:checked {
     & + .toggle-btn {
-        background: #34c759;
+        background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
 
-        > .toggle-feature {
-            position: absolute;
-            left: 2rem;
+        > .chip {
+            left: 1.5rem;
+            background: linear-gradient(180deg, #18aa3d 0%, #16a53a 100%);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #16a63b;
 
-            &:before {
-                color: $main-color;
+            .layer1 {
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
+                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+            }
+
+            .layer2 {
+                background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
+                border: 1px solid #a8ff92;
+                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+            }
+
+            .icon-quick-bet {
+                background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
+            }
+
+            .symbol:before {
+                color: #00ff75;
             }
         }
     }
@@ -214,27 +182,6 @@
     }
 }
 
-.collapse-settings {
-    position: absolute;
-    right: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 4rem;
-    height: 100%;
-    padding-right: 0.4rem;
-
-    @media (min-width: 1024px) {
-        width: 7rem;
-        padding-right: 2rem;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
 .quick-bet-mark-container {
     position: absolute;
     bottom: 0;
@@ -254,34 +201,5 @@
             height: 1.7rem;
             width: 1.7rem;
         }
-    }
-}
-
-%icon-collapse-expand {
-    font-size: 4rem;
-    color: #fff;
-
-    &:hover {
-        text-shadow: 0 -1px 6px rgb(255 255 255 / 70%), 0px 1px 6px rgb(255 255 255 / 70%);
-    }
-}
-
-.collapse-icon {
-    @extend %icon-collapse-expand;
-    position: relative;
-    top: -4px;
-
-    &:before {
-        content: "\203A";
-    }
-}
-
-.expand-icon {
-    @extend %icon-collapse-expand;
-    width: 25px;
-    text-align: center;
-
-    &:before {
-        content: "\2039";
     }
 }
