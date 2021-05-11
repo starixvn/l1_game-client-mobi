@@ -9,11 +9,6 @@ const CountdownTimer: React.FC = () => {
     const ctx = useGameContext();
     const { durations } = ctx.gameSetting;
 
-    const timerColors = {
-        [GameState.LockingBet]: "#FF0000",
-        [GameState.InRound]: "#19A32F",
-    };
-
     const timerProps = {
         isPlaying: true,
         size: 40,
@@ -29,7 +24,14 @@ const CountdownTimer: React.FC = () => {
         case GameState.LockingBet:
             return (
                 <div className={styles.timer}>
-                    <CountdownCircleTimer {...timerProps} colors={[[timerColors[ctx.gameState], 1]]}>
+                    <CountdownCircleTimer
+                        {...timerProps}
+                        colors={[
+                            ["#19A32F", 0.5],
+                            ["#FF9A00", 0.3],
+                            ["#FF0000", 0.2],
+                        ]}
+                    >
                         {({ remainingTime }) => {
                             if (remainingTime === 0) {
                                 return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });
