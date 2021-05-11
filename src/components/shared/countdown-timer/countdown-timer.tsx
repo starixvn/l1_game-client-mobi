@@ -28,7 +28,7 @@ const CountdownTimer: React.FC = () => {
                         {...timerProps}
                         colors={[
                             ["#19A32F", 0.5],
-                            ["#FF9A00", 0.3],
+                            ["#FF5B15", 0.3],
                             ["#FF0000", 0.2],
                         ]}
                     >
