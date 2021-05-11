@@ -121,7 +121,7 @@ const Rebet: React.FC<Props> = (props) => {
                 )}
                 {isSubmit && (
                     <button onClick={handleCloseModal} className="btn-orange w-100">
-                        {t("common:ok")}
+                        {t("common:close")}
                     </button>
                 )}
             </div>
