@@ -1,5 +1,6 @@
+@import "../../../assets/abstracts/variables";
 .error-message-container {
-    position: relative;
+    position: absolute;
     text-align: center;
     padding: 2.8rem 3rem;
     background-color: #fff;
@@ -7,6 +8,10 @@
     border-radius: 0.5rem;
     font-size: 1.6rem;
     border: 1px solid #d7d7d7;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 20%;
+    z-index: $popup-guide-history-index;
 }
 
 .icon-close {
