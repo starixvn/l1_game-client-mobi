@@ -30,6 +30,7 @@
 
     &.modal-full {
         top: 6rem;
+        z-index: $popup-guide-history-index;
     }
 
     &.modal-bottom {
