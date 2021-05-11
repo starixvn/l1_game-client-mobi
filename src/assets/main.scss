@@ -58,7 +58,7 @@ body {
 
 .overlay-mask-white {
     @extend .overlay-mask-no-bg;
-    background: #e5e5e5;
+    background: rgba(221, 221, 221, 0.6);
     opacity: 0.9;
 }
 
