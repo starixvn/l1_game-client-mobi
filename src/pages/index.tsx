@@ -5,6 +5,7 @@ import { isMobileOnly, withOrientationChange } from "react-device-detect";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 
+import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import LandscapeMode from "../components/landscape-mode";
@@ -34,6 +35,12 @@ function Home({ isLandscape }) {
             const userSession = await authService.sso(token as string);
             if (userSession && userSession.isAuthenticated) {
                 handleSignInSuccess(userSession);
+
+                window.history.pushState(null, "", location.href.split("?")[0]);
+                const langCode = languageMapper[userSession.language];
+                if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
+                    router.push("/", "/", { locale: langCode });
+                }
             } else {
                 router.push("/timeout");
             }
@@ -56,7 +63,6 @@ function Home({ isLandscape }) {
         setSession(userSession);
         LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
         reCheckIn(userSession);
-        window.history.pushState(null, "", location.href.split("?")[0]);
         setTimeout(() => setLoading(false), 1000);
     }
 
