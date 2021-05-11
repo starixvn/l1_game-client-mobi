@@ -1,4 +1,4 @@
 export interface Props {
-    message: string;
+    message: string | string[];
     closeModal: Function;
 }

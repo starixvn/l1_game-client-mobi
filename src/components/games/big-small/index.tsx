@@ -1,3 +1,4 @@
+import { withTranslation } from "next-i18next";
 import React from "react";
 
 import { CommonResourceKeys } from "../../../common/resources";
@@ -5,16 +6,16 @@ import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import BigSmallResult from "./big-small-result";
-import { RenderRoundDetail, RenderBigSmallDot } from "./round-history";
+import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
-import { StatisticFollowPercent } from "../../shared/statistic";
-import ChainRoundHistory from "../../shared/round-history/chain";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -98,4 +99,4 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 }
 
-export default BigSmall;
+export default withTranslation()(BigSmall);

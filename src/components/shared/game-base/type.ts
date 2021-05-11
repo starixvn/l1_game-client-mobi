@@ -1,3 +1,5 @@
+import { WithTranslation } from "next-i18next";
+
 import { Round } from "../../../types";
 
 export interface GameConfigs {
@@ -33,12 +35,12 @@ export interface GameSettings {
     durations: GameDurations;
 }
 
-export interface GameBaseProps {
+export type GameBaseProps = {
     id: number;
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
-}
+} & WithTranslation;
 
 export interface GameBaseState<Result, SettlementResult> {
     signedIn: boolean;
@@ -54,7 +56,7 @@ export interface GameBaseState<Result, SettlementResult> {
     userStakeLevel: UserStakeLevel;
     displayPopup?: PopupType;
     betPercentage?: object;
-    errorMessage?: string;
+    errorMessage?: string | string[];
     selectedBetChoice?: string;
     isProcessingBet?: boolean;
     isCompactMode: boolean;

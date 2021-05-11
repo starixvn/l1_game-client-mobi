@@ -6,6 +6,7 @@ import io from "socket.io-client";
 import appSettings from "../../../common/app-settings";
 import { AudioCollection, playSound } from "../../../common/audio";
 import * as LocalStorageManager from "../../../common/local-storage";
+import { GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
@@ -161,7 +162,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
-        this.setState({ errorMessage: apiError.message, displayPopup: PopupType.Error });
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const error = [`${gameName} (#${apiError.gameRoundId})`, apiError.message];
+        this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     };
 
     handleEndBet = ({ endBet, betChoice, notice }) => {
@@ -451,7 +454,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     placeBet(betChoice: string, amount: number) {
         if (this.state.isProcessingBet) {
-            this.setState({ errorMessage: "Cược đang được xử lý. Vui lòng đợi trong giây lát", displayPopup: PopupType.Error });
+            this.setState({ errorMessage: this.props.t("common:processingBet"), displayPopup: PopupType.Error });
         } else {
             if (amount > 0) {
                 this.socket.emit("bet", { betChoice, amount });

@@ -1,11 +1,12 @@
 import React from "react";
+import { withTranslation } from "react-i18next";
 
 import { CommonResourceKeys } from "../../../common/resources";
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, PopupType } from "../../shared/game-base/type";
-import PlaceBetModal from "../../shared/place-bet-modal/place-bet-modal";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
@@ -14,7 +15,6 @@ import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
-import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const OddNames = {
@@ -99,4 +99,4 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 }
 
-export default FishPrawnCrab;
+export default withTranslation()(FishPrawnCrab);

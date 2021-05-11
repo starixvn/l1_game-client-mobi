@@ -1,3 +1,4 @@
+import { withTranslation } from "next-i18next";
 import React from "react";
 
 import { CommonResourceKeys } from "../../../common/resources";
@@ -5,16 +6,16 @@ import DragonTigerGuide from "../../game-guide/dragon-tiger";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import { StatisticFollowPercent } from "../../shared/statistic";
 import { CardsAnimation, DragonTigerResult } from "./animations";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
-import { RenderRoundDetail, RenderDragonTigerDot } from "./round-history";
+import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
-import { StatisticFollowPercent } from "../../shared/statistic";
-import ChainRoundHistory from "../../shared/round-history/chain";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -91,4 +92,4 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 }
 
-export default DragonTiger;
+export default withTranslation()(DragonTiger);
