@@ -26,11 +26,14 @@ const CountdownTimer: React.FC = () => {
                 <div className={styles.timer}>
                     <CountdownCircleTimer
                         {...timerProps}
-                        colors={[
-                            ["#19A32F", 0.5],
-                            ["#FF5B15", 0.3],
-                            ["#FF0000", 0.2],
-                        ]}
+                        colors={
+                            ctx.gameState == GameState.LockingBet
+                                ? [["#FF0000", 1]]
+                                : [
+                                      ["#19A32F", 0.7],
+                                      ["#FF5B15", 0.3],
+                                  ]
+                        }
                     >
                         {({ remainingTime }) => {
                             if (remainingTime === 0) {
