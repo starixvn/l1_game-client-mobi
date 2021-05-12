@@ -1,7 +1,5 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Navbar } from "reactstrap";
+import { Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/number-helper";
 import Styles from "./header.module.scss";
@@ -15,15 +13,7 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const toggleName = { vi: "VN", en: "EN" };
-    const router = useRouter();
-    const { locale } = router;
-    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
-    const toggleLanguage = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setDropdownOpen((prevState) => !prevState);
-    };
 
     useEffect(() => {
         setIsBalanceAnim(true);
@@ -51,28 +41,6 @@ const Header: React.FC<Props> = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <ButtonDropdown disabled isOpen={dropdownOpen} toggle={toggleLanguage} className={Styles["language"]}>
-                            <DropdownToggle className={Styles["dropdown-toggle"]} caret>
-                                <span className={`${toggleName[locale] === toggleName.vi ? Styles["flag-vn"] : Styles["flag-en"]}`}></span>
-                                {toggleName[locale]}
-                            </DropdownToggle>
-                            <DropdownMenu right className={Styles["dropdown-menu"]}>
-                                <DropdownItem className={Styles["dropdown-item"]}>
-                                    <Link href="/" locale="vi">
-                                        <div className={Styles["lang-item"]}>
-                                            <span className={Styles["flag-vn"]}></span> VN
-                                        </div>
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem className={Styles["dropdown-item"]}>
-                                    <Link href="/" locale="en">
-                                        <div className={Styles["lang-item"]}>
-                                            <span className={Styles["flag-en"]}></span> EN
-                                        </div>
-                                    </Link>
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </ButtonDropdown>
                     </div>
                 </Navbar>
             </div>
