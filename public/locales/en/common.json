@@ -20,5 +20,6 @@
     "confirmBetAutomatic": "Do you want to confirm bet automatically?",
     "rotateDevice": "Please rotate your device.",
     "processingBet": "Data are being processed, please wait...",
-    "close": "Close"
+    "close": "Close",
+    "userStakeLevelUpdate": "Your betting limit has just been changed."
 }

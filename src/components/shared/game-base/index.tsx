@@ -3,11 +3,10 @@ import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
-
 import appSettings from "../../../common/app-settings";
 import { AudioCollection, playSound } from "../../../common/audio";
 import * as LocalStorageManager from "../../../common/local-storage";
-import { GameResourceKeys } from "../../../common/resources";
+import { GameResourceKeys, CommonResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
@@ -31,6 +30,7 @@ import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
+import { gameVipIds } from "../../../common/constants";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -145,6 +145,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("betPercentage", this.handlePercentageBets.bind(this));
         this.messageTransmitter.register("endBet", this.handleEndBet.bind(this));
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
+        this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
     };
 
     handleStatus = ({ status }) => {
@@ -222,6 +223,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ userStakeLevel: payload.userStakeLevel });
         }
     };
+
+    handleUserStakeLevel({ userStakeLevel }) {
+        this.setState({ userStakeLevel });
+        this.setState({ displayPopup: PopupType.StakeLevel });
+    }
 
     handleTotalBet = ({ totalBets }) => {
         this.setState({ totalBets });
@@ -512,6 +518,23 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
+    renderStakeLevelMessage() {
+        return gameVipIds.includes(this.props.id) ? (
+            <BaseDialog
+                type={ModalType.Center}
+                isOpen={this.state.displayPopup === PopupType.StakeLevel}
+                onCloseModal={() => this.closePopup()}
+            >
+                <ErrorMessage
+                    message={this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`)}
+                    closeModal={() => this.closePopup()}
+                ></ErrorMessage>
+            </BaseDialog>
+        ) : (
+            <></>
+        );
+    }
+
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -549,6 +572,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:
                 return this.renderPlaceBet();
+            case PopupType.StakeLevel:
+                return this.renderStakeLevelMessage();
             default:
                 return null;
         }

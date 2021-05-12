@@ -3,6 +3,7 @@ import { GameState } from "../../../game-base/type";
 import { ScoreboardItemNext } from "../../dot-next";
 import { Round } from "../../../../../types";
 import { Props } from "./types";
+import { v4 as uuidV4 } from "uuid";
 import Styles from "../round-history.module.scss";
 
 const rowTotal = 7;
@@ -18,7 +19,7 @@ const checkConditionBase = (settlementResult: any) => {
 };
 
 const roundNext = (col: number, row: number) => {
-    return <ScoreboardItemNext key={Math.random()} col={col} row={row}></ScoreboardItemNext>;
+    return <ScoreboardItemNext key={uuidV4()} col={col} row={row}></ScoreboardItemNext>;
 };
 
 const drawDragonTailHistory = <R, S>(

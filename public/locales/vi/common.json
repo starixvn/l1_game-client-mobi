@@ -20,5 +20,6 @@
     "confirmBetAutomatic": "Bạn có muốn xác nhận cược?",
     "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
     "processingBet": "Cược đang được xử lý. Vui lòng đợi trong giây lát.",
-    "close": "Đóng"
+    "close": "Đóng",
+    "userStakeLevelUpdate": "Hạn mức cược của bạn vừa được cập nhật."
 }

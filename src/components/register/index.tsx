@@ -35,6 +35,7 @@ export default function Register(props) {
     };
     const generateName = (event) => {
         event.preventDefault();
+        setIsValidUserName(true);
         updateNameState(NameGenerator.generateName);
     };
 
