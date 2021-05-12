@@ -85,3 +85,19 @@
     line-height: 0;
     font-size: 2rem;
 }
+
+.balance-animation{
+    animation: zoominoutsinglefeatured 1s infinite ;
+}
+
+@keyframes zoominoutsinglefeatured {
+    0% {
+        transform: scale(1,1);
+    }
+    50% {
+        transform: scale(1.2,1.2);
+    }
+    100% {
+        transform: scale(1,1);
+    }
+}

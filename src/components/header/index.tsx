@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { useCountUp } from "react-countup";
 import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/number-helper";
@@ -16,21 +15,23 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const { countUp, update } = useCountUp({
-        end: props.balance,
-        decimals: 5,
-    });
     const toggleName = { vi: "VN", en: "EN" };
     const router = useRouter();
     const { locale } = router;
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
-    const toggle = (e: React.MouseEvent) => {
+    const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
+    const toggleLanguage = (e: React.MouseEvent) => {
         e.stopPropagation();
         setDropdownOpen((prevState) => !prevState);
     };
 
     useEffect(() => {
-        update(props.balance);
+        setIsBalanceAnim(true);
+        const timeOut = setTimeout(() => setIsBalanceAnim(false), 2000);
+
+        return () => {
+            clearTimeout(timeOut);
+        };
     }, [props.balance]);
 
     return (
@@ -43,13 +44,13 @@ const Header: React.FC<Props> = (props) => {
                                 <span className={`icon-user ${Styles["icon-user"]}`}></span>
                                 <span>{props.name}</span>
                             </div>
-                            <div className={Styles.balance}>
-                                {countUp ? numberWithCommas(+countUp) : 0} {props.currency}
+                            <div className={`${Styles.balance} ${isBalanceAnim ? Styles["balance-animation"] : ""}`}>
+                                {numberWithCommas(props.balance)} {props.currency}
                             </div>
                         </div>
-                        <ButtonDropdown disabled isOpen={dropdownOpen} toggle={toggle} className={Styles["language"]}>
+                        <ButtonDropdown disabled isOpen={dropdownOpen} toggle={toggleLanguage} className={Styles["language"]}>
                             <DropdownToggle className={Styles["dropdown-toggle"]} caret>
-                                <span className={`${toggleName[locale] == toggleName.vi ? Styles["flag-vn"] : Styles["flag-en"]}`}></span>
+                                <span className={`${toggleName[locale] === toggleName.vi ? Styles["flag-vn"] : Styles["flag-en"]}`}></span>
                                 {toggleName[locale]}
                             </DropdownToggle>
                             <DropdownMenu right className={Styles["dropdown-menu"]}>
