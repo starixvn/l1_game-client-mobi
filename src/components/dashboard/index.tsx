@@ -72,12 +72,7 @@ class Dashboard extends React.Component<Props, State> {
 
     handleStateLogin(user: User) {
         this.props.updateBalance(user.red);
-        const { session } = this.context;
-        const authentication = { username: session.username, data: session };
 
-        setTimeout(() => {
-            this.sendMessage({ authentication });
-        }, 500);
         this.setState({ isFistLogin: false, user });
     }
 
@@ -89,9 +84,18 @@ class Dashboard extends React.Component<Props, State> {
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "wss" : "ws"}://${proxy.uri + proxy.path}/main/websocket`;
         const socket = new WebSocket(socketUri);
-        socket.onmessage = this.onSocketData;
+        socket.onopen = this.onSocketConnect.bind(this);
+        socket.onmessage = this.onSocketData.bind(this);
 
         return socket;
+    }
+
+    onSocketConnect() {
+        const { session } = this.context;
+        const authentication = { username: session.username, data: session };
+        setTimeout(() => {
+            this.sendMessage({ authentication });
+        }, 500);
     }
 
     onSocketData(message: any) {
