@@ -2,11 +2,10 @@ const basePath = "";
 const gameSettings = require("./game-settings.json");
 const configs = require("./configs/configs.json");
 const { i18n } = require("./next-i18next.config");
+
 const appSettings = {
-    proxy: configs.proxy,
-    sentry: configs.sentry,
-    offeredGames: configs.offeredGames,
-    gameSettings: gameSettings
+    ...configs,
+    gameSettings
 };
 
 module.exports = {
