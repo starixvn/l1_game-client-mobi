@@ -79,7 +79,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             const newSelectedChip = ChipValues[chipIndex + 1];
             const currentSlideToShow = getCurrentSlidesToShow();
 
-            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
+            sliderRef.slickGoTo(chipIndex + 3 - currentSlideToShow);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
             disableSelectChipWhenSliding();
@@ -90,9 +90,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         if (enabledPrevBtn && !isSliding) {
             const chipIndex = ChipValues.indexOf(betValue);
             const newSelectedChip = ChipValues[chipIndex - 1];
-            const currentSlideToShow = getCurrentSlidesToShow();
 
-            sliderRef.slickGoTo(chipIndex - currentSlideToShow);
+            sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
             setIsSwipe(false);
             disableSelectChipWhenSliding();
