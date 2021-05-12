@@ -12,7 +12,7 @@ FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 
-COPY --from=builder /app/configs/.configs.json ./configs/.configs.json
+COPY --from=builder /app/configs/configs.json ./configs/configs.json
 COPY --from=builder /app/game-settings.json ./game-settings.json
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
