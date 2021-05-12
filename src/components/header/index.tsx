@@ -39,13 +39,16 @@ const Header: React.FC<Props> = (props) => {
             <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
-                        <div className={Styles["user-info"]}>
-                            <div className={Styles["user-name"]}>
+                        <div className={Styles["user"]}>
+                            <div className={Styles["avatar"]}>
+                                {/* <img src={`/static/images/avatar/1.png`} className="img-fluid" alt="Avatar" /> */}
                                 <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                                <span>{props.name}</span>
                             </div>
-                            <div className={`${Styles.balance} ${isBalanceAnim ? Styles["balance-animation"] : ""}`}>
-                                {numberWithCommas(props.balance)} {props.currency}
+                            <div className={Styles["info"]}>
+                                <div className={Styles["user-name"]}>{props.name}</div>
+                                <div className={`${Styles.balance} ${isBalanceAnim ? Styles["balance-animation"] : ""}`}>
+                                    {numberWithCommas(props.balance)} {props.currency}
+                                </div>
                             </div>
                         </div>
                         <ButtonDropdown disabled isOpen={dropdownOpen} toggle={toggleLanguage} className={Styles["language"]}>
