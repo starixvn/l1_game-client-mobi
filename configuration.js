@@ -1,6 +1,9 @@
 module.exports = {
-    ssl: process.env.SSL === "true",
-    proxyUrl: process.env.PROXY_URL,
+    proxy: {
+        ssl: process.env.SSL === "true",
+        uri: process.env.PROXY_URL,
+        path: process.env.PROXY_PATH
+    },
     offeredGames: process.env.OFFERED_GAMES.split(",").map((id) => parseInt(id)),
     gameConfigs: {
         1: {

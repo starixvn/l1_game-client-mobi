@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useTranslation } from "next-i18next";
-import Moment from "react-moment";
-import { BetLogs, PropsBetContainer } from "./bet-history";
-import { useGameContext } from "../../../contexts/game-context/game-context";
-import { numberWithCommas } from "../../../helpers/number-helper";
-import { Table } from "react-infinite-table";
-import { Spinner } from "reactstrap";
 import axios from "axios";
+import { useTranslation } from "next-i18next";
+import { useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
+import { Table } from "react-infinite-table";
+import Moment from "react-moment";
+import { Spinner } from "reactstrap";
+
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
-import { useRouter } from "next/router";
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import { numberWithCommas } from "../../../helpers/number-helper";
+import { BetLogs, PropsBetContainer } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -137,7 +138,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         renderBet = renderBetBase;
     }
     const { gameConfigs, gameSetting } = useGameContext();
-    const historyAPI = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/${gameSetting.socketInfo.path}/api/history`;
+    const { proxy } = appSettings;
+    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
     const { session } = useAuthContext();
     const [listBetHistory, setListBetHistory] = useState<object[]>([{}]);
     const [columns, setColumns] = useState<object[]>([]);

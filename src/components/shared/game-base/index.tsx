@@ -104,15 +104,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onStart() {
         const { socketInfo } = this.props;
         const { session } = this.context;
-        console.log(appSettings.proxyUrl);
-        const socketUri = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/user/${socketInfo.namespace}`;
+        const { proxy } = appSettings;
+        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
         this.setState(this.defaultState);
         this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
             upgrade: false,
-            path: `/${socketInfo.path}/socket.io`,
+            path: `${proxy.path}/${socketInfo.path}/socket.io`,
         });
         this.socket.on("connect", () => {
             this.socket.emit("signin", session);
