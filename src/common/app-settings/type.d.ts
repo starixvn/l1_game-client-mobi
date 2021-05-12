@@ -6,8 +6,13 @@ interface ProxySetting {
     path: string;
 }
 
+interface SentryOptions {
+    dns: string;
+    environment: string;
+}
 export default interface AppSettings {
     proxy: ProxySetting;
+    sentry: SentryOptions;
+    gameSettings: { [id: string]: GameBaseProps };
     offeredGames: number[];
-    gameConfigs: { [id: string]: GameBaseProps };
 }

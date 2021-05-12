@@ -43,8 +43,8 @@ export const Games: React.FC = () => {
     };
 
     const getGameComponentById = (gameId: number) => {
-        const { gameConfigs } = appSettings;
-        const gameProps = gameConfigs[gameId];
+        const { gameSettings } = appSettings;
+        const gameProps = gameSettings[gameId];
         switch (gameId) {
             case 2:
             case 22:

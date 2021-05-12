@@ -1,5 +1,6 @@
 const basePath = "";
-const configuration = require("./configuration");
+const configs = require("./configs/configs");
+const gameSettings = require("./game-settings");
 const { i18n } = require("./next-i18next.config");
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
         webpack5: true,
     },
     excludeFile: (str) => /\*.{spec,test}.js/.test(str),
-    publicRuntimeConfig: configuration,
+    publicRuntimeConfig: { ...configs, ...gameSettings },
     webpack: (config, options) => {
         // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
         // @sentry/node will run in a Node.js environment. @sentry/node will use
