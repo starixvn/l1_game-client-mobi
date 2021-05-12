@@ -1,4 +1,5 @@
 import React from "react";
+import { isMobileOnly } from "react-device-detect";
 import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
@@ -39,6 +40,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private betWin: number;
     private isUMInFirstLoad = false;
     private showWaitingTimeout: NodeJS.Timeout;
+    private gameContainerRef = React.createRef<HTMLDivElement>();
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -492,8 +494,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderReBet() {
+        const betContainerRef = this.gameContainerRef;
+        const domRect = betContainerRef.current.getBoundingClientRect();
+        const betContainerPosition = domRect.y;
+
         return (
-            <BaseDialog type={ModalType.Top} isOpen={this.state.displayPopup === PopupType.Rebet} onCloseModal={() => this.closePopup()}>
+            <BaseDialog
+                betContainerPosition={isMobileOnly ? betContainerPosition : null}
+                type={ModalType.Top}
+                isOpen={this.state.displayPopup === PopupType.Rebet}
+                onCloseModal={() => this.closePopup()}
+            >
                 <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={() => this.closePopup()} />
             </BaseDialog>
         );
@@ -637,6 +648,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     <GameContainer>
                         <BetContainer gameState={gameState}>
                             <div
+                                ref={this.gameContainerRef}
                                 className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""} ${
                                     Styles[this.props.gameName]
                                 }`}
