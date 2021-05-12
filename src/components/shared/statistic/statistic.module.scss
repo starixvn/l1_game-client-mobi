@@ -8,6 +8,7 @@
 
 .number {
     margin-left: 0.2rem;
+    font-family: $font-number;
 
     @media (min-width: 1024px) and (max-width: 1278px) {
         font-size: 1.2rem;
@@ -38,4 +39,3 @@
     @extend %title;
     color: $dragonTiger-choice-tie-color;
 }
-
