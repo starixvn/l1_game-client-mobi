@@ -155,7 +155,7 @@
 .chips-container {
     position: relative;
     width: 20.6rem;
-    right: 3.6rem;
+    margin: auto;
 
     %icon {
         position: absolute;
@@ -201,11 +201,6 @@
         @media (min-width: 768px) {
             right: -4rem;
         }
-    }
-
-    @media (min-width: 500px) {
-        margin: auto;
-        right: auto;
     }
 
     @media (min-width: 768px) {
