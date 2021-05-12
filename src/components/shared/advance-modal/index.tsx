@@ -19,7 +19,7 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
     const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        ref.current.scrollIntoView(false);
+        ref.current.scrollIntoView({ block: "center" });
     }, [ref.current]);
 
     return (
