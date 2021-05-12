@@ -24,17 +24,7 @@ const CountdownTimer: React.FC = () => {
         case GameState.LockingBet:
             return (
                 <div className={styles.timer}>
-                    <CountdownCircleTimer
-                        {...timerProps}
-                        colors={
-                            ctx.gameState == GameState.LockingBet
-                                ? [["#FF0000", 1]]
-                                : [
-                                      ["#19A32F", 0.7],
-                                      ["#FF5B15", 0.3],
-                                  ]
-                        }
-                    >
+                    <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF0000" : "#19A32F", 1]]}>
                         {({ remainingTime }) => {
                             if (remainingTime === 0) {
                                 return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });
