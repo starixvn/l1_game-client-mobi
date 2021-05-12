@@ -104,6 +104,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onStart() {
         const { socketInfo } = this.props;
         const { session } = this.context;
+        console.log(appSettings.proxyUrl);
         const socketUri = `${appSettings.ssl ? "https" : "http"}://${appSettings.proxyUrl}/user/${socketInfo.namespace}`;
 
         this.setState(this.defaultState);

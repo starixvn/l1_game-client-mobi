@@ -86,7 +86,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     connectMainSocket() {
-        const socketUri = `${appSettings.ssl ? "wss" : "ws"}://${appSettings.proxyUrl}/websocket`;
+        const socketUri = `${appSettings.ssl ? "wss" : "ws"}://${appSettings.proxyUrl}/main/websocket`;
         const socket = new WebSocket(socketUri);
         socket.onmessage = this.onSocketData;
 
