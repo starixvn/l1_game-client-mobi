@@ -16,7 +16,14 @@ export default function SplashScreen() {
                 />
             </div>
 
-            <div className={Styles.message}> {locale === locales.vi ? "Một sản phẩm của Bóng88" : ""}</div>
+            {locale === locales.vi ? (
+                <div className={Styles.message}>
+                    <span>Một sản phẩm của</span>
+                    <img className={Styles["logo-bong88"]} src={`/static/images/logo-bong88.svg`} alt="Bong88" />
+                </div>
+            ) : (
+                ""
+            )}
         </div>
     );
 }
