@@ -157,31 +157,31 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         <div className={Styles["bet-settings"]}>
             <div className={Styles["settings-container"]}>
                 <div className={`game-container ${Styles["container"]}`}>
-                    <div className={Styles["toggle"]}>
-                        <input
-                            className={Styles["toggle-checkbox"]}
-                            id="toggle-quickbet"
-                            type={"checkbox"}
-                            value={"Quick Bet"}
-                            checked={enabledQuickBet}
-                            onChange={onClickQuickBet}
-                        />
-                        <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                            <div className={Styles.chip}>
-                                <div className={Styles["layer1"]}></div>
-                                <div className={Styles["layer2"]}></div>
-                                <div className={Styles["group-list"]}>
-                                    <span className={`icon-chip-symbol ${Styles["symbol1"]}`}></span>
-                                    <span className={`icon-chip-symbol ${Styles["symbol2"]}`}></span>
-                                    <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
-                                    <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
-                                </div>
-                                <div className={Styles["icon-quick-bet"]}></div>
-                            </div>
-                        </label>
-                        <div className={Styles["one-click-bet"]}>1-Click Bet</div>
-                    </div>
                     <div className={Styles["wrapper-chips"]}>
+                        <div className={Styles["toggle"]}>
+                            <input
+                                className={Styles["toggle-checkbox"]}
+                                id="toggle-quickbet"
+                                type={"checkbox"}
+                                value={"Quick Bet"}
+                                checked={enabledQuickBet}
+                                onChange={onClickQuickBet}
+                            />
+                            <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                                <div className={Styles.chip}>
+                                    <div className={Styles["layer1"]}></div>
+                                    <div className={Styles["layer2"]}></div>
+                                    <div className={Styles["group-list"]}>
+                                        <span className={`icon-chip-symbol ${Styles["symbol1"]}`}></span>
+                                        <span className={`icon-chip-symbol ${Styles["symbol2"]}`}></span>
+                                        <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
+                                        <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
+                                    </div>
+                                    <div className={Styles["icon-quick-bet"]}></div>
+                                </div>
+                            </label>
+                            <div className={Styles["one-click-bet"]}>1-Click Bet</div>
+                        </div>
                         <div className={Styles["chips-container"]}>
                             <span
                                 className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
