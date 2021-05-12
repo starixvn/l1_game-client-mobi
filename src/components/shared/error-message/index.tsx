@@ -5,7 +5,6 @@ import { Props } from "./type";
 
 const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     useEffect(() => {
-        console.log("Show eeror messs");
         const timeOut = setTimeout(() => closeModal(), 2000);
 
         return () => {

@@ -5,6 +5,10 @@
         .dot-wrapper:nth-child(1) {
             display: none;
         }
+
+        .dot-wrapper:nth-child(2) {
+            display: none;
+        }
     }
 
     @media (min-width: 1000px) and (max-width: 1270px) {

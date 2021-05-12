@@ -180,25 +180,32 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                             </div>
                         </label>
                     </div>
-
-                    <div className={Styles["chips-container"]}>
-                        <span className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`} onClick={onClickPrev}></span>
-                        <Slider
-                            ref={(c) => {
-                                sliderRef = c;
-                            }}
-                            {...SliderSetting}
-                        >
-                            {Object.keys(ChipLabelMapper).map((key) => (
-                                <Chip
-                                    key={key}
-                                    value={ChipLabelMapper[key]}
-                                    onSelected={handleSelectChip}
-                                    selected={betValue === ChipLabelMapper[key]}
-                                />
-                            ))}
-                        </Slider>
-                        <span className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`} onClick={onClickNext}></span>
+                    <div className={Styles["wrapper-chips"]}>
+                        <div className={Styles["chips-container"]}>
+                            <span
+                                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
+                                onClick={onClickPrev}
+                            ></span>
+                            <Slider
+                                ref={(c) => {
+                                    sliderRef = c;
+                                }}
+                                {...SliderSetting}
+                            >
+                                {Object.keys(ChipLabelMapper).map((key) => (
+                                    <Chip
+                                        key={key}
+                                        value={ChipLabelMapper[key]}
+                                        onSelected={handleSelectChip}
+                                        selected={betValue === ChipLabelMapper[key]}
+                                    />
+                                ))}
+                            </Slider>
+                            <span
+                                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`}
+                                onClick={onClickNext}
+                            ></span>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -41,7 +41,7 @@
     justify-content: flex-end;
     height: 100%;
 
-    @media (min-width: 768px) and (max-width: 1280px) {
+    @media (min-width: 600px) and (max-width: 1280px) {
         top: -21px;
         height: 11.5rem;
         justify-content: center;
@@ -141,6 +141,14 @@
                 color: #00ff75;
             }
         }
+    }
+}
+
+@media (max-width: 599px) {
+    .wrapper-chips {
+        position: absolute;
+        left: 7rem;
+        right: 0;
     }
 }
 
