@@ -15,7 +15,7 @@
     border-style: solid;
     color: #fff;
 
-    @media print, screen and (min-width: 1200px) {
+    @media (min-width: 1050px) {
         width: 1.6rem;
         height: 1.6rem;
         margin: 0 0.15rem;
