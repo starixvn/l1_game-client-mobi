@@ -32,7 +32,7 @@ function Home({ isLandscape }) {
 
         const { token } = router.query;
         if (token) {
-            const userSession = await authService.sso(token as string);
+            const userSession = await authService.sso(token as string, 2);
             if (userSession && userSession.isAuthenticated) {
                 handleSignInSuccess(userSession);
 
