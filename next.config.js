@@ -1,7 +1,13 @@
 const basePath = "";
-const configs = require("./configs/configs");
-const gameSettings = require("./game-settings");
+const gameSettings = require("./game-settings.json");
+const configs = require("./configs/configs.json");
 const { i18n } = require("./next-i18next.config");
+const appSettings = {
+    proxy: configs.proxy,
+    sentry: configs.sentry,
+    offeredGames: configs.offeredGames,
+    gameSettings: gameSettings
+};
 
 module.exports = {
     i18n,
@@ -10,7 +16,7 @@ module.exports = {
         webpack5: true,
     },
     excludeFile: (str) => /\*.{spec,test}.js/.test(str),
-    publicRuntimeConfig: { ...configs, ...gameSettings },
+    publicRuntimeConfig: appSettings,
     webpack: (config, options) => {
         // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
         // @sentry/node will run in a Node.js environment. @sentry/node will use

@@ -13,6 +13,6 @@ interface SentryOptions {
 export default interface AppSettings {
     proxy: ProxySetting;
     sentry: SentryOptions;
-    gameSettings: { [id: string]: GameBaseProps };
     offeredGames: number[];
+    gameSettings: { [id: string]: GameBaseProps };
 }
