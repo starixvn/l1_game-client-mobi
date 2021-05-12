@@ -1,9 +1,10 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useCountUp } from "react-countup";
-import { Navbar, ButtonDropdown, DropdownToggle, DropdownItem, DropdownMenu } from "reactstrap";
-import Link from "next/link";
+import { ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Navbar } from "reactstrap";
+
 import { numberWithCommas } from "../../helpers/number-helper";
-import { useRouter } from "next/router";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -46,7 +47,7 @@ const Header: React.FC<Props> = (props) => {
                                 {countUp ? numberWithCommas(+countUp) : 0} {props.currency}
                             </div>
                         </div>
-                        <ButtonDropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["language"]}>
+                        <ButtonDropdown disabled isOpen={dropdownOpen} toggle={toggle} className={Styles["language"]}>
                             <DropdownToggle className={Styles["dropdown-toggle"]} caret>
                                 <span className={`${toggleName[locale] == toggleName.vi ? Styles["flag-vn"] : Styles["flag-en"]}`}></span>
                                 {toggleName[locale]}
