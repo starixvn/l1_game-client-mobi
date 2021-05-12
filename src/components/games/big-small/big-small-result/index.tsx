@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../big-small";
@@ -6,10 +6,11 @@ import { countRedDot } from "../big-small-helper";
 import { GameState } from "../../../shared/game-base/type";
 import Styles from "./big-small-result.module.scss";
 
+const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { isCompactMode, playResultAnimation, gameSetting,gameState } = useGameContext();
+    const { isCompactMode, playResultAnimation, gameSetting, gameState } = useGameContext();
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
-
+    const pathImgResult = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
     const actionByGameState = {
         [GameState.LockingBet]: () => {
             setIsShowCountOfDice(false);
@@ -56,7 +57,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                 >
                     <div className={Styles["result-plate"]}></div>
                     <div className={Styles["toss-dices"]}>
-                        <img src="/static/images/bigsmall_dice.gif" alt="shake" />
+                        <img src={pathImgResult} alt="shake" />
                     </div>
                     {generateResult()}
                 </div>
