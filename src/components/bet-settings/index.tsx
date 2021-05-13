@@ -179,7 +179,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                     <div className={Styles["icon-quick-bet"]}></div>
                                 </div>
                             </label>
-                            <div className={Styles["one-click-bet"]}>1-Click Bet</div>
+                            <div className={`heart-beat-animation ${Styles["one-click-bet"]}`}>1-Click Bet</div>
                         </div>
                         <div className={Styles["chips-container"]}>
                             <span
