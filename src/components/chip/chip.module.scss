@@ -25,6 +25,12 @@
     &.btn-chip {
         margin: 0 1rem;
 
+        &.mobile {
+            &:hover {
+                --ratio: 1;
+            }
+        }
+
         &:hover,
         &.selected {
             --ratio: 1.2;

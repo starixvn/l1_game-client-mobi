@@ -1,4 +1,5 @@
 import React from "react";
+import { isMobileOnly, isTablet } from "react-device-detect";
 import { ChipLabelMapper, ChipMapper } from "../../common/constants";
 
 import Styles from "./chip.module.scss";
@@ -26,6 +27,7 @@ const Chip: React.FC<Props> = ({ value, onSelected, selected = false, additional
                 ${selected ? Styles.selected : ""} 
                 ${onSelected && Styles["btn-chip"]} 
                 ${additionalClass ? Styles[additionalClass] : ""}
+                ${isMobileOnly || isTablet ? Styles.mobile : ""}
                 `}
             onClick={handleClick}
         >
