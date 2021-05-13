@@ -19,6 +19,7 @@ type Props = {
 };
 
 const SlidingTimeInMillisecond = 250;
+let isSwipe = true;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
@@ -26,8 +27,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSliding, setIsSliding] = useState(false);
     const { t } = useTranslation("common");
-
-    let isSwipe = true;
 
     const SliderSetting = {
         speed: SlidingTimeInMillisecond,
@@ -83,9 +82,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             const newSelectedChip = ChipValues[chipIndex + 1];
             const currentSlideToShow = getCurrentSlidesToShow();
 
+            isSwipe = false;
             sliderRef.slickGoTo(chipIndex + 3 - currentSlideToShow);
             handleSelectChip(newSelectedChip);
-            isSwipe = false;
             disableSelectChipWhenSliding();
         }
     };
@@ -95,9 +94,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             const chipIndex = ChipValues.indexOf(betValue);
             const newSelectedChip = ChipValues[chipIndex - 1];
 
+            isSwipe = false;
             sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
-            isSwipe = false;
             disableSelectChipWhenSliding();
         }
     };
