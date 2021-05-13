@@ -4,14 +4,35 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import { GameState } from "../../../shared/game-base/type";
+import { v4 as uuidV4 } from "uuid";
+import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
 const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
+
+const renderAnimTossDice = () => {
+    const { gameSetting } = useGameContext();
+    const wrapperRefAnim = useRef<HTMLDivElement>(null);
+    const pathImgResult = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
+    useEffect(() => {
+        return () => {
+            wrapperRefAnim.current = null;
+        };
+    }, [wrapperRefAnim]);
+
+    return (
+        <div className={Styles["toss-dices"]} ref={wrapperRefAnim}>
+            <Image key={uuidV4} src={pathImgResult} alt="shake" width={180} height={180} layout="intrinsic" />
+        </div>
+    );
+};
+
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { isCompactMode, playResultAnimation, gameSetting, gameState } = useGameContext();
-    const [animToss, setAnimToss] = useState<JSX.Element>(<></>);
+    const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
-    const pathImgResult = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
+    const wrapperRefResult = useRef<HTMLDivElement>(null);
+
     const actionByGameState = {
         [GameState.LockingBet]: () => {
             setIsShowCountOfDice(false);
@@ -28,14 +49,6 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
         [GameState.BeforeStartRound]: () => {
             setIsShowCountOfDice(true);
         },
-    };
-
-    const renderAnimTossDice = () => {
-        return (
-            <div className={Styles["toss-dices"]}>
-                <img src={pathImgResult} alt="shake" />
-            </div>
-        );
     };
 
     const generateResult = () => {
@@ -56,15 +69,18 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     };
 
     useEffect(() => {
-        setAnimToss(renderAnimTossDice());
-    }, []);
-
-    useEffect(() => {
         actionByGameState[gameState] && actionByGameState[gameState]();
     }, [gameState]);
 
+    useEffect(() => {
+        return () => {
+            setAnimToss(<></>);
+            wrapperRefResult.current = null;
+        };
+    }, []);
+
     return (
-        <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
+        <div className={`${Styles["container"]} ${Styles["show-result"]}`} ref={wrapperRefResult}>
             <div className="overlay-mask-no-bg">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${

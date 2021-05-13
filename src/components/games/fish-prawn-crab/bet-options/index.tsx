@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
@@ -107,14 +107,21 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, result } = props;
     const countsAppearDice = {};
+    const wrapperRef = useRef<HTMLInputElement>(null);
     if (result) {
         Object.values(result).forEach((value) => {
             countsAppearDice[value] = (countsAppearDice[value] || 0) + 1;
         });
     }
 
+    useEffect(() => {
+        return () => {
+            wrapperRef.current = null;
+        };
+    }, []);
+
     return (
-        <div className={`${Styles["layout-FPC"]}`}>
+        <div className={`${Styles["layout-FPC"]}`} ref={wrapperRef}>
             <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult, countsAppearDice)}</div>
             <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult, countsAppearDice)}</div>
             <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult, countsAppearDice)}</div>
