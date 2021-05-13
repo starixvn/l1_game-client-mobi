@@ -25,8 +25,10 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSliding, setIsSliding] = useState(false);
-    const [isSwipe, setIsSwipe] = useState(true);
     const { t } = useTranslation("common");
+
+    let isSwipe = true;
+
     const SliderSetting = {
         speed: SlidingTimeInMillisecond,
         infinite: false,
@@ -34,7 +36,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         swipeToSlide: true,
         slidesToShow: 10,
         arrows: false,
-        onSwipe: () => setIsSwipe(true),
+        onSwipe: () => {
+            isSwipe = true;
+        },
         beforeChange: (oldIndex: number, newIndex: number) => {
             if (isSwipe) {
                 const currentSlideToShow = getCurrentSlidesToShow();
@@ -81,7 +85,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
             sliderRef.slickGoTo(chipIndex + 3 - currentSlideToShow);
             handleSelectChip(newSelectedChip);
-            setIsSwipe(false);
+            isSwipe = false;
             disableSelectChipWhenSliding();
         }
     };
@@ -93,7 +97,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
             sliderRef.slickGoTo(chipIndex - 2);
             handleSelectChip(newSelectedChip);
-            setIsSwipe(false);
+            isSwipe = false;
             disableSelectChipWhenSliding();
         }
     };
@@ -135,7 +139,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
-        setIsSwipe(false);
         AudioCollection.getSelectChipSound().play();
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
