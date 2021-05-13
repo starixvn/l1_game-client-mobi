@@ -25,14 +25,6 @@
     &.btn-chip {
         margin: 0 1rem;
 
-        &.mobile {
-            &:hover {
-                --ratio: 1;
-                top: 0;
-            }
-        }
-
-        &:hover,
         &.selected {
             --ratio: 1.2;
             top: -0.5rem;
@@ -70,10 +62,6 @@
             }
         }
 
-        &:hover {
-            cursor: pointer;
-        }
-
         @media (min-width: 768px) and (max-width: 1024px) {
             --ratio: 1.2;
             margin: 0 1.8rem;
@@ -87,6 +75,29 @@
         @media (min-width: 1280px) {
             --ratio: 1.5;
             margin: 0 1.8rem;
+        }
+
+        @media (hover: hover) {
+            &.btn-chip:hover {
+                cursor: pointer;
+                --ratio: 1.2;
+                top: -0.5rem;
+
+                @media (min-width: 768px) and (max-width: 1024px) {
+                    --ratio: 1.5;
+                    top: -0.8rem;
+                }
+
+                @media (min-width: 1025px) and (max-width: 1279px) {
+                    --ratio: 1.7;
+                    top: -0.9rem;
+                }
+
+                @media (min-width: 1200px) {
+                    --ratio: 1.8;
+                    top: -1rem;
+                }
+            }
         }
     }
 
