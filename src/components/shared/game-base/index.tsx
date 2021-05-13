@@ -467,6 +467,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ errorMessage: this.props.t("common:processingBet"), displayPopup: PopupType.Error });
         } else {
             if (amount > 0) {
+                new Audio().play();
                 this.socket.emit("bet", { betChoice, amount });
                 this.setState({ isProcessingBet: true });
             }
