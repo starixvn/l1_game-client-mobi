@@ -55,29 +55,32 @@ const Rebet: React.FC<Props> = (props) => {
 
     const renderLastRoundBet = () => {
         return lastBetChoices
-            ? Object.keys(lastBetChoices).map((betChoice) => (
-                  <div>
-                      <div
-                          className={`${Styles["bet-info"]} ${
-                              betTrack[betChoice] && Styles[getClassByBetState(betTrack[betChoice].state)]
-                          }`}
-                      >
-                          <div className={Styles["bet-choice"]}>
-                              <span className={Styles["choice"]}>{t(betChoice)}</span>
-                              {`@1:${props.getOddsByChoice(betChoice)}`}
-                          </div>
-                          <div className="d-flex align-items-center">
-                              <div className={Styles["bet-amount"]}>{numberWithCommas(lastBetChoices[betChoice])}</div>
-                              {betTrack[betChoice] && (
-                                  <div className={`icon-${getClassByBetState(betTrack[betChoice].state)} ${Styles["icon"]}`}></div>
+            ? Object.keys(lastBetChoices).map(
+                  (betChoice) =>
+                      lastBetChoices[betChoice] > 0 && (
+                          <div>
+                              <div
+                                  className={`${Styles["bet-info"]} ${
+                                      betTrack[betChoice] && Styles[getClassByBetState(betTrack[betChoice].state)]
+                                  }`}
+                              >
+                                  <div className={Styles["bet-choice"]}>
+                                      <span className={Styles["choice"]}>{t(betChoice)}</span>
+                                      {`@1:${props.getOddsByChoice(betChoice)}`}
+                                  </div>
+                                  <div className="d-flex align-items-center">
+                                      <div className={Styles["bet-amount"]}>{numberWithCommas(lastBetChoices[betChoice])}</div>
+                                      {betTrack[betChoice] && (
+                                          <div className={`icon-${getClassByBetState(betTrack[betChoice].state)} ${Styles["icon"]}`}></div>
+                                      )}
+                                  </div>
+                              </div>
+                              {betTrack[betChoice]?.state === BetState.Error && (
+                                  <div className={Styles["error-message"]}>{betTrack[betChoice].message}</div>
                               )}
                           </div>
-                      </div>
-                      {betTrack[betChoice]?.state === BetState.Error && (
-                          <div className={Styles["error-message"]}>{betTrack[betChoice].message}</div>
-                      )}
-                  </div>
-              ))
+                      )
+              )
             : null;
     };
 
@@ -87,8 +90,10 @@ const Rebet: React.FC<Props> = (props) => {
 
     const handleSubmit = () => {
         Object.keys(lastBetChoices).forEach((betChoice) => {
-            betTrack[betChoice] = { state: BetState.Waiting };
-            gameActionContext.placeBet(betChoice, lastBetChoices[betChoice]);
+            if (lastBetChoices[betChoice] > 0) {
+                betTrack[betChoice] = { state: BetState.Waiting };
+                gameActionContext.placeBet(betChoice, lastBetChoices[betChoice]);
+            }
         });
 
         updateBetTrack(betTrack);
