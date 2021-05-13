@@ -136,7 +136,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const handleSelectChip = (chipValue: number) => {
         setIsSwipe(false);
-        AudioCollection.selectChip.play();
+        AudioCollection.getSelectChipSound().play();
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };

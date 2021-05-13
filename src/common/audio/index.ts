@@ -1,4 +1,4 @@
 export const AudioCollection = {
-    selectChip: new Audio("./static/sounds/chip-click.mp3"),
-    placeBet: new Audio("./static/sounds/place-bet.mp3"),
+    getSelectChipSound: () => new Audio("./static/sounds/chip-click.mp3"),
+    getPlaceBetSound: () => new Audio("./static/sounds/place-bet.mp3"),
 };
