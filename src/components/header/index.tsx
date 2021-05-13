@@ -17,7 +17,7 @@ const Header: React.FC<Props> = (props) => {
 
     useEffect(() => {
         setIsBalanceAnim(true);
-        const timeOut = setTimeout(() => setIsBalanceAnim(false), 2000);
+        const timeOut = setTimeout(() => setIsBalanceAnim(false), 1000);
 
         return () => {
             clearTimeout(timeOut);
@@ -36,7 +36,7 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                             <div className={Styles["info"]}>
                                 <div className={Styles["user-name"]}>{props.name}</div>
-                                <div className={`${Styles.balance} ${isBalanceAnim ? Styles["balance-animation"] : ""}`}>
+                                <div className={`${Styles.balance} ${isBalanceAnim ? "heart-beat-animation" : ""}`}>
                                     {numberWithCommas(props.balance)} {props.currency}
                                 </div>
                             </div>
