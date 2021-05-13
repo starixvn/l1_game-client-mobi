@@ -1,22 +1,20 @@
 import React, { useRef } from "react";
 import Chip from "../../../chip";
+import styles from "./display-chip.module.scss";
 
 const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number }> = ({ chipValue, chipKey }) => {
-    const displayChipStyles = useRef({
+    const chipContainerStyles = useRef({
+        transform: "scale(0.56)",
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         ZIndex: chipKey,
-        transform: "scale(0.56)",
         position: "absolute" as "absolute",
     });
 
     return (
-        <Chip
-            key={`chip-${chipValue}-${chipKey}`}
-            value={chipValue}
-            customStyle={displayChipStyles.current}
-            additionalClass={"dropAnimation"}
-        />
+        <div className={styles["display-chip-container"]} style={chipContainerStyles.current}>
+            <Chip key={`chip-${chipValue}-${chipKey}`} value={chipValue} additionalClass={"dropAnimation"} />
+        </div>
     );
 };
 

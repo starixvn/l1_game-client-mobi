@@ -22,10 +22,6 @@
     border-radius: 50%;
     transition: top 0.1s ease-in-out;
 
-    &.dropAnimation {
-        animation: dropAnimation 0.3s ease-out, bounceAnimation 0.5s ease-out 0.3s;
-    }
-
     &.btn-chip {
         margin: 0 1rem;
 
@@ -256,33 +252,6 @@
 
         .number {
             text-transform: uppercase;
-        }
-    }
-
-    @keyframes dropAnimation {
-        from {
-            transform: scale(0.9) translateY(11px);
-        }
-        to {
-            transform: scale(0.56) translateY(0);
-        }
-    }
-
-    @keyframes bounceAnimation {
-        0% {
-            transform: scale(0.56) translateY(0);
-        }
-
-        30% {
-            transform: scale(0.6) translateY(2px);
-        }
-
-        70% {
-            transform: scale(0.56) translateY(0px);
-        }
-
-        100% {
-            transform: scale(0.57) translateY(0.5px);
         }
     }
 
