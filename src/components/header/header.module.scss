@@ -17,6 +17,9 @@
     }
 
     .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
         padding-left: 1rem;
         padding-right: 0.6rem;
@@ -24,7 +27,6 @@
 }
 
 .user {
-    float: left;
     display: flex;
     align-items: center;
     margin-right: 1rem;
@@ -37,9 +39,10 @@
     }
 
     .info {
-        line-height: 2rem;
-        margin-left: 0.9rem;
+        line-height: 1.8rem;
+        margin-right: 0.9rem;
         font-weight: bold;
+        text-align: right;
     }
 
     .balance {

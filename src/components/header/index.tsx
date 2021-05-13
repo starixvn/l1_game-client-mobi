@@ -29,16 +29,19 @@ const Header: React.FC<Props> = (props) => {
             <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
+                        <div className={Styles["logo"]}>
+                            <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
+                        </div>
                         <div className={Styles["user"]}>
-                            <div className={Styles["avatar"]}>
-                                {/* <img src={`/static/images/avatar/1.png`} className="img-fluid" alt="Avatar" /> */}
-                                <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                            </div>
                             <div className={Styles["info"]}>
                                 <div className={Styles["user-name"]}>{props.name}</div>
                                 <div className={`${Styles.balance} ${isBalanceAnim ? "heart-beat-animation" : ""}`}>
                                     {numberWithCommas(props.balance)} {props.currency}
                                 </div>
+                            </div>
+                            <div className={Styles["avatar"]}>
+                                {/* <img src={`/static/images/avatar/1.png`} className="img-fluid" alt="Avatar" /> */}
+                                <span className={`icon-user ${Styles["icon-user"]}`}></span>
                             </div>
                         </div>
                     </div>
