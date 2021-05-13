@@ -7,6 +7,7 @@
     animation-timing-function: ease-in-out;
     animation-duration: 1s;
     color: #ff9a00;
+    letter-spacing: -0.1rem;
     -webkit-text-stroke: 0.1rem #b82c00;
     text-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.4);
 
@@ -52,7 +53,7 @@
     }
 
     100% {
-        transform: translate3d(0, -7rem, 0) scale(1.3);
+        transform: translate3d(0, -7rem, 0) scale(1.2);
     }
 }
 
