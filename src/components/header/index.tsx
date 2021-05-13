@@ -14,7 +14,7 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
-
+    const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
     useEffect(() => {
         setIsBalanceAnim(true);
         const timeOut = setTimeout(() => setIsBalanceAnim(false), 1000);
@@ -40,8 +40,11 @@ const Header: React.FC<Props> = (props) => {
                                 </div>
                             </div>
                             <div className={Styles["avatar"]}>
-                                {/* <img src={`/static/images/avatar/1.png`} className="img-fluid" alt="Avatar" /> */}
-                                <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                                {props.avatarId > 0 && props.avatarId < 41 ? (
+                                    <img src={pathAvatar} className="img-fluid" alt="Avatar" />
+                                ) : (
+                                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                                )}
                             </div>
                         </div>
                     </div>

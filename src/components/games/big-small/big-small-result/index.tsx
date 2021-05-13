@@ -13,7 +13,7 @@ const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
 const renderAnimTossDice = () => {
     const { gameSetting } = useGameContext();
     const wrapperRefAnim = useRef<HTMLDivElement>(null);
-    const pathImgResult = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
+    const pathImgAnim = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
     useEffect(() => {
         return () => {
             wrapperRefAnim.current = null;
@@ -22,7 +22,7 @@ const renderAnimTossDice = () => {
 
     return (
         <div className={Styles["toss-dices"]} ref={wrapperRefAnim}>
-            <Image key={uuidV4} src={pathImgResult} alt="shake" width={180} height={180} layout="intrinsic" />
+            <Image key={uuidV4} src={pathImgAnim} alt="shake" width={180} height={180} layout="intrinsic" />
         </div>
     );
 };
