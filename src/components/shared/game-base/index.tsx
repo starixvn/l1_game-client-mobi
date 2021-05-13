@@ -5,7 +5,7 @@ import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import appSettings from "../../../common/app-settings";
-import { AudioCollection, playSound } from "../../../common/audio";
+import { AudioCollection } from "../../../common/audio";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { GameResourceKeys, CommonResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
@@ -40,7 +40,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private betWin: number;
     private isUMInFirstLoad = false;
     private showWaitingTimeout: NodeJS.Timeout;
-    private gameContainerRef = React.createRef<HTMLDivElement>();
+    private readonly gameContainerRef = React.createRef<HTMLDivElement>();
+    private placeBetSound: HTMLAudioElement;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -188,7 +189,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             this.setState({ displayChips: newDisplayChips, isProcessingBet: false });
-            playSound(AudioCollection.placeBet);
+            this.placeBetSound.play();
         }
 
         this.updateUserBalance();
@@ -467,7 +468,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ errorMessage: this.props.t("common:processingBet"), displayPopup: PopupType.Error });
         } else {
             if (amount > 0) {
-                new Audio().play();
+                this.placeBetSound = AudioCollection.placeBet;
                 this.socket.emit("bet", { betChoice, amount });
                 this.setState({ isProcessingBet: true });
             }

@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { AudioCollection, playSound } from "../../common/audio";
+import { AudioCollection } from "../../common/audio";
 
 import { ChipLabelMapper, ChipValues } from "../../common/constants";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -136,7 +136,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const handleSelectChip = (chipValue: number) => {
         setIsSwipe(false);
-        playSound(AudioCollection.selectChip);
+        AudioCollection.selectChip.play();
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
