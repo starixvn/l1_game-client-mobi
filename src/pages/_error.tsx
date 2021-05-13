@@ -1,4 +1,6 @@
 import * as Sentry from "@sentry/node";
+import { useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
     if (!hasGetInitialPropsRun && err) {
@@ -9,13 +11,22 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
         // Flushing is not required in this case as it only happens on the client
     }
 
+    const { t } = useTranslation("common");
+
     return (
         <div>
             <div className="error-page">
                 <img src="/static/images/error.svg" alt="error" className="img-fluid" />
+                <p className="info">{t("errorPage")}</p>
             </div>
         </div>
     );
 };
+
+export const getStaticProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale, ["common"])),
+    },
+});
 
 export default Error;

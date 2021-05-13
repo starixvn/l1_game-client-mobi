@@ -157,7 +157,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             <div className={Styles["settings-container"]}>
                 <div className={`game-container ${Styles["container"]}`}>
                     <div className={Styles["wrapper-chips"]}>
-                        <div className={Styles["toggle"]}>
+                        <div className={`heart-beat-animation ${Styles["toggle"]}`}>
                             <input
                                 className={Styles["toggle-checkbox"]}
                                 id="toggle-quickbet"
@@ -179,7 +179,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                     <div className={Styles["icon-quick-bet"]}></div>
                                 </div>
                             </label>
-                            <div className={`heart-beat-animation ${Styles["one-click-bet"]}`}>1-Click Bet</div>
+                            <div className={Styles["one-click-bet"]}>1-Click Bet</div>
                         </div>
                         <div className={Styles["chips-container"]}>
                             <span

@@ -21,5 +21,6 @@
     "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
     "processingBet": "Cược đang được xử lý. Vui lòng đợi trong giây lát.",
     "close": "Đóng",
-    "userStakeLevelUpdate": "Hạn mức cược của bạn vừa được cập nhật."
+    "userStakeLevelUpdate": "Hạn mức cược của bạn vừa được cập nhật.",
+    "errorPage": "An error has occurred, please contact CSD for details."
 }

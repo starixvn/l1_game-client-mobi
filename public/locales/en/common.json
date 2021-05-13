@@ -21,5 +21,6 @@
     "rotateDevice": "Please rotate your device.",
     "processingBet": "Data are being processed, please wait...",
     "close": "Close",
-    "userStakeLevelUpdate": "Your betting limit has just been changed."
+    "userStakeLevelUpdate": "Your betting limit has just been changed.",
+    "errorPage": "An error has occurred, please contact CSD for details."
 }
