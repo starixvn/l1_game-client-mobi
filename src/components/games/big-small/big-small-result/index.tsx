@@ -9,6 +9,7 @@ import Styles from "./big-small-result.module.scss";
 const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { isCompactMode, playResultAnimation, gameSetting, gameState } = useGameContext();
+    const [animToss, setAnimToss] = useState<JSX.Element>(<></>);
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const pathImgResult = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
     const actionByGameState = {
@@ -29,19 +30,34 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
         },
     };
 
-    const generateResult = () => {
+    const renderAnimTossDice = () => {
         return (
-            <div className={Styles["result-container"]}>
-                {result &&
-                    Object.values(result).map((value, index) => (
-                        <div key={index} className={Styles[`result-${index + 1}`]}>
-                            <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
-                        </div>
-                    ))}
-                {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+            <div className={Styles["toss-dices"]}>
+                <img src={pathImgResult} alt="shake" />
             </div>
         );
     };
+
+    const generateResult = () => {
+        return (
+            <>
+                {animToss}
+                <div className={Styles["result-container"]}>
+                    {result &&
+                        Object.values(result).map((value, index) => (
+                            <div key={index} className={Styles[`result-${index + 1}`]}>
+                                <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                            </div>
+                        ))}
+                    {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                </div>
+            </>
+        );
+    };
+
+    useEffect(() => {
+        setAnimToss(renderAnimTossDice());
+    }, []);
 
     useEffect(() => {
         actionByGameState[gameState] && actionByGameState[gameState]();
@@ -56,9 +72,6 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                     }`}
                 >
                     <div className={Styles["result-plate"]}></div>
-                    <div className={Styles["toss-dices"]}>
-                        <img src={pathImgResult} alt="shake" />
-                    </div>
                     {generateResult()}
                 </div>
             </div>
