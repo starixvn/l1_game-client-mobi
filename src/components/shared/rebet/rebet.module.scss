@@ -28,13 +28,8 @@
     height: 4rem;
     margin: 0.5rem 0;
     padding: 0 1rem;
-    border-left-color: $waiting-color;
+    border-left-color: $success-color;
     background-color: #e3ffda;
-
-    &.success {
-        border-left-color: $success-color;
-        background-color: #e3ffda;
-    }
 
     &.error {
         border-left-color: $error-color;
