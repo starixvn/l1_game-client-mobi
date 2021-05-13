@@ -73,8 +73,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         <span className={`icon-info ${Styles["icon"]}`}></span>
                     </div>
                     <div className={Styles["info"]}>
-                        You can even place bets quickly without comfirmation with 1-Click Betting. Turn it on now!
-                        <img src={`/static/images/btn-quick-bet.svg`} alt="button" />
+                        {t("common:confirmBetNote")}
+                        <img className={Styles["icon-quick-bet"]} src={`/static/images/btn-quick-bet.svg`} alt="button" />
                     </div>
                 </div>
             </div>

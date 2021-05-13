@@ -18,6 +18,7 @@
     "stake": "Stake",
     "confirm": "Xác nhận",
     "confirmBetAutomatic": "Do you want to confirm bet automatically?",
+    "confirmBetNote": "You can even place bets quickly without comfirmation with 1-Click Bet. Turn it on now!",
     "rotateDevice": "Please rotate your device.",
     "processingBet": "Data are being processed, please wait...",
     "close": "Close",
