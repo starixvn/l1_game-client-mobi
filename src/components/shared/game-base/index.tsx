@@ -32,7 +32,6 @@ import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
 import { gameVipIds } from "../../../common/constants";
-import { NextRouter } from "next/router";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {

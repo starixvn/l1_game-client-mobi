@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -17,6 +17,7 @@ export const Games: React.FC = () => {
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(
         getLocalStorageItem<boolean>(localStorageKeys.enabledQuickBet) ?? false
     );
+    const [firstGameIdRender, setFirstGameIdRender] = useState<number>(1);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -34,9 +35,9 @@ export const Games: React.FC = () => {
         storeLocalStorageItem(localStorageKeys.favoriteGames, newFavoriteList);
     };
 
-    const renderListGames = () => {
-        const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
+    const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
 
+    const renderListGames = () => {
         const orderedGames = favoriteGames.concat(unfavoriteGames);
 
         return orderedGames.map((gameId) => getGameComponentById(gameId));
@@ -68,9 +69,13 @@ export const Games: React.FC = () => {
         updateEnabledQuickBet: setEnabledQuickBet,
     };
 
+    useEffect(() => {
+        setFirstGameIdRender(favoriteGames.concat(unfavoriteGames)[0]);
+    }, []);
+
     return (
         <div className="game-container game-wrapper">
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, firstGameIdRender }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

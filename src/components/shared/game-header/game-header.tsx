@@ -18,7 +18,7 @@ export default function GameHeader() {
     const systemContext = useSystemContext();
     const { roundId, gameState, gameSetting } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
-
+    const { firstGameIdRender } = systemContext;
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
@@ -35,6 +35,12 @@ export default function GameHeader() {
             updateCompactMode();
         }
     };
+
+    useEffect(() => {
+        if (isMobileOnly && gameId !== firstGameIdRender) {
+            updateCompactMode();
+        }
+    }, [firstGameIdRender]);
 
     return (
         <div className={Styles.header} onClick={onHeaderClick}>
