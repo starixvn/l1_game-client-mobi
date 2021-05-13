@@ -56,7 +56,8 @@
     user-select: none;
     left: -1.2rem;
     top: 0.8rem;
-    animation-delay: 3s;
+    animation-delay: 2s;
+    animation-iteration-count: 3;
 
     @media (min-width: 768px) {
         position: absolute;
