@@ -172,7 +172,7 @@ const SeDieGuideVI: React.FC<GameGuide> = (props) => {
                             </div>
                         </li>
                         <li>
-                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược.Thời gian đặt cược cho mỗi phiên
+                            Xu sẽ được xóc và kết quả cửa thắng sẽ được hiển thị khi hết thời gian đặt cược. Thời gian đặt cược cho mỗi phiên
                             sẽ được hiển thị đếm ngược trên bàn chơi.
                         </li>
                     </ul>
