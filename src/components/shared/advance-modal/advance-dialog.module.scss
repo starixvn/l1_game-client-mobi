@@ -1,6 +1,10 @@
 .modal {
     cursor: auto;
     height: 100%;
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+    user-select: all;
 
     .icon-close {
         display: flex;

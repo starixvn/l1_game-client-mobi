@@ -17,12 +17,14 @@ const Header: React.FC<Props> = (props) => {
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
     useEffect(() => {
         setIsBalanceAnim(true);
-        const timeOut = setTimeout(() => setIsBalanceAnim(false), 1000);
+    }, [props.balance]);
 
+    useEffect(() => {
+        const timeOut = setTimeout(() => setIsBalanceAnim(false), 500);
         return () => {
             clearTimeout(timeOut);
         };
-    }, [props.balance]);
+    }, [isBalanceAnim]);
 
     return (
         <header className={Styles.header}>
