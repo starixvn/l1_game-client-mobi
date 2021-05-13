@@ -16,6 +16,7 @@ import { Result, SettlementResult } from "./dragon-tiger";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
+import { withRouter } from "next/router";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -92,4 +93,4 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 }
 
-export default withTranslation()(DragonTiger);
+export default withRouter(withTranslation()(DragonTiger));

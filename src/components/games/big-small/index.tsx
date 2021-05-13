@@ -16,6 +16,7 @@ import BigSmallResult from "./big-small-result";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
+import { withRouter } from "next/router";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -99,4 +100,4 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 }
 
-export default withTranslation()(BigSmall);
+export default withRouter(withTranslation()(BigSmall));

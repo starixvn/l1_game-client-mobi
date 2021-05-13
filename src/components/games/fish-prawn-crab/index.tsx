@@ -15,6 +15,7 @@ import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
+import { withRouter } from "next/router";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const OddNames = {
@@ -99,4 +100,4 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 }
 
-export default withTranslation()(FishPrawnCrab);
+export default withRouter(withTranslation()(FishPrawnCrab));

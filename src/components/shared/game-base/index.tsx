@@ -32,6 +32,7 @@ import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
 import { gameVipIds } from "../../../common/constants";
+import { NextRouter } from "next/router";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -173,13 +174,21 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     };
 
-    handleEndBet = ({ endBet, betChoice, notice }) => {
+    handleEndBet = ({ endBet, betChoice, notice, kickedOut }) => {
         const { id } = this.props;
         const { displayPopup, roundId } = this.state;
 
-        if (endBet === -1) {
-            displayPopup !== PopupType.Rebet &&
-                this.setState({ errorMessage: notice, displayPopup: PopupType.Error, isProcessingBet: false });
+        if (endBet === -1 && displayPopup !== PopupType.Rebet) {
+            this.setState({ displayPopup: PopupType.Error, isProcessingBet: false });
+            if (kickedOut?.isDisabledAccount) {
+                this.setState({ errorMessage: kickedOut?.message });
+                const { router } = this.props;
+                setTimeout(() => {
+                    router.push("/timeout");
+                }, 10000);
+            } else {
+                this.setState({ errorMessage: notice });
+            }
         } else {
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
 

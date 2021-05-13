@@ -1,4 +1,6 @@
 import { WithTranslation } from "next-i18next";
+import { WithRouterProps } from "next/dist/client/with-router";
+import { NextRouter } from "next/router";
 
 import { Round } from "../../../types";
 
@@ -26,7 +28,7 @@ export enum PopupType {
     Rebet,
     Error,
     PlaceBet,
-    StakeLevel
+    StakeLevel,
 }
 
 export interface GameSettings {
@@ -41,8 +43,8 @@ export type GameBaseProps = {
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
-} & WithTranslation;
-
+} & WithTranslation &
+    WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
     signedIn: boolean;
     gameState: GameState;

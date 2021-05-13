@@ -15,6 +15,7 @@ import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
+import { withRouter } from "next/router";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -88,4 +89,4 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 }
 
-export default withTranslation()(SeDie);
+export default withRouter(withTranslation()(SeDie));
