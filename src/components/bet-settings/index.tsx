@@ -197,7 +197,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 <div className={Styles.tooltip}>
                                     <div className={Styles.content}>{t("common:oneClickHintMsg")}</div>
                                     <div className={Styles.action}>
-                                        <button className="btn-orange" onClick={() => closeHintTooltip()}>
+                                        <button className={`btn-orange ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
                                             {t("common:close")}
                                         </button>
                                     </div>

@@ -74,7 +74,9 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     </div>
                     <div className={Styles["info"]}>
                         {t("common:confirmBetNote")}
-                        <img className={Styles["icon-quick-bet"]} src={`/static/images/btn-quick-bet.svg`} alt="button" />
+                        <span className={Styles["quick-bet-container"]}>
+                            <img className={Styles["icon-quick-bet"]} src={`/static/images/btn-quick-bet.svg`} alt="button" />
+                        </span>
                     </div>
                 </div>
             </div>

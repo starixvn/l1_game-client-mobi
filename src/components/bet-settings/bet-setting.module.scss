@@ -254,7 +254,7 @@
     position: absolute;
     bottom: 5.5rem;
     left: -0.6rem;
-    width: 350px;
+    width: 30rem;
     line-height: 2rem;
     padding: 1.2rem;
     border-radius: 0.4rem;
@@ -281,5 +281,9 @@
         display: flex;
         justify-content: center;
         margin-top: 1rem;
+    }
+
+    .btn {
+        min-width: 10.5rem;
     }
 }
