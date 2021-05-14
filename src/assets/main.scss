@@ -34,6 +34,7 @@ body {
 
     &.game-wrapper {
         margin-top: 6.1rem;
+        -webkit-overflow-scrolling: touch;
     }
 
     @media (min-width: 1280px) {
