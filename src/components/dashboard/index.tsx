@@ -21,6 +21,8 @@ type Props = {
 
 type State = {
     isFistLogin: boolean;
+    isShowNotice: boolean;
+    notice: string;
     user: User;
 };
 
@@ -39,11 +41,15 @@ class Dashboard extends React.Component<Props, State> {
         this.state = {
             isFistLogin: false,
             user: null,
+            isShowNotice: true,
+            notice: "",
         };
 
         this.handleStateLogin = this.handleStateLogin.bind(this);
+        this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
+        this.forceReload = this.forceReload.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
     }
 
@@ -58,12 +64,6 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             this.setState({ isFistLogin: true });
         }
-
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                window.scrollTo(0, 1);
-            }, 0);
-        });
     }
 
     componentWillUnmount() {
@@ -84,8 +84,8 @@ class Dashboard extends React.Component<Props, State> {
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "wss" : "ws"}://${proxy.uri + proxy.path}/main/websocket`;
         const socket = new WebSocket(socketUri);
-        socket.onopen = this.onSocketConnect.bind(this);
-        socket.onmessage = this.onSocketData.bind(this);
+        socket.onopen = this.onSocketConnect;
+        socket.onmessage = this.onSocketData;
 
         return socket;
     }
@@ -114,6 +114,14 @@ class Dashboard extends React.Component<Props, State> {
                 resultPage.close();
             };
         }
+
+        if (data.reload) {
+            this.forceReload();
+        }
+    }
+
+    forceReload() {
+        window.location.reload();
     }
 
     handleKickedOut(data: any) {
@@ -146,12 +154,15 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             const props = { ...user, balance: this.props.balance };
             return (
-                <div>
+                <>
                     <Header {...props} />
                     <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
                         <Games />
                     </RoundResultContextProvider>
-                </div>
+                    {/* <BaseDialog type={ModalType.Center} isOpen={this.state.isShowNotice} onCloseModal={this.forceReload}>
+                        <div>{"Vui lòng tải lại trang để cập nhật phiên bản mới."}</div>
+                    </BaseDialog> */}
+                </>
             );
         }
     }
