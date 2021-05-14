@@ -408,8 +408,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleRoundHistory({ roundHistory }) {
         const { gameState } = this.state;
+
+        ![GameState.DisplayResult, GameState.None].includes(gameState) && roundHistory.shift();
+
         const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
-        const roundId = gameState !== GameState.DisplayResult ? lastRoundId + 1 : lastRoundId;
+        const roundId = lastRoundId + 1;
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
