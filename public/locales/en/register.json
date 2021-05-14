@@ -6,5 +6,8 @@
     "rule1": "Must be between 3 and 14 characters long.",
     "rule2": "Cannot contain spaces, special, and non-English characters.",
     "rule3": "Cannot change after submtting.",
-    "invalidUsername": "Invalid character name."
+    "invalidUsername": "Invalid character name.",
+    "changeAvatar": "Change Avatar",
+    "registerTitle1":"Chào mừng bạn đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
+    "registerTitle2":" Vui lòng chọn tên nhân vật để cùng trải nghiệm những tựa game đặc sắc nhất."
 }

@@ -1,10 +1,13 @@
 {
-    "registerName": "Tạo Tên Nhân Vật",
+    "registerName": "Tên Nhân Vật",
     "otherName": "Tên khác",
     "submit": "Xác Nhận",
     "note": "Lưu ý",
     "rule1": "Tên nhân vật phải có từ 3 đến 14 ký tự.",
     "rule2": "Không gõ dấu tiếng Việt, không chứa khoảng trắng và các ký tự đặc biệt.",
     "rule3": "Không thể đổi tên nhân vật sau khi tạo.",
-    "invalidUsername": "Tên nhân vật không hợp lệ."
+    "invalidUsername": "Tên nhân vật không hợp lệ.",
+    "changeAvatar": "Change Avatar",
+    "registerTitle1":"Chào mừng bạn đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
+    "registerTitle2":" Vui lòng chọn tên nhân vật để cùng trải nghiệm những tựa game đặc sắc nhất."
 }
