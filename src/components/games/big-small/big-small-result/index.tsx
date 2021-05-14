@@ -11,18 +11,9 @@ import Styles from "./big-small-result.module.scss";
 const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
 
 const renderAnimTossDice = () => {
-    const { gameSetting } = useGameContext();
-    const wrapperRefAnim = useRef<HTMLDivElement>(null);
-    const pathImgAnim = `/static/images/${imageIdMapping[gameSetting.id]}.gif`;
-    useEffect(() => {
-        return () => {
-            wrapperRefAnim.current = null;
-        };
-    }, [wrapperRefAnim]);
-
     return (
-        <div className={Styles["toss-dices"]} ref={wrapperRefAnim}>
-            <Image key={uuidV4} src={pathImgAnim} alt="shake" width={180} height={180} layout="intrinsic" />
+        <div className={Styles["toss-dices"]}>
+            <div className={Styles["dices"]}></div>
         </div>
     );
 };
