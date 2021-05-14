@@ -25,30 +25,30 @@ const Rebet: React.FC<Props> = (props) => {
     const [isSubmit, updateIsSummit] = useState(false);
 
     useEffect(() => {
-        const listenerId = gameActionContext.registerMessageHandler("endBet", (payload) => {
-            const { endBet, betChoice, notice } = payload;
-
-            if (betTrack[betChoice]) {
-                betTrack[betChoice] = {
-                    state: endBet > 0 ? BetState.Success : BetState.Error,
-                    message: notice,
-                    validAmount: endBet > 0 ? endBet : 0,
-                };
-
-                if (checkBetFinish(betTrack)) {
-                    const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
-
-                    updateIsWaiting(false);
-                    gameActionContext.finishProcessingBet();
-                    totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
-                    !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
-                }
-                updateBetTrack(betTrack);
-            }
-        });
+        const listenerId = gameActionContext.registerMessageHandler("endBet", handleEndBetMessage.bind(this));
 
         return () => gameActionContext.unsubscribeMessageHandler(listenerId);
     }, []);
+
+    const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
+        if (betTrack[betChoice]) {
+            betTrack[betChoice] = {
+                state: endBet > 0 ? BetState.Success : BetState.Error,
+                message: notice || apiError?.message,
+                validAmount: endBet > 0 ? endBet : 0,
+            };
+
+            if (checkBetFinish(betTrack)) {
+                const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
+
+                updateIsWaiting(false);
+                gameActionContext.finishProcessingBet();
+                totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
+                !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
+            }
+            updateBetTrack(betTrack);
+        }
+    };
 
     const checkBetFinish = (betTrack: { [key: string]: BetTrackModel }) =>
         !Object.values(betTrack).some((betTrackInfo) => betTrackInfo.state === BetState.Waiting);

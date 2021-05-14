@@ -177,16 +177,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { id } = this.props;
         const { displayPopup, roundId } = this.state;
 
-        if (endBet === -1 && displayPopup !== PopupType.Rebet) {
-            this.setState({ displayPopup: PopupType.Error, isProcessingBet: false });
+        if (endBet === -1) {
+            const newState = { displayPopup: PopupType.Error, isProcessingBet: false, errorMessage: "" };
+
             if (kickedOut?.isDisabledAccount) {
-                this.setState({ errorMessage: kickedOut?.message });
+                newState.errorMessage = kickedOut?.message;
+                this.setState(newState);
+
                 const { router } = this.props;
                 setTimeout(() => {
                     router.push("/timeout");
                 }, 10000);
             } else {
-                this.setState({ errorMessage: notice });
+                newState.errorMessage = notice;
+                displayPopup !== PopupType.Rebet && this.setState(newState);
             }
         } else {
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
