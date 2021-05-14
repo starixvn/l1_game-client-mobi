@@ -169,28 +169,30 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleApiError = ({ apiError }) => {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const error = [`${gameName} (#${apiError.gameRoundId})`, apiError.message];
+        const error = apiError.gameRoundId ? [`${gameName} (#${apiError.gameRoundId})`, apiError.message] : apiError.message;
         this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     };
 
-    handleEndBet = ({ endBet, betChoice, notice, kickedOut }) => {
+    handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
         const { id } = this.props;
         const { displayPopup, roundId } = this.state;
 
         if (endBet === -1) {
-            const newState = { displayPopup: PopupType.Error, isProcessingBet: false, errorMessage: "" };
+            if (!apiError) {
+                const newState = { displayPopup: PopupType.Error, isProcessingBet: false, errorMessage: "" };
 
-            if (kickedOut?.isDisabledAccount) {
-                newState.errorMessage = kickedOut?.message;
-                this.setState(newState);
+                if (kickedOut?.isDisabledAccount) {
+                    newState.errorMessage = kickedOut?.message;
+                    this.setState(newState);
 
-                const { router } = this.props;
-                setTimeout(() => {
-                    router.push("/timeout");
-                }, 10000);
-            } else {
-                newState.errorMessage = notice;
-                displayPopup !== PopupType.Rebet && this.setState(newState);
+                    const { router } = this.props;
+                    setTimeout(() => {
+                        router.push("/timeout");
+                    }, 10000);
+                } else {
+                    newState.errorMessage = notice;
+                    displayPopup !== PopupType.Rebet && this.setState(newState);
+                }
             }
         } else {
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
