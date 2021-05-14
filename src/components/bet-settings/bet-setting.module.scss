@@ -245,3 +245,13 @@
         }
     }
 }
+
+.tooltip {
+    background-color: yellow;
+    position: absolute;
+    bottom: 7rem;
+    width: 30rem;
+    padding: 1rem;
+    margin-left: 1rem;
+    border-radius: 10px;
+}

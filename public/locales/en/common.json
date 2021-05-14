@@ -5,7 +5,7 @@
     "startNewRound": "Start New Round",
     "cancel": "Cancel",
     "ok": "Ok",
-    "messageConfirmQuickBet": "Do you want to confirm bet automatically?",
+    "messageConfirmQuickBet": "Tính năng cược nhanh cho phép bạn đặt cược trực tiếp chỉ với một cú click chuột hoặc nhấn vào các cửa cược yêu thích. Bạn có muốn bật tính năng này?",
     "result": "Result",
     "bet": "Bet",
     "payout": "Payout",
@@ -23,5 +23,7 @@
     "processingBet": "Data are being processed, please wait...",
     "close": "Close",
     "userStakeLevelUpdate": "Your betting limit has just been changed.",
-    "errorPage": "An error has occurred, please contact CSD for details."
+    "errorPage": "An error has occurred, please contact CSD for details.",
+    "oneClickHintMsg": "1-Click Bet là tính năng cược nhanh, cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn, cược sẽ tự động được hệ thống ghi nhận.",
+    "oneClickTitle": "1-Click Bet"
 }

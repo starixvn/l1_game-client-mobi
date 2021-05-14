@@ -4,11 +4,11 @@ import Slider from "react-slick";
 import { AudioCollection } from "../../common/audio";
 
 import { ChipLabelMapper, ChipValues } from "../../common/constants";
-import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import ConfirmMessage from "../shared/confirm-message";
+import ConfirmMessage from "./confirm-message";
 import Styles from "./bet-setting.module.scss";
 
 type Props = {
@@ -18,6 +18,7 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
+const LoginStatusStorageKey = localStorageKeys.loginStatus;
 const SlidingTimeInMillisecond = 250;
 let isSwipe = true;
 
@@ -26,6 +27,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSliding, setIsSliding] = useState(false);
+    const [isShowTooltip, setIsShowTooltip] = useState(true);
+    const isAlreadyLogin = getLocalStorageItem<boolean>(LoginStatusStorageKey);
+
     const { t } = useTranslation("common");
 
     const SliderSetting = {
@@ -154,6 +158,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         setIsShowPopup(false);
     };
 
+    const closeHintTooltip = () => {
+        storeLocalStorageItem(LoginStatusStorageKey, true);
+        setIsShowTooltip(false);
+    };
+
     return (
         <div className={Styles["bet-settings"]}>
             <div className={Styles["settings-container"]}>
@@ -210,18 +219,23 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                         </div>
                     </div>
                 </div>
+                {!isAlreadyLogin && isShowTooltip && (
+                    <div className={Styles.tooltip}>
+                        <div className={Styles.content}>{t("common:oneClickHintMsg")}</div>
+                        <div className={Styles.action}>
+                            <button className="btn-orange w-100" onClick={() => closeHintTooltip()}>
+                                {t("common:close")}
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
 
             {isShowModalConfirm && enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={Styles["bg-opacity"]}></div>
                     <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
-                        <ConfirmMessage
-                            t={t}
-                            message={t("messageConfirmQuickBet")}
-                            closeModal={closeModal}
-                            confirmQuickBet={confirmQuickBet}
-                        />
+                        <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
                     </BaseDialog>
                 </div>
             )}
