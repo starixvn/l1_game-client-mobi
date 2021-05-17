@@ -136,6 +136,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const confirmQuickBet = () => {
+        closeHintTooltip();
         handleDataQuickBet();
         closeModal();
         updateEnabledQuickBet(true);
