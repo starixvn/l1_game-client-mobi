@@ -144,13 +144,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
-        if (!selectChipSound) {
-            debugger;
-            selectChipSound = AudioCollection.getSelectChipSound();
-            console.log("new sound");
-        }
-
+        selectChipSound = AudioCollection.getSelectChipSound();
         selectChipSound.play();
+
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
