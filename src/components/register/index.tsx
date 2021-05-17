@@ -112,13 +112,12 @@ export default function Register(props: Props) {
                     </div>
                 </div>
                 <div className={Styles["register-container"]}>
-                    <div className={Styles["profile-picture"]}>
+                    <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
-                        <div className={Styles["chose-avatar"]} onClick={() => setIsOpenGalleryAvatar(true)}>
+                        <div className={Styles["chose-avatar"]}>
                             <span className="icon-edit"></span>
                         </div>
                     </div>
-                    <h1 className={Styles["title"]}>Tạo tên nhân vật</h1>
                     <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
                         <div className={Styles["user-box"]}>
@@ -140,14 +139,11 @@ export default function Register(props: Props) {
 
                         <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
                     </form>
-                    <div className={Styles["note"]}>
-                        <h3>{t("register:note")}:</h3>
-                        <ul>
-                            <li>{t("register:rule1")}</li>
-                            <li>{t("register:rule2")}</li>
-                            <li>{t("register:rule3")}</li>
-                        </ul>
-                    </div>
+                    <ul className={Styles["note"]}>
+                        <li>{t("register:rule1")}</li>
+                        <li>{t("register:rule2")}</li>
+                        <li>{t("register:rule3")}</li>
+                    </ul>
                     {isOpenGalleryAvatar && (
                         <div className={Styles["gallery-wrapper"]}>
                             <BaseDialog
