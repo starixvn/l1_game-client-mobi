@@ -112,8 +112,8 @@ export default function Register(props: Props) {
                     </div>
                 </div>
                 <div className={Styles["register-container"]}>
-                    <div className={Styles["avartar"]}>
-                        <img src={getPathAvatar(avatarId)} className="img-fluid" alt="Avatar" />
+                    <div className={Styles["profile-picture"]}>
+                        <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                             <span className="icon-edit"></span>
                         </div>

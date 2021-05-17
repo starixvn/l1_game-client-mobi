@@ -68,7 +68,7 @@
     }
 }
 
-.avartar {
+.profile-picture {
     position: relative;
     top: -6.5rem;
     width: 13rem;
@@ -93,6 +93,10 @@
         &:hover {
             cursor: pointer;
         }
+    }
+
+    .avartar {
+        width: 100%;
     }
 }
 
@@ -209,10 +213,14 @@
         margin-top: 2rem;
 
         .img-wrapper {
-            display: inline-block;
-            width: 6rem;
-            height: 6rem;
             position: relative;
+            width: 5.4rem;
+            height: 5.4rem;
+
+            @media (min-width: 768px) {
+                width: 6rem;
+                height: 6rem;
+            }
 
             img {
                 cursor: pointer;
