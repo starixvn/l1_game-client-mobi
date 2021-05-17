@@ -20,7 +20,6 @@ type Props = {
 
 const LoginStatusStorageKey = localStorageKeys.loginStatus;
 const SlidingTimeInMillisecond = 250;
-let selectChipSound: HTMLAudioElement = null;
 let isSwipe = true;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
@@ -30,6 +29,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isSliding, setIsSliding] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const isAlreadyLogin = getLocalStorageItem<boolean>(LoginStatusStorageKey);
+    let selectChipSound: HTMLAudioElement = null;
 
     const { t } = useTranslation("common");
 
