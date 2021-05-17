@@ -28,7 +28,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 0.4rem;
+
+    @media (min-width: 768px) {
+        margin-top: 0.4rem;
+    }
 
     .user-group {
         position: relative;
