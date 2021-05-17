@@ -17,12 +17,13 @@ type Props = {
 
 const maxAvatarId = 40;
 export default function Register(props: Props) {
-    const { t } = useTranslation("register");
+    const { t } = useTranslation(["register", "common"]);
     const { handleStateLogin } = props;
     const { session } = useAuthContext();
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
     const [avatarId, setAvatarId] = useState<number>(randomInteger(1, maxAvatarId));
+    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(avatarId);
     const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
     const [isOpenGalleryAvatar, setIsOpenGalleryAvatar] = useState<boolean>(false);
     const [nameInValid, setNameInValid] = useState<string>("");
@@ -32,7 +33,7 @@ export default function Register(props: Props) {
         event.preventDefault();
         if (validateUsername(name)) {
             setIsValidUserName(false);
-            setNameInValid(t("invalidUsername"));
+            setNameInValid(t("register:invalidUsername"));
             return;
         }
         const response = await authService.signName(session.ss, session.username, name, avatarId);
@@ -65,7 +66,7 @@ export default function Register(props: Props) {
     };
 
     const selectedAvatar = (imgId: number) => {
-        setAvatarId(imgId);
+        setSelectedAvatarId(imgId);
     };
 
     const renderGalleryAvatar = (imgId: number) => {
@@ -73,10 +74,10 @@ export default function Register(props: Props) {
             <div
                 key={`avatar-${imgId}`}
                 onClick={() => selectedAvatar(imgId)}
-                className={`${Styles["img-wrapper"]} ${avatarId === imgId ? Styles["border-highlight"] : ""}`}
+                className={`${Styles["img-wrapper"]} ${selectedAvatarId === imgId ? Styles["border-highlight"] : ""}`}
             >
                 <img src={getPathAvatar(imgId)} className="img-fluid" alt="Avatar" />
-                {avatarId === imgId && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
+                {selectedAvatarId === imgId && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
             </div>
         );
     };
@@ -87,6 +88,11 @@ export default function Register(props: Props) {
             _avatars.push(renderGalleryAvatar(index));
         }
         return _avatars;
+    };
+
+    const onChangeImgId = () => {
+        setAvatarId(selectedAvatarId);
+        setIsOpenGalleryAvatar(false);
     };
 
     return (
@@ -101,8 +107,8 @@ export default function Register(props: Props) {
             <div className={`game-container ${Styles["bg"]}`}>
                 <div className={Styles["curve"]}>
                     <div className={Styles["register-container"]}>
-                        <h1 className={Styles["wellcome"]}>{t("registerTitle1")}</h1>
-                        <div> {t("registerTitle2")}</div>
+                        <h1 className={Styles["wellcome"]}>{t("register:registerTitle1")}</h1>
+                        <div> {t("register:registerTitle2")}</div>
                     </div>
                 </div>
                 <div className={Styles["register-container"]}>
@@ -114,7 +120,7 @@ export default function Register(props: Props) {
                     </div>
                     <h1 className={Styles["title"]}>Tạo tên nhân vật</h1>
                     <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
-                        <label className={Styles["input-title"]}>{t("registerName")}</label>
+                        <label className={Styles["input-title"]}>{t("register:registerName")}</label>
                         <div className={Styles["user-box"]}>
                             <div className={Styles["register-wrapper-input"]}>
                                 <input
@@ -135,11 +141,11 @@ export default function Register(props: Props) {
                         <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
                     </form>
                     <div className={Styles["note"]}>
-                        <h3>{t("note")}:</h3>
+                        <h3>{t("register:note")}:</h3>
                         <ul>
-                            <li>{t("rule1")}</li>
-                            <li>{t("rule2")}</li>
-                            <li>{t("rule3")}</li>
+                            <li>{t("register:rule1")}</li>
+                            <li>{t("register:rule2")}</li>
+                            <li>{t("register:rule3")}</li>
                         </ul>
                     </div>
                     {isOpenGalleryAvatar && (
@@ -149,14 +155,18 @@ export default function Register(props: Props) {
                                 isOpen={isOpenGalleryAvatar}
                                 onCloseModal={() => setIsOpenGalleryAvatar(false)}
                             >
-                                <h3 className={Styles["gallery-title"]}>{t("changeAvatar")}</h3>
+                                <h3 className={Styles["gallery-title"]}>{t("register:changeAvatar")}</h3>
                                 <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => setIsOpenGalleryAvatar(false)}></div>
                                 <div className={Styles["container-avatars"]}>
                                     {loadAvatars ? loadAvatars() : <Spinner color="secondary" />}
                                 </div>
                                 <div className={Styles["list-actions"]}>
-                                    <button className="btn-grey">Cancel</button>
-                                    <button className="btn-orange">Ok</button>
+                                    <button className="btn-grey" onClick={() => setIsOpenGalleryAvatar(false)}>
+                                        {t("common:cancel")}
+                                    </button>
+                                    <button className="btn-orange" onClick={() => onChangeImgId()}>
+                                        {t("common:ok")}
+                                    </button>
                                 </div>
                             </BaseDialog>
                         </div>
