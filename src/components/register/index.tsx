@@ -9,6 +9,7 @@ import { ModalType } from "../shared/base-dialog/type";
 import { randomInteger } from "../../helpers/number-helper";
 import { Spinner } from "reactstrap";
 import Styles from "./register.module.scss";
+import HeaderStyles from "../header/header.module.scss";
 
 type Props = {
     handleStateLogin: (user: User) => void;
@@ -75,7 +76,7 @@ export default function Register(props: Props) {
                 className={`${Styles["img-wrapper"]} ${avatarId === imgId ? Styles["border-highlight"] : ""}`}
             >
                 <img src={getPathAvatar(imgId)} className="img-fluid" alt="Avatar" />
-                {avatarId === imgId && <span className={Styles["selected-img"]}></span>}
+                {avatarId === imgId && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
             </div>
         );
     };
@@ -90,54 +91,77 @@ export default function Register(props: Props) {
 
     return (
         <div className={Styles["register-bg"]}>
-            <div className={Styles["login-box"]}>
-                <div className={Styles["register-title"]}>
-                    <strong>{t("registerTitle1")}</strong>
-                    <div className={Styles["register-title-mg"]}> {t("registerTitle2")}</div>
+            <div className={HeaderStyles["header"]}>
+                <div className="game-container">
+                    <div className={Styles["logo"]}>
+                        <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
+                    </div>
                 </div>
-                <div className={Styles["register-avatar-wrapper"]}>
-                    <img src={getPathAvatar(avatarId)} className={`img-fluid ${Styles["img-fluid-custom"]}`} alt="Avatar" />
-                    <span className={Styles["chose-avatar"]} onClick={() => setIsOpenGalleryAvatar(true)}></span>
+            </div>
+            <div className={`game-container ${Styles["bg"]}`}>
+                <div className={Styles["curve"]}>
+                    <div className={Styles["register-container"]}>
+                        <h1 className={Styles["wellcome"]}>{t("registerTitle1")}</h1>
+                        <div> {t("registerTitle2")}</div>
+                    </div>
                 </div>
-                <form onSubmit={(event) => handleSubmit(event)}>
-                    <h5 className={Styles["input-title"]}>{t("registerName")}</h5>
-                    <div className={Styles["user-box"]}>
-                        <div className={Styles["register-wrapper-input"]}>
-                            <input
-                                type="text"
-                                className={Styles["custom-form-control"]}
-                                value={name}
-                                onChange={(e) => updateNameState(e.target.value)}
-                            />
-                            <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
+                <div className={Styles["register-container"]}>
+                    <div className={Styles["avartar"]}>
+                        <img src={getPathAvatar(avatarId)} className="img-fluid" alt="Avatar" />
+                        <div className={Styles["chose-avatar"]} onClick={() => setIsOpenGalleryAvatar(true)}>
+                            <span className="icon-edit"></span>
                         </div>
-
-                        <button
-                            className={`${Styles["btn-green"]} ${Styles["btn-name"]}`}
-                            onClick={(event) => generateName(event)}
-                        ></button>
                     </div>
-                    {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
+                    <h1 className={Styles["title"]}>Tạo tên nhân vật</h1>
+                    <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
+                        <label className={Styles["input-title"]}>{t("registerName")}</label>
+                        <div className={Styles["user-box"]}>
+                            <div className={Styles["register-wrapper-input"]}>
+                                <input
+                                    type="text"
+                                    className={Styles["custom-form-control"]}
+                                    value={name}
+                                    onChange={(e) => updateNameState(e.target.value)}
+                                />
+                                <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
+                            </div>
 
-                    <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
-                </form>
-                <div className={Styles["note"]}>
-                    <h3>{t("note")}:</h3>
-                    <ul>
-                        <li>{t("rule1")}</li>
-                        <li>{t("rule2")}</li>
-                        <li>{t("rule3")}</li>
-                    </ul>
+                            <button className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`} onClick={(event) => generateName(event)}>
+                                <span className="icon-refresh"></span>
+                            </button>
+                        </div>
+                        {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
+
+                        <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
+                    </form>
+                    <div className={Styles["note"]}>
+                        <h3>{t("note")}:</h3>
+                        <ul>
+                            <li>{t("rule1")}</li>
+                            <li>{t("rule2")}</li>
+                            <li>{t("rule3")}</li>
+                        </ul>
+                    </div>
+                    {isOpenGalleryAvatar && (
+                        <div className={Styles["gallery-wrapper"]}>
+                            <BaseDialog
+                                type={ModalType.Center}
+                                isOpen={isOpenGalleryAvatar}
+                                onCloseModal={() => setIsOpenGalleryAvatar(false)}
+                            >
+                                <h3 className={Styles["gallery-title"]}>{t("changeAvatar")}</h3>
+                                <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => setIsOpenGalleryAvatar(false)}></div>
+                                <div className={Styles["container-avatars"]}>
+                                    {loadAvatars ? loadAvatars() : <Spinner color="secondary" />}
+                                </div>
+                                <div className={Styles["list-actions"]}>
+                                    <button className="btn-grey">Cancel</button>
+                                    <button className="btn-orange">Ok</button>
+                                </div>
+                            </BaseDialog>
+                        </div>
+                    )}
                 </div>
-                {isOpenGalleryAvatar && (
-                    <div className={Styles["gallery-wrapper"]}>
-                        <BaseDialog type={ModalType.Center} isOpen={isOpenGalleryAvatar} onCloseModal={() => setIsOpenGalleryAvatar(false)}>
-                            <h3 className={Styles["gallery-title"]}>{t("changeAvatar")}</h3>
-                            <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => setIsOpenGalleryAvatar(false)}></div>
-                            <div className={Styles["container-avatars"]}>{loadAvatars ? loadAvatars() : <Spinner color="secondary" />}</div>
-                        </BaseDialog>
-                    </div>
-                )}
             </div>
         </div>
     );

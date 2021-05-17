@@ -2,6 +2,7 @@
 
 .header {
     display: flex;
+    align-items: center;
     height: 5.5rem;
     margin-bottom: 0.6rem;
     background: $header-background;
@@ -98,8 +99,4 @@
     top: 0.3rem;
     line-height: 0;
     font-size: 2rem;
-}
-
-.dices-none {
-    display: none;
 }

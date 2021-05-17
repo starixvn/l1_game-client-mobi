@@ -51,38 +51,6 @@ const Header: React.FC<Props> = (props) => {
                         </div>
                     </div>
                 </Navbar>
-                {/* <div className={Styles["dices-none"]}>
-                    <img src={`static/images/dices/dice_01.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_02.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_03.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_04.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_05.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_06.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_07.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_08.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_09.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_10.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_11.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_12.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_13.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_14.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_15.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_16.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_17.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_18.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_19.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_20.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_21.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_22.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_23.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_24.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_25.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_26.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_27.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_28.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_29.png`} alt="dice" />
-                    <img src={`static/images/dices/dice_30.png`} alt="dice" />
-                </div> */}
             </div>
         </header>
     );

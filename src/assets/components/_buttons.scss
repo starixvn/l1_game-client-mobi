@@ -30,15 +30,16 @@
 
 .btn-green {
     @extend %btn;
-    background-color: $btn-green-color;
+    background-color: $btn-green-background;
     color: $btn-green-color;
 
     &:hover:enabled {
-        background: darken($btn-green-color, 10%) radial-gradient(circle, transparent 1%, darken($btn-green-color, 10%) 1%) center/15000%;
+        background: darken($btn-green-background, 10%) radial-gradient(circle, transparent 1%, darken($btn-green-background, 10%) 1%)
+            center/15000%;
     }
 
     &:active {
-        background-color: darken($btn-green-color, 10%);
+        background-color: darken($btn-green-background, 10%);
     }
 }
 
