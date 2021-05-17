@@ -4,16 +4,12 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import { GameState } from "../../../shared/game-base/type";
-import { v4 as uuidV4 } from "uuid";
 import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
-const imageIdMapping = { 1: "bigsmall_dice", 4: "turbo_bigsmall_dice" };
-
 const renderAnimTossDice = () => {
-    const { gameSetting, isCompactMode } = useGameContext();
     const wrapperRefAnim = useRef<HTMLDivElement>(null);
-    const pathImgAnim = `/static/images/${imageIdMapping[gameSetting.id]}.gif?${uuidV4}`;
+    const pathImgAnim = `/static/images/bigsmall_dice.gif?${new Date().getTime()}`;
     useEffect(() => {
         return () => {
             wrapperRefAnim.current = null;
@@ -22,7 +18,7 @@ const renderAnimTossDice = () => {
 
     return (
         <div className={Styles["toss-dices"]} ref={wrapperRefAnim}>
-            <Image key={uuidV4} src={pathImgAnim} alt="shake" width={180} height={180} layout="intrinsic" />
+            <Image key={Date.now()} src={pathImgAnim} alt="shake" width={180} height={180} layout="intrinsic" />
         </div>
     );
 };
