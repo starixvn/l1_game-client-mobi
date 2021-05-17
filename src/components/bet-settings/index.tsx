@@ -20,6 +20,7 @@ type Props = {
 
 const LoginStatusStorageKey = localStorageKeys.loginStatus;
 const SlidingTimeInMillisecond = 250;
+let selectChipSound: HTMLAudioElement = null;
 let isSwipe = true;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
@@ -143,7 +144,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
-        AudioCollection.getSelectChipSound().play();
+        if (!selectChipSound) {
+            selectChipSound = AudioCollection.getSelectChipSound();
+        }
+
+        selectChipSound.play();
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
