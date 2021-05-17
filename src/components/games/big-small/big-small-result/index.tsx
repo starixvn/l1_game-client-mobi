@@ -28,13 +28,17 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const wrapperRefResult = useRef<HTMLDivElement>(null);
+    const classPlateCompactMode = isCompactMode ? Styles["compact-mode"] : "";
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
             setIsShowCountOfDice(false);
         },
         [GameState.DisplayResult]: () => {
-            setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
+            setTimeout(
+                () => setIsShowCountOfDice(true),
+                (gameSetting.durations.resultAnimation + (gameSetting.durations.balancingBet ?? 0)) * 1000
+            );
         },
         [GameState.Waiting]: () => {
             setIsShowCountOfDice(true);
@@ -51,15 +55,17 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
         return (
             <>
                 {animToss}
-                <div className={Styles["result-container"]}>
-                    {result &&
-                        Object.values(result).map((value, index) => (
-                            <div key={index} className={Styles[`result-${index + 1}`]}>
-                                <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
-                            </div>
-                        ))}
-                    {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
-                </div>
+                {actionByGameState && (
+                    <div className={Styles["result-container"]}>
+                        {result &&
+                            Object.values(result).map((value, index) => (
+                                <div key={index} className={Styles[`result-${index + 1}`]}>
+                                    <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                                </div>
+                            ))}
+                        {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                    </div>
+                )}
             </>
         );
     };
@@ -83,7 +89,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                         isCompactMode ? Styles["compact-mode"] : ""
                     }`}
                 >
-                    <div className={Styles["result-plate"]}></div>
+                    {<div className={`${Styles["result-plate"]} ${classPlateCompactMode}`}></div>}
                     {generateResult()}
                 </div>
             </div>

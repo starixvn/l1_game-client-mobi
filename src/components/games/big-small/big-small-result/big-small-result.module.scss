@@ -40,6 +40,9 @@ $time-show-result-animation: 0.1s;
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
+    &.compact-mode {
+        transform: scale(.8);
+    }
 }
 
 .result-container {
