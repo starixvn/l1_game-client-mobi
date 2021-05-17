@@ -415,7 +415,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleRoundHistory({ roundHistory }) {
         const { gameState } = this.state;
 
-        ![GameState.DisplayResult, GameState.None].includes(gameState) && roundHistory.shift();
+        ![GameState.InRound, GameState.LockingBet].includes(gameState) && roundHistory.shift();
 
         const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
         const roundId = lastRoundId + 1;
