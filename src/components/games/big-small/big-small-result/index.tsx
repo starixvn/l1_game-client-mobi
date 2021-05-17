@@ -28,7 +28,6 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const wrapperRefResult = useRef<HTMLDivElement>(null);
-    const classPlateCompactMode = isCompactMode ? Styles["compact-mode"] : "";
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -89,7 +88,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                         isCompactMode ? Styles["compact-mode"] : ""
                     }`}
                 >
-                    {<div className={`${Styles["result-plate"]} ${classPlateCompactMode}`}></div>}
+                    {<div className={Styles["result-plate"]}></div>}
                     {generateResult()}
                 </div>
             </div>

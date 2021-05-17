@@ -30,7 +30,8 @@ $time-show-result-animation: 0.1s;
         transform: scale(0.5);
     }
 }
- .result-plate{
+
+.result-plate {
     position: absolute;
     width: 19.8rem;
     height: 19.8rem;
@@ -40,9 +41,6 @@ $time-show-result-animation: 0.1s;
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
-    &.compact-mode {
-        transform: scale(.8);
-    }
 }
 
 .result-container {
@@ -54,11 +52,7 @@ $time-show-result-animation: 0.1s;
     z-index: $result-animation-index;
 }
 
-.animation-container {
-    @extend %result-no-animation;
-}
-
-.has-animation{
+.has-animation {
     .toss-dices {
         display: block;
         position: absolute;
