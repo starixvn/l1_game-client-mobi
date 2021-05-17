@@ -174,7 +174,7 @@ class Dashboard extends React.Component<Props, State> {
         } else {
             const props = { ...user, balance: this.props.balance };
             return (
-                <>
+                <div className={Styles["dashboard"]}>
                     <Header {...props} />
                     <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
                         <Games />
@@ -191,7 +191,7 @@ class Dashboard extends React.Component<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
-                </>
+                </div>
             );
         }
     }

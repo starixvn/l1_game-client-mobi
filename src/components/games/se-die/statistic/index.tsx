@@ -11,16 +11,6 @@ import Styles from "./statistic.module.scss";
 const StatisticRuleEntries = Object.entries({
     [Choices.even]: (countResult: object, total: number) => 100 - Math.round((countResult[Choices.odd] * 100) / total),
     [Choices.odd]: (countResult: object, total: number) => Math.round((countResult[Choices.odd] * 100) / total),
-    [Choices.white4]: (countResult: object, total: number) => Math.round((countResult[Choices.white4] * 100) / total),
-    [Choices.white3]: (countResult: object, total: number) =>
-        Math.round((countResult[Choices.odd] * 100) / total) - Math.round((countResult[Choices.red3] * 100) / total),
-    [Choices.red2]: (countResult: object, total: number) =>
-        100 -
-        Math.round((countResult[Choices.odd] * 100) / total) -
-        Math.round((countResult[Choices.red4] * 100) / total) -
-        Math.round((countResult[Choices.white4] * 100) / total),
-    [Choices.red3]: (countResult: object, total: number) => Math.round((countResult[Choices.red3] * 100) / total),
-    [Choices.red4]: (countResult: object, total: number) => Math.round((countResult[Choices.red4] * 100) / total),
 });
 
 const RedDotMapper = {
