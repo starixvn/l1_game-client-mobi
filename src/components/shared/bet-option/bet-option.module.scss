@@ -152,78 +152,59 @@
     .winning-line:nth-child(1) {
         top: 0;
         left: -100%;
-        width: 100%;
+        width: 80%;
         height: 0.3rem;
         background: linear-gradient(90deg, transparent, #ff9a00);
-        animation: animate1 1.2s ease-in infinite;
-        animation-delay: 0s;
+        animation: animate1 2s ease-in infinite;
+        animation-delay: 0.35s;
     }
 
     @keyframes animate1 {
         0% {
             left: -100%;
-            opacity: 1;
         }
 
-        90% {
-            opacity: 1;
-        }
-
+        50%,
         100% {
             left: 100%;
-            opacity: 0;
         }
     }
-
     .winning-line:nth-child(2) {
         top: -100%;
         right: 0;
         width: 0.3rem;
-        height: 100%;
+        height: 80%;
         background: linear-gradient(180deg, transparent, #ff9a00);
-        animation: animate2 1.2s ease-in infinite;
+        animation: animate2 2s ease-in infinite;
         animation-delay: 0.8s;
     }
-
     @keyframes animate2 {
         0% {
             top: -100%;
-            opacity: 1;
         }
 
-        90% {
-            opacity: 1;
-        }
-
+        50%,
         100% {
             top: 100%;
-            opacity: 0;
         }
     }
-
     .winning-line:nth-child(3) {
         bottom: 0;
         right: -100%;
-        width: 100%;
+        width: 80%;
         height: 0.3rem;
         background: linear-gradient(270deg, transparent, #ff9a00);
-        animation: animate3 1.2s ease-in infinite;
-        animation-delay: 0s;
+        animation: animate3 2s ease-in infinite;
+        animation-delay: 1.25s;
     }
-
     @keyframes animate3 {
         0% {
             right: -100%;
-            opacity: 1;
         }
 
-        90% {
-            opacity: 1;
-        }
-
+        50%,
         100% {
             right: 100%;
-            opacity: 0;
         }
     }
 
@@ -231,25 +212,20 @@
         bottom: -100%;
         left: 0;
         width: 0.3rem;
-        height: 100%;
+        height: 80%;
         background: linear-gradient(360deg, transparent, #ff9a00);
-        animation: animate4 1.2s ease-in infinite;
-        animation-delay: 0.8s;
+        animation: animate4 2s ease-in infinite;
+        animation-delay: 1.7s;
     }
 
     @keyframes animate4 {
         0% {
             bottom: -100%;
-            opacity: 1;
         }
 
-        90% {
-            opacity: 1;
-        }
-
+        50%,
         100% {
             bottom: 100%;
-            opacity: 0;
         }
     }
 }
