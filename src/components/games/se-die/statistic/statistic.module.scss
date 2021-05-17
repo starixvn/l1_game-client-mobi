@@ -1,12 +1,9 @@
 .title {
     font-weight: 500;
     display: inline-block;
-    margin-right: 0.2rem;
-
-    @media (min-width: 1024px) and (max-width: 1278px) {
-        margin-right: 0;
-        font-size: 1.2rem;
-    }
+    margin-right: 0.4rem;
+    margin-left: 1rem;
+    font-size: 1.4rem;
 }
 
 .red {
