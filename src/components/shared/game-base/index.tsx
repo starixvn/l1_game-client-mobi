@@ -127,12 +127,26 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.socket.on("message", this.setUserStakeLevel.bind(this));
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+        this.socket.on("connect_failed", () => {
+            this.onConnectFailed();
+        });
+
+        this.socket.on("connect_error", (error) => {
+            this.onConnectFailed();
+        });
     }
 
     onVisibilityChange() {
         const visibleState = document.visibilityState;
 
         visibleState === "hidden" ? this.onDestroy() : this.onStart();
+    }
+
+    onConnectFailed() {
+        this.onDestroy();
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const error = [gameName, this.props.t("common:socketConnectFailed")];
+        this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     }
 
     registerMessageHandler = () => {
@@ -608,6 +622,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     closePopup() {
+        console.log("displayPopup");
         this.setState({ displayPopup: null });
     }
 
@@ -715,7 +730,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        return this.state.signedIn ? this.renderGame() : <GameLoading />;
+        return this.state.signedIn ? (
+            this.renderGame()
+        ) : (
+            <GameLoading
+                displayPopup={this.state.displayPopup === PopupType.Error}
+                errorMessage={this.state.errorMessage}
+                retryConnect={() => this.onStart()}
+            />
+        );
     }
 }
 

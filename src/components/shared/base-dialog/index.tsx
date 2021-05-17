@@ -12,6 +12,7 @@ type Props = {
     children?: React.ReactNode;
     type?: ModalType;
     betContainerPosition?: number;
+    isCloseOutside?: true;
 };
 
 const BaseDialog: React.FC<Props> = ({

@@ -25,5 +25,7 @@
     "userStakeLevelUpdate": "Your betting limit has just been changed.",
     "errorPage": "An error has occurred, please contact CSD for details.",
     "oneClickHintMsg": "1-Click Bet là tính năng cược nhanh, cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn, cược sẽ tự động được hệ thống ghi nhận.",
-    "oneClickTitle": "1-Click Bet"
+    "oneClickTitle": "1-Click Bet",
+    "socketConnectFailed" : "The connection is unstable, please check.",
+    "socketReconnect" : "Reconnect"
 }

@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import Skeleton from "react-loading-skeleton";
-
+import BaseDialog from "../base-dialog";
+import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "next-i18next";
+import { ModalType } from "../base-dialog/type";
 import Styles from "./styles.module.scss";
-
-const GameLoading = () => {
+type Props = {
+    displayPopup: boolean;
+    errorMessage: string | string[];
+    retryConnect: () => void;
+};
+const GameLoading = (props: Props) => {
+    const { displayPopup, errorMessage, retryConnect } = props;
+    const { t } = useTranslation("common");
     const classBorder = "border-radius";
     const classScoreBoard = "score-board-line";
+    const renderMessage = () => {
+        if (typeof errorMessage === "string") {
+            return errorMessage;
+        } else {
+            return errorMessage.map((value, index) => <div key={uuidv4()}>{value}</div>);
+        }
+    };
+
     return (
         <div className={Styles.container}>
             <div className={Styles.header}>
@@ -34,6 +51,19 @@ const GameLoading = () => {
                 <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={190} />
                 <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={250} />
             </div>
+            {displayPopup && (
+                <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={() => {}}>
+                    <div className={Styles["error-message-container"]}>
+                        <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
+                        <div className={Styles.message} key={Math.random()}>
+                            {errorMessage && renderMessage()}
+                        </div>
+                        <button onClick={() => retryConnect()} className={`btn-orange w-5 ${Styles["reconnect"]}`}>
+                            {t("socketReconnect")}
+                        </button>
+                    </div>
+                </BaseDialog>
+            )}
         </div>
     );
 };
