@@ -212,13 +212,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         setIsInfiniteLoading(false);
         session &&
             axios
-                .get(historyAPI, {
-                    params: {
-                        session: session.ss,
-                        page: page,
-                        pageSize: 16,
-                        username: session.username,
-                    },
+                .post(historyAPI, {
+                    session: session.ss,
+                    page: page,
+                    pageSize: 16,
+                    username: session.username,
                 })
                 .then((res) => {
                     const bets = res.data.history;
