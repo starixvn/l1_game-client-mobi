@@ -95,6 +95,11 @@ export default function Register(props: Props) {
         setIsOpenGalleryAvatar(false);
     };
 
+    const handleCloseGallery = () => {
+        setIsOpenGalleryAvatar(false);
+        setSelectedAvatarId(avatarId);
+    };
+
     return (
         <div className={Styles["register-bg"]}>
             <div className={HeaderStyles["header"]}>
@@ -152,12 +157,12 @@ export default function Register(props: Props) {
                                 onCloseModal={() => setIsOpenGalleryAvatar(false)}
                             >
                                 <h3 className={Styles["gallery-title"]}>{t("register:changeAvatar")}</h3>
-                                <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => setIsOpenGalleryAvatar(false)}></div>
+                                <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => handleCloseGallery()}></div>
                                 <div className={Styles["container-avatars"]}>
                                     {loadAvatars ? loadAvatars() : <Spinner color="secondary" />}
                                 </div>
                                 <div className={Styles["list-actions"]}>
-                                    <button className="btn-grey" onClick={() => setIsOpenGalleryAvatar(false)}>
+                                    <button className="btn-grey" onClick={() => handleCloseGallery()}>
                                         {t("common:cancel")}
                                     </button>
                                     <button className="btn-orange" onClick={() => onChangeImgId()}>
