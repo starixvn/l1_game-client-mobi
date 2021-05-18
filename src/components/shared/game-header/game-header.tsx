@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -16,11 +16,13 @@ import Styles from "./game-header.module.scss";
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting } = useGameContext();
+    const { roundId, gameState, gameSetting, isCompactMode } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
     const { firstGameIdRender } = systemContext;
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
+    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.noneCompactModeIds);
+    const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
@@ -29,16 +31,37 @@ export default function GameHeader() {
         updateFavorite(!isFavorite);
     };
 
+    const handleStorageCompactModeIds = () => {
+        const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.noneCompactModeIds) ?? [];
+        const newGameIdCompactMode = [...gameIdCompactModeOnStorage];
+        const gameIndex = newGameIdCompactMode.indexOf(gameId);
+        gameIndex >= 0 && !isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
+        if (isCompactMode && gameIndex < 0) {
+            newGameIdCompactMode.push(gameId);
+        }
+
+        updateGameIdCompactMode(newGameIdCompactMode);
+        storeLocalStorageItem(localStorageKeys.noneCompactModeIds, newGameIdCompactMode);
+    };
+
     const onHeaderClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isMobileOnly) {
             updateCompactMode();
+            handleStorageCompactModeIds();
         }
     };
 
     useEffect(() => {
-        if (isMobileOnly && gameId !== firstGameIdRender) {
-            updateCompactMode();
+        if (isMobileOnly) {
+            if (gameId !== firstGameIdRender && gameIdCompactMode.length === 0) {
+                updateCompactMode();
+                if (gameIdCompactMode.length === 0) {
+                    storeLocalStorageItem(localStorageKeys.noneCompactModeIds, [firstGameIdRender]);
+                }
+            } else if (!gameIdCompactMode.includes(gameId)) {
+                updateCompactMode();
+            }
         }
     }, [firstGameIdRender]);
 
