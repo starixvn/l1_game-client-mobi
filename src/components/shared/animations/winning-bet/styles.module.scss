@@ -2,7 +2,7 @@
 
 .winning-bet {
     @extend %fade-out-up;
-    left: calc(50% + 3rem);
+    right: 4rem;
     animation-name: winning-animation;
     animation-timing-function: ease-in-out;
     animation-duration: 1s;
@@ -62,6 +62,7 @@
         opacity: 1;
         transform: scale(0);
     }
+
     20% {
         transform: scale(1);
     }
@@ -81,6 +82,7 @@
         opacity: 1;
         transform: scale(0.5);
     }
+
     20% {
         transform: scale(1);
     }
