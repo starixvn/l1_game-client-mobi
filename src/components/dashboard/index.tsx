@@ -27,7 +27,7 @@ type Props = {
 } & WithRouterProps;
 
 type State = {
-    isFistLogin: boolean;
+    isFirstLogin: boolean;
     isShowNotice: boolean;
     notice: string;
     user: User;
@@ -46,7 +46,7 @@ class Dashboard extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            isFistLogin: false,
+            isFirstLogin: false,
             user: null,
             isShowNotice: true,
             notice: "",
@@ -67,7 +67,7 @@ class Dashboard extends React.Component<Props, State> {
         if (authorizeInfo.authorized) {
             this.handleStateLogin(authorizeInfo.user);
         } else {
-            this.setState({ isFistLogin: true });
+            this.setState({ isFirstLogin: true });
         }
     }
 
@@ -76,7 +76,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     handleStateLogin(user: User) {
-        this.setState({ isFistLogin: false, user });
+        this.setState({ isFirstLogin: false, user });
     }
 
     sendMessage(data: any) {
@@ -157,9 +157,9 @@ class Dashboard extends React.Component<Props, State> {
 
     render() {
         const { authorizeInfo } = this.props;
-        const { isFistLogin, user } = this.state;
+        const { isFirstLogin, user } = this.state;
 
-        if (isFistLogin) {
+        if (isFirstLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
             const props = { ...user, balance: this.props.balance };
