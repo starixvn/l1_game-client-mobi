@@ -27,5 +27,7 @@
     "oneClickHintMsg": "1-Click Bet là tính năng cược nhanh, cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn, cược sẽ tự động được hệ thống ghi nhận.",
     "oneClickTitle": "1-Click Bet",
     "socketConnectFailed" : "Mất kết nối hoặc kết nối không ổn định. Vui lòng kiểm tra và thử lại.",
-    "socketReconnect" : "Thử lại"
+    "socketReconnect" : "Thử lại",
+    "accountIsLocked": "Tài khoản đã bị đóng. Phiên đăng nhập sẽ hết hạn sau 10 giây. Vui lòng liên hệ với cấp trên để biết thêm chi tiết."
+
 }

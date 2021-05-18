@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { isMobileOnly, withOrientationChange } from "react-device-detect";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
-
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -12,6 +11,7 @@ import LandscapeMode from "../components/landscape-mode";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
+import { useTranslation } from "next-i18next";
 
 let authorizeInfo: AuthorizeResponse = null;
 
@@ -25,6 +25,7 @@ function Home({ isLandscape }) {
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
+    const { t } = useTranslation("common");
 
     async function signIn() {
         const settings = await settingsService.getSettings();
@@ -88,13 +89,15 @@ function Home({ isLandscape }) {
                 router.push("/timeout");
             } else {
                 if (reCheckInResult.apiError) {
+                    setIsShowModal(true);
                     if (reCheckInResult.isDisableAccount) {
                         setTimeout(() => {
                             signOut();
                         }, 10000);
+                        setApiErrorMessage(t("accountIsLocked"));
+                    } else {
+                        setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
                     }
-                    setIsShowModal(true);
-                    setApiErrorMessage(reCheckInResult.apiError.message);
                 } else {
                     setBalance(reCheckInResult.balance);
                 }
