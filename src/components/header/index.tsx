@@ -74,7 +74,11 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                         </div>
                     </div>
-                    {theme !== undefined && <span className={`${IconMapper[theme]}`} onClick={handleChangeTheme}></span>}
+                    {theme !== undefined && (
+                        <div className={Styles["cirle-theme"]}>
+                            <span className={`icon-moon ${Styles[IconMapper[theme]]}`} onClick={handleChangeTheme}></span>
+                        </div>
+                    )}
                 </Navbar>
             </div>
         </header>

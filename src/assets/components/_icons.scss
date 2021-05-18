@@ -14,14 +14,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-light-theme:before {
+.icon-moon:before {
     content: "\e90b";
-    color: #9aa0a6;
-}
-
-.icon-dark-theme:before {
-    content: "\e918";
-    color: #9aa0a6;
+    color: #f3f3f3;
 }
 
 .icon-edit:before {

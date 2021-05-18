@@ -2,12 +2,14 @@
     --header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
+    --circle-theme-background: #c7c7c7;
 }
 
 [data-theme="dark"] .header {
     --header-background: #203040;
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
+    --circle-theme-background: #141f2f;
 }
 
 .header {
@@ -75,6 +77,24 @@
     top: 0.3rem;
     line-height: 0;
     font-size: 2rem;
+}
+
+.cirle-theme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.8rem;
+    width: 3.8rem;
+    border-radius: 50%;
+    background-color: var(--circle-theme-background);
+
+    .icon-dark-theme:before {
+        color: #ffab2b;
+    }
+
+    .icon-light-theme:before {
+        color: #fff;
+    }
 }
 
 // .language {
