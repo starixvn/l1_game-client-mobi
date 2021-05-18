@@ -1,5 +1,12 @@
 @import "../../../assets/components/form";
-@import "../../../assets/abstracts/variables";
+
+[data-theme="light"] .note {
+    --note-color: #6b6d78;
+}
+
+[data-theme="dark"] .note {
+    --note-color: rgba(255, 255, 255, 0.6);
+}
 
 .place-bet-container {
     padding: 0 1.6rem 1.6rem;
@@ -13,9 +20,9 @@
     min-height: 4.6rem;
     margin: 0.5rem 0;
     padding: 0 1rem;
-    border-left-color: $success-color;
-    color: $success-color;
-    background-color: #e3ffda;
+    border-left-color: var(--success-color);
+    color: var(--success-color);
+    background-color: var(--success-background);
     margin-bottom: 0.5rem;
     font-size: 2rem;
     text-transform: capitalize;
@@ -38,13 +45,13 @@
 
 .highlight {
     color: $main-color;
-    font-family: $font-number;
+    font-family: var(--font-number);
     font-weight: bold;
 }
 
 .error-message {
     margin-bottom: 0.4rem;
-    color: $error-color;
+    color: var(--error-color);
 }
 
 .actions {
@@ -68,7 +75,8 @@
     .info {
         margin-left: 1rem;
         line-height: 2.4rem;
-        color: #6b6d78;
+        font-style: italic;
+        color: var(--note-color);
     }
 
     .quick-bet-container {

@@ -1,5 +1,13 @@
 @import "../../../../assets/components/animations/fade-out-up";
 
+[data-theme="light"] .accepted-bet {
+    --accepted-bet-color: #464646;
+}
+
+[data-theme="dark"] .accepted-bet {
+    --accepted-bet-color: #8ba9c8;
+}
+
 .accepted-bet {
     @extend %fade-out-up;
     left: 0;
@@ -7,7 +15,7 @@
     animation-name: bet-animation;
     animation-duration: 1s;
     animation-delay: 0.1s;
-    color: #464646;
+    color: var(--accepted-bet-color);
     letter-spacing: -0.2rem;
     text-shadow: 0 0.1rem 0.2rem rgba(98, 98, 98, 0.25);
     pointer-events: none;

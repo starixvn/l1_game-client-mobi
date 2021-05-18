@@ -1,5 +1,17 @@
 @import "../../../assets/components/buttons";
 
+[data-theme="light"] .error-message-container {
+    --popup-background: #fff;
+    --popup-border: #fff;
+    --popup-color: #2c2f3e;
+}
+
+[data-theme="dark"] .error-message-container {
+    --popup-background: #203040;
+    --popup-border: #475567;
+    --popup-color: #fff;
+}
+
 .error-message-container {
     padding: 2.8rem 3rem;
     font-size: 1.6rem;
@@ -8,8 +20,10 @@
         position: absolute;
         left: 0;
         bottom: 0;
-        background-color: #fff;
         border-radius: 0.5rem !important;
+        border: 1px solid var(--popup-border);
+        background-color: var(--popup-background);
+        color: var(--popup-color);
     }
 }
 
@@ -23,21 +37,6 @@
     line-height: 2.4rem;
     margin-bottom: 2.8rem;
     max-width: 40rem;
-}
-
-.icon-close {
-    display: flex;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background: #eaebf0;
-
-    &:before {
-        font-size: 1.2rem;
-        color: #4f4f54;
-    }
 }
 
 .popup-header {
@@ -57,13 +56,7 @@
 }
 
 .popup-closed-icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: absolute;
-    top: 1.4rem;
-    right: 0.6rem;
-    width: 3.2rem;
-    height: 3.2rem;
-    cursor: pointer;
+    right: 1rem;
+    top: 1rem;
 }

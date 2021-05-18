@@ -2,51 +2,8 @@ $page-background: #dce2f3;
 $text-color: #2c2f3e;
 $main-color: #ff9a00;
 $border-color: #dce2f3;
-$font-family: "Roboto", arial, sans-serif;
 $font-money: "BebasNeue";
 $font-number: "BinanceFlex";
-
-// Splash Screen
-$splash-screen-background: #1f3c69;
-
-// header
-$header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
-
-// game header
-$header-game-header: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
-
-// dropdown
-$dropdown-item-background-hover: #ffd487;
-
-// table
-$table-header-background: #ffd487;
-$table-color: #2c2f3e;
-$table-border-color: #dce2f3;
-$table-background: #fff;
-$table-highlight-background: #fff5e3;
-
-// buttons
-$btn-green-background: #5bb379;
-$btn-green-background-hover: darken($btn-green-background, 10);
-$btn-green-color: #fff;
-
-$btn-orange-background: #ffb335;
-$btn-orange-background-hover: darken($btn-orange-background, 10);
-$btn-orange-color: #fff;
-
-$btn-grey-background: #d2d2d2;
-$btn-grey-background-hover: darken($btn-grey-background, 10);
-$btn-grey-color: #2c2f3e;
-
-$btn-rebet-background: transparent;
-$btn-rebet-color: #fff;
-$btn-rebet-background-hover: #fff;
-$btn-rebet-color-hover: #ff9a00;
-
-// message icons
-$waiting-color: #ffb335;
-$success-color: #5bb379;
-$error-color: #ff0000;
 
 // Colors in games
 // Sedie
@@ -131,4 +88,4 @@ $balance-betting-pool-index: 80;
 $waiting-time-index: 80;
 $overlay-index: 70;
 $chip-index: 10;
-$modal-index:300;
+$modal-index: 300;

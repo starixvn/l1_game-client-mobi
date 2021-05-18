@@ -6,21 +6,6 @@
     -ms-user-select: text;
     user-select: text;
 
-    .icon-close {
-        display: flex;
-        height: 3rem;
-        width: 3rem;
-        border-radius: 50%;
-        align-items: center;
-        justify-content: center;
-        background: var(--popup-icon-close-background);
-
-        &:before {
-            font-size: 1.2rem;
-            color: var(--popup-icon-close-color);
-        }
-    }
-
     .popup-header {
         display: flex;
         flex-direction: column;
@@ -45,15 +30,9 @@
     }
 
     .popup-closed-icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         position: absolute;
-        top: 1.4rem;
-        right: 0.6rem;
-        width: 3.2rem;
-        height: 3.2rem;
-        cursor: pointer;
+        top: 1.2rem;
+        right: 1.6rem;
     }
 
     .popup-content-title {

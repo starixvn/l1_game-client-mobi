@@ -22,6 +22,23 @@ html {
     --primary-color: #ff9a00;
 
     // buttons
+    --btn-green-background: #5bb379;
+    --btn-green-background-hover: #4e9967;
+    --btn-green-color: #fff;
+
+    --btn-orange-background: #ffb335;
+    --btn-orange-background-hover: #e5a030;
+    --btn-orange-color: #fff;
+
+    --btn-grey-background: #d2d2d2;
+    --btn-grey-background-hover: #b8b8b8;
+    --btn-grey-color: #2c2f3e;
+
+    --btn-rebet-background: transparent;
+    --btn-rebet-color: #fff;
+    --btn-rebet-background-hover: #fff;
+    --btn-rebet-color-hover: #ff9a00;
+
     --btn-rebet-background: transparent;
     --btn-rebet-color: #fff;
     --btn-rebet-background-hover: #fff;
@@ -52,6 +69,15 @@ html {
     --opacity-background: rgba(12, 12, 12, 0.36);
     --opacity-background-grey: rgba(221, 221, 221, 0.6);
 
+    // messsage info
+    --waiting-color: #ffb335;
+
+    --success-background: #e3ffda;
+    --success-color: #5bb379;
+
+    --error-background: #ffdede;
+    --error-color: #ff0000;
+
     // dropdown
     --dropdown-background: #fff;
     --dropdown-border: #d7d7d7;
@@ -60,6 +86,9 @@ html {
     --dropdown-item-background: #fff;
     --dropdown-item-background-hover: #ffd487;
     --dropdown-item-color-hover: var(-text-color);
+
+    --icon-close-background: #eaebf0;
+    --icon-close-color: #4f4f54;
 }
 
 [data-theme="dark"] {
@@ -74,6 +103,15 @@ html {
     --opacity-background: rgba(0, 0, 0, 0.6);
     --opacity-background-grey: rgba(0, 0, 0, 0.6);
 
+    // messsage info
+    --waiting-color: #ffb335;
+
+    --success-background: #121f2c;
+    --success-color: #5bb379;
+
+    --error-background: #121f2c;
+    --error-color: #ff0000;
+
     // dropdown
     --dropdown-background: #203040;
     --dropdown-border: #3b526c;
@@ -82,6 +120,9 @@ html {
     --dropdown-item-background: #203040;
     --dropdown-item-background-hover: #2c4055;
     --dropdown-item-color-hover: #ffab2b;
+
+    --icon-close-background: #7d8a98;
+    --icon-close-color: #1a2430;
 }
 
 body {
@@ -168,4 +209,23 @@ label {
 
 .font-weight-medium {
     font-weight: 500;
+}
+
+.icon-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background: var(--icon-close-background);
+
+    &:before {
+        font-size: 1.2rem;
+        color: var(--icon-close-color);
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
 }

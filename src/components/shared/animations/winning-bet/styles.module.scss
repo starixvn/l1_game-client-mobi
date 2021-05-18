@@ -1,14 +1,24 @@
 @import "../../../../assets/components/animations/fade-out-up";
 
+[data-theme="light"] .winning-bet {
+    --accepted-bet-color: #ff9a00;
+    --accepted-bet-border: #b82c00;
+}
+
+[data-theme="dark"] .winning-bet {
+    --accepted-bet-color: #ff9a00;
+    --accepted-bet-border: #db4848;
+}
+
 .winning-bet {
     @extend %fade-out-up;
     right: 4rem;
     animation-name: winning-animation;
     animation-timing-function: ease-in-out;
     animation-duration: 1s;
-    color: #ff9a00;
+    color: var(--accepted-bet-color);
     letter-spacing: -0.1rem;
-    -webkit-text-stroke: 0.1rem #b82c00;
+    -webkit-text-stroke: 0.1rem var(--accepted-bet-border);
     text-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.4);
 
     .group-light {

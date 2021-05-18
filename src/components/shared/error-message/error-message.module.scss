@@ -1,40 +1,35 @@
-@import "../../../assets/abstracts/variables";
+[data-theme="light"] .error-message-container {
+    --error-message-container-background: #fff;
+    --error-message-container-border: #d7d7d7;
+    --error-message-container-color: #2c2f3e;
+}
+
+[data-theme="dark"] .error-message-container {
+    --error-message-container-background: #203040;
+    --error-message-container-border: #3b526c;
+    --error-message-container-color: #fff;
+}
+
 .error-message-container {
     position: absolute;
     text-align: center;
     padding: 2rem 2.1rem;
-    background-color: #fff;
+    background-color: var(--error-message-container-background);
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
     border-radius: 0.5rem;
+    border: 1px solid var(--error-message-container-border);
     font-size: 1.6rem;
-    border: 1px solid #d7d7d7;
     left: 50%;
     transform: translate(-50%, 0);
     top: 20%;
-    z-index: $popup-guide-history-index;
+    z-index: var(--popup-guide-history-index);
     min-width: 30rem;
 }
 
 .icon-close {
     position: absolute;
-    right: 0.4rem;
-    top: 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    background: #EAEBF0;
-
-    &:before {
-        font-size: 1.2rem;
-        color: #4F4F54;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
+    right: 1rem;
+    top: 1rem;
 }
 
 .icon-warning {

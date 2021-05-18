@@ -11,7 +11,6 @@
     background-position: center;
     transition: background 0.8s;
     text-align: center;
-    color: #fff;
     font-size: 1.6rem;
 
     &:disabled {
@@ -30,45 +29,45 @@
 
 .btn-green {
     @extend %btn;
-    background-color: $btn-green-background;
-    color: $btn-green-color;
+    background-color: var(--btn-green-background);
+    color: var(--btn-green-color);
 
     &:hover:enabled {
-        background: darken($btn-green-background, 10%) radial-gradient(circle, transparent 1%, darken($btn-green-background, 10%) 1%)
+        background: var(--btn-green-background-hover) radial-gradient(circle, transparent 1%, var(--btn-green-background-hover) 1%)
             center/15000%;
     }
 
     &:active {
-        background-color: darken($btn-green-background, 10%);
+        background-color: var(--btn-green-background-hover);
     }
 }
 
 .btn-orange {
     @extend %btn;
-    background-color: $btn-orange-background;
-    color: $btn-orange-color;
+    background-color: var(--btn-orange-background);
+    color: var(--btn-orange-color);
 
     &:hover:enabled {
-        background: darken($btn-orange-background, 10%) radial-gradient(circle, transparent 1%, darken($btn-orange-background, 10%) 1%)
+        background: var(--btn-orange-background-hover) radial-gradient(circle, transparent 1%, var(--btn-orange-background-hover) 1%)
             center/15000%;
     }
 
     &:active {
-        background-color: darken($btn-orange-color, 10%);
+        background-color: var(--btn-orange-background-hover);
     }
 }
 
 .btn-grey {
     @extend %btn;
-    background-color: $btn-grey-background;
-    color: $btn-grey-color;
+    background-color: var(--btn-grey-background);
+    color: var(--btn-grey-color);
 
     &:hover:enabled {
-        background: darken($btn-grey-background, 10%) radial-gradient(circle, transparent 1%, darken($btn-grey-background, 10%) 1%)
+        background: var(--btn-grey-background-hover) radial-gradient(circle, transparent 1%, var(--btn-grey-background-hover) 1%)
             center/15000%;
     }
 
     &:active {
-        background-color: darken($btn-grey-color, 10%);
+        background-color: var(--btn-grey-background-hover);
     }
 }

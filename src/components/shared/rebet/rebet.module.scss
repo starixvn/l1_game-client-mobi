@@ -1,4 +1,12 @@
-@import "../../../assets/abstracts/variables";
+[data-theme="light"] .bet-info {
+    --success-text-color: #2c2f3e;
+    --error-text-color: #2c2f3e;
+}
+
+[data-theme="dark"] .bet-info {
+    --success-text-color: var(--success-color);
+    --error-text-color: var(--error-color);
+}
 
 .header {
     margin-bottom: 1rem;
@@ -28,12 +36,14 @@
     height: 4rem;
     margin: 0.5rem 0;
     padding: 0 1rem;
-    border-left-color: $success-color;
-    background-color: #e3ffda;
+    border-left-color: var(--success-color);
+    background-color: var(--success-background);
+    color: var(--success-text-color);
 
     &.error {
-        border-left-color: $error-color;
-        background-color: #ffdede;
+        border-left-color: var(--error-color);
+        background-color: var(--error-background);
+        color: var(--error-text-color);
     }
 
     .icon {
@@ -51,16 +61,16 @@
 
 .bet-amount {
     margin-right: 0.5rem;
-    font-family: $font-number;
+    font-family: var(--font-number);
     font-weight: 500;
     font-size: 1.6rem;
-    color: $main-color;
+    color: var(--primary-color);
 }
 
 .error-message {
     font-size: 13px;
     line-height: 15px;
-    color: $error-color;
+    color: var(--error-color);
 }
 
 .action {
