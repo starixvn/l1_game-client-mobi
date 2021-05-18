@@ -1,9 +1,11 @@
 import { Round } from "../../../../types";
+import { GameState } from "../../../shared/game-base/type";
 
 export type PropsDot<R, S> = {
     children: React.ReactNode;
     renderRoundDetail: JSX.Element;
     targetName: string;
+    gameState: GameState;
 };
 
 export type Props<R, S> = {

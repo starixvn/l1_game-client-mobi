@@ -18,6 +18,8 @@ function Home({ isLandscape }) {
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
+    const [isShowModal, setIsShowModal] = useState<boolean>(false);
+    const [apiErrorMessage, setApiErrorMessage] = useState<string>("");
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
@@ -66,13 +68,26 @@ function Home({ isLandscape }) {
         setTimeout(() => setLoading(false), 1000);
     }
 
+    function signOut() {
+        LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
+    }
+
     function reCheckIn(userSession: SSOResponse) {
         timer.current = setInterval(async () => {
             const reCheckInResult = await authService.reCheckIn(userSession.ss, userSession.username);
             if (!reCheckInResult || !reCheckInResult.isSuccessful) {
+                signOut();
                 router.push("/timeout");
             } else {
-                setBalance(reCheckInResult.balance);
+                if (reCheckInResult.isDisableAccount) {
+                    setTimeout(() => {
+                        signOut();
+                    }, 10000);
+                    setIsShowModal(true);
+                    setApiErrorMessage(reCheckInResult.message);
+                } else {
+                    setBalance(reCheckInResult.balance);
+                }
             }
         }, 60 * 1000);
     }
@@ -99,7 +114,18 @@ function Home({ isLandscape }) {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
-                {isLandscape && isMobileOnly ? <LandscapeMode /> : <Dashboard balance={balance} updateBalance={setBalance} />}
+                {isLandscape && isMobileOnly ? (
+                    <LandscapeMode />
+                ) : (
+                    <Dashboard
+                        balance={balance}
+                        updateBalance={setBalance}
+                        isShowModal={isShowModal}
+                        apiErrorMessage={apiErrorMessage}
+                        setIsShowModal={setIsShowModal}
+                        setApiErrorMessage={setApiErrorMessage}
+                    />
+                )}
             </AuthContextProvider>
         );
     }

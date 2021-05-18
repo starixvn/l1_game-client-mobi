@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tooltip } from "reactstrap";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
@@ -10,15 +10,20 @@ import { MiniItemNext } from "../dot-next";
 import Styles from "./styles.module.scss";
 import { Props, PropsDot } from "./types";
 
-const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName }: PropsDot<R, S>) => {
+const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName, gameState }: PropsDot<R, S>) => {
     const [isOpenTooltip, setIsOpenTooltip] = useState(false);
-    const toggle = () => setIsOpenTooltip(!isOpenTooltip);
+    const toggleTooltip = () => setIsOpenTooltip(!isOpenTooltip);
+    useEffect(() => {
+        if (gameState === GameState.LockingBet) {
+            setIsOpenTooltip(false);
+        }
+    }, [gameState]);
 
     return (
         <div className={Styles["dot-wrapper"]}>
             <div id={targetName}>{children}</div>
-            <ContainerToolTip isOpen={isOpenTooltip} onClose={toggle}>
-                <Tooltip trigger="click" placement="top" isOpen={isOpenTooltip} target={targetName} toggle={toggle}>
+            <ContainerToolTip isOpen={isOpenTooltip} onClose={toggleTooltip}>
+                <Tooltip trigger="click" placement="top" isOpen={isOpenTooltip} target={targetName} toggle={toggleTooltip}>
                     {renderRoundDetail}
                 </Tooltip>
             </ContainerToolTip>
@@ -41,6 +46,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
                     key={round.roundId}
                     renderRoundDetail={renderRoundDetail(round, t)}
                     targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
+                    gameState={gameState}
                 >
                     {renderGameDot(round, isLockingBet, index, numberOfItems)}
                 </RoundDotWrapper>

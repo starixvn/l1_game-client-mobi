@@ -20,6 +20,10 @@ type Props = {
     balance: number;
     updateBalance: (balance: number) => void;
     router: NextRouter;
+    apiErrorMessage: string;
+    isShowModal: boolean;
+    setApiErrorMessage: (message: string) => void;
+    setIsShowModal: (isOpen: boolean) => void;
 } & WithRouterProps;
 
 type State = {
@@ -27,8 +31,6 @@ type State = {
     isShowNotice: boolean;
     notice: string;
     user: User;
-    isShowModal: boolean;
-    apiErrorMessage: string;
 };
 
 const LanguageMapper = {
@@ -47,8 +49,6 @@ class Dashboard extends React.Component<Props, State> {
             isFistLogin: false,
             user: null,
             isShowNotice: true,
-            apiErrorMessage: "",
-            isShowModal: false,
             notice: "",
         };
 
@@ -57,7 +57,6 @@ class Dashboard extends React.Component<Props, State> {
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.forceReload = this.forceReload.bind(this);
-        this.setApiErrorMessage = this.setApiErrorMessage.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
     }
 
@@ -128,16 +127,13 @@ class Dashboard extends React.Component<Props, State> {
         }
 
         if (data.apiError) {
-            this.setApiErrorMessage(data.apiError.message);
+            this.props.setApiErrorMessage(data.apiError.message);
+            this.props.setIsShowModal(true);
         }
     }
 
     forceReload() {
         window.location.reload();
-    }
-
-    setApiErrorMessage(message: string) {
-        this.setState({ isShowModal: true, apiErrorMessage: message });
     }
 
     handleKickedOut(data: any) {
@@ -158,17 +154,13 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
-    closeModal = () => {
-        this.setState({ isShowModal: false });
-    };
-
     getRoundResultUrl(gameId: number) {
         const data = { language: LanguageMapper[this.props.router.locale], gameId };
         this.sendMessage({ gameResult: data });
     }
 
     render() {
-        const { isFistLogin, user, apiErrorMessage } = this.state;
+        const { isFistLogin, user } = this.state;
         if (isFistLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
@@ -179,14 +171,18 @@ class Dashboard extends React.Component<Props, State> {
                     <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
                         <Games />
                     </RoundResultContextProvider>
-                    {this.state.isShowModal && (
+                    {this.props.isShowModal && (
                         <div className={Styles["container-modal"]}>
                             <div className={Styles["bg-opacity"]}></div>
-                            <BaseDialog type={ModalType.Center} isOpen={this.state.isShowModal} onCloseModal={() => this.closeModal()}>
+                            <BaseDialog
+                                type={ModalType.Center}
+                                isOpen={this.props.isShowModal}
+                                onCloseModal={() => this.props.setIsShowModal(false)}
+                            >
                                 <div className="modal-center">
                                     <div className={`icon-warning modal-icon-warning`}></div>
-                                    <div className={`icon-close modal-icon-close`} onClick={() => this.closeModal()}></div>
-                                    <div>{apiErrorMessage}</div>
+                                    <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
+                                    <div>{this.props.apiErrorMessage}</div>
                                 </div>
                             </BaseDialog>
                         </div>
