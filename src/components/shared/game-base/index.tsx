@@ -4,10 +4,12 @@ import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
+
 import appSettings from "../../../common/app-settings";
 import { AudioCollection } from "../../../common/audio";
+import { gameVipIds } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
-import { GameResourceKeys, CommonResourceKeys } from "../../../common/resources";
+import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
@@ -31,7 +33,6 @@ import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
-import { gameVipIds } from "../../../common/constants";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -192,8 +193,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup, roundId } = this.state;
 
         if (endBet === -1) {
+            this.finishProcessingBet();
             if (!apiError) {
-                const newState = { displayPopup: PopupType.Error, isProcessingBet: false, errorMessage: "" };
+                const newState = { displayPopup: PopupType.Error, errorMessage: "" };
 
                 if (kickedOut?.isDisabledAccount) {
                     newState.errorMessage = kickedOut?.message;
