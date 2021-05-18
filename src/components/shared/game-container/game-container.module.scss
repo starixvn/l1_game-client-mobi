@@ -1,3 +1,13 @@
+[data-theme="light"] .game-container {
+    --game-container-background: #fff;
+    --game-container-border: #8e8e8e;
+}
+
+[data-theme="dark"] .game-container {
+    --game-container-background: #101821;
+    --game-container-border: #3b526c;
+}
+
 .game-container {
     position: relative;
     flex: 1 1 calc(100% - 0.8rem);
@@ -5,9 +15,9 @@
     height: auto;
     min-width: inherit;
     margin: 0 0.4rem 0.4rem;
-    border: 1px solid #8e8e8e;
+    border: 1px solid var(--game-container-border);
     border-radius: 0.6rem;
-    background-color: #fff;
+    background-color: var(--game-container-background);
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;

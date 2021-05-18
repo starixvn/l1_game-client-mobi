@@ -1,9 +1,25 @@
-@import "../../../assets/abstracts/variables";
+[data-theme="light"] .header {
+    --game-header-background: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
+    --game-header-icon-favourite: #fff;
+    --game-header-icon-unfavourite: #fff;
+    --game-header-icon-menu: #fff;
+    --game-header-game-name-color: #2c2f3e;
+    --game-header-round-id-color: #5a5a5a;
+}
+
+[data-theme="dark"] .header {
+    --game-header-background: #203040;
+    --game-header-icon-favourite: #ffab2b;
+    --game-header-icon-unfavourite: #7f91a4;
+    --game-header-icon-menu: #7f91a4;
+    --game-header-game-name-color: #ffab2b;
+    --game-header-round-id-color: #7f91a4;
+}
 
 .header {
     display: flex;
     justify-content: space-between;
-    background: $header-game-header;
+    background: var(--game-header-background);
     border-radius: 5px 5px 0px 0px;
     position: relative;
     height: 5.6rem;
@@ -23,12 +39,14 @@
         cursor: pointer;
     }
 
-    .icon-favorite-normal {
+    .icon-favorite-normal:before {
         font-size: 2rem;
+        color: var(--game-header-icon-unfavourite);
     }
 
-    .icon-favorite {
+    .icon-favorite:before {
         font-size: 1.6rem;
+        color: var(--game-header-icon-favourite);
     }
 }
 
@@ -46,6 +64,7 @@
         line-height: 2rem;
         font-weight: 500;
         font-size: 1.8rem;
+        color: var(--game-header-game-name-color);
 
         @media (min-width: 1024px) and (max-width: 1278px) {
             font-size: 1.6rem;
@@ -57,7 +76,7 @@
     }
 
     .round {
-        color: #5a5a5a;
+        color: var(--game-header-round-id-color);
         font-size: 1.4rem;
         width: auto;
         overflow: hidden;
@@ -92,10 +111,10 @@
         width: 7.7rem;
         height: 3.2rem;
         margin-right: 1rem;
-        border: 1px solid $btn-rebet-background-hover;
+        border: 1px solid var(--btn-rebet-background-hover);
         border-radius: 2rem;
-        background-color: $btn-rebet-background;
-        color: $btn-rebet-color;
+        background-color: var(--btn-rebet-background);
+        color: var(--btn-rebet-color);
         text-align: center;
         font-size: 1.4rem;
         white-space: nowrap;
@@ -110,15 +129,15 @@
 
         &:hover:enabled {
             cursor: pointer;
-            background-color: $btn-rebet-background-hover;
-            color: $btn-rebet-color-hover;
+            background-color: var(--btn-rebet-background-hover);
+            color: var(--btn-rebet-color-hover);
         }
     }
 
     .hamburger-dot {
         width: 0.5rem;
         height: 0.5rem;
-        background-color: #fff;
+        background-color: var(--game-header-icon-menu);
         border-radius: 50%;
         margin: 0.2rem 0;
     }

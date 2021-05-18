@@ -1,5 +1,15 @@
 @import "../abstracts/variables";
 
+[data-theme="light"] .mini-notice {
+    --locking-bet-background: rgba(83, 91, 114, 0.8);
+    --locking-bet-color: #fff;
+}
+
+[data-theme="dark"] .mini-notice {
+    --locking-bet-background: 0px 0px 36px rgba(0, 0, 0, 0.25);
+    --locking-bet-color: #fff;
+}
+
 %notice {
     position: absolute;
     padding-left: 1.6rem;

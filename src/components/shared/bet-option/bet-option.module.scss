@@ -1,5 +1,33 @@
 @import "../../../assets/abstracts/variables";
 
+[data-theme="light"] .container {
+    --bet-option-background: #fff;
+    --bet-option-background-hover: #e0e0e0;
+    --bet-option-background-dark-hover: #d4d4d4;
+    --bet-option-background-highlight: #fff5e3;
+    --bet-option-border: #dce2f3;
+    --bet-option-own-bet-color: #ff9a00;
+    --bet-option-total-bet-color: #2c2f3e;
+    --bet-option-odds-color: #a8aeb8;
+
+    --winning-effect-background: #fff;
+    --winning-effect-background-blink: #fff5e3;
+}
+
+[data-theme="dark"] .container {
+    --bet-option-background: #1a2430;
+    --bet-option-background-hover: #0d141e;
+    --bet-option-background-dark-hover: #080c12;
+    --bet-option-background-highlight: #24384d;
+    --bet-option-border: #dce2f3;
+    --bet-option-own-bet-color: #ff9a00;
+    --bet-option-total-bet-color: #90a4b8;
+    --bet-option-odds-color: #7f8a95;
+
+    --winning-effect-background: #1a2430;
+    --winning-effect-background-blink: #131b24;
+}
+
 .container {
     position: relative;
     height: 100%;
@@ -8,18 +36,19 @@
 
     .bet-option {
         background-position: center;
-        background-color: #fff;
+        background-color: var(--bet-option-background);
         transition: background 0.8s;
 
         &:active {
-            background-color: darken(#ededed, 10%);
+            background-color: var(--bet-option-background-hover);
             background-size: 100%;
             transition: background 0s;
         }
 
         @media (hover: hover) {
             &:hover {
-                background: darken(#ededed, 5%) radial-gradient(circle, transparent 1%, darken(#ededed, 5%) 80%) center/15000%;
+                background: var(--bet-option-background-dark-hover)
+                    radial-gradient(circle, transparent 1%, var(--bet-option-background-dark-hover) 80%) center/15000%;
             }
         }
 
@@ -43,14 +72,14 @@
     .odd,
     .total-bet,
     .own-bet {
-        font-family: $font-number;
+        font-family: var(--font-number);
     }
 
     .odd {
         position: absolute;
         left: 0.5rem;
         top: 0.3rem;
-        color: #a8aeb8;
+        color: var(--bet-option-odds-color);
         text-align: left;
     }
 
@@ -64,19 +93,20 @@
 
     .total-bet {
         top: 0.3rem;
+        color: var(--bet-option-total-bet-color);
     }
 
     .own-bet {
         bottom: 0.3rem;
-        color: $main-color;
+        color: var(--bet-option-own-bet-color);
     }
 
     &.highlight-winning {
-        background-color: #fff5e3;
+        background-color: var(--bet-option-background-highlight);
     }
 
     &.winning-effect {
-        background-color: #fff;
+        background-color: var(--winning-effect-background);
         animation: betChoiceWinningEffect 1s 0.5s infinite forwards;
     }
 }
@@ -111,27 +141,27 @@
 @keyframes betChoiceWinningEffect {
     0%,
     100% {
-        background-color: #fff5e3;
+        background-color: var(--winning-effect-background-blink);
     }
 
     10%,
     80% {
-        background-color: #fff5e3;
+        background-color: var(--winning-effect-background-blink);
     }
 
     20%,
     70% {
-        background-color: #fff;
+        background-color: var(--winning-effect-background);
     }
 
     30%,
     60% {
-        background-color: #fff5e3;
+        background-color: var(--winning-effect-background-blink);
     }
 
     40%,
     50% {
-        background-color: #fff;
+        background-color: var(--winning-effect-background);
     }
 }
 
@@ -154,7 +184,7 @@
         left: -100%;
         width: 80%;
         height: 0.3rem;
-        background: linear-gradient(90deg, transparent, #ff9a00);
+        background: linear-gradient(90deg, transparent, #ff7d05);
         animation: animate1 2s ease-in infinite;
         animation-delay: 0.35s;
     }
@@ -174,7 +204,7 @@
         right: 0;
         width: 0.3rem;
         height: 80%;
-        background: linear-gradient(180deg, transparent, #ff9a00);
+        background: linear-gradient(180deg, transparent, #ff7d05);
         animation: animate2 2s ease-in infinite;
         animation-delay: 0.8s;
     }
@@ -193,7 +223,7 @@
         right: -100%;
         width: 80%;
         height: 0.3rem;
-        background: linear-gradient(270deg, transparent, #ff9a00);
+        background: linear-gradient(270deg, transparent, #ff7d05);
         animation: animate3 2s ease-in infinite;
         animation-delay: 1.25s;
     }
@@ -213,7 +243,7 @@
         left: 0;
         width: 0.3rem;
         height: 80%;
-        background: linear-gradient(360deg, transparent, #ff9a00);
+        background: linear-gradient(360deg, transparent, #ff7d05);
         animation: animate4 2s ease-in infinite;
         animation-delay: 1.7s;
     }

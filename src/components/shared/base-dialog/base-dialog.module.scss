@@ -1,14 +1,34 @@
 @import "../../../assets/abstracts/variables";
 
+[data-theme="light"] .popup {
+    --popup-background: #fff;
+    --popup-border: #fff;
+    --popup-color: #2c2f3e;
+    --popup-title-color: #2c2f3e;
+    --popup-sub-title-color: #9298a4;
+    --popup-icon-close-background: #eaebf0;
+    --popup-icon-close-color: #4f4f54;
+}
+
+[data-theme="dark"] .popup {
+    --popup-background: #203040;
+    --popup-border: #475567;
+    --popup-color: #fff;
+    --popup-title-color: #fff;
+    --popup-sub-title-color: #9298a4;
+    --popup-icon-close-background: #7d8a98;
+    --popup-icon-close-color: #1a2430;
+}
+
 .popup {
     cursor: auto;
     position: fixed;
     padding: 1.6rem;
-    background: #fff;
-    border: 1px solid #d7d7d7;
-    box-sizing: border-box;
+    background: var(--popup-background);
+    border: 1px solid var(--popup-border);
     box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.3);
     border-radius: 3rem 3rem 0 0;
+    color: var(--popup-color);
     overflow-y: auto;
     z-index: $popup-index;
 

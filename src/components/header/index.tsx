@@ -13,6 +13,11 @@ type Props = {
     balance: number;
 };
 
+const IconMapper = {
+    light: "icon-dark-theme",
+    dark: "icon-light-theme",
+};
+
 const Header: React.FC<Props> = (props) => {
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
@@ -57,6 +62,7 @@ const Header: React.FC<Props> = (props) => {
                             <option value="dark">Dark</option>
                             <option value="light">Light</option>
                         </select>
+                        // <span className={`${IconMapper[theme]}`} onClick={(e) => setTheme(IconMapper[theme])}></span>
                     )}
                 </Navbar>
             </div>

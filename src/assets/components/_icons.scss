@@ -14,6 +14,16 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-light-theme:before {
+    content: "\e90b";
+    color: #9aa0a6;
+}
+
+.icon-dark-theme:before {
+    content: "\e918";
+    color: #9aa0a6;
+}
+
 .icon-edit:before {
     content: "\e90a";
     color: #9c9c9c;

@@ -1,3 +1,11 @@
+[data-theme="light"] .score-board-item {
+    --score-board-item-color: #ddd;
+}
+
+[data-theme="dark"] .score-board-item {
+    --score-board-item-color: #1f3146;
+}
+
 .score-board-item {
     display: flex;
     align-items: center;
@@ -7,7 +15,7 @@
     border-radius: 0.2rem;
     margin-bottom: 0.5rem;
     pointer-events: none;
-    background-color: #ddd;
+    background-color: var(--score-board-item-color);
     font-size: 2.6rem;
 
     &:last-child {

@@ -1,18 +1,26 @@
 @import "../../../../assets/abstracts/variables";
 
+[data-theme="light"] .board {
+    --scoreboard-background: #f3f3f3;
+}
+
+[data-theme="dark"] .board {
+    --scoreboard-background: #1a2430;
+}
+
 .board {
     height: 13.9rem;
     width: 100%;
     padding: 0.8rem 0.8rem 0;
-    border-top: 0.1rem solid $border-color;
-    background-color: #f3f3f3;
+    border-top: 0.1rem solid var(--border-color);
+    background-color: var(--scoreboard-background);
     cursor: auto;
 }
 
 .board-inline {
     height: 3.6rem;
     width: 100%;
-    border-top: 0.1rem solid $border-color;
+    border-top: 0.1rem solid var(--border-color);
 }
 
 .score-board-dragon-container {

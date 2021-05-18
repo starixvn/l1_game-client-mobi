@@ -1,7 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~slick-carousel/slick/slick-theme.scss";
 @import "~slick-carousel/slick/slick.scss";
-@import "./abstracts/variables";
 @import "./components/fonts";
 @import "./components/icons";
 @import "./components/buttons";
@@ -16,15 +15,82 @@
 
 html {
     font-size: 10px !important;
+
+    --font-family: "Roboto", arial, sans-serif;
+    --font-money: "BebasNeue";
+    --font-number: "BinanceFlex";
+    --primary-color: #ff9a00;
+
+    // buttons
+    --btn-rebet-background: transparent;
+    --btn-rebet-color: #fff;
+    --btn-rebet-background-hover: #fff;
+    --btn-rebet-color-hover: #ff9a00;
+
+    // z-index
+    --header-index: 1071;
+    --bet-setting-index: 200;
+    --popup-index: 250;
+    --popup-guide-history-index: 100;
+    --result-animation-index: 90;
+    --balance-betting-pool-index: 80;
+    --waiting-time-index: 80;
+    --overlay-index: 70;
+    --chip-index: 10;
+    --modal-index: 300;
+}
+
+[data-theme="light"] {
+    --page-background: #dce2f3;
+    --text-color: #2c2f3e;
+
+    --tooltip-background: rgba(255, 172, 43, 0.6);
+    --tooltip-color: #2c2f3e;
+
+    --border-color: #dce2f3;
+
+    --opacity-background: rgba(12, 12, 12, 0.36);
+    --opacity-background-grey: rgba(221, 221, 221, 0.6);
+
+    // dropdown
+    --dropdown-background: #fff;
+    --dropdown-border: #d7d7d7;
+    --dropdown-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    --dropdown-item-color: var(-text-color);
+    --dropdown-item-background: #fff;
+    --dropdown-item-background-hover: #ffd487;
+    --dropdown-item-color-hover: var(-text-color);
+}
+
+[data-theme="dark"] {
+    --page-background: #101821;
+    --text-color: #fff;
+
+    --tooltip-background: rgba(79, 112, 143, 0.8);
+    --tooltip-color: #ffffff;
+
+    --border-color: #364252;
+
+    --opacity-background: rgba(0, 0, 0, 0.6);
+    --opacity-background-grey: rgba(0, 0, 0, 0.6);
+
+    // dropdown
+    --dropdown-background: #203040;
+    --dropdown-border: #3b526c;
+    --dropdown-shadow: 0px 5px 30px rgba(0, 0, 0, 0.5);
+    --dropdown-item-color: #7f91a4;
+    --dropdown-item-background: #203040;
+    --dropdown-item-background-hover: #2c4055;
+    --dropdown-item-color-hover: #ffab2b;
 }
 
 body {
     padding: 0;
     margin: 0;
-    background-color: $page-background;
-    font-family: $font-family;
+    background-color: var(--page-background);
+    font-family: var(--font-family);
     font-size: 1.4rem;
-    color: $text-color;
+    color: var(--text-color);
     overscroll-behavior: contain;
 }
 
@@ -48,7 +114,7 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: $overlay-index;
+    z-index: var(--overlay-index);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,12 +122,12 @@ body {
 
 .overlay-mask {
     @extend .overlay-mask-no-bg;
-    background: rgba(12, 12, 12, 0.36);
+    background: var(--opacity-background);
 }
 
 .overlay-mask-white {
     @extend .overlay-mask-no-bg;
-    background: rgba(221, 221, 221, 0.6);
+    background: var(--opacity-background-grey);
     opacity: 0.9;
 }
 
@@ -91,12 +157,12 @@ label {
 
 .tooltip {
     .tooltip-inner {
-        background: rgba(255, 172, 43, 0.6) !important;
-        color: #2c2f3e !important;
+        background: var(--tooltip-background) !important;
+        color: --tooltip-color !important;
     }
 
     .arrow::before {
-        border-top-color: rgba(255, 172, 43, 0.6) !important;
+        border-top-color: var(--tooltip-background) !important;
     }
 }
 

@@ -1,6 +1,22 @@
 @import "../components/shared//round-history/dot/dot.module.scss";
 @import "./abstracts/variables";
 
+[data-theme="light"] .game-guide {
+    --table-background: #fff;
+    --table-border: #dce2f3;
+    --table-color: #fff;
+    --table-header-background: #ffd487;
+    --table-header-color: #2c2f3e;
+}
+
+[data-theme="dark"] .game-guide {
+    --table-background: #121f2c;
+    --table-border: #364252;
+    --table-color: #fff;
+    --table-header-background: #ffd487;
+    --table-header-color: #2c2f3e;
+}
+
 ul {
     list-style: none;
     padding-left: 0;
@@ -20,7 +36,7 @@ ul {
 .game-guide {
     padding: 0 1.6rem;
     counter-reset: guide-list;
-    color: $text-color;
+    color: var(--popup-color);
     font-size: 1.4rem;
 
     .guide-item {
@@ -55,8 +71,8 @@ ul {
             &:before {
                 content: "- ";
             }
-            &.contentBeforeEmpty:before{
-                content: ""!important;
+            &.contentBeforeEmpty:before {
+                content: "" !important;
             }
         }
     }
@@ -75,7 +91,7 @@ ul {
     .table {
         border-collapse: none;
         border: none;
-        background: #ffd487;
+        background: var(--table-header-background);
         box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
         border-radius: 0.5rem 0.5rem 0 0;
 
@@ -88,14 +104,16 @@ ul {
         th {
             border: none;
             font-weight: 500;
+            color: var(--table-header-color);
         }
 
         tbody {
-            background-color: #fff;
+            background-color: var(--table-background);
+            color: var(--table-color);
         }
 
         td {
-            border: 1px solid $border-color;
+            border: 1px solid var(--table-border);
         }
     }
 
@@ -115,21 +133,20 @@ ul {
             }
         }
     }
-    .icon-wrapper{
+    .icon-wrapper {
         display: flex;
         justify-content: center;
         .symbol-size {
             font-size: 5rem;
-            padding: .5rem;
-        
+            padding: 0.5rem;
+
             &.icon-bau {
                 font-size: 4.6rem;
             }
-        
+
             &.icon-ca {
                 font-size: 5.6rem;
             }
         }
     }
-    
 }

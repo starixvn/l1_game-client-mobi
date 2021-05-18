@@ -1,16 +1,26 @@
-@import "../../assets/abstracts/variables";
+[data-theme="light"] .header {
+    --header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
+    --header-text-color: var(--text-color);
+    --header-balance-color: var(--primary-color);
+}
+
+[data-theme="dark"] .header {
+    --header-background: #203040;
+    --header-text-color: #cce2f8;
+    --header-balance-color: var(--primary-color);
+}
 
 .header {
     display: flex;
     align-items: center;
     height: 5.5rem;
     margin-bottom: 0.6rem;
-    background: $header-background;
+    background: var(--header-background);
     position: fixed;
     top: 0;
     width: 100%;
     box-shadow: 0px 1px 2px rgb(0 0 0 / 20%);
-    z-index: $header-index;
+    z-index: var(--header-index);
 
     .navbar-custom {
         width: 100%;
@@ -47,8 +57,8 @@
     }
 
     .balance {
-        color: $main-color;
-        font-family: $font-number;
+        color: var(--header-balance-color);
+        font-family: var(--font-number);
         font-weight: 500;
     }
 
@@ -60,43 +70,43 @@
     }
 }
 
-.language {
-    float: right;
-
-    .lang-item {
-        display: flex;
-        align-items: center;
-    }
-
-    .dropdown-toggle {
-        display: flex;
-        align-items: center;
-        font-size: 1.4rem;
-        color: $text-color;
-        text-transform: uppercase;
-    }
-
-    %flag {
-        display: inline-block;
-        width: 2.6rem;
-        height: 1.8rem;
-        margin-right: 0.6rem;
-    }
-
-    .flag-vn {
-        @extend %flag;
-        background-image: url("/static/images/lang-vn.svg");
-    }
-
-    .flag-en {
-        @extend %flag;
-        background-image: url("/static/images/lang-en.svg");
-    }
-}
-
 .icon-user {
     position: relative;
     top: 0.3rem;
     line-height: 0;
     font-size: 2rem;
 }
+
+// .language {
+//     float: right;
+
+//     .lang-item {
+//         display: flex;
+//         align-items: center;
+//     }
+
+//     .dropdown-toggle {
+//         display: flex;
+//         align-items: center;
+//         font-size: 1.4rem;
+//         color: var(--text-color);
+//         text-transform: uppercase;
+//     }
+
+//     %flag {
+//         display: inline-block;
+//         width: 2.6rem;
+//         height: 1.8rem;
+//         margin-right: 0.6rem;
+//     }
+
+//     .flag-vn {
+//         @extend %flag;
+//         background-image: url("/static/images/lang-vn.svg");
+//     }
+
+//     .flag-en {
+//         @extend %flag;
+//         background-image: url("/static/images/lang-en.svg");
+//     }
+// }

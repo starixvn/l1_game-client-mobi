@@ -1,5 +1,23 @@
 @import "../abstracts/variables";
 
+[data-theme="light"] .react-infinite-table {
+    --table-background: #fff;
+    --table-border: #dce2f3;
+    --table-color: #2c2f3e;
+    --table-header-background: #ffd487;
+    --table-header-color: #2c2f3e;
+    --table-row-highlight-background: #fff5e3;
+}
+
+[data-theme="dark"] .react-infinite-table {
+    --table-background: none;
+    --table-border: #fff;
+    --table-color: #fff;
+    --table-header-background: #ffd487;
+    --table-header-color: #2c2f3e;
+    --table-row-highlight-background: #294058;
+}
+
 .react-infinite-table {
     .react-infinite-table-wrapper {
         margin-bottom: 6px;
@@ -32,7 +50,8 @@
                     z-index: 2;
                     height: 3.6rem;
                     padding: 0;
-                    background: $table-header-background;
+                    background: var(--table-header-background);
+                    color: var(--table-header-color);
                     border-bottom: none;
                     font-weight: 500;
                     white-space: nowrap;
@@ -48,10 +67,11 @@
             }
 
             tbody {
-                background-color: $table-background;
+                background-color: var(--table-background);
+                color: var(--table-color);
 
                 tr {
-                    border-bottom: 1px solid $table-border-color;
+                    border-bottom: 1px solid var(--table-border);
 
                     &:last-child {
                         border-bottom: none !important;
@@ -69,7 +89,7 @@
                 td {
                     padding: 0.2rem;
                     &.highlight {
-                        background-color: $table-highlight-background;
+                        background-color: var(--table-row-highlight-background);
                     }
                 }
             }
