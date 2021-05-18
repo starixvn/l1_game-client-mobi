@@ -87,12 +87,14 @@ function Home({ isLandscape }) {
                 signOut();
                 router.push("/timeout");
             } else {
-                if (reCheckInResult.isDisableAccount) {
-                    setTimeout(() => {
-                        signOut();
-                    }, 10000);
+                if (reCheckInResult.apiError) {
+                    if (reCheckInResult.isDisableAccount) {
+                        setTimeout(() => {
+                            signOut();
+                        }, 10000);
+                    }
                     setIsShowModal(true);
-                    setApiErrorMessage(reCheckInResult.message);
+                    setApiErrorMessage(reCheckInResult.apiError.message);
                 } else {
                     setBalance(reCheckInResult.balance);
                 }
