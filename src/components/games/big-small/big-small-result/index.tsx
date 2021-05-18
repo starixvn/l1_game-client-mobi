@@ -30,23 +30,8 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     const wrapperRefResult = useRef<HTMLDivElement>(null);
 
     const actionByGameState = {
-        [GameState.LockingBet]: () => {
-            setIsShowCountOfDice(false);
-        },
         [GameState.DisplayResult]: () => {
-            setTimeout(
-                () => setIsShowCountOfDice(true),
-                (gameSetting.durations.resultAnimation + (gameSetting.durations.balancingBet ?? 0)) * 1000
-            );
-        },
-        [GameState.Waiting]: () => {
-            setIsShowCountOfDice(true);
-        },
-        [GameState.InRound]: () => {
-            setIsShowCountOfDice(true);
-        },
-        [GameState.BeforeStartRound]: () => {
-            setIsShowCountOfDice(true);
+            setTimeout(() => setIsShowCountOfDice(true), (gameSetting.durations.resultAnimation - 1) * 1000);
         },
     };
 
@@ -54,17 +39,15 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
         return (
             <>
                 {animToss}
-                {actionByGameState && (
-                    <div className={Styles["result-container"]}>
-                        {result &&
-                            Object.values(result).map((value, index) => (
-                                <div key={index} className={Styles[`result-${index + 1}`]}>
-                                    <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
-                                </div>
-                            ))}
-                        {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
-                    </div>
-                )}
+                <div className={Styles["result-container"]}>
+                    {result &&
+                        Object.values(result).map((value, index) => (
+                            <div key={index} className={Styles[`result-${index + 1}`]}>
+                                <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                            </div>
+                        ))}
+                    {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                </div>
             </>
         );
     };
