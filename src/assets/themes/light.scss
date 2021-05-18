@@ -1,0 +1,67 @@
+.light {
+    --font-family: "Roboto", arial, sans-serif;
+    --font-money: "BebasNeue";
+    --font-number: "BinanceFlex";
+
+    --page-background: #dce2f3;
+    --text-color: #2c2f3e;
+    --border-color: #dce2f3;
+    --primary-color: #ff9a00;
+
+    // Plash screen
+    --plash-screen-background: #1f3c69;
+
+    // Dropdown
+    --dropdown-background: #fff;
+    --dropdown-border: #d7d7d7;
+    --dropdown-color: var(-text-color);
+    --dropdown-item-background: #fff;
+    --dropdown-item-background-hover: #ffd487;
+    --dropdown-item-color-hover: var(-text-color);
+
+    // popup
+    --popup-background: #fff;
+    --popup-border: #fff;
+    --popup-color: #2c2f3e;
+    --popup-title-color: #2c2f3e;
+    --popup-sub-title-color: #9298a4;
+
+    // header
+    --header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
+    --header-text-color: var(--text-color);
+    --header-balance-color: var(--primary-color);
+
+    // game container
+    --game-background: #fff;
+    --game-border: #8e8e8e;
+    --game-header-background: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
+    --game-header-icon-favourite: #fff;
+    --game-header-icon-favourite: #fff;
+    --game-header-icon-menu: #fff;
+    --game-header-game-name-color: #2c2f3e;
+    --game-header-round-id-color: #5a5a5a;
+
+    // bet option
+    --bet-option-background: #fff;
+    --bet-option-background-hover: #e0e0e0;
+    --bet-option-background-highlight: #fff5e3;
+    --bet-option-border: #dce2f3;
+    --bet-option-own-bet-color: #ff9a00;
+    --bet-option-total-bet-color: #2c2f3e;
+    --bet-option-odds-color: #a8aeb8;
+
+    --accepted-bet-color: #464646;
+    --winning-bet-color: #ff9a00;
+    --winning-bet-border: #b82c00;
+
+    // statistics
+    --statistic-background: #fff;
+    --statistic-color: #2c2f3e;
+    --statistic-even-color: #2c2f3e;
+    --statistic-odd-color: #de4b56;
+    --statistic-odds-color: #a8aeb8;
+
+    // scoreboard
+    --score-board-background: #f3f3f3;
+    --score-board-item-background: #ddd;
+}
