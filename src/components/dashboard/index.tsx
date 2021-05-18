@@ -157,6 +157,8 @@ class Dashboard extends React.Component<Props, State> {
 
     render() {
         const { authorizeInfo } = this.props;
+        const { isFistLogin, user } = this.state;
+
         if (isFistLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
