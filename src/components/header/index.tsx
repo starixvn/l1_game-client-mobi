@@ -1,8 +1,11 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "reactstrap";
+import { UserSettings } from "sc-user-service-client/dist/auth";
+import { useAuthContext } from "../../contexts/auth";
 
 import { numberWithCommas } from "../../helpers/number-helper";
+import { UserClientCommunication } from "../../services";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -11,6 +14,7 @@ type Props = {
     currency: string;
     name: string;
     balance: number;
+    settings: UserSettings;
 };
 
 const IconMapper = {
@@ -21,7 +25,15 @@ const IconMapper = {
 const Header: React.FC<Props> = (props) => {
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
-    const { theme, setTheme } = useTheme();
+    const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
+    const authContext = useAuthContext();
+    const { theme, setTheme } = useTheme(props?.settings?.theme ?? "light");
+
+    const handleChangeTheme = (theme: string) => {
+        userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, theme);
+        setTheme(theme);
+    };
+
     useEffect(() => {
         setIsBalanceAnim(true);
     }, [props.balance]);
@@ -58,7 +70,7 @@ const Header: React.FC<Props> = (props) => {
                         </div>
                     </div>
                     {theme !== undefined && (
-                        <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+                        <select value={theme} onChange={(e) => handleChangeTheme(e.target.value)}>
                             <option value="dark">Dark</option>
                             <option value="light">Light</option>
                         </select>
