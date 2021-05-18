@@ -339,6 +339,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     showWaitingTime: false,
                     betPercentage: {},
                     displayChips: {},
+                    showWinningBet: false,
                 },
             },
             {
@@ -622,7 +623,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     closePopup() {
-        console.log("displayPopup");
         this.setState({ displayPopup: null });
     }
 
