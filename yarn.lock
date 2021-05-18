@@ -4097,6 +4097,11 @@ next-i18next@^8.1.1:
     i18next-fs-backend "^1.0.7"
     react-i18next "^11.8.8"
 
+next-themes@^0.0.14:
+  version "0.0.14"
+  resolved "http://npm.lumigame.com/next-themes/-/next-themes-0.0.14.tgz#2b9861990bc453149e23d8e6ef1a25a119e36675"
+  integrity sha512-x09OaM+wg3SIlEjOv8B21aw/E36jxTtfW3Dm/DPwMsSMluGt7twe1LigA6nc+mXP1u0qu9MxBaIrPPH6UTiKnA==
+
 next@10.0.7:
   version "10.0.7"
   resolved "http://npm.lumigame.com/next/-/next-10.0.7.tgz#442f8e1da7454de33b0bbcc1ce5684b923597ee6"

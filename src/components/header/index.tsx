@@ -1,3 +1,4 @@
+import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "reactstrap";
 
@@ -15,6 +16,7 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
+    const { theme, setTheme } = useTheme();
     useEffect(() => {
         setIsBalanceAnim(true);
     }, [props.balance]);
@@ -50,6 +52,12 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                         </div>
                     </div>
+                    {theme !== undefined && (
+                        <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                        </select>
+                    )}
                 </Navbar>
             </div>
         </header>
