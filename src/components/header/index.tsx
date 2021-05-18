@@ -2,8 +2,9 @@ import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
-import { useAuthContext } from "../../contexts/auth";
 
+import { Themes } from "../../common/constants";
+import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
 import Styles from "./header.module.scss";
@@ -18,8 +19,8 @@ type Props = {
 };
 
 const IconMapper = {
-    light: "icon-dark-theme",
-    dark: "icon-light-theme",
+    [Themes.dark]: "icon-dark-theme",
+    [Themes.light]: "icon-light-theme",
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -29,9 +30,9 @@ const Header: React.FC<Props> = (props) => {
     const authContext = useAuthContext();
     const { theme, setTheme } = useTheme();
 
-    const handleChangeTheme = (theme: string) => {
+    const handleChangeTheme = () => {
         userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, theme);
-        setTheme(theme);
+        setTheme(theme === Themes.dark ? Themes.light : Themes.dark);
     };
 
     useEffect(() => {
@@ -73,13 +74,7 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                         </div>
                     </div>
-                    {theme !== undefined && (
-                        <select value={theme} onChange={(e) => handleChangeTheme(e.target.value)}>
-                            <option value="dark">Dark</option>
-                            <option value="light">Light</option>
-                        </select>
-                        // <span className={`${IconMapper[theme]}`} onClick={(e) => setTheme(IconMapper[theme])}></span>
-                    )}
+                    {theme !== undefined && <span className={`${IconMapper[theme]}`} onClick={handleChangeTheme}></span>}
                 </Navbar>
             </div>
         </header>
