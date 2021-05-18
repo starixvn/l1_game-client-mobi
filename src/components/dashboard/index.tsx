@@ -18,7 +18,7 @@ import Styles from "./dashboard.module.scss";
 
 type Props = {
     balance: number;
-    updateBalance: (balance: number) => void;
+    authorizeInfo: AuthorizeResponse;
     router: NextRouter;
     apiErrorMessage: string;
     isShowModal: boolean;
@@ -61,13 +61,11 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     async componentDidMount() {
-        const { session } = this.context;
-        const response = await this.authService.authorize(session.ss, session.username);
+        const { authorizeInfo } = this.props;
         this.mainSocket = this.connectMainSocket();
 
-        const authorizeResponse = response as AuthorizeResponse;
-        if (authorizeResponse.authorized) {
-            this.handleStateLogin(authorizeResponse.user);
+        if (authorizeInfo.authorized) {
+            this.handleStateLogin(authorizeInfo.user);
         } else {
             this.setState({ isFistLogin: true });
         }
@@ -78,8 +76,6 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     handleStateLogin(user: User) {
-        this.props.updateBalance(user.red);
-
         this.setState({ isFistLogin: false, user });
     }
 
@@ -160,7 +156,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        const { isFistLogin, user } = this.state;
+        const { authorizeInfo } = this.props;
         if (isFistLogin) {
             return <Register handleStateLogin={this.handleStateLogin}></Register>;
         } else {
@@ -169,7 +165,7 @@ class Dashboard extends React.Component<Props, State> {
                 <div className={Styles["dashboard"]}>
                     <Header {...props} />
                     <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
-                        <Games />
+                        <Games quickBetSetting={authorizeInfo?.user?.settings?.quickBet} />
                     </RoundResultContextProvider>
                     {this.props.isShowModal && (
                         <div className={Styles["container-modal"]}>

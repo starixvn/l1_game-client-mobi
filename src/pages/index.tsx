@@ -2,7 +2,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { isMobileOnly, withOrientationChange } from "react-device-detect";
-import { SSOResponse } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import { languageMapper } from "../common/constants";
@@ -12,6 +12,8 @@ import LandscapeMode from "../components/landscape-mode";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
+
+let authorizeInfo: AuthorizeResponse = null;
 
 function Home({ isLandscape }) {
     const router = useRouter();
@@ -61,7 +63,13 @@ function Home({ isLandscape }) {
         }
     }
 
-    function handleSignInSuccess(userSession: SSOResponse) {
+    async function handleSignInSuccess(userSession: SSOResponse) {
+        authorizeInfo = (await authService.authorize(userSession.ss, userSession.username)) as AuthorizeResponse;
+
+        if (authorizeInfo.authorized) {
+            setBalance(authorizeInfo.user.red);
+        }
+
         setSession(userSession);
         LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
         reCheckIn(userSession);
@@ -124,6 +132,7 @@ function Home({ isLandscape }) {
                         apiErrorMessage={apiErrorMessage}
                         setIsShowModal={setIsShowModal}
                         setApiErrorMessage={setApiErrorMessage}
+                        authorizeInfo={authorizeInfo}
                     />
                 )}
             </AuthContextProvider>

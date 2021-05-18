@@ -4,12 +4,13 @@ import Slider from "react-slick";
 import { AudioCollection } from "../../common/audio";
 
 import { ChipLabelMapper, ChipValues } from "../../common/constants";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import ConfirmMessage from "./confirm-message";
 import Styles from "./bet-setting.module.scss";
+import { useAuthContext } from "../../contexts/auth";
+import { UserClientCommunication } from "../../services";
 
 type Props = {
     betValue: number;
@@ -18,7 +19,6 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
-const LoginStatusStorageKey = localStorageKeys.loginStatus;
 const SlidingTimeInMillisecond = 250;
 let selectChipSound: HTMLAudioElement = null;
 let isSwipe = true;
@@ -29,7 +29,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isSliding, setIsSliding] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
-    const isAlreadyLogin = getLocalStorageItem<boolean>(LoginStatusStorageKey);
+    const authContext = useAuthContext();
+    const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
 
     const { t } = useTranslation("common");
 
@@ -107,10 +108,12 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const onClickQuickBet = () => {
+        debugger;
         if (!enabledQuickBet) {
             setIsShowPopup(true);
         } else {
-            handleDataQuickBet();
+            updateEnabledQuickBet(false);
+            userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, false);
         }
     };
 
@@ -131,16 +134,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         }, SlidingTimeInMillisecond);
     };
 
-    const handleDataQuickBet = () => {
-        storeLocalStorageItem(localStorageKeys.enabledQuickBet, !enabledQuickBet);
-        updateEnabledQuickBet(!enabledQuickBet);
-    };
-
     const confirmQuickBet = () => {
         closeHintTooltip();
-        handleDataQuickBet();
         closeModal();
         updateEnabledQuickBet(true);
+        userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, true);
     };
 
     const handleSelectChip = (chipValue: number) => {
@@ -163,8 +161,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const closeHintTooltip = () => {
-        storeLocalStorageItem(LoginStatusStorageKey, true);
         setIsShowTooltip(false);
+        userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, !!enabledQuickBet);
     };
 
     return (
@@ -179,7 +177,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                     id="toggle-quickbet"
                                     type={"checkbox"}
                                     value={"Quick Bet"}
-                                    checked={enabledQuickBet}
+                                    checked={!!enabledQuickBet}
                                     onChange={onClickQuickBet}
                                 />
                                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
@@ -197,7 +195,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 </label>
                                 <div className={Styles["one-click-bet"]}>1-Click Bet</div>
                             </div>
-                            {!isAlreadyLogin && isShowTooltip && (
+                            {enabledQuickBet === undefined && isShowTooltip && (
                                 <div className={Styles.tooltip}>
                                     <div className={Styles.content}>{t("common:oneClickHintMsg")}</div>
                                     <div className={Styles.action}>
@@ -238,7 +236,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                 </div>
             </div>
 
-            {isShowModalConfirm && enabledQuickBet === false && (
+            {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={Styles["bg-opacity"]}></div>
                     <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>

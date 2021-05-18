@@ -10,13 +10,11 @@ import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
-export const Games: React.FC = () => {
+export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
-    const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(
-        getLocalStorageItem<boolean>(localStorageKeys.enabledQuickBet) ?? false
-    );
+    const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [firstGameIdRender, setFirstGameIdRender] = useState<number>(1);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -68,6 +66,10 @@ export const Games: React.FC = () => {
         enabledQuickBet,
         updateEnabledQuickBet: setEnabledQuickBet,
     };
+
+    useEffect(() => {
+        setEnabledQuickBet(quickBetSetting);
+    }, [quickBetSetting]);
 
     useEffect(() => {
         setFirstGameIdRender(favoriteGames.concat(unfavoriteGames)[0]);
