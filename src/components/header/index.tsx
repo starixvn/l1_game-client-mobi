@@ -27,12 +27,16 @@ const Header: React.FC<Props> = (props) => {
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     const authContext = useAuthContext();
-    const { theme, setTheme } = useTheme(props?.settings?.theme ?? "light");
+    const { theme, setTheme } = useTheme();
 
     const handleChangeTheme = (theme: string) => {
         userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, theme);
         setTheme(theme);
     };
+
+    useEffect(() => {
+        setTheme(props.settings.theme ?? "light");
+    }, []);
 
     useEffect(() => {
         setIsBalanceAnim(true);

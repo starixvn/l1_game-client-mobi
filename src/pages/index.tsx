@@ -127,7 +127,6 @@ function Home({ isLandscape }) {
                 ) : (
                     <Dashboard
                         balance={balance}
-                        updateBalance={setBalance}
                         isShowModal={isShowModal}
                         apiErrorMessage={apiErrorMessage}
                         setIsShowModal={setIsShowModal}
