@@ -698,7 +698,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             </div>
 
                             {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                            {this.renderResult()}
+                            {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                             {this.state.showWaitingTime && (
                                 <WaitingTimeAnimation
                                     remainingTime={
