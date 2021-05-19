@@ -36,7 +36,7 @@ const Header: React.FC<Props> = (props) => {
     };
 
     useEffect(() => {
-        setTheme(props.settings?.theme ?? "light");
+        setTheme(props.settings?.theme || Themes.light);
     }, [props.settings]);
 
     useEffect(() => {
