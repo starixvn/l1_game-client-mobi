@@ -28,6 +28,10 @@
     "oneClickTitle": "1-Click Bet",
     "socketConnectFailed" : "Mất kết nối hoặc kết nối không ổn định. Vui lòng kiểm tra và thử lại.",
     "socketReconnect" : "Thử lại",
-    "accountIsLocked": "Tài khoản đã bị đóng. Phiên đăng nhập sẽ hết hạn sau 10 giây. Vui lòng liên hệ với cấp trên để biết thêm chi tiết."
-
+    "accountIsLocked": "Tài khoản đã bị đóng. Phiên đăng nhập sẽ hết hạn sau 10 giây. Vui lòng liên hệ với cấp trên để biết thêm chi tiết.",
+    "light": "Sáng",
+    "dark": "Tối",
+    "welcomeMsg": "Chào mừng {0} đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
+    "selectTheme": "Chọn chế độ hiển thị",
+    "enterGameBtn": "Vào chơi game"
 }

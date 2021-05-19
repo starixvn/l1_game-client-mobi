@@ -3,6 +3,7 @@ import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
+import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
@@ -14,6 +15,7 @@ import Header from "../header";
 import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import Welcome from "../welcome";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
@@ -27,7 +29,8 @@ type Props = {
 } & WithRouterProps;
 
 type State = {
-    isFirstLogin: boolean;
+    isSignedUp: boolean;
+    isSignedIn: boolean;
     isShowNotice: boolean;
     notice: string;
     user: User;
@@ -40,43 +43,48 @@ const LanguageMapper = {
 
 class Dashboard extends React.Component<Props, State> {
     authService: Auth = null;
+    userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
 
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            isFirstLogin: false,
+            isSignedUp: true,
             user: null,
             isShowNotice: true,
+            isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
             notice: "",
         };
 
-        this.handleStateLogin = this.handleStateLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.forceReload = this.forceReload.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
+        this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     }
 
     async componentDidMount() {
         const { authorizeInfo } = this.props;
         this.mainSocket = this.connectMainSocket();
 
-        if (authorizeInfo.authorized) {
-            this.handleStateLogin(authorizeInfo.user);
-        } else {
-            this.setState({ isFirstLogin: true });
-        }
+        authorizeInfo.authorized ? this.setState({ user: authorizeInfo.user, isSignedUp: true }) : this.setState({ isSignedUp: false });
     }
 
     componentWillUnmount() {
         this.mainSocket.close();
     }
 
-    handleStateLogin(user: User) {
-        this.setState({ isFirstLogin: false, user });
+    handleRegister(user: User, theme: string) {
+        const { session } = this.context;
+
+        Object.assign(user, { settings: { theme } });
+
+        this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
+        this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
+        this.setState({ isSignedUp: true, isSignedIn: true, user });
     }
 
     sendMessage(data: any) {
@@ -150,44 +158,86 @@ class Dashboard extends React.Component<Props, State> {
         }
     }
 
+    handleFirstLogin(theme: string) {
+        const { session } = this.context;
+        const { user } = this.state;
+
+        user.settings.theme = theme;
+
+        this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
+        this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
+        this.setState({ isSignedIn: true, user });
+    }
+
     getRoundResultUrl(gameId: number) {
         const data = { language: LanguageMapper[this.props.router.locale], gameId };
         this.sendMessage({ gameResult: data });
     }
 
-    render() {
-        const { authorizeInfo } = this.props;
-        const { isFirstLogin, user } = this.state;
+    getRenderComponent(isSignedUp: boolean, isSignedIn: boolean) {
+        const strategies = [
+            {
+                condition: !isSignedUp,
+                result: this.renderRegister(),
+            },
+            {
+                condition: isSignedUp && !isSignedIn,
+                result: this.renderWelcome(),
+            },
+            {
+                condition: isSignedUp && isSignedIn,
+                result: this.renderDashBoard(),
+            },
+        ];
 
-        if (isFirstLogin) {
-            return <Register handleStateLogin={this.handleStateLogin}></Register>;
-        } else {
-            const props = { ...user, balance: this.props.balance };
-            return (
-                <div className={Styles["dashboard"]}>
-                    <Header {...props} />
-                    <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
-                        <Games quickBetSetting={authorizeInfo?.user?.settings?.quickBet} />
-                    </RoundResultContextProvider>
-                    {this.props.isShowModal && (
-                        <div className={Styles["container-modal"]}>
-                            <div className={Styles["bg-opacity"]}></div>
-                            <BaseDialog
-                                type={ModalType.Center}
-                                isOpen={this.props.isShowModal}
-                                onCloseModal={() => this.props.setIsShowModal(false)}
-                            >
-                                <div className="modal-center">
-                                    <div className={`icon-warning modal-icon-warning`}></div>
-                                    <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
-                                    <div>{this.props.apiErrorMessage}</div>
-                                </div>
-                            </BaseDialog>
-                        </div>
-                    )}
-                </div>
-            );
-        }
+        return strategies.find((strategy) => strategy.condition === true).result;
+    }
+
+    renderRegister() {
+        return <Register handleStateLogin={(user: User, theme: string) => this.handleRegister(user, theme)}></Register>;
+    }
+
+    renderWelcome() {
+        const { user } = this.state;
+
+        return <Welcome userInfo={user} handleFirstLoginSM={(theme) => this.handleFirstLogin(theme)}></Welcome>;
+    }
+
+    renderDashBoard() {
+        const { authorizeInfo } = this.props;
+        const { user } = this.state;
+        const props = { ...user, balance: this.props.balance };
+
+        return (
+            <div className={Styles["dashboard"]}>
+                <Header {...props} />
+                <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
+                    <Games quickBetSetting={authorizeInfo?.user?.settings?.quickBet} />
+                </RoundResultContextProvider>
+                {this.props.isShowModal && (
+                    <div className={Styles["container-modal"]}>
+                        <div className={Styles["bg-opacity"]}></div>
+                        <BaseDialog
+                            type={ModalType.Center}
+                            isOpen={this.props.isShowModal}
+                            onCloseModal={() => this.props.setIsShowModal(false)}
+                        >
+                            <div className="modal-center">
+                                <div className={`icon-warning modal-icon-warning`}></div>
+                                <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
+                                <div>{this.props.apiErrorMessage}</div>
+                            </div>
+                        </BaseDialog>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    render() {
+        const { isSignedUp, isSignedIn } = this.state;
+
+        return this.getRenderComponent(isSignedUp, isSignedIn);
     }
 }
 

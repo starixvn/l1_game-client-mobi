@@ -1,0 +1,102 @@
+@import "../../assets/components/buttons";
+@import "../../assets/components/form";
+
+.welcome-bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 5.5rem;
+    background-color: #dce2f3;
+}
+
+.bg {
+    height: 100%;
+    background-color: #fff;
+}
+
+.logo {
+    margin-left: 2rem;
+
+    @media (min-width: 768px) {
+        margin-left: 0;
+    }
+}
+
+.curve {
+    position: relative;
+    width: 100%;
+    height: 19rem;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+
+    @media (min-width: 768px) {
+        height: 22.6rem;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #feeed0;
+        border-radius: 0 0 50% 50%/0 0 100% 100%;
+        transform: scaleX(1.5);
+    }
+}
+
+.welcome-container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1.6rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    line-height: 2.4rem;
+
+    @media (min-width: 768px) {
+        width: 49rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .wellcome {
+        margin-top: 1.6rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.7rem;
+        font-weight: 500;
+
+        @media (min-width: 768px) {
+            margin-bottom: 1rem;
+            line-height: 3rem;
+            font-size: 1.8rem;
+        }
+    }
+}
+
+.profile-picture {
+    position: absolute;
+    top: -10.5rem;
+    left: calc(50% - 4.7rem);
+    width: 9.4rem;
+    height: 9.4rem;
+    margin: auto;
+    border-radius: 50%;
+    border: 0.2rem solid #ffb335;
+
+    @media (min-width: 768px) {
+        width: 13rem;
+        height: 13rem;
+        left: calc(50% - 6.5rem);
+        top: -15.5rem;
+    }
+
+    .avartar {
+        width: 100%;
+    }
+}

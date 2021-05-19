@@ -10,9 +10,11 @@ import { randomInteger } from "../../helpers/number-helper";
 import { Spinner } from "reactstrap";
 import Styles from "./register.module.scss";
 import HeaderStyles from "../header/header.module.scss";
+import { useTheme } from "next-themes";
+import { Themes } from "../../common/constants";
 
 type Props = {
-    handleStateLogin: (user: User) => void;
+    handleStateLogin: (user: User, theme: string) => void;
 };
 
 const maxAvatarId = 40;
@@ -28,6 +30,7 @@ export default function Register(props: Props) {
     const [isOpenGalleryAvatar, setIsOpenGalleryAvatar] = useState<boolean>(false);
     const [nameInValid, setNameInValid] = useState<string>("");
     const authService = UserClientCommunication.getUserClientInstance().auth;
+    const { theme, setTheme } = useTheme();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -39,7 +42,7 @@ export default function Register(props: Props) {
         const response = await authService.signName(session.ss, session.username, name, avatarId);
         const authorizeResponse = response as AuthorizeResponse;
         if (authorizeResponse && authorizeResponse.authorized) {
-            handleStateLogin(authorizeResponse.user);
+            handleStateLogin(authorizeResponse.user, theme);
         } else {
             setNameInValid((response as Response).message.toString());
             setIsValidUserName(false);
@@ -155,6 +158,31 @@ export default function Register(props: Props) {
                         <li>{t("register:rule2")}</li>
                         <li>{t("register:rule3")}</li>
                     </ul>
+                    <div className={Styles["theme-container"]}>
+                        <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
+                        <div className={Styles["theme-light"]}>
+                            <div className={Styles["theme-light-icon"]}></div>
+                            <label htmlFor="theme-light">{t("common:light")}</label>
+                            <input
+                                id="theme-light"
+                                type="radio"
+                                name="theme"
+                                checked={theme === Themes.light}
+                                onClick={() => setTheme(Themes.light)}
+                            ></input>
+                        </div>
+                        <div className={Styles["theme-dark"]}>
+                            <div className={Styles["theme-dark-icon"]}></div>
+                            <label htmlFor="theme-dark">{t("common:dark")}</label>
+                            <input
+                                id="theme-dark"
+                                type="radio"
+                                name="theme"
+                                checked={theme === Themes.dark}
+                                onClick={() => setTheme(Themes.dark)}
+                            ></input>
+                        </div>
+                    </div>
                     {isOpenGalleryAvatar && (
                         <div className={Styles["gallery-wrapper"]}>
                             <BaseDialog

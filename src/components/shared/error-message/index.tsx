@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./error-message.module.scss";
@@ -18,7 +18,7 @@ const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
         if (typeof message === "string") {
             return message;
         } else {
-            return message.map((value, index) => <div key={uuidv4()}>{value}</div>);
+            return message.map((value) => <div key={uuidv4()}>{value}</div>);
         }
     };
 
