@@ -15,6 +15,10 @@ import { useTranslation } from "next-i18next";
 
 let authorizeInfo: AuthorizeResponse = null;
 
+export const signOut = () => {
+    LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
+};
+
 function Home({ isLandscape }) {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -75,10 +79,6 @@ function Home({ isLandscape }) {
         LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
         reCheckIn(userSession);
         setTimeout(() => setLoading(false), 1000);
-    }
-
-    function signOut() {
-        LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
     }
 
     function reCheckIn(userSession: SSOResponse) {

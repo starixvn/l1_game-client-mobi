@@ -5,12 +5,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Table } from "react-infinite-table";
 import Moment from "react-moment";
 import { Spinner } from "reactstrap";
-
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { BetLogs, PropsBetContainer } from "./bet-history";
+import { signOut } from "../../../pages";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -82,6 +82,10 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
     return <></>;
 };
 
+const renderDataOnCell = (data: any, isHighligh: boolean) => {
+    return <td className={`${isHighligh ? "highlight" : ""}`}>{data}</td>;
+};
+
 const checkCondition = (
     columnIndex: number,
     rowData: BetLogs,
@@ -93,40 +97,34 @@ const checkCondition = (
 ) => {
     const { time, phien, betwin } = rowData;
     const odds = gameConfigs.odds;
+    const isHighligh = betwin > 0 ? true : false;
     switch (columnIndex) {
         case OrderRenderCell.roundTime:
-            return (
-                <td className={`${betwin > 0 ? "highlight" : ""}`}>
+            return renderDataOnCell(
+                <>
                     <div className="time">{time && <Moment format="HH:mm:ss">{time}</Moment>}</div>
                     <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
-                </td>
+                </>,
+                isHighligh
             );
 
         case OrderRenderCell.round:
-            return <td className={`${betwin > 0 ? "highlight" : ""}`}>{phien}</td>;
+            return renderDataOnCell(phien, isHighligh);
 
         case OrderRenderCell.result:
-            return <td className={`${betwin > 0 ? "highlight" : ""}`}>{renderResult(rowData)}</td>;
+            return renderDataOnCell(renderResult(rowData), isHighligh);
 
         case OrderRenderCell.choice:
-            return (
-                <td className={`${betwin > 0 ? "highlight" : ""}`}>
-                    <div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>
-                </td>
-            );
+            return renderDataOnCell(<div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>, isHighligh);
 
         case OrderRenderCell.refundOrStake:
-            return (
-                <td className={`${betwin > 0 ? "highlight" : ""} ${Styles["stake"]}`}>
-                    {isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}
-                </td>
+            return renderDataOnCell(
+                <div className={Styles["stake"]}>{isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}</div>,
+                isHighligh
             );
         default:
-            return (
-                <td className={`${betwin > 0 ? "highlight font-weight-medium" : ""} ${Styles["bet-win"]}`}>
-                    {betwin && numberWithCommas(betwin)}
-                </td>
-            );
+            const classBetWin = `font-weight-medium ${Styles["bet-win"]}`;
+            return renderDataOnCell(<div className={classBetWin}> {betwin && numberWithCommas(betwin)}</div>, isHighligh);
     }
 };
 
@@ -227,6 +225,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 })
                 .catch((error) => {
                     if (error.response.status === 401) {
+                        signOut();
                         router.push("/timeout");
                     }
                 });
