@@ -2,6 +2,7 @@ const basePath = "";
 const gameSettings = require("./game-settings.json");
 const configs = require("./configs.json");
 const { i18n } = require("./next-i18next.config");
+const { v4: uuidv4 } = require('uuid');
 
 const appSettings = {
     ...configs,
@@ -10,12 +11,16 @@ const appSettings = {
 
 module.exports = {
     i18n,
+
     productionBrowserSourceMaps: true,
     future: {
         webpack5: true,
     },
-    excludeFile: (str) => /\*.{spec,test}.js/.test(str),
     publicRuntimeConfig: appSettings,
+    generateBuildId: async () => {
+        return uuidv4();
+    },
+    excludeFile: (str) => /\*.{spec,test}.js/.test(str),
     webpack: (config, options) => {
         // In `pages/_app.js`, Sentry is imported from @sentry/browser. While
         // @sentry/node will run in a Node.js environment. @sentry/node will use
