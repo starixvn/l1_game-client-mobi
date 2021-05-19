@@ -128,12 +128,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.socket.on("message", this.setUserStakeLevel.bind(this));
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-        this.socket.on("connect_failed", () => {
+
+        this.socket.on("connect_error", () => {
             this.onConnectFailed();
         });
-
-        this.socket.on("connect_error", (error) => {
-            this.onConnectFailed();
+        this.socket.on("disconnect", () => {
+            this.onDestroy();
+            this.onStart();
         });
     }
 
@@ -468,9 +469,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
 
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
-        setTimeout(() => {
-            this.setState({ roundHistory: roundHistoryClone });
-        }, animationDuration);
+        // setTimeout(() => {
+        //     this.setState({ roundHistory: roundHistoryClone });
+        // }, animationDuration);
 
         this.showWaitingTimeout = setTimeout(() => {
             this.setState({ showWaitingTime: true });
