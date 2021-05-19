@@ -1,4 +1,9 @@
-.tooltip-number, .tooltip-round {
+.tooltip-inner {
+    color: var(--text-color);
+}
+
+.tooltip-number,
+.tooltip-round {
     font-size: 1.1rem;
 }
 

@@ -18,11 +18,6 @@ type Props = {
     settings: UserSettings;
 };
 
-const IconMapper = {
-    [Themes.dark]: "icon-dark-theme",
-    [Themes.light]: "icon-light-theme",
-};
-
 const Header: React.FC<Props> = (props) => {
     const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
@@ -80,7 +75,7 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                             {theme !== undefined && (
                                 <div className={Styles["cirle-theme"]} onClick={handleChangeTheme}>
-                                    <span className={`icon-moon ${Styles[IconMapper[theme]]}`}></span>
+                                    <span className={`icon-moon ${Styles["icon-theme"]}`}></span>
                                 </div>
                             )}
                         </div>

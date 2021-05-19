@@ -3,12 +3,14 @@
 [data-theme="light"] .container {
     --game-loading-background: #fff;
     --game-loading-border: #8e8e8e;
+    --game-loading-line-background: #dce2f3;
     --skeleton-background: #eee;
 }
 
 [data-theme="dark"] .container {
     --game-loading-background: #203040;
     --game-loading-border: #3b526c;
+    --game-loading-line-background: #435164;
     --skeleton-background: #30455a;
 }
 
@@ -60,7 +62,7 @@
     border-radius: 5px 5px 0px 0px;
     position: relative;
     height: 5.6rem;
-    border-bottom: 1px solid var(--game-loading-border);
+    border-bottom: 1px solid var(--game-loading-line-background);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     cursor: auto;
@@ -107,8 +109,8 @@
 
 .statistic {
     padding: 0.6rem 0.7rem;
-    border-top: 1px solid var(--game-loading-border);
-    border-bottom: 1px solid var(--game-loading-border);
+    border-top: 1px solid var(--game-loading-line-background);
+    border-bottom: 1px solid var(--game-loading-line-background);
 }
 
 .scoreboard {
