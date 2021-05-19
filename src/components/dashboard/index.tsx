@@ -162,7 +162,7 @@ class Dashboard extends React.Component<Props, State> {
         const { session } = this.context;
         const { user } = this.state;
 
-        user.settings.theme = theme;
+        Object.assign(user, { settings: { theme } });
 
         this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
         this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
