@@ -5,6 +5,11 @@
     --game-header-icon-menu: #fff;
     --game-header-game-name-color: #2c2f3e;
     --game-header-round-id-color: #5a5a5a;
+
+    --btn-rebet-background: transparent;
+    --btn-rebet-color: #fff;
+    --btn-rebet-background-hover: #fff;
+    --btn-rebet-color-hover: #ff9a00;
 }
 
 [data-theme="dark"] .header {
@@ -14,6 +19,11 @@
     --game-header-icon-menu: #7f91a4;
     --game-header-game-name-color: #ffab2b;
     --game-header-round-id-color: #7f91a4;
+
+    --btn-rebet-background: transparent;
+    --btn-rebet-color: #8dadce;
+    --btn-rebet-background-hover: #8dadce;
+    --btn-rebet-color-hover: #ff9a00;
 }
 
 .header {

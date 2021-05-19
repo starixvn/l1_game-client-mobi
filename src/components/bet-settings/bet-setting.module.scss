@@ -4,12 +4,14 @@
     --quickbet-tooltip-background: #fff1b2;
     --quickbet-tooltip-color: #6b6961;
     --bet-settings-background: rgba(16, 24, 34, 0.75);
+    --bet-settings-border: transparent;
 }
 
 [data-theme="dark"] .bet-settings {
     --quickbet-tooltip-background: #203040;
     --quickbet-tooltip-color: #fff;
     --bet-settings-background: rgba(33, 61, 84, 0.75);
+    --bet-settings-border: #364252;
 }
 
 .bet-settings {
@@ -26,6 +28,8 @@
     width: 100%;
     height: 7.5rem;
     background: var(--bet-settings-background);
+    backdrop-filter: blur(27.9731px);
+    border-top: 0.1rem solid var(--bet-settings-border);
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
 }
 
