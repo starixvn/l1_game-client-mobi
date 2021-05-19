@@ -183,10 +183,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        let error = apiError.gameRoundId ? [`${gameName} (#${apiError.gameRoundId})`, apiError.message] : apiError.message;
-        if (apiError.isPlaceBetFailed) {
-            error = `${error}. Đặt cược thất bại!`;
+        let error: string | string[];
+        if (apiError.gameRoundId) {
+            const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+            error = [
+                `${gameName} (#${apiError.gameRoundId})`,
+                apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message,
+            ];
+        } else {
+            error = apiError.message;
         }
         this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     };
