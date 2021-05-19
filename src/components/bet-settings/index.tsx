@@ -108,7 +108,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const onClickQuickBet = () => {
-        debugger;
         if (!enabledQuickBet) {
             setIsShowPopup(true);
         } else {

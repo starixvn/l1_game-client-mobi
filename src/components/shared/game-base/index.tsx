@@ -220,9 +220,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             this.setState({ displayChips: newDisplayChips, isProcessingBet: false });
             this.placeBetSound.play();
+            this.updateUserBalance();
         }
-
-        this.updateUserBalance();
     };
 
     playAcceptedBetAnimation(amount: number) {
