@@ -36,8 +36,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     const placeBet = () => {
-        props.onPlaceBet(props.betChoiceInfo.betChoice, betValue);
         closeModal();
+        props.onPlaceBet(props.betChoiceInfo.betChoice, betValue);
     };
 
     return (
