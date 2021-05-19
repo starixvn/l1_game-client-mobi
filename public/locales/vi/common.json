@@ -13,7 +13,7 @@
     "minBet": "Tiền cược tối thiểu là {minBet}",
     "maxBet": "Tổng tiền cược tối đa của phiên này là {maxBet}",
     "maxBetChoice": "Tiền cược tối đa ở cửa này là {maxBetChoice}",
-    "lockingBet": "Ngừng nhận cược",
+    "lockingBet": "Dừng nhận cược",
     "betConfirm": "Xác nhận cược",
     "stake": "Tiền cược",
     "confirm": "Xác nhận",
