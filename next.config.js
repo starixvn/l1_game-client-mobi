@@ -11,11 +11,11 @@ const appSettings = {
 
 module.exports = {
     i18n,
-
-    productionBrowserSourceMaps: true,
-    future: {
-        webpack5: true,
-    },
+    compress: false,
+    productionBrowserSourceMaps: false,
+    // future: {
+    //     webpack5: true,
+    // },
     publicRuntimeConfig: appSettings,
     generateBuildId: async () => {
         return uuidv4();

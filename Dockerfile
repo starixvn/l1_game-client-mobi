@@ -1,12 +1,14 @@
-FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS builder
+FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
+FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS builder
+WORKDIR /app
 COPY . .
-RUN yarn build
+COPY --from=deps /app/node_modules ./node_modules
+RUN yarn build 
 
 FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS runner
 WORKDIR /app
