@@ -1,8 +1,15 @@
-@import "../../../assets/abstracts/variables";
 @import "../../../assets/components/mini-notice";
+
+[data-theme="light"] .balanced-betting-pool-content {
+    --balanced-betting-pool-background: rgba(255, 181, 42, 0.6);
+}
+
+[data-theme="dark"] .balanced-betting-pool-content {
+    --balanced-betting-pool-background: rgba(255, 181, 42, 0.8);
+}
 
 .balanced-betting-pool-content {
     @extend .mini-notice;
     color: #000;
-    background: rgba(255, 181, 42, 0.6);
+    background: var(--balanced-betting-pool-background);
 }

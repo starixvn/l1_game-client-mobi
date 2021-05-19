@@ -1,5 +1,3 @@
-@import "../abstracts/variables";
-
 [data-theme="light"] .mini-notice {
     --locking-bet-background: rgba(83, 91, 114, 0.8);
     --locking-bet-color: #fff;
@@ -14,7 +12,7 @@
     position: absolute;
     padding-left: 1.6rem;
     padding-right: 1.6rem;
-    z-index: $result-animation-index + 1;
+    z-index: var(--result-animation-index) + 1;
     text-align: center;
     font-size: 1.6rem;
     animation-name: show-mini-notice-animation;

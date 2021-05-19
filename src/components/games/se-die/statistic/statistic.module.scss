@@ -1,3 +1,11 @@
+[data-theme="light"] .even {
+    --statistic-even-color: #838383;
+}
+
+[data-theme="dark"] .even {
+    --statistic-even-color: #a6a6a6;
+}
+
 .title {
     font-weight: 500;
     display: inline-block;
@@ -6,6 +14,10 @@
     font-size: 1.4rem;
 }
 
-.red {
-    color: #de4b56;
+.odd {
+    color: var(--sedie-odd-color);
+}
+
+.even {
+    color: var(--statistic-even-color);
 }

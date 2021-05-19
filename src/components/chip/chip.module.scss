@@ -1,6 +1,38 @@
-@import "../../assets/abstracts/variables";
-
 .chip {
+    // chips
+    --chip-1-background: linear-gradient(180deg, #7a7a7a 0%, #898989 100%);
+    --chip-2-background: linear-gradient(180deg, #158a00 0%, #3ccd10 100%);
+    --chip-3-background: linear-gradient(180deg, #c97000 0%, #e6b403 100%);
+    --chip-4-background: linear-gradient(180deg, #5f00af 0%, #c000ef 100%);
+    --chip-5-background: linear-gradient(180deg, #ce29b8 0%, #fe5de9 100%);
+    --chip-6-background: linear-gradient(180deg, #0259cf 0%, #4895ff 100%);
+    --chip-7-background: linear-gradient(180deg, #01a1bd 0%, #40e3fe 100%);
+    --chip-8-background: linear-gradient(180deg, #bc1b00 0%, #ff6147 100%);
+
+    --chip-9-background: linear-gradient(180deg, #2b2b2a 0%, #6d6d6d 100%);
+    --chip-9-layer2-background: #ffb834;
+    --chip-9-symbol-background: #ffec6f;
+
+    --chip-10-background: linear-gradient(180deg, #fdf9c2 0%, #e5bd57 100%);
+    --chip-10-layer2-background: #f7edc3;
+    --chip-10-symbol-background: #4a3d22;
+
+    --chip-11-background: linear-gradient(180deg, #3d3d3d 0%, #686868 100%);
+    --chip-11-layer2-border: #ebc15f;
+    --chip-11-layer2-background: linear-gradient(180deg, #585858 45.83%, #494949 60.42%);
+    --chip-11-symbol-background: #efd086;
+    --chip-11-number-color: #fff;
+
+    --chip-12-background: linear-gradient(180deg, #7c060c 0%, #a3101a 100%);
+    --chip-12-layer2-border: #ebc15f;
+    --chip-12-layer2-background: linear-gradient(180deg, #800f15 45.83%, #6b1517 60.42%);
+    --chip-12-symbol-background: #efd086;
+    --chip-12-number-color: #fff;
+
+    --chip-13-background: linear-gradient(180deg, #333333 0%, #626262 100%);
+    --chip-13-layer2-border: #f5cc5d;
+    --chip-13-layer2-background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
+
     --ratio: 1;
     --chip-size: calc(4.1rem * var(--ratio));
     --chip-layer1-size: calc(var(--chip-size) - (0.96rem * var(--ratio)));
@@ -125,9 +157,9 @@
         position: relative;
         top: 0.15rem;
         grid-area: 1/1;
-        font-family: $font-money;
+        font-family: var(--font-money);
         font-size: var(--chip-number);
-        color: $text-color;
+        color: var(--text-color);
     }
 
     .group-list {
@@ -171,101 +203,101 @@
     }
 
     &.chip-1 {
-        background: $chip-1-background;
+        background: var(--chip-1-background);
     }
 
     &.chip-2 {
-        background: $chip-2-background;
+        background: var(--chip-2-background);
     }
 
     &.chip-3 {
-        background: $chip-3-background;
+        background: var(--chip-3-background);
     }
 
     &.chip-4 {
-        background: $chip-4-background;
+        background: var(--chip-4-background);
     }
 
     &.chip-5 {
-        background: $chip-5-background;
+        background: var(--chip-5-background);
     }
 
     &.chip-6 {
-        background: $chip-6-background;
+        background: var(--chip-6-background);
     }
 
     &.chip-7 {
-        background: $chip-7-background;
+        background: var(--chip-7-background);
     }
 
     &.chip-8 {
-        background: $chip-8-background;
+        background: var(--chip-8-background);
     }
 
     &.chip-9 {
-        background: $chip-9-background;
+        background: var(--chip-9-background);
 
         .layer2 {
-            border-color: $chip-9-layer2-background;
+            border-color: var(--chip-9-layer2-background);
         }
 
         .symbol:before {
-            color: $chip-9-symbol-background;
+            color: var(--chip-9-symbol-background);
         }
     }
 
     &.chip-10 {
-        background: $chip-10-background;
+        background: var(--chip-10-background);
 
         .layer2 {
-            border-color: $chip-10-layer2-background;
+            border-color: var(--chip-10-layer2-background);
         }
 
         .symbol:before {
-            color: $chip-10-symbol-background;
+            color: var(--chip-10-symbol-background);
         }
     }
 
     &.chip-11 {
-        background: $chip-11-background;
+        background: var(--chip-11-background);
 
         .layer2 {
-            background: $chip-11-layer2-background;
-            border-color: $chip-11-layer2-border;
+            background: var(--chip-11-layer2-background);
+            border-color: var(--chip-11-layer2-border);
         }
 
         .symbol:before {
-            color: $chip-11-symbol-background;
+            color: var(--chip-11-symbol-background);
         }
 
         .number {
-            color: $chip-11-number-color;
+            color: var(--chip-11-number-color);
         }
     }
 
     &.chip-12 {
-        background: $chip-12-background;
+        background: var(--chip-12-background);
 
         .layer2 {
-            background: $chip-12-layer2-background;
-            border-color: $chip-12-layer2-border;
+            background: var(--chip-12-layer2-background);
+            border-color: var(--chip-12-layer2-border);
         }
 
         .symbol:before {
-            color: $chip-12-symbol-background;
+            color: var(--chip-12-symbol-background);
         }
 
         .number {
-            color: $chip-12-number-color;
+            color: var(--chip-12-number-color);
         }
     }
 
     &.chip-13 {
-        background: $chip-13-background;
+        background: var(--chip-13-background);
 
         .layer2 {
-            background: $chip-13-layer2-background;
-            border-color: $chip-13-layer2-border;
+            background: var(--chip-13-layer2-background);
+            border-color: var(--chip-13-layer2-border);
         }
 
         .number {

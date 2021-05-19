@@ -60,27 +60,29 @@ const Header: React.FC<Props> = (props) => {
                         <div className={Styles["logo"]}>
                             <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                         </div>
-                        <div className={Styles["user"]}>
-                            <div className={Styles["info"]}>
-                                <div className={Styles["user-name"]}>{props.name}</div>
-                                <div className={`${Styles.balance} ${isBalanceAnim ? "heart-beat-animation" : ""}`}>
-                                    {numberWithCommas(props.balance)} {props.currency}
+                        <div className="d-flex">
+                            <div className={Styles["user"]}>
+                                <div className={Styles["info"]}>
+                                    <div className={Styles["user-name"]}>{props.name}</div>
+                                    <div className={`${Styles.balance} ${isBalanceAnim ? "heart-beat-animation" : ""}`}>
+                                        {numberWithCommas(props.balance)} {props.currency}
+                                    </div>
+                                </div>
+                                <div className={Styles["avatar"]}>
+                                    {props.avatarId > 0 && props.avatarId < 41 ? (
+                                        <img src={pathAvatar} className="img-fluid" alt="Avatar" />
+                                    ) : (
+                                        <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                                    )}
                                 </div>
                             </div>
-                            <div className={Styles["avatar"]}>
-                                {props.avatarId > 0 && props.avatarId < 41 ? (
-                                    <img src={pathAvatar} className="img-fluid" alt="Avatar" />
-                                ) : (
-                                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                                )}
-                            </div>
+                            {theme !== undefined && (
+                                <div className={Styles["cirle-theme"]} onClick={handleChangeTheme}>
+                                    <span className={`icon-moon ${Styles[IconMapper[theme]]}`}></span>
+                                </div>
+                            )}
                         </div>
                     </div>
-                    {theme !== undefined && (
-                        <div className={Styles["cirle-theme"]}>
-                            <span className={`icon-moon ${Styles[IconMapper[theme]]}`} onClick={handleChangeTheme}></span>
-                        </div>
-                    )}
                 </Navbar>
             </div>
         </header>

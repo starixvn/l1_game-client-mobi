@@ -1,12 +1,10 @@
 [data-theme="light"] .error-message-container {
     --error-message-container-background: #fff;
-    --error-message-container-border: #d7d7d7;
     --error-message-container-color: #2c2f3e;
 }
 
 [data-theme="dark"] .error-message-container {
     --error-message-container-background: #203040;
-    --error-message-container-border: #3b526c;
     --error-message-container-color: #fff;
 }
 
@@ -15,9 +13,8 @@
     text-align: center;
     padding: 2rem 2.1rem;
     background-color: var(--error-message-container-background);
-    box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 12px rgb(0 0 0 / 60%);
     border-radius: 0.5rem;
-    border: 1px solid var(--error-message-container-border);
     font-size: 1.6rem;
     left: 50%;
     transform: translate(-50%, 0);

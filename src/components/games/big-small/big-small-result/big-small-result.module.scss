@@ -1,4 +1,3 @@
-@import "../../../../assets/abstracts/variables";
 @import "../../../../assets/components/animation-container";
 
 $time-hide-toss-dices-animation: 1.5s;
@@ -49,7 +48,7 @@ $time-show-result-animation: 0.1s;
     left: calc(50% - 6.5rem);
     height: 132px;
     width: 132px;
-    z-index: $result-animation-index;
+    z-index: var(--result-animation-index);
 }
 
 .has-animation {

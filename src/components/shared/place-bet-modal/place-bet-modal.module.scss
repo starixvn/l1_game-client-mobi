@@ -44,7 +44,7 @@
 }
 
 .highlight {
-    color: $main-color;
+    color: var(--primary-color);
     font-family: var(--font-number);
     font-weight: bold;
 }

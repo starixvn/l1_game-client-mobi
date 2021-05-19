@@ -1,5 +1,4 @@
 @import "../components/shared//round-history/dot/dot.module.scss";
-@import "./abstracts/variables";
 
 [data-theme="light"] .game-guide {
     --table-background: #fff;
@@ -44,7 +43,7 @@ ul {
 
         &:before {
             content: counter(guide-list) ". ";
-            color: $main-color;
+            color: var(--primary-color);
             font-weight: 500;
             font-size: 1.6rem;
         }
@@ -53,7 +52,7 @@ ul {
             display: inline-block;
             font-size: 1.6rem;
             font-weight: 500;
-            color: $main-color;
+            color: var(--primary-color);
         }
     }
 

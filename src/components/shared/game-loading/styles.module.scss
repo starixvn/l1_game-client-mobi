@@ -1,5 +1,4 @@
-@import "../../../assets/abstracts/variables";
-@import "../../../components//shared//error-message//error-message.module.scss";
+@import "../../../components/shared/error-message/error-message.module.scss";
 
 .container {
     position: relative;
@@ -19,8 +18,7 @@
     user-select: none;
 }
 
-@media print,
-screen and (min-width: 768px) {
+@media print, screen and (min-width: 768px) {
     .container {
         flex: 1 1 calc(50% - 0.8rem);
         max-width: calc(50% - 0.8rem);
@@ -31,8 +29,7 @@ screen and (min-width: 768px) {
     }
 }
 
-@media print,
-screen and (min-width: 1024px) {
+@media print, screen and (min-width: 1024px) {
     .container {
         flex: 1 1 calc(100% / 3 - 0.8rem);
         max-width: calc(100% / 3 - 0.8rem);

@@ -4,7 +4,7 @@
 .btn-secondary:not(:disabled):not(.disabled):active,
 .btn-secondary:not(:disabled):not(.disabled).active,
 .show > .btn-secondary.dropdown-toggle {
-    color: $text-color;
+    color: var(--text-color);
 }
 
 .btn-secondary {

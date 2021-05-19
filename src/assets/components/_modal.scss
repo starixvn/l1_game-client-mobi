@@ -1,4 +1,4 @@
-.modal-center{
+.modal-center {
     position: absolute;
     text-align: center;
     padding: 2rem 2.1rem;
@@ -10,7 +10,7 @@
     left: 50%;
     transform: translate(-50%, 0);
     top: 30%;
-    z-index: $modal-index;
+    z-index: var(--modal-index);
     min-width: 30rem;
 
     .modal-icon-close {
@@ -23,18 +23,18 @@
         height: 3rem;
         width: 3rem;
         border-radius: 50%;
-        background: #EAEBF0;
-    
+        background: #eaebf0;
+
         &:before {
             font-size: 1.2rem;
-            color: #4F4F54;
+            color: #4f4f54;
         }
-    
+
         &:hover {
             cursor: pointer;
         }
     }
-    
+
     .modal-icon-warning {
         display: flex;
         justify-content: center;

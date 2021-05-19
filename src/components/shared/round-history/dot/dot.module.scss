@@ -1,4 +1,10 @@
-@import "../../../../assets/abstracts/variables";
+[data-theme="light"] .dot-even {
+    --dot-even-background: #fff;
+}
+
+[data-theme="dark"] .dot-even {
+    --dot-even-background: #e0e4e7;
+}
 
 %dot {
     display: flex;
@@ -8,7 +14,7 @@
     height: 1.5rem;
     margin: 0 0.1rem;
     border-radius: 50%;
-    font-family: $font-number;
+    font-family: var(--font-number);
     font-size: 1.1rem;
     pointer-events: none;
     border-width: 0.1rem;
@@ -50,54 +56,54 @@
 // sedie
 .dot-even {
     @extend %dot;
-    background-color: $sedie-statistic-red-color;
-    border-color: $sedie-statistic-red-border;
-    box-shadow: $sedie-statistic-red-shadow;
-    color: $sedie-statistic-red-text-color;
+    background-color: var(--dot-even-background);
+    border-color: var(--dot-even-border);
+    box-shadow: var(--dot-even-shadow);
+    color: var(--dot-even-text-color);
 }
 
 .dot-odd {
     @extend %dot;
-    background-color: $sedie-statistic-white-color;
-    border-color: $sedie-statistic-white-border;
-    box-shadow: $sedie-statistic-white-shadow;
-    color: $sedie-statistic-white-text-color;
+    background-color: var(--dot-odd-background);
+    border-color: var(--dot-odd-border);
+    box-shadow: var(--dot-odd-shadow);
+    color: var(--dot-odd-text-color);
 }
 
 // dragon-tiger
 .dot-dragon {
     @extend %dot;
-    background-color: $dragonTiger-choice-dragon-color;
-    border-color: $dragonTiger-statistic-dragon-border;
-    box-shadow: $dragonTiger-statistic-dragon-shadow;
+    background-color: var(--dragonTiger-dot-dragon-background);
+    border-color: var(--dragonTiger-dot-dragon-border);
+    box-shadow: var(--dragonTiger-dot-dragon-shadow);
 }
 
 .dot-tiger {
     @extend %dot;
-    background-color: $dragonTiger-choice-tiger-color;
-    border-color: $dragonTiger-statistic-tiger-border;
-    box-shadow: $dragonTiger-statistic-tiger-shadow;
+    background-color: var(--dragonTiger-dot-tiger-background);
+    border-color: var(--dragonTiger-dot-tiger-border);
+    box-shadow: var(--dragonTiger-dot-tiger-shadow);
 }
 
 .dot-tie {
     @extend %dot;
-    background-color: $dragonTiger-choice-tie-color;
-    border-color: $dragonTiger-statistic-tie-border;
-    box-shadow: $dragonTiger-statistic-tie-shadow;
+    background-color: var(--dragonTiger-dot-tie-background);
+    border-color: var(--dragonTiger-dot-tie-border);
+    box-shadow: var(--dragonTiger-dot-tie-shadow);
 }
 
 // bbig-small
 
-.dot-small {
-    @extend %dot;
-    background-color: $bigSmall-choice-small-color;
-    border-color: $bigSmall-statistic-small-border;
-}
-
 .dot-big {
     @extend %dot;
-    background-color: $bigSmall-choice-big-color;
-    border-color: $bigSmall-statistic-big-border;
+    background-color: var(--bigSmall-dot-big-background);
+    border-color: var(--bigSmall-dot-big-border);
+}
+
+.dot-small {
+    @extend %dot;
+    background-color: var(--bigSmall-dot-small-background);
+    border-color: var(--bigSmall-dot-small-border);
 }
 
 // animations

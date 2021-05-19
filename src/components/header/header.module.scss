@@ -3,6 +3,7 @@
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
     --circle-theme-background: #c7c7c7;
+    --circle-theme-background-hover: #adadad;
 }
 
 [data-theme="dark"] .header {
@@ -10,6 +11,7 @@
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
     --circle-theme-background: #141f2f;
+    --circle-theme-background-hover: #090d14;
 }
 
 .header {
@@ -35,7 +37,7 @@
         align-items: center;
         width: 100%;
         padding-left: 1rem;
-        padding-right: 0.6rem;
+        padding-right: 1rem;
     }
 }
 
@@ -70,6 +72,10 @@
         left: -2px;
         font-size: 3.9rem;
     }
+
+    .user-name {
+        color: var(--header-text-color);
+    }
 }
 
 .icon-user {
@@ -86,7 +92,8 @@
     height: 3.8rem;
     width: 3.8rem;
     border-radius: 50%;
-    background-color: var(--circle-theme-background);
+    background: var(--circle-theme-background);
+    transition: background 0.8s;
 
     .icon-dark-theme:before {
         color: #ffab2b;
@@ -94,6 +101,18 @@
 
     .icon-light-theme:before {
         color: #fff;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background: var(--circle-theme-background-hover) radial-gradient(circle, transparent 1%, var(--circle-theme-background-hover) 1%)
+            center/15000%;
+    }
+
+    &:active {
+        background-size: 100%;
+        background-color: var(--circle-theme-background-hover);
+        transition: background 0s;
     }
 }
 

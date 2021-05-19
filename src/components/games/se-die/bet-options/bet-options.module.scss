@@ -33,12 +33,12 @@
 
 .odd {
     @extend %odd-even;
-    color: #de4b56;
+    color: var(--sedie-odd-color);
 }
 
 .even {
     @extend %odd-even;
-    color: #a6a6a6;
+    color: var(--sedie-even-color);
 }
 
 .bet-choice-red4 {

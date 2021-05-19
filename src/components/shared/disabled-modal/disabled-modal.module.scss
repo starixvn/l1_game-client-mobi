@@ -1,5 +1,13 @@
 @import "../../../assets/components/mini-notice";
 
+[data-theme="light"] .popup {
+    --disabled-modal-background: linear-gradient(90deg, rgba(83, 91, 114, 0.5) 0%, #535b72 50%, rgba(83, 91, 114, 0.5) 100%);
+}
+
+[data-theme="dark"] .popup {
+    --disabled-modal-background: linear-gradient(90deg, rgba(68, 95, 121, 0.5) 0%, #4f708f 50%, rgba(68, 95, 121, 0.5) 100%);
+}
+
 .disabled-modal {
     @extend %notice;
     display: flex;
@@ -8,6 +16,6 @@
     height: 8.4rem;
     line-height: 2.4rem;
     padding: 0 6rem;
-    background: linear-gradient(90deg, rgba(83, 91, 114, 0.5) 0%, #535b72 50%, rgba(83, 91, 114, 0.5) 100%);
+    background: var(--disabled-modal-background);
     color: #fff;
 }

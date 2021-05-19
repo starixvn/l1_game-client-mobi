@@ -1,13 +1,11 @@
-@import "../../abstracts/variables";
-
 %fade-out-up {
     position: absolute;
     bottom: calc(50% - 3rem);
     text-align: center;
     font-size: 3.2rem;
     font-weight: bold;
-    font-family: $font-number;
+    font-family: var(--font-number);
     animation-name: fadeOutUp;
     animation-fill-mode: forwards;
-    z-index: $result-animation-index + 1;
+    z-index: var(--result-animation-index) + 1;
 }

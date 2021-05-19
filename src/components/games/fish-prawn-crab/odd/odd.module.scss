@@ -1,3 +1,13 @@
+[data-theme="light"] .odd-container {
+    --odd-type-color: #2c2f3e;
+    --odd-value-color: #a8aeb8;
+}
+
+[data-theme="dark"] .odd-container {
+    --odd-type-color: #7f91a4;
+    --odd-value-color: #fff;
+}
+
 .odd-container {
     display: flex;
     justify-content: center;
@@ -10,11 +20,12 @@
 
         .type {
             margin-right: 0.5rem;
+            color: var(--odd-type-color);
         }
 
         .value {
             font-weight: 500;
-            color: #a8aeb8;
+            color: var(--odd-value-color);
         }
     }
 }

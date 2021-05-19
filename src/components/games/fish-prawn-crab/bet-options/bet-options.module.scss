@@ -1,3 +1,13 @@
+[data-theme="light"] .highlight-result-label {
+    --prev-round-background: linear-gradient(221.79deg, #f0f0f0 0%, #bebebe 98.88%);
+    --prev-round-color: #666;
+}
+
+[data-theme="dark"] .highlight-result-label {
+    --prev-round-background: linear-gradient(221.79deg, #5583b0 0%, #455b71 98.88%);
+    --prev-round-color: #fff;
+}
+
 .layout-FPC {
     display: grid;
     height: 100%;
@@ -61,9 +71,10 @@
     }
 
     &.prev-round {
-        background: linear-gradient(221.79deg, #f0f0f0 0%, #bebebe 98.88%);
+        background: var(--prev-round-background);
+
         &:before {
-            color: #666;
+            color: var(--prev-round-color);
         }
     }
 }

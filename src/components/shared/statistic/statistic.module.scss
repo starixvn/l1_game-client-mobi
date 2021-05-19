@@ -1,5 +1,13 @@
-@import "../../../assets/abstracts/variables";
 @import "../../../assets/components/statistic";
+
+[data-theme="light"] .number {
+    --statistic-number-color: #2c2f3e;
+}
+
+[data-theme="dark"] .number {
+    --statistic-number-color: #7f91a4;
+}
+
 .statistic-group {
     display: flex;
     align-items: center;
@@ -8,7 +16,8 @@
 
 .number {
     margin-left: 0.2rem;
-    font-family: $font-number;
+    font-family: var(--font-number);
+    color: var(--statistic-number-color);
 
     @media (min-width: 1024px) and (max-width: 1278px) {
         font-size: 1.2rem;
@@ -17,25 +26,25 @@
 
 .big {
     @extend %title;
-    color: $bigSmall-choice-big-color;
+    color: var(--bigSmall-dot-big-background);
 }
 
 .small {
     @extend %title;
-    color: $bigSmall-choice-small-color;
+    color: var(--bigSmall-dot-small-background);
 }
 
 .dragon {
     @extend %title;
-    color: $dragonTiger-choice-dragon-color;
+    color: var(--dragonTiger-dot-dragon-background);
 }
 
 .tiger {
     @extend %title;
-    color: $dragonTiger-choice-tiger-color;
+    color: var(--dragonTiger-dot-tiger-background);
 }
 
 .tie {
     @extend %title;
-    color: $dragonTiger-choice-tie-color;
+    color: var(--dragonTiger-dot-tie-background);
 }

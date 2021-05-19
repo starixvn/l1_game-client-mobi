@@ -1,5 +1,3 @@
-@import "../../../../assets/abstracts/variables";
-
 .layout-dragon-tiger {
     display: grid;
     height: 100%;
@@ -42,15 +40,15 @@
 
 .text-dragon {
     @extend .text;
-    color: $dragonTiger-choice-dragon-color;
+    color: var(--dragonTiger-dot-dragon-background);
 }
 
 .text-tiger {
     @extend .text;
-    color: $dragonTiger-choice-tiger-color;
+    color: var(--dragonTiger-dot-tiger-background);
 }
 
 .text-tie {
     @extend .text;
-    color: $dragonTiger-choice-tie-color;
+    color: var(--dragonTiger-dot-tie-background);
 }
