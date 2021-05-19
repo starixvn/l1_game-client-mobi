@@ -136,13 +136,19 @@ export default function Register(props: Props) {
                                 <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
                             </div>
 
-                            <button className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`} onClick={(event) => generateName(event)}>
+                            <button
+                                className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
+                                onClick={(event) => generateName(event)}
+                                type="button"
+                            >
                                 <span className="icon-refresh"></span>
                             </button>
                         </div>
                         {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
-                        <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}>{t("submit")}</button>
+                        <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
+                            {t("submit")}
+                        </button>
                     </form>
                     <ul className={Styles["note"]}>
                         <li>{t("register:rule1")}</li>
@@ -162,10 +168,10 @@ export default function Register(props: Props) {
                                     {loadAvatars ? loadAvatars() : <Spinner color="secondary" />}
                                 </div>
                                 <div className={Styles["list-actions"]}>
-                                    <button className="btn-grey" onClick={() => handleCloseGallery()}>
+                                    <button className="btn-grey" onClick={() => handleCloseGallery()} type="button">
                                         {t("common:cancel")}
                                     </button>
-                                    <button className="btn-orange" onClick={() => onChangeImgId()}>
+                                    <button className="btn-orange" onClick={() => onChangeImgId()} type="button">
                                         {t("common:ok")}
                                     </button>
                                 </div>
