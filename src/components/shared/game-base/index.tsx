@@ -469,9 +469,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
 
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
-        // setTimeout(() => {
-        //     this.setState({ roundHistory: roundHistoryClone });
-        // }, animationDuration);
+        setTimeout(() => {
+            this.setState({ roundHistory: roundHistoryClone });
+        }, animationDuration);
 
         this.showWaitingTimeout = setTimeout(() => {
             this.setState({ showWaitingTime: true });
