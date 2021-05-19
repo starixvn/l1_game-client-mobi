@@ -31,8 +31,10 @@ const Header: React.FC<Props> = (props) => {
     const { theme, setTheme } = useTheme();
 
     const handleChangeTheme = () => {
-        userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, theme);
-        setTheme(theme === Themes.dark ? Themes.light : Themes.dark);
+        const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
+
+        userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, newTheme);
+        setTheme(newTheme);
     };
 
     useEffect(() => {
