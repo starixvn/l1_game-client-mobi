@@ -24,6 +24,21 @@
     top: 20%;
     z-index: var(--popup-guide-history-index);
     min-width: 30rem;
+    &.compact-mode{
+        padding: .5rem;
+        min-height: 10rem;
+        .icon-warning{
+            font-size: 3.5rem;
+        }
+    }
+
+    .icon-warning {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.6rem;
+        font-size: 4.2rem;
+    }
+    
 }
 
 .icon-close {
@@ -32,9 +47,3 @@
     top: 1rem;
 }
 
-.icon-warning {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.6rem;
-    font-size: 4.2rem;
-}

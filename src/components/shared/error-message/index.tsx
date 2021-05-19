@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
 const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
+    const { isCompactMode } = useGameContext();
     useEffect(() => {
         const timeOut = setTimeout(() => closeModal(), 3000);
 
@@ -21,7 +23,7 @@ const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     };
 
     return (
-        <div className={Styles["error-message-container"]}>
+        <div className={`${Styles["error-message-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
             <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
             <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></div>
             <div className={Styles.message} key={Math.random()}>
