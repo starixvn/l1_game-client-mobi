@@ -236,6 +236,11 @@
                 height: 6rem;
             }
 
+            @media (max-width: 576px) {
+                width: 4.8rem;
+                height: 4.8rem;
+            }
+
             img {
                 cursor: pointer;
             }
@@ -261,6 +266,12 @@
                 top: -1px;
                 color: #ffab2b;
             }
+        }
+
+        @media (max-width: 576px) {
+            grid-gap: 1rem;
+            margin-top: 1.5rem;
+
         }
     }
 
