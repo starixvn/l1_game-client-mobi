@@ -1,39 +1,39 @@
-.modal-center {
+[data-theme="light"] .modal {
+    --error-message-container-background: #fff;
+    --error-message-container-border: #fff;
+    --error-message-container-color: #2c2f3e;
+}
+
+[data-theme="dark"] .modal {
+    --error-message-container-background: #203040;
+    --error-message-container-border: #2c3e50;
+    --error-message-container-color: #fff;
+}
+
+.modal {
     position: absolute;
     text-align: center;
     padding: 2rem 2.1rem;
-    background-color: #fff;
-    box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
+    background-color: var(--error-message-container-background);
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
     font-size: 1.6rem;
-    border: 1px solid #d7d7d7;
+    border: 1px solid var(--error-message-container-border);
     left: 50%;
     transform: translate(-50%, 0);
-    top: 30%;
-    z-index: var(--modal-index);
     min-width: 30rem;
 
-    .modal-icon-close {
+    .icon-close {
         position: absolute;
-        right: 0.4rem;
-        top: 0.4rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 3rem;
-        width: 3rem;
-        border-radius: 50%;
-        background: #eaebf0;
-
-        &:before {
-            font-size: 1.2rem;
-            color: #4f4f54;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
+        right: 1rem;
+        top: 1rem;
     }
+}
+
+.modal-center {
+    @extend .modal;
+    top: 30%;
+    z-index: var(--modal-index);
 
     .modal-icon-warning {
         display: flex;

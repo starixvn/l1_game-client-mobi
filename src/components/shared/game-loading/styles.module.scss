@@ -1,5 +1,17 @@
 @import "../../../components/shared/error-message/error-message.module.scss";
 
+[data-theme="light"] .container {
+    --game-loading-background: #fff;
+    --game-loading-border: #8e8e8e;
+    --skeleton-background: #eee;
+}
+
+[data-theme="dark"] .container {
+    --game-loading-background: #203040;
+    --game-loading-border: #3b526c;
+    --skeleton-background: #30455a;
+}
+
 .container {
     position: relative;
     flex: 1 1 calc(100% - 0.8rem);
@@ -7,15 +19,19 @@
     height: auto;
     min-width: inherit;
     margin: 0 0.4rem 0.4rem;
-    border: 1px solid #b3c0e7;
+    border: 1px solid var(--game-loading-border);
     border-radius: 0.6rem;
-    background-color: #fff;
+    background-color: var(--game-loading-background);
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    .skeleton-background {
+        background: var(--skeleton-background);
+    }
 }
 
 @media print, screen and (min-width: 768px) {
@@ -44,7 +60,7 @@
     border-radius: 5px 5px 0px 0px;
     position: relative;
     height: 5.6rem;
-    border-bottom: 1px solid #edf3f6;
+    border-bottom: 1px solid var(--game-loading-border);
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     cursor: auto;
@@ -91,8 +107,8 @@
 
 .statistic {
     padding: 0.6rem 0.7rem;
-    border-top: 1px solid #edf3f6;
-    border-bottom: 1px solid #edf3f6;
+    border-top: 1px solid var(--game-loading-border);
+    border-bottom: 1px solid var(--game-loading-border);
 }
 
 .scoreboard {
@@ -103,6 +119,7 @@
     padding-right: 0.7rem;
 
     .score-board-line {
+        @extend .skeleton-background;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
     }

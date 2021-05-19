@@ -58,7 +58,9 @@ const Header: React.FC<Props> = (props) => {
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
                         <div className={Styles["logo"]}>
-                            <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
+                            <a href="/">
+                                <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
+                            </a>
                         </div>
                         <div className="d-flex">
                             <div className={Styles["user"]}>

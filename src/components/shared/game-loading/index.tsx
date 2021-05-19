@@ -27,23 +27,23 @@ const GameLoading = (props: Props) => {
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
-                    <Skeleton width={100} />
-                    <Skeleton width={40} />
+                    <Skeleton className={Styles["skeleton-background"]} width={100} />
+                    <Skeleton className={Styles["skeleton-background"]} width={40} />
                 </div>
-                <Skeleton circle={true} height={40} width={40} />
+                <Skeleton className={Styles["skeleton-background"]} circle={true} height={40} width={40} />
                 <div className={Styles["header-right"]}>
-                    <Skeleton className={Styles.rebet} />
-                    <Skeleton className={Styles.button} />
+                    <Skeleton className={`${Styles.rebet} ${Styles["skeleton-background"]}`} />
+                    <Skeleton className={`${Styles.button} ${Styles["skeleton-background"]}`} />
                 </div>
             </div>
             <div className={Styles["bet-container"]}>
-                <Skeleton height={273} />
+                <Skeleton className={Styles["skeleton-background"]} height={273} />
             </div>
             <div className={Styles["mini-round-history"]}>
-                <Skeleton className={Styles[classBorder]} height={19} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles["skeleton-background"]}`} height={19} />
             </div>
             <div className={Styles["statistic"]}>
-                <Skeleton className={Styles[classBorder]} height={19} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles["skeleton-background"]}`} height={19} />
             </div>
             <div className={Styles.scoreboard}>
                 <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} />
@@ -58,9 +58,11 @@ const GameLoading = (props: Props) => {
                         <div className={Styles.message} key={Math.random()}>
                             {errorMessage && renderMessage()}
                         </div>
-                        <button onClick={() => retryConnect()} className={`btn-orange w-5 ${Styles["reconnect"]}`}>
-                            {t("socketReconnect")}
-                        </button>
+                        <div className={Styles["list-action"]}>
+                            <button onClick={() => retryConnect()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
+                                {t("socketReconnect")}
+                            </button>
+                        </div>
                     </div>
                 </BaseDialog>
             )}

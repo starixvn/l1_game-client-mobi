@@ -1,30 +1,14 @@
-[data-theme="light"] .error-message-container {
-    --error-message-container-background: #fff;
-    --error-message-container-color: #2c2f3e;
-}
-
-[data-theme="dark"] .error-message-container {
-    --error-message-container-background: #203040;
-    --error-message-container-color: #fff;
-}
+@import "../../../assets/components/modal";
 
 .error-message-container {
-    position: absolute;
-    text-align: center;
-    padding: 2rem 2.1rem;
-    background-color: var(--error-message-container-background);
-    box-shadow: 0px 2px 12px rgb(0 0 0 / 60%);
-    border-radius: 0.5rem;
-    font-size: 1.6rem;
-    left: 50%;
-    transform: translate(-50%, 0);
+    @extend .modal;
     top: 20%;
     z-index: var(--popup-guide-history-index);
-    min-width: 30rem;
-    &.compact-mode{
-        padding: .5rem;
+
+    &.compact-mode {
+        padding: 0.5rem;
         min-height: 10rem;
-        .icon-warning{
+        .icon-warning {
             font-size: 3.5rem;
         }
     }
@@ -35,12 +19,8 @@
         margin-bottom: 1.6rem;
         font-size: 4.2rem;
     }
-    
-}
 
-.icon-close {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
+    .list-action {
+        margin-top: 1.6rem;
+    }
 }
-
