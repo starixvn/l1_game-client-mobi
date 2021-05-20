@@ -181,7 +181,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                     type={"checkbox"}
                                     value={"Quick Bet"}
                                     checked={!!enabledQuickBet}
-                                    onClick={onClickQuickBet}
+                                    onChange={onClickQuickBet}
                                 />
                                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                                     <div className={Styles.chip}>
