@@ -7,11 +7,12 @@ import { useTranslation } from "next-i18next";
 
 const GetElementRound = (result: any, col: number, row: number, roundId: number) => {
     const { gameSetting } = useGameContext();
+    const { id: gameId } = gameSetting;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const isSmall = checkIsSmall(countRedDot(result));
     return (
         <RoundDotGrid
-            key={roundId}
+            key={`${roundId}_${gameId}`}
             choice={isSmall ? Choices.small : Choices.big}
             col={col}
             row={row}

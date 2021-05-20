@@ -47,15 +47,8 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderBoard() {
-        const { gameState, roundHistory } = this.state;
-        return (
-            <ScoreboardDragon
-                roundHistory={roundHistory}
-                gameState={gameState}
-                getElementRound={GetElementRound}
-                checkCondition={CheckCondition}
-            />
-        );
+        const { roundHistory } = this.state;
+        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} checkCondition={CheckCondition} />;
     }
 
     get isShowStartRoundAnimation() {

@@ -1,9 +1,9 @@
-import React from "react";
-import { GameState } from "../../../game-base/type";
+import React, { useRef, useEffect } from "react";
 import { ScoreboardItemNext } from "../../dot-next";
 import { Round } from "../../../../../types";
 import { Props } from "./types";
 import { v4 as uuidV4 } from "uuid";
+import { useGameContext } from "../../../../../contexts/game-context/game-context";
 import Styles from "../round-history.module.scss";
 
 const rowTotal = 7;
@@ -24,8 +24,8 @@ const roundNext = (col: number, row: number) => {
 
 const drawDragonTailHistory = <R, S>(
     roundHistory: Round<R, S>[],
+    isShowBlink: boolean,
     getElementRound: (result: any, col: number, row: number, roundId: number) => void,
-    isItemNext: boolean,
     checkCondition?: (settlementResult: any) => void
 ) => {
     let col = 1,
@@ -62,7 +62,7 @@ const drawDragonTailHistory = <R, S>(
         return getElementRound(round.result, col, row, round.roundId);
     });
 
-    isItemNext && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
+    isShowBlink && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
     return result;
 };
 const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, roundNext: Function) => {
@@ -83,21 +83,29 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
 };
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
-    const { roundHistory, gameState, getElementRound } = props;
+    const { roundHistory, getElementRound } = props;
+    const { isShowBlink } = useGameContext();
+    const wrapperRefScoreboardDragon = useRef<HTMLDivElement>(null);
     let { checkCondition } = props;
     if (!checkCondition) {
         checkCondition = checkConditionBase;
     }
 
-    let isBlockBet = false;
     const renderRoundHistory = <R, S>(roundHistory: Round<R, S>[]) => {
-        if (gameState === GameState.LockingBet) {
-            isBlockBet = true;
-        }
-        return drawDragonTailHistory(roundHistory, getElementRound, isBlockBet, checkCondition);
+        return drawDragonTailHistory(roundHistory, isShowBlink, getElementRound, checkCondition);
     };
 
-    return <div className={Styles["score-board-dragon-container"]}>{renderRoundHistory([...roundHistory].reverse())}</div>;
+    useEffect(() => {
+        return () => {
+            wrapperRefScoreboardDragon.current = null;
+        };
+    }, []);
+
+    return (
+        <div ref={wrapperRefScoreboardDragon} className={Styles["score-board-dragon-container"]}>
+            {renderRoundHistory([...roundHistory].reverse())}
+        </div>
+    );
 };
 
 export default ScoreboardDragon;

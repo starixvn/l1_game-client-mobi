@@ -1,13 +1,24 @@
 import React from "react";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { SettlementResult } from "../sedie";
 
 export const GetElementRound = (result: any, col: number, row: number, roundId: number) => {
+    const { gameSetting } = useGameContext();
+    const { id: gameId } = gameSetting;
     const count = countRedDot(result);
     const isEven = checkIsEven(count);
 
-    return <RoundDotGrid key={roundId} choice={isEven ? Choices.even : Choices.odd} value={count} col={col} row={row}></RoundDotGrid>;
+    return (
+        <RoundDotGrid
+            key={`${roundId}_${gameId}`}
+            choice={isEven ? Choices.even : Choices.odd}
+            value={count}
+            col={col}
+            row={row}
+        ></RoundDotGrid>
+    );
 };
 
 export const CheckCondition = (settlementResult: SettlementResult) => {

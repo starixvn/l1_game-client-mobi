@@ -12,4 +12,5 @@ export type GameContextModel = {
     isCompactMode: boolean;
     playResultAnimation: boolean;
     displayChips: DisplayChips;
+    isShowBlink: boolean;
 };

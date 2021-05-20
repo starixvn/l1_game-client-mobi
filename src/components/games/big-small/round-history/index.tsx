@@ -19,16 +19,11 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
         </>
     );
 };
-export const RenderBigSmallDot = (
-    round: Round<Result, SettlementResult>,
-    isLockingBet: () => boolean,
-    index: number,
-    numberOfItems: number
-) => {
+export const RenderBigSmallDot = (round: Round<Result, SettlementResult>, isShowBlink: boolean, index: number, numberOfItems: number) => {
     return (
         <RoundDot
             choice={round.settlementResult.small ? Choices.small : Choices.big}
-            highlight={!isLockingBet() && index === numberOfItems - 1}
+            highlight={!isShowBlink && index === numberOfItems - 1}
         />
     );
 };

@@ -35,14 +35,14 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
 
 export const RenderDragonTigerDot = (
     round: Round<Result, SettlementResult>,
-    isLockingBet: () => boolean,
+    isShowBlink: boolean,
     index: number,
     numberOfItems: number
 ) => {
     return (
         <RoundDot
             choice={round.settlementResult.tie ? Choices.tie : round.settlementResult.tiger ? Choices.tiger : Choices.dragon}
-            highlight={!isLockingBet() && index === numberOfItems - 1}
+            highlight={!isShowBlink && index === numberOfItems - 1}
         />
     );
 };

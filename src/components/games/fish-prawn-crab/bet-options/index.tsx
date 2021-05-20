@@ -90,6 +90,12 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
         actionByGameState[gameState] && actionByGameState[gameState]();
     }, [gameState]);
 
+    useEffect(() => {
+        return () => {
+            setIsShowCountOfDice(false);
+        };
+    }, []);
+
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div

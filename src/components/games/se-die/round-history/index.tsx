@@ -28,16 +28,11 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
     );
 };
 
-export const RenderSeDieDot = (
-    round: Round<Result, SettlementResult>,
-    isLockingBet: () => boolean,
-    index: number,
-    numberOfItems: number
-) => {
+export const RenderSeDieDot = (round: Round<Result, SettlementResult>, isShowBlink: boolean, index: number, numberOfItems: number) => {
     return (
         <RoundDot
             choice={checkIsEven(countRedDot(round.result)) ? Choices.even : Choices.odd}
-            highlight={!isLockingBet() && index === numberOfItems - 1}
+            highlight={!isShowBlink && index === numberOfItems - 1}
         />
     );
 };

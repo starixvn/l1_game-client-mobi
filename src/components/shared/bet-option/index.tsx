@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useCountUp } from "react-countup";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -28,6 +28,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         start: 0,
         end: 0,
     });
+    const wrapperRefBetOption = useRef<HTMLDivElement>(null);
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -53,6 +54,12 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
 
+    useEffect(() => {
+        return () => {
+            wrapperRefBetOption.current = null;
+        };
+    }, []);
+
     const onClickBet = () => {
         enabledQuickBet ? gameActionContext.placeBet(choice, betValue) : openPlaceBetModal(choice);
     };
@@ -62,7 +69,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     };
 
     return (
-        <div className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div ref={wrapperRefBetOption} className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
                 onClick={onClickBet}

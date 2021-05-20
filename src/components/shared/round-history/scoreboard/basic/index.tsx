@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { RoundHistoryType } from "../../type";
 import { Round } from "../../../../../types";
 import { Props } from "./types";
@@ -12,8 +12,18 @@ const drawHistory = <R, S>(roundHistory: Round<R, S>[], getElementRound: (round:
 
 const ScoreboardBasic = <R, S>(props: Props<R, S>) => {
     const { roundHistory, getElementRound } = props;
+    const wrapperRefScoreboardBasic = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        return () => {
+            wrapperRefScoreboardBasic.current = null;
+        };
+    }, []);
 
-    return <div className={Styles["score-board-container"]}>{drawHistory([...roundHistory].reverse(), getElementRound)}</div>;
+    return (
+        <div ref={wrapperRefScoreboardBasic} className={Styles["score-board-container"]}>
+            {drawHistory([...roundHistory].reverse(), getElementRound)}
+        </div>
+    );
 };
 
 export default ScoreboardBasic;

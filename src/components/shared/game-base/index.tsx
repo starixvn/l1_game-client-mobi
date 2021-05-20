@@ -69,6 +69,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         showWinningBet: false,
         playResultAnimation: false,
         displayChips: {},
+        isShowBlink: false,
     };
 
     constructor(props: P) {
@@ -350,6 +351,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     betPercentage: {},
                     displayChips: {},
                     showWinningBet: false,
+                    isShowBlink: false,
                 },
             },
             {
@@ -417,6 +419,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
 
         if (remainingTime <= durations.lockingBet && remainingTime >= 0) {
+            this.setState({ isShowBlink: true });
             return GameState.LockingBet;
         }
 
@@ -469,12 +472,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
 
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
-        setTimeout(() => {
-            this.setState({ roundHistory: roundHistoryClone });
-        }, animationDuration);
 
         this.showWaitingTimeout = setTimeout(() => {
-            this.setState({ showWaitingTime: true });
+            this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone });
         }, animationDuration);
         this.runGame(durations.wholeRound);
     }
@@ -657,6 +657,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             disabledMessage,
             displayChips,
             playResultAnimation,
+            isShowBlink,
         } = this.state;
 
         const gameContext = {
@@ -671,6 +672,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             isCompactMode,
             displayChips,
             playResultAnimation,
+            isShowBlink,
         };
 
         const gameActionsContext = {
