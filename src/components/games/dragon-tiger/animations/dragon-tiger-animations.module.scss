@@ -17,6 +17,7 @@ $time-result-highlight-animation: 0.8s;
     display: flex;
     justify-content: center;
     transform: var(--animation-scale);
+    pointer-events: none;
 
     &.compact-mode {
         --animation-scale: scale(0.4, 0.4);
