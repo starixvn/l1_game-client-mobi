@@ -1,5 +1,29 @@
 @import "../welcome/welcome.module.scss";
 
+[data-theme="light"] .page-bg {
+    --form-control-background: #fff;
+    --form-control-border: #ebedef;
+    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
+    --icon-edit-border: #f2f2f2;
+    --icon-edit-color: #9c9c9c;
+    --icon-remove-background: #eaebf0;
+    --icon-remove-color: #1a2430;
+    --gallery-popup-background: #fff;
+    --gallery-popup-border: #fff;
+}
+
+[data-theme="dark"] .page-bg {
+    --form-control-background: #1d2b3b;
+    --form-control-border: #384c61;
+    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
+    --icon-edit-border: #203040;
+    --icon-edit-color: #9ac6f2;
+    --icon-remove-background: #294c6f;
+    --icon-remove-color: #1a2430;
+    --gallery-popup-background: #203040;
+    --gallery-popup-border: #2c3e50;
+
+}
 .page-bg {
     position: relative;
 }
