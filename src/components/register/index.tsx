@@ -119,6 +119,7 @@ export default function Register(props: Props) {
                         <div> {t("register:registerTitle2")}</div>
                     </div>
                 </div>
+
                 <div className={Styles["page-container"]}>
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
@@ -126,6 +127,25 @@ export default function Register(props: Props) {
                             <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
                         </div>
                     </div>
+                    {!isValidUserName && (
+                        <div className={Styles["hint-wrapper"]}>
+                            <BaseDialog type={ModalType.Center} isOpen={isOpenGalleryAvatar}>
+                                <div
+                                    className={`icon-close ${Styles["icon-close-hint"]}`}
+                                    onClick={() => {
+                                        setIsValidUserName(true);
+                                    }}
+                                ></div>
+                                <div className={Styles["hint-content"]}>
+                                    <ul className={Styles["note"]}>
+                                        <li>{t("register:rule1")}</li>
+                                        <li>{t("register:rule2")}</li>
+                                        <li>{t("register:rule3")}</li>
+                                    </ul>
+                                </div>
+                            </BaseDialog>
+                        </div>
+                    )}
                     <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
                         <div className={Styles["user-box"]}>
@@ -167,7 +187,7 @@ export default function Register(props: Props) {
                                         type="radio"
                                         name="theme"
                                         checked={theme === Themes.light}
-                                        onClick={() => setTheme(Themes.light)}
+                                        onChange={() => setTheme(Themes.light)}
                                         className={Styles["radio-button"]}
                                     />
                                     <label className={Styles["radio-label"]} htmlFor="theme-light">
@@ -186,7 +206,7 @@ export default function Register(props: Props) {
                                         type="radio"
                                         name="theme"
                                         checked={theme === Themes.dark}
-                                        onClick={() => setTheme(Themes.dark)}
+                                        onChange={() => setTheme(Themes.dark)}
                                         className={Styles["radio-button"]}
                                     />
                                     <label className={Styles["radio-label"]} htmlFor="theme-dark">
