@@ -8,7 +8,6 @@ import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { useRoundResultContext } from "../../../contexts/round-result";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
@@ -109,7 +108,6 @@ const HeaderRight = () => {
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[gameId];
-    const { getRoundResultUrl } = useRoundResultContext();
     const classList = ["hamburger-dot", "dropdown-item"];
     const rebetClickHandle = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -140,9 +138,6 @@ const HeaderRight = () => {
                         onClick={() => gameActions.openPopup(PopupType.BetHistory)}
                     >
                         {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
-                    </DropdownItem>
-                    <DropdownItem className={Styles[classList[ClassType.dropdownItem]]} onClick={() => getRoundResultUrl(gameId)}>
-                        {t(CommonResourceKeys.RESULT)}
                     </DropdownItem>
                     <DropdownItem
                         className={Styles[classList[ClassType.dropdownItem]]}
