@@ -55,7 +55,7 @@ export default function Welcome(props: Props) {
                                         id="theme-light"
                                         type="radio"
                                         name="theme"
-                                        checked={theme === Themes.light}
+                                        checked={theme === Themes.light || theme === "null"}
                                         onChange={() => setTheme(Themes.light)}
                                         className={Styles["radio-button"]}
                                     />
