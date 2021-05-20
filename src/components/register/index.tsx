@@ -104,7 +104,7 @@ export default function Register(props: Props) {
     };
 
     return (
-        <div className={Styles["register-bg"]}>
+        <div className={Styles["page-bg"]}>
             <div className={HeaderStyles["header"]}>
                 <div className="game-container">
                     <div className={Styles["logo"]}>
@@ -114,12 +114,12 @@ export default function Register(props: Props) {
             </div>
             <div className={`game-container ${Styles["bg"]}`}>
                 <div className={Styles["curve"]}>
-                    <div className={Styles["register-container"]}>
+                    <div className={Styles["page-container"]}>
                         <h1 className={Styles["wellcome"]}>{t("register:registerTitle1")}</h1>
                         <div> {t("register:registerTitle2")}</div>
                     </div>
                 </div>
-                <div className={Styles["register-container"]}>
+                <div className={Styles["page-container"]}>
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]}>
@@ -153,36 +153,55 @@ export default function Register(props: Props) {
                             {t("submit")}
                         </button>
                     </form>
-                    <ul className={Styles["note"]}>
+                    {/* <ul className={Styles["note"]}>
                         <li>{t("register:rule1")}</li>
                         <li>{t("register:rule2")}</li>
                         <li>{t("register:rule3")}</li>
-                    </ul>
+                    </ul> */}
                     <div className={Styles["theme-container"]}>
                         <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
-                        <div className={Styles["theme-light"]}>
-                            <div className={Styles["theme-light-icon"]}></div>
-                            <label htmlFor="theme-light">{t("common:light")}</label>
-                            <input
-                                id="theme-light"
-                                type="radio"
-                                name="theme"
-                                checked={theme === Themes.light}
-                                onClick={() => setTheme(Themes.light)}
-                            ></input>
-                        </div>
-                        <div className={Styles["theme-dark"]}>
-                            <div className={Styles["theme-dark-icon"]}></div>
-                            <label htmlFor="theme-dark">{t("common:dark")}</label>
-                            <input
-                                id="theme-dark"
-                                type="radio"
-                                name="theme"
-                                checked={theme === Themes.dark}
-                                onClick={() => setTheme(Themes.dark)}
-                            ></input>
+                        <div className={Styles["theme-list"]}>
+                            <div className={Styles["theme"]}>
+                                <div className={`${Styles["theme-light-icon"]}`}>
+                                    <span className={Styles["line1"]}></span>
+                                    <span className={Styles["line2"]}></span>
+                                </div>
+                                <div>
+                                    <input
+                                        id="theme-light"
+                                        type="radio"
+                                        name="theme"
+                                        checked={theme === Themes.light}
+                                        onClick={() => setTheme(Themes.light)}
+                                        className={Styles["radio-button"]}
+                                    />
+                                    <label className={Styles["radio-label"]} htmlFor="theme-light">
+                                        {t("common:light")}
+                                    </label>
+                                </div>
+                            </div>
+                            <div className={Styles["theme"]}>
+                                <div className={Styles["theme-dark-icon"]}>
+                                    <span className={Styles["line1"]}></span>
+                                    <span className={Styles["line2"]}></span>
+                                </div>
+                                <div>
+                                    <input
+                                        id="theme-dark"
+                                        type="radio"
+                                        name="theme"
+                                        checked={theme === Themes.dark}
+                                        onClick={() => setTheme(Themes.dark)}
+                                        className={Styles["radio-button"]}
+                                    />
+                                    <label className={Styles["radio-label"]} htmlFor="theme-dark">
+                                        {t("common:dark")}
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                     {isOpenGalleryAvatar && (
                         <div className={Styles["gallery-wrapper"]}>
                             <BaseDialog

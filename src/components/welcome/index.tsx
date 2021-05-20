@@ -20,7 +20,7 @@ export default function Welcome(props: Props) {
     };
 
     return (
-        <div className={Styles["welcome-bg"]}>
+        <div className={Styles["page-bg"]}>
             <div className={HeaderStyles["header"]}>
                 <div className="game-container">
                     <div className={Styles["logo"]}>
@@ -30,39 +30,56 @@ export default function Welcome(props: Props) {
             </div>
             <div className={`game-container ${Styles["bg"]}`}>
                 <div className={Styles["curve"]}>
-                    <div className={Styles["welcome-container"]}>
-                        <h1 className={Styles["wellcome"]}>{t("welcomeMsg").replace("{0}", props.userInfo?.name)}</h1>
-                        <div> {t("register:registerTitle2")}</div>
+                    <div className={Styles["page-container"]}>
+                        <div className={Styles["wellcome"]}>{t("welcomeMsg").replace("{0}", props.userInfo?.name)}</div>
                     </div>
                 </div>
-                <div className={Styles["welcome-container"]}>
+                <div className={Styles["page-container"]}>
                     <div className={Styles["profile-picture"]}>
                         <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
                     </div>
 
                     <div className={Styles["theme-container"]}>
                         <div className={Styles["theme-select-title"]}>{t("selectTheme")}</div>
-                        <div className={Styles["theme-light"]}>
-                            <div className={Styles["theme-light-icon"]}></div>
-                            <label htmlFor="theme-light">{t("common:light")}</label>
-                            <input
-                                id="theme-light"
-                                type="radio"
-                                name="theme"
-                                checked={theme === Themes.light}
-                                onClick={() => setTheme(Themes.light)}
-                            ></input>
-                        </div>
-                        <div className={Styles["theme-dark"]}>
-                            <div className={Styles["theme-dark-icon"]}></div>
-                            <label htmlFor="theme-dark">{t("common:dark")}</label>
-                            <input
-                                id="theme-dark"
-                                type="radio"
-                                name="theme"
-                                checked={theme === Themes.dark}
-                                onClick={() => setTheme(Themes.dark)}
-                            ></input>
+                        <div className={Styles["theme-list"]}>
+                            <div className={Styles["theme"]}>
+                                <div className={`${Styles["theme-light-icon"]}`}>
+                                    <span className={Styles["line1"]}></span>
+                                    <span className={Styles["line2"]}></span>
+                                </div>
+                                <div>
+                                    <input
+                                        id="theme-light"
+                                        type="radio"
+                                        name="theme"
+                                        checked={theme === Themes.light}
+                                        onClick={() => setTheme(Themes.light)}
+                                        className={Styles["radio-button"]}
+                                    />
+                                    <label className={Styles["radio-label"]} htmlFor="theme-light">
+                                        {t("common:light")}
+                                    </label>
+                                </div>
+                            </div>
+                            <div className={Styles["theme"]}>
+                                <div className={Styles["theme-dark-icon"]}>
+                                    <span className={Styles["line1"]}></span>
+                                    <span className={Styles["line2"]}></span>
+                                </div>
+                                <div>
+                                    <input
+                                        id="theme-dark"
+                                        type="radio"
+                                        name="theme"
+                                        checked={theme === Themes.dark}
+                                        onClick={() => setTheme(Themes.dark)}
+                                        className={Styles["radio-button"]}
+                                    />
+                                    <label className={Styles["radio-label"]} htmlFor="theme-dark">
+                                        {t("common:dark")}
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
                         <button
