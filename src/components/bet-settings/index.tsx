@@ -164,6 +164,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, !!enabledQuickBet);
     };
 
+    const handleTurnOn = () => {
+        closeHintTooltip();
+        confirmQuickBet();
+    };
+
     return (
         <div className={Styles["bet-settings"]}>
             <div className={Styles["settings-container"]}>
@@ -198,8 +203,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 <div className={Styles.tooltip}>
                                     <div className={Styles.content}>{t("common:oneClickHintMsg")}</div>
                                     <div className={Styles.action}>
-                                        <button className={`btn-orange ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
-                                            {t("common:close")}
+                                        <button className={`btn-grey ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
+                                            {t("common:dismiss")}
+                                        </button>
+                                        <button className={`btn-orange ${Styles["btn"]}`} onClick={() => handleTurnOn()}>
+                                            {t("common:turnOn")}
                                         </button>
                                     </div>
                                 </div>
