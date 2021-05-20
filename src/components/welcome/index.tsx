@@ -56,7 +56,7 @@ export default function Welcome(props: Props) {
                                         type="radio"
                                         name="theme"
                                         checked={theme === Themes.light}
-                                        onClick={() => setTheme(Themes.light)}
+                                        onChange={() => setTheme(Themes.light)}
                                         className={Styles["radio-button"]}
                                     />
                                     <label className={Styles["radio-label"]} htmlFor="theme-light">
@@ -75,7 +75,7 @@ export default function Welcome(props: Props) {
                                         type="radio"
                                         name="theme"
                                         checked={theme === Themes.dark}
-                                        onClick={() => setTheme(Themes.dark)}
+                                        onChange={() => setTheme(Themes.dark)}
                                         className={Styles["radio-button"]}
                                     />
                                     <label className={Styles["radio-label"]} htmlFor="theme-dark">
