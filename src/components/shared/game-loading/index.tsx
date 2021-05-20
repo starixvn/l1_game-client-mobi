@@ -10,16 +10,19 @@ type Props = {
     errorMessage: string | string[];
     retryConnect: () => void;
 };
+
 const GameLoading = (props: Props) => {
     const { displayPopup, errorMessage, retryConnect } = props;
     const { t } = useTranslation("common");
     const classBorder = "border-radius";
     const classScoreBoard = "score-board-line";
+    const classSkeletonBackground = "skeleton-background";
+
     const renderMessage = () => {
         if (typeof errorMessage === "string") {
             return errorMessage;
         } else {
-            return errorMessage.map((value, index) => <div key={uuidv4()}>{value}</div>);
+            return errorMessage.map((value) => <div key={uuidv4()}>{value}</div>);
         }
     };
 
@@ -27,23 +30,23 @@ const GameLoading = (props: Props) => {
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
-                    <Skeleton className={Styles["skeleton-background"]} width={100} />
-                    <Skeleton className={Styles["skeleton-background"]} width={40} />
+                    <Skeleton className={Styles[classSkeletonBackground]} width={100} />
+                    <Skeleton className={Styles[classSkeletonBackground]} width={40} />
                 </div>
-                <Skeleton className={Styles["skeleton-background"]} circle={true} height={40} width={40} />
+                <Skeleton className={Styles[classSkeletonBackground]} circle={true} height={40} width={40} />
                 <div className={Styles["header-right"]}>
-                    <Skeleton className={`${Styles.rebet} ${Styles["skeleton-background"]}`} />
-                    <Skeleton className={`${Styles.button} ${Styles["skeleton-background"]}`} />
+                    <Skeleton className={`${Styles.rebet} ${Styles[classSkeletonBackground]}`} />
+                    <Skeleton className={`${Styles.button} ${Styles[classSkeletonBackground]}`} />
                 </div>
             </div>
             <div className={Styles["bet-container"]}>
-                <Skeleton className={Styles["skeleton-background"]} height={273} />
+                <Skeleton className={Styles[classSkeletonBackground]} height={273} />
             </div>
             <div className={Styles["mini-round-history"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles["skeleton-background"]}`} height={19} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
             </div>
             <div className={Styles["statistic"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles["skeleton-background"]}`} height={19} />
+                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
             </div>
             <div className={Styles.scoreboard}>
                 <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} />
