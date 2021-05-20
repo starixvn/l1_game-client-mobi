@@ -161,7 +161,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const closeHintTooltip = () => {
         setIsShowTooltip(false);
-        userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, !!enabledQuickBet);
     };
 
     const handleTurnOn = () => {
@@ -182,7 +181,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                     type={"checkbox"}
                                     value={"Quick Bet"}
                                     checked={!!enabledQuickBet}
-                                    onChange={onClickQuickBet}
+                                    onClick={onClickQuickBet}
                                 />
                                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                                     <div className={Styles.chip}>
