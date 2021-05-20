@@ -123,7 +123,7 @@ export default function Register(props: Props) {
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]}>
-                            <span className="icon-edit"></span>
+                            <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
                         </div>
                     </div>
                     <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>

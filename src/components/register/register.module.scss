@@ -1,5 +1,28 @@
-@import "../../assets/components/form";
 @import "../welcome/welcome.module.scss";
+
+[data-theme="light"] .page-bg {
+    --form-control-background: #fff;
+    --form-control-border: #ebedef;
+    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
+    --icon-edit-border: #f2f2f2;
+    --icon-edit-color: #9c9c9c;
+    --icon-remove-background: #eaebf0;
+    --icon-remove-color: #1a2430;
+    --gallery-popup-background: #fff;
+    --gallery-popup-border: #fff;
+}
+
+[data-theme="dark"] .page-bg {
+    --form-control-background: #1d2b3b;
+    --form-control-border: #384c61;
+    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
+    --icon-edit-border: #203040;
+    --icon-edit-color: #9ac6f2;
+    --icon-remove-background: #294c6f;
+    --icon-remove-color: #1a2430;
+    --gallery-popup-background: #203040;
+    --gallery-popup-border: #2c3e50;
+}
 
 .curve {
     height: 19rem;
@@ -43,8 +66,8 @@
         width: 3.2rem;
         height: 3.2rem;
         border-radius: 50%;
-        background: radial-gradient(50% 50% at 50% 50%, #fff 0%, #f0f0f0 100%);
-        border: 1px solid #f2f2f2;
+        background: var(--icon-edit-background);
+        border: 1px solid var(--icon-edit-background-border);
 
         @media (min-width: 768px) {
             right: -0.2rem;
@@ -52,6 +75,10 @@
 
         &:hover {
             cursor: pointer;
+        }
+
+        .icon-edit:before {
+            color: var(--icon-edit-color);
         }
     }
 
@@ -91,6 +118,18 @@
         margin-bottom: 0.6rem;
     }
 
+    .custom-form-control {
+        height: 4.4rem;
+        padding: 0 1.6rem;
+        background: var(--form-control-background);
+        outline: none;
+        border: 2px solid var(--form-control-border);
+        border-radius: 0.5rem;
+        color: var(--text-color);
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+
     .btn-refresh {
         display: flex;
         align-items: center;
@@ -109,21 +148,20 @@
 .theme-container {
     padding-top: 3.2rem;
 }
+
 .register-wrapper-input {
     position: relative;
     width: 100%;
 
     .icon-remove {
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        background: #eaebf0;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
+        background: var(--icon-remove-background);
         position: absolute;
         right: 0.8rem;
         top: 0.6rem;
+
+        &:before {
+            color: var(--icon-remove-color);
+        }
     }
 }
 
@@ -133,14 +171,15 @@
     padding: 2rem;
     left: 2rem;
     right: 2rem;
-    background: #fff;
+    background: var(--gallery-popup-background);
+    border: 0.1rem solid var(--gallery-popup-border);
     border-radius: 0.5rem;
     box-shadow: 0 0 3.6rem rgb(0 0 0 / 25%);
 
     @media (min-width: 768px) {
         position: absolute;
         left: 50%;
-        top: 15%;
+        top: -45%;
         min-width: 37.3rem;
         transform: translate(-50%, 0);
     }
@@ -212,24 +251,7 @@
     .icon-close {
         position: absolute;
         right: 2rem;
-        top: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 3.2rem;
-        width: 3.2rem;
-        border-radius: 50%;
-        background: #eaebf0;
-        font-size: 32px;
-
-        &:before {
-            font-size: 1.2rem;
-            color: #4f4f54;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
+        top: 1.6rem;
     }
 
     .list-actions {
