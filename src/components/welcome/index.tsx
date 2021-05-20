@@ -31,7 +31,10 @@ export default function Welcome(props: Props) {
             <div className={`game-container ${Styles["bg"]}`}>
                 <div className={Styles["curve"]}>
                     <div className={Styles["page-container"]}>
-                        <div className={Styles["wellcome"]}>{t("welcomeMsg").replace("{0}", props.userInfo?.name)}</div>
+                        <div
+                            className={Styles["wellcome"]}
+                            dangerouslySetInnerHTML={{ __html: t("welcomeMsg").replace("{0}", `<b>${props.userInfo?.name}</b>`) }}
+                        ></div>
                     </div>
                 </div>
                 <div className={Styles["page-container"]}>
@@ -43,7 +46,7 @@ export default function Welcome(props: Props) {
                         <div className={Styles["theme-select-title"]}>{t("selectTheme")}</div>
                         <div className={Styles["theme-list"]}>
                             <div className={Styles["theme"]}>
-                                <div className={`${Styles["theme-light-icon"]}`}>
+                                <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>
@@ -62,7 +65,7 @@ export default function Welcome(props: Props) {
                                 </div>
                             </div>
                             <div className={Styles["theme"]}>
-                                <div className={Styles["theme-dark-icon"]}>
+                                <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)}>
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>

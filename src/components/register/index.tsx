@@ -153,16 +153,11 @@ export default function Register(props: Props) {
                             {t("submit")}
                         </button>
                     </form>
-                    {/* <ul className={Styles["note"]}>
-                        <li>{t("register:rule1")}</li>
-                        <li>{t("register:rule2")}</li>
-                        <li>{t("register:rule3")}</li>
-                    </ul> */}
                     <div className={Styles["theme-container"]}>
                         <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
                         <div className={Styles["theme-list"]}>
                             <div className={Styles["theme"]}>
-                                <div className={`${Styles["theme-light-icon"]}`}>
+                                <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>
@@ -181,7 +176,7 @@ export default function Register(props: Props) {
                                 </div>
                             </div>
                             <div className={Styles["theme"]}>
-                                <div className={Styles["theme-dark-icon"]}>
+                                <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)}>
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>
