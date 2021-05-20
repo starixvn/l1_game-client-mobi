@@ -33,8 +33,8 @@ const Header: React.FC<Props> = (props) => {
     };
 
     useEffect(() => {
-        setTheme(props.settings?.theme || Themes.light);
-    }, [props.settings]);
+        props.settings?.theme && setTheme(props.settings?.theme);
+    }, [props.settings?.theme]);
 
     useEffect(() => {
         setIsBalanceAnim(true);

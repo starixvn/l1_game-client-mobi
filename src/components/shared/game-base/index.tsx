@@ -134,8 +134,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.onConnectFailed();
         });
         this.socket.on("disconnect", () => {
-            this.onDestroy();
-            this.onStart();
+            this.onConnectFailed();
         });
     }
 
