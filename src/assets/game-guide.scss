@@ -3,7 +3,7 @@
 [data-theme="light"] .game-guide {
     --table-background: #fff;
     --table-border: #dce2f3;
-    --table-color: #fff;
+    --table-color: var(--text-color);
     --table-header-background: #ffd487;
     --table-header-color: #2c2f3e;
 }
@@ -11,7 +11,7 @@
 [data-theme="dark"] .game-guide {
     --table-background: #121f2c;
     --table-border: #364252;
-    --table-color: #fff;
+    --table-color:  var(--text-color);
     --table-header-background: #ffd487;
     --table-header-color: #2c2f3e;
 }
