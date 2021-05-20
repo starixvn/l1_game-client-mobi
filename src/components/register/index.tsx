@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AuthorizeResponse, Response, User } from "sc-user-service-client/dist/auth";
 import { useAuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
@@ -32,6 +32,10 @@ export default function Register(props: Props) {
     const authService = UserClientCommunication.getUserClientInstance().auth;
     const { theme, setTheme } = useTheme();
 
+    useEffect(() => {
+        setTheme(Themes.light);
+    }, []);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (validateUsername(name)) {
@@ -48,6 +52,7 @@ export default function Register(props: Props) {
             setIsValidUserName(false);
         }
     };
+
     const generateName = (event) => {
         event.preventDefault();
         setIsValidUserName(true);
@@ -186,7 +191,7 @@ export default function Register(props: Props) {
                                         id="theme-light"
                                         type="radio"
                                         name="theme"
-                                        checked={theme === Themes.light || theme === "null"}
+                                        checked={theme === Themes.light}
                                         onChange={() => setTheme(Themes.light)}
                                         className={Styles["radio-button"]}
                                     />

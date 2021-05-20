@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useEffect } from "react";
 import Styles from "./welcome.module.scss";
 import HeaderStyles from "../header/header.module.scss";
 import { useTheme } from "next-themes";
@@ -14,6 +14,10 @@ type Props = {
 export default function Welcome(props: Props) {
     const { t } = useTranslation(["common"]);
     const { theme, setTheme } = useTheme();
+
+    useEffect(() => {
+        setTheme(Themes.light);
+    }, []);
 
     const getPathAvatar = (imageId: number) => {
         return `/static/images/avatar/${imageId}.png`;
@@ -55,7 +59,7 @@ export default function Welcome(props: Props) {
                                         id="theme-light"
                                         type="radio"
                                         name="theme"
-                                        checked={theme === Themes.light || theme === "null"}
+                                        checked={theme === Themes.light}
                                         onChange={() => setTheme(Themes.light)}
                                         className={Styles["radio-button"]}
                                     />
