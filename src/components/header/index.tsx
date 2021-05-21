@@ -1,5 +1,5 @@
 import { useTheme } from "next-themes";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
 
@@ -19,7 +19,6 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const [isBalanceAnim, setIsBalanceAnim] = useState<boolean>(false);
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     const authContext = useAuthContext();
@@ -36,17 +35,6 @@ const Header: React.FC<Props> = (props) => {
         props.settings?.theme && setTheme(props.settings?.theme);
     }, [props.settings?.theme]);
 
-    useEffect(() => {
-        setIsBalanceAnim(true);
-    }, [props.balance]);
-
-    useEffect(() => {
-        const timeOut = setTimeout(() => setIsBalanceAnim(false), 500);
-        return () => {
-            clearTimeout(timeOut);
-        };
-    }, [isBalanceAnim]);
-
     return (
         <header className={Styles.header}>
             <div className="game-container d-flex">
@@ -61,7 +49,7 @@ const Header: React.FC<Props> = (props) => {
                             <div className={Styles["user"]}>
                                 <div className={Styles["info"]}>
                                     <div className={Styles["user-name"]}>{props.name}</div>
-                                    <div className={`${Styles.balance} ${isBalanceAnim ? "heart-beat-animation" : ""}`}>
+                                    <div key={props.balance} className={`${Styles.balance} ${"heart-beat-animation"}`}>
                                         {numberWithCommas(props.balance)} {props.currency}
                                     </div>
                                 </div>
