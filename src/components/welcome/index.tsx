@@ -24,24 +24,16 @@ export default function Welcome(props: Props) {
     };
 
     return (
-        <div className={Styles["page-bg"]}>
-            <div className={HeaderStyles["header"]}>
-                <div className="game-container">
-                    <div className={Styles["logo"]}>
-                        <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
-                    </div>
-                </div>
-            </div>
-            <div className={`game-container ${Styles["bg"]}`}>
-                <div className={Styles["curve"]}>
-                    <div className={Styles["page-container"]}>
-                        <div
-                            className={Styles["wellcome"]}
-                            dangerouslySetInnerHTML={{ __html: t("welcomeMsg").replace("{0}", `<b>${props.userInfo?.name}</b>`) }}
-                        ></div>
-                    </div>
-                </div>
+        <div className={Styles["wrapper"]}>
+            <div className={Styles["page-bg"]}>
                 <div className={Styles["page-container"]}>
+                    <a className={Styles["logo"]}>
+                        <img src={`/static/images/logo-custom-saba.svg`} className={Styles["img-logo"]} alt="logo" />
+                    </a>
+                    <div
+                        className={Styles["wellcome"]}
+                        dangerouslySetInnerHTML={{ __html: t("welcomeMsg").replace("{0}", `<b>${props.userInfo?.name}</b>`) }}
+                    ></div>
                     <div className={Styles["profile-picture"]}>
                         <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
                     </div>
@@ -54,7 +46,7 @@ export default function Welcome(props: Props) {
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>
-                                <div>
+                                <div className={Styles["radio-group"]}>
                                     <input
                                         id="theme-light"
                                         type="radio"
@@ -73,7 +65,7 @@ export default function Welcome(props: Props) {
                                     <span className={Styles["line1"]}></span>
                                     <span className={Styles["line2"]}></span>
                                 </div>
-                                <div>
+                                <div className={Styles["radio-group"]}>
                                     <input
                                         id="theme-dark"
                                         type="radio"

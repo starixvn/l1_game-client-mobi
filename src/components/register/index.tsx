@@ -109,23 +109,15 @@ export default function Register(props: Props) {
     };
 
     return (
-        <div className={Styles["page-bg"]}>
-            <div className={HeaderStyles["header"]}>
-                <div className="game-container">
+        <div className={Styles["wrapper"]}>
+            <div className={Styles["page-bg"]}>
+                <div className={Styles["page-container"]}>
                     <div className={Styles["logo"]}>
                         <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                     </div>
-                </div>
-            </div>
-            <div className={`game-container ${Styles["bg"]}`}>
-                <div className={Styles["curve"]}>
-                    <div className={Styles["page-container"]}>
-                        <h1 className={Styles["wellcome"]}>{t("register:registerTitle1")}</h1>
-                        <div> {t("register:registerTitle2")}</div>
-                    </div>
-                </div>
 
-                <div className={Styles["page-container"]}>
+                    <h1 className={Styles["wellcome"]}>{t("register:registerTitle1")}</h1>
+                    <div> {t("register:registerTitle2")}</div>
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]}>

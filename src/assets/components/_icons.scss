@@ -14,6 +14,10 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-check:before {
+    content: "\e918";
+}
+
 .icon-moon:before {
     content: "\e90b";
     color: #f3f3f3;

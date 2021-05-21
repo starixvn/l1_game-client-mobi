@@ -1,17 +1,11 @@
 @import "../chip/chip.module.scss";
 
 [data-theme="light"] .bet-settings {
-    --quickbet-tooltip-background: #fff1b2;
-    --quickbet-tooltip-border: transparent;
-    --quickbet-tooltip-color: #6b6961;
     --bet-settings-background: rgba(16, 24, 34, 0.75);
     --bet-settings-border: transparent;
 }
 
 [data-theme="dark"] .bet-settings {
-    --quickbet-tooltip-background: #45627e;
-    --quickbet-tooltip-border: #5280ae;
-    --quickbet-tooltip-color: #fff;
     --bet-settings-background: rgba(12, 25, 35, 0.95);
     --bet-settings-border: #000;
 }
@@ -276,8 +270,8 @@
     border-radius: 0.4rem;
     border: 0.1rem solid var(--quickbet-tooltip-border);
     box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
-    background-color: var(--quickbet-tooltip-background);
-    color: var(--quickbet-tooltip-color);
+    background-color: #fff1b2;
+    color: #6b6961;
 
     @media (min-width: 768px) {
         position: absolute;
@@ -291,7 +285,7 @@
         bottom: -1.6rem;
         left: 1.6rem;
         border: 8px solid;
-        border-color: var(--quickbet-tooltip-background) transparent transparent transparent;
+        border-color: #fff1b2 transparent transparent transparent;
     }
 
     .action {

@@ -22,10 +22,6 @@
     --icon-remove-color: #1a2430;
     --gallery-popup-background: #203040;
     --gallery-popup-border: #2c3e50;
-
-}
-.page-bg {
-    position: relative;
 }
 
 .curve {
@@ -54,12 +50,6 @@
 }
 
 .profile-picture {
-    top: -10.5rem;
-
-    @media (min-width: 768px) {
-        top: -15.5rem;
-    }
-
     .chose-avatar {
         display: flex;
         align-items: center;
@@ -93,11 +83,6 @@
 
 .login-form {
     position: relative;
-    margin-top: 5rem;
-
-    @media (min-width: 768px) {
-        margin-top: 8rem;
-    }
 
     .user-box {
         position: relative;
@@ -178,12 +163,12 @@
     background: var(--gallery-popup-background);
     border: 0.1rem solid var(--gallery-popup-border);
     border-radius: 0.5rem;
-    box-shadow: 0 0 3.6rem rgb(0 0 0 / 25%);
+    box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
 
     @media (min-width: 768px) {
         position: absolute;
         left: 50%;
-        top: -45%;
+        top: 25%;
         min-width: 37.3rem;
         transform: translate(-50%, 0);
     }
@@ -276,7 +261,7 @@
     width: 93%;
     left: 50%;
     transform: translate(-50%, 0);
-    background-color: #FFDEDE;
+    background-color: #ffdede;
     min-height: 13.2rem;
     z-index: 2;
     top: -32%;
@@ -287,36 +272,35 @@
     }
 
     @media (max-width: 350px) {
-        top: -45%
+        top: -45%;
     }
 
     @media (max-width: 320px) {
-        top: -50%
+        top: -50%;
     }
 
     .icon-close-hint {
         position: absolute;
         right: 1rem;
         top: 1rem;
-        background-color: #F9B8B8;
+        background-color: #f9b8b8;
 
         &:before {
-            color: #CE3A3A;
+            color: #ce3a3a;
         }
     }
 
     .note {
-        color: #B11818;
+        color: #b11818;
         font-size: 1.6rem;
         line-height: 3rem;
 
-        >li {
-            margin-bottom: .5rem;
+        > li {
+            margin-bottom: 0.5rem;
 
             &:before {
                 content: ". ";
             }
         }
     }
-
 }
