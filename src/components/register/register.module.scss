@@ -24,27 +24,14 @@
     --gallery-popup-border: #2c3e50;
 }
 
-.curve {
-    height: 19rem;
-
-    @media (min-width: 768px) {
-        height: 22.6rem;
-    }
-
-    &:before {
-        transform: scaleX(1.5);
-    }
-}
-
 .wellcome {
     margin-top: 1.6rem;
-    margin-bottom: 0.5rem;
     font-size: 1.7rem;
     font-weight: 500;
 
     @media (min-width: 768px) {
         margin-bottom: 1rem;
-        line-height: 3rem;
+        margin-top: 0.5rem;
         font-size: 1.8rem;
     }
 }
@@ -55,6 +42,7 @@
     @media (min-width: 768px) {
         margin: 3rem auto 2.2rem;
     }
+
     .chose-avatar {
         display: flex;
         align-items: center;
@@ -140,7 +128,11 @@
 }
 
 .theme-container {
-    padding-top: 3.2rem;
+    padding-top: 2.2rem;
+
+    @media (min-width: 768px) {
+        padding-top: 3.2rem;
+    }
 }
 
 .register-wrapper-input {
