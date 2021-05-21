@@ -1,15 +1,13 @@
 import React, { useEffect, useRef } from "react";
-import { useRouter } from "next/router";
-import { locales } from "../../common/constants";
+import { isMobileOnly } from "react-device-detect";
 import lottie from "lottie-web";
 import Styles from "./splash-screen.module.scss";
-import * as animationData from "./logo-animation.json";
+import * as animationDesktop from "./anim-file/anim-desktop.json";
+import * as animationMobile from "./anim-file/anim-mobile.json";
 
 export default function SplashScreen() {
     const wrapperRefLogo = useRef<HTMLDivElement>(null);
-    const router = useRouter();
-    const { locale } = router;
-
+    const animRun = isMobileOnly ? animationMobile : animationDesktop;
     useEffect(() => {
         if (wrapperRefLogo.current) {
             lottie.loadAnimation({
@@ -17,7 +15,7 @@ export default function SplashScreen() {
                 renderer: "svg",
                 loop: true,
                 autoplay: true,
-                animationData: animationData,
+                animationData: animRun,
             });
         }
     }, [wrapperRefLogo]);
