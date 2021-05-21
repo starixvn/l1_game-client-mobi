@@ -1,8 +1,6 @@
 .pt-perspective {
     width: 100vw;
     height: 100vh;
-    perspective: 1200px;
-    transform-style: preserve-3d;
 }
 
 .pt-page {
@@ -11,9 +9,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    visibility: hidden;
     backface-visibility: hidden;
-    transform: translate3d(0, 0, 0);
 }
 
 .pt-page-current {
@@ -40,9 +36,10 @@
 }
 
 @keyframes rotatePushLeft {
-    from {
+    30% {
+        opacity: 0;
     }
-    to {
+    100% {
         opacity: 0;
         -webkit-transform: rotateY(90deg);
         transform: rotateY(90deg);
