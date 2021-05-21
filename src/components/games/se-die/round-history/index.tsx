@@ -1,7 +1,8 @@
 import React from "react";
+
 import { Round } from "../../../../types";
 import { RoundDot } from "../../../shared/round-history/dot";
-import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
+import { checkIsEven, Choices, countRedDot } from "../se-die-helper";
 import { Result, SettlementResult } from "../sedie";
 import Styles from "./mini-round-history.module.scss";
 
@@ -16,11 +17,11 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
             <div className={Styles["tooltip-content"]}>
                 <span className="tooltip-result">{settlementResult.even ? t("even") : t("odd")}</span>
                 <div className={Styles["tooltip-group"]}>
-                    <span className={Styles["dot-even"]}></span>
+                    <span className={Styles["dot-odd"]}></span>
                     <span className={Styles["number"]}>{countRed}</span>
                 </div>
                 <div className={Styles["tooltip-group"]}>
-                    <span className={Styles["dot-odd"]}></span>
+                    <span className={Styles["dot-even"]}></span>
                     <span className={Styles["number"]}>{totalDiceRed - countRed}</span>
                 </div>
             </div>
