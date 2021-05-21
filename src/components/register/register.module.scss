@@ -50,6 +50,11 @@
 }
 
 .profile-picture {
+    margin: 1.2rem auto 1.5rem;
+
+    @media (min-width: 768px) {
+        margin: 3rem auto 2.2rem;
+    }
     .chose-avatar {
         display: flex;
         align-items: center;
