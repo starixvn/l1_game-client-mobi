@@ -2,8 +2,8 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
 import { RoundDot } from "../../../shared/round-history/dot";
+import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
 import { checkIsEven, Choices, MainChoice } from "../se-die-helper";
 import { Props } from "./statistic";
 import Styles from "./statistic.module.scss";
