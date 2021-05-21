@@ -120,28 +120,54 @@ function Home({ isLandscape }) {
             workerRef.current.terminate();
         };
     }, []);
+    const authContextValue = { session, setBalance };
 
-    if (loading) {
-        return <SplashScreen></SplashScreen>;
-    } else {
-        const authContextValue = { session, setBalance };
-        return (
-            <AuthContextProvider value={authContextValue}>
-                {isLandscape && isMobileOnly ? (
-                    <LandscapeMode />
-                ) : (
-                    <Dashboard
-                        balance={balance}
-                        isShowModal={isShowModal}
-                        apiErrorMessage={apiErrorMessage}
-                        setIsShowModal={setIsShowModal}
-                        setApiErrorMessage={setApiErrorMessage}
-                        authorizeInfo={authorizeInfo}
-                    />
+    return (
+        <div id="pt-main" className="pt-perspective">
+            <div className={`pt-page pt-page-1 ${loading ? "pt-page-current" : "pt-page-current pt-page-rotatePushLeft"}`}>
+                <SplashScreen></SplashScreen>;
+            </div>
+            <div className={`pt-page pt-page-2 ${loading ? "" : "pt-page-moveFromRight pt-page-current"}`}>
+                {!loading && (
+                    <AuthContextProvider value={authContextValue}>
+                        {isLandscape && isMobileOnly ? (
+                            <LandscapeMode />
+                        ) : (
+                            <Dashboard
+                                balance={balance}
+                                isShowModal={isShowModal}
+                                apiErrorMessage={apiErrorMessage}
+                                setIsShowModal={setIsShowModal}
+                                setApiErrorMessage={setApiErrorMessage}
+                                authorizeInfo={authorizeInfo}
+                            />
+                        )}
+                    </AuthContextProvider>
                 )}
-            </AuthContextProvider>
-        );
-    }
+            </div>
+        </div>
+    );
+    // if (loading) {
+    //     return <SplashScreen></SplashScreen>;
+    // } else {
+    //     const authContextValue = { session, setBalance };
+    //     return (
+    //         <AuthContextProvider value={authContextValue}>
+    //             {isLandscape && isMobileOnly ? (
+    //                 <LandscapeMode />
+    //             ) : (
+    //                 <Dashboard
+    //                     balance={balance}
+    //                     isShowModal={isShowModal}
+    //                     apiErrorMessage={apiErrorMessage}
+    //                     setIsShowModal={setIsShowModal}
+    //                     setApiErrorMessage={setApiErrorMessage}
+    //                     authorizeInfo={authorizeInfo}
+    //                 />
+    //             )}
+    //         </AuthContextProvider>
+    //     );
+    // }
 }
 
 export const getStaticProps = async ({ locale }) => ({

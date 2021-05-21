@@ -14,7 +14,7 @@
     max-width: calc(100% - 0.8rem);
     height: auto;
     min-width: inherit;
-    margin: 0 0.4rem 0.4rem;
+    margin: 0 0.4rem 0.8rem;
     border: 1px solid var(--game-container-border);
     border-radius: 0.6rem;
     background-color: var(--game-container-background);
@@ -31,6 +31,7 @@
     .game-container {
         flex: 1 1 calc(50% - 0.8rem);
         max-width: calc(50% - 0.8rem);
+        margin-bottom: 0.4rem;
 
         &:last-child {
             margin-right: 0;
