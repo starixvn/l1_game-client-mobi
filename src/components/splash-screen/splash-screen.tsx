@@ -1,29 +1,26 @@
+import React, { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { locales } from "../../common/constants";
+import lottie from "lottie-web";
 import Styles from "./splash-screen.module.scss";
+import * as animationData from "./logo-animation.json";
 
 export default function SplashScreen() {
+    const wrapperRefLogo = useRef<HTMLDivElement>(null);
     const router = useRouter();
     const { locale } = router;
-    return (
-        <div className={Styles.page}>
-            <div className={Styles.logo}>
-                <img src={`/static/images/logo.svg`} className="img-fluid" alt="logo" />
-                <img
-                    src={`/static/images/${locale === locales.vi ? "slogan-vn.svg" : "slogan-en.svg"}`}
-                    className={`img-fluid ${Styles["slogan"]}`}
-                    alt="slogan"
-                />
-            </div>
 
-            {locale === locales.vi ? (
-                <div className={Styles.message}>
-                    <span>Một sản phẩm của</span>
-                    <img className={Styles["logo-bong88"]} src={`/static/images/logo-bong88.svg`} alt="Bong88" />
-                </div>
-            ) : (
-                ""
-            )}
-        </div>
-    );
+    useEffect(() => {
+        if (wrapperRefLogo.current) {
+            lottie.loadAnimation({
+                container: wrapperRefLogo.current,
+                renderer: "svg",
+                loop: true,
+                autoplay: true,
+                animationData: animationData,
+            });
+        }
+    }, [wrapperRefLogo]);
+
+    return <div className={Styles.page} ref={wrapperRefLogo}></div>;
 }
