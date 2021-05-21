@@ -12,9 +12,10 @@ type Props = {
     children: React.ReactNode;
     title: string;
     subTitle?: string;
+    gameName?: string;
 };
 
-const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full }: Props) => {
+const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full, gameName }: Props) => {
     const { t } = useTranslation("common");
     const ref = useRef<HTMLInputElement>(null);
 
@@ -32,8 +33,15 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
                 <div className={Styles["popup-header"]}>
                     <h1 className={Styles["popup-title"]}>{t(title)}</h1>
                     {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
+                    {gameName && <p className={Styles["popup-game-name"]}>{gameName}</p>}
                 </div>
-                <div className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""}`}>{children}</div>
+                <div
+                    className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""} ${
+                        gameName ? Styles["has-gameName"] : ""
+                    }`}
+                >
+                    {children}
+                </div>
             </div>
         </BaseDialog>
     );

@@ -200,7 +200,12 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                             </div>
                             {enabledQuickBet === undefined && isShowTooltip && (
                                 <div className={Styles.tooltip}>
-                                    <div className={Styles.content}>{t("common:oneClickHintMsg")}</div>
+                                    <div
+                                        className={Styles.content}
+                                        dangerouslySetInnerHTML={{
+                                            __html: t("common:oneClickHintMsg").replace("{0}", `<strong>1-Click Bet</strong>`),
+                                        }}
+                                    ></div>
                                     <div className={Styles.action}>
                                         <button className={`btn-grey ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
                                             {t("common:dismiss")}

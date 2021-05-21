@@ -24,9 +24,16 @@
     }
 
     .popup-sub-title {
-        color: va(--popup-sub-title-color);
+        color: var(--popup-sub-title-color);
         font-size: 1.4rem;
         text-align: center;
+    }
+
+    .popup-game-name{
+        color: var(--popup-game-name-color);
+        font-size: 1.6rem;
+        text-align: center;
+        margin-top: .9rem;
     }
 
     .popup-closed-icon {
@@ -51,6 +58,10 @@
 
         &.has-subtitle {
             top: 6rem;
+        }
+
+        &.has-gameName{
+            top: 7.7rem;
         }
     }
 }

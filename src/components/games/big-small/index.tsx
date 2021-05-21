@@ -1,7 +1,7 @@
 import { withTranslation } from "next-i18next";
 import React from "react";
 
-import { CommonResourceKeys } from "../../../common/resources";
+import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
@@ -84,16 +84,28 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderGuide() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
-            <AdvanceModal title={CommonResourceKeys.GUIDE_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal
+                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={() => this.closePopup()}
+            >
                 <BigSmallGuide />
             </AdvanceModal>
         );
     }
 
     renderBetHistory() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
-            <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal
+                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={() => this.closePopup()}
+            >
                 <BigSmallBetHistory />
             </AdvanceModal>
         );

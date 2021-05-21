@@ -24,7 +24,7 @@
     "close": "Đóng",
     "userStakeLevelUpdate": "Hạn mức cược của bạn vừa được cập nhật.",
     "errorPage": "An error has occurred, please contact CSD for details.",
-    "oneClickHintMsg": "1-Click Bet là tính năng cược nhanh, cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn, cược sẽ tự động được hệ thống ghi nhận.",
+    "oneClickHintMsg": "{0} là tính năng cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn.",
     "oneClickTitle": "1-Click Bet",
     "socketConnectFailed" : "Mất kết nối hoặc kết nối không ổn định. Vui lòng kiểm tra và thử lại.",
     "socketReconnect" : "Thử lại",
@@ -35,5 +35,5 @@
     "selectTheme": "Chọn chế độ hiển thị",
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
-    "turnOn": "Bật"
+    "turnOn": "Bật 1-Click Bet"
 }

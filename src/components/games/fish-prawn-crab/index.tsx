@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 
-import { CommonResourceKeys } from "../../../common/resources";
+import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
@@ -84,16 +84,28 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderGuide() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
-            <AdvanceModal title={CommonResourceKeys.GUIDE_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal
+                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={() => this.closePopup()}
+            >
                 <FishPrawnCrabGuide />
             </AdvanceModal>
         );
     }
 
     renderBetHistory() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
-            <AdvanceModal title={CommonResourceKeys.HISTORY_POPUP_TITLE} isOpen={true} onCloseModal={() => this.closePopup()}>
+            <AdvanceModal
+                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={() => this.closePopup()}
+            >
                 <FishPrawnCrabBetHistory />
             </AdvanceModal>
         );
