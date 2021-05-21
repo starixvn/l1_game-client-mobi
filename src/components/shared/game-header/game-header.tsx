@@ -17,7 +17,6 @@ export default function GameHeader() {
     const systemContext = useSystemContext();
     const { roundId, gameState, gameSetting, isCompactMode } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
-    const { firstGameIdRender } = systemContext;
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.noneCompactModeIds);
@@ -53,16 +52,11 @@ export default function GameHeader() {
 
     useEffect(() => {
         if (isMobileOnly) {
-            if (gameId !== firstGameIdRender && gameIdCompactMode.length === 0) {
-                updateCompactMode();
-                if (gameIdCompactMode.length === 0) {
-                    storeLocalStorageItem(localStorageKeys.noneCompactModeIds, [firstGameIdRender]);
-                }
-            } else if (!gameIdCompactMode.includes(gameId)) {
+            if (!gameIdCompactMode.includes(gameId)) {
                 updateCompactMode();
             }
         }
-    }, [firstGameIdRender]);
+    }, []);
 
     return (
         <div className={Styles.header} onClick={onHeaderClick}>

@@ -15,7 +15,6 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
-    const [firstGameIdRender, setFirstGameIdRender] = useState<number>(1);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -71,13 +70,9 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         setEnabledQuickBet(quickBetSetting);
     }, [quickBetSetting]);
 
-    useEffect(() => {
-        setFirstGameIdRender(favoriteGames.concat(unfavoriteGames)[0]);
-    }, []);
-
     return (
         <div className="game-container game-wrapper">
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, firstGameIdRender }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

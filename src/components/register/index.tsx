@@ -9,7 +9,6 @@ import { ModalType } from "../shared/base-dialog/type";
 import { randomInteger } from "../../helpers/number-helper";
 import { Spinner } from "reactstrap";
 import Styles from "./register.module.scss";
-import HeaderStyles from "../header/header.module.scss";
 import { useTheme } from "next-themes";
 import { Themes } from "../../common/constants";
 
