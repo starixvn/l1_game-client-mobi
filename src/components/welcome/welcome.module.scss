@@ -233,13 +233,11 @@
 
     &:checked + label {
         &:before {
-            border-color: #ffb335;
-            background-color: #ffb335;
+            opacity: 0;
         }
 
         &:after {
-            content: "\e918";
-            color: #fff;
+            transform: scale(1);
         }
     }
 }
@@ -257,19 +255,32 @@
         position: absolute;
         width: 2.2rem;
         height: 2.2rem;
+        top: 3rem;
         left: calc(50% - 1.1rem);
         border: 1px solid #c9c9c9;
-        top: 3rem;
         border-radius: 50%;
-        transition: border 140ms linear 0s, background-color 140ms linear 0s;
+        opacity: 1;
+        transition: border 0.1s linear, background-color 0.1s linear, transform 0.1s linear 0.05s;
     }
 
     &:after {
         content: "";
+        display: flex;
+        align-items: center;
+        justify-content: center;
         position: absolute;
-        top: 2.9rem;
-        left: calc(50% - 0.7rem);
+        top: 3rem;
+        left: calc(50% - 1.1rem);
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 50%;
         font-family: "SabaClub" !important;
         font-size: 1rem;
+        content: "\e918";
+        color: #fff;
+        transform: scale(0);
+        border: 1px solid #c9c9c9;
+        background-color: #ffb335;
+        transition: border 0.1s linear, background-color 0.1s linear, transform 0.1s linear;
     }
 }
