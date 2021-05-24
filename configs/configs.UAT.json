@@ -5,7 +5,7 @@
         "path": "/uat"
     },
     "sentry": {
-        "dns": "http://936d6f9d99064ccdab5bece39bc3bc07@10.99.99.187:800/258",
+        "dns": "https://936d6f9d99064ccdab5bece39bc3bc07@sentryuat.sabagame.com/258",
         "environment": "UAT"
     },
     "offeredGames": [2, 22, 3, 1, 4, 7]
