@@ -7,7 +7,7 @@ interface ProxySetting {
 }
 
 interface SentryOptions {
-    dns: string;
+    dsn: string;
     environment: string;
 }
 export default interface AppSettings {
