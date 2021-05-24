@@ -96,9 +96,13 @@
     background: var(--circle-theme-background);
     font-size: 2.3rem;
 
-    .icon-theme:before {
-        color: var(--icon-theme-color);
-        transition: color 0.6s;
+    .icon-theme {
+        transform-origin: 0% 50%;
+        animation: change-theme-animation 0.5s ease;
+        &:before {
+            color: var(--icon-theme-color);
+            transition: color 0.6s;
+        }
     }
 
     &:hover {
@@ -106,6 +110,15 @@
     }
 }
 
+@keyframes change-theme-animation {
+    from {
+        transform: scale(0.9);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
 // .language {
 //     float: right;
 

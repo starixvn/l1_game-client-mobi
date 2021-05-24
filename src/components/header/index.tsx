@@ -63,7 +63,7 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                             {theme !== undefined && (
                                 <div className={Styles["cirle-theme"]} onClick={handleChangeTheme}>
-                                    <span className={`icon-moon ${Styles["icon-theme"]}`}></span>
+                                    <span key={theme} className={`icon-moon ${Styles["icon-theme"]}`}></span>
                                 </div>
                             )}
                         </div>

@@ -7,19 +7,20 @@
 
     &:last-child {
         margin-right: 0;
+        border-radius: 0.2rem;
         border: 1px solid #f38938;
     }
 }
 
-.board-col-line{
+.board-col-line {
     display: flex;
     padding: 0 1rem;
     pointer-events: none;
     justify-content: center;
     align-items: center;
-    border-right: 1px #DCE2F3 solid;
+    border-right: 1px #dce2f3 solid;
     &:last-child {
         border: 1px solid #f38938;
-        padding: .2rem 1rem;
+        padding: 0.2rem 1rem;
     }
 }
