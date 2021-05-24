@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import { AudioCollection } from "../../common/audio";
 
@@ -30,6 +30,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     const [isSliding, setIsSliding] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const authContext = useAuthContext();
+    const tooltipRef = useRef<HTMLDivElement>(null);
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
 
     const { t } = useTranslation("common");
@@ -81,6 +82,19 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
             updateArrowsByChipValue(betValue);
         }
     }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isShowTooltip && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+                setIsShowTooltip(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [tooltipRef]);
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
@@ -161,6 +175,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
     const closeHintTooltip = () => {
         setIsShowTooltip(false);
+        userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, false);
     };
 
     const handleTurnOn = () => {
@@ -200,7 +215,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 <div className={Styles["one-click-bet"]}>1-Click Bet</div>
                             </div>
                             {enabledQuickBet === undefined && isShowTooltip && (
-                                <div className={Styles.tooltip}>
+                                <div ref={tooltipRef} className={Styles.tooltip}>
                                     <div
                                         className={Styles.content}
                                         dangerouslySetInnerHTML={{
