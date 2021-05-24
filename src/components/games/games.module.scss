@@ -2,9 +2,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-bottom: 7rem;
 
     @media print, screen and (min-width: 1280px) {
-        margin: 0 -0.3rem 7rem;
+        margin: 0 -0.3rem;
     }
 }
