@@ -26,13 +26,14 @@
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    
+
     @media (max-width: 767px) {
         background-color: var(--page-background);
-        align-items:initial;
+        align-items: initial;
+        min-height: 67rem;
     }
     @media (max-width: 320px) {
-       height: auto;
+        height: auto;
     }
 }
 
@@ -78,8 +79,6 @@
     width: 100%;
     margin: 0 auto;
     font-size: 1.6rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     line-height: 2.4rem;
 
     @media (min-width: 768px) {

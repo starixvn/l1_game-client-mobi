@@ -121,7 +121,7 @@
         margin-left: 1.2rem;
     }
 
-    .btn-submit {
+.btn-submit {
         width: 100%;
         margin-top: 0.6rem;
     }
@@ -270,7 +270,7 @@
         margin-left: -6px;
         border-width: 6px;
         border-style: solid;
-        border-color: #FFDEDE transparent transparent transparent;
+        border-color: #ffdede transparent transparent transparent;
     }
 
     @media (max-width: 414px) {
@@ -303,9 +303,13 @@
         line-height: 3rem;
         list-style-position: inside;
         list-style-type: disc;
+        margin: 0;
 
         > li {
             margin-bottom: 0.5rem;
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
     }
 }
