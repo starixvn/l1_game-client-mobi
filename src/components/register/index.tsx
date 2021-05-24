@@ -63,6 +63,11 @@ export default function Register(props: Props) {
         return username.length > 14 || username.length < 3 || username.match(regex) === null;
     };
 
+    const onChangeUserName = (event) => {
+        event.preventDefault();
+        updateNameState(event.target.value);
+    }
+
     const clearUserName = () => {
         updateNameState("");
         setIsValidUserName(true);
@@ -123,37 +128,40 @@ export default function Register(props: Props) {
                             <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
                         </div>
                     </div>
-                    {!isValidUserName && (
-                        <div className={Styles["hint-wrapper"]}>
-                            <BaseDialog type={ModalType.Center} isOpen={isOpenGalleryAvatar}>
-                                <div
-                                    className={`icon-close ${Styles["icon-close-hint"]}`}
-                                    onClick={() => {
-                                        setIsValidUserName(true);
-                                    }}
-                                ></div>
-                                <div className={Styles["hint-content"]}>
-                                    <ul className={Styles["note"]}>
-                                        <li>{t("register:rule1")}</li>
-                                        <li>{t("register:rule2")}</li>
-                                        <li>{t("register:rule3")}</li>
-                                    </ul>
-                                </div>
-                            </BaseDialog>
-                        </div>
-                    )}
+
                     <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
+
                         <div className={Styles["user-box"]}>
                             <div className={Styles["register-wrapper-input"]}>
                                 <input
                                     type="text"
                                     className={Styles["custom-form-control"]}
                                     value={name}
-                                    onChange={(e) => updateNameState(e.target.value)}
+                                    onChange={(event) => onChangeUserName(event)}
                                 />
                                 <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
                             </div>
+
+                            {!isValidUserName && (
+                                <div className={Styles["hint-wrapper"]}>
+                                    <BaseDialog type={ModalType.Center} isOpen={isOpenGalleryAvatar}>
+                                        <div
+                                            className={`icon-close ${Styles["icon-close-hint"]}`}
+                                            onClick={() => {
+                                                setIsValidUserName(true);
+                                            }}
+                                        ></div>
+                                        <div className={Styles["hint-content"]}>
+                                            <ul className={Styles["note"]}>
+                                                <li>{t("register:rule1")}</li>
+                                                <li>{t("register:rule2")}</li>
+                                                <li>{t("register:rule3")}</li>
+                                            </ul>
+                                        </div>
+                                    </BaseDialog>
+                                </div>
+                            )}
 
                             <button
                                 className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
