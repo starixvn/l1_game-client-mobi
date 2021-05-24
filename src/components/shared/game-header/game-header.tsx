@@ -19,7 +19,7 @@ export default function GameHeader() {
     const { updateCompactMode } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
-    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.noneCompactModeIds);
+    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds);
     const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
@@ -30,16 +30,16 @@ export default function GameHeader() {
     };
 
     const handleStorageCompactModeIds = () => {
-        const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.noneCompactModeIds) ?? [];
+        const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
         const newGameIdCompactMode = [...gameIdCompactModeOnStorage];
         const gameIndex = newGameIdCompactMode.indexOf(gameId);
-        gameIndex >= 0 && !isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
-        if (isCompactMode && gameIndex < 0) {
+        gameIndex >= 0 && isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
+        if (!isCompactMode && gameIndex < 0) {
             newGameIdCompactMode.push(gameId);
         }
 
         updateGameIdCompactMode(newGameIdCompactMode);
-        storeLocalStorageItem(localStorageKeys.noneCompactModeIds, newGameIdCompactMode);
+        storeLocalStorageItem(localStorageKeys.compactModeIds, newGameIdCompactMode);
     };
 
     const onHeaderClick = (e: React.MouseEvent) => {
@@ -52,7 +52,7 @@ export default function GameHeader() {
 
     useEffect(() => {
         if (isMobileOnly) {
-            if (!gameIdCompactMode.includes(gameId)) {
+            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId)) {
                 updateCompactMode();
             }
         }
