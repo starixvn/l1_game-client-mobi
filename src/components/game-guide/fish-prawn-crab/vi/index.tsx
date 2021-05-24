@@ -17,12 +17,12 @@ const FishPrawnCrabGuideVI: React.FC<GameGuide> = (props) => {
                         xắc (xí ngầu) 6 mặt, mỗi mặt sẽ có một biểu tượng (linh vật) ứng với một cửa trên bàn chơi.
                     </p>
                     <div className="icon-wrapper">
+                        <div className="symbol-size icon-nai"></div>
                         <div className="symbol-size icon-bau"></div>
-                        <div className="symbol-size icon-cua"></div>
-                        <div className="symbol-size icon-tom"></div>
                         <div className="symbol-size icon-ga"></div>
                         <div className="symbol-size icon-ca"></div>
-                        <div className="symbol-size icon-nai"></div>
+                        <div className="symbol-size icon-cua"></div>
+                        <div className="symbol-size icon-tom"></div>
                     </div>
                 </li>
                 <li className="guide-item">

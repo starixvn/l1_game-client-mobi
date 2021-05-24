@@ -18,12 +18,12 @@ const FishPrawnCrabGuideEN: React.FC<GameGuide> = (props) => {
                         Players place bets on which symbols will appear.
                     </p>
                     <div className="icon-wrapper">
+                        <div className="symbol-size icon-nai"></div>
                         <div className="symbol-size icon-bau"></div>
-                        <div className="symbol-size icon-cua"></div>
-                        <div className="symbol-size icon-tom"></div>
                         <div className="symbol-size icon-ga"></div>
                         <div className="symbol-size icon-ca"></div>
-                        <div className="symbol-size icon-nai"></div>
+                        <div className="symbol-size icon-cua"></div>
+                        <div className="symbol-size icon-tom"></div>
                     </div>
                 </li>
                 <li className="guide-item">
