@@ -18,11 +18,11 @@ const ConfirmMessage: React.FC<Props> = ({ closeModal, confirmQuickBet }) => {
                 </div>
                 <div className={Styles.message}>{t("messageConfirmQuickBet")}</div>
                 <div className={Styles["list-button"]}>
-                    <button className={`${Styles["btn-grey"]} ${Styles["btn-cancel"]}`} onClick={() => closeModal()}>
+                    <button className={`${Styles["btn-grey"]} ${Styles["btn"]}`} onClick={() => closeModal()}>
                         {t("cancel")}
                     </button>
-                    <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => confirmQuickBet()}>
-                        {t("ok")}
+                    <button className={`${Styles["btn-orange"]} ${Styles["btn"]}`} onClick={() => confirmQuickBet()}>
+                        {t("turnOn")}
                     </button>
                 </div>
             </div>

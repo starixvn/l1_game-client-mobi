@@ -60,3 +60,13 @@
     right: 1rem;
     top: 1rem;
 }
+
+.btn {
+    min-width: 13.5rem;
+    font-size: 1.6rem;
+    padding: 0 8px;
+
+    @media (min-width: 768px) {
+        min-width: 15.2rem;
+    }
+}
