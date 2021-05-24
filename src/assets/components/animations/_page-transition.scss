@@ -16,16 +16,16 @@
     visibility: visible;
 }
 
-.pt-page-moveFromRight {
-    -webkit-animation: moveFromRight 0.6s ease;
-    animation: moveFromRight 0.6s ease;
+.pt-page-rotatePushLeft {
+    -webkit-animation: rotatePushLeft 0.8s forwards ease;
+    animation: rotatePushLeft 0.8s forwards ease;
 }
 
-.pt-page-rotatePushLeft {
-    -webkit-transform-origin: 0% 50%;
-    transform-origin: 0% 50%;
-    -webkit-animation: rotatePushLeft 0.8s ease;
-    animation: rotatePushLeft 0.8s ease;
+@media (min-device-width: 768px) {
+    .pt-page-moveFromRight {
+        -webkit-animation: moveFromRight 0.6s forwards ease;
+        animation: moveFromRight 0.6s forwards ease;
+    }
 }
 
 @keyframes moveFromRight {
@@ -41,7 +41,7 @@
     }
     100% {
         opacity: 0;
-        -webkit-transform: rotateY(90deg);
-        transform: rotateY(90deg);
+        -webkit-transform: translateX(-102%);
+        transform: translateX(-102%);
     }
 }
