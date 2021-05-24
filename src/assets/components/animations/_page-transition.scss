@@ -17,15 +17,15 @@
 }
 
 .pt-page-moveFromRight {
-    -webkit-animation: moveFromRight 0.6s ease both;
-    animation: moveFromRight 0.6s ease both;
+    -webkit-animation: moveFromRight 0.6s ease;
+    animation: moveFromRight 0.6s ease;
 }
 
 .pt-page-rotatePushLeft {
     -webkit-transform-origin: 0% 50%;
     transform-origin: 0% 50%;
-    -webkit-animation: rotatePushLeft 0.8s both ease;
-    animation: rotatePushLeft 0.8s both ease;
+    -webkit-animation: rotatePushLeft 0.8s all ease;
+    animation: rotatePushLeft 0.8s all ease;
 }
 
 @keyframes moveFromRight {
