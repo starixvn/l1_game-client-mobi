@@ -250,8 +250,8 @@
 
 .hint-wrapper {
     position: absolute;
-    padding: 2rem;
-    padding-right: 4.1rem;
+    padding: 1.2rem;
+    padding-right: 4.2rem;
     background: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 0 3.6rem rgb(0 0 0 / 25%);
@@ -259,9 +259,9 @@
     left: 50%;
     transform: translate(-50%, 0);
     background-color: #ffdede;
-    min-height: 13.2rem;
+    min-height: 10.8rem;
     z-index: 2;
-    top: -146px;
+    top: -132px;
     &::after {
         content: "";
         position: absolute;
@@ -274,15 +274,16 @@
     }
 
     @media (max-width: 414px) {
-        top: -186px;
+        top: -132px;
+        padding-right: 3rem;
     }
 
     @media (max-width: 375px) {
-        top: -206px;
+        top: -171px;
     }
 
     @media (max-width: 320px) {
-        top: -225px;
+        top: -191px;
     }
 
     .icon-close-hint {
@@ -298,15 +299,13 @@
 
     .note {
         color: #b11818;
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         line-height: 3rem;
+        list-style-position: inside;
+        list-style-type: disc;
 
         > li {
             margin-bottom: 0.5rem;
-
-            &:before {
-                content: ". ";
-            }
         }
     }
 }

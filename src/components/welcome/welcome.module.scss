@@ -24,11 +24,15 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    background-color: var(--page-background);
-
-    @media (min-width: 768px) {
-        align-items: center;
-        background-color: transparent;
+    align-items: center;
+    background-color: transparent;
+    
+    @media (max-width: 767px) {
+        background-color: var(--page-background);
+        align-items:initial;
+    }
+    @media (max-width: 320px) {
+       height: auto;
     }
 }
 
