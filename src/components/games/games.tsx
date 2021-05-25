@@ -6,6 +6,8 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
 import { DisplayModeHint } from "../display-mode-hint";
+import { WinningStreak } from "../winning-streak";
+import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
@@ -20,6 +22,13 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
+    const [winningStreakQueue, setWinningStreakQueue] = useState<Array<WinningStreakItem>>([]);
+
+    const addWinningStreak = (streak: WinningStreakItem) => {
+        winningStreakQueue.push(streak);
+
+        setWinningStreakQueue(winningStreakQueue);
+    };
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -88,16 +97,24 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
 
         !showDisplayModeHintStorage && document.addEventListener("scroll", showDisplayModeHint);
+        
+        const interval = setInterval(() => {
+            winningStreakQueue.unshift();
+
+            setWinningStreakQueue(winningStreakQueue);
+        }, 3 * 1000);
 
         return () => {
             document.removeEventListener("scroll", showDisplayModeHint);
+            clearInterval(interval);
         };
     }, []);
 
     return (
         <div className="game-container game-wrapper">
             {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, notifyWinningStreak: addWinningStreak }}>
+                <WinningStreak streakQueue={winningStreakQueue}></WinningStreak>
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

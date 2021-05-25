@@ -595,6 +595,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderBetHistory(): React.ReactElement;
 
+    abstract initWinningStreak(roundHistory: []): Function;
+
     getOddsByChoice(choice: string) {
         const { gameConfigs } = this.state;
         const odds = gameConfigs.odds;
