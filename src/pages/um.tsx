@@ -5,6 +5,7 @@ import { useTranslation } from "next-i18next";
 import * as LocalStorageManager from "../common/local-storage";
 import { convertToGMT8, formatDate } from "../helpers/time-helper";
 import { useRouter } from "next/router";
+import { useTheme } from "next-themes";
 
 const UM = () => {
     const router = useRouter();
@@ -13,6 +14,8 @@ const UM = () => {
     const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
     const [startTime, setStartTime] = useState<string>(null);
     const [endTime, setEndTime] = useState<string>(null);
+    const { theme } = useTheme();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>("um_info");
@@ -21,11 +24,16 @@ const UM = () => {
             setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
             setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
         }
-    }, [process.browser]);
 
+        setIsLoading(false);
+    }, [router.isReady]);
+
+    if (isLoading) {
+        return <></>;
+    }
     return (
         <div className="error-page">
-            <img alt="SessionTimeout" src="/static/images/um-bg.jpg" className="img-fluid" />
+            <img alt="UM" src={`/static/images/um-${theme}.svg`} className="error-background" />
             <p className="um-title">
                 {t("umTitleFirst")} <br /> {t("umTitleSecond")}
             </p>

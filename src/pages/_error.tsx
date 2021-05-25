@@ -1,6 +1,9 @@
 import * as Sentry from "@sentry/node";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
     if (!hasGetInitialPropsRun && err) {
@@ -12,11 +15,22 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
     }
 
     const { t } = useTranslation("common");
+    const router = useRouter();
+    const { theme } = useTheme();
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [router.isReady]);
+
+    if (isLoading) {
+        return <></>;
+    }
 
     return (
         <div>
             <div className="error-page">
-                <img src="/static/images/error.svg" alt="error" className="img-fluid" />
+                <img className="error-background small" src={`/static/images/error-${theme}.svg`} alt="error" />
                 <p className="info">{t("errorPage")}</p>
             </div>
         </div>
