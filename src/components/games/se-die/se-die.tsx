@@ -24,6 +24,10 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         this.state = { ...this.defaultState };
     }
 
+    getMainOptions(): string[] {
+        return ["odd", "even"];
+    }
+
     renderBetOptions() {
         const { gameState, settlementResult } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };

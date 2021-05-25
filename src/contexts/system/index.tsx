@@ -6,7 +6,6 @@ export const SystemContext =
         checkFavorite: Function;
         betValue: number;
         enabledQuickBet: boolean;
-        notifyWinningStreak: Function;
     }>(null);
 
 SystemContext.displayName = "SystemContext";

@@ -41,6 +41,10 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         this.state = { ...this.defaultState };
     }
 
+    getMainOptions(): string[] {
+        return Object.keys(choicesMapper);
+    }
+
     getOddsByChoice(choice: string) {
         const { gameConfigs } = this.state;
         const odds = gameConfigs.odds;

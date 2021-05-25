@@ -27,7 +27,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const addWinningStreak = (streak: WinningStreakItem) => {
         winningStreakQueue.push(streak);
 
-        setWinningStreakQueue(winningStreakQueue);
+        setWinningStreakQueue([...winningStreakQueue]);
     };
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -60,7 +60,10 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
     const getGameComponentById = (gameId: number) => {
         const { gameSettings } = appSettings;
-        const gameProps = gameSettings[gameId];
+        const gameProps = {
+            ...gameSettings[gameId],
+            notifyWinStreak: (winningStreak: WinningStreakItem) => addWinningStreak(winningStreak),
+        };
         switch (gameId) {
             case 2:
             case 22:
@@ -113,7 +116,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     return (
         <div className="game-container game-wrapper">
             {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, notifyWinningStreak: addWinningStreak }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <WinningStreak streakQueue={winningStreakQueue}></WinningStreak>
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />

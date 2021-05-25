@@ -43,6 +43,7 @@ export type GameBaseProps = {
     gameName: string;
     socketInfo: SocketInfo;
     durations: GameDurations;
+    notifyWinStreak: Function;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
@@ -141,4 +142,11 @@ export interface BetLogsBase<Result, SettlementResult, Odd> {
     settlementResult: SettlementResult;
     time: string;
     odds?: Odd;
+}
+
+export interface WinStreakCollectorModel {
+    [key: string]: {
+        streak: number;
+        isStopStreak: boolean;
+    };
 }

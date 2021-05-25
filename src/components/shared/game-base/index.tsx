@@ -33,7 +33,15 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
+import {
+    GameBaseProps,
+    GameBaseState,
+    GameState,
+    PopupType,
+    RebetStorageModel,
+    UserBetChipStorageModal,
+    WinStreakCollectorModel,
+} from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -44,6 +52,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private showWaitingTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
+    private readonly winStreakCollector: WinStreakCollectorModel;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -79,6 +88,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         super(props);
 
         this.messageTransmitter = MessageTransmitter();
+        this.winStreakCollector = this.initWinStreakCollector();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.registerMessageHandler();
@@ -442,6 +452,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const roundId = ![GameState.InRound, GameState.LockingBet].includes(gameState) ? lastRoundId : lastRoundId + 1;
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
+        this.setWinStreakByRoundHistory(roundHistory);
+
         this.setState({
             roundHistory,
             roundId,
@@ -471,6 +483,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.showWaitingTimeout = setTimeout(() => {
             this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone });
+            this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
         this.runGame(durations.wholeRound);
     }
@@ -595,7 +608,57 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderBetHistory(): React.ReactElement;
 
-    abstract initWinningStreak(roundHistory: []): Function;
+    abstract getMainOptions(): string[];
+
+    setWinStreakByRoundHistory(roundHistory) {
+        const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
+        const mainOptions = this.getMainOptions();
+        history.forEach((round) => {
+            mainOptions.forEach((option) => {
+                if (round.settlementResult[option] && !this.winStreakCollector[option].isStopStreak) {
+                    this.winStreakCollector[option].streak += 1;
+                } else {
+                    this.winStreakCollector[option].isStopStreak = true;
+                }
+            });
+        });
+    }
+
+    initWinStreakCollector() {
+        const mainOptions = this.getMainOptions();
+
+        return mainOptions.reduce((result, option) => {
+            result[option] = {
+                streak: 0,
+                isStopStreak: false,
+            };
+
+            return result;
+        }, {});
+    }
+
+    notifyWinStreakByLatestSettlementResult(settlementResult) {
+        const { notifyWinStreak, gameName } = this.props;
+        const mainOptions = this.getMainOptions();
+
+        mainOptions.forEach((option) => {
+            const winStreak = this.winStreakCollector[option];
+
+            if (settlementResult[option]) {
+                winStreak.streak += 1;
+
+                if (winStreak.streak > 3) {
+                    notifyWinStreak({
+                        gameName: gameName,
+                        choice: option,
+                        streak: winStreak.streak,
+                    });
+                }
+            } else {
+                winStreak.streak = 0;
+            }
+        });
+    }
 
     getOddsByChoice(choice: string) {
         const { gameConfigs } = this.state;
