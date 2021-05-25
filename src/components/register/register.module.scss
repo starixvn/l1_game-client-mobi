@@ -121,7 +121,7 @@
         margin-left: 1.2rem;
     }
 
-.btn-submit {
+    .btn-submit {
         width: 100%;
         margin-top: 0.6rem;
     }
@@ -250,40 +250,29 @@
 
 .hint-wrapper {
     position: absolute;
+    left: 50%;
+    bottom: 5.6rem;
+    min-height: 10.8rem;
+    width: 100%;
     padding: 1.2rem;
-    padding-right: 4.2rem;
-    background: #fff;
+    padding-right: 4rem;
     border-radius: 0.5rem;
     box-shadow: 0 0 3.6rem rgb(0 0 0 / 25%);
-    width: 100%;
-    left: 50%;
     transform: translate(-50%, 0);
     background-color: #ffdede;
-    min-height: 10.8rem;
     z-index: 2;
-    top: -132px;
+
     &::after {
         content: "";
         position: absolute;
         top: 100%;
         left: 50%;
-        margin-left: -6px;
-        border-width: 6px;
+        border-width: 0.8rem;
         border-style: solid;
         border-color: #ffdede transparent transparent transparent;
     }
 
     @media (max-width: 414px) {
-        top: -132px;
-        padding-right: 3rem;
-    }
-
-    @media (max-width: 375px) {
-        top: -171px;
-    }
-
-    @media (max-width: 320px) {
-        top: -191px;
     }
 
     .icon-close-hint {
@@ -298,15 +287,16 @@
     }
 
     .note {
+        list-style: disc;
+        margin: 0;
+        padding-left: 1.6rem;
         color: #b11818;
         font-size: 1.4rem;
-        line-height: 3rem;
-        list-style-position: inside;
-        list-style-type: disc;
-        margin: 0;
 
         > li {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem;
+            line-height: 1.8rem;
+
             &:last-child {
                 margin-bottom: 0;
             }
