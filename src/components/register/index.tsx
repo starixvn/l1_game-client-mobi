@@ -40,8 +40,8 @@ export default function Register(props: Props) {
         if (validateUsername(name)) {
             setIsValidUserName(false);
             setNameInValid(t("register:invalidUsername"));
-            return;
         }
+
         const response = await authService.signName(session.ss, session.username, name, avatarId);
         const authorizeResponse = response as AuthorizeResponse;
         if (authorizeResponse && authorizeResponse.authorized) {
@@ -52,8 +52,13 @@ export default function Register(props: Props) {
         }
     };
 
-    const generateName = (event) => {
-        event.preventDefault();
+    const onKeyUp = (event) => {
+        if (event.charCode === 13) {
+            handleSubmit(event);
+        }
+    };
+
+    const generateName = () => {
         setIsValidUserName(true);
         updateNameState(NameGenerator.generateName);
     };
@@ -62,11 +67,6 @@ export default function Register(props: Props) {
         const regex = new RegExp("^[a-zA-Z0-9]+$");
         return username.length > 14 || username.length < 3 || username.match(regex) === null;
     };
-
-    const onChangeUserName = (event) => {
-        event.preventDefault();
-        updateNameState(event.target.value);
-    }
 
     const clearUserName = () => {
         updateNameState("");
@@ -129,7 +129,7 @@ export default function Register(props: Props) {
                         </div>
                     </div>
 
-                    <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
+                    <form className={Styles["login-form"]} onKeyPress={() => onKeyUp(event)}>
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
 
                         <div className={Styles["user-box"]}>
@@ -138,7 +138,7 @@ export default function Register(props: Props) {
                                     type="text"
                                     className={Styles["custom-form-control"]}
                                     value={name}
-                                    onChange={(event) => onChangeUserName(event)}
+                                    onChange={(event) => updateNameState(event.target.value)}
                                 />
                                 <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
                             </div>
@@ -163,17 +163,13 @@ export default function Register(props: Props) {
                                 </div>
                             )}
 
-                            <button
-                                className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
-                                onClick={(event) => generateName(event)}
-                                type="button"
-                            >
+                            <button className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`} onClick={generateName} type="button">
                                 <span className="icon-refresh"></span>
                             </button>
                         </div>
                         {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
-                        <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
+                        <button onClick={() => handleSubmit(event)} className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="button">
                             {t("submit")}
                         </button>
                     </form>
