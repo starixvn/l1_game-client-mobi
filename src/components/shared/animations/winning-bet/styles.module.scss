@@ -11,6 +11,7 @@
 }
 
 .winning-bet {
+    --winning-bet-scale-animation: 1.05;
     @extend %fade-out-up;
     right: 4rem;
     animation-name: winning-animation;
@@ -21,6 +22,10 @@
     letter-spacing: -0.1rem;
     -webkit-text-stroke: 1px var(--accepted-bet-border);
     text-stroke: 1px var(--accepted-bet-border);
+
+    @media (min-width: 768px) {
+        --winning-bet-scale-animation: 1.2;
+    }
 
     .group-light {
         position: absolute;
@@ -64,7 +69,7 @@
     }
 
     100% {
-        transform: translate3d(0, -7rem, 0) scale(1.2);
+        transform: translateY(-7rem) scale(var(--winning-bet-scale-animation));
     }
 }
 
