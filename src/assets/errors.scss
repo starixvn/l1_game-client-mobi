@@ -21,13 +21,14 @@
     justify-content: center;
     flex-direction: column;
     padding: 1rem;
-    line-height: 1.5;
+    line-height: 2.4rem;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.8rem;
     color: var(--error-page-text-color);
     background-color: var(--error-page-background);
 
     @media (min-width: 768px) {
+        line-height: 3.4rem;
         font-size: 2.4rem;
     }
 
@@ -51,7 +52,7 @@
     }
 
     .session-timeout-title {
-        margin: 1rem 0 3rem;
+        margin: 3rem 0 3rem;
         font-weight: 500;
 
         @media (min-width: 768px) {
@@ -62,7 +63,7 @@
     .um-title {
         @extend .session-timeout-title;
         line-height: 1.5;
-        font-size: 2.2rem;
+        font-size: 2rem;
 
         @media (min-width: 768px) {
             font-size: 3rem;
