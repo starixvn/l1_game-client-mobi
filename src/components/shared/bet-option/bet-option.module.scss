@@ -21,7 +21,7 @@
     --bet-option-total-bet-color: #f0f8ff;
     --bet-option-odds-color: #7f8a95;
 
-    --winning-effect-animation-name: blink-animation-compact-mode;
+    --winning-effect-animation-name: blink-animation-dark-theme;
 }
 
 .container {
@@ -155,7 +155,7 @@
     }
 }
 
-@keyframes blink-animation-compact-mode {
+@keyframes blink-animation-dark-theme {
     0%,
     100% {
         background-color: #395877;
