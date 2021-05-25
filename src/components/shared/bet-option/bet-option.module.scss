@@ -8,8 +8,7 @@
     --bet-option-total-bet-color: #2c2f3e;
     --bet-option-odds-color: #a8aeb8;
 
-    --winning-effect-background: #fff;
-    --winning-effect-background-blink: #fff5e3;
+    --winning-effect-animation-name: blink-animation;
 }
 
 [data-theme="dark"] .container {
@@ -22,8 +21,7 @@
     --bet-option-total-bet-color: #f0f8ff;
     --bet-option-odds-color: #7f8a95;
 
-    --winning-effect-background: #1a2430;
-    --winning-effect-background-blink: #395877;
+    --winning-effect-animation-name: blink-animation-compact-mode;
 }
 
 .container {
@@ -104,8 +102,7 @@
     }
 
     &.winning-effect {
-        background-color: var(--winning-effect-background);
-        animation: betChoiceWinningEffect 2s 0.5s infinite forwards;
+        animation: var(--winning-effect-animation-name) 2s 0.5s infinite forwards;
     }
 }
 
@@ -136,25 +133,47 @@
     }
 }
 
-@keyframes betChoiceWinningEffect {
+@keyframes blink-animation {
     0%,
     100% {
-        background-color: var(--winning-effect-background-blink);
+        background-color: #fff5e3;
     }
 
     20%,
     70% {
-        background-color: var(--winning-effect-background);
+        background-color: #fff;
     }
 
     30%,
     60% {
-        background-color: var(--winning-effect-background-blink);
+        background-color: #fff5e3;
     }
 
     40%,
     80% {
-        background-color: var(--winning-effect-background);
+        background-color: #fff;
+    }
+}
+
+@keyframes blink-animation-compact-mode {
+    0%,
+    100% {
+        background-color: #395877;
+    }
+
+    20%,
+    70% {
+        background-color: #1a2430;
+    }
+
+    30%,
+    60% {
+        background-color: #395877;
+    }
+
+    40%,
+    80% {
+        background-color: #1a2430;
     }
 }
 
