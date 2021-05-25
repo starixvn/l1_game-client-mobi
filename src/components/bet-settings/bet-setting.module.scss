@@ -268,7 +268,7 @@
     left: -0.6rem;
     width: 34rem;
     line-height: 2rem;
-    padding: 1.2rem 1.2rem 1.6rem;
+    padding: 1.6rem 2rem 1.6rem;
     border-radius: 0.4rem;
     border: 0.1rem solid var(--quickbet-tooltip-border);
     box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
@@ -295,14 +295,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 2rem;
-        margin-top: 1rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
-
-        @media (min-width: 768px) {
-            padding-left: 3rem;
-            padding-right: 3rem;
-        }
+        margin-top: 1.2rem;
     }
 
     .btn {
