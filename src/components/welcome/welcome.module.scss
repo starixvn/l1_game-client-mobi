@@ -115,6 +115,20 @@
     .avartar {
         width: 100%;
     }
+
+    .icon-user {
+        position: relative;
+        top: 4.6rem;
+        left: -0.1rem;
+        font-size: 8.9rem;
+        line-height: 0;
+
+        @media (min-width: 768px) {
+            left: 0;
+            top: 6.4rem;
+            font-size: 12.3rem;
+        }
+    }
 }
 
 .theme-container {

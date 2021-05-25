@@ -59,7 +59,7 @@ function Home({ isLandscape }) {
                 router.push("/timeout");
             }
 
-            const verifySessionResponse = await authService.verifySession(userSession.ss, userSession.username);
+            const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
             if (verifySessionResponse.isSuccessful) {
                 handleSignInSuccess(userSession);
             } else {
@@ -77,13 +77,14 @@ function Home({ isLandscape }) {
 
         setSession(userSession);
         LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
-        reCheckIn(userSession);
+        reCheckIn();
         setTimeout(() => setLoading(false), 1000);
     }
 
-    function reCheckIn(userSession: SSOResponse) {
+    function reCheckIn() {
         timer.current = setInterval(async () => {
-            const reCheckInResult = await authService.reCheckIn(userSession.ss, userSession.username);
+            const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
+            const reCheckInResult = await authService.reCheckIn(userSession?.ss, userSession?.username);
             if (!reCheckInResult || !reCheckInResult.isSuccessful) {
                 signOut();
                 router.push("/timeout");

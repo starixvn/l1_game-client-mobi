@@ -35,7 +35,11 @@ export default function Welcome(props: Props) {
                         dangerouslySetInnerHTML={{ __html: t("welcomeMsg").replace("{0}", `<b>${props.userInfo?.name}</b>`) }}
                     ></div>
                     <div className={Styles["profile-picture"]}>
-                        <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
+                        {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
+                            <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
+                        ) : (
+                            <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                        )}
                     </div>
 
                     <div className={Styles["theme-container"]}>
