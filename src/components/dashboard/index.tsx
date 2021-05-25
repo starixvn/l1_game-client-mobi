@@ -78,13 +78,14 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     handleRegister(user: User, theme: string) {
-        const { session } = this.context;
+        const { session, setBalance } = this.context;
 
         Object.assign(user, { settings: { theme } });
 
         this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
         this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
         this.setState({ isSignedUp: true, isSignedIn: true, user });
+        setBalance(user?.red);
     }
 
     sendMessage(data: any) {
