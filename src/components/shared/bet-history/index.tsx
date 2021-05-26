@@ -61,7 +61,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
         return (
-            <>
+            <div className={Styles["list-choices"]}>
                 {keysChoices &&
                     keysChoices.map((name, index) => {
                         const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
@@ -75,7 +75,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
                         }
                         return "";
                     })}
-            </>
+            </div>
         );
     }
 
@@ -115,7 +115,7 @@ const checkCondition = (
             return renderDataOnCell(renderResult(rowData), isHighligh);
 
         case OrderRenderCell.choice:
-            return renderDataOnCell(<div className={Styles["list-choices"]}>{renderBet(rowData, translate, odds)}</div>, isHighligh);
+            return renderDataOnCell(renderBet(rowData, translate, odds) ,isHighligh);
 
         case OrderRenderCell.refundOrStake:
             return renderDataOnCell(
@@ -147,6 +147,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [betHistory, setBetHistory] = useState<any>();
     const [heightHistory, setHeightHistory] = useState<number>(0);
+    const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const paddingBottom = 6;
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslation("bethistory");
@@ -219,6 +220,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 .then((res) => {
                     const bets = res.data.history;
                     setBetHistory(bets);
+                    setIsFirstLoad(false);
                     if (page === 1) {
                         setTotalPage(Math.ceil(bets.total / 16));
                     }
@@ -243,7 +245,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container" ref={wrapperRef}>
-            {listBetHistory.length > 1 ? (
+            {isFirstLoad ? <div className={Styles["history-loading"]}><Spinner color="secondary" /></div> :  listBetHistory.length > 1 ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"
@@ -261,6 +263,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
+           
         </div>
     );
 };

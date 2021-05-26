@@ -2,7 +2,9 @@ import React from "react";
 import BetHistoryContainer from "../../../shared/bet-history";
 import { useTranslation } from "next-i18next";
 import { BetLogs } from "./bet-history";
+import { Odd } from "../dragon-tiger";
 import Card from "../../../shared/card";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
@@ -16,9 +18,42 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        const odds = bet.odds ? bet.odds : mainOdds;
+        return (
+            <div className={Styles["list-choice"]}>
+                {keysChoices &&
+                    keysChoices.map((name, index) => {
+                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
+                        if (bet[name] > 0) {
+                            return (
+                                <div key={index} className={classHighLight}>
+                                    {t(name)}
+                                    {odds[name] ? `@${odds[name]}` : ""}
+                                </div>
+                            );
+                        }
+                        return "";
+                    })}
+            </div>
+        );
+    }
+
+    return <></>;
+};
+
 const DragonTigerBetHistory: React.FunctionComponent = () => {
     const { t } = useTranslation("dragontiger");
-    return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
+    return (
+        <BetHistoryContainer
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            translate={t}
+            renderBet={(bet: BetLogs, t: Function, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
+        ></BetHistoryContainer>
+    );
 };
 
 export default DragonTigerBetHistory;
