@@ -16,6 +16,8 @@ import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
+import LandscapeMode from "../../components/landscape-mode";
+import { isMobileOnly } from "react-device-detect";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
@@ -34,6 +36,7 @@ type State = {
     isShowNotice: boolean;
     notice: string;
     user: User;
+    orientation: string;
 };
 
 const LanguageMapper = {
@@ -41,6 +44,7 @@ const LanguageMapper = {
     vi: "vi-VN",
 };
 
+const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.Component<Props, State> {
     authService: Auth = null;
     userSettingsService: UserSettings = null;
@@ -55,6 +59,7 @@ class Dashboard extends React.Component<Props, State> {
             isShowNotice: true,
             isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
             notice: "",
+            orientation: "",
         };
 
         this.handleRegister = this.handleRegister.bind(this);
@@ -62,8 +67,21 @@ class Dashboard extends React.Component<Props, State> {
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.forceReload = this.forceReload.bind(this);
+        this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
+    }
+
+    doOnOrientationChange() {
+        switch (window.orientation) {
+            case -90:
+            case 90:
+                this.setState({ orientation: "landscape" });
+                break;
+            default:
+                this.setState({ orientation: "portrait" });
+                break;
+        }
     }
 
     async componentDidMount() {
@@ -71,10 +89,13 @@ class Dashboard extends React.Component<Props, State> {
         this.mainSocket = this.connectMainSocket();
 
         authorizeInfo.authorized ? this.setState({ user: authorizeInfo.user, isSignedUp: true }) : this.setState({ isSignedUp: false });
+        window.addEventListener("orientationchange", this.doOnOrientationChange);
+        this.doOnOrientationChange();
     }
 
     componentWillUnmount() {
         this.mainSocket.close();
+        window.removeEventListener('orientationchange', this.doOnOrientationChange);
     }
 
     handleRegister(user: User, theme: string) {
@@ -238,9 +259,13 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     render() {
-        const { isSignedUp, isSignedIn } = this.state;
+        const { isSignedUp, isSignedIn, orientation } = this.state;
 
-        return this.getRenderComponent(isSignedUp, isSignedIn);
+        return orientation === orientationType.landscape && isMobileOnly ? (
+            <LandscapeMode />
+        ) : (
+            this.getRenderComponent(isSignedUp, isSignedIn)
+        );
     }
 }
 

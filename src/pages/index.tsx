@@ -2,13 +2,11 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { isMobileOnly, withOrientationChange } from "react-device-detect";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
-import LandscapeMode from "../components/landscape-mode";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
@@ -19,7 +17,7 @@ export const signOut = () => {
     LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
 };
 
-function Home({ isLandscape }) {
+function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
@@ -129,18 +127,14 @@ function Home({ isLandscape }) {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
-                {isLandscape && isMobileOnly ? (
-                    <LandscapeMode />
-                ) : (
-                    <Dashboard
-                        balance={balance}
-                        isShowModal={isShowModal}
-                        apiErrorMessage={apiErrorMessage}
-                        setIsShowModal={setIsShowModal}
-                        setApiErrorMessage={setApiErrorMessage}
-                        authorizeInfo={authorizeInfo}
-                    />
-                )}
+                <Dashboard
+                    balance={balance}
+                    isShowModal={isShowModal}
+                    apiErrorMessage={apiErrorMessage}
+                    setIsShowModal={setIsShowModal}
+                    setApiErrorMessage={setApiErrorMessage}
+                    authorizeInfo={authorizeInfo}
+                />
             </AuthContextProvider>
         );
     }
@@ -162,4 +156,4 @@ export const getStaticProps = async ({ locale }) => ({
     },
 });
 
-export default withOrientationChange(Home);
+export default Home;
