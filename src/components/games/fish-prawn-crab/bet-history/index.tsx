@@ -5,6 +5,7 @@ import { BetLogs } from "./bet-history";
 import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
 import { ChoiceIconHistory } from "../choice-icon";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
@@ -48,7 +49,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
             countsAppearDice[+value] = (countsAppearDice[+value] || 0) + 1;
         });
         return (
-            <>
+            <div className={Styles["list-choice"]}>
                 {keysChoices.map((choice, index) => {
                     const classHighLight = bet.settlementResult[choice] ? "font-weight-medium" : "";
                     if (bet[choice] > 0) {
@@ -61,7 +62,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
                     }
                     return "";
                 })}
-            </>
+            </div>
         );
     }
 
