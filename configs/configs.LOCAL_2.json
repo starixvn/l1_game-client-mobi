@@ -1,0 +1,12 @@
+{
+    "proxy": {
+        "ssl": false,
+        "uri": "haproxy.lumigame.com:7002",
+        "path": ""
+    },
+    "sentry": {
+        "dsn": "https://c8f93631be824a14b9f114f53e3a2bfc@sentry.lumigame.com/3",
+        "environment": "LOCAL_2"
+    },
+    "offeredGames": [2, 22, 3, 1, 4, 7]
+}
