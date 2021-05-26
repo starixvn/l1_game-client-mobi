@@ -3,7 +3,9 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { UMInfo } from "sc-user-service-client/dist/settings";
 
+import * as LocalStorageManager from "../common/local-storage";
 import { convertToGMT8, formatDate } from "../helpers/time-helper";
 import { UserClientCommunication } from "../services";
 
@@ -12,10 +14,19 @@ function UM({ umInfo }) {
     const { locale } = router;
     const { t } = useTranslation("um");
     const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
+    const [startTime, setStartTime] = useState<string>(null);
+    const [endTime, setEndTime] = useState<string>(null);
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        const um = umInfo ?? LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
+
+        if (um) {
+            setStartTime(formatDate(convertToGMT8(new Date(um.start)), template));
+            setEndTime(formatDate(convertToGMT8(new Date(um.end)), template));
+        }
+
         setIsLoading(false);
     }, [router.isReady]);
 
@@ -28,12 +39,7 @@ function UM({ umInfo }) {
             <p className="um-title">
                 {t("umTitleFirst")} <br /> {t("umTitleSecond")}
             </p>
-            <p className="highlight">
-                {t("umContent")
-                    .toString()
-                    .replace("{0}", formatDate(convertToGMT8(new Date(umInfo.start)), template))
-                    .replace("{1}", formatDate(convertToGMT8(new Date(umInfo.end)), template))}
-            </p>
+            <p className="highlight">{t("umContent").toString().replace("{0}", startTime).replace("{1}", endTime)}</p>
             <p>{t("umNotice")}</p>
         </div>
     );
