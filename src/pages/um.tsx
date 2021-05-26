@@ -39,7 +39,7 @@ function UM({ umInfo }) {
     );
 }
 
-export async function getStaticProps({ locale }) {
+export async function getServerSideProps({ locale }) {
     const settingsService = UserClientCommunication.getUserClientInstance().settings;
     const settings = await settingsService.getSettings();
 
