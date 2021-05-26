@@ -40,6 +40,7 @@ export default function Register(props: Props) {
         if (validateUsername(name)) {
             setIsValidUserName(false);
             setNameInValid(t("register:invalidUsername"));
+            return;
         }
 
         const response = await authService.signName(session.ss, session.username, name, avatarId);
@@ -49,12 +50,6 @@ export default function Register(props: Props) {
         } else {
             setNameInValid((response as Response).message.toString());
             setIsValidUserName(false);
-        }
-    };
-
-    const onKeyUp = (event) => {
-        if (event.charCode === 13) {
-            handleSubmit(event);
         }
     };
 
@@ -129,12 +124,13 @@ export default function Register(props: Props) {
                         </div>
                     </div>
 
-                    <form className={Styles["login-form"]} onKeyPress={() => onKeyUp(event)}>
+                    <form className={Styles["login-form"]} onSubmit={handleSubmit} action="/">
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
 
                         <div className={Styles["user-box"]}>
                             <div className={Styles["register-wrapper-input"]}>
                                 <input
+                                    id="user-name"
                                     type="text"
                                     className={Styles["custom-form-control"]}
                                     value={name}
@@ -169,7 +165,11 @@ export default function Register(props: Props) {
                         </div>
                         {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
-                        <button onClick={() => handleSubmit(event)} className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="button">
+                        <button
+                            onClick={() => handleSubmit(event)}
+                            className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}
+                            type="submit"
+                        >
                             {t("submit")}
                         </button>
                     </form>
