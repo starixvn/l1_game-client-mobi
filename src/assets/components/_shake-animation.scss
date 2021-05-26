@@ -20,7 +20,7 @@
     0%,
     50%,
     100% {
-        transform: translate(0) rotateX(0) scale(var(--plate-set-scale));
+        transform: translate(0) rotate(0) scale(var(--plate-set-scale));
     }
     10%,
     15% {
@@ -30,22 +30,22 @@
     35%,
     40%,
     60% {
-        transform: translate(-0.5rem, -0.5rem) rotateX(10deg) scale(var(--plate-set-scale));
+        transform: translate(-0.5rem, -0.5rem) rotate(10deg) scale(var(--plate-set-scale));
     }
     65%,
     85%,
     90% {
-        transform: translate(1rem, -0.5rem) rotateX(5deg) scale(var(--plate-set-scale));
+        transform: translate(1rem, -0.5rem) rotate(5deg) scale(var(--plate-set-scale));
     }
     13%,
     37%,
     63%,
     87% {
-        transform: translate(-0.5rem, -1rem) rotateX(15deg) scale(var(--plate-set-scale));
+        transform: translate(-0.5rem, -1rem) rotate(15deg) scale(var(--plate-set-scale));
     }
     25%,
     75% {
-        transform: translate(0) rotateX(0) scale(var(--plate-set-scale));
+        transform: translate(0) rotate(0) scale(var(--plate-set-scale));
     }
 }
 /* Same as frAnimation-sd - duplicate it because ie and safari cannot run the same animation twice in a set*/
@@ -53,7 +53,7 @@
     0%,
     50%,
     100% {
-        transform: translate(0) rotateX(0) scale(var(--plate-set-scale));
+        transform: translate(0) rotate(0) scale(var(--plate-set-scale));
     }
     10%,
     15% {
@@ -63,22 +63,22 @@
     35%,
     40%,
     60% {
-        transform: translate(-0.5rem, -0.5rem) rotateX(10deg) scale(var(--plate-set-scale));
+        transform: translate(-0.5rem, -0.5rem) rotate(10deg) scale(var(--plate-set-scale));
     }
     65%,
     85%,
     90% {
-        transform: translate(1rem, -0.5rem) rotateX(5deg) scale(var(--plate-set-scale));
+        transform: translate(1rem, -0.5rem) rotate(5deg) scale(var(--plate-set-scale));
     }
     13%,
     37%,
     63%,
     87% {
-        transform: translate(-0.5rem, -1rem) rotateX(15deg) scale(var(--plate-set-scale));
+        transform: translate(-0.5rem, -1rem) rotate(15deg) scale(var(--plate-set-scale));
     }
     25%,
     75% {
-        transform: translate(0) rotateX(0) scale(var(--plate-set-scale));
+        transform: translate(0) rotate(0) scale(var(--plate-set-scale));
     }
 }
 
