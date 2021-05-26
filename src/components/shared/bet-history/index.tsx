@@ -115,7 +115,7 @@ const checkCondition = (
             return renderDataOnCell(renderResult(rowData), isHighligh);
 
         case OrderRenderCell.choice:
-            return renderDataOnCell(renderBet(rowData, translate, odds) ,isHighligh);
+            return renderDataOnCell(renderBet(rowData, translate, odds), isHighligh);
 
         case OrderRenderCell.refundOrStake:
             return renderDataOnCell(
@@ -234,18 +234,28 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     }, [page]);
 
     useEffect(() => {
-        if (wrapperRef.current) {
-            setHeightHistory(wrapperRef.current.clientHeight - paddingBottom);
+        function handleResize() {
+            if (wrapperRef.current) {
+                setHeightHistory(wrapperRef.current.clientHeight - paddingBottom);
+            }
         }
+
+        window.addEventListener("resize", handleResize);
+        handleResize();
 
         return () => {
             wrapperRef.current = null;
+            window.removeEventListener("resize", handleResize);
         };
-    }, []);
+    }, [wrapperRef]);
 
     return (
         <div className="table-container" ref={wrapperRef}>
-            {isFirstLoad ? <div className={Styles["history-loading"]}><Spinner color="secondary" /></div> :  listBetHistory.length > 1 ? (
+            {isFirstLoad ? (
+                <div className={Styles["history-loading"]}>
+                    <Spinner color="secondary" />
+                </div>
+            ) : listBetHistory.length > 1 ? (
                 <Table
                     className="table"
                     tableClassName="table text-center"
@@ -263,7 +273,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
-           
         </div>
     );
 };
