@@ -53,6 +53,11 @@ export default function Register(props: Props) {
         }
     };
 
+    const onChangeUserName = (event) => {
+        event.stopPropagation();
+        updateNameState(event.target.value);
+    }
+
     const generateName = () => {
         setIsValidUserName(true);
         updateNameState(NameGenerator.generateName);
@@ -134,7 +139,7 @@ export default function Register(props: Props) {
                                     type="text"
                                     className={Styles["custom-form-control"]}
                                     value={name}
-                                    onChange={(event) => updateNameState(event.target.value)}
+                                    onChange={onChangeUserName}
                                 />
                                 <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
                             </div>
