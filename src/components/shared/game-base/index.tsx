@@ -1,5 +1,6 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
+import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
@@ -126,6 +127,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
+        this.initWinStreakCollector();
         this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
