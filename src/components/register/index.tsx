@@ -35,8 +35,7 @@ export default function Register(props: Props) {
         setTheme(Themes.light);
     }, []);
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleSubmit = async () => {
         if (validateUsername(name)) {
             setIsValidUserName(false);
             setNameInValid(t("register:invalidUsername"));
@@ -50,6 +49,12 @@ export default function Register(props: Props) {
         } else {
             setNameInValid((response as Response).message.toString());
             setIsValidUserName(false);
+        }
+    };
+
+    const onKeyUp = (event) => {
+        if (event.charCode === 13) {
+            handleSubmit();
         }
     };
 
@@ -129,7 +134,7 @@ export default function Register(props: Props) {
                         </div>
                     </div>
 
-                    <form className={Styles["login-form"]} onSubmit={handleSubmit} action="/">
+                    <div className={Styles["login-form"]} onKeyPress={() => onKeyUp(event)}>
                         <label className={Styles["input-title"]}>{t("register:registerName")}</label>
 
                         <div className={Styles["user-box"]}>
@@ -141,7 +146,7 @@ export default function Register(props: Props) {
                                     value={name}
                                     onChange={onChangeUserName}
                                 />
-                                <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
+                                <span className={`icon-close ${Styles["icon-remove"]}`} onClick={clearUserName}></span>
                             </div>
 
                             {!isValidUserName && (
@@ -171,13 +176,13 @@ export default function Register(props: Props) {
                         {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
                         <button
-                            onClick={() => handleSubmit(event)}
+                            onClick={handleSubmit}
                             className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}
-                            type="submit"
+                            type="button"
                         >
                             {t("submit")}
                         </button>
-                    </form>
+                    </div>
                     <div className={Styles["theme-container"]}>
                         <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
                         <div className={Styles["theme-list"]}>
