@@ -145,7 +145,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [totalPage, setTotalPage] = useState<number>(0);
     const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
-    const [betHistory, setBetHistory] = useState<any>();
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const paddingBottom = 6;
@@ -155,6 +154,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const headerObjectName = {
         refund: "refund",
     };
+    const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
     const cellRenderer = ({ columnIndex, rowData }) => {
         return checkCondition(columnIndex, rowData, isRefund, gameConfigs, renderResult, renderBet, translate);
@@ -185,52 +185,49 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return _columns;
     };
 
-    const fetchBetHistory = () => {
+    const fetchBetHistory = async (betHistory) => {
         if (betHistory && betHistory.betLogs.length > 0) {
             const data = betHistory.betLogs;
-            if (page === betHistory.page) {
-                setListBetHistory([...listBetHistory, ...data]);
-                setColumns(createColumns());
-            }
+            setListBetHistory([...listBetHistory, ...data]);
+            setColumns(createColumns());
+            setIsFetchingData(false);
+            setIsInfiniteLoading(false);
         }
     };
 
     const onInfiniteLoad = () => {
         setIsInfiniteLoading(true);
-        if (page + 1 <= totalPage) {
+        if (page + 1 <= totalPage && !isFetchingData) {
             setPage(page + 1);
         }
         setIsInfiniteLoading(false);
     };
 
-    useEffect(() => {
-        fetchBetHistory();
-    }, [betHistory]);
+    const sendPostBetHistory = async () => {
+        setIsFetchingData(true);
+        try {
+            const resp = await axios.post(historyAPI, {
+                session: session.ss,
+                page: page,
+                pageSize: 16,
+                username: session.username,
+            });
+            const bets = resp.data.history;
+            await fetchBetHistory(bets);
+            setIsFirstLoad(false);
+            if (page === 1) {
+                setTotalPage(Math.ceil(bets.total / 16));
+            }
+        } catch (err) {
+            if (err.response.status === 401) {
+                signOut();
+                router.push("/timeout");
+            }
+        }
+    };
 
     useEffect(() => {
-        setIsInfiniteLoading(false);
-        session &&
-            axios
-                .post(historyAPI, {
-                    session: session.ss,
-                    page: page,
-                    pageSize: 16,
-                    username: session.username,
-                })
-                .then((res) => {
-                    const bets = res.data.history;
-                    setBetHistory(bets);
-                    setIsFirstLoad(false);
-                    if (page === 1) {
-                        setTotalPage(Math.ceil(bets.total / 16));
-                    }
-                })
-                .catch((error) => {
-                    if (error.response.status === 401) {
-                        signOut();
-                        router.push("/timeout");
-                    }
-                });
+        sendPostBetHistory();
     }, [page]);
 
     useEffect(() => {
@@ -265,7 +262,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     columns={columns}
                     fillTableWidth={true}
                     noRowsRenderer={() => t("noBetHistory")}
-                    infiniteLoadBeginEdgeOffset={5}
+                    infiniteLoadBeginEdgeOffset={100}
                     isInfiniteLoading={isInfiniteLoading}
                     onInfiniteLoad={onInfiniteLoad}
                     getLoadingSpinner={() => <Spinner color="secondary" />}
