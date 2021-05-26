@@ -19,7 +19,7 @@ export const signOut = () => {
     LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
 };
 
-function Home() {
+function Home({ isLandscape }) {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
@@ -129,7 +129,7 @@ function Home() {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
-                {/* {isLandscape && isMobileOnly ? (
+                {isLandscape && isMobileOnly ? (
                     <LandscapeMode />
                 ) : (
                     <Dashboard
@@ -140,15 +140,7 @@ function Home() {
                         setApiErrorMessage={setApiErrorMessage}
                         authorizeInfo={authorizeInfo}
                     />
-                )} */}
-                 <Dashboard
-                        balance={balance}
-                        isShowModal={isShowModal}
-                        apiErrorMessage={apiErrorMessage}
-                        setIsShowModal={setIsShowModal}
-                        setApiErrorMessage={setApiErrorMessage}
-                        authorizeInfo={authorizeInfo}
-                    />
+                )}
             </AuthContextProvider>
         );
     }
@@ -170,4 +162,4 @@ export const getStaticProps = async ({ locale }) => ({
     },
 });
 
-export default (Home);
+export default withOrientationChange(Home);
