@@ -35,5 +35,6 @@
     "selectTheme": "Chọn giao diện",
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
-    "turnOn": "Bật 1-Click Bet"
+    "turnOn": "Bật 1-Click Bet",
+    "compactModeHint": "This is compact mode hint !!!"
 }

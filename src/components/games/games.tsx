@@ -9,12 +9,17 @@ import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
+import { isMobileOnly } from "react-device-detect";
+import { CompactModeHint } from "../compact-mode-hint";
+
+const compactModeHintStorageKey = localStorageKeys.compactModeHint;
 
 export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
+    const [isShowCompactModeHint, setIsShowCompactModeHint] = useState<boolean>(!getLocalStorageItem<boolean>(compactModeHintStorageKey));
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -72,6 +77,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
     return (
         <div className="game-container game-wrapper">
+            {!isMobileOnly && isShowCompactModeHint && <CompactModeHint onCloseHint={() => setIsShowCompactModeHint(false)} />}
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
                 <div className={styles["game-list"]}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />

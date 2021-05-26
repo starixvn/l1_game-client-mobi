@@ -1,0 +1,18 @@
+.compact-mode-hint-container {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+}
+
+.compact-mode-hint-wrapper {
+    line-height: 2rem;
+    padding: 1.6rem 2rem 1.6rem;
+    border-radius: 0.4rem;
+    border: 0.1rem solid var(--quickbet-tooltip-border);
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
+    background-color: #fff1b2;
+    color: #6b6961;
+    width: fit-content;
+    margin: auto;
+}
