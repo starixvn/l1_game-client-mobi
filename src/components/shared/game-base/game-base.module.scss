@@ -29,7 +29,7 @@
     width: 100%;
     height: 3.6rem;
     padding: 0.7rem 0.5rem;
-    border-bottom: 0.1rem solid var(--border-color);
+    border-radius: 0 0 0.6rem 0.6rem;
     cursor: auto;
 }
 
@@ -40,7 +40,7 @@
     padding: 0.5rem 0.8rem;
     background-color: var(--statistic-background);
     box-shadow: 0 1.5rem 1rem -1.5rem #bebfc1;
-    border-top: 0.1rem solid var(--border-color);
+    border-top: 0.2rem solid var(--border-color);
     font-size: 1.2rem;
     cursor: auto;
 
