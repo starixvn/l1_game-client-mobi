@@ -7,7 +7,7 @@ export const localStorageKeys = {
     userBetChips: buildLocalStorageKey("user-bet-chips"),
     loginStatus: buildLocalStorageKey("login-status"),
     compactModeIds: buildLocalStorageKey("compact-mode-ids"),
-    compactModeHint: buildLocalStorageKey("compact-mode-hint"),
+    displayModeHint: buildLocalStorageKey("display-mode-hint"),
 };
 
 export function removeLocalStorageItem(key: string) {

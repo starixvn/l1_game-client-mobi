@@ -36,5 +36,7 @@
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
     "turnOn": "Bật 1-Click Bet",
-    "compactModeHint": "This is compact mode hint !!!"
+    "displayModeHintTitle": "Chạm để thay đổi chế độ hiển thị.",
+    "displayModeHint": "Đầy đủ - Rút gọn",
+    "confirmDisplayModeHint": "Ok"
 }

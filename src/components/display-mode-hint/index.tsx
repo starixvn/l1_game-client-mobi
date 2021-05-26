@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
-import styles from "./compact-mode-hint.module.scss";
+import styles from "./display-mode-hint.module.scss";
 
-const compactModeHintStorageKey = localStorageKeys.compactModeHint;
+const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 
-export const CompactModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHint }) => {
+export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHint }) => {
     const { t } = useTranslation("common");
     const hintRef = useRef<HTMLDivElement>(null);
 
     const handleDismissHint = () => {
         onCloseHint();
-        storeLocalStorageItem(compactModeHintStorageKey, true);
+        storeLocalStorageItem(displayModeHintStorageKey, true);
     };
 
     useEffect(() => {
@@ -28,12 +28,13 @@ export const CompactModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
     }, [hintRef]);
 
     return (
-        <div className={styles["compact-mode-hint-container"]}>
-            <div ref={hintRef} className={styles["compact-mode-hint-wrapper"]}>
-                <div className="content">{t("compactModeHint")}</div>
-                <div className="action">
-                    <button className={`btn-grey ${styles["btn-dismiss"]}`} onClick={() => handleDismissHint()}>
-                        {t("dismiss")}
+        <div className={styles["display-mode-hint-container"]}>
+            <div ref={hintRef} className={styles["display-mode-hint-wrapper"]}>
+                <p className={styles.title}>{t("displayModeHintTitle")}</p>
+                <p className={styles.content}>{t("displayModeHint")}</p>
+                <div className={styles.action}>
+                    <button className={`btn-orange ${styles["btn-submit"]}`} onClick={() => handleDismissHint()}>
+                        {t("confirmDisplayModeHint")}
                     </button>
                 </div>
             </div>

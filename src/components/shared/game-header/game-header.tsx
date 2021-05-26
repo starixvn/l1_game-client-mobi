@@ -13,6 +13,8 @@ import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
+const displayModeHintStorageKey = localStorageKeys.displayModeHint;
+
 export default function GameHeader() {
     const systemContext = useSystemContext();
     const { roundId, gameState, gameSetting, isCompactMode } = useGameContext();
@@ -46,6 +48,7 @@ export default function GameHeader() {
         e.stopPropagation();
         if (isMobileOnly) {
             updateCompactMode();
+            storeLocalStorageItem(displayModeHintStorageKey, true);
             handleStorageCompactModeIds();
         }
     };

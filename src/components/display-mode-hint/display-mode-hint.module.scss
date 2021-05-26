@@ -1,0 +1,33 @@
+.display-mode-hint-container {
+    top: 11.8rem;
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+}
+
+.display-mode-hint-wrapper {
+    line-height: 1.6rem;
+    padding: 1.6rem 2rem 1.6rem;
+    border-radius: 0.4rem;
+    border: 0.1rem solid var(--quickbet-tooltip-border);
+    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
+    background-color: #fff1b2;
+    color: #6b6961;
+    width: fit-content;
+    margin: auto;
+    color: #2c2f3e;
+
+    &:before {
+        content: "";
+        position: relative;
+        top: -4rem;
+        right: 6rem;
+        border: 8px solid;
+        border-color: transparent transparent #fff1b2 transparent;
+    }
+}
+
+.btn-submit {
+    width: 11rem;
+}
