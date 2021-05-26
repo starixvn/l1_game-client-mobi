@@ -22,7 +22,8 @@
         max-height: 100%;
         max-width: 100%;
         box-sizing: border-box;
-        z-index: 1;
+        position: relative;
+        z-index: var(--popup-index);
         -webkit-overflow-scrolling: touch;
         overflow: auto;
 
