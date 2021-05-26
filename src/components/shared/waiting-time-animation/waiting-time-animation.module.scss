@@ -27,6 +27,7 @@
     font-weight: 500;
     color: var(--waiting-time-color);
     font-size: 1.8rem;
+    z-index: var(--waiting-time-index);
 
     &.compact-mode {
         min-height: 2.6rem;
