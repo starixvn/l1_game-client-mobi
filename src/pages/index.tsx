@@ -1,9 +1,10 @@
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { isMobileOnly, withOrientationChange } from "react-device-detect";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-import { UMInfo } from "sc-user-service-client/dist/settings";
+
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -11,7 +12,6 @@ import LandscapeMode from "../components/landscape-mode";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
-import { useTranslation } from "next-i18next";
 
 let authorizeInfo: AuthorizeResponse = null;
 
@@ -34,7 +34,6 @@ function Home({ isLandscape }) {
     async function signIn() {
         const settings = await settingsService.getSettings();
         if (settings.isUM) {
-            LocalStorageManager.storeLocalStorageItem<UMInfo>("um_info", settings.umInfo);
             router.push("um");
             return;
         }
@@ -110,6 +109,8 @@ function Home({ isLandscape }) {
         if (router.isReady) {
             signIn();
         }
+
+        return () => clearInterval(timer.current);
     }, [router.isReady]);
 
     const workerRef = useRef(null);

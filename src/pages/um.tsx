@@ -1,30 +1,21 @@
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import React, { useEffect, useState } from "react";
-import { UMInfo } from "sc-user-service-client/dist/settings";
 import { useTranslation } from "next-i18next";
-import * as LocalStorageManager from "../common/local-storage";
-import { convertToGMT8, formatDate } from "../helpers/time-helper";
-import { useRouter } from "next/router";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
-const UM = () => {
+import { convertToGMT8, formatDate } from "../helpers/time-helper";
+import { UserClientCommunication } from "../services";
+
+function UM({ umInfo }) {
     const router = useRouter();
     const { locale } = router;
     const { t } = useTranslation("um");
     const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
-    const [startTime, setStartTime] = useState<string>(null);
-    const [endTime, setEndTime] = useState<string>(null);
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>("um_info");
-
-        if (umInfo) {
-            setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
-            setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
-        }
-
         setIsLoading(false);
     }, [router.isReady]);
 
@@ -37,16 +28,27 @@ const UM = () => {
             <p className="um-title">
                 {t("umTitleFirst")} <br /> {t("umTitleSecond")}
             </p>
-            <p className="highlight">{t("umContent").toString().replace("{0}", startTime).replace("{1}", endTime)}</p>
+            <p className="highlight">
+                {t("umContent")
+                    .toString()
+                    .replace("{0}", formatDate(convertToGMT8(new Date(umInfo.start)), template))
+                    .replace("{1}", formatDate(convertToGMT8(new Date(umInfo.end)), template))}
+            </p>
             <p>{t("umNotice")}</p>
         </div>
     );
-};
+}
 
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...(await serverSideTranslations(locale, ["um"])),
-    },
-});
+export async function getStaticProps({ locale }) {
+    const settingsService = UserClientCommunication.getUserClientInstance().settings;
+    const settings = await settingsService.getSettings();
+
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, ["um"])),
+            umInfo: settings.umInfo,
+        },
+    };
+}
 
 export default UM;

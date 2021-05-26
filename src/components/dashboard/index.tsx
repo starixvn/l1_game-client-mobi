@@ -2,7 +2,6 @@ import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
-import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
@@ -147,12 +146,6 @@ class Dashboard extends React.Component<Props, State> {
         LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
 
         if (umInfo) {
-            LocalStorageManager.storeLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo, {
-                time: umInfo.startTime,
-                start: umInfo.startTime,
-                end: umInfo.endTime,
-                finish: false,
-            });
             router.push("/um");
         } else {
             router.push("/timeout");
