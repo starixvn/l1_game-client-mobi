@@ -36,7 +36,10 @@
 .message {
     line-height: 2.4rem;
     margin-bottom: 2.8rem;
-    max-width: 40rem;
+
+    @media (min-width: 992px) {
+        max-width: 40rem;
+    }
 }
 
 .popup-header {
