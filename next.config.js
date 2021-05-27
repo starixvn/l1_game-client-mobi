@@ -11,8 +11,6 @@ const appSettings = {
 
 module.exports = {
     i18n,
-
-    productionBrowserSourceMaps: true,
     future: {
         webpack5: true,
     },
