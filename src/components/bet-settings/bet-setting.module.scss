@@ -262,33 +262,20 @@
     position: relative;
 }
 
-.tooltip {
-    position: absolute;
+.hint-one-click-bet {
     bottom: 5.5rem;
     left: -0.6rem;
     width: 34rem;
-    line-height: 2rem;
-    padding: 1.6rem 2rem 1.6rem;
-    border-radius: 0.4rem;
-    border: 0.1rem solid var(--quickbet-tooltip-border);
-    box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
-    background-color: #fff1b2;
-    color: #6b6961;
     z-index: 1;
 
     @media (min-width: 768px) {
-        position: absolute;
         left: -0.5rem;
         width: 40rem;
     }
 
     &:after {
-        content: "";
-        position: absolute;
         bottom: -1.6rem;
         left: 1.6rem;
-        border: 8px solid;
-        border-color: #fff1b2 transparent transparent transparent;
     }
 
     .action {
