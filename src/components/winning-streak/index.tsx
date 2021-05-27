@@ -17,7 +17,7 @@ const getIconClassName = (gameName: string, choice: string) => {
         return `${styles.dice} ${BauCuaIconMapper[choice]}`;
     }
 
-    return `${styles[choice]}`;
+    return `${styles["dot-" + choice]}`;
 };
 
 export const WinningStreak: React.FC<{ streakQueue: WinningStreakItem[] }> = ({ streakQueue }) => {
