@@ -9,14 +9,11 @@ import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
-import { DisplayModeHint } from "../../display-mode-hint";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
-const DefaultFirstGameId = 2;
 const displayModeHintStorageKey = localStorageKeys.displayModeHint;
-const favoriteGameStorageKey = localStorageKeys.favoriteGames;
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
@@ -25,17 +22,10 @@ export default function GameHeader() {
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds);
-    const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(!getLocalStorageItem<boolean>(displayModeHintStorageKey));
     const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
-    const favoriteGames = getLocalStorageItem<number[]>(favoriteGameStorageKey);
-
-    const isFirstGame = () => {
-        return favoriteGames && favoriteGames.length ? favoriteGames[0] === gameId : gameId === DefaultFirstGameId;
-    };
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
-        e.stopPropagation();
         systemContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
@@ -62,10 +52,6 @@ export default function GameHeader() {
         }
     };
 
-    const handleCloseHint = (e: React.MouseEvent) => {
-        setIsShowDisplayModeHint(false);
-    };
-
     useEffect(() => {
         if (isMobileOnly) {
             if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId)) {
@@ -76,9 +62,6 @@ export default function GameHeader() {
 
     return (
         <Fragment>
-            {isMobileOnly && !getLocalStorageItem<boolean>(displayModeHintStorageKey) && isShowDisplayModeHint && isFirstGame() && (
-                <DisplayModeHint onCloseHint={handleCloseHint} />
-            )}
             <div className={Styles.header} onClick={onHeaderClick}>
                 <div className={Styles["header-left"]}>
                     <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>

@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
+import { DisplayModeHint } from "../display-mode-hint";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
+const displayModeHintStorageKey = localStorageKeys.displayModeHint;
+
 export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
+    const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -38,6 +43,10 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const orderedGames = favoriteGames.concat(unfavoriteGames);
 
         return orderedGames.map((gameId) => getGameComponentById(gameId));
+    };
+
+    const handleCloseHint = (e: React.MouseEvent) => {
+        setIsShowDisplayModeHint(false);
     };
 
     const getGameComponentById = (gameId: number) => {
@@ -66,14 +75,30 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         updateEnabledQuickBet: setEnabledQuickBet,
     };
 
+    const showDisplayModeHint = () => {
+        const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
+        !showDisplayModeHintStorage && setIsShowDisplayModeHint(true);
+    };
+
     useEffect(() => {
         setEnabledQuickBet(quickBetSetting);
     }, [quickBetSetting]);
 
+    useEffect(() => {
+        const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
+
+        !showDisplayModeHintStorage && document.addEventListener("scroll", showDisplayModeHint);
+
+        return () => {
+            document.removeEventListener("scroll", showDisplayModeHint);
+        };
+    }, []);
+
     return (
         <div className="game-container game-wrapper">
+            {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
-                <div className={styles["game-list"]}>{renderListGames()}</div>
+                <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>
         </div>

@@ -17,7 +17,7 @@ export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
     useEffect(() => {
         function handleClickOutside(event) {
             if (hintRef && hintRef.current && !hintRef.current.contains(event.target)) {
-                onCloseHint();
+                handleDismissHint();
             }
         }
 
@@ -27,14 +27,21 @@ export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
         };
     }, [hintRef]);
 
+    useEffect(() => {
+        const timeOut = setTimeout(() => {
+            handleDismissHint();
+        }, 5 * 1000);
+
+        return () => {
+            clearTimeout(timeOut);
+        };
+    });
+
     return (
         <div ref={hintRef} className={styles["display-mode-hint-wrapper"]}>
-            <span className={`icon-info ${styles["icon-info"]}`}></span>
+            <div className={`icon-info ${styles["icon-info"]}`}></div>
             <div className={styles.content}>{t("displayModeHint")}</div>
-            <span className={`icon-close ${styles["icon-close"]}`}></span>
-            {/* <button className={`btn-orange ${styles["btn"]}`} onClick={() => handleDismissHint()}>
-                {t("confirmDisplayModeHint")}
-            </button> */}
+            <span className={`icon-close ${styles["icon-close"]}`} onClick={() => handleDismissHint()}></span>
         </div>
     );
 };
