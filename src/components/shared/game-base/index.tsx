@@ -70,6 +70,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         playResultAnimation: false,
         displayChips: {},
         isShowBlink: false,
+        isProcessingBet: false,
     };
 
     constructor(props: P) {
@@ -351,6 +352,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     displayChips: {},
                     showWinningBet: false,
                     isShowBlink: false,
+                    isProcessingBet: false,
                 },
             },
             {
