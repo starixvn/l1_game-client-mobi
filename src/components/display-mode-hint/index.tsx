@@ -28,12 +28,13 @@ export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
     }, [hintRef]);
 
     return (
-        <div ref={hintRef} className={`popover-custom bottom ${styles["display-mode-hint-wrapper"]}`}>
-            <p className={styles.content}>{t("displayModeHintTitle")}</p>
-            <p className={styles.highlight}>{t("displayModeHint")}</p>
-            <button className={`btn-orange ${styles["btn"]}`} onClick={() => handleDismissHint()}>
+        <div ref={hintRef} className={styles["display-mode-hint-wrapper"]}>
+            <span className={`icon-info ${styles["icon-info"]}`}></span>
+            <div className={styles.content}>{t("displayModeHint")}</div>
+            <span className={`icon-close ${styles["icon-close"]}`}></span>
+            {/* <button className={`btn-orange ${styles["btn"]}`} onClick={() => handleDismissHint()}>
                 {t("confirmDisplayModeHint")}
-            </button>
+            </button> */}
         </div>
     );
 };
