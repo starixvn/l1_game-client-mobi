@@ -12,7 +12,7 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
-import BigSmallResult from "./big-small-result";
+import BigSmallResult, { BigSmallResultCollage } from "./big-small-result";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
@@ -77,6 +77,11 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderResult() {
         const { result } = this.state;
         return <BigSmallResult result={result}></BigSmallResult>;
+    }
+
+    renderResultCollage() {
+        const { result } = this.state;
+        return <BigSmallResultCollage result={result} />;
     }
 
     renderBoard() {

@@ -157,5 +157,5 @@ export interface WinStreakCollectorModel {
 export enum ModeView {
     full,
     compact,
-    compress,
+    collapse,
 }

@@ -38,6 +38,11 @@
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     cursor: auto;
+
+    .result{
+        position: absolute;
+        top:0;
+    }
 }
 
 .favorite-btn {

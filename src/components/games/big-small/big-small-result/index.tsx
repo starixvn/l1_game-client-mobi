@@ -79,4 +79,23 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
+export const BigSmallResultCollage: React.FC<{ result?: Result }> = ({ result }) => {
+    return (
+        <div className={`${Styles["container"]} ${Styles["show-result"]}`}>
+            <div className="overlay-mask-no-bg">
+                <div className={Styles["animation-container"]}>
+                    <div className={Styles["result-container"]}>
+                        {result &&
+                            Object.values(result).map((value, index) => (
+                                <div key={index} className={Styles[`result-${index + 1}`]}>
+                                    <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                                </div>
+                            ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 export default BigSmallResult;

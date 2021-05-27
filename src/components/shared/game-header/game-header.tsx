@@ -20,7 +20,7 @@ export const getModeViewWhenClick = (modeView: ModeView) => {
             mode = ModeView.compact;
             break;
         case ModeView.compact:
-            mode = ModeView.compress;
+            mode = ModeView.collapse;
             break;
         default:
             break;
@@ -31,8 +31,8 @@ export const getModeViewWhenClick = (modeView: ModeView) => {
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameSetting, modeView, remainingTime } = useGameContext();
-    const { updateModeView } = useGameActionContext();
+    const { roundId, gameSetting, modeView, remainingTime, gameState } = useGameContext();
+    const { updateModeView, renderResultCollage } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
@@ -106,6 +106,11 @@ export default function GameHeader() {
                 <CountdownTimer key={remainingTime} />
                 <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             </div>
+            <CountdownTimer key={gameState} />
+            <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
+            <div className={Styles.result}>
+                {gameState === GameState.DisplayResult && modeView === ModeView.collapse && renderResultCollage()}
+            </div>
         </Fragment>
     );
 }
@@ -154,9 +159,14 @@ const HeaderRight = ({ handleStorageModeViewIds }) => {
     }, [roundId]);
     return (
         <div className={Styles["header-right"]}>
-            <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
-                {t(CommonResourceKeys.REBET)}
-            </button>
+            {modeView !== ModeView.collapse ? (
+                <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
+                    {t(CommonResourceKeys.REBET)}
+                </button>
+            ) : (
+                ""
+            )}
+
             <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
                 <DropdownToggle className={Styles["dropdown-toggle"]}>
                     <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
@@ -189,10 +199,10 @@ const HeaderRight = ({ handleStorageModeViewIds }) => {
                             </div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(ModeView.compress)}
+                                onClick={() => onDropDownItemClick(ModeView.collapse)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_ULTRA_COMPACT)}
-                                {modeView === ModeView.compress && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                {modeView === ModeView.collapse && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                         </div>
                     )}
