@@ -2,6 +2,7 @@
     left: 10%;
     top: 5.6rem;
     width: 25.6rem;
+    text-align: center;
     z-index: var(--bet-setting-index);
 
     &::before {
@@ -9,7 +10,11 @@
         left: 7rem;
     }
 
-    .title {
+    .content {
+        margin-bottom: 0.4rem;
+    }
+
+    .highlight {
         margin-bottom: 0.4rem;
         color: #2c2f3e;
     }

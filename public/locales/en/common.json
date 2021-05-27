@@ -26,8 +26,8 @@
     "errorPage": "An error has occurred, please contact CSD for details.",
     "oneClickHintMsg": "{0} là tính năng cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn.",
     "oneClickTitle": "1-Click Bet",
-    "socketConnectFailed" : "The connection is unstable, please check.",
-    "socketReconnect" : "Reconnect",
+    "socketConnectFailed": "The connection is unstable, please check.",
+    "socketReconnect": "Reconnect",
     "accountIsLocked": "Account has been closed. Your session will expire after 10 seconds, please contact CSD for details.",
     "light": "Light",
     "dark": "Dark",
@@ -38,5 +38,5 @@
     "turnOn": "Turn On 1-Click Bet",
     "displayModeHintTitle": "Chạm để thay đổi chế độ hiển thị.",
     "displayModeHint": "Đầy đủ - Rút gọn",
-    "confirmDisplayModeHint": "Ok"
+    "confirmDisplayModeHint": "OK"
 }

@@ -29,8 +29,8 @@ export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
 
     return (
         <div ref={hintRef} className={`popover-custom bottom ${styles["display-mode-hint-wrapper"]}`}>
-            <p className={styles.title}>{t("displayModeHintTitle")}</p>
-            <p className={styles.content}>{t("displayModeHint")}</p>
+            <p className={styles.content}>{t("displayModeHintTitle")}</p>
+            <p className={styles.highlight}>{t("displayModeHint")}</p>
             <button className={`btn-orange ${styles["btn"]}`} onClick={() => handleDismissHint()}>
                 {t("confirmDisplayModeHint")}
             </button>
