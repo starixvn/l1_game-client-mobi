@@ -72,7 +72,7 @@ export default function GameHeader() {
 
     return (
         <div className={Styles.header} onClick={onHeaderClick}>
-            {isMobileOnly && isShowDisplayModeHint && isFirstGame() && (
+            {isMobileOnly && !getLocalStorageItem<boolean>(displayModeHintStorageKey) && isShowDisplayModeHint && isFirstGame() && (
                 <DisplayModeHint onCloseHint={() => setIsShowDisplayModeHint(false)} />
             )}
             <div className={Styles["header-left"]}>
