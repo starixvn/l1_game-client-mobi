@@ -34,6 +34,7 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
+
 import {
     GameBaseProps,
     GameBaseState,
@@ -42,6 +43,7 @@ import {
     RebetStorageModel,
     UserBetChipStorageModal,
     WinStreakCollectorModel,
+    ModeView,
 } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
@@ -74,7 +76,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
-        isCompactMode: false,
+        modeView: ModeView.full,
         showWaitingTime: false,
         acceptedBetQueue: {},
         showWinningBet: false,
@@ -96,7 +98,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.openPopup = this.openPopup.bind(this);
         this.placeBet = this.placeBet.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
-        this.updateCompactMode = this.updateCompactMode.bind(this);
+        this.updateModeView = this.updateModeView.bind(this);
+        this.finishProcessingBet = this.finishProcessingBet.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
     }
@@ -571,8 +574,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    updateCompactMode(isDisplayFull: boolean) {
-        this.setState({ isCompactMode: isDisplayFull });
+    finishProcessingBet() {
+        this.isProcessingBet = false;
+    }
+
+    updateModeView(mode: ModeView) {
+        this.setState({ modeView: mode });
     }
 
     renderErrorMessage() {
@@ -758,7 +765,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             ownBets,
             gameConfigs,
             userStakeLevel,
-            isCompactMode,
+            modeView,
+            disabledMessage,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -774,7 +782,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameState,
             remainingTime,
             userStakeLevel,
-            isCompactMode,
+            modeView,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -787,7 +795,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             registerMessageHandler: this.messageTransmitter.register,
             unsubscribeMessageHandler: this.messageTransmitter.unsubscribe,
             openPlaceBetModal: this.openPlaceBetModal,
-            updateCompactMode: this.updateCompactMode,
+            updateModeView: this.updateModeView,
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
@@ -797,51 +805,58 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameHeader />
-                    <BetContainer gameState={gameState}>
-                        <div
-                            ref={this.gameContainerRef}
-                            className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""} ${
-                                Styles[this.props.gameName]
-                            }`}
-                        >
-                            {this.renderBetOptions()}
-                        </div>
-
-                        {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                        {this.state.gameState === GameState.DisplayResult && this.renderResult()}
-                        {this.state.showWaitingTime && (
-                            <WaitingTimeAnimation
-                                remainingTime={
-                                    durations.wholeRound -
-                                    durations.placingBets -
-                                    durations.beforeStartRound -
-                                    durations.resultAnimation -
-                                    (durations.balancingBet ?? 0) -
-                                    1
-                                }
-                            />
-                        )}
-                        {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
-                        {this.state.notice && this.renderNotice()}
-                        {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
-                        {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                            <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
-                        ))}
-                    </BetContainer>
-                    <div className={`${Styles["mini-round-history"]} d-flex`}>
-                        {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
-                    </div>
-                    {!isCompactMode && (
+                    {modeView !== ModeView.compress ? (
                         <>
-                            <div className={`${Styles["statistic"]} d-flex`}>
-                                {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                            <BetContainer gameState={gameState}>
+                                <div
+                                    ref={this.gameContainerRef}
+                                    className={`${Styles["bet-options"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""} ${
+                                        Styles[this.props.gameName]
+                                    }`}
+                                >
+                                    {this.renderBetOptions()}
+                                </div>
+
+                                {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
+                                {this.state.gameState === GameState.DisplayResult && this.renderResult()}
+                                {this.state.showWaitingTime && (
+                                    <WaitingTimeAnimation
+                                        remainingTime={
+                                            durations.wholeRound -
+                                            durations.placingBets -
+                                            durations.beforeStartRound -
+                                            durations.resultAnimation -
+                                            (durations.balancingBet ?? 0) -
+                                            1
+                                        }
+                                    />
+                                )}
+                                {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                                {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
+                                {Object.keys(this.state.acceptedBetQueue).map((key) => (
+                                    <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
+                                ))}
+                            </BetContainer>
+                            <div className={`${Styles["mini-round-history"]} d-flex`}>
+                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
                             </div>
-                            <ScoreboardRoundHistory>
-                                {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
-                            </ScoreboardRoundHistory>
+                            {modeView === ModeView.full && (
+                                <>
+                                    <div className={`${Styles["statistic"]} d-flex`}>
+                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                                    </div>
+                                    <ScoreboardRoundHistory>
+                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
+                                    </ScoreboardRoundHistory>
+                                </>
+                            )}
                         </>
+                    ) : (
+                        <></>
                     )}
+
                     {this.renderPopup(displayPopup)}
+                    {this.state.gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );

@@ -2,7 +2,6 @@ import { useTranslation } from "next-i18next";
 import React, { Fragment, useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
-
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
@@ -10,19 +9,34 @@ import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, PopupType, RebetStorageModel } from "../game-base/type";
+import { GameState, PopupType, RebetStorageModel, ModeView } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
 const displayModeHintStorageKey = localStorageKeys.displayModeHint;
+export const getModeViewWhenClick = (modeView: ModeView) => {
+    let mode = ModeView.full;
+    switch (modeView) {
+        case ModeView.full:
+            mode = ModeView.compact;
+            break;
+        case ModeView.compact:
+            mode = ModeView.compress;
+            break;
+        default:
+            break;
+    }
+
+    return mode;
+};
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameSetting, isCompactMode, remainingTime } = useGameContext();
-    const { updateCompactMode } = useGameActionContext();
+    const { roundId, gameSetting, modeView, remainingTime } = useGameContext();
+    const { updateModeView } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
-    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
-    const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
+    const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
+    const [gameIdModeView, updateGameIdModeView] = useState<object[]>(gameIdModeViewOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
@@ -31,32 +45,41 @@ export default function GameHeader() {
         updateFavorite(!isFavorite);
     };
 
-    const handleStorageCompactModeIds = () => {
-        const newGameIdCompactMode = [...gameIdCompactModeOnStorage];
-        const gameIndex = newGameIdCompactMode.indexOf(gameId);
-        gameIndex >= 0 && isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
-        if (!isCompactMode && gameIndex < 0) {
-            newGameIdCompactMode.push(gameId);
+    const handleStorageModeViewIds = (mode: ModeView) => {
+        const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds) ?? [];
+        const newGameIdCompactMode = [...gameIdModeViewOnStorage];
+
+        if (newGameIdCompactMode.some((modeData) => +Object.keys(modeData)[0] === gameId) && newGameIdCompactMode.length > 0) {
+            newGameIdCompactMode.forEach((modeData) => {
+                if (modeData.hasOwnProperty(gameId)) {
+                    modeData[gameId] = mode;
+                }
+            });
+        } else {
+            newGameIdCompactMode.push({ [gameId]: mode });
         }
 
-        updateGameIdCompactMode(newGameIdCompactMode);
-        storeLocalStorageItem(localStorageKeys.compactModeIds, newGameIdCompactMode);
+        updateGameIdModeView(newGameIdCompactMode);
+        storeLocalStorageItem(localStorageKeys.modeViewIds, newGameIdCompactMode);
     };
 
     const onHeaderClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isMobileOnly) {
-            updateCompactMode(!isCompactMode);
-            handleStorageCompactModeIds();
+            const mode = getModeViewWhenClick(modeView);
+            updateModeView(mode);
+            handleStorageModeViewIds(mode);
             storeLocalStorageItem(displayModeHintStorageKey, true);
         }
     };
 
     useEffect(() => {
         if (isMobileOnly) {
-            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId) && !isCompactMode) {
-                updateCompactMode(!isCompactMode);
-            }
+            gameIdModeView.forEach((modeData) => {
+                if (modeData.hasOwnProperty(gameId)) {
+                    updateModeView(modeData[gameId]);
+                }
+            });
         }
     }, []);
 
@@ -81,7 +104,7 @@ export default function GameHeader() {
                     </div>
                 </div>
                 <CountdownTimer key={remainingTime} />
-                <HeaderRight handleStorageCompactModeIds={handleStorageCompactModeIds} />
+                <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             </div>
         </Fragment>
     );
@@ -92,10 +115,10 @@ enum ClassType {
     dropdownItem,
 }
 
-const HeaderRight = ({ handleStorageCompactModeIds }) => {
+const HeaderRight = ({ handleStorageModeViewIds }) => {
     const gameActions = useGameActionContext();
-    const { roundId, gameState, gameSetting, ownBets, isCompactMode } = useGameContext();
-    const { updateCompactMode } = useGameActionContext();
+    const { roundId, gameState, gameSetting, ownBets, modeView } = useGameContext();
+    const { updateModeView } = useGameActionContext();
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
@@ -113,10 +136,10 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
         gameActions.openPopup(PopupType.Rebet);
     };
 
-    const onDropDownItemClick = (isDisplayFull: boolean) => {
-        if (isCompactMode !== isDisplayFull) {
-            updateCompactMode(isDisplayFull);
-            handleStorageCompactModeIds();
+    const onDropDownItemClick = (mode: ModeView) => {
+        if (modeView !== mode) {
+            updateModeView(mode);
+            handleStorageModeViewIds(mode);
         }
 
         setDropdownOpen(!dropdownOpen);
@@ -152,17 +175,24 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                             <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(false)}
+                                onClick={() => onDropDownItemClick(ModeView.full)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
-                                {!isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                {modeView === ModeView.full && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(true)}
+                                onClick={() => onDropDownItemClick(ModeView.compact)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_COMPACT)}
-                                {isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                {modeView === ModeView.compact && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                            </div>
+                            <div
+                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                onClick={() => onDropDownItemClick(ModeView.compress)}
+                            >
+                                {t(CommonResourceKeys.DISPLAY_MODE_ULTRA_COMPACT)}
+                                {modeView === ModeView.compress && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                         </div>
                     )}

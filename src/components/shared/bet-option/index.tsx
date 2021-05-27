@@ -4,7 +4,7 @@ import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { GameState } from "../game-base/type";
+import { GameState, ModeView } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
@@ -24,7 +24,7 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, isCompactMode, displayChips } = useGameContext();
+    const { totalBets, ownBets, gameSetting, modeView, displayChips } = useGameContext();
     const { durations, gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
@@ -77,7 +77,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     };
 
     return (
-        <div ref={wrapperRefBetOption} className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div ref={wrapperRefBetOption} className={`${Styles.container} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
                 onClick={onClickBet}

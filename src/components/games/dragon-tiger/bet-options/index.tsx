@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState } from "../../../shared/game-base/type";
+import { GameState, ModeView } from "../../../shared/game-base/type";
 import { SettlementResult } from "../dragon-tiger";
 import Styles from "./bet-options.module.scss";
 
@@ -20,12 +20,16 @@ type Props = {
 
 const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs, gameSetting, isCompactMode } = useGameContext();
+    const { gameConfigs, gameSetting, modeView } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div className={`bet-options-container ${Styles["layout-dragon-tiger"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div
+            className={`bet-options-container ${Styles["layout-dragon-tiger"]} ${
+                modeView === ModeView.compact ? Styles["compact-mode"] : ""
+            }`}
+        >
             <BetOption
                 choice={Choices.dragon}
                 odd={odds[Choices.dragon]}
@@ -43,7 +47,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                     <div className={Styles["text-tiger"]}>{t(Choices.tiger)}</div>
                 </div>
             </BetOption>
-            {!isCompactMode && (
+            {modeView === ModeView.full && (
                 <div className={Styles["choice-tie"]}>
                     <BetOption
                         choice={Choices.tie}

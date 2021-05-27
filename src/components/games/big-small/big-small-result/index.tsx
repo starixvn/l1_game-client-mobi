@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "../big-small";
 import { countRedDot } from "../big-small-helper";
-import { GameState } from "../../../shared/game-base/type";
+import { GameState, ModeView } from "../../../shared/game-base/type";
 import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
@@ -24,7 +24,7 @@ const renderAnimTossDice = () => {
 };
 
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { isCompactMode, playResultAnimation, gameSetting, gameState } = useGameContext();
+    const { modeView, playResultAnimation, gameSetting, gameState } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const wrapperRefResult = useRef<HTMLDivElement>(null);
@@ -68,7 +68,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
             <div className="overlay-mask-no-bg">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
-                        isCompactMode ? Styles["compact-mode"] : ""
+                        modeView === ModeView.compact ? Styles["compact-mode"] : ""
                     }`}
                 >
                     {<div className={Styles["result-plate"]}></div>}

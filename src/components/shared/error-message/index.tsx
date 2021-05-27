@@ -3,11 +3,12 @@ import React, { useEffect } from "react";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
+import { ModeView } from "../game-base/type";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
-export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
-    const { isCompactMode } = useGameContext();
+const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
+    const { isCompactMode, modeView } = useGameContext();
     useEffect(() => {
         const timeOut = setTimeout(() => closeModal(), 3000);
 
@@ -17,7 +18,7 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     }, []);
 
     return (
-        <div className={`${Styles["error-message-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div className={`${Styles["error-message-container"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
             <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
             <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></div>
             <div className={Styles.message} key={Math.random()}>

@@ -9,4 +9,5 @@ export class CommonResourceKeys {
     public static readonly DISPLAY_MODE = "displayMode";
     public static readonly DISPLAY_MODE_FULL = "fullMode";
     public static readonly DISPLAY_MODE_COMPACT = "compactMode";
+    public static readonly DISPLAY_MODE_ULTRA_COMPACT = "ultraCompactMode";
 }

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { GameState } from "../../components/shared/game-base/type";
+import { GameState, ModeView } from "../../components/shared/game-base/type";
 import { GameContextModel } from "./game-context-type";
 
 export const GameContext = React.createContext<GameContextModel>({
@@ -12,7 +12,7 @@ export const GameContext = React.createContext<GameContextModel>({
     gameSetting: null,
     gameConfigs: null,
     userStakeLevel: null,
-    isCompactMode: false,
+    modeView: ModeView.full,
     displayChips: {},
     playResultAnimation: false,
     isShowBlink: false,

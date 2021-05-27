@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState } from "../../../shared/game-base/type";
+import { GameState, ModeView } from "../../../shared/game-base/type";
 import { RoundDot } from "../../../shared/round-history/dot";
 import { Choices, MainChoice } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
@@ -24,7 +24,7 @@ type Props = {
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs, gameSetting, isCompactMode } = useGameContext();
+    const { gameConfigs, gameSetting, modeView } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -42,8 +42,8 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
-        <div className={`${Styles["layout-sedie"]} ${isCompactMode ? "compact-mode" : ""}`}>
-            {!isCompactMode &&
+        <div className={`${Styles["layout-sedie"]} ${modeView === ModeView.compact ? "compact-mode" : ""}`}>
+            {modeView === ModeView.full &&
                 Object.keys(ChoiceIconMapper).map((choice) => (
                     <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                         <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>

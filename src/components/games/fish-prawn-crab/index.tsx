@@ -6,7 +6,7 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, ModeView } from "../../shared/game-base/type";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
@@ -64,7 +64,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderRoundHistory() {
-        return this.state.isCompactMode ? <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory> : <OddComponent />;
+        return this.state.modeView === ModeView.compact  ? <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory> : <OddComponent />;
     }
 
     renderStatistic() {
@@ -82,7 +82,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             <ScoreboardBasic
                 roundHistory={roundHistory.slice(0, 30)}
                 gameState={gameState}
-                getElementRound={this.state.isCompactMode ? GetElementRoundOfCompactMode : GetElementRound}
+                getElementRound={this.state.modeView === ModeView.compact ? GetElementRoundOfCompactMode : GetElementRound}
             ></ScoreboardBasic>
         );
     }
