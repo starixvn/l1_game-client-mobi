@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
@@ -58,8 +58,12 @@ export default function GameHeader() {
         if (isMobileOnly) {
             updateCompactMode();
             handleStorageCompactModeIds();
-            isShowDisplayModeHint && storeLocalStorageItem(displayModeHintStorageKey, true);
+            storeLocalStorageItem(displayModeHintStorageKey, true);
         }
+    };
+
+    const handleCloseHint = (e: React.MouseEvent) => {
+        setIsShowDisplayModeHint(false);
     };
 
     useEffect(() => {
@@ -71,30 +75,32 @@ export default function GameHeader() {
     }, []);
 
     return (
-        <div className={Styles.header} onClick={onHeaderClick}>
+        <Fragment>
             {isMobileOnly && !getLocalStorageItem<boolean>(displayModeHintStorageKey) && isShowDisplayModeHint && isFirstGame() && (
-                <DisplayModeHint onCloseHint={() => setIsShowDisplayModeHint(false)} />
+                <DisplayModeHint onCloseHint={handleCloseHint} />
             )}
-            <div className={Styles["header-left"]}>
-                <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
-                    <span
-                        className={
-                            isFavorite
-                                ? `icon-favorite ${Styles["icon-favorite"]}`
-                                : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
-                        }
-                    ></span>
-                </div>
-                <div className={Styles["title-roundID"]}>
-                    <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
-                    <div key={roundId} className={Styles.round}>
-                        #{roundId}
+            <div className={Styles.header} onClick={onHeaderClick}>
+                <div className={Styles["header-left"]}>
+                    <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
+                        <span
+                            className={
+                                isFavorite
+                                    ? `icon-favorite ${Styles["icon-favorite"]}`
+                                    : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
+                            }
+                        ></span>
+                    </div>
+                    <div className={Styles["title-roundID"]}>
+                        <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
+                        <div key={roundId} className={Styles.round}>
+                            #{roundId}
+                        </div>
                     </div>
                 </div>
+                <CountdownTimer key={gameState} />
+                <HeaderRight />
             </div>
-            <CountdownTimer key={gameState} />
-            <HeaderRight />
-        </div>
+        </Fragment>
     );
 }
 
