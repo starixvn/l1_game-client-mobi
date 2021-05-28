@@ -26,7 +26,7 @@ import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import ErrorMessage from "../error-message";
 import GameLoading from "../game-loading";
-import Notice from "../notice";
+import { APIError, Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
@@ -73,6 +73,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayChips: {},
         isShowBlink: false,
         notice: null,
+        apiError: null,
     };
 
     constructor(props: P) {
@@ -190,20 +191,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         let error: string | string[];
         if (apiError.gameRoundId) {
             const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-            error = [
-                `${gameName} (#${apiError.gameRoundId})`,
-                apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message,
-            ];
+            const message = apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message;
+            this.setState({ apiError: { gameName: gameName, roundId: apiError.gameRoundId, message: message, duration: 3 } });
         } else {
-            error = apiError.message;
+            this.setState({ notice: { message: apiError.message, duration: 3 } });
         }
-        this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     };
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
         const { id } = this.props;
         const { displayPopup, roundId } = this.state;
         this.isProcessingBet = false;
+        this.setState({ notice: null });
 
         if (endBet === -1) {
             if (!apiError) {
@@ -362,6 +361,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 condition: nextGameState === GameState.LockingBet && [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup),
                 state: {
                     displayPopup: null,
+                    notice: null,
                 },
             },
         ];
@@ -504,7 +504,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     placeBet(betChoice: string, amount: number) {
         if (this.isProcessingBet) {
-            this.setState({ errorMessage: this.props.t("common:processingBet"), displayPopup: PopupType.Error });
+            this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
         } else {
             if (amount > 0) {
                 this.placeBetSound = AudioCollection.getPlaceBetSound();
@@ -718,6 +718,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 <Notice
                                     message={this.state.notice.message}
                                     duration={this.state.notice.duration}
+                                    onClose={this.closeNotice}
+                                />
+                            )}
+                            {this.state.apiError && (
+                                <APIError
+                                    gameName={this.state.apiError.gameName}
+                                    roundId={this.state.apiError.roundId}
+                                    message={this.state.apiError.message}
+                                    duration={this.state.apiError.duration}
                                     onClose={this.closeNotice}
                                 />
                             )}

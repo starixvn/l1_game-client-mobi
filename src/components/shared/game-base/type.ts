@@ -70,11 +70,17 @@ export interface GameBaseState<Result, SettlementResult> {
     displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
+    apiError: APIError;
 }
 
 export interface Notice {
     message: string;
     duration: number;
+}
+
+export interface APIError extends Notice {
+    gameName: string;
+    roundId: number;
 }
 
 export interface DisplayChips {

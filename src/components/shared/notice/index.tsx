@@ -2,20 +2,40 @@ import React, { useEffect } from "react";
 
 import Styles from "./notice.module.scss";
 
-type Props = {
+interface NoticeProps {
     message: string;
     onClose: () => void;
-    duration?: number;
-};
+    duration: number;
+}
 
-const Notice: React.FC<Props> = ({ message, onClose, duration = 3 }) => {
+interface APIErrorProps extends NoticeProps {
+    gameName: string;
+    roundId: number;
+}
+
+const BaseNotice: React.FC<{ onClose: () => void; duration: number }> = ({ children, onClose, duration }) => {
     useEffect(() => {
         const timer = setTimeout(onClose, duration * 1000);
 
         return () => clearTimeout(timer);
     }, []);
 
-    return <div className={Styles.notice}>{message}</div>;
+    return <div className={Styles.notice}>{children}</div>;
 };
 
-export default Notice;
+export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }) => {
+    return (
+        <BaseNotice onClose={onClose} duration={duration}>
+            {message}
+        </BaseNotice>
+    );
+};
+
+export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3 }) => {
+    return (
+        <BaseNotice onClose={onClose} duration={duration}>
+            <div>{`${gameName} #(${roundId})`}</div>
+            <div>{message}</div>
+        </BaseNotice>
+    );
+};
