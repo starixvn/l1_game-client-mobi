@@ -79,7 +79,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return <BigSmallResult result={result}></BigSmallResult>;
     }
 
-    renderResultCollage() {
+    renderResultCollapse() {
         const { result } = this.state;
         return <BigSmallResultCollage result={result} />;
     }

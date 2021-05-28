@@ -636,7 +636,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderResult(): React.ReactElement;
 
-    abstract renderResultCollage(): React.ReactElement;
+    abstract renderResultCollapse(): React.ReactElement;
 
     abstract renderGuide(): JSX.Element;
 
@@ -799,7 +799,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             openPlaceBetModal: this.openPlaceBetModal,
             updateModeView: this.updateModeView,
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
-
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
             },

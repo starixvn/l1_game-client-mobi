@@ -12,7 +12,7 @@ type GameActionsContextType = {
     finishProcessingBet: Function;
     updateModeView: (mode: ModeView) => void;
     playAcceptedBetAnimation: (amount: number) => void;
-    renderResultCollage: () => React.ReactElement;
+    renderResultCollapse: () => React.ReactElement;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

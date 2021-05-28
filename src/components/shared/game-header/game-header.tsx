@@ -109,7 +109,7 @@ export default function GameHeader() {
             <CountdownTimer key={gameState} />
             <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             <div className={Styles.result}>
-                {gameState === GameState.DisplayResult && modeView === ModeView.collapse && renderResultCollage()}
+                {gameState === GameState.DisplayResult && modeView === ModeView.collapse && renderResultCollapse()}
             </div>
         </Fragment>
     );

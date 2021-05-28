@@ -69,7 +69,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return <OpenThePlate result={result ?? { red1: false, red2: false, red3: true, red4: false }} />;
     }
 
-    renderResultCollage() {
+    renderResultCollapse() {
         const { result } = this.state;
         return <ShowResult result={result ?? { red1: false, red2: false, red3: true, red4: false }} />;
     }

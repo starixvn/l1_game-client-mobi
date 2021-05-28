@@ -64,7 +64,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderRoundHistory() {
-        return this.state.modeView === ModeView.compact  ? <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory> : <OddComponent />;
+        return this.state.modeView === ModeView.compact ? (
+            <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+        ) : (
+            <OddComponent />
+        );
     }
 
     renderStatistic() {
@@ -76,7 +80,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return <FishPrawnCrabResult result={result}></FishPrawnCrabResult>;
     }
 
-    renderResultCollage() {
+    renderResultCollapse() {
         return <></>;
     }
 
