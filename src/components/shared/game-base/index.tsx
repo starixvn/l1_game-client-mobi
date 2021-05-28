@@ -454,8 +454,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const roundId = ![GameState.InRound, GameState.LockingBet].includes(gameState) ? lastRoundId : lastRoundId + 1;
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
-        this.setWinStreakByRoundHistory(roundHistory);
-
         this.setState({
             roundHistory,
             roundId,
@@ -463,6 +461,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             settlementResult: roundHistory[0]?.settlementResult,
             displayChips,
         });
+
+        this.setWinStreakByRoundHistory(roundHistory);
     }
 
     handleFinish({ finish }) {
