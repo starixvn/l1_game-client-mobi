@@ -1,12 +1,14 @@
 import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
+import { isMobileOnly } from "react-device-detect";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
+import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
 import { UserClientCommunication } from "../../services";
@@ -16,8 +18,6 @@ import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
-import LandscapeMode from "../../components/landscape-mode";
-import { isMobileOnly } from "react-device-detect";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
@@ -95,7 +95,7 @@ class Dashboard extends React.Component<Props, State> {
 
     componentWillUnmount() {
         this.mainSocket.close();
-        window.removeEventListener('orientationchange', this.doOnOrientationChange);
+        window.removeEventListener("orientationchange", this.doOnOrientationChange);
     }
 
     handleRegister(user: User, theme: string) {

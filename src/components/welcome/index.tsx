@@ -1,11 +1,10 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect } from "react";
-import Styles from "./welcome.module.scss";
-import HeaderStyles from "../header/header.module.scss";
 import { useTheme } from "next-themes";
-import { Themes } from "../../common/constants";
+import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
-import { sabaClubName, sabaMobileName } from "../../common/constants";
+
+import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
+import Styles from "./welcome.module.scss";
 
 type Props = {
     userInfo: User;
