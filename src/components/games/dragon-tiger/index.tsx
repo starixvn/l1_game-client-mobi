@@ -9,7 +9,7 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { CardsAnimation, DragonTigerResult } from "./animations";
+import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./animations";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
@@ -63,7 +63,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderResultCollapse() {
-        return <></>;
+        const { result } = this.state;
+        return <DragonTigerResultCollapse result={result}/>;
     }
 
     renderBoard() {

@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
-
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Card from "../../../shared/card";
 import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
@@ -31,24 +30,24 @@ type Props = {
     settlementResult?: SettlementResult;
 };
 
+const generateResult = (result: ObjectResult[]) => {
+    return result.map((result, index) => {
+        return (
+            <div key={index} className={Styles[`card${index + 1}`]}>
+                <div className={Styles["rotate-card"]}>
+                    <Card result={result}></Card>
+                </div>
+                <div className={Styles["card-back"]}></div>
+            </div>
+        );
+    });
+};
+
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
     const { modeView, playResultAnimation } = useGameContext();
     const { t } = useTranslation("dragontiger");
-
-    const generateResult = (result: ObjectResult[]) => {
-        return result.map((result, index) => {
-            return (
-                <div key={index} className={Styles[`card${index + 1}`]}>
-                    <div className={Styles["rotate-card"]}>
-                        <Card result={result}></Card>
-                    </div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            );
-        });
-    };
 
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -65,6 +64,16 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
                     {generateResult(result)}
                 </div>
             </div>
+        </div>
+    );
+};
+
+export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
+    const result = props.result ? Object.values(props.result) : [];
+
+    return (
+        <div className={Styles["open-cards"]}>
+            <div className={`${Styles["animation-container"]} ${Styles["compact-mode"]}`}> {generateResult(result)}</div>
         </div>
     );
 };
