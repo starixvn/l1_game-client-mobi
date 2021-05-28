@@ -11,6 +11,7 @@ import { Spinner } from "reactstrap";
 import Styles from "./register.module.scss";
 import { useTheme } from "next-themes";
 import { Themes } from "../../common/constants";
+import { sabaClubName, sabaMobileName } from "../../common/constants";
 
 type Props = {
     handleStateLogin: (user: User, theme: string) => void;
@@ -66,7 +67,7 @@ export default function Register(props: Props) {
     const onChangeUserName = (event) => {
         event.preventDefault();
         updateNameState(event.target.value);
-    }
+    };
 
     const clearUserName = () => {
         updateNameState("");
@@ -119,9 +120,25 @@ export default function Register(props: Props) {
                     <div className={Styles["logo"]}>
                         <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                     </div>
+                    <div className={Styles["wrapper-welcome"]}>
+                        <div
+                            className={Styles["welcome"]}
+                            dangerouslySetInnerHTML={{ __html: t("register:registerTitle1").replace("{0}", `<b>${sabaMobileName}!</b>`) }}
+                        ></div>
+                        <div
+                            className={Styles["welcome"]}
+                            dangerouslySetInnerHTML={{
+                                __html: t("register:registerTitle2")
+                                    .replace("{0}", `<b>${sabaMobileName}</b>`)
+                                    .replace("{1}", `<b>${sabaClubName}</b>`),
+                            }}
+                        ></div>
+                        <div
+                            className={Styles["welcome"]}
+                            dangerouslySetInnerHTML={{ __html: t("register:registerTitle3").replace("{0}", `<b>${sabaClubName}</b>`) }}
+                        ></div>
+                    </div>
 
-                    <h1 className={Styles["wellcome"]}>{t("register:registerTitle1")}</h1>
-                    <div> {t("register:registerTitle2")}</div>
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
                         <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]}>

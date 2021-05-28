@@ -8,6 +8,7 @@
     "rule3": "Cannot change after submtting.",
     "invalidUsername": "Invalid character name.",
     "changeAvatar": "Change Avatar",
-    "registerTitle1":"Chào mừng bạn đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
-    "registerTitle2":" Vui lòng chọn tên nhân vật để cùng trải nghiệm những tựa game đặc sắc nhất."
+    "registerTitle1": "Chào mừng bạn đến với {0}",
+    "registerTitle2": "{0} là phiên bản bổ sung của {1}, hướng đến người chơi yêu thích sự đơn giản và tối ưu trong trải nghiệm chơi game. ",
+    "registerTitle3": "Tất cả phiên bản {0} đều liên thông với nhau về phiên game và số tổng cược."
 }

@@ -38,3 +38,6 @@ export const Themes = {
     light: "light",
     dark: "dark",
 };
+
+export const sabaMobileName = "Saba.mobi";
+export const sabaClubName = "Saba.club";
