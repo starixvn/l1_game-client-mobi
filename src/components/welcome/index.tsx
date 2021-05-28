@@ -1,10 +1,10 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect } from "react";
-import Styles from "./welcome.module.scss";
-import HeaderStyles from "../header/header.module.scss";
 import { useTheme } from "next-themes";
-import { Themes } from "../../common/constants";
+import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
+
+import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
+import Styles from "./welcome.module.scss";
 
 type Props = {
     userInfo: User;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function Welcome(props: Props) {
-    const { t } = useTranslation(["common"]);
+    const { t } = useTranslation(["common", "register"]);
     const { theme, setTheme } = useTheme();
 
     useEffect(() => {
@@ -31,8 +31,25 @@ export default function Welcome(props: Props) {
                         <img src={`/static/images/logo-custom-saba.svg`} className={Styles["img-logo"]} alt="logo" />
                     </a>
                     <div
-                        className={Styles["wellcome"]}
-                        dangerouslySetInnerHTML={{ __html: t("welcomeMsg").replace("{0}", `<b>${props.userInfo?.name}</b>`) }}
+                        className={Styles["welcome"]}
+                        dangerouslySetInnerHTML={{
+                            __html: t("common:welcomeMsg")
+                                .replace("{0}", `<b>${props.userInfo?.name}</b>`)
+                                .replace("{1}", `<b>${sabaMobileName}!</b>`),
+                        }}
+                    ></div>
+
+                    <div
+                        className={Styles["welcome"]}
+                        dangerouslySetInnerHTML={{
+                            __html: t("register:registerTitle2")
+                                .replace("{0}", `<b>${sabaMobileName}</b>`)
+                                .replace("{1}", `<b>${sabaClubName}</b>`),
+                        }}
+                    ></div>
+                    <div
+                        className={Styles["welcome"]}
+                        dangerouslySetInnerHTML={{ __html: t("register:registerTitle3").replace("{0}", `<b>${sabaClubName}</b>`) }}
                     ></div>
                     <div className={Styles["profile-picture"]}>
                         {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
@@ -43,7 +60,7 @@ export default function Welcome(props: Props) {
                     </div>
 
                     <div className={Styles["theme-container"]}>
-                        <div className={Styles["theme-select-title"]}>{t("selectTheme")}</div>
+                        <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
                         <div className={Styles["theme-list"]}>
                             <div className={Styles["theme"]}>
                                 <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
@@ -89,7 +106,7 @@ export default function Welcome(props: Props) {
                             className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}
                             onClick={() => props.handleFirstLoginSM(theme)}
                         >
-                            {t("enterGameBtn")}
+                            {t("common:enterGameBtn")}
                         </button>
                     </div>
                 </div>

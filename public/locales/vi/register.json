@@ -1,5 +1,5 @@
 {
-    "registerName": "Tên nhân vật",
+    "registerName": "Chọn tên nhân vật",
     "otherName": "Tên khác",
     "submit": "Vào chơi game",
     "note": "Lưu ý",
@@ -8,6 +8,7 @@
     "rule3": "Không thể đổi tên nhân vật sau khi tạo.",
     "invalidUsername": "Tên nhân vật không hợp lệ.",
     "changeAvatar": "Thay đổi hình nhân vật",
-    "registerTitle1": "Chào mừng bạn đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
-    "registerTitle2": " Vui lòng chọn tên nhân vật để cùng trải nghiệm những tựa game đặc sắc nhất."
+    "registerTitle1": "Chào mừng bạn đến với {0}",
+    "registerTitle2": "{0} là phiên bản bổ sung của {1}, hướng đến người chơi yêu thích sự đơn giản và tối ưu trong trải nghiệm chơi game. ",
+    "registerTitle3": "Tất cả phiên bản {0} đều liên thông với nhau về phiên game và số tổng cược."
 }

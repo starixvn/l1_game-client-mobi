@@ -31,7 +31,7 @@
     "accountIsLocked": "Account has been closed. Your session will expire after 10 seconds, please contact CSD for details.",
     "light": "Light",
     "dark": "Dark",
-    "welcomeMsg": "Chào mừng {0} đến với Saba.mobi, phiên bản Saba.club tối ưu hóa cho điện thoại!",
+    "welcomeMsg": "Chào mừng {0} đến với {1}",
     "selectTheme": "Chọn giao diện",
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Dismiss",
