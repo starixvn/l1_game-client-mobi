@@ -89,6 +89,13 @@ $time-result-highlight-animation: 0.8s;
         }
     }
 
+    &.result-collapse-mode .animation-container {
+        height: 0;
+        top: -0.2rem;
+        transform: scale(0.42);
+        transition: transform 0.7s;
+    }
+
     .card-back {
         display: none;
     }

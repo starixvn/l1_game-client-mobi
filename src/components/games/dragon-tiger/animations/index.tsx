@@ -72,8 +72,8 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
 
     return (
-        <div className={Styles["open-cards"]}>
-            <div className={`${Styles["animation-container"]} ${Styles["compact-mode"]}`}> {generateResult(result)}</div>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]}`}>
+            <div className={`${Styles["animation-container"]}`}>{generateResult(result)}</div>
         </div>
     );
 };
