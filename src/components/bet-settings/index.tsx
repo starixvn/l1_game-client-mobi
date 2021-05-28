@@ -148,7 +148,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const confirmQuickBet = () => {
-        closeHintTooltip();
+        setIsShowTooltip(false);
         closeModal();
         updateEnabledQuickBet(true);
         userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, true);
@@ -179,7 +179,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleTurnOn = () => {
-        closeHintTooltip();
+        setIsShowTooltip(false);
         confirmQuickBet();
     };
 
@@ -215,7 +215,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                                 <div className={Styles["one-click-bet"]}>1-Click Bet</div>
                             </div>
                             {enabledQuickBet === undefined && isShowTooltip && (
-                                <div ref={tooltipRef} className={Styles.tooltip}>
+                                <div ref={tooltipRef} className={`popover-custom top ${Styles["hint-one-click-bet"]}`}>
                                     <div
                                         className={Styles.content}
                                         dangerouslySetInnerHTML={{
