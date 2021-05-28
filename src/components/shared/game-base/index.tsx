@@ -43,6 +43,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private showWaitingTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private placeBetSound: HTMLAudioElement;
+    private isProcessingBet = false;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -70,7 +71,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         playResultAnimation: false,
         displayChips: {},
         isShowBlink: false,
-        isProcessingBet: false,
     };
 
     constructor(props: P) {
@@ -228,7 +228,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
-            this.setState({ displayChips: newDisplayChips, isProcessingBet: false });
+            this.setState({ displayChips: newDisplayChips, displayPopup: null });
+            this.isProcessingBet = false;
             this.placeBetSound.play();
             this.updateUserBalance();
         }
@@ -352,7 +353,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     displayChips: {},
                     showWinningBet: false,
                     isShowBlink: false,
-                    isProcessingBet: false,
                 },
             },
             {
@@ -462,6 +462,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { durations } = this.props;
         const roundHistoryClone = [...roundHistory];
 
+        this.isProcessingBet = false;
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
         roundHistoryClone.pop();
@@ -505,13 +506,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        if (this.state.isProcessingBet) {
+        if (this.isProcessingBet) {
             this.setState({ errorMessage: this.props.t("common:processingBet"), displayPopup: PopupType.Error });
         } else {
             if (amount > 0) {
                 this.placeBetSound = AudioCollection.getPlaceBetSound();
                 this.socket.emit("bet", { betChoice, amount });
-                this.setState({ isProcessingBet: true });
+                this.isProcessingBet = true;
             }
         }
     }
@@ -521,7 +522,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     finishProcessingBet() {
-        this.setState({ isProcessingBet: false });
+        this.isProcessingBet = false;
     }
 
     updateCompactMode() {
