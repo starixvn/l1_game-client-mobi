@@ -802,13 +802,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
             },
-            renderResultCollage: this.renderResultCollage.bind(this),
+            renderResultCollapse: this.renderResultCollapse.bind(this),
         };
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameHeader />
-                    {modeView !== ModeView.compress ? (
+                    {modeView !== ModeView.collapse ? (
                         <>
                             <BetContainer gameState={gameState}>
                                 <div

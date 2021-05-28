@@ -32,7 +32,7 @@ export const getModeViewWhenClick = (modeView: ModeView) => {
 export default function GameHeader() {
     const systemContext = useSystemContext();
     const { roundId, gameSetting, modeView, remainingTime, gameState } = useGameContext();
-    const { updateModeView, renderResultCollage } = useGameActionContext();
+    const { updateModeView, renderResultCollapse } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
@@ -107,10 +107,11 @@ export default function GameHeader() {
                 <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             </div>
             <CountdownTimer key={gameState} />
+
             <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
-            <div className={Styles.result}>
-                {gameState === GameState.DisplayResult && modeView === ModeView.collapse && renderResultCollapse()}
-            </div>
+            {gameState === GameState.DisplayResult && modeView === ModeView.collapse && (
+                <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
+
         </Fragment>
     );
 }
