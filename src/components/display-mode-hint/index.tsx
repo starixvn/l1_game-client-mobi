@@ -27,16 +27,6 @@ export const DisplayModeHint: React.FC<{ onCloseHint: Function }> = ({ onCloseHi
         };
     }, [hintRef]);
 
-    useEffect(() => {
-        const timeOut = setTimeout(() => {
-            handleDismissHint();
-        }, 5 * 1000);
-
-        return () => {
-            clearTimeout(timeOut);
-        };
-    });
-
     return (
         <div ref={hintRef} className={styles["display-mode-hint-wrapper"]}>
             <div className={`icon-info ${styles["icon-info"]}`}></div>
