@@ -45,8 +45,9 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
 };
 
 export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) => {
+    const { playResultAnimation } = useGameContext();
     return (
-        <div className={`${Styles["result-collapse-mode"]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {Object.values(result).map((value, index) => (
                 <div key={index} className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
             ))}
