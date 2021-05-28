@@ -26,6 +26,7 @@ import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import ErrorMessage from "../error-message";
 import GameLoading from "../game-loading";
+import Notice from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
@@ -71,6 +72,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         playResultAnimation: false,
         displayChips: {},
         isShowBlink: false,
+        notice: null,
     };
 
     constructor(props: P) {
@@ -85,8 +87,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.openPopup = this.openPopup.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
         this.updateCompactMode = this.updateCompactMode.bind(this);
-        this.finishProcessingBet = this.finishProcessingBet.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
+        this.closeNotice = this.closeNotice.bind(this);
     }
 
     componentDidMount() {
@@ -201,23 +203,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
         const { id } = this.props;
         const { displayPopup, roundId } = this.state;
+        this.isProcessingBet = false;
 
         if (endBet === -1) {
-            this.finishProcessingBet();
             if (!apiError) {
-                const newState = { displayPopup: PopupType.Error, errorMessage: "" };
-
                 if (kickedOut?.isDisabledAccount) {
-                    newState.errorMessage = kickedOut?.message;
-                    this.setState(newState);
+                    this.setState({ notice: { message: kickedOut?.message, duration: 2 } });
 
                     const { router } = this.props;
                     setTimeout(() => {
                         router.push("/timeout");
                     }, 10000);
                 } else {
-                    newState.errorMessage = notice;
-                    displayPopup !== PopupType.Rebet && this.setState(newState);
+                    displayPopup !== PopupType.Rebet && this.setState({ notice: { message: notice, duration: 2 } });
                 }
             }
         } else {
@@ -229,7 +227,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             this.setState({ displayChips: newDisplayChips, displayPopup: null });
-            this.isProcessingBet = false;
             this.placeBetSound.play();
             this.updateUserBalance();
         }
@@ -521,10 +518,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    finishProcessingBet() {
-        this.isProcessingBet = false;
-    }
-
     updateCompactMode() {
         this.setState({ isCompactMode: !this.state.isCompactMode });
     }
@@ -638,11 +631,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: null });
     }
 
+    closeNotice() {
+        this.setState({ notice: null });
+    }
+
     get isShowStartRoundAnimation() {
         return false;
     }
-
-    showAcceptedBetAnimation() {}
 
     renderGame() {
         const { durations } = this.props;
@@ -684,9 +679,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             registerMessageHandler: this.messageTransmitter.register,
             unsubscribeMessageHandler: this.messageTransmitter.unsubscribe,
             openPlaceBetModal: this.openPlaceBetModal,
-            finishProcessingBet: this.finishProcessingBet,
             updateCompactMode: this.updateCompactMode,
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
+            finishProcessingBet: () => {
+                this.isProcessingBet = false;
+            },
         };
         return (
             <GameContextProvider value={gameContext}>
@@ -717,6 +714,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 />
                             )}
                             {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                            {this.state.notice && (
+                                <Notice
+                                    message={this.state.notice.message}
+                                    duration={this.state.notice.duration}
+                                    onClose={this.closeNotice}
+                                />
+                            )}
                             {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                             {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                 <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />

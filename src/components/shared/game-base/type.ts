@@ -1,6 +1,5 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
-import { NextRouter } from "next/router";
 
 import { Round } from "../../../types";
 
@@ -70,6 +69,12 @@ export interface GameBaseState<Result, SettlementResult> {
     playResultAnimation: boolean;
     displayChips: DisplayChips;
     isShowBlink: boolean;
+    notice: Notice;
+}
+
+export interface Notice {
+    message: string;
+    duration: number;
 }
 
 export interface DisplayChips {

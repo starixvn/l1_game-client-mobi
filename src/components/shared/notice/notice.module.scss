@@ -1,0 +1,7 @@
+@import "../../../assets/components/mini-notice";
+
+.notice {
+    @extend .mini-notice;
+    color: #ffffff;
+    background: rgba(228, 35, 9, 0.7);
+}
