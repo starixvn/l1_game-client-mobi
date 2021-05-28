@@ -100,11 +100,11 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
 
         !showDisplayModeHintStorage && document.addEventListener("scroll", showDisplayModeHint);
-        
+
         const interval = setInterval(() => {
             winningStreakQueue.unshift();
 
-            setWinningStreakQueue(winningStreakQueue);
+            setWinningStreakQueue([...winningStreakQueue]);
         }, 3 * 1000);
 
         return () => {

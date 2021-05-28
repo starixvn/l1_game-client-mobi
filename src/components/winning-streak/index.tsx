@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { GameResourceKeys } from "../../common/resources";
 import styles from "./winning-streak.module.scss";
 import { WinningStreakItem } from "./winning-streak.type";
 
@@ -17,20 +18,31 @@ const getIconClassName = (gameName: string, choice: string) => {
         return `${styles.dice} ${BauCuaIconMapper[choice]}`;
     }
 
-    return `${styles["dot-" + choice]}`;
+    return `${styles[`dot-${choice}`]}`;
+};
+
+const getTextOnIconChoice = (gameName: string, choice: string, translate: Function) => {
+    const gameNameLowerCase = gameName.toLocaleLowerCase();
+    if (gameNameLowerCase === "baucua" || gameNameLowerCase === "xocxoc") {
+        return "";
+    }
+
+    return translate(`${gameNameLowerCase}:${choice}TextDot`);
 };
 
 export const WinningStreak: React.FC<{ streakQueue: WinningStreakItem[] }> = ({ streakQueue }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation();
 
     return (
         <div className={styles["winning-streak-container"]}>
-            {streakQueue.map((streakItem) => {
+            {streakQueue.map(({ gameName, choice, streak }) => {
                 return (
                     <div className={styles["streak-notification"]}>
-                        <div className={styles["game-name"]}>{t(streakItem.gameName.toLocaleLowerCase())}</div>
-                        <span className={`${styles["option-icon"]} ${getIconClassName(streakItem.gameName, streakItem.choice)}`}></span>
-                        {`x ${streakItem.streak}`}
+                        <div className={styles["game-name"]}>{t(`${gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
+                        <span className={`${styles["option-icon"]} ${getIconClassName(gameName, choice)}`}>
+                            {getTextOnIconChoice(gameName, choice, t)}
+                        </span>
+                        {`x ${streak}`}
                     </div>
                 );
             })}
