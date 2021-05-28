@@ -28,7 +28,7 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { modeView, playResultAnimation } = useGameContext();
 
     return (
-        <div className={Styles["container"]}>
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask-no-bg">
                 <div className={`${Styles["animation-container"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
                     <div className={`${Styles["result-set"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -43,11 +43,7 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
 };
 
 export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
-    return (
-        <div className={Styles["container"]}>
-            <div className={Styles["result-container"]}>{generateResult(result)}</div>
-        </div>
-    );
+    return <div className={Styles["result-collapse-mode"]}>{generateResult(result)}</div>;
 };
 
 export default FishPrawnCrabResult;

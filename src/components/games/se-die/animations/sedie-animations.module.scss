@@ -162,3 +162,10 @@ $time-hide-bowl-animation: 1s;
         transform: translate(5rem, -10rem) rotate(45deg);
     }
 }
+
+.result-collapse-mode {
+    display: grid;
+    grid-template-columns: repeat(4, 2rem);
+    grid-template-rows: 2rem;
+    grid-gap: 0.5rem;
+}

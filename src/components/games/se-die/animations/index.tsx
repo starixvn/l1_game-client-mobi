@@ -46,16 +46,10 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
 
 export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) => {
     return (
-        <div className={`${Styles["open-the-plate"]}`}>
-            <div className="overlay-mask-no-bg">
-                <div className={Styles["result-container"]}>
-                    {Object.values(result).map((value, index) => (
-                        <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                            <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+        <div className={`${Styles["result-collapse-mode"]}`}>
+            {Object.values(result).map((value, index) => (
+                <div key={index} className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+            ))}
         </div>
     );
 };

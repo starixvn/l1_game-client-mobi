@@ -73,61 +73,38 @@ $time-bowl-hide-animation: 0.5s;
     z-index: var(--result-animation-index);
 }
 
-.result-1 {
-    position: absolute;
-    left: 3.6rem;
-    top: 3.2rem;
-    transform: rotate(3.36deg);
-}
-
-.result-2 {
-    position: absolute;
-    left: 7rem;
-    top: 5.5rem;
-    transform: rotate(-5deg);
-}
-
-.result-3 {
-    position: absolute;
-    left: 3.6rem;
-    top: 6.7rem;
-    transform: rotate(-2deg);
-}
-
 .dice {
     width: 3.2rem;
     height: 3.2rem;
+}
+
+.normal-mode {
+    .result-1 {
+        position: absolute;
+        left: 3.6rem;
+        top: 3.2rem;
+        transform: rotate(3.36deg);
+    }
+
+    .result-2 {
+        position: absolute;
+        left: 7rem;
+        top: 5.5rem;
+        transform: rotate(-5deg);
+    }
+
+    .result-3 {
+        position: absolute;
+        left: 3.6rem;
+        top: 6.7rem;
+        transform: rotate(-2deg);
+    }
 }
 
 .compact-mode {
     .result-set {
         transform: scale(0.8);
     }
-}
-
-/*Position of 4 buttons*/
-%result {
-    position: absolute;
-    z-index: var(--result-animation-index);
-    width: 2rem;
-}
-
-.result1 {
-    @extend %result;
-    top: 12.5rem;
-    left: 14.4rem;
-}
-
-.result2 {
-    @extend %result;
-    top: 15rem;
-    left: calc(50% - 2rem);
-}
-
-.result3 {
-    @extend %result;
-    top: 12rem;
-    left: calc(50% + 1rem);
 }
 
 @keyframes opening-bowl-animation {
@@ -138,4 +115,11 @@ $time-bowl-hide-animation: 0.5s;
     100% {
         transform: translate(-7.3rem, 7rem) rotate(45deg);
     }
+}
+
+.result-collapse-mode {
+    display: grid;
+    grid-template-columns: repeat(3, 3.2rem);
+    grid-template-rows: 3.2rem;
+    grid-gap: 0.5rem;
 }

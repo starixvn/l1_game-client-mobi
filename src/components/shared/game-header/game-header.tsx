@@ -84,23 +84,21 @@ export default function GameHeader() {
     }, []);
 
     return (
-        <Fragment>
-            <div className={Styles.header} onClick={onHeaderClick}>
-                <div className={Styles["header-left"]}>
-                    <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
-                        <span
-                            className={
-                                isFavorite
-                                    ? `icon-favorite ${Styles["icon-favorite"]}`
-                                    : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
-                            }
-                        ></span>
-                    </div>
-                    <div className={Styles["title-roundID"]}>
-                        <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
-                        <div key={roundId} className={Styles.round}>
-                            #{roundId}
-                        </div>
+        <div className={`${Styles.header} ${modeView === ModeView.collapse ? Styles["border-radius-bottom"] : ""}`} onClick={onHeaderClick}>
+            <div className={Styles["header-left"]}>
+                <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
+                    <span
+                        className={
+                            isFavorite
+                                ? `icon-favorite ${Styles["icon-favorite"]}`
+                                : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
+                        }
+                    ></span>
+                </div>
+                <div className={Styles["title-roundID"]}>
+                    <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
+                    <div key={roundId} className={Styles.round}>
+                        #{roundId}
                     </div>
                 </div>
                 <CountdownTimer key={remainingTime} />
@@ -110,9 +108,9 @@ export default function GameHeader() {
 
             <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             {gameState === GameState.DisplayResult && modeView === ModeView.collapse && (
-                <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
-
-        </Fragment>
+                <div className={Styles["header-result"]}>{renderResultCollapse()}</div>
+            )}
+        </div>
     );
 }
 
