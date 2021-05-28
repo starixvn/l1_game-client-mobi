@@ -148,7 +148,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const confirmQuickBet = () => {
-        closeHintTooltip();
+        setIsShowTooltip(false);
         closeModal();
         updateEnabledQuickBet(true);
         userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, true);
@@ -179,7 +179,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleTurnOn = () => {
-        closeHintTooltip();
+        setIsShowTooltip(false);
         confirmQuickBet();
     };
 
