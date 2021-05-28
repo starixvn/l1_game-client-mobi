@@ -28,6 +28,11 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         winningStreakQueue.push(streak);
 
         setWinningStreakQueue([...winningStreakQueue]);
+
+        setTimeout(() => {
+            winningStreakQueue.unshift();
+            setWinningStreakQueue([...winningStreakQueue]);
+        }, 3 * 1000);
     };
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -101,15 +106,8 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
         !showDisplayModeHintStorage && document.addEventListener("scroll", showDisplayModeHint);
 
-        const interval = setInterval(() => {
-            winningStreakQueue.unshift();
-
-            setWinningStreakQueue([...winningStreakQueue]);
-        }, 3 * 1000);
-
         return () => {
             document.removeEventListener("scroll", showDisplayModeHint);
-            clearInterval(interval);
         };
     }, []);
 

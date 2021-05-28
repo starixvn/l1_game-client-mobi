@@ -615,7 +615,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     setWinStreakByRoundHistory(roundHistory) {
         const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
         const mainOptions = this.getMainOptions();
-        history.forEach((round) => {
+
+        for (const round of history) {
             mainOptions.forEach((option) => {
                 if (round.settlementResult[option] && !this.winStreakCollector[option].isStopStreak) {
                     this.winStreakCollector[option].streak += 1;
@@ -623,7 +624,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     this.winStreakCollector[option].isStopStreak = true;
                 }
             });
-        });
+
+            if (!mainOptions.some((option) => this.winStreakCollector[option].isStopStreak === false)) {
+                break;
+            }
+        }
     }
 
     initWinStreakCollector() {

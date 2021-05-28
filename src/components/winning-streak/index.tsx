@@ -35,9 +35,9 @@ export const WinningStreak: React.FC<{ streakQueue: WinningStreakItem[] }> = ({ 
 
     return (
         <div className={styles["winning-streak-container"]}>
-            {streakQueue.map(({ gameName, choice, streak }) => {
+            {streakQueue.map(({ gameName, choice, streak }, index) => {
                 return (
-                    <div className={styles["streak-notification"]}>
+                    <div key={index} className={styles["streak-notification"]}>
                         <div className={styles["game-name"]}>{t(`${gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
                         <span className={`${styles["option-icon"]} ${getIconClassName(gameName, choice)}`}>
                             {getTextOnIconChoice(gameName, choice, t)}
