@@ -42,4 +42,12 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
+export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
+    return (
+        <div className={Styles["container"]}>
+            <div className={Styles["result-container"]}>{generateResult(result)}</div>
+        </div>
+    );
+};
+
 export default FishPrawnCrabResult;

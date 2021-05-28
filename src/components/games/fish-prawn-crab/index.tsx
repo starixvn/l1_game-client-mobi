@@ -12,7 +12,7 @@ import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
-import FishPrawnCrabResult from "./fish-prawn-crab-result";
+import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
@@ -81,7 +81,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderResultCollapse() {
-        return <></>;
+        const { result } = this.state;
+        return <FishPrawnCrabResultCollapse result={result} />;
     }
 
     renderBoard() {

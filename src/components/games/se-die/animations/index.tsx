@@ -44,7 +44,7 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     );
 };
 
-export const ShowResult: React.FC<{ result: Result }> = ({ result }) => {
+export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) => {
     return (
         <div className={`${Styles["open-the-plate"]}`}>
             <div className="overlay-mask-no-bg">
