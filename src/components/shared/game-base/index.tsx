@@ -25,6 +25,7 @@ import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import ErrorMessage from "../error-message";
+import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
 import { APIError, Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
@@ -135,9 +136,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.socket.on("message", this.setUserStakeLevel.bind(this));
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
 
-        this.socket.on("connect_error", () => {
-            this.onConnectFailed();
-        });
+        this.socket.on("connect_error", this.onConnectFailed.bind(this));
         this.socket.on("disconnect", () => {
             this.setState({ signedIn: false });
         });
@@ -145,12 +144,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onVisibilityChange() {
         const visibleState = document.visibilityState;
-
-        visibleState === "hidden" ? this.onDestroy() : this.onStart();
+        if (visibleState === "visible" && (!this.socket || !this.socket.connected)) {
+            this.onStart();
+        }
     }
 
     onConnectFailed() {
         this.onDestroy();
+        this.setState({ gameState: GameState.Disconnected, signedIn: false });
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         const error = [gameName, this.props.t("common:socketConnectFailed")];
         this.setState({ errorMessage: error, displayPopup: PopupType.Error });
@@ -632,8 +633,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: null });
     }
 
+    renderNotice() {
+        const { message, duration } = this.state.notice;
+        return <Notice message={message} duration={duration} onClose={this.closeNotice} />;
+    }
+
     closeNotice() {
         this.setState({ notice: null });
+    }
+
+    renderAPIError() {
+        const { gameName, roundId, message, duration } = this.state.apiError;
+        return <APIError gameName={gameName} roundId={roundId} message={message} duration={duration} onClose={this.closeApiError} />;
     }
 
     closeApiError() {
@@ -653,10 +664,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             totalBets,
             ownBets,
             gameConfigs,
-            displayPopup,
             userStakeLevel,
             isCompactMode,
-            disabledMessage,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -693,83 +702,73 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    <GameContainer>
-                        <BetContainer gameState={gameState}>
-                            <div
-                                ref={this.gameContainerRef}
-                                className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""} ${
-                                    Styles[this.props.gameName]
-                                }`}
-                            >
-                                {this.renderBetOptions()}
-                            </div>
-
-                            {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                            {this.state.gameState === GameState.DisplayResult && this.renderResult()}
-                            {this.state.showWaitingTime && (
-                                <WaitingTimeAnimation
-                                    remainingTime={
-                                        durations.wholeRound -
-                                        durations.placingBets -
-                                        durations.beforeStartRound -
-                                        durations.resultAnimation -
-                                        (durations.balancingBet ?? 0) -
-                                        1
-                                    }
-                                />
-                            )}
-                            {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
-                            {this.state.notice && (
-                                <Notice
-                                    message={this.state.notice.message}
-                                    duration={this.state.notice.duration}
-                                    onClose={this.closeNotice}
-                                />
-                            )}
-                            {this.state.apiError && (
-                                <APIError
-                                    gameName={this.state.apiError.gameName}
-                                    roundId={this.state.apiError.roundId}
-                                    message={this.state.apiError.message}
-                                    duration={this.state.apiError.duration}
-                                    onClose={this.closeApiError}
-                                />
-                            )}
-                            {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
-                            {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
-                            ))}
-                        </BetContainer>
-                        <div className={`${Styles["mini-round-history"]} d-flex`}>
-                            {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
+                    <GameHeader />
+                    <BetContainer gameState={gameState}>
+                        <div
+                            ref={this.gameContainerRef}
+                            className={`${Styles["bet-options"]} ${isCompactMode ? Styles["compact-mode"] : ""} ${
+                                Styles[this.props.gameName]
+                            }`}
+                        >
+                            {this.renderBetOptions()}
                         </div>
-                        {!isCompactMode && (
-                            <>
-                                <div className={`${Styles["statistic"]} d-flex`}>
-                                    {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
-                                </div>
-                                <ScoreboardRoundHistory>
-                                    {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
-                                </ScoreboardRoundHistory>
-                            </>
+
+                        {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
+                        {this.state.gameState === GameState.DisplayResult && this.renderResult()}
+                        {this.state.showWaitingTime && (
+                            <WaitingTimeAnimation
+                                remainingTime={
+                                    durations.wholeRound -
+                                    durations.placingBets -
+                                    durations.beforeStartRound -
+                                    durations.resultAnimation -
+                                    (durations.balancingBet ?? 0) -
+                                    1
+                                }
+                            />
                         )}
-                        {this.renderPopup(displayPopup)}
-                        {this.state.gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
-                    </GameContainer>
+                        {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                        {this.state.notice && this.renderNotice()}
+                        {this.state.apiError && this.renderAPIError()}
+                        {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
+                        {Object.keys(this.state.acceptedBetQueue).map((key) => (
+                            <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
+                        ))}
+                    </BetContainer>
+                    <div className={`${Styles["mini-round-history"]} d-flex`}>
+                        {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
+                    </div>
+                    {!isCompactMode && (
+                        <>
+                            <div className={`${Styles["statistic"]} d-flex`}>
+                                {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                            </div>
+                            <ScoreboardRoundHistory>
+                                {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
+                            </ScoreboardRoundHistory>
+                        </>
+                    )}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );
     }
 
     render() {
-        return this.state.signedIn ? (
-            this.renderGame()
-        ) : (
-            <GameLoading
-                displayPopup={this.state.displayPopup === PopupType.Error}
-                errorMessage={this.state.errorMessage}
-                retryConnect={() => this.onStart()}
-            />
+        const { signedIn, gameState, displayPopup, disabledMessage } = this.state;
+        return (
+            <GameContainer>
+                {signedIn ? (
+                    this.renderGame()
+                ) : (
+                    <GameLoading
+                        displayPopup={this.state.displayPopup === PopupType.Error}
+                        errorMessage={this.state.errorMessage}
+                        retryConnect={() => this.onStart()}
+                    />
+                )}
+                {this.renderPopup(displayPopup)}
+                {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
+            </GameContainer>
         );
     }
 }
