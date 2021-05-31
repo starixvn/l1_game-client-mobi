@@ -90,6 +90,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.updateCompactMode = this.updateCompactMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
+        this.closeApiError = this.closeApiError.bind(this);
     }
 
     componentDidMount() {
@@ -635,6 +636,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ notice: null });
     }
 
+    closeApiError() {
+        this.setState({ apiError: null });
+    }
+
     get isShowStartRoundAnimation() {
         return false;
     }
@@ -727,7 +732,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     roundId={this.state.apiError.roundId}
                                     message={this.state.apiError.message}
                                     duration={this.state.apiError.duration}
-                                    onClose={this.closeNotice}
+                                    onClose={this.closeApiError}
                                 />
                             )}
                             {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
