@@ -30,13 +30,13 @@ const GameLoading = (props: Props) => {
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
-                    <Skeleton className={Styles[classSkeletonBackground]} width={100} />
-                    <Skeleton className={Styles[classSkeletonBackground]} width={40} />
+                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={157} />
+                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={46} />
                 </div>
                 <Skeleton className={Styles[classSkeletonBackground]} circle={true} height={40} width={40} />
                 <div className={Styles["header-right"]}>
-                    <Skeleton className={`${Styles.rebet} ${Styles[classSkeletonBackground]}`} />
-                    <Skeleton className={`${Styles.button} ${Styles[classSkeletonBackground]}`} />
+                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={84} />
+                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={14} />
                 </div>
             </div>
             <div className={Styles["bet-container"]}>
