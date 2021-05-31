@@ -15,7 +15,7 @@ interface APIErrorProps extends NoticeProps {
 
 const BaseNotice: React.FC<{ onClose: () => void; duration: number }> = ({ children, onClose, duration }) => {
     useEffect(() => {
-        const timer = setTimeout(onClose, duration * 1000);
+        const timer = setTimeout(onClose, duration * 100000);
 
         return () => clearTimeout(timer);
     }, []);

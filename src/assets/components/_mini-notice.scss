@@ -24,8 +24,13 @@
 
 .mini-notice {
     @extend %notice;
-    height: 4.6rem;
-    line-height: 4.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    min-height: 4.6rem;
+    line-height: 2.5rem;
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
     border-radius: 4rem;
 }

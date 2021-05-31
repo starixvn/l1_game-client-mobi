@@ -2,6 +2,14 @@
 
 .notice {
     @extend .mini-notice;
+    left: 20%;
+    right: 20%;
+    top: calc(50% - 2.3rem);
     color: #ffffff;
     background: rgba(228, 35, 9, 0.7);
+
+    @media (max-width: 350px) {
+        left: 10%;
+        right: 10%;
+    }
 }
