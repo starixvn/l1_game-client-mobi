@@ -6,7 +6,6 @@ import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
-import { AudioCollection } from "../../../common/audio";
 import { gameVipIds } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -112,12 +111,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onStart() {
+        this.onDestroy();
         const { socketInfo } = this.props;
         const { session } = this.context;
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
-        this.setState(this.defaultState);
         this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
@@ -765,6 +764,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 )}
                 {this.renderPopup(displayPopup)}
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
+                {gameState === GameState.Disconnected}
             </GameContainer>
         );
     }
