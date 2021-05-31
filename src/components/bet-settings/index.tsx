@@ -20,7 +20,6 @@ type Props = {
 };
 
 const SlidingTimeInMillisecond = 250;
-let selectChipSound: HTMLAudioElement = null;
 let isSwipe = true;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
@@ -155,9 +154,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
     };
 
     const handleSelectChip = (chipValue: number) => {
-        selectChipSound = AudioCollection.getSelectChipSound();
-        selectChipSound.play();
-
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
     };
