@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from "uuid";
+
+import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import BaseDialog from "../base-dialog";
+import { ModalType } from "../base-dialog/type";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
-const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
+export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     const { isCompactMode } = useGameContext();
     useEffect(() => {
         const timeOut = setTimeout(() => closeModal(), 3000);
@@ -33,4 +38,24 @@ const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     );
 };
 
-export default ErrorMessage;
+export const ConnectFailedMessage: React.FC<{ retryConnect: () => void }> = ({ retryConnect }) => {
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation();
+
+    return (
+        <BaseDialog type={ModalType.Center} isOpen={true}>
+            <div className={Styles["error-message-container"]}>
+                <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
+                <div className={Styles.message}>
+                    <div>{t(`${gameSetting.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
+                    <div>{t("common:socketConnectFailed")}</div>
+                </div>
+                <div className={Styles["list-action"]}>
+                    <button onClick={() => retryConnect()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
+                        {t("common:socketReconnect")}
+                    </button>
+                </div>
+            </div>
+        </BaseDialog>
+    );
+};

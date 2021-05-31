@@ -23,7 +23,7 @@ import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
-import ErrorMessage from "../error-message";
+import { ConnectFailedMessage, ErrorMessage } from "../error-message";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
 import { APIError, Notice } from "../notice";
@@ -107,7 +107,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.interval && clearInterval(this.interval);
-        this.socket.disconnect();
+        this.socket && this.socket.disconnect();
     }
 
     onStart() {
@@ -149,7 +149,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onConnectFailed() {
         this.onDestroy();
-        this.setState({ gameState: GameState.Disconnected, signedIn: false });
+        this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         const error = [gameName, this.props.t("common:socketConnectFailed")];
         this.setState({ errorMessage: error, displayPopup: PopupType.Error });
@@ -764,7 +764,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 )}
                 {this.renderPopup(displayPopup)}
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
-                {gameState === GameState.Disconnected}
+                {gameState === GameState.ConnectFailed && <ConnectFailedMessage retryConnect={this.onStart.bind(this)} />}
             </GameContainer>
         );
     }

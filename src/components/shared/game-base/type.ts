@@ -20,7 +20,7 @@ export enum GameState {
     DisplayResult,
     BeforeStartRound,
     BalancingBet,
-    Disconnected,
+    ConnectFailed,
 }
 export enum PopupType {
     Guide,
