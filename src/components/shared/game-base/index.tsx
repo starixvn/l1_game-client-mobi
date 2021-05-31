@@ -495,7 +495,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        if (this.isProcessingBet) {
+        const { displayPopup } = this.state;
+
+        if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
         } else {
             if (amount > 0) {
