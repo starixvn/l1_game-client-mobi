@@ -17,7 +17,7 @@
     animation-name: winning-animation;
     font-weight: bold;
     animation-timing-function: ease-in-out;
-    animation-duration: 1s;
+    animation-duration: 0.8s;
     color: var(--accepted-bet-color);
     letter-spacing: -0.1rem;
     -webkit-text-stroke: 1px var(--accepted-bet-border);
@@ -69,7 +69,7 @@
     }
 
     100% {
-        transform: translateY(-7rem) scale(var(--winning-bet-scale-animation));
+        transform: translateY(-6rem) scale(var(--winning-bet-scale-animation));
     }
 }
 
