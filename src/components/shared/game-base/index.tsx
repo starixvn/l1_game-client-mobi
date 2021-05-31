@@ -150,9 +150,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onConnectFailed() {
         this.onDestroy();
         this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const error = [gameName, this.props.t("common:socketConnectFailed")];
-        this.setState({ errorMessage: error, displayPopup: PopupType.Error });
     }
 
     registerMessageHandler = () => {
@@ -764,7 +761,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 )}
                 {this.renderPopup(displayPopup)}
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
-                {gameState === GameState.ConnectFailed && <ConnectFailedMessage retryConnect={this.onStart.bind(this)} />}
+                {gameState === GameState.ConnectFailed && (
+                    <ConnectFailedMessage gameName={this.props.gameName} retryConnect={this.onStart.bind(this)} />
+                )}
             </GameContainer>
         );
     }

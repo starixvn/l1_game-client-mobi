@@ -38,8 +38,7 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     );
 };
 
-export const ConnectFailedMessage: React.FC<{ retryConnect: () => void }> = ({ retryConnect }) => {
-    const { gameSetting } = useGameContext();
+export const ConnectFailedMessage: React.FC<{ gameName: string; retryConnect: () => void }> = ({ gameName, retryConnect }) => {
     const { t } = useTranslation();
 
     return (
@@ -47,7 +46,7 @@ export const ConnectFailedMessage: React.FC<{ retryConnect: () => void }> = ({ r
             <div className={Styles["error-message-container"]}>
                 <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
                 <div className={Styles.message}>
-                    <div>{t(`${gameSetting.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
+                    <div>{t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
                     <div>{t("common:socketConnectFailed")}</div>
                 </div>
                 <div className={Styles["list-action"]}>
