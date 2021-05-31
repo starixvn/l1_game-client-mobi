@@ -44,7 +44,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private isUMInFirstLoad = false;
     private showWaitingTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
-    private placeBetSound: HTMLAudioElement;
     private isProcessingBet = false;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
@@ -228,7 +227,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             this.setState({ displayChips: newDisplayChips, displayPopup: null });
-            this.placeBetSound.play();
             this.updateUserBalance();
         }
     };
@@ -509,7 +507,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
         } else {
             if (amount > 0) {
-                this.placeBetSound = AudioCollection.getPlaceBetSound();
                 this.socket.emit("bet", { betChoice, amount });
                 this.isProcessingBet = true;
             }
