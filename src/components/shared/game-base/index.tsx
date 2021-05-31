@@ -111,7 +111,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onStart() {
-        this.onDestroy();
         const { socketInfo } = this.props;
         const { session } = this.context;
         const { proxy } = appSettings;
@@ -142,9 +141,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onVisibilityChange() {
         const visibleState = document.visibilityState;
-        if (visibleState === "visible" && (!this.socket || !this.socket.connected)) {
-            this.onStart();
-        }
+        visibleState === "hidden" ? this.onDestroy() : this.onStart();
     }
 
     onConnectFailed() {
@@ -185,7 +182,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
-        let error: string | string[];
         if (apiError.gameRoundId) {
             const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
             const message = apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message;
