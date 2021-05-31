@@ -662,6 +662,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
+            displayPopup,
         } = this.state;
 
         const gameContext = {
@@ -741,13 +742,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             </ScoreboardRoundHistory>
                         </>
                     )}
+                    {this.renderPopup(displayPopup)}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );
     }
 
     render() {
-        const { signedIn, gameState, displayPopup, disabledMessage } = this.state;
+        const { signedIn, gameState, disabledMessage } = this.state;
         return (
             <GameContainer>
                 {signedIn ? (
@@ -759,7 +761,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         retryConnect={() => this.onStart()}
                     />
                 )}
-                {this.renderPopup(displayPopup)}
+
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage gameName={this.props.gameName} retryConnect={this.onStart.bind(this)} />
