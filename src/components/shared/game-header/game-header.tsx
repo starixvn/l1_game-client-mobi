@@ -54,7 +54,7 @@ export default function GameHeader() {
 
     useEffect(() => {
         if (isMobileOnly) {
-            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId)) {
+            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId) && !isCompactMode) {
                 updateCompactMode();
             }
         }
