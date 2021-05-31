@@ -101,8 +101,6 @@ export default function GameHeader() {
                         #{roundId}
                     </div>
                 </div>
-                <CountdownTimer key={remainingTime} />
-                <HeaderRight handleStorageModeViewIds={handleStorageModeViewIds} />
             </div>
             <CountdownTimer key={gameState} />
 
