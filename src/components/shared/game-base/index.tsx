@@ -1,6 +1,5 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { useTranslation } from "react-i18next";
 import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
@@ -53,7 +52,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private showWaitingTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
-    private readonly winStreakCollector: WinStreakCollectorModel;
+    private winStreakCollector: WinStreakCollectorModel;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -89,7 +88,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         super(props);
 
         this.messageTransmitter = MessageTransmitter();
-        this.winStreakCollector = this.initWinStreakCollector();
+        this.initWinStreakCollector();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.registerMessageHandler();
@@ -635,7 +634,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     initWinStreakCollector() {
         const mainOptions = this.getMainOptions();
 
-        return mainOptions.reduce((result, option) => {
+        this.winStreakCollector = mainOptions.reduce((result, option) => {
             result[option] = {
                 streak: 0,
                 isStopStreak: false,
@@ -657,6 +656,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
                 if (winStreak.streak > 3) {
                     notifyWinStreak({
+                        key: uuidv4(),
                         gameName: gameName,
                         choice: option,
                         streak: winStreak.streak,

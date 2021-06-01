@@ -30,7 +30,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         setWinningStreakQueue([...winningStreakQueue]);
 
         setTimeout(() => {
-            setWinningStreakQueue(winningStreakQueue.filter((streakItem) => streakItem !== streak));
+            setWinningStreakQueue(winningStreakQueue.filter((streakItem) => streakItem.key !== streak.key));
         }, 3 * 1000);
     };
 
