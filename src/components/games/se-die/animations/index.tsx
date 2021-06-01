@@ -49,7 +49,17 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {Object.values(result).map((value, index) => (
-                <div key={index} className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                <div className={Styles["content__coins"]}>
+                    <span className={`${Styles["currency-soft-3d"]} ${Styles["currency-soft-3d_state_right"]}`}>
+                        <span className={Styles["currency-soft-3d__front_inside"]}></span>
+                        <span className={Styles["currency-soft-3d__front"]}></span>
+                        <span className={Styles["currency-soft-3d__back"]}></span>
+                        <span className={Styles["currency-soft-3d__back_inside"]}></span>
+                    </span>
+                </div>
+                // <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                //     <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                // </div>
             ))}
         </div>
     );
