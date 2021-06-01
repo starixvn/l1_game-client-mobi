@@ -1,16 +1,15 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
-import { AudioCollection } from "../../common/audio";
 
 import { ChipLabelMapper, ChipValues } from "../../common/constants";
+import { useAuthContext } from "../../contexts/auth";
+import { UserClientCommunication } from "../../services";
 import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import ConfirmMessage from "./confirm-message";
 import Styles from "./bet-setting.module.scss";
-import { useAuthContext } from "../../contexts/auth";
-import { UserClientCommunication } from "../../services";
+import ConfirmMessage from "./confirm-message";
 
 type Props = {
     betValue: number;
