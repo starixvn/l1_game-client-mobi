@@ -1,18 +1,36 @@
-[data-theme="light"] .loader {
-    --loader-icon-color: #ffaa2c;
-}
-
-[data-theme="dark"] .loader {
-    --loader-icon-color: #8ca8c5;
-}
-
-.loader-layer {
-    z-index: var(--loader-layer-index);
-}
-
 .loader {
-    svg path,
-    svg rect {
-        fill: var(--loader-icon-color);
+    display: inline-block;
+    position: absolute;
+    left: calc(50% - 2rem);
+    top: -0.2rem;
+    margin: 1rem 0;
+    width: 4rem;
+    height: 4rem;
+    border: 0.3rem solid #fff;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+
+    &:after {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        border: 3px solid;
+        border-color: #ff665f transparent;
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
