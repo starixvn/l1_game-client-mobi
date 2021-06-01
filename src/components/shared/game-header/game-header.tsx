@@ -26,6 +26,7 @@ export default function GameHeader() {
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
+        e.stopPropagation();
         systemContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
