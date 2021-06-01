@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
+import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
-import { SettlementResult, Result } from "./../fish-prawn-crab";
+import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
-import { OddNames, ResultBet } from "../index";
 
 const Choices = {
     crab: "crab",
@@ -113,21 +113,15 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, result } = props;
     const countsAppearDice = {};
-    const wrapperRef = useRef<HTMLInputElement>(null);
+
     if (result) {
         Object.values(result).forEach((value) => {
             countsAppearDice[value] = (countsAppearDice[value] || 0) + 1;
         });
     }
 
-    useEffect(() => {
-        return () => {
-            wrapperRef.current = null;
-        };
-    }, []);
-
     return (
-        <div className={`${Styles["layout-FPC"]}`} ref={wrapperRef}>
+        <div className={`${Styles["layout-FPC"]}`}>
             <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult, countsAppearDice)}</div>
             <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult, countsAppearDice)}</div>
             <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult, countsAppearDice)}</div>

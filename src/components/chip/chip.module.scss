@@ -52,14 +52,15 @@
     height: var(--chip-size);
     box-shadow: 0 1px 0 rgb(4 4 4 / 80%);
     border-radius: 50%;
-    transition: top 0.1s ease-in-out;
 
     &.btn-chip {
         margin: 0 1rem;
+        transition: top 0.1s ease-out;
 
         &.selected {
             --ratio: 1.2;
             top: -0.5rem;
+            transition: top 0.1s ease-in;
 
             @media (min-width: 768px) and (max-width: 1024px) {
                 --ratio: 1.5;
@@ -75,9 +76,7 @@
                 --ratio: 1.8;
                 top: -1rem;
             }
-        }
 
-        &.selected {
             &:before {
                 content: "";
                 position: absolute;
@@ -87,7 +86,7 @@
                 top: calc(-0.6rem * var(--ratio));
                 background-image: url(/static/images/chip-active.svg);
                 background-size: 100%;
-                animation-name: rotateAnimation;
+                animation-name: rotate-animation;
                 animation-duration: 0.6s;
                 animation-iteration-count: infinite;
                 animation-timing-function: linear;
@@ -112,22 +111,17 @@
         @media (hover: hover) {
             &.btn-chip:hover {
                 cursor: pointer;
-                --ratio: 1.2;
-                top: -0.5rem;
 
-                @media (min-width: 768px) and (max-width: 1024px) {
-                    --ratio: 1.5;
-                    top: -0.8rem;
-                }
-
-                @media (min-width: 1025px) and (max-width: 1279px) {
-                    --ratio: 1.7;
-                    top: -0.9rem;
-                }
-
-                @media (min-width: 1200px) {
-                    --ratio: 1.8;
-                    top: -1rem;
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: calc(-0.6rem * var(--ratio));
+                    right: calc(-0.6rem * var(--ratio));
+                    bottom: calc(-0.6rem * var(--ratio));
+                    top: calc(-0.6rem * var(--ratio));
+                    background-image: url(/static/images/chip-active.svg);
+                    background-size: 100%;
+                    transition: background-image 0.1s ease-in-out;
                 }
             }
         }
@@ -305,7 +299,7 @@
         }
     }
 
-    @keyframes rotateAnimation {
+    @keyframes rotate-animation {
         0% {
             transform: rotate(0);
         }

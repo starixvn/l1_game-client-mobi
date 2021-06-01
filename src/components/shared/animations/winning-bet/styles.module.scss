@@ -17,7 +17,7 @@
     animation-name: winning-animation;
     font-weight: bold;
     animation-timing-function: ease-in-out;
-    animation-duration: 1s;
+    animation-duration: 0.8s;
     color: var(--accepted-bet-color);
     letter-spacing: -0.1rem;
     -webkit-text-stroke: 1px var(--accepted-bet-border);
@@ -51,6 +51,7 @@
         grid-area: 1/1;
 
         &.light-2 {
+            z-index: 2;
             animation-delay: 0.9s;
             animation-name: rotate-light2;
         }
@@ -58,7 +59,8 @@
 
     .number {
         position: relative;
-        z-index: 2;
+        z-index: 3;
+        display: inline-block;
     }
 }
 
@@ -69,7 +71,7 @@
     }
 
     100% {
-        transform: translateY(-7rem) scale(var(--winning-bet-scale-animation));
+        transform: translateY(-6rem) scale(var(--winning-bet-scale-animation));
     }
 }
 

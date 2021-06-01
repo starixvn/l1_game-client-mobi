@@ -4,7 +4,7 @@ import styles from "./display-chip.module.scss";
 
 const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number }> = ({ chipValue, chipKey }) => {
     const chipContainerStyles = useRef({
-        transform: "scale(0.56)",
+        transform: "scale(0.52)",
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         ZIndex: chipKey,

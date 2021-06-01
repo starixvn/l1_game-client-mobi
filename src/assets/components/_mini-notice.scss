@@ -12,7 +12,7 @@
     position: absolute;
     padding-left: 1.6rem;
     padding-right: 1.6rem;
-    z-index: var(--result-animation-index) + 1;
+    z-index: calc(var(--result-animation-index) + 1);
     text-align: center;
     font-size: 1.6rem;
     animation-name: show-mini-notice-animation;
@@ -24,8 +24,14 @@
 
 .mini-notice {
     @extend %notice;
-    height: 4.6rem;
-    line-height: 4.6rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    min-height: 4.6rem;
+    line-height: 2.5rem;
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.25);
     border-radius: 4rem;
 }

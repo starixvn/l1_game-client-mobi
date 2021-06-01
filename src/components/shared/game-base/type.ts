@@ -1,6 +1,5 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
-import { NextRouter } from "next/router";
 
 import { Round } from "../../../types";
 
@@ -21,6 +20,7 @@ export enum GameState {
     DisplayResult,
     BeforeStartRound,
     BalancingBet,
+    ConnectFailed,
 }
 export enum PopupType {
     Guide,
@@ -70,6 +70,18 @@ export interface GameBaseState<Result, SettlementResult> {
     playResultAnimation: boolean;
     displayChips: DisplayChips;
     isShowBlink: boolean;
+    notice: Notice;
+    apiError: APIError;
+}
+
+export interface Notice {
+    message: string;
+    duration: number;
+}
+
+export interface APIError extends Notice {
+    gameName: string;
+    roundId: number;
 }
 
 export interface DisplayChips {

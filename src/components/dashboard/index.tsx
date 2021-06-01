@@ -12,6 +12,7 @@ import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
 import { UserClientCommunication } from "../../services";
+import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
 import Header from "../header";
 import Register from "../register";
@@ -107,6 +108,7 @@ class Dashboard extends React.Component<Props, State> {
         this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
         this.setState({ isSignedUp: true, isSignedIn: true, user });
         setBalance(user?.red);
+        setCharacterName(user?.name);
     }
 
     sendMessage(data: any) {

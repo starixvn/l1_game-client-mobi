@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
@@ -41,7 +42,7 @@ const BaseDialog: React.FC<Props> = ({
     useEffect(() => {
         function handleClickOutside(event) {
             if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-                onCloseModal();
+                onCloseModal && onCloseModal();
             }
         }
 

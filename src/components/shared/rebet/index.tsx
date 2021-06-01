@@ -58,7 +58,7 @@ const Rebet: React.FC<Props> = (props) => {
             ? Object.keys(lastBetChoices).map(
                   (betChoice) =>
                       lastBetChoices[betChoice] > 0 && (
-                          <div>
+                          <div key={betChoice}>
                               <div
                                   className={`${Styles["bet-info"]} ${
                                       betTrack[betChoice] && Styles[getClassByBetState(betTrack[betChoice].state)]

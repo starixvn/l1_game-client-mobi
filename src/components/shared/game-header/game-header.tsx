@@ -17,21 +17,21 @@ const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, isCompactMode } = useGameContext();
+    const { roundId, gameSetting, isCompactMode, remainingTime } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
-    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds);
+    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
     const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
+        e.stopPropagation();
         systemContext.setFavorite(gameId, !isFavorite);
         updateFavorite(!isFavorite);
     };
 
     const handleStorageCompactModeIds = () => {
-        const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
         const newGameIdCompactMode = [...gameIdCompactModeOnStorage];
         const gameIndex = newGameIdCompactMode.indexOf(gameId);
         gameIndex >= 0 && isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
@@ -54,7 +54,7 @@ export default function GameHeader() {
 
     useEffect(() => {
         if (isMobileOnly) {
-            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId)) {
+            if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId) && !isCompactMode) {
                 updateCompactMode();
             }
         }
@@ -80,7 +80,7 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                <CountdownTimer key={gameState} />
+                <CountdownTimer key={remainingTime} />
                 <HeaderRight />
             </div>
         </Fragment>

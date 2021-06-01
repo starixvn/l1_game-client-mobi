@@ -10,6 +10,7 @@ import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
+import { setCharacterName, setUser } from "../utils/sentry";
 
 let authorizeInfo: AuthorizeResponse = null;
 
@@ -66,10 +67,12 @@ function Home() {
     }
 
     async function handleSignInSuccess(userSession: SSOResponse) {
+        setUser(userSession);
         authorizeInfo = (await authService.authorize(userSession.ss, userSession.username)) as AuthorizeResponse;
 
         if (authorizeInfo.authorized) {
             setBalance(authorizeInfo.user.red);
+            setCharacterName(authorizeInfo.user.name);
         }
 
         setSession(userSession);
