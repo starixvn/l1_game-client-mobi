@@ -4,7 +4,7 @@ import Styles from "./loader.module.scss";
 
 export default function Loader() {
     return (
-        <div className={`overlay-mask-white ${Styles["loader-layer"]}`}>
+        <div className={`overlay-mask-no-bg ${Styles["loader-layer"]}`}>
             <div className={Styles["loader"]} title="5">
                 <svg
                     version="1.1"
