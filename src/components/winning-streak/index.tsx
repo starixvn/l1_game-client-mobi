@@ -13,6 +13,8 @@ const BauCuaIconMapper = {
     rooster: "icon-ga",
 };
 
+const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie"];
+
 const getIconClassName = (gameName: string, choice: string) => {
     if (gameName.toLocaleLowerCase() === "baucua") {
         return `${styles.dice} ${BauCuaIconMapper[choice]}`;
@@ -23,7 +25,7 @@ const getIconClassName = (gameName: string, choice: string) => {
 
 const getTextOnIconChoice = (gameName: string, choice: string, translate: Function) => {
     const gameNameLowerCase = gameName.toLocaleLowerCase();
-    if (gameNameLowerCase === "baucua" || gameNameLowerCase === "xocxoc") {
+    if (GamesHaveNoTextOnIcon.includes(gameNameLowerCase)) {
         return "";
     }
 
