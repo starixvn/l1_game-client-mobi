@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useGameContext } from "../../../contexts/game-context/game-context";
 
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./waiting-time-animation.module.scss";
 
 const WaitingTimeAnimation: React.FC<{ remainingTime: number }> = (props) => {
@@ -9,7 +9,9 @@ const WaitingTimeAnimation: React.FC<{ remainingTime: number }> = (props) => {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setRemainingTime(remainingTime - 1);
+            if (remainingTime > 0) {
+                setRemainingTime(remainingTime - 1);
+            }
         }, 1000);
 
         return () => clearInterval(interval);
