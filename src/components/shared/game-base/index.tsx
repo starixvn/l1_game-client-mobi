@@ -84,7 +84,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.registerMessageHandler();
-        this.sendBet = this.sendBet.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.placeBet = this.placeBet.bind(this);
@@ -138,7 +137,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.socket.on("connect_error", this.onConnectFailed.bind(this));
         this.socket.on("disconnect", () => {
-            this.setState({ loading: true, gameState: GameState.None });
+            this.setState({ loading: true });
         });
     }
 
@@ -502,18 +501,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        if (this.isProcessingBet) {
+        const { displayPopup } = this.state;
+
+        if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
         } else {
             if (amount > 0) {
-                this.sendBet(betChoice, amount);
                 this.isProcessingBet = true;
+                this.socket.emit("bet", { betChoice, amount });
             }
         }
-    }
-
-    sendBet(betChoice: string, amount: number) {
-        this.socket.emit("bet", { betChoice, amount });
     }
 
     openPopup(popupType: PopupType) {
@@ -689,7 +686,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         const gameActionsContext = {
-            placeBet: this.sendBet,
+            placeBet: this.placeBet,
             openPopup: this.openPopup,
             closePopup: this.closePopup,
             registerMessageHandler: this.messageTransmitter.register,
