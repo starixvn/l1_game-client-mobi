@@ -199,7 +199,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
         const { id } = this.props;
-        const { displayPopup, roundId } = this.state;
+        const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
         this.setState({ notice: null });
 
@@ -224,6 +224,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
+            ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
             this.setState({ displayChips: newDisplayChips });
             this.updateUserBalance();
         }
@@ -270,8 +271,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ totalBets });
     };
 
-    handleOwnBets = ({ ownBets }) => {
-        this.setState({ ownBets });
+    handleOwnBets = ({ ownBets, gameConfigs }) => {
+        gameConfigs && this.setState({ ownBets });
     };
 
     handlePercentageBets = ({ betPercentage }) => {
