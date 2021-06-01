@@ -28,7 +28,7 @@ function Home() {
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
-    const { t } = useTranslation("common");
+    const { t } = useTranslation("message");
 
     async function signIn() {
         const settings = await settingsService.getSettings();
@@ -95,7 +95,7 @@ function Home() {
                         setTimeout(() => {
                             signOut();
                         }, 10000);
-                        setApiErrorMessage(t("accountIsLocked"));
+                        setApiErrorMessage(t("accountClosed"));
                     } else {
                         setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
                     }
@@ -155,6 +155,7 @@ export const getStaticProps = async ({ locale }) => ({
             "dragontiger",
             "vipsedie",
             "txturbo",
+            "message",
         ])),
     },
 });

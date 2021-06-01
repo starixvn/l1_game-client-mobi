@@ -77,11 +77,13 @@ export interface GameBaseState<Result, SettlementResult> {
 export interface Notice {
     message: string;
     duration: number;
+    minBet?: number;
+    maxBet?: number;
 }
 
 export interface APIError extends Notice {
-    gameName: string;
-    roundId: number;
+    gameName?: string;
+    roundId?: number;
 }
 
 export interface DisplayChips {

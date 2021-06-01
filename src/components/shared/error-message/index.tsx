@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import BaseDialog from "../base-dialog";
+import { GetLocalizedErrorMessage, GetMessageByLocale } from "../../../helpers/notice-helper";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
@@ -40,7 +41,7 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
 
 export const ConnectFailedMessage: React.FC<{ gameName: string; retryConnect: () => void }> = ({ gameName, retryConnect }) => {
     const { t } = useTranslation();
-
+    const message = t("message:")
     return (
         <BaseDialog type={ModalType.Center} isOpen={true}>
             <div className={Styles["error-message-container"]}>

@@ -14,7 +14,7 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
         // Flushing is not required in this case as it only happens on the client
     }
 
-    const { t } = useTranslation("common");
+    const { t } = useTranslation("message");
     const router = useRouter();
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +31,7 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
         <div>
             <div className="error-page">
                 <img className="error-background small" src={`/static/images/error-${theme}.svg`} alt="error" />
-                <p className="info">{t("errorPage")}</p>
+                <p className="info">{t("errorOccurred")}</p>
             </div>
         </div>
     );
@@ -39,7 +39,7 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
 
 export const getStaticProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale, ["common"])),
+        ...(await serverSideTranslations(locale, ["message"])),
     },
 });
 

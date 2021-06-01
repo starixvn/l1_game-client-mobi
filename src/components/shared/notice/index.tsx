@@ -6,6 +6,8 @@ interface NoticeProps {
     message: string;
     onClose: () => void;
     duration: number;
+    minBet?: number;
+    maxBet?: number;
 }
 
 interface APIErrorProps extends NoticeProps {
@@ -56,7 +58,7 @@ export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }
     );
 };
 
-export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3 }) => {
+export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3, minBet, maxBet }) => {
     return (
         <BaseNotice onClose={onClose} duration={duration}>
             <div className="font-weight-medium">{`${gameName} (#${roundId})`}</div>

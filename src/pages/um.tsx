@@ -12,7 +12,7 @@ import { UserClientCommunication } from "../services";
 function UM({ umInfo }) {
     const router = useRouter();
     const { locale } = router;
-    const { t } = useTranslation("um");
+    const { t } = useTranslation(["um", "message"]);
     const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
     const [startTime, setStartTime] = useState<string>(null);
     const [endTime, setEndTime] = useState<string>(null);
@@ -37,10 +37,10 @@ function UM({ umInfo }) {
         <div className="error-page">
             <img alt="UM" src={`/static/images/um-${theme}.svg`} className="error-background" />
             <p className="um-title">
-                {t("umTitleFirst")} <br /> {t("umTitleSecond")}
+                {t("message:sysMaintenance")} <br /> {t("um:umTitleFirst")}
             </p>
-            <p className="highlight">{t("umContent").toString().replace("{0}", startTime).replace("{1}", endTime)}</p>
-            <p>{t("umNotice")}</p>
+            <p className="highlight">{t("um:umContent").toString().replace("{0}", startTime).replace("{1}", endTime)}</p>
+            <p>{t("um:umNotice")}</p>
         </div>
     );
 }
@@ -51,7 +51,7 @@ export async function getServerSideProps({ locale }) {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale, ["um"])),
+            ...(await serverSideTranslations(locale, ["message", "um"])),
             umInfo: settings.umInfo,
         },
     };

@@ -9,9 +9,9 @@ type Optional = {
 
 export const GetLocalizedErrorMessage = (errorCode: string) => {
     if (!ErrorCodeDictionary[errorCode]) {
-        return "messages.errorOccurred";
+        return "messages:errorOccurred";
     }
-    return `messages.${ErrorCodeDictionary[errorCode]}`;
+    return `messages:${ErrorCodeDictionary[errorCode]}`;
 };
 
 export const GetMessageByLocale = (data: any, locale: string): string => {

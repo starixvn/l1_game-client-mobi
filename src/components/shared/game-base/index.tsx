@@ -32,6 +32,8 @@ import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
+import { GetLocalizedErrorMessage, GetMessageByLocale } from "../../../helpers/notice-helper";
+import { languageMapper } from "../../../common/constants";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import {
     GameBaseProps,
@@ -193,16 +195,23 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
+        const message = this.props.t(GetLocalizedErrorMessage(apiError.errorCode));
         if (apiError.gameRoundId) {
             const { displayPopup } = this.state;
-
             const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-
-            const message = apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message;
             displayPopup !== PopupType.Rebet &&
-                this.setState({ apiError: { gameName: gameName, roundId: apiError.gameRoundId, message: message, duration: 3 } });
+                this.setState({
+                    apiError: {
+                        gameName: gameName,
+                        roundId: apiError.gameRoundId,
+                        message: message,
+                        duration: 3,
+                        minBet: apiError?.minbet,
+                        maxBet: apiError?.maxbet,
+                    },
+                });
         } else {
-            this.setState({ notice: { message: apiError.message, duration: 3 } });
+            this.setState({ notice: { message: message, duration: 3, minBet: apiError?.minbet, maxBet: apiError?.maxbet } });
         }
     };
 
@@ -294,6 +303,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUM({ um, um_message, remainingTime }) {
         const { durations } = this.props;
+        const { language } = this.context.session;
         if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
             this.isUMInFirstLoad = true;
         } else {
@@ -303,7 +313,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
             this.interval && clearInterval(this.interval);
             this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
-            this.setState({ gameState: GameState.Disabled, disabledMessage: um_message, showWaitingTime: false });
+            this.setState({
+                gameState: GameState.Disabled,
+                disabledMessage: GetMessageByLocale(um_message, languageMapper[language]),
+                showWaitingTime: false,
+            });
         }
     }
 
@@ -393,7 +407,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);
         } else {
-            this.setState({ displayPopup: PopupType.Error, errorMessage: balanceResponse.message });
+            this.setState({
+                displayPopup: PopupType.Error,
+                errorMessage: this.props.t(GetLocalizedErrorMessage(balanceResponse.errorCode)),
+            });
         }
     }
 
@@ -517,7 +534,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
-            this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
+            this.setState({ notice: { message: this.props.t("message:betProcessing"), duration: 2 } });
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
@@ -693,8 +710,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderAPIError() {
-        const { gameName, roundId, message, duration } = this.state.apiError;
-        return <APIError gameName={gameName} roundId={roundId} message={message} duration={duration} onClose={this.closeApiError} />;
+        const { gameName, roundId, message, duration, minBet, maxBet } = this.state.apiError;
+        return (
+            <APIError
+                gameName={gameName}
+                roundId={roundId}
+                message={message}
+                duration={duration}
+                minBet={minBet}
+                maxBet={maxBet}
+                onClose={this.closeApiError}
+            />
+        );
     }
 
     closeApiError() {
