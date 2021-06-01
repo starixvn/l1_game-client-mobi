@@ -72,7 +72,6 @@ export interface GameBaseState<Result, SettlementResult> {
     isShowBlink: boolean;
     notice: Notice;
     apiError: APIError;
-    loading: boolean;
 }
 
 export interface Notice {
