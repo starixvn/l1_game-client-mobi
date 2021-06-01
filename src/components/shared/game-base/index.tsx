@@ -26,6 +26,7 @@ import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
+import Loader from "../loader";
 import { APIError, Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
@@ -73,6 +74,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         isShowBlink: false,
         notice: null,
         apiError: null,
+        loading: false,
     };
 
     constructor(props: P) {
@@ -126,7 +128,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.socket.emit("signin", session);
         });
         this.socket.on("signedIn", () => {
-            this.setState({ signedIn: true });
+            this.setState({ signedIn: true, loading: false });
             this.socket.emit("inGame");
         });
 
@@ -135,7 +137,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.socket.on("connect_error", this.onConnectFailed.bind(this));
         this.socket.on("disconnect", () => {
-            this.setState({ signedIn: false });
+            this.setState({ loading: true });
         });
     }
 
@@ -661,6 +663,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
+            loading,
         } = this.state;
 
         const gameContext = {
@@ -740,6 +743,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             </ScoreboardRoundHistory>
                         </>
                     )}
+                    {loading && <Loader />}
                     {this.renderPopup(displayPopup)}
                 </GameActionsContextProvider>
             </GameContextProvider>
@@ -750,16 +754,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { signedIn, gameState, disabledMessage } = this.state;
         return (
             <GameContainer>
-                {signedIn ? (
-                    this.renderGame()
-                ) : (
-                    <GameLoading
-                        displayPopup={this.state.displayPopup === PopupType.Error}
-                        errorMessage={this.state.errorMessage}
-                        retryConnect={() => this.onStart()}
-                    />
-                )}
-
+                {signedIn ? this.renderGame() : <GameLoading />}
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage gameName={this.props.gameName} retryConnect={this.onStart.bind(this)} />

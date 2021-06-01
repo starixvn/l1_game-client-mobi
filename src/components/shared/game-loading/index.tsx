@@ -3,13 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 import Styles from "./styles.module.scss";
 
-type Props = {
-    displayPopup: boolean;
-    errorMessage: string | string[];
-    retryConnect: () => void;
-};
-
-const GameLoading = (props: Props) => {
+const GameLoading = () => {
     const classBorder = "border-radius";
     const classScoreBoard = "score-board-line";
     const classSkeletonBackground = "skeleton-background";
