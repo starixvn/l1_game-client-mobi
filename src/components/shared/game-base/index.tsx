@@ -87,6 +87,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.sendBet = this.sendBet.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
+        this.placeBet = this.placeBet.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
         this.updateCompactMode = this.updateCompactMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
