@@ -19,7 +19,7 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
-const SlidingTimeInMillisecond = 250;
+const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
