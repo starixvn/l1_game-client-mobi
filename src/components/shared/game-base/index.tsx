@@ -615,6 +615,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     setWinStreakByRoundHistory(roundHistory) {
         const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
         const mainOptions = this.getMainOptions();
+        this.initWinStreakCollector();
 
         for (const round of history) {
             mainOptions.forEach((option) => {
