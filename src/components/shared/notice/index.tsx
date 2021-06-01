@@ -34,7 +34,7 @@ export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }
 export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3 }) => {
     return (
         <BaseNotice onClose={onClose} duration={duration}>
-            <div className="font-weight-bold">{`${gameName} (#${roundId})`}</div>
+            <div className="font-weight-medium">{`${gameName} (#${roundId})`}</div>
             <div>{message}</div>
         </BaseNotice>
     );
