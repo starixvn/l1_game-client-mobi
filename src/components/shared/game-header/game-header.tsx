@@ -17,11 +17,11 @@ const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, isCompactMode } = useGameContext();
+    const { roundId, gameSetting, isCompactMode, remainingTime } = useGameContext();
     const { updateCompactMode } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
-    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds);
+    const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
     const [gameIdCompactMode, updateGameIdCompactMode] = useState<number[]>(gameIdCompactModeOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
@@ -31,7 +31,6 @@ export default function GameHeader() {
     };
 
     const handleStorageCompactModeIds = () => {
-        const gameIdCompactModeOnStorage = getLocalStorageItem<number[]>(localStorageKeys.compactModeIds) ?? [];
         const newGameIdCompactMode = [...gameIdCompactModeOnStorage];
         const gameIndex = newGameIdCompactMode.indexOf(gameId);
         gameIndex >= 0 && isCompactMode && newGameIdCompactMode.splice(gameIndex, 1);
@@ -80,7 +79,7 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                <CountdownTimer />
+                <CountdownTimer key={remainingTime} />
                 <HeaderRight />
             </div>
         </Fragment>
