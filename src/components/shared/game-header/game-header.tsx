@@ -80,7 +80,7 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                <CountdownTimer key={gameState} />
+                <CountdownTimer />
                 <HeaderRight />
             </div>
         </Fragment>
