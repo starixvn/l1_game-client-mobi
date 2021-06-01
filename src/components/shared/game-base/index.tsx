@@ -137,7 +137,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.socket.on("connect_error", this.onConnectFailed.bind(this));
         this.socket.on("disconnect", () => {
-            this.setState({ loading: true });
+            this.setState({ loading: true, gameState: GameState.None });
         });
     }
 
