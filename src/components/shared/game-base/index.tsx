@@ -84,7 +84,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.registerMessageHandler();
-        this.placeBet = this.placeBet.bind(this);
+        this.sendBet = this.sendBet.bind(this);
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
@@ -185,9 +185,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleApiError = ({ apiError }) => {
         if (apiError.gameRoundId) {
+            const { displayPopup } = this.state;
+
             const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+
             const message = apiError.isPlaceBetFailed ? `${apiError.message}. Đặt cược thất bại!` : apiError.message;
-            this.setState({ apiError: { gameName: gameName, roundId: apiError.gameRoundId, message: message, duration: 3 } });
+            displayPopup !== PopupType.Rebet &&
+                this.setState({ apiError: { gameName: gameName, roundId: apiError.gameRoundId, message: message, duration: 3 } });
         } else {
             this.setState({ notice: { message: apiError.message, duration: 3 } });
         }
@@ -220,7 +224,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
-            this.setState({ displayChips: newDisplayChips, displayPopup: null });
+            this.setState({ displayChips: newDisplayChips });
             this.updateUserBalance();
         }
     };
@@ -497,16 +501,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        const { displayPopup } = this.state;
-
-        if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
+        if (this.isProcessingBet) {
             this.setState({ notice: { message: this.props.t("common:processingBet"), duration: 2 } });
         } else {
             if (amount > 0) {
-                this.socket.emit("bet", { betChoice, amount });
+                this.sendBet(betChoice, amount);
                 this.isProcessingBet = true;
             }
         }
+    }
+
+    sendBet(betChoice: string, amount: number) {
+        this.socket.emit("bet", { betChoice, amount });
     }
 
     openPopup(popupType: PopupType) {
@@ -682,7 +688,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         const gameActionsContext = {
-            placeBet: this.placeBet,
+            placeBet: this.sendBet,
             openPopup: this.openPopup,
             closePopup: this.closePopup,
             registerMessageHandler: this.messageTransmitter.register,
