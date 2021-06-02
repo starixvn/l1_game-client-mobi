@@ -27,7 +27,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     getMainOptions(): string[] {
-        return [Choices.dragon, Choices.tiger];
+        return [Choices.dragon, Choices.tiger, Choices.tie];
     }
 
     renderBetOptions() {
