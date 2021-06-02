@@ -114,31 +114,31 @@ $time-hide-bowl-animation: 1s;
         top: 3.8rem;
         left: 1rem;
     }
+
+    %result-dot {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(4, 4, 4, 0.5);
+    }
+
+    .result-dot-red {
+        @extend %result-dot;
+        background: var(--dot-odd-background);
+        border: 1px solid var(--dot-odd-border);
+    }
+
+    .result-dot-white {
+        @extend %result-dot;
+        background: #fff;
+        border: 1px solid var(--dot-even-border);
+    }
 }
 
 .compact-mode {
     .result-sedie-set {
         transform: scale(0.8);
     }
-}
-
-%result-dot {
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(4, 4, 4, 0.5);
-}
-
-.result-dot-red {
-    @extend %result-dot;
-    background: var(--dot-odd-background);
-    border: 1px solid var(--dot-odd-border);
-}
-
-.result-dot-white {
-    @extend %result-dot;
-    background: #fff;
-    border: 1px solid var(--dot-even-border);
 }
 
 @keyframes hide-shake-plate-animation {
@@ -169,109 +169,228 @@ $time-hide-bowl-animation: 1s;
     grid-template-rows: 2rem;
     grid-gap: 0.5rem;
 
-    .content__coins {
-        position: relative;
-    }
-
     .currency-soft-3d {
-        position: absolute;
+        position: relative;
         width: 25px;
         height: 25px;
         transform: rotateY(0);
         transform-origin: center center;
         transform-style: preserve-3d;
-        animation-timing-function: ease-in-out;
-        animation-duration: 2s;
-        animation-iteration-count: infinite;
-    }
+        animation-name: coins-item-right-animation, hide-coin-rotate;
+        animation-duration: 1s, 0.5s;
+        animation-iteration-count: 2, 1;
+        animation-fill-mode: backwards, forwards;
+        animation-timing-function: linear, ease-in;
 
-    .currency-soft-3d_state_right {
-        animation-name: coins-item-right-animation;
-    }
-
-    .currency-soft-3d__front_inside {
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
-        transform: translateZ(-1px);
-    }
-
-    .currency-soft-3d__front {
-        position: absolute;
-        z-index: 2;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: translateZ(0);
-        border-radius: 50%;
-        background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
-
-        &:before {
-            border-radius: 100%;
-            content: "";
-            background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
-            top: 3px;
-            left: 3px;
-            bottom: 3px;
-            right: 3px;
+        .currency-soft-3d__front_inside {
             position: absolute;
             z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translateZ(-1px);
+        }
+
+        .currency-soft-3d__front {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(0);
+            border-radius: 50%;
+
+            &:before {
+                border-radius: 100%;
+                content: "";
+                top: 3px;
+                left: 3px;
+                bottom: 3px;
+                right: 3px;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        .currency-soft-3d__back_inside {
+            position: absolute;
+            z-index: -2;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(0px);
+            border-radius: 50%;
+        }
+
+        .currency-soft-3d__back {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotateY(180deg) translateZ(3px);
+            border-radius: 50%;
+
+            &:before {
+                border-radius: 100%;
+                content: "";
+                top: 3px;
+                left: 3px;
+                bottom: 3px;
+                right: 3px;
+                position: absolute;
+                z-index: -1;
+            }
+        }
+
+        &.option1 {
+            .currency-soft-3d__front_inside {
+                background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+            }
+
+            .currency-soft-3d__front {
+                background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+
+                &:before {
+                    background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
+                }
+            }
+
+            .currency-soft-3d__back_inside {
+                background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+            }
+
+            .currency-soft-3d__back {
+                background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+
+                &:before {
+                    background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
+                }
+            }
+        }
+
+        &.option2 {
+            .currency-soft-3d__front_inside {
+                background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+            }
+
+            .currency-soft-3d__front {
+                background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+
+                &:before {
+                    background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
+                }
+            }
+            .currency-soft-3d__back_inside {
+                background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+            }
+
+            .currency-soft-3d__back {
+                background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+
+                &:before {
+                    background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
+                }
+            }
         }
     }
 
-    .currency-soft-3d__back_inside {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: translateZ(0px);
-        border-radius: 50%;
-        background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+    %result-sedie {
+        .result-dot-red {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(0);
+            border-radius: 50%;
+            background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+
+            &:before {
+                border-radius: 100%;
+                content: "";
+                top: 3px;
+                left: 3px;
+                bottom: 3px;
+                right: 3px;
+                position: absolute;
+                z-index: 1;
+                background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
+            }
+        }
+
+        .result-dot-white {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            transform: rotateY(180deg) translateZ(3px);
+            border-radius: 50%;
+            background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+            &:before {
+                border-radius: 100%;
+                content: "";
+                top: 3px;
+                left: 3px;
+                bottom: 3px;
+                right: 3px;
+                position: absolute;
+                z-index: 1;
+                background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
+            }
+        }
     }
 
-    .currency-soft-3d__back {
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: rotateY(180deg) translateZ(3px);
-        border-radius: 50%;
-        background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
-
-        &:before {
-            border-radius: 100%;
-            content: "";
-            background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
-            top: 3px;
-            left: 3px;
-            bottom: 3px;
-            right: 3px;
-            position: absolute;
-            z-index: -1;
-        }
+    .result-sedie-dot1 {
+        @extend %result-sedie;
+        opacity: 0;
+        animation: show-result-collapse-mode 0.2s 2.5s forwards ease-out;
+    }
+    .result-sedie-dot2 {
+        @extend %result-sedie;
+        opacity: 0;
+        animation: show-result-collapse-mode 0.2s 2.7s forwards ease-out;
+    }
+    .result-sedie-dot3 {
+        @extend %result-sedie;
+        opacity: 0;
+        animation: show-result-collapse-mode 0.2s 2.9s forwards ease-out;
+    }
+    .result-sedie-dot4 {
+        @extend %result-sedie;
+        opacity: 0;
+        animation: show-result-collapse-mode 0.2s 3.1s forwards ease-out;
     }
 }
 
 @keyframes coins-item-right-animation {
-    0% {
-        transform: rotateY(0);
+    to {
+        transform: rotateY(359deg);
+    }
+}
+
+@keyframes hide-coin-rotate {
+    to {
+        opacity: 1;
     }
 
-    50% {
-        transform: rotateY(180deg);
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes show-result-collapse-mode {
+    to {
+        opacity: 0;
     }
 
-    100% {
-        transform: rotateY(360px);
+    from {
+        opacity: 1;
     }
 }
