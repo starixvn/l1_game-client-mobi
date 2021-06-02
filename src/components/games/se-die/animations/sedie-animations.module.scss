@@ -198,11 +198,19 @@ $time-hide-bowl-animation: 1s;
         height: 100%;
         transform: translateZ(0);
         border-radius: 50%;
-        background-color: #e1ad63;
-        background-image: url("https://chartcut.com/assets/images/soft.dccb2832cc92e51d7530919dfa546366.svg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 108%;
+        background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
+
+        &:before {
+            border-radius: 100%;
+            content: "";
+            background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
+            top: 3px;
+            left: 3px;
+            bottom: 3px;
+            right: 3px;
+            position: absolute;
+            z-index: -1;
+        }
     }
 
     .currency-soft-3d__back {
@@ -214,11 +222,18 @@ $time-hide-bowl-animation: 1s;
         height: 100%;
         transform: rotateY(180deg) translateZ(0);
         border-radius: 50%;
-        background-color: #e1ad63;
-        background-image: url("https://chartcut.com/assets/images/soft.dccb2832cc92e51d7530919dfa546366.svg");
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: 108%;
+        background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
+        &:before {
+            border-radius: 100%;
+            content: "";
+            background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
+            top: 3px;
+            left: 3px;
+            bottom: 3px;
+            right: 3px;
+            position: absolute;
+            z-index: -1;
+        }
     }
 }
 
