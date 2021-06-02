@@ -1,8 +1,8 @@
 import ErrorCodeDictionary from "../common/constants/error-code-dictionary";
 
 type Optional = {
-    gameName: string;
-    gameRoundId: number;
+    gameName?: string;
+    gameRoundId?: number;
     minBet?: number;
     maxBet?: number;
 };
@@ -20,8 +20,8 @@ export const GetMessageByLocale = (data: any, locale: string): string => {
 
 export const FormatMessageToArray = (message: string, opt: Optional) => {
     Object.keys(opt).forEach((key) => {
-        message.replace(`{${key}}`, opt[key]);
+        message = message.replace(`{${key}}`, opt[key]);
     });
 
-    return message.split("\n");
+    return message.split("{\n}");
 };

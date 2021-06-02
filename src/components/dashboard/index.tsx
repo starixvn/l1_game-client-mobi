@@ -5,7 +5,7 @@ import { isMobileOnly } from "react-device-detect";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
-
+import { withTranslation, WithTranslation } from "react-i18next";
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
@@ -19,6 +19,7 @@ import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
+import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
@@ -29,7 +30,7 @@ type Props = {
     isShowModal: boolean;
     setApiErrorMessage: (message: string) => void;
     setIsShowModal: (isOpen: boolean) => void;
-} & WithRouterProps;
+} & WithRouterProps & WithTranslation;
 
 type State = {
     isSignedUp: boolean;
@@ -155,7 +156,7 @@ class Dashboard extends React.Component<Props, State> {
         }
 
         if (data.apiError) {
-            this.props.setApiErrorMessage(data.apiError.message);
+            this.props.setApiErrorMessage(this.props.t(GetLocalizedErrorMessage(data.apiError.errorCode)));
             this.props.setIsShowModal(true);
         }
     }
@@ -175,7 +176,7 @@ class Dashboard extends React.Component<Props, State> {
                 start: umInfo.startTime,
                 end: umInfo.endTime,
                 finish: false,
-            });
+            });3001
             setTimeout(() => {
                 router.push("/um");
             }, 500);
@@ -273,4 +274,4 @@ class Dashboard extends React.Component<Props, State> {
 
 Dashboard.contextType = AuthContext;
 
-export default withRouter(Dashboard);
+export default withRouter(withTranslation()(Dashboard));

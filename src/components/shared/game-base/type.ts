@@ -79,6 +79,8 @@ export interface Notice {
     duration: number;
     minBet?: number;
     maxBet?: number;
+    gameName?: string;
+    roundId?: number;
 }
 
 export interface APIError extends Notice {

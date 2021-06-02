@@ -196,9 +196,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleApiError = ({ apiError }) => {
         const message = this.props.t(GetLocalizedErrorMessage(apiError.errorCode));
+        const minBet = apiError.minBet ? apiError.minBet : 0;
+        const maxBet = apiError.maxBet ? apiError.maxBet : 0;
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const roundId = apiError.gameRoundId ? apiError.gameRoundId : 0;
         if (apiError.gameRoundId) {
             const { displayPopup } = this.state;
-            const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
             displayPopup !== PopupType.Rebet &&
                 this.setState({
                     apiError: {
@@ -206,12 +209,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         roundId: apiError.gameRoundId,
                         message: message,
                         duration: 3,
-                        minBet: apiError?.minbet,
-                        maxBet: apiError?.maxbet,
+                        minBet: minBet,
+                        maxBet: maxBet,
                     },
                 });
         } else {
-            this.setState({ notice: { message: message, duration: 3, minBet: apiError?.minbet, maxBet: apiError?.maxbet } });
+            this.setState({
+                notice: { message: message, duration: 3, minBet: minBet, maxBet: maxBet, gameName: gameName, roundId: roundId },
+            });
         }
     };
 
@@ -220,18 +225,21 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
         this.setState({ notice: null });
-
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         if (endBet === -1) {
             if (!apiError) {
                 if (kickedOut?.isDisabledAccount) {
-                    this.setState({ notice: { message: kickedOut?.message, duration: 2 } });
+                    this.setState({ notice: { message: this.props.t(GetLocalizedErrorMessage(kickedOut.errorCode)), duration: 2 } });
 
                     const { router } = this.props;
                     setTimeout(() => {
                         router.push("/timeout");
                     }, 10000);
                 } else {
-                    displayPopup !== PopupType.Rebet && this.setState({ notice: { message: notice, duration: 2 } });
+                    displayPopup !== PopupType.Rebet &&
+                        this.setState({
+                            notice: { message: this.props.t(GetLocalizedErrorMessage(notice.errorCode)), duration: 2 },
+                        });
                 }
             }
         } else {
@@ -534,7 +542,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
-            this.setState({ notice: { message: this.props.t("message:betProcessing"), duration: 2 } });
+            this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
@@ -839,7 +847,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 {signedIn ? this.renderGame() : <GameLoading />}
                 {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                 {gameState === GameState.ConnectFailed && (
-                    <ConnectFailedMessage gameName={this.props.gameName} retryConnect={this.onStart.bind(this)} />
+                    <ConnectFailedMessage
+                        gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                        retryConnect={this.onStart.bind(this)}
+                    />
                 )}
             </GameContainer>
         );

@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-
+import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -95,10 +95,8 @@ function Home() {
                         setTimeout(() => {
                             signOut();
                         }, 10000);
-                        setApiErrorMessage(t("accountClosed"));
-                    } else {
-                        setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
                     }
+                    setApiErrorMessage(t(GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode)));
                 } else {
                     setBalance(reCheckInResult.balance);
                 }

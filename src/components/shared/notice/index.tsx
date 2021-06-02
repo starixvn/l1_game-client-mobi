@@ -1,18 +1,16 @@
 import React, { useEffect, useRef } from "react";
-
+import { FormatMessageToArray } from "../../../helpers/notice-helper";
+import { v4 as uuidv4 } from "uuid";
 import Styles from "./notice.module.scss";
 
-interface NoticeProps {
+interface Props {
+    gameName?: string;
+    roundId?: number;
     message: string;
-    onClose: () => void;
+    onClose?: () => void;
     duration: number;
     minBet?: number;
     maxBet?: number;
-}
-
-interface APIErrorProps extends NoticeProps {
-    gameName: string;
-    roundId: number;
 }
 
 const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean }> = ({
@@ -50,19 +48,28 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     );
 };
 
-export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }) => {
+export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId }) => {
+    const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet };
+    const messageFormat = FormatMessageToArray(message, opt);
     return (
         <BaseNotice onClose={onClose} duration={duration}>
-            {message}
+            {messageFormat.map((value) => (
+                <div key={uuidv4()}>{value}</div>
+            ))}
         </BaseNotice>
     );
 };
 
-export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3, minBet, maxBet }) => {
+export const APIError: React.FC<Props> = ({ gameName, roundId, message, onClose, duration = 3, minBet = 0, maxBet = 0 }) => {
+    const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet };
+    const messageFormat = FormatMessageToArray(message, opt);
     return (
         <BaseNotice onClose={onClose} duration={duration}>
-            <div className="font-weight-medium">{`${gameName} (#${roundId})`}</div>
-            <div>{message}</div>
+            {messageFormat.map((value, index) => (
+                <div key={uuidv4()} className={`${index === 0 ? "font-weight-medium" : ""}`}>
+                    {value}
+                </div>
+            ))}
         </BaseNotice>
     );
 };
