@@ -150,20 +150,20 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                     </DropdownItem>
                     {isMobileOnly && (
                         <>
-                            <div className={Styles["dropdown-display"]}>{t(CommonResourceKeys.DISPLAY_MODE)}</div>
+                            <div className="dropdown-item">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
                             <div
-                                className={`${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
                                 onClick={(e) => onDropDownItemClick(e, false)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
-                                {!isCompactMode && <span className="icon-choose"></span>}
+                                {!isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                             <div
-                                className={`${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
                                 onClick={(e) => onDropDownItemClick(e, true)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_COMPACT)}
-                                {isCompactMode && <span className="icon-choose"></span>}
+                                {isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                         </>
                     )}
