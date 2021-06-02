@@ -24,8 +24,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
     const [winningStreakQueue, setWinningStreakQueue] = useState<{ [key: string]: WinningStreakItem }>({});
 
-    const addWinningStreak = (streak: WinningStreakItem) => {
-        const key = uuidv4();
+    const addWinningStreak = (key: string, streak: WinningStreakItem) => {
         winningStreakQueue[key] = streak;
 
         setWinningStreakQueue({ ...winningStreakQueue });
@@ -68,7 +67,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const { gameSettings } = appSettings;
         const gameProps = {
             ...gameSettings[gameId],
-            notifyWinStreak: (winningStreak: WinningStreakItem) => addWinningStreak(winningStreak),
+            notifyWinStreak: (winningStreak: WinningStreakItem) => addWinningStreak(uuidv4(), winningStreak),
         };
         switch (gameId) {
             case 2:
