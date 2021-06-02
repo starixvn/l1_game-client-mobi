@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { isMobileOnly } from "react-device-detect";
-
+import { v4 as uuidv4 } from "uuid";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
@@ -22,15 +22,17 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
-    const [winningStreakQueue, setWinningStreakQueue] = useState<Array<WinningStreakItem>>([]);
+    const [winningStreakQueue, setWinningStreakQueue] = useState<{ [key: string]: WinningStreakItem }>({});
 
     const addWinningStreak = (streak: WinningStreakItem) => {
-        winningStreakQueue.push(streak);
+        const key = uuidv4();
+        winningStreakQueue[key] = streak;
 
-        setWinningStreakQueue([...winningStreakQueue]);
+        setWinningStreakQueue({ ...winningStreakQueue });
 
         setTimeout(() => {
-            setWinningStreakQueue(winningStreakQueue.filter((streakItem) => streakItem.key !== streak.key));
+            delete winningStreakQueue[key];
+            setWinningStreakQueue({ ...winningStreakQueue });
         }, 3 * 1000);
     };
 

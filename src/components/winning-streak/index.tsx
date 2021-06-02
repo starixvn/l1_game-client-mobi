@@ -32,12 +32,12 @@ const getTextOnIconChoice = (gameName: string, choice: string, translate: Functi
     return translate(`${gameNameLowerCase}:${choice}TextDot`);
 };
 
-export const WinningStreak: React.FC<{ streakQueue: WinningStreakItem[] }> = ({ streakQueue }) => {
+export const WinningStreak: React.FC<{ streakQueue: { [key: string]: WinningStreakItem } }> = ({ streakQueue }) => {
     const { t } = useTranslation();
 
     return (
         <div className={styles["winning-streak-container"]}>
-            {streakQueue.map(({ gameName, choice, streak }, index) => {
+            {Object.values(streakQueue).map(({ gameName, choice, streak }, index) => {
                 return (
                     <div key={index} className={styles["streak-notification"]}>
                         <div className={styles["game-name"]}>{t(`${gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>

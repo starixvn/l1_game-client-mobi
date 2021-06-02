@@ -530,11 +530,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    updateCompactMode(isManual:boolean, isDisplayFull:boolean) {
-        if(isManual){
-            this.setState({ isCompactMode: !this.state.isCompactMode});
-        }else{
-            this.setState({ isCompactMode: isDisplayFull});
+    updateCompactMode(isManual: boolean, isDisplayFull: boolean) {
+        if (isManual) {
+            this.setState({ isCompactMode: !this.state.isCompactMode });
+        } else {
+            this.setState({ isCompactMode: isDisplayFull });
         }
     }
 
@@ -660,7 +660,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
                 if (winStreak.streak > 3) {
                     notifyWinStreak({
-                        key: uuidv4(),
                         gameName: gameName,
                         choice: option,
                         streak: winStreak.streak,
