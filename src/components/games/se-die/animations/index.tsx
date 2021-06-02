@@ -49,7 +49,7 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {Object.values(result).map((value, index) => (
-                <div>
+                <div className={Styles["result-item"]}>
                     <div className={`${Styles["currency-soft-3d"]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
                         <span className={Styles["currency-soft-3d__front_inside"]}></span>
                         <span className={Styles["currency-soft-3d__front"]}></span>

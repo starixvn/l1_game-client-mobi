@@ -169,7 +169,14 @@ $time-hide-bowl-animation: 1s;
     grid-template-rows: 2rem;
     grid-gap: 0.5rem;
 
+    .result-item {
+        display: grid;
+        grid-template-columns: 25px;
+        grid-template-rows: 25px;
+    }
+
     .currency-soft-3d {
+        grid-area: 1/1;
         position: relative;
         width: 25px;
         height: 25px;
@@ -178,7 +185,8 @@ $time-hide-bowl-animation: 1s;
         transform-style: preserve-3d;
         animation-name: coins-item-right-animation, hide-coin-rotate;
         animation-duration: 1s, 0.5s;
-        animation-iteration-count: 2, 1;
+        animation-delay: 0s, 1s;
+        animation-iteration-count: 12, 1;
         animation-fill-mode: backwards, forwards;
         animation-timing-function: linear, ease-in;
 
@@ -301,14 +309,14 @@ $time-hide-bowl-animation: 1s;
     }
 
     %result-sedie {
+        grid-area: 1/1;
+
         .result-dot-red {
             position: relative;
-            width: 25px;
-            height: 25px;
+            width: 2.5rem;
+            height: 2.5rem;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             transform: translateZ(0);
             border-radius: 50%;
             background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
@@ -350,22 +358,22 @@ $time-hide-bowl-animation: 1s;
     .result-sedie-dot1 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.2s 2.5s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 1.6s forwards ease-out;
     }
     .result-sedie-dot2 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.2s 2.7s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 1.8s forwards ease-out;
     }
     .result-sedie-dot3 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.2s 2.9s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 2s forwards ease-out;
     }
     .result-sedie-dot4 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.2s 3.1s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 2.2s forwards ease-out;
     }
 }
 
@@ -376,21 +384,21 @@ $time-hide-bowl-animation: 1s;
 }
 
 @keyframes hide-coin-rotate {
-    to {
+    0% {
         opacity: 1;
     }
 
-    from {
+    100% {
         opacity: 0;
     }
 }
 
 @keyframes show-result-collapse-mode {
-    to {
+    0% {
         opacity: 0;
     }
 
-    from {
+    100% {
         opacity: 1;
     }
 }
