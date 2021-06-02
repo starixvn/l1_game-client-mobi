@@ -530,8 +530,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    updateCompactMode() {
-        this.setState({ isCompactMode: !this.state.isCompactMode });
+    updateCompactMode(isManual:boolean, isDisplayFull:boolean) {
+        if(isManual){
+            this.setState({ isCompactMode: !this.state.isCompactMode});
+        }else{
+            this.setState({ isCompactMode: isDisplayFull});
+        }
     }
 
     renderErrorMessage() {

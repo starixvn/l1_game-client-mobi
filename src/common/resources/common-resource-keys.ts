@@ -7,4 +7,7 @@ export class CommonResourceKeys {
     public static readonly BALANCED_BETTING_POOL = "balancedBettingPool";
     public static readonly LOCKING_BET = "lockingBet";
     public static readonly USER_STAKE_LEVEL_UPDATE = "userStakeLevelUpdate";
+    public static readonly DISPLAY_MODE = "displayMode";
+    public static readonly DISPLAY_MODE_FULL = "fullMode";
+    public static readonly DISPLAY_MODE_COMPACT = "compactMode";
 }

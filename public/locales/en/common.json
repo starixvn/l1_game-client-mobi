@@ -42,5 +42,8 @@
     "baucua": "Fish Prawn Crab",
     "txturbo": "Turbo Big Small",
     "dragontiger": "Dragon Tiger",
-    "vipsedie": "Vip Sedie"
+    "vipsedie": "Vip Sedie",
+    "displayMode": "Chế độ hiển thị",
+    "fullMode": "Đầy đủ",
+    "compactMode": "Rút gọn"
 }

@@ -190,4 +190,16 @@
             }
         }
     }
+
+    .dropdown-display {
+        position: relative;
+        height: 3.6rem;
+        margin: 0.5rem 0;
+        color: var(--dropdown-item-color);
+        font-size: 1.4rem;
+        padding: 0.25rem 1.5rem;
+    }
+    .display-mode {
+        padding-left: 3.5rem;
+    }
 }

@@ -42,5 +42,8 @@
     "baucua": "Bầu Cua",
     "txturbo": "Tài Xỉu Siêu Tốc",
     "dragontiger": "Rồng Hổ",
-    "vipsedie": "Xóc Đĩa VIP"
+    "vipsedie": "Xóc Đĩa VIP",
+    "displayMode": "Chế độ hiển thị",
+    "fullMode":"Đầy đủ",
+    "compactMode":"Rút gọn"
 }
