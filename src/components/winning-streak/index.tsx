@@ -45,6 +45,7 @@ export const WinningStreak: React.FC<{ streakQueue: { [key: string]: WinningStre
                             {getTextOnIconChoice(gameName, choice, t)}
                         </span>
                         {`x ${streak}`}
+                        <span className={`icon-close ${styles["icon-close"]}`}></span>
                     </div>
                 );
             })}
