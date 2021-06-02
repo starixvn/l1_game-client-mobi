@@ -14,7 +14,7 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
         // Flushing is not required in this case as it only happens on the client
     }
 
-    const { t } = useTranslation("message");
+    const { t } = useTranslation("messages");
     const router = useRouter();
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
@@ -39,7 +39,7 @@ const Error = ({ statusCode, hasGetInitialPropsRun, err }) => {
 
 export const getStaticProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale, ["message"])),
+        ...(await serverSideTranslations(locale, ["messages"])),
     },
 });
 

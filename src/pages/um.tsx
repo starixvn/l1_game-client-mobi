@@ -12,7 +12,7 @@ import { UserClientCommunication } from "../services";
 function UM({ umInfo }) {
     const router = useRouter();
     const { locale } = router;
-    const { t } = useTranslation(["um", "message"]);
+    const { t } = useTranslation(["um", "messages"]);
     const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
     const [startTime, setStartTime] = useState<string>(null);
     const [endTime, setEndTime] = useState<string>(null);
@@ -51,7 +51,7 @@ export async function getServerSideProps({ locale }) {
 
     return {
         props: {
-            ...(await serverSideTranslations(locale, ["message", "um"])),
+            ...(await serverSideTranslations(locale, ["messages", "um"])),
             umInfo: settings.umInfo,
         },
     };

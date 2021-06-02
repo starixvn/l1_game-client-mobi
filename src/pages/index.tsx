@@ -28,7 +28,7 @@ function Home() {
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
-    const { t } = useTranslation("message");
+    const { t } = useTranslation("messages");
 
     async function signIn() {
         const settings = await settingsService.getSettings();
@@ -155,7 +155,7 @@ export const getStaticProps = async ({ locale }) => ({
             "dragontiger",
             "vipsedie",
             "txturbo",
-            "message",
+            "messages",
         ])),
     },
 });
