@@ -48,19 +48,22 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
     const { playResultAnimation } = useGameContext();
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            {Object.values(result).map((value, index) => (
-                <div className={Styles["result-item"]}>
-                    <div className={`${Styles["currency-soft-3d"]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
-                        <span className={Styles["currency-soft-3d__front_inside"]}></span>
-                        <span className={Styles["currency-soft-3d__front"]}></span>
-                        <span className={Styles["currency-soft-3d__back_inside"]}></span>
-                        <span className={Styles["currency-soft-3d__back"]}></span>
+            {Object.values(result).map((value, index) => {
+                const resultClass = `currency-soft-3d-${index + 1}`;
+                return (
+                    <div className={Styles["result-item"]}>
+                        <div className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
+                            <span className={Styles["currency-soft-3d__front_inside"]}></span>
+                            <span className={Styles["currency-soft-3d__front"]}></span>
+                            <span className={Styles["currency-soft-3d__back_inside"]}></span>
+                            <span className={Styles["currency-soft-3d__back"]}></span>
+                        </div>
+                        <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                            <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                        </div>
                     </div>
-                    <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                        <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                    </div>
-                </div>
-            ))}
+                );
+            })}
         </div>
     );
 };

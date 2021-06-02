@@ -165,17 +165,17 @@ $time-hide-bowl-animation: 1s;
 
 .result-collapse-mode {
     display: grid;
-    grid-template-columns: repeat(4, 2rem);
-    grid-template-rows: 2rem;
+    grid-template-columns: repeat(4, 2.5rem);
+    grid-template-rows: 2.5rem;
     grid-gap: 0.5rem;
 
     .result-item {
         display: grid;
-        grid-template-columns: 25px;
-        grid-template-rows: 25px;
+        grid-template-columns: 2.5rem;
+        grid-template-rows: 2.5rem;
     }
 
-    .currency-soft-3d {
+    %currency-soft-3d {
         grid-area: 1/1;
         position: relative;
         width: 25px;
@@ -184,9 +184,6 @@ $time-hide-bowl-animation: 1s;
         transform-origin: center center;
         transform-style: preserve-3d;
         animation-name: coins-item-right-animation, hide-coin-rotate;
-        animation-duration: 1s, 0.5s;
-        animation-delay: 0s, 1s;
-        animation-iteration-count: 12, 1;
         animation-fill-mode: backwards, forwards;
         animation-timing-function: linear, ease-in;
 
@@ -306,6 +303,34 @@ $time-hide-bowl-animation: 1s;
                 }
             }
         }
+    }
+
+    .currency-soft-3d-1 {
+        @extend %currency-soft-3d;
+        animation-duration: 1s, 0.5s;
+        animation-delay: 0s, 1s;
+        animation-iteration-count: 12, 1;
+    }
+
+    .currency-soft-3d-2 {
+        @extend %currency-soft-3d;
+        animation-duration: 1.2s, 0.5s;
+        animation-delay: 0s, 1.2s;
+        animation-iteration-count: 14, 1;
+    }
+
+    .currency-soft-3d-3 {
+        @extend %currency-soft-3d;
+        animation-duration: 1.4s, 0.5s;
+        animation-delay: 0s, 1.4s;
+        animation-iteration-count: 16, 1;
+    }
+
+    .currency-soft-3d-4 {
+        @extend %currency-soft-3d;
+        animation-duration: 1.6s, 0.5s;
+        animation-delay: 0s, 1.4s;
+        animation-iteration-count: 18, 1;
     }
 
     %result-sedie {
