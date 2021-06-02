@@ -225,7 +225,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
         this.setState({ notice: null });
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         if (endBet === -1) {
             if (!apiError) {
                 if (kickedOut?.isDisabledAccount) {
@@ -236,9 +235,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         router.push("/timeout");
                     }, 10000);
                 } else {
+                    const minBet = notice.minBet ? notice.minBet : 0;
+                    const maxBet = notice.maxBet ? notice.maxBet : 0;
                     displayPopup !== PopupType.Rebet &&
                         this.setState({
-                            notice: { message: this.props.t(GetLocalizedErrorMessage(notice.errorCode)), duration: 2 },
+                            notice: {
+                                message: this.props.t(GetLocalizedErrorMessage(notice.errorCode)),
+                                duration: 2,
+                                minBet: minBet,
+                                maxBet: maxBet,
+                            },
                         });
                 }
             }
@@ -709,8 +715,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderNotice() {
-        const { message, duration } = this.state.notice;
-        return <Notice message={message} duration={duration} onClose={this.closeNotice} />;
+        const { gameName, message, roundId, duration, minBet, maxBet } = this.state.notice;
+        return (
+            <Notice
+                gameName={gameName}
+                roundId={roundId}
+                message={message}
+                duration={duration}
+                minBet={minBet}
+                maxBet={maxBet}
+                onClose={this.closeNotice}
+            />
+        );
     }
 
     closeNotice() {
