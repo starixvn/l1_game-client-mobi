@@ -51,7 +51,9 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
             {Object.values(result).map((value, index) => (
                 <div className={Styles["content__coins"]}>
                     <span className={`${Styles["currency-soft-3d"]} ${Styles["currency-soft-3d_state_right"]}`}>
+                        <span className={Styles["currency-soft-3d__front_inside"]}></span>
                         <span className={Styles["currency-soft-3d__front"]}></span>
+                        <span className={Styles["currency-soft-3d__back_inside"]}></span>
                         <span className={Styles["currency-soft-3d__back"]}></span>
                     </span>
                 </div>
