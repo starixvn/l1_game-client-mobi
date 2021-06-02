@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GameResourceKeys } from "../../common/resources";
 import styles from "./winning-streak.module.scss";
@@ -32,23 +32,42 @@ const getTextOnIconChoice = (gameName: string, choice: string, translate: Functi
     return translate(`${gameNameLowerCase}:${choice}TextDot`);
 };
 
-export const WinningStreak: React.FC<{ streakQueue: { [key: string]: WinningStreakItem } }> = ({ streakQueue }) => {
+const winningStreak = {};
+
+export const WinningStreak = forwardRef((props, ref) => {
     const { t } = useTranslation();
+    const [winningStreakQueue, setWinningStreakQueue] = useState<{ [key: string]: WinningStreakItem }>({});
+
+    useImperativeHandle(ref, () => ({
+        addWinningStreak(streak: WinningStreakItem) {
+            winningStreak[streak.key] = streak;
+
+            setWinningStreakQueue({ ...winningStreak });
+            console.log(winningStreakQueue);
+
+            setTimeout(() => removeWinStreakNotification(streak.key), 3 * 1000);
+        },
+    }));
+
+    const removeWinStreakNotification = (key: string) => {
+        delete winningStreak[key];
+        setWinningStreakQueue({ ...winningStreak });
+    };
 
     return (
         <div className={styles["winning-streak-container"]}>
-            {Object.values(streakQueue).map(({ gameName, choice, streak }, index) => {
+            {Object.values(winningStreakQueue).map(({ gameName, choice, streak, key }) => {
                 return (
-                    <div key={index} className={styles["streak-notification"]}>
+                    <div key={key} className={styles["streak-notification"]}>
                         <div className={styles["game-name"]}>{t(`${gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
                         <span className={`${styles["option-icon"]} ${getIconClassName(gameName, choice)}`}>
                             {getTextOnIconChoice(gameName, choice, t)}
                         </span>
                         {`x ${streak}`}
-                        <span className={`icon-close ${styles["icon-close"]}`}></span>
+                        <span className={`icon-close ${styles["icon-close"]}`} onClick={() => removeWinStreakNotification(key)}></span>
                     </div>
                 );
             })}
         </div>
     );
-};
+});
