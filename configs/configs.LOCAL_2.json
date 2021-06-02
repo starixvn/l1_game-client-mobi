@@ -1,6 +1,6 @@
 {
     "proxy": {
-        "ssl": false,
+        "ssl": true,
         "uri": "l1-proxy2.lumigame.com",
         "path": ""
     },
