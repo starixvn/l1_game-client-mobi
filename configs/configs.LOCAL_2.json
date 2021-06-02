@@ -1,7 +1,7 @@
 {
     "proxy": {
         "ssl": false,
-        "uri": "haproxy.lumigame.com:7002",
+        "uri": "l1-proxy2.lumigame.com",
         "path": ""
     },
     "sentry": {
