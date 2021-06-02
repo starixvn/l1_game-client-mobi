@@ -20,7 +20,12 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number }> = ({ child
         return () => clearTimeout(timer);
     }, []);
 
-    return <div className={Styles.notice}>{children}</div>;
+    return (
+        <div className={Styles.notice}>
+            <span className={`icon-close ${Styles["icon-close"]}`}></span>
+            {children}
+        </div>
+    );
 };
 
 export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }) => {
