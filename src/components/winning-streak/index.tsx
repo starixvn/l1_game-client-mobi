@@ -46,7 +46,7 @@ export const WinningStreak = forwardRef((props, ref) => {
             setWinningStreakQueue({ ...winningStreak });
             console.log(winningStreakQueue);
 
-            setTimeout(() => removeWinStreakNotification(streak.key), 3 * 1000);
+            setTimeout(() => removeWinStreakNotification(streak.key), 4 * 1000);
         },
     }));
 
