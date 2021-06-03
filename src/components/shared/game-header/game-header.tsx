@@ -46,7 +46,7 @@ export default function GameHeader() {
     const onHeaderClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isMobileOnly) {
-            updateCompactMode(true, false);
+            updateCompactMode(!isCompactMode);
             handleStorageCompactModeIds();
             storeLocalStorageItem(displayModeHintStorageKey, true);
         }
@@ -55,7 +55,7 @@ export default function GameHeader() {
     useEffect(() => {
         if (isMobileOnly) {
             if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId) && !isCompactMode) {
-                updateCompactMode(true, false);
+                updateCompactMode(!isCompactMode);
             }
         }
     }, []);
@@ -113,9 +113,9 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
         gameActions.openPopup(PopupType.Rebet);
     };
 
-    const onDropDownItemClick = (e, isDisplayFull: boolean) => {
+    const onDropDownItemClick = (isDisplayFull: boolean) => {
         if (isCompactMode !== isDisplayFull) {
-            updateCompactMode(false, isDisplayFull);
+            updateCompactMode(isDisplayFull);
             handleStorageCompactModeIds();
         }
 
@@ -152,14 +152,14 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                             <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={(e) => onDropDownItemClick(e, false)}
+                                onClick={() => onDropDownItemClick(false)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
                                 {!isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={(e) => onDropDownItemClick(e, true)}
+                                onClick={() => onDropDownItemClick(true)}
                             >
                                 {t(CommonResourceKeys.DISPLAY_MODE_COMPACT)}
                                 {isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}

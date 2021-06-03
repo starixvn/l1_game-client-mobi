@@ -10,7 +10,7 @@ type GameActionsContextType = {
     unsubscribeMessageHandler: Function;
     openPlaceBetModal: Function;
     finishProcessingBet: Function;
-    updateCompactMode: (isManual: boolean, isDisplayFull: boolean) => void;
+    updateCompactMode: (isDisplayFull: boolean) => void;
     playAcceptedBetAnimation: (amount: number) => void;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);

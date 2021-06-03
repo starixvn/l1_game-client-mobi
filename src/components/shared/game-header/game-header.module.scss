@@ -156,6 +156,9 @@
 
     .dropdown-menu {
         width: 18rem;
+        &:focus {
+            outline: none;
+        }
     }
 
     .dropdown-toggle {
