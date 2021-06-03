@@ -29,14 +29,14 @@
     "enterGameBtn": "Play Now",
     "dismiss": "Dismiss",
     "turnOn": "Turn On 1-Click Bet",
-    "displayModeHint": "ouch the game name to switch display settings between \"Full Mode\" and \"Compact Mode\"",
+    "displayModeHint": "Touch the game name to switch display settings between \"Full Mode\" and \"Compact Mode\"",
     "taixiu": "Big Small",
-    "xocxoc": "Sedie",
+    "xocxoc": "Se Die",
     "baucua": "Fish Prawn Crab",
     "txturbo": "Turbo Big Small",
     "dragontiger": "Dragon Tiger",
-    "vipsedie": "Vip Sedie",
-    "displayMode": "Chế độ hiển thị",
-    "fullMode": "Đầy đủ",
-    "compactMode": "Rút gọn"
+    "vipsedie": "Vip Se Die",
+    "displayMode": "Display Mode",
+    "fullMode": "Full Mode",
+    "compactMode": "Compact Mode"
 }
