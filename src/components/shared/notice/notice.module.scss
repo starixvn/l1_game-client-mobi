@@ -2,8 +2,10 @@
 
 .notice {
     @extend .mini-notice;
-    left: 10%;
-    right: 10%;
+    left: 8%;
+    right: 8%;
+    padding-left: 3rem;
+    padding-right: 3rem;
     border-radius: 1rem;
     background: rgba(255, 180, 178, 0.95);
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.4);
@@ -11,7 +13,7 @@
 
     .icon-close {
         position: absolute;
-        top: 0.6rem;
+        top: 0.8rem;
         right: 0.6rem;
         background: none;
 
