@@ -1,0 +1,95 @@
+.theme-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 768px) {
+        margin-top: 2.2rem;
+    }
+
+    .theme-select-title {
+        text-align: center;
+    }
+
+    .theme-list {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.2rem;
+        margin-bottom: 3rem;
+    }
+
+    .theme {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        %line {
+            width: 5.2rem;
+            border: 1px solid;
+            border-radius: 2px;
+        }
+
+        .line1 {
+            @extend %line;
+            height: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .line2 {
+            @extend %line;
+            height: 2rem;
+        }
+
+        &:first-child {
+            margin-right: 4rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    %theme-icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 5.8rem;
+        width: 8.6rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .theme-light-icon {
+        @extend %theme-icon;
+        background: #eeeeee;
+        border: 0.1rem solid #d0d0d0;
+
+        .line1 {
+            background-color: #ffb335;
+            border-color: #cbcbcb;
+        }
+
+        .line2 {
+            background-color: #d4d4d4;
+            border-color: #cbcbcb;
+        }
+    }
+
+    .theme-dark-icon {
+        @extend %theme-icon;
+        background-color: #293c50;
+        border: 0.1rem solid #3b5e82;
+
+        .line1 {
+            background-color: #294057;
+            border-color: #3b526c;
+        }
+
+        .line2 {
+            background-color: #1d2b3c;
+            border-color: #3b526c;
+        }
+    }
+}

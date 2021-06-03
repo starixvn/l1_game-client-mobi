@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
 
 import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
+import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
 
 type Props = {
@@ -48,56 +49,10 @@ export default function Welcome(props: Props) {
                         )}
                     </div>
 
-                    <div className={Styles["theme-container"]}>
-                        <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
-                        <div className={Styles["theme-list"]}>
-                            <div className={Styles["theme"]}>
-                                <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
-                                    <span className={Styles["line1"]}></span>
-                                    <span className={Styles["line2"]}></span>
-                                </div>
-                                <div className={Styles["radio-group"]}>
-                                    <input
-                                        id="theme-light"
-                                        type="radio"
-                                        name="theme"
-                                        checked={theme === Themes.light}
-                                        onChange={() => setTheme(Themes.light)}
-                                        className={Styles["radio-button"]}
-                                    />
-                                    <label className={Styles["radio-label"]} htmlFor="theme-light">
-                                        {t("common:light")}
-                                    </label>
-                                </div>
-                            </div>
-                            <div className={Styles["theme"]}>
-                                <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)}>
-                                    <span className={Styles["line1"]}></span>
-                                    <span className={Styles["line2"]}></span>
-                                </div>
-                                <div className={Styles["radio-group"]}>
-                                    <input
-                                        id="theme-dark"
-                                        type="radio"
-                                        name="theme"
-                                        checked={theme === Themes.dark}
-                                        onChange={() => setTheme(Themes.dark)}
-                                        className={Styles["radio-button"]}
-                                    />
-                                    <label className={Styles["radio-label"]} htmlFor="theme-dark">
-                                        {t("common:dark")}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button
-                            className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}
-                            onClick={() => props.handleFirstLoginSM(theme)}
-                        >
-                            {t("common:enterGameBtn")}
-                        </button>
-                    </div>
+                    <ThemeSelection />
+                    <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
+                        {t("common:enterGameBtn")}
+                    </button>
                 </div>
             </div>
         </div>

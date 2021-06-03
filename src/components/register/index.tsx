@@ -1,7 +1,6 @@
 import { useTranslation, Trans } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-import { Spinner } from "reactstrap";
 import { AuthorizeResponse, Response, User } from "sc-user-service-client/dist/auth";
 import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
@@ -9,6 +8,7 @@ import { randomInteger } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import ThemeSelection from "../theme-selection";
 import NameGenerator from "./name-generator";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import Styles from "./register.module.scss";
@@ -24,8 +24,7 @@ export default function Register(props: Props) {
     const { session } = useAuthContext();
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
-    const [avatarId, setAvatarId] = useState<number>(randomInteger(1, maxAvatarId));
-    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(avatarId);
+    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(randomInteger(1, maxAvatarId));
     const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
     const [isOpenGalleryAvatar, setIsOpenGalleryAvatar] = useState<boolean>(false);
     const [nameInValid, setNameInValid] = useState<string>("");
@@ -43,7 +42,7 @@ export default function Register(props: Props) {
             setNameInValid(t("register:invalidUsername"));
             return;
         }
-        const response = await authService.signName(session.ss, session.username, name, avatarId);
+        const response = await authService.signName(session.ss, session.username, name, selectedAvatarId);
         const authorizeResponse = response as AuthorizeResponse;
         if (authorizeResponse && authorizeResponse.authorized) {
             handleStateLogin(authorizeResponse.user, theme);
@@ -74,43 +73,8 @@ export default function Register(props: Props) {
         setIsValidUserName(true);
     };
 
-    const getPathAvatar = (imageId: number) => {
-        return `/static/images/avatar/${imageId}.png`;
-    };
-
-    const selectedAvatar = (imgId: number) => {
-        setSelectedAvatarId(imgId);
-    };
-
-    const renderGalleryAvatar = (imgId: number) => {
-        return (
-            <div
-                key={`avatar-${imgId}`}
-                onClick={() => selectedAvatar(imgId)}
-                className={`${Styles["img-wrapper"]} ${selectedAvatarId === imgId ? Styles["border-highlight"] : ""}`}
-            >
-                <img src={getPathAvatar(imgId)} className="img-fluid" alt="Avatar" />
-                {selectedAvatarId === imgId && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
-            </div>
-        );
-    };
-
-    const loadAvatars = () => {
-        const _avatars = [];
-        for (let index = 1; index < maxAvatarId; index++) {
-            _avatars.push(renderGalleryAvatar(index));
-        }
-        return _avatars;
-    };
-
-    const onChangeImgId = () => {
-        setAvatarId(selectedAvatarId);
+    const closeAvatarGallery = () => {
         setIsOpenGalleryAvatar(false);
-    };
-
-    const handleCloseGallery = () => {
-        setIsOpenGalleryAvatar(false);
-        setSelectedAvatarId(avatarId);
     };
 
     return (
@@ -135,7 +99,7 @@ export default function Register(props: Props) {
                     </div>
 
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
-                        <img src={getPathAvatar(avatarId)} className={Styles["avartar"]} alt="Avatar" />
+                        <img src={`/static/images/avatar/${selectedAvatarId}.png`} className={Styles["avartar"]} alt="Avatar" />
                         <div className={Styles["chose-avatar"]}>
                             <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
                         </div>
@@ -189,78 +153,69 @@ export default function Register(props: Props) {
                             {t("common:enterGameBtn")}
                         </button>
                     </form>
-                    <div className={Styles["theme-container"]}>
-                        <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
-                        <div className={Styles["theme-list"]}>
-                            <div className={Styles["theme"]}>
-                                <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
-                                    <span className={Styles["line1"]}></span>
-                                    <span className={Styles["line2"]}></span>
-                                </div>
-                                <div>
-                                    <input
-                                        id="theme-light"
-                                        type="radio"
-                                        name="theme"
-                                        checked={theme === Themes.light}
-                                        onChange={() => setTheme(Themes.light)}
-                                        className={Styles["radio-button"]}
-                                    />
-                                    <label className={Styles["radio-label"]} htmlFor="theme-light">
-                                        {t("common:light")}
-                                    </label>
-                                </div>
-                            </div>
-                            <div className={Styles["theme"]}>
-                                <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)}>
-                                    <span className={Styles["line1"]}></span>
-                                    <span className={Styles["line2"]}></span>
-                                </div>
-                                <div>
-                                    <input
-                                        id="theme-dark"
-                                        type="radio"
-                                        name="theme"
-                                        checked={theme === Themes.dark}
-                                        onChange={() => setTheme(Themes.dark)}
-                                        className={Styles["radio-button"]}
-                                    />
-                                    <label className={Styles["radio-label"]} htmlFor="theme-dark">
-                                        {t("common:dark")}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ThemeSelection />
 
                     {isOpenGalleryAvatar && (
-                        <div className={Styles["gallery-wrapper"]}>
-                            <BaseDialog
-                                type={ModalType.Center}
-                                isOpen={isOpenGalleryAvatar}
-                                onCloseModal={() => setIsOpenGalleryAvatar(false)}
-                            >
-                                <h3 className={Styles["gallery-title"]}>{t("register:changeAvatar")}</h3>
-                                <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => handleCloseGallery()}></div>
-                                <div className={Styles["container-avatars"]}>
-                                    {loadAvatars ? loadAvatars() : <Spinner color="secondary" />}
-                                </div>
-                                <div className={Styles["list-actions"]}>
-                                    <button className="btn-grey" onClick={() => handleCloseGallery()} type="button">
-                                        {t("common:cancel")}
-                                    </button>
-                                    <button className="btn-orange" onClick={() => onChangeImgId()} type="button">
-                                        {t("common:ok")}
-                                    </button>
-                                </div>
-                            </BaseDialog>
-                        </div>
+                        <AvatarGallery
+                            selectedAvatarId={selectedAvatarId}
+                            onSelectAvatar={setSelectedAvatarId}
+                            onClose={closeAvatarGallery}
+                        />
                     )}
                 </div>
             </div>
         </div>
     );
 }
+
+const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId: number) => void; onClose: () => void }> = ({
+    selectedAvatarId,
+    onSelectAvatar,
+    onClose,
+}) => {
+    const { t } = useTranslation(["register", "common"]);
+    const [selectedId, setSelectedId] = useState<number>(selectedAvatarId);
+
+    const loadAvatars = () => {
+        const _avatars = [];
+        for (let index = 1; index < maxAvatarId; index++) {
+            _avatars.push(<Avatar key={index} id={index} isSelected={index === selectedId} onClick={() => setSelectedId(index)} />);
+        }
+        return _avatars;
+    };
+
+    const submit = () => {
+        onSelectAvatar(selectedId);
+        onClose();
+    };
+
+    return (
+        <div className={Styles["gallery-wrapper"]}>
+            <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={onClose}>
+                <h3 className={Styles["gallery-title"]}>{t("register:changeAvatar")}</h3>
+                <div className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></div>
+                <div className={Styles["container-avatars"]}>{loadAvatars()}</div>
+                <div className={Styles["list-actions"]}>
+                    <button className="btn-grey" onClick={onClose} type="button">
+                        {t("common:cancel")}
+                    </button>
+                    <button className="btn-orange" onClick={submit} type="button">
+                        {t("common:ok")}
+                    </button>
+                </div>
+            </BaseDialog>
+        </div>
+    );
+};
+
+const Avatar: React.FC<{ id: number; isSelected: boolean; onClick: () => void }> = ({ id, isSelected, onClick }) => {
+    return (
+        <div className={`${Styles["img-wrapper"]} ${isSelected ? Styles["border-highlight"] : ""}`} onClick={onClick}>
+            <img src={`/static/images/avatar/${id}.png`} className="img-fluid" alt="Avatar" />
+            {isSelected && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
+        </div>
+    );
+};
 
 const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId: number) => void; onClose: () => void }> = ({
     selectedAvatarId,
