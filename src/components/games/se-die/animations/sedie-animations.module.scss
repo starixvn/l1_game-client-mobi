@@ -181,7 +181,7 @@ $time-hide-bowl-animation: 1s;
         width: 25px;
         height: 25px;
         transform: rotateY(0);
-        opacity: 1;
+        transition: visibility 1s;
         transform-origin: center center;
         transform-style: preserve-3d;
         animation-name: coins-item-right-animation, hide-coin-rotate-animation;
@@ -308,29 +308,29 @@ $time-hide-bowl-animation: 1s;
 
     .currency-soft-3d-1 {
         @extend %currency-soft-3d;
-        animation-duration: 1s, 0.2s;
-        animation-delay: 0s, 2s;
+        animation-duration: 0.6s, 0.2s;
+        animation-delay: 0s, 1.2s;
         animation-iteration-count: 2, 1;
     }
 
     .currency-soft-3d-2 {
         @extend %currency-soft-3d;
-        animation-duration: 1.1s, 0.2s;
-        animation-delay: 0s, 2.2s;
+        animation-duration: 0.7s, 0.2s;
+        animation-delay: 0s, 1.4s;
         animation-iteration-count: 2, 1;
     }
 
     .currency-soft-3d-3 {
         @extend %currency-soft-3d;
-        animation-duration: 1.15s, 0.2s;
-        animation-delay: 0s, 2.3s;
+        animation-duration: 0.8s, 0.2s;
+        animation-delay: 0s, 1.6s;
         animation-iteration-count: 2, 1;
     }
 
     .currency-soft-3d-4 {
         @extend %currency-soft-3d;
-        animation-duration: 1.2s, 0.2s;
-        animation-delay: 0s, 2.4s;
+        animation-duration: 0.9s, 0.2s;
+        animation-delay: 0s, 1.8s;
         animation-iteration-count: 2, 1;
     }
 
@@ -384,22 +384,22 @@ $time-hide-bowl-animation: 1s;
     .result-sedie-dot1 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.5s 2.2s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 1.8s forwards linear;
     }
     .result-sedie-dot2 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.5s 2.5s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 2s forwards linear;
     }
     .result-sedie-dot3 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.5s 2.6s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 2.2s forwards linear;
     }
     .result-sedie-dot4 {
         @extend %result-sedie;
         opacity: 0;
-        animation: show-result-collapse-mode 0.5s 2.7s forwards ease-out;
+        animation: show-result-collapse-mode 0.5s 2.4s forwards linear;
     }
 }
 
@@ -413,8 +413,12 @@ $time-hide-bowl-animation: 1s;
     0% {
         visibility: visible;
     }
+    90% {
+        transform: scale(1);
+    }
     100% {
         visibility: hidden;
+        transform: scale(0);
     }
 }
 
