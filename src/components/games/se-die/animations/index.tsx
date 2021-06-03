@@ -51,7 +51,7 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
             {Object.values(result).map((value, index) => {
                 const resultClass = `dot-3d-${index + 1}`;
                 return (
-                    <div className={Styles["result-item"]}>
+                    <div className={Styles["result-item"]} key={resultClass}>
                         <div
                             key={"rotate" + index}
                             className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}

@@ -7,8 +7,8 @@ import { ModeView } from "../game-base/type";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
-const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
-    const { isCompactMode, modeView } = useGameContext();
+export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
+    const { modeView } = useGameContext();
     useEffect(() => {
         const timeOut = setTimeout(() => closeModal(), 3000);
 

@@ -99,7 +99,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.placeBet = this.placeBet.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
         this.updateModeView = this.updateModeView.bind(this);
-        this.finishProcessingBet = this.finishProcessingBet.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
     }
@@ -574,10 +573,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    finishProcessingBet() {
-        this.isProcessingBet = false;
-    }
-
     updateModeView(mode: ModeView) {
         this.setState({ modeView: mode });
     }
@@ -835,6 +830,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                                {this.state.notice && this.renderNotice()}
+                                {this.state.apiError && this.renderAPIError()}
                                 {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
@@ -859,7 +856,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     )}
 
                     {this.renderPopup(displayPopup)}
-                    {this.state.gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );
