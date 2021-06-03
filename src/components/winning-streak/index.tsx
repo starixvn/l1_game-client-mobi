@@ -1,5 +1,6 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
+
 import { GameResourceKeys } from "../../common/resources";
 import styles from "./winning-streak.module.scss";
 import { WinningStreakItem } from "./winning-streak.type";
