@@ -114,7 +114,6 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
     };
 
     const onDropDownItemClick = (e, isDisplayFull: boolean) => {
-        e.stopPropagation();
         if (isCompactMode !== isDisplayFull) {
             updateCompactMode(false, isDisplayFull);
             handleStorageCompactModeIds();
@@ -149,7 +148,7 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                         {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
                     </DropdownItem>
                     {isMobileOnly && (
-                        <>
+                        <div onClick={(e) => e.stopPropagation()}>
                             <div className="dropdown-item">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
@@ -165,7 +164,7 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                                 {t(CommonResourceKeys.DISPLAY_MODE_COMPACT)}
                                 {isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
                             </div>
-                        </>
+                        </div>
                     )}
 
                     <DropdownItem
