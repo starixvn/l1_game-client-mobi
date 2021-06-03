@@ -39,7 +39,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
         return (
             <>
                 {animToss}
-                <div className={`${Styles["result-container"]} ${Styles["normal-mode"]}`}>
+                <div className={Styles["result-container"]}>
                     {result &&
                         Object.values(result).map((value, index) => (
                             <div key={index} className={Styles[`result-${index + 1}`]}>
@@ -64,7 +64,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     }, []);
 
     return (
-        <div className={`${Styles["container"]} ${Styles["show-result"]}`} ref={wrapperRefResult}>
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
             <div className="overlay-mask-no-bg">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
