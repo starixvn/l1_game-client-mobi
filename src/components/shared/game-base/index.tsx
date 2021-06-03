@@ -183,12 +183,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.betWin = bet;
             setTimeout(() => {
                 this.setState({ showWinningBet: true });
+                this.updateUserBalance();
+
                 setTimeout(() => {
                     this.setState({ showWinningBet: false });
                 }, this.winningAnimationTime);
             }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
-
-            this.updateUserBalance();
         }
     };
 
