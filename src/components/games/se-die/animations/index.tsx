@@ -52,7 +52,10 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
                 const resultClass = `dot-3d-${index + 1}`;
                 return (
                     <div className={Styles["result-item"]}>
-                        <div className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
+                        <div
+                            key={"rotate" + index}
+                            className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}
+                        >
                             <span className={Styles["dot-3d-front-inside"]}></span>
                             <span className={Styles["dot-3d-front"]}></span>
                             <span className={Styles["dot-3d-back_inside"]}></span>
