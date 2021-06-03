@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Styles from "./notice.module.scss";
 
@@ -13,16 +13,36 @@ interface APIErrorProps extends NoticeProps {
     roundId: number;
 }
 
-const BaseNotice: React.FC<{ onClose: () => void; duration: number }> = ({ children, onClose, duration }) => {
+const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean }> = ({
+    children,
+    onClose,
+    duration,
+    isOpen = true,
+}) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const timer = setTimeout(onClose, duration * 1000);
 
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                onClose && onClose();
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
     return (
-        <div className={Styles.notice}>
-            <span className={`icon-close ${Styles["icon-close"]}`}></span>
+        <div ref={wrapperRef} className={Styles.notice}>
+            <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></span>
             {children}
         </div>
     );
