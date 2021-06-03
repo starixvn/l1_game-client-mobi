@@ -2,13 +2,14 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
-import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
+import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
+
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen/splash-screen";
 import { AuthContextProvider } from "../contexts/auth";
+import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
 import { UserClientCommunication } from "../services";
 import { setCharacterName, setUser } from "../utils/sentry";
 
@@ -96,10 +97,8 @@ function Home() {
                     setTimeout(() => {
                         signOut();
                     }, 10000);
-                    setApiErrorMessage(t("accountIsLocked"));
-                } else {
-                    setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
                 }
+                setApiErrorMessage(t(GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode)));
             } else {
                 setBalance(reCheckInResult.balance);
             }
