@@ -46,7 +46,7 @@ export default function GameHeader() {
     const onHeaderClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isMobileOnly) {
-            updateCompactMode();
+            updateCompactMode(!isCompactMode);
             handleStorageCompactModeIds();
             storeLocalStorageItem(displayModeHintStorageKey, true);
         }
@@ -55,7 +55,7 @@ export default function GameHeader() {
     useEffect(() => {
         if (isMobileOnly) {
             if (gameIdCompactMode.length > 0 && gameIdCompactMode.includes(gameId) && !isCompactMode) {
-                updateCompactMode();
+                updateCompactMode(!isCompactMode);
             }
         }
     }, []);
@@ -81,7 +81,7 @@ export default function GameHeader() {
                     </div>
                 </div>
                 <CountdownTimer key={remainingTime} />
-                <HeaderRight />
+                <HeaderRight handleStorageCompactModeIds={handleStorageCompactModeIds} />
             </div>
         </Fragment>
     );
@@ -92,9 +92,10 @@ enum ClassType {
     dropdownItem,
 }
 
-const HeaderRight = () => {
+const HeaderRight = ({ handleStorageCompactModeIds }) => {
     const gameActions = useGameActionContext();
-    const { roundId, gameState, gameSetting, ownBets } = useGameContext();
+    const { roundId, gameState, gameSetting, ownBets, isCompactMode } = useGameContext();
+    const { updateCompactMode } = useGameActionContext();
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
@@ -110,6 +111,15 @@ const HeaderRight = () => {
     const rebetClickHandle = (e: React.MouseEvent) => {
         e.stopPropagation();
         gameActions.openPopup(PopupType.Rebet);
+    };
+
+    const onDropDownItemClick = (isDisplayFull: boolean) => {
+        if (isCompactMode !== isDisplayFull) {
+            updateCompactMode(isDisplayFull);
+            handleStorageCompactModeIds();
+        }
+
+        setDropdownOpen(!dropdownOpen);
     };
 
     useEffect(() => {
@@ -137,6 +147,26 @@ const HeaderRight = () => {
                     >
                         {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
                     </DropdownItem>
+                    {isMobileOnly && (
+                        <div onClick={(e) => e.stopPropagation()}>
+                            <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
+                            <div
+                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                onClick={() => onDropDownItemClick(false)}
+                            >
+                                {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
+                                {!isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                            </div>
+                            <div
+                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                onClick={() => onDropDownItemClick(true)}
+                            >
+                                {t(CommonResourceKeys.DISPLAY_MODE_COMPACT)}
+                                {isCompactMode && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                            </div>
+                        </div>
+                    )}
+
                     <DropdownItem
                         className={Styles[classList[ClassType.dropdownItem]]}
                         onClick={() => gameActions.openPopup(PopupType.Guide)}

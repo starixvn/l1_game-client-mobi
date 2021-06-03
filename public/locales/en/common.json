@@ -36,5 +36,14 @@
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Dismiss",
     "turnOn": "Turn On 1-Click Bet",
-    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\" hoặc \"Rút Gọn\"."
+    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\" hoặc \"Rút Gọn\".",
+    "taixiu": "Big Small",
+    "xocxoc": "Sedie",
+    "baucua": "Fish Prawn Crab",
+    "txturbo": "Turbo Big Small",
+    "dragontiger": "Dragon Tiger",
+    "vipsedie": "Vip Sedie",
+    "displayMode": "Chế độ hiển thị",
+    "fullMode": "Đầy đủ",
+    "compactMode": "Rút gọn"
 }

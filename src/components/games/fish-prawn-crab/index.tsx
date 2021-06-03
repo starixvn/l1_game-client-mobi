@@ -1,5 +1,6 @@
+import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
-import { withTranslation } from "react-i18next";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
@@ -15,7 +16,6 @@ import FishPrawnCrabResult from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
-import { withRouter } from "next/router";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const OddNames = {
@@ -39,6 +39,10 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    getMainOptions(): string[] {
+        return Object.keys(choicesMapper);
     }
 
     getOddsByChoice(choice: string) {

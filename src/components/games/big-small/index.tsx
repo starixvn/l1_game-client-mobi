@@ -17,12 +17,17 @@ import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { withRouter } from "next/router";
+import { Choices } from "./big-small-helper";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    getMainOptions(): string[] {
+        return Object.values(Choices);
     }
 
     handleFinish({ finish }) {

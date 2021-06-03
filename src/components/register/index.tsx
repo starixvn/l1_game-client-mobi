@@ -1,17 +1,17 @@
 import { useTranslation } from "next-i18next";
+import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
+import { Spinner } from "reactstrap";
 import { AuthorizeResponse, Response, User } from "sc-user-service-client/dist/auth";
+
+import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
+import { randomInteger } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
-import NameGenerator from "./name-generator";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import { randomInteger } from "../../helpers/number-helper";
-import { Spinner } from "reactstrap";
+import NameGenerator from "./name-generator";
 import Styles from "./register.module.scss";
-import { useTheme } from "next-themes";
-import { Themes } from "../../common/constants";
-import { sabaClubName, sabaMobileName } from "../../common/constants";
 
 type Props = {
     handleStateLogin: (user: User, theme: string) => void;

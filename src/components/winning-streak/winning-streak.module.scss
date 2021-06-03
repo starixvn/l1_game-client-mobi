@@ -1,0 +1,58 @@
+@import "../shared/round-history/dot/dot.module.scss";
+
+.winning-streak-container {
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: calc(var(--header-index) + 2);
+    left: 0;
+    top: 5px;
+}
+
+.streak-notification {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    margin: auto auto 0.6rem;
+    padding: 0 3.8rem 0 1.2rem;
+    line-height: 3.4rem;
+    background: #f5f5f5;
+    border: 0.1rem solid #ccc;
+    box-shadow: 0 0 0.4rem rgb(0 0 0 / 25%);
+    border-radius: 0.5rem;
+    color: #000;
+
+    .option-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        vertical-align: center;
+        margin: 0 0.4rem !important;
+    }
+
+    .dice {
+        width: 2.8rem;
+        height: 2.8rem;
+        border: solid 0.1rem #c1c1c1;
+        border-radius: 0.3rem;
+        background-color: #f8f8f8;
+        font-size: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .icon-close {
+        position: absolute;
+        right: 0;
+        background: none;
+
+        &:before {
+            font-size: 1rem;
+            color: #acacac;
+        }
+    }
+}

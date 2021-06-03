@@ -155,7 +155,10 @@
     }
 
     .dropdown-menu {
-        width: 15rem;
+        width: 18rem;
+        &:focus {
+            outline: none;
+        }
     }
 
     .dropdown-toggle {
@@ -187,6 +190,21 @@
             &:before {
                 transform: scale(1);
                 opacity: 1;
+            }
+        }
+    }
+
+    .display-mode {
+        position: relative;
+        padding-left: 2.5rem;
+
+        .icon {
+            position: absolute;
+            right: 1rem;
+            font-size: 1.6rem;
+
+            &:before {
+                color: #03b40a;
             }
         }
     }

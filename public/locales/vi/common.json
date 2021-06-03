@@ -36,5 +36,14 @@
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
     "turnOn": "Bật 1-Click Bet",
-    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\" hoặc \"Rút Gọn\"."
+    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\" hoặc \"Rút Gọn\".",
+    "taixiu": "Tài Xỉu",
+    "xocxoc": "Xóc Đĩa",
+    "baucua": "Bầu Cua",
+    "txturbo": "Tài Xỉu Siêu Tốc",
+    "dragontiger": "Rồng Hổ",
+    "vipsedie": "Xóc Đĩa VIP",
+    "displayMode": "Chế độ hiển thị",
+    "fullMode":"Đầy đủ",
+    "compactMode":"Rút gọn"
 }

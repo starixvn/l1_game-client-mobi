@@ -1,5 +1,6 @@
+import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
-import { withTranslation } from "react-i18next";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import SeDieGuide from "../../game-guide/se-die";
@@ -15,13 +16,16 @@ import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import { withRouter } from "next/router";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    getMainOptions(): string[] {
+        return ["odd", "even"];
     }
 
     renderBetOptions() {

@@ -17,12 +17,17 @@ import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { withRouter } from "next/router";
+import { Choices } from "./dragon-tiger-helper";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    getMainOptions(): string[] {
+        return [Choices.dragon, Choices.tiger, Choices.tie];
     }
 
     renderBetOptions() {

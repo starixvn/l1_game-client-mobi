@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
-
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
 import { DisplayModeHint } from "../display-mode-hint";
+import { WinningStreak } from "../winning-streak";
+import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
@@ -20,6 +21,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
+    const winningStreakRef = useRef(null);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
@@ -51,7 +53,10 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
     const getGameComponentById = (gameId: number) => {
         const { gameSettings } = appSettings;
-        const gameProps = gameSettings[gameId];
+        const gameProps = {
+            ...gameSettings[gameId],
+            notifyWinStreak: (winningStreak: WinningStreakItem) => winningStreakRef.current.addWinningStreak(winningStreak),
+        };
         switch (gameId) {
             case 2:
             case 22:
@@ -98,6 +103,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         <div className="game-container game-wrapper">
             {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
+                <WinningStreak ref={winningStreakRef}></WinningStreak>
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

@@ -33,7 +33,15 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, UserBetChipStorageModal } from "./type";
+import {
+    GameBaseProps,
+    GameBaseState,
+    GameState,
+    PopupType,
+    RebetStorageModel,
+    UserBetChipStorageModal,
+    WinStreakCollectorModel,
+} from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
@@ -44,6 +52,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private showWaitingTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
+    private winStreakCollector: WinStreakCollectorModel;
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -79,6 +88,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         super(props);
 
         this.messageTransmitter = MessageTransmitter();
+        this.initWinStreakCollector();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.registerMessageHandler();
@@ -116,6 +126,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
+        this.initWinStreakCollector();
         this.socket = io(socketUri, {
             forceNew: true,
             transports: ["websocket"],
@@ -172,12 +183,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.betWin = bet;
             setTimeout(() => {
                 this.setState({ showWinningBet: true });
+                this.updateUserBalance();
+
                 setTimeout(() => {
                     this.setState({ showWinningBet: false });
                 }, this.winningAnimationTime);
             }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
-
-            this.updateUserBalance();
         }
     };
 
@@ -262,7 +273,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUserStakeLevel({ userStakeLevel }) {
         this.setState({ userStakeLevel });
-        this.setState({ displayPopup: PopupType.StakeLevel });
+        gameVipIds.includes(this.props.id) && this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
     handleTotalBet = ({ totalBets }) => {
@@ -449,6 +460,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             settlementResult: roundHistory[0]?.settlementResult,
             displayChips,
         });
+
+        this.setWinStreakByRoundHistory(roundHistory);
     }
 
     handleFinish({ finish }) {
@@ -471,6 +484,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.showWaitingTimeout = setTimeout(() => {
             this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone });
+            this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
         this.runGame(durations.wholeRound);
     }
@@ -516,8 +530,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    updateCompactMode() {
-        this.setState({ isCompactMode: !this.state.isCompactMode });
+    updateCompactMode(isDisplayFull: boolean) {
+        this.setState({ isCompactMode: isDisplayFull });
     }
 
     renderErrorMessage() {
@@ -564,23 +578,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
-    renderStakeLevelMessage() {
-        return gameVipIds.includes(this.props.id) ? (
-            <BaseDialog
-                type={ModalType.Center}
-                isOpen={this.state.displayPopup === PopupType.StakeLevel}
-                onCloseModal={() => this.closePopup()}
-            >
-                <ErrorMessage
-                    message={this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`)}
-                    closeModal={() => this.closePopup()}
-                ></ErrorMessage>
-            </BaseDialog>
-        ) : (
-            <></>
-        );
-    }
-
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -594,6 +591,65 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderGuide(): JSX.Element;
 
     abstract renderBetHistory(): React.ReactElement;
+
+    abstract getMainOptions(): string[];
+
+    setWinStreakByRoundHistory(roundHistory) {
+        const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
+        const mainOptions = this.getMainOptions();
+        this.initWinStreakCollector();
+
+        for (const round of history) {
+            mainOptions.forEach((option) => {
+                if (round.settlementResult[option] && !this.winStreakCollector[option].isStopStreak) {
+                    this.winStreakCollector[option].streak += 1;
+                } else {
+                    this.winStreakCollector[option].isStopStreak = true;
+                }
+            });
+
+            if (!mainOptions.some((option) => this.winStreakCollector[option].isStopStreak === false)) {
+                break;
+            }
+        }
+    }
+
+    initWinStreakCollector() {
+        const mainOptions = this.getMainOptions();
+
+        this.winStreakCollector = mainOptions.reduce((result, option) => {
+            result[option] = {
+                streak: 0,
+                isStopStreak: false,
+            };
+
+            return result;
+        }, {});
+    }
+
+    notifyWinStreakByLatestSettlementResult(settlementResult) {
+        const { notifyWinStreak, gameName } = this.props;
+        const mainOptions = this.getMainOptions();
+
+        mainOptions.forEach((option) => {
+            const winStreak = this.winStreakCollector[option];
+
+            if (settlementResult[option]) {
+                winStreak.streak += 1;
+
+                if (winStreak.streak > 3) {
+                    notifyWinStreak({
+                        key: uuidv4(),
+                        gameName: gameName,
+                        choice: option,
+                        streak: winStreak.streak,
+                    });
+                }
+            } else {
+                winStreak.streak = 0;
+            }
+        });
+    }
 
     getOddsByChoice(choice: string) {
         const { gameConfigs } = this.state;
@@ -618,8 +674,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:
                 return this.renderPlaceBet();
-            case PopupType.StakeLevel:
-                return this.renderStakeLevelMessage();
             default:
                 return null;
         }
