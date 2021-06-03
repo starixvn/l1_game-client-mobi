@@ -149,7 +149,7 @@ const HeaderRight = ({ handleStorageCompactModeIds }) => {
                     </DropdownItem>
                     {isMobileOnly && (
                         <div onClick={(e) => e.stopPropagation()}>
-                            <div className="dropdown-item">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
+                            <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
                             <div
                                 className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
                                 onClick={(e) => onDropDownItemClick(e, false)}

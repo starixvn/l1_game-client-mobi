@@ -55,3 +55,15 @@
         transition: all 0.3s;
     }
 }
+
+.dropdown-item-none-event {
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 4.1rem;
+    margin: 0;
+    padding: 0 1rem;
+    color: var(--dropdown-item-color);
+    font-size: 1.4rem;
+    pointer-events: none;
+}
