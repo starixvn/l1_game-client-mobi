@@ -85,6 +85,27 @@ function Home() {
         setTimeout(() => setLoading(false), 1000);
     }
 
+    function handleRecheckInResponse(reCheckInResult: ReCheckInResponse) {
+        if (!reCheckInResult || !reCheckInResult.isSuccessful) {
+            signOut();
+            router.push("/timeout");
+        } else {
+            if (reCheckInResult.apiError) {
+                setIsShowModal(true);
+                if (reCheckInResult.isDisableAccount) {
+                    setTimeout(() => {
+                        signOut();
+                    }, 10000);
+                    setApiErrorMessage(t("accountIsLocked"));
+                } else {
+                    setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
+                }
+            } else {
+                setBalance(reCheckInResult.balance);
+            }
+        }
+    }
+
     function reCheckIn() {
         timer.current = setInterval(async () => {
             const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
