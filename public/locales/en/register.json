@@ -1,6 +1,5 @@
 {
     "registerName": "Register Name",
-    "otherName": "Tên khác",
     "submit": "Submit",
     "yourNickName": "Note",
     "rule1": "Must be between 3 and 14 characters long.",
@@ -8,7 +7,7 @@
     "rule3": "Cannot change after submtting.",
     "invalidUsername": "Invalid character name.",
     "changeAvatar": "Change Avatar",
-    "registerTitle1": "Chào mừng bạn đến với {0}",
-    "registerTitle2": "{0} là phiên bản bổ sung của {1}, hướng đến người chơi yêu thích sự đơn giản và tối ưu trong trải nghiệm chơi game. ",
-    "registerTitle3": "Tất cả phiên bản {0} đều liên thông với nhau về phiên game và số tổng cược."
+    "registerTitle1": "Welcome to {0}",
+    "registerTitle2": "{0} is an additional version of {1}, aimed at players who love the simplicity of design and optimization in the gaming experience.",
+    "registerTitle3": "All versions of {0} are connected together, with the same game session and total bets."
 }
