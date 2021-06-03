@@ -27,8 +27,7 @@ export enum PopupType {
     BetHistory,
     Rebet,
     Error,
-    PlaceBet,
-    StakeLevel,
+    PlaceBet
 }
 
 export interface GameSettings {

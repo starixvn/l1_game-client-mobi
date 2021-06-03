@@ -273,7 +273,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUserStakeLevel({ userStakeLevel }) {
         this.setState({ userStakeLevel });
-        this.setState({ displayPopup: PopupType.StakeLevel });
+        gameVipIds.includes(this.props.id) && this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
     handleTotalBet = ({ totalBets }) => {
@@ -578,23 +578,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
-    renderStakeLevelMessage() {
-        return gameVipIds.includes(this.props.id) ? (
-            <BaseDialog
-                type={ModalType.Center}
-                isOpen={this.state.displayPopup === PopupType.StakeLevel}
-                onCloseModal={() => this.closePopup()}
-            >
-                <ErrorMessage
-                    message={this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`)}
-                    closeModal={() => this.closePopup()}
-                ></ErrorMessage>
-            </BaseDialog>
-        ) : (
-            <></>
-        );
-    }
-
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -691,8 +674,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:
                 return this.renderPlaceBet();
-            case PopupType.StakeLevel:
-                return this.renderStakeLevelMessage();
             default:
                 return null;
         }
