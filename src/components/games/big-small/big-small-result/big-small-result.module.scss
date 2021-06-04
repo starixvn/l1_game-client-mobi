@@ -153,14 +153,14 @@ $time-show-result-animation: 0.1s;
 .result-collapse-mode {
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(3, 3.4rem);
-    grid-template-rows: 3.4rem;
+    grid-template-columns: repeat(3, 3.3rem);
+    grid-template-rows: 3.3rem;
     grid-gap: 0.5rem;
 
     .result-item {
         display: grid;
-        grid-template-columns: 3.4rem;
-        grid-template-rows: 3.4rem;
+        grid-template-columns: 3.3rem;
+        grid-template-rows: 3.3rem;
     }
 
     %dice {
@@ -170,49 +170,48 @@ $time-show-result-animation: 0.1s;
         width: 3.4rem;
         grid-area: 1/1;
         transform-style: preserve-3d;
-        animation-name: spin, spin;
+        animation-name: spin, hide-rotate-animation;
+        animation-timing-function: linear, linear;
+        animation-fill-mode: forwards, forwards;
 
         .side {
             position: absolute;
-            height: 3.4rem;
-            width: 3.4rem;
+            height: 3.3rem;
+            width: 3.3rem;
             transition: 0.5s;
             opacity: 1;
             background-size: 3.3rem 3.3rem;
         }
 
         .front {
-            transform: rotateX(90deg) translateZ(1.7rem);
+            transform: rotateX(90deg) translateZ(1.65rem);
         }
 
         .back {
-            transform: translateZ(1.7rem);
+            transform: translateZ(1.65rem);
         }
 
         .left {
-            transform: rotateY(90deg) translateZ(1.7rem);
+            transform: rotateY(90deg) translateZ(1.65rem);
         }
 
         .above {
-            transform: rotateY(180deg) translateZ(1.7rem);
+            transform: rotateY(180deg) translateZ(1.65rem);
         }
 
         .right {
-            transform: rotateY(-90deg) translateZ(1.7rem);
+            transform: rotateY(-90deg) translateZ(1.65rem);
         }
 
         .bottom {
-            transform: rotateX(-90deg) translateZ(1.7rem);
+            transform: rotateX(-90deg) translateZ(1.65rem);
         }
     }
 
     .dice1 {
         @extend %dice;
-        animation-duration: 1s;
-        animation-delay: 0s;
-        animation-iteration-count: 1;
-        animation-timing-function: linear;
-        animation-direction: alternate;
+        animation-duration: 1.3s, 0.1s;
+        animation-delay: 0s, 1.3s;
 
         .front {
             background-image: url("/static/images/bigsmall-dice-1.png");
@@ -241,11 +240,8 @@ $time-show-result-animation: 0.1s;
 
     .dice2 {
         @extend %dice;
-        animation-duration: 1s;
-        animation-delay: 0s;
-        animation-iteration-count: 1;
-        animation-timing-function: linear;
-        animation-direction: alternate;
+        animation-duration: 1.5s, 0.1s;
+        animation-delay: 0s, 1.5s;
 
         .front {
             background-image: url("/static/images/bigsmall-dice-6.png");
@@ -274,11 +270,8 @@ $time-show-result-animation: 0.1s;
 
     .dice3 {
         @extend %dice;
-        animation-duration: 1s;
-        animation-delay: 0s;
-        animation-iteration-count: 1;
-        animation-timing-function: linear;
-        animation-direction: alternate;
+        animation-duration: 1.7s, 0.1s;
+        animation-delay: 0s, 1.7s;
 
         .front {
             background-image: url("/static/images/bigsmall-dice-4.png");
@@ -312,60 +305,70 @@ $time-show-result-animation: 0.1s;
 
     .result1 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.2s 0.9s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 1.4s forwards linear;
     }
 
     .result2 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.2s 0.9s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 1.6s forwards linear;
     }
 
     .result3 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.2s 0.9s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 1.8s forwards linear;
     }
 
     @keyframes spin {
-        from,
-        to {
+        0% {
             transform: rotateX(0deg) rotateY(0deg);
         }
-        16% {
+
+        10% {
             transform: rotateY(-90deg);
         }
-        33% {
+
+        15% {
             transform: rotateY(-90deg) rotateZ(90deg);
         }
+
+        25% {
+            transform: rotatex(90deg) rotateZ(90deg);
+        }
+
+        35% {
+            transform: rotateY(-270deg) rotateX(180deg);
+        }
+        45% {
+            transform: rotateZ(0deg) rotateX(90deg);
+        }
+
         50% {
             transform: rotateY(-180deg) rotateZ(90deg);
         }
         66% {
-            transform: rotateY(90deg) rotateX(90deg);
+            transform: rotateY(90deg) rotateX(180deg);
         }
         83% {
-            transform: rotateX(90deg);
+            transform: rotateX(90deg) rotateZ(0deg);
+        }
+        100% {
+            transform: rotateX(0deg) rotateY(90deg);
         }
     }
 
-    @keyframes spin-copy {
-        from,
-        to {
-            transform: rotateX(0deg) rotateY(0deg);
+    @keyframes hide-rotate-animation {
+        0% {
+            visibility: visible;
         }
-        16% {
-            transform: rotateY(-90deg);
+        75% {
+            transform: scale(1);
         }
-        33% {
-            transform: rotateY(-90deg) rotateZ(90deg);
+        85% {
+            transform: scale(0.6);
         }
-        50% {
-            transform: rotateY(-180deg) rotateZ(90deg);
-        }
-        66% {
-            transform: rotateY(90deg) rotateX(90deg);
-        }
-        83% {
-            transform: rotateX(90deg);
+        100% {
+            visibility: hidden;
+            transform: scale(0);
         }
     }
 
