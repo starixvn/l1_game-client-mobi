@@ -26,7 +26,7 @@ import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
-import { APIError, Notice } from "../notice";
+import { Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
@@ -83,7 +83,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayChips: {},
         isShowBlink: false,
         notice: null,
-        apiError: null,
     };
 
     constructor(props: P) {
@@ -101,7 +100,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.updateCompactMode = this.updateCompactMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
-        this.closeApiError = this.closeApiError.bind(this);
     }
 
     componentDidMount() {
@@ -195,7 +193,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
-        const message = this.props.t(GetLocalizedErrorMessage(apiError.errorCode));
+        const message = GetLocalizedErrorMessage(apiError.errorCode);
         const minBet = apiError.minBet ? apiError.minBet : 0;
         const maxBet = apiError.maxBet ? apiError.maxBet : 0;
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
@@ -204,18 +202,27 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             const { displayPopup } = this.state;
             displayPopup !== PopupType.Rebet &&
                 this.setState({
-                    apiError: {
+                    notice: {
                         gameName: gameName,
                         roundId: apiError.gameRoundId,
                         message: message,
                         duration: 3,
                         minBet: minBet,
                         maxBet: maxBet,
+                        errorCode: apiError.errorCode,
                     },
                 });
         } else {
             this.setState({
-                notice: { message: message, duration: 3, minBet: minBet, maxBet: maxBet, gameName: gameName, roundId: roundId },
+                notice: {
+                    message: message,
+                    duration: 3,
+                    minBet: minBet,
+                    maxBet: maxBet,
+                    gameName: gameName,
+                    roundId: roundId,
+                    errorCode: apiError.errorCode,
+                },
             });
         }
     };
@@ -227,8 +234,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ notice: null });
         if (endBet === -1) {
             if (!apiError) {
+                const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
                 if (kickedOut?.isDisabledAccount) {
-                    this.setState({ notice: { message: this.props.t(GetLocalizedErrorMessage(kickedOut.errorCode)), duration: 2 } });
+                    this.setState({
+                        notice: {
+                            gameName: gameName,
+                            message: GetLocalizedErrorMessage(kickedOut.errorCode),
+                            duration: 2,
+                            errorCode: kickedOut.errorCode,
+                        },
+                    });
 
                     const { router } = this.props;
                     setTimeout(() => {
@@ -237,13 +252,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 } else {
                     const minBet = notice.minBet ? notice.minBet : 0;
                     const maxBet = notice.maxBet ? notice.maxBet : 0;
+                    const roundId = notice.gameRoundId ? notice.gameRoundId : 0;
                     displayPopup !== PopupType.Rebet &&
                         this.setState({
                             notice: {
-                                message: this.props.t(GetLocalizedErrorMessage(notice.errorCode)),
+                                gameName: gameName,
+                                message: GetLocalizedErrorMessage(notice.errorCode, notice.isPlaceBetFailed),
                                 duration: 2,
                                 minBet: minBet,
                                 maxBet: maxBet,
+                                errorCode: notice.errorCode,
+                                roundId: roundId,
                             },
                         });
                 }
@@ -296,7 +315,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUserStakeLevel({ userStakeLevel }) {
         this.setState({ userStakeLevel });
-        gameVipIds.includes(this.props.id) && this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
+        gameVipIds.includes(this.props.id) &&
+            this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
     handleTotalBet = ({ totalBets }) => {
@@ -423,7 +443,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             this.setState({
                 displayPopup: PopupType.Error,
-                errorMessage: this.props.t(GetLocalizedErrorMessage(balanceResponse.errorCode)),
+                errorMessage: GetLocalizedErrorMessage(balanceResponse.errorCode),
             });
         }
     }
@@ -715,7 +735,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderNotice() {
-        const { gameName, message, roundId, duration, minBet, maxBet } = this.state.notice;
+        const { gameName, message, roundId, duration, minBet, maxBet, errorCode } = this.state.notice;
         return (
             <Notice
                 gameName={gameName}
@@ -724,6 +744,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 duration={duration}
                 minBet={minBet}
                 maxBet={maxBet}
+                errorCode={errorCode}
                 onClose={this.closeNotice}
             />
         );
@@ -731,25 +752,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     closeNotice() {
         this.setState({ notice: null });
-    }
-
-    renderAPIError() {
-        const { gameName, roundId, message, duration, minBet, maxBet } = this.state.apiError;
-        return (
-            <APIError
-                gameName={gameName}
-                roundId={roundId}
-                message={message}
-                duration={duration}
-                minBet={minBet}
-                maxBet={maxBet}
-                onClose={this.closeApiError}
-            />
-        );
-    }
-
-    closeApiError() {
-        this.setState({ apiError: null });
     }
 
     get isShowStartRoundAnimation() {
@@ -831,7 +833,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         )}
                         {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                         {this.state.notice && this.renderNotice()}
-                        {this.state.apiError && this.renderAPIError()}
                         {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                         {Object.keys(this.state.acceptedBetQueue).map((key) => (
                             <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />

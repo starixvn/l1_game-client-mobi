@@ -1,4 +1,4 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 
@@ -211,12 +211,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                             </div>
                             {enabledQuickBet === undefined && isShowTooltip && (
                                 <div ref={tooltipRef} className={`popover-custom top ${Styles["hint-one-click-bet"]}`}>
-                                    <div
-                                        className={Styles.content}
-                                        dangerouslySetInnerHTML={{
-                                            __html: t("common:oneClickHintMsg").replace("{0}", `<strong>1-Click Bet</strong>`),
-                                        }}
-                                    ></div>
+                                    <div className={Styles.content}>
+                                        <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
+                                    </div>
                                     <div className={Styles.action}>
                                         <button className={`btn-grey ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
                                             {t("common:dismiss")}

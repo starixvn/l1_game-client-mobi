@@ -1,4 +1,4 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "reactstrap";
@@ -123,20 +123,19 @@ export default function Register(props: Props) {
                     <div className={Styles["wrapper-welcome"]}>
                         <div
                             className={Styles["welcome"]}
-                            dangerouslySetInnerHTML={{ __html: t("register:registerTitle1").replace("{0}", `<b>${sabaMobileName}!</b>`) }}
-                        ></div>
-                        <div
-                            className={Styles["welcome"]}
-                            dangerouslySetInnerHTML={{
-                                __html: t("register:registerTitle2")
-                                    .replace("{0}", `<b>${sabaMobileName}</b>`)
-                                    .replace("{1}", `<b>${sabaClubName}</b>`),
-                            }}
-                        ></div>
-                        <div
-                            className={Styles["welcome"]}
-                            dangerouslySetInnerHTML={{ __html: t("register:registerTitle3").replace("{0}", `<b>${sabaClubName}</b>`) }}
-                        ></div>
+                        >
+                            <Trans t={t}>
+                                {t("register:registerTitle1", { sabaMobileName: sabaMobileName})}
+                            </Trans>
+                        </div>
+                        <div className={Styles["welcome"]}>
+                            <Trans t={t}>
+                                {t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}
+                            </Trans>
+                        </div>
+                        <div className={Styles["welcome"]}>
+                            <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
+                        </div>
                     </div>
 
                     <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>

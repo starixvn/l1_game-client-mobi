@@ -7,7 +7,7 @@
     "rule3": "Không thể đổi tên nhân vật sau khi tạo.",
     "invalidUsername": "Tên nhân vật không hợp lệ.",
     "changeAvatar": "Thay đổi hình nhân vật",
-    "registerTitle1": "Chào mừng bạn đến với {0}",
-    "registerTitle2": "{0} là phiên bản bổ sung của {1}, hướng đến người chơi yêu thích sự đơn giản và tối ưu trong trải nghiệm chơi game. ",
-    "registerTitle3": "Tất cả phiên bản {0} đều liên thông với nhau về phiên game và số tổng cược."
+    "registerTitle1": "Chào mừng bạn đến với <strong>{{sabaMobileName}}</strong>",
+    "registerTitle2": "<strong>{{sabaMobileName}}</strong> là phiên bản bổ sung của <strong>{{sabaClubName}}</strong>, hướng đến người chơi yêu thích sự đơn giản và tối ưu trong trải nghiệm chơi game. ",
+    "registerTitle3": "Tất cả phiên bản <strong>{{sabaClubName}}</strong> đều liên thông với nhau về phiên game và số tổng cược."
 }

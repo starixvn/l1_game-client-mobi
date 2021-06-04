@@ -5,7 +5,7 @@ import { isMobileOnly } from "react-device-detect";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
-import { withTranslation, WithTranslation } from "react-i18next";
+import { withTranslation, WithTranslation, Trans } from "react-i18next";
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
@@ -20,17 +20,19 @@ import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
+import { APIErrorProp } from "../../pages";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
     balance: number;
     authorizeInfo: AuthorizeResponse;
     router: NextRouter;
-    apiErrorMessage: string;
+    apiErrorMessage: APIErrorProp;
     isShowModal: boolean;
-    setApiErrorMessage: (message: string) => void;
+    setApiErrorMessage: (APIErrorProp) => void;
     setIsShowModal: (isOpen: boolean) => void;
-} & WithRouterProps & WithTranslation;
+} & WithRouterProps &
+    WithTranslation;
 
 type State = {
     isSignedUp: boolean;
@@ -156,7 +158,10 @@ class Dashboard extends React.Component<Props, State> {
         }
 
         if (data.apiError) {
-            this.props.setApiErrorMessage(this.props.t(GetLocalizedErrorMessage(data.apiError.errorCode)));
+            this.props.setApiErrorMessage({
+                message: GetLocalizedErrorMessage(data.apiError.errorCode),
+                errorCode: data.apiError.errorCode,
+            });
             this.props.setIsShowModal(true);
         }
     }
@@ -176,7 +181,8 @@ class Dashboard extends React.Component<Props, State> {
                 start: umInfo.startTime,
                 end: umInfo.endTime,
                 finish: false,
-            });3001
+            });
+            3001;
             setTimeout(() => {
                 router.push("/um");
             }, 500);
@@ -253,6 +259,9 @@ class Dashboard extends React.Component<Props, State> {
                                 <div className={`icon-warning modal-icon-warning`}></div>
                                 <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
                                 <div>{this.props.apiErrorMessage}</div>
+                                <Trans t={this.props.t}>
+                                    {this.props.t(this.props.apiErrorMessage.message, { errorCode: this.props.apiErrorMessage.errorCode })}
+                                </Trans>
                             </div>
                         </BaseDialog>
                     </div>

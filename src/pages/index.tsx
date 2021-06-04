@@ -12,6 +12,10 @@ import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
 import { setCharacterName, setUser } from "../utils/sentry";
 
+export type APIErrorProp = {
+    message: string;
+    errorCode: string;
+};
 let authorizeInfo: AuthorizeResponse = null;
 
 export const signOut = () => {
@@ -24,7 +28,7 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [apiErrorMessage, setApiErrorMessage] = useState<string>("");
+    const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>({ message: "", errorCode: "" });
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
@@ -96,7 +100,10 @@ function Home() {
                             signOut();
                         }, 10000);
                     }
-                    setApiErrorMessage(t(GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode)));
+                    setApiErrorMessage({
+                        message: GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode),
+                        errorCode: reCheckInResult.apiError.errorCode,
+                    });
                 } else {
                     setBalance(reCheckInResult.balance);
                 }

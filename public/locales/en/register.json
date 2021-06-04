@@ -7,7 +7,7 @@
     "rule3": "Cannot change after submtting.",
     "invalidUsername": "Invalid character name.",
     "changeAvatar": "Change Avatar",
-    "registerTitle1": "Welcome to {0}",
-    "registerTitle2": "{0} is an additional version of {1}, aimed at players who love the simplicity of design and optimization in the gaming experience.",
-    "registerTitle3": "All versions of {0} are connected together, with the same game session and total bets."
+    "registerTitle1": "Welcome to <strong>{{sabaMobileName}}</strong>",
+    "registerTitle2": "<strong>{{sabaMobileName}}</strong> is an additional version of <strong>{{sabaClubName}}</strong>, aimed at players who love the simplicity of design and optimization in the gaming experience.",
+    "registerTitle3": "All versions of <strong>{{sabaClubName}}</strong> are connected together, with the same game session and total bets."
 }

@@ -1,4 +1,4 @@
-import ErrorCodeDictionary from "../common/constants/error-code-dictionary";
+import ErrorCodeDictionary, { CommonErrorCodeList } from "../common/constants/error-code-dictionary";
 
 type Optional = {
     gameName?: string;
@@ -7,21 +7,20 @@ type Optional = {
     maxBet?: number;
 };
 
-export const GetLocalizedErrorMessage = (errorCode: string) => {
+export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) => {
     if (!ErrorCodeDictionary[errorCode]) {
         return "messages:errorOccurred";
     }
-    return `messages:${ErrorCodeDictionary[errorCode]}`;
+
+    let key = `messages:${ErrorCodeDictionary[errorCode]}`;
+    const isCommonErrorCode = CommonErrorCodeList.includes(errorCode);
+    if (isCommonErrorCode && isPlaceBet) {
+        key += "PlaceBet";
+    }
+
+    return key;
 };
 
 export const GetMessageByLocale = (data: any, locale: string): string => {
     return data[locale];
-};
-
-export const FormatMessageToArray = (message: string, opt: Optional) => {
-    Object.keys(opt).forEach((key) => {
-        message = message.replace(`{${key}}`, opt[key]);
-    });
-
-    return message.split("{\n}");
 };

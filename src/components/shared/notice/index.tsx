@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { FormatMessageToArray } from "../../../helpers/notice-helper";
-import { v4 as uuidv4 } from "uuid";
+import { useTranslation, Trans } from "next-i18next";
 import Styles from "./notice.module.scss";
-
 interface Props {
     gameName?: string;
     roundId?: number;
@@ -11,6 +9,7 @@ interface Props {
     duration: number;
     minBet?: number;
     maxBet?: number;
+    errorCode?: string;
 }
 
 const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean }> = ({
@@ -22,7 +21,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const timer = setTimeout(onClose, duration * 1000);
+        const timer = setTimeout(onClose, duration * 100000);
 
         return () => clearTimeout(timer);
     }, []);
@@ -48,28 +47,12 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     );
 };
 
-export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId }) => {
-    const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet };
-    const messageFormat = FormatMessageToArray(message, opt);
+export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId, errorCode }) => {
+    const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet, errorCode: errorCode };
+    const { t } = useTranslation();
     return (
         <BaseNotice onClose={onClose} duration={duration}>
-            {messageFormat.map((value) => (
-                <div key={uuidv4()}>{value}</div>
-            ))}
-        </BaseNotice>
-    );
-};
-
-export const APIError: React.FC<Props> = ({ gameName, roundId, message, onClose, duration = 3, minBet = 0, maxBet = 0 }) => {
-    const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet };
-    const messageFormat = FormatMessageToArray(message, opt);
-    return (
-        <BaseNotice onClose={onClose} duration={duration}>
-            {messageFormat.map((value, index) => (
-                <div key={uuidv4()} className={`${index === 0 ? "font-weight-medium" : ""}`}>
-                    {value}
-                </div>
-            ))}
+            <Trans t={t}>{t(message, opt)}</Trans>
         </BaseNotice>
     );
 };

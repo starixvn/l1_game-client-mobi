@@ -18,13 +18,13 @@
     "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
     "close": "Đóng",
     "userStakeLevelUpdate": "Hạn mức cược của bạn vừa được cập nhật.",
-    "oneClickHintMsg": "{0} là tính năng cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn.",
+    "oneClickHintMsg": "<strong>1-Click Bet</strong> là tính năng cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn.",
     "oneClickTitle": "1-Click Bet",
     "socketConnectFailed": "Mất kết nối hoặc kết nối không ổn định. Vui lòng kiểm tra và thử lại.",
     "socketReconnect": "Thử lại",
     "light": "Sáng",
     "dark": "Tối",
-    "welcomeMsg": "Chào mừng {0} đến với {1}",
+    "welcomeMsg": "Chào mừng <strong>{{userName}}}</strong> đến với <strong>{{sabaMobileName}}</strong>",
     "selectTheme": "Chọn giao diện",
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
@@ -37,6 +37,6 @@
     "dragontiger": "Rồng Hổ",
     "vipsedie": "Xóc Đĩa VIP",
     "displayMode": "Chế độ hiển thị",
-    "fullMode":"Đầy đủ",
-    "compactMode":"Rút gọn"
+    "fullMode": "Đầy đủ",
+    "compactMode": "Rút gọn"
 }
