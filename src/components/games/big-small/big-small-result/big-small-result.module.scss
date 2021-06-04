@@ -181,6 +181,8 @@ $time-show-result-animation: 0.1s;
             transition: 0.5s;
             opacity: 1;
             background-size: 3.3rem 3.3rem;
+            border: 0.1rem solid #d4d4d4;
+            border-radius: 0.6rem;
         }
 
         .front {
@@ -211,7 +213,7 @@ $time-show-result-animation: 0.1s;
     .dice1 {
         @extend %dice;
         animation-duration: 1.3s, 0.1s;
-        animation-delay: 0s, 1.3s;
+        animation-delay: 0s, 1.2s;
 
         .front {
             background-image: url("/static/images/bigsmall-dice-1.png");
@@ -240,6 +242,7 @@ $time-show-result-animation: 0.1s;
 
     .dice2 {
         @extend %dice;
+        animation-name: spin2, hide-rotate-animation;
         animation-duration: 1.5s, 0.1s;
         animation-delay: 0s, 1.5s;
 
@@ -270,6 +273,7 @@ $time-show-result-animation: 0.1s;
 
     .dice3 {
         @extend %dice;
+        animation-name: spin3, hide-rotate-animation;
         animation-duration: 1.7s, 0.1s;
         animation-delay: 0s, 1.7s;
 
@@ -320,39 +324,115 @@ $time-show-result-animation: 0.1s;
 
     @keyframes spin {
         0% {
+            transform: translateX(-1.4rem) rotateX(0deg) rotateY(0deg);
+        }
+
+        10% {
+            transform: translateX(-1.4rem) rotateY(-90deg);
+        }
+
+        15% {
+            transform: translateX(-1.4rem) rotateY(-90deg) rotateZ(90deg);
+        }
+
+        25% {
+            transform: translateX(-1.4rem) rotatex(90deg) rotateZ(90deg);
+        }
+
+        35% {
+            transform: translateX(-1.4rem) rotateY(-270deg) rotateX(180deg);
+        }
+        45% {
+            transform: translateX(-1.4rem) rotateZ(0deg) rotateX(90deg);
+        }
+
+        50% {
+            transform: translateX(-1.4rem) rotateY(-180deg) rotateZ(90deg);
+        }
+        66% {
+            transform: translateX(-1.4rem) rotateY(90deg) rotateX(180deg);
+        }
+        83% {
+            transform: translateX(-1.4rem) rotateX(90deg) rotateZ(0deg);
+        }
+        100% {
+            transform: rotateX(0deg) rotateY(90deg);
+        }
+    }
+
+    @keyframes spin2 {
+        0% {
             transform: rotateX(0deg) rotateY(0deg);
         }
 
         10% {
-            transform: rotateY(-90deg);
+            transform: rotateY(-80deg);
         }
 
         15% {
-            transform: rotateY(-90deg) rotateZ(90deg);
-        }
-
-        25% {
             transform: rotatex(90deg) rotateZ(90deg);
         }
 
+        25% {
+            transform: rotateY(-90deg) rotateZ(90deg);
+        }
+
         35% {
-            transform: rotateY(-270deg) rotateX(180deg);
+            transform: rotateZ(0deg) rotateX(90deg);
         }
         45% {
-            transform: rotateZ(0deg) rotateX(90deg);
+            transform: rotateY(-270deg) rotateX(180deg);
         }
 
         50% {
-            transform: rotateY(-180deg) rotateZ(90deg);
+            transform: rotateY(90deg) rotateX(180deg);
         }
         66% {
-            transform: rotateY(90deg) rotateX(180deg);
+            transform: rotateY(-180deg) rotateZ(90deg);
         }
         83% {
             transform: rotateX(90deg) rotateZ(0deg);
         }
         100% {
             transform: rotateX(0deg) rotateY(90deg);
+        }
+    }
+
+    @keyframes spin3 {
+        0% {
+            transform: translateX(1.4rem) rotateX(0deg) rotateY(0deg);
+        }
+
+        10% {
+            transform: translateX(1.4rem) rotateY(-80deg);
+        }
+
+        15% {
+            transform: translateX(1.4rem) rotatex(90deg) rotateZ(90deg);
+        }
+
+        25% {
+            transform: translateX(1.4rem) rotateY(-90deg) rotateZ(90deg);
+        }
+
+        35% {
+            transform: translateX(1.4rem) rotateZ(0deg) rotateX(90deg);
+        }
+        45% {
+            transform: translateX(1.4rem) rotateY(-270deg) rotateX(180deg);
+        }
+
+        50% {
+            transform: translateX(1.4rem) rotateY(90deg) rotateX(180deg);
+        }
+        66% {
+            transform: translateX(1.4rem) rotateY(-180deg) rotateZ(90deg);
+        }
+        83% {
+            transform: translateX(1.4rem) rotateX(90deg) rotateZ(0deg);
+        }
+        100% {
+            transform: translateX(0) rotateX(0deg) rotateY(90deg);
         }
     }
 
