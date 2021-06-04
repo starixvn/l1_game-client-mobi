@@ -3,7 +3,6 @@ import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
 import { Spinner } from "reactstrap";
 import { AuthorizeResponse, Response, User } from "sc-user-service-client/dist/auth";
-
 import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { randomInteger } from "../../helpers/number-helper";
@@ -11,6 +10,7 @@ import { UserClientCommunication } from "../../services";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import NameGenerator from "./name-generator";
+import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import Styles from "./register.module.scss";
 
 type Props = {
@@ -19,7 +19,7 @@ type Props = {
 
 const maxAvatarId = 40;
 export default function Register(props: Props) {
-    const { t } = useTranslation(["register", "common"]);
+    const { t } = useTranslation(["register", "common", "messages"]);
     const { handleStateLogin } = props;
     const { session } = useAuthContext();
     const nameAuto = NameGenerator.generateName;
@@ -48,7 +48,7 @@ export default function Register(props: Props) {
         if (authorizeResponse && authorizeResponse.authorized) {
             handleStateLogin(authorizeResponse.user, theme);
         } else {
-            setNameInValid((response as Response).message.toString());
+            setNameInValid(t(GetLocalizedErrorMessage((response as Response).errorCode)));
             setIsValidUserName(false);
         }
     };
@@ -121,12 +121,8 @@ export default function Register(props: Props) {
                         <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                     </div>
                     <div className={Styles["wrapper-welcome"]}>
-                        <div
-                            className={Styles["welcome"]}
-                        >
-                            <Trans t={t}>
-                                {t("register:registerTitle1", { sabaMobileName: sabaMobileName})}
-                            </Trans>
+                        <div className={Styles["welcome"]}>
+                            <Trans t={t}>{t("register:registerTitle1", { sabaMobileName: sabaMobileName })}</Trans>
                         </div>
                         <div className={Styles["welcome"]}>
                             <Trans t={t}>
@@ -190,7 +186,7 @@ export default function Register(props: Props) {
                         {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
                         <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
-                            {t("submit")}
+                            {t("common:enterGameBtn")}
                         </button>
                     </form>
                     <div className={Styles["theme-container"]}>
