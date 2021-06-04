@@ -21,7 +21,7 @@ const getIconClassName = (gameName: string, choice: string) => {
         return `${styles.dice} ${BauCuaIconMapper[choice]}`;
     }
 
-    return `${styles[`dot-${choice}`]}`;
+    return styles[`dot-${choice}`];
 };
 
 const getTextOnIconChoice = (gameName: string, choice: string, translate: Function) => {

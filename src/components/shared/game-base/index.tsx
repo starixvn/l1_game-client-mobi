@@ -5,7 +5,7 @@ import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import appSettings from "../../../common/app-settings";
-import { gameVipIds } from "../../../common/constants";
+import { gameVipIds, languageMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
@@ -31,7 +31,7 @@ import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
-import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
+import { GetLocalizedErrorMessage, GetMessageByLocale } from "../../../helpers/notice-helper";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import {
     GameBaseProps,
