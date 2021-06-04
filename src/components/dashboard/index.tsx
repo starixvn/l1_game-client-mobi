@@ -5,7 +5,7 @@ import { isMobileOnly } from "react-device-detect";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
-import { withTranslation, WithTranslation, Trans } from "react-i18next";
+import { withTranslation, WithTranslation, Trans } from "next-i18next";
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";

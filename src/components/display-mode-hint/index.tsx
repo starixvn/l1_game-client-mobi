@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import styles from "./display-mode-hint.module.scss";
 

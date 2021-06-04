@@ -119,7 +119,7 @@ const Rebet: React.FC<Props> = (props) => {
                             {t("common:cancel")}
                         </button>
                         <button onClick={handleSubmit} className="btn-orange w-5">
-                            {t("common:ok")}
+                            {t("common:confirm")}
                         </button>
                     </div>
                 )}
