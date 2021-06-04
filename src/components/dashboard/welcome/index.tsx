@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
 
-import { sabaClubName, sabaMobileName, Themes } from "../../common/constants";
+import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
 import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
 
