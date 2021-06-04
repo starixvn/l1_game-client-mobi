@@ -1,6 +1,6 @@
 import React from "react";
 import { isMobileOnly, isTablet } from "react-device-detect";
-import { ChipLabelMapper, ChipMapper } from "../../common/constants";
+import { ChipLabelMapper, ChipMapper } from "../../../common/constants";
 
 import Styles from "./chip.module.scss";
 

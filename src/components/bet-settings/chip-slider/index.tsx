@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ChipLabelMapper, ChipValues } from "../../../common/constants";
-import Chip from "../../chip";
+import Chip from "../../shared/chip";
 import Styles from "./chip-slider.module.scss";
 import Slider from "react-slick";
 

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Chip from "../../../chip";
+import Chip from "../../chip";
 import styles from "./display-chip.module.scss";
 
 const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number }> = ({ chipValue, chipKey }) => {

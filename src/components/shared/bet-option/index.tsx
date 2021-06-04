@@ -15,6 +15,14 @@ const HighlightClassNameMapper = {
     [HighlightType.None]: "",
 };
 
+const convertStakeToString = (amount: number) => (amount ? numberWithCommas(amount) : "");
+
+const getUserBetChipClass = (gameName: string, choice: string) => {
+    const distinctStyle = `${gameName}-${choice}`;
+
+    return `${Styles["user-bet-chips"]} ${Styles[distinctStyle]}`;
+};
+
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
     const { totalBets, ownBets, gameSetting, isCompactMode, displayChips } = useGameContext();
     const { durations, gameName } = gameSetting;
@@ -77,16 +85,10 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
                 <div className={Styles["total-bet"]}>
-                    {gameState === GameState.BalancingBet
-                        ? countUp
-                            ? numberWithCommas(+countUp)
-                            : ""
-                        : totalBet
-                        ? numberWithCommas(totalBet)
-                        : ""}
+                    {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
                 </div>
                 {children}
-                <div className={`${Styles["user-bet-chips"]} ${Styles[`${gameName}-${choice}`]}`}>{renderUserBetChips()}</div>
+                <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="heart-beat-animation d-inline-block">
                         {ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}
@@ -95,10 +97,9 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
 
                 {isHighlight && highlightType === HighlightType.Blink && (
                     <div className={Styles["winning-effect"]}>
-                        <span className={Styles["winning-line"]}></span>
-                        <span className={Styles["winning-line"]}></span>
-                        <span className={Styles["winning-line"]}></span>
-                        <span className={Styles["winning-line"]}></span>
+                        {[0, 1, 2, 3].map((index) => (
+                            <span key={`winning-line-${index}`} className={Styles["winning-line"]}></span>
+                        ))}
                     </div>
                 )}
             </div>
