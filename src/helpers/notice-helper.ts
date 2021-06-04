@@ -12,13 +12,16 @@ export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) 
         return "messages:errorOccurred";
     }
 
-    let key = `messages:${ErrorCodeDictionary[errorCode]}`;
-    const isCommonErrorCode = CommonErrorCodeList.includes(errorCode);
+    let key = ErrorCodeDictionary[errorCode];
+    const isCommonErrorCode = CommonErrorCodeList.includes(ErrorCodeDictionary[errorCode]);
+    console.log(isCommonErrorCode);
+    console.log(isPlaceBet);
     if (isCommonErrorCode && isPlaceBet) {
-        key += "PlaceBet";
+        console.log("isPlaceBet");
+        key = `${key}PlaceBet`;
     }
 
-    return key;
+    return `messages:${key}`;
 };
 
 export const GetMessageByLocale = (data: any, locale: string): string => {

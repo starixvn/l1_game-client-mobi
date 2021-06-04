@@ -4,7 +4,6 @@ import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
-
 import appSettings from "../../../common/app-settings";
 import { gameVipIds } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
@@ -193,7 +192,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleApiError = ({ apiError }) => {
-        const message = GetLocalizedErrorMessage(apiError.errorCode);
+        const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
+        const message = GetLocalizedErrorMessage(apiError.errorCode, isPlaceBet);
         const minBet = apiError.minBet ? apiError.minBet : 0;
         const maxBet = apiError.maxBet ? apiError.maxBet : 0;
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
@@ -253,11 +253,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     const minBet = notice.minBet ? notice.minBet : 0;
                     const maxBet = notice.maxBet ? notice.maxBet : 0;
                     const roundId = notice.gameRoundId ? notice.gameRoundId : 0;
+                    const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;
                     displayPopup !== PopupType.Rebet &&
                         this.setState({
                             notice: {
                                 gameName: gameName,
-                                message: GetLocalizedErrorMessage(notice.errorCode, notice.isPlaceBetFailed),
+                                message: GetLocalizedErrorMessage(notice.errorCode, isPlaceBet),
                                 duration: 2,
                                 minBet: minBet,
                                 maxBet: maxBet,
