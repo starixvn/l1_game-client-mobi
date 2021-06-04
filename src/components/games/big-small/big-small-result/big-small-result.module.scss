@@ -156,4 +156,90 @@ $time-show-result-animation: 0.1s;
     grid-template-columns: repeat(3, 3.3rem);
     grid-template-rows: 3.4rem;
     grid-gap: 0.5rem;
+
+    .result-item {
+        display: grid;
+        grid-template-columns: 2.5rem;
+        grid-template-rows: 2.5rem;
+    }
+
+    .dice {
+        position: relative;
+        margin: 0 auto;
+        height: 3.4rem;
+        width: 3.4rem;
+        transform-style: preserve-3d;
+        animation-name: spin, spin;
+        animation-duration: 1s;
+        animation-delay: 0s;
+        animation-iteration-count: 1;
+        animation-timing-function: linear;
+        animation-direction: alternate;
+    }
+
+    @keyframes spin {
+        from,
+        to {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        16% {
+            transform: rotateY(-90deg);
+        }
+        33% {
+            transform: rotateY(-90deg) rotateZ(90deg);
+        }
+        50% {
+            transform: rotateY(-180deg) rotateZ(90deg);
+        }
+        66% {
+            transform: rotateY(90deg) rotateX(90deg);
+        }
+        83% {
+            transform: rotateX(90deg);
+        }
+    }
+
+    .container:hover .dice {
+        animation: none;
+        width: auto;
+    }
+
+    .side {
+        position: absolute;
+        height: 3.4rem;
+        width: 3.4rem;
+        transition: 0.5s;
+        opacity: 1;
+        background-size: 3.3rem 3.3rem;
+    }
+
+    .front {
+        transform: rotateX(90deg) translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-1.png");
+    }
+
+    .back {
+        transform: translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-6.png");
+    }
+
+    .left {
+        transform: rotateY(90deg) translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-4.png");
+    }
+
+    .above {
+        transform: rotateY(180deg) translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-5.png");
+    }
+
+    .right {
+        transform: rotateY(-90deg) translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-3.png");
+    }
+
+    .bottom {
+        transform: rotateX(-90deg) translateZ(1.7rem);
+        background-image: url("/static/images/bigsmall-dice-2.png");
+    }
 }
