@@ -3,7 +3,6 @@ import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { WithTranslation, withTranslation } from "next-i18next";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
@@ -21,10 +20,9 @@ import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import Welcome from "../welcome";
 import Styles from "./dashboard.module.scss";
-import Register from "./first-login/register";
-import Welcome from "./first-login/welcome";
+import Register from "./register";
+import Welcome from "./welcome";
 
 type Props = {
     balance: number;

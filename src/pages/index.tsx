@@ -98,7 +98,10 @@ function Home() {
                         signOut();
                     }, 10000);
                 }
-                setApiErrorMessage(t(GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode)));
+                setApiErrorMessage({
+                    message: GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode),
+                    errorCode: reCheckInResult.apiError.errorCode,
+                });
             } else {
                 setBalance(reCheckInResult.balance);
             }
@@ -109,25 +112,7 @@ function Home() {
         timer.current = setInterval(async () => {
             const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
             const reCheckInResult = await authService.reCheckIn(userSession?.ss, userSession?.username);
-            if (!reCheckInResult || !reCheckInResult.isSuccessful) {
-                signOut();
-                router.push("/timeout");
-            } else {
-                if (reCheckInResult.apiError) {
-                    setIsShowModal(true);
-                    if (reCheckInResult.isDisableAccount) {
-                        setTimeout(() => {
-                            signOut();
-                        }, 10000);
-                    }
-                    setApiErrorMessage({
-                        message: GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode),
-                        errorCode: reCheckInResult.apiError.errorCode,
-                    });
-                } else {
-                    setBalance(reCheckInResult.balance);
-                }
-            }
+            handleRecheckInResponse(reCheckInResult);
         }, 60 * 1000);
     }
 

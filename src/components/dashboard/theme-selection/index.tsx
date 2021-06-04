@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React from "react";
 
-import { Themes } from "../../../../common/constants";
+import { Themes } from "../../../common/constants";
 import Styles from "./theme-selection.module.scss";
 
 const ThemeSelection = () => {

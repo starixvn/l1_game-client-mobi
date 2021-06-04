@@ -1,9 +1,11 @@
-import { useTranslation, Trans } from "next-i18next";
+import { Trans, useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
 
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
+import FirstLoginContainer from "../container";
+import TextBlock from "../text-block";
 import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
 
@@ -25,36 +27,28 @@ export default function Welcome(props: Props) {
     };
 
     return (
-        <div className={Styles["wrapper"]}>
-            <div className={Styles["page-bg"]}>
-                <div className={Styles["page-container"]}>
-                    <a className={Styles["logo"]}>
-                        <img src={`/static/images/logo-custom-saba.svg`} className={Styles["img-logo"]} alt="logo" />
-                    </a>
-                    <div className={Styles["welcome"]}>
-                        <Trans t={t}>{t("common:welcomeMsg", { userName: props.userInfo?.name, sabaMobileName: sabaMobileName })}</Trans>
-                    </div>
-
-                    <div className={Styles["welcome"]}>
-                        <Trans t={t}>{t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}</Trans>
-                    </div>
-                    <div className={Styles["welcome"]}>
-                        <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
-                    </div>
-                    <div className={Styles["profile-picture"]}>
-                        {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
-                            <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
-                        ) : (
-                            <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                        )}
-                    </div>
-
-                    <ThemeSelection />
-                    <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
-                        {t("common:enterGameBtn")}
-                    </button>
-                </div>
+        <FirstLoginContainer>
+            <TextBlock>
+                <Trans t={t}>{t("common:welcomeMsg", { userName: props.userInfo?.name, sabaMobileName: sabaMobileName })}</Trans>
+            </TextBlock>
+            <TextBlock>
+                <Trans t={t}>{t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}</Trans>
+            </TextBlock>
+            <TextBlock>
+                <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
+            </TextBlock>
+            <div className={Styles["profile-picture"]}>
+                {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
+                    <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
+                ) : (
+                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                )}
             </div>
-        </div>
+
+            <ThemeSelection />
+            <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
+                {t("common:enterGameBtn")}
+            </button>
+        </FirstLoginContainer>
     );
 }
