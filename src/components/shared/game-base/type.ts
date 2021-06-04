@@ -77,7 +77,7 @@ export interface Notice {
     gameName?: string;
     roundId?: number;
     message: string;
-    duration: number;
+    duration?: number;
     minBet?: number;
     maxBet?: number;
     errorCode?: string;

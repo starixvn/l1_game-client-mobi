@@ -1,3 +1,4 @@
+import {Notice} from "../game-base/type";
 export interface Props {
     gameId: number;
     onCloseModal: Function;
@@ -5,7 +6,7 @@ export interface Props {
 }
 
 export interface BetTrackModel {
-    message?: string;
+    messages?: Notice;
     state: BetState;
     validAmount?: number;
 }

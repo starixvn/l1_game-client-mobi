@@ -5,9 +5,10 @@ import { RebetStorageModel } from "../game-base/type";
 import Styles from "./rebet.module.scss";
 import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { numberWithCommas } from "../../../helpers/number-helper";
+import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 
 const Rebet: React.FC<Props> = (props) => {
     const rebetStorageKey = localStorageKeys.rebet;
@@ -18,7 +19,7 @@ const Rebet: React.FC<Props> = (props) => {
     const gameActionContext = useGameActionContext();
     const { gameName } = gameSetting;
 
-    const { t } = useTranslation([gameName.toLowerCase(), "common"]);
+    const { t } = useTranslation([gameName.toLowerCase(), "common", "messages"]);
 
     const [betTrack, updateBetTrack] = useState<{ [key: string]: BetTrackModel }>({});
     const [isWaiting, updateIsWaiting] = useState(false);
@@ -32,9 +33,20 @@ const Rebet: React.FC<Props> = (props) => {
 
     const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
         if (betTrack[betChoice]) {
+            const gameNameTranslate = t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+            const roundId = notice || apiError?.gameRoundId;
+            const minBet = notice || apiError?.minBet;
+            const maxBet = notice || apiError?.maxBet;
             betTrack[betChoice] = {
                 state: endBet > 0 ? BetState.Success : BetState.Error,
-                message: notice || apiError?.message,
+                messages: {
+                    gameName: gameNameTranslate,
+                    roundId: roundId,
+                    message: GetLocalizedErrorMessage(notice || apiError?.errorCode),
+                    errorCode: notice || apiError?.errorCode,
+                    minBet: minBet,
+                    maxBet: maxBet,
+                },
                 validAmount: endBet > 0 ? endBet : 0,
             };
 
@@ -76,7 +88,17 @@ const Rebet: React.FC<Props> = (props) => {
                                   </div>
                               </div>
                               {betTrack[betChoice]?.state === BetState.Error && (
-                                  <div className={Styles["error-message"]}>{betTrack[betChoice].message}</div>
+                                  <div className={Styles["error-message"]}>
+                                      <Trans t={t} components={{ br: <i /> }}>
+                                          {t(betTrack[betChoice].messages.message, {
+                                              gameName: betTrack[betChoice].messages.gameName,
+                                              errorCode: betTrack[betChoice].messages.errorCode,
+                                              gameRoundId: betTrack[betChoice].messages.roundId,
+                                              minBet: betTrack[betChoice].messages.minBet,
+                                              maxBet: betTrack[betChoice].messages.maxBet,
+                                          })}
+                                      </Trans>
+                                  </div>
                               )}
                           </div>
                       )

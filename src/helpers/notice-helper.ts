@@ -14,10 +14,7 @@ export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) 
 
     let key = ErrorCodeDictionary[errorCode];
     const isCommonErrorCode = CommonErrorCodeList.includes(ErrorCodeDictionary[errorCode]);
-    console.log(isCommonErrorCode);
-    console.log(isPlaceBet);
     if (isCommonErrorCode && isPlaceBet) {
-        console.log("isPlaceBet");
         key = `${key}PlaceBet`;
     }
 
