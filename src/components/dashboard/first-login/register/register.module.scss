@@ -1,27 +1,49 @@
 @import "../welcome/welcome.module.scss";
 
-[data-theme="light"] .page-bg {
-    --form-control-background: #fff;
-    --form-control-border: #ebedef;
-    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
-    --icon-edit-border: #f2f2f2;
-    --icon-edit-color: #9c9c9c;
-    --icon-remove-background: #eaebf0;
-    --icon-remove-color: #1a2430;
-    --gallery-popup-background: #fff;
-    --gallery-popup-border: #fff;
+[data-theme="light"] {
+    .profile-picture {
+        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
+        --icon-edit-border: #f2f2f2;
+        --icon-edit-color: #9c9c9c;
+    }
+
+    .login-form {
+        --form-control-background: #fff;
+        --form-control-border: #ebedef;
+    }
+
+    .register-wrapper-input {
+        --icon-remove-background: #eaebf0;
+        --icon-remove-color: #1a2430;
+    }
+
+    .gallery-wrapper {
+        --gallery-popup-background: #fff;
+        --gallery-popup-border: #fff;
+    }
 }
 
-[data-theme="dark"] .page-bg {
-    --form-control-background: #1d2b3b;
-    --form-control-border: #384c61;
-    --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
-    --icon-edit-border: #203040;
-    --icon-edit-color: #9ac6f2;
-    --icon-remove-background: #294c6f;
-    --icon-remove-color: #1a2430;
-    --gallery-popup-background: #203040;
-    --gallery-popup-border: #2c3e50;
+[data-theme="dark"] {
+    .profile-picture {
+        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
+        --icon-edit-border: #203040;
+        --icon-edit-color: #9ac6f2;
+    }
+
+    .login-form {
+        --form-control-background: #1d2b3b;
+        --form-control-border: #384c61;
+    }
+
+    .register-wrapper-input {
+        --icon-remove-background: #294c6f;
+        --icon-remove-color: #1a2430;
+    }
+
+    .gallery-wrapper {
+        --gallery-popup-background: #203040;
+        --gallery-popup-border: #2c3e50;
+    }
 }
 
 .wrapper-welcome {
@@ -46,7 +68,7 @@
         height: 3.2rem;
         border-radius: 50%;
         background: var(--icon-edit-background);
-        border: 1px solid var(--icon-edit-background-border);
+        border: 1px solid var(--icon-edit-border);
 
         @media (min-width: 768px) {
             right: -0.2rem;
@@ -116,14 +138,6 @@
     .btn-submit {
         width: 100%;
         margin-top: 0.6rem;
-    }
-}
-
-.theme-container {
-    padding-top: 2.3rem;
-
-    @media (min-width: 768px) {
-        padding-top: 3.2rem;
     }
 }
 

@@ -1,0 +1,45 @@
+@import "../../../../assets/components/buttons";
+
+.welcome {
+    margin-bottom: 0.4rem;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+}
+
+.profile-picture {
+    position: relative;
+    width: 9.4rem;
+    height: 9.4rem;
+    margin: 3rem auto 2.2rem;
+    border-radius: 50%;
+    border: 0.2rem solid #ffb335;
+
+    @media (min-width: 768px) {
+        width: 13rem;
+        height: 13rem;
+    }
+
+    .avartar {
+        width: 100%;
+    }
+
+    .icon-user {
+        position: relative;
+        top: 4.6rem;
+        left: -0.1rem;
+        font-size: 8.9rem;
+        line-height: 0;
+
+        @media (min-width: 768px) {
+            left: 0;
+            top: 6.4rem;
+            font-size: 12.3rem;
+        }
+    }
+}
+
+.btn-submit {
+    display: block;
+    width: 22.2rem;
+    margin: 2.4rem auto auto;
+}

@@ -23,8 +23,8 @@ import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
 import Styles from "./dashboard.module.scss";
-import Register from "./register";
-import Welcome from "./welcome";
+import Register from "./first-login/register";
+import Welcome from "./first-login/welcome";
 
 type Props = {
     balance: number;
