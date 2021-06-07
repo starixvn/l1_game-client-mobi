@@ -210,45 +210,51 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
     };
 
+    handleBetFailed = ({ notice, kickedOut }) => {
+        const { displayPopup } = this.state;
+
+        displayPopup !== PopupType.Rebet && this.setState({ notice: null });
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        if (kickedOut?.isDisabledAccount) {
+            this.setState({
+                notice: {
+                    gameName: gameName,
+                    message: GetLocalizedErrorMessage(kickedOut.errorCode),
+                    duration: 2,
+                    errorCode: kickedOut.errorCode,
+                    roundId: kickedOut?.gameRoundId,
+                },
+            });
+
+            const { router } = this.props;
+            setTimeout(() => {
+                router.push("/timeout");
+            }, 10000);
+        } else {
+            const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;
+            displayPopup !== PopupType.Rebet &&
+                this.setState({
+                    notice: {
+                        gameName: gameName,
+                        message: GetLocalizedErrorMessage(notice.errorCode, isPlaceBet),
+                        duration: 2,
+                        minBet: notice?.minBet,
+                        maxBet: notice?.maxBet,
+                        errorCode: notice.errorCode,
+                        roundId: notice?.gameRoundId,
+                    },
+                });
+        }
+    };
+
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
         const { id } = this.props;
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
-        displayPopup !== PopupType.Rebet && this.setState({ notice: null });
-        if (endBet === -1) {
-            if (!apiError) {
-                const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-                if (kickedOut?.isDisabledAccount) {
-                    this.setState({
-                        notice: {
-                            gameName: gameName,
-                            message: GetLocalizedErrorMessage(kickedOut.errorCode),
-                            duration: 2,
-                            errorCode: kickedOut.errorCode,
-                            roundId: kickedOut?.gameRoundId,
-                        },
-                    });
+        this.setState({ notice: null });
 
-                    const { router } = this.props;
-                    setTimeout(() => {
-                        router.push("/timeout");
-                    }, 10000);
-                } else {
-                    const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;
-                    displayPopup !== PopupType.Rebet &&
-                        this.setState({
-                            notice: {
-                                gameName: gameName,
-                                message: GetLocalizedErrorMessage(notice.errorCode, isPlaceBet),
-                                duration: 2,
-                                minBet: notice?.minBet,
-                                maxBet: notice?.maxBet,
-                                errorCode: notice.errorCode,
-                                roundId: notice?.gameRoundId,
-                            },
-                        });
-                }
-            }
+        if (endBet === -1) {
+            !apiError && this.handleBetFailed({ notice, kickedOut });
         } else {
             const newDisplayChips = this.getDisplayChips(betChoice, endBet);
 
