@@ -72,11 +72,10 @@ $time-bowl-hide-animation: 0.5s;
     height: 13.2rem;
     width: 13.2rem;
     z-index: var(--result-animation-index);
-}
-
-.dice {
-    width: 3.2rem;
-    height: 3.2rem;
+    .dice {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
 }
 
 .normal-mode {
@@ -125,6 +124,11 @@ $time-bowl-hide-animation: 0.5s;
     .result-item {
         grid-template-columns: 3.679rem;
         grid-template-rows: 3.3rem;
+    }
+
+    .dice-collapse-mode {
+        width: 3.679rem;
+        height: 3.3rem;
     }
 
     .dice1 {

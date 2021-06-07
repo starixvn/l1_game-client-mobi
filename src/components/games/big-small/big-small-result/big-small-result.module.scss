@@ -160,6 +160,11 @@ $time-show-result-animation: 0.1s;
         grid-template-rows: 3.3rem;
     }
 
+    .dice-collapse-mode {
+        width: 3.3rem;
+        height: 3.3rem;
+    }
+
     .dice1 {
         background-image: url("/static/images/big-small-dices-prite-1.png");
     }
