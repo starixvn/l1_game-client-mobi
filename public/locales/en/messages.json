@@ -15,7 +15,7 @@
     "limitBetUpdated": "<strong>Game {{gameName}} (#{{gameRoundId}})</strong><br> Failed to place bet! Your bet limit has been updated, please try again.({{errorCode}})",
     "limitBetNotDefined": "<strong>Game {{gameName}} (#{{gameRoundId}})</strong><br> Failed to place bet! Your bet limit for this game has not been set. Please contact your upline, thank you.({{errorCode}})",
     "accountSuspended": "<strong>Game {{gameName}} (#{{gameRoundId}})</strong><br> Failed to place bet! Account has been suspended. Please contact your upline for details, thank you.({{errorCode}})",
-    "unavailableGame": "The game is unavailable at the moment. Please contact CSD for details, thank you.({{errorCode}})",
+    "unavailableGame": "<strong>Game {{gameName}} (#{{gameRoundId}})</strong><br> The game is unavailable at the moment. Please contact CSD for details, thank you.({{errorCode}})",
     "errorOccurred": "An error has occurred, please contact CSD for details.({{errorCode}})",
     "errorOccurredFull": "<strong>Game {{gameName}} (#{{gameRoundId}})</strong><br> An error has occurred, please contact CSD for details.({{errorCode}})",
     "sessionTimeout": "Your session has timed out or you have not logged in yet. Please close the current windows and try to login again.",

@@ -21,7 +21,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const timer = setTimeout(onClose, duration * 100000);
+        const timer = setTimeout(onClose, duration * 1000);
 
         return () => clearTimeout(timer);
     }, []);
