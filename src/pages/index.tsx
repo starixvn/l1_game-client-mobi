@@ -28,7 +28,7 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>({ message: "", errorCode: "" });
+    const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();

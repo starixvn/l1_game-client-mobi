@@ -237,7 +237,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     renderDashBoard() {
-        const { authorizeInfo } = this.props;
+        const { authorizeInfo, apiErrorMessage } = this.props;
         const { user } = this.state;
         const props = { ...user, balance: this.props.balance };
 
@@ -258,9 +258,9 @@ class Dashboard extends React.Component<Props, State> {
                             <div className="modal-center">
                                 <div className={`icon-warning modal-icon-warning`}></div>
                                 <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
-                                <div>{this.props.apiErrorMessage}</div>
+
                                 <Trans t={this.props.t}>
-                                    {this.props.t(this.props.apiErrorMessage.message, { errorCode: this.props.apiErrorMessage.errorCode })}
+                                    {this.props.t(apiErrorMessage?.message, { errorCode: apiErrorMessage?.errorCode })}
                                 </Trans>
                             </div>
                         </BaseDialog>
