@@ -1,5 +1,5 @@
 @import "../../../../assets/components/animation-container";
-@import "../../../../assets/components/animations/display-result-collapse-mode";
+@import "../../../../assets/components/animations/result-collapse-mode";
 
 $time-hide-toss-dices-animation: 1.5s;
 $time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
@@ -160,7 +160,7 @@ $time-show-result-animation: 0.1s;
         grid-template-rows: 3.3rem;
     }
 
-    .dice-collapse-mode {
+    .dice-collape-mode {
         width: 3.3rem;
         height: 3.3rem;
     }
