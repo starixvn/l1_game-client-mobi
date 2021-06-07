@@ -33,19 +33,16 @@ const Rebet: React.FC<Props> = (props) => {
 
     const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
         if (betTrack[betChoice]) {
-            const gameNameTranslate = t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-            const roundId = notice || apiError?.gameRoundId;
-            const minBet = notice || apiError?.minBet;
-            const maxBet = notice || apiError?.maxBet;
+            console.log("handleEndBetMessage Rebet");
             betTrack[betChoice] = {
                 state: endBet > 0 ? BetState.Success : BetState.Error,
                 messages: {
-                    gameName: gameNameTranslate,
-                    roundId: roundId,
-                    message: GetLocalizedErrorMessage(notice || apiError?.errorCode),
-                    errorCode: notice || apiError?.errorCode,
-                    minBet: minBet,
-                    maxBet: maxBet,
+                    gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
+                    roundId: notice?.gameRoundId || apiError?.gameRoundId,
+                    message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
+                    errorCode: notice?.errorCode || apiError?.errorCode,
+                    minBet: notice?.minBet || apiError?.minBet,
+                    maxBet: notice?.maxBet || apiError?.maxBet,
                 },
                 validAmount: endBet > 0 ? endBet : 0,
             };
@@ -90,13 +87,7 @@ const Rebet: React.FC<Props> = (props) => {
                               {betTrack[betChoice]?.state === BetState.Error && (
                                   <div className={Styles["error-message"]}>
                                       <Trans t={t} components={{ br: <i /> }}>
-                                          {t(betTrack[betChoice].messages.message, {
-                                              gameName: betTrack[betChoice].messages.gameName,
-                                              errorCode: betTrack[betChoice].messages.errorCode,
-                                              gameRoundId: betTrack[betChoice].messages.roundId,
-                                              minBet: betTrack[betChoice].messages.minBet,
-                                              maxBet: betTrack[betChoice].messages.maxBet,
-                                          })}
+                                          {t(betTrack[betChoice].messages.message, betTrack[betChoice].messages)}
                                       </Trans>
                                   </div>
                               )}

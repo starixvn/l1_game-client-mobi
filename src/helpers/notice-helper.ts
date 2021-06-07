@@ -1,12 +1,4 @@
 import ErrorCodeDictionary, { CommonErrorCodeList } from "../common/constants/error-code-dictionary";
-
-type Optional = {
-    gameName?: string;
-    gameRoundId?: number;
-    minBet?: number;
-    maxBet?: number;
-};
-
 export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) => {
     if (!ErrorCodeDictionary[errorCode]) {
         return "messages:errorOccurred";
