@@ -1,12 +1,6 @@
-@import "../welcome/welcome.module.scss";
+@import "../../../assets/components/buttons";
 
 [data-theme="light"] {
-    .profile-picture {
-        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
-        --icon-edit-border: #f2f2f2;
-        --icon-edit-color: #9c9c9c;
-    }
-
     .login-form {
         --form-control-background: #fff;
         --form-control-border: #ebedef;
@@ -24,12 +18,6 @@
 }
 
 [data-theme="dark"] {
-    .profile-picture {
-        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
-        --icon-edit-border: #203040;
-        --icon-edit-color: #9ac6f2;
-    }
-
     .login-form {
         --form-control-background: #1d2b3b;
         --form-control-border: #384c61;
@@ -48,44 +36,6 @@
 
 .wrapper-welcome {
     margin-top: 0.7rem;
-}
-
-.profile-picture {
-    margin: 1.2rem auto 1.5rem;
-
-    @media (min-width: 768px) {
-        margin: 2rem auto 2.2rem;
-    }
-
-    .chose-avatar {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: -0.6rem;
-        bottom: 0;
-        width: 3.2rem;
-        height: 3.2rem;
-        border-radius: 50%;
-        background: var(--icon-edit-background);
-        border: 1px solid var(--icon-edit-border);
-
-        @media (min-width: 768px) {
-            right: -0.2rem;
-        }
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        .icon-edit:before {
-            color: var(--icon-edit-color);
-        }
-    }
-
-    .avartar {
-        width: 100%;
-    }
 }
 
 .login-form {

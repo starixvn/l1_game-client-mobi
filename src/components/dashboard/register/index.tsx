@@ -11,6 +11,7 @@ import { UserClientCommunication } from "../../../services";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import FirstLoginContainer from "../container";
+import ProfilePicture from "../profile-picture";
 import TextBlock from "../text-block";
 import ThemeSelection from "../theme-selection";
 import NameGenerator from "./name-generator";
@@ -76,6 +77,10 @@ export default function Register(props: Props) {
         setIsValidUserName(true);
     };
 
+    const openAvatarGallery = () => {
+        setIsOpenGalleryAvatar(true);
+    };
+
     const closeAvatarGallery = () => {
         setIsOpenGalleryAvatar(false);
     };
@@ -93,13 +98,7 @@ export default function Register(props: Props) {
                     <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
                 </TextBlock>
             </div>
-
-            <div className={Styles["profile-picture"]} onClick={() => setIsOpenGalleryAvatar(true)}>
-                <img src={`/static/images/avatar/${selectedAvatarId}.png`} className={Styles["avartar"]} alt="Avatar" />
-                <div className={Styles["chose-avatar"]}>
-                    <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
-                </div>
-            </div>
+            <ProfilePicture avatarId={selectedAvatarId} isEditable={true} onClick={openAvatarGallery} />
 
             <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
                 <label className={Styles["input-title"]}>{t("register:registerName")}</label>

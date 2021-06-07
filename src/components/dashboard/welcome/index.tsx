@@ -5,6 +5,7 @@ import { User } from "sc-user-service-client/dist/auth";
 
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
 import FirstLoginContainer from "../container";
+import ProfilePicture from "../profile-picture";
 import TextBlock from "../text-block";
 import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
@@ -22,10 +23,6 @@ export default function Welcome(props: Props) {
         setTheme(Themes.light);
     }, []);
 
-    const getPathAvatar = (imageId: number) => {
-        return `/static/images/avatar/${imageId}.png`;
-    };
-
     return (
         <FirstLoginContainer>
             <TextBlock>
@@ -37,13 +34,7 @@ export default function Welcome(props: Props) {
             <TextBlock>
                 <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
             </TextBlock>
-            <div className={Styles["profile-picture"]}>
-                {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
-                    <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />
-                ) : (
-                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                )}
-            </div>
+            <ProfilePicture avatarId={props.userInfo?.avatarId} />
 
             <ThemeSelection />
             <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
