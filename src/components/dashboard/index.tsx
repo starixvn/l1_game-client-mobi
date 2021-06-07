@@ -1,3 +1,4 @@
+import { Trans, WithTranslation, withTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
@@ -5,12 +6,14 @@ import { isMobileOnly } from "react-device-detect";
 import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
-import { withTranslation, WithTranslation, Trans } from "next-i18next";
+
 import appSettings from "../../common/app-settings";
 import * as LocalStorageManager from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
+import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
+import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
@@ -19,8 +22,6 @@ import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Welcome from "../welcome";
-import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
-import { APIErrorProp } from "../../pages";
 import Styles from "./dashboard.module.scss";
 
 type Props = {
@@ -70,7 +71,6 @@ class Dashboard extends React.Component<Props, State> {
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
-        this.forceReload = this.forceReload.bind(this);
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -153,10 +153,6 @@ class Dashboard extends React.Component<Props, State> {
             };
         }
 
-        if (data.reload) {
-            this.forceReload();
-        }
-
         if (data.apiError) {
             this.props.setApiErrorMessage({
                 message: GetLocalizedErrorMessage(data.apiError.errorCode),
@@ -164,10 +160,6 @@ class Dashboard extends React.Component<Props, State> {
             });
             this.props.setIsShowModal(true);
         }
-    }
-
-    forceReload() {
-        window.location.reload();
     }
 
     handleKickedOut(data: any) {
@@ -182,7 +174,6 @@ class Dashboard extends React.Component<Props, State> {
                 end: umInfo.endTime,
                 finish: false,
             });
-            3001;
             setTimeout(() => {
                 router.push("/um");
             }, 500);
