@@ -33,7 +33,6 @@ const Rebet: React.FC<Props> = (props) => {
 
     const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
         if (betTrack[betChoice]) {
-            console.log("handleEndBetMessage Rebet");
             betTrack[betChoice] = {
                 state: endBet > 0 ? BetState.Success : BetState.Error,
                 messages: {
