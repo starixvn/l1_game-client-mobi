@@ -1,6 +1,5 @@
-import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 
@@ -17,7 +16,56 @@ export type APIErrorProp = {
     message: string;
     errorCode: string;
 };
+
+const sessionKey = LocalStorageManager.localStorageKeys.session;
 let authorizeInfo: AuthorizeResponse = null;
+
+const signIn = async (handleSignInSuccess: Function, router: NextRouter) => {
+    const { settings: settingsService } = UserClientCommunication.getUserClientInstance();
+    const settings = await settingsService.getSettings();
+
+    settings.isUM && router.push("um");
+
+    if (!settings.isUM) {
+        router.query.token
+            ? handleSignInWithRouteQuery(handleSignInSuccess, router)
+            : handleSignInWithLocalStorageSession(handleSignInSuccess, router);
+    }
+};
+
+const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: NextRouter) => {
+    const { auth: authService } = UserClientCommunication.getUserClientInstance();
+    const { token } = router.query;
+
+    const userSession = await authService.sso(token as string, 2);
+    if (userSession && userSession.isAuthenticated) {
+        onSignInSuccess(userSession);
+
+        window.history.pushState(null, "", location.href.split("?")[0]);
+        const langCode = languageMapper[userSession.language];
+        if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
+            router.push("/", "/", { locale: langCode });
+        }
+    } else {
+        router.push("/timeout");
+    }
+};
+
+const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, router: NextRouter) => {
+    const { auth: authService } = UserClientCommunication.getUserClientInstance();
+
+    const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
+    if (!userSession) {
+        router.push("/timeout");
+    }
+
+    const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
+    if (verifySessionResponse.isSuccessful) {
+        onSignInSuccess(userSession);
+    } else {
+        router.push("/timeout");
+    }
+};
 
 export const signOut = () => {
     LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
@@ -31,45 +79,7 @@ function Home() {
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
     const timer = useRef(null);
-    const sessionKey = LocalStorageManager.localStorageKeys.session;
-    const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
-    const { t } = useTranslation("messages");
-
-    async function signIn() {
-        const settings = await settingsService.getSettings();
-        if (settings.isUM) {
-            router.push("um");
-            return;
-        }
-
-        const { token } = router.query;
-        if (token) {
-            const userSession = await authService.sso(token as string, 2);
-            if (userSession && userSession.isAuthenticated) {
-                handleSignInSuccess(userSession);
-
-                window.history.pushState(null, "", location.href.split("?")[0]);
-                const langCode = languageMapper[userSession.language];
-                if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
-                    router.push("/", "/", { locale: langCode });
-                }
-            } else {
-                router.push("/timeout");
-            }
-        } else {
-            const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
-            if (!userSession) {
-                router.push("/timeout");
-            }
-
-            const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
-            if (verifySessionResponse.isSuccessful) {
-                handleSignInSuccess(userSession);
-            } else {
-                router.push("/timeout");
-            }
-        }
-    }
+    const { auth: authService } = UserClientCommunication.getUserClientInstance();
 
     async function handleSignInSuccess(userSession: SSOResponse) {
         setUser(userSession);
@@ -86,22 +96,26 @@ function Home() {
         setTimeout(() => setLoading(false), 1000);
     }
 
+    function handleShowApiErrorMessage(errorCode: string) {
+        setIsShowModal(true);
+        setApiErrorMessage({
+            errorCode,
+            message: GetLocalizedErrorMessage(errorCode),
+        });
+    }
+
     function handleRecheckInResponse(reCheckInResult: ReCheckInResponse) {
         if (!reCheckInResult || !reCheckInResult.isSuccessful) {
             signOut();
             router.push("/timeout");
         } else {
             if (reCheckInResult.apiError) {
-                setIsShowModal(true);
-                if (reCheckInResult.isDisableAccount) {
+                reCheckInResult.isDisableAccount &&
                     setTimeout(() => {
                         signOut();
                     }, 10000);
-                }
-                setApiErrorMessage({
-                    message: GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode),
-                    errorCode: reCheckInResult.apiError.errorCode,
-                });
+
+                handleShowApiErrorMessage(reCheckInResult.apiError.errorCode);
             } else {
                 setBalance(reCheckInResult.balance);
             }
@@ -112,14 +126,13 @@ function Home() {
         timer.current = setInterval(async () => {
             const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
             const reCheckInResult = await authService.reCheckIn(userSession?.ss, userSession?.username);
+
             handleRecheckInResponse(reCheckInResult);
         }, 60 * 1000);
     }
 
     useEffect(() => {
-        if (router.isReady) {
-            signIn();
-        }
+        router.isReady && signIn(handleSignInSuccess.bind(this), router);
 
         return () => clearInterval(timer.current);
     }, [router.isReady]);
