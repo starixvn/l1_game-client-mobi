@@ -24,7 +24,7 @@
     "socketReconnect": "Thử lại",
     "light": "Sáng",
     "dark": "Tối",
-    "welcomeMsg": "Chào mừng <strong>{{userName}}}</strong> đến với <strong>{{sabaMobileName}}</strong>",
+    "welcomeMsg": "Chào mừng <strong>{{userName}}</strong> đến với <strong>{{sabaMobileName}}</strong>",
     "selectTheme": "Chọn giao diện",
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
