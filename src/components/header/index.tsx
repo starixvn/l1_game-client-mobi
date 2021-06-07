@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { isMobile } from "react-device-detect";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
 
@@ -23,12 +24,21 @@ const Header: React.FC<Props> = (props) => {
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     const authContext = useAuthContext();
     const { theme, setTheme } = useTheme();
+    const [isOpenSideNav, setIsOpenSideNav] = useState<boolean>(false);
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
 
         userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, newTheme);
         setTheme(newTheme);
+    };
+
+    const openSlideNav = () => {
+        setIsOpenSideNav(true);
+    };
+
+    const closeSlideNav = () => {
+        setIsOpenSideNav(false);
     };
 
     useEffect(() => {
@@ -61,15 +71,18 @@ const Header: React.FC<Props> = (props) => {
                                     )}
                                 </div>
                             </div>
-                            {theme !== undefined && (
-                                <div className={Styles["cirle-theme"]} onClick={handleChangeTheme}>
-                                    <span key={theme} className={`icon-moon ${Styles["icon-theme"]}`}></span>
-                                </div>
-                            )}
+                            {isMobile && <span onClick={openSlideNav}>Menu</span>}
                         </div>
                     </div>
                 </Navbar>
             </div>
+            {isOpenSideNav && (
+                <div className={Styles["slide-nav"]}>
+                    <a href="#" className={Styles["btn-close"]} onClick={closeSlideNav}>
+                        &times;
+                    </a>
+                </div>
+            )}
         </header>
     );
 };

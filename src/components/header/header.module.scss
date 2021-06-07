@@ -152,3 +152,24 @@
 //         background-image: url("/static/images/lang-en.svg");
 //     }
 // }
+
+.slide-nav{
+    height: 100%; 
+    width: 100%;
+    position: fixed; 
+    z-index: 1;
+    top: 0; 
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px; 
+    transition: 0.5s;
+
+    .btn-close {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+}
