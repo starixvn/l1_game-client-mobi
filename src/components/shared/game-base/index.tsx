@@ -194,37 +194,21 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
         const message = GetLocalizedErrorMessage(apiError.errorCode, isPlaceBet);
-        const minBet = apiError.minBet ? apiError.minBet : 0;
-        const maxBet = apiError.maxBet ? apiError.maxBet : 0;
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const roundId = apiError.gameRoundId ? apiError.gameRoundId : 0;
-        if (apiError.gameRoundId) {
-            const { displayPopup } = this.state;
-            displayPopup !== PopupType.Rebet &&
-                this.setState({
-                    notice: {
-                        gameName: gameName,
-                        roundId: apiError.gameRoundId,
-                        message: message,
-                        duration: 3,
-                        minBet: minBet,
-                        maxBet: maxBet,
-                        errorCode: apiError.errorCode,
-                    },
-                });
-        } else {
+
+        const { displayPopup } = this.state;
+        displayPopup !== PopupType.Rebet &&
             this.setState({
                 notice: {
+                    gameName: gameName,
+                    roundId: apiError?.gameRoundId,
                     message: message,
                     duration: 3,
-                    minBet: minBet,
-                    maxBet: maxBet,
-                    gameName: gameName,
-                    roundId: roundId,
+                    minBet: apiError?.minBet,
+                    maxBet: apiError?.maxBet,
                     errorCode: apiError.errorCode,
                 },
             });
-        }
     };
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
@@ -242,6 +226,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             message: GetLocalizedErrorMessage(kickedOut.errorCode),
                             duration: 2,
                             errorCode: kickedOut.errorCode,
+                            roundId: kickedOut?.gameRoundId,
                         },
                     });
 
@@ -250,9 +235,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         router.push("/timeout");
                     }, 10000);
                 } else {
-                    const minBet = notice.minBet ? notice.minBet : 0;
-                    const maxBet = notice.maxBet ? notice.maxBet : 0;
-                    const roundId = notice.gameRoundId ? notice.gameRoundId : 0;
                     const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;
                     displayPopup !== PopupType.Rebet &&
                         this.setState({
@@ -260,10 +242,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 gameName: gameName,
                                 message: GetLocalizedErrorMessage(notice.errorCode, isPlaceBet),
                                 duration: 2,
-                                minBet: minBet,
-                                maxBet: maxBet,
+                                minBet: notice?.minBet,
+                                maxBet: notice?.maxBet,
                                 errorCode: notice.errorCode,
-                                roundId: roundId,
+                                roundId: notice?.gameRoundId,
                             },
                         });
                 }

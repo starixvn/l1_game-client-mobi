@@ -47,7 +47,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     );
 };
 
-export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId, errorCode }) => {
+export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId = 0, errorCode }) => {
     const opt = { gameName: gameName, gameRoundId: roundId, minBet: minBet, maxBet: maxBet, errorCode: errorCode };
     const { t } = useTranslation();
     return (
