@@ -8,6 +8,7 @@
     }
 
     .dice-collape-mode {
+        display: none;
         grid-area: 1/1;
         background-position: 0% 100%;
         animation-name: random-animation, random-slow-animation, hide-random-animation;
@@ -70,6 +71,24 @@
     .result3 {
         @extend %result;
         animation: show-result-collapse-mode-amimation 0.1s 2.2s forwards linear;
+    }
+
+    &.has-animation {
+        .dice-collape-mode {
+            display: block;
+        }
+
+        .result1 {
+            animation-delay: 2s;
+        }
+
+        .result2 {
+            animation-delay: 2.1s;
+        }
+
+        .result3 {
+            animation-delay: 2.2s;
+        }
     }
 
     @keyframes hide-random-animation {

@@ -43,8 +43,9 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
 };
 
 export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
+    const { playResultAnimation } = useGameContext();
     return (
-        <div className={Styles["result-collapse-mode"]}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {result &&
                 Object.keys(result).map((dice, index) => {
                     const src = `/static/images/${nameDices[result[dice]]}.png`;

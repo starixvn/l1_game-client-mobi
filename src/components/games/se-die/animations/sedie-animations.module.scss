@@ -175,7 +175,8 @@ $time-hide-bowl-animation: 1s;
         grid-template-rows: 2.5rem;
     }
 
-    %dot-3d {
+    .dot-3d {
+        display: none;
         grid-area: 1/1;
         position: relative;
         width: 25px;
@@ -308,25 +309,25 @@ $time-hide-bowl-animation: 1s;
     }
 
     .dot-3d-1 {
-        @extend %dot-3d;
+        @extend .dot-3d;
         animation-duration: 0.1s, 0.5s, 0.2s;
         animation-delay: 0s, 0.3s, 0.8s;
     }
 
     .dot-3d-2 {
-        @extend %dot-3d;
+        @extend .dot-3d;
         animation-duration: 0.2s, 0.5s, 0.2s;
         animation-delay: 0s, 0.6s, 1.1s;
     }
 
     .dot-3d-3 {
-        @extend %dot-3d;
+        @extend .dot-3d;
         animation-duration: 0.3s, 0.6s, 0.2s;
         animation-delay: 0s, 0.9s, 1.5s;
     }
 
     .dot-3d-4 {
-        @extend %dot-3d;
+        @extend .dot-3d;
         animation-duration: 0.4s, 0.7s, 0.2s;
         animation-delay: 0s, 1.2s, 1.9s;
     }
@@ -381,19 +382,38 @@ $time-hide-bowl-animation: 1s;
 
     .result-sedie-dot1 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 0.9s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0s forwards linear;
     }
     .result-sedie-dot2 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 1.2s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.2s forwards linear;
     }
     .result-sedie-dot3 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 1.6s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.4s forwards linear;
     }
     .result-sedie-dot4 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 2s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.6s forwards linear;
+    }
+
+    &.has-animation {
+        .dot-3d {
+            display: block;
+        }
+
+        .result-sedie-dot1 {
+            animation-delay: 0.9s;
+        }
+        .result-sedie-dot2 {
+            animation-delay: 1.2s;
+        }
+        .result-sedie-dot3 {
+            animation-delay: 1.6s;
+        }
+        .result-sedie-dot4 {
+            animation-delay: 2s;
+        }
     }
 }
 

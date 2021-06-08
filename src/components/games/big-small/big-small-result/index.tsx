@@ -80,8 +80,9 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
 };
 
 export const BigSmallResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
+    const { playResultAnimation } = useGameContext();
     return (
-        <div className={`${Styles["result-collapse-mode"]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {result &&
                 Object.values(result).map((value, index) => (
                     <div className={Styles["result-item"]}>

@@ -70,8 +70,9 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 
 export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
+    const { modeView, playResultAnimation } = useGameContext();
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${Styles["has-animation"]} `}>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""} `}>
             <div className={Styles["result-container"]}>{generateResult(result)}</div>
         </div>
     );
