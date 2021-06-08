@@ -71,16 +71,53 @@ const Header: React.FC<Props> = (props) => {
                                     )}
                                 </div>
                             </div>
-                            {isMobile && <span onClick={openSlideNav}>Menu</span>}
+                            <span onClick={openSlideNav} className={`icon-menu ${Styles["icon-menu"]}`}></span>
                         </div>
                     </div>
                 </Navbar>
             </div>
             {isOpenSideNav && (
                 <div className={Styles["slide-nav"]}>
-                    <a href="#" className={Styles["btn-close"]} onClick={closeSlideNav}>
-                        &times;
-                    </a>
+                    <span className={`icon-arrow-left ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
+                    <div className={Styles["profile-picture"]}>
+                        {props.avatarId > 0 && props.avatarId < 41 ? (
+                            <img src={pathAvatar} className={Styles["avartar"]} alt="Avatar" />
+                        ) : (
+                            <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                        )}
+                    </div>
+                    <div className={Styles["user-name"]}>{props.name}</div>
+
+                    <div className={Styles["setting-container"]}>
+                        <div className={Styles["setting-item"]}>
+                            <label>Hạn mức còn lại</label>
+                            <div key={props.balance} className={Styles.balance}>
+                                {numberWithCommas(props.balance ? props.balance : 0)} {props.currency}
+                            </div>
+                        </div>
+                        <div className={Styles["setting-item"]}>
+                            <label>Giao diện Tối</label>
+                            <div className={`${Styles["toggle"]}`}>
+                                <input className={Styles["toggle-checkbox"]} id="toggle-theme" type={"checkbox"} />
+                                <label className={Styles["toggle-btn"]} htmlFor="toggle-theme"></label>
+                            </div>
+                        </div>
+
+                        <div className={Styles["setting-item"]}>
+                            <label>Âm thanh</label>
+                            <div className={`${Styles["toggle"]}`}>
+                                <input className={Styles["toggle-checkbox"]} id="toggle-sound" type={"checkbox"} checked />
+                                <label className={Styles["toggle-btn"]} htmlFor="toggle-sound"></label>
+                            </div>
+                        </div>
+                        <div className={Styles["setting-item"]}>
+                            <label>Thông báo con đường thuận lợi</label>
+                            <div className={`${Styles["toggle"]}`}>
+                                <input className={Styles["toggle-checkbox"]} id="toggle-good-way" type={"checkbox"} />
+                                <label className={Styles["toggle-btn"]} htmlFor="toggle-good-way"></label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </header>

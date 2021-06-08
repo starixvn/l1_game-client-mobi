@@ -60,22 +60,22 @@
         text-align: right;
     }
 
-    .balance {
-        color: var(--header-balance-color);
-        font-family: var(--font-number);
-        font-weight: 500;
-    }
-
     .icon-user {
         position: relative;
         top: 18px;
         left: -2px;
         font-size: 3.9rem;
     }
+}
 
-    .user-name {
-        color: var(--header-text-color);
-    }
+.user-name {
+    color: var(--header-text-color);
+}
+
+.balance {
+    color: var(--header-balance-color);
+    font-family: var(--font-number);
+    font-weight: 500;
 }
 
 .icon-user {
@@ -119,57 +119,126 @@
         transform: scale(1);
     }
 }
-// .language {
-//     float: right;
 
-//     .lang-item {
-//         display: flex;
-//         align-items: center;
-//     }
+.icon-menu {
+    font-size: 3.2rem;
+    &:hover {
+        cursor: pointer;
+    }
+}
 
-//     .dropdown-toggle {
-//         display: flex;
-//         align-items: center;
-//         font-size: 1.4rem;
-//         color: var(--text-color);
-//         text-transform: uppercase;
-//     }
-
-//     %flag {
-//         display: inline-block;
-//         width: 2.6rem;
-//         height: 1.8rem;
-//         margin-right: 0.6rem;
-//     }
-
-//     .flag-vn {
-//         @extend %flag;
-//         background-image: url("/static/images/lang-vn.svg");
-//     }
-
-//     .flag-en {
-//         @extend %flag;
-//         background-image: url("/static/images/lang-en.svg");
-//     }
-// }
-
-.slide-nav{
-    height: 100%; 
+.slide-nav {
+    height: 100%;
     width: 100%;
-    position: fixed; 
+    position: fixed;
     z-index: 1;
-    top: 0; 
-    left: 0;
-    background-color: #111;
+    top: 0;
+    right: 0;
+    background-color: #fff;
     overflow-x: hidden;
-    padding-top: 60px; 
     transition: 0.5s;
+
+    @media (min-width: 768px) {
+        width: 41.4rem;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    }
 
     .btn-close {
         position: absolute;
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 50px;
-      }
+        top: 2rem;
+        left: 2rem;
+        font-size: 2.4rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .profile-picture {
+        position: relative;
+        width: 9.4rem;
+        height: 9.4rem;
+        margin: 3rem auto 2.2rem;
+        border-radius: 50%;
+        border: 0.2rem solid #ffb335;
+
+        @media (min-width: 768px) {
+            width: 13rem;
+            height: 13rem;
+        }
+
+        .avartar {
+            width: 100%;
+        }
+    }
+
+    .user-name {
+        margin: 1rem 0;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 500;
+    }
+
+    .setting-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 2.4rem 1.8rem;
+        font-size: 1.6rem;
+
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1rem 0;
+        }
+    }
+
+    .toggle {
+        display: block;
+        position: relative;
+    }
+
+    .toggle-checkbox {
+        display: none;
+    }
+
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 5.4rem;
+        height: 2.1rem;
+        background: #cacaca;
+        border-radius: 2rem;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 2.7rem;
+            height: 2.7rem;
+            background-color: #ffffff;
+            border-radius: 50%;
+            border: 0.1rem solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.15);
+            transition: left 100ms ease-in;
+        }
+    }
+
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background: #8edfa2;
+
+            &:before {
+                content: "";
+                left: 2.7rem;
+                background-color: #34c759;
+            }
+        }
+    }
 }
