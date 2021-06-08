@@ -345,3 +345,40 @@ $time-result-highlight-animation: 0.8s;
         opacity: 1;
     }
 }
+
+.result-collapse-mode {
+    .result-container {
+        display: flex;
+        transform: scale(0.4);
+    }
+
+    .result-item {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+
+        .card-back {
+            grid-area: 1/1;
+        }
+
+        .card-result {
+            grid-area: 1/1;
+            opacity: 0;
+        }
+
+        .card-result1 {
+            @extend .card-result;
+            animation: show-result-collapse-mode-amimation 0.1s 2s forwards linear;
+        }
+        .card-result2 {
+            @extend .card-result;
+            animation: show-result-collapse-mode-amimation 0.1s 2s forwards linear;
+        }
+    }
+
+    @keyframes show-result-collapse-mode-amimation {
+        to {
+            opacity: 1;
+        }
+    }
+}

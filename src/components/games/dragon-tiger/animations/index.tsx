@@ -70,10 +70,20 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 
 export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
-
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]}`}>
-            <div className={`${Styles["animation-container"]}`}>{generateResult(result)}</div>
+        <div className={`${Styles["result-collapse-mode"]} `}>
+            <div className={Styles["result-container"]}>
+                {result.map((result, index) => {
+                    return (
+                        <div className={Styles["result-item"]}>
+                            <div className={Styles["card-back"]}></div>
+                            <div className={Styles[`card-result${index + 1}`]}>
+                                <Card result={result}></Card>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 };
