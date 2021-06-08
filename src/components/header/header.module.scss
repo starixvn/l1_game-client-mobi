@@ -148,24 +148,6 @@
         }
     }
 
-    .profile-picture {
-        position: relative;
-        width: 9.4rem;
-        height: 9.4rem;
-        margin: 3rem auto 2.2rem;
-        border-radius: 50%;
-        border: 0.2rem solid #ffb335;
-
-        @media (min-width: 768px) {
-            width: 13rem;
-            height: 13rem;
-        }
-
-        .avartar {
-            width: 100%;
-        }
-    }
-
     .user-name {
         margin: 1rem 0;
         text-align: center;

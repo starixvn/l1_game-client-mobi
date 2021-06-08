@@ -1,6 +1,5 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-import { isMobile } from "react-device-detect";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
 
@@ -8,6 +7,7 @@ import { Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
+import ProfilePicture from "../profile-picture";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -79,15 +79,8 @@ const Header: React.FC<Props> = (props) => {
 
             <div className={`${Styles["slide-nav"]} ${isOpenSideNav ? Styles["active"] : ""}`}>
                 <span className={`icon-arrow-left ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
-                <div className={Styles["profile-picture"]}>
-                    {props.avatarId > 0 && props.avatarId < 41 ? (
-                        <img src={pathAvatar} className={Styles["avartar"]} alt="Avatar" />
-                    ) : (
-                        <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                    )}
-                </div>
+                <ProfilePicture avatarId={props.avatarId} />
                 <div className={Styles["user-name"]}>{props.name}</div>
-
                 <div className={Styles["setting-container"]}>
                     <div className={Styles["setting-item"]}>
                         <label>Hạn mức còn lại</label>
@@ -97,29 +90,29 @@ const Header: React.FC<Props> = (props) => {
                     </div>
                     <div className={Styles["setting-item"]}>
                         <label>Giao diện Tối</label>
-                        <div className={`${Styles["toggle"]}`}>
-                            <input className={Styles["toggle-checkbox"]} id="toggle-theme" type={"checkbox"} />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-theme"></label>
-                        </div>
+                        <Toggle id="toggle-theme" value={theme === Themes.dark} onChange={handleChangeTheme} />
                     </div>
 
                     <div className={Styles["setting-item"]}>
                         <label>Âm thanh</label>
-                        <div className={`${Styles["toggle"]}`}>
-                            <input className={Styles["toggle-checkbox"]} id="toggle-sound" type={"checkbox"} checked />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-sound"></label>
-                        </div>
+                        <Toggle id="toggle-sound" value={false} />
                     </div>
                     <div className={Styles["setting-item"]}>
                         <label>Thông báo con đường thuận lợi</label>
-                        <div className={`${Styles["toggle"]}`}>
-                            <input className={Styles["toggle-checkbox"]} id="toggle-good-way" type={"checkbox"} />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-good-way"></label>
-                        </div>
+                        <Toggle id="toggle-good-way" value={false} />
                     </div>
                 </div>
             </div>
         </header>
+    );
+};
+
+const Toggle: React.FC<{ id: string; value: boolean; onChange?: () => void }> = ({ id, value, onChange }) => {
+    return (
+        <div className={`${Styles["toggle"]}`}>
+            <input className={Styles["toggle-checkbox"]} id={id} type={"checkbox"} onChange={onChange} checked={value} />
+            <label className={Styles["toggle-btn"]} htmlFor={id}></label>
+        </div>
     );
 };
 
