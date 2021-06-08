@@ -1,5 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
 
@@ -25,6 +26,7 @@ const Header: React.FC<Props> = (props) => {
     const authContext = useAuthContext();
     const { theme, setTheme } = useTheme();
     const [isOpenSideNav, setIsOpenSideNav] = useState<boolean>(false);
+    const { t } = useTranslation("common");
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
@@ -82,28 +84,32 @@ const Header: React.FC<Props> = (props) => {
                 <ProfilePicture avatarId={props.avatarId} />
                 <div className={Styles["user-name"]}>{props.name}</div>
                 <div className={Styles["setting-container"]}>
-                    <div className={Styles["setting-item"]}>
-                        <label>Hạn mức còn lại</label>
+                    <SettingItem label={t("betCredit")}>
                         <div key={props.balance} className={Styles.balance}>
                             {numberWithCommas(props.balance ? props.balance : 0)} {props.currency}
                         </div>
-                    </div>
-                    <div className={Styles["setting-item"]}>
-                        <label>Giao diện Tối</label>
+                    </SettingItem>
+                    <SettingItem label={t("darkMode")}>
                         <Toggle id="toggle-theme" value={theme === Themes.dark} onChange={handleChangeTheme} />
-                    </div>
-
-                    <div className={Styles["setting-item"]}>
-                        <label>Âm thanh</label>
-                        <Toggle id="toggle-sound" value={false} />
-                    </div>
-                    <div className={Styles["setting-item"]}>
-                        <label>Thông báo con đường thuận lợi</label>
-                        <Toggle id="toggle-good-way" value={false} />
-                    </div>
+                    </SettingItem>
+                    {/* <SettingItem label={t("sound")}>
+                        <Toggle id="toggle-sound" value={false} onChange={handleChangeTheme} />
+                    </SettingItem> */}
+                    <SettingItem label={t("goodRoadNotification")}>
+                        <Toggle id="toggle-good-way" value={false} onChange={handleChangeTheme} />
+                    </SettingItem>
                 </div>
             </div>
         </header>
+    );
+};
+
+const SettingItem: React.FC<{ label: string }> = ({ label, children }) => {
+    return (
+        <div className={Styles["setting-item"]}>
+            <label>{label}</label>
+            {children}
+        </div>
     );
 };
 

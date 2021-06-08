@@ -39,4 +39,8 @@
     "displayMode": "Display Mode",
     "fullMode": "Full Mode",
     "compactMode": "Simple Mode"
+    "betCredit": "Bet Credit",
+    "darkMode": "Dark Mode",
+    "sound": "Sound",
+    "goodRoadNotification": "Good Road Notification"
 }
