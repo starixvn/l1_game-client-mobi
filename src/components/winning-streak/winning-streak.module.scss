@@ -22,6 +22,10 @@
     box-shadow: 0 0 0.4rem rgb(0 0 0 / 25%);
     border-radius: 0.5rem;
     color: #000;
+    animation-name: show-winning-streak-animation, hide-winning-streak-animation;
+    animation-duration: 0.3s, 0.3s;
+    animation-delay: 0s, 3.5s;
+    animation-fill-mode: forwards, forwards;
 
     .option-icon {
         display: flex;
@@ -53,6 +57,27 @@
         &:before {
             font-size: 1rem;
             color: #acacac;
+        }
+    }
+
+    @keyframes show-winning-streak-animation {
+        0% {
+            transform: translateY(-2rem);
+        }
+
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes hide-winning-streak-animation {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateY(-2rem);
         }
     }
 }
