@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
-
+import { isMobileOnly } from "react-device-detect";
 import { Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
@@ -80,7 +80,12 @@ const Header: React.FC<Props> = (props) => {
             </div>
 
             <div className={`${Styles["slide-nav"]} ${isOpenSideNav ? Styles["active"] : ""}`}>
-                <span className={`icon-arrow-left ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
+                {isMobileOnly ? (
+                    <span className={`icon-arrow-left ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
+                ) : (
+                    <span className={`icon-close ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
+                )}
+
                 <ProfilePicture avatarId={props.avatarId} />
                 <div className={Styles["user-name"]}>{props.name}</div>
                 <div className={Styles["setting-container"]}>
