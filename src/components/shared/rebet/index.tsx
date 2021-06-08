@@ -86,7 +86,13 @@ const Rebet: React.FC<Props> = (props) => {
                               {betTrack[betChoice]?.state === BetState.Error && (
                                   <div className={Styles["error-message"]}>
                                       <Trans t={t} components={{ br: <i /> }}>
-                                          {t(betTrack[betChoice].messages.message, betTrack[betChoice].messages)}
+                                          {t(betTrack[betChoice].messages.message, {
+                                              gameName: betTrack[betChoice].messages.gameName,
+                                              roundId: betTrack[betChoice].messages.roundId,
+                                              minBet: numberWithCommas(+betTrack[betChoice].messages.minBet),
+                                              maxBet: numberWithCommas(+betTrack[betChoice].messages.maxBet),
+                                              errorCode: betTrack[betChoice].messages.errorCode,
+                                          })}
                                       </Trans>
                                   </div>
                               )}
