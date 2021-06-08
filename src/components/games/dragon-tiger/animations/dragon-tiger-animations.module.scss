@@ -178,7 +178,7 @@ $time-result-highlight-animation: 0.8s;
             transition: transform 0.1s;
         }
 
-        %open-card {
+        .open-card {
             position: relative;
             animation-name: open-card-animation;
             animation-duration: $time-open-card-animation/2;
@@ -193,7 +193,7 @@ $time-result-highlight-animation: 0.8s;
             }
 
             .rotate-card {
-                @extend %open-card;
+                @extend .open-card;
                 animation-delay: $time-delay-zoom-in-card-animation;
             }
         }
@@ -204,7 +204,7 @@ $time-result-highlight-animation: 0.8s;
             }
 
             .rotate-card {
-                @extend %open-card;
+                @extend .open-card;
                 animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
             }
         }
@@ -352,33 +352,37 @@ $time-result-highlight-animation: 0.8s;
         transform: scale(0.4);
     }
 
-    .result-item {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
+    &.has-animation {
+        $time-open-card-collape-mode-animation: 1s;
 
         .card-back {
-            grid-area: 1/1;
+            animation-duration: $time-open-card-collape-mode-animation/2;
         }
 
-        .card-result {
-            grid-area: 1/1;
-            opacity: 0;
+        .open-card {
+            animation-duration: $time-open-card-collape-mode-animation/2;
         }
 
-        .card-result1 {
-            @extend .card-result;
-            animation: show-result-collapse-mode-amimation 0.1s 2s forwards linear;
-        }
-        .card-result2 {
-            @extend .card-result;
-            animation: show-result-collapse-mode-amimation 0.1s 2s forwards linear;
-        }
-    }
+        .card1 {
+            .card-back {
+                animation-delay: 0s;
+            }
 
-    @keyframes show-result-collapse-mode-amimation {
-        to {
-            opacity: 1;
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: 0s;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: $time-open-card-collape-mode-animation/2;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-collape-mode-animation/2;
+            }
         }
     }
 }
