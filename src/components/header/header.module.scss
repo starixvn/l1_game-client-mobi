@@ -2,16 +2,18 @@
     --header-background: linear-gradient(269.99deg, #dcdcdc 0.01%, #fff 85.59%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
-    --circle-theme-background: linear-gradient(212.28deg, rgba(0, 0, 0, 0.2) 8.15%, rgba(0, 0, 0, 0.08) 93.89%);
-    --icon-theme-color: rgba(253, 254, 255, 0.7);
+    --icon-menu-color: #6e809a;
+    --slide-nav-background: #fff;
+    --icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
 }
 
 [data-theme="dark"] .header {
     --header-background: #203040;
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
-    --circle-theme-background: linear-gradient(212.28deg, rgba(0, 0, 0, 0.6) 8.15%, rgba(0, 0, 0, 0.08) 93.89%);
-    --icon-theme-color: #ffab2b;
+    --icon-menu-color: #fff;
+    --slide-nav-background: #252b3b;
+    --icon-menu-background-hover: radial-gradient(circle, rgba(20, 31, 47, 0) 0%, rgba(20, 31, 47, 1) 100%);
 }
 
 .header {
@@ -85,45 +87,31 @@
     font-size: 2rem;
 }
 
-.cirle-theme {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3.8rem;
-    width: 3.8rem;
-    border-radius: 50%;
-    transition: all 0.4s;
-    background: var(--circle-theme-background);
-    font-size: 2.3rem;
-
-    .icon-theme {
-        transform-origin: 0% 50%;
-        animation: change-theme-animation 0.5s ease;
-        &:before {
-            color: var(--icon-theme-color);
-            transition: color 0.6s;
-        }
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
-}
-
-@keyframes change-theme-animation {
-    from {
-        transform: scale(0.9);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
 .icon-menu {
+    position: relative;
     font-size: 3.2rem;
+
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: -0.3rem;
+        width: 3.8rem;
+        height: 3.8rem;
+        margin: auto;
+        border-radius: 50%;
+        background: var(--icon-menu-background-hover);
+        transform: scale(0);
+        opacity: 0;
+        transition: all 0.3s;
+    }
+
     &:hover {
         cursor: pointer;
+        &:after {
+            transform: scale(1);
+            opacity: 1;
+        }
     }
 }
 
@@ -133,14 +121,20 @@
     position: fixed;
     z-index: 1;
     top: 0;
-    right: 0;
-    background-color: #fff;
+    right: -100%;
+    background-color: var(--slide-nav-background);
     overflow-x: hidden;
-    transition: 0.5s;
+    color: var(--text-color);
+    transition: right 0.3s ease-in;
 
     @media (min-width: 768px) {
+        right: -41.4rem;
         width: 41.4rem;
         box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    &.active {
+        right: 0;
     }
 
     .btn-close {
@@ -222,7 +216,7 @@
             left: 0;
             width: 2.7rem;
             height: 2.7rem;
-            background-color: #ffffff;
+            background-color: #fff;
             border-radius: 50%;
             border: 0.1rem solid rgba(0, 0, 0, 0.04);
             box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.15);
