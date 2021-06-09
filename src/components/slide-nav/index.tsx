@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { Themes } from "../../common/constants";
@@ -8,6 +8,7 @@ import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
 import ProfilePicture from "../profile-picture";
+import LanguageSelection from "./language-selection";
 import Styles from "./slide-nav.module.scss";
 
 type Props = {
@@ -27,6 +28,7 @@ const SlideNav: React.FC<Props> = (props) => {
     const { theme, setTheme } = useTheme();
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     const authContext = useAuthContext();
+    const [showLanguageSelection, setShowLanguageSelection] = useState<boolean>(false);
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
@@ -61,7 +63,15 @@ const SlideNav: React.FC<Props> = (props) => {
                 <SettingItem label={t("winningStreakNotification")}>
                     <Toggle id="toggle-good-way" value={props.enabledWinningStreakNotification} onChange={props.onWinningStreakToggle} />
                 </SettingItem>
+                <SettingItem label="Language">
+                    <Toggle
+                        id="toggle-langue"
+                        value={showLanguageSelection}
+                        onChange={() => setShowLanguageSelection(!showLanguageSelection)}
+                    />
+                </SettingItem>
             </div>
+            {showLanguageSelection && <LanguageSelection />}
         </div>
     );
 };
