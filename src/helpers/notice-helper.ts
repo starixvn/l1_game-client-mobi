@@ -1,4 +1,5 @@
 import ErrorCodeDictionary, { CommonErrorCodeList } from "../common/constants/error-code-dictionary";
+
 export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) => {
     if (!ErrorCodeDictionary[errorCode]) {
         return "messages:errorOccurred";
@@ -11,8 +12,4 @@ export const GetLocalizedErrorMessage = (errorCode: string, isPlaceBet = false) 
     }
 
     return `messages:${key}`;
-};
-
-export const GetMessageByLocale = (data: any, locale: string): string => {
-    return data[locale];
 };

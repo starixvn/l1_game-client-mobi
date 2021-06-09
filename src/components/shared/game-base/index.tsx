@@ -31,8 +31,7 @@ import Rebet from "../rebet";
 import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
-import { GetLocalizedErrorMessage, GetMessageByLocale } from "../../../helpers/notice-helper";
-import { languageMapper } from "../../../common/constants";
+import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import {
     GameBaseProps,
@@ -332,7 +331,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
             this.setState({
                 gameState: GameState.Disabled,
-                disabledMessage: GetMessageByLocale(um_message, languageMapper[language]),
+                disabledMessage: um_message[language],
                 showWaitingTime: false,
             });
         }
