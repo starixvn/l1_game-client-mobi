@@ -1,20 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import lottie from "lottie-web";
-import { useRouter } from "next/router";
+import { languageMapper } from "../../common/constants";
 import * as animationDesktopVI from "./anim-file/vi/anim-desktop.json";
 import * as animationMobileVI from "./anim-file/vi/anim-mobile.json";
 import * as animationDesktopEN from "./anim-file/en/anim-desktop.json";
 import * as animationMobileEN from "./anim-file/en/anim-mobile.json";
 import Styles from "./splash-screen.module.scss";
 
-export default function SplashScreen() {
-    const router = useRouter();
-    const { locale } = router;
+export default function SplashScreen({ locale }) {
+    const [animRun, setAnimRun] = useState<any>();
     const wrapperRefLogo = useRef<HTMLDivElement>(null);
     const animationDesktop = { vi: animationDesktopVI, en: animationDesktopEN };
     const animationMobile = { vi: animationMobileVI, en: animationMobileEN };
-    const animRun = isMobileOnly ? animationMobile[locale] : animationDesktop[locale];
     useEffect(() => {
         if (wrapperRefLogo.current) {
             lottie.loadAnimation({
@@ -25,7 +23,12 @@ export default function SplashScreen() {
                 animationData: animRun,
             });
         }
-    }, [wrapperRefLogo]);
+    }, [wrapperRefLogo, animRun]);
+
+    useEffect(() => {
+        const langCode = languageMapper[locale];
+        setAnimRun(isMobileOnly ? animationMobile[langCode] : animationDesktop[langCode]);
+    }, [locale]);
 
     return <div className={Styles.page} ref={wrapperRefLogo}></div>;
 }

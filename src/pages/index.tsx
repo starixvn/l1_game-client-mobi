@@ -130,7 +130,7 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen></SplashScreen>;
+        return <SplashScreen locale={session?.language}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (

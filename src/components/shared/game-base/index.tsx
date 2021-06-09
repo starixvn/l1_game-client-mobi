@@ -215,7 +215,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { id } = this.props;
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
-        this.setState({ notice: null });
+        displayPopup !== PopupType.Rebet && this.setState({ notice: null });
         if (endBet === -1) {
             if (!apiError) {
                 const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
