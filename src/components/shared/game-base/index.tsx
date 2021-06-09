@@ -763,7 +763,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameConfigs,
             userStakeLevel,
             modeView,
-            disabledMessage,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -803,7 +802,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameHeader />
-                    {modeView !== ModeView.collapse ? (
+                    {modeView !== ModeView.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
                                 <div
@@ -831,7 +830,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.apiError && this.renderAPIError()}
                                 {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
@@ -851,10 +849,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </>
                             )}
                         </>
-                    ) : (
-                        <></>
                     )}
-
                     {this.renderPopup(displayPopup)}
                 </GameActionsContextProvider>
             </GameContextProvider>
