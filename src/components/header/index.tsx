@@ -85,8 +85,9 @@ const Header: React.FC<Props> = (props) => {
                 ) : (
                     <span className={`icon-close ${Styles["btn-close"]}`} onClick={closeSlideNav}></span>
                 )}
-
-                <ProfilePicture avatarId={props.avatarId} />
+                <div className={Styles["avatar"]}>
+                    <ProfilePicture avatarId={props.avatarId} />
+                </div>
                 <div className={Styles["user-name"]}>{props.name}</div>
                 <div className={Styles["setting-container"]}>
                     <SettingItem label={t("betCredit")}>
