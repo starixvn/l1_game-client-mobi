@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
@@ -15,7 +16,10 @@ import SeDie from "./se-die/se-die";
 
 const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 
-export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting }) => {
+export const Games: React.FC<{ quickBetSetting?: boolean; enabledWinningStreakNotification: boolean }> = ({
+    quickBetSetting,
+    enabledWinningStreakNotification,
+}) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
@@ -56,7 +60,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const gameProps = {
             ...gameSettings[gameId],
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
-                winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
+                enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
         };
         switch (gameId) {
             case 2:
@@ -102,9 +106,9 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
     return (
         <div className="game-container game-wrapper">
-            {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
+            {isShowDisplayModeHint && isMobileOnly && <DisplayModeHint onCloseHint={handleCloseHint} />}
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
-                <WinningStreak ref={winningStreakRef}></WinningStreak>
+                {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

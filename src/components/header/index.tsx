@@ -1,9 +1,10 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import { useTranslation } from "react-i18next";
 import { Navbar } from "reactstrap";
 import { UserSettings } from "sc-user-service-client/dist/auth";
-import { isMobileOnly } from "react-device-detect";
+
 import { Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
@@ -18,6 +19,8 @@ type Props = {
     name: string;
     balance: number;
     settings: UserSettings;
+    enabledWinningStreakNotification: boolean;
+    onWinningStreakToggle: () => void;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -102,7 +105,11 @@ const Header: React.FC<Props> = (props) => {
                         <Toggle id="toggle-sound" value={false} onChange={handleChangeTheme} />
                     </SettingItem> */}
                     <SettingItem label={t("goodRoadNotification")}>
-                        <Toggle id="toggle-good-way" value={false} onChange={handleChangeTheme} />
+                        <Toggle
+                            id="toggle-good-way"
+                            value={props.enabledWinningStreakNotification}
+                            onChange={props.onWinningStreakToggle}
+                        />
                     </SettingItem>
                 </div>
             </div>

@@ -8,7 +8,12 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import * as LocalStorageManager from "../../common/local-storage";
+import {
+    getLocalStorageItem,
+    localStorageKeys,
+    removeLocalStorageItem,
+    storeLocalStorageItem,
+} from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
@@ -42,6 +47,7 @@ type State = {
     notice: string;
     user: User;
     orientation: string;
+    enabledWinningStreakNotification: boolean;
 };
 
 const LanguageMapper = {
@@ -65,6 +71,7 @@ class Dashboard extends React.Component<Props, State> {
             isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
             notice: "",
             orientation: "",
+            enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
         };
 
         this.handleRegister = this.handleRegister.bind(this);
@@ -72,6 +79,7 @@ class Dashboard extends React.Component<Props, State> {
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
+        this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     }
@@ -165,10 +173,10 @@ class Dashboard extends React.Component<Props, State> {
     handleKickedOut(data: any) {
         const { umInfo } = data;
         const { router } = this.props;
-        LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
+        removeLocalStorageItem(localStorageKeys.session);
 
         if (umInfo) {
-            LocalStorageManager.storeLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo, {
+            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
                 time: umInfo.startTime,
                 start: umInfo.startTime,
                 end: umInfo.endTime,
@@ -227,16 +235,30 @@ class Dashboard extends React.Component<Props, State> {
         return <Welcome userInfo={user} handleFirstLoginSM={(theme) => this.handleFirstLogin(theme)}></Welcome>;
     }
 
+    winningStreakNotificationToggle() {
+        const { enabledWinningStreakNotification } = this.state;
+        this.setState({ enabledWinningStreakNotification: !enabledWinningStreakNotification });
+        storeLocalStorageItem(localStorageKeys.winningStreakNotification, !enabledWinningStreakNotification);
+    }
+
     renderDashBoard() {
         const { authorizeInfo, apiErrorMessage } = this.props;
-        const { user } = this.state;
-        const props = { ...user, balance: this.props.balance };
+        const { user, enabledWinningStreakNotification } = this.state;
+        const props = {
+            ...user,
+            balance: this.props.balance,
+            enabledWinningStreakNotification,
+            onWinningStreakToggle: this.winningStreakNotificationToggle,
+        };
 
         return (
             <div className={Styles["dashboard"]}>
                 <Header {...props} />
                 <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
-                    <Games quickBetSetting={authorizeInfo?.user?.settings?.quickBet} />
+                    <Games
+                        quickBetSetting={authorizeInfo?.user?.settings?.quickBet}
+                        enabledWinningStreakNotification={enabledWinningStreakNotification}
+                    />
                 </RoundResultContextProvider>
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
