@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+
 import { ChipLabelMapper, ChipValues } from "../../../common/constants";
 import Chip from "../../shared/chip";
 import Styles from "./chip-slider.module.scss";
-import Slider from "react-slick";
 
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
@@ -12,10 +13,12 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isSliding, setIsSliding] = useState(false);
     let sliderRef = null;
+    const [audio] = useState(new Audio("./static/sounds/chip-click.mp3"));
 
     const handleSelectChip = (chipValue: number) => {
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
+        audio.play();
     };
 
     const getCurrentSlidesToShow = () => {

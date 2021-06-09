@@ -15,11 +15,13 @@ import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
 const displayModeHintStorageKey = localStorageKeys.displayModeHint;
+type Props = {
+    quickBetSetting?: boolean;
+    enabledWinningStreakNotification: boolean;
+    enabledPlaySound: boolean;
+};
 
-export const Games: React.FC<{ quickBetSetting?: boolean; enabledWinningStreakNotification: boolean }> = ({
-    quickBetSetting,
-    enabledWinningStreakNotification,
-}) => {
+export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNotification, enabledPlaySound }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
@@ -107,7 +109,7 @@ export const Games: React.FC<{ quickBetSetting?: boolean; enabledWinningStreakNo
     return (
         <div className="game-container game-wrapper">
             {isShowDisplayModeHint && isMobileOnly && <DisplayModeHint onCloseHint={handleCloseHint} />}
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />

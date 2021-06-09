@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from "next-i18next";
+import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 
 import { useAuthContext } from "../../contexts/auth";
