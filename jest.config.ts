@@ -1,5 +1,5 @@
 export default {
-    collectCoverageFrom: ["**/*.{js,jsx,ts,tsx}", "!**/*.d.ts", "!**/node_modules/**"],
+    collectCoverageFrom: ["**/*.{jsx,ts,tsx}"],
     moduleFileExtensions: ["ts", "tsx", "js"],
     transform: {
         "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
@@ -10,7 +10,7 @@ export default {
             useBabelrc: true,
         },
     },
-    coveragePathIgnorePatterns: ["/node_modules/", "enzyme.js"],
+    coveragePathIgnorePatterns: ["node_modules", "enzyme.js", ".d.ts"],
     setupFilesAfterEnv: ["<rootDir>/enzyme.js"],
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
