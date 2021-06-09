@@ -29,7 +29,7 @@
     "enterGameBtn": "Play Now",
     "dismiss": "Dismiss",
     "turnOn": "Enable 1-Click Bet",
-    "displayModeHint": "Touch the game name to switch between \"Full Mode\" and \"Compact Mode\".",
+    "displayModeHint": "Touch the game name to switch between \"Full Mode\" and \"Simple Mode\".",
     "taixiu": "Big Small",
     "xocxoc": "Se Die",
     "baucua": "Fish Prawn Crab",
@@ -38,5 +38,5 @@
     "vipsedie": "VIP Se Die",
     "displayMode": "Display Mode",
     "fullMode": "Full Mode",
-    "compactMode": "Compact Mode"
+    "compactMode": "Simple Mode"
 }
