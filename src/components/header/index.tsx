@@ -21,6 +21,8 @@ type Props = {
     settings: UserSettings;
     enabledWinningStreakNotification: boolean;
     onWinningStreakToggle: () => void;
+    enabledPlaySound: boolean;
+    onPlaySoundToggle: () => void;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -101,9 +103,9 @@ const Header: React.FC<Props> = (props) => {
                     <SettingItem label={t("darkMode")}>
                         <Toggle id="toggle-theme" value={theme === Themes.dark} onChange={handleChangeTheme} />
                     </SettingItem>
-                    {/* <SettingItem label={t("sound")}>
-                        <Toggle id="toggle-sound" value={false} onChange={handleChangeTheme} />
-                    </SettingItem> */}
+                    <SettingItem label={t("sound")}>
+                        <Toggle id="toggle-sound" value={props.enabledPlaySound} onChange={props.onPlaySoundToggle} />
+                    </SettingItem>
                     <SettingItem label={t("goodRoadNotification")}>
                         <Toggle
                             id="toggle-good-way"

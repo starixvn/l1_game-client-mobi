@@ -48,6 +48,7 @@ type State = {
     user: User;
     orientation: string;
     enabledWinningStreakNotification: boolean;
+    enabledPlaySound: boolean;
 };
 
 const LanguageMapper = {
@@ -72,6 +73,7 @@ class Dashboard extends React.Component<Props, State> {
             notice: "",
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
+            enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
         };
 
         this.handleRegister = this.handleRegister.bind(this);
@@ -80,6 +82,7 @@ class Dashboard extends React.Component<Props, State> {
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
+        this.playSoundToggle = this.playSoundToggle.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     }
@@ -241,14 +244,22 @@ class Dashboard extends React.Component<Props, State> {
         storeLocalStorageItem(localStorageKeys.winningStreakNotification, !enabledWinningStreakNotification);
     }
 
+    playSoundToggle() {
+        const { enabledPlaySound } = this.state;
+        this.setState({ enabledPlaySound: !enabledPlaySound });
+        storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
+    }
+
     renderDashBoard() {
         const { authorizeInfo, apiErrorMessage } = this.props;
-        const { user, enabledWinningStreakNotification } = this.state;
+        const { user, enabledWinningStreakNotification, enabledPlaySound } = this.state;
         const props = {
             ...user,
             balance: this.props.balance,
             enabledWinningStreakNotification,
             onWinningStreakToggle: this.winningStreakNotificationToggle,
+            enabledPlaySound,
+            onPlaySoundToggle: this.playSoundToggle,
         };
 
         return (

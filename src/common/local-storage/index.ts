@@ -9,6 +9,7 @@ export const localStorageKeys = {
     compactModeIds: buildLocalStorageKey("compact-mode-ids"),
     displayModeHint: buildLocalStorageKey("display-mode-hint"),
     winningStreakNotification: buildLocalStorageKey("winning-streak-notification"),
+    playSound: buildLocalStorageKey("play-sound"),
 };
 
 export function removeLocalStorageItem(key: string) {
