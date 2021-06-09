@@ -50,9 +50,9 @@ export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ res
                 Object.keys(result).map((dice, index) => {
                     const src = `/static/images/${nameDices[result[dice]]}.png`;
                     return (
-                        <div className={Styles["result-item"]}>
+                        <div key={index} className={Styles["result-item"]}>
                             <div className={Styles[`dice${index + 1}`]}></div>
-                            <div key={index} className={Styles[`result${index + 1}`]}>
+                            <div className={Styles[`result${index + 1}`]}>
                                 <img src={src} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
                             </div>
                         </div>

@@ -31,7 +31,7 @@ export const getModeViewWhenClick = (modeView: ModeView) => {
 
 export default function GameHeader() {
     const systemContext = useSystemContext();
-    const { roundId, gameSetting, modeView, remainingTime, gameState } = useGameContext();
+    const { roundId, gameSetting, modeView, gameState } = useGameContext();
     const { updateModeView, renderResultCollapse } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));

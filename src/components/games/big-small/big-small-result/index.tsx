@@ -85,9 +85,9 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result }> = ({ result }
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {result &&
                 Object.values(result).map((value, index) => (
-                    <div className={Styles["result-item"]}>
+                    <div key={index} className={Styles["result-item"]}>
                         <div className={Styles[`dice${index + 1}`]}></div>
-                        <div key={index} className={Styles[`result${index + 1}`]}>
+                        <div className={Styles[`result${index + 1}`]}>
                             <img src={`/static/images/bigsmall-dice-${value}.png`} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
                         </div>
                     </div>
