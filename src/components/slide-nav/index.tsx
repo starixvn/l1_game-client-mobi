@@ -29,6 +29,7 @@ const SlideNav: React.FC<Props> = (props) => {
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
     const authContext = useAuthContext();
     const [showLanguageSelection, setShowLanguageSelection] = useState<boolean>(false);
+    const [collapsed, setCollapsed] = useState<boolean>(false);
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
@@ -37,12 +38,17 @@ const SlideNav: React.FC<Props> = (props) => {
         setTheme(newTheme);
     };
 
+    const handleClose = () => {
+        setCollapsed(true);
+        setTimeout(props.onClose, 300);
+    };
+
     return (
-        <div className={Styles["slide-nav"]}>
+        <div className={`${Styles["slide-nav"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
-                <span className={`icon-arrow-left ${Styles["btn-close-left"]}`} onClick={props.onClose}></span>
+                <span className={`icon-arrow-left ${Styles["btn-close-left"]}`} onClick={handleClose}></span>
             ) : (
-                <span className={`icon-close ${Styles["btn-close-right"]}`} onClick={props.onClose}></span>
+                <span className={`icon-close ${Styles["btn-close-right"]}`} onClick={handleClose}></span>
             )}
             <div className={Styles["avatar"]}>
                 <ProfilePicture avatarId={props.avatarId} />
