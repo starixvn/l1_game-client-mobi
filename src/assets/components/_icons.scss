@@ -14,11 +14,14 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-left:before {
+.icon-back:before {
     content: "\e919";
     color: #4f4f54;
 }
-
+.icon-arrow-right:before {
+    content: "\e91a";
+    color: #8d8d8d;
+}
 .icon-check:before {
     content: "\e918";
 }

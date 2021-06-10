@@ -15,22 +15,20 @@ const LanguageSelection: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         setTimeout(onClose, 300);
     };
     return (
-        <div className={`${Styles["language-selection"]} ${collapsed ? Styles["collapsed"] : ""}`}>
+        <div className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             <div className={Styles["header"]}>
-                <span className={`icon-arrow-left ${Styles["btn-prev"]}`} onClick={handleClose}></span>
+                <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
                 <h1 className={Styles["title"]}>Ngôn ngữ</h1>
             </div>
-            <div className={Styles["lang-container"]}>
+            <div className={Styles["setting-container"]}>
                 <Link href="/" locale="vi">
-                    <div className={Styles["lang-item"]}>
-                        {" "}
+                    <div className={Styles["setting-item"]}>
                         <label>{t("vietnamese")}</label>
                         {locale === locales.vi && <span className={`icon-success ${Styles["icon-check"]}`}></span>}
                     </div>
                 </Link>
                 <Link href="/" locale="en">
-                    <div className={Styles["lang-item"]}>
-                        {" "}
+                    <div className={Styles["setting-item"]}>
                         <label>{t("english")}</label>
                         {locale === locales.en && <span className={`icon-success ${Styles["icon-check"]}`}></span>}
                     </div>

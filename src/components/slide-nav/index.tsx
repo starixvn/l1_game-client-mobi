@@ -44,11 +44,11 @@ const SlideNav: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={`${Styles["slide-nav"]} ${collapsed ? Styles["collapsed"] : ""}`}>
+        <div className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
-                <span className={`icon-arrow-left ${Styles["btn-close-left"]}`} onClick={handleClose}></span>
+                <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
             ) : (
-                <span className={`icon-close ${Styles["btn-close-right"]}`} onClick={handleClose}></span>
+                <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
             )}
             <div className={Styles["avatar"]}>
                 <ProfilePicture avatarId={props.avatarId} />
@@ -70,11 +70,15 @@ const SlideNav: React.FC<Props> = (props) => {
                     <Toggle id="toggle-good-way" value={props.enabledWinningStreakNotification} onChange={props.onWinningStreakToggle} />
                 </SettingItem>
                 <SettingItem label="Language">
-                    <Toggle
+                    <div className={Styles["language-group"]} onClick={() => setShowLanguageSelection(!showLanguageSelection)}>
+                        <span className={Styles["name"]}>vietnamese</span>
+                        <span className="icon-arrow-right"></span>
+                    </div>
+                    {/* <Toggle
                         id="toggle-langue"
                         value={showLanguageSelection}
                         onChange={() => setShowLanguageSelection(!showLanguageSelection)}
-                    />
+                    /> */}
                 </SettingItem>
             </div>
             {showLanguageSelection && <LanguageSelection onClose={() => setShowLanguageSelection(false)} />}
