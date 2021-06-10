@@ -40,9 +40,9 @@ const SlideNav: React.FC<Props> = (props) => {
     return (
         <div className={Styles["slide-nav"]}>
             {isMobileOnly ? (
-                <span className={`icon-arrow-left ${Styles["btn-close"]}`} onClick={props.onClose}></span>
+                <span className={`icon-arrow-left ${Styles["btn-close-left"]}`} onClick={props.onClose}></span>
             ) : (
-                <span className={`icon-close ${Styles["btn-close"]}`} onClick={props.onClose}></span>
+                <span className={`icon-close ${Styles["btn-close-right"]}`} onClick={props.onClose}></span>
             )}
             <div className={Styles["avatar"]}>
                 <ProfilePicture avatarId={props.avatarId} />
