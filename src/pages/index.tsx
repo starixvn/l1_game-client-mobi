@@ -12,6 +12,7 @@ import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
 import { UserClientCommunication } from "../services";
 import { setCharacterName, setUser } from "../utils/sentry";
 
+
 export type APIErrorProp = {
     message: string;
     errorCode: string;

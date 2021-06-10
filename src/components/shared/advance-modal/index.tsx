@@ -11,7 +11,7 @@ type Props = {
     type?: ModalType;
     onCloseModal: Function;
     children: React.ReactNode;
-    title: string;
+    title?: string;
     subTitle?: string;
     gameName?: string;
     isAddScrollBody?: boolean;
@@ -88,15 +88,17 @@ const AdvanceModal: React.FC<Props> = ({
                     <span className={`icon-close {Styles["icon-close"]}`}></span>
                 </div>
 
-                <div className={Styles["popup-header"]}>
-                    <h1 className={Styles["popup-title"]}>{t(title)}</h1>
-                    {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
-                    {gameName && <p className={Styles["popup-game-name"]}>{gameName}</p>}
-                </div>
+                {title && (
+                    <div className={Styles["popup-header"]}>
+                        <h1 className={Styles["popup-title"]}>{t(title)}</h1>
+                        {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
+                        {gameName && <p className={Styles["popup-game-name"]}>{gameName}</p>}
+                    </div>
+                )}
                 <div
                     className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""} ${
                         gameName ? Styles["has-gameName"] : ""
-                    }`}
+                    } ${!title ? Styles["has-empty-title"] : ""}`}
                 >
                     {children}
                 </div>
