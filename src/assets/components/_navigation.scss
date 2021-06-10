@@ -15,6 +15,12 @@
     animation: slide-right-to-left-animation 0.3s ease-in forwards;
 
     .btn-back {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.4rem;
+        width: 2.4rem;
+
         &:hover {
             cursor: pointer;
         }
