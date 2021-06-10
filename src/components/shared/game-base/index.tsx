@@ -249,7 +249,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
-        const { id } = this.props;
+        const { id, playPlaceBetSound } = this.props;
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
         this.setState({ notice: null });
@@ -264,6 +264,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
 
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
+            playPlaceBetSound();
             ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
             this.setState({ displayChips: newDisplayChips });
             this.updateUserBalance();

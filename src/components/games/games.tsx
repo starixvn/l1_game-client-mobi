@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+import useSound from "use-sound";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -27,6 +28,7 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
+    const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const winningStreakRef = useRef(null);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -63,6 +65,7 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
             ...gameSettings[gameId],
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
                 enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
+            playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
         };
         switch (gameId) {
             case 2:

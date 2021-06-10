@@ -3488,6 +3488,11 @@ home-or-tmp@^2.0.0:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.1"
 
+howler@^2.1.3:
+  version "2.2.1"
+  resolved "http://npm.lumigame.com/howler/-/howler-2.2.1.tgz#a521a9b495841e8bb9aa12e651bebba0affc179e"
+  integrity sha512-0iIXvuBO/81CcrQ/HSSweYmbT50fT2mIc9XMFb+kxIfk2pW/iKzDbX1n3fZmDXMEIpYvyyfrB+gXwPYSDqUxIQ==
+
 html-element-map@^1.2.0:
   version "1.3.1"
   resolved "http://npm.lumigame.com/html-element-map/-/html-element-map-1.3.1.tgz#44b2cbcfa7be7aa4ff59779e47e51012e1c73c08"
@@ -6529,6 +6534,13 @@ use-elapsed-time@2.1.6:
   version "2.1.6"
   resolved "http://npm.lumigame.com/use-elapsed-time/-/use-elapsed-time-2.1.6.tgz#8ad0c0054a1ba7bf881540855b5eb2d60ff501be"
   integrity sha512-6h6bY63oto1REUqcID3Goedgl5tVqWXsLzUSJ6EB9VprqZqnO5VDo1kkQqY/6V5Jc4Wu4XUgW3B8aDUHG2KRcA==
+
+use-sound@^4.0.0:
+  version "4.0.0"
+  resolved "http://npm.lumigame.com/use-sound/-/use-sound-4.0.0.tgz#45d5f1f4552a38b377d37def3a6458b44dfd5ea6"
+  integrity sha512-2KP2d7MerJSEeRy6BSUJ9fZ2mjhMvSS9GT8DJJmcGwXuf0N+mx5kYGBXZTGYIP6xuuU55N/0az2sbrr0/PXCkA==
+  dependencies:
+    howler "^2.1.3"
 
 use-subscription@1.5.1:
   version "1.5.1"

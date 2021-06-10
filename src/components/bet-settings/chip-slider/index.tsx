@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
+import useSound from "use-sound";
 
 import { ChipLabelMapper, ChipValues } from "../../../common/constants";
 import { useSystemContext } from "../../../contexts/system";
@@ -15,12 +16,12 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
     const [isSliding, setIsSliding] = useState(false);
     const { enabledPlaySound } = useSystemContext();
     let sliderRef = null;
-    const [audio] = useState(new Audio("./static/sounds/chip-click.mp3"));
+    const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
     const handleSelectChip = (chipValue: number) => {
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
-        enabledPlaySound && audio.play();
+        enabledPlaySound && playSound();
     };
 
     const getCurrentSlidesToShow = () => {
