@@ -75,7 +75,7 @@ export default function GameHeader() {
 
     useEffect(() => {
         if (isMobileOnly) {
-            gameIdModeView.forEach((modeData) => {
+            gameIdModeView.forEach((modeData, index) => {
                 if (modeData.hasOwnProperty(gameId)) {
                     updateModeView(modeData[gameId]);
                 }

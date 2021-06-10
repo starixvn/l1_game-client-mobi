@@ -7,6 +7,7 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
 import { DisplayModeHint } from "../display-mode-hint";
+import { ModeView } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";
@@ -29,6 +30,7 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
+    const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
     const winningStreakRef = useRef(null);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -51,6 +53,19 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
 
     const renderListGames = () => {
         const orderedGames = favoriteGames.concat(unfavoriteGames);
+
+        if (!gameIdModeViewOnStorage?.length) {
+            const viewMode = orderedGames.map((gameId, index) => {
+                console.log(index);
+                if (index === 0) {
+                    return { [gameId]: ModeView.full };
+                }
+
+                return { [gameId]: ModeView.collapse };
+            });
+
+            storeLocalStorageItem(localStorageKeys.modeViewIds, viewMode);
+        }
 
         return orderedGames.map((gameId) => getGameComponentById(gameId));
     };
