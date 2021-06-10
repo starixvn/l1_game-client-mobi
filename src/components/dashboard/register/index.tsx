@@ -145,7 +145,7 @@ export default function Register(props: Props) {
                 {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
                 <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
-                    {t("submit")}
+                    {t("common:enterGameBtn")}
                 </button>
             </form>
             <ThemeSelection />
