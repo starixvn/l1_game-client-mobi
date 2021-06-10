@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
@@ -30,6 +31,7 @@ const SlideNav: React.FC<Props> = (props) => {
     const authContext = useAuthContext();
     const [showLanguageSelection, setShowLanguageSelection] = useState<boolean>(false);
     const [collapsed, setCollapsed] = useState<boolean>(false);
+    const { locale } = useRouter();
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
@@ -69,16 +71,11 @@ const SlideNav: React.FC<Props> = (props) => {
                 <SettingItem label={t("winningStreakNotification")}>
                     <Toggle id="toggle-good-way" value={props.enabledWinningStreakNotification} onChange={props.onWinningStreakToggle} />
                 </SettingItem>
-                <SettingItem label="Language">
+                <SettingItem label={t("language")}>
                     <div className={Styles["language-group"]} onClick={() => setShowLanguageSelection(!showLanguageSelection)}>
-                        <span className={Styles["name"]}>vietnamese</span>
+                        <span className={Styles["name"]}>{t(locale)}</span>
                         <span className="icon-arrow-right"></span>
                     </div>
-                    {/* <Toggle
-                        id="toggle-langue"
-                        value={showLanguageSelection}
-                        onChange={() => setShowLanguageSelection(!showLanguageSelection)}
-                    /> */}
                 </SettingItem>
             </div>
             {showLanguageSelection && <LanguageSelection onClose={() => setShowLanguageSelection(false)} />}

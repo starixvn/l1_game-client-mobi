@@ -37,7 +37,7 @@ function UM({ umInfo }) {
         <div className="error-page">
             <img alt="UM" src={`/static/images/um-${theme}.svg`} className="error-background" />
             <p className="um-title">
-                {t("message:sysMaintenance")} <br /> {t("um:umTitleFirst")}
+                {t("messages:sysMaintenance")} <br /> {t("um:umTitleFirst")}
             </p>
             <p className="highlight">{t("um:umContent").toString().replace("{0}", startTime).replace("{1}", endTime)}</p>
             <p>{t("um:umNotice")}</p>

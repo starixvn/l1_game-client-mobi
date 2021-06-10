@@ -42,5 +42,8 @@
     "betCredit": "Hạn mức còn lại",
     "darkMode": "Giao diện tối",
     "sound": "Âm thanh",
-    "winningStreakNotification": "Thông báo cầu thuận lợi"
+    "winningStreakNotification": "Thông báo cầu thuận lợi",
+    "language": "Ngôn ngữ",
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh"
 }
