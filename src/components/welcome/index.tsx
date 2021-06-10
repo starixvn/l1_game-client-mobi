@@ -1,4 +1,4 @@
-import { useTranslation } from "next-i18next";
+import { useTranslation, Trans } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
@@ -30,27 +30,16 @@ export default function Welcome(props: Props) {
                     <a className={Styles["logo"]}>
                         <img src={`/static/images/logo-custom-saba.svg`} className={Styles["img-logo"]} alt="logo" />
                     </a>
-                    <div
-                        className={Styles["welcome"]}
-                        dangerouslySetInnerHTML={{
-                            __html: t("common:welcomeMsg")
-                                .replace("{0}", `<b>${props.userInfo?.name}</b>`)
-                                .replace("{1}", `<b>${sabaMobileName}!</b>`),
-                        }}
-                    ></div>
+                    <div className={Styles["welcome"]}>
+                        <Trans t={t}>{t("common:welcomeMsg", { userName: props.userInfo?.name, sabaMobileName: sabaMobileName })}</Trans>
+                    </div>
 
-                    <div
-                        className={Styles["welcome"]}
-                        dangerouslySetInnerHTML={{
-                            __html: t("register:registerTitle2")
-                                .replace("{0}", `<b>${sabaMobileName}</b>`)
-                                .replace("{1}", `<b>${sabaClubName}</b>`),
-                        }}
-                    ></div>
-                    <div
-                        className={Styles["welcome"]}
-                        dangerouslySetInnerHTML={{ __html: t("register:registerTitle3").replace("{0}", `<b>${sabaClubName}</b>`) }}
-                    ></div>
+                    <div className={Styles["welcome"]}>
+                        <Trans t={t}>{t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}</Trans>
+                    </div>
+                    <div className={Styles["welcome"]}>
+                        <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
+                    </div>
                     <div className={Styles["profile-picture"]}>
                         {props.userInfo?.avatarId > 0 && props.userInfo?.avatarId < 41 ? (
                             <img src={getPathAvatar(props.userInfo?.avatarId)} className={Styles["avartar"]} alt="Avatar" />

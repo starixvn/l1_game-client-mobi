@@ -1,3 +1,4 @@
+import { Trans, WithTranslation, withTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
@@ -11,6 +12,8 @@ import * as LocalStorageManager from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
+import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
+import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
@@ -25,11 +28,12 @@ type Props = {
     balance: number;
     authorizeInfo: AuthorizeResponse;
     router: NextRouter;
-    apiErrorMessage: string;
+    apiErrorMessage: APIErrorProp;
     isShowModal: boolean;
-    setApiErrorMessage: (message: string) => void;
+    setApiErrorMessage: (APIErrorProp) => void;
     setIsShowModal: (isOpen: boolean) => void;
-} & WithRouterProps;
+} & WithRouterProps &
+    WithTranslation;
 
 type State = {
     isSignedUp: boolean;
@@ -67,7 +71,6 @@ class Dashboard extends React.Component<Props, State> {
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
-        this.forceReload = this.forceReload.bind(this);
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.authService = UserClientCommunication.getUserClientInstance().auth;
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -150,18 +153,13 @@ class Dashboard extends React.Component<Props, State> {
             };
         }
 
-        if (data.reload) {
-            this.forceReload();
-        }
-
         if (data.apiError) {
-            this.props.setApiErrorMessage(data.apiError.message);
+            this.props.setApiErrorMessage({
+                message: GetLocalizedErrorMessage(data.apiError.errorCode),
+                errorCode: data.apiError.errorCode,
+            });
             this.props.setIsShowModal(true);
         }
-    }
-
-    forceReload() {
-        window.location.reload();
     }
 
     handleKickedOut(data: any) {
@@ -230,7 +228,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     renderDashBoard() {
-        const { authorizeInfo } = this.props;
+        const { authorizeInfo, apiErrorMessage } = this.props;
         const { user } = this.state;
         const props = { ...user, balance: this.props.balance };
 
@@ -251,7 +249,10 @@ class Dashboard extends React.Component<Props, State> {
                             <div className="modal-center">
                                 <div className={`icon-warning modal-icon-warning`}></div>
                                 <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
-                                <div>{this.props.apiErrorMessage}</div>
+
+                                <Trans t={this.props.t}>
+                                    {this.props.t(apiErrorMessage?.message, { errorCode: apiErrorMessage?.errorCode })}
+                                </Trans>
                             </div>
                         </BaseDialog>
                     </div>
@@ -273,4 +274,4 @@ class Dashboard extends React.Component<Props, State> {
 
 Dashboard.contextType = AuthContext;
 
-export default withRouter(Dashboard);
+export default withRouter(withTranslation()(Dashboard));

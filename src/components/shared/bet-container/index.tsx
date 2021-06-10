@@ -11,12 +11,22 @@ const BetContainer: React.FC<Props> = (props) => {
     const systemContext = useSystemContext();
     const { betValue } = systemContext;
     const [cursorImage, setCursorImage] = useState<string>("");
+    const [customStyle, setCustomStyle] = useState<object>();
 
     useEffect(() => {
         setCursorImage(`"/static/images/small_${ChipMapper[betValue]}.png"`);
     }, [betValue]);
+
+    useEffect(() => {
+        if (props.gameState === GameState.InRound) {
+            setCustomStyle({ cursor: `url(${cursorImage}), auto` });
+        } else {
+            setCustomStyle({ cursor: "not-allowed" });
+        }
+    }, [props.gameState, cursorImage]);
+
     return (
-        <div className={Styles["bet-container"]} style={{ cursor: `url(${cursorImage}), auto` }}>
+        <div className={Styles["bet-container"]} style={customStyle}>
             {props.children}
             {GameState.LockingBet === props.gameState && <LockingBet />}
         </div>

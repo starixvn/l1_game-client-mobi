@@ -27,7 +27,7 @@ export enum PopupType {
     BetHistory,
     Rebet,
     Error,
-    PlaceBet
+    PlaceBet,
 }
 
 export interface GameSettings {
@@ -71,17 +71,21 @@ export interface GameBaseState<Result, SettlementResult> {
     displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
-    apiError: APIError;
 }
 
 export interface Notice {
+    gameName?: string;
+    roundId?: number;
     message: string;
-    duration: number;
+    duration?: number;
+    minBet?: number;
+    maxBet?: number;
+    errorCode?: string;
 }
 
 export interface APIError extends Notice {
-    gameName: string;
-    roundId: number;
+    gameName?: string;
+    roundId?: number;
 }
 
 export interface DisplayChips {

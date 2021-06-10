@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
-
+import { useTranslation, Trans } from "next-i18next";
+import { numberWithCommas } from "../../../helpers/number-helper";
 import Styles from "./notice.module.scss";
-
-interface NoticeProps {
+interface Props {
+    gameName?: string;
+    roundId?: number;
     message: string;
-    onClose: () => void;
+    onClose?: () => void;
     duration: number;
-}
-
-interface APIErrorProps extends NoticeProps {
-    gameName: string;
-    roundId: number;
+    minBet?: number;
+    maxBet?: number;
+    errorCode?: string;
 }
 
 const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean }> = ({
@@ -48,19 +48,18 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     );
 };
 
-export const Notice: React.FC<NoticeProps> = ({ message, onClose, duration = 3 }) => {
+export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId = 0, errorCode }) => {
+    const opt = {
+        gameName: gameName,
+        roundId: roundId,
+        minBet: numberWithCommas(+minBet),
+        maxBet: numberWithCommas(+maxBet),
+        errorCode: errorCode,
+    };
+    const { t } = useTranslation();
     return (
         <BaseNotice onClose={onClose} duration={duration}>
-            {message}
-        </BaseNotice>
-    );
-};
-
-export const APIError: React.FC<APIErrorProps> = ({ gameName, roundId, message, onClose, duration = 3 }) => {
-    return (
-        <BaseNotice onClose={onClose} duration={duration}>
-            <div className="font-weight-medium">{`${gameName} (#${roundId})`}</div>
-            <div>{message}</div>
+            <Trans t={t}>{t(message, opt)}</Trans>
         </BaseNotice>
     );
 };

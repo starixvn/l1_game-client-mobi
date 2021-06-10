@@ -3,7 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-
+import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
 import { languageMapper } from "../common/constants";
 import * as LocalStorageManager from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -12,6 +12,10 @@ import { AuthContextProvider } from "../contexts/auth";
 import { UserClientCommunication } from "../services";
 import { setCharacterName, setUser } from "../utils/sentry";
 
+export type APIErrorProp = {
+    message: string;
+    errorCode: string;
+};
 let authorizeInfo: AuthorizeResponse = null;
 
 export const signOut = () => {
@@ -24,11 +28,11 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
-    const [apiErrorMessage, setApiErrorMessage] = useState<string>("");
+    const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
     const timer = useRef(null);
     const sessionKey = LocalStorageManager.localStorageKeys.session;
     const { auth: authService, settings: settingsService } = UserClientCommunication.getUserClientInstance();
-    const { t } = useTranslation("common");
+    const { t } = useTranslation("messages");
 
     async function signIn() {
         const settings = await settingsService.getSettings();
@@ -95,10 +99,11 @@ function Home() {
                         setTimeout(() => {
                             signOut();
                         }, 10000);
-                        setApiErrorMessage(t("accountIsLocked"));
-                    } else {
-                        setApiErrorMessage(`${reCheckInResult.apiError.message} (${reCheckInResult.apiError.errorCode})`);
                     }
+                    setApiErrorMessage({
+                        message: GetLocalizedErrorMessage(reCheckInResult.apiError.errorCode),
+                        errorCode: reCheckInResult.apiError.errorCode,
+                    });
                 } else {
                     setBalance(reCheckInResult.balance);
                 }
@@ -125,7 +130,7 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen></SplashScreen>;
+        return <SplashScreen locale={session?.language}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (
@@ -155,6 +160,7 @@ export const getStaticProps = async ({ locale }) => ({
             "dragontiger",
             "vipsedie",
             "txturbo",
+            "messages",
         ])),
     },
 });

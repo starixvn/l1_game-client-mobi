@@ -55,7 +55,8 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const { gameSettings } = appSettings;
         const gameProps = {
             ...gameSettings[gameId],
-            notifyWinStreak: (winningStreak: WinningStreakItem) => winningStreakRef.current.addWinningStreak(winningStreak),
+            notifyWinStreak: (winningStreak: WinningStreakItem) =>
+                winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
         };
         switch (gameId) {
             case 2:
