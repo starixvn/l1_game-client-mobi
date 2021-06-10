@@ -71,7 +71,7 @@ const SlideNav: React.FC<Props> = (props) => {
                     />
                 </SettingItem>
             </div>
-            {showLanguageSelection && <LanguageSelection />}
+            {showLanguageSelection && <LanguageSelection onClose={() => setShowLanguageSelection(false)} />}
         </div>
     );
 };
