@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { Themes } from "../../common/constants";
@@ -32,6 +32,7 @@ const SlideNav: React.FC<Props> = (props) => {
     const [showLanguageSelection, setShowLanguageSelection] = useState<boolean>(false);
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const { locale } = useRouter();
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const handleChangeTheme = () => {
         const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
@@ -45,8 +46,21 @@ const SlideNav: React.FC<Props> = (props) => {
         setTimeout(props.onClose, 300);
     };
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                handleClose();
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
     return (
-        <div className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
+        <div ref={wrapperRef} className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
                 <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
             ) : (
