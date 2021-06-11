@@ -4,12 +4,13 @@
 }
 
 [data-theme="dark"] .navigation {
-    --slide-nav-background: #252b3b;
+    --slide-nav-background: #203040;
     --icon-close: #fff;
 }
 
 .navigation {
     background-color: var(--slide-nav-background);
+    box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.3);
     color: var(--text-color);
     transition: transform 0.3s ease;
     animation: slide-right-to-left-animation 0.3s ease-in forwards;
