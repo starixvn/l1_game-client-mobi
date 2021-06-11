@@ -1,4 +1,11 @@
 @import "../../assets/components/navigation";
+[data-theme="light"] .navigation {
+    --icon-arrow-right: #8d8d8d;
+}
+
+[data-theme="dark"] .navigation {
+    --icon-arrow-right: #fff;
+}
 
 .navigation {
     --nav-size: 100%;
@@ -76,6 +83,10 @@
             .name {
                 margin-right: 1rem;
             }
+        }
+
+        .icon-arrow-right:before {
+            color: var(--icon-arrow-right);
         }
     }
 

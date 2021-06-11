@@ -88,7 +88,7 @@ const SlideNav: React.FC<Props> = (props) => {
                 <SettingItem label={t("language")}>
                     <div className={Styles["language-group"]} onClick={() => setShowLanguageSelection(!showLanguageSelection)}>
                         <span className={Styles["name"]}>{t(locale)}</span>
-                        <span className="icon-arrow-right"></span>
+                        <span className={`icon-arrow-right ${Styles["icon-arrow-right"]}`}></span>
                     </div>
                 </SettingItem>
             </div>
