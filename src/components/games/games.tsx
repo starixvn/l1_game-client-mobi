@@ -1,5 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+import useSound from "use-sound";
+
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
@@ -14,13 +16,19 @@ import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
 const displayModeHintStorageKey = localStorageKeys.displayModeHint;
+type Props = {
+    quickBetSetting?: boolean;
+    enabledWinningStreakNotification: boolean;
+    enabledPlaySound: boolean;
+};
 
-export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting }) => {
+export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNotification, enabledPlaySound }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
+    const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const winningStreakRef = useRef(null);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -56,7 +64,8 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
         const gameProps = {
             ...gameSettings[gameId],
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
-                winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
+                enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
+            playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
         };
         switch (gameId) {
             case 2:
@@ -102,9 +111,9 @@ export const Games: React.FC<{ quickBetSetting?: boolean }> = ({ quickBetSetting
 
     return (
         <div className="game-container game-wrapper">
-            {isMobileOnly && isShowDisplayModeHint && <DisplayModeHint onCloseHint={handleCloseHint} />}
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet }}>
-                <WinningStreak ref={winningStreakRef}></WinningStreak>
+            {isShowDisplayModeHint && isMobileOnly && <DisplayModeHint onCloseHint={handleCloseHint} />}
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
+                {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
                 <BetSettings {...betSettingProps} />
             </SystemContextProvider>

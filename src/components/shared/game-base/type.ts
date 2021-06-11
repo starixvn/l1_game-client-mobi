@@ -43,6 +43,7 @@ export type GameBaseProps = {
     socketInfo: SocketInfo;
     durations: GameDurations;
     notifyWinStreak: Function;
+    playPlaceBetSound: Function;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {

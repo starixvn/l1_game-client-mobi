@@ -32,6 +32,8 @@ export const locales = { en: "en", vi: "vi" };
 
 export const languageMapper = { "en-US": "en", "vi-VN": "vi" };
 
+export const languageNameMapper = { en: "English", vi: "Tiếng Việt" };
+
 export const gameVipIds = [22];
 
 export const Themes = {

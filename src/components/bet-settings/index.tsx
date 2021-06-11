@@ -1,14 +1,12 @@
-import { useTranslation, Trans } from "next-i18next";
+import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
 
-import { ChipLabelMapper, ChipValues } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
-import Chip from "../chip";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./bet-setting.module.scss";
+import { ChipSlider } from "./chip-slider";
 import ConfirmMessage from "./confirm-message";
 
 type Props = {
@@ -18,68 +16,14 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
 };
 
-const SlidingTimeInMillisecond = 100;
-let isSwipe = true;
-
 export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet }) => {
-    const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
-    const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
-    const [isSliding, setIsSliding] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const authContext = useAuthContext();
     const tooltipRef = useRef<HTMLDivElement>(null);
     const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
 
     const { t } = useTranslation("common");
-
-    const SliderSetting = {
-        speed: SlidingTimeInMillisecond,
-        infinite: false,
-        adaptiveHeight: true,
-        swipeToSlide: true,
-        slidesToShow: 10,
-        arrows: false,
-        onSwipe: () => {
-            isSwipe = true;
-        },
-        beforeChange: (oldIndex: number, newIndex: number) => {
-            if (isSwipe) {
-                const currentSlideToShow = getCurrentSlidesToShow();
-
-                oldIndex > newIndex && handleSelectChip(ChipValues[newIndex + currentSlideToShow - 1]);
-                oldIndex < newIndex && handleSelectChip(ChipValues[newIndex]);
-            }
-        },
-        responsive: [
-            {
-                breakpoint: 1279,
-                settings: {
-                    slidesToShow: 8,
-                },
-            },
-            {
-                breakpoint: 1023,
-                settings: {
-                    slidesToShow: 6,
-                },
-            },
-            {
-                breakpoint: 767,
-                settings: {
-                    slidesToShow: 3,
-                },
-            },
-        ],
-    };
-
-    let sliderRef = null;
-
-    useEffect(() => {
-        if (sliderRef) {
-            updateArrowsByChipValue(betValue);
-        }
-    }, []);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -94,31 +38,6 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         };
     }, [tooltipRef]);
 
-    const onClickNext = () => {
-        if (enabledNextBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
-            const newSelectedChip = ChipValues[chipIndex + 1];
-            const currentSlideToShow = getCurrentSlidesToShow();
-
-            isSwipe = false;
-            sliderRef.slickGoTo(chipIndex + 3 - currentSlideToShow);
-            handleSelectChip(newSelectedChip);
-            disableSelectChipWhenSliding();
-        }
-    };
-
-    const onClickPrev = () => {
-        if (enabledPrevBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
-            const newSelectedChip = ChipValues[chipIndex - 1];
-
-            isSwipe = false;
-            sliderRef.slickGoTo(chipIndex - 2);
-            handleSelectChip(newSelectedChip);
-            disableSelectChipWhenSliding();
-        }
-    };
-
     const onClickQuickBet = () => {
         if (!enabledQuickBet) {
             setIsShowPopup(true);
@@ -128,40 +47,11 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         }
     };
 
-    const getCurrentSlidesToShow = () => {
-        const currentBreakPoint = sliderRef.state.breakpoint;
-        const sliderResponsiveSettings = sliderRef.props.responsive;
-        const currentResponsiveSettings = sliderResponsiveSettings.find((settings) => settings.breakpoint === currentBreakPoint);
-
-        return currentResponsiveSettings?.settings?.slidesToShow ?? sliderRef.props.slidesToShow;
-    };
-
-    const disableSelectChipWhenSliding = () => {
-        setIsSliding(true);
-
-        const slidingTimeOut = setTimeout(() => {
-            setIsSliding(false);
-            clearTimeout(slidingTimeOut);
-        }, SlidingTimeInMillisecond);
-    };
-
     const confirmQuickBet = () => {
         setIsShowTooltip(false);
         closeModal();
         updateEnabledQuickBet(true);
         userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, true);
-    };
-
-    const handleSelectChip = (chipValue: number) => {
-        updateArrowsByChipValue(chipValue);
-        updateBetValue(chipValue);
-    };
-
-    const updateArrowsByChipValue = (chipValue: number) => {
-        const chipIndex = ChipValues.indexOf(chipValue);
-
-        chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
-        chipIndex === ChipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
     };
 
     const closeModal = () => {
@@ -227,29 +117,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                         </div>
 
                         <div className={Styles["chips-container"]}>
-                            <span
-                                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`}
-                                onClick={onClickPrev}
-                            ></span>
-                            <Slider
-                                ref={(c) => {
-                                    sliderRef = c;
-                                }}
-                                {...SliderSetting}
-                            >
-                                {Object.keys(ChipLabelMapper).map((key) => (
-                                    <Chip
-                                        key={key}
-                                        value={ChipLabelMapper[key]}
-                                        onSelected={handleSelectChip}
-                                        selected={betValue === ChipLabelMapper[key]}
-                                    />
-                                ))}
-                            </Slider>
-                            <span
-                                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`}
-                                onClick={onClickNext}
-                            ></span>
+                            <ChipSlider betValue={betValue} updateBetValue={updateBetValue} />
                         </div>
                     </div>
                 </div>

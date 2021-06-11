@@ -1,0 +1,140 @@
+@import "../../assets/components/navigation";
+[data-theme="light"] .navigation {
+    --icon-arrow-right: #8d8d8d;
+}
+
+[data-theme="dark"] .navigation {
+    --icon-arrow-right: #fff;
+}
+
+.navigation {
+    --nav-size: 100%;
+
+    width: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    overflow-x: hidden;
+    z-index: calc(var(--header-index) + 3);
+
+    @media (min-width: 768px) {
+        --nav-size: 38.3rem;
+        bottom: 7.5rem;
+        right: 0;
+        width: 38.3rem;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-back {
+        position: absolute;
+        left: 2rem;
+        top: 1.9rem;
+    }
+
+    .btn-close {
+        position: absolute;
+        top: 1.6rem;
+        left: auto;
+        right: 1rem;
+        background: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+        &:before {
+            font-size: 1.7rem;
+            color: var(--icon-close);
+        }
+    }
+
+    .avatar {
+        width: 9.4rem;
+        height: 9.4rem;
+        margin: auto auto 1.4rem;
+    }
+
+    .user-name {
+        margin-bottom: 1rem;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: var(--text-color);
+    }
+
+    .balance {
+        color: var(--primary-color);
+        font-family: var(--font-number);
+        font-weight: 500;
+    }
+
+    .setting-container {
+        padding-top: 2.4rem;
+        padding-bottom: 2.4rem;
+
+        .language-group {
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .name {
+                margin-right: 1rem;
+            }
+        }
+
+        .icon-arrow-right:before {
+            color: var(--icon-arrow-right);
+        }
+    }
+
+    .toggle {
+        display: block;
+        position: relative;
+
+        .toggle-checkbox {
+            display: none;
+        }
+
+        .toggle-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 5.4rem;
+            height: 2.1rem;
+            background: #cacaca;
+            border-radius: 2rem;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            &:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                width: 2.7rem;
+                height: 2.7rem;
+                background-color: #fff;
+                border-radius: 50%;
+                border: 0.1rem solid rgba(0, 0, 0, 0.04);
+                box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.15);
+                transition: left 100ms ease-in;
+            }
+        }
+
+        .toggle-checkbox:checked {
+            & + .toggle-btn {
+                background: #8edfa2;
+
+                &:before {
+                    content: "";
+                    left: 2.7rem;
+                    background-color: #34c759;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+@import "../../../assets/components/navigation";
+
+[data-theme="light"] .navigation {
+    --slide-nav-header-background: #f8f8f8;
+    --slide-nav-line-background: #dce2f3;
+}
+
+[data-theme="dark"] .navigation {
+    --slide-nav-header-background: #2c4055;
+    --slide-nav-line-background: #4b5a6c;
+}
+
+.navigation {
+    --nav-size: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    .header {
+        display: flex;
+        align-items: center;
+        background-color: var(--slide-nav-header-background);
+        height: 5.8rem;
+        padding: 0 2rem;
+
+        .title {
+            margin: 0 0 0 1rem;
+            font-size: 1.8rem;
+        }
+    }
+
+    .setting-item {
+        border-bottom: 0.1rem solid var(--slide-nav-line-background);
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .icon-check:before {
+            font-size: 2.4rem;
+            color: #03b40a;
+        }
+    }
+}

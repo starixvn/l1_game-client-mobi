@@ -3,12 +3,17 @@ import { WithRouterProps } from "next/dist/client/with-router";
 import { NextRouter, withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import Auth, { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import * as LocalStorageManager from "../../common/local-storage";
+import {
+    getLocalStorageItem,
+    localStorageKeys,
+    removeLocalStorageItem,
+    storeLocalStorageItem,
+} from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
@@ -18,11 +23,12 @@ import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
 import Header from "../header";
-import Register from "../register";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import Welcome from "../welcome";
+import SlideNav from "../slide-nav";
 import Styles from "./dashboard.module.scss";
+import Register from "./register";
+import Welcome from "./welcome";
 
 type Props = {
     balance: number;
@@ -42,6 +48,9 @@ type State = {
     notice: string;
     user: User;
     orientation: string;
+    enabledWinningStreakNotification: boolean;
+    enabledPlaySound: boolean;
+    isShowSlideNav: boolean;
 };
 
 const LanguageMapper = {
@@ -51,7 +60,6 @@ const LanguageMapper = {
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.Component<Props, State> {
-    authService: Auth = null;
     userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
 
@@ -65,15 +73,22 @@ class Dashboard extends React.Component<Props, State> {
             isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
             notice: "",
             orientation: "",
+            enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
+            enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
+            isShowSlideNav: false,
         };
+
+        this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
 
         this.handleRegister = this.handleRegister.bind(this);
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
-        this.authService = UserClientCommunication.getUserClientInstance().auth;
-        this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
+        this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
+        this.playSoundToggle = this.playSoundToggle.bind(this);
+        this.openSideNav = this.openSideNav.bind(this);
+        this.closeSideNav = this.closeSideNav.bind(this);
     }
 
     doOnOrientationChange() {
@@ -165,10 +180,10 @@ class Dashboard extends React.Component<Props, State> {
     handleKickedOut(data: any) {
         const { umInfo } = data;
         const { router } = this.props;
-        LocalStorageManager.removeLocalStorageItem(LocalStorageManager.localStorageKeys.session);
+        removeLocalStorageItem(localStorageKeys.session);
 
         if (umInfo) {
-            LocalStorageManager.storeLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo, {
+            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
                 time: umInfo.startTime,
                 start: umInfo.startTime,
                 end: umInfo.endTime,
@@ -227,16 +242,53 @@ class Dashboard extends React.Component<Props, State> {
         return <Welcome userInfo={user} handleFirstLoginSM={(theme) => this.handleFirstLogin(theme)}></Welcome>;
     }
 
+    winningStreakNotificationToggle() {
+        const { enabledWinningStreakNotification } = this.state;
+        this.setState({ enabledWinningStreakNotification: !enabledWinningStreakNotification });
+        storeLocalStorageItem(localStorageKeys.winningStreakNotification, !enabledWinningStreakNotification);
+    }
+
+    playSoundToggle() {
+        const { enabledPlaySound } = this.state;
+        this.setState({ enabledPlaySound: !enabledPlaySound });
+        storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
+    }
+
+    openSideNav() {
+        this.setState({ isShowSlideNav: true });
+    }
+
+    closeSideNav() {
+        this.setState({ isShowSlideNav: false });
+    }
+
     renderDashBoard() {
-        const { authorizeInfo, apiErrorMessage } = this.props;
-        const { user } = this.state;
-        const props = { ...user, balance: this.props.balance };
+        const { authorizeInfo, apiErrorMessage, balance } = this.props;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, isShowSlideNav } = this.state;
+        const { avatarId, name, currency } = user ?? {};
 
         return (
             <div className={Styles["dashboard"]}>
-                <Header {...props} />
+                <Header avatarId={avatarId} name={name} balance={balance} currency={currency} onOpenSlideNav={this.openSideNav} />
+                {isShowSlideNav && (
+                    <SlideNav
+                        avatarId={avatarId}
+                        name={name}
+                        balance={balance}
+                        currency={currency}
+                        onClose={this.closeSideNav}
+                        enabledPlaySound={enabledPlaySound}
+                        onPlaySoundToggle={this.playSoundToggle}
+                        enabledWinningStreakNotification={enabledWinningStreakNotification}
+                        onWinningStreakToggle={this.winningStreakNotificationToggle}
+                    />
+                )}
                 <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
-                    <Games quickBetSetting={authorizeInfo?.user?.settings?.quickBet} />
+                    <Games
+                        quickBetSetting={authorizeInfo?.user?.settings?.quickBet}
+                        enabledWinningStreakNotification={enabledWinningStreakNotification}
+                        enabledPlaySound={enabledPlaySound}
+                    />
                 </RoundResultContextProvider>
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>

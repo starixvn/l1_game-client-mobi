@@ -38,5 +38,10 @@
     "vipsedie": "Xóc Đĩa VIP",
     "displayMode": "Chế độ hiển thị",
     "fullMode": "Đầy đủ",
-    "compactMode": "Đơn giản"
+    "compactMode": "Đơn giản",
+    "betCredit": "Hạn mức còn lại",
+    "darkMode": "Giao diện tối",
+    "sound": "Âm thanh",
+    "winningStreakNotification": "Thông báo cầu thuận lợi",
+    "language": "Ngôn ngữ"
 }

@@ -1,0 +1,75 @@
+[data-theme="light"] {
+    .profile-picture {
+        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #ffffff 0%, #f0f0f0 100%);
+        --icon-edit-border: #f2f2f2;
+        --icon-edit-color: #9c9c9c;
+    }
+}
+
+[data-theme="dark"] {
+    .profile-picture {
+        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
+        --icon-edit-border: #203040;
+        --icon-edit-color: #9ac6f2;
+    }
+}
+
+.profile-picture {
+    position: relative;
+    width: 9.4rem;
+    height: 9.4rem;
+    margin: 3rem auto 2.2rem;
+    border-radius: 50%;
+    border: 0.2rem solid #ffb335;
+
+    @media (min-width: 768px) {
+        width: 13rem;
+        height: 13rem;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .avatar {
+        width: 100%;
+    }
+
+    .icon-user {
+        position: relative;
+        top: 4.6rem;
+        left: -0.1rem;
+        font-size: 8.9rem;
+        line-height: 0;
+
+        @media (min-width: 768px) {
+            left: 0;
+            top: 6.4rem;
+            font-size: 12.3rem;
+        }
+    }
+
+    .chose-avatar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: -0.6rem;
+        bottom: 0;
+        width: 3.2rem;
+        height: 3.2rem;
+        border-radius: 50%;
+        background: var(--icon-edit-background);
+        border: 1px solid var(--icon-edit-border);
+
+        @media (min-width: 768px) {
+            right: -0.2rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .icon-edit:before {
+            color: var(--icon-edit-color);
+        }
+    }
+}

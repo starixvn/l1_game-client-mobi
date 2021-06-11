@@ -1,4 +1,4 @@
-@import "../chip/chip.module.scss";
+@import "../shared/chip/chip.module.scss";
 
 [data-theme="light"] .bet-settings {
     --bet-settings-background: rgba(16, 24, 34, 0.75);
@@ -175,52 +175,6 @@
     position: relative;
     width: 20.6rem;
     margin-left: 3.8rem;
-
-    %icon {
-        position: absolute;
-        top: calc(50% - 2.5rem);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 5rem;
-        width: 3rem;
-        color: var(--primary-color);
-        font-size: 2rem;
-
-        &:hover:not(.disabled) {
-            cursor: pointer;
-            text-shadow: 0 -1px 6px rgb(255 154 0 / 70%), 0px 1px 6px rgb(255 154 0 / 70%);
-        }
-
-        &.disabled {
-            color: #b47619;
-            opacity: 0.5;
-        }
-
-        &:before {
-            content: "▲";
-        }
-    }
-
-    .icon-prev {
-        @extend %icon;
-        left: -2rem;
-        transform: rotate(-90deg);
-
-        @media (min-width: 768px) {
-            left: -4rem;
-        }
-    }
-
-    .icon-next {
-        @extend %icon;
-        right: -2rem;
-        transform: rotate(90deg);
-
-        @media (min-width: 768px) {
-            right: -4rem;
-        }
-    }
 
     @media (min-width: 768px) {
         width: 40rem;

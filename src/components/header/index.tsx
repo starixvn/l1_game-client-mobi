@@ -1,39 +1,21 @@
-import { useTheme } from "next-themes";
-import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 import { Navbar } from "reactstrap";
-import { UserSettings } from "sc-user-service-client/dist/auth";
 
-import { Themes } from "../../common/constants";
-import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
-import { UserClientCommunication } from "../../services";
 import Styles from "./header.module.scss";
 
 type Props = {
-    UID: number;
     avatarId: number;
     currency: string;
     name: string;
     balance: number;
-    settings: UserSettings;
+    onOpenSlideNav: () => void;
 };
 
 const Header: React.FC<Props> = (props) => {
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
-    const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
-    const authContext = useAuthContext();
-    const { theme, setTheme } = useTheme();
-
-    const handleChangeTheme = () => {
-        const newTheme = theme === Themes.dark ? Themes.light : Themes.dark;
-
-        userSettingsService.updateUserThemeSetting(authContext.session.ss, authContext.session.username, newTheme);
-        setTheme(newTheme);
-    };
-
-    useEffect(() => {
-        props.settings?.theme && setTheme(props.settings?.theme);
-    }, [props.settings?.theme]);
+    const { locale } = useRouter();
 
     return (
         <header className={Styles.header}>
@@ -41,7 +23,7 @@ const Header: React.FC<Props> = (props) => {
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
                         <div className={Styles["logo"]}>
-                            <a href="/">
+                            <a href={`/${locale}`}>
                                 <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                             </a>
                         </div>
@@ -61,11 +43,7 @@ const Header: React.FC<Props> = (props) => {
                                     )}
                                 </div>
                             </div>
-                            {theme !== undefined && (
-                                <div className={Styles["cirle-theme"]} onClick={handleChangeTheme}>
-                                    <span key={theme} className={`icon-moon ${Styles["icon-theme"]}`}></span>
-                                </div>
-                            )}
+                            <span onClick={props.onOpenSlideNav} className={`icon-menu ${Styles["icon-menu"]}`}></span>
                         </div>
                     </div>
                 </Navbar>

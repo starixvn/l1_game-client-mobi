@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`landscape mode ender correctly 1`] = `
+<div
+  className="landscape-mode"
+>
+  <img
+    src="/static/images/landscape-icon.svg"
+  />
+  <p
+    className="info"
+  >
+    common:rotateDevice
+  </p>
+</div>
+`;

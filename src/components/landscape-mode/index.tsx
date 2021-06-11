@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import * as React from "react";
+
 import Styles from "./landscape-mode.module.scss";
 
 const LandscapeMode = () => {
