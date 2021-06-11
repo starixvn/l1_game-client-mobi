@@ -23,13 +23,13 @@ const LanguageSelection: React.FC<{ onClose: () => void }> = ({ onClose }) => {
             <div className={Styles["setting-container"]}>
                 <Link href="/" locale="vi">
                     <div className={Styles["setting-item"]}>
-                        <label>{t(locales.vi)}</label>
+                        <label>{"Tiếng Việt"}</label>
                         {locale === locales.vi && <span className={`icon-success ${Styles["icon-check"]}`}></span>}
                     </div>
                 </Link>
                 <Link href="/" locale="en">
                     <div className={Styles["setting-item"]}>
-                        <label>{t(locales.en)}</label>
+                        <label>{"English"}</label>
                         {locale === locales.en && <span className={`icon-success ${Styles["icon-check"]}`}></span>}
                     </div>
                 </Link>
