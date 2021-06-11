@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import React from "react";
 import { Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/number-helper";
@@ -14,6 +15,7 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
+    const { locale } = useRouter();
 
     return (
         <header className={Styles.header}>
@@ -21,7 +23,7 @@ const Header: React.FC<Props> = (props) => {
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
                         <div className={Styles["logo"]}>
-                            <a href="/">
+                            <a href={`/${locale}`}>
                                 <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
                             </a>
                         </div>
