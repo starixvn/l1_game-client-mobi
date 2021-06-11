@@ -97,8 +97,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderGuide() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
             <AdvanceModal
+                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
+                gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}

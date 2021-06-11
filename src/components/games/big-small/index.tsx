@@ -98,8 +98,15 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderGuide() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
-            <AdvanceModal isOpen={true} onCloseModal={this.closePopup} isAddScrollBody={true}>
+            <AdvanceModal
+                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={this.closePopup}
+                isAddScrollBody={true}
+            >
                 <GameGuides gameId={this.props.id} language={this.context.session.language} theme={this.props.theme}></GameGuides>
             </AdvanceModal>
         );
