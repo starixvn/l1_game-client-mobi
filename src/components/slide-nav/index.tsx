@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
-import { Themes } from "../../common/constants";
+import { languageNameMapper, Themes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
 import { UserClientCommunication } from "../../services";
@@ -87,7 +87,7 @@ const SlideNav: React.FC<Props> = (props) => {
                 </SettingItem>
                 <SettingItem label={t("language")}>
                     <div className={Styles["language-group"]} onClick={() => setShowLanguageSelection(!showLanguageSelection)}>
-                        <span className={Styles["name"]}>{t(locale)}</span>
+                        <span className={Styles["name"]}>{languageNameMapper[locale]}</span>
                         <span className={`icon-arrow-right ${Styles["icon-arrow-right"]}`}></span>
                     </div>
                 </SettingItem>
