@@ -39,6 +39,7 @@ const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: Nex
 
     const userSession = await authService.sso(token as string, 2);
     if (userSession && userSession.isAuthenticated) {
+        LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
         onSignInSuccess(userSession);
 
         window.history.pushState(null, "", location.href.split("?")[0]);
@@ -91,7 +92,7 @@ function Home() {
         }
 
         setSession(userSession);
-        LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
+
         reCheckIn();
         setTimeout(() => setLoading(false), 1000);
     }
