@@ -1,29 +1,3 @@
 .round-dot-wrapper {
     display: flex;
-
-    @media (min-width: 200px) and (max-width: 374px) {
-        .dot-wrapper:nth-child(1) {
-            display: none;
-        }
-
-        .dot-wrapper:nth-child(2) {
-            display: none;
-        }
-    }
-
-    @media (min-width: 1000px) and (max-width: 1270px) {
-        .dot-wrapper:nth-child(1) {
-            display: none;
-        }
-
-        .dot-wrapper:nth-child(2) {
-            display: none;
-        }
-    }
-
-    @media (min-width: 1000px) and (max-width: 1150px) {
-        .dot-wrapper:nth-child(3) {
-            display: none;
-        }
-    }
 }
