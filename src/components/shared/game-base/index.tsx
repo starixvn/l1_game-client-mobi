@@ -857,11 +857,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        const { signedIn, gameState, disabledMessage } = this.state;
+        const { signedIn, gameState, disabledMessage, modeView } = this.state;
         return (
             <GameContainer>
                 {signedIn ? this.renderGame() : <GameLoading />}
-                {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} />}
+                {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} modeView={modeView} />}
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
