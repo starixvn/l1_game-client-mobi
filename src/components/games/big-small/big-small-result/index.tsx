@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result } from "../big-small";
+import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
+import { useTranslation } from "next-i18next";
 import { GameState, ModeView } from "../../../shared/game-base/type";
 import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
@@ -22,18 +23,10 @@ const renderAnimTossDice = () => {
         </div>
     );
 };
-
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { modeView, playResultAnimation, gameSetting, gameState } = useGameContext();
+    const { modeView, playResultAnimation, showTotalResult } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
-    const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const wrapperRefResult = useRef<HTMLDivElement>(null);
-
-    const actionByGameState = {
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => setIsShowCountOfDice(true), (gameSetting.durations.resultAnimation - 1) * 1000);
-        },
-    };
 
     const generateResult = () => {
         return (
@@ -46,15 +39,11 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                                 <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
                             </div>
                         ))}
-                    {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                    {showTotalResult && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
                 </div>
             </>
         );
     };
-
-    useEffect(() => {
-        actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState]);
 
     useEffect(() => {
         return () => {
@@ -79,8 +68,12 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
-export const BigSmallResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
-    const { playResultAnimation } = useGameContext();
+export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult }> = ({
+    result,
+    settlementResult,
+}) => {
+    const { playResultAnimation, gameSetting, showTotalResult } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {result &&
@@ -92,6 +85,11 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result }> = ({ result }
                         </div>
                     </div>
                 ))}
+            {showTotalResult && result && (
+                <div className={Styles["total-dice-collapse"]}>{`${countRedDot(result)}-${
+                    settlementResult.big ? t("big") : t("small")
+                }`}</div>
+            )}
         </div>
     );
 };

@@ -72,6 +72,7 @@ export interface GameBaseState<Result, SettlementResult> {
     displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
+    showTotalResult: boolean;
 }
 
 export interface Notice {

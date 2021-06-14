@@ -53,6 +53,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private betWin: number;
     private isUMInFirstLoad = false;
     private showWaitingTimeout: NodeJS.Timeout;
+    private showTotalResultTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
@@ -84,6 +85,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayChips: {},
         isShowBlink: false,
         notice: null,
+        showTotalResult: false,
     };
 
     constructor(props: P) {
@@ -339,6 +341,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
             this.interval && clearInterval(this.interval);
             this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
+            this.showTotalResultTimeout && clearTimeout(this.showTotalResultTimeout);
             this.setState({
                 gameState: GameState.Disabled,
                 disabledMessage: um_message[language],
@@ -397,6 +400,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     displayChips: {},
                     showWinningBet: false,
                     isShowBlink: false,
+                    showTotalResult: false,
                 },
             },
             {
@@ -529,6 +533,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
+        this.showTotalResultTimeout = setTimeout(() => {
+            this.setState({ showTotalResult: true });
+        }, animationDuration - 1);
         this.runGame(durations.wholeRound);
     }
 
@@ -767,7 +774,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
-            showWaitingTime,
+            showTotalResult,
         } = this.state;
 
         const gameContext = {
@@ -783,7 +790,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
-            showWaitingTime,
+            showTotalResult,
         };
 
         const gameActionsContext = {

@@ -152,7 +152,7 @@ $time-show-result-animation: 0.1s;
 }
 
 .result-collapse-mode {
-    grid-template-columns: repeat(3, 3.3rem);
+    grid-template-columns: repeat(4, 3.3rem);
     grid-template-rows: 3.3rem;
 
     .result-item {
@@ -175,5 +175,18 @@ $time-show-result-animation: 0.1s;
 
     .dice3 {
         background-image: url("/static/images/big-small-dices-prite-3.png");
+    }
+
+    .total-dice-collapse {
+        margin-left: 0.6rem;
+        background: linear-gradient(180deg, #535b72 0%, #6d758a 100%);
+        border: 1px solid #ffb62a;
+        box-sizing: border-box;
+        border-radius: 0.3rem;
+        min-width: 6.2rem;
+        font-size: 1.8rem;
+        text-align: center;
+        color: #fff;
+        padding: 0.2rem 0;
     }
 }
