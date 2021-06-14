@@ -62,7 +62,10 @@ const SlideNav: React.FC<Props> = (props) => {
     return (
         <div ref={wrapperRef} className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
-                <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
+                <div className={Styles["header"]}>
+                    <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
+                    <h1 className={Styles["title"]}>{t("setting")}</h1>
+                </div>
             ) : (
                 <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
             )}

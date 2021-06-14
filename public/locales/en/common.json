@@ -44,5 +44,6 @@
     "darkMode": "Dark Mode",
     "sound": "Sound",
     "winningStreakNotification": "Winning Streak Notification",
-    "language": "Language"
+    "language": "Language",
+    "setting": "Setting"
 }
