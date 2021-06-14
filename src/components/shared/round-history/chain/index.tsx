@@ -35,7 +35,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const { gameState, roundHistory, renderRoundDetail, renderGameDot } = props;
     const { gameSetting, isShowBlink } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const numberOfItems = isShowBlink ? 17 : 18;
+    const numberOfItems = isShowBlink ? 20 : 21;
     const rounds = roundHistory.slice(0, numberOfItems).reverse();
     const wrapperRefChain = useRef<HTMLDivElement>(null);
 
