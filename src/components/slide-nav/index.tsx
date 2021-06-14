@@ -67,7 +67,10 @@ const SlideNav: React.FC<Props> = (props) => {
                     <h1 className={Styles["title"]}>{t("setting")}</h1>
                 </div>
             ) : (
-                <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
+                <div className={Styles["header-nav-desktop"]}>
+                    <h1 className={Styles["title"]}>{t("setting")}</h1>
+                    <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
+                </div>
             )}
             <div className={Styles["avatar"]}>
                 <ProfilePicture avatarId={props.avatarId} />

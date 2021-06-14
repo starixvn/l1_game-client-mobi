@@ -25,6 +25,7 @@
         justify-content: center;
         height: 2.4rem;
         width: 2.4rem;
+        margin-right: 1rem;
 
         &:hover {
             cursor: pointer;
@@ -45,7 +46,7 @@
         border-bottom: 0.1rem solid var(--slide-nav-line-background);
 
         .title {
-            margin: 0 0 0 1rem;
+            margin-bottom: 0;
             font-size: 1.8rem;
         }
     }
