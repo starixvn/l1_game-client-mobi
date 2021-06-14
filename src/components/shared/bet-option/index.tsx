@@ -11,7 +11,6 @@ import { HighlightType, Props } from "./types";
 
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
-    [HighlightType.Blink]: "winning-effect",
     [HighlightType.None]: "",
 };
 
@@ -24,7 +23,7 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, modeView, displayChips } = useGameContext();
+    const { totalBets, ownBets, gameSetting, modeView, displayChips, showWaitingTime } = useGameContext();
     const { durations, gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
@@ -41,12 +40,6 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     const actionByGameState = {
         [GameState.LockingBet]: () => {
             updateHighlightType(HighlightType.None);
-        },
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => updateHighlightType(HighlightType.Blink), durations.resultAnimation * 1000);
-        },
-        [GameState.Waiting]: () => {
-            updateHighlightType(HighlightType.Blink);
         },
         [GameState.InRound]: () => {
             updateHighlightType(HighlightType.Background);
@@ -79,7 +72,9 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     return (
         <div ref={wrapperRefBetOption} className={`${Styles.container} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
             <div
-                className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
+                className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
+                    isHighlight && showWaitingTime && Styles["winning-effect"]
+                }`}
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
@@ -91,11 +86,11 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="heart-beat-animation d-inline-block">
-                        {ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}
+                        {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>
 
-                {isHighlight && highlightType === HighlightType.Blink && (
+                {isHighlight && showWaitingTime && (
                     <div className={Styles["winning-effect"]}>
                         {[0, 1, 2, 3].map((index) => (
                             <span key={`winning-line-${index}`} className={Styles["winning-line"]}></span>

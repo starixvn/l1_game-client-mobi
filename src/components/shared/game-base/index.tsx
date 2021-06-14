@@ -767,6 +767,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
+            showWaitingTime,
         } = this.state;
 
         const gameContext = {
@@ -782,6 +783,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
+            showWaitingTime,
         };
 
         const gameActionsContext = {
