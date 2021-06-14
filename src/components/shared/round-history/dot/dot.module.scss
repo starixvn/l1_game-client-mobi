@@ -20,6 +20,11 @@
     border-width: 0.1rem;
     border-style: solid;
     color: #fff;
+
+    @media (min-width: 1024px) and (max-width: 1079px) {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
 }
 
 .dot-next {
