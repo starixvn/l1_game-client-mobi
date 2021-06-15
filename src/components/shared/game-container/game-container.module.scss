@@ -10,11 +10,11 @@
 
 .game-container {
     position: relative;
-    flex: 1 1 calc(100% - 0.6rem);
-    max-width: calc(100% - 0.6rem);
+    flex: 1 1 calc(100% - 0.8rem);
+    max-width: calc(100% - 0.8rem);
     height: auto;
     min-width: inherit;
-    margin: 0 0.3rem 0.9rem;
+    margin: 0 0.4rem 0.6rem;
     border: 1px solid var(--game-container-border);
     border-radius: 0.6rem;
     background-color: var(--game-container-background);
