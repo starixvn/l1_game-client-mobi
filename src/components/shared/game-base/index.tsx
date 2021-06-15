@@ -34,7 +34,7 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {LanguageLocaleMapper} from "../../../common/constants"
+import { LanguageLocaleMapper } from "../../../common/constants";
 
 import {
     GameBaseProps,
@@ -332,7 +332,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUM({ um, um_message, remainingTime }) {
         const { durations, router } = this.props;
-        const {locale} = router;
+        const { locale } = router;
         if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
             this.isUMInFirstLoad = true;
         } else {
@@ -402,6 +402,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     showWinningBet: false,
                     isShowBlink: false,
                     showTotalResult: false,
+                    playResultAnimation: false,
                 },
             },
             {
@@ -531,7 +532,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
 
         this.showWaitingTimeout = setTimeout(() => {
-            this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone });
+            this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
         this.showTotalResultTimeout = setTimeout(() => {
