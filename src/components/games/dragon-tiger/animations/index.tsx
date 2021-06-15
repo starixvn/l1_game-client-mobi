@@ -3,15 +3,15 @@ import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Card from "../../../shared/card";
 import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
-import { ModeView } from "../../../shared/game-base/type";
+import { ViewMode } from "../../../shared/game-base/type";
 import Styles from "./dragon-tiger-animations.module.scss";
 
 export const CardsAnimation = ({ playAnimation = false }) => {
-    const { modeView } = useGameContext();
+    const { viewMode } = useGameContext();
 
     return (
         <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["animation-container"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
+            <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
                 <div className={Styles["card1"]}>
                     <div className={Styles["card-shadow"]}></div>
                     <div className={Styles["card-back"]}></div>
@@ -46,13 +46,13 @@ const generateResult = (result: ObjectResult[]) => {
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
-    const { modeView, playResultAnimation } = useGameContext();
+    const { viewMode, playResultAnimation } = useGameContext();
     const { t } = useTranslation("dragontiger");
 
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
+                <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
                     <div
                         className={`${Styles["result-highlight"]} ${
                             settlementResult &&
@@ -70,7 +70,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 
 export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
-    const { modeView, playResultAnimation } = useGameContext();
+    const { viewMode, playResultAnimation } = useGameContext();
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""} `}>
             <div className={Styles["result-container"]}>{generateResult(result)}</div>

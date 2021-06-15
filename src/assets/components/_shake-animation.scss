@@ -1,7 +1,7 @@
 .animation-container {
     --plate-set-scale: 1;
 
-    &.compact-mode {
+    &.simple-mode {
         --plate-set-scale: 0.8;
     }
 }

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ModeView } from "../../../shared/game-base/type";
+import { GameState, ViewMode } from "../../../shared/game-base/type";
 import { SettlementResult, Result } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
@@ -61,7 +61,7 @@ const getClassPrevRound = (gameState: GameState) => {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
-    const { gameConfigs, modeView, gameSetting } = useGameContext();
+    const { gameConfigs, viewMode, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const classCount = renderHighLightNumber(choice, countsAppearDice);
@@ -100,7 +100,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
             <div
                 className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]} ${
-                    modeView === ModeView.compact ? Styles["compact-mode"] : ""
+                    viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
                 }`}
             ></div>
             {isShowCountOfDice && classCount !== "" && (

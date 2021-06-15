@@ -63,7 +63,7 @@ export interface GameBaseState<Result, SettlementResult> {
     errorMessage?: string | string[];
     selectedBetChoice?: string;
     isProcessingBet?: boolean;
-    modeView: ModeView;
+    viewMode: ViewMode;
     disabledMessage?: string;
     showWaitingTime: boolean;
     acceptedBetQueue: { [key: number]: number };
@@ -155,8 +155,8 @@ export interface WinStreakCollectorModel {
         isStopStreak: boolean;
     };
 }
-export enum ModeView {
+export enum ViewMode {
     full,
-    compact,
+    simple,
     collapse,
 }

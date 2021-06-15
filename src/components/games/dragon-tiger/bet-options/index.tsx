@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ModeView } from "../../../shared/game-base/type";
+import { GameState, ViewMode } from "../../../shared/game-base/type";
 import { SettlementResult } from "../dragon-tiger";
 import Styles from "./bet-options.module.scss";
 
@@ -20,14 +20,14 @@ type Props = {
 
 const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult } = props;
-    const { gameConfigs, gameSetting, modeView } = useGameContext();
+    const { gameConfigs, gameSetting, viewMode } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
         <div
             className={`bet-options-container ${Styles["layout-dragon-tiger"]} ${
-                modeView === ModeView.compact ? Styles["compact-mode"] : ""
+                viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
             }`}
         >
             <BetOption
@@ -47,7 +47,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                     <div className={Styles["text-tiger"]}>{t(Choices.tiger)}</div>
                 </div>
             </BetOption>
-            {modeView === ModeView.full && (
+            {viewMode === ViewMode.full && (
                 <div className={Styles["choice-tie"]}>
                     <BetOption
                         choice={Choices.tie}

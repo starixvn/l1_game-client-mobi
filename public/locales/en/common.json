@@ -38,12 +38,12 @@
     "vipsedie": "VIP Se Die",
     "displayMode": "Display Mode",
     "fullMode": "Full Mode",
-    "compactMode": "Simple Mode",
-    "ultraCompactMode": "Collapsed Mode",
+    "simpleMode": "Simple Mode",
+    "collapseMode": "Collapsed Mode",
     "betCredit": "Bet Credit",
     "darkMode": "Dark Mode",
     "sound": "Sound",
     "winningStreakNotification": "Winning Streak Notification",
     "language": "Language",
-    "setting": "Setting"
+    "setting": "Settings"
 }

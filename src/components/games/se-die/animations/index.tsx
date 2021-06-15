@@ -1,16 +1,16 @@
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { ModeView } from "../../../shared/game-base/type";
+import { ViewMode } from "../../../shared/game-base/type";
 import { Result } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
 const Plate: React.FC = ({ children }) => {
-    const { modeView } = useGameContext();
+    const { viewMode } = useGameContext();
 
     return (
         <div className="overlay-mask-no-bg">
-            <div className={`${Styles["animation-container"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""}`}>
+            <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
                 <div className={Styles["result-sedie-set"]}>
                     <div className={Styles["result-sedie-plate"]}></div>
                     {children}

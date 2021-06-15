@@ -27,7 +27,7 @@ $time-show-result-animation: 0.1s;
     .animation-container {
         transform: scale(0.8);
 
-        &.compact-mode {
+        &.simple-mode {
             transform: scale(0.5);
         }
     }
@@ -183,7 +183,7 @@ $time-show-result-animation: 0.1s;
         border: 1px solid #ffb62a;
         box-sizing: border-box;
         border-radius: 0.3rem;
-        min-width: 6.2rem;
+        min-width: 7.5rem;
         font-size: 1.8rem;
         text-align: center;
         color: #fff;

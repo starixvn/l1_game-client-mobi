@@ -43,7 +43,7 @@ import {
     RebetStorageModel,
     UserBetChipStorageModal,
     WinStreakCollectorModel,
-    ModeView,
+    ViewMode,
 } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
@@ -77,7 +77,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
-        modeView: ModeView.full,
+        viewMode: ViewMode.full,
         showWaitingTime: false,
         acceptedBetQueue: {},
         showWinningBet: false,
@@ -100,7 +100,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.openPopup = this.openPopup.bind(this);
         this.placeBet = this.placeBet.bind(this);
         this.openPlaceBetModal = this.openPlaceBetModal.bind(this);
-        this.updateModeView = this.updateModeView.bind(this);
+        this.updateViewMode = this.updateViewMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
     }
@@ -580,8 +580,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ displayPopup: popupType });
     }
 
-    updateModeView(mode: ModeView) {
-        this.setState({ modeView: mode });
+    updateViewMode(mode: ViewMode) {
+        this.setState({ viewMode: mode });
     }
 
     renderErrorMessage() {
@@ -769,7 +769,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             ownBets,
             gameConfigs,
             userStakeLevel,
-            modeView,
+            viewMode,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -786,7 +786,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameState,
             remainingTime,
             userStakeLevel,
-            modeView,
+            viewMode,
             displayChips,
             playResultAnimation,
             isShowBlink,
@@ -800,7 +800,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             registerMessageHandler: this.messageTransmitter.register,
             unsubscribeMessageHandler: this.messageTransmitter.unsubscribe,
             openPlaceBetModal: this.openPlaceBetModal,
-            updateModeView: this.updateModeView,
+            updateViewMode: this.updateViewMode,
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
@@ -811,12 +811,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     <GameHeader />
-                    {modeView !== ModeView.collapse && (
+                    {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
                                 <div
                                     ref={this.gameContainerRef}
-                                    className={`${Styles["bet-options"]} ${modeView === ModeView.compact ? Styles["compact-mode"] : ""} ${
+                                    className={`${Styles["bet-options"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""} ${
                                         Styles[this.props.gameName]
                                     }`}
                                 >
@@ -847,7 +847,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             <div className={`${Styles["mini-round-history"]} d-flex`}>
                                 {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
                             </div>
-                            {modeView === ModeView.full && (
+                            {viewMode === ViewMode.full && (
                                 <>
                                     <div className={`${Styles["statistic"]} d-flex`}>
                                         {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
@@ -866,11 +866,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        const { signedIn, gameState, disabledMessage, modeView } = this.state;
+        const { signedIn, gameState, disabledMessage, viewMode } = this.state;
         return (
             <GameContainer>
                 {signedIn ? this.renderGame() : <GameLoading />}
-                {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} modeView={modeView} />}
+                {gameState === GameState.Disabled && <DisabledModal disabledMessage={disabledMessage} viewMode={viewMode} />}
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}

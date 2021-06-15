@@ -18,7 +18,7 @@ $time-result-highlight-animation: 0.8s;
     transform: scale(0.52);
     pointer-events: none;
 
-    &.compact-mode {
+    &.simple-mode {
         transform: scale(0.4);
         top: -1.2rem;
     }
@@ -78,7 +78,7 @@ $time-result-highlight-animation: 0.8s;
         transform: scale(1);
         transition: transform 0.7s;
 
-        &.compact-mode {
+        &.simple-mode {
             top: 0;
             transform: scale(0.6);
 
@@ -150,11 +150,11 @@ $time-result-highlight-animation: 0.8s;
                 animation-iteration-count: infinite;
             }
 
-            &.compact-mode {
-                animation-name: zoon-in-animation-compact-mode;
+            &.simple-mode {
+                animation-name: zoon-in-animation-simple-mode;
 
                 .result-highlight {
-                    animation-name: show-result-highlight-animation-compact-mode;
+                    animation-name: show-result-highlight-animation-simple-mode;
                 }
             }
         }
@@ -225,7 +225,7 @@ $time-result-highlight-animation: 0.8s;
     }
 }
 
-@keyframes zoon-in-animation-compact-mode {
+@keyframes zoon-in-animation-simple-mode {
     0% {
         transform: scale(0.4);
     }
@@ -316,7 +316,7 @@ $time-result-highlight-animation: 0.8s;
     }
 }
 
-@keyframes show-result-highlight-animation-compact-mode {
+@keyframes show-result-highlight-animation-simple-mode {
     0% {
         opacity: 1;
         transform: scale(1.2);

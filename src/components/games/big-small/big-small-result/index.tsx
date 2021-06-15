@@ -4,7 +4,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import { useTranslation } from "next-i18next";
-import { GameState, ModeView } from "../../../shared/game-base/type";
+import { GameState, ViewMode } from "../../../shared/game-base/type";
 import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
@@ -24,7 +24,7 @@ const renderAnimTossDice = () => {
     );
 };
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { modeView, playResultAnimation, showTotalResult } = useGameContext();
+    const { viewMode, playResultAnimation, showTotalResult } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const wrapperRefResult = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
             <div className="overlay-mask-no-bg">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
-                        modeView === ModeView.compact ? Styles["compact-mode"] : ""
+                        viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
                     }`}
                 >
                     {<div className={Styles["result-plate"]}></div>}
