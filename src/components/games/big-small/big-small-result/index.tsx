@@ -75,24 +75,18 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     const { playResultAnimation, gameSetting, showTotalResult } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
-        <div className={Styles["wrapper-collapse-mode"]}>
-            <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-                {result &&
-                    Object.values(result).map((value, index) => (
-                        <div key={index} className={Styles["result-item"]}>
-                            <div className={Styles[`dice${index + 1}`]}></div>
-                            <div className={Styles[`result${index + 1}`]}>
-                                <img
-                                    src={`/static/images/bigsmall-dice-${value}.png`}
-                                    className={`img-fluid ${Styles["dice"]}`}
-                                    alt="dice"
-                                />
-                            </div>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            {result &&
+                Object.values(result).map((value, index) => (
+                    <div key={index} className={Styles["result-item"]}>
+                        <div className={Styles[`dice${index + 1}`]}></div>
+                        <div className={Styles[`result${index + 1}`]}>
+                            <img src={`/static/images/bigsmall-dice-${value}.png`} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
                         </div>
-                    ))}
-              
-            </div>
-             {showTotalResult && result && (
+                    </div>
+                ))}
+
+            {showTotalResult && result && (
                 <div className={Styles["total-dice-collapse"]}>{`${countRedDot(result)} - ${
                     settlementResult.big ? t("big") : t("small")
                 }`}</div>

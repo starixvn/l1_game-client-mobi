@@ -353,9 +353,9 @@ $time-result-highlight-animation: 0.8s;
 
 .result-collapse-mode {
     .result-container {
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
     }
 
     .card-back {
@@ -403,6 +403,10 @@ $time-result-highlight-animation: 0.8s;
     }
 
     .result-winning {
+        position: absolute;
+        left: 100%;
+        display: flex;
+        white-space: nowrap;
         font-weight: bold;
         font-size: 16px;
         align-items: center;
