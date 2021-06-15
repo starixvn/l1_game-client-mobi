@@ -63,8 +63,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderResultCollapse() {
-        const { result } = this.state;
-        return <DragonTigerResultCollapse result={result}/>;
+        const { result, settlementResult } = this.state;
+        return <DragonTigerResultCollapse result={result} settlementResult={settlementResult} />;
     }
 
     renderBoard() {

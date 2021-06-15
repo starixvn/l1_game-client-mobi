@@ -29,6 +29,11 @@ $time-result-highlight-animation: 0.8s;
     background-size: 114px 143px;
     width: 114px;
     height: 143px;
+    &.collapse-mode {
+        background-size: 4.2rem 5.4rem;
+        width: 4.2rem;
+        height: 5.4rem;
+    }
 }
 
 .draw-cards.has-animation {
@@ -349,7 +354,8 @@ $time-result-highlight-animation: 0.8s;
 .result-collapse-mode {
     .result-container {
         display: flex;
-        transform: scale(0.4);
+        align-items: center;
+        justify-content: center;
     }
 
     .card-back {
@@ -394,5 +400,14 @@ $time-result-highlight-animation: 0.8s;
                 animation-delay: $time-open-card-collape-mode-animation/2;
             }
         }
+    }
+
+    .result-winning {
+        font-weight: bold;
+        font-size: 16px;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        margin-left: 0.9rem;
     }
 }
