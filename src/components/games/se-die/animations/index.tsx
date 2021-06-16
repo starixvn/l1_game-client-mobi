@@ -48,26 +48,21 @@ export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: S
     const { playResultAnimation, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation("xocxoc");
     return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
             {Object.values(result).map((value, index) => {
                 const resultClass = `dot-3d-${index + 1}`;
                 return (
                     <div className={Styles["result-item"]} key={resultClass}>
-                        <div className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
-                            <span className={Styles["dot-3d-front-inside"]}></span>
-                            <span className={Styles["dot-3d-front"]}></span>
-                            <span className={Styles["dot-3d-back_inside"]}></span>
-                            <span className={Styles["dot-3d-back"]}></span>
-                        </div>
-                        <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                        <div className={Styles[`dice${index + 1}`]}></div>
+                        <div key={index} className={Styles[`result${index + 1}`]}>
                             <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
                         </div>
-                        {showResultAfterAnimation && settlementResult && (
-                            <div className={Styles["result-winning"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
-                        )}
                     </div>
                 );
             })}
+            {showResultAfterAnimation && settlementResult && (
+                <div className={Styles["result-winning"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
+            )}
         </div>
     );
 };
