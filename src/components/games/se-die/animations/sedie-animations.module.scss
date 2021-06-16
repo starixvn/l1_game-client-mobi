@@ -1,5 +1,6 @@
 @import "../../../../assets/components/shake-animation";
 @import "../../../../assets/components/animation-container";
+@import "../../../../assets/components/result-label-collapse-mode";
 
 $time-show-shake-plate-animation: 0.1s;
 $time-shake-plate-animation: 1s;
@@ -164,6 +165,7 @@ $time-hide-bowl-animation: 1s;
 }
 
 .result-collapse-mode {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 2.5rem);
     grid-template-rows: 2.5rem;
@@ -414,6 +416,11 @@ $time-hide-bowl-animation: 1s;
         .result-sedie-dot4 {
             animation-delay: 2s;
         }
+    }
+    .result-winning {
+        @extend .result-label;
+        font-weight: bold;
+        font-size: 16px;
     }
 }
 

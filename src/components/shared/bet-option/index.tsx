@@ -23,7 +23,7 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, viewMode, displayChips, showTotalResult } = useGameContext();
+    const { totalBets, ownBets, gameSetting, viewMode, displayChips, showResultAfterAnimation } = useGameContext();
     const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
@@ -73,7 +73,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         <div ref={wrapperRefBetOption} className={`${Styles.container} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
-                    isHighlight && showTotalResult && Styles["winning-effect"]
+                    isHighlight && showResultAfterAnimation && Styles["winning-effect"]
                 }`}
                 onClick={onClickBet}
             >
@@ -90,7 +90,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                     </span>
                 </div>
 
-                {isHighlight && showTotalResult && (
+                {isHighlight && showResultAfterAnimation && (
                     <div className={Styles["winning-effect"]}>
                         {[0, 1, 2, 3].map((index) => (
                             <span key={`winning-line-${index}`} className={Styles["winning-line"]}></span>

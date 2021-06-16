@@ -24,7 +24,7 @@ const renderAnimTossDice = () => {
     );
 };
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { viewMode, playResultAnimation, showTotalResult } = useGameContext();
+    const { viewMode, playResultAnimation, showResultAfterAnimation } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const wrapperRefResult = useRef<HTMLDivElement>(null);
 
@@ -39,7 +39,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                                 <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
                             </div>
                         ))}
-                    {showTotalResult && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                    {showResultAfterAnimation && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
                 </div>
             </>
         );
@@ -72,7 +72,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     result,
     settlementResult,
 }) => {
-    const { playResultAnimation, gameSetting, showTotalResult } = useGameContext();
+    const { playResultAnimation, gameSetting, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -86,7 +86,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                     </div>
                 ))}
 
-            {showTotalResult && result && (
+            {showResultAfterAnimation && result && (
                 <div className={Styles["total-dice-collapse"]}>{`${countRedDot(result)} - ${
                     settlementResult.big ? t("big") : t("small")
                 }`}</div>

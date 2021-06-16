@@ -86,7 +86,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayChips: {},
         isShowBlink: false,
         notice: null,
-        showTotalResult: false,
+        showResultAfterAnimation: false,
     };
 
     constructor(props: P) {
@@ -401,7 +401,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     displayChips: {},
                     showWinningBet: false,
                     isShowBlink: false,
-                    showTotalResult: false,
+                    showResultAfterAnimation: false,
                     playResultAnimation: false,
                 },
             },
@@ -536,7 +536,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
         this.showTotalResultTimeout = setTimeout(() => {
-            this.setState({ showTotalResult: true });
+            this.setState({ showResultAfterAnimation: true });
         }, animationDuration - 1);
         this.runGame(durations.wholeRound);
     }
@@ -776,7 +776,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
-            showTotalResult,
+            showResultAfterAnimation,
         } = this.state;
 
         const gameContext = {
@@ -792,7 +792,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
-            showTotalResult,
+            showResultAfterAnimation,
         };
 
         const gameActionsContext = {

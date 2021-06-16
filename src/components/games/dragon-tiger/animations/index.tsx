@@ -71,14 +71,14 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
-    const { playResultAnimation, viewMode, showTotalResult } = useGameContext();
+    const { playResultAnimation, viewMode, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation("dragontiger");
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
             <div className={Styles["result-container"]}>
                 {generateResult(result, viewMode)}
 
-                {showTotalResult && settlementResult && (
+                {showResultAfterAnimation && settlementResult && (
                     <div className={Styles["result-winning"]}>
                         {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
                     </div>

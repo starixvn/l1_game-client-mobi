@@ -1,8 +1,8 @@
 import React from "react";
-
+import { useTranslation } from "next-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { ViewMode } from "../../../shared/game-base/type";
-import { Result } from "../sedie";
+import { Result, SettlementResult } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
 const Plate: React.FC = ({ children }) => {
@@ -44,8 +44,9 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     );
 };
 
-export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) => {
-    const { playResultAnimation } = useGameContext();
+export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
+    const { playResultAnimation, showResultAfterAnimation } = useGameContext();
+    const { t } = useTranslation("xocxoc");
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {Object.values(result).map((value, index) => {
@@ -61,6 +62,9 @@ export const SeDieResultCollapse: React.FC<{ result: Result }> = ({ result }) =>
                         <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
                             <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
                         </div>
+                        {showResultAfterAnimation && settlementResult && (
+                            <div className={Styles["result-winning"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
+                        )}
                     </div>
                 );
             })}

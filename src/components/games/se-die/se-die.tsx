@@ -70,8 +70,8 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderResultCollapse() {
-        const { result } = this.state;
-        return <SeDieResultCollapse result={result ?? { red1: false, red2: false, red3: true, red4: false }} />;
+        const { result, settlementResult } = this.state;
+        return <SeDieResultCollapse result={result ?? { red1: false, red2: false, red3: true, red4: false }} settlementResult={settlementResult}/>;
     }
 
     renderGuide() {
