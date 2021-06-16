@@ -1,3 +1,5 @@
+@import "../../../../assets/components/result-label-collapse-mode";
+
 $time-draw-card-animation: 0.3s;
 
 $time-open-card-animation: 0.4s;
@@ -367,7 +369,6 @@ $time-result-highlight-animation: 0.8s;
     }
 
     &.has-animation {
-        background: black;
         $time-open-card-collape-mode-animation: 1s;
 
         .card-back {
@@ -404,31 +405,8 @@ $time-result-highlight-animation: 0.8s;
     }
 
     .result-winning {
-        position: absolute;
-        left: 100%;
-        display: flex;
-        white-space: nowrap;
+        @extend .result-label;
         font-weight: bold;
         font-size: 16px;
-        align-items: center;
-        text-align: center;
-        color: #fff;
-        margin-left: 0.9rem;
-
-        @keyframes show-total-dices-collapse-mode {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-
-            90% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
     }
 }

@@ -1,5 +1,6 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/animations/result-collapse-mode";
+@import "../../../../assets/components/result-label-collapse-mode";
 
 $time-hide-toss-dices-animation: 1.5s;
 $time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
@@ -179,35 +180,10 @@ $time-show-result-animation: 0.1s;
 }
 
 .total-dice-collapse {
-    position: absolute;
-    left: 100%;
-    display: flex;
-    white-space: nowrap;
-    margin-left: 1.1rem;
+    @extend .result-label;
     background: linear-gradient(180deg, #535b72 0%, #6d758a 100%);
     border: 1px solid #ffb62a;
-    box-sizing: border-box;
     border-radius: 0.3rem;
     font-size: 1.7rem;
-    text-align: center;
-    color: #fff;
-    padding: 0.2rem 1rem;
     font-family: var(--font-number);
-    animation: show-total-dices-collapse-mode 0.5s ease forwards;
-
-    @keyframes show-total-dices-collapse-mode {
-        0% {
-            transform: scale(0);
-            opacity: 0;
-        }
-
-        90% {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-
-        100% {
-            transform: scale(1);
-        }
-    }
 }
