@@ -193,4 +193,21 @@ $time-show-result-animation: 0.1s;
     color: #fff;
     padding: 0.2rem 1rem;
     font-family: var(--font-number);
+    animation: show-total-dices-collapse-mode 0.5s ease forwards;
+
+    @keyframes show-total-dices-collapse-mode {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        90% {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
 }
