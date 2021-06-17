@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "next-i18next";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { ViewMode } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
-import { useTranslation } from "next-i18next";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
-import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
 const renderAnimTossDice = () => {

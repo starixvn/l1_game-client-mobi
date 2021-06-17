@@ -2,6 +2,7 @@ import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
@@ -83,6 +84,10 @@ export default function GameHeader() {
         }
     }, []);
 
+    const showCollapseResult = () => {
+        return viewMode == ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.Waiting);
+    };
+
     return (
         <div className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`} onClick={onHeaderClick}>
             <div className={Styles["header-left"]}>
@@ -102,12 +107,10 @@ export default function GameHeader() {
                     </div>
                 </div>
             </div>
-            <CountdownTimer key={gameState} />
+            {!showCollapseResult() && <CountdownTimer key={gameState} />}
 
-            <HeaderRight handleStorageViewModeIds={handleStorageViewModeIds} />
-            {gameState === GameState.DisplayResult && viewMode === ViewMode.collapse && (
-                <div className={Styles["header-result"]}>{renderResultCollapse()}</div>
-            )}
+            <HeaderRight handleStorageViewModeIds={handleStorageViewModeIds} displayMenu={!showCollapseResult()} />
+            {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
         </div>
     );
 }
@@ -117,7 +120,7 @@ enum ClassType {
     dropdownItem,
 }
 
-const HeaderRight = ({ handleStorageViewModeIds }) => {
+const HeaderRight = ({ handleStorageViewModeIds, displayMenu }) => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { updateViewMode } = useGameActionContext();
@@ -154,6 +157,7 @@ const HeaderRight = ({ handleStorageViewModeIds }) => {
     useEffect(() => {
         updateRebetStatus(rebetInfo?.betInfo === undefined);
     }, [roundId]);
+
     return (
         <div className={Styles["header-right"]}>
             {viewMode !== ViewMode.collapse ? (
@@ -163,9 +167,7 @@ const HeaderRight = ({ handleStorageViewModeIds }) => {
             ) : (
                 ""
             )}
-            {gameState === GameState.DisplayResult && viewMode === ViewMode.collapse ? (
-                ""
-            ) : (
+            {displayMenu && (
                 <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
                     <DropdownToggle className={Styles["dropdown-toggle"]}>
                         <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
