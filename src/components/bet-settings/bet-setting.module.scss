@@ -4,12 +4,14 @@
     --bet-settings-background: rgba(16, 24, 34, 0.75);
     --bet-settings-border: transparent;
     --ripple-background: rgba(196, 196, 196, 0.6);
+    --saba-copyright: #d1d1d1;
 }
 
 [data-theme="dark"] .bet-settings {
     --bet-settings-background: rgba(12, 25, 35, 0.95);
     --bet-settings-border: #000;
     --ripple-background: rgba(196, 196, 196, 0.5);
+    --saba-copyright: rgba(209, 209, 209, 0.6);
 }
 
 .bet-settings {
@@ -305,9 +307,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 0.5rem;
+    padding-right: 1rem;
     height: 3.3rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
     font-size: 1.3rem;
-    color: #d1d1d1;
+    color: var(--saba-copyright);
 }
