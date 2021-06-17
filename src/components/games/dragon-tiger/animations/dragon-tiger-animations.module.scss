@@ -355,6 +355,9 @@ $time-result-highlight-animation: 0.8s;
 
 .result-collapse-mode {
     .result-container {
+        position: absolute;
+        left: 0;
+        width: 100%;
         display: flex;
         align-items: center;
     }
