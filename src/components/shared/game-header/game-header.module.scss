@@ -233,5 +233,6 @@
 
     .test {
         position: relative;
+        z-index: calc(var(--popup-guide-history-index) - 1);
     }
 }
