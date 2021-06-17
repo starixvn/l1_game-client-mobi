@@ -48,7 +48,7 @@ export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: S
     const { playResultAnimation, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation("xocxoc");
     return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${Styles["has-animation"]}`}>
             {Object.values(result).map((value, index) => {
                 const resultClass = `dot-3d-${index + 1}`;
                 return (
@@ -60,9 +60,7 @@ export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: S
                     </div>
                 );
             })}
-            {showResultAfterAnimation && settlementResult && (
-                <div className={Styles["result-winning"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
-            )}
+            {settlementResult && <div className={Styles["result-winning"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>}
         </div>
     );
 };

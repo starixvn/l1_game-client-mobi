@@ -180,30 +180,125 @@ $time-hide-bowl-animation: 1s;
     .dice-collape-mode {
         width: 2.5rem;
         height: 2.5rem;
-        animation-timing-function: steps(2.5, start), steps(2.5, start), linear;
+        border-radius: 50%;
+        animation-name: random-color-animation, random-color-slow-animation, hide-random-animation;
+        animation-timing-function: linear, linear, linear;
+        animation-fill-mode: forwards, forwards, forwards;
     }
+
     .dice1 {
-        background-image: url("/static/images/sedie-option1.png");
+        animation-duration: 1.3s, 0.7s, 0.2s;
+        animation-delay: 0s, 1.3s, 2s;
     }
 
     .dice2 {
-        background-image: url("/static/images/sedie-option2.png");
+        animation-duration: 1.4s, 0.8s, 0.2s;
+        animation-delay: 0s, 1.4s, 2.2s;
     }
 
     .dice3 {
-        background-image: url("/static/images/sedie-option1.png");
+        animation-duration: 1.5s, 0.9s, 0.2s;
+        animation-delay: 0s, 1.5s, 2.4s;
     }
 
     .dice4 {
         @extend .dice-collape-mode;
-        animation-duration: 0.75s, 0.8s, 0.2s;
-        animation-delay: 0s, 1.5s, 2.3s;
-        background-image: url("/static/images/sedie-option2.png");
+        animation-duration: 1.6s, 1s, 0.2s;
+        animation-delay: 0s, 1.6s, 2.6s;
+    }
+
+    @keyframes random-color-animation {
+        0% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+
+        20% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+        40% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+        60% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+        80% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+
+        100% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+    }
+
+    @keyframes random2-color-animation {
+        0% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+        20% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+        40% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+        60% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+        80% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+        100% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+    }
+    @keyframes random-color-slow-animation {
+        0% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+
+        100% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+    }
+    @keyframes random2-color-slow-animation {
+        0% {
+            background: #fff;
+            border: 1px solid var(--dot-even-border);
+        }
+
+        100% {
+            background: var(--dot-odd-background);
+            border: 1px solid var(--dot-odd-border);
+        }
+    }
+    .result1 {
+        animation-delay: 2.1s;
+    }
+
+    .result2 {
+        animation-delay: 2.3s;
+    }
+
+    .result3 {
+        animation-delay: 2.5s;
     }
 
     .result4 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.1s 2.3s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 2.7s forwards linear;
     }
 
     %dot3d {
@@ -211,32 +306,23 @@ $time-hide-bowl-animation: 1s;
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 50%;
-
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0.3rem;
-            left: 0.3rem;
-            bottom: 0.3rem;
-            right: 0.3rem;
-            border-radius: 50%;
-        }
     }
 
     .result-dot-red {
         @extend %dot3d;
-        background: linear-gradient(180deg, #db4853 0%, #de4b56 100%);
-
-        &:before {
-            background-image: linear-gradient(180deg, #de4b56 0%, #c73540 100%);
-        }
+        background: var(--dot-odd-background);
+        border: 1px solid var(--dot-odd-border);
     }
 
     .result-dot-white {
         @extend %dot3d;
-        background: linear-gradient(180deg, #ffffff 0%, #d0d0d0 100%);
-        &:before {
-            background-image: linear-gradient(180deg, #ffffff 0%, #ebebeb 100%);
-        }
+        background: #fff;
+        border: 1px solid var(--dot-even-border);
+    }
+
+    .result-winning {
+        @extend .result-label;
+        font-weight: bold;
+        font-size: 16px;
     }
 }
