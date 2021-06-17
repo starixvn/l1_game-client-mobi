@@ -230,4 +230,8 @@
     box-sizing: border-box;
     border-radius: 0.4rem;
     z-index: calc(var(--popup-guide-history-index) - 1);
+
+    .test {
+        position: relative;
+    }
 }

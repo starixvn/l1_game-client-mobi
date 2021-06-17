@@ -110,7 +110,11 @@ export default function GameHeader() {
             {!showCollapseResult() && <CountdownTimer key={gameState} />}
 
             <HeaderRight handleStorageViewModeIds={handleStorageViewModeIds} displayMenu={!showCollapseResult()} />
-            {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
+            {showCollapseResult() && (
+                <div className={Styles["header-result"]}>
+                    <div className={Styles["test"]}> {renderResultCollapse()}</div>
+                </div>
+            )}
         </div>
     );
 }
