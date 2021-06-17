@@ -13,7 +13,7 @@
 .winning-bet {
     --winning-bet-scale-animation: 1.1;
     @extend %fade-out-up;
-    right: 5rem;
+    right: 4rem;
     animation-name: winning-animation;
     font-weight: bold;
     animation-timing-function: ease-in-out;
@@ -25,36 +25,6 @@
 
     @media (min-width: 768px) {
         --winning-bet-scale-animation: 1.2;
-    }
-
-    .group-light {
-        position: absolute;
-        left: calc(50% - 4rem);
-        top: calc(50% - 2rem);
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
-    }
-
-    .light {
-        position: absolute;
-        width: 129px;
-        z-index: 1;
-        opacity: 0.7;
-        top: -4rem;
-        left: -2.5rem;
-        animation: rotate-light 1s;
-        animation-delay: 0.5s;
-        opacity: 0;
-        grid-area: 1/1;
-
-        &.light-2 {
-            z-index: 2;
-            animation-delay: 0.9s;
-            animation-name: rotate-light2;
-        }
     }
 
     .number {
@@ -72,45 +42,5 @@
 
     100% {
         transform: translateY(-6rem) scale(var(--winning-bet-scale-animation));
-    }
-}
-
-@keyframes rotate-light {
-    0% {
-        opacity: 1;
-        transform: scale(0);
-    }
-
-    20% {
-        transform: scale(0.8);
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0;
-    }
-}
-
-@keyframes rotate-light2 {
-    0% {
-        opacity: 1;
-        transform: scale(0.5);
-    }
-
-    20% {
-        transform: scale(0.8);
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0;
     }
 }

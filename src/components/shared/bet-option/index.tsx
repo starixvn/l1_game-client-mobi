@@ -89,14 +89,6 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>
-
-                {isHighlight && showResultAfterAnimation && (
-                    <div className={Styles["winning-effect"]}>
-                        {[0, 1, 2, 3].map((index) => (
-                            <span key={`winning-line-${index}`} className={Styles["winning-line"]}></span>
-                        ))}
-                    </div>
-                )}
             </div>
         </div>
     );
