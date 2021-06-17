@@ -87,7 +87,9 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                 ))}
 
             {showResultAfterAnimation && result && (
-                <div className={Styles["result-label"]}>{`${countRedDot(result)} - ${settlementResult.big ? t("big") : t("small")}`}</div>
+                <div className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : ""}`}>{`${countRedDot(result)} - ${
+                    settlementResult.big ? t("big") : t("small")
+                }`}</div>
             )}
         </div>
     );
