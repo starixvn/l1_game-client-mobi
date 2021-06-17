@@ -163,8 +163,8 @@ html {
 body {
     padding: 0;
     margin: 0;
-    background: var(--page-background-image);
-    background-size: auto;
+    background: var(--page-background-image) no-repeat center center fixed;
+    background-size: cover;
     font-family: var(--font-family);
     font-size: 1.4rem;
     color: var(--text-color);
