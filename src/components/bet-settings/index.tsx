@@ -123,6 +123,9 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                 </div>
             </div>
 
+            <div className={Styles["footer"]}>
+                <span>Powered by Saba.club</span>
+            </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={Styles["bg-opacity"]}></div>
