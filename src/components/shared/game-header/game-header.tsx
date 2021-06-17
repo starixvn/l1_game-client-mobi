@@ -105,7 +105,9 @@ export default function GameHeader() {
             <CountdownTimer key={gameState} />
 
             <HeaderRight handleStorageViewModeIds={handleStorageViewModeIds} />
-            {viewMode === ViewMode.collapse && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
+            {gameState === GameState.DisplayResult && viewMode === ViewMode.collapse && (
+                <div className={Styles["header-result"]}>{renderResultCollapse()}</div>
+            )}
         </div>
     );
 }
@@ -161,55 +163,58 @@ const HeaderRight = ({ handleStorageViewModeIds }) => {
             ) : (
                 ""
             )}
+            {gameState === GameState.DisplayResult && viewMode === ViewMode.collapse ? (
+                ""
+            ) : (
+                <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
+                    <DropdownToggle className={Styles["dropdown-toggle"]}>
+                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
+                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
+                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
+                    </DropdownToggle>
+                    <DropdownMenu right className={Styles["dropdown-menu"]}>
+                        <DropdownItem
+                            className={Styles[classList[ClassType.dropdownItem]]}
+                            onClick={() => gameActions.openPopup(PopupType.BetHistory)}
+                        >
+                            {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
+                        </DropdownItem>
+                        {isMobileOnly && (
+                            <div onClick={(e) => e.stopPropagation()}>
+                                <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
+                                <div
+                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                    onClick={() => onDropDownItemClick(ViewMode.full)}
+                                >
+                                    {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
+                                    {viewMode === ViewMode.full && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                </div>
+                                <div
+                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                    onClick={() => onDropDownItemClick(ViewMode.simple)}
+                                >
+                                    {t(CommonResourceKeys.DISPLAY_MODE_SIMPLE)}
+                                    {viewMode === ViewMode.simple && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                </div>
+                                <div
+                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
+                                    onClick={() => onDropDownItemClick(ViewMode.collapse)}
+                                >
+                                    {t(CommonResourceKeys.DISPLAY_MODE_COLLAPSE)}
+                                    {viewMode === ViewMode.collapse && <span className={`icon-success ${Styles["icon"]}`}></span>}
+                                </div>
+                            </div>
+                        )}
 
-            <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
-                <DropdownToggle className={Styles["dropdown-toggle"]}>
-                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                    <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                </DropdownToggle>
-                <DropdownMenu right className={Styles["dropdown-menu"]}>
-                    <DropdownItem
-                        className={Styles[classList[ClassType.dropdownItem]]}
-                        onClick={() => gameActions.openPopup(PopupType.BetHistory)}
-                    >
-                        {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
-                    </DropdownItem>
-                    {isMobileOnly && (
-                        <div onClick={(e) => e.stopPropagation()}>
-                            <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
-                            <div
-                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(ViewMode.full)}
-                            >
-                                {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
-                                {viewMode === ViewMode.full && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                            </div>
-                            <div
-                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(ViewMode.simple)}
-                            >
-                                {t(CommonResourceKeys.DISPLAY_MODE_SIMPLE)}
-                                {viewMode === ViewMode.simple && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                            </div>
-                            <div
-                                className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                onClick={() => onDropDownItemClick(ViewMode.collapse)}
-                            >
-                                {t(CommonResourceKeys.DISPLAY_MODE_COLLAPSE)}
-                                {viewMode === ViewMode.collapse && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                            </div>
-                        </div>
-                    )}
-
-                    <DropdownItem
-                        className={Styles[classList[ClassType.dropdownItem]]}
-                        onClick={() => gameActions.openPopup(PopupType.Guide)}
-                    >
-                        {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
-                    </DropdownItem>
-                </DropdownMenu>
-            </Dropdown>
+                        <DropdownItem
+                            className={Styles[classList[ClassType.dropdownItem]]}
+                            onClick={() => gameActions.openPopup(PopupType.Guide)}
+                        >
+                            {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
+                        </DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+            )}
         </div>
     );
 };

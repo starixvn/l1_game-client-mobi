@@ -178,12 +178,3 @@ $time-show-result-animation: 0.1s;
         background-image: url("/static/images/big-small-dices-prite-3.png");
     }
 }
-
-.total-dice-collapse {
-    @extend .result-label;
-    background: linear-gradient(180deg, #535b72 0%, #6d758a 100%);
-    border: 1px solid #ffb62a;
-    border-radius: 0.3rem;
-    font-size: 1.7rem;
-    font-family: var(--font-number);
-}

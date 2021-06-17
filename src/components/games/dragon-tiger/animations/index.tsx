@@ -77,9 +77,8 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
             <div className={Styles["result-container"]}>
                 {generateResult(result, viewMode)}
-
                 {showResultAfterAnimation && settlementResult && (
-                    <div className={Styles["result-winning"]}>
+                    <div className={Styles["result-label"]}>
                         {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
                     </div>
                 )}

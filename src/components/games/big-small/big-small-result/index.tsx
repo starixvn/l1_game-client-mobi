@@ -87,9 +87,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                 ))}
 
             {showResultAfterAnimation && result && (
-                <div className={Styles["total-dice-collapse"]}>{`${countRedDot(result)} - ${
-                    settlementResult.big ? t("big") : t("small")
-                }`}</div>
+                <div className={Styles["result-label"]}>{`${countRedDot(result)} - ${settlementResult.big ? t("big") : t("small")}`}</div>
             )}
         </div>
     );
