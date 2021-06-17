@@ -181,27 +181,30 @@ $time-hide-bowl-animation: 1s;
         width: 2.5rem;
         height: 2.5rem;
         border-radius: 50%;
-        animation-name: random-color-animation, random-color-slow-animation, hide-random-animation;
-        animation-timing-function: linear, linear, linear;
+        animation-timing-function: cubic-bezier(0.22, 1.16, 0.68, 1.02), cubic-bezier(0.03, 0.84, 1, 0.97), linear;
         animation-fill-mode: forwards, forwards, forwards;
     }
 
     .dice1 {
+        animation-name: random-color-animation, random-color-slow-animation, hide-random-animation;
         animation-duration: 1.3s, 0.7s, 0.2s;
         animation-delay: 0s, 1.3s, 2s;
     }
 
     .dice2 {
+        animation-name: random2-color-animation, random2-color-slow-animation, hide-random-animation;
         animation-duration: 1.4s, 0.8s, 0.2s;
         animation-delay: 0s, 1.4s, 2.2s;
     }
 
     .dice3 {
+        animation-name: random-color-animation, random-color-slow-animation, hide-random-animation;
         animation-duration: 1.5s, 0.9s, 0.2s;
         animation-delay: 0s, 1.5s, 2.4s;
     }
 
     .dice4 {
+        animation-name: random2-color-animation, random2-color-slow-animation, hide-random-animation;
         @extend .dice-collape-mode;
         animation-duration: 1.6s, 1s, 0.2s;
         animation-delay: 0s, 1.6s, 2.6s;
@@ -209,79 +212,77 @@ $time-hide-bowl-animation: 1s;
 
     @keyframes random-color-animation {
         0% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-red.png");
         }
 
-        20% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+        15% {
+            background-image: url("/static/images/sedie-dot-white.png");
         }
-        40% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+        30% {
+            background-image: url("/static/images/sedie-dot-red.png");
+        }
+        45% {
+            background-image: url("/static/images/sedie-dot-white.png");
         }
         60% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
-        }
-        80% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-red.png");
         }
 
+        75% {
+            background-image: url("/static/images/sedie-dot-white.png");
+        }
         100% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+            background-image: url("/static/images/sedie-dot-red.png");
         }
     }
 
     @keyframes random2-color-animation {
         0% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+            background-image: url("/static/images/sedie-dot-white.png");
         }
-        20% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+
+        15% {
+            background-image: url("/static/images/sedie-dot-red.png");
         }
-        40% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+        30% {
+            background-image: url("/static/images/sedie-dot-white.png");
+        }
+        45% {
+            background-image: url("/static/images/sedie-dot-red.png");
         }
         60% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-white.png");
         }
-        80% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+
+        75% {
+            background-image: url("/static/images/sedie-dot-red.png");
         }
+
         100% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-white.png");
         }
     }
     @keyframes random-color-slow-animation {
         0% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-white.png");
         }
-
+        50% {
+            background-image: url("/static/images/sedie-dot-red.png");
+        }
         100% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+            background-image: url("/static/images/sedie-dot-white.png");
         }
     }
     @keyframes random2-color-slow-animation {
         0% {
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
+            background-image: url("/static/images/sedie-dot-red.png");
         }
 
+        50% {
+            background-image: url("/static/images/sedie-dot-white.png");
+        }
         100% {
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
+            background-image: url("/static/images/sedie-dot-red.png");
         }
     }
     .result1 {
@@ -305,19 +306,17 @@ $time-hide-bowl-animation: 1s;
         position: relative;
         width: 2.5rem;
         height: 2.5rem;
-        border-radius: 50%;
+        background-size: 2.5rem 2.5rem;
     }
 
     .result-dot-red {
         @extend %dot3d;
-        background: var(--dot-odd-background);
-        border: 1px solid var(--dot-odd-border);
+        background-image: url("/static/images/sedie-dot-red.png");
     }
 
     .result-dot-white {
         @extend %dot3d;
-        background: #fff;
-        border: 1px solid var(--dot-even-border);
+        background-image: url("/static/images/sedie-dot-white.png");
     }
 
     .result-winning {
