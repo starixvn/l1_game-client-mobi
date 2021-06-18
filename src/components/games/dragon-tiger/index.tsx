@@ -9,7 +9,7 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { CardsAnimation, DragonTigerResult } from "./animations";
+import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./animations";
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
@@ -62,6 +62,11 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         return <DragonTigerResult result={result} settlementResult={settlementResult} />;
     }
 
+    renderResultCollapse() {
+        const { result, settlementResult } = this.state;
+        return <DragonTigerResultCollapse result={result} settlementResult={settlementResult} />;
+    }
+
     renderBoard() {
         const { roundHistory } = this.state;
         return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} />;
@@ -89,6 +94,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <DragonTigerGuide />
             </AdvanceModal>
@@ -103,6 +109,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <DragonTigerBetHistory />
             </AdvanceModal>

@@ -16,6 +16,8 @@ const CountdownTimer: React.FC = () => {
             return <div className="loader-balance-pool"></div>;
         case GameState.None:
             return <Loader />;
+        case GameState.BeforeStartRound:
+            return <></>;
         default:
             return <div className="loader-show-result"></div>;
     }

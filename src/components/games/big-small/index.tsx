@@ -12,7 +12,7 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
-import BigSmallResult from "./big-small-result";
+import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
@@ -79,6 +79,11 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return <BigSmallResult result={result}></BigSmallResult>;
     }
 
+    renderResultCollapse() {
+        const { result, settlementResult } = this.state;
+        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} />;
+    }
+
     renderBoard() {
         const { roundHistory } = this.state;
         return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} />;
@@ -96,6 +101,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <BigSmallGuide />
             </AdvanceModal>
@@ -110,6 +116,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <BigSmallBetHistory />
             </AdvanceModal>

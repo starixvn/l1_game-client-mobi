@@ -1,6 +1,7 @@
 import React from "react";
 import { Props } from "./type";
 import Styles from "./card.module.scss";
+import { ViewMode } from "../game-base/type";
 
 const suffixClassMapping = ["card-heart", "card-diamond", "card-club", "card-spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
@@ -22,10 +23,10 @@ export const convertRank = (num: number): string => {
 };
 
 const Card: React.FC<Props> = (props) => {
-    const { result, isSmall } = props;
+    const { result, isSmall, viewMode } = props;
     const iconLarge = pictureCard[convertRank(result.card)] ? pictureCard[convertRank(result.card)] : suffixClassMapping[result.type];
     return (
-        <div className={`${Styles["card"]} ${isSmall ? Styles["small"] : ""}`}>
+        <div className={`${Styles["card"]} ${isSmall && Styles["small"]} ${viewMode === ViewMode.collapse && Styles["collapse"]}`}>
             <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>

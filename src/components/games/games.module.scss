@@ -2,9 +2,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-bottom: 7rem;
+    margin-bottom: 12rem;
 
-    @media print, screen and (min-width: 1280px) {
-        margin: 0 -0.3rem 7rem;
+    @media (min-width: 768px) {
+        margin-bottom: 7rem;
+    }
+
+    @media (min-width: 1280px) {
+        margin-left: -0.3rem;
+        margin-right: -0.3rem;
     }
 }

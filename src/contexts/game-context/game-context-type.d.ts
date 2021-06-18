@@ -1,4 +1,4 @@
-import { GameBaseProps, GameConfigs, GameState, UserStakeLevel, DisplayChips } from "../../components/shared/game-base/type";
+import { GameBaseProps, GameConfigs, GameState, UserStakeLevel, DisplayChips, ViewMode } from "../../components/shared/game-base/type";
 
 export type GameContextModel = {
     totalBets: object;
@@ -9,8 +9,9 @@ export type GameContextModel = {
     gameConfigs: GameConfigs;
     gameState: GameState;
     userStakeLevel: UserStakeLevel;
-    isCompactMode: boolean;
+    viewMode: ViewMode;
     playResultAnimation: boolean;
     displayChips: DisplayChips;
     isShowBlink: boolean;
+    showResultAfterAnimation: boolean;
 };

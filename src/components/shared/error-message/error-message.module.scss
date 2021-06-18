@@ -5,7 +5,7 @@
     top: 20%;
     z-index: var(--popup-guide-history-index);
 
-    &.compact-mode {
+    &.simple-mode {
         padding: 0.5rem;
         min-height: 10rem;
         .icon-warning {

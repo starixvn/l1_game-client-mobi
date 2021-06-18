@@ -2,7 +2,6 @@ import { GameState } from "../game-base/type";
 
 export enum HighlightType {
     None,
-    Blink,
     Background,
 }
 

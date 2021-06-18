@@ -1,5 +1,6 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/shake-animation";
+@import "../../../../assets/components/animations/result-collapse-mode";
 
 $time-show-plate-animation: 0.1s;
 $time-shake-plate-animation: 1s;
@@ -9,7 +10,6 @@ $time-opening-bowl-animation: 1s;
 $time-bowl-hide-animation: 0.5s;
 
 .result-set {
-    @extend %result-no-animation;
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
@@ -71,63 +71,39 @@ $time-bowl-hide-animation: 0.5s;
     height: 13.2rem;
     width: 13.2rem;
     z-index: var(--result-animation-index);
-}
-
-.result-1 {
-    position: absolute;
-    left: 3.6rem;
-    top: 3.2rem;
-    transform: rotate(3.36deg);
-}
-
-.result-2 {
-    position: absolute;
-    left: 7rem;
-    top: 5.5rem;
-    transform: rotate(-5deg);
-}
-
-.result-3 {
-    position: absolute;
-    left: 3.6rem;
-    top: 6.7rem;
-    transform: rotate(-2deg);
-}
-
-.dice {
-    width: 3.2rem;
-    height: 3.2rem;
-}
-
-.compact-mode {
-    .result-set {
-        transform: scale(0.8);
+    .dice {
+        width: 3.2rem;
+        height: 3.2rem;
     }
 }
 
-/*Position of 4 buttons*/
-%result {
-    position: absolute;
-    z-index: var(--result-animation-index);
-    width: 2rem;
+.normal-mode {
+    .result-1 {
+        position: absolute;
+        left: 3.6rem;
+        top: 3.2rem;
+        transform: rotate(3.36deg);
+    }
+
+    .result-2 {
+        position: absolute;
+        left: 7rem;
+        top: 5.5rem;
+        transform: rotate(-5deg);
+    }
+
+    .result-3 {
+        position: absolute;
+        left: 3.6rem;
+        top: 6.7rem;
+        transform: rotate(-2deg);
+    }
 }
 
-.result1 {
-    @extend %result;
-    top: 12.5rem;
-    left: 14.4rem;
-}
-
-.result2 {
-    @extend %result;
-    top: 15rem;
-    left: calc(50% - 2rem);
-}
-
-.result3 {
-    @extend %result;
-    top: 12rem;
-    left: calc(50% + 1rem);
+.simple-mode {
+    .result-set {
+        transform: scale(0.8);
+    }
 }
 
 @keyframes opening-bowl-animation {
@@ -137,5 +113,32 @@ $time-bowl-hide-animation: 0.5s;
     }
     100% {
         transform: translate(-7.3rem, 7rem) rotate(45deg);
+    }
+}
+
+.result-collapse-mode {
+    grid-template-columns: repeat(3, 3.679rem);
+    grid-template-rows: 3.3rem;
+
+    .result-item {
+        grid-template-columns: 3.679rem;
+        grid-template-rows: 3.3rem;
+    }
+
+    .dice-collapse-mode {
+        width: 3.679rem;
+        height: 3.3rem;
+    }
+
+    .dice1 {
+        background-image: url("/static/images/fpc-dices-sprite-1.png");
+    }
+
+    .dice2 {
+        background-image: url("/static/images/fpc-dices-sprite-2.png");
+    }
+
+    .dice3 {
+        background-image: url("/static/images/fpc-dices-sprite-3.png");
     }
 }

@@ -11,6 +11,7 @@
     --btn-rebet-color: #fff;
     --btn-rebet-background-hover: #fff;
     --btn-rebet-color-hover: #ff9a00;
+    --game-header-result-background: rgba(202, 141, 49, 0.7);
 }
 
 [data-theme="dark"] .header {
@@ -24,20 +25,26 @@
 
     --btn-rebet-background: transparent;
     --btn-rebet-color: #8dadce;
-    --btn-rebet-background-hover: #3f648a;
-    --btn-rebet-color-hover: #fff;
+
+    --btn-rebet-background-hover: #8dadce;
+    --btn-rebet-color-hover: #ff9a00;
+    --game-header-result-background: rgba(32, 48, 64, 0.9);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     background: var(--game-header-background);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 0.5rem 0.5rem 0 0;
     position: relative;
     height: 5.6rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     cursor: auto;
+
+    &.border-radius-bottom {
+        border-radius: 0.5rem;
+    }
 }
 
 .favorite-btn {
@@ -207,5 +214,25 @@
                 color: #03b40a;
             }
         }
+    }
+}
+
+.header-result {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--game-header-result-background);
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    z-index: calc(var(--popup-guide-history-index) - 1);
+
+    .test {
+        position: relative;
+        z-index: calc(var(--popup-guide-history-index) - 1);
     }
 }

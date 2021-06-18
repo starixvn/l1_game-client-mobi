@@ -22,7 +22,7 @@ export const ChoiceIconHistory: React.FunctionComponent<Props> = ({ type }) => {
 };
 
 export const ChoiceIconCompactMode: React.FunctionComponent<Props> = ({ type }) => {
-    return <div className={`${Styles["icon-compact-mode"]} ${listIconName[type]} ${Styles[listIconName[type].toString()]}`}></div>;
+    return <div className={`${Styles["icon-simple-mode"]} ${listIconName[type]} ${Styles[listIconName[type].toString()]}`}></div>;
 };
 
 export default ChoiceIcon;

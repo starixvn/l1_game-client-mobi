@@ -29,7 +29,7 @@
     "enterGameBtn": "Vào chơi game",
     "dismiss": "Bỏ qua",
     "turnOn": "Bật 1-Click Bet",
-    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\" hoặc \"Đơn Giản\".",
+    "displayModeHint": "Chạm vào tên game để chuyển đổi chế độ hiển thị \"Đầy Đủ\", \"Đơn Giản\", hoặc \"Thu gọn\".",
     "taixiu": "Tài Xỉu",
     "xocxoc": "Xóc Đĩa",
     "baucua": "Bầu Cua",
@@ -38,10 +38,13 @@
     "vipsedie": "Xóc Đĩa VIP",
     "displayMode": "Chế độ hiển thị",
     "fullMode": "Đầy đủ",
-    "compactMode": "Đơn giản",
+    "simpleMode": "Đơn giản",
+    "collapseMode": "Thu gọn",
     "betCredit": "Hạn mức còn lại",
     "darkMode": "Giao diện tối",
     "sound": "Âm thanh",
     "winningStreakNotification": "Thông báo cầu thuận lợi",
-    "language": "Ngôn ngữ"
+    "language": "Ngôn ngữ",
+    "setting": "Cài đặt",
+    "sabaCopyright": "Saba.mobi là phiên bản bổ sung của cổng game SABA."
 }

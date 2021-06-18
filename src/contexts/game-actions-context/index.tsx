@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { PopupType } from "../../components/shared/game-base/type";
+import { PopupType, ViewMode } from "../../components/shared/game-base/type";
 
 type GameActionsContextType = {
     placeBet: (betChoice: string, amount: number) => void;
@@ -10,8 +10,9 @@ type GameActionsContextType = {
     unsubscribeMessageHandler: Function;
     openPlaceBetModal: Function;
     finishProcessingBet: Function;
-    updateCompactMode: (isDisplayFull: boolean) => void;
+    updateViewMode: (mode: ViewMode) => void;
     playAcceptedBetAnimation: (amount: number) => void;
+    renderResultCollapse: () => React.ReactElement;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

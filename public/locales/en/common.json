@@ -29,7 +29,7 @@
     "enterGameBtn": "Play Now",
     "dismiss": "Dismiss",
     "turnOn": "Enable 1-Click Bet",
-    "displayModeHint": "Touch the game name to switch between \"Full Mode\" and \"Simple Mode\".",
+    "displayModeHint": "Touch the game name to switch between \"Full Mode\", \"Simple Mode\", or \"Collapsed Mode\".",
     "taixiu": "Big Small",
     "xocxoc": "Se Die",
     "baucua": "Fish Prawn Crab",
@@ -38,10 +38,13 @@
     "vipsedie": "VIP Se Die",
     "displayMode": "Display Mode",
     "fullMode": "Full Mode",
-    "compactMode": "Simple Mode",
+    "simpleMode": "Simple Mode",
+    "collapseMode": "Collapsed Mode",
     "betCredit": "Bet Credit",
     "darkMode": "Dark Mode",
     "sound": "Sound",
     "winningStreakNotification": "Winning Streak Notification",
-    "language": "Language"
+    "language": "Language",
+    "setting": "Settings",
+    "sabaCopyright": "Saba.mobi is an additional version of game portal - SABA."
 }

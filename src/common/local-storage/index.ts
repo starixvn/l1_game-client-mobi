@@ -6,7 +6,7 @@ export const localStorageKeys = {
     umInfo: buildLocalStorageKey("um_info"),
     userBetChips: buildLocalStorageKey("user-bet-chips"),
     loginStatus: buildLocalStorageKey("login-status"),
-    compactModeIds: buildLocalStorageKey("compact-mode-ids"),
+    modeViewIds: buildLocalStorageKey("mode-view-ids"),
     displayModeHint: buildLocalStorageKey("display-mode-hint"),
     winningStreakNotification: buildLocalStorageKey("winning-streak-notification"),
     playSound: buildLocalStorageKey("play-sound"),

@@ -1,15 +1,17 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result } from "../sedie";
+import { ViewMode } from "../../../shared/game-base/type";
+import { Result, SettlementResult } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
 const Plate: React.FC = ({ children }) => {
-    const { isCompactMode } = useGameContext();
+    const { viewMode } = useGameContext();
 
     return (
         <div className="overlay-mask-no-bg">
-            <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+            <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
                 <div className={Styles["result-sedie-set"]}>
                     <div className={Styles["result-sedie-plate"]}></div>
                     {children}
@@ -39,6 +41,37 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
                     ))}
                 </div>
             </Plate>
+        </div>
+    );
+};
+
+export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
+    const { playResultAnimation } = useGameContext();
+    const { t } = useTranslation("xocxoc");
+    return (
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={Styles["result-container"]}>
+                {Object.values(result).map((value, index) => {
+                    const resultClass = `dot-3d-${index + 1}`;
+                    return (
+                        <div className={Styles["result-item"]} key={resultClass}>
+                            <div className={`${Styles[resultClass]} ${index % 2 ? Styles["option1"] : Styles["option2"]}`}>
+                                <span className={Styles["dot-3d-front-inside"]}></span>
+                                <span className={Styles["dot-3d-front"]}></span>
+                                <span className={Styles["dot-3d-back_inside"]}></span>
+                                <span className={Styles["dot-3d-back"]}></span>
+                            </div>
+                            <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                                <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {!playResultAnimation && settlementResult && (
+                <div className={Styles["result-label"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
+            )}
         </div>
     );
 };

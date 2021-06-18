@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useRef } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./advance-dialog.module.scss";
@@ -13,21 +13,37 @@ type Props = {
     title: string;
     subTitle?: string;
     gameName?: string;
+    isAddScrollBody?: boolean;
 };
 
-const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full, gameName }: Props) => {
+const AdvanceModal: React.FC<Props> = ({
+    title,
+    subTitle,
+    children,
+    onCloseModal,
+    isOpen,
+    type = ModalType.Full,
+    gameName,
+    isAddScrollBody = false,
+}: Props) => {
     const { t } = useTranslation("common");
     const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         ref.current.scrollIntoView({ block: "center" });
     }, [ref.current]);
+    useEffect(() => {
+        isMobileOnly && isAddScrollBody && document.body.classList.add("no-scroll");
+        return () => {
+            isMobileOnly && isAddScrollBody && document.body.classList.remove("no-scroll");
+        };
+    }, []);
 
     return (
         <BaseDialog isOpen={isOpen} onCloseModal={onCloseModal} type={type}>
-            <div className={Styles.modal} ref={ref}>
+            <div className={`${Styles.modal}`} ref={ref}>
                 <div className={Styles["popup-closed-icon"]} onClick={() => onCloseModal()}>
-                    <span className={`icon-close ${Styles["icon-close"]}`}></span>
+                    <span className={`icon-close {Styles["icon-close"]}`}></span>
                 </div>
 
                 <div className={Styles["popup-header"]}>

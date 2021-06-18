@@ -37,9 +37,9 @@ html {
 
     // z-index
     --header-index: 1071;
-    --bet-setting-index: 200;
+    --bet-setting-index: 300;
     --popup-index: 250;
-    --notice-index: 300;
+    --notice-index: 200;
     --popup-guide-history-index: 100;
     --amount-index: 91;
     --result-animation-index: 90;
@@ -78,6 +78,7 @@ html {
 
 [data-theme="light"] {
     --page-background: #dce2f3;
+    --page-background-image: url("/static/images/themes/background-theme-light.png");
     --text-color: #2c2f3e;
 
     --tooltip-background: rgba(255, 172, 43, 0.6);
@@ -119,6 +120,7 @@ html {
 
 [data-theme="dark"] {
     --page-background: #101821;
+    --page-background-image: url("/static/images/themes/background-theme-dark.png");
     --text-color: #fff;
 
     --tooltip-background: rgba(79, 112, 143, 0.8);
@@ -161,11 +163,16 @@ html {
 body {
     padding: 0;
     margin: 0;
-    background-color: var(--page-background);
+    background: var(--page-background-image) no-repeat center center fixed;
+    background-size: cover;
     font-family: var(--font-family);
     font-size: 1.4rem;
     color: var(--text-color);
     overscroll-behavior: contain;
+
+    &.no-scroll {
+        overflow: hidden !important;
+    }
 }
 
 .game-container {
@@ -177,8 +184,8 @@ body {
         margin-top: 6.1rem;
     }
 
-    @media (min-width: 1280px) {
-        width: 123.2rem;
+    @media (min-width: 1260px) {
+        width: 126rem;
     }
 }
 

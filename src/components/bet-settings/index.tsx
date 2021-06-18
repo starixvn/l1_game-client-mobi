@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
-
+import { isMobileOnly } from "react-device-detect";
 import { useAuthContext } from "../../contexts/auth";
 import { UserClientCommunication } from "../../services";
 import BaseDialog from "../shared/base-dialog";
@@ -123,6 +123,12 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                 </div>
             </div>
 
+            {isMobileOnly && (
+                <div className={Styles["footer"]}>
+                    {t("common:sabaCopyright")}
+                    <br />© 2021 Saba.club. All rights reserved
+                </div>
+            )}
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={Styles["bg-opacity"]}></div>

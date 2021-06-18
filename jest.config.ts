@@ -11,7 +11,7 @@ export default {
         },
     },
     coveragePathIgnorePatterns: ["node_modules", "enzyme.js", ".d.ts"],
-    setupFilesAfterEnv: ["<rootDir>/enzyme.js"],
+    setupFilesAfterEnv: ["<rootDir>/enzyme.js", "jest-extended"],
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
     moduleNameMapper: {
@@ -19,4 +19,5 @@ export default {
         "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     },
     snapshotSerializers: ["enzyme-to-json/serializer"],
+    testResultsProcessor: "jest-sonar-reporter",
 };

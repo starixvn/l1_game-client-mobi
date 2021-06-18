@@ -1,76 +1,128 @@
 @import "../../../../assets/components/animation-container";
+@import "../../../../assets/components/animations/result-collapse-mode";
+@import "../../../../assets/components/result-label-collapse-mode";
 
 $time-hide-toss-dices-animation: 1.5s;
 $time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
 $time-show-result-animation: 0.1s;
 
-.toss-dices {
-    display: none;
-}
-
-@keyframes hide-toss-dices-animation {
-    0% {
-        opacity: 1;
-    }
-
-    95% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-    }
-}
-
-.animation-container {
-    transform: scale(0.8);
-
-    &.compact-mode {
-        transform: scale(0.56);
-    }
-}
-
-.result-plate {
-    position: absolute;
-    width: 19.8rem;
-    height: 19.8rem;
-    left: calc(50% - 9.9rem);
-    top: calc(50% - 9.9rem);
-    background: url("/static/images/bigsmall-plate.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-.result-container {
-    position: absolute;
-    top: calc(50% - 6.5rem);
-    left: calc(50% - 6.5rem);
-    height: 132px;
-    width: 132px;
-    z-index: var(--result-animation-index);
-}
-
-.has-animation {
+.normal-mode {
     .toss-dices {
-        display: block;
+        display: none;
+    }
+
+    @keyframes hide-toss-dices-animation {
+        0% {
+            opacity: 1;
+        }
+
+        95% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .animation-container {
+        transform: scale(0.8);
+
+        &.simple-mode {
+            transform: scale(0.5);
+        }
+    }
+
+    .result-plate {
         position: absolute;
-        left: calc(50% - 9rem);
-        top: calc(50% - 9rem);
-        animation-name: hide-toss-dices-animation;
-        animation-delay: 0ms;
-        animation-duration: $time-hide-toss-dices-animation;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        width: 19.8rem;
+        height: 19.8rem;
+        left: calc(50% - 9.9rem);
+        top: calc(50% - 9.9rem);
+        background: url("/static/images/bigsmall-plate.png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
     }
 
     .result-container {
-        opacity: 0;
-        animation-name: show-result-animation;
-        animation-delay: $time-delay-show-result-animation;
-        animation-duration: $time-show-result-animation;
+        position: absolute;
+        top: calc(50% - 6.5rem);
+        left: calc(50% - 6.5rem);
+        height: 132px;
+        width: 132px;
+        z-index: var(--result-animation-index);
+    }
+
+    .has-animation {
+        .toss-dices {
+            display: block;
+            position: absolute;
+            left: calc(50% - 9rem);
+            top: calc(50% - 9rem);
+            animation-name: hide-toss-dices-animation;
+            animation-delay: 0ms;
+            animation-duration: $time-hide-toss-dices-animation;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
+
+        .result-container {
+            opacity: 0;
+            animation-name: show-result-animation;
+            animation-delay: $time-delay-show-result-animation;
+            animation-duration: $time-show-result-animation;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
+    }
+
+    .total-dice {
+        position: absolute;
+        border-radius: 50%;
+        left: calc(50% - 9rem);
+        top: calc(50% - 9rem);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 4.8rem;
+        height: 4.8rem;
+        background: linear-gradient(180deg, #535b72 0%, #727c97 100%);
+        border: 2px solid #ffb62a;
+        font-weight: 500;
+        font-size: 2rem;
+        color: #fff;
+        animation-name: show-total-dices;
+        animation-delay: 0ms;
+        animation-duration: 0.6s;
         animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        animation-timing-function: ease-in;
+    }
+
+    .dice {
+        width: 4.6rem;
+        height: 4.6rem;
+    }
+
+    .result-1 {
+        position: absolute;
+        left: 3.8rem;
+        top: 1.1rem;
+        transform: rotate(343deg);
+    }
+
+    .result-2 {
+        position: absolute;
+        left: 7.2rem;
+        top: 5.7rem;
+        transform: rotate(359deg);
+    }
+
+    .result-3 {
+        position: absolute;
+        left: 1.4rem;
+        top: 6.4rem;
+        transform: rotate(29deg);
     }
 }
 
@@ -88,54 +140,6 @@ $time-show-result-animation: 0.1s;
     }
 }
 
-.result-1 {
-    position: absolute;
-    left: 38px;
-    top: 11px;
-    transform: rotate(357deg);
-}
-
-.result-2 {
-    position: absolute;
-    left: 70px;
-    top: 57px;
-    transform: rotate(15deg);
-}
-
-.result-3 {
-    position: absolute;
-    left: 12px;
-    top: 64px;
-    transform: rotate(40deg);
-}
-
-.dice {
-    width: 5.4rem;
-    height: 5.4rem;
-}
-
-.total-dice {
-    position: absolute;
-    border-radius: 50%;
-    left: calc(50% - 9rem);
-    top: calc(50% - 9rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 4.8rem;
-    height: 4.8rem;
-    background: linear-gradient(180deg, #535b72 0%, #727c97 100%);
-    border: 2px solid #ffb62a;
-    font-weight: 500;
-    font-size: 2rem;
-    color: #fff;
-    animation-name: show-total-dices;
-    animation-delay: 0ms;
-    animation-duration: 0.6s;
-    animation-fill-mode: forwards;
-    animation-timing-function: ease-in;
-}
-
 @keyframes show-total-dices {
     0% {
         transform: scale(0);
@@ -145,5 +149,46 @@ $time-show-result-animation: 0.1s;
     100% {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+.result-collapse-mode {
+    grid-template-columns: repeat(3, 3.3rem);
+    grid-template-rows: 3.3rem;
+
+    .result-item {
+        grid-template-columns: 3.3rem;
+        grid-template-rows: 3.3rem;
+    }
+
+    .dice-collape-mode {
+        width: 3.3rem;
+        height: 3.3rem;
+    }
+
+    .dice1 {
+        background-image: url("/static/images/big-small-dices-prite-1.png");
+    }
+
+    .dice2 {
+        background-image: url("/static/images/big-small-dices-prite-2.png");
+    }
+
+    .dice3 {
+        background-image: url("/static/images/big-small-dices-prite-3.png");
+    }
+
+    &.has-animation {
+        .result-label.turbo-taixiu {
+            animation-delay: 0s;
+        }
+
+        .result-label.taixiu {
+            animation-delay: 0.2s;
+        }
+    }
+
+    .result-label {
+        animation-delay: 0.2s;
     }
 }

@@ -8,7 +8,8 @@
         "start": "next start -p ${PORT:=5000}",
         "test": "jest",
         "test:watch": "jest --watch",
-        "test:coverage": "jest --coverage"
+        "test-coverage": "jest --coverage",
+        "reg": "npm set registry http://npm.lumigame.com"
     },
     "dependencies": {
         "@sentry/browser": "^6.2.0",
@@ -59,8 +60,15 @@
         "enzyme-to-json": "^3.6.2",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^27.0.4",
+        "jest-extended": "^0.11.5",
+        "jest-sonar-reporter": "^2.0.0",
         "ts-jest": "^27.0.3",
         "ts-node": "^9.1.1",
         "url-loader": "^4.1.1"
+    },
+    "jestSonar": {
+        "reportPath": "reports",
+        "reportFile": "test-reporter.xml",
+        "indent": 4
     }
 }

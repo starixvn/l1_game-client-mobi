@@ -18,9 +18,9 @@
 }
 
 .board-inline {
+    display: flex;
     height: 3.6rem;
     width: 100%;
-    border-top: 0.1rem solid var(--border-color);
 }
 
 .score-board-dragon-container {

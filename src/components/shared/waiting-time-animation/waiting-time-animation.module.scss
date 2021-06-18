@@ -29,7 +29,7 @@
     font-size: 1.8rem;
     z-index: var(--waiting-time-index);
 
-    &.compact-mode {
+    &.simple-mode {
         min-height: 2.6rem;
         bottom: -2.5rem;
     }

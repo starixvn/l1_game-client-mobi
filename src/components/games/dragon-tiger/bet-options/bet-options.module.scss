@@ -5,7 +5,7 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 20.4rem 8rem;
 
-    &.compact-mode {
+    &.simple-mode {
         grid-template-rows: 1fr;
         .icon {
             margin-bottom: 0;

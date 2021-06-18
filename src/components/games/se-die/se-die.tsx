@@ -9,7 +9,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { OpenThePlate, ShakeThePlate } from "./animations";
+import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
@@ -69,6 +69,16 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         return <OpenThePlate result={result ?? { red1: false, red2: false, red3: true, red4: false }} />;
     }
 
+    renderResultCollapse() {
+        const { result, settlementResult } = this.state;
+        return (
+            <SeDieResultCollapse
+                result={result ?? { red1: false, red2: false, red3: true, red4: false }}
+                settlementResult={settlementResult}
+            />
+        );
+    }
+
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
@@ -77,6 +87,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <SeDieGuide />
             </AdvanceModal>
@@ -91,6 +102,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <SeDieBetHistory />
             </AdvanceModal>

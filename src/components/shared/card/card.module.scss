@@ -34,7 +34,7 @@
 
     .card-number {
         position: relative;
-        top: 4px;
+        top: 0.4rem;
         line-height: 2.3rem;
         font-size: 2.2rem;
         font-weight: bold;
@@ -116,6 +116,58 @@
 
             .card-picture {
                 width: 2.4rem;
+                right: 0.1rem;
+                top: -0.1rem;
+            }
+        }
+    }
+
+    &.collapse {
+        .card-bg {
+            position: relative;
+            background-size: 4.2rem 5.4rem;
+            width: 4.2rem;
+            height: 5.4rem;
+        }
+
+        .card-shadow {
+            left: 0.3rem;
+            right: 0.3rem;
+            top: 0.4rem;
+            bottom: 0.4rem;
+            border-radius: 0.3rem;
+            box-shadow: none;
+            border: 1px solid #ccc;
+        }
+
+        .card-group-left {
+            left: 0.5rem;
+            top: 0.3rem;
+
+            .card-number {
+                top: 0.8rem;
+                line-height: 0.5;
+                font-size: 1.2rem;
+            }
+
+            .card-suite-small {
+                margin-top: 0.5rem;
+                width: 1rem;
+            }
+        }
+
+        .card-group-right {
+            right: 0.3rem;
+            bottom: 0.3rem;
+
+            .card-suite-large {
+                width: 2.3rem;
+                bottom: 0.2rem;
+                right: 0.1rem;
+            }
+
+            .card-picture {
+                width: 3.3rem;
                 right: 0.1rem;
                 top: -0.1rem;
             }

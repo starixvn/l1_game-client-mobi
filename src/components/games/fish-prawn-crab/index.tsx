@@ -6,13 +6,13 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, ViewMode } from "../../shared/game-base/type";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
-import FishPrawnCrabResult from "./fish-prawn-crab-result";
+import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
 import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
@@ -64,7 +64,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderRoundHistory() {
-        return this.state.isCompactMode ? <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory> : <OddComponent />;
+        return this.state.viewMode === ViewMode.simple ? (
+            <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
+        ) : (
+            <OddComponent />
+        );
     }
 
     renderStatistic() {
@@ -76,13 +80,18 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return <FishPrawnCrabResult result={result}></FishPrawnCrabResult>;
     }
 
+    renderResultCollapse() {
+        const { result } = this.state;
+        return <FishPrawnCrabResultCollapse result={result} />;
+    }
+
     renderBoard() {
         const { gameState, roundHistory } = this.state;
         return (
             <ScoreboardBasic
                 roundHistory={roundHistory.slice(0, 30)}
                 gameState={gameState}
-                getElementRound={this.state.isCompactMode ? GetElementRoundOfCompactMode : GetElementRound}
+                getElementRound={this.state.viewMode === ViewMode.simple ? GetElementRoundOfCompactMode : GetElementRound}
             ></ScoreboardBasic>
         );
     }
@@ -95,6 +104,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <FishPrawnCrabGuide />
             </AdvanceModal>
@@ -109,6 +119,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <FishPrawnCrabBetHistory />
             </AdvanceModal>

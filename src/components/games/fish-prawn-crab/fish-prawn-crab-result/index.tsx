@@ -1,6 +1,7 @@
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { ViewMode } from "../../../shared/game-base/type";
 import { Result } from "./../fish-prawn-crab";
 import Styles from "./fish-prawn-crab-result.module.scss";
 
@@ -24,12 +25,12 @@ const generateResult = (result: Result) => {
     );
 };
 const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { isCompactMode, playResultAnimation } = useGameContext();
+    const { viewMode, playResultAnimation } = useGameContext();
 
     return (
-        <div className={Styles["container"]}>
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+                <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
                     <div className={`${Styles["result-set"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>
@@ -37,6 +38,26 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
                     </div>
                 </div>
             </div>
+        </div>
+    );
+};
+
+export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
+    const { playResultAnimation } = useGameContext();
+    return (
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+            {result &&
+                Object.keys(result).map((dice, index) => {
+                    const src = `/static/images/${nameDices[result[dice]]}.png`;
+                    return (
+                        <div key={index} className={Styles["result-item"]}>
+                            <div className={Styles[`dice${index + 1}`]}></div>
+                            <div className={Styles[`result${index + 1}`]}>
+                                <img src={src} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
+                            </div>
+                        </div>
+                    );
+                })}
         </div>
     );
 };

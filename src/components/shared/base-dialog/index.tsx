@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { ViewMode } from "../game-base/type";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
@@ -24,7 +25,7 @@ const BaseDialog: React.FC<Props> = ({
     betContainerPosition,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const { isCompactMode } = useGameContext();
+    const { viewMode } = useGameContext();
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
 
     const getCustomStyle = () => {
@@ -36,7 +37,7 @@ const BaseDialog: React.FC<Props> = ({
                 : { bottom: `${windowHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
-        return isMobileOnly ? { bottom: "7.5rem" } : {};
+        return isMobileOnly ? { bottom: "11.8rem" } : {};
     };
 
     useEffect(() => {
@@ -56,7 +57,7 @@ const BaseDialog: React.FC<Props> = ({
         <div
             style={getCustomStyle()}
             ref={wrapperRef}
-            className={`${Styles.popup} ${Styles[classModal]} ${isCompactMode ? Styles["compact-mode"] : ""}`}
+            className={`${Styles.popup} ${Styles[classModal]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}
         >
             {children}
         </div>

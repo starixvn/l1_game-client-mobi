@@ -1,3 +1,5 @@
+@import "../../../../assets/components/result-label-collapse-mode";
+
 $time-draw-card-animation: 0.3s;
 
 $time-open-card-animation: 0.4s;
@@ -18,7 +20,7 @@ $time-result-highlight-animation: 0.8s;
     transform: scale(0.52);
     pointer-events: none;
 
-    &.compact-mode {
+    &.simple-mode {
         transform: scale(0.4);
         top: -1.2rem;
     }
@@ -29,6 +31,11 @@ $time-result-highlight-animation: 0.8s;
     background-size: 114px 143px;
     width: 114px;
     height: 143px;
+    &.collapse-mode {
+        background-size: 4.2rem 5.4rem;
+        width: 4.2rem;
+        height: 5.4rem;
+    }
 }
 
 .draw-cards.has-animation {
@@ -78,7 +85,7 @@ $time-result-highlight-animation: 0.8s;
         transform: scale(1);
         transition: transform 0.7s;
 
-        &.compact-mode {
+        &.simple-mode {
             top: 0;
             transform: scale(0.6);
 
@@ -143,11 +150,11 @@ $time-result-highlight-animation: 0.8s;
                 animation-iteration-count: infinite;
             }
 
-            &.compact-mode {
-                animation-name: zoon-in-animation-compact-mode;
+            &.simple-mode {
+                animation-name: zoon-in-animation-simple-mode;
 
                 .result-highlight {
-                    animation-name: show-result-highlight-animation-compact-mode;
+                    animation-name: show-result-highlight-animation-simple-mode;
                 }
             }
         }
@@ -171,7 +178,7 @@ $time-result-highlight-animation: 0.8s;
             transition: transform 0.1s;
         }
 
-        %open-card {
+        .open-card {
             position: relative;
             animation-name: open-card-animation;
             animation-duration: $time-open-card-animation/2;
@@ -186,7 +193,7 @@ $time-result-highlight-animation: 0.8s;
             }
 
             .rotate-card {
-                @extend %open-card;
+                @extend .open-card;
                 animation-delay: $time-delay-zoom-in-card-animation;
             }
         }
@@ -197,7 +204,7 @@ $time-result-highlight-animation: 0.8s;
             }
 
             .rotate-card {
-                @extend %open-card;
+                @extend .open-card;
                 animation-delay: $time-open-card-animation/2 + $time-delay-zoom-in-card-animation;
             }
         }
@@ -218,7 +225,7 @@ $time-result-highlight-animation: 0.8s;
     }
 }
 
-@keyframes zoon-in-animation-compact-mode {
+@keyframes zoon-in-animation-simple-mode {
     0% {
         transform: scale(0.4);
     }
@@ -309,7 +316,7 @@ $time-result-highlight-animation: 0.8s;
     }
 }
 
-@keyframes show-result-highlight-animation-compact-mode {
+@keyframes show-result-highlight-animation-simple-mode {
     0% {
         opacity: 1;
         transform: scale(1.2);
@@ -336,5 +343,64 @@ $time-result-highlight-animation: 0.8s;
     100% {
         transform: scale(1.2);
         opacity: 1;
+    }
+}
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .result-container {
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        transform: scale(1);
+    }
+
+    .card-back {
+        display: none;
+    }
+
+    .open-card {
+        animation-name: none;
+    }
+
+    &.has-animation {
+        $time-open-card-collape-mode-animation: 1s;
+
+        .card-back {
+            display: block;
+            animation-duration: $time-open-card-collape-mode-animation/2;
+        }
+
+        .open-card {
+            animation-name: open-card-animation;
+            animation-duration: $time-open-card-collape-mode-animation/2;
+        }
+
+        .card1 {
+            .card-back {
+                animation-delay: 0s;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: 0s;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: $time-open-card-collape-mode-animation/2;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-collape-mode-animation/2;
+            }
+        }
     }
 }

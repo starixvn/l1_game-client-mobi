@@ -4,14 +4,13 @@ import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { GameState } from "../game-base/type";
+import { GameState, ViewMode } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
 
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
-    [HighlightType.Blink]: "winning-effect",
     [HighlightType.None]: "",
 };
 
@@ -24,8 +23,8 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, isCompactMode, displayChips } = useGameContext();
-    const { durations, gameName } = gameSetting;
+    const { totalBets, ownBets, gameSetting, viewMode, displayChips, showResultAfterAnimation } = useGameContext();
+    const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
@@ -41,12 +40,6 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     const actionByGameState = {
         [GameState.LockingBet]: () => {
             updateHighlightType(HighlightType.None);
-        },
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => updateHighlightType(HighlightType.Blink), durations.resultAnimation * 1000);
-        },
-        [GameState.Waiting]: () => {
-            updateHighlightType(HighlightType.Blink);
         },
         [GameState.InRound]: () => {
             updateHighlightType(HighlightType.Background);
@@ -77,9 +70,11 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     };
 
     return (
-        <div ref={wrapperRefBetOption} className={`${Styles.container} ${isCompactMode ? Styles["compact-mode"] : ""}`}>
+        <div ref={wrapperRefBetOption} className={`${Styles.container} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
             <div
-                className={`${Styles["bet-option"]} ${isHighlight ? Styles[HighlightClassNameMapper[highlightType]] : ""}`}
+                className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
+                    isHighlight && showResultAfterAnimation && Styles["winning-effect"]
+                }`}
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
@@ -91,17 +86,9 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
                 <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="heart-beat-animation d-inline-block">
-                        {ownBets?.[choice] ? numberWithCommas(ownBets?.[choice]) : ""}
+                        {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>
-
-                {isHighlight && highlightType === HighlightType.Blink && (
-                    <div className={Styles["winning-effect"]}>
-                        {[0, 1, 2, 3].map((index) => (
-                            <span key={`winning-line-${index}`} className={Styles["winning-line"]}></span>
-                        ))}
-                    </div>
-                )}
             </div>
         </div>
     );

@@ -59,12 +59,25 @@ const SlideNav: React.FC<Props> = (props) => {
         };
     }, [wrapperRef]);
 
+    useEffect(() => {
+        isMobileOnly && document.body.classList.add("no-scroll");
+        return () => {
+            isMobileOnly && document.body.classList.remove("no-scroll");
+        };
+    }, []);
+
     return (
         <div ref={wrapperRef} className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
-                <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
+                <div className={Styles["header"]}>
+                    <span className={`icon-back ${Styles["btn-back"]}`} onClick={handleClose}></span>
+                    <h1 className={Styles["title"]}>{t("setting")}</h1>
+                </div>
             ) : (
-                <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
+                <div className={Styles["header-nav-desktop"]}>
+                    <h1 className={Styles["title"]}>{t("setting")}</h1>
+                    <span className={`icon-close ${Styles["btn-close"]}`} onClick={handleClose}></span>
+                </div>
             )}
             <div className={Styles["avatar"]}>
                 <ProfilePicture avatarId={props.avatarId} />

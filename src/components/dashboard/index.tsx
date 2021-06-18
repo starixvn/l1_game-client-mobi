@@ -8,12 +8,7 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import {
-    getLocalStorageItem,
-    localStorageKeys,
-    removeLocalStorageItem,
-    storeLocalStorageItem,
-} from "../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { RoundResultContextProvider } from "../../contexts/round-result";
@@ -29,6 +24,7 @@ import SlideNav from "../slide-nav";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
 import Welcome from "./welcome";
+import { LanguageLocaleMapper } from "../../common/constants";
 
 type Props = {
     balance: number;
@@ -51,11 +47,6 @@ type State = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
     isShowSlideNav: boolean;
-};
-
-const LanguageMapper = {
-    en: "en-US",
-    vi: "vi-VN",
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -209,7 +200,7 @@ class Dashboard extends React.Component<Props, State> {
     }
 
     getRoundResultUrl(gameId: number) {
-        const data = { language: LanguageMapper[this.props.router.locale], gameId };
+        const data = { language: LanguageLocaleMapper[this.props.router.locale], gameId };
         this.sendMessage({ gameResult: data });
     }
 

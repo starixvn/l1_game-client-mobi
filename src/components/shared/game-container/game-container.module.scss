@@ -1,6 +1,6 @@
 [data-theme="light"] .game-container {
     --game-container-background: #fff;
-    --game-container-border: #8e8e8e;
+    --game-container-border: #888888;
 }
 
 [data-theme="dark"] .game-container {
@@ -14,7 +14,7 @@
     max-width: calc(100% - 0.8rem);
     height: auto;
     min-width: inherit;
-    margin: 0 0.4rem 0.8rem;
+    margin: 0 0.4rem 0.6rem;
     border: 1px solid var(--game-container-border);
     border-radius: 0.6rem;
     background-color: var(--game-container-background);
@@ -30,7 +30,7 @@
     .game-container {
         flex: 1 1 calc(50% - 0.8rem);
         max-width: calc(50% - 0.8rem);
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.6rem;
 
         &:last-child {
             margin-right: 0;

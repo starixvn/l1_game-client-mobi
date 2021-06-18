@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useTranslation } from "next-i18next";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result } from "../big-small";
+import { ViewMode } from "../../../shared/game-base/type";
+import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
-import { GameState } from "../../../shared/game-base/type";
-import Image from "next/image";
 import Styles from "./big-small-result.module.scss";
 
 const renderAnimTossDice = () => {
@@ -22,18 +23,10 @@ const renderAnimTossDice = () => {
         </div>
     );
 };
-
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { isCompactMode, playResultAnimation, gameSetting, gameState } = useGameContext();
+    const { viewMode, playResultAnimation, showResultAfterAnimation } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
-    const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
     const wrapperRefResult = useRef<HTMLDivElement>(null);
-
-    const actionByGameState = {
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => setIsShowCountOfDice(true), (gameSetting.durations.resultAnimation - 1) * 1000);
-        },
-    };
 
     const generateResult = () => {
         return (
@@ -46,15 +39,11 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                                 <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
                             </div>
                         ))}
-                    {isShowCountOfDice && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
+                    {showResultAfterAnimation && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
                 </div>
             </>
         );
     };
-
-    useEffect(() => {
-        actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState]);
 
     useEffect(() => {
         return () => {
@@ -64,17 +53,44 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     }, []);
 
     return (
-        <div className={`${Styles["container"]} ${Styles["show-result"]}`} ref={wrapperRefResult}>
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
             <div className="overlay-mask-no-bg">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
-                        isCompactMode ? Styles["compact-mode"] : ""
+                        viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
                     }`}
                 >
                     {<div className={Styles["result-plate"]}></div>}
                     {generateResult()}
                 </div>
             </div>
+        </div>
+    );
+};
+
+export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult }> = ({
+    result,
+    settlementResult,
+}) => {
+    const { playResultAnimation, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    return (
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            {result &&
+                Object.values(result).map((value, index) => (
+                    <div key={index} className={Styles["result-item"]}>
+                        <div className={Styles[`dice${index + 1}`]}></div>
+                        <div className={Styles[`result${index + 1}`]}>
+                            <img src={`/static/images/bigsmall-dice-${value}.png`} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
+                        </div>
+                    </div>
+                ))}
+
+            {!playResultAnimation && result && (
+                <div
+                    className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]}`}
+                >{`${countRedDot(result)} - ${settlementResult.big ? t("big") : t("small")}`}</div>
+            )}
         </div>
     );
 };
