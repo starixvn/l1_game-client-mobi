@@ -20,7 +20,10 @@
 .board-inline {
     height: 3.6rem;
     width: 100%;
-    border-top: 0.1rem solid var(--border-color);
+
+    .score-board-container {
+        padding: 0.3rem 0;
+    }
 }
 
 .score-board-dragon-container {
