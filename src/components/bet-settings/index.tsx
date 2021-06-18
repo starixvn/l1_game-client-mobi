@@ -125,7 +125,8 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
 
             {isMobileOnly && (
                 <div className={Styles["footer"]}>
-                    <span>Powered by Saba.club</span>
+                    {t("common:sabaCopyright")}
+                    <br />© 2021 Saba.club. All rights reserved
                 </div>
             )}
             {isShowModalConfirm && !!enabledQuickBet === false && (

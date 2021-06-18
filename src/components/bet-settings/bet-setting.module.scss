@@ -306,10 +306,10 @@
 .footer {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-right: 2rem;
-    height: 3.3rem;
+    justify-content: center;
+    height: 4.2rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
-    font-size: 1.3rem;
+    text-align: center;
+    font-size: 1.1rem;
     color: var(--saba-copyright);
 }

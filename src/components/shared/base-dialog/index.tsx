@@ -37,7 +37,7 @@ const BaseDialog: React.FC<Props> = ({
                 : { bottom: `${windowHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
-        return isMobileOnly ? { bottom: "11rem" } : {};
+        return isMobileOnly ? { bottom: "11.8rem" } : {};
     };
 
     useEffect(() => {
