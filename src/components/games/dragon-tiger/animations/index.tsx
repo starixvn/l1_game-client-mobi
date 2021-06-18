@@ -86,16 +86,13 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
         // </div>
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
-                    <div
-                        className={`${Styles["result-highlight"]} ${
-                            settlementResult &&
-                            (settlementResult.tie ? Styles["tie"] : settlementResult.dragon ? Styles["dragon"] : Styles["tiger"])
-                        }`}
-                    >
-                        {settlementResult && (settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragonWin") : t("tigerWin"))}
-                    </div>
+                <div className={`${Styles["animation-container"]} ${Styles["test"]}`}>
                     {generateResult(result, viewMode)}
+                    {showResultAfterAnimation && settlementResult && (
+                        <div className={Styles["result-label"]}>
+                            {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
