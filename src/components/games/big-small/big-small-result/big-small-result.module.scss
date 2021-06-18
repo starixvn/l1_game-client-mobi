@@ -178,21 +178,17 @@ $time-show-result-animation: 0.1s;
         background-image: url("/static/images/big-small-dices-prite-3.png");
     }
 
-    .result-label.taixiu {
-        animation-delay: 0.2s;
+    &.has-animation {
+        .result-label.turbo-taixiu {
+            animation-delay: 0s;
+        }
+
+        .result-label.taixiu {
+            animation-delay: 0.2s;
+        }
     }
 
-    &.has-show-result {
-        .result1 {
-            animation-delay: 0.2s;
-        }
-
-        .result2 {
-            animation-delay: 0.2s;
-        }
-
-        .result3 {
-            animation-delay: 0.2s;
-        }
+    .result-label {
+        animation-delay: 0.2s;
     }
 }

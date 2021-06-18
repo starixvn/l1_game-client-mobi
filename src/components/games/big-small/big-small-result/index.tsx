@@ -75,7 +75,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : Styles["has-show-result"]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             {result &&
                 Object.values(result).map((value, index) => (
                     <div key={index} className={Styles["result-item"]}>
@@ -87,9 +87,9 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                 ))}
 
             {!playResultAnimation && result && (
-                <div className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : ""}`}>{`${countRedDot(result)} - ${
-                    settlementResult.big ? t("big") : t("small")
-                }`}</div>
+                <div
+                    className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]}`}
+                >{`${countRedDot(result)} - ${settlementResult.big ? t("big") : t("small")}`}</div>
             )}
         </div>
     );

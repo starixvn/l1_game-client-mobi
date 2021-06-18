@@ -339,7 +339,7 @@ $time-hide-bowl-animation: 1s;
 
     .dot-3d-4 {
         @extend .dot-3d;
-        animation-duration: 0.4s, 0.6s, 0.2s;
+        animation-duration: 0.4s, 0.6s, 0.1s;
         animation-delay: 0s, 1.2s, 1.8s;
     }
 
@@ -397,15 +397,15 @@ $time-hide-bowl-animation: 1s;
     }
     .result-sedie-dot2 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 0.2s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.1s forwards linear;
     }
     .result-sedie-dot3 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 0.4s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.2s forwards linear;
     }
     .result-sedie-dot4 {
         @extend %result-dot-3d;
-        animation: show-result-collapse-mode-amimation 0.2s 0.6s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.2s 0.3s forwards linear;
     }
 
     &.has-animation {
@@ -423,12 +423,16 @@ $time-hide-bowl-animation: 1s;
             animation-delay: 1.5s;
         }
         .result-sedie-dot4 {
-            animation-delay: 1.9s;
+            animation-delay: 1.8s;
+        }
+
+        .result-label {
+            animation-delay: 0s;
         }
     }
 
     .result-label {
-        animation-delay: 0.6s;
+        animation-delay: 0.3s;
     }
 }
 

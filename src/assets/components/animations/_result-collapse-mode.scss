@@ -60,17 +60,17 @@
 
     .result1 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.1s 2s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 0s forwards linear;
     }
 
     .result2 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.1s 2.1s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 0.1s forwards linear;
     }
 
     .result3 {
         @extend %result;
-        animation: show-result-collapse-mode-amimation 0.1s 2.2s forwards linear;
+        animation: show-result-collapse-mode-amimation 0.1s 0.2s forwards linear;
     }
 
     &.has-animation {
