@@ -74,27 +74,27 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const { playResultAnimation, viewMode, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation("dragontiger");
     return (
-        // <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
-        //     <div className={Styles["result-container"]}>
-        //         {generateResult(result, viewMode)}
-        //         {showResultAfterAnimation && settlementResult && (
-        //             <div className={Styles["result-label"]}>
-        //                 {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
-        //             </div>
-        //         )}
-        //     </div>
-        // </div>
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${Styles["test"]}`}>
-                    {generateResult(result, viewMode)}
-                    {showResultAfterAnimation && settlementResult && (
-                        <div className={Styles["result-label"]}>
-                            {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
-                        </div>
-                    )}
-                </div>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+            <div className={Styles["result-container"]}>
+                {generateResult(result, viewMode)}
+                {showResultAfterAnimation && settlementResult && (
+                    <div className={Styles["result-label"]}>
+                        {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
+                    </div>
+                )}
             </div>
         </div>
+        // <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        //     <div className="overlay-mask-no-bg">
+        //         <div className={`${Styles["animation-container"]} ${Styles["test"]}`}>
+        //             {generateResult(result, viewMode)}
+        //             {showResultAfterAnimation && settlementResult && (
+        //                 <div className={Styles["result-label"]}>
+        //                     {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
+        //                 </div>
+        //             )}
+        //         </div>
+        //     </div>
+        // </div>
     );
 };
