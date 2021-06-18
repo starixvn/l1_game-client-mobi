@@ -10,7 +10,6 @@ $time-opening-bowl-animation: 1s;
 $time-bowl-hide-animation: 0.5s;
 
 .result-set {
-    @extend %result-no-animation;
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
