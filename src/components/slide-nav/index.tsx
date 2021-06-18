@@ -59,6 +59,13 @@ const SlideNav: React.FC<Props> = (props) => {
         };
     }, [wrapperRef]);
 
+    useEffect(() => {
+        isMobileOnly && document.body.classList.add("no-scroll");
+        return () => {
+            isMobileOnly && document.body.classList.remove("no-scroll");
+        };
+    }, []);
+
     return (
         <div ref={wrapperRef} className={`${Styles["navigation"]} ${collapsed ? Styles["collapsed"] : ""}`}>
             {isMobileOnly ? (
