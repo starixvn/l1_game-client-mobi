@@ -75,7 +75,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     const { playResultAnimation, gameSetting, showResultAfterAnimation } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : Styles["has-show-result"]}`}>
             {result &&
                 Object.values(result).map((value, index) => (
                     <div key={index} className={Styles["result-item"]}>

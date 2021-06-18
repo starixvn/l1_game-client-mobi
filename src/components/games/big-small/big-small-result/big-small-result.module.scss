@@ -181,4 +181,18 @@ $time-show-result-animation: 0.1s;
     .result-label.taixiu {
         animation-delay: 0.2s;
     }
+
+    &.has-show-result {
+        .result1 {
+            animation-delay: 0.2s;
+        }
+
+        .result2 {
+            animation-delay: 0.2s;
+        }
+
+        .result3 {
+            animation-delay: 0.2s;
+        }
+    }
 }
