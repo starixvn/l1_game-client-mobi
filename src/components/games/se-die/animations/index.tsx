@@ -1,5 +1,6 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
+import React from "react";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { ViewMode } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "../sedie";
@@ -45,7 +46,7 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
 };
 
 export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
-    const { playResultAnimation, showResultAfterAnimation } = useGameContext();
+    const { playResultAnimation } = useGameContext();
     const { t } = useTranslation("xocxoc");
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : Styles["has-show-result"]}`}>
@@ -60,7 +61,7 @@ export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: S
                     </div>
                 );
             })}
-            {showResultAfterAnimation && settlementResult && (
+            {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
             )}
         </div>

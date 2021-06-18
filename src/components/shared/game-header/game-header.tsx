@@ -85,7 +85,10 @@ export default function GameHeader() {
     }, []);
 
     const showCollapseResult = () => {
-        return viewMode == ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.Waiting);
+        return (
+            viewMode == ViewMode.collapse &&
+            (gameState === GameState.DisplayResult || gameState === GameState.Waiting || gameState == GameState.BeforeStartRound)
+        );
     };
 
     return (

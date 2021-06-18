@@ -1,9 +1,10 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Card from "../../../shared/card";
-import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import { ViewMode } from "../../../shared/game-base/type";
+import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
 export const CardsAnimation = ({ playAnimation = false }) => {
@@ -71,12 +72,12 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
-    const { playResultAnimation, viewMode, showResultAfterAnimation } = useGameContext();
+    const { playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation("dragontiger");
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
             <div className={Styles["result-container"]}>{generateResult(result, viewMode)}</div>
-            {showResultAfterAnimation && settlementResult && (
+            {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
                 </div>

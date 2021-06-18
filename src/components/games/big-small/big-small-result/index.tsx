@@ -72,7 +72,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     result,
     settlementResult,
 }) => {
-    const { playResultAnimation, gameSetting, showResultAfterAnimation } = useGameContext();
+    const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : Styles["has-show-result"]}`}>
@@ -86,7 +86,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                     </div>
                 ))}
 
-            {showResultAfterAnimation && result && (
+            {!playResultAnimation && result && (
                 <div className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : ""}`}>{`${countRedDot(result)} - ${
                     settlementResult.big ? t("big") : t("small")
                 }`}</div>
