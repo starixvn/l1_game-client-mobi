@@ -101,6 +101,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <BigSmallGuide />
             </AdvanceModal>
@@ -115,6 +116,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <BigSmallBetHistory />
             </AdvanceModal>

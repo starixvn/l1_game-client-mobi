@@ -87,6 +87,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <SeDieGuide />
             </AdvanceModal>
@@ -101,6 +102,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <SeDieBetHistory />
             </AdvanceModal>

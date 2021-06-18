@@ -13,9 +13,19 @@ type Props = {
     title: string;
     subTitle?: string;
     gameName?: string;
+    isAddScrollBody?: boolean;
 };
 
-const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal, isOpen, type = ModalType.Full, gameName }: Props) => {
+const AdvanceModal: React.FC<Props> = ({
+    title,
+    subTitle,
+    children,
+    onCloseModal,
+    isOpen,
+    type = ModalType.Full,
+    gameName,
+    isAddScrollBody = false,
+}: Props) => {
     const { t } = useTranslation("common");
     const ref = useRef<HTMLInputElement>(null);
 
@@ -23,9 +33,9 @@ const AdvanceModal: React.FC<Props> = ({ title, subTitle, children, onCloseModal
         ref.current.scrollIntoView({ block: "center" });
     }, [ref.current]);
     useEffect(() => {
-        isMobileOnly && document.body.classList.add("no-scroll");
+        isMobileOnly && isAddScrollBody && document.body.classList.add("no-scroll");
         return () => {
-            isMobileOnly && document.body.classList.remove("no-scroll");
+            isMobileOnly && isAddScrollBody && document.body.classList.remove("no-scroll");
         };
     }, []);
 

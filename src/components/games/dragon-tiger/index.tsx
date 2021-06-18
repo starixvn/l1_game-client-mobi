@@ -94,6 +94,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <DragonTigerGuide />
             </AdvanceModal>
@@ -108,6 +109,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 gameName={`(${gameName})`}
                 isOpen={true}
                 onCloseModal={() => this.closePopup()}
+                isAddScrollBody={true}
             >
                 <DragonTigerBetHistory />
             </AdvanceModal>
