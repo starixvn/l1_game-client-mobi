@@ -50,19 +50,29 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     const { t } = useTranslation("dragontiger");
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
-                    <div
-                        className={`${Styles["result-highlight"]} ${
-                            settlementResult &&
-                            (settlementResult.tie ? Styles["tie"] : settlementResult.dragon ? Styles["dragon"] : Styles["tiger"])
-                        }`}
-                    >
-                        {settlementResult && (settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragonWin") : t("tigerWin"))}
+        // <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        //     <div className="overlay-mask-no-bg">
+        //         <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
+        //             <div
+        //                 className={`${Styles["result-highlight"]} ${
+        //                     settlementResult &&
+        //                     (settlementResult.tie ? Styles["tie"] : settlementResult.dragon ? Styles["dragon"] : Styles["tiger"])
+        //                 }`}
+        //             >
+        //                 {settlementResult && (settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragonWin") : t("tigerWin"))}
+        //             </div>
+        //             {generateResult(result, viewMode)}
+        //         </div>
+        //     </div>
+        // </div>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+            <div className={Styles["result-container"]}>
+                {generateResult(result, viewMode)}
+                {settlementResult && (
+                    <div className={Styles["result-label"]}>
+                        {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}
                     </div>
-                    {generateResult(result, viewMode)}
-                </div>
+                )}
             </div>
         </div>
     );
