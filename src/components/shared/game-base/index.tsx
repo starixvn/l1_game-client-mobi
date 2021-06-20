@@ -56,7 +56,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
-    private unlockBetTimeout: NodeJS.Timeout;
+    private retryInterval: NodeJS.Timeout;
 
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
@@ -121,7 +121,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.interval && clearInterval(this.interval);
-        this.clearUnlockBetTimeout();
+        this.clearRetryInterval();
         this.socket && this.socket.disconnect();
     }
 
@@ -259,7 +259,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { id, playPlaceBetSound } = this.props;
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
-        this.clearUnlockBetTimeout();
+        this.clearRetryInterval();
         this.setState({ notice: null });
 
         if (endBet === -1) {
@@ -522,7 +522,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const roundHistoryClone = [...roundHistory];
 
         this.isProcessingBet = false;
-        this.clearUnlockBetTimeout();
+        this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
         roundHistoryClone.pop();
@@ -577,16 +577,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
-                this.unlockBetTimeout = setTimeout(() => {
-                    this.isProcessingBet = false;
-                }, 5 * 1000);
+                this.retryInterval = setInterval(() => {
+                    this.socket.emit("retry");
+                }, 3 * 1000);
                 this.socket.emit("bet", { betChoice, amount });
             }
         }
     }
 
-    clearUnlockBetTimeout() {
-        this.unlockBetTimeout && clearTimeout(this.unlockBetTimeout);
+    clearRetryInterval() {
+        this.retryInterval && clearInterval(this.retryInterval);
     }
 
     openPopup(popupType: PopupType) {
@@ -817,7 +817,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
-                this.clearUnlockBetTimeout();
+                this.clearRetryInterval();
             },
             renderResultCollapse: this.renderResultCollapse.bind(this),
         };
