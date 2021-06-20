@@ -6,7 +6,7 @@ import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
-import { gameVipIds } from "../../../common/constants";
+import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
@@ -34,8 +34,6 @@ import WaitingTimeAnimation from "../waiting-time-animation";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { LanguageLocaleMapper } from "../../../common/constants";
-
 import {
     GameBaseProps,
     GameBaseState,
@@ -43,8 +41,8 @@ import {
     PopupType,
     RebetStorageModel,
     UserBetChipStorageModal,
-    WinStreakCollectorModel,
     ViewMode,
+    WinStreakCollectorModel,
 } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
@@ -58,6 +56,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
+    private unlockBetTimeout: NodeJS.Timeout;
+
     protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -121,10 +121,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.interval && clearInterval(this.interval);
+        this.clearUnlockBetTimeout();
         this.socket && this.socket.disconnect();
     }
 
     onStart() {
+        this.isProcessingBet = false;
         const { socketInfo } = this.props;
         const { session } = this.context;
         const { proxy } = appSettings;
@@ -257,6 +259,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { id, playPlaceBetSound } = this.props;
         const { displayPopup, roundId, ownBets } = this.state;
         this.isProcessingBet = false;
+        this.clearUnlockBetTimeout();
         this.setState({ notice: null });
 
         if (endBet === -1) {
@@ -519,6 +522,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const roundHistoryClone = [...roundHistory];
 
         this.isProcessingBet = false;
+        this.clearUnlockBetTimeout();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
         roundHistoryClone.pop();
@@ -573,9 +577,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
+                this.unlockBetTimeout = setTimeout(() => {
+                    this.isProcessingBet = false;
+                }, 5 * 1000);
                 this.socket.emit("bet", { betChoice, amount });
             }
         }
+    }
+
+    clearUnlockBetTimeout() {
+        this.unlockBetTimeout && clearTimeout(this.unlockBetTimeout);
     }
 
     openPopup(popupType: PopupType) {
@@ -806,6 +817,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playAcceptedBetAnimation: this.playAcceptedBetAnimation,
             finishProcessingBet: () => {
                 this.isProcessingBet = false;
+                this.clearUnlockBetTimeout();
             },
             renderResultCollapse: this.renderResultCollapse.bind(this),
         };
