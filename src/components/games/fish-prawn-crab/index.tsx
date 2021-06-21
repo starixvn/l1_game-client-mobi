@@ -6,15 +6,14 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import FishPrawnCrabGuide from "../../game-guide/fish-prawn-crab";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, ViewMode } from "../../shared/game-base/type";
-import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
 import OddComponent from "./odd";
-import GetElementRound, { GetElementRoundOfCompactMode } from "./scoreboard-round-history";
+import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
@@ -64,11 +63,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderRoundHistory() {
-        return this.state.viewMode === ViewMode.simple ? (
-            <ScoreboardRoundHistory>{this.renderBoard()}</ScoreboardRoundHistory>
-        ) : (
-            <OddComponent />
-        );
+        return <OddComponent />;
     }
 
     renderStatistic() {
@@ -91,7 +86,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             <ScoreboardBasic
                 roundHistory={roundHistory.slice(0, 30)}
                 gameState={gameState}
-                getElementRound={this.state.viewMode === ViewMode.simple ? GetElementRoundOfCompactMode : GetElementRound}
+                getElementRound={GetElementRound}
             ></ScoreboardBasic>
         );
     }

@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
-import { SettlementResult, Result } from "./../fish-prawn-crab";
+import { GameState } from "../../../shared/game-base/type";
+import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
 const Choices = {
@@ -61,7 +61,7 @@ const getClassPrevRound = (gameState: GameState) => {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
-    const { gameConfigs, viewMode, gameSetting } = useGameContext();
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const classCount = renderHighLightNumber(choice, countsAppearDice);
@@ -98,11 +98,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 
     return (
         <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
-            <div
-                className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]} ${
-                    viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
-                }`}
-            ></div>
+            <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]}`}></div>
             {isShowCountOfDice && classCount !== "" && (
                 <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
             )}

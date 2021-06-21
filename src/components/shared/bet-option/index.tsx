@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
+
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { GameState, ViewMode } from "../game-base/type";
+import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
@@ -23,7 +24,7 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, viewMode, displayChips, showResultAfterAnimation } = useGameContext();
+    const { totalBets, ownBets, gameSetting, displayChips, showResultAfterAnimation } = useGameContext();
     const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
@@ -70,7 +71,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
     };
 
     return (
-        <div ref={wrapperRefBetOption} className={`${Styles.container} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
+        <div ref={wrapperRefBetOption} className={Styles.container}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
                     isHighlight && showResultAfterAnimation && Styles["winning-effect"]

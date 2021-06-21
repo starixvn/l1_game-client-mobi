@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { ViewMode } from "../../game-base/type";
+import React, { useEffect, useRef, useState } from "react";
+
 import Styles from "./round-history.module.scss";
 
 type Props = {
@@ -8,7 +7,6 @@ type Props = {
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
-    const { viewMode } = useGameContext();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
     const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
@@ -81,11 +79,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     }, []);
 
     return (
-        <div
-            ref={wrapperRef}
-            className={viewMode === ViewMode.simple ? Styles["board-inline"] : Styles["board"]}
-            onTouchEnd={handleTouchEnd}
-        >
+        <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
             {props.children}
         </div>
     );

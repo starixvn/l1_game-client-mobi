@@ -15,12 +15,14 @@
 }
 
 .dropdown-menu {
-    top: -1rem !important;
+    top: 5rem !important;
+    left: -13.4rem !important;
     padding: 0.5rem 1rem;
     background: var(--dropdown-background);
     border: 1px solid var(--dropdown-border);
     box-shadow: var(--dropdown-shadow);
     border-radius: 0.5rem;
+    transform: none !important;
 }
 
 .dropdown-item {

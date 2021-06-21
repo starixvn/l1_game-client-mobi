@@ -42,7 +42,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
-        <div className={`${Styles["layout-sedie"]} ${viewMode === ViewMode.simple ? "simple-mode" : ""}`}>
+        <div className={`${Styles["layout-sedie"]}`}>
             {viewMode === ViewMode.full &&
                 Object.keys(ChoiceIconMapper).map((choice) => (
                     <div key={choice} className={Styles[`bet-choice-${choice}`]}>

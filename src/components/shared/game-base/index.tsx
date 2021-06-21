@@ -78,7 +78,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
-        viewMode: ViewMode.full,
+        viewMode: this.props.viewMode,
         showWaitingTime: false,
         acceptedBetQueue: {},
         showWinningBet: false,
@@ -828,12 +828,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
-                                <div
-                                    ref={this.gameContainerRef}
-                                    className={`${Styles["bet-options"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""} ${
-                                        Styles[this.props.gameName]
-                                    }`}
-                                >
+                                <div ref={this.gameContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
                                     {this.renderBetOptions()}
                                 </div>
 

@@ -96,6 +96,7 @@
 
     .round {
         color: var(--game-header-round-id-color);
+        font-family: var(--font-number);
         font-size: 1.4rem;
         width: auto;
         overflow: hidden;
@@ -197,21 +198,6 @@
             &:before {
                 transform: scale(1);
                 opacity: 1;
-            }
-        }
-    }
-
-    .display-mode {
-        position: relative;
-        padding-left: 2.5rem;
-
-        .icon {
-            position: absolute;
-            right: 1rem;
-            font-size: 1.6rem;
-
-            &:before {
-                color: #03b40a;
             }
         }
     }

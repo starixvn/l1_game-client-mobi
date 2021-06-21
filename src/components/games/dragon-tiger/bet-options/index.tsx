@@ -25,11 +25,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div
-            className={`bet-options-container ${Styles["layout-dragon-tiger"]} ${
-                viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
-            }`}
-        >
+        <div className={`bet-options-container ${Styles["layout-dragon-tiger"]}`}>
             <BetOption
                 choice={Choices.dragon}
                 odd={odds[Choices.dragon]}
