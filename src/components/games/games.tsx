@@ -55,6 +55,7 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
     const getGameComponentById = (gameId: number, index: number) => {
         const { gameSettings } = appSettings;
         const viewMode = isMobileOnly && index !== 0 ? ViewMode.collapse : ViewMode.full;
+        console.log(viewMode);
         const gameProps = {
             ...gameSettings[gameId],
             viewMode,

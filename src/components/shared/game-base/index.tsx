@@ -594,6 +594,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     updateViewMode(mode: ViewMode) {
+        console.log("updateViewMode");
         this.setState({ viewMode: mode });
     }
 
