@@ -498,16 +498,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     }
 
-    handleRoundHistory({ roundHistory }) {
+    handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
-
-        const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
-        const roundId = ![GameState.InRound, GameState.LockingBet].includes(gameState) ? lastRoundId : lastRoundId + 1;
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
             roundHistory,
-            roundId,
+            roundId: ![GameState.InRound, GameState.LockingBet].includes(gameState) ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
             displayChips,
@@ -594,7 +591,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     updateViewMode(mode: ViewMode) {
-        console.log("updateViewMode");
         this.setState({ viewMode: mode });
     }
 
