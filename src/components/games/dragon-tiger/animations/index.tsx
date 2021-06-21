@@ -8,8 +8,6 @@ import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
 export const CardsAnimation = ({ playAnimation = false }) => {
-    const { viewMode } = useGameContext();
-
     return (
         <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
             <div className={`${Styles["animation-container"]}`}>

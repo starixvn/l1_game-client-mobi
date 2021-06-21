@@ -24,7 +24,7 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
 };
 
 const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, viewMode, displayChips, showResultAfterAnimation } = useGameContext();
+    const { totalBets, ownBets, gameSetting, displayChips, showResultAfterAnimation } = useGameContext();
     const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();

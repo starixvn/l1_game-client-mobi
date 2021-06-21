@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
 
-import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
@@ -24,7 +23,6 @@ const BaseDialog: React.FC<Props> = ({
     betContainerPosition,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const { viewMode } = useGameContext();
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
 
     const getCustomStyle = () => {

@@ -1,14 +1,12 @@
 import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect } from "react";
 
-import { useGameContext } from "../../../contexts/game-context/game-context";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./error-message.module.scss";
 import { Props } from "./type";
 
 export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
-    const { viewMode } = useGameContext();
     useEffect(() => {
         const timeOut = setTimeout(() => closeModal(), 3000);
 

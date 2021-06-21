@@ -6,8 +6,6 @@ import { Result, SettlementResult } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
 const Plate: React.FC = ({ children }) => {
-    const { viewMode } = useGameContext();
-
     return (
         <div className="overlay-mask-no-bg">
             <div className={`${Styles["animation-container"]}`}>

@@ -24,7 +24,7 @@ const generateResult = (result: Result) => {
     );
 };
 const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { viewMode, playResultAnimation } = useGameContext();
+    const { playResultAnimation } = useGameContext();
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>

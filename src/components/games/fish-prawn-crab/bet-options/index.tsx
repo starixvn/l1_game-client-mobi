@@ -61,7 +61,7 @@ const getClassPrevRound = (gameState: GameState) => {
 };
 
 const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
-    const { gameConfigs, viewMode, gameSetting } = useGameContext();
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const classCount = renderHighLightNumber(choice, countsAppearDice);

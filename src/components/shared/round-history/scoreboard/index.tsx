@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./round-history.module.scss";
 
 type Props = {
@@ -8,7 +7,6 @@ type Props = {
 };
 
 const ScoreboardRoundHistory = (props: Props) => {
-    const { viewMode } = useGameContext();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
     const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);

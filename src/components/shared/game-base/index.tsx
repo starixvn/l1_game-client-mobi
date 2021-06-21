@@ -78,7 +78,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
-        viewMode: ViewMode.full,
+        viewMode: this.props.viewMode,
         showWaitingTime: false,
         acceptedBetQueue: {},
         showWinningBet: false,
