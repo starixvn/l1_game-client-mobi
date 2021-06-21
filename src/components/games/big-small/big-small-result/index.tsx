@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { ViewMode } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
@@ -55,11 +54,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
             <div className="overlay-mask-no-bg">
-                <div
-                    className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
-                        viewMode === ViewMode.simple ? Styles["simple-mode"] : ""
-                    }`}
-                >
+                <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                     {<div className={Styles["result-plate"]}></div>}
                     {generateResult()}
                 </div>

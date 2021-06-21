@@ -157,6 +157,5 @@ export interface WinStreakCollectorModel {
 }
 export enum ViewMode {
     full,
-    simple,
     collapse,
 }

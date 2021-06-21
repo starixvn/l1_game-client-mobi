@@ -2,7 +2,6 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { ViewMode } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
@@ -11,7 +10,7 @@ const Plate: React.FC = ({ children }) => {
 
     return (
         <div className="overlay-mask-no-bg">
-            <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
+            <div className={`${Styles["animation-container"]}`}>
                 <div className={Styles["result-sedie-set"]}>
                     <div className={Styles["result-sedie-plate"]}></div>
                     {children}

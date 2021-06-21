@@ -1,6 +1,7 @@
 import React from "react";
-import ChoiceIcon, { ChoiceIconCompactMode } from "../choice-icon";
-import IconColumn, { IconColumnCompactMode } from "../../../shared/round-history/icon-column";
+
+import IconColumn from "../../../shared/round-history/icon-column";
+import ChoiceIcon from "../choice-icon";
 
 const GetElementRound = (result: any, roundId: number) => {
     const itemValues = Object.values(result);
@@ -10,17 +11,6 @@ const GetElementRound = (result: any, roundId: number) => {
                 return <ChoiceIcon key={`${roundId}_${index}`} type={value}></ChoiceIcon>;
             })}
         </IconColumn>
-    );
-};
-
-export const GetElementRoundOfCompactMode = (result: any, roundId: number) => {
-    const itemValues = Object.values(result);
-    return (
-        <IconColumnCompactMode key={roundId}>
-            {itemValues.map((value: number, index) => {
-                return <ChoiceIconCompactMode key={`${roundId}_${index}`} type={value}></ChoiceIconCompactMode>;
-            })}
-        </IconColumnCompactMode>
     );
 };
 

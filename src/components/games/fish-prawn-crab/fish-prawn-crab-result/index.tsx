@@ -1,7 +1,6 @@
 import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { ViewMode } from "../../../shared/game-base/type";
 import { Result } from "./../fish-prawn-crab";
 import Styles from "./fish-prawn-crab-result.module.scss";
 
@@ -30,7 +29,7 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${viewMode === ViewMode.simple ? Styles["simple-mode"] : ""}`}>
+                <div className={`${Styles["animation-container"]}`}>
                     <div className={`${Styles["result-set"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                         <div className={Styles["plate"]}></div>
                         <div className={Styles["result-container"]}>{generateResult(result)}</div>

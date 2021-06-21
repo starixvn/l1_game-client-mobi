@@ -6,7 +6,6 @@ import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettings } from "../bet-settings";
-import { DisplayModeHint } from "../display-mode-hint";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -16,7 +15,6 @@ import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
-const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 type Props = {
     quickBetSetting?: boolean;
     enabledWinningStreakNotification: boolean;
@@ -28,9 +26,7 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [betValue, setBetValue] = useState<number>(1);
     const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
-    const [isShowDisplayModeHint, setIsShowDisplayModeHint] = useState<boolean>(false);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
-    const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
     const winningStreakRef = useRef(null);
 
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
@@ -53,30 +49,15 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
 
     const renderListGames = () => {
         const orderedGames = favoriteGames.concat(unfavoriteGames);
-
-        if (!gameIdModeViewOnStorage?.length) {
-            const viewMode = orderedGames.map((gameId, index) => {
-                if (index === 0) {
-                    return { [gameId]: ViewMode.full };
-                }
-
-                return { [gameId]: ViewMode.collapse };
-            });
-
-            storeLocalStorageItem(localStorageKeys.modeViewIds, viewMode);
-        }
-
-        return orderedGames.map((gameId) => getGameComponentById(gameId));
+        return orderedGames.map((gameId, index) => getGameComponentById(gameId, index));
     };
 
-    const handleCloseHint = (e: React.MouseEvent) => {
-        setIsShowDisplayModeHint(false);
-    };
-
-    const getGameComponentById = (gameId: number) => {
+    const getGameComponentById = (gameId: number, index: number) => {
         const { gameSettings } = appSettings;
+        const viewMode = isMobileOnly && index !== 0 ? ViewMode.collapse : ViewMode.full;
         const gameProps = {
             ...gameSettings[gameId],
+            viewMode,
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
                 enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
@@ -104,28 +85,12 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
         updateEnabledQuickBet: setEnabledQuickBet,
     };
 
-    const showDisplayModeHint = () => {
-        const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
-        !showDisplayModeHintStorage && setIsShowDisplayModeHint(true);
-    };
-
     useEffect(() => {
         setEnabledQuickBet(quickBetSetting);
     }, [quickBetSetting]);
 
-    useEffect(() => {
-        const showDisplayModeHintStorage = getLocalStorageItem<boolean>(displayModeHintStorageKey);
-
-        !showDisplayModeHintStorage && document.addEventListener("scroll", showDisplayModeHint);
-
-        return () => {
-            document.removeEventListener("scroll", showDisplayModeHint);
-        };
-    }, []);
-
     return (
         <div className="game-container game-wrapper">
-            {isShowDisplayModeHint && isMobileOnly && <DisplayModeHint onCloseHint={handleCloseHint} />}
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>

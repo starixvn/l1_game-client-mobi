@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -13,21 +13,8 @@ import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 
-const displayModeHintStorageKey = localStorageKeys.displayModeHint;
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
-    let mode = ViewMode.full;
-    switch (viewMode) {
-        case ViewMode.full:
-            mode = ViewMode.simple;
-            break;
-        case ViewMode.simple:
-            mode = ViewMode.collapse;
-            break;
-        default:
-            break;
-    }
-
-    return mode;
+    return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
 };
 
 export default function GameHeader() {
@@ -36,8 +23,6 @@ export default function GameHeader() {
     const { updateViewMode, renderResultCollapse } = useGameActionContext();
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
-    const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds);
-    const [gameIdModeView, updateGameIdModeView] = useState<object[]>(gameIdModeViewOnStorage ?? []);
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     const favoriteClickHandle = (e: React.MouseEvent) => {
@@ -46,43 +31,13 @@ export default function GameHeader() {
         updateFavorite(!isFavorite);
     };
 
-    const handleStorageViewModeIds = (mode: ViewMode) => {
-        const gameIdModeViewOnStorage = getLocalStorageItem<object[]>(localStorageKeys.modeViewIds) ?? [];
-        const newGameIdCompactMode = [...gameIdModeViewOnStorage];
-
-        if (newGameIdCompactMode.some((modeData) => +Object.keys(modeData)[0] === gameId) && newGameIdCompactMode.length > 0) {
-            newGameIdCompactMode.forEach((modeData) => {
-                if (modeData.hasOwnProperty(gameId)) {
-                    modeData[gameId] = mode;
-                }
-            });
-        } else {
-            newGameIdCompactMode.push({ [gameId]: mode });
-        }
-
-        updateGameIdModeView(newGameIdCompactMode);
-        storeLocalStorageItem(localStorageKeys.modeViewIds, newGameIdCompactMode);
-    };
-
     const onHeaderClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isMobileOnly) {
             const mode = getViewModeWhenClick(viewMode);
             updateViewMode(mode);
-            handleStorageViewModeIds(mode);
-            storeLocalStorageItem(displayModeHintStorageKey, true);
         }
     };
-
-    useEffect(() => {
-        if (isMobileOnly) {
-            gameIdModeView.forEach((modeData, index) => {
-                if (modeData.hasOwnProperty(gameId)) {
-                    updateViewMode(modeData[gameId]);
-                }
-            });
-        }
-    }, []);
 
     const showCollapseResult = () => {
         return (
@@ -112,7 +67,7 @@ export default function GameHeader() {
             </div>
             {!showCollapseResult() && <CountdownTimer key={gameState} />}
 
-            <HeaderRight handleStorageViewModeIds={handleStorageViewModeIds} displayMenu={!showCollapseResult()} />
+            <HeaderRight displayMenu={!showCollapseResult()} />
             {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
         </div>
     );
@@ -123,10 +78,9 @@ enum ClassType {
     dropdownItem,
 }
 
-const HeaderRight = ({ handleStorageViewModeIds, displayMenu }) => {
+const HeaderRight = ({ displayMenu }) => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
-    const { updateViewMode } = useGameActionContext();
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
@@ -142,15 +96,6 @@ const HeaderRight = ({ handleStorageViewModeIds, displayMenu }) => {
     const rebetClickHandle = (e: React.MouseEvent) => {
         e.stopPropagation();
         gameActions.openPopup(PopupType.Rebet);
-    };
-
-    const onDropDownItemClick = (mode: ViewMode) => {
-        if (viewMode !== mode) {
-            updateViewMode(mode);
-            handleStorageViewModeIds(mode);
-        }
-
-        setDropdownOpen(!dropdownOpen);
     };
 
     useEffect(() => {
@@ -184,33 +129,6 @@ const HeaderRight = ({ handleStorageViewModeIds, displayMenu }) => {
                         >
                             {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
                         </DropdownItem>
-                        {isMobileOnly && (
-                            <div onClick={(e) => e.stopPropagation()}>
-                                <div className="dropdown-item-none-event">{t(CommonResourceKeys.DISPLAY_MODE)}</div>
-                                <div
-                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                    onClick={() => onDropDownItemClick(ViewMode.full)}
-                                >
-                                    {t(CommonResourceKeys.DISPLAY_MODE_FULL)}
-                                    {viewMode === ViewMode.full && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                                </div>
-                                <div
-                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                    onClick={() => onDropDownItemClick(ViewMode.simple)}
-                                >
-                                    {t(CommonResourceKeys.DISPLAY_MODE_SIMPLE)}
-                                    {viewMode === ViewMode.simple && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                                </div>
-                                <div
-                                    className={`dropdown-item ${classList[ClassType.dropdownItem]} ${Styles["display-mode"]}`}
-                                    onClick={() => onDropDownItemClick(ViewMode.collapse)}
-                                >
-                                    {t(CommonResourceKeys.DISPLAY_MODE_COLLAPSE)}
-                                    {viewMode === ViewMode.collapse && <span className={`icon-success ${Styles["icon"]}`}></span>}
-                                </div>
-                            </div>
-                        )}
-
                         <DropdownItem
                             className={Styles[classList[ClassType.dropdownItem]]}
                             onClick={() => gameActions.openPopup(PopupType.Guide)}
