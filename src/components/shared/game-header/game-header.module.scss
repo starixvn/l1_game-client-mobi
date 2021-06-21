@@ -200,21 +200,6 @@
             }
         }
     }
-
-    .display-mode {
-        position: relative;
-        padding-left: 2.5rem;
-
-        .icon {
-            position: absolute;
-            right: 1rem;
-            font-size: 1.6rem;
-
-            &:before {
-                color: #03b40a;
-            }
-        }
-    }
 }
 
 .header-result {
