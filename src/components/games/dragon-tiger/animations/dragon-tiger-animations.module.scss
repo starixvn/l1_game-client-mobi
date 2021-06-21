@@ -19,11 +19,6 @@ $time-result-highlight-animation: 0.8s;
     justify-content: center;
     transform: scale(0.52);
     pointer-events: none;
-
-    &.simple-mode {
-        transform: scale(0.4);
-        top: -1.2rem;
-    }
 }
 
 .card-back {
@@ -84,16 +79,6 @@ $time-result-highlight-animation: 0.8s;
         top: 8.5rem;
         transform: scale(1);
         transition: transform 0.7s;
-
-        &.simple-mode {
-            top: 0;
-            transform: scale(0.6);
-
-            .result-highlight {
-                top: -3.8rem;
-                transform: scale(1.2);
-            }
-        }
     }
 
     .card-back {
@@ -148,14 +133,6 @@ $time-result-highlight-animation: 0.8s;
                 animation-fill-mode: forwards;
                 animation-timing-function: linear;
                 animation-iteration-count: infinite;
-            }
-
-            &.simple-mode {
-                animation-name: zoon-in-animation-simple-mode;
-
-                .result-highlight {
-                    animation-name: show-result-highlight-animation-simple-mode;
-                }
             }
         }
 
@@ -222,20 +199,6 @@ $time-result-highlight-animation: 0.8s;
 
     80% {
         transform: scale(1);
-    }
-}
-
-@keyframes zoon-in-animation-simple-mode {
-    0% {
-        transform: scale(0.4);
-    }
-
-    50% {
-        transform: scale(0.5);
-    }
-
-    80% {
-        transform: scale(0.6);
     }
 }
 
@@ -312,36 +275,6 @@ $time-result-highlight-animation: 0.8s;
 
     100% {
         transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes show-result-highlight-animation-simple-mode {
-    0% {
-        opacity: 1;
-        transform: scale(1.2);
-    }
-
-    20% {
-        transform: scale(1.25);
-    }
-
-    35% {
-        transform: scale(1.2);
-    }
-
-    50%,
-    70% {
-        transform: scale(1.3);
-    }
-
-    60%,
-    80% {
-        transform: scale(1.2);
-    }
-
-    100% {
-        transform: scale(1.2);
         opacity: 1;
     }
 }

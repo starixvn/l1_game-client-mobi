@@ -137,12 +137,6 @@ $time-hide-bowl-animation: 1s;
     }
 }
 
-.simple-mode {
-    .result-sedie-set {
-        transform: scale(0.8);
-    }
-}
-
 @keyframes hide-shake-plate-animation {
     80% {
         opacity: 1;
