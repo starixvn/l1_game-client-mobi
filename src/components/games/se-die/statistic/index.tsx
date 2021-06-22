@@ -31,7 +31,7 @@ const SeDiceStatistic = (props: Props) => {
     return (
         <>
             {Object.keys(statisticResult).map((choice) => (
-                <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
+                <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}%`}>
                     {MainChoice.includes(choice) ? (
                         <span className={`${Styles.title} ${choice === Choices.odd ? Styles["odd"] : Styles["even"]}`}>{t(choice)}</span>
                     ) : (
