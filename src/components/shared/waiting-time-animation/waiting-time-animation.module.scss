@@ -24,9 +24,8 @@
     left: calc(50% - 6rem);
     bottom: 2.4rem;
     background: var(--waiting-time-background);
-    font-weight: 500;
+    font: 1.8rem/3.6rem var(--font-number);
     color: var(--waiting-time-color);
-    font-size: 1.8rem;
     z-index: var(--waiting-time-index);
 
     &.simple-mode {
