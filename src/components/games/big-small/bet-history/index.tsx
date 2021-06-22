@@ -1,14 +1,16 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import BetHistoryContainer from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
 import { BetLogs } from "./bet-history";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result && bet.settlementResult) {
         return (
             <div className="d-flex justify-content-center">
-                {bet.result.dice1}-{bet.result.dice2}-{bet.result.dice3} {Object.values(bet.result).reduce((a, b) => a + b)}
+                <FormatNumber>
+                    {bet.result.dice1}-{bet.result.dice2}-{bet.result.dice3} {Object.values(bet.result).reduce((a, b) => a + b)}
+                </FormatNumber>
             </div>
         );
     }
@@ -21,8 +23,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
         return (
             <>
                 <div className={bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}>
-                    {t(bet.choice)}
-                    {`@${odds[bet.choice]}`}
+                    {t(bet.choice)}@<FormatNumber>{`${odds[bet.choice]}`}</FormatNumber>
                 </div>
             </>
         );

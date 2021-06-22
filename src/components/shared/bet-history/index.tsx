@@ -21,6 +21,10 @@ enum OrderRenderCell {
     refundOrStake,
     win,
 }
+
+export const FormatNumber: React.FC = ({ children }) => {
+    return <span className="font-number">{children}</span>;
+};
 const renderStake = (bet: BetLogs) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
@@ -68,8 +72,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(name)}
-                                    {odds[name] ? `@${odds[name]}` : ""}
+                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
                                 </div>
                             );
                         }
@@ -98,18 +101,20 @@ const checkCondition = (
     const { time, phien, betwin } = rowData;
     const odds = gameConfigs.odds;
     const isHighligh = betwin > 0 ? true : false;
+    const fontNumber = "font-number";
     switch (columnIndex) {
         case OrderRenderCell.roundTime:
             return renderDataOnCell(
-                <>
+                <FormatNumber>
                     <div className="time">{time && <Moment format="HH:mm:ss">{time}</Moment>}</div>
                     <div className="date">{time && <Moment format="DD/MM/YY">{time}</Moment>}</div>
-                </>,
+                </FormatNumber>,
+
                 isHighligh
             );
 
         case OrderRenderCell.round:
-            return renderDataOnCell(phien, isHighligh);
+            return renderDataOnCell(<FormatNumber>{phien}</FormatNumber>, isHighligh);
 
         case OrderRenderCell.result:
             return renderDataOnCell(renderResult(rowData), isHighligh);
@@ -119,11 +124,11 @@ const checkCondition = (
 
         case OrderRenderCell.refundOrStake:
             return renderDataOnCell(
-                <div className={Styles["stake"]}>{isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}</div>,
+                <div className={`${Styles["stake"]} ${fontNumber}`}>{isRefund ? renderStakeRefund(rowData) : renderStake(rowData)}</div>,
                 isHighligh
             );
         default:
-            const classBetWin = `font-weight-medium ${Styles["bet-win"]}`;
+            const classBetWin = `font-weight-medium ${Styles["bet-win"]} ${fontNumber}`;
             return renderDataOnCell(<div className={classBetWin}> {betwin && numberWithCommas(betwin)}</div>, isHighligh);
     }
 };

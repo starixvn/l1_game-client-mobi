@@ -1,5 +1,5 @@
 import React from "react";
-import BetHistoryContainer from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
 import { useTranslation } from "next-i18next";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../dragon-tiger";
@@ -30,8 +30,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(name)}
-                                    {odds[name] ? `@${odds[name]}` : ""}
+                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
                                 </div>
                             );
                         }
