@@ -13,7 +13,8 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
             <span className="tooltip-round">#{roundId}</span>
             <div>
                 <span className="tooltip-title">
-                    <span className="tooltip-result">{settlementResult.big ? t("big") : t("small")}</span>({ResultValue.join("-")})
+                    <span className="tooltip-result">{settlementResult.big ? t("big") : t("small")}</span>(
+                    <span className="tooltip-number">{ResultValue.join("-")}</span>)
                 </span>
             </div>
         </>
