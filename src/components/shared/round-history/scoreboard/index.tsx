@@ -75,6 +75,8 @@ const ScoreboardRoundHistory = (props: Props) => {
     useEffect(() => {
         return () => {
             wrapperRef.current = null;
+            setScrollLeftWidth(0);
+            setIsScrollEndRight(true);
         };
     }, []);
 

@@ -25,8 +25,9 @@ const roundNext = (col: number, row: number) => {
 const drawDragonTailHistory = <R, S>(
     roundHistory: Round<R, S>[],
     isShowBlink: boolean,
-    getElementRound: (result: any, col: number, row: number, roundId: number) => void,
-    checkCondition?: (settlementResult: any) => void
+    getElementRound: (result: any, col: number, row: number, roundId: number, translate?: Function) => void,
+    checkCondition?: (settlementResult: any) => void,
+    translate?: Function
 ) => {
     let col = 1,
         row = 1;
@@ -59,7 +60,7 @@ const drawDragonTailHistory = <R, S>(
         }
         previousResult = value;
 
-        return getElementRound(round.result, col, row, round.roundId);
+        return getElementRound(round.result, col, row, round.roundId, translate);
     });
 
     isShowBlink && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
@@ -92,7 +93,7 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     }
 
     const renderRoundHistory = <R, S>(roundHistory: Round<R, S>[]) => {
-        return drawDragonTailHistory(roundHistory, isShowBlink, getElementRound, checkCondition);
+        return drawDragonTailHistory(roundHistory, isShowBlink, getElementRound, checkCondition, props.translate);
     };
 
     useEffect(() => {
