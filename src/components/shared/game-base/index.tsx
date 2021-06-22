@@ -1,6 +1,5 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -522,7 +521,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
-        roundHistoryClone.pop();
+        roundHistoryClone.length > 100 && roundHistoryClone.pop();
 
         this.setState({
             playResultAnimation: true,
@@ -851,15 +850,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 ))}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} d-flex`}>
-                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
+                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
                             </div>
                             {viewMode === ViewMode.full && (
                                 <>
                                     <div className={`${Styles["statistic"]} d-flex`}>
-                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
                                     </div>
                                     <ScoreboardRoundHistory>
-                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
+                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <></>}
                                     </ScoreboardRoundHistory>
                                 </>
                             )}

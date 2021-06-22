@@ -63,12 +63,12 @@ const ScoreboardRoundHistory = (props: Props) => {
     }, [scrollLeftWidth]);
 
     useEffect(() => {
-        if (isScrollEndRight) {
+        if (isScrollEndRight && wrapperRef?.current?.children[0]) {
             wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
         }
 
         if (wrapperRef.current) {
-            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft));
+            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft));
         }
     });
 
