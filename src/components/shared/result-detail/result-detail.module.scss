@@ -9,7 +9,7 @@
     padding: 0 0.5rem;
     background: linear-gradient(180deg, #ffffff 0%, #ffe9c3 3.96%, #ffd693 100%);
     border-radius: 2rem;
-    animation: show-result-detail-animation 0.3s ease-in forwards;
+    animation: show-result-detail-animation 0.3s ease-out forwards;
     opacity: 0;
     z-index: var(--result-animation-index);
 
@@ -40,6 +40,16 @@
 
         to {
             opacity: 1;
+        }
+    }
+
+    @keyframes hide-result-detail-animation {
+        from {
+            opacity: 1;
+        }
+
+        to {
+            opacity: 0;
         }
     }
 }
