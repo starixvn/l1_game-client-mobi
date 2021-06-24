@@ -1,35 +1,45 @@
-@import "../../../assets/components/mini-notice";
+.result-detail-container {
+    position: absolute;
+    left: calc(50% - 10.5rem);
+    top: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 21rem;
+    padding: 0 0.5rem;
+    background: linear-gradient(180deg, #ffffff 0%, #ffe9c3 3.96%, #ffd693 100%);
+    border-radius: 2rem;
+    animation: show-result-detail-animation 0.3s 2.1s ease-in forwards;
+    opacity: 0;
+    z-index: var(--result-animation-index);
 
-[data-theme="light"] .waiting-time {
-    --waiting-time-background: linear-gradient(90deg, rgba(83, 91, 114, 0) 0%, #535b72 50%, rgba(83, 91, 114, 0) 100%);
-    --waiting-time-color: #fff;
-}
+    .line {
+        height: 0.2rem;
+        width: 100%;
+        background: linear-gradient(270deg, #ffdea8 0%, #ffbb4e 50.53%, #ffdfab 100%);
+    }
 
-[data-theme="dark"] .waiting-time {
-    --waiting-time-background: linear-gradient(
-        90deg,
-        rgba(83, 91, 114, 0) 0%,
-        rgba(79, 112, 143, 0.03125) 0.01%,
-        #4f708f 50%,
-        rgba(79, 112, 143, 0) 100%
-    );
-    --waiting-time-color: #fff;
-}
+    .result-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
 
-.waiting-time {
-    @extend %notice;
-    height: 3.6rem;
-    line-height: 3.6rem;
-    width: 12rem;
-    left: calc(50% - 6rem);
-    bottom: 2.4rem;
-    background: var(--waiting-time-background);
-    font: 1.8rem/3.6rem var(--font-number);
-    color: var(--waiting-time-color);
-    z-index: var(--waiting-time-index);
+    .settlement-info {
+        display: flex;
+        width: 100%;
+        padding: 1.2rem 2rem;
+    }
 
-    &.simple-mode {
-        min-height: 2.6rem;
-        bottom: -2.5rem;
+    @keyframes show-result-detail-animation {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 }

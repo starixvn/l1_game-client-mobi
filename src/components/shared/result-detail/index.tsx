@@ -6,6 +6,7 @@ const ResultDetail: React.FC<{ renderResultInfo: Function; renderSettlementInfo:
     return (
         <div className={Styles["result-detail-container"]}>
             <div className={Styles["result-info"]}>{props.renderResultInfo()}</div>
+            <div className={Styles["line"]}></div>
             <div className={Styles["settlement-info"]}>{props.renderSettlementInfo()}</div>
         </div>
     );

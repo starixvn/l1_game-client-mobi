@@ -126,11 +126,12 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderResultInfo() {
         const { result } = this.state;
+        // const result = { dice1: 1, dice2: 1, dice3: 1 };
 
         return (
-            <div>
+            <div className={Styles["result-info"]}>
                 {Object.values(result).map((value, index) => (
-                    <div key={index} className={Styles[`result-${index + 1}`]}>
+                    <div key={index} className={Styles["dice"]}>
                         <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
                     </div>
                 ))}
@@ -141,12 +142,18 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;
+        // const result = { dice1: 1, dice2: 1, dice3: 1 };
+        // const settlementResult = { big: true, small: false };
 
         const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
         const winingOption = settlementResult.big ? "big" : "small";
         const winingOptionTranslateKey = `${gameName.toLowerCase()}:${winingOption}`;
 
-        return <div>{`${totalDiceValue} - ${t(winingOptionTranslateKey)}`}</div>;
+        return (
+            <div
+                className={`${settlementResult.big ? Styles["settlement-info-blue"] : Styles["settlement-info-red"]}`}
+            >{`${totalDiceValue} - ${t(winingOptionTranslateKey)}`}</div>
+        );
     }
 }
 

@@ -38,7 +38,6 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
                                 <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
                             </div>
                         ))}
-                    {showResultAfterAnimation && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
                 </div>
             </>
         );
@@ -53,8 +52,12 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
-            <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <div className="overlay-mask">
+                <div
+                    className={`${Styles["animation-container"]} ${
+                        playResultAnimation ? Styles["has-animation"] : Styles["has-animation"]
+                    }`}
+                >
                     {<div className={Styles["result-plate"]}></div>}
                     {generateResult()}
                 </div>
