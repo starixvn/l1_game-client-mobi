@@ -27,17 +27,17 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 
     .animation-container {
-        --move-up-distance: -8.7rem;
-        --result-scale: 0.7;
+        --move-up-distance: -6.2rem;
+        --result-scale: 1;
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
     }
 
     .result-plate {
         position: absolute;
-        width: 19.8rem;
-        height: 19.8rem;
-        left: calc(50% - 9.9rem);
-        top: calc(50% - 9.9rem);
+        width: 13.7rem;
+        height: 13.7rem;
+        left: calc(50% - 6.85rem);
+        top: calc(50% - 6.85rem);
         background: url("/static/images/bigsmall-plate.png");
         background-size: 100%;
         background-repeat: no-repeat;
@@ -62,6 +62,7 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
             position: absolute;
             left: calc(50% - 9rem);
             top: calc(50% - 9rem);
+            transform: scale(0.7);
             animation-name: hide-toss-dices-animation;
             animation-delay: 0ms;
             animation-duration: $time-hide-toss-dices-animation;
@@ -80,27 +81,27 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 
     .dice {
-        width: 4.6rem;
-        height: 4.6rem;
+        width: 3.2rem;
+        height: 3.2rem;
     }
 
     .result-1 {
         position: absolute;
-        left: 3.8rem;
-        top: 1.1rem;
+        left: 4.8rem;
+        top: 2.8rem;
         transform: rotate(343deg);
     }
 
     .result-2 {
         position: absolute;
-        left: 7.2rem;
-        top: 5.7rem;
+        left: 7rem;
+        top: 6rem;
         transform: rotate(359deg);
     }
 
     .result-3 {
         position: absolute;
-        left: 1.4rem;
+        left: 3rem;
         top: 6.4rem;
         transform: rotate(29deg);
     }

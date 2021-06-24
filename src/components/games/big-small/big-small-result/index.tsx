@@ -53,11 +53,7 @@ const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
             <div className="overlay-mask">
-                <div
-                    className={`${Styles["animation-container"]} ${
-                        playResultAnimation ? Styles["has-animation"] : Styles["has-animation"]
-                    }`}
-                >
+                <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                     {<div className={Styles["result-plate"]}></div>}
                     {generateResult()}
                 </div>
