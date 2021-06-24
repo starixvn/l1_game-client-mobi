@@ -115,6 +115,17 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
             </AdvanceModal>
         );
     }
+
+    renderResultInfo() {
+        const { result } = this.state;
+        const { t, gameName } = this.props;
+
+        return <div>{}</div>;
+    }
+
+    renderSettlementInfo() {
+        return <div></div>;
+    }
 }
 
 export default withRouter(withTranslation()(DragonTiger));

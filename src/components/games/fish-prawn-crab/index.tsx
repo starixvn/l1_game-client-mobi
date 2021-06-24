@@ -120,6 +120,14 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             </AdvanceModal>
         );
     }
+
+    renderResultInfo() {
+        return <div></div>;
+    }
+
+    renderSettlementInfo() {
+        return <div></div>;
+    }
 }
 
 export default withRouter(withTranslation()(FishPrawnCrab));

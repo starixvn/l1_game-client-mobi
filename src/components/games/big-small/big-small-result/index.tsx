@@ -23,7 +23,7 @@ const renderAnimTossDice = () => {
     );
 };
 const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { viewMode, playResultAnimation, showResultAfterAnimation } = useGameContext();
+    const { playResultAnimation, showResultAfterAnimation } = useGameContext();
     const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
     const wrapperRefResult = useRef<HTMLDivElement>(null);
 

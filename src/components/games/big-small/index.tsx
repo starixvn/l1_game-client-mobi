@@ -18,6 +18,7 @@ import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { withRouter } from "next/router";
 import { Choices } from "./big-small-helper";
+import Styles from "./big-small.module.scss";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -121,6 +122,31 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 <BigSmallBetHistory />
             </AdvanceModal>
         );
+    }
+
+    renderResultInfo() {
+        const { result } = this.state;
+
+        return (
+            <div>
+                {Object.values(result).map((value, index) => (
+                    <div key={index} className={Styles[`result-${index + 1}`]}>
+                        <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                    </div>
+                ))}
+            </div>
+        );
+    }
+
+    renderSettlementInfo() {
+        const { result, settlementResult } = this.state;
+        const { t, gameName } = this.props;
+
+        const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
+        const winingOption = settlementResult.big ? "big" : "small";
+        const winingOptionTranslateKey = `${gameName.toLowerCase()}:${winingOption}`;
+
+        return <div>{`${totalDiceValue} - ${t(winingOptionTranslateKey)}`}</div>;
     }
 }
 

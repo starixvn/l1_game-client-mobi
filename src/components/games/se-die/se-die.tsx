@@ -108,6 +108,14 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             </AdvanceModal>
         );
     }
+
+    renderResultInfo() {
+        return <div></div>;
+    }
+
+    renderSettlementInfo() {
+        return <div></div>;
+    }
 }
 
 export default withRouter(withTranslation()(SeDie));

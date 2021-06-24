@@ -29,7 +29,7 @@ import GameLoading from "../game-loading";
 import { Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
-import WaitingTimeAnimation from "../waiting-time-animation";
+import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
@@ -655,6 +655,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract getMainOptions(): string[];
 
+    abstract renderResultInfo(): JSX.Element;
+
+    abstract renderSettlementInfo(): JSX.Element;
+
     setWinStreakByRoundHistory(roundHistory) {
         const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
         const mainOptions = this.getMainOptions();
@@ -769,7 +773,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGame() {
-        const { durations } = this.props;
         const {
             remainingTime,
             roundId,
@@ -831,15 +834,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                                 {this.state.gameState === GameState.DisplayResult && this.renderResult()}
                                 {this.state.showWaitingTime && (
-                                    <WaitingTimeAnimation
-                                        remainingTime={
-                                            durations.wholeRound -
-                                            durations.placingBets -
-                                            durations.beforeStartRound -
-                                            durations.resultAnimation -
-                                            (durations.balancingBet ?? 0) -
-                                            1
-                                        }
+                                    <ResultDetail
+                                        renderResultInfo={() => this.renderResultInfo()}
+                                        renderSettlementInfo={() => this.renderSettlementInfo()}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
