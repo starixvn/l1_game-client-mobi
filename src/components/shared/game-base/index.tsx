@@ -780,6 +780,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGame() {
+        const { durations } = this.props;
+
         const {
             remainingTime,
             roundId,
@@ -842,6 +844,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <ResultDetail
                                         renderResultInfo={() => this.renderResultInfo()}
                                         renderSettlementInfo={() => this.renderSettlementInfo()}
+                                        timeToShowInSecond={durations.showResult - durations.resultAnimation}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
