@@ -659,6 +659,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderSettlementInfo(): JSX.Element;
 
+    getGameTranslate(key: string) {
+        const { t, gameName } = this.props;
+
+        return t(`${gameName.toLocaleLowerCase()}:${key}`);
+    }
+
     setWinStreakByRoundHistory(roundHistory) {
         const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
         const mainOptions = this.getMainOptions();

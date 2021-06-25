@@ -15,6 +15,7 @@ import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-c
 import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
+import Styles from "./fish-prawn-crab.module.scss";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const OddNames = {
@@ -32,6 +33,7 @@ export enum ResultBet {
 }
 
 const DefaultOdds = "single";
+const DiceImgMapper = ["dice-nai", "dice-bau", "dice-ga", "dice-ca", "dice-cua", "dice-tom"];
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -122,11 +124,27 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderResultInfo() {
-        return <div></div>;
+        const { result } = this.state;
+
+        return (
+            <div>
+                {Object.values(result).map((dice, index) => {
+                    const src = `/static/images/${DiceImgMapper[dice]}.png`;
+                    return (
+                        <div key={index} className={Styles[`dice-${index}`]}>
+                            <img src={src} className={Styles["dice"]} alt="dice" />
+                        </div>
+                    );
+                })}
+            </div>
+        );
     }
 
     renderSettlementInfo() {
-        return <div></div>;
+        const { result } = this.state;
+        const settlementResultInfo = Object.values(result).map((dice) => this.getGameTranslate(Object.keys(choicesMapper)[dice]));
+
+        return <div>{`${settlementResultInfo[0]} - ${settlementResultInfo[1]} - ${settlementResultInfo[2]}`}</div>;
     }
 }
 

@@ -16,6 +16,7 @@ import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
+import Styles from "./se-die.module.scss";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -110,11 +111,35 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderResultInfo() {
-        return <div></div>;
+        const { result } = this.state;
+
+        return (
+            <div>
+                {Object.values(result).map((value, index) => (
+                    <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                        <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
+                    </div>
+                ))}
+            </div>
+        );
     }
 
     renderSettlementInfo() {
-        return <div></div>;
+        const { result, settlementResult } = this.state;
+        const redDotCount = Object.values(result).filter((dot) => dot).length;
+        const whiteDotCount = 4 - redDotCount;
+
+        return (
+            <div>
+                <div>
+                    {whiteDotCount}
+                    <div className={Styles["result-dot-white"]}></div>
+                    {redDotCount}
+                    <div className={Styles["result-dot-red"]}></div>
+                </div>
+                <div>{settlementResult.even ? this.getGameTranslate("even") : this.getGameTranslate("odd")}</div>
+            </div>
+        );
     }
 }
 

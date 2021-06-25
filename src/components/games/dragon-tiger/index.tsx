@@ -17,7 +17,7 @@ import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { withRouter } from "next/router";
-import { Choices } from "./dragon-tiger-helper";
+import { CardTypeCharacter, CardValueCharacter, Choices } from "./dragon-tiger-helper";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -118,13 +118,25 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderResultInfo() {
         const { result } = this.state;
-        const { t, gameName } = this.props;
 
-        return <div>{}</div>;
+        return (
+            <div>{`${this.getGameTranslate("dragon")}: ${CardValueCharacter[result.dragon.card]}${CardTypeCharacter[result.dragon.type]} 
+            ${this.getGameTranslate("tiger")}: ${CardValueCharacter[result.tiger.card]}${CardTypeCharacter[result.tiger.type]}`}</div>
+        );
     }
 
     renderSettlementInfo() {
-        return <div></div>;
+        const { settlementResult } = this.state;
+
+        return (
+            <div>
+                {settlementResult.tie
+                    ? this.getGameTranslate("tie")
+                    : settlementResult.dragon
+                    ? this.getGameTranslate("dragonWin")
+                    : this.getGameTranslate("tigerWin")}
+            </div>
+        );
     }
 }
 
