@@ -15,10 +15,6 @@
     opacity: 0;
     z-index: var(--result-animation-index);
 
-    &.hide-result-animation {
-        background: red;
-    }
-
     .line {
         height: 0.2rem;
         width: 100%;

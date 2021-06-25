@@ -24,20 +24,6 @@
     }
 }
 
-.hide-result-animaton {
-    animation: hide-result-detail-animation 0.5s ease-in forwards;
-}
-
-@keyframes hide-result-animation {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
 .move-up-animation {
     transform: scale(var(--result-scale));
     animation: move-up-result-animation 0.3s ease-in forwards;
@@ -50,5 +36,19 @@
 
     to {
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+    }
+}
+
+.hide-result-animation {
+    animation: hide-result-animation 0.2s ease-in forwards !important;
+}
+
+@keyframes hide-result-animation {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
     }
 }
