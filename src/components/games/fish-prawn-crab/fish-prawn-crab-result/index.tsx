@@ -28,7 +28,7 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
-            <div className="overlay-mask-no-bg">
+            <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]}`}>
                     <div className={`${Styles["result-set"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
                         <div className={Styles["plate"]}></div>

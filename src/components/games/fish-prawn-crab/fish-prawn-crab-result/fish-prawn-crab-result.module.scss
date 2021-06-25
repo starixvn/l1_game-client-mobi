@@ -1,6 +1,7 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/shake-animation";
 @import "../../../../assets/components/animations/result-collapse-mode";
+@import "../../../../assets/components/animations/common";
 
 $time-show-plate-animation: 0.1s;
 $time-shake-plate-animation: 1s;
@@ -8,8 +9,11 @@ $time-shake-plate-animation: 1s;
 $time-delay-open-bowl-animation: $time-show-plate-animation + $time-shake-plate-animation;
 $time-opening-bowl-animation: 1s;
 $time-bowl-hide-animation: 0.5s;
+$time-delay-move-up-result: $time-delay-open-bowl-animation + $time-opening-bowl-animation;
 
 .result-set {
+    --move-up-distance: -6rem;
+    --result-scale: 1;
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
@@ -18,14 +22,16 @@ $time-bowl-hide-animation: 0.5s;
     border-radius: 50%;
     box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.3);
     z-index: var(--result-animation-index);
+    transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
 
     &.has-animation {
         opacity: 0;
-        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
-        animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2);
-        animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2;
-        animation-fill-mode: forwards, forwards, forwards;
-        animation-timing-function: linear, linear, linear;
+        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, move-up-result-animation;
+        animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2),
+            $time-delay-move-up-result;
+        animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2, 0.3s;
+        animation-fill-mode: forwards, forwards, forwards, forwards;
+        animation-timing-function: linear, linear, linear, linear;
 
         .bowl {
             transform: translate3d(0, 0, 0);

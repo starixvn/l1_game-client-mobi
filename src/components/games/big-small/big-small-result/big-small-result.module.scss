@@ -1,6 +1,7 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/animations/result-collapse-mode";
 @import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
 
 $time-hide-toss-dices-animation: 1.5s;
 $time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
@@ -54,8 +55,9 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 
     .has-animation {
-        transform: scale(var(--result-scale));
-        animation: move-up-result-animation 0.3s $time-delay-move-up-result ease-in forwards;
+        @extend .move-up-animation;
+        animation-delay: $time-delay-move-up-result;
+        // animation: move-up-result-animation 0.3s $time-delay-move-up-result ease-in forwards;
 
         .toss-dices {
             display: block;
@@ -107,15 +109,6 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 }
 
-@keyframes move-up-result-animation {
-    from {
-        transform: scale(var(--result-scale)) translateY(0);
-    }
-
-    to {
-        transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
-    }
-}
 @keyframes show-result-animation {
     0% {
         opacity: 0;

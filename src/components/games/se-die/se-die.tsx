@@ -17,6 +17,7 @@ import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 import Styles from "./se-die.module.scss";
+import { RoundDot } from "../../shared/round-history/dot";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -118,13 +119,12 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderResultInfo() {
         const { result } = this.state;
+        // const result = { red1: true, red2: true, red3: true, red4: true };
 
         return (
-            <div>
+            <div className={Styles["result-info"]}>
                 {Object.values(result).map((value, index) => (
-                    <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                        <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                    </div>
+                    <RoundDot key={index} choice={value ? "odd" : "even"} size="super-large" />
                 ))}
             </div>
         );
@@ -132,18 +132,32 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
+        // const result = { red1: true, red2: true, red3: true, red4: true };
+        // const settlementResult = { even: true, odd: false, red2: true, red3: false, red4: false, white3: false, white4: false };
+
         const redDotCount = Object.values(result).filter((dot) => dot).length;
         const whiteDotCount = 4 - redDotCount;
 
         return (
-            <div>
-                <div>
-                    {whiteDotCount}
-                    <div className={Styles["result-dot-white"]}></div>
-                    {redDotCount}
-                    <div className={Styles["result-dot-red"]}></div>
+            <div className={Styles["settlement-container"]}>
+                <div className={Styles["left"]}>
+                    <div className="d-flex">
+                        <span className={Styles["number"]}>{whiteDotCount}</span>
+                        <RoundDot choice="even" size="medium" />
+                    </div>
+                    <div className="d-flex">
+                        <span className={Styles["number"]}>{redDotCount}</span>
+                        <RoundDot choice="odd" size="medium" />
+                    </div>
                 </div>
-                <div>{settlementResult.even ? this.getGameTranslate("even") : this.getGameTranslate("odd")}</div>
+                <div className={Styles["line"]}></div>
+                <div>
+                    {settlementResult.even ? (
+                        <div className={Styles["settlement-info-grey"]}>{this.getGameTranslate("even")}</div>
+                    ) : (
+                        <div className={Styles["settlement-info-red"]}>{this.getGameTranslate("odd")}</div>
+                    )}
+                </div>
             </div>
         );
     }

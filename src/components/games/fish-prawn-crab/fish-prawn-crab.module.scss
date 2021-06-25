@@ -1,0 +1,17 @@
+@import "../../../assets/components/settlement-info";
+
+.result-info {
+    display: grid;
+    grid-template-columns: repeat(3, 3.8rem);
+    grid-template-rows: 3.4rem;
+    grid-gap: 1rem;
+    justify-content: center;
+
+    .dice {
+        max-width: 100%;
+    }
+}
+
+.settlement-info {
+    width: 100%;
+}

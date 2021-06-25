@@ -37,3 +37,18 @@
         opacity: 0;
     }
 }
+
+.move-up-animation {
+    transform: scale(var(--result-scale));
+    animation: move-up-result-animation 0.3s ease-in forwards;
+}
+
+@keyframes move-up-result-animation {
+    from {
+        transform: scale(var(--result-scale)) translateY(0);
+    }
+
+    to {
+        transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+    }
+}

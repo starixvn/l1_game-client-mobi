@@ -52,14 +52,14 @@ html {
 
     // dots
     --dot-even-background: linear-gradient(180deg, #f2f2f2 0%, #e6e6e6 100%);
-    --dot-even-border: linear-gradient(180deg, #fefefe 0%, #d5d5d5 100%);
+    --dot-even-border: linear-gradient(180deg, #ffffff 0%, #cbcbcb 100%);
     --dot-even-text-color: #828282;
-    --dot-even-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    --dot-even-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 
-    --dot-odd-background: linear-gradient(180deg, #ff636f 6.04%, #e73542 50.31%, #cc1a27 100%);
-    --dot-odd-border: linear-gradient(180deg, #f73643 6.04%, #94030e 100%);
+    --dot-odd-background: linear-gradient(180deg, #ff6e79 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --dot-odd-border: linear-gradient(180deg, #ff8e95 6.04%, #a80915 100%);
     --dot-odd-text-color: #fff;
-    --dot-odd-shadow: 0px 1px 1px rgba(163, 0, 11, 0.25);
+    --dot-odd-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 
     --bigSmall-dot-big-background: #3b7bc6;
     --bigSmall-dot-big-border: #245a99;

@@ -2,6 +2,7 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/animations/result-collapse-mode";
 @import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
 
 $time-show-shake-plate-animation: 0.1s;
 $time-shake-plate-animation: 1s;
@@ -10,6 +11,7 @@ $time-hide-shake-plate-animation: 0.1s;
 $time-show-result-animation: 0.1s;
 $time-opening-bowl-animation: 1s;
 $time-hide-bowl-animation: 1s;
+$time-delay-move-up-result: $time-opening-bowl-animation;
 
 .result-sedie-set {
     position: absolute;
@@ -65,7 +67,17 @@ $time-hide-bowl-animation: 1s;
         opacity: 0;
     }
 
+    .result-sedie-set {
+        --move-up-distance: -6.5rem;
+        --result-scale: 1;
+        transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+    }
+
     &.has-animation {
+        .result-sedie-set {
+            @extend .move-up-animation;
+            animation-delay: $time-delay-move-up-result;
+        }
         .result-sedie-bowl {
             opacity: 1;
             /*animation*/
@@ -94,8 +106,8 @@ $time-hide-bowl-animation: 1s;
 
         .result-sedie-dot1 {
             @extend %result-sedie-dot;
-            top: 0.8rem;
-            left: 1rem;
+            top: 0.4rem;
+            left: 0.6rem;
         }
 
         .result-sedie-dot2 {
@@ -107,32 +119,13 @@ $time-hide-bowl-animation: 1s;
         .result-sedie-dot3 {
             @extend %result-sedie-dot;
             top: 3.5rem;
-            right: 1rem;
+            right: 1.5rem;
         }
 
         .result-sedie-dot4 {
             @extend %result-sedie-dot;
             top: 3.8rem;
             left: 1rem;
-        }
-
-        %result-dot {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            box-shadow: 0 0 5px rgba(4, 4, 4, 0.5);
-        }
-
-        .result-dot-red {
-            @extend %result-dot;
-            background: var(--dot-odd-background);
-            border: 1px solid var(--dot-odd-border);
-        }
-
-        .result-dot-white {
-            @extend %result-dot;
-            background: #fff;
-            border: 1px solid var(--dot-even-border);
         }
     }
 }
