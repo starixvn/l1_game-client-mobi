@@ -35,11 +35,7 @@ $time-delay-move-up-result: $time-delay-open-bowl-animation + $time-opening-bowl
 
         .bowl {
             transform: translate3d(0, 0, 0);
-            animation-name: opening-bowl-animation, hide-bowl-animation;
-            animation-delay: $time-delay-open-bowl-animation, ($time-delay-open-bowl-animation + $time-opening-bowl-animation);
-            animation-duration: $time-opening-bowl-animation, $time-bowl-hide-animation;
-            animation-fill-mode: forwards, forwards;
-            animation-timing-function: linear, linear;
+            animation-name: opening-bowl-animation $time-opening-bowl-animation $time-delay-open-bowl-animation linear forwards;
         }
     }
 }
@@ -107,11 +103,14 @@ $time-delay-move-up-result: $time-delay-open-bowl-animation + $time-opening-bowl
 }
 
 @keyframes opening-bowl-animation {
-    4%,
     36% {
         transform: translate3d(0, 0, 0);
+    }
+
+    70% {
         opacity: 1;
     }
+
     100% {
         opacity: 0;
         transform: translate(-7.3rem, 7rem) rotate(45deg);
