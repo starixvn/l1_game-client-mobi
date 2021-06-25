@@ -1,5 +1,5 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
+    --game-header-background: linear-gradient(180deg, #ffba39 48.75%, #f6b02b 48.76%);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
@@ -15,7 +15,7 @@
 }
 
 [data-theme="dark"] .header {
-    --game-header-background: #203040;
+    --game-header-background: linear-gradient(180deg, #284159 49.79%, #223a53 49.8%);
     --game-header-icon-favourite: #ffab2b;
     --game-header-icon-unfavourite: #7f91a4;
     --game-header-icon-menu: #7f91a4;

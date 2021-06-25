@@ -29,7 +29,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     const renderDots = (dots: boolean[]) =>
-        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} />);
+        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} size="large" />);
 
     const renderIcons = (choice: string) => {
         return choice === "red2" ? (
