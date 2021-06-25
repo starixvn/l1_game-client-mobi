@@ -10,7 +10,6 @@ $time-hide-shake-plate-animation: 0.1s;
 
 $time-show-result-animation: 0.1s;
 $time-opening-bowl-animation: 1s;
-$time-hide-bowl-animation: 1s;
 $time-delay-move-up-result: $time-opening-bowl-animation;
 
 .result-sedie-set {
@@ -82,11 +81,7 @@ $time-delay-move-up-result: $time-opening-bowl-animation;
             opacity: 1;
             /*animation*/
             z-index: var(--result-animation-index);
-            animation-name: opening-bowl-animation, hide-bowl-animation;
-            animation-delay: 0, $time-show-result-animation + $time-opening-bowl-animation;
-            animation-duration: $time-opening-bowl-animation, $time-hide-bowl-animation;
-            animation-fill-mode: forwards, forwards;
-            animation-timing-function: linear, linear;
+            animation: opening-bowl-animation $time-opening-bowl-animation 0s linear forwards;
         }
     }
 
@@ -143,12 +138,15 @@ $time-delay-move-up-result: $time-opening-bowl-animation;
 }
 
 @keyframes opening-bowl-animation {
-    4%,
     36% {
         transform: translate3d(0, 0, 0) scale(1);
     }
+    70% {
+        opacity: 1;
+    }
     100% {
-        transform: translate(5rem, -10rem) rotate(45deg);
+        opacity: 0;
+        transform: translate(3rem, -7rem) rotate(45deg);
     }
 }
 

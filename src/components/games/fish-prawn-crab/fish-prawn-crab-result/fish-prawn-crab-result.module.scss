@@ -110,8 +110,10 @@ $time-delay-move-up-result: $time-delay-open-bowl-animation + $time-opening-bowl
     4%,
     36% {
         transform: translate3d(0, 0, 0);
+        opacity: 1;
     }
     100% {
+        opacity: 0;
         transform: translate(-7.3rem, 7rem) rotate(45deg);
     }
 }
