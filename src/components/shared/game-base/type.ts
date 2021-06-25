@@ -66,14 +66,13 @@ export interface GameBaseState<Result, SettlementResult> {
     isProcessingBet?: boolean;
     viewMode: ViewMode;
     disabledMessage?: string;
-    showWaitingTime: boolean;
+    showResultInfo: boolean;
     acceptedBetQueue: { [key: number]: number };
-    showWinningBet: boolean;
+    showWinningAnimation: boolean;
     playResultAnimation: boolean;
     displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
-    showResultAfterAnimation: boolean;
 }
 
 export interface Notice {

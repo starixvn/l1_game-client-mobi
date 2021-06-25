@@ -47,11 +47,10 @@ import {
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
     private readonly animationTime = 3000;
-    private readonly winningAnimationTime = 4000;
     private betWin: number;
     private isUMInFirstLoad = false;
-    private showWaitingTimeout: NodeJS.Timeout;
-    private showTotalResultTimeout: NodeJS.Timeout;
+    private showResultInfoTimeout: NodeJS.Timeout;
+    private showWinningAnimationTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
@@ -78,14 +77,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayPopup: null,
         betPercentage: {},
         viewMode: this.props.viewMode,
-        showWaitingTime: false,
+        showResultInfo: false,
         acceptedBetQueue: {},
-        showWinningBet: false,
+        showWinningAnimation: false,
         playResultAnimation: false,
         displayChips: {},
         isShowBlink: false,
         notice: null,
-        showResultAfterAnimation: false,
     };
 
     constructor(props: P) {
@@ -182,20 +180,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleStatus = ({ status }) => {
-        const { durations } = this.props;
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;
-            setTimeout(() => {
-                this.setState({ showWinningBet: true });
-                this.updateUserBalance();
-
-                setTimeout(() => {
-                    this.setState({ showWinningBet: false });
-                }, this.winningAnimationTime);
-            }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
         }
     };
+
+    get winningAnimationWaitingTimeInSecond() {
+        return this.props.durations.showResult * 1000;
+    }
 
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
@@ -343,12 +336,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
             this.interval && clearInterval(this.interval);
-            this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
-            this.showTotalResultTimeout && clearTimeout(this.showTotalResultTimeout);
+            this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
+            this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
             this.setState({
                 gameState: GameState.Disabled,
                 disabledMessage: um_message[LanguageLocaleMapper[locale]],
-                showWaitingTime: false,
+                showResultInfo: false,
             });
         }
     }
@@ -398,13 +391,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 state: {
                     ownBets: {},
                     totalBets: {},
-                    showWaitingTime: false,
                     betPercentage: {},
                     displayChips: {},
-                    showWinningBet: false,
+                    showWinningAnimation: false,
                     isShowBlink: false,
-                    showResultAfterAnimation: false,
                     playResultAnimation: false,
+                },
+            },
+            {
+                condition: gameState === GameState.Waiting,
+                state: {
+                    showResultInfo: false,
                 },
             },
             {
@@ -531,13 +528,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
 
-        this.showWaitingTimeout = setTimeout(() => {
-            this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
+        this.showResultInfoTimeout = setTimeout(() => {
+            this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
-        this.showTotalResultTimeout = setTimeout(() => {
-            this.setState({ showResultAfterAnimation: true });
-        }, animationDuration - 1);
+
+        this.showWinningAnimationTimeout = setTimeout(() => {
+            this.setState({
+                showWinningAnimation: true,
+            });
+        }, this.winningAnimationWaitingTimeInSecond);
+
         this.runGame(durations.wholeRound);
     }
 
@@ -792,7 +793,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
-            showResultAfterAnimation,
         } = this.state;
 
         const gameContext = {
@@ -808,7 +808,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
-            showResultAfterAnimation,
         };
 
         const gameActionsContext = {
@@ -839,7 +838,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
                                 {this.state.gameState === GameState.DisplayResult && this.renderResult()}
-                                {this.state.showWaitingTime && (
+                                {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderResultInfo={() => this.renderResultInfo()}
                                         renderSettlementInfo={() => this.renderSettlementInfo()}
@@ -847,7 +846,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
+                                {this.state.showWinningAnimation && this.betWin && (
+                                    <WinningBet amount={this.betWin} handleUpdateUserBalance={() => this.updateUserBalance()} />
+                                )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}

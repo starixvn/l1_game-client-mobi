@@ -31,9 +31,15 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult } = this.state;
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         const fakeSettlementResult = { dragon: true, tiger: false, tie: false };
-        return <DragonTigerBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
+        return (
+            <DragonTigerBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? fakeSettlementResult}
+                isShowWinningEffect={showWinningAnimation}
+            />
+        );
     }
 
     renderRoundHistory() {
@@ -78,6 +84,10 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
             this.state.gameState === GameState.InRound ||
             this.state.gameState === GameState.LockingBet
         );
+    }
+
+    get winningAnimationWaitingTimeInSecond() {
+        return this.props.durations.resultAnimation * 1000;
     }
 
     renderStartRoundAnimation() {

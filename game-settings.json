@@ -43,7 +43,7 @@
             "wholeRound": 41,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }

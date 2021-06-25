@@ -43,13 +43,14 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, betPercentage } = this.state;
+        const { gameState, settlementResult, betPercentage, showWinningAnimation } = this.state;
         const fakeSettlementResult = { big: false, small: false };
         return (
             <BigSmallBetOptions
                 gameState={gameState}
                 settlementResult={settlementResult ?? fakeSettlementResult}
                 betPercentage={betPercentage}
+                isShowWinningEffect={showWinningAnimation}
             />
         );
     }
@@ -94,6 +95,13 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return this.state.gameState === GameState.BeforeStartRound;
     }
 
+    get winningAnimationWaitingTimeInSecond() {
+        const { id, durations } = this.props;
+        const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult;
+
+        return duration * 1000;
+    }
+
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         return (
@@ -126,7 +134,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderResultInfo() {
         const { result } = this.state;
-        // const result = { dice1: 1, dice2: 1, dice3: 1 };
 
         return (
             <div className={Styles["result-info"]}>
@@ -142,8 +149,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;
-        // const result = { dice1: 1, dice2: 1, dice3: 1 };
-        // const settlementResult = { big: true, small: false };
 
         const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
         const winingOption = settlementResult.big ? "big" : "small";

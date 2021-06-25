@@ -7,14 +7,7 @@ import { GameState } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
-const Choices = {
-    crab: "crab",
-    fish: "fish",
-    gourd: "gourd",
-    prawn: "prawn",
-    rooster: "rooster",
-    stag: "stag",
-};
+const Choices = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
 
 const IconMapper = {
     stag: "nai",
@@ -29,6 +22,7 @@ type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     result: Result;
+    isShowWinningEffect: boolean;
 };
 
 const renderHighLightNumber = (choice: string, countsAppearDice: object) => {
@@ -60,7 +54,13 @@ const getClassPrevRound = (gameState: GameState) => {
     }
 };
 
-const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, countsAppearDice: object) => {
+const renderBetOptionByChoice = (
+    choice: string,
+    gameState: GameState,
+    settlementResult: SettlementResult,
+    countsAppearDice: object,
+    isShowWinningEffect: boolean
+) => {
     const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
@@ -97,7 +97,14 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
     }, []);
 
     return (
-        <BetOption choice={choice} odd={odds[OddNames.single]} isDisplayOdd={false} isHighlight={isHighLight} gameState={gameState}>
+        <BetOption
+            choice={choice}
+            odd={odds[OddNames.single]}
+            isDisplayOdd={false}
+            isHighlight={isHighLight}
+            gameState={gameState}
+            isShowWinningEffect={isShowWinningEffect}
+        >
             <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]}`}></div>
             {isShowCountOfDice && classCount !== "" && (
                 <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
@@ -107,7 +114,7 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 };
 
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, result } = props;
+    const { gameState, settlementResult, result, isShowWinningEffect } = props;
     const countsAppearDice = {};
 
     if (result) {
@@ -118,12 +125,9 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div className={`${Styles["layout-FPC"]}`}>
-            <div>{renderBetOptionByChoice(Choices.stag, gameState, settlementResult, countsAppearDice)}</div>
-            <div>{renderBetOptionByChoice(Choices.gourd, gameState, settlementResult, countsAppearDice)}</div>
-            <div>{renderBetOptionByChoice(Choices.rooster, gameState, settlementResult, countsAppearDice)}</div>
-            <div>{renderBetOptionByChoice(Choices.fish, gameState, settlementResult, countsAppearDice)}</div>
-            <div>{renderBetOptionByChoice(Choices.crab, gameState, settlementResult, countsAppearDice)}</div>
-            <div>{renderBetOptionByChoice(Choices.prawn, gameState, settlementResult, countsAppearDice)}</div>
+            {Choices.map((choice) => (
+                <div>{renderBetOptionByChoice(choice, gameState, settlementResult, countsAppearDice, isShowWinningEffect)}</div>
+            ))}
         </div>
     );
 };

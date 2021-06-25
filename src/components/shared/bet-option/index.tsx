@@ -23,8 +23,16 @@ const getUserBetChipClass = (gameName: string, choice: string) => {
     return `${Styles["user-bet-chips"]} ${Styles[distinctStyle]}`;
 };
 
-const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, children, isHighlight = false, isDisplayOdd = true }) => {
-    const { totalBets, ownBets, gameSetting, displayChips, showResultAfterAnimation } = useGameContext();
+const BetOption: React.FunctionComponent<Props> = ({
+    gameState,
+    choice,
+    odd,
+    children,
+    isHighlight = false,
+    isDisplayOdd = true,
+    isShowWinningEffect = false,
+}) => {
+    const { totalBets, ownBets, gameSetting, displayChips } = useGameContext();
     const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal } = useGameActionContext();
@@ -74,7 +82,7 @@ const BetOption: React.FunctionComponent<Props> = ({ gameState, choice, odd, chi
         <div ref={wrapperRefBetOption} className={Styles.container}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
-                    isHighlight && showResultAfterAnimation && Styles["winning-effect"]
+                    isHighlight && isShowWinningEffect && Styles["winning-effect"]
                 }`}
                 onClick={onClickBet}
             >
