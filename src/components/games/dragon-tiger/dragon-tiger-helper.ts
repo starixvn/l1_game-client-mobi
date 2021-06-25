@@ -6,7 +6,7 @@ const getValueCard = (result: Result, name: string) => {
 
 export const CardTypeCharacter = ["♠", "♣", "♦", "♥"];
 
-export const CardValueCharacter = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+export const CardValueCharacter = ["A(1)", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J(11)", "Q(12)", "K(13)"];
 
 export const Choices = { dragon: "dragon", tiger: "tiger", tie: "tie" };
 
