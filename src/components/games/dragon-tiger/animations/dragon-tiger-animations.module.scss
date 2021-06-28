@@ -79,7 +79,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         --move-up-distance: -7rem;
         --result-scale: 1;
         top: 8.5rem;
-        transform: scale(1) translateY(var(--move-up-distance));
+        transform: scale(1);
         transition: transform 0.7s;
     }
 

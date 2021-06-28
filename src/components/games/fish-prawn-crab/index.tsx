@@ -125,8 +125,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderResultInfo() {
-        // const { result } = this.state;
-        const result = { dice1: 1, dice2: 3, dice3: 4 };
+        const { result } = this.state;
+        // const result = { dice1: 1, dice2: 3, dice3: 4 };
         return (
             <div className={Styles["result-info"]}>
                 {Object.values(result).map((dice, index) => {
@@ -142,8 +142,8 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderSettlementInfo() {
-        // const { result } = this.state;
-        const result = { dice1: 1, dice2: 3, dice3: 4 };
+        const { result } = this.state;
+        // const result = { dice1: 1, dice2: 3, dice3: 4 };
         const settlementResultInfo = Object.values(result).map((dice) => this.getGameTranslate(Object.keys(choicesMapper)[dice]));
 
         return (

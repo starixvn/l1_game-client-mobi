@@ -840,14 +840,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </div>
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {<BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>}
-                                {
+                                {this.state.gameState === GameState.DisplayResult && (
+                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                )}
+                                {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderResultInfo={() => this.renderResultInfo()}
                                         renderSettlementInfo={() => this.renderSettlementInfo()}
                                         timeToShowInSecond={durations.showResult - durations.resultAnimation}
                                     />
-                                }
+                                )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
                                 {this.state.showWinningAnimation && this.betWin && (

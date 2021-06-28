@@ -51,7 +51,9 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask">
-                <div className={`${Styles["animation-container"]}`}>{generateResult(result, viewMode)}</div>
+                <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                    {generateResult(result, viewMode)}
+                </div>
             </div>
         </div>
     );

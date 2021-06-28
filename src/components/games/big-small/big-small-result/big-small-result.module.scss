@@ -56,7 +56,7 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
 
     .has-animation {
         @extend .move-up-animation;
-        transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+        transform: scale(var(--result-scale));
         animation-delay: $time-delay-move-up-result;
 
         .toss-dices {

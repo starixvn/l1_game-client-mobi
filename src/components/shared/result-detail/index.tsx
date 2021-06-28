@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Styles from "./result-detail.module.scss";
 
-const HidingAnimationDurationInSecond = 0.3;
+const HidingAnimationDurationInSecond = 0.2;
 
 const ResultDetail: React.FC<{ renderResultInfo: Function; renderSettlementInfo: Function; timeToShowInSecond: number }> = (props) => {
     const [bindHideAnimationClass, setBindHideAnimationClass] = useState(false);

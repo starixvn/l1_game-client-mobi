@@ -24,6 +24,10 @@
     }
 }
 
+.move-up-no-animation {
+    transform: scale(1) translateY(var(--move-up-distance)) !important;
+}
+
 .move-up-animation {
     transform: scale(var(--result-scale));
     animation: move-up-result-animation 0.3s ease-in forwards;
@@ -40,7 +44,7 @@
 }
 
 .hide-result-animation {
-    animation: hide-result-animation 0.2s ease-in forwards !important;
+    animation: hide-result-animation 0.2s linear forwards !important;
 }
 
 @keyframes hide-result-animation {
