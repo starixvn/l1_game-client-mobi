@@ -8,9 +8,11 @@ $time-show-shake-plate-animation: 0.1s;
 $time-shake-plate-animation: 1s;
 $time-hide-shake-plate-animation: 0.1s;
 
-$time-show-result-animation: 0.1s;
-$time-opening-bowl-animation: 1s;
-$time-delay-move-up-result: $time-opening-bowl-animation;
+$time-show-result-animation: 0.3s;
+$time-opening-bowl-animation: 0.8s;
+$time-hide-bowl-animation: 0.3s;
+$time-move-up-result: 0.2s;
+$time-delay-move-up-result: 0.3s + $time-show-result-animation + $time-hide-bowl-animation + $time-opening-bowl-animation;
 
 .result-sedie-set {
     position: absolute;
@@ -75,13 +77,20 @@ $time-delay-move-up-result: $time-opening-bowl-animation;
     &.has-animation {
         .result-sedie-set {
             @extend .move-up-animation;
-            animation-delay: $time-delay-move-up-result;
+            animation-name: show-result-animation, move-up-result-animation;
+            animation-delay: 0s, $time-delay-move-up-result;
+            animation-duration: $time-show-result-animation, $time-move-up-result;
+            animation-fill-mode: forwards, forwards;
+            animation-timing-function: cubic-bezier(0.24, 0.51, 0.31, 0.96), cubic-bezier(0, 0.22, 0.17, 0.9);
         }
         .result-sedie-bowl {
             opacity: 1;
-            /*animation*/
             z-index: var(--result-animation-index);
-            animation: opening-bowl-animation $time-opening-bowl-animation 0s linear forwards;
+            animation-name: opening-bowl-animation, hide-shake-plate-animation;
+            animation-delay: $time-show-result-animation, 0.8s;
+            animation-duration: $time-opening-bowl-animation, $time-hide-bowl-animation;
+            animation-fill-mode: forwards, forwards;
+            animation-timing-function: cubic-bezier(0, 0.22, 0.17, 0.9), cubic-bezier(0, 0.22, 0.17, 0.9);
         }
     }
 
@@ -137,16 +146,21 @@ $time-delay-move-up-result: $time-opening-bowl-animation;
     }
 }
 
-@keyframes opening-bowl-animation {
-    36% {
-        transform: translate3d(0, 0, 0) scale(1);
+@keyframes show-result-animation {
+    from {
+        opacity: 0;
     }
-    70% {
+    to {
         opacity: 1;
     }
-    100% {
-        opacity: 0;
-        transform: translate(3rem, -7rem) rotate(45deg);
+}
+
+@keyframes opening-bowl-animation {
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+        transform: translate(5rem, -8rem) scale(0.9);
     }
 }
 

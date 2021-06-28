@@ -99,7 +99,7 @@
     }
 
     &.winning-effect {
-        animation: var(--winning-effect-animation-name) 2s 1s 2 forwards;
+        animation: var(--winning-effect-animation-name) 0.5s 0s 2 forwards;
     }
 }
 
@@ -136,18 +136,7 @@
         background-color: #fff5e3;
     }
 
-    20%,
-    70% {
-        background-color: #fff;
-    }
-
-    30%,
-    60% {
-        background-color: #fff5e3;
-    }
-
-    40%,
-    80% {
+    50% {
         background-color: #fff;
     }
 }
@@ -157,19 +146,7 @@
     100% {
         background-color: #395877;
     }
-
-    20%,
-    70% {
-        background-color: #1a2430;
-    }
-
-    30%,
-    60% {
-        background-color: #395877;
-    }
-
-    40%,
-    80% {
+    50% {
         background-color: #1a2430;
     }
 }
