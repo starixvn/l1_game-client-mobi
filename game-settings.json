@@ -60,9 +60,9 @@
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 4,
-            "resultAnimation": 1,
+            "resultAnimation": 2,
             "beforeStartRound": 0,
-            "balancingBet": 3
+            "balancingBet": 2
         }
     },
     "7": {
