@@ -17,5 +17,5 @@ export const BaseResult: React.FC<{ showResultTimeInSecond: number }> = ({ child
         };
     }, []);
 
-    return <div className={isHidingResult ? "hide-result-animation" : ""}>{children}</div>;
+    return <div className={isHidingResult ? Styles["hide-result-animation"] : ""}>{children}</div>;
 };
