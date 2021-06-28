@@ -73,7 +73,7 @@
             --time-show-result-animation: 0.3s;
             --time-opening-bowl-animation: 0.8s;
             --time-hide-bowl-animation: 0.3s;
-            --time-move-up-result: 0.2s;
+            --time-move-up-result: 0.4s;
             --time-delay-move-up-result: calc(
                 0.3s + var(--time-show-result-animation) + var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation)
             );
