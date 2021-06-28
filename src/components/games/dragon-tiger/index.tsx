@@ -129,7 +129,6 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderResultInfo() {
         const { result } = this.state;
-        // const result = { dragon: { card: 10, type: 2 }, tiger: { card: 5, type: 3 } };
 
         return (
             <div className={Styles["result-info"]}>
@@ -147,7 +146,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderSettlementInfo() {
         const { settlementResult } = this.state;
-        // const settlementResult = { dragon: true, tiger: false, tie: false };
+
         return (
             <div className={Styles["settlement-info-container"]}>
                 {settlementResult.tie ? (
