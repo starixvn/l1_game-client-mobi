@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";

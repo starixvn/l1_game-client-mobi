@@ -97,7 +97,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     get winningAnimationWaitingTimeInSecond() {
         const { id, durations } = this.props;
-        const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult;
+        const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult + durations.balancingBet;
 
         return duration * 1000;
     }

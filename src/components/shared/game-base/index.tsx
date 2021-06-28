@@ -188,7 +188,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     get winningAnimationWaitingTimeInSecond() {
-        return this.props.durations.resultAnimation * 1000;
+        return this.props.durations.showResult * 1000;
     }
 
     handleApiError = ({ apiError }) => {
