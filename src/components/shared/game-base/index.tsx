@@ -397,11 +397,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     showWinningAnimation: false,
                     isShowBlink: false,
                     playResultAnimation: false,
-                },
-            },
-            {
-                condition: gameState === GameState.Waiting,
-                state: {
                     showResultInfo: false,
                 },
             },

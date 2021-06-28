@@ -6,7 +6,7 @@ import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
 
-const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
+const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
 
     return (
@@ -65,4 +65,4 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     );
 };
 
-export default BigSmallResult;
+export default React.memo(BigSmallResult, (props, nextProps) => props.roundId === nextProps.roundId);

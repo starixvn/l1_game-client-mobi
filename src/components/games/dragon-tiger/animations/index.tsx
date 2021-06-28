@@ -45,7 +45,6 @@ const generateResult = (result: ObjectResult[], viewMode: ViewMode) => {
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const result = props.result ? Object.values(props.result) : [];
     const { viewMode, playResultAnimation } = useGameContext();
-    const { t } = useTranslation("dragontiger");
 
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>

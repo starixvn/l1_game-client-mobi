@@ -77,8 +77,8 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        const { result } = this.state;
-        return <BigSmallResult result={result}></BigSmallResult>;
+        const { result, roundId } = this.state;
+        return <BigSmallResult result={result} roundId={roundId}></BigSmallResult>;
     }
 
     renderResultCollapse() {
@@ -135,6 +135,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderResultInfo() {
         const { result } = this.state;
         // const result = { dice1: 1, dice2: 1, dice3: 1 };
+
         return (
             <div className={Styles["result-info"]}>
                 {Object.values(result).map((value, index) => (
