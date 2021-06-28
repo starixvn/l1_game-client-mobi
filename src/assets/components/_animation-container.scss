@@ -22,7 +22,7 @@
     opacity: 1;
     z-index: var(--result-animation-index);
     animation-name: opening-bowl-animation, hide-bowl-animation;
-    animation-delay: var(--time-show-result-animation), 0.8s;
+    animation-delay: var(--time-delay-open-bowl), var(--time-delay-hide-bowl);
     animation-duration: var(--time-opening-bowl-animation), var(--time-hide-bowl-animation);
     animation-fill-mode: forwards, forwards;
     animation-timing-function: cubic-bezier(0, 0.22, 0.17, 0.9), cubic-bezier(0, 0.22, 0.17, 0.9);
