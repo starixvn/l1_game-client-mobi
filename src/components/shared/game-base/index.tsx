@@ -14,6 +14,7 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { convertAmountToChips } from "../../../helpers/chip-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { UserClientCommunication } from "../../../services";
+import { BaseResult } from "../base-result";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -839,7 +840,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </div>
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {this.state.gameState === GameState.DisplayResult && this.renderResult()}
+                                {this.state.gameState === GameState.DisplayResult && (
+                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                )}
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderResultInfo={() => this.renderResultInfo()}

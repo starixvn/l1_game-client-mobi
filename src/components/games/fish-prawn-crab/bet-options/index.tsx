@@ -125,8 +125,8 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div className={`${Styles["layout-FPC"]}`}>
-            {Choices.map((choice) => (
-                <div>{renderBetOptionByChoice(choice, gameState, settlementResult, countsAppearDice, isShowWinningEffect)}</div>
+            {Choices.map((choice, index) => (
+                <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, countsAppearDice, isShowWinningEffect)}</div>
             ))}
         </div>
     );
