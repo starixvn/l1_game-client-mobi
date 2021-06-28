@@ -99,7 +99,7 @@
     }
 
     &.winning-effect {
-        animation: var(--winning-effect-animation-name) 0.5s 0s 2 forwards;
+        animation: var(--winning-effect-animation-name) 1s forwards;
     }
 }
 
@@ -132,21 +132,26 @@
 
 @keyframes blink-animation {
     0%,
+    50%,
     100% {
-        background-color: #fff5e3;
+        background-color: #fff;
     }
 
-    50% {
-        background-color: #fff;
+    25%,
+    75% {
+        background: #fff5e3;
     }
 }
 
 @keyframes blink-animation-dark-theme {
     0%,
+    50%,
     100% {
-        background-color: #395877;
+        background-color: #507396;
     }
-    50% {
-        background-color: #1a2430;
+
+    25%,
+    75% {
+        background: #395877;
     }
 }
