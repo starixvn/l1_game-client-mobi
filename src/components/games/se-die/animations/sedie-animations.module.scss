@@ -4,16 +4,6 @@
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
 
-$time-show-shake-plate-animation: 0.1s;
-$time-shake-plate-animation: 1s;
-$time-hide-shake-plate-animation: 0.1s;
-
-$time-show-result-animation: 0.3s;
-$time-opening-bowl-animation: 0.8s;
-$time-hide-bowl-animation: 0.3s;
-$time-move-up-result: 0.2s;
-$time-delay-move-up-result: 0.3s + $time-show-result-animation + $time-hide-bowl-animation + $time-opening-bowl-animation;
-
 .result-sedie-set {
     position: absolute;
     top: calc(50% - 5.8rem);
@@ -24,13 +14,17 @@ $time-delay-move-up-result: 0.3s + $time-show-result-animation + $time-hide-bowl
 
 .shake-the-plate {
     .result-sedie-set {
+        --time-show-shake-plate-animation: 0.1s;
+        --time-shake-plate-animation: 1s;
+        --time-hide-shake-plate-animation: 0.1s;
         opacity: 0;
         /*animation*/
         animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, hide-shake-plate-animation;
-        animation-delay: 0s, $time-show-shake-plate-animation, ($time-show-shake-plate-animation + $time-shake-plate-animation/2),
-            ($time-show-shake-plate-animation + $time-shake-plate-animation);
-        animation-duration: $time-show-shake-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2,
-            $time-hide-shake-plate-animation;
+        animation-delay: 0s, var(--time-show-shake-plate-animation),
+            calc(var(--time-show-shake-plate-animation) + calc(var(--time-shake-plate-animation) / 2)),
+            calc(var(--time-show-shake-plate-animation) + var(--time-shake-plate-animation));
+        animation-duration: var(--time-show-shake-plate-animation), calc(var(--time-shake-plate-animation) / 2),
+            calc(var(--time-shake-plate-animation) / 2), var(--time-hide-shake-plate-animation);
         animation-fill-mode: forwards, forwards, forwards, forwards;
         animation-timing-function: linear, linear, linear, ease-out;
     }
@@ -76,21 +70,22 @@ $time-delay-move-up-result: 0.3s + $time-show-result-animation + $time-hide-bowl
 
     &.has-animation {
         .result-sedie-set {
+            --time-show-result-animation: 0.3s;
+            --time-opening-bowl-animation: 0.8s;
+            --time-hide-bowl-animation: 0.3s;
+            --time-move-up-result: 0.2s;
+            --time-delay-move-up-result: 0.3s + $time-show-result-animation + $time-hide-bowl-animation + $time-opening-bowl-animation;
+
             @extend .move-up-animation;
             animation-name: show-result-animation, move-up-result-animation;
-            animation-delay: 0s, $time-delay-move-up-result;
-            animation-duration: $time-show-result-animation, $time-move-up-result;
+            animation-delay: 0s, var(--time-delay-move-up-result);
+            animation-duration: var(--time-show-result-animation), var(--time-move-up-result);
             animation-fill-mode: forwards, forwards;
             animation-timing-function: cubic-bezier(0.24, 0.51, 0.31, 0.96), cubic-bezier(0, 0.22, 0.17, 0.9);
         }
+
         .result-sedie-bowl {
-            opacity: 1;
-            z-index: var(--result-animation-index);
-            animation-name: opening-bowl-animation, hide-shake-plate-animation;
-            animation-delay: $time-show-result-animation, 0.8s;
-            animation-duration: $time-opening-bowl-animation, $time-hide-bowl-animation;
-            animation-fill-mode: forwards, forwards;
-            animation-timing-function: cubic-bezier(0, 0.22, 0.17, 0.9), cubic-bezier(0, 0.22, 0.17, 0.9);
+            @extend .open-bowl-animation;
         }
     }
 
