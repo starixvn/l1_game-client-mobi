@@ -30,7 +30,7 @@
 
 .move-up-animation {
     transform: scale(var(--result-scale));
-    animation: move-up-result-animation 0.2s cubic-bezier(0, 0.61, 0.26, 0.82) forwards;
+    animation: move-up-result-animation 0.4s cubic-bezier(0, 0.61, 0.26, 0.82) forwards;
 }
 
 @keyframes move-up-result-animation {
