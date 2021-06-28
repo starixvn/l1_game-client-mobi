@@ -30,7 +30,7 @@
 
 .move-up-animation {
     transform: scale(var(--result-scale));
-    animation: move-up-result-animation 0.3s ease-in forwards;
+    animation: move-up-result-animation 0.2s linear forwards;
 }
 
 @keyframes move-up-result-animation {
