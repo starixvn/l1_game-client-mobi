@@ -6,18 +6,18 @@ import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
 
-const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result }) => {
+const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
     const { playResultAnimation } = useGameContext();
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-                    {<div className={Styles["result-plate"]}></div>}
+                    <div className={Styles["result-plate"]}></div>
                     <div className={Styles["toss-dices"]}>
                         <Image
-                            key={Date.now()}
-                            src={`/static/images/bigsmall_dice.gif?${new Date().getTime()}`}
+                            key={roundId}
+                            src={`/static/images/bigsmall_dice.gif?${roundId}`}
                             alt="shake"
                             width={180}
                             height={180}
