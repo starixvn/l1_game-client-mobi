@@ -35,7 +35,7 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
                     <div className={Styles["result-container"]}>
                         {Object.values(result).map((value, index) => (
                             <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                                <RoundDot choice={value ? "odd" : "even"} size="large" />
+                                <RoundDot choice={value ? "odd" : "even"} size="super-large" />
                             </div>
                         ))}
                     </div>
