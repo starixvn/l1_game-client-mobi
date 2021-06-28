@@ -10,7 +10,7 @@
             "wholeRound": 62,
             "placingBets": 50,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 0,
             "balancingBet": 3
@@ -60,7 +60,7 @@
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 3,
-            "resultAnimation": 2,
+            "resultAnimation": 1,
             "beforeStartRound": 0,
             "balancingBet": 3
         }
