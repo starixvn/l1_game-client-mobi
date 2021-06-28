@@ -118,8 +118,8 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderResultInfo() {
-        const { result } = this.state;
-        // const result = { red1: true, red2: true, red3: true, red4: true };
+        // const { result } = this.state;
+        const result = { red1: true, red2: true, red3: true, red4: true };
 
         return (
             <div className={Styles["result-info"]}>
@@ -131,9 +131,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderSettlementInfo() {
-        const { result, settlementResult } = this.state;
-        // const result = { red1: true, red2: true, red3: true, red4: true };
-        // const settlementResult = { even: true, odd: false, red2: true, red3: false, red4: false, white3: false, white4: false };
+        // const { result, settlementResult } = this.state;
+        const result = { red1: true, red2: true, red3: true, red4: true };
+        const settlementResult = { even: true, odd: false, red2: true, red3: false, red4: false, white3: false, white4: false };
 
         const redDotCount = Object.values(result).filter((dot) => dot).length;
         const whiteDotCount = 4 - redDotCount;
