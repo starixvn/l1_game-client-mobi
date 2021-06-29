@@ -1,5 +1,5 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
+import { useTranslation } from "next-i18next";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameState } from "../game-base/type";
 import Loader from "../loader";
@@ -7,19 +7,48 @@ import styles from "./countdown-timer.module.scss";
 
 const CountdownTimer: React.FC = () => {
     const { gameState } = useGameContext();
-
+    const { t } = useTranslation("common");
     switch (gameState) {
         case GameState.InRound:
+            return (
+                <>
+                    <Timer />
+                    <GameStatus>
+                        <div className={styles["start-betting"]}>{t("startBetting")}</div>
+                    </GameStatus>
+                </>
+            );
         case GameState.LockingBet:
-            return <Timer />;
+            return (
+                <>
+                    <Timer />
+                    <GameStatus>
+                        <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
+                    </GameStatus>
+                </>
+            );
         case GameState.BalancingBet:
-            return <div className="loader-balance-pool"></div>;
+            return (
+                <>
+                    <div className="loader-balance-pool"></div>
+                    <GameStatus>
+                        <div className={styles["balanced-betting-pool"]}>{t("balancedBettingPool")}</div>
+                    </GameStatus>
+                </>
+            );
         case GameState.None:
             return <Loader />;
         case GameState.BeforeStartRound:
             return <></>;
         default:
-            return <div className="loader-show-result"></div>;
+            return (
+                <>
+                    <div className="loader-show-result"></div>
+                    <GameStatus>
+                        <div className={styles["open-result"]}>{t("openResult")}</div>
+                    </GameStatus>
+                </>
+            );
     }
 };
 
@@ -49,6 +78,10 @@ const Timer = () => {
             </CountdownCircleTimer>
         </div>
     );
+};
+
+const GameStatus: React.FC = ({ children }) => {
+    return <div className={styles["game-status"]}>{children}</div>;
 };
 
 export default CountdownTimer;

@@ -222,23 +222,3 @@
         z-index: calc(var(--popup-guide-history-index) - 1);
     }
 }
-.show-status-game {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    bottom: 5px;
-    font-size: 1.3rem;
-    line-height: 1.5rem;
-    .start-betting {
-        color: #19a32f;
-    }
-    .open-result {
-        color: #fff;
-    }
-    .balanced-betting-pool {
-        color: #428ede;
-    }
-    .no-more-bets {
-        color: #ff0707;
-    }
-}
