@@ -33,9 +33,6 @@
     animation: move-up-result-animation 0.5s linear forwards;
 }
 
-@keyframes slideInUp {
-}
-
 @keyframes move-up-result-animation {
     from {
         transform: scale(var(--result-scale)) translateY(0);
