@@ -118,17 +118,17 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderSettlementInfo() {
-        // const { result, settlementResult } = this.state;
-        const result = { red1: true, red2: true, red3: true, red4: true };
-        const settlementResult = { even: true, odd: false, red2: true, red3: false, red4: false, white3: false, white4: false };
+        const { result, settlementResult } = this.state;
+        // const result = { red1: true, red2: true, red3: true, red4: true };
+        // const settlementResult = { even: true, odd: false, red2: true, red3: false, red4: false, white3: false, white4: false };
 
         const redDotCount = Object.values(result).filter((dot) => dot).length;
         const whiteDotCount = 4 - redDotCount;
 
         return (
-            <div className={Styles["settlement-container"]}>
+            <div className={Styles["result-container"]}>
                 <div className={Styles["left"]}>
-                    <div className="d-flex">
+                    <div className={`d-flex ${Styles["row1"]}`}>
                         <span className={Styles["number"]}>{whiteDotCount}</span>
                         <RoundDot choice="even" size="medium" />
                     </div>
@@ -140,9 +140,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 <div className={Styles["line"]}></div>
                 <div>
                     {settlementResult.even ? (
-                        <div className={Styles["settlement-info-grey"]}>{this.getGameTranslate("even")}</div>
+                        <div className={Styles["result-info-grey"]}>{this.getGameTranslate("even")}</div>
                     ) : (
-                        <div className={Styles["settlement-info-red"]}>{this.getGameTranslate("odd")}</div>
+                        <div className={Styles["result-info-red"]}>{this.getGameTranslate("odd")}</div>
                     )}
                 </div>
             </div>

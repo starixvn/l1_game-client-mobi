@@ -1,34 +1,10 @@
 @import "../../../assets/components/settlement-info";
 
-.result-info {
-    display: grid;
-    grid-template-columns: repeat(4, 2.2rem);
-    grid-template-rows: 2.2rem;
-    grid-gap: 1rem;
-    justify-content: center;
+.row1 {
+    margin-bottom: 0.5rem;
 }
 
-.settlement-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 0.2rem 1fr;
-    grid-gap: 0.5rem;
-    align-items: center;
-
-    .line {
-        width: 0.2rem;
-        height: 100%;
-        background: linear-gradient(180deg, #ffdea9 0%, #ffa412 50.83%, #ffd795 100%);
-    }
-
-    .left {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 0.8rem;
-    }
-
-    .number {
-        margin-right: 0.5rem;
-        color: #2c2f3e;
-    }
+.number {
+    margin-right: 0.5rem;
+    color: #2c2f3e;
 }

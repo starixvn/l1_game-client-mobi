@@ -133,19 +133,28 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderSettlementInfo() {
-        // const { result, settlementResult } = this.state;
+        const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;
-        const result = { dice1: 1, dice2: 1, dice3: 1 };
-        const settlementResult = { big: true, small: false };
+        // const result = { dice1: 1, dice2: 1, dice3: 1 };
+        // const settlementResult = { big: true, small: false };
 
         const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
         const winingOption = settlementResult.big ? "big" : "small";
         const winingOptionTranslateKey = `${gameName.toLowerCase()}:${winingOption}`;
 
         return (
-            <div
-                className={`${settlementResult.big ? Styles["settlement-info-blue"] : Styles["settlement-info-red"]}`}
-            >{`${totalDiceValue} - ${t(winingOptionTranslateKey)}`}</div>
+            <div className={Styles["result-container"]}>
+                <div className={Styles["left"]}>
+                    <div className={Styles["total-text"]}>Tổng</div>
+                    <div className={`${settlementResult.big ? Styles["total-points-big"] : Styles["total-points-small"]}`}>
+                        {totalDiceValue}
+                    </div>
+                </div>
+                <div className={Styles["line"]}></div>
+                <div className={`${settlementResult.big ? Styles["result-info-blue"] : Styles["result-info-red"]}`}>
+                    {t(winingOptionTranslateKey)}
+                </div>
+            </div>
         );
     }
 }

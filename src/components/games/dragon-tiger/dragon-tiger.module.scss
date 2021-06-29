@@ -1,48 +1,19 @@
 @import "../../../assets/components/settlement-info";
 
-.result-info {
+.result-info-container {
     display: flex;
-    justify-content: space-between;
-    color: #2c2f3e;
-    font-size: 1.8rem;
 
-    %result {
-        display: flex;
-        align-items: center;
-    }
-    .result-dragon {
-        @extend %result;
-        margin-right: 1rem;
+    .result-info {
+        min-width: 15rem;
     }
 
-    .result-tiger {
-        @extend %result;
-    }
-
-    .character-wrapper {
-        display: flex;
-        align-items: center;
-        width: 1.6rem;
-        height: 1.6rem;
-        margin-left: 0.1rem;
-    }
-}
-
-.settlement-info-container {
-    display: flex;
-    width: 100%;
-
-    .settlement-info {
-        width: 100%;
-    }
-
-    .settlement-info-orange {
-        @extend .settlement-info;
+    .result-info-orange {
+        @extend .result-info;
         background: linear-gradient(180deg, #ffc561 0%, #fb9b09 38.33%, #e38900 100%);
     }
 
-    .settlement-info-green {
-        @extend .settlement-info;
+    .result-info-green {
+        @extend .result-info;
         background: linear-gradient(180deg, #51a0ae 0%, #388a99 20.62%, #174d57 100%);
     }
 }

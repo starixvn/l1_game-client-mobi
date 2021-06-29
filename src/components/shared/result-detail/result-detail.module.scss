@@ -2,40 +2,15 @@
 
 .result-detail-container {
     position: absolute;
-    left: calc(50% - 10.5rem);
+    left: 0;
     top: 16rem;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 21rem;
-    padding: 0 0.5rem;
-    background: linear-gradient(180deg, #ffffff 0%, #ffe9c3 3.96%, #ffd693 100%);
-    border-radius: 2rem;
+    justify-content: center;
     transform: scale(1);
     animation: show-result-detail-animation 0.3s linear forwards;
     opacity: 0;
     z-index: var(--result-animation-index);
-
-    .line {
-        height: 0.2rem;
-        width: 100%;
-        background: linear-gradient(270deg, #ffdea8 0%, #ffbb4e 50.53%, #ffdfab 100%);
-    }
-
-    .result-info {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 4.9rem;
-        padding-top: 0.7rem;
-        padding-bottom: 0.7rem;
-    }
-
-    .settlement-info {
-        display: flex;
-        width: 100%;
-        padding: 1.1rem 2rem;
-    }
 
     @keyframes show-result-detail-animation {
         from {
