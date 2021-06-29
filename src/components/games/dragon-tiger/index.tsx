@@ -127,39 +127,40 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         );
     }
 
-    renderResultInfo() {
-        const { result } = this.state;
-
-        return (
-            <div className={Styles["result-info"]}>
-                <div className={Styles["result-dragon"]}>
-                    {this.getGameTranslate("dragon")}: {CardValueCharacter[result.dragon.card]}
-                    <div className={Styles["character-wrapper"]}>
-                        <img src={`/static/images/${CardTypeCharacter[result.dragon.type]}.png`} className="img-fluid" alt="character" />
-                    </div>
-                </div>
-                <div className={Styles["result-tiger"]}>
-                    {this.getGameTranslate("tiger")}: {CardValueCharacter[result.tiger.card]}
-                    <div className={Styles["character-wrapper"]}>
-                        <img src={`/static/images/${CardTypeCharacter[result.tiger.type]}.png`} className="img-fluid" alt="character" />
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     renderSettlementInfo() {
-        const { settlementResult } = this.state;
+        // const { result, settlementResult } = this.state;
+        const result = { dragon: { card: 10, type: 2 }, tiger: { card: 5, type: 3 } };
+        const settlementResult = { dragon: true, tiger: false, tie: false };
 
         return (
-            <div className={Styles["settlement-info-container"]}>
-                {settlementResult.tie ? (
-                    <div className={Styles["settlement-info-green"]}>{this.getGameTranslate("tie")}</div>
-                ) : settlementResult.dragon ? (
-                    <div className={Styles["settlement-info-orange"]}>{this.getGameTranslate("dragonWin")}</div>
-                ) : (
-                    <div className={Styles["settlement-info-red"]}>{this.getGameTranslate("tigerWin")}</div>
-                )}
+            <div>
+                <div className={Styles["result-info"]}>
+                    <div className={Styles["result-dragon"]}>
+                        {this.getGameTranslate("dragon")}: {CardValueCharacter[result.dragon.card]}
+                        <div className={Styles["character-wrapper"]}>
+                            <img
+                                src={`/static/images/${CardTypeCharacter[result.dragon.type]}.png`}
+                                className="img-fluid"
+                                alt="character"
+                            />
+                        </div>
+                    </div>
+                    <div className={Styles["result-tiger"]}>
+                        {this.getGameTranslate("tiger")}: {CardValueCharacter[result.tiger.card]}
+                        <div className={Styles["character-wrapper"]}>
+                            <img src={`/static/images/${CardTypeCharacter[result.tiger.type]}.png`} className="img-fluid" alt="character" />
+                        </div>
+                    </div>
+                </div>
+                <div className={Styles["settlement-info-container"]}>
+                    {settlementResult.tie ? (
+                        <div className={Styles["settlement-info-green"]}>{this.getGameTranslate("tie")}</div>
+                    ) : settlementResult.dragon ? (
+                        <div className={Styles["settlement-info-orange"]}>{this.getGameTranslate("dragonWin")}</div>
+                    ) : (
+                        <div className={Styles["settlement-info-red"]}>{this.getGameTranslate("tigerWin")}</div>
+                    )}
+                </div>
             </div>
         );
     }

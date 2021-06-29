@@ -652,8 +652,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract getMainOptions(): string[];
 
-    abstract renderResultInfo(): JSX.Element;
-
     abstract renderSettlementInfo(): JSX.Element;
 
     getGameTranslate(key: string) {
@@ -840,7 +838,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
-                                        renderResultInfo={() => this.renderResultInfo()}
                                         renderSettlementInfo={() => this.renderSettlementInfo()}
                                         timeToShowInSecond={durations.showResult - durations.resultAnimation}
                                     />

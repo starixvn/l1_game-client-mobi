@@ -4,7 +4,7 @@ import Styles from "./result-detail.module.scss";
 
 const HidingAnimationDurationInSecond = 0.5;
 
-const ResultDetail: React.FC<{ renderResultInfo: Function; renderSettlementInfo: Function; timeToShowInSecond: number }> = (props) => {
+const ResultDetail: React.FC<{ renderSettlementInfo: Function; timeToShowInSecond: number }> = (props) => {
     const [bindHideAnimationClass, setBindHideAnimationClass] = useState(false);
 
     useEffect(() => {
@@ -15,9 +15,7 @@ const ResultDetail: React.FC<{ renderResultInfo: Function; renderSettlementInfo:
 
     return (
         <div className={`${Styles["result-detail-container"]} ${bindHideAnimationClass ? Styles["hide-result-animation"] : ""}`}>
-            <div className={Styles["result-info"]}>{props.renderResultInfo()}</div>
-            <div className={Styles["line"]}></div>
-            <div className={Styles["settlement-info"]}>{props.renderSettlementInfo()}</div>
+            {props.renderSettlementInfo()}
         </div>
     );
 };
