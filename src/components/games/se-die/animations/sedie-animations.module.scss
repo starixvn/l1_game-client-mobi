@@ -70,12 +70,13 @@
 
     &.has-animation {
         .result-sedie-set {
+            --time-delay-open-bowl: 0s;
             --time-opening-bowl-animation: 0.8s;
-            --time-hide-bowl-animation: 0.3s;
-            --time-move-up-result: 0.5s;
-            --time-delay-move-up-result: calc(0.2s + var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation));
-            --time-delay-open-bowl: 0.3s;
+
             --time-delay-hide-bowl: calc(var(--time-opening-bowl-animation) - 0.1s);
+            --time-hide-bowl-animation: 0.3s;
+
+            --time-delay-move-up-result: calc(var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.2s);
 
             @extend .move-up-animation;
             animation-delay: var(--time-delay-move-up-result);

@@ -5,14 +5,17 @@
 
 .result-set {
     --time-show-plate-animation: 0.1s;
-    --time-shake-plate-animation: 1s;
+    --time-shake-plate-animation: 0.8s;
 
-    --time-opening-bowl-animation: 0.8s;
-    --time-hide-bowl-animation: 0.3s;
     --time-delay-open-bowl: calc(var(--time-show-plate-animation) + var(--time-shake-plate-animation));
-    --time-delay-hide-bowl: calc(var(--time-delay-open-bowl) + var(--time-opening-bowl-animation) - 0.2s);
+    --time-opening-bowl-animation: 0.6s;
 
-    --time-delay-move-up-result: calc(0.2s + var(--time-delay-hide-bowl));
+    --time-delay-hide-bowl: calc(var(--time-delay-open-bowl) + var(--time-opening-bowl-animation) - 0.1s);
+    --time-hide-bowl-animation: 0.3s;
+
+    --time-delay-move-up-result: calc(
+        var(--time-delay-open-bowl) + var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.18s
+    );
 
     --move-up-distance: -6rem;
     --result-scale: 1;
