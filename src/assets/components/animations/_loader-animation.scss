@@ -1,9 +1,9 @@
 .loader-show-result {
     position: absolute;
     left: calc(50% - 2rem);
-    top: calc(50% - 2rem);
-    width: 4rem;
-    height: 4rem;
+    top: calc(50% - 2.5rem);
+    width: 3rem;
+    height: 3rem;
     border: 0 solid transparent;
     border-radius: 50%;
 
@@ -45,7 +45,7 @@
 .loader-balance-pool {
     position: absolute;
     left: calc(50% - 2rem);
-    top: calc(50% - 2rem);
+    top: calc(50% - 2.5rem);
     width: 3rem;
     height: 2rem;
     margin-bottom: 1rem;
@@ -59,7 +59,7 @@
     &:after {
         height: 0.2rem;
         width: 3rem;
-        background-color: #fff;
+        background-color: #428ede;
         border-radius: 0.2rem;
         bottom: 0;
         left: 0;
@@ -69,7 +69,7 @@
     &:before {
         height: 0.4rem;
         width: 0.4rem;
-        background-color: #fff;
+        background-color: #428ede;
         border-radius: 50%;
         top: 0;
         left: calc(50% - 0.4rem);

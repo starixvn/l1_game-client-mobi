@@ -66,7 +66,7 @@ export default function GameHeader() {
                 </div>
             </div>
             {!showCollapseResult() && <CountdownTimer key={gameState} />}
-
+            <ShowStatus gameState={gameState} viewMode={viewMode}></ShowStatus>
             <HeaderRight displayMenu={!showCollapseResult()} />
             {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
         </div>
@@ -140,4 +140,25 @@ const HeaderRight = ({ displayMenu }) => {
             )}
         </div>
     );
+};
+
+const ShowStatus = ({ gameState, viewMode }) => {
+    const { t } = useTranslation("common");
+    const text = (gameState: number) => {
+        switch (gameState) {
+            case GameState.DisplayResult:
+            case GameState.BeforeStartRound:
+            case GameState.Waiting:
+                return viewMode !== ViewMode.collapse && <div className={Styles["open-result"]}>{t("openResult")}</div>;
+            case GameState.LockingBet:
+                return <div className={Styles["no-more-bets"]}>{t("noMoreBets")}</div>;
+            case GameState.BalancingBet:
+                return <div className={Styles["balanced-betting-pool"]}>{t("balancedBettingPool")}</div>;
+            case GameState.InRound:
+                return <div className={Styles["start-betting"]}>{t("startBetting")}</div>;
+            default:
+                return "";
+        }
+    };
+    return <div className={Styles["show-status-game"]}>{text(gameState)}</div>;
 };
