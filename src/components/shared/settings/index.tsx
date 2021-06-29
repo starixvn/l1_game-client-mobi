@@ -23,18 +23,24 @@ export const Settings: React.FC<Props> = (props) => {
                 <span
                     id="notification-settings"
                     className={`${styles["notification-setting"]} ${props.enabledNotification ? styles["enabled"] : ""}`}
-                    onChange={() => props.onToggleNotification()}
-                ></span>
+                    onClick={() => props.onToggleNotification()}
+                >
+                    Notification
+                </span>
                 <span
                     id="sound-settings"
                     className={`${styles["sound-setting"]} ${props.enabledSound ? styles["enabled"] : ""}`}
-                    onChange={() => props.onToggleSound()}
-                ></span>
+                    onClick={() => props.onToggleSound()}
+                >
+                    Sound
+                </span>
                 <span
                     id="theme-settings"
                     className={`${styles["theme-setting"]} ${theme === Themes.dark ? styles["enabled"] : ""}`}
-                    onChange={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
-                ></span>
+                    onClick={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
+                >
+                    Theme
+                </span>
             </div>
         </div>
     );

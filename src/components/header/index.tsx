@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { isMobileOnly } from "react-device-detect";
 import { Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/number-helper";
+import { Settings } from "../shared/settings";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -10,6 +12,10 @@ type Props = {
     currency: string;
     name: string;
     balance: number;
+    enabledSound: boolean;
+    enabledNotification: boolean;
+    onToggleSound: Function;
+    onToggleNotification: Function;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -43,6 +49,14 @@ const Header: React.FC<Props> = (props) => {
                                 </div>
                             </div>
                         </div>
+                        {!isMobileOnly && (
+                            <Settings
+                                enabledSound={props.enabledSound}
+                                enabledNotification={props.enabledNotification}
+                                onToggleSound={props.onToggleSound}
+                                onToggleNotification={props.onToggleNotification}
+                            />
+                        )}
                     </div>
                 </Navbar>
             </div>

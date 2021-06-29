@@ -263,15 +263,24 @@ class Dashboard extends React.Component<Props, State> {
 
         return (
             <div className={Styles["dashboard"]}>
-                <Header avatarId={avatarId} name={name} balance={balance} currency={currency} />
+                <Header
+                    avatarId={avatarId}
+                    name={name}
+                    balance={balance}
+                    currency={currency}
+                    enabledNotification={enabledWinningStreakNotification}
+                    enabledSound={enabledPlaySound}
+                    onToggleNotification={this.winningStreakNotificationToggle}
+                    onToggleSound={this.playSoundToggle}
+                />
                 {isMobileOnly && (
                     <div className={Styles["settings-container"]}>
                         <Settings
                             enabledSound={enabledPlaySound}
                             enabledNotification={enabledWinningStreakNotification}
-                            enabledOneClickBet={enabledQuickBet}
                             onToggleNotification={this.winningStreakNotificationToggle}
                             onToggleSound={this.playSoundToggle}
+                            enabledOneClickBet={enabledQuickBet}
                             updateEnabledQuickBet={this.setEnabledQuickBet}
                         />
                     </div>
