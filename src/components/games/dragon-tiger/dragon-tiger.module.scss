@@ -6,12 +6,25 @@
     color: #2c2f3e;
     font-size: 1.8rem;
 
+    %result {
+        display: flex;
+        align-items: center;
+    }
     .result-dragon {
+        @extend %result;
         margin-right: 1rem;
     }
 
-    .character {
-        font-size: 2rem;
+    .result-tiger {
+        @extend %result;
+    }
+
+    .character-wrapper {
+        display: flex;
+        align-items: center;
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-left: 0.1rem;
     }
 }
 

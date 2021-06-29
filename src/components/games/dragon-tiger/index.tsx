@@ -134,11 +134,15 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
             <div className={Styles["result-info"]}>
                 <div className={Styles["result-dragon"]}>
                     {this.getGameTranslate("dragon")}: {CardValueCharacter[result.dragon.card]}
-                    <span className={Styles["character"]}>{CardTypeCharacter[result.dragon.type]}</span>
+                    <div className={Styles["character-wrapper"]}>
+                        <img src={`/static/images/${CardTypeCharacter[result.dragon.type]}.png`} className="img-fluid" alt="character" />
+                    </div>
                 </div>
                 <div className={Styles["result-tiger"]}>
                     {this.getGameTranslate("tiger")}: {CardValueCharacter[result.tiger.card]}
-                    <span className={Styles["character"]}>{CardTypeCharacter[result.tiger.type]}</span>
+                    <div className={Styles["character-wrapper"]}>
+                        <img src={`/static/images/${CardTypeCharacter[result.tiger.type]}.png`} className="img-fluid" alt="character" />
+                    </div>
                 </div>
             </div>
         );

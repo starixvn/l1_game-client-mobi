@@ -4,7 +4,7 @@ const getValueCard = (result: Result, name: string) => {
     return result[name].card;
 };
 
-export const CardTypeCharacter = ["♠", "♣", "♦", "♥"];
+export const CardTypeCharacter = ["card-spade", "card-club", "card-diamond", "card-heart"];
 
 export const CardValueCharacter = ["A(1)", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J(11)", "Q(12)", "K(13)"];
 
