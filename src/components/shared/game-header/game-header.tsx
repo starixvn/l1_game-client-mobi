@@ -49,6 +49,7 @@ export default function GameHeader() {
     return (
         <div className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`} onClick={onHeaderClick}>
             <div className={Styles["header-left"]}>
+                <div className={Styles["header-overlay"]}></div>
                 <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
                     <span
                         className={

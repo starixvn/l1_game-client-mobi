@@ -76,7 +76,7 @@
             --time-delay-hide-bowl: calc(var(--time-opening-bowl-animation) - 0.1s);
             --time-hide-bowl-animation: 0.3s;
 
-            --time-delay-move-up-result: calc(var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.2s);
+            --time-delay-move-up-result: calc(var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.18s);
 
             @extend .move-up-animation;
             animation-delay: var(--time-delay-move-up-result);

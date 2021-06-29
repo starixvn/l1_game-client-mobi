@@ -1,5 +1,5 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #ffba39 48.75%, #f6b02b 48.76%);
+    --game-header-background: linear-gradient(180deg, #fdc458 5%, #fbad19 37.29%, #f8aa15 72.71%);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
@@ -44,6 +44,15 @@
 
     &.border-radius-bottom {
         border-radius: 0.5rem;
+    }
+
+    .header-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: url(/static/images/game-header-overlay.png) no-repeat;
+        height: 5.4rem;
+        width: 40.4rem;
     }
 }
 

@@ -14,12 +14,12 @@
 
 .big {
     @extend %bet-choice;
-    color: var(--bigSmall-dot-big-background);
+    color: var(--bigSmall-big-text-color);
 }
 
 .small {
     @extend %bet-choice;
-    color: var(--bigSmall-dot-small-background);
+    color: var(--bigSmall-small-text-color);
 }
 
 .statistic-user-bet {

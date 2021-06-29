@@ -7,7 +7,6 @@ const WinningBet: React.FC<{ amount: number; handleUpdateUserBalance: Function }
     useEffect(() => {
         handleUpdateUserBalance();
     }, []);
-    debugger;
     return (
         <div className={Styles["winning-bet"]}>
             <span className={Styles["number"]}>{`+${numberWithCommas(amount)}`}</span>

@@ -7,7 +7,7 @@
     height: 1.5rem;
     margin: 0 0.1rem;
     border-radius: 50%;
-    font: 1.1rem 500 var(--font-number);
+    font: 1.1rem var(--font-number);
     pointer-events: none;
     color: #fff;
     z-index: 1;
@@ -97,37 +97,54 @@
 // dragon-tiger
 .dot-dragon {
     @extend %dot;
-    background-color: var(--dragonTiger-dot-dragon-background);
-    border-color: var(--dragonTiger-dot-dragon-border);
+    background: var(--dragonTiger-dot-dragon-border);
     box-shadow: var(--dragonTiger-dot-dragon-shadow);
+
+    &:before {
+        background: var(--dragonTiger-dot-dragon-background);
+    }
 }
 
 .dot-tiger {
     @extend %dot;
-    background-color: var(--dragonTiger-dot-tiger-background);
-    border-color: var(--dragonTiger-dot-tiger-border);
+    background: var(--dragonTiger-dot-tiger-border);
     box-shadow: var(--dragonTiger-dot-tiger-shadow);
+
+    &:before {
+        background: var(--dragonTiger-dot-tiger-background);
+    }
 }
 
 .dot-tie {
     @extend %dot;
-    background-color: var(--dragonTiger-dot-tie-background);
-    border-color: var(--dragonTiger-dot-tie-border);
+    background: var(--dragonTiger-dot-tie-border);
     box-shadow: var(--dragonTiger-dot-tie-shadow);
+
+    &:before {
+        background: var(--dragonTiger-dot-tie-background);
+    }
 }
 
 // bbig-small
 
 .dot-big {
     @extend %dot;
-    background-color: var(--bigSmall-dot-big-background);
-    border-color: var(--bigSmall-dot-big-border);
+    background: var(--bigSmall-dot-big-border);
+    box-shadow: var(--bigSmall-dot-big-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-big-background);
+    }
 }
 
 .dot-small {
     @extend %dot;
-    background-color: var(--bigSmall-dot-small-background);
-    border-color: var(--bigSmall-dot-small-border);
+    background: var(--bigSmall-dot-small-border);
+    box-shadow: var(--bigSmall-dot-small-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-small-background);
+    }
 }
 
 // animations

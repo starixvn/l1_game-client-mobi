@@ -1,11 +1,11 @@
 [data-theme="light"] .highlight-result-label {
-    --prev-round-background: linear-gradient(221.79deg, #f0f0f0 0%, #bebebe 98.88%);
+    --prev-round-background: url("/static/images/fpc-result-prev.png");
     --prev-round-color: #666;
 }
 
 [data-theme="dark"] .highlight-result-label {
-    --prev-round-background: linear-gradient(221.79deg, #5583b0 0%, #455b71 98.88%);
-    --prev-round-color: #fff;
+    --prev-round-background: url("/static/images/fpc-result-prev.png");
+    --prev-round-color: #666;
 }
 
 .layout-FPC {
@@ -17,46 +17,23 @@
 }
 
 .symbol-size {
-    font-size: 6rem;
-
-    &.icon-bau {
-        font-size: 5.6rem;
-    }
-
-    &.icon-ca {
-        font-size: 6.6rem;
-    }
-}
-
-.simple-mode {
-    font-size: 4rem;
-
-    &.icon-bau {
-        font-size: 3rem;
-    }
-
-    &.icon-ca {
-        font-size: 4rem;
-    }
+    width: 7rem;
+    height: 7rem;
 }
 
 .highlight-result-label {
     position: absolute;
     left: 0;
-    top: 0;
-    height: 3.6rem;
-    width: 3.6rem;
-    background: linear-gradient(221.79deg, #f9d07a 0%, #a87725 98.88%);
-    background-size: 100%;
-    clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
-    transform: rotate(90deg);
+    top: -0.1rem;
+    height: 3.8rem;
+    width: 3.8rem;
+    background: url("/static/images/fpc-result-highlight.png");
 
     &:before {
         position: absolute;
-        top: 1.7rem;
+        top: 0.5rem;
         left: 0.4rem;
         display: inline-block;
-        transform: rotate(-90deg);
         font-weight: 500;
         font-size: 1.1rem;
         color: #fff;

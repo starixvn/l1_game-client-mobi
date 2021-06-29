@@ -105,7 +105,9 @@ const renderBetOptionByChoice = (
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
         >
-            <div className={`${Styles["symbol-size"]} icon-${IconMapper[choice]} ${Styles[classChoice]}`}></div>
+            <div className={`${Styles["symbol-size"]}`}>
+                <img src={`/static/images/fpc-${IconMapper[choice]}.svg`} className="img-fluid" alt="symbol" />
+            </div>
             {isShowCountOfDice && classCount !== "" && (
                 <div className={`${Styles["highlight-result-label"]} ${Styles[getClassPrevRound(gameState)]} ${Styles[classCount]}`}></div>
             )}

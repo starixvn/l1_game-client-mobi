@@ -35,7 +35,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                 isShowWinningEffect={isShowWinningEffect}
             >
                 <div className={Styles["icon-group"]}>
-                    <div className={`icon-dragon ${Styles["icon"]}`}></div>
+                    <img src={`/static/images/dragon.svg`} className="img-fluid" alt="dragon" />
                     <div className={Styles["text-dragon"]}>{t(Choices.dragon)}</div>
                 </div>
             </BetOption>
@@ -47,7 +47,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                 isShowWinningEffect={isShowWinningEffect}
             >
                 <div className={Styles["icon-group"]}>
-                    <div className={`icon-tiger ${Styles["icon"]}`}></div>
+                    <img src={`/static/images/tiger.svg`} className="img-fluid" alt="dragon" />
                     <div className={Styles["text-tiger"]}>{t(Choices.tiger)}</div>
                 </div>
             </BetOption>
