@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import useSound from "use-sound";
-
 import { ChipLabelMapper, ChipValues } from "../../../common/constants";
-import { useSystemContext } from "../../../contexts/system";
 import Chip from "../../shared/chip";
 import Styles from "./chip-slider.module.scss";
 
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
-export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }> = ({ betValue, updateBetValue }) => {
+export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; enabledSound: boolean }> = ({
+    betValue,
+    updateBetValue,
+    enabledSound,
+}) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [isSliding, setIsSliding] = useState(false);
-    const { enabledPlaySound } = useSystemContext();
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
     const handleSelectChip = (chipValue: number) => {
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
-        enabledPlaySound && playSound();
+        enabledSound && playSound();
     };
 
     const getCurrentSlidesToShow = () => {

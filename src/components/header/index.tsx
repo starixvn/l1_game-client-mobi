@@ -10,7 +10,6 @@ type Props = {
     currency: string;
     name: string;
     balance: number;
-    onOpenSlideNav: () => void;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -43,7 +42,6 @@ const Header: React.FC<Props> = (props) => {
                                     )}
                                 </div>
                             </div>
-                            <span onClick={props.onOpenSlideNav} className={`icon-menu ${Styles["icon-menu"]}`}></span>
                         </div>
                     </div>
                 </Navbar>

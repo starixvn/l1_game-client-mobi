@@ -20,11 +20,12 @@ import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import SlideNav from "../slide-nav";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
 import Welcome from "./welcome";
 import { LanguageLocaleMapper } from "../../common/constants";
+import { BetSettings } from "../bet-settings";
+import { Settings } from "../shared/settings";
 
 type Props = {
     balance: number;
@@ -46,7 +47,8 @@ type State = {
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    isShowSlideNav: boolean;
+    enabledQuickBet: boolean;
+    betValue: number;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -66,7 +68,8 @@ class Dashboard extends React.Component<Props, State> {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
-            isShowSlideNav: false,
+            enabledQuickBet: props.authorizeInfo?.user?.settings?.quickBet,
+            betValue: 1,
         };
 
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -78,8 +81,8 @@ class Dashboard extends React.Component<Props, State> {
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
-        this.openSideNav = this.openSideNav.bind(this);
-        this.closeSideNav = this.closeSideNav.bind(this);
+        this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
+        this.setBetValue = this.setBetValue.bind(this);
     }
 
     doOnOrientationChange() {
@@ -245,42 +248,49 @@ class Dashboard extends React.Component<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
-    openSideNav() {
-        this.setState({ isShowSlideNav: true });
+    setEnabledQuickBet(enabled: boolean) {
+        this.setState({ enabledQuickBet: enabled });
     }
 
-    closeSideNav() {
-        this.setState({ isShowSlideNav: false });
+    setBetValue(value: number) {
+        this.setState({ betValue: value });
     }
 
     renderDashBoard() {
-        const { authorizeInfo, apiErrorMessage, balance } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, isShowSlideNav } = this.state;
+        const { apiErrorMessage, balance } = this.props;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, betValue, enabledQuickBet } = this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
             <div className={Styles["dashboard"]}>
-                <Header avatarId={avatarId} name={name} balance={balance} currency={currency} onOpenSlideNav={this.openSideNav} />
-                {isShowSlideNav && (
-                    <SlideNav
-                        avatarId={avatarId}
-                        name={name}
-                        balance={balance}
-                        currency={currency}
-                        onClose={this.closeSideNav}
-                        enabledPlaySound={enabledPlaySound}
-                        onPlaySoundToggle={this.playSoundToggle}
-                        enabledWinningStreakNotification={enabledWinningStreakNotification}
-                        onWinningStreakToggle={this.winningStreakNotificationToggle}
-                    />
+                <Header avatarId={avatarId} name={name} balance={balance} currency={currency} />
+                {isMobileOnly && (
+                    <div className={Styles["settings-container"]}>
+                        <Settings
+                            enabledSound={enabledPlaySound}
+                            enabledNotification={enabledWinningStreakNotification}
+                            enabledOneClickBet={enabledQuickBet}
+                            onToggleNotification={this.winningStreakNotificationToggle}
+                            onToggleSound={this.playSoundToggle}
+                            updateEnabledQuickBet={this.setEnabledQuickBet}
+                        />
+                    </div>
                 )}
                 <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
                     <Games
-                        quickBetSetting={authorizeInfo?.user?.settings?.quickBet}
                         enabledWinningStreakNotification={enabledWinningStreakNotification}
                         enabledPlaySound={enabledPlaySound}
+                        enabledQuickBet={enabledQuickBet}
+                        betValue={betValue}
                     />
                 </RoundResultContextProvider>
+                <BetSettings
+                    betValue={betValue}
+                    enabledQuickBet={enabledQuickBet}
+                    updateEnabledQuickBet={this.setEnabledQuickBet}
+                    updateBetValue={this.setBetValue}
+                    enabledSound={enabledPlaySound}
+                />
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
