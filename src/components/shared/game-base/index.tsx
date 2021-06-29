@@ -847,7 +847,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.showWinningAnimation && this.betWin && (
+                                {this.state.showResultInfo && this.betWin && (
                                     <WinningBet amount={this.betWin} handleUpdateUserBalance={() => this.updateUserBalance()} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
