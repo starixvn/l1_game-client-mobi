@@ -9,13 +9,14 @@
 
     --time-opening-bowl-animation: 0.8s;
     --time-hide-bowl-animation: 0.3s;
-    --time-move-up-result: 0.2s;
-    --time-delay-move-up-result: calc(0.3s + var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation));
     --time-delay-open-bowl: calc(var(--time-show-plate-animation) + var(--time-shake-plate-animation));
-    --time-delay-hide-bowl: var(--time-delay-open-bowl);
+    --time-delay-hide-bowl: calc(var(--time-delay-open-bowl) + var(--time-opening-bowl-animation) - 0.2s);
+
+    --time-delay-move-up-result: calc(0.2s + var(--time-delay-hide-bowl));
 
     --move-up-distance: -6rem;
     --result-scale: 1;
+
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
