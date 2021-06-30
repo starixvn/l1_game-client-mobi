@@ -51,7 +51,11 @@ const BaseDialog: React.FC<Props> = ({
     }, [wrapperRef]);
 
     return (
-        <div style={getCustomStyle()} ref={wrapperRef} className={`${Styles.popup} ${Styles[classModal]}`}>
+        <div
+            style={getCustomStyle()}
+            ref={wrapperRef}
+            className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
+        >
             {children}
         </div>
     );

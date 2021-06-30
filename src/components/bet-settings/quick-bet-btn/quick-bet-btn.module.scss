@@ -4,10 +4,11 @@
     display: block;
     position: relative;
     user-select: none;
-    left: -1.2rem;
+    left: 0;
     top: 0.8rem;
     animation-delay: 2s;
     animation-iteration-count: 3;
+    z-index: var(--popup-index);
 
     @media (min-width: 768px) {
         position: absolute;
@@ -111,10 +112,12 @@
 
     .bg-opacity {
         height: 100vh;
-        background: black;
-        opacity: 0.5;
+        background: rgba(0, 0, 0, 0.5);
         width: 100%;
-        display: block;
+
+        &.quick-bet-confirm-mobile {
+            height: calc(100vh - 8.9rem);
+        }
     }
 }
 
@@ -123,6 +126,12 @@
     left: -0.6rem;
     width: 34rem;
     z-index: 1;
+
+    &.isMobile {
+        bottom: auto;
+        left: 0;
+        top: 2.9rem;
+    }
 
     @media (min-width: 768px) {
         left: -0.5rem;

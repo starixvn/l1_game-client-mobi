@@ -27,12 +27,10 @@ const Header: React.FC<Props> = (props) => {
             <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
-                        <div className={Styles["logo"]}>
-                            <a href={`/${locale}`}>
-                                <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
-                            </a>
-                        </div>
-                        <div className="d-flex">
+                        <a href={`/${locale}`} className={Styles["site-name"]}>
+                            Saba.mobi
+                        </a>
+                        <div className="d-flex align-items-center">
                             {!isMobileOnly && (
                                 <Settings
                                     enabledSound={props.enabledSound}

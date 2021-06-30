@@ -77,7 +77,7 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
     };
 
     return (
-        <div className="game-container game-wrapper">
+        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""}`}>
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>

@@ -4,7 +4,7 @@
     --popup-color: #2c2f3e;
     --popup-title-color: #2c2f3e;
     --popup-sub-title-color: #9298a4;
-    --popup-game-name-color: #FF9A00;
+    --popup-game-name-color: #ff9a00;
     --popup-icon-close-background: #eaebf0;
     --popup-icon-close-color: #4f4f54;
     --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
@@ -16,7 +16,7 @@
     --popup-color: #fff;
     --popup-title-color: #fff;
     --popup-sub-title-color: #9298a4;
-    --popup-game-name-color: #FF9A00;
+    --popup-game-name-color: #ff9a00;
     --popup-icon-close-background: #7d8a98;
     --popup-icon-close-color: #1a2430;
     --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
@@ -76,18 +76,22 @@
         border-radius: 0;
     }
 
+    // quick-bet confirm
     &.modal-message {
         border-radius: 0.5rem !important;
         padding: 0 !important;
         left: 5px;
-        bottom: 8rem;
         right: 5px;
         box-shadow: none;
+
+        &.isMobile {
+            top: 9rem;
+            bottom: auto !important;
+        }
 
         @media (min-width: 1024px) {
             display: flex;
             top: 0;
-            bottom: 10rem;
             background: none;
             border: none;
         }

@@ -16,6 +16,7 @@ export const Settings: React.FC<Props> = (props) => {
                     <QuickBetBtn
                         enabledQuickBet={props.enabledOneClickBet}
                         updateEnabledQuickBet={(enabled) => props.updateEnabledQuickBet(enabled)}
+                        hasQuickBetLabel={false}
                     />
                 </div>
             )}

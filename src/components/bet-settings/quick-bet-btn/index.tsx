@@ -1,5 +1,6 @@
 import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import { useAuthContext } from "../../../contexts/auth";
 import { UserClientCommunication } from "../../../services";
 import BaseDialog from "../../shared/base-dialog";
@@ -7,9 +8,10 @@ import { ModalType } from "../../shared/base-dialog/type";
 import ConfirmMessage from "../confirm-message";
 import Styles from "./quick-bet-btn.module.scss";
 
-export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function }> = ({
+export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; hasQuickBetLabel: boolean }> = ({
     enabledQuickBet,
     updateEnabledQuickBet,
+    hasQuickBetLabel,
 }) => {
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
@@ -86,18 +88,21 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                         <div className={Styles["icon-quick-bet"]}></div>
                     </div>
                 </label>
-                <div className={Styles["one-click-bet"]}>1-Click Bet</div>
+                {hasQuickBetLabel && <div className={Styles["one-click-bet"]}>1-Click Bet</div>}
             </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
-                    <div className={Styles["bg-opacity"]}></div>
+                    <div className={`${Styles["bg-opacity"]} ${isMobileOnly ? Styles["quick-bet-confirm-mobile"] : ""}`}></div>
                     <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
                         <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
                     </BaseDialog>
                 </div>
             )}
             {enabledQuickBet === undefined && isShowTooltip && (
-                <div ref={tooltipRef} className={`popover-custom top ${Styles["hint-one-click-bet"]}`}>
+                <div
+                    ref={tooltipRef}
+                    className={`popover-custom ${isMobileOnly ? `bottom ${Styles["isMobile"]}` : "top"} ${Styles["hint-one-click-bet"]} `}
+                >
                     <div className={Styles.content}>
                         <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
                     </div>

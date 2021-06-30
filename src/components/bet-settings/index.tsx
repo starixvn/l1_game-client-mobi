@@ -20,7 +20,13 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
             <div className={Styles["settings-container"]}>
                 <div className={`game-container ${Styles["container"]}`}>
                     <div className={Styles["wrapper-chips"]}>
-                        {!isMobileOnly && <QuickBetBtn enabledQuickBet={enabledQuickBet} updateEnabledQuickBet={updateEnabledQuickBet} />}
+                        {!isMobileOnly && (
+                            <QuickBetBtn
+                                enabledQuickBet={enabledQuickBet}
+                                updateEnabledQuickBet={updateEnabledQuickBet}
+                                hasQuickBetLabel={true}
+                            />
+                        )}
                         <div className={Styles["chips-container"]}>
                             <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} />
                         </div>
