@@ -135,8 +135,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;
-        // const result = { dice1: 1, dice2: 1, dice3: 1 };
-        // const settlementResult = { big: true, small: false };
 
         const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
         const winingOption = settlementResult.big ? "big" : "small";

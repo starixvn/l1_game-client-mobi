@@ -8,9 +8,13 @@ const ResultDetail: React.FC<{ renderSettlementInfo: Function; timeToShowInSecon
     const [bindHideAnimationClass, setBindHideAnimationClass] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeOut = setTimeout(() => {
             setBindHideAnimationClass(true);
         }, (props.timeToShowInSecond - HidingAnimationDurationInSecond) * 1000);
+
+        return () => {
+            clearTimeout(timeOut);
+        };
     }, []);
 
     return (

@@ -382,9 +382,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getStateByNextGameState(nextGameState: GameState) {
-        const { roundId, gameState, displayPopup } = this.state;
-
+        const { roundId, gameState, displayPopup, notice } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
+
+        if (nextGameState === GameState.InRound) {
+            this.betWin = 0;
+        }
 
         const newStateDetector = [
             {
@@ -407,10 +410,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 },
             },
             {
-                condition: nextGameState === GameState.LockingBet && [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup),
+                condition: nextGameState === GameState.LockingBet,
                 state: {
-                    displayPopup: null,
-                    notice: null,
+                    isShowBlink: true,
+                    displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
+                    notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
                 },
             },
         ];
@@ -469,7 +473,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
 
         if (remainingTime <= durations.lockingBet && remainingTime >= 0) {
-            this.setState({ isShowBlink: true });
             return GameState.LockingBet;
         }
 
