@@ -8,22 +8,27 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../common/local-storage";
+import {
+    getLocalStorageItem,
+    localStorageKeys,
+    removeLocalStorageItem,
+    storeLocalStorageItem,
+} from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
+import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
 import Welcome from "./welcome";
-import BetSettings from "../bet-settings";
-import { Settings } from "../shared/settings";
 
 type Props = {
     balance: number;
@@ -50,7 +55,7 @@ type State = {
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
-class Dashboard extends React.Component<Props, State> {
+class Dashboard extends React.PureComponent<Props, State> {
     userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
 

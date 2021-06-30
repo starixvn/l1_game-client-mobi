@@ -14,7 +14,6 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { convertAmountToChips } from "../../../helpers/chip-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { UserClientCommunication } from "../../../services";
-import { BaseResult } from "../base-result";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -22,6 +21,7 @@ import WinningBet from "../animations/winning-bet";
 import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
+import { BaseResult } from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
@@ -46,7 +46,7 @@ import {
 } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
-abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
+abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private betWin: number;
     private isUMInFirstLoad = false;
@@ -102,6 +102,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.updateViewMode = this.updateViewMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
+        this.renderSettlementInfo = this.renderSettlementInfo.bind(this);
+        this.updateUserBalance = this.updateUserBalance.bind(this);
     }
 
     componentDidMount() {
@@ -829,14 +831,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
-                                        renderSettlementInfo={() => this.renderSettlementInfo()}
+                                        renderSettlementInfo={this.renderSettlementInfo}
                                         timeToShowInSecond={durations.showResult - durations.resultAnimation}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
                                 {this.state.showResultInfo && this.betWin > 0 && (
-                                    <WinningBet amount={this.betWin} handleUpdateUserBalance={() => this.updateUserBalance()} />
+                                    <WinningBet amount={this.betWin} handleUpdateUserBalance={this.updateUserBalance} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />

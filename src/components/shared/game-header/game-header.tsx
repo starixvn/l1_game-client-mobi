@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
@@ -18,55 +18,60 @@ export const getViewModeWhenClick = (viewMode: ViewMode) => {
 };
 
 export default function GameHeader() {
-    const systemContext = useSystemContext();
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
+    const systemContext = useSystemContext();
     const { updateViewMode, renderResultCollapse } = useGameActionContext();
+
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
 
-    const favoriteClickHandle = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        systemContext.setFavorite(gameId, !isFavorite);
-        updateFavorite(!isFavorite);
-    };
+    return useMemo(() => {
+        const favoriteClickHandle = (e: React.MouseEvent) => {
+            e.stopPropagation();
+            systemContext.setFavorite(gameId, !isFavorite);
+            updateFavorite(!isFavorite);
+        };
 
-    const onHeaderClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        if (isMobileOnly) {
-            const mode = getViewModeWhenClick(viewMode);
-            updateViewMode(mode);
-        }
-    };
+        const onHeaderClick = (e: React.MouseEvent) => {
+            e.stopPropagation();
+            if (isMobileOnly) {
+                const mode = getViewModeWhenClick(viewMode);
+                updateViewMode(mode);
+            }
+        };
 
-    const showCollapseResult = () =>
-        viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
-
-    return (
-        <div className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`} onClick={onHeaderClick}>
-            <div className={Styles["header-left"]}>
-                <div className={Styles["header-overlay"]}></div>
-                <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
-                    <span
-                        className={
-                            isFavorite
-                                ? `icon-favorite ${Styles["icon-favorite"]}`
-                                : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
-                        }
-                    ></span>
-                </div>
-                <div className={Styles["title-roundID"]}>
-                    <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
-                    <div key={roundId} className={Styles.round}>
-                        #{roundId}
+        const showCollapseResult = () =>
+            viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
+        return (
+            <div
+                className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`}
+                onClick={onHeaderClick}
+            >
+                <div className={Styles["header-left"]}>
+                    <div className={Styles["header-overlay"]}></div>
+                    <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
+                        <span
+                            className={
+                                isFavorite
+                                    ? `icon-favorite ${Styles["icon-favorite"]}`
+                                    : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
+                            }
+                        ></span>
+                    </div>
+                    <div className={Styles["title-roundID"]}>
+                        <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
+                        <div key={roundId} className={Styles.round}>
+                            #{roundId}
+                        </div>
                     </div>
                 </div>
+                {!showCollapseResult() && <CountdownTimer key={gameState} />}
+                <HeaderRight displayMenu={!showCollapseResult()} />
+                {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
-            {!showCollapseResult() && <CountdownTimer key={gameState} />}
-            <HeaderRight displayMenu={!showCollapseResult()} />
-            {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
-        </div>
-    );
+        );
+    }, [gameState, roundId, viewMode, isFavorite]);
 }
 
 enum ClassType {
@@ -104,12 +109,10 @@ const HeaderRight = ({ displayMenu }) => {
 
     return (
         <div className={Styles["header-right"]}>
-            {viewMode !== ViewMode.collapse ? (
+            {viewMode !== ViewMode.collapse && (
                 <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
                     {t(CommonResourceKeys.REBET)}
                 </button>
-            ) : (
-                ""
             )}
             {displayMenu && (
                 <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>

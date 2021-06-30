@@ -1,4 +1,5 @@
 import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -13,12 +14,11 @@ import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
+import { Choices } from "./dragon-tiger-helper";
+import Styles from "./dragon-tiger.module.scss";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
-import { withRouter } from "next/router";
-import { Choices } from "./dragon-tiger-helper";
-import Styles from "./dragon-tiger.module.scss";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -127,22 +127,24 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         );
     }
 
-    renderSettlementInfo() {
-        const { result, settlementResult } = this.state;
-        // const result = { dragon: { card: 10, type: 2 }, tiger: { card: 5, type: 3 } };
-        // const settlementResult = { dragon: true, tiger: false, tie: false };
+    renderSettlementResult(settlementResult) {
+        if (settlementResult.tie) {
+            return <div className={Styles["result-info-green"]}>{this.getGameTranslate("tie")}</div>;
+        }
 
-        return (
-            <div className={Styles["result-info-container"]}>
-                {settlementResult.tie ? (
-                    <div className={Styles["result-info-green"]}>{this.getGameTranslate("tie")}</div>
-                ) : settlementResult.dragon ? (
-                    <div className={Styles["result-info-orange"]}>{this.getGameTranslate("dragonWin")}</div>
-                ) : (
-                    <div className={Styles["result-info-red"]}>{this.getGameTranslate("tigerWin")}</div>
-                )}
-            </div>
-        );
+        if (settlementResult.dragon) {
+            return <div className={Styles["result-info-orange"]}>{this.getGameTranslate("dragonWin")}</div>;
+        }
+
+        if (settlementResult.tiger) {
+            return <div className={Styles["result-info-red"]}>{this.getGameTranslate("tigerWin")}</div>;
+        }
+    }
+
+    renderSettlementInfo() {
+        const { settlementResult } = this.state;
+
+        return <div className={Styles["result-info-container"]}>{this.renderSettlementResult(settlementResult)}</div>;
     }
 }
 

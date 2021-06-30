@@ -12,10 +12,10 @@ import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
+import Styles from "./fish-prawn-crab.module.scss";
 import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
-import Styles from "./fish-prawn-crab.module.scss";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const choicesBackgroundMapper = {
@@ -134,7 +134,6 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderSettlementInfo() {
         const { result } = this.state;
-        // const result = { dice1: 1, dice2: 3, dice3: 4 };
         const settlementResultInfo = Object.values(result).map((dice) => {
             return {
                 className: Object.values(choicesBackgroundMapper)[dice],
@@ -144,8 +143,12 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return (
             <div className={Styles["result-container"]}>
                 {settlementResultInfo &&
-                    settlementResultInfo.map((result) => {
-                        return <div className={Styles[result.className]}>{result.value}</div>;
+                    settlementResultInfo.map((info, index) => {
+                        return (
+                            <div key={index} className={Styles[info.className]}>
+                                {info.value}
+                            </div>
+                        );
                     })}
             </div>
         );
