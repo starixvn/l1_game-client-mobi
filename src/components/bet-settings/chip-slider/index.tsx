@@ -114,7 +114,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; 
             {
                 breakpoint: 767,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 5,
                 },
             },
         ],
