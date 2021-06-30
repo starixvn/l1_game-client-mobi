@@ -17,7 +17,7 @@ import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticRuleEntries from "./statistic";
 import { withRouter } from "next/router";
-import { CardTypeCharacter, CardValueCharacter, Choices } from "./dragon-tiger-helper";
+import { Choices } from "./dragon-tiger-helper";
 import Styles from "./dragon-tiger.module.scss";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {

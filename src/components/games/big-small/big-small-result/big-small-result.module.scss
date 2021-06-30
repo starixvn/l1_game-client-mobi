@@ -83,29 +83,28 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 
     .dice {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 3rem;
+        height: 3rem;
+        box-shadow: 0 0.2rem 0.2rem rgb(0 0 0 / 25%);
+        border-radius: 0.5rem;
     }
 
     .result-1 {
         position: absolute;
-        left: 4.8rem;
-        top: 2.8rem;
-        transform: rotate(343deg);
+        left: 2.7rem;
+        top: 4.2rem;
     }
 
     .result-2 {
         position: absolute;
-        left: 7rem;
-        top: 6rem;
-        transform: rotate(359deg);
+        left: 6.5rem;
+        top: 3.2rem;
     }
 
     .result-3 {
         position: absolute;
-        left: 3rem;
-        top: 6.4rem;
-        transform: rotate(29deg);
+        left: 5.7rem;
+        top: 7.2rem;
     }
 }
 

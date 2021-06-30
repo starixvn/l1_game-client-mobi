@@ -1,0 +1,73 @@
+%icon {
+    background-image: url("static/images/setting-sprites.png");
+}
+
+.icon_dark_theme_icon_notify_on {
+    @extend %icon;
+    width: 18px;
+    height: 18px;
+    background-position: -58px -56px;
+}
+
+.icon_dark_theme_icon_volume_off {
+    @extend %icon;
+    width: 28px;
+    height: 24px;
+    background-position: -10px -56px;
+}
+
+.icon_dark_theme_icon_volume_on {
+    @extend %icon;
+    width: 28px;
+    height: 24px;
+    background-position: -102px -10px;
+}
+
+.icon_light_theme_icon_dark_mode {
+    @extend %icon;
+    width: 26px;
+    height: 26px;
+    background-position: -10px -10px;
+}
+
+.icon_light_theme_icon_notify_off {
+    @extend %icon;
+    width: 18px;
+    height: 18px;
+    background-position: -58px -100px;
+}
+
+.icon_light_theme_icon_notify_on {
+    @extend %icon;
+    width: 18px;
+    height: 18px;
+    background-position: -96px -100px;
+}
+
+.icon_light_theme_icon_volume_off {
+    @extend %icon;
+    width: 28px;
+    height: 24px;
+    background-position: -102px -54px;
+}
+
+.icon_light_theme_icon_volume_on {
+    @extend %icon;
+    width: 28px;
+    height: 24px;
+    background-position: -10px -100px;
+}
+
+.icon_dark_theme_icon_light_mode {
+    @extend %icon;
+    width: 26px;
+    height: 26px;
+    background-position: -56px -10px;
+}
+
+.icon_dark_theme_icon_notify_off {
+    @extend %icon;
+    width: 18px;
+    height: 18px;
+    background-position: -150px -10px;
+}

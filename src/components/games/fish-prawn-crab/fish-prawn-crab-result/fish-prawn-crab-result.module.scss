@@ -86,34 +86,32 @@
     height: 13.2rem;
     width: 13.2rem;
     z-index: var(--result-animation-index);
+
     .dice {
         width: 3.2rem;
-        height: 3.1rem;
+        height: 2.9rem;
         border-radius: 0.3rem;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
     }
 }
 
 .normal-mode {
     .result-1 {
         position: absolute;
-        left: 3.8rem;
-        top: 3rem;
-        transform: rotate(3.36deg);
+        left: 3.5rem;
+        top: 3.2rem;
     }
 
     .result-2 {
         position: absolute;
-        left: 7.2rem;
-        top: 5.5rem;
-        transform: rotate(-5deg);
+        left: 7rem;
+        top: 3.6rem;
     }
 
     .result-3 {
         position: absolute;
-        left: 3.6rem;
-        top: 6.5rem;
-        transform: rotate(-2deg);
+        left: 5.2rem;
+        top: 7rem;
     }
 }
 
