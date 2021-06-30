@@ -18,6 +18,14 @@ import StatisticComponent from "./statistic";
 import Styles from "./fish-prawn-crab.module.scss";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
+export const choicesBackgroundMapper = {
+    stag: "result-info-stag",
+    gourd: "result-info-gourd",
+    rooster: "result-info-rooster",
+    fish: "result-info-fish",
+    crab: "result-info-crab",
+    prawn: "result-info-prawn",
+};
 export const OddNames = {
     single: "single",
     double: "double",
@@ -127,12 +135,19 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     renderSettlementInfo() {
         const { result } = this.state;
         // const result = { dice1: 1, dice2: 3, dice3: 4 };
-        const settlementResultInfo = Object.values(result).map((dice) => this.getGameTranslate(Object.keys(choicesMapper)[dice]));
-
+        const settlementResultInfo = Object.values(result).map((dice) => {
+            return {
+                className: Object.values(choicesBackgroundMapper)[dice],
+                value: this.getGameTranslate(Object.keys(choicesMapper)[dice]),
+            };
+        });
         return (
-            <div
-                className={Styles["result-info-red"]}
-            >{`${settlementResultInfo[0]} - ${settlementResultInfo[1]} - ${settlementResultInfo[2]}`}</div>
+            <div className={Styles["result-info-red"]}>
+                {settlementResultInfo &&
+                    settlementResultInfo.map((result) => {
+                        return <div className={Styles[result.className]}>{result.value}</div>;
+                    })}
+            </div>
         );
     }
 }
