@@ -6,7 +6,7 @@
     justify-content: center;
     height: 5rem;
     width: 3rem;
-    color: var(--primary-color);
+    color: #fff;
     font-size: 2rem;
 
     &:hover:not(.disabled) {
@@ -15,8 +15,16 @@
     }
 
     &.disabled {
-        color: #b47619;
+        color: #fff;
         opacity: 0.5;
+    }
+
+    &.quick-bet {
+        color: #52f428 !important;
+
+        &.disabled {
+            color: #4ee42c;
+        }
     }
 
     &:before {

@@ -28,7 +28,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                             />
                         )}
                         <div className={Styles["chips-container"]}>
-                            <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} />
+                            <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} enabledQuickBet={enabledQuickBet} />
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,8 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
             {isMobileOnly && (
                 <div className={Styles["footer"]}>
-                    {t("common:sabaCopyright")}
-                    <br />© 2021 Saba.club. All rights reserved
+                    Powered by Saba.club
+                    {enabledQuickBet && <span className={Styles["one-click-bet-turn-on"]}>1-Click Bet đã bật</span>}
                 </div>
             )}
         </div>

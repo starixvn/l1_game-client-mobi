@@ -8,7 +8,11 @@ import Styles from "./chip-slider.module.scss";
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
-export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: boolean }> = ({ updateBetValue, enabledSound }) => {
+export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: boolean; enabledQuickBet: boolean }> = ({
+    updateBetValue,
+    enabledSound,
+    enabledQuickBet,
+}) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [selectedChip, setSelectedChip] = useState(1);
@@ -120,7 +124,10 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
 
     return (
         <React.Fragment>
-            <span className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`} onClick={onClickPrev}></span>
+            <span
+                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                onClick={onClickPrev}
+            ></span>
             <Slider
                 ref={(c) => {
                     sliderRef = c;
@@ -136,7 +143,10 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                     />
                 ))}
             </Slider>
-            <span className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`} onClick={onClickNext}></span>
+            <span
+                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                onClick={onClickNext}
+            ></span>
         </React.Fragment>
     );
 };
