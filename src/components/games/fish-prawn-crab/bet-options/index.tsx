@@ -66,7 +66,6 @@ const renderBetOptionByChoice = (
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const classCount = renderHighLightNumber(choice, countsAppearDice);
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
-    const classChoice = `icon-${IconMapper[choice]}`;
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -74,9 +73,6 @@ const renderBetOptionByChoice = (
         },
         [GameState.DisplayResult]: () => {
             setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
-        },
-        [GameState.Waiting]: () => {
-            setIsShowCountOfDice(true);
         },
         [GameState.InRound]: () => {
             setIsShowCountOfDice(true);
