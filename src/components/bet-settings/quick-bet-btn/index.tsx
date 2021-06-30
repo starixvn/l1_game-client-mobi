@@ -92,7 +92,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
             </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
-                    <div className={`${Styles["bg-opacity"]} ${isMobileOnly ? Styles["quick-bet-confirm-mobile"] : ""}`}></div>
+                    <div className={`${Styles["bg-opacity"]}`}></div>
                     <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
                         <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
                     </BaseDialog>
