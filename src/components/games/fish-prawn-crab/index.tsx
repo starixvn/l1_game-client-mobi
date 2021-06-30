@@ -142,7 +142,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
             };
         });
         return (
-            <div className={Styles["result-info-red"]}>
+            <div className={Styles["result-container"]}>
                 {settlementResultInfo &&
                     settlementResultInfo.map((result) => {
                         return <div className={Styles[result.className]}>{result.value}</div>;

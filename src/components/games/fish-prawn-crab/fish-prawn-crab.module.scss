@@ -1,5 +1,12 @@
 @import "../../../assets/components/settlement-info";
 
+.result-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 0.5rem;
+    width: fit-content;
+}
+
 .result-info-stag {
     @extend .result-info;
     background: linear-gradient(180deg, #f5ca2f 0%, #bb9304 100%);
