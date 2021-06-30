@@ -33,6 +33,14 @@ const Header: React.FC<Props> = (props) => {
                             </a>
                         </div>
                         <div className="d-flex">
+                            {!isMobileOnly && (
+                                <Settings
+                                    enabledSound={props.enabledSound}
+                                    enabledNotification={props.enabledNotification}
+                                    onToggleSound={props.onToggleSound}
+                                    onToggleNotification={props.onToggleNotification}
+                                />
+                            )}
                             <div className={Styles["user"]}>
                                 <div className={Styles["info"]}>
                                     <div className={Styles["user-name"]}>{props.name}</div>
@@ -49,14 +57,6 @@ const Header: React.FC<Props> = (props) => {
                                 </div>
                             </div>
                         </div>
-                        {!isMobileOnly && (
-                            <Settings
-                                enabledSound={props.enabledSound}
-                                enabledNotification={props.enabledNotification}
-                                onToggleSound={props.onToggleSound}
-                                onToggleNotification={props.onToggleNotification}
-                            />
-                        )}
                     </div>
                 </Navbar>
             </div>

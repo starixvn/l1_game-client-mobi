@@ -1,2 +1,101 @@
-.settings-container {
+.setting-right {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+%icon {
+    display: inline-block;
+    background-image: url("/static/images/setting-sprites.png");
+}
+
+%icon-notify {
+    @extend %icon;
+    width: 18px;
+    height: 18px;
+}
+
+%icon-sound {
+    @extend %icon;
+    width: 28px;
+    height: 24px;
+}
+
+%icon-theme {
+    @extend %icon;
+    width: 26px;
+    height: 26px;
+}
+
+%setting_button {
+    @extend %icon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 34px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.setting_button_dark {
+    @extend %setting_button;
+    background-position: -10px -10px;
+}
+
+.setting_button_light {
+    @extend %setting_button;
+    background-position: -70px -10px;
+}
+
+.icon_notify_on_dark {
+    @extend %icon-notify;
+    background-position: -106px -110px;
+}
+
+.icon_notify_off_dark {
+    @extend %icon-notify;
+    background-position: -178px -86px;
+}
+
+.icon_sound_on_dark {
+    @extend %icon-sound;
+    background-position: -130px -54px;
+}
+
+.icon_sound_off_dark {
+    @extend %icon-sound;
+    background-position: -130px -10px;
+}
+
+.icon_notify_off_light {
+    @extend %icon-notify;
+    background-position: -178px -10px;
+}
+
+.icon_notify_on_light {
+    @extend %icon-notify;
+    background-position: -178px -48px;
+}
+
+.icon_sound_off_light {
+    @extend %icon-sound;
+    background-position: -10px -110px;
+}
+
+.icon_sound_on_light {
+    @extend %icon-sound;
+    background-position: -58px -110px;
+}
+
+.icon_dark_mode {
+    @extend %icon-theme;
+    background-position: -56px -64px;
+}
+
+.icon_light_mode {
+    @extend %icon-theme;
+    background-position: -10px -64px;
 }

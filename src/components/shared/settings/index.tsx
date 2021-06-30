@@ -20,27 +20,29 @@ export const Settings: React.FC<Props> = (props) => {
                 </div>
             )}
             <div className={styles["setting-right"]}>
-                <span
+                <div
                     id="notification-settings"
-                    className={`${styles["notification-setting"]} ${props.enabledNotification ? styles["enabled"] : ""}`}
+                    className={styles[`${"setting_button_"}${theme}`]}
                     onClick={() => props.onToggleNotification()}
                 >
-                    Notification
-                </span>
-                <span
-                    id="sound-settings"
-                    className={`${styles["sound-setting"]} ${props.enabledSound ? styles["enabled"] : ""}`}
-                    onClick={() => props.onToggleSound()}
-                >
-                    Sound
-                </span>
-                <span
+                    <span
+                        className={
+                            props.enabledNotification ? styles[`${"icon_notify_on_"}${theme}`] : styles[`${"icon_notify_off_"}${theme}`]
+                        }
+                    ></span>
+                </div>
+                <div id="sound-settings" className={styles[`${"setting_button_"}${theme}`]} onClick={() => props.onToggleSound()}>
+                    <span
+                        className={props.enabledSound ? styles[`${"icon_sound_on_"}${theme}`] : styles[`${"icon_sound_off_"}${theme}`]}
+                    ></span>
+                </div>
+                <div
                     id="theme-settings"
-                    className={`${styles["theme-setting"]} ${theme === Themes.dark ? styles["enabled"] : ""}`}
+                    className={styles[`${"setting_button_"}${theme}`]}
                     onClick={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
                 >
-                    Theme
-                </span>
+                    <span className={theme === Themes.dark ? styles["icon_dark_mode"] : styles["icon_light_mode"]}></span>
+                </div>
             </div>
         </div>
     );
