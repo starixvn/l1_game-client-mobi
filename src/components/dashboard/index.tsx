@@ -22,8 +22,7 @@ import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
 import Welcome from "./welcome";
-import { LanguageLocaleMapper } from "../../common/constants";
-import { BetSettings } from "../bet-settings";
+import BetSettings from "../bet-settings";
 import { Settings } from "../shared/settings";
 
 type Props = {
@@ -286,7 +285,6 @@ class Dashboard extends React.Component<Props, State> {
                     betValue={betValue}
                 />
                 <BetSettings
-                    betValue={betValue}
                     enabledQuickBet={enabledQuickBet}
                     updateEnabledQuickBet={this.setEnabledQuickBet}
                     updateBetValue={this.setBetValue}

@@ -8,18 +8,16 @@ import Styles from "./chip-slider.module.scss";
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
-export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; enabledSound: boolean }> = ({
-    betValue,
-    updateBetValue,
-    enabledSound,
-}) => {
+export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: boolean }> = ({ updateBetValue, enabledSound }) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
+    const [selectedChip, setSelectedChip] = useState(1);
     const [isSliding, setIsSliding] = useState(false);
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
     const handleSelectChip = (chipValue: number) => {
+        setSelectedChip(chipValue);
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
         enabledSound && playSound();
@@ -51,7 +49,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; 
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
+            const chipIndex = ChipValues.indexOf(selectedChip);
             const newSelectedChip = ChipValues[chipIndex + 1];
             const currentSlideToShow = getCurrentSlidesToShow();
 
@@ -64,7 +62,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; 
 
     const onClickPrev = () => {
         if (enabledPrevBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
+            const chipIndex = ChipValues.indexOf(selectedChip);
             const newSelectedChip = ChipValues[chipIndex - 1];
 
             isSwipe = false;
@@ -76,7 +74,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; 
 
     useEffect(() => {
         if (sliderRef) {
-            updateArrowsByChipValue(betValue);
+            updateArrowsByChipValue(selectedChip);
         }
     }, []);
 
@@ -134,7 +132,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function; 
                         key={key}
                         value={ChipLabelMapper[key]}
                         onSelected={handleSelectChip}
-                        selected={betValue === ChipLabelMapper[key]}
+                        selected={selectedChip === ChipLabelMapper[key]}
                     />
                 ))}
             </Slider>

@@ -6,14 +6,13 @@ import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
 
 type Props = {
-    betValue: number;
     updateBetValue: (betValue: number) => void;
     enabledQuickBet: boolean;
     updateEnabledQuickBet: (value: boolean) => void;
     enabledSound: boolean;
 };
 
-export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
+const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
     const { t } = useTranslation("common");
 
     return (
@@ -23,7 +22,7 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
                     <div className={Styles["wrapper-chips"]}>
                         {!isMobileOnly && <QuickBetBtn enabledQuickBet={enabledQuickBet} updateEnabledQuickBet={updateEnabledQuickBet} />}
                         <div className={Styles["chips-container"]}>
-                            <ChipSlider betValue={betValue} updateBetValue={updateBetValue} enabledSound={enabledSound} />
+                            <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} />
                         </div>
                     </div>
                 </div>
@@ -38,3 +37,5 @@ export const BetSettings: React.FC<Props> = ({ betValue, updateBetValue, enabled
         </div>
     );
 };
+
+export default React.memo(BetSettings);

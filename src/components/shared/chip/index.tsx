@@ -11,9 +11,10 @@ type Props = {
     additionalClass?: string;
 };
 
-const getChipDisplayByValue = (value: number) => {
-    return Object.keys(ChipLabelMapper).find((key) => ChipLabelMapper[key] === value);
-};
+const ChipLabel = Object.keys(ChipLabelMapper).reduce((result, label) => {
+    result[ChipLabelMapper[label]] = label;
+    return result;
+}, {});
 
 const Chip: React.FC<Props> = ({ value, onSelected, selected = false, additionalClass }) => {
     const handleClick = () => {
@@ -39,7 +40,7 @@ const Chip: React.FC<Props> = ({ value, onSelected, selected = false, additional
                 <span className={`icon-chip-symbol ${Styles["symbol3"]}`}></span>
                 <span className={`icon-chip-symbol ${Styles["symbol4"]}`}></span>
             </div>
-            <div className={Styles["number"]}>{getChipDisplayByValue(value)}</div>
+            <div className={Styles["number"]}>{ChipLabel[value]}</div>
         </div>
     );
 };
