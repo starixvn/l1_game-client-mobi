@@ -39,12 +39,8 @@ export default function GameHeader() {
         }
     };
 
-    const showCollapseResult = () => {
-        return (
-            viewMode == ViewMode.collapse &&
-            (gameState === GameState.DisplayResult || gameState === GameState.Waiting || gameState == GameState.BeforeStartRound)
-        );
-    };
+    const showCollapseResult = () =>
+        viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
 
     return (
         <div className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`} onClick={onHeaderClick}>

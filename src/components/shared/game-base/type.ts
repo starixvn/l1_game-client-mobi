@@ -16,7 +16,6 @@ export enum GameState {
     Disabled,
     InRound,
     LockingBet,
-    Waiting,
     DisplayResult,
     BeforeStartRound,
     BalancingBet,

@@ -373,16 +373,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleGamePlay(remainingTime: number) {
         const newGameState = this.determineGameState(remainingTime);
 
-        const newState = {
-            gameState: newGameState,
-            ...this.getStateByNextGameState(newGameState),
-        };
+        if (this.state.gameState !== newGameState) {
+            const newState = {
+                gameState: newGameState,
+                ...this.getStateByNextGameState(newGameState),
+            };
 
-        this.setState(newState);
+            this.setState(newState);
+        }
     }
 
     getStateByNextGameState(nextGameState: GameState) {
-        const { roundId, gameState, displayPopup, notice } = this.state;
+        const { roundId, displayPopup, notice } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === GameState.InRound) {
@@ -391,7 +393,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         const newStateDetector = [
             {
-                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState) && gameState !== nextGameState,
+                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState),
                 state: {
                     ownBets: {},
                     totalBets: {},
@@ -404,7 +406,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 },
             },
             {
-                condition: gameState !== GameState.InRound && nextGameState === GameState.InRound,
+                condition: nextGameState === GameState.InRound,
                 state: {
                     roundId: roundId + 1,
                 },
@@ -460,10 +462,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             return GameState.DisplayResult;
         }
 
-        if (remainingTime > durations.placingBets + (durations.beforeStartRound ?? 0)) {
-            return GameState.Waiting;
-        }
-
         if (durations.beforeStartRound && remainingTime > durations.placingBets) {
             return GameState.BeforeStartRound;
         }
@@ -480,17 +478,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getTimeCounter(remainingTime: number, gameState: GameState) {
-        const { durations } = this.props;
-
-        switch (gameState) {
-            case GameState.Waiting:
-                return remainingTime - (durations.placingBets + (durations.beforeStartRound ?? 0));
-            case GameState.InRound:
-            case GameState.LockingBet:
-                return remainingTime;
-            default:
-                return 0;
-        }
+        return [GameState.InRound, GameState.LockingBet].includes(gameState) ? remainingTime : 0;
     }
 
     handleRoundHistory({ roundHistory, roundId }) {
@@ -847,7 +835,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.showResultInfo && this.betWin && (
+                                {this.state.showResultInfo && this.betWin > 0 && (
                                     <WinningBet amount={this.betWin} handleUpdateUserBalance={() => this.updateUserBalance()} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
