@@ -1,5 +1,6 @@
 [data-theme="light"] .header {
     --game-header-background: linear-gradient(180deg, #fdc458 5%, #fbad19 37.29%, #f8aa15 72.71%);
+    --game-header-overlay-image: url(/static/images/game-header-overlay.png);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
@@ -15,7 +16,8 @@
 }
 
 [data-theme="dark"] .header {
-    --game-header-background: linear-gradient(180deg, #284159 49.79%, #223a53 49.8%);
+    --game-header-background: linear-gradient(180deg, #7191b1 0%, #37506a 16.46%, #203044 100%);
+    --game-header-overlay-image: url(/static/images/dark-mode-game-header-overlay.png);
     --game-header-icon-favourite: #ffab2b;
     --game-header-icon-unfavourite: #7f91a4;
     --game-header-icon-menu: #7f91a4;
@@ -50,13 +52,16 @@
         position: absolute;
         left: 0;
         top: 0;
-        background: url(/static/images/game-header-overlay.png) no-repeat;
+        background: var(--game-header-overlay-image) top left no-repeat;
         height: 5.4rem;
         width: 40.4rem;
+        z-index: 0;
     }
 }
 
 .favorite-btn {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -38,9 +38,10 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
     );
 };
 
-export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult }> = ({
+export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult; roundId: number }> = ({
     result,
     settlementResult,
+    roundId,
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -51,7 +52,11 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                     <div key={index} className={Styles["result-item"]}>
                         <div className={Styles[`dice${index + 1}`]}></div>
                         <div className={Styles[`result${index + 1}`]}>
-                            <img src={`/static/images/bigsmall-dice-${value}.png`} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
+                            <img
+                                src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                className={`img-fluid ${Styles["dice"]}`}
+                                alt="dice"
+                            />
                         </div>
                     </div>
                 ))}

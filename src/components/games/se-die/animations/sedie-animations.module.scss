@@ -70,10 +70,9 @@
 
     &.has-animation {
         .result-sedie-set {
-            --time-delay-open-bowl: 0s;
-            --time-opening-bowl-animation: 0.8s;
-
-            --time-delay-hide-bowl: calc(var(--time-opening-bowl-animation) - 0.1s);
+            --time-delay-open-bowl: 0.3s;
+            --time-opening-bowl-animation: 1.2s;
+            --time-delay-hide-bowl: calc(var(--time-opening-bowl-animation) - 0.3s);
             --time-hide-bowl-animation: 0.3s;
 
             --time-delay-move-up-result: calc(var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.18s);

@@ -129,12 +129,12 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
             <div className={Styles["result-container"]}>
                 <div className={Styles["left"]}>
                     <div className={`d-flex ${Styles["row1"]}`}>
-                        <span className={Styles["number"]}>{whiteDotCount}</span>
                         <RoundDot choice="even" size="medium" />
+                        <span className={Styles["number"]}>{whiteDotCount}</span>
                     </div>
                     <div className="d-flex">
-                        <span className={Styles["number"]}>{redDotCount}</span>
                         <RoundDot choice="odd" size="medium" />
+                        <span className={Styles["number"]}>{redDotCount}</span>
                     </div>
                 </div>
                 <div className={Styles["line"]}></div>
