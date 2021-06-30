@@ -11,7 +11,6 @@ import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
-import { RoundResultContextProvider } from "../../contexts/round-result";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
@@ -202,11 +201,6 @@ class Dashboard extends React.Component<Props, State> {
         this.setState({ isSignedIn: true, user });
     }
 
-    getRoundResultUrl(gameId: number) {
-        const data = { language: LanguageLocaleMapper[this.props.router.locale], gameId };
-        this.sendMessage({ gameResult: data });
-    }
-
     getRenderComponent(isSignedUp: boolean, isSignedIn: boolean) {
         const strategies = [
             {
@@ -285,14 +279,12 @@ class Dashboard extends React.Component<Props, State> {
                         />
                     </div>
                 )}
-                <RoundResultContextProvider value={{ getRoundResultUrl: this.getRoundResultUrl.bind(this) }}>
-                    <Games
-                        enabledWinningStreakNotification={enabledWinningStreakNotification}
-                        enabledPlaySound={enabledPlaySound}
-                        enabledQuickBet={enabledQuickBet}
-                        betValue={betValue}
-                    />
-                </RoundResultContextProvider>
+                <Games
+                    enabledWinningStreakNotification={enabledWinningStreakNotification}
+                    enabledPlaySound={enabledPlaySound}
+                    enabledQuickBet={enabledQuickBet}
+                    betValue={betValue}
+                />
                 <BetSettings
                     betValue={betValue}
                     enabledQuickBet={enabledQuickBet}
