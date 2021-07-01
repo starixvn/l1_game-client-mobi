@@ -35,16 +35,11 @@ const BetOption: React.FunctionComponent<Props> = ({
     const { totalBets, ownBets, gameSetting, displayChips } = useGameContext();
     const { gameName } = gameSetting;
     const chips = displayChips[choice] ?? [];
-    const { openPlaceBetModal } = useGameActionContext();
+    const { openPlaceBetModal, placeBet } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
-    const gameActionContext = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
-    const { countUp, update } = useCountUp({
-        start: 0,
-        end: 0,
-    });
-    const wrapperRefBetOption = useRef<HTMLDivElement>(null);
+    const { countUp, update } = useCountUp({ start: 0, end: 0 });
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -64,22 +59,16 @@ const BetOption: React.FunctionComponent<Props> = ({
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
 
-    useEffect(() => {
-        return () => {
-            wrapperRefBetOption.current = null;
-        };
-    }, []);
-
     const onClickBet = () => {
-        enabledQuickBet ? gameActionContext.placeBet(choice, betValue) : openPlaceBetModal(choice);
+        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
     };
 
     const renderUserBetChips = () => {
-        return chips.map((value, index) => <DisplayChip key={index} chipValue={value} chipKey={index}></DisplayChip>);
+        return chips.map((value, index) => <DisplayChip key={index} chipValue={value} chipKey={index} />);
     };
 
     return (
-        <div ref={wrapperRefBetOption} className={Styles.container}>
+        <div className={Styles.container}>
             <div
                 className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
                     isHighlight && isShowWinningEffect && Styles["winning-effect"]
