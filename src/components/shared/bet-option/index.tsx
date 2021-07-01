@@ -94,7 +94,7 @@ const BetOption: React.FunctionComponent<Props> = ({
                 {children}
                 <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
-                    <span key={ownBets?.[choice]} className="heart-beat-animation d-inline-block">
+                    <span key={ownBets?.[choice]} className="d-inline-block">
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>

@@ -42,7 +42,7 @@ const Header: React.FC<Props> = (props) => {
                             <div className={Styles["user"]}>
                                 <div className={Styles["info"]}>
                                     <div className={Styles["user-name"]}>{props.name}</div>
-                                    <div key={props.balance} className={`${Styles.balance} ${"heart-beat-animation"}`}>
+                                    <div key={props.balance} className={`${Styles.balance}`}>
                                         {numberWithCommas(props.balance ? props.balance : 0)} {props.currency}
                                     </div>
                                 </div>
