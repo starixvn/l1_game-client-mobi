@@ -1,4 +1,11 @@
 @import "../../shared/chip/chip.module.scss";
+[data-theme="light"] .toggle {
+    --one-click-bet-text-color: #2c2f3e;
+}
+
+[data-theme="dark"] .toggle {
+    --one-click-bet-text-color: #fff;
+}
 
 .toggle {
     display: block;
@@ -112,7 +119,7 @@
             top: 0;
             white-space: nowrap;
             font-size: 1.4rem;
-            color: #fff;
+            color: var(--one-click-bet-text-color);
         }
     }
 
@@ -135,7 +142,7 @@
             margin-top: 1.6rem;
             line-height: 0;
             font-size: 1.2rem;
-            color: #fff;
+            color: var(--one-click-bet-text-color);
         }
     }
 }
