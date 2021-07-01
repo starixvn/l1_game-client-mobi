@@ -37,7 +37,13 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
             {isMobileOnly && (
                 <div className={Styles["footer"]}>
-                    {enabledQuickBet && <span className={Styles["one-click-bet-turn-on"]}>{t("common:oneClickBetOn")}</span>}
+                    {enabledQuickBet && (
+                        <div className={Styles["one-click-bet-turn-on"]}>
+                            <span className={Styles["left"]}></span>
+                            <span className={Styles["content"]}>{t("common:oneClickBetOn")}</span>
+                            <span className={Styles["right"]}></span>
+                        </div>
+                    )}
                     <span className={Styles["copyright"]}>Powered by Saba.club</span>
                 </div>
             )}

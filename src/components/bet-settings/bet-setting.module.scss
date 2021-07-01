@@ -148,7 +148,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     height: 4.4rem;
     padding-right: 1.5rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
@@ -157,18 +157,35 @@
     color: var(--saba-copyright);
 
     .copyright {
-        position: relative;
-        top: -0.8rem;
+        position: absolute;
+        top: 0.6rem;
+        right: 1.2rem;
     }
 }
 
 .one-click-bet-turn-on {
-    position: absolute;
-    top: -0.2rem;
-    left: calc(50% - 5.52rem);
-    width: 11.4rem;
-    height: 2.8rem;
-    line-height: 3.2rem;
-    background: url(/static/images/footer-1-click-bet-bg.svg);
-    color: #54ff26;
+    position: relative;
+    top: -1rem;
+    display: flex;
+    align-items: stretch;
+    height: 2.9rem;
+
+    .left {
+        width: 2.3rem;
+        margin-right: -0.1rem;
+        background: url(/static/images/footer-1-click-bet-background-left.png);
+    }
+
+    .content {
+        width: fit-content;
+        background: url(/static/images/footer-1-click-bet-background.png);
+        color: #54ff26;
+        line-height: 3.4rem;
+    }
+
+    .right {
+        @extend .left;
+        margin-left: -0.1rem;
+        transform: scaleX(-1);
+    }
 }
