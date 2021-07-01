@@ -520,6 +520,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.showResultInfoTimeout = setTimeout(() => {
             this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
+            this.updateUserBalance();
         }, animationDuration);
 
         this.showWinningAnimationTimeout = setTimeout(() => {
@@ -837,9 +838,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.showResultInfo && this.betWin > 0 && (
-                                    <WinningBet amount={this.betWin} handleUpdateUserBalance={this.updateUserBalance} />
-                                )}
+                                {this.state.showResultInfo && this.betWin > 0 && <WinningBet amount={this.betWin} />}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}
