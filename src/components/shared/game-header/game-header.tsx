@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
@@ -72,11 +72,6 @@ export default function GameHeader() {
             </div>
         );
     }, [gameState, roundId, viewMode, isFavorite]);
-}
-
-enum ClassType {
-    hamburgerDot,
-    dropdownItem,
 }
 
 const HeaderRight = ({ displayMenu }) => {

@@ -14,11 +14,10 @@ import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
-import { Choices } from "./dragon-tiger-helper";
+import { Choices, StatisticRuleEntries } from "./dragon-tiger-helper";
 import Styles from "./dragon-tiger.module.scss";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import StatisticRuleEntries from "./statistic";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {

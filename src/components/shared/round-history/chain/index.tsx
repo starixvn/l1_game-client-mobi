@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Tooltip } from "reactstrap";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
@@ -35,31 +35,27 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const { gameState, roundHistory, renderRoundDetail, renderGameDot } = props;
     const { gameSetting, isShowBlink } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const numberOfItems = isShowBlink ? 20 : 21;
-    const rounds = roundHistory.slice(0, numberOfItems).reverse();
-    const wrapperRefChain = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        return () => {
-            wrapperRefChain.current = null;
-        };
-    }, []);
+    return useMemo(() => {
+        const numberOfItems = isShowBlink ? 20 : 21;
+        const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
-    return (
-        <div ref={wrapperRefChain} className={Styles["round-dot-wrapper"]}>
-            {rounds.map((round: Round<R, S>, index: number) => (
-                <RoundDotWrapper
-                    key={round.roundId}
-                    renderRoundDetail={renderRoundDetail(round, t)}
-                    targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
-                    gameState={gameState}
-                >
-                    {renderGameDot(round, isShowBlink, index, numberOfItems)}
-                </RoundDotWrapper>
-            ))}
-            {isShowBlink && <MiniItemNext></MiniItemNext>}
-        </div>
-    );
+        return (
+            <div className={Styles["round-dot-wrapper"]}>
+                {rounds.map((round: Round<R, S>, index: number) => (
+                    <RoundDotWrapper
+                        key={round.roundId}
+                        renderRoundDetail={renderRoundDetail(round, t)}
+                        targetName={`${gameSetting.gameName.toLowerCase()}-${round.roundId}`}
+                        gameState={gameState}
+                    >
+                        {renderGameDot(round, isShowBlink, index, numberOfItems)}
+                    </RoundDotWrapper>
+                ))}
+                {isShowBlink && <MiniItemNext></MiniItemNext>}
+            </div>
+        );
+    }, [roundHistory, isShowBlink]);
 };
 
 export default ChainRoundHistory;

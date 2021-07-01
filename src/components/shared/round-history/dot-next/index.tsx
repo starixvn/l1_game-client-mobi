@@ -1,6 +1,7 @@
 import React from "react";
-import { Props } from "./types";
+
 import Styles from "./../dot/dot.module.scss";
+import { Props } from "./types";
 
 export const MiniItemNext = () => {
     return (

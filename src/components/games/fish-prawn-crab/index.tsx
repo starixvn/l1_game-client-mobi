@@ -78,7 +78,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderStatistic() {
-        return <StatisticComponent roundHistory={this.state.roundHistory.slice(0, 30)}></StatisticComponent>;
+        return <StatisticComponent roundHistory={this.state.roundHistory}></StatisticComponent>;
     }
 
     renderResult() {

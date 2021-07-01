@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
 type Props = {
     isOpen: boolean;
     onClose: Function;
 };
 
-export default class ContainerToolTip extends Component<Props> {
+export default class ContainerToolTip extends React.PureComponent<Props> {
     wrapperRef: React.RefObject<HTMLDivElement>;
 
     constructor(props: Props) {

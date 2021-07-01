@@ -1,11 +1,9 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { RoundDot } from "../../../shared/round-history/dot";
 import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
-import { checkIsEven, Choices, MainChoice } from "../se-die-helper";
-import { Props } from "./statistic";
+import { Choices } from "../se-die-helper";
 import Styles from "./statistic.module.scss";
 
 const StatisticRuleEntries = Object.entries({
@@ -15,34 +13,23 @@ const StatisticRuleEntries = Object.entries({
         100 - (countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0),
 });
 
-const RedDotMapper = {
-    [Choices.white4]: 0,
-    [Choices.white3]: 1,
-    [Choices.red2]: 2,
-    [Choices.red3]: 3,
-    [Choices.red4]: 4,
-};
-
-const SeDiceStatistic = (props: Props) => {
-    const { roundHistory } = props;
+const SeDiceStatistic = ({ roundHistory }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
-    const statisticResult = calculatePercent(StatisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+    return useMemo(() => {
+        const statisticResult = calculatePercent(StatisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
 
-    return (
-        <>
-            {Object.keys(statisticResult).map((choice) => (
-                <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}%`}>
-                    {MainChoice.includes(choice) ? (
-                        <span className={`${Styles.title} ${choice === Choices.odd ? Styles["odd"] : Styles["even"]}`}>{t(choice)}</span>
-                    ) : (
-                        <RoundDot choice={checkIsEven(RedDotMapper[choice]) ? Choices.even : Choices.odd} value={RedDotMapper[choice]} />
-                    )}
-                </StatisticItem>
-            ))}
-        </>
-    );
+        return (
+            <>
+                {Object.keys(statisticResult).map((choice) => (
+                    <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}%`}>
+                        <span className={`${Styles.title} ${Styles[choice]}`}>{t(choice)}</span>
+                    </StatisticItem>
+                ))}
+            </>
+        );
+    }, [roundHistory]);
 };
 
 export default SeDiceStatistic;

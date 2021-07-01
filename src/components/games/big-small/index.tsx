@@ -1,4 +1,5 @@
 import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -12,13 +13,11 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
+import { Choices, StatisticRuleEntries } from "./big-small-helper";
 import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
+import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import StatisticRuleEntries from "./statistic";
-import { withRouter } from "next/router";
-import { Choices } from "./big-small-helper";
-import Styles from "./big-small.module.scss";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {

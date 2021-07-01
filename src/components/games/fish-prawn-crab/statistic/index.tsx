@@ -5,10 +5,6 @@ import { Round } from "../../../../types";
 import StatisticItem from "../../../shared/statistic";
 import ChoiceIcon from "../choice-icon";
 
-type Props = {
-    roundHistory: any;
-};
-
 const countResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((resultCount, { result }) => {
         Object.values(result).forEach((character: number) => {
@@ -18,9 +14,9 @@ const countResult = (roundHistory: Round<any, any>[]) => {
     }, {});
 };
 
-const StatisticComponent = (props: Props) => {
-    const { roundHistory } = props;
-    const statisticResult = countResult(roundHistory);
+const StatisticComponent = ({ roundHistory }) => {
+    const statisticResult = countResult(roundHistory.slice(0, 30));
+
     return (
         <>
             {Object.keys(choicesMapper).map((choice) => {
@@ -34,4 +30,4 @@ const StatisticComponent = (props: Props) => {
     );
 };
 
-export default StatisticComponent;
+export default React.memo(StatisticComponent);

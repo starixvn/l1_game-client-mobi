@@ -1,6 +1,6 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import Styles from "./bet-setting.module.scss";
 import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
-    const { t } = useTranslation("common");
-
     return (
         <div className={Styles["bet-settings"]}>
             <div className={Styles["settings-container"]}>
