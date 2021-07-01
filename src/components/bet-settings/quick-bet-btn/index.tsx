@@ -65,7 +65,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
 
     return (
         <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]}`}>
-            <div className={enabledQuickBet ? Styles["heart-beat-animation"] : ""}>
+            <div>
                 {!enabledQuickBet && <div className={Styles["ripple-animation"]}></div>}
                 <input
                     className={Styles["toggle-checkbox"]}

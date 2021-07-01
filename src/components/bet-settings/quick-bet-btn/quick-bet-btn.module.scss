@@ -15,7 +15,7 @@
     top: 0.8rem;
     animation-delay: 2s;
     animation-iteration-count: 3;
-    z-index: var(--popup-index);
+    z-index: var(--setting-index);
 
     @media (min-width: 768px) {
         position: absolute;
