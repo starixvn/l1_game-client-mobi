@@ -93,7 +93,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     renderStartRoundAnimation() {
         const { durations } = this.props;
 
-        return <CardsAnimation playAnimation={this.timeCounter === durations.placingBets + durations.beforeStartRound} />;
+        return <CardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderGuide() {

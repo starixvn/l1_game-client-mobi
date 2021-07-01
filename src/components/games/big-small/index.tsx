@@ -90,10 +90,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
     }
 
-    get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
-    }
-
     get winningAnimationWaitingTimeInSecond() {
         const { id, durations } = this.props;
         const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult + durations.balancingBet;
