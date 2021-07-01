@@ -169,17 +169,13 @@
     &.isMobile {
         bottom: auto;
         left: 0;
-        top: 2.9rem;
+        top: 3.1rem;
+        width: calc(100vw - 1rem);
     }
 
     @media (min-width: 768px) {
         left: -0.5rem;
         width: 40rem;
-    }
-
-    &:after {
-        bottom: -1.6rem;
-        left: 1.6rem;
     }
 
     .action {
