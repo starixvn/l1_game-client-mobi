@@ -86,12 +86,6 @@ const renderBetOptionByChoice = (
         actionByGameState[gameState] && actionByGameState[gameState]();
     }, [gameState]);
 
-    useEffect(() => {
-        return () => {
-            setIsShowCountOfDice(false);
-        };
-    }, []);
-
     return (
         <BetOption
             choice={choice}

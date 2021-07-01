@@ -74,7 +74,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBoard() {
-        const { roundHistory, isShowBlink } = this.state;
+        const { roundHistory } = this.state;
         return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
     }
 
@@ -103,7 +103,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <DragonTigerGuide />
@@ -118,7 +118,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <DragonTigerBetHistory />

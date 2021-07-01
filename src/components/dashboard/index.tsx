@@ -86,6 +86,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
         this.setBetValue = this.setBetValue.bind(this);
+        this.closeDialog = this.closeDialog.bind(this);
     }
 
     doOnOrientationChange() {
@@ -152,17 +153,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         const data = JSON.parse(message.data);
         if (data.kickedOut) {
             this.handleKickedOut(data.kickedOut);
-        }
-
-        if (data.gameResult) {
-            const { redirectUrl } = data.gameResult;
-
-            const resultPage = window.open(redirectUrl, "", "width=700,height=500");
-            resultPage.focus();
-
-            window.onbeforeunload = () => {
-                resultPage.close();
-            };
         }
 
         if (data.apiError) {
@@ -254,6 +244,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ betValue: value });
     }
 
+    closeDialog() {
+        this.props.setIsShowModal(false);
+    }
+
     renderDashBoard() {
         const { apiErrorMessage, balance } = this.props;
         const { user, enabledWinningStreakNotification, enabledPlaySound, betValue, enabledQuickBet } = this.state;
@@ -298,14 +292,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
-                        <BaseDialog
-                            type={ModalType.Center}
-                            isOpen={this.props.isShowModal}
-                            onCloseModal={() => this.props.setIsShowModal(false)}
-                        >
+                        <BaseDialog type={ModalType.Center} isOpen={this.props.isShowModal} onCloseModal={this.closeDialog}>
                             <div className="modal-center">
                                 <div className={`icon-warning modal-icon-warning`}></div>
-                                <div className={`icon-close modal-icon-close`} onClick={() => this.props.setIsShowModal(false)}></div>
+                                <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
 
                                 <Trans t={this.props.t}>
                                     {this.props.t(apiErrorMessage?.message, { errorCode: apiErrorMessage?.errorCode })}

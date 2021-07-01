@@ -104,7 +104,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <BigSmallGuide />
@@ -119,7 +119,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <BigSmallBetHistory />

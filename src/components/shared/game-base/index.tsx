@@ -586,8 +586,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderErrorMessage() {
         return (
-            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={() => this.closePopup()}>
-                <ErrorMessage message={this.state.errorMessage} closeModal={() => this.closePopup()}></ErrorMessage>
+            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
+                <ErrorMessage message={this.state.errorMessage} closeModal={this.closePopup}></ErrorMessage>
             </BaseDialog>
         );
     }
@@ -602,9 +602,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 betContainerPosition={isMobileOnly ? betContainerPosition : null}
                 type={ModalType.Top}
                 isOpen={this.state.displayPopup === PopupType.Rebet}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
             >
-                <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={() => this.closePopup()} />
+                <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={this.closePopup} />
             </BaseDialog>
         );
     }
@@ -616,7 +616,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <PlaceBetModal
                 isOpen={displayPopup === PopupType.PlaceBet}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,

@@ -1,6 +1,7 @@
 import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import { useAuthContext } from "../../../contexts/auth";
 import { UserClientCommunication } from "../../../services";
 import BaseDialog from "../../shared/base-dialog";
@@ -73,7 +74,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                     type={"checkbox"}
                     value={"Quick Bet"}
                     checked={!!enabledQuickBet}
-                    onChange={() => onClickQuickBet()}
+                    onChange={onClickQuickBet}
                 />
                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                     <div className={Styles.chip}>
@@ -107,10 +108,10 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                         <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
                     </div>
                     <div className={Styles.action}>
-                        <button className={`btn-grey ${Styles["btn"]}`} onClick={() => closeHintTooltip()}>
+                        <button className={`btn-grey ${Styles["btn"]}`} onClick={closeHintTooltip}>
                             {t("common:dismiss")}
                         </button>
-                        <button className={`btn-orange ${Styles["btn"]}`} onClick={() => handleTurnOn()}>
+                        <button className={`btn-orange ${Styles["btn"]}`} onClick={handleTurnOn}>
                             {t("common:turnOn")}
                         </button>
                     </div>

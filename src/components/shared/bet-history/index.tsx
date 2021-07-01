@@ -5,12 +5,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { Table } from "react-infinite-table";
 import Moment from "react-moment";
 import { Spinner } from "reactstrap";
+
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { BetLogs, PropsBetContainer } from "./bet-history";
 import { signOut } from "../../../pages";
+import { BetLogs, PropsBetContainer } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -246,7 +247,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         handleResize();
 
         return () => {
-            wrapperRef.current = null;
             window.removeEventListener("resize", handleResize);
         };
     }, [wrapperRef]);
