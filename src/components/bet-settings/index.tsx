@@ -24,7 +24,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                             <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}
-                                hasQuickBetLabel={true}
+                                isHeaderSetting={false}
                             />
                         )}
                         <div className={Styles["chips-container"]}>
@@ -36,8 +36,8 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
             {isMobileOnly && (
                 <div className={Styles["footer"]}>
-                    Powered by Saba.club
                     {enabledQuickBet && <span className={Styles["one-click-bet-turn-on"]}>1-Click Bet đã bật</span>}
+                    <span className={Styles["copyright"]}>Powered by Saba.club</span>
                 </div>
             )}
         </div>

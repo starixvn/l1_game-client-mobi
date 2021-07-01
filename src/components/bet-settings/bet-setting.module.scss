@@ -5,7 +5,6 @@
 
     --ripple-background: rgba(196, 196, 196, 0.6);
     --saba-copyright: #d1d1d1;
-    --one-click-bet-turn-on-background: url(/static/images/footer-1-click-bet-bg-light.svg);
 }
 
 [data-theme="dark"] .bet-settings {
@@ -13,7 +12,6 @@
 
     --ripple-background: rgba(196, 196, 196, 0.5);
     --saba-copyright: rgba(209, 209, 209, 0.6);
-    --one-click-bet-turn-on-background: url(/static/images/footer-1-click-bet-bg-dark.svg);
 }
 
 .bet-settings {
@@ -31,6 +29,10 @@
     left: 0;
     width: 100%;
     height: 6rem;
+
+    @media (min-width: 768px) {
+        height: 8rem;
+    }
 }
 
 .container {
@@ -147,13 +149,17 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    height: 3rem;
-    line-height: 1.4rem;
+    height: 4.4rem;
     padding-right: 1.5rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
     text-align: center;
     font-size: 1.1rem;
     color: var(--saba-copyright);
+
+    .copyright {
+        position: relative;
+        top: -0.8rem;
+    }
 }
 
 .one-click-bet-turn-on {
@@ -163,6 +169,6 @@
     width: 11.4rem;
     height: 2.8rem;
     line-height: 3.2rem;
-    background: var(--one-click-bet-turn-on-background) no-repeat;
+    background: url(/static/images/footer-1-click-bet-bg.svg);
     color: #54ff26;
 }

@@ -8,10 +8,10 @@ import { ModalType } from "../../shared/base-dialog/type";
 import ConfirmMessage from "../confirm-message";
 import Styles from "./quick-bet-btn.module.scss";
 
-export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; hasQuickBetLabel: boolean }> = ({
+export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; isHeaderSetting: boolean }> = ({
     enabledQuickBet,
     updateEnabledQuickBet,
-    hasQuickBetLabel,
+    isHeaderSetting,
 }) => {
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
@@ -64,8 +64,8 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     return (
-        <div className={`${Styles["toggle"]}`}>
-            <div className={enabledQuickBet ? "heart-beat-animation" : ""}>
+        <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]}`}>
+            <div className={enabledQuickBet ? Styles["heart-beat-animation"] : ""}>
                 {!enabledQuickBet && <div className={Styles["ripple-animation"]}></div>}
                 <input
                     className={Styles["toggle-checkbox"]}
@@ -88,7 +88,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                         <div className={Styles["icon-quick-bet"]}></div>
                     </div>
                 </label>
-                {hasQuickBetLabel && <div className={Styles["one-click-bet"]}>1-Click Bet</div>}
+                <div className={Styles["one-click-bet"]}>1-Click Bet</div>
             </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>

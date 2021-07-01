@@ -1,7 +1,8 @@
 @import "../../../assets/components/settlement-info";
 
-.result-info-container {
+.result-container {
     display: flex;
+    width: fit-content;
 
     .result-info {
         min-width: 15rem;

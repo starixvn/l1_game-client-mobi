@@ -144,7 +144,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     renderSettlementInfo() {
         const { settlementResult } = this.state;
 
-        return <div className={Styles["result-info-container"]}>{this.renderSettlementResult(settlementResult)}</div>;
+        return <div className={Styles["result-container"]}>{this.renderSettlementResult(settlementResult)}</div>;
     }
 }
 

@@ -1,11 +1,11 @@
 [data-theme="light"] .highlight-result-label {
-    --prev-round-background: url("/static/images/fpc-result-prev.png");
+    --prev-round-background: url("/static/images/fpc-result-prev-light.png");
     --prev-round-color: #666;
 }
 
 [data-theme="dark"] .highlight-result-label {
-    --prev-round-background: url("/static/images/fpc-result-prev.png");
-    --prev-round-color: #666;
+    --prev-round-background: url("/static/images/fpc-result-prev-dark.png");
+    --prev-round-color: #fff;
 }
 
 .layout-FPC {

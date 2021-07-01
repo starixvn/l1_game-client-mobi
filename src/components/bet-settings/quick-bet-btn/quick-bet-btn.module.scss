@@ -15,93 +15,129 @@
         top: 2.5rem;
         left: 2.6rem;
     }
-}
 
-.toggle-checkbox {
-    display: none;
-}
-
-.toggle-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 2rem;
-    width: 4.9rem;
-    margin: 0 auto;
-    background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 15.5px;
-    transition: all 350ms ease-in;
-
-    &:hover {
-        cursor: pointer;
+    .toggle-checkbox {
+        display: none;
     }
 
-    .chip {
-        position: absolute;
-        left: -0.6rem;
-        transition: left 100ms ease-in;
-        transform: scale(0.75);
-        background: linear-gradient(180deg, #b9b9b9 0%, #989898 100%);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #bababa;
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
+        box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
+        border-radius: 1.55rem;
+        transition: all 350ms ease-in;
 
-        .layer1 {
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+        &:hover {
+            cursor: pointer;
         }
 
-        .layer2 {
-            background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-            border: 1px solid #e2e2e2;
-            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-        }
-
-        .icon-quick-bet {
-            background: url("/static/images/icon-quick-bet.svg") no-repeat center;
-            height: 1.8rem;
-            width: 11rem;
-            grid-area: 1/1;
-        }
-    }
-}
-
-.toggle-checkbox:checked {
-    & + .toggle-btn {
-        background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
-
-        > .chip {
-            left: 1.5rem;
-            background: linear-gradient(180deg, #18aa3d 0%, #16a53a 100%);
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #16a63b;
+        .chip {
+            position: absolute;
+            transition: left 100ms ease-in;
+            background: linear-gradient(180deg, #b9b9b9 0%, #989898 100%);
+            box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25), 0 0 0.3rem #bababa;
 
             .layer1 {
                 background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+                box-shadow: inset 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
             }
 
             .layer2 {
                 background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-                border: 1px solid #a8ff92;
-                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+                border: 1px solid #e2e2e2;
+                box-shadow: inset 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
             }
 
             .icon-quick-bet {
-                animation: none;
-                background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
-            }
-
-            .symbol:before {
-                color: #00ff75;
+                background: url("/static/images/icon-quick-bet.svg") no-repeat center;
+                height: 1.8rem;
+                width: 11rem;
+                grid-area: 1/1;
             }
         }
     }
-}
 
-.one-click-bet {
-    margin-top: 1.6rem;
-    font-size: 1.2rem;
-    color: #fff;
-    line-height: 0;
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
+
+            > .chip {
+                background: linear-gradient(180deg, #18aa3d 0%, #16a53a 100%);
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #16a63b;
+
+                .layer1 {
+                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+                }
+
+                .layer2 {
+                    background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
+                    border: 1px solid #a8ff92;
+                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
+                }
+
+                .icon-quick-bet {
+                    animation: none;
+                    background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
+                }
+
+                .symbol:before {
+                    color: #00ff75;
+                }
+            }
+        }
+    }
+
+    &.header-setting {
+        .toggle-btn {
+            width: 4.4rem;
+            height: 1.6rem;
+        }
+
+        .chip {
+            transform: scale(0.64);
+            left: -0.8rem;
+        }
+
+        .toggle-checkbox:checked + .toggle-btn > .chip {
+            left: 1.1rem;
+        }
+
+        .one-click-bet {
+            position: absolute;
+            left: 5.2rem;
+            top: 0;
+            white-space: nowrap;
+            font-size: 1.4rem;
+            color: #fff;
+        }
+    }
+
+    &.bet-setting {
+        .toggle-btn {
+            width: 4.9rem;
+            height: 2rem;
+        }
+
+        .chip {
+            transform: scale(0.75);
+            left: -0.6rem;
+        }
+
+        .toggle-checkbox:checked + .toggle-btn > .chip {
+            left: 1.5rem;
+        }
+
+        .one-click-bet {
+            margin-top: 1.6rem;
+            line-height: 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+    }
 }
 
 .modalConfirm {
@@ -154,5 +190,31 @@
         @media (min-width: 768px) {
             min-width: 15.2rem;
         }
+    }
+}
+
+.heart-beat-animation {
+    animation: heart-beat-animation 1s linear;
+}
+
+@keyframes heart-beat-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    14% {
+        transform: scale(1.2);
+    }
+
+    28% {
+        transform: scale(1);
+    }
+
+    42% {
+        transform: scale(1.2);
+    }
+
+    70% {
+        transform: scale(1);
     }
 }
