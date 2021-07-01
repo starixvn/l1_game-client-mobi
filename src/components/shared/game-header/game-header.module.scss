@@ -167,54 +167,6 @@
             color: var(--btn-rebet-color-hover);
         }
     }
-
-    .hamburger-dot {
-        width: 0.5rem;
-        height: 0.5rem;
-        background-color: var(--game-header-icon-menu);
-        border-radius: 50%;
-        margin: 0.2rem 0;
-    }
-
-    .dropdown-menu {
-        width: 18rem;
-        &:focus {
-            outline: none;
-        }
-    }
-
-    .dropdown-toggle {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 4.6rem;
-        height: 100%;
-
-        &::after {
-            display: none;
-        }
-        &:before {
-            content: "";
-            position: absolute;
-            width: 3.8rem;
-            height: 3.8rem;
-            margin: auto;
-            border-radius: 50%;
-            background: var(--game-header-icon-menu-background-hover);
-            transform: scale(0);
-            opacity: 0;
-            transition: all 0.3s;
-        }
-
-        &:hover {
-            &:before {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-    }
 }
 
 .header-result {

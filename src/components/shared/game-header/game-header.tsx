@@ -1,7 +1,6 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
@@ -12,6 +11,7 @@ import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
 import Styles from "./game-header.module.scss";
+import Menu from "./menu";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
@@ -85,15 +85,11 @@ const HeaderRight = ({ displayMenu }) => {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setDropdownOpen((prevState) => !prevState);
-    };
+
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[gameId];
-    const classList = ["hamburger-dot", "dropdown-item"];
+
     const rebetClickHandle = (e: React.MouseEvent) => {
         e.stopPropagation();
         gameActions.openPopup(PopupType.Rebet);
@@ -114,29 +110,7 @@ const HeaderRight = ({ displayMenu }) => {
                     {t(CommonResourceKeys.REBET)}
                 </button>
             )}
-            {displayMenu && (
-                <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
-                    <DropdownToggle className={Styles["dropdown-toggle"]}>
-                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                        <div className={Styles[classList[ClassType.hamburgerDot]]}></div>
-                    </DropdownToggle>
-                    <DropdownMenu right className={Styles["dropdown-menu"]}>
-                        <DropdownItem
-                            className={Styles[classList[ClassType.dropdownItem]]}
-                            onClick={() => gameActions.openPopup(PopupType.BetHistory)}
-                        >
-                            {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
-                        </DropdownItem>
-                        <DropdownItem
-                            className={Styles[classList[ClassType.dropdownItem]]}
-                            onClick={() => gameActions.openPopup(PopupType.Guide)}
-                        >
-                            {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
-                        </DropdownItem>
-                    </DropdownMenu>
-                </Dropdown>
-            )}
+            {displayMenu && <Menu />}
         </div>
     );
 };
