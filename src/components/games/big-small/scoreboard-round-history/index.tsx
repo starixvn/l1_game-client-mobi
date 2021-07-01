@@ -1,20 +1,21 @@
 import React from "react";
-
 import { checkIsSmall, countRedDot, Choices } from "../big-small-helper";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
-import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { GameBaseProps } from "../../../shared/game-base/type";
 
-const GetElementRound = (result: any, col: number, row: number, roundId: number, translate: Function) => {
-    const { gameSetting } = useGameContext();
-    const { id: gameId, gameName } = gameSetting;
+const GetElementRound = (result: any, col: number, row: number, roundId: number, translate: Function, gameSetting: GameBaseProps) => {
     const isSmall = checkIsSmall(countRedDot(result));
     return (
         <RoundDotGrid
-            key={`${roundId}_${gameId}`}
+            key={`${roundId}_${gameSetting.id}`}
             choice={isSmall ? Choices.small : Choices.big}
             col={col}
             row={row}
-            value={isSmall ? translate(`${gameName.toLowerCase()}:smallTextDot`) : translate(`${gameName.toLowerCase()}:bigTextDot`)}
+            value={
+                isSmall
+                    ? translate(`${gameSetting.gameName.toLowerCase()}:smallTextDot`)
+                    : translate(`${gameSetting.gameName.toLowerCase()}:bigTextDot`)
+            }
         ></RoundDotGrid>
     );
 };

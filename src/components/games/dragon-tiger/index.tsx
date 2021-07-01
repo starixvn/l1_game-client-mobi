@@ -74,7 +74,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
+        const { roundHistory, isShowBlink } = this.state;
         return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
     }
 
