@@ -64,11 +64,13 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         return () => {
-            wrapperRef.current?.removeEventListener("wheel", handleWheel);
-            wrapperRef.current?.removeEventListener("mousedown", startDragging);
-            wrapperRef.current?.removeEventListener("mouseup", stopDragging);
-            wrapperRef.current?.removeEventListener("mouseleave", stopDragging);
-            wrapperRef.current?.removeEventListener("mousemove", handleDragging);
+            if (wrapperRef.current) {
+                wrapperRef.current.removeEventListener("wheel", handleWheel);
+                wrapperRef.current.removeEventListener("mousedown", startDragging);
+                wrapperRef.current.removeEventListener("mouseup", stopDragging);
+                wrapperRef.current.removeEventListener("mouseleave", stopDragging);
+                wrapperRef.current.removeEventListener("mousemove", handleDragging);
+            }
         };
     }, []);
 
