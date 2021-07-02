@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import useSound from "use-sound";
-import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
-import Chip from "../../shared/chip";
+import { ChipMapper, ChipValues } from "../../../common/constants";
 import Styles from "./chip-slider.module.scss";
 
 const SlidingTimeInMillisecond = 100;
