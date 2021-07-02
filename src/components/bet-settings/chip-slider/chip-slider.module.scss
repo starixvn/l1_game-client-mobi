@@ -1,3 +1,5 @@
+@import "../../../assets/components/chip";
+
 %icon {
     position: absolute;
     top: calc(50% - 2.5rem);
@@ -49,5 +51,74 @@
 
     @media (min-width: 768px) {
         right: -4rem;
+    }
+}
+
+.chip-container {
+    transition: all -0.1s ease-in;
+
+    &.selected {
+        --ratio: 1.2;
+        transition: all -0.1s ease-out;
+        top: -0.4rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+
+    &:hover:before,
+    &.selected:before {
+        content: "";
+        position: absolute;
+        left: -0.3rem;
+        right: -0.3rem;
+        top: -0.3rem;
+        bottom: -0.3rem;
+        border-radius: 50%;
+        border: 0.3rem solid #34ff00;
+        box-shadow: 0px 0px 5px #52f428, 0px 0px 10px #52f428;
+        animation: show-highlight-circle 0.1s ease-in forwards;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        --ratio: 1.1;
+
+        &.selected {
+            --ratio: 1.3;
+            top: -0.5rem;
+        }
+    }
+
+    @media (min-width: 1025px) and (max-width: 1279px) {
+        --ratio: 1.2;
+
+        &.selected {
+            --ratio: 1.4;
+            top: -0.5rem;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        --ratio: 1.3;
+
+        &.selected {
+            --ratio: 1.5;
+            top: -0.6rem;
+        }
+    }
+
+    @keyframes show-highlight-circle {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
     }
 }

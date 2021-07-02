@@ -1,3 +1,9 @@
+@media (max-width: 767px) {
+    .slick-track {
+        padding: 0 1.2rem;
+    }
+}
+
 @media (min-width: 768px) and (max-width: 1280px) {
     .slick-list {
         height: 11.5rem !important;
@@ -27,7 +33,7 @@
     align-items: center;
     justify-content: center;
     height: 7.5rem;
-    width: 6.2rem !important;
+    width: 5.6rem !important;
 
     @media (min-width: 768px) and (max-width: 1280px) {
         height: 11.5rem;

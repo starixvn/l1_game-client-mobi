@@ -136,11 +136,13 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                 {ChipValues.map((value) => (
                     <div
                         key={value}
-                        className={`${Styles["chip"]} ${selectedChip === value ? Styles["selected"] : ""}`}
+                        className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${
+                            Styles[ChipMapper[value]]
+                        }`}
                         onClick={() => handleSelectChip(value)}
                     >
-                        <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="dice" />
-                        <span className={Styles["chip-value"]}>{ChipLabelMapper[value]}</span>
+                        <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="Chip" />
+                        <span className={Styles["value"]}>{ChipLabelMapper[value]}</span>
                     </div>
                 ))}
             </Slider>

@@ -77,10 +77,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                     onChange={onClickQuickBet}
                 />
                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                    <div className={Styles.chip}>
-                        <img src={`/static/images/chips/chip-1.svg`} className={Styles["chip"]} alt="dice" />
-                        <span className={Styles["lightning-icon"]}></span>
-                    </div>
+                    <div className={Styles["quick-bet-icon"]}></div>
                 </label>
                 <div className={Styles["one-click-bet"]}>1-Click Bet</div>
             </div>

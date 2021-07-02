@@ -40,29 +40,12 @@
             cursor: pointer;
         }
 
-        .chip {
+        .quick-bet-icon {
             position: absolute;
+            height: 3.3rem;
+            width: 3.3rem;
             transition: left 100ms ease-in;
-            background: linear-gradient(180deg, #b9b9b9 0%, #989898 100%);
-            box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25), 0 0 0.3rem #bababa;
-
-            .layer1 {
-                background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-                box-shadow: inset 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
-            }
-
-            .layer2 {
-                background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-                border: 1px solid #e2e2e2;
-                box-shadow: inset 0 0.1rem 0.1rem rgba(0, 0, 0, 0.5);
-            }
-
-            .icon-quick-bet {
-                background: url("/static/images/icon-quick-bet.svg") no-repeat center;
-                height: 1.8rem;
-                width: 11rem;
-                grid-area: 1/1;
-            }
+            background: url("/static/images/icon-quick-bet.svg") no-repeat center;
         }
     }
 
@@ -70,29 +53,8 @@
         & + .toggle-btn {
             background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
 
-            > .chip {
-                background: linear-gradient(180deg, #18aa3d 0%, #16a53a 100%);
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #16a63b;
-
-                .layer1 {
-                    background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-                }
-
-                .layer2 {
-                    background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-                    border: 1px solid #a8ff92;
-                    box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-                }
-
-                .icon-quick-bet {
-                    animation: none;
-                    background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
-                }
-
-                .symbol:before {
-                    color: #00ff75;
-                }
+            > .quick-bet-icon {
+                background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
             }
         }
     }
@@ -103,13 +65,12 @@
             height: 1.6rem;
         }
 
-        .chip {
-            transform: scale(0.64);
-            left: -0.8rem;
+        .quick-bet-icon {
+            left: -0.3rem;
         }
 
-        .toggle-checkbox:checked + .toggle-btn > .chip {
-            left: 1.1rem;
+        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
+            left: 1.4rem;
         }
 
         .one-click-bet {
@@ -128,13 +89,12 @@
             height: 2rem;
         }
 
-        .chip {
-            transform: scale(0.75);
-            left: -0.6rem;
+        .quick-bet-icon {
+            left: -0.3rem;
         }
 
-        .toggle-checkbox:checked + .toggle-btn > .chip {
-            left: 1.5rem;
+        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
+            left: 2rem;
         }
 
         .one-click-bet {
