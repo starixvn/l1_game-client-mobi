@@ -13,6 +13,7 @@
     width: var(--chip-width);
     height: var(--chip-height);
     border-radius: 50%;
+    outline: none;
 
     .chip {
         grid-area: 1/1;
