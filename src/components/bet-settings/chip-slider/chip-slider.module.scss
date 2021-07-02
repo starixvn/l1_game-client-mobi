@@ -55,16 +55,30 @@
 }
 
 .chip-container {
+    --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
+    --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
+
     transition: all -0.1s ease-in;
 
     &.selected {
         --ratio: 1.2;
         transition: all -0.1s ease-out;
         top: -0.4rem;
-    }
 
-    &:hover {
-        cursor: pointer;
+        &:before {
+            content: "";
+            position: absolute;
+            left: calc(-0.6rem * var(--ratio));
+            right: calc(-0.6rem * var(--ratio));
+            bottom: calc(-0.6rem * var(--ratio));
+            top: calc(-0.6rem * var(--ratio));
+            background: url("/static/images/chip-active.svg") no-repeat;
+            background-size: 100%;
+        }
+
+        &.enabled-quick-bet:before {
+            background-image: url("/static/images/chip-active-quick-bet.svg");
+        }
     }
 
     &:active,
@@ -73,22 +87,29 @@
         outline: none;
     }
 
-    &:hover:before,
-    &.selected:before {
-        content: "";
-        position: absolute;
-        left: -0.3rem;
-        right: -0.3rem;
-        top: -0.3rem;
-        bottom: -0.3rem;
-        border-radius: 50%;
-        border: 0.3rem solid #34ff00;
-        box-shadow: 0px 0px 5px #52f428, 0px 0px 10px #52f428;
-        animation: show-highlight-circle 0.1s ease-in forwards;
+    @media (hover: hover) {
+        &:hover {
+            cursor: pointer;
+            &:before {
+                content: "";
+                position: absolute;
+                left: calc(-0.6rem * var(--ratio));
+                right: calc(-0.6rem * var(--ratio));
+                bottom: calc(-0.6rem * var(--ratio));
+                top: calc(-0.6rem * var(--ratio));
+                background: url("/static/images/chip-active.svg") no-repeat;
+                background-size: 100%;
+            }
+        }
+        &.enabled-quick-bet:hover:before {
+            background-image: url("/static/images/chip-active-quick-bet.svg");
+        }
     }
 
     @media (min-width: 768px) and (max-width: 1024px) {
         --ratio: 1.1;
+        --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
+        --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
 
         &.selected {
             --ratio: 1.3;
@@ -98,6 +119,8 @@
 
     @media (min-width: 1025px) and (max-width: 1279px) {
         --ratio: 1.2;
+        --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
+        --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
 
         &.selected {
             --ratio: 1.4;
@@ -107,6 +130,8 @@
 
     @media (min-width: 1200px) {
         --ratio: 1.3;
+        --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
+        --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
 
         &.selected {
             --ratio: 1.5;

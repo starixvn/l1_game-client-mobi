@@ -137,8 +137,8 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                     <div
                         key={value}
                         className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${
-                            Styles[ChipMapper[value]]
-                        }`}
+                            enabledQuickBet ? Styles["enabled-quick-bet"] : ""
+                        } ${Styles[ChipMapper[value]]}`}
                         onClick={() => handleSelectChip(value)}
                     >
                         <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="Chip" />
