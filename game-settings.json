@@ -40,10 +40,10 @@
             "path": "fishprawncrab"
         },
         "durations": {
-            "wholeRound": 40,
+            "wholeRound": 41,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
+            "showResult": 10,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }
