@@ -1,4 +1,4 @@
-.title {
+%title {
     font-size: 1.4rem;
     font-weight: 500;
     display: inline-block;
@@ -30,4 +30,29 @@
     @media (min-width: 1024px) and (max-width: 1278px) {
         font-size: 1.2rem;
     }
+}
+
+.big {
+    @extend %title;
+    color: var(--bigSmall-big-text-color);
+}
+
+.small {
+    @extend %title;
+    color: var(--bigSmall-small-text-color);
+}
+
+.dragon {
+    @extend %title;
+    color: var(--dragonTiger-dragon-text-color);
+}
+
+.tiger {
+    @extend %title;
+    color: var(--dragonTiger-tiger-text-color);
+}
+
+.tie {
+    @extend %title;
+    color: var(--dragonTiger-tie-text-color);
 }
