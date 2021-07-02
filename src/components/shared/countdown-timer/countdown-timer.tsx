@@ -1,5 +1,6 @@
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useTranslation } from "next-i18next";
+import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameState } from "../game-base/type";
 import Loader from "../loader";
@@ -59,12 +60,12 @@ const Timer = () => {
     const { durations } = ctx.gameSetting;
 
     const timerProps = {
-        isPlaying: true,
+        isPlaying: ctx.gameState !== GameState.BeforeStartRound,
         size: 30,
         strokeWidth: 3,
         trailColor: "#fff",
         trailStrokeWidth: 1,
-        initialRemainingTime: ctx.remainingTime,
+        initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? durations.placingBets : ctx.remainingTime,
         duration: durations.placingBets,
     };
 
