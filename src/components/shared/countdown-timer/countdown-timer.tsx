@@ -9,6 +9,8 @@ const CountdownTimer: React.FC = () => {
     const { gameState } = useGameContext();
     const { t } = useTranslation("common");
     switch (gameState) {
+        case GameState.BeforeStartRound:
+            return <Timer />;
         case GameState.InRound:
             return (
                 <>

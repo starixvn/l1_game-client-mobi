@@ -480,7 +480,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getTimeCounter(remainingTime: number, gameState: GameState) {
-        return [GameState.InRound, GameState.LockingBet].includes(gameState) ? remainingTime : 0;
+        const { durations } = this.props;
+
+        switch (gameState) {
+            case GameState.InRound:
+            case GameState.LockingBet:
+                return remainingTime;
+            case GameState.BeforeStartRound:
+                return durations.beforeStartRound;
+            default:
+                return 0;
+        }
     }
 
     handleRoundHistory({ roundHistory, roundId }) {
