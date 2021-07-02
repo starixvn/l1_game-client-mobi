@@ -79,7 +79,9 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                 <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                     <div className={Styles["quick-bet-icon"]}></div>
                 </label>
-                <div className={Styles["one-click-bet"]}>1-Click Bet</div>
+                <div className={Styles["one-click-bet"]} onClick={onClickQuickBet}>
+                    1-Click Bet
+                </div>
             </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
