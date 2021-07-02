@@ -1,11 +1,19 @@
-@import "../../../assets/components/statistic";
-
-[data-theme="light"] .number {
-    --statistic-number-color: #2c2f3e;
+.title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-right: 0.4rem;
+    margin-left: 1rem;
 }
 
-[data-theme="dark"] .number {
-    --statistic-number-color: #7f91a4;
+.number {
+    margin-left: 0.2rem;
+}
+
+.statistic-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .statistic-group {
@@ -22,29 +30,4 @@
     @media (min-width: 1024px) and (max-width: 1278px) {
         font-size: 1.2rem;
     }
-}
-
-.big {
-    @extend %title;
-    color: var(--bigSmall-big-text-color);
-}
-
-.small {
-    @extend %title;
-    color: var(--bigSmall-small-text-color);
-}
-
-.dragon {
-    @extend %title;
-    color: var(--dragonTiger-dragon-text-color);
-}
-
-.tiger {
-    @extend %title;
-    color: var(--dragonTiger-tiger-text-color);
-}
-
-.tie {
-    @extend %title;
-    color: var(--dragonTiger-tie-text-color);
 }

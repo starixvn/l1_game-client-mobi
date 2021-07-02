@@ -49,7 +49,7 @@ export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
             <>
                 {Object.keys(statisticResult).map((choice) => (
                     <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
-                        <span className={Styles[choice]}>{t(choice)}</span>
+                        <span className={Styles["title"]}>{t(choice)}</span>
                     </StatisticItem>
                 ))}
             </>
