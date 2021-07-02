@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { ChipMapper } from "../../../../common/constants";
+import { ChipLabelMapper, ChipMapper } from "../../../../common/constants";
 import styles from "./display-chip.module.scss";
 
 const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number }> = ({ chipValue, chipKey }) => {
@@ -14,7 +14,7 @@ const DisplayChip: React.FunctionComponent<{ chipValue: number; chipKey: number 
     return (
         <div className={styles["display-chip-container"]} style={chipContainerStyles.current}>
             <img src={`/static/images/chips/${ChipMapper[chipValue]}.svg`} className={styles["chip"]} alt="dice" />
-            <span className={styles["chip-value"]}>{chipValue}</span>
+            <span className={styles["chip-value"]}>{ChipLabelMapper[chipValue]}</span>
         </div>
     );
 };
