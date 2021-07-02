@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import useSound from "use-sound";
-import { ChipLabelMapper, ChipValues } from "../../../common/constants";
+import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
 import Chip from "../../shared/chip";
 import Styles from "./chip-slider.module.scss";
 
@@ -134,13 +134,15 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                 }}
                 {...SliderSetting}
             >
-                {Object.keys(ChipLabelMapper).map((key) => (
-                    <Chip
-                        key={key}
-                        value={ChipLabelMapper[key]}
-                        onSelected={handleSelectChip}
-                        selected={selectedChip === ChipLabelMapper[key]}
-                    />
+                {ChipValues.map((value) => (
+                    <div
+                        key={value}
+                        className={`${Styles["chip"]} ${selectedChip === value ? Styles["selected"] : ""}`}
+                        onClick={() => handleSelectChip(value)}
+                    >
+                        <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="dice" />
+                        <span className={Styles["chip-value"]}>{value}</span>
+                    </div>
                 ))}
             </Slider>
             <span
