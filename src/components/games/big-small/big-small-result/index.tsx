@@ -28,7 +28,11 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
                         {result &&
                             Object.values(result).map((value, index) => (
                                 <div key={index} className={Styles[`result-${index + 1}`]}>
-                                    <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
+                                    <img
+                                        src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                        className={Styles["dice"]}
+                                        alt="dice"
+                                    />
                                 </div>
                             ))}
                     </div>
