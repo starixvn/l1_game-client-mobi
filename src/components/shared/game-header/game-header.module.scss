@@ -142,6 +142,8 @@
     align-items: center;
 
     .rebet {
+        position: relative;
+        z-index: 1;
         width: 7.7rem;
         height: 3.2rem;
         margin-right: 1rem;
@@ -181,7 +183,7 @@
     background: var(--game-header-result-background);
     box-sizing: border-box;
     border-radius: 0.4rem;
-    z-index: calc(var(--popup-guide-history-index) - 1);
+    z-index: var(--result-animation-index);
 
     .test {
         position: relative;
