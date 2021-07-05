@@ -91,6 +91,7 @@
 
     .own-bet {
         bottom: -0.1rem;
+        font-weight: bold;
         color: var(--bet-option-own-bet-color);
     }
 
@@ -117,16 +118,6 @@
 
     &.DragonTiger-tiger {
         left: 4.5rem;
-    }
-}
-
-.simple-mode {
-    .total-bet {
-        top: 0.1rem;
-    }
-
-    .own-bet {
-        bottom: 0.1rem;
     }
 }
 
