@@ -138,7 +138,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return (
             <div className={Styles["result-container"]}>
                 <div className={Styles["left"]}>
-                    <div className={Styles["total-text"]}>Tổng</div>
+                    <div className={Styles["total-text"]}>{t("common:total")}</div>
                     <div className={`${settlementResult.big ? Styles["total-points-big"] : Styles["total-points-small"]}`}>
                         {totalDiceValue}
                     </div>

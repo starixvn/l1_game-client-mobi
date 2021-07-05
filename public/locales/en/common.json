@@ -49,5 +49,6 @@
     "noMoreBets": "No more bets",
     "balancedBettingPool": "Balanced betting pool",
     "openResult": "Open result",
-    "oneClickBetOn": "1-Click Bet is enabled"
+    "oneClickBetOn": "1-Click Bet is enabled",
+    "total": "Total"
 }
