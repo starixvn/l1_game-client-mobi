@@ -173,9 +173,10 @@
         display: flex;
         align-items: stretch;
         height: 2.9rem;
+        z-index: 1;
 
         .left {
-            width: 2.3rem;
+            width: 2rem;
             margin-right: -0.1rem;
             background: url(/static/images/footer-1-click-bet-background-left.png);
         }

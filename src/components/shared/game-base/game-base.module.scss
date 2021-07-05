@@ -8,9 +8,17 @@
     --mini-round-history-background: #203040;
 }
 
+[data-theme="light"] .mini-round-history {
+    --mini-round-history-background: #f3f3f3;
+}
+
+[data-theme="dark"] .mini-round-history {
+    --mini-round-history-background: #203040;
+}
+
 .bet-options {
     position: relative;
-    height: 25.7rem;
+    height: 24rem;
     width: 100%;
     padding-top: 0.1rem;
     background-color: var(--border-color);
