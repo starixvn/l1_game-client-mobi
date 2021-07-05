@@ -15,9 +15,14 @@ type Props = {
 
 const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
     const { t } = useTranslation("common");
+    var deviceClass = "";
+
+    if (isMobileOnly) {
+        deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
+    }
 
     return (
-        <div className={`${Styles["bet-settings"]} ${isMobileOnly && isIOS ? Styles["ios-device"] : ""}`}>
+        <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
             <div className={Styles["settings-container"]}>
                 <div className={`game-container ${Styles["container"]}`}>
                     <div className={Styles["wrapper-chips"]}>
