@@ -399,7 +399,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 state: {
                     ownBets: {},
                     totalBets: {},
-                    betPercentage: {},
                     displayChips: {},
                     showWinningAnimation: false,
                     isShowBlink: false,
@@ -411,6 +410,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 condition: nextGameState === GameState.InRound,
                 state: {
                     roundId: roundId + 1,
+                    betPercentage: {},
                 },
             },
             {
