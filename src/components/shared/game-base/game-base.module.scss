@@ -1,9 +1,11 @@
 [data-theme="light"] .statistic {
     --statistic-background: #f3f3f3;
+    --mini-round-history-background: #f3f3f3;
 }
 
 [data-theme="dark"] .statistic {
     --statistic-background: #1a2430;
+    --mini-round-history-background: #203040;
 }
 
 .bet-options {
@@ -24,6 +26,7 @@
     padding: 0.7rem 0.5rem;
     border-radius: 0 0 0.6rem 0.6rem;
     border-top: 2px solid var(--border-color);
+    background-color: var(--mini-round-history-background);
     cursor: auto;
 }
 
