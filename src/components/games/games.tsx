@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isIOS } from "react-device-detect";
 import useSound from "use-sound";
 
 import appSettings from "../../common/app-settings";
@@ -77,10 +77,10 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
     };
 
     return (
-        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""}`}>
+        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
+                <div className={`${styles["game-list"]} ${isMobileOnly && isIOS ? styles["ios-device"] : ""}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
     );

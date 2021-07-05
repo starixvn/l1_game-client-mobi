@@ -28,11 +28,7 @@
     width: 100%;
     height: 5.4rem;
 
-    // Iphone X or newer
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
-        height: 6.9rem;
-    }
-
+    // For Ipad and Desktop
     @media (min-width: 768px) {
         height: 8rem;
     }
@@ -197,13 +193,21 @@
             transform: scaleX(-1);
         }
     }
+}
 
-    // Iphone X or newer
+// Iphone X or newer
+.ios-device {
     @media (min-device-width: 375px) and (min-device-height: 668px) {
-        height: 5.4rem;
+        .settings-container {
+            height: 6.9rem;
+        }
 
-        .one-click-bet-turn-on {
-            top: -1.4rem;
+        .footer {
+            height: 5.4rem;
+
+            .one-click-bet-turn-on {
+                top: -1.4rem;
+            }
         }
     }
 }
