@@ -28,6 +28,10 @@
     width: 100%;
     height: 5.4rem;
 
+    @media (min-width: 375px) {
+        height: 6.9rem;
+    }
+
     @media (min-width: 768px) {
         height: 8rem;
     }
@@ -164,31 +168,39 @@
         top: 0.6rem;
         right: 1.2rem;
     }
-}
 
-.one-click-bet-turn-on {
-    position: relative;
-    top: -1rem;
-    display: flex;
-    align-items: stretch;
-    height: 2.9rem;
+    .one-click-bet-turn-on {
+        position: relative;
+        top: -1rem;
+        display: flex;
+        align-items: stretch;
+        height: 2.9rem;
 
-    .left {
-        width: 2.3rem;
-        margin-right: -0.1rem;
-        background: url(/static/images/footer-1-click-bet-background-left.png);
+        .left {
+            width: 2.3rem;
+            margin-right: -0.1rem;
+            background: url(/static/images/footer-1-click-bet-background-left.png);
+        }
+
+        .content {
+            width: fit-content;
+            background: url(/static/images/footer-1-click-bet-background.png);
+            color: #54ff26;
+            line-height: 3.4rem;
+        }
+
+        .right {
+            @extend .left;
+            margin-left: -0.1rem;
+            transform: scaleX(-1);
+        }
     }
 
-    .content {
-        width: fit-content;
-        background: url(/static/images/footer-1-click-bet-background.png);
-        color: #54ff26;
-        line-height: 3.4rem;
-    }
+    @media (min-width: 375px) {
+        height: 5.4rem;
 
-    .right {
-        @extend .left;
-        margin-left: -0.1rem;
-        transform: scaleX(-1);
+        .one-click-bet-turn-on {
+            top: -1.4rem;
+        }
     }
 }
