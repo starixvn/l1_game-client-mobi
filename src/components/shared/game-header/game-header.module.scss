@@ -28,8 +28,8 @@
     --btn-rebet-background: transparent;
     --btn-rebet-color: #8dadce;
 
-    --btn-rebet-background-hover: #8dadce;
-    --btn-rebet-color-hover: #ff9a00;
+    --btn-rebet-background-hover: #3f648a;
+    --btn-rebet-color-hover: #fff;
     --game-header-result-background: rgba(32, 48, 64, 0.9);
 }
 
@@ -163,10 +163,12 @@
             opacity: 0.4;
         }
 
-        &:hover:enabled {
-            cursor: pointer;
-            background-color: var(--btn-rebet-background-hover);
-            color: var(--btn-rebet-color-hover);
+        @media (hover: hover) {
+            &:hover:enabled {
+                cursor: pointer;
+                background-color: var(--btn-rebet-background-hover);
+                color: var(--btn-rebet-color-hover);
+            }
         }
     }
 }
