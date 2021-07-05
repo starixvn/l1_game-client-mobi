@@ -132,26 +132,26 @@
 
 @keyframes blink-animation {
     0%,
-    50%,
-    100% {
+    50% {
         background-color: #fff;
     }
 
     25%,
-    75% {
+    75%,
+    100% {
         background: #fff5e3;
     }
 }
 
 @keyframes blink-animation-dark-theme {
     0%,
-    50%,
-    100% {
+    50% {
         background-color: #507396;
     }
 
     25%,
-    75% {
+    75%,
+    100% {
         background: #395877;
     }
 }
