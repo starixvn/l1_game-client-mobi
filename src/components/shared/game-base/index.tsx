@@ -279,7 +279,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const key = uuidv4();
         acceptedBetQueue[key] = amount;
 
-        this.setState({ acceptedBetQueue });
+        this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });
         setTimeout(() => {
             this.removeAcceptedBetQueue(key);
         }, this.animationTime);
