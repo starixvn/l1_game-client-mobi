@@ -19,6 +19,26 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
+    const onClickChip = (chipValue: number) => {
+        const chipIndex = ChipValues.indexOf(chipValue);
+        const currentSlideToShow = getCurrentSlidesToShow();
+        const currentSlide = sliderRef.innerSlider.state.currentSlide;
+
+        if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
+        }
+
+        if (chipIndex - 1 <= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex - 1);
+        }
+
+        handleSelectChip(chipValue);
+    };
+
     const handleSelectChip = (chipValue: number) => {
         setSelectedChip(chipValue);
         updateArrowsByChipValue(chipValue);
@@ -139,7 +159,7 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                         className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${
                             enabledQuickBet ? Styles["enabled-quick-bet"] : ""
                         } ${Styles[ChipMapper[value]]}`}
-                        onClick={() => handleSelectChip(value)}
+                        onClick={() => onClickChip(value)}
                     >
                         <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="Chip" />
                         <span className={Styles["value"]}>{ChipLabelMapper[value]}</span>

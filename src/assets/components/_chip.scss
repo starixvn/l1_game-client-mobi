@@ -19,6 +19,7 @@
         grid-area: 1/1;
         width: 100%;
         border-radius: 50%;
+        pointer-events: none;
     }
 
     .value {
