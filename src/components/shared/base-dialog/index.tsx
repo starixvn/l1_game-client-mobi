@@ -36,7 +36,15 @@ const BaseDialog: React.FC<Props> = ({
         }
 
         if (isMobileOnly) {
-            return isIOS && windowHeight > 667 && windowWidth >= 375 ? { bottom: "12.3rem" } : { bottom: "9.8rem" };
+            if (isIOS) {
+                if (windowHeight > 667 && windowWidth >= 375) {
+                    return { bottom: "12.3rem" };
+                } else {
+                    return { bottom: "9.8rem" };
+                }
+            } else {
+                return { bottom: "8.8rem" };
+            }
         }
 
         return {};
