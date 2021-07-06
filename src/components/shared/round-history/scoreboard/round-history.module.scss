@@ -8,7 +8,7 @@
 }
 
 .board {
-    height: 11.8rem;
+    height: 12rem;
     width: 100%;
     padding: 0 0.8rem;
     border-radius: 0 0 0.6rem 0.6rem;
@@ -34,6 +34,7 @@
     justify-content: left;
     grid-gap: 0.4rem;
     margin: auto;
+    padding-bottom: 0.2rem;
     overflow: hidden;
 }
 
