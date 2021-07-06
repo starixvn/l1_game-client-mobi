@@ -28,7 +28,7 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     }
 
     .animation-container {
-        --move-up-distance: -6.2rem;
+        --move-up-distance: -4.5rem;
         --result-scale: 1;
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
     }

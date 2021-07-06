@@ -63,7 +63,7 @@
     }
 
     .result-sedie-set {
-        --move-up-distance: -6.5rem;
+        --move-up-distance: -4.8rem;
         --result-scale: 1;
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
     }

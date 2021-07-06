@@ -13,7 +13,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 .animation-container {
     position: absolute;
     left: 0;
-    top: 3.3rem;
+    top: 0.3rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -55,12 +55,12 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 @keyframes draw-card-animation {
     0% {
         opacity: 0;
-        transform: translate3d(0, -30rem, 0);
+        transform: translate3d(0, -20rem, 0);
     }
 
     50% {
         opacity: 0.3;
-        transform: translate3d(0, -15rem, 0);
+        transform: translate3d(0, -12rem, 0);
     }
 
     70% {
@@ -76,9 +76,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -7rem;
+        --move-up-distance: -3.5rem;
         --result-scale: 1;
-        top: 8.5rem;
+        top: 4.5rem;
         transform: scale(1);
         transition: transform 0.7s;
     }

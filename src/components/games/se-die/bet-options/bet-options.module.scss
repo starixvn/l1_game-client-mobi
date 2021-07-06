@@ -4,10 +4,6 @@
     height: 100%;
     grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
     grid-template-rows: 10rem 6.8rem 6.8rem;
-
-    &.simple-mode {
-        grid-template-rows: 1fr;
-    }
 }
 
 .wrapper-dots-red2 {

@@ -71,7 +71,7 @@
     .odd {
         position: absolute;
         left: 0.5rem;
-        top: -0.1rem;
+        top: 0;
         color: var(--bet-option-odds-color);
         text-align: left;
     }
@@ -85,7 +85,7 @@
     }
 
     .total-bet {
-        top: -0.1rem;
+        top: -0.2rem;
         color: var(--bet-option-total-bet-color);
     }
 
