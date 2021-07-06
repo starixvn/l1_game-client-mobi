@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 import useSound from "use-sound";
 
@@ -75,6 +75,10 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
                 return null;
         }
     };
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : "game-wrapper-mobile"} `}>
