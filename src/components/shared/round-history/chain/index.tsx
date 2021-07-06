@@ -37,7 +37,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return useMemo(() => {
-        const numberOfItems = isShowBlink ? 20 : 21;
+        const numberOfItems = isShowBlink ? 19 : 20;
         const rounds = roundHistory.slice(0, numberOfItems).reverse();
 
         return (
