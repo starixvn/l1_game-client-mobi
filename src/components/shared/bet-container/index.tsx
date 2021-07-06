@@ -14,7 +14,7 @@ const BetContainer: React.FC<Props> = (props) => {
     const [customStyle, setCustomStyle] = useState<object>();
 
     useEffect(() => {
-        setCursorImage(`"/static/images/small-chips/small_${ChipMapper[betValue]}.png"`);
+        setCursorImage(`"/static/images/small-chips/small_${ChipMapper[betValue]}.png?v=762021"`);
     }, [betValue]);
 
     useEffect(() => {

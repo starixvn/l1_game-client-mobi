@@ -8,7 +8,7 @@
 }
 
 .board {
-    height: 10.8rem;
+    height: 11.8rem;
     width: 100%;
     padding: 0 0.8rem;
     border-radius: 0 0 0.6rem 0.6rem;
@@ -16,7 +16,7 @@
     cursor: auto;
 
     @media (min-width: 1100px) {
-        height: 11.5rem;
+        height: 12.5rem;
     }
 }
 
@@ -32,7 +32,7 @@
     grid-template-rows: repeat(6, 1fr);
     flex-wrap: nowrap;
     justify-content: left;
-    grid-gap: 0.2rem;
+    grid-gap: 0.4rem;
     margin: auto;
     overflow: hidden;
 }
