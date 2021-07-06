@@ -60,6 +60,10 @@
 .setting_button_dark {
     @extend %setting_button;
     background-position: -10px -10px;
+
+    &.desktop-style {
+        background-position: -134px -101px;
+    }
 }
 
 .setting_button_light {
