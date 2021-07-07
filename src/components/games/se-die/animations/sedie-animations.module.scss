@@ -273,6 +273,7 @@
 
         .dot-3d-back {
             @extend .dot-3d-front;
+            position: absolute;
             z-index: 1;
             transform: rotateY(180deg) translateZ(3px);
         }
