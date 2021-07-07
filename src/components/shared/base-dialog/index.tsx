@@ -26,7 +26,7 @@ const BaseDialog: React.FC<Props> = ({
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
 
     const getCustomStyle = () => {
-        const browserHeight = document.documentElement.clientHeight;
+        const browserHeight = window.innerHeight;
 
         if (betContainerPosition != null) {
             return browserHeight / betContainerPosition > 2
