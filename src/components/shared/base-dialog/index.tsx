@@ -26,18 +26,18 @@ const BaseDialog: React.FC<Props> = ({
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
 
     const getCustomStyle = () => {
-        const windowHeight = window.innerHeight;
+        const browserHeight = document.documentElement.clientHeight;
         const windowWidth = window.innerWidth;
 
         if (betContainerPosition != null) {
-            return windowHeight / betContainerPosition > 2
+            return browserHeight / betContainerPosition > 2
                 ? { top: `${betContainerPosition}px` }
-                : { bottom: `${windowHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
+                : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
         if (isMobileOnly) {
             if (isIOS) {
-                if (windowHeight > 667 && windowWidth >= 375) {
+                if (browserHeight > 667 && windowWidth >= 375) {
                     return { bottom: "12.3rem" };
                 } else {
                     return { bottom: "9.8rem" };
