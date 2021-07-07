@@ -15,6 +15,7 @@ module.exports = {
         webpack5: true,
     },
     publicRuntimeConfig: appSettings,
+    productionBrowserSourceMaps: configs.enableSourceMap,
     generateBuildId: async () => {
         return uuidv4();
     },
