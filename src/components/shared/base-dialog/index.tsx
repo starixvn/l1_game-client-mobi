@@ -27,7 +27,6 @@ const BaseDialog: React.FC<Props> = ({
 
     const getCustomStyle = () => {
         const browserHeight = document.documentElement.clientHeight;
-        const windowWidth = window.innerWidth;
 
         if (betContainerPosition != null) {
             return browserHeight / betContainerPosition > 2
@@ -37,7 +36,7 @@ const BaseDialog: React.FC<Props> = ({
 
         if (isMobileOnly) {
             if (isIOS) {
-                if (browserHeight > 667 && windowWidth >= 375) {
+                if (screen.height > 667 && screen.width >= 375) {
                     return { bottom: "12.3rem" };
                 } else {
                     return { bottom: "9.8rem" };
