@@ -3,19 +3,7 @@
     height: 100%;
     grid-gap: 0.1rem;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 20.4rem 8rem;
-
-    &.simple-mode {
-        grid-template-rows: 1fr;
-        .icon {
-            margin-bottom: 0;
-            font-size: 5rem;
-        }
-
-        .text {
-            font-size: 1.6rem;
-        }
-    }
+    grid-template-rows: 16.3rem 7.4rem;
 }
 
 .choice-tie {
@@ -35,20 +23,20 @@
 
 .text {
     font-weight: bold;
-    font-size: 2.8rem;
+    font-size: 2.6rem;
 }
 
 .text-dragon {
     @extend .text;
-    color: var(--dragonTiger-dot-dragon-background);
+    color: var(--dragonTiger-dragon-text-color);
 }
 
 .text-tiger {
     @extend .text;
-    color: var(--dragonTiger-dot-tiger-background);
+    color: var(--dragonTiger-tiger-text-color);
 }
 
 .text-tie {
     @extend .text;
-    color: var(--dragonTiger-dot-tie-background);
+    color: var(--dragonTiger-tie-text-color);
 }

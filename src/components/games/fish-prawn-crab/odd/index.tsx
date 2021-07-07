@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
-
+import React, { useMemo } from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./odd.module.scss";
 
@@ -17,15 +16,17 @@ const OddItem = ({ name, number }) => {
 const OddComponent: React.FunctionComponent = () => {
     const { gameConfigs } = useGameContext();
     const { odds } = gameConfigs;
-    return (
-        <div className="d-flex">
-            <div className={Styles["odd-container"]}>
-                <OddItem name={"single"} number={odds["single"]}></OddItem>
-                <OddItem name={"double"} number={odds["double"]}></OddItem>
-                <OddItem name={"triple"} number={odds["triple"]}></OddItem>
+    return useMemo(() => {
+        return (
+            <div className="d-flex">
+                <div className={Styles["odd-container"]}>
+                    <OddItem name={"single"} number={odds["single"]}></OddItem>
+                    <OddItem name={"double"} number={odds["double"]}></OddItem>
+                    <OddItem name={"triple"} number={odds["triple"]}></OddItem>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }, [odds]);
 };
 
 export default OddComponent;

@@ -1,71 +1,51 @@
 import { useTranslation } from "next-i18next";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-
+import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../big-small";
 import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
 
-const renderAnimTossDice = () => {
-    const wrapperRefAnim = useRef<HTMLDivElement>(null);
-    const pathImgAnim = `/static/images/bigsmall_dice.gif?${new Date().getTime()}`;
-    useEffect(() => {
-        return () => {
-            wrapperRefAnim.current = null;
-        };
-    }, [wrapperRefAnim]);
+const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
+    const { playResultAnimation } = useGameContext();
 
     return (
-        <div className={Styles["toss-dices"]} ref={wrapperRefAnim}>
-            <Image key={Date.now()} src={pathImgAnim} alt="shake" width={180} height={180} layout="intrinsic" />
-        </div>
-    );
-};
-const BigSmallResult: React.FC<{ result?: Result }> = ({ result }) => {
-    const { viewMode, playResultAnimation, showResultAfterAnimation } = useGameContext();
-    const [animToss, setAnimToss] = useState<JSX.Element>(renderAnimTossDice());
-    const wrapperRefResult = useRef<HTMLDivElement>(null);
-
-    const generateResult = () => {
-        return (
-            <>
-                {animToss}
-                <div className={Styles["result-container"]}>
-                    {result &&
-                        Object.values(result).map((value, index) => (
-                            <div key={index} className={Styles[`result-${index + 1}`]}>
-                                <img src={`/static/images/bigsmall-dice-${value}.png`} className={Styles["dice"]} alt="dice" />
-                            </div>
-                        ))}
-                    {showResultAfterAnimation && <div className={Styles["total-dice"]}>{result && countRedDot(result)}</div>}
-                </div>
-            </>
-        );
-    };
-
-    useEffect(() => {
-        return () => {
-            setAnimToss(<></>);
-            wrapperRefResult.current = null;
-        };
-    }, []);
-
-    return (
-        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`} ref={wrapperRefResult}>
-            <div className="overlay-mask-no-bg">
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
+            <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-                    {<div className={Styles["result-plate"]}></div>}
-                    {generateResult()}
+                    <div className={Styles["result-plate"]}></div>
+                    <div className={Styles["toss-dices"]}>
+                        <Image
+                            key={roundId}
+                            src={`/static/images/bigsmall_dice.gif?${roundId}`}
+                            alt="shake"
+                            width={180}
+                            height={180}
+                            layout="intrinsic"
+                        />
+                    </div>
+                    <div className={Styles["result-container"]}>
+                        {result &&
+                            Object.values(result).map((value, index) => (
+                                <div key={index} className={Styles[`result-${index + 1}`]}>
+                                    <img
+                                        src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                        className={Styles["dice"]}
+                                        alt="dice"
+                                    />
+                                </div>
+                            ))}
+                    </div>
                 </div>
             </div>
         </div>
     );
 };
 
-export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult }> = ({
+export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult; roundId: number }> = ({
     result,
     settlementResult,
+    roundId,
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -76,7 +56,11 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                     <div key={index} className={Styles["result-item"]}>
                         <div className={Styles[`dice${index + 1}`]}></div>
                         <div className={Styles[`result${index + 1}`]}>
-                            <img src={`/static/images/bigsmall-dice-${value}.png`} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
+                            <img
+                                src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                className={`img-fluid ${Styles["dice"]}`}
+                                alt="dice"
+                            />
                         </div>
                     </div>
                 ))}
@@ -90,4 +74,4 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
     );
 };
 
-export default BigSmallResult;
+export default React.memo(BigSmallResult, (props, nextProps) => props.roundId === nextProps.roundId);

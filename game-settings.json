@@ -10,7 +10,7 @@
             "wholeRound": 62,
             "placingBets": 50,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 8,
             "resultAnimation": 2,
             "beforeStartRound": 0,
             "balancingBet": 3
@@ -27,7 +27,7 @@
             "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 2
         }
@@ -43,7 +43,7 @@
             "wholeRound": 41,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 10,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }
@@ -59,10 +59,10 @@
             "wholeRound": 37,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 3,
+            "showResult": 4,
             "resultAnimation": 2,
             "beforeStartRound": 0,
-            "balancingBet": 3
+            "balancingBet": 2
         }
     },
     "7": {
@@ -92,7 +92,7 @@
             "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 5,
+            "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 2
         }

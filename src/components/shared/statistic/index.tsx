@@ -1,9 +1,10 @@
-import React from "react";
-import { Round } from "../../../types";
 import { useTranslation } from "next-i18next";
+import React, { useMemo } from "react";
+
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { Props, PropsFollowPercent } from "./types";
+import { Round } from "../../../types";
 import Styles from "./statistic.module.scss";
+import { Props, PropsFollowPercent } from "./types";
 
 export const countSettlementResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((result, { settlementResult }) => {
@@ -40,16 +41,20 @@ export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
     const { statisticRuleEntries, roundHistory } = props;
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
-    return (
-        <>
-            {Object.keys(statisticResult).map((choice) => (
-                <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
-                    <span className={Styles[choice]}>{t(choice)}</span>
-                </StatisticItem>
-            ))}
-        </>
-    );
+
+    return useMemo(() => {
+        const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+
+        return (
+            <>
+                {Object.keys(statisticResult).map((choice) => (
+                    <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
+                        <span className={Styles[choice]}>{t(choice)}</span>
+                    </StatisticItem>
+                ))}
+            </>
+        );
+    }, [roundHistory]);
 };
 
 export default StatisticItem;

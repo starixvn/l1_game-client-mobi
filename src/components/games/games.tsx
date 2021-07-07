@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isIOS } from "react-device-detect";
 import useSound from "use-sound";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
-import { BetSettings } from "../bet-settings";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -16,16 +15,15 @@ import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 
 type Props = {
-    quickBetSetting?: boolean;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
+    enabledQuickBet: boolean;
+    betValue: number;
 };
 
-export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNotification, enabledPlaySound }) => {
+export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinningStreakNotification, enabledPlaySound }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
-    const [betValue, setBetValue] = useState<number>(1);
-    const [enabledQuickBet, setEnabledQuickBet] = useState<boolean>(quickBetSetting);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const winningStreakRef = useRef(null);
 
@@ -78,23 +76,20 @@ export const Games: React.FC<Props> = ({ quickBetSetting, enabledWinningStreakNo
         }
     };
 
-    const betSettingProps = {
-        betValue,
-        updateBetValue: setBetValue,
-        enabledQuickBet,
-        updateEnabledQuickBet: setEnabledQuickBet,
-    };
-
     useEffect(() => {
-        setEnabledQuickBet(quickBetSetting);
-    }, [quickBetSetting]);
+        window.scrollTo(0, 0);
+    }, []);
+
+    var deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? "ios-device" : "android-device";
+    }
 
     return (
-        <div className="game-container game-wrapper">
+        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <div className={`game-list ${styles["game-list"]}`}>{renderListGames()}</div>
-                <BetSettings {...betSettingProps} />
+                <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
     );

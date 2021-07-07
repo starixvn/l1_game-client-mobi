@@ -8,13 +8,16 @@
 }
 
 .board {
-    height: 13.9rem;
+    height: 12rem;
     width: 100%;
-    padding: 0.8rem 0.8rem 0;
-    border-top: 0.1rem solid var(--border-color);
+    padding: 0 0.8rem;
     border-radius: 0 0 0.6rem 0.6rem;
     background-color: var(--scoreboard-background);
     cursor: auto;
+
+    @media (min-width: 1100px) {
+        height: 12.5rem;
+    }
 }
 
 .board-inline {
@@ -31,6 +34,7 @@
     justify-content: left;
     grid-gap: 0.4rem;
     margin: auto;
+    padding-bottom: 0.2rem;
     overflow: hidden;
 }
 
@@ -39,7 +43,7 @@
     justify-content: left;
     width: 100%;
     overflow: hidden;
-    padding: 0.5rem 0;
+    padding-bottom: 0.5rem;
 }
 
 .score-board-dragon-container,

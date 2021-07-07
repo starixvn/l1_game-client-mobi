@@ -43,23 +43,13 @@ const generateResult = (result: ObjectResult[], viewMode: ViewMode) => {
 };
 
 export const DragonTigerResult: React.FC<Props> = (props) => {
-    const { settlementResult } = props;
     const result = props.result ? Object.values(props.result) : [];
     const { viewMode, playResultAnimation } = useGameContext();
-    const { t } = useTranslation("dragontiger");
 
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]}`}>
-                    <div
-                        className={`${Styles["result-highlight"]} ${
-                            settlementResult &&
-                            (settlementResult.tie ? Styles["tie"] : settlementResult.dragon ? Styles["dragon"] : Styles["tiger"])
-                        }`}
-                    >
-                        {settlementResult && (settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragonWin") : t("tigerWin"))}
-                    </div>
+            <div className="overlay-mask">
+                <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(result, viewMode)}
                 </div>
             </div>

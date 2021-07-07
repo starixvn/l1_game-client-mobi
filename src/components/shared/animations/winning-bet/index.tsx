@@ -1,5 +1,4 @@
 import React from "react";
-
 import { numberWithCommas } from "../../../../helpers/number-helper";
 import Styles from "./styles.module.scss";
 

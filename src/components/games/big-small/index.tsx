@@ -1,23 +1,23 @@
 import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetHistory from "./bet-history";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
+import { Choices, StatisticRuleEntries } from "./big-small-helper";
 import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
+import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import StatisticRuleEntries from "./statistic";
-import { withRouter } from "next/router";
-import { Choices } from "./big-small-helper";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -42,13 +42,14 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, betPercentage } = this.state;
+        const { gameState, settlementResult, betPercentage, showWinningAnimation } = this.state;
         const fakeSettlementResult = { big: false, small: false };
         return (
             <BigSmallBetOptions
                 gameState={gameState}
                 settlementResult={settlementResult ?? fakeSettlementResult}
                 betPercentage={betPercentage}
+                isShowWinningEffect={showWinningAnimation}
             />
         );
     }
@@ -75,22 +76,25 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        const { result } = this.state;
-        return <BigSmallResult result={result}></BigSmallResult>;
+        const { result, roundId } = this.state;
+        return <BigSmallResult result={result} roundId={roundId}></BigSmallResult>;
     }
 
     renderResultCollapse() {
-        const { result, settlementResult } = this.state;
-        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} />;
+        const { result, settlementResult, roundId } = this.state;
+        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} roundId={roundId} />;
     }
 
     renderBoard() {
         const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} />;
+        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
     }
 
-    get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
+    get winningAnimationWaitingTimeInSecond() {
+        const { id, durations } = this.props;
+        const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult + durations.balancingBet;
+
+        return duration * 1000;
     }
 
     renderGuide() {
@@ -100,7 +104,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <BigSmallGuide />
@@ -115,11 +119,35 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <BigSmallBetHistory />
             </AdvanceModal>
+        );
+    }
+
+    renderSettlementInfo() {
+        const { result, settlementResult } = this.state;
+        const { t, gameName } = this.props;
+
+        const totalDiceValue = result.dice1 + result.dice2 + result.dice3;
+        const winingOption = settlementResult.big ? "big" : "small";
+        const winingOptionTranslateKey = `${gameName.toLowerCase()}:${winingOption}`;
+
+        return (
+            <div className={Styles["result-container"]}>
+                <div className={Styles["left"]}>
+                    <div className={Styles["total-text"]}>{t("common:total")}</div>
+                    <div className={`${settlementResult.big ? Styles["total-points-big"] : Styles["total-points-small"]}`}>
+                        {totalDiceValue}
+                    </div>
+                </div>
+                <div className={Styles["line"]}></div>
+                <div className={`${settlementResult.big ? Styles["result-info-blue"] : Styles["result-info-red"]}`}>
+                    {t(winingOptionTranslateKey)}
+                </div>
+            </div>
         );
     }
 }

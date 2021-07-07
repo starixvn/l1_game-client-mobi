@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
@@ -30,7 +30,12 @@ const AdvanceModal: React.FC<Props> = ({
     const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        ref.current.scrollIntoView({ block: "center" });
+        const currentPosition = ref.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        windowHeight / currentPosition.y > 2
+            ? ref.current.scrollIntoView({ block: "end" })
+            : ref.current.scrollIntoView({ block: "start" });
     }, [ref.current]);
     useEffect(() => {
         isMobileOnly && isAddScrollBody && document.body.classList.add("no-scroll");

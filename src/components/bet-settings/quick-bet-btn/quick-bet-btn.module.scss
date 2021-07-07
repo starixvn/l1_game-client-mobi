@@ -1,0 +1,156 @@
+[data-theme="light"] .toggle {
+    --one-click-bet-text-color: #2c2f3e;
+}
+
+[data-theme="dark"] .toggle {
+    --one-click-bet-text-color: #fff;
+}
+
+.toggle {
+    display: block;
+    position: relative;
+    user-select: none;
+    left: 0;
+    top: 0.8rem;
+    animation-delay: 2s;
+    animation-iteration-count: 3;
+    z-index: calc(var(--result-animation-index) + 1);
+
+    @media (min-width: 768px) {
+        position: absolute;
+        top: 2.5rem;
+        left: 2.6rem;
+    }
+
+    .toggle-checkbox {
+        display: none;
+    }
+
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
+        box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
+        border-radius: 1.55rem;
+        transition: all 350ms ease-in;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .quick-bet-icon {
+            position: absolute;
+            height: 3.3rem;
+            width: 3.3rem;
+            transition: left 100ms ease-in;
+            background: url("/static/images/icon-quick-bet.svg?v=1625225065074") no-repeat center;
+        }
+    }
+
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
+
+            > .quick-bet-icon {
+                background: url("/static/images/icon-quick-bet-active.svg?v=1625225065074") no-repeat center;
+            }
+        }
+    }
+
+    &.header-setting {
+        .toggle-btn {
+            width: 4.4rem;
+            height: 1.4rem;
+        }
+
+        .quick-bet-icon {
+            left: -0.3rem;
+        }
+
+        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
+            left: 1.4rem;
+        }
+
+        .one-click-bet {
+            position: absolute;
+            left: 5.2rem;
+            top: 0;
+            white-space: nowrap;
+            font-size: 1.4rem;
+            color: var(--one-click-bet-text-color);
+        }
+    }
+
+    &.bet-setting {
+        .toggle-btn {
+            width: 4.8rem;
+            height: 1.6rem;
+        }
+
+        .quick-bet-icon {
+            left: -0.3rem;
+        }
+
+        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
+            left: 2rem;
+        }
+
+        .one-click-bet {
+            margin-top: 1.6rem;
+            line-height: 0;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+    }
+}
+
+.modalConfirm {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+
+    .bg-opacity {
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+    }
+}
+
+.hint-one-click-bet {
+    bottom: 5.5rem;
+    left: -0.6rem;
+    width: 34rem;
+    z-index: 1;
+
+    &.isMobile {
+        bottom: auto;
+        left: 0;
+        top: 3.1rem;
+        width: calc(100vw - 1rem);
+    }
+
+    @media (min-width: 768px) {
+        left: -0.5rem;
+        width: 40rem;
+    }
+
+    .action {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 2rem;
+        margin-top: 1.2rem;
+    }
+
+    .btn {
+        min-width: 13.5rem;
+        font-size: 1.6rem;
+        padding: 0 8px;
+
+        @media (min-width: 768px) {
+            min-width: 15.2rem;
+        }
+    }
+}

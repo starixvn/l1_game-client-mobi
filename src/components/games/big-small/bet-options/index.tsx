@@ -16,15 +16,28 @@ type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     betPercentage: object;
+    isShowWinningEffect: boolean;
 };
 
-const renderBetOptionByChoice = (choice: string, gameState: GameState, settlementResult: SettlementResult, betPercentage: object) => {
+const renderBetOptionByChoice = (
+    choice: string,
+    gameState: GameState,
+    settlementResult: SettlementResult,
+    betPercentage: object,
+    isShowWinningEffect: boolean
+) => {
     const { gameConfigs, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
 
     return (
-        <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+        <BetOption
+            choice={choice}
+            odd={odds[choice]}
+            isHighlight={settlementResult[choice]}
+            gameState={gameState}
+            isShowWinningEffect={isShowWinningEffect}
+        >
             <div className={Styles[choice]}>
                 {t(choice)}
                 <div className={Styles["statistic-user-bet"]}>
@@ -37,11 +50,11 @@ const renderBetOptionByChoice = (choice: string, gameState: GameState, settlemen
 };
 
 const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, betPercentage } = props;
+    const { gameState, settlementResult, betPercentage, isShowWinningEffect } = props;
     return (
         <div className={`bet-options-container ${Styles["layout-BS"]}`}>
-            <div>{renderBetOptionByChoice(Choices.big, gameState, settlementResult, betPercentage)}</div>
-            <div>{renderBetOptionByChoice(Choices.small, gameState, settlementResult, betPercentage)}</div>
+            <div>{renderBetOptionByChoice(Choices.big, gameState, settlementResult, betPercentage, isShowWinningEffect)}</div>
+            <div>{renderBetOptionByChoice(Choices.small, gameState, settlementResult, betPercentage, isShowWinningEffect)}</div>
         </div>
     );
 };

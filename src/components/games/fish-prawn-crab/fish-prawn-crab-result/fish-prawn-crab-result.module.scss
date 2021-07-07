@@ -1,15 +1,25 @@
 @import "../../../../assets/components/animation-container";
 @import "../../../../assets/components/shake-animation";
 @import "../../../../assets/components/animations/result-collapse-mode";
-
-$time-show-plate-animation: 0.1s;
-$time-shake-plate-animation: 1s;
-
-$time-delay-open-bowl-animation: $time-show-plate-animation + $time-shake-plate-animation;
-$time-opening-bowl-animation: 1s;
-$time-bowl-hide-animation: 0.5s;
+@import "../../../../assets/components/animations/common";
 
 .result-set {
+    --time-show-plate-animation: 0.1s;
+    --time-shake-plate-animation: 0.8s;
+
+    --time-delay-open-bowl: calc(var(--time-show-plate-animation) + var(--time-shake-plate-animation));
+    --time-opening-bowl-animation: 0.6s;
+
+    --time-delay-hide-bowl: calc(var(--time-delay-open-bowl) + var(--time-opening-bowl-animation) - 0.1s);
+    --time-hide-bowl-animation: 0.3s;
+
+    --time-delay-move-up-result: calc(
+        var(--time-delay-open-bowl) + var(--time-hide-bowl-animation) + var(--time-opening-bowl-animation) - 0.18s
+    );
+
+    --move-up-distance: -4.5rem;
+    --result-scale: 1;
+
     position: absolute;
     top: calc(50% - 6.3rem);
     left: calc(50% - 6.6rem);
@@ -18,22 +28,28 @@ $time-bowl-hide-animation: 0.5s;
     border-radius: 50%;
     box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.3);
     z-index: var(--result-animation-index);
+    transform: scale(var(--result-scale));
 
     &.has-animation {
         opacity: 0;
-        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd;
-        animation-delay: 0s, $time-show-plate-animation, ($time-show-plate-animation + $time-shake-plate-animation/2);
-        animation-duration: $time-show-plate-animation, $time-shake-plate-animation/2, $time-shake-plate-animation/2;
-        animation-fill-mode: forwards, forwards, forwards;
-        animation-timing-function: linear, linear, linear;
+        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, move-up-result-animation;
+        animation-delay: 0s, var(--time-show-plate-animation),
+            calc(var(--time-show-plate-animation) + calc(var(--time-shake-plate-animation) / 2)), var(--time-delay-move-up-result);
+        animation-duration: var(--time-show-plate-animation), calc(var(--time-shake-plate-animation) / 2),
+            calc(var(--time-shake-plate-animation) / 2), 0.3s;
+        animation-fill-mode: forwards, forwards, forwards, forwards;
+        animation-timing-function: linear, linear, linear, linear;
 
         .bowl {
-            transform: translate3d(0, 0, 0);
-            animation-name: opening-bowl-animation, hide-bowl-animation;
-            animation-delay: $time-delay-open-bowl-animation, ($time-delay-open-bowl-animation + $time-opening-bowl-animation);
-            animation-duration: $time-opening-bowl-animation, $time-bowl-hide-animation;
-            animation-fill-mode: forwards, forwards;
-            animation-timing-function: linear, linear;
+            @extend .open-bowl-animation;
+        }
+    }
+
+    &.move-up-no-animation {
+        @extend .move-up-no-animation;
+
+        .bowl {
+            opacity: 0;
         }
     }
 }
@@ -61,7 +77,6 @@ $time-bowl-hide-animation: 0.5s;
     pointer-events: none;
     background: url("/static/images/fpc-bowl.png") no-repeat center;
     background-size: 100%;
-    transform: translate(-7.3rem, 7rem) rotate(45deg);
 }
 
 .result-container {
@@ -71,42 +86,32 @@ $time-bowl-hide-animation: 0.5s;
     height: 13.2rem;
     width: 13.2rem;
     z-index: var(--result-animation-index);
+
     .dice {
         width: 3.2rem;
-        height: 3.2rem;
+        height: 2.9rem;
+        border-radius: 0.3rem;
+        box-shadow: 0 0.2rem 0.2rem rgba(0, 0, 0, 0.25);
     }
 }
 
 .normal-mode {
     .result-1 {
         position: absolute;
-        left: 3.6rem;
+        left: 3.5rem;
         top: 3.2rem;
-        transform: rotate(3.36deg);
     }
 
     .result-2 {
         position: absolute;
         left: 7rem;
-        top: 5.5rem;
-        transform: rotate(-5deg);
+        top: 3.6rem;
     }
 
     .result-3 {
         position: absolute;
-        left: 3.6rem;
-        top: 6.7rem;
-        transform: rotate(-2deg);
-    }
-}
-
-@keyframes opening-bowl-animation {
-    4%,
-    36% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate(-7.3rem, 7rem) rotate(45deg);
+        left: 5.2rem;
+        top: 7rem;
     }
 }
 

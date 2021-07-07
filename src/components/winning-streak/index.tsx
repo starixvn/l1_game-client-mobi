@@ -63,7 +63,9 @@ export const WinningStreak = forwardRef((props, ref) => {
                         <span className={`${styles["option-icon"]} ${getIconClassName(gameName, choice)}`}>
                             {getTextOnIconChoice(gameName, choice, t)}
                         </span>
-                        {`x ${streak}`}
+                        <span>
+                            x <span className={styles["number"]}>{streak}</span>
+                        </span>
                         <span className={`icon-close ${styles["icon-close"]}`} onClick={() => removeWinStreakNotification(key)}></span>
                     </div>
                 );

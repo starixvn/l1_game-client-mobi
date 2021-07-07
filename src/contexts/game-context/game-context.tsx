@@ -16,7 +16,6 @@ export const GameContext = React.createContext<GameContextModel>({
     displayChips: {},
     playResultAnimation: false,
     isShowBlink: false,
-    showResultAfterAnimation: false,
 });
 GameContext.displayName = "GameContext";
 

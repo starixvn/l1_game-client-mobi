@@ -8,12 +8,14 @@ import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
+import { RoundDot } from "../../shared/round-history/dot";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
 import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
+import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
@@ -29,9 +31,15 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult } = this.state;
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
-        return <SeDieBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
+        return (
+            <SeDieBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? fakeSettlementResult}
+                isShowWinningEffect={showWinningAnimation}
+            />
+        );
     }
 
     renderRoundHistory() {
@@ -61,7 +69,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderStartRoundAnimation() {
         const { durations } = this.props;
-        return <ShakeThePlate playAnimation={this.timeCounter === durations.placingBets + durations.beforeStartRound} />;
+        const { roundId } = this.state;
+
+        return <ShakeThePlate roundId={roundId} playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {
@@ -86,7 +96,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <SeDieGuide />
@@ -101,11 +111,41 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <SeDieBetHistory />
             </AdvanceModal>
+        );
+    }
+
+    renderSettlementInfo() {
+        const { result, settlementResult } = this.state;
+
+        const redDotCount = Object.values(result).filter((dot) => dot).length;
+        const whiteDotCount = 4 - redDotCount;
+
+        return (
+            <div className={Styles["result-container"]}>
+                <div className={Styles["left"]}>
+                    <div className={`d-flex ${Styles["row1"]}`}>
+                        <RoundDot choice="even" size="medium" />
+                        <span className={Styles["number"]}>{whiteDotCount}</span>
+                    </div>
+                    <div className="d-flex">
+                        <RoundDot choice="odd" size="medium" />
+                        <span className={Styles["number"]}>{redDotCount}</span>
+                    </div>
+                </div>
+                <div className={Styles["line"]}></div>
+                <div>
+                    {settlementResult.even ? (
+                        <div className={Styles["result-info-grey"]}>{this.getGameTranslate("even")}</div>
+                    ) : (
+                        <div className={Styles["result-info-red"]}>{this.getGameTranslate("odd")}</div>
+                    )}
+                </div>
+            </div>
         );
     }
 }

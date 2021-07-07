@@ -13,5 +13,4 @@ export type GameContextModel = {
     playResultAnimation: boolean;
     displayChips: DisplayChips;
     isShowBlink: boolean;
-    showResultAfterAnimation: boolean;
 };

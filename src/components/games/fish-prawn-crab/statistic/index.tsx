@@ -1,13 +1,9 @@
 import React from "react";
 
+import { choicesMapper } from "..";
+import { Round } from "../../../../types";
 import StatisticItem from "../../../shared/statistic";
 import ChoiceIcon from "../choice-icon";
-import { Round } from "../../../../types";
-import { choicesMapper } from "../index";
-
-type Props = {
-    roundHistory: any;
-};
 
 const countResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((resultCount, { result }) => {
@@ -18,14 +14,14 @@ const countResult = (roundHistory: Round<any, any>[]) => {
     }, {});
 };
 
-const StatisticComponent = (props: Props) => {
-    const { roundHistory } = props;
-    const statisticResult = countResult(roundHistory);
+const StatisticComponent = ({ roundHistory }) => {
+    const statisticResult = countResult(roundHistory.slice(0, 30));
+
     return (
         <>
             {Object.keys(choicesMapper).map((choice) => {
                 return (
-                    <StatisticItem key={choice} value={`${statisticResult[choicesMapper[choice]]}`}>
+                    <StatisticItem key={choice} value={`${statisticResult[choicesMapper[choice]] ?? 0}`}>
                         <ChoiceIcon type={choicesMapper[choice]} isSmall={true}></ChoiceIcon>
                     </StatisticItem>
                 );
@@ -34,4 +30,4 @@ const StatisticComponent = (props: Props) => {
     );
 };
 
-export default StatisticComponent;
+export default React.memo(StatisticComponent);

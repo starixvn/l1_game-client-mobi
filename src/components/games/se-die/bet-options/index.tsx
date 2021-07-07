@@ -20,16 +20,17 @@ const ChoiceIconMapper = {
 type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
+    isShowWinningEffect: boolean;
 };
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult } = props;
+    const { gameState, settlementResult, isShowWinningEffect } = props;
     const { gameConfigs, gameSetting, viewMode } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     const renderDots = (dots: boolean[]) =>
-        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} />);
+        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} size="large" />);
 
     const renderIcons = (choice: string) => {
         return choice === "red2" ? (
@@ -46,7 +47,13 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
             {viewMode === ViewMode.full &&
                 Object.keys(ChoiceIconMapper).map((choice) => (
                     <div key={choice} className={Styles[`bet-choice-${choice}`]}>
-                        <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+                        <BetOption
+                            choice={choice}
+                            odd={odds[choice]}
+                            isHighlight={settlementResult[choice]}
+                            gameState={gameState}
+                            isShowWinningEffect={isShowWinningEffect}
+                        >
                             {renderIcons(choice)}
                         </BetOption>
                     </div>
@@ -54,7 +61,13 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
             {MainChoice.map((choice) => (
                 <div key={choice} className={Styles[`bet-choice-${choice}`]}>
-                    <BetOption choice={choice} odd={odds[choice]} isHighlight={settlementResult[choice]} gameState={gameState}>
+                    <BetOption
+                        choice={choice}
+                        odd={odds[choice]}
+                        isHighlight={settlementResult[choice]}
+                        gameState={gameState}
+                        isShowWinningEffect={isShowWinningEffect}
+                    >
                         {renderLabel(choice)}
                     </BetOption>
                 </div>

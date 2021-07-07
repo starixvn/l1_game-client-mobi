@@ -2,14 +2,23 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-bottom: 12rem;
+    margin-bottom: 10rem;
+
+    &.android-device {
+        margin-bottom: 9rem;
+    }
 
     @media (min-width: 768px) {
-        margin-bottom: 7rem;
+        margin-bottom: 8rem;
     }
 
     @media (min-width: 1280px) {
         margin-left: -0.3rem;
         margin-right: -0.3rem;
+    }
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
+        &.ios-device {
+            margin-bottom: 12.5rem;
+        }
     }
 }

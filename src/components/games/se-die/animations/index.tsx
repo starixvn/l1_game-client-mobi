@@ -1,43 +1,50 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { RoundDot } from "../../../shared/round-history/dot";
 import { Result, SettlementResult } from "../sedie";
 import Styles from "./sedie-animations.module.scss";
 
 const Plate: React.FC = ({ children }) => {
     return (
-        <div className="overlay-mask-no-bg">
-            <div className={`${Styles["animation-container"]}`}>
-                <div className={Styles["result-sedie-set"]}>
-                    <div className={Styles["result-sedie-plate"]}></div>
-                    {children}
-                    <div className={Styles["result-sedie-bowl"]}></div>
-                </div>
+        <div className={`${Styles["animation-container"]}`}>
+            <div className={Styles["result-sedie-set"]}>
+                <div className={Styles["result-sedie-plate"]}></div>
+                {children}
+                <div className={Styles["result-sedie-bowl"]}></div>
             </div>
         </div>
     );
 };
 
-export const ShakeThePlate: React.FC<{ playAnimation?: boolean }> = ({ playAnimation = false }) => (
-    <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
-        <Plate />
-    </div>
-);
+export const ShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
+    useMemo(
+        () => (
+            <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
+                <div className="overlay-mask-no-bg">
+                    <Plate />
+                </div>
+            </div>
+        ),
+        [roundId]
+    );
 
 export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
     return (
         <div className={`${Styles["open-the-plate"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <Plate>
-                <div className={Styles["result-container"]}>
-                    {Object.values(result).map((value, index) => (
-                        <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
-                            <div className={`${value ? Styles["result-dot-red"] : Styles["result-dot-white"]}`}></div>
-                        </div>
-                    ))}
-                </div>
-            </Plate>
+            <div className="overlay-mask">
+                <Plate>
+                    <div className={Styles["result-container"]}>
+                        {Object.values(result).map((value, index) => (
+                            <div key={index} className={Styles[`result-sedie-dot${index + 1}`]}>
+                                <RoundDot choice={value ? "odd" : "even"} size="super-large" />
+                            </div>
+                        ))}
+                    </div>
+                </Plate>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(90.01deg, #ffaa2c 0.38%, #ffbc29 99.99%);
+    --game-header-background: linear-gradient(180deg, #fdc458 5%, #fbad19 37.29%, #f8aa15 72.71%);
+    --game-header-overlay-image: url(/static/images/game-header-overlay.png);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
@@ -15,7 +16,8 @@
 }
 
 [data-theme="dark"] .header {
-    --game-header-background: #203040;
+    --game-header-background: linear-gradient(180deg, #7191b1 0%, #37506a 16.46%, #203044 100%);
+    --game-header-overlay-image: url(/static/images/dark-mode-game-header-overlay.png);
     --game-header-icon-favourite: #ffab2b;
     --game-header-icon-unfavourite: #7f91a4;
     --game-header-icon-menu: #7f91a4;
@@ -26,8 +28,8 @@
     --btn-rebet-background: transparent;
     --btn-rebet-color: #8dadce;
 
-    --btn-rebet-background-hover: #8dadce;
-    --btn-rebet-color-hover: #ff9a00;
+    --btn-rebet-background-hover: #3f648a;
+    --btn-rebet-color-hover: #fff;
     --game-header-result-background: rgba(32, 48, 64, 0.9);
 }
 
@@ -45,9 +47,21 @@
     &.border-radius-bottom {
         border-radius: 0.5rem;
     }
+
+    .header-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: var(--game-header-overlay-image) top left no-repeat;
+        height: 5.4rem;
+        width: 100%;
+        z-index: 0;
+    }
 }
 
 .favorite-btn {
+    position: relative;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +142,9 @@
     align-items: center;
 
     .rebet {
-        width: 7.7rem;
+        position: relative;
+        z-index: 1;
+        min-width: 7.7rem;
         height: 3.2rem;
         margin-right: 1rem;
         border: 1px solid var(--btn-rebet-background-hover);
@@ -147,57 +163,11 @@
             opacity: 0.4;
         }
 
-        &:hover:enabled {
-            cursor: pointer;
-            background-color: var(--btn-rebet-background-hover);
-            color: var(--btn-rebet-color-hover);
-        }
-    }
-
-    .hamburger-dot {
-        width: 0.5rem;
-        height: 0.5rem;
-        background-color: var(--game-header-icon-menu);
-        border-radius: 50%;
-        margin: 0.2rem 0;
-    }
-
-    .dropdown-menu {
-        width: 18rem;
-        &:focus {
-            outline: none;
-        }
-    }
-
-    .dropdown-toggle {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 4.6rem;
-        height: 100%;
-
-        &::after {
-            display: none;
-        }
-        &:before {
-            content: "";
-            position: absolute;
-            width: 3.8rem;
-            height: 3.8rem;
-            margin: auto;
-            border-radius: 50%;
-            background: var(--game-header-icon-menu-background-hover);
-            transform: scale(0);
-            opacity: 0;
-            transition: all 0.3s;
-        }
-
-        &:hover {
-            &:before {
-                transform: scale(1);
-                opacity: 1;
+        @media (hover: hover) {
+            &:hover:enabled {
+                cursor: pointer;
+                background-color: var(--btn-rebet-background-hover);
+                color: var(--btn-rebet-color-hover);
             }
         }
     }
@@ -215,7 +185,7 @@
     background: var(--game-header-result-background);
     box-sizing: border-box;
     border-radius: 0.4rem;
-    z-index: calc(var(--popup-guide-history-index) - 1);
+    z-index: var(--result-animation-index);
 
     .test {
         position: relative;

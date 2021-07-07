@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
 import React from "react";
+import { isMobileOnly } from "react-device-detect";
 import { Navbar } from "reactstrap";
 
 import { numberWithCommas } from "../../helpers/number-helper";
+import { Settings } from "../shared/settings";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -10,7 +12,10 @@ type Props = {
     currency: string;
     name: string;
     balance: number;
-    onOpenSlideNav: () => void;
+    enabledSound: boolean;
+    enabledNotification: boolean;
+    onToggleSound: Function;
+    onToggleNotification: Function;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -22,16 +27,22 @@ const Header: React.FC<Props> = (props) => {
             <div className="game-container d-flex">
                 <Navbar expand="md" className={Styles["navbar-custom"]}>
                     <div className={Styles["header-container"]}>
-                        <div className={Styles["logo"]}>
-                            <a href={`/${locale}`}>
-                                <img src={`/static/images/logo-custom-saba.svg`} className="img-fluid" alt="logo" />
-                            </a>
-                        </div>
-                        <div className="d-flex">
+                        <a href={`/${locale}`} className={Styles["site-name"]}>
+                            Saba.mobi
+                        </a>
+                        <div className="d-flex align-items-center">
+                            {!isMobileOnly && (
+                                <Settings
+                                    enabledSound={props.enabledSound}
+                                    enabledNotification={props.enabledNotification}
+                                    onToggleSound={props.onToggleSound}
+                                    onToggleNotification={props.onToggleNotification}
+                                />
+                            )}
                             <div className={Styles["user"]}>
                                 <div className={Styles["info"]}>
                                     <div className={Styles["user-name"]}>{props.name}</div>
-                                    <div key={props.balance} className={`${Styles.balance} ${"heart-beat-animation"}`}>
+                                    <div key={props.balance} className={`${Styles.balance}`}>
                                         {numberWithCommas(props.balance ? props.balance : 0)} {props.currency}
                                     </div>
                                 </div>
@@ -43,7 +54,6 @@ const Header: React.FC<Props> = (props) => {
                                     )}
                                 </div>
                             </div>
-                            <span onClick={props.onOpenSlideNav} className={`icon-menu ${Styles["icon-menu"]}`}></span>
                         </div>
                     </div>
                 </Navbar>

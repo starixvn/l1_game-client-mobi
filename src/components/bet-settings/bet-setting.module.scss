@@ -1,15 +1,13 @@
-@import "../shared/chip/chip.module.scss";
-
 [data-theme="light"] .bet-settings {
-    --bet-settings-background: rgba(16, 24, 34, 0.75);
-    --bet-settings-border: transparent;
+    --bet-settings-background: linear-gradient(180deg, #8494a7 0%, #42566d 9.69%, #4f5c6a 100%);
+
     --ripple-background: rgba(196, 196, 196, 0.6);
     --saba-copyright: #d1d1d1;
 }
 
 [data-theme="dark"] .bet-settings {
-    --bet-settings-background: rgba(12, 25, 35, 0.95);
-    --bet-settings-border: #000;
+    --bet-settings-background: linear-gradient(180deg, #768a9e 0%, #3a4552 9.69%, #101923 100%);
+
     --ripple-background: rgba(196, 196, 196, 0.5);
     --saba-copyright: rgba(209, 209, 209, 0.6);
 }
@@ -21,7 +19,6 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    border-top: 0.1rem solid var(--bet-settings-border);
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
     background: var(--bet-settings-background);
 }
@@ -29,142 +26,25 @@
 .settings-container {
     left: 0;
     width: 100%;
-    height: 7.5rem;
-}
+    height: 5.4rem;
 
-.modalConfirm {
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    width: 100%;
-
-    .bg-opacity {
-        height: 100vh;
-        background: black;
-        opacity: 0.5;
-        width: 100%;
-        display: block;
+    // For Ipad and Desktop
+    @media (min-width: 768px) {
+        height: 8rem;
     }
 }
 
 .container {
     position: relative;
-    top: -1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100%;
-
-    @media (min-width: 600px) and (max-width: 1024px) {
-        top: -1rem;
-    }
-
-    @media (min-width: 1025px) {
-        top: auto;
-    }
-}
-
-.toggle {
-    display: block;
-    position: relative;
-    user-select: none;
-    left: -1.2rem;
-    top: 0.8rem;
-    animation-delay: 2s;
-    animation-iteration-count: 3;
+    top: -0.3rem;
 
     @media (min-width: 768px) {
-        position: absolute;
-        top: 2.5rem;
-        left: 2.6rem;
+        top: auto;
     }
-}
-
-.toggle-checkbox {
-    display: none;
-}
-
-.toggle-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: 2rem;
-    width: 4.9rem;
-    margin: 0 auto;
-    background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
-    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.3);
-    border-radius: 15.5px;
-    transition: all 350ms ease-in;
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    .chip {
-        position: absolute;
-        left: -0.6rem;
-        transition: left 100ms ease-in;
-        transform: scale(0.75);
-        background: linear-gradient(180deg, #b9b9b9 0%, #989898 100%);
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #bababa;
-
-        .layer1 {
-            background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-        }
-
-        .layer2 {
-            background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-            border: 1px solid #e2e2e2;
-            box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-        }
-
-        .icon-quick-bet {
-            background: url("/static/images/icon-quick-bet.svg") no-repeat center;
-            height: 1.8rem;
-            width: 11rem;
-            grid-area: 1/1;
-        }
-    }
-}
-
-.toggle-checkbox:checked {
-    & + .toggle-btn {
-        background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
-
-        > .chip {
-            left: 1.5rem;
-            background: linear-gradient(180deg, #18aa3d 0%, #16a53a 100%);
-            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25), 0px 0px 3px #16a63b;
-
-            .layer1 {
-                background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(70, 70, 70, 0.2) 100%);
-                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-            }
-
-            .layer2 {
-                background: linear-gradient(180deg, #d5d5d5 0%, #fdfdfd 100%);
-                border: 1px solid #a8ff92;
-                box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.5);
-            }
-
-            .icon-quick-bet {
-                animation: none;
-                background: url("/static/images/icon-quick-bet-active.svg") no-repeat center;
-            }
-
-            .symbol:before {
-                color: #00ff75;
-            }
-        }
-    }
-}
-
-.one-click-bet {
-    margin-top: 1.6rem;
-    font-size: 1.2rem;
-    color: #fff;
-    line-height: 0;
 }
 
 .wrapper-chips {
@@ -175,8 +55,8 @@
 
 .chips-container {
     position: relative;
-    width: 20.6rem;
-    margin-left: 3.8rem;
+    width: 32rem;
+    z-index: 1;
 
     @media (min-width: 768px) {
         width: 40rem;
@@ -216,40 +96,6 @@
 
 .quick-bet-container {
     position: relative;
-}
-
-.hint-one-click-bet {
-    bottom: 5.5rem;
-    left: -0.6rem;
-    width: 34rem;
-    z-index: 1;
-
-    @media (min-width: 768px) {
-        left: -0.5rem;
-        width: 40rem;
-    }
-
-    &:after {
-        bottom: -1.6rem;
-        left: 1.6rem;
-    }
-
-    .action {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 2rem;
-        margin-top: 1.2rem;
-    }
-
-    .btn {
-        min-width: 13.5rem;
-        font-size: 1.6rem;
-        padding: 0 8px;
-
-        @media (min-width: 768px) {
-            min-width: 15.2rem;
-        }
-    }
 }
 
 %wave {
@@ -303,15 +149,78 @@
     }
 }
 
+// Only phone
 .footer {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 4.2rem;
-    line-height: 1.4rem;
-    padding-bottom: 0.5rem;
+    height: 4.4rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
     text-align: center;
     font-size: 1.1rem;
     color: var(--saba-copyright);
+
+    .copyright {
+        position: absolute;
+        top: 0.6rem;
+        right: 1.2rem;
+    }
+
+    .one-click-bet-turn-on {
+        position: relative;
+        top: -1rem;
+        display: flex;
+        align-items: stretch;
+        height: 2.9rem;
+        z-index: 1;
+
+        .left {
+            width: 2rem;
+            margin-right: -0.1rem;
+            background: url(/static/images/footer-1-click-bet-background-left.png);
+        }
+
+        .content {
+            width: fit-content;
+            line-height: 3.4rem;
+            padding: 0 0.3rem;
+            background: url(/static/images/footer-1-click-bet-background.png);
+            color: #54ff26;
+        }
+
+        .right {
+            @extend .left;
+            margin-left: -0.1rem;
+            transform: scaleX(-1);
+        }
+    }
+}
+
+// Iphone X or newer
+.ios-device {
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
+        .settings-container {
+            height: 6.9rem;
+        }
+
+        .footer {
+            height: 5.4rem;
+
+            .one-click-bet-turn-on {
+                top: -1.4rem;
+            }
+        }
+    }
+}
+
+// Android
+.adroid-device {
+    .footer {
+        height: 3.4rem;
+
+        .one-click-bet-turn-on {
+            top: -0.4rem;
+        }
+    }
 }

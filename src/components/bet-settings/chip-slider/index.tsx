@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import useSound from "use-sound";
-
-import { ChipLabelMapper, ChipValues } from "../../../common/constants";
-import { useSystemContext } from "../../../contexts/system";
-import Chip from "../../shared/chip";
+import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
 import Styles from "./chip-slider.module.scss";
 
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
-export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }> = ({ betValue, updateBetValue }) => {
+export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: boolean; enabledQuickBet: boolean }> = ({
+    updateBetValue,
+    enabledSound,
+    enabledQuickBet,
+}) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
+    const [selectedChip, setSelectedChip] = useState(1);
     const [isSliding, setIsSliding] = useState(false);
-    const { enabledPlaySound } = useSystemContext();
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
+    const onClickChip = (chipValue: number) => {
+        const chipIndex = ChipValues.indexOf(chipValue);
+        const currentSlideToShow = getCurrentSlidesToShow();
+        const currentSlide = sliderRef.innerSlider.state.currentSlide;
+
+        if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
+        }
+
+        if (chipIndex - 1 <= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex - 1);
+        }
+
+        handleSelectChip(chipValue);
+    };
+
     const handleSelectChip = (chipValue: number) => {
+        setSelectedChip(chipValue);
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
-        enabledPlaySound && playSound();
+        enabledSound && playSound();
     };
 
     const getCurrentSlidesToShow = () => {
@@ -50,7 +72,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
+            const chipIndex = ChipValues.indexOf(selectedChip);
             const newSelectedChip = ChipValues[chipIndex + 1];
             const currentSlideToShow = getCurrentSlidesToShow();
 
@@ -63,7 +85,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
 
     const onClickPrev = () => {
         if (enabledPrevBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(betValue);
+            const chipIndex = ChipValues.indexOf(selectedChip);
             const newSelectedChip = ChipValues[chipIndex - 1];
 
             isSwipe = false;
@@ -75,7 +97,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
 
     useEffect(() => {
         if (sliderRef) {
-            updateArrowsByChipValue(betValue);
+            updateArrowsByChipValue(selectedChip);
         }
     }, []);
 
@@ -113,7 +135,7 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
             {
                 breakpoint: 767,
                 settings: {
-                    slidesToShow: 3,
+                    slidesToShow: 5,
                 },
             },
         ],
@@ -121,23 +143,33 @@ export const ChipSlider: React.FC<{ betValue: number; updateBetValue: Function }
 
     return (
         <React.Fragment>
-            <span className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]}`} onClick={onClickPrev}></span>
+            <span
+                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                onClick={onClickPrev}
+            ></span>
             <Slider
                 ref={(c) => {
                     sliderRef = c;
                 }}
                 {...SliderSetting}
             >
-                {Object.keys(ChipLabelMapper).map((key) => (
-                    <Chip
-                        key={key}
-                        value={ChipLabelMapper[key]}
-                        onSelected={handleSelectChip}
-                        selected={betValue === ChipLabelMapper[key]}
-                    />
+                {ChipValues.map((value) => (
+                    <div
+                        key={value}
+                        className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${
+                            enabledQuickBet ? Styles["enabled-quick-bet"] : ""
+                        } ${Styles[ChipMapper[value]]}`}
+                        onClick={() => onClickChip(value)}
+                    >
+                        <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="Chip" />
+                        <span className={Styles["value"]}>{ChipLabelMapper[value]}</span>
+                    </div>
                 ))}
             </Slider>
-            <span className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]}`} onClick={onClickNext}></span>
+            <span
+                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                onClick={onClickNext}
+            ></span>
         </React.Fragment>
     );
 };

@@ -1,4 +1,5 @@
 import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
 import React from "react";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -13,11 +14,10 @@ import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./
 import DragonTigerBetHistory from "./bet-history";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
+import { Choices, StatisticRuleEntries } from "./dragon-tiger-helper";
+import Styles from "./dragon-tiger.module.scss";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
-import StatisticRuleEntries from "./statistic";
-import { withRouter } from "next/router";
-import { Choices } from "./dragon-tiger-helper";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -31,9 +31,15 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult } = this.state;
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         const fakeSettlementResult = { dragon: true, tiger: false, tie: false };
-        return <DragonTigerBetOptions gameState={gameState} settlementResult={settlementResult ?? fakeSettlementResult} />;
+        return (
+            <DragonTigerBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? fakeSettlementResult}
+                isShowWinningEffect={showWinningAnimation}
+            />
+        );
     }
 
     renderRoundHistory() {
@@ -69,7 +75,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderBoard() {
         const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} />;
+        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
     }
 
     get isShowStartRoundAnimation() {
@@ -80,10 +86,14 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         );
     }
 
+    get winningAnimationWaitingTimeInSecond() {
+        return this.props.durations.resultAnimation * 1000;
+    }
+
     renderStartRoundAnimation() {
         const { durations } = this.props;
 
-        return <CardsAnimation playAnimation={this.timeCounter === durations.placingBets + durations.beforeStartRound} />;
+        return <CardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderGuide() {
@@ -93,7 +103,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <DragonTigerGuide />
@@ -108,12 +118,32 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <DragonTigerBetHistory />
             </AdvanceModal>
         );
+    }
+
+    renderSettlementResult(settlementResult) {
+        if (settlementResult.tie) {
+            return <div className={Styles["result-info-green"]}>{this.getGameTranslate("tie")}</div>;
+        }
+
+        if (settlementResult.dragon) {
+            return <div className={Styles["result-info-orange"]}>{this.getGameTranslate("dragonWin")}</div>;
+        }
+
+        if (settlementResult.tiger) {
+            return <div className={Styles["result-info-red"]}>{this.getGameTranslate("tigerWin")}</div>;
+        }
+    }
+
+    renderSettlementInfo() {
+        const { settlementResult } = this.state;
+
+        return <div className={Styles["result-container"]}>{this.renderSettlementResult(settlementResult)}</div>;
     }
 }
 

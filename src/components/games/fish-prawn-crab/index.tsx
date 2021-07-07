@@ -12,11 +12,20 @@ import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
+import Styles from "./fish-prawn-crab.module.scss";
 import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
+export const choicesBackgroundMapper = {
+    stag: "result-info-stag",
+    gourd: "result-info-gourd",
+    rooster: "result-info-rooster",
+    fish: "result-info-fish",
+    crab: "result-info-crab",
+    prawn: "result-info-prawn",
+};
 export const OddNames = {
     single: "single",
     double: "double",
@@ -32,6 +41,7 @@ export enum ResultBet {
 }
 
 const DefaultOdds = "single";
+const DiceImgMapper = ["dice-nai", "dice-bau", "dice-ga", "dice-ca", "dice-cua", "dice-tom"];
 
 class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -52,12 +62,13 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, result } = this.state;
+        const { gameState, settlementResult, result, showWinningAnimation } = this.state;
         return (
             <FishPrawnCrabBetOptions
                 gameState={gameState}
                 settlementResult={settlementResult ?? { crab: false, fish: false, gourd: false, prawn: false, rooster: false, stag: false }}
                 result={result}
+                isShowWinningEffect={showWinningAnimation}
             />
         );
     }
@@ -67,7 +78,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     }
 
     renderStatistic() {
-        return <StatisticComponent roundHistory={this.state.roundHistory.slice(0, 30)}></StatisticComponent>;
+        return <StatisticComponent roundHistory={this.state.roundHistory}></StatisticComponent>;
     }
 
     renderResult() {
@@ -82,13 +93,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return (
-            <ScoreboardBasic
-                roundHistory={roundHistory.slice(0, 30)}
-                gameState={gameState}
-                getElementRound={GetElementRound}
-            ></ScoreboardBasic>
-        );
+        return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound}></ScoreboardBasic>;
     }
 
     renderGuide() {
@@ -98,7 +103,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <FishPrawnCrabGuide />
@@ -113,11 +118,33 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 title={CommonResourceKeys.HISTORY_POPUP_TITLE}
                 gameName={`(${gameName})`}
                 isOpen={true}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
                 <FishPrawnCrabBetHistory />
             </AdvanceModal>
+        );
+    }
+
+    renderSettlementInfo() {
+        const { result } = this.state;
+        const settlementResultInfo = Object.values(result).map((dice) => {
+            return {
+                className: Object.values(choicesBackgroundMapper)[dice],
+                value: this.getGameTranslate(Object.keys(choicesMapper)[dice]),
+            };
+        });
+        return (
+            <div className={Styles["result-container"]}>
+                {settlementResultInfo &&
+                    settlementResultInfo.map((info, index) => {
+                        return (
+                            <div key={index} className={Styles[info.className]}>
+                                {info.value}
+                            </div>
+                        );
+                    })}
+            </div>
         );
     }
 }

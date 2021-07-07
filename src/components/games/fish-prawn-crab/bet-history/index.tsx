@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-import BetHistoryContainer from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
@@ -22,16 +22,16 @@ const renderResult = (bet: BetLogs) => {
 };
 
 const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
-    let classCount = `@${odds[OddNames.single]}`;
+    let classCount = `${odds[OddNames.single]}`;
     Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
             if (+countsAppearDice[number] === 2) {
-                classCount = `@${odds[OddNames.double]}`;
+                classCount = `${odds[OddNames.double]}`;
                 return;
             }
 
             if (+countsAppearDice[number] === 3) {
-                classCount = `@${odds[OddNames.triple]}`;
+                classCount = `${odds[OddNames.triple]}`;
                 return;
             }
         }
@@ -55,8 +55,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
                     if (bet[choice] > 0) {
                         return (
                             <div key={index} className={classHighLight}>
-                                {t(choice)}
-                                {renderOdd(choice, countsAppearDice, odds)}
+                                {t(choice)}@<FormatNumber>{renderOdd(choice, countsAppearDice, odds)}</FormatNumber>
                             </div>
                         );
                     }

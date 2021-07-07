@@ -24,11 +24,9 @@ type Props = {
 };
 
 const PlaceBetModal: React.FC<Props> = (props) => {
-    const gameContext = useGameContext();
-    const systemContext = useSystemContext();
-    const { t } = useTranslation([gameContext.gameSetting.gameName.toLocaleLowerCase(), "common"]);
-    const { roundId } = gameContext;
-    const { betValue } = systemContext;
+    const { roundId, gameSetting } = useGameContext();
+    const { betValue } = useSystemContext();
+    const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
 
     const closeModal = () => {

@@ -1,5 +1,6 @@
-import { Listener } from "./type";
 import { v4 as uuidv4 } from "uuid";
+
+import { Listener } from "./type";
 
 export default function messageTransmitter() {
     let listeners: Array<Listener> = [];
@@ -20,7 +21,9 @@ export default function messageTransmitter() {
     const clearAllListener = () => (listeners = []);
 
     const broadcast = (message: any) => {
-        listeners.forEach((listener) => message[listener.messageKey] && listener.handleMessage(message));
+        for (const listener of listeners) {
+            message[listener.messageKey] && listener.handleMessage(message);
+        }
     };
 
     return {

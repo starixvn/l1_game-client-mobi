@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isIOS } from "react-device-detect";
 
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
@@ -26,15 +26,27 @@ const BaseDialog: React.FC<Props> = ({
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
 
     const getCustomStyle = () => {
-        if (betContainerPosition != null) {
-            const windowHeight = window.innerHeight;
+        const browserHeight = window.innerHeight;
 
-            return windowHeight / betContainerPosition > 2
+        if (betContainerPosition != null) {
+            return browserHeight / betContainerPosition > 2
                 ? { top: `${betContainerPosition}px` }
-                : { bottom: `${windowHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
+                : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
-        return isMobileOnly ? { bottom: "11.8rem" } : {};
+        if (isMobileOnly) {
+            if (isIOS) {
+                if (screen.height > 667 && screen.width >= 375) {
+                    return { bottom: "12.3rem" };
+                } else {
+                    return { bottom: "9.8rem" };
+                }
+            } else {
+                return { bottom: "8.8rem" };
+            }
+        }
+
+        return {};
     };
 
     useEffect(() => {
@@ -51,7 +63,11 @@ const BaseDialog: React.FC<Props> = ({
     }, [wrapperRef]);
 
     return (
-        <div style={getCustomStyle()} ref={wrapperRef} className={`${Styles.popup} ${Styles[classModal]}`}>
+        <div
+            style={getCustomStyle()}
+            ref={wrapperRef}
+            className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
+        >
             {children}
         </div>
     );

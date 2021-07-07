@@ -5,7 +5,7 @@
     --bet-option-border: #dce2f3;
     --bet-option-own-bet-color: #ff9a00;
     --bet-option-total-bet-color: #2c2f3e;
-    --bet-option-odds-color: #a8aeb8;
+    --bet-option-odds-color: #707070;
 
     --winning-effect-animation-name: blink-animation;
 }
@@ -17,7 +17,7 @@
     --bet-option-border: #dce2f3;
     --bet-option-own-bet-color: #ff9a00;
     --bet-option-total-bet-color: #f0f8ff;
-    --bet-option-odds-color: #7f8a95;
+    --bet-option-odds-color: #b5bbc0;
 
     --winning-effect-animation-name: blink-animation-dark-theme;
 }
@@ -71,7 +71,7 @@
     .odd {
         position: absolute;
         left: 0.5rem;
-        top: 0.3rem;
+        top: 0;
         color: var(--bet-option-odds-color);
         text-align: left;
     }
@@ -81,16 +81,18 @@
         position: absolute;
         width: 100%;
         text-align: center;
-        font-size: 1.6rem;
     }
 
     .total-bet {
-        top: 0.3rem;
+        top: 0;
         color: var(--bet-option-total-bet-color);
+        font-size: 1.5rem;
     }
 
     .own-bet {
-        bottom: 0.3rem;
+        bottom: -0.3rem;
+        font-size: 1.8rem;
+        font-weight: 500;
         color: var(--bet-option-own-bet-color);
     }
 
@@ -99,15 +101,15 @@
     }
 
     &.winning-effect {
-        animation: var(--winning-effect-animation-name) 2s 0.5s infinite forwards;
+        animation: var(--winning-effect-animation-name) 1s forwards;
     }
 }
 
 .user-bet-chips {
     position: absolute;
-    left: 0px;
-    right: 4rem;
-    top: 1.1rem;
+    left: 0;
+    right: 3rem;
+    top: 1.5rem;
     bottom: 6rem;
     z-index: 10;
 
@@ -120,56 +122,28 @@
     }
 }
 
-.simple-mode {
-    .total-bet {
-        top: 0.1rem;
-    }
-
-    .own-bet {
-        bottom: 0.1rem;
-    }
-}
-
 @keyframes blink-animation {
     0%,
+    50% {
+        background-color: #fff;
+    }
+
+    25%,
+    75%,
     100% {
-        background-color: #fff5e3;
-    }
-
-    20%,
-    70% {
-        background-color: #fff;
-    }
-
-    30%,
-    60% {
-        background-color: #fff5e3;
-    }
-
-    40%,
-    80% {
-        background-color: #fff;
+        background: #fff5e3;
     }
 }
 
 @keyframes blink-animation-dark-theme {
     0%,
+    50% {
+        background-color: #507396;
+    }
+
+    25%,
+    75%,
     100% {
-        background-color: #395877;
-    }
-
-    20%,
-    70% {
-        background-color: #1a2430;
-    }
-
-    30%,
-    60% {
-        background-color: #395877;
-    }
-
-    40%,
-    80% {
-        background-color: #1a2430;
+        background: #395877;
     }
 }

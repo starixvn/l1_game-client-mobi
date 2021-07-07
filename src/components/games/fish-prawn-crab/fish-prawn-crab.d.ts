@@ -8,9 +8,9 @@ export interface SettlementResult {
 }
 
 export interface Result {
-    dice1: boolean;
-    dice2: boolean;
-    dice3: boolean;
+    dice1: number;
+    dice2: number;
+    dice3: number;
 }
 
 export enum BaseResult {

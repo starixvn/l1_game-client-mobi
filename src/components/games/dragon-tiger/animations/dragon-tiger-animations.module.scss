@@ -1,4 +1,5 @@
 @import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
 
 $time-draw-card-animation: 0.3s;
 
@@ -7,13 +8,12 @@ $time-open-card-animation: 0.4s;
 $time-zoom-in-card-animation: 0.15s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
-$time-delay-result-highlight-animation: 0.2s + $time-delay-zoom-in-card-animation + $time-open-card-animation;
-$time-result-highlight-animation: 0.8s;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation;
 
 .animation-container {
     position: absolute;
     left: 0;
-    top: 3.3rem;
+    top: 0.3rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -55,12 +55,12 @@ $time-result-highlight-animation: 0.8s;
 @keyframes draw-card-animation {
     0% {
         opacity: 0;
-        transform: translate3d(0, -30rem, 0);
+        transform: translate3d(0, -20rem, 0);
     }
 
     50% {
         opacity: 0.3;
-        transform: translate3d(0, -15rem, 0);
+        transform: translate3d(0, -12rem, 0);
     }
 
     70% {
@@ -76,7 +76,9 @@ $time-result-highlight-animation: 0.8s;
 
 .open-cards {
     .animation-container {
-        top: 8.5rem;
+        --move-up-distance: -3.5rem;
+        --result-scale: 1;
+        top: 4.5rem;
         transform: scale(1);
         transition: transform 0.7s;
     }
@@ -90,50 +92,13 @@ $time-result-highlight-animation: 0.8s;
         position: relative;
     }
 
-    .result-highlight {
-        position: absolute;
-        top: -4.5rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 13rem;
-        height: 4rem;
-        border-radius: 40px;
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: #fff;
-        z-index: 2;
-
-        &.tie {
-            background-color: #235f6a;
-        }
-
-        &.dragon {
-            background-color: #ff9a00;
-        }
-
-        &.tiger {
-            background-color: #de4b56;
-        }
-    }
-
     &.has-animation {
         .animation-container {
-            animation-name: zoon-in-animation;
-            animation-duration: $time-zoom-in-card-animation;
-            animation-delay: 0s;
+            animation-name: zoon-in-animation, move-up-result-animation;
+            animation-duration: $time-zoom-in-card-animation, 0.3s;
+            animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards;
             animation-timing-function: ease-out;
-
-            .result-highlight {
-                opacity: 0;
-                animation-name: show-result-highlight-animation;
-                animation-delay: $time-delay-result-highlight-animation;
-                animation-duration: $time-result-highlight-animation;
-                animation-fill-mode: forwards;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-            }
         }
 
         .rotate-card {
@@ -246,36 +211,6 @@ $time-result-highlight-animation: 0.8s;
     100% {
         opacity: 1;
         transform: rotateY(0deg) scaleX(1);
-    }
-}
-
-@keyframes show-result-highlight-animation {
-    0% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    20% {
-        transform: scale(1.05);
-    }
-
-    35% {
-        transform: scale(1);
-    }
-
-    50%,
-    70% {
-        transform: scale(1.1);
-    }
-
-    60%,
-    80% {
-        transform: scale(1);
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
     }
 }
 

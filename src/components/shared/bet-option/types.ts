@@ -12,4 +12,5 @@ export type Props = {
     isHighlight: boolean;
     isDisplayOdd?: boolean;
     gameState: GameState;
+    isShowWinningEffect: boolean;
 };

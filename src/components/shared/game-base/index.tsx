@@ -1,6 +1,5 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { Spinner } from "reactstrap";
 import Auth from "sc-user-service-client/dist/auth";
 import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
@@ -22,6 +21,7 @@ import WinningBet from "../animations/winning-bet";
 import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
+import { BaseResult } from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
@@ -30,7 +30,7 @@ import GameLoading from "../game-loading";
 import { Notice } from "../notice";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
-import WaitingTimeAnimation from "../waiting-time-animation";
+import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
@@ -46,13 +46,12 @@ import {
 } from "./type";
 
 const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
-abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.Component<P, S> {
+abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
-    private readonly winningAnimationTime = 4000;
     private betWin: number;
     private isUMInFirstLoad = false;
-    private showWaitingTimeout: NodeJS.Timeout;
-    private showTotalResultTimeout: NodeJS.Timeout;
+    private showResultInfoTimeout: NodeJS.Timeout;
+    private showWinningAnimationTimeout: NodeJS.Timeout;
     private readonly gameContainerRef = React.createRef<HTMLDivElement>();
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
@@ -79,14 +78,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         displayPopup: null,
         betPercentage: {},
         viewMode: this.props.viewMode,
-        showWaitingTime: false,
+        showResultInfo: false,
         acceptedBetQueue: {},
-        showWinningBet: false,
+        showWinningAnimation: false,
         playResultAnimation: false,
         displayChips: {},
         isShowBlink: false,
         notice: null,
-        showResultAfterAnimation: false,
     };
 
     constructor(props: P) {
@@ -104,6 +102,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.updateViewMode = this.updateViewMode.bind(this);
         this.playAcceptedBetAnimation = this.playAcceptedBetAnimation.bind(this);
         this.closeNotice = this.closeNotice.bind(this);
+        this.renderSettlementInfo = this.renderSettlementInfo.bind(this);
+        this.updateUserBalance = this.updateUserBalance.bind(this);
     }
 
     componentDidMount() {
@@ -183,20 +183,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleStatus = ({ status }) => {
-        const { durations } = this.props;
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;
-            setTimeout(() => {
-                this.setState({ showWinningBet: true });
-                this.updateUserBalance();
-
-                setTimeout(() => {
-                    this.setState({ showWinningBet: false });
-                }, this.winningAnimationTime);
-            }, ((durations.balancingBet ?? 0) + durations.resultAnimation) * 1000);
         }
     };
+
+    get winningAnimationWaitingTimeInSecond() {
+        return this.props.durations.showResult * 1000;
+    }
 
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
@@ -284,7 +279,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const key = uuidv4();
         acceptedBetQueue[key] = amount;
 
-        this.setState({ acceptedBetQueue });
+        this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });
         setTimeout(() => {
             this.removeAcceptedBetQueue(key);
         }, this.animationTime);
@@ -344,12 +339,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
             this.interval && clearInterval(this.interval);
-            this.showWaitingTimeout && clearTimeout(this.showWaitingTimeout);
-            this.showTotalResultTimeout && clearTimeout(this.showTotalResultTimeout);
+            this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
+            this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
             this.setState({
                 gameState: GameState.Disabled,
                 disabledMessage: um_message[LanguageLocaleMapper[locale]],
-                showWaitingTime: false,
+                showResultInfo: false,
             });
         }
     }
@@ -380,45 +375,50 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleGamePlay(remainingTime: number) {
         const newGameState = this.determineGameState(remainingTime);
 
-        const newState = {
-            gameState: newGameState,
-            ...this.getStateByNextGameState(newGameState),
-        };
+        if (this.state.gameState !== newGameState) {
+            const newState = {
+                gameState: newGameState,
+                ...this.getStateByNextGameState(newGameState),
+            };
 
-        this.setState(newState);
+            this.setState(newState);
+        }
     }
 
     getStateByNextGameState(nextGameState: GameState) {
-        const { roundId, gameState, displayPopup } = this.state;
-
+        const { roundId, displayPopup, notice } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
+
+        if (nextGameState === GameState.InRound) {
+            this.betWin = 0;
+        }
 
         const newStateDetector = [
             {
-                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState) && gameState !== nextGameState,
+                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState),
                 state: {
                     ownBets: {},
                     totalBets: {},
-                    showWaitingTime: false,
-                    betPercentage: {},
                     displayChips: {},
-                    showWinningBet: false,
+                    showWinningAnimation: false,
                     isShowBlink: false,
-                    showResultAfterAnimation: false,
                     playResultAnimation: false,
+                    showResultInfo: false,
                 },
             },
             {
-                condition: gameState !== GameState.InRound && nextGameState === GameState.InRound,
+                condition: nextGameState === GameState.InRound,
                 state: {
                     roundId: roundId + 1,
+                    betPercentage: {},
                 },
             },
             {
-                condition: nextGameState === GameState.LockingBet && [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup),
+                condition: nextGameState === GameState.LockingBet,
                 state: {
-                    displayPopup: null,
-                    notice: null,
+                    isShowBlink: true,
+                    displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
+                    notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
                 },
             },
         ];
@@ -464,10 +464,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             return GameState.DisplayResult;
         }
 
-        if (remainingTime > durations.placingBets + (durations.beforeStartRound ?? 0)) {
-            return GameState.Waiting;
-        }
-
         if (durations.beforeStartRound && remainingTime > durations.placingBets) {
             return GameState.BeforeStartRound;
         }
@@ -477,7 +473,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
 
         if (remainingTime <= durations.lockingBet && remainingTime >= 0) {
-            this.setState({ isShowBlink: true });
             return GameState.LockingBet;
         }
 
@@ -488,26 +483,23 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { durations } = this.props;
 
         switch (gameState) {
-            case GameState.Waiting:
-                return remainingTime - (durations.placingBets + (durations.beforeStartRound ?? 0));
             case GameState.InRound:
             case GameState.LockingBet:
                 return remainingTime;
+            case GameState.BeforeStartRound:
+                return durations.beforeStartRound;
             default:
                 return 0;
         }
     }
 
-    handleRoundHistory({ roundHistory }) {
+    handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
-
-        const lastRoundId = roundHistory[0] ? roundHistory[0].roundId : 0;
-        const roundId = ![GameState.InRound, GameState.LockingBet].includes(gameState) ? lastRoundId : lastRoundId + 1;
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
             roundHistory,
-            roundId,
+            roundId: ![GameState.InRound, GameState.LockingBet].includes(gameState) ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
             displayChips,
@@ -525,7 +517,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
-        roundHistoryClone.pop();
+        roundHistoryClone.length > 100 && roundHistoryClone.pop();
 
         this.setState({
             playResultAnimation: true,
@@ -535,13 +527,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
 
-        this.showWaitingTimeout = setTimeout(() => {
-            this.setState({ showWaitingTime: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
+        this.showResultInfoTimeout = setTimeout(() => {
+            this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
+            this.updateUserBalance();
         }, animationDuration);
-        this.showTotalResultTimeout = setTimeout(() => {
-            this.setState({ showResultAfterAnimation: true });
-        }, animationDuration - 1);
+
+        this.showWinningAnimationTimeout = setTimeout(() => {
+            this.setState({
+                showWinningAnimation: true,
+            });
+        }, this.winningAnimationWaitingTimeInSecond);
+
         this.runGame(durations.wholeRound);
     }
 
@@ -599,8 +596,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderErrorMessage() {
         return (
-            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={() => this.closePopup()}>
-                <ErrorMessage message={this.state.errorMessage} closeModal={() => this.closePopup()}></ErrorMessage>
+            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
+                <ErrorMessage message={this.state.errorMessage} closeModal={this.closePopup}></ErrorMessage>
             </BaseDialog>
         );
     }
@@ -615,9 +612,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 betContainerPosition={isMobileOnly ? betContainerPosition : null}
                 type={ModalType.Top}
                 isOpen={this.state.displayPopup === PopupType.Rebet}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
             >
-                <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={() => this.closePopup()} />
+                <Rebet getOddsByChoice={this.getOddsByChoice.bind(this)} gameId={this.props.id} onCloseModal={this.closePopup} />
             </BaseDialog>
         );
     }
@@ -629,7 +626,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <PlaceBetModal
                 isOpen={displayPopup === PopupType.PlaceBet}
-                onCloseModal={() => this.closePopup()}
+                onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,
@@ -658,6 +655,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderBetHistory(): React.ReactElement;
 
     abstract getMainOptions(): string[];
+
+    abstract renderSettlementInfo(): JSX.Element;
+
+    getGameTranslate(key: string) {
+        const { t, gameName } = this.props;
+
+        return t(`${gameName.toLocaleLowerCase()}:${key}`);
+    }
 
     setWinStreakByRoundHistory(roundHistory) {
         const history = roundHistory.sort((a, b) => a.roundId < b.roundId);
@@ -774,6 +779,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderGame() {
         const { durations } = this.props;
+
         const {
             remainingTime,
             roundId,
@@ -787,7 +793,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
-            showResultAfterAnimation,
         } = this.state;
 
         const gameContext = {
@@ -803,7 +808,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayChips,
             playResultAnimation,
             isShowBlink,
-            showResultAfterAnimation,
         };
 
         const gameActionsContext = {
@@ -833,36 +837,34 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </div>
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {this.state.gameState === GameState.DisplayResult && this.renderResult()}
-                                {this.state.showWaitingTime && (
-                                    <WaitingTimeAnimation
-                                        remainingTime={
-                                            durations.wholeRound -
-                                            durations.placingBets -
-                                            durations.beforeStartRound -
-                                            durations.resultAnimation -
-                                            (durations.balancingBet ?? 0) -
-                                            1
-                                        }
+                                {this.state.gameState === GameState.DisplayResult && (
+                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                )}
+                                {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
+                                    <ResultDetail
+                                        renderSettlementInfo={this.renderSettlementInfo}
+                                        timeToShowInSecond={durations.showResult - durations.resultAnimation}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
                                 {this.state.notice && this.renderNotice()}
-                                {this.state.showWinningBet && <WinningBet amount={this.betWin} />}
+                                {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
+                                    <WinningBet amount={this.betWin} />
+                                )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} d-flex`}>
-                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <Spinner color="secondary" />}
+                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
                             </div>
                             {viewMode === ViewMode.full && (
                                 <>
                                     <div className={`${Styles["statistic"]} d-flex`}>
-                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <Spinner color="secondary" />}
+                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
                                     </div>
                                     <ScoreboardRoundHistory>
-                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <Spinner color="secondary" />}
+                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <></>}
                                     </ScoreboardRoundHistory>
                                 </>
                             )}
