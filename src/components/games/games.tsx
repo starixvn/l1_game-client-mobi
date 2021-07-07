@@ -80,11 +80,16 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
         window.scrollTo(0, 0);
     }, []);
 
+    var deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? "ios-device" : "android-device";
+    }
+
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
             <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <div className={`${styles["game-list"]} ${isMobileOnly && isIOS ? styles["ios-device"] : ""}`}>{renderListGames()}</div>
+                <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
     );
