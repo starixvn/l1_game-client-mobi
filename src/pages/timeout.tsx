@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 
@@ -26,11 +25,5 @@ const NotFound = () => {
         </div>
     );
 };
-
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...(await serverSideTranslations(locale, ["common"])),
-    },
-});
 
 export default NotFound;
