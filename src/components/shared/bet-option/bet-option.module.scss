@@ -81,17 +81,18 @@
         position: absolute;
         width: 100%;
         text-align: center;
-        font-size: 1.6rem;
     }
 
     .total-bet {
-        top: -0.2rem;
+        top: -0.1rem;
         color: var(--bet-option-total-bet-color);
+        font-size: 1.5rem;
     }
 
     .own-bet {
-        bottom: -0.1rem;
-        font-weight: bold;
+        bottom: -0.3rem;
+        font-size: 1.8rem;
+        font-weight: 500;
         color: var(--bet-option-own-bet-color);
     }
 
