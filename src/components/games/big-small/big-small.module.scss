@@ -2,14 +2,16 @@
 
 .total-text {
     margin-bottom: 0.5rem;
+    line-height: 1.2rem;
     font-size: 1.6rem;
     color: #5e5e5e;
 }
 
 %total-points {
-    line-height: 1.5rem;
+    line-height: 2rem;
     font-size: 2.4rem;
-    font-weight: bold;
+    font-family: var(--font-number);
+    font-weight: 500;
 }
 
 .total-points-big {
