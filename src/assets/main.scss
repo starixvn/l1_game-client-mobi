@@ -90,7 +90,7 @@ html {
 
 [data-theme="light"] {
     --page-background: #dce2f3;
-    --page-background-image: url("/static/images/themes/background-theme-light.jpg");
+    --page-background-image: grey;
     --text-color: #2c2f3e;
 
     --tooltip-background: rgba(255, 172, 43, 0.6);
@@ -132,7 +132,7 @@ html {
 
 [data-theme="dark"] {
     --page-background: #101821;
-    --page-background-image: url("/static/images/themes/background-theme-dark.jpg");
+    --page-background-image: blue;
     --text-color: #fff;
 
     --tooltip-background: rgba(79, 112, 143, 0.8);
