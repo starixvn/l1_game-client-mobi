@@ -22,11 +22,9 @@
 }
 
 .settings-container {
-    position: absolute;
-    left: 0;
-    top: -45px;
-    right: 0;
-    height: 4.5rem;
     display: flex;
     align-items: center;
+    height: 4.5rem;
+    margin-top: 4.4rem;
+    z-index: var(--setting-index);
 }

@@ -124,8 +124,6 @@
     left: -0.6rem;
     width: 34rem;
     z-index: 1;
-    opacity: 0;
-    animation: show-hint-one-click-bet-animation 0.3s 1s ease-out forwards;
 
     &.isMobile {
         bottom: auto;
@@ -154,15 +152,5 @@
         @media (min-width: 768px) {
             min-width: 15.2rem;
         }
-    }
-}
-
-@keyframes show-hint-one-click-bet-animation {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
     }
 }
