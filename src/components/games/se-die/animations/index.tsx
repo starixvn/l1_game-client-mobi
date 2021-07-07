@@ -18,13 +18,13 @@ const Plate: React.FC = ({ children }) => {
     );
 };
 
-export const ShakeThePlate: React.FC<{ playAnimation?: boolean }> = ({ playAnimation = false }) => (
+export const ShakeThePlate: React.FC<{ playAnimation?: boolean }> = React.memo(({ playAnimation = false }) => (
     <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
         <div className="overlay-mask-no-bg">
             <Plate />
         </div>
     </div>
-);
+));
 
 export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
