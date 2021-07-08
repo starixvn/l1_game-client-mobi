@@ -1,33 +1,28 @@
-import lottie from "lottie-web";
-import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
-
-import * as animationDesktopEN from "./anim-file/en/anim-desktop.json";
-import * as animationMobileEN from "./anim-file/en/anim-mobile.json";
-import * as animationDesktopVI from "./anim-file/vi/anim-desktop.json";
-import * as animationMobileVI from "./anim-file/vi/anim-mobile.json";
+import { useRouter } from "next/router";
+import React from "react";
 import Styles from "./splash-screen.module.scss";
 
 export default function SplashScreen({ locale }) {
-    const [animRun, setAnimRun] = useState<any>();
-    const wrapperRefLogo = useRef<HTMLDivElement>(null);
-    const animationDesktop = { vi: animationDesktopVI, en: animationDesktopEN };
-    const animationMobile = { vi: animationMobileVI, en: animationMobileEN };
-    useEffect(() => {
-        if (wrapperRefLogo.current) {
-            lottie.loadAnimation({
-                container: wrapperRefLogo.current,
-                renderer: "svg",
-                loop: true,
-                autoplay: true,
-                animationData: animRun,
-            });
-        }
-    }, [wrapperRefLogo, animRun]);
-
-    useEffect(() => {
-        setAnimRun(isMobileOnly ? animationMobile[locale] : animationDesktop[locale]);
-    }, [locale]);
-
-    return <div className={Styles.page} ref={wrapperRefLogo}></div>;
+    return (
+        <div className={`${Styles.page}`}>
+            <div className={Styles["logo"]}>
+                <img
+                    src={`/static/images/splash-screen/${locale}/logo.svg`}
+                    className={Styles["img-fluid"]}
+                    width="auto"
+                    height="auto"
+                    alt="Logo"
+                />
+            </div>
+            <div className={Styles["info"]}>
+                <img
+                    src={`/static/images/splash-screen/${locale}/info.svg`}
+                    className={Styles["img-fluid"]}
+                    width="auto"
+                    height="auto"
+                    alt="Info"
+                />
+            </div>
+        </div>
+    );
 }
