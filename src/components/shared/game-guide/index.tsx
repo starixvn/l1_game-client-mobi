@@ -18,9 +18,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
-    const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
-        userStakeLevel?.maxBet
-    }?random=${new Date().getTime() + Math.floor(Math.random() * 1000000)}`;
+    const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}`;
     const hideSpinner = () => {
         setIsLoading(false);
     };
