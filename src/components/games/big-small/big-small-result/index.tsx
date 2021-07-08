@@ -7,12 +7,16 @@ import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
 
 const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
-    const { playResultAnimation } = useGameContext();
+    const { playResultAnimation, gameSetting } = useGameContext();
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask">
-                <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+                <div
+                    className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
+                        gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]
+                    }`}
+                >
                     <div className={Styles["result-plate"]}></div>
                     <div className={Styles["toss-dices"]}>
                         <Image
