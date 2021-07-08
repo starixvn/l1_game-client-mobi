@@ -18,6 +18,7 @@ import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetElementRound from "./scoreboard-round-history";
 import GameGuides from "../../shared/game-guide";
+import { LanguageLocaleMapper } from "../../../common/constants";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -99,6 +100,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const lang = LanguageLocaleMapper[this.props.router?.locale];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
@@ -107,7 +109,12 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
             >
-                <GameGuides gameId={this.props.id} language={this.context.session.language} theme={this.props.theme}></GameGuides>
+                <GameGuides
+                    gameId={this.props.id}
+                    language={lang}
+                    theme={this.props.theme}
+                    userStakeLevel={this.state.userStakeLevel}
+                ></GameGuides>
             </AdvanceModal>
         );
     }

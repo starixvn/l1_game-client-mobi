@@ -16,6 +16,7 @@ import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 import GameGuides from "../../shared/game-guide";
+import { LanguageLocaleMapper } from "../../../common/constants";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const choicesBackgroundMapper = {
@@ -98,6 +99,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const lang = LanguageLocaleMapper[this.props.router?.locale];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
@@ -107,7 +109,12 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 isAddScrollBody={true}
                 gameId={this.props.id}
             >
-                <GameGuides gameId={this.props.id} language={this.context.session.language} theme={this.props.theme}></GameGuides>
+                <GameGuides
+                    gameId={this.props.id}
+                    language={lang}
+                    theme={this.props.theme}
+                    userStakeLevel={this.state.userStakeLevel}
+                ></GameGuides>
             </AdvanceModal>
         );
     }

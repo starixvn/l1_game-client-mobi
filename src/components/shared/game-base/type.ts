@@ -45,6 +45,7 @@ export type GameBaseProps = {
     playPlaceBetSound: Function;
     viewMode: ViewMode;
     setApiErrorMessage: Function;
+    theme: string;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {

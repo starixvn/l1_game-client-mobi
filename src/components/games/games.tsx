@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 import useSound from "use-sound";
-
+import { useTheme } from "next-themes";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
@@ -35,7 +35,7 @@ export const Games: React.FC<Props> = ({
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const winningStreakRef = useRef(null);
-
+    const { theme } = useTheme();
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
@@ -70,6 +70,7 @@ export const Games: React.FC<Props> = ({
                 enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
             setApiErrorMessage: setApiErrorMessage,
+            theme,
         };
         switch (gameId) {
             case 2:

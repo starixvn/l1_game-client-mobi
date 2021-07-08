@@ -11,7 +11,6 @@
     "offeredGames": [2, 22, 3, 1, 4, 7],
     "enableSourceMap": true,
     "gameGuides": {
-        "dsn": "https://l1-guide.lumigame.com",
-        "environment": "LOCAL_2"
+        "dsn": "https://l1-guide-2.lumigame.com/"
     }
 }

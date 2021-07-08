@@ -9,5 +9,8 @@
         "environment": "UAT"
     },
     "offeredGames": [2, 22, 3, 1, 4, 7],
-    "enableSourceMap": false
+    "enableSourceMap": false,
+    "gameGuides": {
+        "dsn": "https://uatguides.sabagame.com/"
+    }
 }

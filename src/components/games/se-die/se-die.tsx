@@ -18,6 +18,7 @@ import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 import GameGuides from "../../shared/game-guide";
+import { LanguageLocaleMapper } from "../../../common/constants";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -91,6 +92,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const lang = LanguageLocaleMapper[this.props.router?.locale];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
@@ -100,7 +102,12 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
                 isAddScrollBody={true}
                 gameId={this.props.id}
             >
-                <GameGuides gameId={this.props.id} language={this.context.session.language} theme={this.props.theme}></GameGuides>
+                <GameGuides
+                    gameId={this.props.id}
+                    language={lang}
+                    theme={this.props.theme}
+                    userStakeLevel={this.state.userStakeLevel}
+                ></GameGuides>
             </AdvanceModal>
         );
     }
