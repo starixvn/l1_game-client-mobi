@@ -11,6 +11,6 @@
     "offeredGames": [2, 22, 3, 1, 4, 7],
     "enableSourceMap": false,
     "gameGuides": {
-        "dsn": "https://uatguides.sabagame.com/"
+        "dsn": "https://uatguides.sabagame.com"
     }
 }
