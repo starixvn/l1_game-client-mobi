@@ -498,7 +498,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
-            roundHistory,
+            roundHistory: roundHistory.slice(0, 40),
             roundId: ![GameState.InRound, GameState.LockingBet].includes(gameState) ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
