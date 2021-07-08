@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef, useMemo } from "react";
-import appSettings from "../../../common/app-settings";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Spinner } from "reactstrap";
-import Styles from "./game-guide.module.scss";
+import { v4 as uuidv4 } from "uuid";
+
+import appSettings from "../../../common/app-settings";
 import { UserStakeLevel } from "../game-base/type";
+import Styles from "./game-guide.module.scss";
 
 type Props = {
     language: string;
@@ -18,7 +19,9 @@ const GameGuides: React.FC<Props> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
-    const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}`;
+    const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
+        userStakeLevel?.maxBet
+    }&v=${Date.now()}`;
     const hideSpinner = () => {
         setIsLoading(false);
     };
@@ -47,7 +50,7 @@ const GameGuides: React.FC<Props> = (props) => {
                 </div>
             )}
             <iframe
-                key={new Date().getTime()}
+                key={Date.now()}
                 className={Styles["guide-iframe"]}
                 src={srcPath}
                 height={heightGuide}
