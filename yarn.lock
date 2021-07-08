@@ -969,11 +969,6 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/chance@^1.1.1":
-  version "1.1.1"
-  resolved "http://npm.lumigame.com/@types%2fchance/-/chance-1.1.1.tgz#2e06aeaf58130470f2dfe96017cdbc403de002f9"
-  integrity sha512-Ze94JMnM33+dj/tQCWxXWaQ80uYmV9HwydTyrbHAiBa91ETQuI+3iF5OFPicDpQx+md+/6rDpTp9I2VKOGOtpw==
-
 "@types/cheerio@*", "@types/cheerio@^0.22.22":
   version "0.22.29"
   resolved "http://npm.lumigame.com/@types%2fcheerio/-/cheerio-0.22.29.tgz#7115e9688bfc9e2f2730327c674b3d6a7e753e09"
@@ -2432,11 +2427,6 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
-
-chance@^1.1.7:
-  version "1.1.7"
-  resolved "http://npm.lumigame.com/chance/-/chance-1.1.7.tgz#e99dde5ac16681af787b5ba94c8277c090d6cfe8"
-  integrity sha512-bua/2cZEfzS6qPm0vi3JEvGNbriDLcMj9lKxCQOjUcCJRcyjA7umP0zZm6bKWWlBN04vA0L99QGH/CZQawr0eg==
 
 char-regex@^1.0.2:
   version "1.0.2"
@@ -5029,11 +5019,6 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3
   integrity sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
-
-lottie-web@^5.7.8:
-  version "5.7.8"
-  resolved "http://npm.lumigame.com/lottie-web/-/lottie-web-5.7.8.tgz#c7a2e42983bcb42093590a03ccdde8741d3f960e"
-  integrity sha512-VxKCZk33GwZac6mVHvT3grUFR/zrMsW85M7vxQPrgpJOP2IhcnjMbuD0h7muBkXgw84K9KmGulmcyzvhpzSMAg==
 
 lru-cache@^6.0.0:
   version "6.0.0"
