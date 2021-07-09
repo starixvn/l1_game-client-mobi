@@ -100,10 +100,10 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                         <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
                     </div>
                     <div className={Styles.action}>
-                        <button name="dismiss" className={`btn-grey ${Styles["btn"]}`} onClick={closeHintTooltip}>
+                        <button className={`btn-grey ${Styles["btn"]}`} onClick={closeHintTooltip}>
                             {t("common:dismiss")}
                         </button>
-                        <button name="turnOn" className={`btn-orange ${Styles["btn"]}`} onClick={handleTurnOn}>
+                        <button className={`btn-orange ${Styles["btn"]}`} onClick={handleTurnOn}>
                             {t("common:turnOn")}
                         </button>
                     </div>

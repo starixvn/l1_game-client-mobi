@@ -37,11 +37,7 @@ export default function Welcome(props: Props) {
             <ProfilePicture avatarId={props.userInfo?.avatarId} />
 
             <ThemeSelection />
-            <button
-                name="enterGameBtn"
-                className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`}
-                onClick={() => props.handleFirstLoginSM(theme)}
-            >
+            <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
                 {t("common:enterGameBtn")}
             </button>
         </FirstLoginContainer>

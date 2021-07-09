@@ -133,16 +133,16 @@ const Rebet: React.FC<Props> = (props) => {
             <div className={`${Styles["action"]} ${isWaiting && Styles["waiting"]}`}>
                 {!isSubmit && (
                     <div className={Styles["button-group"]}>
-                        <button name="cancel" onClick={handleCloseModal} className="btn-grey w-5">
+                        <button onClick={handleCloseModal} className="btn-grey w-5">
                             {t("common:cancel")}
                         </button>
-                        <button name="confirm" onClick={handleSubmit} className="btn-orange w-5">
+                        <button onClick={handleSubmit} className="btn-orange w-5">
                             {t("common:confirm")}
                         </button>
                     </div>
                 )}
                 {isSubmit && (
-                    <button name="close" onClick={handleCloseModal} className="btn-orange w-100">
+                    <button onClick={handleCloseModal} className="btn-orange w-100">
                         {t("common:close")}
                     </button>
                 )}

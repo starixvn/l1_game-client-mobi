@@ -135,7 +135,6 @@ export default function Register(props: Props) {
                     )}
 
                     <button
-                        name="refresh"
                         className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
                         onClick={(event) => generateName(event)}
                         type="button"
@@ -145,7 +144,7 @@ export default function Register(props: Props) {
                 </div>
                 {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
-                <button name="enterGameBtn" className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
+                <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} type="submit">
                     {t("common:enterGameBtn")}
                 </button>
             </form>
@@ -186,10 +185,10 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
                 <div className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></div>
                 <div className={Styles["container-avatars"]}>{loadAvatars()}</div>
                 <div className={Styles["list-actions"]}>
-                    <button name="cancel" className="btn-grey" onClick={onClose} type="button">
+                    <button className="btn-grey" onClick={onClose} type="button">
                         {t("common:cancel")}
                     </button>
-                    <button name="ok" className="btn-orange" onClick={submit} type="button">
+                    <button className="btn-orange" onClick={submit} type="button">
                         {t("common:ok")}
                     </button>
                 </div>

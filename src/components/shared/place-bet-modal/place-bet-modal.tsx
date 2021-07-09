@@ -59,10 +59,10 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                 </div>
                 <p className={Styles["confirm-text"]}>{t("common:confirmBetAutomatic")}</p>
                 <div className={Styles["actions"]}>
-                    <button name="cancel" onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
+                    <button onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
                         {t("common:cancel")}
                     </button>
-                    <button name="confirm" onClick={placeBet} className="btn-orange" disabled={betValue <= 0}>
+                    <button onClick={placeBet} className="btn-orange" disabled={betValue <= 0}>
                         {t("common:confirm")}
                     </button>
                 </div>

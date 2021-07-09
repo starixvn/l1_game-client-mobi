@@ -36,7 +36,7 @@ export const ConnectFailedMessage: React.FC<{ gameName: string; retryConnect: ()
                     <Trans t={t}>{t("lostGameConnection", { gameName: gameName })}</Trans>
                 </div>
                 <div className={Styles["list-action"]}>
-                    <button name="socketReconnect" onClick={() => retryConnect()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
+                    <button onClick={() => retryConnect()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
                         {t("common:socketReconnect")}
                     </button>
                 </div>
