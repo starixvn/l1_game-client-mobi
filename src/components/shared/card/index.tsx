@@ -34,12 +34,17 @@ const Card: React.FC<Props> = (props) => {
                         <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>
                             {convertRank(result.card)}
                         </div>
-                        <img src={`/static/images/${suffixClassMapping[result.type]}.png`} className={Styles["card-suite-small"]} />
+                        <img
+                            src={`/static/images/${suffixClassMapping[result.type]}.png`}
+                            className={Styles["card-suite-small"]}
+                            alt="suite"
+                        />
                     </div>
                     <div className={Styles["card-group-right"]}>
                         <img
                             src={`/static/images/${iconLarge}.png`}
                             className={`${pictureCard[convertRank(result.card)] ? Styles["card-picture"] : Styles["card-suite-large"]}`}
+                            alt="suite"
                         />
                     </div>
                 </div>
