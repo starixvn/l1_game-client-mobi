@@ -10,12 +10,12 @@ const listIconName = ["fpc-nai", "fpc-bau", "fpc-ga", "fpc-ca", "fpc-cua", "fpc-
 const ChoiceIcon: React.FunctionComponent<Props> = ({ type, isSmall }) => {
     return isSmall ? (
         <div className={Styles["icon-mini"]}>
-            <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" alt="symbol" />
+            <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" width="28" height="28" alt="symbol" />
         </div>
     ) : (
         <div className={Styles["score-board-item"]}>
             <div className={Styles["symbol-size"]}>
-                <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" alt="symbol" />
+                <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" width="29" height="29" alt="symbol" />
             </div>
         </div>
     );
@@ -24,13 +24,9 @@ const ChoiceIcon: React.FunctionComponent<Props> = ({ type, isSmall }) => {
 export const ChoiceIconHistory: React.FunctionComponent<Props> = ({ type }) => {
     return (
         <div className={`${Styles["icon-bet-history"]}`}>
-            <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" alt="symbol" />
+            <img src={`/static/images/${listIconName[type]}.svg`} className="img-fluid" width="20" height="20" alt="symbol" />
         </div>
     );
-};
-
-export const ChoiceIconCompactMode: React.FunctionComponent<Props> = ({ type }) => {
-    return <div className={`${Styles["icon-simple-mode"]} ${listIconName[type]} ${Styles[listIconName[type].toString()]}`}></div>;
 };
 
 export default ChoiceIcon;
