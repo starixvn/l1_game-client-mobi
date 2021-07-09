@@ -101,7 +101,12 @@ const HeaderRight = ({ displayMenu }) => {
     return (
         <div className={Styles["header-right"]}>
             {viewMode !== ViewMode.collapse && (
-                <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
+                <button
+                    name="rebet"
+                    className={Styles.rebet}
+                    disabled={disabledRebet || Object.keys(ownBets).length !== 0}
+                    onClick={rebetClickHandle}
+                >
                     {t(CommonResourceKeys.REBET)}
                 </button>
             )}
