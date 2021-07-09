@@ -27,12 +27,6 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     useEffect(() => {
-        const handleWheel = (e) => {
-            e.preventDefault();
-            e.target.scrollLeft += e.deltaY;
-            updateScrollEndRight(e);
-        };
-
         const startDragging = (e) => {
             mouseDown = true;
             startX = e.pageX - e.target.offsetLeft;
@@ -56,7 +50,6 @@ const ScoreboardRoundHistory = (props: Props) => {
         };
 
         if (wrapperRef.current) {
-            wrapperRef.current.addEventListener("wheel", handleWheel);
             wrapperRef.current.addEventListener("mousedown", startDragging);
             wrapperRef.current.addEventListener("mouseup", stopDragging);
             wrapperRef.current.addEventListener("mouseleave", stopDragging);
@@ -65,7 +58,6 @@ const ScoreboardRoundHistory = (props: Props) => {
 
         return () => {
             if (wrapperRef.current) {
-                wrapperRef.current.removeEventListener("wheel", handleWheel);
                 wrapperRef.current.removeEventListener("mousedown", startDragging);
                 wrapperRef.current.removeEventListener("mouseup", stopDragging);
                 wrapperRef.current.removeEventListener("mouseleave", stopDragging);
