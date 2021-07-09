@@ -5,9 +5,10 @@ export default function SplashScreen({ locale }) {
     return (
         <div className={`${Styles.page}`}>
             <div className={Styles["logo"]}>
+                <img src={`/static/images/splash-screen/${locale}/logo.svg`} className="img-fluid" width="auto" height="auto" alt="Logo" />
                 <img
-                    src={`/static/images/splash-screen/${locale}/logo.svg`}
-                    className={Styles["img-fluid"]}
+                    src={`/static/images/splash-screen/${locale}/slogan.svg`}
+                    className={`img-fluid ${Styles["slogan"]}`}
                     width="auto"
                     height="auto"
                     alt="Logo"
