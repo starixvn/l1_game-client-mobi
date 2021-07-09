@@ -53,6 +53,8 @@
         /* Super Modern Browsers */ url("/static/fonts/robot/Roboto-Regular.woff") format("woff"),
         /* Modern Browsers */ url("/static/fonts/robot/Roboto-Regular.ttf") format("truetype"),
         /* Safari, Android, iOS */ url("/static/fonts/robot/Roboto-Regular.svg#Roboto") format("svg"); /* Legacy iOS */
+
+    font-display: swap;
 }
 /* roboto-500 */
 @font-face {
@@ -65,6 +67,7 @@
         /* Super Modern Browsers */ url("/static/fonts/robot/Roboto-Medium.woff") format("woff"),
         /* Modern Browsers */ url("/static/fonts/robot/Roboto-Medium.ttf") format("truetype"),
         /* Safari, Android, iOS */ url("/static/fonts/robot/Roboto-Medium.svg#Roboto") format("svg"); /* Legacy iOS */
+    font-display: swap;
 }
 /* roboto-700 */
 @font-face {
@@ -77,4 +80,5 @@
         /* Super Modern Browsers */ url("/static/fonts/robot/Roboto-Bold.woff") format("woff"),
         /* Modern Browsers */ url("/static/fonts/robot/Roboto-Bold.ttf") format("truetype"),
         /* Safari, Android, iOS */ url("/static/fonts/robot/Roboto-Bold.svg#Roboto") format("svg"); /* Legacy iOS */
+    font-display: swap;
 }
