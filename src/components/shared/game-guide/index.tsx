@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Spinner } from "reactstrap";
 import { v4 as uuidv4 } from "uuid";
 
@@ -43,14 +43,14 @@ const GameGuides: React.FC<Props> = (props) => {
     }, [wrapperRef]);
 
     return (
-        <div key={uuidv4()} className={Styles["container-guide"]} ref={wrapperRef}>
+        <div className={Styles["container-guide"]} ref={wrapperRef}>
             {isLoading && (
                 <div className={Styles["guide-loading"]}>
                     <Spinner color="secondary" />
                 </div>
             )}
             <iframe
-                key={Date.now()}
+                key={uuidv4()}
                 className={Styles["guide-iframe"]}
                 src={srcPath}
                 height={heightGuide}
