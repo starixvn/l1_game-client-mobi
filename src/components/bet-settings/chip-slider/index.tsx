@@ -161,7 +161,13 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                         } ${Styles[ChipMapper[value]]}`}
                         onClick={() => onClickChip(value)}
                     >
-                        <img src={`/static/images/chips/${ChipMapper[value]}.svg`} className={Styles["chip"]} alt="Chip" />
+                        <img
+                            src={`/static/images/chips/${ChipMapper[value]}.svg`}
+                            className={`img-fluid ${Styles["chip"]}`}
+                            width="60"
+                            height="62"
+                            alt="Chip"
+                        />
                         <span className={Styles["value"]}>{ChipLabelMapper[value]}</span>
                     </div>
                 ))}
