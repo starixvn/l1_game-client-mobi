@@ -19,9 +19,11 @@ const GameGuides: React.FC<Props> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
+    const [contentGuide, setContentGuide] = useState<any>(<></>);
     const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
         userStakeLevel?.maxBet
     }&v=${Date.now()}`;
+
     const hideSpinner = () => {
         setIsLoading(false);
     };
@@ -42,6 +44,23 @@ const GameGuides: React.FC<Props> = (props) => {
         };
     }, [wrapperRef]);
 
+    useEffect(() => {
+        if (heightGuide > 0 && widthGuide > 0) {
+            setContentGuide(
+                <iframe
+                    key={uuidv4()}
+                    className={Styles["guide-iframe"]}
+                    src={srcPath}
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    height={heightGuide}
+                    width={widthGuide}
+                    scrolling="auto"
+                    onLoad={hideSpinner}
+                />
+            );
+        }
+    }, [heightGuide, widthGuide]);
+
     return (
         <div className={Styles["container-guide"]} ref={wrapperRef}>
             {isLoading && (
@@ -49,15 +68,7 @@ const GameGuides: React.FC<Props> = (props) => {
                     <Spinner color="secondary" />
                 </div>
             )}
-            <iframe
-                key={uuidv4()}
-                className={Styles["guide-iframe"]}
-                src={srcPath}
-                height={heightGuide}
-                width={widthGuide}
-                scrolling="auto"
-                onLoad={hideSpinner}
-            />
+            {contentGuide}
         </div>
     );
 };
