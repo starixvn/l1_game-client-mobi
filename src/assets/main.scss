@@ -89,7 +89,7 @@ html {
 }
 
 [data-theme="light"] {
-    --page-background: #dce2f3;
+    --page-background-color: #fff;
     --page-background-image: url("/static/images/themes/background-theme-light.jpg");
     --text-color: #2c2f3e;
 
@@ -131,7 +131,7 @@ html {
 }
 
 [data-theme="dark"] {
-    --page-background: #101821;
+    --page-background-color: #203040;
     --page-background-image: url("/static/images/themes/background-theme-dark.jpg");
     --text-color: #fff;
 
@@ -181,7 +181,7 @@ html {
 body {
     padding: 0;
     margin: 0;
-    background: var(--page-background-image) no-repeat center center fixed;
+    background: var(--page-background-color) var(--page-background-image) no-repeat center center fixed;
     background-size: cover;
     font-family: var(--font-family);
     font-size: 1.4rem;
