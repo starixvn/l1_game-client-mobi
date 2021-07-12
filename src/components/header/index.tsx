@@ -27,7 +27,7 @@ const Header: React.FC<Props> = (props) => {
                     <a href={`/${locale}`} className={Styles["site-name"]}>
                         Saba.mobi
                     </a>
-                    <div className="d-flex align-items-center">
+                    <div className={Styles["header-right"]}>
                         {!isMobileOnly && (
                             <Settings
                                 enabledSound={props.enabledSound}

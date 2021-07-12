@@ -30,6 +30,11 @@
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
     z-index: var(--header-index);
 
+    .header-right {
+        display: flex;
+        box-sizing: border-box;
+    }
+
     .header-container {
         display: flex;
         justify-content: space-between;
