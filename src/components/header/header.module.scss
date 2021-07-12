@@ -48,6 +48,10 @@
         font-size: 1.8rem;
         color: var(--site-name-color);
         text-decoration: none;
+
+        &:hover {
+            text-decoration: none;
+        }
     }
 }
 
