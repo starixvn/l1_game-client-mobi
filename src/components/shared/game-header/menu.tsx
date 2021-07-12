@@ -28,17 +28,17 @@ export default function Menu() {
     };
 
     return (
-        <div className={Styles["dropdown"]}>
-            <div className={Styles["dropdown-toggle"]} onClick={toggle}>
+        <div className="dropdown">
+            <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`} onClick={toggle}>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
             </div>
-            <div className={Styles["dropdown-menu"]} hidden={!dropdownOpen}>
-                <span className={Styles[dropdownItemClassName]} onClick={openBetHistory}>
+            <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
+                <span className={dropdownItemClassName} onClick={openBetHistory}>
                     {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
                 </span>
-                <span className={Styles[dropdownItemClassName]} onClick={openGuide}>
+                <span className={dropdownItemClassName} onClick={openGuide}>
                     {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
                 </span>
             </div>

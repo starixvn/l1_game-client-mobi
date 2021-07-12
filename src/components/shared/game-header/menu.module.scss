@@ -40,6 +40,8 @@
     }
 
     &:hover {
+        cursor: pointer;
+
         &:before {
             transform: scale(1);
             opacity: 1;
