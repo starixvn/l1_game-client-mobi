@@ -1,6 +1,15 @@
 .round-dot-wrapper {
     display: flex;
 
+    .tooltip {
+        position: absolute;
+        will-change: transform;
+        top: 0px;
+        left: 0px;
+        transform: translate3d(284px, 309px, 0px);
+        background: var(--tooltip-background);
+    }
+
     .dot-wrapper {
         margin-left: 0.15rem;
         margin-right: 0.15rem;

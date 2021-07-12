@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -29,20 +28,20 @@ export default function Menu() {
     };
 
     return (
-        <Dropdown isOpen={dropdownOpen} toggle={toggle} className={Styles["dropdown"]}>
-            <DropdownToggle className={Styles["dropdown-toggle"]}>
+        <div className={Styles["dropdown"]}>
+            <div className={Styles["dropdown-toggle"]} onClick={toggle}>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
-            </DropdownToggle>
-            <DropdownMenu right className={Styles["dropdown-menu"]}>
-                <DropdownItem className={Styles[dropdownItemClassName]} onClick={openBetHistory}>
+            </div>
+            <div className={Styles["dropdown-menu"]} hidden={!dropdownOpen}>
+                <span className={Styles[dropdownItemClassName]} onClick={openBetHistory}>
                     {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
-                </DropdownItem>
-                <DropdownItem className={Styles[dropdownItemClassName]} onClick={openGuide}>
+                </span>
+                <span className={Styles[dropdownItemClassName]} onClick={openGuide}>
                     {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
-                </DropdownItem>
-            </DropdownMenu>
-        </Dropdown>
+                </span>
+            </div>
+        </div>
     );
 }

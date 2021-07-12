@@ -3,7 +3,6 @@ import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { Table } from "react-infinite-table";
-import { Spinner } from "reactstrap";
 
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
@@ -255,7 +254,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         <div className="table-container" ref={wrapperRef}>
             {isFirstLoad ? (
                 <div className={Styles["history-loading"]}>
-                    <Spinner color="secondary" />
+                    <span className={Styles["spinner"]} />
                 </div>
             ) : listBetHistory.length > 1 ? (
                 <Table
@@ -270,7 +269,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     infiniteLoadBeginEdgeOffset={100}
                     isInfiniteLoading={isInfiniteLoading}
                     onInfiniteLoad={onInfiniteLoad}
-                    getLoadingSpinner={() => <Spinner color="secondary" />}
+                    getLoadingSpinner={() => <span className={Styles["spinner"]} />}
                 />
             ) : (
                 t("noBetHistory")

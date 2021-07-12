@@ -29,7 +29,6 @@
         "react-loading-skeleton": "^2.2.0",
         "react-router-dom": "^5.2.0",
         "react-slick": "^0.28.1",
-        "reactstrap": "^8.9.0",
         "sass": "^1.32.8",
         "sc-user-service-client": "1.2.0",
         "slick-carousel": "^1.8.1",
