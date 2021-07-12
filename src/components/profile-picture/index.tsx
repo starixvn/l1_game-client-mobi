@@ -14,7 +14,13 @@ const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick
     return (
         <div className={Styles["profile-picture"]} onClick={handleClick}>
             {avatarId > 0 && avatarId < 41 ? (
-                <img src={`/static/images/avatar/${avatarId}.png`} className={Styles["avatar"]} alt="Avatar" />
+                <img
+                    src={`/static/images/avatar/${avatarId}.png`}
+                    className={`img-fluid ${Styles["avatar"]}`}
+                    height="94"
+                    width="94"
+                    alt="Avatar"
+                />
             ) : (
                 <span className={`icon-user ${Styles["icon-user"]}`}></span>
             )}

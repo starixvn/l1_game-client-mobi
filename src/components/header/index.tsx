@@ -45,7 +45,7 @@ const Header: React.FC<Props> = (props) => {
                             </div>
                             <div className={Styles["avatar"]}>
                                 {props.avatarId > 0 && props.avatarId < 41 ? (
-                                    <img src={pathAvatar} className="img-fluid" alt="Avatar" />
+                                    <img src={pathAvatar} className="img-fluid" height="40" width="40" alt="Avatar" />
                                 ) : (
                                     <span className={`icon-user ${Styles["icon-user"]}`}></span>
                                 )}
