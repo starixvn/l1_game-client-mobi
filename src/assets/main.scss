@@ -2,6 +2,7 @@
 @import "~slick-carousel/slick/slick.scss";
 @import "./components/fonts";
 @import "./components/icons";
+@import "./components/common";
 @import "./components/buttons";
 @import "./components/dropdown";
 @import "./components/animations/loader-animation";
@@ -203,103 +204,5 @@ body {
 
     @media (min-width: 1260px) {
         width: 126rem;
-    }
-}
-
-.overlay-mask-no-bg {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: var(--overlay-index);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.overlay-mask {
-    @extend .overlay-mask-no-bg;
-    background: var(--opacity-background);
-}
-
-.overlay-mask-white {
-    @extend .overlay-mask-no-bg;
-    background: var(--opacity-background-grey);
-    opacity: 0.9;
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
-.d-flex {
-    display: flex !important;
-}
-.justify-content-center {
-    justify-content: center !important;
-}
-
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
-
-.font-weight-bold {
-    font-weight: 700 !important;
-}
-
-.font-number {
-    font-family: var(--font-number);
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-    background-color: var(--scrollbar-background);
-}
-
-::-webkit-scrollbar {
-    width: 0.5rem;
-    height: 0.6rem;
-    background-color: var(--scrollbar-background);
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: var(--scrollbar-thumb-background);
-}
-
-.tooltip {
-    .tooltip-inner {
-        background: var(--tooltip-background) !important;
-        color: --tooltip-color !important;
-    }
-
-    .arrow::before {
-        border-top-color: var(--tooltip-background) !important;
-    }
-}
-
-.font-weight-medium {
-    font-weight: 500;
-}
-
-.icon-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3rem;
-    width: 3rem;
-    border-radius: 50%;
-    background: var(--icon-close-background);
-
-    &:before {
-        font-size: 1.2rem;
-        color: var(--icon-close-color);
-    }
-
-    &:hover {
-        cursor: pointer;
     }
 }
