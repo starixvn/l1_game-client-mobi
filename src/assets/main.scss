@@ -229,13 +229,26 @@ body {
     opacity: 0.9;
 }
 
-label {
-    margin-bottom: 0;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.d-flex {
+    display: flex !important;
+}
+.justify-content-center {
+    justify-content: center !important;
 }
 
 .img-fluid {
     max-width: 100%;
     height: auto;
+}
+
+.font-weight-bold {
+    font-weight: 700 !important;
 }
 
 .font-number {
