@@ -574,11 +574,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
-                this.retryInterval = setInterval(() => {
-                    this.socket.emit("retry");
-                }, 3 * 1000);
+                this.setRetryInterval();
                 this.socket.emit("bet", { betChoice, amount });
             }
+        }
+    }
+
+    setRetryInterval() {
+        if (!this.retryInterval) {
+            this.retryInterval = setInterval(() => {
+                this.socket.emit("retry");
+            }, 3 * 1000);
         }
     }
 
