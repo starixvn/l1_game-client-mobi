@@ -17,7 +17,7 @@ const generateResult = (result: Result) => {
             const src = `/static/images/${nameDices[result[dice]]}.png`;
             return (
                 <div key={index} className={Styles[classResult[dice]]}>
-                    <img src={src} className={Styles["dice"]} alt="dice" />
+                    <img src={src} className={Styles["dice"]} width={32} height={29} alt="dice" />
                 </div>
             );
         })
@@ -56,7 +56,7 @@ export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ res
                         <div key={index} className={Styles["result-item"]}>
                             <div className={Styles[`dice${index + 1}`]}></div>
                             <div className={Styles[`result${index + 1}`]}>
-                                <img src={src} className={`img-fluid ${Styles["dice"]}`} alt="dice" />
+                                <img src={src} className={`img-fluid ${Styles["dice"]}`} width={36} height={33} alt="dice" />
                             </div>
                         </div>
                     );

@@ -37,6 +37,8 @@ const Card: React.FC<Props> = (props) => {
                         <img
                             src={`/static/images/${suffixClassMapping[result.type]}.png`}
                             className={Styles["card-suite-small"]}
+                            height={8}
+                            width={8}
                             alt="suite"
                         />
                     </div>
@@ -44,6 +46,8 @@ const Card: React.FC<Props> = (props) => {
                         <img
                             src={`/static/images/${iconLarge}.png`}
                             className={`${pictureCard[convertRank(result.card)] ? Styles["card-picture"] : Styles["card-suite-large"]}`}
+                            height={21}
+                            width={21}
                             alt="suite"
                         />
                     </div>

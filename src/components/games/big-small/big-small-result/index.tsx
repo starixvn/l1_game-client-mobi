@@ -35,6 +35,8 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
                                     <img
                                         src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
                                         className={Styles["dice"]}
+                                        width={30}
+                                        height={30}
                                         alt="dice"
                                     />
                                 </div>
@@ -63,6 +65,8 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                             <img
                                 src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
                                 className={`img-fluid ${Styles["dice"]}`}
+                                width={33}
+                                height={33}
                                 alt="dice"
                             />
                         </div>
