@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
@@ -13,23 +13,39 @@ export default function Menu() {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { openPopup } = useGameActionContext();
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setDropdownOpen((prevState) => !prevState);
+        setDropdownOpen(!dropdownOpen);
     };
 
     const openBetHistory = () => {
         openPopup(PopupType.BetHistory);
+        setDropdownOpen(false);
     };
 
     const openGuide = () => {
         openPopup(PopupType.Guide);
+        setDropdownOpen(false);
     };
 
+    const handleClickOutside = (event) => {
+        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            setDropdownOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
     return (
-        <div className="dropdown">
-            <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`} onClick={toggle}>
+        <div className="dropdown" onClick={toggle} ref={wrapperRef}>
+            <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`}>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
                 <div className={Styles[hamburgerDotClassName]}></div>
