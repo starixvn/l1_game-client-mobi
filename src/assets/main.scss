@@ -190,6 +190,10 @@ body {
     &.no-scroll {
         overflow: hidden !important;
     }
+
+    @media (min-device-width: 768px) {
+        min-width: 40rem;
+    }
 }
 
 .game-container {

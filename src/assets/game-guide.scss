@@ -152,4 +152,12 @@ ul {
             }
         }
     }
+
+    .dots-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 0.2rem;
+        width: 7.2rem;
+        margin: auto;
+    }
 }
