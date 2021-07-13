@@ -1,9 +1,8 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
-
+import { ViewMode } from "../game-base/type";
 import Styles from "./styles.module.scss";
 
-const GameLoading = () => {
+const GameLoading: React.FC<{ viewMode: ViewMode }> = ({ viewMode }) => {
     const classBorder = "border-radius";
     const classScoreBoard = "score-board-line";
     const classSkeletonBackground = "skeleton-background";
@@ -12,30 +11,34 @@ const GameLoading = () => {
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={157} />
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={46} />
+                    <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+                    <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
                 </div>
-                <Skeleton className={Styles[classSkeletonBackground]} circle={true} height={40} width={40} />
+                <span className={`${Styles[classSkeletonBackground]} ${Styles["skeleton-circle"]}`} />
                 <div className={Styles["header-right"]}>
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={84} />
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={14} />
+                    <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+                    <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
                 </div>
             </div>
-            <div className={Styles["bet-container"]}>
-                <Skeleton className={Styles[classSkeletonBackground]} height={273} />
-            </div>
-            <div className={Styles["mini-round-history"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
-            </div>
-            <div className={Styles["statistic"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
-            </div>
-            <div className={Styles.scoreboard}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={290} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={190} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={250} />
-            </div>
+            {viewMode !== ViewMode.collapse && (
+                <>
+                    <div className={Styles["bet-container"]}>
+                        <span className={Styles[classSkeletonBackground]} />
+                    </div>
+                    <div className={Styles["mini-round-history"]}>
+                        <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+                    </div>
+                    <div className={Styles["statistic"]}>
+                        <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+                    </div>
+                    <div className={Styles.scoreboard}>
+                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                    </div>
+                </>
+            )}
         </div>
     );
 };
