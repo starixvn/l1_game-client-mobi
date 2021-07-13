@@ -94,7 +94,7 @@ function Home() {
         setSession(userSession);
 
         reCheckIn();
-        setTimeout(() => setLoading(false), 300);
+        setLoading(false);
     }
 
     function handleShowApiErrorMessage(errorCode: string) {
