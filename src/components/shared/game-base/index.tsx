@@ -517,7 +517,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
-        roundHistoryClone.length > 100 && roundHistoryClone.pop();
+        roundHistoryClone.length > 40 && roundHistoryClone.pop();
 
         this.setState({
             playResultAnimation: true,
