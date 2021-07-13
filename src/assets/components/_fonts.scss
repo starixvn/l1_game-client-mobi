@@ -12,23 +12,21 @@
 
 @font-face {
     font-family: "BinanceFlex";
-    src: url("/static/fonts/Number-Regular.woff2?v=1623910877514") format("woff2"),
-        url("/static/fonts/Number-Regular.ttf?v=1623910877514") format("truetype");
+    src: url("/static/fonts/Number-Regular.woff2") format("woff2"), url("/static/fonts/Number-Regular.ttf") format("truetype");
     font-weight: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "BinanceFlex";
-    src: url("/static/fonts/Number-Medium.woff2?v=1623910877514") format("woff2"),
-        url("/static/fonts/Number-Medium.ttf?v=1623910877514") format("truetype");
+    src: url("/static/fonts/Number-Medium.woff2") format("woff2"), url("/static/fonts/Number-Medium.ttf") format("truetype");
     font-weight: 500;
     font-display: swap;
 }
 
 @font-face {
     font-family: "BebasNeue";
-    src: url("/static/fonts/BebasNeue-Regular.ttf?v=1623910877514") format("truetype");
+    src: url("/static/fonts/BebasNeue-Regular.ttf") format("truetype");
     font-weight: normal;
     font-display: swap;
 }
