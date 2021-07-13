@@ -42,9 +42,6 @@
 
                 td {
                     position: sticky;
-                    position: -webkit-sticky;
-                    position: -moz-sticky;
-                    position: -o-sticky;
                     top: 0;
                     z-index: 2;
                     height: 3.6rem;
@@ -87,6 +84,7 @@
 
                 td {
                     padding: 0.2rem;
+
                     &.highlight {
                         background-color: var(--table-row-highlight-background);
                     }

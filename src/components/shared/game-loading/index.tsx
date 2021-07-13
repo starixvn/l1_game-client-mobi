@@ -20,25 +20,21 @@ const GameLoading: React.FC<{ viewMode: ViewMode }> = ({ viewMode }) => {
                     <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
                 </div>
             </div>
-            {viewMode !== ViewMode.collapse && (
-                <>
-                    <div className={Styles["bet-container"]}>
-                        <span className={Styles[classSkeletonBackground]} />
-                    </div>
-                    <div className={Styles["mini-round-history"]}>
-                        <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
-                    </div>
-                    <div className={Styles["statistic"]}>
-                        <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
-                    </div>
-                    <div className={Styles.scoreboard}>
-                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
-                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
-                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
-                        <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
-                    </div>
-                </>
-            )}
+            <div className={Styles["bet-container"]}>
+                <span className={Styles[classSkeletonBackground]} />
+            </div>
+            <div className={Styles["mini-round-history"]}>
+                <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+            </div>
+            <div className={Styles["statistic"]}>
+                <span className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} />
+            </div>
+            <div className={Styles.scoreboard}>
+                <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+                <span className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} />
+            </div>
         </div>
     );
 };
