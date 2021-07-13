@@ -13,7 +13,7 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
 
     return (
         <>
-            <span className="tooltip-round">#{roundId}</span>
+            <div className="tooltip-round">#{roundId}</div>
             <div className={Styles["tooltip-content"]}>
                 <span className="tooltip-result">{settlementResult.even ? t("even") : t("odd")}</span>
                 <div className={Styles["tooltip-group"]}>

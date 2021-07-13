@@ -10,12 +10,12 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
 
     return (
         <>
-            <span className="tooltip-round">#{roundId}</span>
+            <div className="tooltip-round">#{roundId}</div>
             <div>
-                <span className="tooltip-title">
+                <div className="tooltip-title">
                     <span className="tooltip-result">{settlementResult.big ? t("big") : t("small")}</span>(
                     <span className="tooltip-number">{ResultValue.join("-")}</span>)
-                </span>
+                </div>
             </div>
         </>
     );

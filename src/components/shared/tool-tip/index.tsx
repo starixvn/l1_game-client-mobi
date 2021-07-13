@@ -33,6 +33,10 @@ export default class ContainerToolTip extends React.PureComponent<Props> {
     }
 
     render() {
-        return <div ref={this.wrapperRef}>{this.props.children}</div>;
+        return (
+            <div ref={this.wrapperRef} className={`tooltip ${this.props.isOpen ? "show" : ""}`}>
+                <div className="tooltip-inner">{this.props.children}</div>
+            </div>
+        );
     }
 }

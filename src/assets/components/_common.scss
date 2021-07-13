@@ -92,17 +92,6 @@ img {
     opacity: 0.9;
 }
 
-.tooltip {
-    .tooltip-inner {
-        background: var(--tooltip-background) !important;
-        color: --tooltip-color !important;
-    }
-
-    .arrow::before {
-        border-top-color: var(--tooltip-background) !important;
-    }
-}
-
 .icon-close {
     display: flex;
     align-items: center;

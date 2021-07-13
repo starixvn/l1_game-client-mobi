@@ -20,14 +20,12 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
 
     return (
         <div>
-            <span className="tooltip-round">#{roundId}</span>
-            <div>
-                <span className="tooltip-title">
-                    <span className="tooltip-result">
-                        {settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragon") : t("tiger")}{" "}
-                    </span>
-                    {renderValueCard(result["dragon"])} | {renderValueCard(result["tiger"])}
+            <div className="tooltip-round">#{roundId}</div>
+            <div className="tooltip-title">
+                <span className="tooltip-result">
+                    {settlementResult.tie ? t("tie") : settlementResult.dragon ? t("dragon") : t("tiger")}{" "}
                 </span>
+                {renderValueCard(result["dragon"])} | {renderValueCard(result["tiger"])}
             </div>
         </div>
     );

@@ -22,52 +22,24 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
 
-    .border-radius {
-        border-radius: 0.7rem;
-    }
+.border-radius {
+    border-radius: 0.7rem;
+}
 
-    .full-size {
-        width: 100%;
-        height: 100%;
-    }
+.full-size {
+    width: 100%;
+    height: 100%;
+}
 
-    .skeleton-item {
-        background: var(--skeleton-item-background);
+.skeleton-item {
+    background: var(--skeleton-item-background);
+}
 
-        &.game-name {
-            width: 15.7rem;
-            height: 1.4rem;
-            margin-bottom: 0.4rem;
-        }
-
-        &.round-id {
-            width: 4.6rem;
-            height: 1.4rem;
-        }
-
-        &.countdown-timer {
-            width: 4.2rem;
-            height: 4.2rem;
-            border-radius: 50%;
-        }
-
-        &.rebet {
-            width: 8.7rem;
-            height: 4.2rem;
-            border-radius: 4rem;
-        }
-
-        &.menu {
-            width: 1.4rem;
-            height: 4.2rem;
-        }
-    }
-
-    .skeleton-item-large {
-        @extend .full-size;
-        border-radius: 4rem;
-    }
+.skeleton-item-large {
+    @extend .full-size;
+    border-radius: 4rem;
 }
 
 .header {
@@ -81,6 +53,34 @@
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     cursor: auto;
+
+    .game-name {
+        width: 15.7rem;
+        height: 1.4rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .round-id {
+        width: 4.6rem;
+        height: 1.4rem;
+    }
+
+    .countdown-timer {
+        width: 4.2rem;
+        height: 4.2rem;
+        border-radius: 50%;
+    }
+
+    .rebet {
+        width: 8.7rem;
+        height: 4.2rem;
+        border-radius: 4rem;
+    }
+
+    .menu {
+        width: 1.4rem;
+        height: 4.2rem;
+    }
 }
 
 .header-left {
