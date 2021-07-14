@@ -21,11 +21,11 @@ const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName, gameSt
     return (
         <div className={Styles["dot-wrapper"]} onClick={toggleTooltip}>
             <div id={targetName}>{children}</div>
-            <ContainerToolTip isOpen={isOpenTooltip} onClose={toggleTooltip}>
-                <div className={Styles.tooltip} hidden={!isOpenTooltip}>
-                    {renderRoundDetail}
-                </div>
-            </ContainerToolTip>
+            {isOpenTooltip && (
+                <ContainerToolTip isOpen={true} onClose={toggleTooltip}>
+                    <div className={Styles.tooltip}>{renderRoundDetail}</div>
+                </ContainerToolTip>
+            )}
         </div>
     );
 };
