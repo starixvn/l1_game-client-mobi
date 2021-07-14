@@ -254,7 +254,7 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                                 <tr>
                                     <td>4 red</td>
                                     <td>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="dots-container">
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-odd"]}></span>
@@ -270,7 +270,7 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                                 <tr>
                                     <td>4 white</td>
                                     <td>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="dots-container">
                                             <span className={Styles["dot-even"]}></span>
                                             <span className={Styles["dot-even"]}></span>
                                             <span className={Styles["dot-even"]}></span>
@@ -286,7 +286,7 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                                 <tr>
                                     <td>2 red, 2 white</td>
                                     <td>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="dots-container">
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-even"]}></span>
@@ -302,7 +302,7 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                                 <tr>
                                     <td>3 red, 1 white</td>
                                     <td>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="dots-container">
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-odd"]}></span>
@@ -318,7 +318,7 @@ const SeDieGuideEN: React.FC<GameGuide> = (props) => {
                                 <tr>
                                     <td>1 red, 3 white</td>
                                     <td>
-                                        <div className="d-flex justify-content-center">
+                                        <div className="dots-container">
                                             <span className={Styles["dot-odd"]}></span>
                                             <span className={Styles["dot-even"]}></span>
                                             <span className={Styles["dot-even"]}></span>
