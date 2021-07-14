@@ -30,13 +30,14 @@ const AdvanceModal: React.FC<Props> = ({
     const ref = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        const currentPosition = ref.current.getBoundingClientRect();
+        const wrapperRect = ref.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        windowHeight / currentPosition.y > 2
+        windowHeight / (wrapperRect.top + wrapperRect.bottom) > 1
             ? ref.current.scrollIntoView({ block: "end" })
             : ref.current.scrollIntoView({ block: "start" });
-    }, [ref.current]);
+    }, []);
+
     useEffect(() => {
         isMobileOnly && isAddScrollBody && document.body.classList.add("no-scroll");
         return () => {
