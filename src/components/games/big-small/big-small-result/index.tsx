@@ -14,7 +14,7 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
             <div className="overlay-mask">
                 <div
                     className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
-                        gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]
+                        gameSetting.id === 1 ? Styles["taixiu"] : ""
                     }`}
                 >
                     <div className={Styles["result-plate"]}></div>

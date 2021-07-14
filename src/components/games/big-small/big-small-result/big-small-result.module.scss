@@ -3,12 +3,12 @@
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
 
-$time-hide-toss-dices-animation: 1.5s;
-$time-delay-show-result-animation: $time-hide-toss-dices-animation - 0.1s;
-$time-show-result-animation: 0.1s;
-$time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-animation;
-
 .normal-mode {
+    --time-hide-toss-dices-animation: 1.5s;
+    --time-delay-show-result-animation: calc(var(--time-hide-toss-dices-animation) - 0.1s);
+    --time-show-result-animation: 0.1s;
+    --time-delay-move-up-result: calc(var(--time-hide-toss-dices-animation) + var(--time-show-result-animation));
+
     .toss-dices {
         display: none;
     }
@@ -31,6 +31,13 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
         --move-up-distance: -4.5rem;
         --result-scale: 1;
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+
+        &.taixiu {
+            --time-hide-toss-dices-animation: 1.7s;
+            --time-delay-show-result-animation: calc(var(--time-hide-toss-dices-animation) - 0.2s);
+            --time-show-result-animation: 0.3s;
+            --time-delay-move-up-result: calc(0.3s + var(--time-hide-toss-dices-animation) + var(--time-show-result-animation));
+        }
     }
 
     .result-plate {
@@ -57,7 +64,7 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
     .has-animation {
         @extend .move-up-animation;
         transform: scale(var(--result-scale));
-        animation-delay: $time-delay-move-up-result;
+        animation-delay: var(--time-delay-move-up-result);
 
         .toss-dices {
             display: block;
@@ -67,7 +74,7 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
             transform: scale(0.7);
             animation-name: hide-toss-dices-animation;
             animation-delay: 0ms;
-            animation-duration: $time-hide-toss-dices-animation;
+            animation-duration: var(--time-hide-toss-dices-animation);
             animation-fill-mode: forwards;
             animation-timing-function: linear;
         }
@@ -75,8 +82,8 @@ $time-delay-move-up-result: $time-hide-toss-dices-animation + $time-show-result-
         .result-container {
             opacity: 0;
             animation-name: show-result-animation;
-            animation-delay: $time-delay-show-result-animation;
-            animation-duration: $time-show-result-animation;
+            animation-delay: var(--time-delay-show-result-animation);
+            animation-duration: var(--time-show-result-animation);
             animation-fill-mode: forwards;
             animation-timing-function: linear;
         }
