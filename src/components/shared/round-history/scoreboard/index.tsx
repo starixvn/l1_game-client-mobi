@@ -6,10 +6,11 @@ type Props = {
     children: React.ReactNode;
 };
 
+let isScrollEndRight = true;
+let scrollLeftWidth = 0;
+
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
-    const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
 
     let mouseDown = false;
     let startX, scrollLeft;
@@ -20,9 +21,9 @@ const ScoreboardRoundHistory = (props: Props) => {
 
     const updateScrollEndRight = (e) => {
         if (e.target.scrollLeft === scrollLeftWidth) {
-            setIsScrollEndRight(true);
+            isScrollEndRight = true;
         } else {
-            setIsScrollEndRight(false);
+            isScrollEndRight = false;
         }
     };
 
@@ -72,7 +73,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         if (wrapperRef.current) {
-            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft));
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft);
         }
     });
 

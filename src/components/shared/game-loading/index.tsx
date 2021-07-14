@@ -1,10 +1,8 @@
 import React from "react";
-import { ViewMode } from "../game-base/type";
 import Styles from "./styles.module.scss";
 
 const GameLoading: React.FC<{}> = () => {
     const classBorder = "border-radius";
-    const classScoreBoard = "score-board-line";
     const classSkeletonItem = "skeleton-item";
 
     return (
