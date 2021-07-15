@@ -7,7 +7,6 @@ type Props = {
 
 export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    let customStyle: string;
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
