@@ -1,0 +1,12 @@
+{
+    "game_name": "Baccarat",
+    "banker": "Banker",
+    "player": "Player",
+    "big": "Big",
+    "small": "Small",
+    "tie": "Tie",
+    "bankerPair": "Banker Pair",
+    "playerPair": "PlayerPair",
+    "bankerTextDot": "B",
+    "playerTextDot": "P"
+}

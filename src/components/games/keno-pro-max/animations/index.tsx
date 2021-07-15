@@ -17,7 +17,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     settlementResult,
 }) => {
     const { playResultAnimation } = useGameContext();
-    const { t } = useTranslation("xocxoc");
+    const { t } = useTranslation("kenopromax");
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container"]}></div>

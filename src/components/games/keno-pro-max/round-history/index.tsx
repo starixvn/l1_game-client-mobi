@@ -2,14 +2,14 @@ import React from "react";
 
 import { Round } from "../../../../types";
 import { RoundDot } from "../../../shared/round-history/dot";
-import { checkIsEven, Choices, countRedDot } from "../keno-pro-max-helper";
+import { Choices } from "../keno-pro-max-helper";
 import { Result, SettlementResult } from "../keno-pro-max";
 import Styles from "./mini-round-history.module.scss";
 
 export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
     const { roundId, settlementResult, result } = round;
     const totalDiceRed = 4;
-    const countRed = countRedDot(result);
+    const countRed = 1;
 
     return (
         <>
@@ -30,10 +30,5 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
 };
 
 export const RenderKenoProMaxDot = (round: Round<Result, SettlementResult>, isShowBlink: boolean, index: number, numberOfItems: number) => {
-    return (
-        <RoundDot
-            choice={checkIsEven(countRedDot(round.result)) ? Choices.even : Choices.odd}
-            highlight={!isShowBlink && index === numberOfItems - 1}
-        />
-    );
+    return <RoundDot choice={true ? Choices.big : Choices.small} highlight={!isShowBlink && index === numberOfItems - 1} />;
 };

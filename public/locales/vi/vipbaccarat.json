@@ -1,0 +1,12 @@
+{
+    "game_name": "Cào Baccarat VIP",
+    "banker": "Nhà Cái",
+    "player": "Nhà Con",
+    "big": "Tài",
+    "small": "Xỉu",
+    "tie": "Hoà",
+    "bankerPair": "Cái Đôi",
+    "playerPair": "Con Đôi",
+    "bankerTextDot": "B",
+    "playerTextDot": "P"
+}

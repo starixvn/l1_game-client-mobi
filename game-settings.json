@@ -97,6 +97,22 @@
             "beforeStartRound": 0
         }
     },
+    "10": {
+        "id": 10,
+        "gameName": "Baccarat",
+        "socketInfo": {
+            "namespace": "baccarat",
+            "path": "baccarat"
+        },
+        "durations": {
+            "wholeRound": 46,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 15,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
     "22": {
         "id": 22,
         "gameName": "VipSeDie",
@@ -111,6 +127,22 @@
             "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 2
+        }
+    },
+    "27": {
+        "id": 27,
+        "gameName": "VipBaccarat",
+        "socketInfo": {
+            "namespace": "vipbaccarat",
+            "path": "vipbaccarat"
+        },
+        "durations": {
+            "wholeRound": 46,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 15,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
         }
     }
 }
