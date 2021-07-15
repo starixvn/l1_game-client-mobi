@@ -19,6 +19,7 @@ export type APIErrorProp = {
 
 const sessionKey = LocalStorageManager.localStorageKeys.session;
 let authorizeInfo: AuthorizeResponse = null;
+let session: SSOResponse = null;
 
 const signIn = async (handleSignInSuccess: Function, router: NextRouter) => {
     const { settings: settingsService } = UserClientCommunication.getUserClientInstance();
@@ -75,7 +76,6 @@ export const signOut = () => {
 function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
-    const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
@@ -91,10 +91,10 @@ function Home() {
             setCharacterName(authorizeInfo.user.name);
         }
 
-        setSession(userSession);
+        session = userSession;
 
         reCheckIn();
-        setTimeout(() => setLoading(false), 100);
+        setLoading(false);
     }
 
     function handleShowApiErrorMessage(errorCode: string) {
