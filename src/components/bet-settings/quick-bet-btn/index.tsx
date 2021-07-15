@@ -65,37 +65,14 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     return (
-        <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]}`}>
-            <div>
-                {!enabledQuickBet && <div className={Styles["ripple-animation"]}></div>}
-                <input
-                    className={Styles["toggle-checkbox"]}
-                    id="toggle-quickbet"
-                    type={"checkbox"}
-                    value={"Quick Bet"}
-                    checked={!!enabledQuickBet}
-                    onChange={onClickQuickBet}
-                />
-                <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                    <div className={Styles["quick-bet-icon"]}></div>
-                </label>
-                <div className={Styles["one-click-bet"]} onClick={onClickQuickBet}>
-                    1-Click Bet
-                </div>
+        <>
+            <div className={Styles["quick-bet-global"]}>
+                <div className={Styles["quick-bet-chip"]}>{enabledQuickBet && <span className="icon-dollar"></span>}</div>
+                <span className={Styles["quick-bet-text"]}>Quick Bet</span>
+                <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
             </div>
-            {isShowModalConfirm && !!enabledQuickBet === false && (
-                <div className={Styles["modalConfirm"]}>
-                    <div className={`${Styles["bg-opacity"]}`}></div>
-                    <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
-                        <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
-                    </BaseDialog>
-                </div>
-            )}
             {enabledQuickBet === undefined && isShowTooltip && (
-                <div
-                    ref={tooltipRef}
-                    className={`popover-custom ${isMobileOnly ? `bottom ${Styles["isMobile"]}` : "top"} ${Styles["hint-one-click-bet"]} `}
-                >
+                <div ref={tooltipRef} className={`popover-custom bottom ${Styles["isMobile"]} ${Styles["hint-one-click-bet"]} `}>
                     <div className={Styles.content}>
                         <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
                     </div>
@@ -109,6 +86,35 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                     </div>
                 </div>
             )}
-        </div>
+        </>
+
+        //     <div className={`${Styles["toggle"]}`}>
+        //         <div>
+        //             {!enabledQuickBet && <div className={Styles["ripple-animation"]}></div>}
+        //             <input
+        //                 className={Styles["toggle-checkbox"]}
+        //                 id="toggle-quickbet"
+        //                 type={"checkbox"}
+        //                 value={"Quick Bet"}
+        //                 checked={!!enabledQuickBet}
+        //                 onChange={onClickQuickBet}
+        //             />
+        //             <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+        //                 <div className={Styles["quick-bet-icon"]}></div>
+        //             </label>
+        //             <div className={Styles["one-click-bet"]} onClick={onClickQuickBet}>
+        //                 1-Click Bet
+        //             </div>
+        //         </div>
+        //         {isShowModalConfirm && !!enabledQuickBet === false && (
+        //             <div className={Styles["modalConfirm"]}>
+        //                 <div className={`${Styles["bg-opacity"]}`}></div>
+        //                 <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
+        //                     <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
+        //                 </BaseDialog>
+        //             </div>
+        //         )}
+
+        //     </div>
     );
 };

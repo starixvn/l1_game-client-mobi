@@ -1,107 +1,48 @@
-[data-theme="light"] .toggle {
-    --one-click-bet-text-color: #2c2f3e;
+[data-theme="light"] .quick-bet-global {
+    --quick-bet-global-background: url("/static/images/quick-bet-global.svg");
+    --quick-bet-global-text-color: #000;
+    --dropdown-icon-color: #825000;
 }
 
-[data-theme="dark"] .toggle {
-    --one-click-bet-text-color: #fff;
+[data-theme="dark"] .quick-bet-global {
+    --quick-bet-global-background: url("/static/images/quick-bet-global.svg");
+    --quick-bet-global-text-color: #fff;
+    --dropdown-icon-color: #825000;
 }
 
-.toggle {
-    display: block;
-    position: relative;
-    user-select: none;
-    left: 0;
-    top: 0.8rem;
-    animation-delay: 2s;
-    animation-iteration-count: 3;
-    z-index: calc(var(--result-animation-index) + 1);
+.quick-bet-global {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 3.4rem;
+    padding: 0 1rem;
+    background: var(--quick-bet-global-background) no-repeat center;
+    background-size: cover;
 
-    @media (min-width: 768px) {
-        position: absolute;
-        top: 2.5rem;
-        left: 2.6rem;
+    &:hover {
+        cursor: pointer;
     }
 
-    .toggle-checkbox {
-        display: none;
+    .quick-bet-chip {
+        height: 2.2rem;
+        width: 2.2rem;
+        background: url("/static/images/chip-bg.svg") no-repeat center;
+        background-size: 2.2rem 2.2rem;
     }
 
-    .toggle-btn {
-        position: relative;
+    .quick-bet-text {
+        margin-left: 0.4rem;
+        margin-right: 0.4rem;
+        color: var(--quick-bet-global-text-color);
+    }
+
+    .icon-arrow-down {
         display: flex;
         align-items: center;
-        margin: 0 auto;
-        background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
-        box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
-        border-radius: 1.55rem;
-        transition: all 350ms ease-in;
 
-        &:hover {
-            cursor: pointer;
-        }
-
-        .quick-bet-icon {
-            position: absolute;
-            height: 3.3rem;
-            width: 3.3rem;
-            transition: left 100ms ease-in;
-            background: url("/static/images/icon-quick-bet.svg?v=1625225065074") no-repeat center;
-        }
-    }
-
-    .toggle-checkbox:checked {
-        & + .toggle-btn {
-            background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
-
-            > .quick-bet-icon {
-                background: url("/static/images/icon-quick-bet-active.svg?v=1625225065074") no-repeat center;
-            }
-        }
-    }
-
-    &.header-setting {
-        .toggle-btn {
-            width: 4.4rem;
-            height: 1.4rem;
-        }
-
-        .quick-bet-icon {
-            left: -0.3rem;
-        }
-
-        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
-            left: 1.4rem;
-        }
-
-        .one-click-bet {
-            position: absolute;
-            left: 5.2rem;
-            top: 0;
-            white-space: nowrap;
-            font-size: 1.4rem;
-            color: var(--one-click-bet-text-color);
-        }
-    }
-
-    &.bet-setting {
-        .toggle-btn {
-            width: 4.8rem;
-            height: 1.6rem;
-        }
-
-        .quick-bet-icon {
-            left: -0.3rem;
-        }
-
-        .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
-            left: 2rem;
-        }
-
-        .one-click-bet {
-            margin-top: 1.6rem;
-            line-height: 0;
-            font-size: 1.2rem;
-            color: #fff;
+        &:before {
+            font-size: 0.8rem;
+            color: var(--dropdown-icon-color);
         }
     }
 }
