@@ -1,50 +1,56 @@
-.hamburger-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: var(--game-header-icon-menu);
-    border-radius: 50%;
-    margin: 0.2rem 0;
+.game-menu {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
 }
 
-.dropdown-menu {
-    width: 18rem;
-    &:focus {
-        outline: none;
+.quick-bet-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("/static/images/game-header-quick-bet-bg.svg") no-repeat center;
+    background-size: cover;
+    min-width: 4.6rem;
+    height: 3.6rem;
+    width: fit-content;
+    margin-right: 0.1rem;
+
+    &.quick-bet-active {
+        flex-direction: column;
+        justify-content: center;
     }
+
+    .bet {
+        line-height: 1.2rem;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+}
+
+.quick-bet-chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.8rem;
+    width: 2.7rem;
+    background: url("/static/images/chip-bg.svg") no-repeat center;
+    background-size: 2.2rem 2.2rem;
 }
 
 .dropdown-toggle {
     position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 4.6rem;
-    height: 100%;
+    width: 3rem;
+    height: 3.6rem;
+    background: url("/static/images/game-header-dropdown-bg.svg") no-repeat center;
 
     &::after {
         display: none;
     }
 
-    &:before {
-        content: "";
-        position: absolute;
-        width: 3.8rem;
-        height: 3.8rem;
-        margin: auto;
-        border-radius: 50%;
-        background: var(--game-header-icon-menu-background-hover);
-        transform: scale(0);
-        opacity: 0;
-        transition: all 0.3s;
-    }
-
     &:hover {
         cursor: pointer;
-
-        &:before {
-            transform: scale(1);
-            opacity: 1;
-        }
     }
 }

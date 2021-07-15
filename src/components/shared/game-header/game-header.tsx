@@ -102,7 +102,7 @@ const HeaderRight = ({ displayMenu }) => {
         <div className={Styles["header-right"]}>
             {viewMode !== ViewMode.collapse && (
                 <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
-                    {t(CommonResourceKeys.REBET)}
+                    <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
                 </button>
             )}
             {displayMenu && <Menu />}

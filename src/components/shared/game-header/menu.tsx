@@ -44,19 +44,26 @@ export default function Menu() {
     }, [wrapperRef]);
 
     return (
-        <div className="dropdown" onClick={toggle} ref={wrapperRef}>
-            <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`}>
-                <div className={Styles[hamburgerDotClassName]}></div>
-                <div className={Styles[hamburgerDotClassName]}></div>
-                <div className={Styles[hamburgerDotClassName]}></div>
+        <div className={Styles["game-menu"]}>
+            <div className={`${Styles["quick-bet-info"]} ${Styles["quick-bet-active"]}`}>
+                <div className={Styles["quick-bet-chip"]}>
+                    <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+                </div>
+
+                {/* Enable quick-bet */}
+                {/* <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
+                <span className={Styles["bet"]}>100</span> */}
             </div>
-            <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
-                <span className={dropdownItemClassName} onClick={openBetHistory}>
-                    {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
-                </span>
-                <span className={dropdownItemClassName} onClick={openGuide}>
-                    {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
-                </span>
+            <div className="dropdown" onClick={toggle} ref={wrapperRef}>
+                <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`}></div>
+                <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
+                    <span className={dropdownItemClassName} onClick={openBetHistory}>
+                        {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}
+                    </span>
+                    <span className={dropdownItemClassName} onClick={openGuide}>
+                        {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
+                    </span>
+                </div>
             </div>
         </div>
     );
