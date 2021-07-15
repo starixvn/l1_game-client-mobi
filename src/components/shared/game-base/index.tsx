@@ -94,7 +94,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.initWinStreakCollector();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
-        this.registerMessageHandler();
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.placeBet = this.placeBet.bind(this);
@@ -107,6 +106,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentDidMount() {
+        this.registerMessageHandler();
         this.onStart();
 
         document.addEventListener("visibilitychange", this.onVisibilityChange.bind(this), false);
