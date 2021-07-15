@@ -198,6 +198,7 @@ export const getStaticProps = async ({ locale }) => ({
             "vipsedie",
             "txturbo",
             "messages",
+            "kenopromax",
         ])),
     },
 });

@@ -14,6 +14,7 @@ import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
+import KenoProMax from "./keno-pro-max";
 
 type Props = {
     enabledWinningStreakNotification: boolean;
@@ -87,6 +88,8 @@ export const Games: React.FC<Props> = ({
                 return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
             case 7:
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
+            case 8:
+                return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
             case 1:
             case 4:
                 return <BigSmall key={`game-${gameId}`} {...gameProps} />;
