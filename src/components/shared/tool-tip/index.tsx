@@ -17,7 +17,7 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
     }, []);
 
     useEffect(() => {
-        if (wrapperRef) {
+        if (isOpen && wrapperRef) {
             const screenWidth = window.innerWidth;
             const wrapperRect = wrapperRef.current.getBoundingClientRect();
             const innerTooltip = wrapperRef.current;
