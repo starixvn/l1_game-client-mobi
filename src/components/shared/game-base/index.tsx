@@ -498,7 +498,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
-            roundHistory: roundHistory.slice(0, 40),
+            roundHistory: roundHistory,
             roundId: [GameState.BeforeStartRound, GameState.DisplayResult, GameState.BalancingBet].includes(gameState)
                 ? roundId - 1
                 : roundId,
@@ -519,7 +519,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
-        roundHistoryClone.length > 40 && roundHistoryClone.pop();
+        roundHistoryClone.length > 100 && roundHistoryClone.pop();
 
         this.setState({
             playResultAnimation: true,
