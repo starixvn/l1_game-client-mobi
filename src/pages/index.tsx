@@ -41,7 +41,6 @@ const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: Nex
     const userSession = await authService.sso(token as string, 2);
     if (userSession && userSession.isAuthenticated) {
         LocalStorageManager.storeLocalStorageItem<SSOResponse>(sessionKey, userSession);
-        session = userSession;
         onSignInSuccess(userSession);
 
         window.history.pushState(null, "", location.href.split("?")[0]);
@@ -64,7 +63,6 @@ const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, ro
 
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
     if (verifySessionResponse.isSuccessful) {
-        session = userSession;
         onSignInSuccess(userSession);
     } else {
         router.push("/timeout");
@@ -86,6 +84,8 @@ function Home() {
 
     async function handleSignInSuccess(userSession: SSOResponse) {
         setUser(userSession);
+        session = userSession;
+
         authorizeInfo = (await authService.authorize(userSession.ss, userSession.username)) as AuthorizeResponse;
 
         if (authorizeInfo.authorized) {
@@ -94,7 +94,10 @@ function Home() {
         }
 
         reCheckIn();
-        setLoading(false);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 400);
     }
 
     function handleShowApiErrorMessage(errorCode: string) {
