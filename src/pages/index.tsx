@@ -75,12 +75,12 @@ export const signOut = () => {
 function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
+    const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
     const timer = useRef(null);
     const { auth: authService } = UserClientCommunication.getUserClientInstance();
-    let session: SSOResponse = null;
 
     async function handleSignInSuccess(userSession: SSOResponse) {
         setUser(userSession);
@@ -91,10 +91,10 @@ function Home() {
             setCharacterName(authorizeInfo.user.name);
         }
 
-        session = userSession;
+        setSession(userSession);
 
         reCheckIn();
-        setLoading(false);
+        setTimeout(() => setLoading(false), 100);
     }
 
     function handleShowApiErrorMessage(errorCode: string) {
