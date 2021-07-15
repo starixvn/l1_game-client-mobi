@@ -24,6 +24,9 @@
     }
 
     .quick-bet-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 2.2rem;
         width: 2.2rem;
         background: url("/static/images/chip-bg.svg") no-repeat center;
