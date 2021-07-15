@@ -569,7 +569,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     placeBet(betChoice: string, amount: number) {
-        const { displayPopup, roundId } = this.state;
+        const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
@@ -577,7 +577,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             if (amount > 0) {
                 this.isProcessingBet = true;
                 this.setRetryInterval();
-                this.socket.emit("bet", { betChoice, amount, roundId });
+                this.socket.emit("bet", { betChoice, amount });
             }
         }
     }
