@@ -1,42 +1,52 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 type Props = {
     isOpen: boolean;
     onClose: Function;
 };
 
-export default class ContainerToolTip extends React.PureComponent<Props> {
-    wrapperRef: React.RefObject<HTMLDivElement>;
+export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children }) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    let customStyle: string;
 
-    constructor(props: Props) {
-        super(props);
-        this.wrapperRef = React.createRef();
-        this.closeModal = this.closeModal.bind(this);
-    }
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
 
-    componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
-    }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    componentWillUnmountMount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
-    }
+    useEffect(() => {
+        if (wrapperRef) {
+            const screenWidth = window.innerWidth;
+            const wrapperRect = wrapperRef.current.getBoundingClientRect();
+            const innerTooltip = wrapperRef.current;
 
-    handleClickOutside = (event) => {
-        if (this.props.isOpen && this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
-            this.closeModal();
+            if (wrapperRect.right + 10 > screenWidth) {
+                innerTooltip.setAttribute(
+                    "style",
+                    `transform: translateX(${screenWidth - wrapperRect.right - wrapperRect.width / 2 - 10}px)`
+                );
+            }
+
+            if (wrapperRect.left < 0) {
+                innerTooltip.setAttribute("style", `transform: translateX(${5 - wrapperRect.left - wrapperRect.width / 2}px)`);
+            }
+        }
+    }, [wrapperRef.current]);
+
+    const handleClickOutside = (event) => {
+        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            onClose();
         }
     };
 
-    closeModal() {
-        this.props.onClose();
-    }
-
-    render() {
-        return (
-            <div ref={this.wrapperRef} className={`tooltip ${this.props.isOpen ? "show" : ""}`}>
-                <div className="tooltip-inner">{this.props.children}</div>
+    return (
+        <div className={`tooltip ${isOpen ? "show" : ""}`}>
+            <div ref={wrapperRef} className="tooltip-inner">
+                {children}
             </div>
-        );
-    }
-}
+        </div>
+    );
+};

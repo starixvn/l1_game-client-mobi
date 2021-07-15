@@ -20,7 +20,6 @@ const Error = ({ hasGetInitialPropsRun, err, res }) => {
 
     useEffect(() => {
         setIsLoading(false);
-        console.log(router.locale);
     }, [router.isReady]);
 
     if (isLoading) {

@@ -26,6 +26,7 @@ export default class extends Document {
                         `,
                         }}
                     />
+                    <title>Saba Mobi</title>
                 </Head>
                 <body>
                     <Main />
