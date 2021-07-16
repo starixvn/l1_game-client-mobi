@@ -95,7 +95,7 @@
 }
 
 [data-theme="light"] .header-button {
-    --header-button-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
+    --header-button-background: linear-gradient(180deg, #ffd586 0%, #ffaa20 100%);
     --header-button-border1: #a0a0a0;
     --header-button-border2: #ffc459;
     --header-button-shadow-inner: inset 0 0.2rem 0.3rem #ffffff;
@@ -110,7 +110,7 @@
 
 .header-button {
     @extend %button-custom-3d;
-    height: 3.2rem;
+    height: 3.4rem;
     background-color: var(--header-button-border1);
 
     &:before {

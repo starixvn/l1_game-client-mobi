@@ -14,11 +14,16 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-icon-delete:before {
+.icon-help:before {
+    content: "\e911";
+    color: #5e85c0;
+}
+
+.icon-delete:before {
     content: "\e900";
 }
 
-.icon-icon-dollar:before {
+.icon-dollar:before {
     content: "\e907";
     color: #818181;
 }

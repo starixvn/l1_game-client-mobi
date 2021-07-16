@@ -66,7 +66,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
 
     return (
         <>
-            <div className={`header-button ${Styles["btn-quick-bet-global"]}`}>
+            <div className={`header-button ${Styles["btn-quick-bet-global"]}`} onClick={onClickQuickBet}>
                 <div className={Styles["quick-bet-chip"]}>{enabledQuickBet && <span className="icon-dollar"></span>}</div>
                 <span className={Styles["quick-bet-text"]}>Quick Bet</span>
                 <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
