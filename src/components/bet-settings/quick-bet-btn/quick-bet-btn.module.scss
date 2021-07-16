@@ -11,49 +11,8 @@
 }
 
 .btn-quick-bet-global {
-    display: flex;
-    align-items: stretch;
-    height: 3.4rem;
-    -webkit-tap-highlight-color: transparent;
-
-    .left {
-        width: 1.2rem;
-        background-repeat: no-repeat;
-        background-image: url("/static/images/buttons/btn-header-bg-left.png");
-        background-image: -webkit-image-set(
-            url("/static/images/buttons/btn-header-bg-left.png") 1x,
-            url("/static/images/buttons/btn-header-bg-left@2x.png") 2x,
-            url("/static/images/buttons/btn-header-bg-left@3x.png") 3x
-        );
-        background-image: image-set(
-            url("/static/images/buttons/btn-header-bg-left.png") 1x,
-            url("/static/images/buttons/btn-header-bg-left@2x.png") 2x,
-            url("/static/images/buttons/btn-header-bg-left@3x.png") 3x
-        );
-    }
-
-    .right {
-        @extend .left;
-        transform: scaleX(-1);
-    }
-
-    .middle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: fit-content;
-        background-image: url("/static/images/buttons/btn-header-bg-middle.png");
-        background-image: -webkit-image-set(
-            url("/static/images/buttons/btn-header-bg-middle.png") 1x,
-            url("/static/images/buttons/btn-header-bg-middle@2x.png") 2x,
-            url("/static/images/buttons/btn-header-bg-middle@3x.png") 3x
-        );
-        background-image: image-set(
-            url("/static/images/buttons/btn-header-bg-middle.png") 1x,
-            url("/static/images/buttons/btn-header-bg-middle@2x.png") 2x,
-            url("/static/images/buttons/btn-header-bg-middle@3x.png") 3x
-        );
-    }
+    padding: 0 1rem;
+    width: fit-content;
 
     &:hover {
         cursor: pointer;

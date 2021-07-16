@@ -143,14 +143,7 @@
     margin-right: 0.5rem;
 
     .rebet {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         width: 4rem;
-        height: 3.5rem;
-        border: none;
-        outline: none;
-        background: url("/static/images/game-header-rebet-bg.svg") no-repeat center;
 
         &:disabled {
             opacity: 0.4;

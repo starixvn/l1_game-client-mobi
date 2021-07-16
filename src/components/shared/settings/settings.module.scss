@@ -45,32 +45,12 @@
     height: 26px;
 }
 
-%setting_button {
-    @extend %icon;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.setting_button {
     width: 4rem;
-    height: 3.4rem;
-    -webkit-tap-highlight-color: transparent;
 
     &:hover {
         cursor: pointer;
     }
-}
-
-.setting_button_dark {
-    @extend %setting_button;
-    background-position: -10px -10px;
-
-    &.desktop-style {
-        background-position: -134px -101px;
-    }
-}
-
-.setting_button_light {
-    @extend %setting_button;
-    background-position: -70px -10px;
 }
 
 .icon_notify_on_dark {

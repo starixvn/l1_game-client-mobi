@@ -8,7 +8,6 @@ import { Props } from "./types";
 
 export const Settings: React.FC<Props> = (props) => {
     const { theme, setTheme } = useTheme();
-    var settingButton = `setting_button_${theme}`;
 
     return (
         <div className={styles["settings-container"]}>
@@ -24,7 +23,7 @@ export const Settings: React.FC<Props> = (props) => {
             <div className={styles["setting-right"]}>
                 <div
                     id="notification-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles["setting_button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
                     onClick={() => props.onToggleNotification()}
                 >
                     <span
@@ -35,7 +34,7 @@ export const Settings: React.FC<Props> = (props) => {
                 </div>
                 <div
                     id="sound-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles["setting_button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
                     onClick={() => props.onToggleSound()}
                 >
                     <span
@@ -44,7 +43,7 @@ export const Settings: React.FC<Props> = (props) => {
                 </div>
                 <div
                     id="theme-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles["setting_button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
                     onClick={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
                 >
                     <span className={theme === Themes.dark ? styles["icon_dark_mode"] : styles["icon_light_mode"]}></span>

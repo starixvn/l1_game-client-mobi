@@ -66,14 +66,10 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
 
     return (
         <>
-            <div className={Styles["btn-quick-bet-global"]}>
-                <div className={Styles["left"]}></div>
-                <div className={Styles["middle"]}>
-                    <div className={Styles["quick-bet-chip"]}>{enabledQuickBet && <span className="icon-dollar"></span>}</div>
-                    <span className={Styles["quick-bet-text"]}>Quick Bet</span>
-                    <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
-                </div>
-                <div className={Styles["right"]}></div>
+            <div className={`header-button ${Styles["btn-quick-bet-global"]}`}>
+                <div className={Styles["quick-bet-chip"]}>{enabledQuickBet && <span className="icon-dollar"></span>}</div>
+                <span className={Styles["quick-bet-text"]}>Quick Bet</span>
+                <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
             </div>
             {enabledQuickBet === undefined && isShowTooltip && (
                 <div ref={tooltipRef} className={`popover-custom bottom ${Styles["isMobile"]} ${Styles["hint-one-click-bet"]} `}>
