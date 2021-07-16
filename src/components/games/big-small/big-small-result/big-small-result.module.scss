@@ -31,6 +31,7 @@
         --move-up-distance: -4.5rem;
         --result-scale: 1;
         transform: scale(var(--result-scale)) translateY(var(--move-up-distance));
+        z-index: var(--result-animation-index);
 
         &.taixiu {
             --time-hide-toss-dices-animation: 1.7s;
