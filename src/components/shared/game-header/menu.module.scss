@@ -2,20 +2,70 @@
     display: flex;
     align-items: center;
     margin-left: 1rem;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .quick-bet-info {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url("/static/images/game-header-quick-bet-bg.svg") no-repeat center;
-    background-size: cover;
-    min-width: 4.6rem;
+    align-items: stretch;
     height: 3.6rem;
-    width: fit-content;
     margin-right: 0.1rem;
 
-    &.quick-bet-active {
+    .left {
+        width: 1rem;
+        background-repeat: no-repeat;
+        background-image: url("/static/images/buttons/btn-game-header-bg-left.png");
+        background-image: -webkit-image-set(
+            url("/static/images/buttons/btn-game-header-bg-left.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-left@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-left@3x.png") 3x
+        );
+        background-image: image-set(
+            url("/static/images/buttons/btn-game-header-bg-left.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-left@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-left@3x.png") 3x
+        );
+    }
+
+    .right {
+        width: 1rem;
+        background-repeat: no-repeat;
+        background-image: url("/static/images/buttons/btn-game-header-bg-right.png");
+        background-image: -webkit-image-set(
+            url("/static/images/buttons/btn-game-header-bg-right.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-right@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-right@3x.png") 3x
+        );
+        background-image: image-set(
+            url("/static/images/buttons/btn-game-header-bg-right.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-right@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-right@3x.png") 3x
+        );
+    }
+
+    .middle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        background-image: url("/static/images/buttons/btn-game-header-bg-middle.png");
+        background-image: -webkit-image-set(
+            url("/static/images/buttons/btn-game-header-bg-middle.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-middle@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-middle@3x.png") 3x
+        );
+        background-image: image-set(
+            url("/static/images/buttons/btn-game-header-bg-middle.png") 1x,
+            url("/static/images/buttons/btn-game-header-bg-middle@2x.png") 2x,
+            url("/static/images/buttons/btn-game-header-bg-middle@3x.png") 3x
+        );
+    }
+
+    &.quick-bet-active .middle {
         flex-direction: column;
         justify-content: center;
     }
@@ -25,16 +75,16 @@
         font-size: 1.1rem;
         color: #fff;
     }
-}
 
-.quick-bet-chip {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.8rem;
-    width: 2.7rem;
-    background: url("/static/images/chip-bg.svg") no-repeat center;
-    background-size: 2.2rem 2.2rem;
+    .quick-bet-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.8rem;
+        width: 2.7rem;
+        background: url("/static/images/chip-bg.svg?v=2") no-repeat center;
+        background-size: 2.2rem 2.2rem;
+    }
 }
 
 .dropdown-toggle {
@@ -44,13 +94,5 @@
     align-items: center;
     width: 3rem;
     height: 3.6rem;
-    background: url("/static/images/game-header-dropdown-bg.svg") no-repeat center;
-
-    &::after {
-        display: none;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
+    background: url("/static/images/buttons/btn-game-header-dropdown-bg.png") no-repeat center;
 }

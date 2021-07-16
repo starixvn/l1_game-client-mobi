@@ -45,17 +45,22 @@ export default function Menu() {
 
     return (
         <div className={Styles["game-menu"]}>
-            <div className={`${Styles["quick-bet-info"]} ${Styles["quick-bet-active"]}`}>
-                <div className={Styles["quick-bet-chip"]}>
-                    <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+            <div className={`${Styles["quick-bet-info"]}`}>
+                <div className={Styles["left"]}></div>
+                <div className={Styles["middle"]}>
+                    <div className={Styles["quick-bet-chip"]}>
+                        <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+                    </div>
+                    {/* Enable quick-bet */}
+                    {/* <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
+                    <span className={Styles["bet"]}>100</span> */}
                 </div>
-
-                {/* Enable quick-bet */}
-                {/* <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
-                <span className={Styles["bet"]}>100</span> */}
+                <div className={Styles["right"]}></div>
             </div>
             <div className="dropdown" onClick={toggle} ref={wrapperRef}>
-                <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`}></div>
+                <div className={`dropdown-toggle ${Styles["dropdown-toggle"]}`}>
+                    <span className="icon-arrow-down"></span>
+                </div>
                 <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <span className={dropdownItemClassName} onClick={openBetHistory}>
                         {t(CommonResourceKeys.HISTORY_POPUP_TITLE)}

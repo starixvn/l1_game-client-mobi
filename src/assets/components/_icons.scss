@@ -24,8 +24,11 @@
 }
 
 .icon-arrow-down:before {
+    display: flex;
+    align-items: center;
     content: "\e90b";
     color: #825000;
+    font-size: 0.8rem;
 }
 
 .icon-check:before {
