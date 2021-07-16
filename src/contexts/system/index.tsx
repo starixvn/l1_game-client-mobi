@@ -6,6 +6,7 @@ export const SystemContext = React.createContext<{
     betValue: number;
     enabledQuickBet: boolean;
     enabledPlaySound: boolean;
+    gamesOrder: number[];
 }>(null);
 
 SystemContext.displayName = "SystemContext";

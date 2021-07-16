@@ -45,6 +45,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             isOpen={props.isOpen}
             onCloseModal={closeModal}
             type={ModalType.Bottom}
+            gameId={gameSetting.id}
         >
             <div className={Styles["place-bet-container"]}>
                 <div className={`w-100 ${Styles["general-info"]}`}>

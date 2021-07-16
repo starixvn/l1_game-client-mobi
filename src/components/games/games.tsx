@@ -22,6 +22,8 @@ type Props = {
     setApiErrorMessage: Function;
 };
 
+let gamesOrder = [];
+
 export const Games: React.FC<Props> = ({
     betValue,
     enabledQuickBet,
@@ -53,8 +55,8 @@ export const Games: React.FC<Props> = ({
     const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
 
     const renderListGames = () => {
-        const orderedGames = favoriteGames.concat(unfavoriteGames);
-        return orderedGames.map((gameId, index) => getGameComponentById(gameId, index));
+        gamesOrder = favoriteGames.concat(unfavoriteGames);
+        return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
     };
 
     const getGameComponentById = (gameId: number, index: number) => {
@@ -95,7 +97,7 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound, gamesOrder }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
