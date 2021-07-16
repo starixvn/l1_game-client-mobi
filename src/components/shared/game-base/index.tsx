@@ -186,6 +186,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;
+            this.updateUserBalance();
         }
     };
 
@@ -529,7 +530,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.showResultInfoTimeout = setTimeout(() => {
             this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
-            this.updateUserBalance();
         }, animationDuration);
 
         this.showWinningAnimationTimeout = setTimeout(() => {
