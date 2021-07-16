@@ -55,7 +55,7 @@ export default function Menu() {
             </div>
             <div className="dropdown" onClick={toggle} ref={wrapperRef}>
                 <div className={`game-header-button dropdown-toggle ${Styles["dropdown-toggle"]}`}>
-                    <span className="icon-arrow-down"></span>
+                    <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
                 </div>
                 <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <span className={dropdownItemClassName} onClick={openBetHistory}>

@@ -94,25 +94,51 @@
     }
 }
 
+[data-theme="light"] .header-button {
+    --header-button-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
+    --header-button-border1: #a0a0a0;
+    --header-button-border2: #ffc459;
+    --header-button-shadow-inner: inset 0 0.2rem 0.3rem #ffffff;
+}
+
+[data-theme="dark"] .header-button {
+    --header-button-background: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
+    --header-button-border1: #1472d1;
+    --header-button-border2: #183047;
+    --header-button-shadow-inner: inset 0 0.2rem 0.5rem #d0e6ff;
+}
+
 .header-button {
     @extend %button-custom-3d;
     height: 3.2rem;
-    background-color: #a0a0a0;
+    background-color: var(--header-button-border1);
 
     &:before {
-        background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
-        border: 1px solid #ffc459;
-        box-shadow: inset 0px 2px 3px #ffffff;
+        background: var(--header-button-background);
+        border: 0.1rem solid var(--header-button-border2);
+        box-shadow: var(--header-button-shadow-inner);
     }
+}
+
+[data-theme="light"] .game-header-button {
+    --header-button-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
+    --header-button-border: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
+    --header-button-shadow-inner: inset 0 0.2rem 0.3rem #fff;
+}
+
+[data-theme="dark"] .game-header-button {
+    --header-button-background: linear-gradient(180deg, #284059 1.87%, #243b54 100%);
+    --header-button-border: #081d34;
+    --header-button-shadow-inner: inset 0 0.2rem 0.3rem #49759f;
 }
 
 .game-header-button {
     @extend %button-custom-3d;
     height: 3.6rem;
-    background: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
+    background: var(--header-button-border);
 
     &:before {
-        background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
-        box-shadow: inset 0 0.2rem 0.3rem #fff;
+        background: var(--header-button-background);
+        box-shadow: var(--header-button-shadow-inner);
     }
 }

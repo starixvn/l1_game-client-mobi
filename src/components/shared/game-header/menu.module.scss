@@ -1,3 +1,11 @@
+[data-theme="light"] .dropdown-toggle {
+    --icon-arrow-down-color: #825000;
+}
+
+[data-theme="dark"] .dropdown-toggle {
+    --icon-arrow-down-color: #7092b9;
+}
+
 .game-menu {
     display: flex;
     align-items: center;
@@ -51,5 +59,9 @@
 
     &:before {
         border-radius: 0rem 1rem 1rem 0;
+    }
+
+    .icon-arrow-down:before {
+        color: var(--icon-arrow-down-color);
     }
 }

@@ -1,13 +1,12 @@
-[data-theme="light"] .quick-bet-global {
-    --quick-bet-global-background: url("/static/images/quick-bet-global.svg");
+[data-theme="light"] .btn-quick-bet-global {
     --quick-bet-global-text-color: #000;
-    --dropdown-icon-color: #825000;
+    --icon-arrow-down-color: #825000;
 }
 
-[data-theme="dark"] .quick-bet-global {
+[data-theme="dark"] .btn-quick-bet-global {
     --quick-bet-global-background: url("/static/images/quick-bet-global.svg");
     --quick-bet-global-text-color: #fff;
-    --dropdown-icon-color: #825000;
+    --icon-arrow-down-color: #fff;
 }
 
 .btn-quick-bet-global {
@@ -29,19 +28,13 @@
     }
 
     .quick-bet-text {
-        margin-left: 0.4rem;
-        margin-right: 0.4rem;
+        margin-left: 0.6rem;
+        margin-right: 0.6rem;
         color: var(--quick-bet-global-text-color);
     }
 
-    .icon-arrow-down {
-        display: flex;
-        align-items: center;
-
-        &:before {
-            font-size: 0.8rem;
-            color: var(--dropdown-icon-color);
-        }
+    .icon-arrow-down:before {
+        color: var(--icon-arrow-down-color);
     }
 }
 
