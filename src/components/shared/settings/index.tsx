@@ -23,16 +23,28 @@ export const Settings: React.FC<Props> = (props) => {
             <div className={styles["setting-right"]}>
                 <div
                     id="notification-settings"
-                    className={`header-button ${styles["setting_button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
                     onClick={() => props.onToggleNotification()}
                 >
                     <span
                         className={
-                            props.enabledNotification ? styles[`${"icon_notify_on_"}${theme}`] : styles[`${"icon_notify_off_"}${theme}`]
+                            props.enabledNotification ? styles[`${"icon-notify-on-"}${theme}`] : styles[`${"icon-notify-off-"}${theme}`]
                         }
                     ></span>
                 </div>
                 <div
+                    id="ticket-history"
+                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                >
+                    <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
+                </div>
+                <div
+                    id="menu-settings"
+                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                >
+                    <span className={styles[`${"icon-menu-"}${theme}`]}></span>
+                </div>
+                {/* <div
                     id="sound-settings"
                     className={`header-button ${styles["setting_button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
                     onClick={() => props.onToggleSound()}
@@ -47,7 +59,7 @@ export const Settings: React.FC<Props> = (props) => {
                     onClick={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
                 >
                     <span className={theme === Themes.dark ? styles["icon_dark_mode"] : styles["icon_light_mode"]}></span>
-                </div>
+                </div> */}
             </div>
         </div>
     );
