@@ -39,7 +39,8 @@ export const Games: React.FC<Props> = ({
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
-        const newFavoriteList = [...getLocalStorageItem<number[]>(localStorageKeys.favoriteGames)];
+        const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
+        const newFavoriteList = [...favorites];
         const gameIndex = newFavoriteList.indexOf(gameId);
 
         gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
