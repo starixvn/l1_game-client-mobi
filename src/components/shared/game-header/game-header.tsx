@@ -28,6 +28,7 @@ export default function GameHeader() {
 
     return useMemo(() => {
         const favoriteClickHandle = (e: React.MouseEvent) => {
+            e.stopPropagation();
             systemContext.setFavorite(gameId, !isFavorite);
             updateFavorite(!isFavorite);
         };
