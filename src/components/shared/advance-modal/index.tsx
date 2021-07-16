@@ -33,7 +33,7 @@ const AdvanceModal: React.FC<Props> = ({
         const wrapperRect = ref.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
 
-        windowHeight / (wrapperRect.top + wrapperRect.bottom) > 1
+        windowHeight / (wrapperRect.top + wrapperRect.bottom) > 0.75
             ? ref.current.scrollIntoView({ block: "end" })
             : ref.current.scrollIntoView({ block: "start" });
     }, []);
