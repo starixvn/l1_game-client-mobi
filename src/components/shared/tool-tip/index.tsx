@@ -6,7 +6,8 @@ type Props = {
 };
 
 export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children }) => {
-    const wrapperRef = useRef<HTMLDivElement>(null);
+    const innerTooltipRef = useRef<HTMLDivElement>(null);
+    const tooltipRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -17,33 +18,33 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
     }, []);
 
     useEffect(() => {
-        if (isOpen && wrapperRef) {
+        if (isOpen && innerTooltipRef) {
             const screenWidth = window.innerWidth;
-            const wrapperRect = wrapperRef.current.getBoundingClientRect();
-            const innerTooltip = wrapperRef.current;
+            const wrapperRect = tooltipRef.current.getBoundingClientRect();
+            const innerTooltip = innerTooltipRef.current;
+            let customTranslateX = "-50%";
 
-            if (wrapperRect.right + 10 > screenWidth) {
-                innerTooltip.setAttribute(
-                    "style",
-                    `transform: translateX(${screenWidth - wrapperRect.right - wrapperRect.width / 2 - 10}px)`
-                );
+            if (wrapperRect.right + 60 > screenWidth) {
+                customTranslateX = `${screenWidth - wrapperRect.right - innerTooltip.getBoundingClientRect().width - 10}px`;
             }
 
-            if (wrapperRect.left < 0) {
-                innerTooltip.setAttribute("style", `transform: translateX(${5 - wrapperRect.left - wrapperRect.width / 2}px)`);
+            if (wrapperRect.left - 50 < 0) {
+                customTranslateX = `${5 - wrapperRect.left - wrapperRect.width / 2}px`;
             }
+
+            innerTooltip.setAttribute("style", `position: absolute; transform: translateX(${customTranslateX})`);
         }
-    }, [wrapperRef.current]);
+    }, [innerTooltipRef.current]);
 
     const handleClickOutside = (event) => {
-        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        if (isOpen && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
             onClose();
         }
     };
 
     return (
-        <div className={`tooltip ${isOpen ? "show" : ""}`}>
-            <div ref={wrapperRef} className="tooltip-inner">
+        <div className={`tooltip ${isOpen ? "show" : ""}`} ref={tooltipRef}>
+            <div ref={innerTooltipRef} className="tooltip-inner">
                 {children}
             </div>
             <div className="arrow"></div>
