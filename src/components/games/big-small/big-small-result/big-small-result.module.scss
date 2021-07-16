@@ -69,9 +69,6 @@
 
         .toss-dices {
             display: block;
-            position: absolute;
-            left: calc(50% - 9rem);
-            top: calc(50% - 9rem);
             transform: scale(0.7);
             animation-name: hide-toss-dices-animation;
             animation-delay: 0ms;
