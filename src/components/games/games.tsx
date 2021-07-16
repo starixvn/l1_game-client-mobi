@@ -19,9 +19,16 @@ type Props = {
     enabledPlaySound: boolean;
     enabledQuickBet: boolean;
     betValue: number;
+    setApiErrorMessage: Function;
 };
 
-export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinningStreakNotification, enabledPlaySound }) => {
+export const Games: React.FC<Props> = ({
+    betValue,
+    enabledQuickBet,
+    enabledWinningStreakNotification,
+    enabledPlaySound,
+    setApiErrorMessage,
+}) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
@@ -59,6 +66,7 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
                 enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
+            setApiErrorMessage: setApiErrorMessage,
         };
         switch (gameId) {
             case 2:

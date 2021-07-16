@@ -442,10 +442,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);
         } else {
-            this.setState({
-                displayPopup: PopupType.Error,
-                errorMessage: GetLocalizedErrorMessage(balanceResponse.errorCode),
-            });
+            this.props.setApiErrorMessage(balanceResponse.errorCode);
         }
     }
 

@@ -162,7 +162,7 @@ function Home() {
                     isShowModal={isShowModal}
                     apiErrorMessage={apiErrorMessage}
                     setIsShowModal={setIsShowModal}
-                    setApiErrorMessage={setApiErrorMessage}
+                    setApiErrorMessage={handleShowApiErrorMessage.bind(this)}
                     authorizeInfo={authorizeInfo}
                 />
             </AuthContextProvider>

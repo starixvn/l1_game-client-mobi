@@ -44,6 +44,7 @@ export type GameBaseProps = {
     notifyWinStreak: Function;
     playPlaceBetSound: Function;
     viewMode: ViewMode;
+    setApiErrorMessage: Function;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
