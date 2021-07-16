@@ -580,11 +580,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     setRetryInterval() {
-        if (!this.retryInterval) {
-            this.retryInterval = setInterval(() => {
-                this.socket.emit("retry");
-            }, 3 * 1000);
-        }
+        this.clearRetryInterval();
+
+        this.retryInterval = setInterval(() => {
+            this.socket.emit("retry");
+        }, 3 * 1000);
     }
 
     clearRetryInterval() {
