@@ -4,11 +4,10 @@ import React from "react";
 import { GameResourceKeys } from "../../../common/resources";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
-import { QuickBetStorage } from "../quick-bet-modal/type";
+import { QuickBetStorage } from "../bet-settings/type";
 import Styles from "./place-bet-modal.module.scss";
 
 type BetChoiceInfo = {

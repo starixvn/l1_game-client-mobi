@@ -9,7 +9,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
-import { QuickBetModal } from "../quick-bet-modal";
+import { BetSettings } from "../bet-settings";
 import Styles from "./game-header.module.scss";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
@@ -107,7 +107,7 @@ const HeaderRight = ({ displayMenu }) => {
                     <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
                 </button>
             )}
-            {displayMenu && <QuickBetModal gameId={gameId} />}
+            {displayMenu && <BetSettings gameId={gameId} />}
         </div>
     );
 };

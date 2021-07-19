@@ -7,10 +7,10 @@ import { QuickBetStorage } from "./type";
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 const quickBetStorageKey = SessionStorageKeys.quickBet;
 
-export const QuickBetModal: React.FC<{ gameId?: number }> = ({ gameId }) => {
+export const BetSettings: React.FC<{ gameId?: number }> = ({ gameId }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
-    const quickBetSettings = quickBetStorage[gameId];
+    const quickBetSettings = quickBetStorage[gameId ?? "global"];
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [betStake, setBetStake] = useState<number>(quickBetSettings?.betStake ?? 1);
@@ -51,10 +51,12 @@ export const QuickBetModal: React.FC<{ gameId?: number }> = ({ gameId }) => {
                 betStake,
             };
         } else {
-            currentQuickBetStorage = appSettings.offeredGames.reduce(
-                (result, gameId) => Object.assign(result[gameId], { enabledQuickBet, betStake }),
-                {}
-            );
+            currentQuickBetStorage = appSettings.offeredGames.reduce((result, gameId) => {
+                result[gameId] = { enabledQuickBet, betStake };
+
+                return result;
+            }, {});
+            currentQuickBetStorage["global"] = { enabledQuickBet, betStake };
         }
 
         storeSessionStorageItem(quickBetStorageKey, currentQuickBetStorage);
@@ -71,8 +73,9 @@ export const QuickBetModal: React.FC<{ gameId?: number }> = ({ gameId }) => {
     return (
         <div className={Styles["game-menu"]}>
             <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
-                <div className={Styles["quick-bet-chip"]}>
+                <div className={`${Styles["quick-bet-chip"]} ${gameId ? Styles["global-setting"] : ""}`}>
                     <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+                    {enabledQuickBet && <span className={Styles["selected-bet-stake"]}>{betStake}</span>}
                 </div>
             </div>
             <div className="dropdown" ref={wrapperRef}>

@@ -14,11 +14,11 @@ import { AuthContext } from "../../contexts/auth";
 import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
-import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import { BetSettings } from "../shared/bet-settings";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
@@ -273,12 +273,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     betValue={betValue}
                     setApiErrorMessage={this.props.setApiErrorMessage}
                 />
-                <BetSettings
-                    enabledQuickBet={enabledQuickBet}
-                    updateEnabledQuickBet={this.setEnabledQuickBet}
-                    updateBetValue={this.setBetValue}
-                    enabledSound={enabledPlaySound}
-                />
+                <BetSettings />
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
