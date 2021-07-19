@@ -6,9 +6,10 @@ type Props = {
     children: React.ReactNode;
 };
 
+let isScrollEndRight = true;
+
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    let isScrollEndRight = true;
     let scrollLeftWidth = 0;
     let mouseDown = false;
     let startX, scrollLeft;
@@ -28,8 +29,9 @@ const ScoreboardRoundHistory = (props: Props) => {
             scrollLeft = e.target.scrollLeft;
         };
 
-        const stopDragging = () => {
+        const stopDragging = (e) => {
             mouseDown = false;
+            updateScrollEndRight(e);
         };
 
         const handleDragging = (e) => {
@@ -39,7 +41,6 @@ const ScoreboardRoundHistory = (props: Props) => {
                 const x: number = e.pageX - e.target.offsetLeft;
                 const scroll: number = x - startX;
                 e.target.scrollLeft = scrollLeft - scroll;
-                updateScrollEndRight(e);
             }
         };
 
@@ -66,9 +67,9 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         if (wrapperRef.current) {
-            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft);
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
         }
-    }, [wrapperRef?.current?.children[0]]);
+    }, [wrapperRef?.current?.children[0]?.scrollLeft]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
