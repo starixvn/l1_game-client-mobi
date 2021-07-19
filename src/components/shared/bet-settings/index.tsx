@@ -2,19 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import appSettings from "../../../common/app-settings";
 import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../../common/session-storage";
 import Styles from "./quick-bet-modal.module.scss";
-import { QuickBetStorage } from "./type";
+import { BetSettingStorage } from "./type";
 
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
-const quickBetStorageKey = SessionStorageKeys.quickBet;
+const betSettingStorageKey = SessionStorageKeys.betSetting;
 
 export const BetSettings: React.FC<{ gameId?: number }> = ({ gameId }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
-    const quickBetSettings = quickBetStorage[gameId ?? "global"];
+    const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
+    const betSetting = betSettingStorage[gameId ?? "global"];
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [betStake, setBetStake] = useState<number>(quickBetSettings?.betStake ?? 1);
-    const [enabledQuickBet, setEnabledQuickBet] = useState(quickBetSettings?.enabledQuickBet);
+    const [betStake, setBetStake] = useState<number>(betSetting?.betStake ?? 1);
+    const [enabledQuickBet, setEnabledQuickBet] = useState(betSetting?.enabledQuickBet);
 
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -43,23 +43,23 @@ export const BetSettings: React.FC<{ gameId?: number }> = ({ gameId }) => {
     };
 
     const onSubmit = () => {
-        let currentQuickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
+        let currentBetSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
 
         if (gameId) {
-            currentQuickBetStorage[gameId] = {
+            currentBetSettingStorage[gameId] = {
                 enabledQuickBet,
                 betStake,
             };
         } else {
-            currentQuickBetStorage = appSettings.offeredGames.reduce((result, gameId) => {
+            currentBetSettingStorage = appSettings.offeredGames.reduce((result, gameId) => {
                 result[gameId] = { enabledQuickBet, betStake };
 
                 return result;
             }, {});
-            currentQuickBetStorage["global"] = { enabledQuickBet, betStake };
+            currentBetSettingStorage["global"] = { enabledQuickBet, betStake };
         }
 
-        storeSessionStorageItem(quickBetStorageKey, currentQuickBetStorage);
+        storeSessionStorageItem(betSettingStorageKey, currentBetSettingStorage);
         setDropdownOpen(false);
     };
 

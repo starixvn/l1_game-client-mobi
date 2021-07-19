@@ -6,12 +6,12 @@ import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
-import { QuickBetStorage } from "../bet-settings/type";
+import { BetSettingStorage } from "../bet-settings/type";
 import Styles from "./bet-option.module.scss";
 import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
 
-const quickBetStorageKey = SessionStorageKeys.quickBet;
+const betSettingStorageKey = SessionStorageKeys.betSetting;
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
     [HighlightType.None]: "",
@@ -60,10 +60,10 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = () => {
-        const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey);
-        const quickBetSetting = quickBetStorage[id];
-        const betValue = quickBetSetting?.betStake ?? 1;
-        const enabledQuickBet = quickBetSetting?.enabledQuickBet;
+        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey);
+        const betSetting = betSettingStorage[id];
+        const betValue = betSetting?.betStake ?? 1;
+        const enabledQuickBet = betSetting?.enabledQuickBet;
 
         enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
     };

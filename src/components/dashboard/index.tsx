@@ -44,8 +44,6 @@ type State = {
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    enabledQuickBet: boolean;
-    betValue: number;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -65,8 +63,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
-            enabledQuickBet: props.authorizeInfo?.user?.settings?.quickBet,
-            betValue: 1,
         };
 
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -78,8 +74,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
-        this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
-        this.setBetValue = this.setBetValue.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
     }
 
@@ -226,21 +220,13 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
-    setEnabledQuickBet(enabled: boolean) {
-        this.setState({ enabledQuickBet: enabled });
-    }
-
-    setBetValue(value: number) {
-        this.setState({ betValue: value });
-    }
-
     closeDialog() {
         this.props.setIsShowModal(false);
     }
 
     renderDashBoard() {
         const { apiErrorMessage, balance } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, betValue, enabledQuickBet } = this.state;
+        const { user, enabledWinningStreakNotification, enabledPlaySound } = this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
@@ -262,15 +248,12 @@ class Dashboard extends React.PureComponent<Props, State> {
                             enabledNotification={enabledWinningStreakNotification}
                             onToggleNotification={this.winningStreakNotificationToggle}
                             onToggleSound={this.playSoundToggle}
-                            enabledOneClickBet={enabledQuickBet}
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
                         />
                     </div>
                 )}
                 <Games
                     enabledWinningStreakNotification={enabledWinningStreakNotification}
                     enabledPlaySound={enabledPlaySound}
-                    betValue={betValue}
                     setApiErrorMessage={this.props.setApiErrorMessage}
                 />
                 <BetSettings />

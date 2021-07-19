@@ -1,5 +1,5 @@
 export const SessionStorageKeys = {
-    quickBet: "quick-bet",
+    betSetting: "bet-settings",
 };
 
 export function removeSessionStorageItem(key: string) {
