@@ -34,14 +34,13 @@ const ScoreboardRoundHistory = (props: Props) => {
 
         const handleDragging = (e) => {
             e.preventDefault();
-            if (!mouseDown) {
-                return;
-            }
 
-            const x: number = e.pageX - e.target.offsetLeft;
-            const scroll: number = x - startX;
-            e.target.scrollLeft = scrollLeft - scroll;
-            updateScrollEndRight(e);
+            if (mouseDown) {
+                const x: number = e.pageX - e.target.offsetLeft;
+                const scroll: number = x - startX;
+                e.target.scrollLeft = scrollLeft - scroll;
+                updateScrollEndRight(e);
+            }
         };
 
         if (wrapperRef.current) {
@@ -69,7 +68,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         if (wrapperRef.current) {
             scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft);
         }
-    }, [wrapperRef.current?.children[0]]);
+    }, [wrapperRef?.current?.children[0]]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
