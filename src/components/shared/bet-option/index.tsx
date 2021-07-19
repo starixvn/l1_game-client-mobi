@@ -8,7 +8,6 @@ import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
 import { BetSettingStorage } from "../bet-settings/type";
 import Styles from "./bet-option.module.scss";
-import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
@@ -18,11 +17,6 @@ const HighlightClassNameMapper = {
 };
 
 const convertStakeToString = (amount: number) => (amount ? numberWithCommas(amount) : "");
-const getUserBetChipClass = (gameName: string, choice: string) => {
-    const distinctStyle = `${gameName}-${choice}`;
-
-    return `${Styles["user-bet-chips"]} ${Styles[distinctStyle]}`;
-};
 
 const BetOption: React.FunctionComponent<Props> = ({
     gameState,
@@ -33,9 +27,8 @@ const BetOption: React.FunctionComponent<Props> = ({
     isDisplayOdd = true,
     isShowWinningEffect = false,
 }) => {
-    const { totalBets, ownBets, gameSetting, displayChips } = useGameContext();
+    const { totalBets, ownBets, gameSetting } = useGameContext();
     const { gameName, id } = gameSetting;
-    const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal, placeBet } = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
@@ -68,10 +61,6 @@ const BetOption: React.FunctionComponent<Props> = ({
         enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
     };
 
-    const renderUserBetChips = () => {
-        return chips.map((value, index) => <DisplayChip key={index} chipValue={value} chipKey={index} />);
-    };
-
     return (
         <div className={Styles.container}>
             <div
@@ -86,7 +75,6 @@ const BetOption: React.FunctionComponent<Props> = ({
                     {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
                 </div>
                 {children}
-                <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="d-inline-block">
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}

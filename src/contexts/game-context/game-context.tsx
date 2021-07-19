@@ -13,7 +13,6 @@ export const GameContext = React.createContext<GameContextModel>({
     gameConfigs: null,
     userStakeLevel: null,
     viewMode: ViewMode.full,
-    displayChips: {},
     playResultAnimation: false,
     isShowBlink: false,
 });

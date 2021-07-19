@@ -11,7 +11,6 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
-import { convertAmountToChips } from "../../../helpers/chip-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
@@ -36,18 +35,9 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-    PopupType,
-    RebetStorageModel,
-    UserBetChipStorageModal,
-    ViewMode,
-    WinStreakCollectorModel,
-} from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
-const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
+const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private betWin: number;
@@ -84,7 +74,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         acceptedBetQueue: {},
         showWinningAnimation: false,
         playResultAnimation: false,
-        displayChips: {},
         isShowBlink: false,
         notice: null,
     };
@@ -263,16 +252,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (endBet === -1) {
             !apiError && this.handleBetFailed({ notice, kickedOut });
         } else {
-            const newDisplayChips = this.getDisplayChips(betChoice, endBet);
-
-            LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
-                [id]: { roundId: roundId, chips: newDisplayChips },
-            });
-
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             playPlaceBetSound();
             ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
-            this.setState({ displayChips: newDisplayChips });
             this.updateUserBalance();
         }
     };
@@ -287,15 +269,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.removeAcceptedBetQueue(key);
         }, this.animationTime);
     }
-
-    getDisplayChips = (betChoice: string, amount: number) => {
-        const { displayChips } = this.state;
-        const chips = convertAmountToChips(amount);
-
-        displayChips[betChoice] ? displayChips[betChoice].push(...chips) : Object.assign(displayChips, { [betChoice]: [...chips] });
-
-        return displayChips;
-    };
 
     removeAcceptedBetQueue(key: number) {
         const { acceptedBetQueue } = this.state;
@@ -401,7 +374,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 state: {
                     ownBets: {},
                     totalBets: {},
-                    displayChips: {},
                     showWinningAnimation: false,
                     isShowBlink: false,
                     playResultAnimation: false,
@@ -494,7 +466,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
-        const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
             roundHistory: roundHistory,
@@ -503,7 +474,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
-            displayChips,
         });
 
         this.setWinStreakByRoundHistory(roundHistory);
@@ -540,13 +510,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }, this.winningAnimationWaitingTimeInSecond);
 
         this.runGame(durations.wholeRound);
-    }
-
-    getUserBetChipsOnStorage(roundId: number) {
-        const { id } = this.props;
-        const userBetChips = LocalStorageManager.getLocalStorageItem<UserBetChipStorageModal>(userBetChipsKey);
-
-        return userBetChips && userBetChips[id]?.roundId === roundId ? userBetChips[id].chips : {};
     }
 
     storeOwnBet(roundId: number) {
@@ -815,7 +778,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameConfigs,
             userStakeLevel,
             viewMode,
-            displayChips,
             playResultAnimation,
             isShowBlink,
             displayPopup,
@@ -831,7 +793,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             remainingTime,
             userStakeLevel,
             viewMode,
-            displayChips,
             playResultAnimation,
             isShowBlink,
         };

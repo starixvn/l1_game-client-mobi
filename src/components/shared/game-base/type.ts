@@ -71,7 +71,6 @@ export interface GameBaseState<Result, SettlementResult> {
     acceptedBetQueue: { [key: number]: number };
     showWinningAnimation: boolean;
     playResultAnimation: boolean;
-    displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
 }
@@ -91,10 +90,6 @@ export interface APIError extends Notice {
     roundId?: number;
 }
 
-export interface DisplayChips {
-    [betChoice: string]: number[];
-}
-
 export interface SocketInfo {
     namespace: string;
     path: string;
@@ -108,13 +103,6 @@ export interface GameDurations {
     resultAnimation: number;
     beforeStartRound: number;
     balancingBet?: number;
-}
-
-export interface UserBetChipStorageModal {
-    [gameId: string]: {
-        roundId: number;
-        chips: DisplayChips;
-    };
 }
 
 export interface RebetStorageModel {
