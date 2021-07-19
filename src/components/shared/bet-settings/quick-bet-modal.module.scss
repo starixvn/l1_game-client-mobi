@@ -65,3 +65,117 @@
         color: var(--icon-arrow-down-color);
     }
 }
+
+.quick-bet-form {
+    width: 31rem;
+    padding-bottom: 1.4rem;
+
+    .title {
+        height: 4rem;
+        line-height: 4rem;
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: bold;
+    }
+}
+
+.stake-control {
+    position: relative;
+
+    .label {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .stake {
+        padding-right: 3rem;
+        -moz-appearance: textfield;
+    }
+
+    .icon-cancel {
+        position: absolute;
+        right: 0.8rem;
+        top: 3.1rem;
+        font-size: 2.2rem;
+    }
+}
+
+.quick-bet-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 4.6rem;
+    user-select: none;
+
+    .toggle-checkbox {
+        display: none;
+    }
+
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 4.4rem;
+        height: 1.4rem;
+        margin-left: 1rem;
+        background: linear-gradient(90deg, #adadad 0%, #d8d8d8 64.29%);
+        box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.3);
+        border-radius: 1.55rem;
+        transition: all 350ms ease-in;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .quick-bet-icon {
+            position: absolute;
+            left: -0.3rem;
+            height: 3.2rem;
+            width: 3.2rem;
+            transition: left 100ms ease-in;
+            background: url("/static/images/icon-quick-bet.svg?v=1625225065074") no-repeat center;
+        }
+    }
+
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background: linear-gradient(90deg, #109c33 0%, #39ea66 64.29%);
+
+            > .quick-bet-icon {
+                left: 1.4rem;
+                background: url("/static/images/icon-quick-bet-active.svg?v=1625225065074") no-repeat center;
+            }
+        }
+    }
+}
+
+.numpad-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 4rem);
+    grid-gap: 0.4rem;
+    margin-bottom: 2.3rem;
+
+    .numpad {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #cbdbef 0%, #b9cfea 100%);
+        border-radius: 0.5rem;
+        font: 600 1.5rem var(--font-number);
+        color: #3c5c95;
+    }
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 2rem;
+}

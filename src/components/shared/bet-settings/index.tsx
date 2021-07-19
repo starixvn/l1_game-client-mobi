@@ -77,40 +77,55 @@ export const BetSettings: React.FC<{ gameId?: number }> = ({ gameId }) => {
                     <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
                     {enabledQuickBet && <span className={Styles["selected-bet-stake"]}>{betStake}</span>}
                 </div>
+                {/* Enable quick-bet */}
+                {/* <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
+                    <span className={Styles["bet"]}>100</span> */}
             </div>
             <div className="dropdown" ref={wrapperRef}>
                 <div className={`game-header-button dropdown-toggle ${Styles["dropdown-toggle"]}`} onClick={toggle}>
                     <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
                 </div>
                 {dropdownOpen && (
-                    <div className={`dropdown-menu ${Styles["dropdown-menu"]} show`}>
-                        <span className={Styles["close-btn"]}></span>
+                    <div className={`dropdown-menu ${Styles["quick-bet-form"]} show`}>
                         <div className={Styles["title"]}>Quick Bet</div>
                         <div className={Styles["bet-settings"]}>
-                            <div className={Styles["stake-settings"]}>
-                                <label>Tiền cược sẵn</label>
-                                <input type={"number"} onChange={(e) => handleInputBetStake(e)} value={betStake}></input>
+                            <div className={Styles["stake-control"]}>
+                                <label className={Styles["label"]}>Tiền cược sẵn</label>
+                                <input
+                                    className={`form-control ${Styles["stake"]}`}
+                                    type={"number"}
+                                    onChange={(e) => handleInputBetStake(e)}
+                                    value={betStake}
+                                ></input>
+                                <span className={`icon-cancel ${Styles["icon-cancel"]}`}></span>
                             </div>
-                            <div className={Styles["quick-bet-settings"]}>
+
+                            <div className={Styles["quick-bet-toggle"]}>
                                 <label>Quick Bet</label>
                                 <input
+                                    className={Styles["toggle-checkbox"]}
+                                    id="toggle-quickbet"
                                     type={"checkbox"}
+                                    value={"Quick Bet"}
                                     checked={enabledQuickBet}
                                     onClick={() => setEnabledQuickBet(!enabledQuickBet)}
-                                ></input>
+                                />
+                                <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                                    <div className={Styles["quick-bet-icon"]}></div>
+                                </label>
                             </div>
-                            <div className={Styles["numpad"]}>
+                            <div className={Styles["numpad-container"]}>
                                 {NumpadValues.map((value) => (
                                     <span className={Styles["numpad"]} id={`numpad-${value}`} onClick={() => addBetStake(value)}>
                                         +{value}
                                     </span>
                                 ))}
                             </div>
-                            <div className={Styles["action"]}>
-                                <button className={Styles["btn-reset"]} onClick={onClickReset}>
+                            <div className={Styles["actions"]}>
+                                <button className="btn-grey" onClick={onClickReset}>
                                     Reset
                                 </button>
-                                <button className={Styles["btn-submit"]} onClick={onSubmit}>
+                                <button className="btn-orange" onClick={onSubmit}>
                                     Submit
                                 </button>
                             </div>
