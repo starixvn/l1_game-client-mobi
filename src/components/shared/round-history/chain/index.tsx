@@ -1,11 +1,10 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useMemo, useState } from "react";
-import { Tooltip } from "reactstrap";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
-import ContainerToolTip from "../../tool-tip";
+import { ContainerToolTip } from "../../tool-tip";
 import { MiniItemNext } from "../dot-next";
 import Styles from "./styles.module.scss";
 import { Props, PropsDot } from "./types";
@@ -20,13 +19,13 @@ const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName, gameSt
     }, [gameState]);
 
     return (
-        <div className={Styles["dot-wrapper"]}>
+        <div className={Styles["dot-wrapper"]} onClick={toggleTooltip}>
             <div id={targetName}>{children}</div>
-            <ContainerToolTip isOpen={isOpenTooltip} onClose={toggleTooltip}>
-                <Tooltip trigger="click" placement="top" isOpen={isOpenTooltip} target={targetName} toggle={toggleTooltip}>
-                    {renderRoundDetail}
-                </Tooltip>
-            </ContainerToolTip>
+            {isOpenTooltip && (
+                <ContainerToolTip isOpen={true} onClose={toggleTooltip}>
+                    <div className={Styles.tooltip}>{renderRoundDetail}</div>
+                </ContainerToolTip>
+            )}
         </div>
     );
 };

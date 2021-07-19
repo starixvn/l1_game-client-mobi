@@ -1,40 +1,37 @@
 import React from "react";
-import Skeleton from "react-loading-skeleton";
-
 import Styles from "./styles.module.scss";
 
-const GameLoading = () => {
+const GameLoading: React.FC<{}> = () => {
     const classBorder = "border-radius";
-    const classScoreBoard = "score-board-line";
-    const classSkeletonBackground = "skeleton-background";
+    const classSkeletonItem = "skeleton-item";
 
     return (
         <div className={Styles.container}>
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={157} />
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} width={46} />
+                    <div className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["game-name"]}`} />
+                    <div className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["round-id"]}`} />
                 </div>
-                <Skeleton className={Styles[classSkeletonBackground]} circle={true} height={40} width={40} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["countdown-timer"]}`} />
                 <div className={Styles["header-right"]}>
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={84} />
-                    <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={42} width={14} />
+                    <span className={`${Styles[classSkeletonItem]} ${Styles["rebet"]}`} />
+                    <span className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["menu"]}`} />
                 </div>
             </div>
             <div className={Styles["bet-container"]}>
-                <Skeleton className={Styles[classSkeletonBackground]} height={273} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["full-size"]}`} />
             </div>
             <div className={Styles["mini-round-history"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
+                <div className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["skeleton-item-large"]}`} />
             </div>
             <div className={Styles["statistic"]}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classSkeletonBackground]}`} height={19} />
+                <div className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["skeleton-item-large"]}`} />
             </div>
             <div className={Styles.scoreboard}>
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={290} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={190} />
-                <Skeleton className={`${Styles[classBorder]} ${Styles[classScoreBoard]}`} height={19} width={250} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["score-board-line"]}`} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["score-board-line1"]}`} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["score-board-line2"]}`} />
+                <div className={`${Styles[classSkeletonItem]} ${Styles["score-board-line3"]}`} />
             </div>
         </div>
     );

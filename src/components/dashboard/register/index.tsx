@@ -200,7 +200,7 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
 const Avatar: React.FC<{ id: number; isSelected: boolean; onClick: () => void }> = ({ id, isSelected, onClick }) => {
     return (
         <div className={`${Styles["img-wrapper"]} ${isSelected ? Styles["border-highlight"] : ""}`} onClick={onClick}>
-            <img src={`/static/images/avatar/${id}.png`} className="img-fluid" alt="Avatar" />
+            <img src={`/static/images/avatar/${id}.png`} className="img-fluid" width="54" height="54" alt="Avatar" />
             {isSelected && <div className={`icon-success ${Styles["selected-img"]}`}></div>}
         </div>
     );

@@ -105,6 +105,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <FishPrawnCrabGuide />
             </AdvanceModal>
@@ -120,6 +121,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <FishPrawnCrabBetHistory />
             </AdvanceModal>

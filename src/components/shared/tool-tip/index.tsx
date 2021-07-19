@@ -1,38 +1,53 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 type Props = {
     isOpen: boolean;
     onClose: Function;
 };
 
-export default class ContainerToolTip extends React.PureComponent<Props> {
-    wrapperRef: React.RefObject<HTMLDivElement>;
+export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children }) => {
+    const innerTooltipRef = useRef<HTMLDivElement>(null);
+    const tooltipRef = useRef<HTMLDivElement>(null);
 
-    constructor(props: Props) {
-        super(props);
-        this.wrapperRef = React.createRef();
-        this.closeModal = this.closeModal.bind(this);
-    }
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
 
-    componentDidMount() {
-        document.addEventListener("mousedown", this.handleClickOutside);
-    }
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
-    componentWillUnmountMount() {
-        document.removeEventListener("mousedown", this.handleClickOutside);
-    }
+    useEffect(() => {
+        if (isOpen && innerTooltipRef) {
+            const screenWidth = window.innerWidth;
+            const wrapperRect = tooltipRef.current.getBoundingClientRect();
+            const innerTooltip = innerTooltipRef.current;
+            let customTranslateX = "-50%";
 
-    handleClickOutside = (event) => {
-        if (this.props.isOpen && this.wrapperRef && this.wrapperRef.current && !this.wrapperRef.current.contains(event.target)) {
-            this.closeModal();
+            if (wrapperRect.right + 60 > screenWidth) {
+                customTranslateX = `${screenWidth - wrapperRect.right - innerTooltip.getBoundingClientRect().width - 10}px`;
+            }
+
+            if (wrapperRect.left - 50 < 0) {
+                customTranslateX = `${5 - wrapperRect.left - wrapperRect.width / 2}px`;
+            }
+
+            innerTooltip.setAttribute("style", `position: absolute; transform: translateX(${customTranslateX})`);
+        }
+    }, [innerTooltipRef.current]);
+
+    const handleClickOutside = (event) => {
+        if (isOpen && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+            onClose();
         }
     };
 
-    closeModal() {
-        this.props.onClose();
-    }
-
-    render() {
-        return <div ref={this.wrapperRef}>{this.props.children}</div>;
-    }
-}
+    return (
+        <div className={`tooltip ${isOpen ? "show" : ""}`} ref={tooltipRef}>
+            <div ref={innerTooltipRef} className="tooltip-inner">
+                {children}
+            </div>
+            <div className="arrow"></div>
+        </div>
+    );
+};

@@ -151,6 +151,7 @@
             }
 
             img {
+                width: 100%;
                 cursor: pointer;
             }
 
@@ -208,7 +209,6 @@
     position: absolute;
     left: 50%;
     bottom: 5.6rem;
-    min-height: 10.8rem;
     width: 100%;
     padding: 1.2rem;
     padding-right: 4rem;

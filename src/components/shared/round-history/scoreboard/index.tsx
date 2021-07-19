@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Styles from "./round-history.module.scss";
 
@@ -6,11 +6,11 @@ type Props = {
     children: React.ReactNode;
 };
 
+let isScrollEndRight = true;
+
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const [isScrollEndRight, setIsScrollEndRight] = useState<boolean>(true);
-    const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
-
+    let scrollLeftWidth = 0;
     let mouseDown = false;
     let startX, scrollLeft;
 
@@ -19,44 +19,32 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     const updateScrollEndRight = (e) => {
-        if (e.target.scrollLeft === scrollLeftWidth) {
-            setIsScrollEndRight(true);
-        } else {
-            setIsScrollEndRight(false);
-        }
+        isScrollEndRight = e.target.scrollLeft === scrollLeftWidth;
     };
 
     useEffect(() => {
-        const handleWheel = (e) => {
-            e.preventDefault();
-            e.target.scrollLeft += e.deltaY;
-            updateScrollEndRight(e);
-        };
-
         const startDragging = (e) => {
             mouseDown = true;
             startX = e.pageX - e.target.offsetLeft;
             scrollLeft = e.target.scrollLeft;
         };
 
-        const stopDragging = () => {
+        const stopDragging = (e) => {
             mouseDown = false;
+            updateScrollEndRight(e);
         };
 
         const handleDragging = (e) => {
             e.preventDefault();
-            if (!mouseDown) {
-                return;
-            }
 
-            const x: number = e.pageX - e.target.offsetLeft;
-            const scroll: number = x - startX;
-            e.target.scrollLeft = scrollLeft - scroll;
-            updateScrollEndRight(e);
+            if (mouseDown) {
+                const x: number = e.pageX - e.target.offsetLeft;
+                const scroll: number = x - startX;
+                e.target.scrollLeft = scrollLeft - scroll;
+            }
         };
 
         if (wrapperRef.current) {
-            wrapperRef.current.addEventListener("wheel", handleWheel);
             wrapperRef.current.addEventListener("mousedown", startDragging);
             wrapperRef.current.addEventListener("mouseup", stopDragging);
             wrapperRef.current.addEventListener("mouseleave", stopDragging);
@@ -65,7 +53,6 @@ const ScoreboardRoundHistory = (props: Props) => {
 
         return () => {
             if (wrapperRef.current) {
-                wrapperRef.current.removeEventListener("wheel", handleWheel);
                 wrapperRef.current.removeEventListener("mousedown", startDragging);
                 wrapperRef.current.removeEventListener("mouseup", stopDragging);
                 wrapperRef.current.removeEventListener("mouseleave", stopDragging);
@@ -80,9 +67,9 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         if (wrapperRef.current) {
-            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft));
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
         }
-    });
+    }, [wrapperRef?.current?.children[0]?.scrollLeft]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>

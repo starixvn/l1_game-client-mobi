@@ -7,13 +7,11 @@ const Custom404 = () => {
     const { theme } = useTheme();
 
     return (
-        <div>
-            <div className="error-page">
-                <img className="error-background small" src={`/static/images/error-${theme}.svg`} alt="error" />
-                <p className="info">
-                    <Trans t={t}>{t("errorOccurred", { errorCode: 404 })}</Trans>
-                </p>
-            </div>
+        <div className="error-page">
+            <img className="error-background small" src={`/static/images/error-${theme}.svg`} alt="error" />
+            <p className="info">
+                <Trans t={t}>{t("errorOccurred", { errorCode: 404 })}</Trans>
+            </p>
         </div>
     );
 };

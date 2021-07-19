@@ -19,6 +19,7 @@ export type APIErrorProp = {
 
 const sessionKey = LocalStorageManager.localStorageKeys.session;
 let authorizeInfo: AuthorizeResponse = null;
+let session: SSOResponse = null;
 
 const signIn = async (handleSignInSuccess: Function, router: NextRouter) => {
     const { settings: settingsService } = UserClientCommunication.getUserClientInstance();
@@ -75,7 +76,6 @@ export const signOut = () => {
 function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
-    const [session, setSession] = useState<SSOResponse>(null);
     const [balance, setBalance] = useState<number>(0);
     const [isShowModal, setIsShowModal] = useState<boolean>(false);
     const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
@@ -84,6 +84,8 @@ function Home() {
 
     async function handleSignInSuccess(userSession: SSOResponse) {
         setUser(userSession);
+        session = userSession;
+
         authorizeInfo = (await authService.authorize(userSession.ss, userSession.username)) as AuthorizeResponse;
 
         if (authorizeInfo.authorized) {
@@ -91,10 +93,11 @@ function Home() {
             setCharacterName(authorizeInfo.user.name);
         }
 
-        setSession(userSession);
-
         reCheckIn();
-        setTimeout(() => setLoading(false), 1000);
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 400);
     }
 
     function handleShowApiErrorMessage(errorCode: string) {
@@ -159,7 +162,7 @@ function Home() {
                     isShowModal={isShowModal}
                     apiErrorMessage={apiErrorMessage}
                     setIsShowModal={setIsShowModal}
-                    setApiErrorMessage={setApiErrorMessage}
+                    setApiErrorMessage={handleShowApiErrorMessage.bind(this)}
                     authorizeInfo={authorizeInfo}
                 />
             </AuthContextProvider>

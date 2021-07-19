@@ -8,12 +8,7 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import {
-    getLocalStorageItem,
-    localStorageKeys,
-    removeLocalStorageItem,
-    storeLocalStorageItem,
-} from "../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
@@ -156,10 +151,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.apiError) {
-            this.props.setApiErrorMessage({
-                message: GetLocalizedErrorMessage(data.apiError.errorCode),
-                errorCode: data.apiError.errorCode,
-            });
+            this.props.setApiErrorMessage(data.apiError.errorCode);
             this.props.setIsShowModal(true);
         }
     }
@@ -282,6 +274,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     enabledPlaySound={enabledPlaySound}
                     enabledQuickBet={enabledQuickBet}
                     betValue={betValue}
+                    setApiErrorMessage={this.props.setApiErrorMessage}
                 />
                 <BetSettings
                     enabledQuickBet={enabledQuickBet}

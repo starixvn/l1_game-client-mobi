@@ -7,12 +7,16 @@ import { countRedDot } from "../big-small-helper";
 import Styles from "./big-small-result.module.scss";
 
 const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
-    const { playResultAnimation } = useGameContext();
+    const { playResultAnimation, gameSetting } = useGameContext();
 
     return (
         <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
             <div className="overlay-mask">
-                <div className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+                <div
+                    className={`${Styles["animation-container"]} ${playResultAnimation ? Styles["has-animation"] : ""} ${
+                        gameSetting.id === 1 ? Styles["taixiu"] : ""
+                    }`}
+                >
                     <div className={Styles["result-plate"]}></div>
                     <div className={Styles["toss-dices"]}>
                         <Image
@@ -31,6 +35,8 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
                                     <img
                                         src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
                                         className={Styles["dice"]}
+                                        width={30}
+                                        height={30}
                                         alt="dice"
                                     />
                                 </div>
@@ -59,6 +65,8 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                             <img
                                 src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
                                 className={`img-fluid ${Styles["dice"]}`}
+                                width={33}
+                                height={33}
                                 alt="dice"
                             />
                         </div>

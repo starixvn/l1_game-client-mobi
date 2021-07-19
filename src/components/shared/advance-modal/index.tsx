@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
+import { useSystemContext } from "../../../contexts/system";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./advance-dialog.module.scss";
@@ -14,6 +15,38 @@ type Props = {
     subTitle?: string;
     gameName?: string;
     isAddScrollBody?: boolean;
+    gameId: number;
+};
+
+const getNumOfGamesInOneRow = () => {
+    const windowWidth = window.innerWidth;
+    const criteria = [
+        {
+            condition: windowWidth >= 1098,
+            result: 3,
+        },
+        {
+            condition: windowWidth >= 768,
+            result: 2,
+        },
+        {
+            condition: windowWidth >= 1,
+            result: 1,
+        },
+    ];
+
+    return criteria.find((criteria) => criteria.condition === true).result;
+};
+
+const getModalPositionByRow = (row: number, totalRow: number) => {
+    switch (row) {
+        case 1:
+            return "end";
+        case totalRow:
+            return "start";
+        default:
+            return "center";
+    }
 };
 
 const AdvanceModal: React.FC<Props> = ({
@@ -25,18 +58,22 @@ const AdvanceModal: React.FC<Props> = ({
     type = ModalType.Full,
     gameName,
     isAddScrollBody = false,
+    gameId,
 }: Props) => {
     const { t } = useTranslation("common");
     const ref = useRef<HTMLInputElement>(null);
+    const { gamesOrder } = useSystemContext();
 
     useEffect(() => {
-        const currentPosition = ref.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+        const totalGames = gamesOrder.length;
+        const gameIndex = gamesOrder.findIndex((id) => id === gameId);
+        const numberOfGamesInOneRow = getNumOfGamesInOneRow();
+        const numberOfRows = totalGames / numberOfGamesInOneRow;
+        const modalPosition = getModalPositionByRow(Math.ceil((gameIndex + 1) / numberOfGamesInOneRow), numberOfRows);
 
-        windowHeight / currentPosition.y > 2
-            ? ref.current.scrollIntoView({ block: "end" })
-            : ref.current.scrollIntoView({ block: "start" });
-    }, [ref.current]);
+        ref.current.scrollIntoView({ block: modalPosition });
+    }, []);
+
     useEffect(() => {
         isMobileOnly && isAddScrollBody && document.body.classList.add("no-scroll");
         return () => {

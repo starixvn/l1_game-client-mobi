@@ -94,7 +94,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.initWinStreakCollector();
         this.authService = UserClientCommunication.getUserClientInstance().auth;
 
-        this.registerMessageHandler();
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
         this.placeBet = this.placeBet.bind(this);
@@ -107,6 +106,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentDidMount() {
+        this.registerMessageHandler();
         this.onStart();
 
         document.addEventListener("visibilitychange", this.onVisibilityChange.bind(this), false);
@@ -186,6 +186,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;
+            this.updateUserBalance();
         }
     };
 
@@ -442,10 +443,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);
         } else {
-            this.setState({
-                displayPopup: PopupType.Error,
-                errorMessage: GetLocalizedErrorMessage(balanceResponse.errorCode),
-            });
+            this.props.setApiErrorMessage(balanceResponse.errorCode);
         }
     }
 
@@ -498,8 +496,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
-            roundHistory,
-            roundId: ![GameState.InRound, GameState.LockingBet].includes(gameState) ? roundId - 1 : roundId,
+            roundHistory: roundHistory,
+            roundId: [GameState.BeforeStartRound, GameState.DisplayResult, GameState.BalancingBet].includes(gameState)
+                ? roundId - 1
+                : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
             displayChips,
@@ -530,7 +530,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.showResultInfoTimeout = setTimeout(() => {
             this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
-            this.updateUserBalance();
         }, animationDuration);
 
         this.showWinningAnimationTimeout = setTimeout(() => {
@@ -574,12 +573,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.isProcessingBet = true;
-                this.retryInterval = setInterval(() => {
-                    this.socket.emit("retry");
-                }, 3 * 1000);
+                this.setRetryInterval();
                 this.socket.emit("bet", { betChoice, amount });
             }
         }
+    }
+
+    setRetryInterval() {
+        this.clearRetryInterval();
+
+        this.retryInterval = setInterval(() => {
+            this.socket.emit("retry");
+        }, 3 * 1000);
     }
 
     clearRetryInterval() {

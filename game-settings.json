@@ -11,7 +11,7 @@
             "placingBets": 50,
             "lockingBet": 5,
             "showResult": 8,
-            "resultAnimation": 2,
+            "resultAnimation": 3,
             "beforeStartRound": 0,
             "balancingBet": 3
         }

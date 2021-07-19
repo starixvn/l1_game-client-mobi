@@ -1,7 +1,13 @@
 .round-dot-wrapper {
     display: flex;
 
+    .tooltip {
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
     .dot-wrapper {
+        position: relative;
         margin-left: 0.15rem;
         margin-right: 0.15rem;
 

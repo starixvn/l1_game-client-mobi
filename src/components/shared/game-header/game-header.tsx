@@ -79,7 +79,7 @@ const HeaderRight = ({ displayMenu }) => {
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
-    const [disabledRebet, updateRebetStatus] = useState<boolean>(false);
+    const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
 
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -91,11 +91,11 @@ const HeaderRight = ({ displayMenu }) => {
     };
 
     useEffect(() => {
-        gameState !== GameState.InRound && updateRebetStatus(true);
+        gameState !== GameState.InRound && updateDisableRebet(true);
     }, [gameState]);
 
     useEffect(() => {
-        updateRebetStatus(rebetInfo?.betInfo === undefined);
+        updateDisableRebet(rebetInfo?.betInfo === undefined || rebetInfo?.roundId + 1 !== roundId);
     }, [roundId]);
 
     return (

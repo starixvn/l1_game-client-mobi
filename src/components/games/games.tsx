@@ -19,9 +19,18 @@ type Props = {
     enabledPlaySound: boolean;
     enabledQuickBet: boolean;
     betValue: number;
+    setApiErrorMessage: Function;
 };
 
-export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinningStreakNotification, enabledPlaySound }) => {
+let gamesOrder = [];
+
+export const Games: React.FC<Props> = ({
+    betValue,
+    enabledQuickBet,
+    enabledWinningStreakNotification,
+    enabledPlaySound,
+    setApiErrorMessage,
+}) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
@@ -30,7 +39,8 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
-        const newFavoriteList = [...favoriteGames];
+        const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
+        const newFavoriteList = [...favorites];
         const gameIndex = newFavoriteList.indexOf(gameId);
 
         gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
@@ -46,8 +56,8 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
     const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
 
     const renderListGames = () => {
-        const orderedGames = favoriteGames.concat(unfavoriteGames);
-        return orderedGames.map((gameId, index) => getGameComponentById(gameId, index));
+        gamesOrder = favoriteGames.concat(unfavoriteGames);
+        return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
     };
 
     const getGameComponentById = (gameId: number, index: number) => {
@@ -59,6 +69,7 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
             notifyWinStreak: (winningStreak: WinningStreakItem) =>
                 enabledWinningStreakNotification && winningStreakRef?.current && winningStreakRef.current.addWinningStreak(winningStreak),
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
+            setApiErrorMessage: setApiErrorMessage,
         };
         switch (gameId) {
             case 2:
@@ -87,7 +98,7 @@ export const Games: React.FC<Props> = ({ betValue, enabledQuickBet, enabledWinni
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound, gamesOrder }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
