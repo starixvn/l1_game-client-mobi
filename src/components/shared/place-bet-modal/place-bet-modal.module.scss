@@ -14,30 +14,46 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-left: 0.3rem solid;
-    min-height: 4.6rem;
-    margin: 0.5rem 0;
-    padding: 0 1rem;
-    border-left-color: var(--success-color);
-    color: var(--success-color);
-    background-color: var(--success-background);
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-    text-transform: capitalize;
+    padding: 0.6rem 0.8rem;
+    background-color: #5ab379;
+    box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
+    border-radius: 0.5rem;
+
+    .bet-option {
+        font-size: 1.8rem;
+        text-transform: capitalize;
+        font-weight: bold;
+        color: #fff;
+    }
+
+    .odds {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 3.4rem;
+        min-width: 6.6rem;
+        border-radius: 2rem;
+        background: #d1e7da;
+        font: 600 1.6rem var(--font-number);
+        color: #2c2f3e;
+    }
 }
 
-.confirm-text {
-    text-align: center;
-    font-weight: 500;
-    font-size: 1.6rem;
-    margin-top: 1rem;
+.bet-control {
+    height: 4rem;
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+    background: #fff;
+    border: 0.2rem solid #c9c9c9;
+    box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
+    border-radius: 0.5rem;
 }
 
 .payout {
     display: flex;
     justify-content: space-between;
     padding: 0 1rem;
-    margin: 2rem 0;
+    line-height: 2.6rem;
     font-size: 1.6rem;
 }
 
@@ -47,14 +63,78 @@
     font-weight: 500;
 }
 
+.bet-chips {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.chip-container {
+    position: relative;
+    display: grid !important;
+    grid-template-columns: 6.3rem;
+    grid-template-rows: 6.6rem;
+    justify-content: center;
+    align-items: center;
+    width: 6.3rem;
+    height: 6.6rem;
+    -webkit-tap-highlight-color: transparent;
+
+    .chip {
+        grid-area: 1/1;
+        width: 100%;
+        border-radius: 50%;
+        pointer-events: none;
+    }
+
+    .value {
+        grid-area: 1/1;
+        text-align: center;
+        font-family: var(--font-money);
+        font-size: 2rem;
+        color: #2c2f3e;
+    }
+    &.chip-9,
+    &.chip-10,
+    &.chip-11,
+    &.chip-12 {
+        .value {
+            color: #fff;
+        }
+    }
+
+    &.chip-13 {
+        .value {
+            font-size: 1.4rem;
+            color: #ffeda5;
+        }
+    }
+}
+
+.bet-numbers {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 4.7rem);
+    grid-gap: 0.2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
+
+    .number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #e6e6e6;
+        color: #505050;
+        font: 1.5rem var(--font-number);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
 .error-message {
     margin-bottom: 0.4rem;
     color: var(--error-color);
-}
-
-.actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3rem;
-    margin-top: 0.5rem;
 }
