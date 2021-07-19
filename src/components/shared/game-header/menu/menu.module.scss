@@ -1,0 +1,67 @@
+[data-theme="light"] .dropdown-toggle {
+    --icon-arrow-down-color: #825000;
+}
+
+[data-theme="dark"] .dropdown-toggle {
+    --icon-arrow-down-color: #7092b9;
+}
+
+.game-menu {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.quick-bet-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    height: 3.6rem;
+    min-width: 4.6rem;
+    margin-right: 0.1rem;
+    border-radius: 1rem 0 0 1rem;
+
+    &:before {
+        border-radius: 1rem 0 0 1rem;
+    }
+
+    &.quick-bet-active {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .bet {
+        line-height: 1.2rem;
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    .quick-bet-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.8rem;
+        width: 2.7rem;
+        background: url("/static/images/chip-bg.svg?v=2") no-repeat center;
+        background-size: 2.2rem 2.2rem;
+    }
+}
+
+.dropdown-toggle {
+    min-width: 3rem;
+    border-radius: 0rem 1rem 1rem 0;
+
+    &:before {
+        border-radius: 0rem 1rem 1rem 0;
+    }
+
+    .icon-arrow-down:before {
+        color: var(--icon-arrow-down-color);
+    }
+}

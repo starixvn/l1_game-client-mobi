@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
-import { useGameActionContext } from "../../../contexts/game-actions-context";
-import { PopupType } from "../game-base/type";
+import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
+import { useGameActionContext } from "../../../../contexts/game-actions-context";
+import { PopupType } from "../../game-base/type";
 import Styles from "./menu.module.scss";
 
 const hamburgerDotClassName = "hamburger-dot";

@@ -3,13 +3,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
-import { CommonResourceKeys, ResourceTypes } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
+import QuickBetModal from "../quick-bet-modal";
 import Styles from "./game-header.module.scss";
 import Menu from "./menu";
 
@@ -77,7 +77,6 @@ export default function GameHeader() {
 const HeaderRight = ({ displayMenu }) => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
-    const { t } = useTranslation([ResourceTypes.COMMON]);
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
 
@@ -109,7 +108,7 @@ const HeaderRight = ({ displayMenu }) => {
                     <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
                 </button>
             )}
-            {displayMenu && <Menu />}
+            {displayMenu && <QuickBetModal />}
         </div>
     );
 };
