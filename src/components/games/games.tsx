@@ -20,6 +20,7 @@ type Props = {
     enabledQuickBet: boolean;
     betValue: number;
     setApiErrorMessage: Function;
+    updateEnabledQuickBet: Function;
 };
 
 let gamesOrder = [];
@@ -30,6 +31,7 @@ export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
     enabledPlaySound,
     setApiErrorMessage,
+    updateEnabledQuickBet,
 }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
