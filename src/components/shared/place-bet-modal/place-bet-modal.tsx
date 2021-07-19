@@ -2,11 +2,13 @@ import { useTranslation } from "next-i18next";
 import React from "react";
 
 import { GameResourceKeys } from "../../../common/resources";
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import AdvanceModal from "../advance-modal";
 import { ModalType } from "../base-dialog/type";
+import { QuickBetStorage } from "../quick-bet-modal/type";
 import Styles from "./place-bet-modal.module.scss";
 
 type BetChoiceInfo = {
@@ -23,9 +25,12 @@ type Props = {
     onCloseModal: Function;
 };
 
+const quickBetStorageKey = SessionStorageKeys.quickBet;
+
 const PlaceBetModal: React.FC<Props> = (props) => {
     const { roundId, gameSetting } = useGameContext();
-    const { betValue } = useSystemContext();
+    const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
+    const betValue = quickBetStorage[gameSetting.id]?.betStake;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
 

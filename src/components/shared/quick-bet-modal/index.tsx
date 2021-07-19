@@ -1,18 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
+import appSettings from "../../../common/app-settings";
 import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../../common/session-storage";
-import { useGameContext } from "../../../contexts/game-context/game-context";
-
 import Styles from "./quick-bet-modal.module.scss";
 import { QuickBetStorage } from "./type";
 
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 const quickBetStorageKey = SessionStorageKeys.quickBet;
 
-export default function QuickBetModal() {
-    const gameContext = useGameContext();
+export const QuickBetModal: React.FC<{ gameId?: number }> = ({ gameId }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
-    const { id: gameId } = gameContext.gameSetting;
     const quickBetSettings = quickBetStorage[gameId];
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -22,6 +19,13 @@ export default function QuickBetModal() {
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
         setDropdownOpen(!dropdownOpen);
+    };
+
+    const onClickReset = () => {
+        setBetStake(1);
+        setEnabledQuickBet(false);
+
+        onSubmit();
     };
 
     const handleClickOutside = (event) => {
@@ -39,11 +43,19 @@ export default function QuickBetModal() {
     };
 
     const onSubmit = () => {
-        const currentQuickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
-        currentQuickBetStorage[gameId] = {
-            enabledQuickBet,
-            betStake,
-        };
+        let currentQuickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey) ?? {};
+
+        if (gameId) {
+            currentQuickBetStorage[gameId] = {
+                enabledQuickBet,
+                betStake,
+            };
+        } else {
+            currentQuickBetStorage = appSettings.offeredGames.reduce(
+                (result, gameId) => Object.assign(result[gameId], { enabledQuickBet, betStake }),
+                {}
+            );
+        }
 
         storeSessionStorageItem(quickBetStorageKey, currentQuickBetStorage);
         setDropdownOpen(false);
@@ -92,7 +104,7 @@ export default function QuickBetModal() {
                                 ))}
                             </div>
                             <div className={Styles["action"]}>
-                                <button className={Styles["btn-reset"]} onClick={toggle}>
+                                <button className={Styles["btn-reset"]} onClick={onClickReset}>
                                     Reset
                                 </button>
                                 <button className={Styles["btn-submit"]} onClick={onSubmit}>
@@ -105,4 +117,4 @@ export default function QuickBetModal() {
             </div>
         </div>
     );
-}
+};

@@ -23,7 +23,7 @@ type Props = {
 
 let gamesOrder = [];
 
-export const Games: React.FC<Props> = ({ betValue, enabledWinningStreakNotification, enabledPlaySound, setApiErrorMessage }) => {
+export const Games: React.FC<Props> = ({ enabledWinningStreakNotification, enabledPlaySound, setApiErrorMessage }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
