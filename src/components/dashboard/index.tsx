@@ -320,6 +320,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 <Games
                     enabledWinningStreakNotification={enabledWinningStreakNotification}
                     enabledPlaySound={enabledPlaySound}
+                    updateEnabledQuickBet={this.setEnabledQuickBet}
                     setApiErrorMessage={this.props.setApiErrorMessage}
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
