@@ -17,22 +17,13 @@ import SeDie from "./se-die/se-die";
 type Props = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    enabledQuickBet: boolean;
     betValue: number;
     setApiErrorMessage: Function;
-    updateEnabledQuickBet: Function;
 };
 
 let gamesOrder = [];
 
-export const Games: React.FC<Props> = ({
-    betValue,
-    enabledQuickBet,
-    enabledWinningStreakNotification,
-    enabledPlaySound,
-    setApiErrorMessage,
-    updateEnabledQuickBet,
-}) => {
+export const Games: React.FC<Props> = ({ betValue, enabledWinningStreakNotification, enabledPlaySound, setApiErrorMessage }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
@@ -101,7 +92,7 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound, gamesOrder }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>

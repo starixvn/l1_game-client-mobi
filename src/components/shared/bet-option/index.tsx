@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useCountUp } from "react-countup";
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
+import { QuickBetStorage } from "../quick-bet-modal/type";
 import Styles from "./bet-option.module.scss";
 import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
 
+const quickBetStorageKey = SessionStorageKeys.quickBet;
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
     [HighlightType.None]: "",
 };
 
 const convertStakeToString = (amount: number) => (amount ? numberWithCommas(amount) : "");
-
 const getUserBetChipClass = (gameName: string, choice: string) => {
     const distinctStyle = `${gameName}-${choice}`;
 
@@ -33,10 +35,9 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowWinningEffect = false,
 }) => {
     const { totalBets, ownBets, gameSetting, displayChips } = useGameContext();
-    const { gameName } = gameSetting;
+    const { gameName, id } = gameSetting;
     const chips = displayChips[choice] ?? [];
     const { openPlaceBetModal, placeBet } = useGameActionContext();
-    const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
@@ -60,6 +61,11 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = () => {
+        const quickBetStorage = getSessionStorageItem<QuickBetStorage>(quickBetStorageKey);
+        const quickBetSetting = quickBetStorage[id];
+        const betValue = quickBetSetting?.betStake ?? 1;
+        const enabledQuickBet = quickBetSetting?.enabledQuickBet;
+
         enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
     };
 

@@ -2,7 +2,6 @@ export const localStorageKeys = {
     session: buildLocalStorageKey("auth-data"),
     favoriteGames: buildLocalStorageKey("favorite-game"),
     rebet: buildLocalStorageKey("rebet"),
-    enabledQuickBet: buildLocalStorageKey("enabled-quick-bet"),
     umInfo: buildLocalStorageKey("um_info"),
     userBetChips: buildLocalStorageKey("user-bet-chips"),
     loginStatus: buildLocalStorageKey("login-status"),

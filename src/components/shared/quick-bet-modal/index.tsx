@@ -46,6 +46,7 @@ export default function QuickBetModal() {
         };
 
         storeSessionStorageItem(quickBetStorageKey, currentQuickBetStorage);
+        setDropdownOpen(false);
     };
 
     useEffect(() => {
