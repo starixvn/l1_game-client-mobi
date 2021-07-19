@@ -1,6 +1,8 @@
 export interface BetSettingStorage {
-    [gameId: number]: {
-        enabledQuickBet: boolean;
-        betStake: number;
-    };
+    [gameId: number]: BetSetting;
+}
+
+export interface BetSetting {
+    enabledQuickBet: boolean;
+    betStake: number;
 }

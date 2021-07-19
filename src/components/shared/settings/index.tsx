@@ -1,7 +1,7 @@
 import { useTheme } from "next-themes";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { BetSettings } from "../bet-settings";
+import BetSettings from "../bet-settings";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
 
@@ -11,7 +11,7 @@ export const Settings: React.FC<Props> = (props) => {
     return (
         <div className={styles["settings-container"]}>
             <div className={styles["setting-left"]}>
-                <BetSettings />
+                <BetSettings updateBetSetting={props.updateBetSetting} betSettings={props.globalBetSetting} />
             </div>
             <div className={styles["setting-right"]}>
                 <div

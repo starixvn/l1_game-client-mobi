@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
+import { BetSettingStorage } from "../shared/bet-settings/type";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -18,11 +19,19 @@ type Props = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
     setApiErrorMessage: Function;
+    updateBetSetting: Function;
+    betSettings: BetSettingStorage;
 };
 
 let gamesOrder = [];
 
-export const Games: React.FC<Props> = ({ enabledWinningStreakNotification, enabledPlaySound, setApiErrorMessage }) => {
+export const Games: React.FC<Props> = ({
+    enabledWinningStreakNotification,
+    enabledPlaySound,
+    setApiErrorMessage,
+    betSettings,
+    updateBetSetting,
+}) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
@@ -91,7 +100,7 @@ export const Games: React.FC<Props> = ({ enabledWinningStreakNotification, enabl
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder }}>
+            <SystemContextProvider value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>

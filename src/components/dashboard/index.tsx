@@ -9,6 +9,7 @@ import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../common/session-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { APIErrorProp } from "../../pages";
@@ -18,7 +19,8 @@ import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import { BetSettings } from "../shared/bet-settings";
+import BetSettings from "../shared/bet-settings";
+import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
 import Register from "./register";
@@ -44,6 +46,7 @@ type State = {
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
+    betSettings: BetSettingStorage;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -63,6 +66,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
+            betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
         };
 
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -75,6 +79,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.updateBetSetting = this.updateBetSetting.bind(this);
     }
 
     doOnOrientationChange() {
@@ -220,13 +225,38 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
+    updateBetSetting(setting: BetSetting, gameId?: number) {
+        const { betSettings } = this.state;
+
+        if (gameId) {
+            betSettings[gameId] = setting;
+        } else {
+            appSettings.offeredGames.forEach((id) => {
+                betSettings[id] = setting;
+            });
+            betSettings["global"] = setting;
+        }
+
+        this.setState({ betSettings: { ...betSettings } });
+        storeSessionStorageItem(SessionStorageKeys.betSetting, betSettings);
+    }
+
     closeDialog() {
         this.props.setIsShowModal(false);
     }
 
+    get globalBetSetting(): BetSetting {
+        const setting = this.state.betSettings["global"];
+
+        return {
+            betStake: setting?.betStake ?? 1,
+            enabledQuickBet: setting?.enabledQuickBet ?? false,
+        };
+    }
+
     renderDashBoard() {
         const { apiErrorMessage, balance } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound } = this.state;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings } = this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
@@ -240,6 +270,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                     enabledSound={enabledPlaySound}
                     onToggleNotification={this.winningStreakNotificationToggle}
                     onToggleSound={this.playSoundToggle}
+                    updateBetSetting={this.updateBetSetting}
+                    globalBetSetting={this.globalBetSetting}
                 />
                 {isMobileOnly && (
                     <div className={Styles["settings-container"]}>
@@ -248,6 +280,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                             enabledNotification={enabledWinningStreakNotification}
                             onToggleNotification={this.winningStreakNotificationToggle}
                             onToggleSound={this.playSoundToggle}
+                            updateBetSetting={this.updateBetSetting}
+                            globalBetSetting={this.globalBetSetting}
                         />
                     </div>
                 )}
@@ -255,8 +289,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                     enabledWinningStreakNotification={enabledWinningStreakNotification}
                     enabledPlaySound={enabledPlaySound}
                     setApiErrorMessage={this.props.setApiErrorMessage}
+                    betSettings={betSettings}
+                    updateBetSetting={this.updateBetSetting}
                 />
-                <BetSettings />
+                <BetSettings updateBetSetting={this.updateBetSetting} betSettings={this.globalBetSetting} />
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
