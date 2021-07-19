@@ -17,7 +17,6 @@ import SeDie from "./se-die/se-die";
 type Props = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    betValue: number;
     setApiErrorMessage: Function;
 };
 
