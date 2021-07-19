@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Spinner } from "reactstrap";
 import { v4 as uuidv4 } from "uuid";
-
+import Loader from "../loader";
 import appSettings from "../../../common/app-settings";
 import { UserStakeLevel } from "../game-base/type";
 import Styles from "./game-guide.module.scss";
@@ -65,7 +64,7 @@ const GameGuides: React.FC<Props> = (props) => {
         <div className={Styles["container-guide"]} ref={wrapperRef}>
             {isLoading && (
                 <div className={Styles["guide-loading"]}>
-                    <Spinner color="secondary" />
+                    <Loader></Loader>
                 </div>
             )}
             {contentGuide}
