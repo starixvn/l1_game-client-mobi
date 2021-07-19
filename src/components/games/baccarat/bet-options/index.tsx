@@ -52,7 +52,7 @@ const BaccaratBetOptions: React.FunctionComponent<Props> = (props) => {
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
-        <div className={`${Styles["layout-keno-pro-max"]}`}>
+        <div className={`${Styles["layout-baccarat"]}`}>
             {Object.keys(Choices).map((choice, index) => (
                 <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}</div>
             ))}

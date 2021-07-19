@@ -1,0 +1,11 @@
+{
+    "game_name": "Three Cards",
+    "black": "Black",
+    "red": "Red",
+    "clubs": "Clubs",
+    "diamonds": "Diamonds",
+    "hearts": "Hearts",
+    "spades": "Spades",
+    "blackTextDot": "B",
+    "redTextDot": "R"
+}

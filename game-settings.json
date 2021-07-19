@@ -144,5 +144,21 @@
             "resultAnimation": 4,
             "beforeStartRound": 0
         }
+    },
+    "35": {
+        "id": 35,
+        "gameName": "ThreeCards",
+        "socketInfo": {
+            "namespace": "threecards",
+            "path": "threecards"
+        },
+        "durations": {
+            "wholeRound": 40,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 8,
+            "resultAnimation": 2,
+            "beforeStartRound": 0
+        }
     }
 }

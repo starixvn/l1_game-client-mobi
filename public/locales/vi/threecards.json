@@ -1,0 +1,11 @@
+{
+    "game_name": "3 Lá Đỏ Đen",
+    "black": "Đen",
+    "red": "Đỏ",
+    "clubs": "Chuồn",
+    "diamonds": "Rô",
+    "hearts": "Cơ",
+    "spades": "Bích",
+    "blackTextDot": "B",
+    "redTextDot": "R"
+}

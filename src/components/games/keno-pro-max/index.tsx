@@ -15,7 +15,7 @@ import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import Styles from "./keno-pro-max.module.scss";
 import { Result, SettlementResult } from "./keno-pro-max";
-import SeDiceStatistic from "./statistic";
+import KenoProMaxStatistic from "./statistic";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -63,7 +63,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderStatistic() {
-        return <SeDiceStatistic roundHistory={this.state.roundHistory}></SeDiceStatistic>;
+        return <KenoProMaxStatistic roundHistory={this.state.roundHistory}></KenoProMaxStatistic>;
     }
 
     renderBoard() {
@@ -106,6 +106,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <></>
             </AdvanceModal>
@@ -121,6 +122,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <KenoProMaxBetHistory />
             </AdvanceModal>

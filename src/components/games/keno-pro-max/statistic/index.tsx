@@ -14,7 +14,7 @@ const StatisticRuleEntries = Object.entries({
         100 - (countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0),
 });
 
-const SeDiceStatistic = ({ roundHistory }) => {
+const KenoProMaxStatistic = ({ roundHistory }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -33,4 +33,4 @@ const SeDiceStatistic = ({ roundHistory }) => {
     }, [roundHistory]);
 };
 
-export default SeDiceStatistic;
+export default KenoProMaxStatistic;

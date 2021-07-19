@@ -16,6 +16,7 @@ import styles from "./games.module.scss";
 import SeDie from "./se-die/se-die";
 import KenoProMax from "./keno-pro-max";
 import Baccarat from "./baccarat";
+import ThreeCards from "./three-cards";
 
 type Props = {
     enabledWinningStreakNotification: boolean;
@@ -97,6 +98,8 @@ export const Games: React.FC<Props> = ({
             case 1:
             case 4:
                 return <BigSmall key={`game-${gameId}`} {...gameProps} />;
+            case 35:
+                return <ThreeCards key={`game-${gameId}`} {...gameProps} />;
             default:
                 return null;
         }

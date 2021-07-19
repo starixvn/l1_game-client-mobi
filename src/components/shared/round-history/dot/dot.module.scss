@@ -122,7 +122,7 @@
     }
 }
 
-// bbig-small
+// big-small
 
 .dot-big {
     @extend %dot;
@@ -141,6 +141,29 @@
 
     &:before {
         background: var(--bigSmall-dot-small-background);
+    }
+}
+
+// three-cards
+.dot-red {
+    @extend %dot;
+    background: var(--threeCards-dot-red-border);
+    box-shadow: var(--threeCards-dot-red-shadow);
+    color: var(--threeCards-red-text-color);
+
+    &:before {
+        background: var(--threeCards-dot-red-background);
+    }
+}
+
+.dot-black {
+    @extend %dot;
+    background: var(--threeCards-dot-black-border);
+    box-shadow: var(--threeCards-dot-black-shadow);
+    color: var(--threeCards-black-text-color);
+
+    &:before {
+        background: var(--threeCards-dot-black-background);
     }
 }
 

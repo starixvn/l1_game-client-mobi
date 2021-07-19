@@ -201,6 +201,7 @@ export const getStaticProps = async ({ locale }) => ({
             "kenopromax",
             "baccarat",
             "vipbaccarat",
+            "threecards"
         ])),
     },
 });

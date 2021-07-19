@@ -14,7 +14,7 @@ import { RenderRoundDetail, RenderBaccaratDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import Styles from "./baccarat.module.scss";
 import { Result, SettlementResult } from "./baccarat";
-import SeDiceStatistic from "./statistic";
+import BaccaratStatistic from "./statistic";
 
 class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -61,7 +61,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderStatistic() {
-        return <SeDiceStatistic roundHistory={this.state.roundHistory}></SeDiceStatistic>;
+        return <BaccaratStatistic roundHistory={this.state.roundHistory}></BaccaratStatistic>;
     }
 
     renderBoard() {
@@ -109,6 +109,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <></>
             </AdvanceModal>
@@ -124,6 +125,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 isOpen={true}
                 onCloseModal={this.closePopup}
                 isAddScrollBody={true}
+                gameId={this.props.id}
             >
                 <BaccaratBetHistory />
             </AdvanceModal>
