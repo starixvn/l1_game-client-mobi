@@ -292,7 +292,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
                 />
-                <BetSettings updateBetSetting={this.updateBetSetting} betSettings={this.globalBetSetting} />
                 {this.props.isShowModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
