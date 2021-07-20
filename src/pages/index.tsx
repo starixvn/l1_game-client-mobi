@@ -13,7 +13,6 @@ import { GetLocalizedErrorMessage } from "../helpers/notice-helper";
 import { UserClientCommunication } from "../services";
 import { setCharacterName, setUser } from "../utils/sentry";
 
-
 export type APIErrorProp = {
     message: string;
     errorCode: string;
@@ -155,7 +154,8 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen locale={router.locale}></SplashScreen>;
+        const { lang } = router.query;
+        return <SplashScreen locale={languageMapper[lang as string] ?? router.locale}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (
