@@ -54,19 +54,38 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
     return (
         <div className={Styles["game-menu"]}>
-            <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
-                <div className={`${Styles["quick-bet-chip"]} ${props.gameId ? Styles["global-setting"] : ""}`}>
-                    <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
-                    {enabledQuickBet && <span className={Styles["selected-bet-stake"]}>{betStake}</span>}
+            {props.gameId && (
+                <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
+                    {enabledQuickBet ? (
+                        <div className={Styles["quick-bet-active"]}>
+                            <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
+                            <span className={Styles["selected-bet-stake"]}>{betStake}</span>
+                        </div>
+                    ) : (
+                        <div className={`${Styles["quick-bet-chip"]}`}>
+                            <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+                        </div>
+                    )}
                 </div>
-                {/* Enable quick-bet */}
-                {/* <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
-                    <span className={Styles["bet"]}>100</span> */}
-            </div>
+            )}
+
             <div className="dropdown" ref={wrapperRef}>
-                <div className={`game-header-button dropdown-toggle ${Styles["dropdown-toggle"]}`} onClick={toggle}>
-                    <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
-                </div>
+                {props.gameId ? (
+                    <div className={`dropdown-toggle game-header-button ${Styles["game-header-button"]}`} onClick={toggle}>
+                        <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
+                    </div>
+                ) : (
+                    <div className={`dropdown-toggle header-button ${Styles["header-button"]}`} onClick={toggle}>
+                        <div className={`${Styles["quick-bet-chip"]}`}>
+                            {enabledQuickBet && (
+                                <img src={"/static/images/chip-dollar-icon.svg"} className={Styles["icon-dollar"]} width={5} height={9} />
+                            )}
+                        </div>
+                        <span className={Styles["quick-bet-text"]}>Quick bet</span>
+                        <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
+                    </div>
+                )}
+
                 {dropdownOpen && (
                     <div className={`dropdown-menu ${Styles["quick-bet-form"]} show`}>
                         <div className={Styles["title"]}>Quick Bet</div>

@@ -1,14 +1,19 @@
 .settings-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     padding: 0 0.5rem;
+}
+
+.setting-left {
+    margin-right: 0.6rem;
 }
 
 .setting-right {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
+    grid-gap: 0.6rem;
     align-items: center;
 }
 
@@ -58,7 +63,7 @@
 
 .icon-notify-on-light {
     @extend %icon-notify;
-    background-position: -95px -31px;
+    background-position: -95px -29px;
 }
 
 %icon-menu {
