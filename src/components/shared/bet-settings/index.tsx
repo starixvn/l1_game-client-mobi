@@ -109,11 +109,14 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         readOnly={isMobile}
                                     ></input>
                                     <span className={`icon-close ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
-                                    <span
-                                        className={`icon-help ${Styles["icon-help"]}`}
-                                        onClick={() => setShowBetStakeTooltip(true)}
-                                    ></span>
-                                    {showBetStakeTooltip && <div className={Styles["tooltip"]}>{t("presetStakeTooltip")}</div>}
+                                    <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowBetStakeTooltip(true)}>
+                                        {showBetStakeTooltip && (
+                                            <div className={`tooltip show ${Styles["tooltip"]}`}>
+                                                <div className={`${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
+                                                <div className={`arrow  ${Styles["arrow"]}`}></div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
@@ -132,8 +135,14 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         <div className={Styles["quick-bet-icon"]}></div>
                                     </label>
                                 </div>
-                                <span className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowQuickBetTooltip(true)}></span>
-                                {showQuickBetTooltip && <div className={Styles["tooltip"]}>{t("quickBetTooltip")}</div>}
+                                <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowQuickBetTooltip(true)}>
+                                    {showQuickBetTooltip && (
+                                        <div className={`tooltip show ${Styles["tooltip"]}`}>
+                                            <div className={`${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
+                                            <div className={`arrow  ${Styles["arrow"]}`}></div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             <div className={Styles["numpad-container"]}>
