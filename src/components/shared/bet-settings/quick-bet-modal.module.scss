@@ -1,13 +1,17 @@
-[data-theme="light"] .icon-arrow-down {
+[data-theme="light"] .game-menu {
     --header-icon-arrow-down-color: #825000;
     --game-header-icon-arrow-down-color: #825000;
     --quick-bet-text-color: #000;
+    --tooltip-background-color: #fff;
+    --tooltip-background-border: #c9c9c9;
 }
 
-[data-theme="dark"] .icon-arrow-down {
+[data-theme="dark"] .game-menu {
     --header-icon-arrow-down-color: #fff;
     --game-header-icon-arrow-down-color: #7092b9;
     --quick-bet-text-color: #fff;
+    --tooltip-background-color: #304860;
+    --tooltip-background-border: #567a9b;
 }
 
 .game-menu {
@@ -223,22 +227,38 @@
 
     .tooltip-inner {
         position: absolute;
-        top: -6rem;
+        top: -6.3rem;
         right: -2rem;
         width: 27rem;
         padding: 0.5rem 0.8rem;
         border-radius: 0.4rem;
+        border: 1px solid var(--tooltip-background-border);
         box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-        background-color: #e0eeff;
+        background-color: var(--tooltip-background-color);
         text-align: left;
         font: 1.3rem/1.8rem var(--font-family);
-        color: #426dad;
+        color: var(--text-color);
     }
 
     .arrow {
         left: -0.9rem;
         bottom: 0.7rem;
         border-width: 0.9rem 0.9rem 0;
-        border-top-color: #e0eeff;
+        border-top-color: var(--tooltip-background-border);
+
+        &:before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: -8px;
+            right: 0;
+            top: -9px;
+            height: 9px;
+            width: 9px;
+            border-width: 0.8rem 0.8rem 0;
+            border-style: solid;
+            border-color: transparent;
+            border-top-color: var(--tooltip-background-color);
+        }
     }
 }
