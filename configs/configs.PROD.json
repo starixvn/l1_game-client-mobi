@@ -10,7 +10,5 @@
     },
     "offeredGames": [2, 22, 3, 1, 4, 7],
     "enableSourceMap": false,
-    "gameGuides": {
-        "dsn": "https://guides.sabagame.com"
-    }
+    "guideUrl": "https://guides.sabagame.com"
 }

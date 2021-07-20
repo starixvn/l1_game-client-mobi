@@ -13,13 +13,13 @@ type Props = {
 };
 const GameGuides: React.FC<Props> = (props) => {
     const { gameId, language, theme, userStakeLevel } = props;
-    const { gameGuides } = appSettings;
+    const { guideUrl } = appSettings;
     const wrapperRef = useRef<HTMLIFrameElement>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const [contentGuide, setContentGuide] = useState<any>(<></>);
-    const srcPath = `${gameGuides.dsn}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
+    const srcPath = `${guideUrl}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
         userStakeLevel?.maxBet
     }&v=${Date.now()}`;
 
