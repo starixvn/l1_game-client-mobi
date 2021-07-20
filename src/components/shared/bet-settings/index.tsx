@@ -14,6 +14,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     const [showBetStakeTooltip, setShowBetStakeTooltip] = useState(false);
     const [showQuickBetTooltip, setShowQuickBetTooltip] = useState(false);
     const { t } = useTranslation();
+    const dropdownPosition = !props.gameId && isMobile ? "left" : "right";
 
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -94,7 +95,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                 )}
 
                 {dropdownOpen && (
-                    <div className={`dropdown-menu ${Styles["quick-bet-form"]} show`}>
+                    <div className={`dropdown-menu ${Styles["quick-bet-form"]} show ${dropdownPosition}`}>
                         <div className={Styles["title"]}>{t("quickBet")}</div>
                         <div className={Styles["bet-settings"]}>
                             <div className={Styles["stake-control"]}>

@@ -7,7 +7,7 @@
     float: left;
     position: absolute;
     top: 3.6rem;
-    right: 0;
+
     display: none;
     margin: 0.125rem 0 0;
     padding: 0.5rem 0;
@@ -20,6 +20,14 @@
 
     &.show {
         display: block;
+    }
+
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        right: 0;
     }
 }
 

@@ -42,7 +42,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
                 <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
             </div>
             <div className="dropdown" ref={wrapperRef}>
-                <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
+                <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
                         <div className={Styles["label"]}>{t("darkMode")}</div>
                         <div className={Styles["toggle-button"]}>
