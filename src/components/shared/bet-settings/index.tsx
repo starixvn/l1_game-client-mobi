@@ -100,7 +100,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                         <div className={Styles["bet-settings"]}>
                             <div className={Styles["stake-control"]}>
                                 <label className={Styles["label"]}>{t("presetStake")}</label>
-                                <div className={Styles["form-group"]}>
+                                <div className={`form-group ${Styles["group-help"]}`}>
                                     <input
                                         className={`form-control ${Styles["stake"]}`}
                                         type={"number"}
@@ -117,7 +117,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 </div>
                             </div>
 
-                            <div className={Styles["form-group"]}>
+                            <div className={`form-group ${Styles["group-help"]}`}>
                                 <div className={Styles["quick-bet-toggle"]}>
                                     <label>{t("quickBet")}</label>
                                     <input
