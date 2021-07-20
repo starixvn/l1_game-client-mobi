@@ -30,16 +30,15 @@ type Props = {
 const betSettingStorageKey = SessionStorageKeys.betSetting;
 
 const PlaceBetModal: React.FC<Props> = (props) => {
-    const { roundId, gameSetting, gameConfigs } = useGameContext();
-    const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
-    const betValue = betSettingStorage[gameSetting.id]?.betStake ?? 1;
+    const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [rawStake, setrawStake] = useState(`${betValue}`);
-    const [showTooltip, setShowTooltip] = useState(false);
-    const [tooltipMessage, setTooltipMessage] = useState('');
+    const [rawStake, setRawStake] = useState(`${gameConfigs.minbet}`);
+    const [showTooltip, setShowTooltip] = useState(true);
+    const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: gameConfigs.minbet }));
 
-    const maxbetChoice = _.find(gameConfigs.choices_maxbet, (val, key) => key === betChoice);
+    const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
+    const maxBetChoice = gameConfigs.choices_maxbet[betChoice];
 
     const chips = [
         {
@@ -60,7 +59,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         },
         {
             style: "chip-13",
-            value: `${maxbetChoice}`,
+            value: `${maxBetChoice}`,
         },
     ];
 
@@ -70,12 +69,12 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             value: numberWithCommas(parseInt(rawStake) * odd),
         },
         {
-            text: "Tối thiểu",
+            text: "Tối Thiểu",
             value: numberWithCommas(gameConfigs.minbet),
         },
         {
             text: "Tối đa",
-            value: numberWithCommas(maxbetChoice),
+            value: numberWithCommas(maxBetChoice),
         },
     ];
 
@@ -84,31 +83,38 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     const addStakeByPressNumberHandler = (event: any) => {
-        addStakeByChipHandler(event, event.currentTarget.innerHTML);
+        addStakeHandler(event, event.currentTarget.innerHTML);
     };
 
-    const addStakeByChipHandler = (event: any, stake: string) => {
+    const addStakeHandler = (event: any, stake: string) => {
         event.preventDefault();
         const totalRawStake = rawStake + stake;
-        const totalStake =  parseInt(totalRawStake);
-        
-        if(totalStake > maxbetChoice)
-        {
+        const totalStake = parseInt(totalRawStake);
+
+        if (totalStake > maxBetPerRound) {
             setShowTooltip(true);
-            setTooltipMessage("Max bet for this option is {max_bet}");
-            setrawStake(`${maxbetChoice}`);
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
+            setRawStake(`${maxBetPerRound}`);
+            return;
         }
-        else{
-            setrawStake(totalRawStake);
+
+        if (totalStake > maxBetChoice) {
+            setShowTooltip(true);
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetChoice }));
+            setRawStake(`${maxBetChoice}`);
+            return;
         }
+
+        setShowTooltip(false);
+        setRawStake(totalRawStake);
     };
 
     const deleteNumberHandler = (event: any) => {
         event.preventDefault();
-        setrawStake((preRawStake) => (preRawStake.length === 1 ? "0" : preRawStake.slice(0, -1)));
+        setRawStake((preRawStake) => (preRawStake.length === 1 ? "0" : preRawStake.slice(0, -1)));
     };
 
-    const placeBet = () => {
+    const submitBet = () => {
         closeModal();
         props.onPlaceBet(props.betChoiceInfo.betChoice, parseInt(rawStake));
     };
@@ -159,7 +165,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         <div
                             className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
                             key={index}
-                            onClick={(event) => addStakeByChipHandler(event, chip.value)}
+                            onClick={(event) => addStakeHandler(event, chip.value)}
                         >
                             <img
                                 src={`/static/images/chips/${chip.style}.svg`}
@@ -168,7 +174,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                                 height="66"
                                 alt="Chip"
                             />
-                            <span className={Styles["value"]}>{chip.value == maxbetChoice ? "MAX" : `+${chip.value}`}</span>
+                            <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
                         </div>
                     ))}
                 </div>
@@ -183,7 +189,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         </div>
                     ))}
                 </div>
-                <button onClick={placeBet} className={`btn-orange w-100`} disabled={betValue <= 0}>
+                <button onClick={submitBet} className={`btn-orange w-100`} disabled={parseInt(rawStake) <= 0}>
                     {t("common:confirm")}
                 </button>
             </div>
