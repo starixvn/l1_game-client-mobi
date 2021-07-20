@@ -29,7 +29,7 @@ const betSettingStorageKey = SessionStorageKeys.betSetting;
 const PlaceBetModal: React.FC<Props> = (props) => {
     const { roundId, gameSetting } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
-    const betValue = betSettingStorage[gameSetting.id]?.betStake;
+    const betValue = betSettingStorage[gameSetting.id]?.betStake ?? 1;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
 
