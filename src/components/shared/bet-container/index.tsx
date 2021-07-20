@@ -9,7 +9,7 @@ const BetContainer: React.FC<Props> = (props) => {
     const [customStyle, setCustomStyle] = useState<object>();
 
     useEffect(() => {
-        props.gameState !== GameState.InRound && setCustomStyle({ cursor: "not-allowed" });
+        setCustomStyle(props.gameState !== GameState.InRound ? { cursor: "not-allowed" } : { cursor: "pointer" });
     }, [props.gameState]);
 
     return (
