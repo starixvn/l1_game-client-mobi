@@ -4,6 +4,7 @@ import Loader from "../loader";
 import appSettings from "../../../common/app-settings";
 import { UserStakeLevel } from "../game-base/type";
 import Styles from "./game-guide.module.scss";
+import { gameVipIds } from "../../../common/constants";
 
 type Props = {
     language: string;
@@ -19,9 +20,8 @@ const GameGuides: React.FC<Props> = (props) => {
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const [contentGuide, setContentGuide] = useState<any>(<></>);
-    const srcPath = `${guideUrl}/?gId=${gameId}&lang=${language}&t=${theme}&minBet=${userStakeLevel?.minBet}&maxBet=${
-        userStakeLevel?.maxBet
-    }&v=${Date.now()}`;
+    const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
+    const srcPath = `${guideUrl}/?gId=${gameId}&lang=${language}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
 
     const hideSpinner = () => {
         setIsLoading(false);
