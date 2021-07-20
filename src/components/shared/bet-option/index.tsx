@@ -53,7 +53,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = () => {
-        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey);
+        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
