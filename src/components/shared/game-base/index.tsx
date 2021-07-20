@@ -243,8 +243,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
-        const { id, playPlaceBetSound } = this.props;
-        const { displayPopup, roundId, ownBets } = this.state;
+        const { playPlaceBetSound } = this.props;
+        const { displayPopup, ownBets } = this.state;
         this.isProcessingBet = false;
         this.clearRetryInterval();
         this.setState({ notice: null });

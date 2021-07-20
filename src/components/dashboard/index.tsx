@@ -19,7 +19,6 @@ import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import BetSettings from "../shared/bet-settings";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
