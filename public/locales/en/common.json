@@ -50,5 +50,11 @@
     "balancedBettingPool": "Balancing the pool",
     "openResult": "Open result",
     "oneClickBetOn": "1-Click Bet enabled",
-    "total": "Total"
+    "total": "Total",
+    "presetStake": "Preset Stake",
+    "presetStakeTooltip": "Set the default Bet amount for each bet.",
+    "quickBetTooltip": "Allow to place bet directly without confirmation step.",
+    "quickBet": "Quick Bet",
+    "reset": "Reset",
+    "save": "Save"
 }

@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting } from "./type";
@@ -6,10 +7,12 @@ const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 
 const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting }> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 1);
     const [enabledQuickBet, setEnabledQuickBet] = useState(props.betSettings?.enabledQuickBet);
+    const [showBetStakeTooltip, setShowBetStakeTooltip] = useState(false);
+    const [showQuickBetTooltip, setShowQuickBetTooltip] = useState(false);
+    const { t } = useTranslation();
 
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -25,6 +28,9 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
         }
+
+        setShowBetStakeTooltip(false);
+        setShowQuickBetTooltip(false);
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,12 +63,12 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             {props.gameId && (
                 <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
                     {enabledQuickBet ? (
-                        <div className={Styles["quick-bet-active"]}>
+                        <div className={Styles["quick-bet-active"]} onClick={toggle}>
                             <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
                             <span className={Styles["selected-bet-stake"]}>{betStake}</span>
                         </div>
                     ) : (
-                        <div className={`${Styles["quick-bet-chip"]}`}>
+                        <div className={`${Styles["quick-bet-chip"]}`} onClick={toggle}>
                             <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
                         </div>
                     )}
@@ -88,10 +94,10 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
                 {dropdownOpen && (
                     <div className={`dropdown-menu ${Styles["quick-bet-form"]} show`}>
-                        <div className={Styles["title"]}>Quick Bet</div>
+                        <div className={Styles["title"]}>{t("quickBet")}</div>
                         <div className={Styles["bet-settings"]}>
                             <div className={Styles["stake-control"]}>
-                                <label className={Styles["label"]}>Tiền cược sẵn</label>
+                                <label className={Styles["label"]}>{t("presetStake")}</label>
                                 <div className={Styles["form-group"]}>
                                     <input
                                         className={`form-control ${Styles["stake"]}`}
@@ -99,42 +105,47 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         onChange={(e) => handleInputBetStake(e)}
                                         value={betStake}
                                     ></input>
-                                    <span className={`icon-cancel ${Styles["icon-cancel"]}`}></span>
-                                    <span className={`icon-help ${Styles["icon-help"]}`}></span>
+                                    <span className={`icon-cancel ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
+                                    <span
+                                        className={`icon-help ${Styles["icon-help"]}`}
+                                        onClick={() => setShowBetStakeTooltip(true)}
+                                    ></span>
+                                    {showBetStakeTooltip && <div className={Styles["tooltip"]}>{t("presetStakeTooltip")}</div>}
                                 </div>
                             </div>
 
                             <div className={Styles["form-group"]}>
                                 <div className={Styles["quick-bet-toggle"]}>
-                                    <label>Quick Bet</label>
+                                    <label>{t("quickBet")}</label>
                                     <input
                                         className={Styles["toggle-checkbox"]}
                                         id="toggle-quickbet"
                                         type={"checkbox"}
                                         value={"Quick Bet"}
                                         checked={enabledQuickBet}
-                                        onClick={() => setEnabledQuickBet(!enabledQuickBet)}
+                                        onChange={() => setEnabledQuickBet(!enabledQuickBet)}
                                     />
                                     <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                                         <div className={Styles["quick-bet-icon"]}></div>
                                     </label>
                                 </div>
-                                <span className={`icon-help ${Styles["icon-help"]}`}></span>
+                                <span className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowQuickBetTooltip(true)}></span>
+                                {showQuickBetTooltip && <div className={Styles["tooltip"]}>{t("quickBetTooltip")}</div>}
                             </div>
 
                             <div className={Styles["numpad-container"]}>
                                 {NumpadValues.map((value) => (
-                                    <span className={Styles["numpad"]} id={`numpad-${value}`} onClick={() => addBetStake(value)}>
+                                    <span className={Styles["numpad"]} key={`numpad-${value}`} onClick={() => addBetStake(value)}>
                                         +{value}
                                     </span>
                                 ))}
                             </div>
                             <div className={Styles["actions"]}>
                                 <button className="btn-grey" onClick={onClickReset}>
-                                    Reset
+                                    {t("reset")}
                                 </button>
                                 <button className="btn-orange" onClick={onSubmit}>
-                                    Submit
+                                    {t("save")}
                                 </button>
                             </div>
                         </div>

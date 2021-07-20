@@ -50,5 +50,11 @@
     "balancedBettingPool": "Nhà cái cân cửa",
     "openResult": "Công bố kết quả",
     "oneClickBetOn": "1-Click Bet đã bật",
-    "total": "Tổng"
+    "total": "Tổng",
+    "presetStake": "Tiền cược đặt sẵn",
+    "presetStakeTooltip": "Thiết lập số tiền cược mặc định cho mỗi lần cược.",
+    "quickBetTooltip": "Cho phép đặt cược trực tiếp mà không cần thông qua bước xác nhận.",
+    "quickBet": "Cược Nhanh",
+    "reset": "Đặt lại",
+    "save": "Lưu"
 }
