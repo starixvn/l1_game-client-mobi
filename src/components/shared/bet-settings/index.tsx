@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobile } from "react-device-detect";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting } from "./type";
 
@@ -104,6 +105,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         type={"number"}
                                         onChange={(e) => handleInputBetStake(e)}
                                         value={betStake}
+                                        readOnly={isMobile}
                                     ></input>
                                     <span className={`icon-cancel ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
                                     <span
