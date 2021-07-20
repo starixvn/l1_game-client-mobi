@@ -73,29 +73,36 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                         <div className={Styles["bet-settings"]}>
                             <div className={Styles["stake-control"]}>
                                 <label className={Styles["label"]}>Tiền cược sẵn</label>
-                                <input
-                                    className={`form-control ${Styles["stake"]}`}
-                                    type={"number"}
-                                    onChange={(e) => handleInputBetStake(e)}
-                                    value={betStake}
-                                ></input>
-                                <span className={`icon-cancel ${Styles["icon-cancel"]}`}></span>
+                                <div className={Styles["form-group"]}>
+                                    <input
+                                        className={`form-control ${Styles["stake"]}`}
+                                        type={"number"}
+                                        onChange={(e) => handleInputBetStake(e)}
+                                        value={betStake}
+                                    ></input>
+                                    <span className={`icon-cancel ${Styles["icon-cancel"]}`}></span>
+                                    <span className={`icon-help ${Styles["icon-help"]}`}></span>
+                                </div>
                             </div>
 
-                            <div className={Styles["quick-bet-toggle"]}>
-                                <label>Quick Bet</label>
-                                <input
-                                    className={Styles["toggle-checkbox"]}
-                                    id="toggle-quickbet"
-                                    type={"checkbox"}
-                                    value={"Quick Bet"}
-                                    checked={enabledQuickBet}
-                                    onClick={() => setEnabledQuickBet(!enabledQuickBet)}
-                                />
-                                <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
-                                    <div className={Styles["quick-bet-icon"]}></div>
-                                </label>
+                            <div className={Styles["form-group"]}>
+                                <div className={Styles["quick-bet-toggle"]}>
+                                    <label>Quick Bet</label>
+                                    <input
+                                        className={Styles["toggle-checkbox"]}
+                                        id="toggle-quickbet"
+                                        type={"checkbox"}
+                                        value={"Quick Bet"}
+                                        checked={enabledQuickBet}
+                                        onClick={() => setEnabledQuickBet(!enabledQuickBet)}
+                                    />
+                                    <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
+                                        <div className={Styles["quick-bet-icon"]}></div>
+                                    </label>
+                                </div>
+                                <span className={`icon-help ${Styles["icon-help"]}`}></span>
                             </div>
+
                             <div className={Styles["numpad-container"]}>
                                 {NumpadValues.map((value) => (
                                     <span className={Styles["numpad"]} id={`numpad-${value}`} onClick={() => addBetStake(value)}>
