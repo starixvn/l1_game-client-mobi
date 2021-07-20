@@ -65,3 +65,30 @@
         color: var(--icon-arrow-down-color);
     }
 }
+
+%icon-menu {
+    display: inline-block;
+    background-image: url("/static/images/setting-sprites.png");
+    background-image: -webkit-image-set(
+        url("/static/images/setting-sprites.png") 1x,
+        url("/static/images/setting-sprites@2x.png") 2x,
+        url("/static/images/setting-sprites@3x.png") 3x
+    );
+    background-image: image-set(
+        url("/static/images/setting-sprites.png") 1x,
+        url("/static/images/setting-sprites@2x.png") 2x,
+        url("/static/images/setting-sprites@3x.png") 3x
+    );
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.icon-menu-light {
+    @extend %icon-menu;
+    background-position: -1px 0;
+}
+
+.icon-menu-dark {
+    @extend %icon-menu;
+    background-position: -31px 0;
+}

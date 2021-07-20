@@ -2,6 +2,7 @@ import { useTheme } from "next-themes";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import BetSettings from "../bet-settings";
+import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
 
@@ -31,12 +32,7 @@ export const Settings: React.FC<Props> = (props) => {
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
                 </div>
-                <div
-                    id="menu-settings"
-                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                >
-                    <span className={styles[`${"icon-menu-"}${theme}`]}></span>
-                </div>
+                <Menu handleToggleSound={props.onToggleSound} enabledSound={props.enabledSound}></Menu>
             </div>
         </div>
     );
