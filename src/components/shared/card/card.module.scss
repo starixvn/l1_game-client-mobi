@@ -177,3 +177,43 @@
         }
     }
 }
+
+.card-6 {
+    .card-group-left {
+        left: 1.1rem;
+        top: 1rem;
+
+        .card-number {
+            top: 0.5rem;
+            line-height: 1.1rem;
+            font-size: 1.2rem;
+        }
+
+        .card-suite-small {
+            width: 0.9rem;
+        }
+    }
+
+    .card-group-right {
+        right: 1.2rem;
+        bottom: 1rem;
+
+        .card-suite-large {
+            width: 2.4rem;
+            bottom: 6px;
+        }
+
+        .card-picture {
+            top: 0;
+            width: 3.5rem;
+            right: -0.2rem;
+            height: 5.8rem;
+        }
+    }
+
+    .card-bg {
+        background-size: 55px 80px;
+        width: 55px;
+        height: 80px;
+    }
+}

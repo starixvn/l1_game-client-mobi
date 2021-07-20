@@ -5,6 +5,7 @@ export type Props = {
     isSmall?: boolean;
     isAnimation?: boolean;
     viewMode?: ViewMode;
+    customClassName?: string;
 };
 
 export interface ObjectResult {

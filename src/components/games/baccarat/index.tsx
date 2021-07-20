@@ -132,13 +132,29 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         );
     }
 
+    getSettlementResult() {
+        const { settlementResult } = this.state;
+
+        if (settlementResult.tie) {
+            return { style: Styles["result-info-green"], text: "tie" };
+        }
+
+        if (settlementResult.banker) {
+            return { style: Styles["result-info-orange"], text: "bankerWin" };
+        }
+
+        if (settlementResult.player) {
+            return { style: Styles["result-info-red"], text: "playerWin" };
+        }
+    }
+
     renderSettlementInfo() {
-        const { result, settlementResult } = this.state;
-
-        const redDotCount = Object.values(result).filter((dot) => dot).length;
-        const whiteDotCount = 4 - redDotCount;
-
-        return <div className={Styles["result-container"]}></div>;
+        const settlementResult = this.getSettlementResult();
+        return (
+            <div className={Styles["result-container"]}>
+                <div className={settlementResult.style}>{this.getGameTranslate(settlementResult.text)}</div>
+            </div>
+        );
     }
 }
 

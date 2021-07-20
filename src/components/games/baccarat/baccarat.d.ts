@@ -34,3 +34,8 @@ export type Odd = {
     small: number;
     tie: number;
 };
+
+export type CardOrder = {
+    value: CardType;
+    order: number;
+};

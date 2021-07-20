@@ -24,9 +24,14 @@ export const convertRank = (num: number): string => {
 
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
+    const customClassName = props.customClassName ?? "";
     const iconLarge = pictureCard[convertRank(result.card)] ? pictureCard[convertRank(result.card)] : suffixClassMapping[result.type];
     return (
-        <div className={`${Styles["card"]} ${isSmall && Styles["small"]} ${viewMode === ViewMode.collapse && Styles["collapse"]}`}>
+        <div
+            className={`${Styles[customClassName]} ${Styles["card"]} ${isSmall && Styles["small"]} ${
+                viewMode === ViewMode.collapse && Styles["collapse"]
+            }`}
+        >
             <div className={Styles["card-shadow"]}></div>
             <div className={Styles["card-bg"]}>
                 <div className={Styles["result"]}>

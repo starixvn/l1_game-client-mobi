@@ -8,5 +8,7 @@
     "bankerPair": "Cái Đôi",
     "playerPair": "Con Đôi",
     "bankerTextDot": "B",
-    "playerTextDot": "P"
+    "playerTextDot": "P",
+    "bankerWin": "Nhà cái thắng",
+    "playerWin": "Nhà con thắng"
 }

@@ -8,5 +8,7 @@
     "bankerPair": "Banker Pair",
     "playerPair": "Player Pair",
     "bankerTextDot": "B",
-    "playerTextDot": "P"
+    "playerTextDot": "P",
+    "bankerWin": "Bank Win",
+    "playerWin": "Player Win"
 }
