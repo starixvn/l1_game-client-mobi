@@ -1,16 +1,6 @@
 @import "../../../assets/components/buttons";
 
 [data-theme="light"] {
-    .login-form {
-        --form-control-background: #fff;
-        --form-control-border: #ebedef;
-    }
-
-    .register-wrapper-input {
-        --icon-remove-background: #eaebf0;
-        --icon-remove-color: #1a2430;
-    }
-
     .gallery-wrapper {
         --gallery-popup-background: #fff;
         --gallery-popup-border: #fff;
@@ -18,16 +8,6 @@
 }
 
 [data-theme="dark"] {
-    .login-form {
-        --form-control-background: #1d2b3b;
-        --form-control-border: #384c61;
-    }
-
-    .register-wrapper-input {
-        --icon-remove-background: #294c6f;
-        --icon-remove-color: #1a2430;
-    }
-
     .gallery-wrapper {
         --gallery-popup-background: #203040;
         --gallery-popup-border: #2c3e50;
@@ -66,12 +46,8 @@
 
     .custom-form-control {
         height: 4.4rem;
-        padding: 0 1.6rem;
-        background: var(--form-control-background);
-        outline: none;
-        border: 2px solid var(--form-control-border);
-        border-radius: 0.5rem;
-        color: var(--text-color);
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
         font-size: 1.8rem;
         font-weight: 500;
     }
@@ -85,6 +61,10 @@
         margin-left: 1.2rem;
     }
 
+    .icon-cancel {
+        top: 0.7rem;
+    }
+
     .btn-submit {
         width: 100%;
         margin-top: 0.6rem;
@@ -92,19 +72,7 @@
 }
 
 .register-wrapper-input {
-    position: relative;
     width: 100%;
-
-    .icon-remove {
-        background: var(--icon-remove-background);
-        position: absolute;
-        right: 0.8rem;
-        top: 0.6rem;
-
-        &:before {
-            color: var(--icon-remove-color);
-        }
-    }
 }
 
 .gallery-wrapper {

@@ -102,13 +102,13 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 <label className={Styles["label"]}>{t("presetStake")}</label>
                                 <div className={`form-group ${Styles["group-help"]}`}>
                                     <input
-                                        className={`form-control ${Styles["stake"]}`}
+                                        className={`form-control number ${Styles["stake"]}`}
                                         type={"number"}
                                         onChange={(e) => handleInputBetStake(e)}
                                         value={betStake}
                                         readOnly={isMobile}
                                     ></input>
-                                    <span className={`icon-cancel ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
+                                    <span className={`icon-close ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
                                     <span
                                         className={`icon-help ${Styles["icon-help"]}`}
                                         onClick={() => setShowBetStakeTooltip(true)}

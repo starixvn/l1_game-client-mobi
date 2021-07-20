@@ -122,8 +122,14 @@
     }
 
     .icon-cancel {
-        right: 4rem;
-        top: 0.8rem;
+        top: 1rem;
+        right: 42px;
+        width: 2.1rem;
+        height: 2.1rem;
+
+        &:before {
+            font-size: 0.9rem;
+        }
     }
 }
 

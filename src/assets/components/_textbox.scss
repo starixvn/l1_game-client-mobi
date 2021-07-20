@@ -2,14 +2,16 @@
     --textbox-border-color: #c9c9c9;
     --textbox-background-color: #fff;
     --textbox-color: #2c2f3e;
-    --icon-cancel-color: #eaebf0;
+    --icon-cancel-backround: #eaebf0;
+    --icon-cancel-color: #4f4f54;
 }
 
 [data-theme="dark"] .form-group {
     --textbox-border-color: #435f7a;
     --textbox-background-color: #1a2430;
     --textbox-color: #fff;
-    --icon-cancel-color: #7d8a98;
+    --icon-cancel-backround: #7d8a98;
+    --icon-cancel-color: #1a2430;
 }
 
 .form-control {
@@ -21,18 +23,22 @@
     box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
     border-radius: 0.5rem;
     background: var(--textbox-background-color);
-    text-align: right;
     font-size: 1.6rem;
     color: var(--textbox-color);
     outline: none;
+
+    &.number {
+        text-align: right;
+    }
 }
 
 .form-group {
     position: relative;
 
-    .icon-cancel {
+    .icon-close {
         position: absolute;
-        font-size: 2.2rem;
+        right: 0.8rem;
+        background: var(--icon-cancel-backround);
 
         &:before {
             color: var(--icon-cancel-color);
