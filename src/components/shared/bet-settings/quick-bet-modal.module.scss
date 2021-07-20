@@ -87,7 +87,7 @@
 
 .quick-bet-form {
     width: 31rem;
-    padding-bottom: 1.4rem;
+    padding: 0 2rem 1.4rem;
 
     .title {
         height: 4rem;
@@ -207,10 +207,4 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem;
-}
-
-.global-setting {
-}
-
-.private-setting {
 }

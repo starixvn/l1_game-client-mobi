@@ -9,7 +9,6 @@
 .game-menu {
     display: flex;
     align-items: center;
-    margin-left: 1rem;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
@@ -17,52 +16,17 @@
     }
 }
 
-.quick-bet-info {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: fit-content;
-    height: 3.6rem;
-    min-width: 4.6rem;
-    margin-right: 0.1rem;
-    border-radius: 1rem 0 0 1rem;
-
-    &:before {
-        border-radius: 1rem 0 0 1rem;
-    }
-
-    &.quick-bet-active {
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .bet {
-        line-height: 1.2rem;
-        font-size: 1.1rem;
-        color: #fff;
-    }
-
-    .quick-bet-chip {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 2.8rem;
-        width: 2.7rem;
-        background: url("/static/images/chip-bg.svg?v=2") no-repeat center;
-        background-size: 2.2rem 2.2rem;
-    }
+.menu-toggle-btn {
+    min-width: 4rem;
 }
 
-.dropdown-toggle {
-    min-width: 3rem;
-    border-radius: 0rem 1rem 1rem 0;
+.dropdown-menu {
+    min-width: 15rem;
+    top: 1.7rem;
 
-    &:before {
-        border-radius: 0rem 1rem 1rem 0;
-    }
-
-    .icon-arrow-down:before {
-        color: var(--icon-arrow-down-color);
+    .dropdown-item {
+        display: flex;
+        justify-content: space-between;
     }
 }
 
@@ -91,4 +55,56 @@
 .icon-menu-dark {
     @extend %icon-menu;
     background-position: -31px 0;
+}
+
+.toggle-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 4.6rem;
+    user-select: none;
+
+    .toggle-checkbox {
+        display: none;
+    }
+
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 3.4rem;
+        height: 1.2rem;
+        margin-left: 1rem;
+        background-color: #d7d7d7;
+        border-radius: 2rem;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            position: absolute;
+            left: 0;
+            content: "";
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #afafaf;
+            border: 0.05rem solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background-color: #8edfa2;
+
+            &:before {
+                left: 1.4rem;
+                background-color: #34c759;
+            }
+        }
+    }
 }

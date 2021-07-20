@@ -35,28 +35,42 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
 
     return (
         <div className={Styles["game-menu"]}>
-            <div className={`game-header-button ${Styles["menu-toggle-btn"]}`} onClick={() => setDropdownOpen(!dropdownOpen)}>
+            <div className={`header-button ${Styles["menu-toggle-btn"]}`} onClick={() => setDropdownOpen(!dropdownOpen)}>
                 <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
             </div>
             <div className="dropdown" ref={wrapperRef}>
                 <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
-                    <span className={dropdownItemClassName}>
-                        {t("darkMode")}
-                        <input
-                            type={"checkbox"}
-                            onChange={() => {
-                                theme === Themes.dark ? setTheme(Themes.light) : setTheme(Themes.dark);
-                            }}
-                            checked={theme === Themes.dark}
-                        ></input>
-                    </span>
-                    <span className={dropdownItemClassName}>
-                        {t("sound")}
-                        <input type={"checkbox"} onChange={() => handleToggleSound()} checked={enabledSound}></input>
-                    </span>
-                    <span className={dropdownItemClassName} onClick={openGuide}>
+                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`}>
+                        <div className={Styles["label"]}>{t("darkMode")}</div>
+                        <div className={Styles["toggle-button"]}>
+                            <input
+                                className={Styles["toggle-checkbox"]}
+                                id="toggle-themes"
+                                type={"checkbox"}
+                                onChange={() => {
+                                    theme === Themes.dark ? setTheme(Themes.light) : setTheme(Themes.dark);
+                                }}
+                                checked={theme === Themes.dark}
+                            />
+                            <label className={Styles["toggle-btn"]} htmlFor="toggle-themes"></label>
+                        </div>
+                    </div>
+                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`}>
+                        <div className={Styles["label"]}>{t("sound")}</div>
+                        <div className={Styles["toggle-button"]}>
+                            <input
+                                id="toggle-sound"
+                                className={Styles["toggle-checkbox"]}
+                                type={"checkbox"}
+                                onChange={() => handleToggleSound()}
+                                checked={enabledSound}
+                            />
+                            <label className={Styles["toggle-btn"]} htmlFor="toggle-sound"></label>
+                        </div>
+                    </div>
+                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`} onClick={openGuide}>
                         {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>
