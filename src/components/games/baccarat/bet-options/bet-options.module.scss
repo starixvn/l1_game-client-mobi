@@ -1,7 +1,35 @@
-.layout-baccarat {
+.layout-baccarat,
+.layout-vipbaccarat {
     display: grid;
     grid-gap: 0.1rem;
     height: 100%;
-    grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
-    grid-template-rows: 10rem 6.8rem 6.8rem;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+}
+
+.choice-player {
+    grid-column: 1/5;
+}
+
+.choice-tie {
+    grid-column: 5/7;
+}
+
+.choice-banker {
+    grid-column: 7/11;
+}
+
+.choice-big {
+    grid-column: 1/4;
+}
+
+.choice-player-pair {
+    grid-column: 4/6;
+}
+.choice-bank-pair {
+    grid-column: 6/8;
+}
+
+.choice-small {
+    grid-column: 8/11;
 }

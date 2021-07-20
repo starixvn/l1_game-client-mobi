@@ -2,9 +2,8 @@ import { useTranslation } from "next-i18next";
 import React, { useEffect } from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
-import { RoundDot } from "../../../shared/round-history/dot";
-import { Choices } from "../baccarat-helper";
+import { GameState } from "../../../shared/game-base/type";
+import { BaccaratConfigs } from "../baccarat-helper";
 import { SettlementResult } from "../baccarat";
 import Styles from "./bet-options.module.scss";
 
@@ -43,18 +42,15 @@ const renderBetOptionByChoice = (
 
 const BaccaratBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect } = props;
-    const { gameConfigs, gameSetting, viewMode } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-
-    const renderDots = (dots: boolean[]) =>
-        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.big : Choices.small} size="large" />);
-
-    const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
+    const { gameSetting } = useGameContext();
+    const gameName = gameSetting.gameName.toLowerCase();
 
     return (
-        <div className={`${Styles["layout-baccarat"]}`}>
-            {Object.keys(Choices).map((choice, index) => (
-                <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}</div>
+        <div className={`${Styles[`layout-${gameName}`]}`}>
+            {BaccaratConfigs.choices.map((choice, index) => (
+                <div key={index} className={Styles[`choice-${choice.style}`]}>
+                    {renderBetOptionByChoice(choice.name, gameState, settlementResult, isShowWinningEffect)}
+                </div>
             ))}
         </div>
     );
