@@ -32,7 +32,7 @@ export const Settings: React.FC<Props> = (props) => {
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
                 </div>
-                <Menu handleToggleSound={props.onToggleSound} enabledSound={props.enabledSound}></Menu>
+                <Menu handleToggleSound={props.onToggleSound} enabledSound={props.enabledSound} />
             </div>
         </div>
     );

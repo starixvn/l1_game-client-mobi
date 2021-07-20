@@ -4,8 +4,6 @@ import { useTranslation } from "react-i18next";
 import { Themes } from "../../../../common/constants";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
-import { useGameActionContext } from "../../../../contexts/game-actions-context";
-import { PopupType } from "../../game-base/type";
 import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
@@ -35,12 +33,17 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
 
     return (
         <div className={Styles["game-menu"]}>
-            <div className={`header-button ${Styles["menu-toggle-btn"]}`} onClick={() => setDropdownOpen(!dropdownOpen)}>
+            <div
+                className={`header-button ${Styles["menu-toggle-btn"]}`}
+                onClick={() => {
+                    setDropdownOpen(!dropdownOpen);
+                }}
+            >
                 <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
             </div>
             <div className="dropdown" ref={wrapperRef}>
                 <div className={`dropdown-menu ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
-                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`}>
+                    <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
                         <div className={Styles["label"]}>{t("darkMode")}</div>
                         <div className={Styles["toggle-button"]}>
                             <input
@@ -55,7 +58,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
                             <label className={Styles["toggle-btn"]} htmlFor="toggle-themes"></label>
                         </div>
                     </div>
-                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`}>
+                    <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
                         <div className={Styles["label"]}>{t("sound")}</div>
                         <div className={Styles["toggle-button"]}>
                             <input
@@ -68,7 +71,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
                             <label className={Styles["toggle-btn"]} htmlFor="toggle-sound"></label>
                         </div>
                     </div>
-                    <div className={`${dropdownItemClassName} ${Styles["dropdown-item"]}`} onClick={openGuide}>
+                    <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`} onClick={openGuide}>
                         {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
                     </div>
                 </div>
