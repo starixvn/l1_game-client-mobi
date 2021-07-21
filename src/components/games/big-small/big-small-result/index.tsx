@@ -33,7 +33,7 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
                             Object.values(result).map((value, index) => (
                                 <div key={index} className={Styles[`result-${index + 1}`]}>
                                     <img
-                                        src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                        src={`/static/images/bigsmall-dice-${value}.png`}
                                         className={Styles["dice"]}
                                         width={30}
                                         height={30}
@@ -63,7 +63,7 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                         <div className={Styles[`dice${index + 1}`]}></div>
                         <div className={Styles[`result${index + 1}`]}>
                             <img
-                                src={`/static/images/bigsmall-dice-${value}.png?${roundId}`}
+                                src={`/static/images/bigsmall-dice-${value}.png`}
                                 className={`img-fluid ${Styles["dice"]}`}
                                 width={33}
                                 height={33}
