@@ -19,6 +19,7 @@ import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import BetSettings from "../shared/bet-settings";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { UserStakeLevel } from "../shared/game-base/type";
 import { Settings } from "../shared/settings";
@@ -320,7 +321,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                 <Games
                     enabledWinningStreakNotification={enabledWinningStreakNotification}
                     enabledPlaySound={enabledPlaySound}
-                    updateEnabledQuickBet={this.setEnabledQuickBet}
                     setApiErrorMessage={this.props.setApiErrorMessage}
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
