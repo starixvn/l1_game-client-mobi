@@ -7,7 +7,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { BaccaratResult, BaccaratResultCollapse } from "./animations";
+import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation } from "./animations";
 import BaccaratBetHistory from "./bet-history";
 import BaccaratBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderBaccaratDot } from "./round-history";
@@ -77,7 +77,16 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
+        return (
+            this.state.gameState === GameState.BeforeStartRound ||
+            this.state.gameState === GameState.InRound ||
+            this.state.gameState === GameState.LockingBet
+        );
+    }
+
+    renderStartRoundAnimation() {
+        const { durations } = this.props;
+        return <DrawCardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {

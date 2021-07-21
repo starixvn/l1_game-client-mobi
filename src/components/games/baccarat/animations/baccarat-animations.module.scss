@@ -40,42 +40,52 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 }
 
-.draw-cards.has-animation {
-    %draw-card {
-        animation-name: draw-card-animation;
-        animation-duration: $time-draw-card-animation/2;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
+.draw-cards {
+    .animation-container {
+        --move-up-distance: -3.5rem;
+        --result-scale: 1;
+        top: 2rem;
+        transform: scale(1);
+        transition: transform 0.7s;
     }
 
-    .card1 {
-        @extend %draw-card;
-        animation-delay: 0;
-    }
+    &.has-animation {
+        %draw-card {
+            animation-name: draw-card-animation;
+            animation-duration: $time-draw-card-animation/2;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
 
-    .card2 {
-        @extend %draw-card;
-        animation-delay: $time-draw-card-animation/6;
-    }
+        .card1 {
+            @extend %draw-card;
+            animation-delay: 0;
+        }
 
-    .card3 {
-        @extend %draw-card;
-        animation-delay: $time-draw-card-animation * 2/6;
-    }
+        .card2 {
+            @extend %draw-card;
+            animation-delay: $time-draw-card-animation/6;
+        }
 
-    .card4 {
-        @extend %draw-card;
-        animation-delay: $time-draw-card-animation * 3/6;
-    }
+        .card3 {
+            @extend %draw-card;
+            animation-delay: $time-draw-card-animation * 2/6;
+        }
 
-    .card5 {
-        @extend %draw-card;
-        animation-delay: $time-draw-card-animation * 4/6;
-    }
+        .card4 {
+            @extend %draw-card;
+            animation-delay: $time-draw-card-animation * 3/6;
+        }
 
-    .card6 {
-        @extend %draw-card;
-        animation-delay: $time-draw-card-animation * 5/6;
+        .card5 {
+            @extend %draw-card;
+            animation-delay: $time-draw-card-animation * 4/6;
+        }
+
+        .card6 {
+            @extend %draw-card;
+            animation-delay: $time-draw-card-animation * 5/6;
+        }
     }
 }
 

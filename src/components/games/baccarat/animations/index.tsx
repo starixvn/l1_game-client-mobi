@@ -83,13 +83,17 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container"]}>
-                <div className={`${Styles["animation-container player"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                <div
+                    className={`${Styles["animation-container"]} ${Styles["player"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                >
                     {generateResult(
                         playerCards.filter((c) => c.value),
                         viewMode
                     )}
                 </div>
-                <div className={`${Styles["animation-container banker"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                <div
+                    className={`${Styles["animation-container"]}  ${Styles["banker"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                >
                     {generateResult(
                         bankerCards.filter((c) => c.value),
                         viewMode
@@ -101,6 +105,33 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                     {settlementResult?.tie ? t("tie") : settlementResult?.banker ? t("bankerWin") : t("playerWin")}
                 </div>
             )}
+        </div>
+    );
+};
+
+export const DrawCardsAnimation = ({ playAnimation = false }) => {
+    return (
+        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={`${Styles["animation-container"]}  ${Styles["player"]}`}>
+                <div className={Styles["card3"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-back"]}></div>
+                </div>
+                <div className={Styles["card1"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-back"]}></div>
+                </div>
+            </div>
+            <div className={`${Styles["animation-container"]}  ${Styles["banker"]}`}>
+                <div className={Styles["card2"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-back"]}></div>
+                </div>
+                <div className={Styles["card4"]}>
+                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles["card-back"]}></div>
+                </div>
+            </div>
         </div>
     );
 };
