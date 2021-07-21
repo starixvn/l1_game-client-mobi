@@ -8,7 +8,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { KenoProMaxResult, getSettleResult } from "./animations";
+import { KenoProMaxResult, KenoProMaxResultCollapse, getSettleResult } from "./animations";
 import KenoProMaxBetHistory from "./bet-history";
 import KenoProMaxBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
@@ -83,18 +83,18 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderResult() {
-        const { result, roundId } = this.state;
-        return (
-            <KenoProMaxResult
-                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
-                roundId={roundId}
-            />
-        );
+        const { result } = this.state;
+        return <KenoProMaxResult result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]} />;
     }
 
     renderResultCollapse() {
         const { result, settlementResult } = this.state;
-        return <></>;
+        return (
+            <KenoProMaxResultCollapse
+                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+                settlementResult={settlementResult}
+            />
+        );
     }
 
     renderGuide() {

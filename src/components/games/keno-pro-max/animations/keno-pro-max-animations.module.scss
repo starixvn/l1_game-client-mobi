@@ -367,3 +367,18 @@ $number-count: 20;
         opacity: 1;
     }
 }
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .result-container {
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        transform: scale(1);
+    }
+}

@@ -71,7 +71,7 @@ const generateResult = (result: Result) => {
     });
 };
 
-export const KenoProMaxResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
+export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const settleResult = getSettleResult(result);
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -96,14 +96,26 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     result,
     settlementResult,
 }) => {
-    const { playResultAnimation } = useGameContext();
-    const { t } = useTranslation("kenopromax");
-    return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={Styles["result-container"]}></div>
+    const { playResultAnimation, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const settleResult = getSettleResult(result);
 
+    return (
+        <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={`${Styles["animation-container"]}`}>
+                <div className={Styles["number-container"]}>{generateResult(result)}</div>
+                <div className={Styles["vertical-separator"]}></div>
+                <div className={Styles["result-total"]}>
+                    <div className={Styles["result-total-lbl"]}>{t("total")} </div>
+                    <div className={Styles["result-total-num"]}>{settleResult.total}</div>
+                </div>
+            </div>
             {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-label"]}>{settlementResult?.odd ? t("odd") : t("even")}</div>
+                <div className={Styles["result-container"]}>
+                    <div className={Styles["result-info-red"]}>{t(settleResult.big ? "big" : "small")}</div>
+                    <div className={Styles["result-info-red"]}>{t(settleResult.even ? "even" : "odd")}</div>
+                    <div className={Styles["result-info-orange"]}>{t(settleResult.element)}</div>
+                </div>
             )}
         </div>
     );
