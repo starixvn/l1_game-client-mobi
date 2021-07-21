@@ -134,7 +134,16 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     <div className={Styles["odds"]}>1:{odd}</div>
                 </div>
 
-                <div className={Styles["bet-control"]}>{numberWithCommas(parseInt(rawStake))}</div>
+                <div className="form-group">
+                    <input className="form-control number" type="number" value={numberWithCommas(parseInt(rawStake))} />
+                    <span className="icon-close small"></span>
+                    {showTooltip && (
+                        <div className="tooltip info show">
+                            <div className="arrow down"></div>
+                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
+                        </div>
+                    )}
+                </div>
 
                 {payouts.map((payout, index) => (
                     <div className={Styles["payout"]} key={index}>
@@ -142,23 +151,6 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         <span className={Styles["highlight"]}>{payout.value}</span>
                     </div>
                 ))}
-                {showTooltip && (
-                    <div className={Styles["hint-wrapper"]}>
-                        <BaseDialog type={ModalType.Top}>
-                            <div
-                                className={`icon-close ${Styles["icon-close-hint"]}`}
-                                onClick={() => {
-                                    setShowTooltip(false);
-                                }}
-                            ></div>
-                            <div className={Styles["hint-content"]}>
-                                <ul className={Styles["note"]}>
-                                    <li>{tooltipMessage}</li>
-                                </ul>
-                            </div>
-                        </BaseDialog>
-                    </div>
-                )}
 
                 <div className={Styles["bet-chips"]}>
                     {chips.map((chip, index) => (
@@ -170,18 +162,18 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                             <img
                                 src={`/static/images/chips/${chip.style}.svg`}
                                 className={`img-fluid ${Styles["chip"]}`}
-                                width="63"
-                                height="66"
+                                width="48"
+                                height="50"
                                 alt="Chip"
                             />
                             <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
                         </div>
                     ))}
                 </div>
-                <div className={Styles["bet-numbers"]}>
+                <div className={Styles["numpad-container"]}>
                     {numPad.map((pad, index) => (
                         <div
-                            className={Styles["number"]}
+                            className={Styles["numpad"]}
                             onClick={pad.showValue ? addStakeByPressNumberHandler : deleteNumberHandler}
                             key={index}
                         >

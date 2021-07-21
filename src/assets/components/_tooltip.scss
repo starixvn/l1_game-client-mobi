@@ -84,11 +84,6 @@
         }
 
         .arrow {
-            left: -0.9rem;
-            bottom: 0.7rem;
-            border-width: 0.9rem 0.9rem 0;
-            border-top-color: var(--tooltip-info-border);
-
             &:before {
                 content: "";
                 position: absolute;
@@ -98,10 +93,38 @@
                 top: -0.9rem;
                 height: 0.9rem;
                 width: 0.9rem;
-                border-width: 0.8rem 0.8rem 0;
                 border-style: solid;
                 border-color: transparent;
-                border-top-color: var(--tooltip-info-background-color);
+            }
+
+            &.down {
+                left: -0.9rem;
+                bottom: 0.7rem;
+                border-width: 0 0.9rem 0.9rem;
+                border-bottom-color: var(--tooltip-info-border);
+
+                &:before {
+                    left: -8px;
+                    right: 0;
+                    top: 0.1rem;
+                    border-width: 0 0.8rem 0.8rem;
+                    border-bottom-color: var(--tooltip-info-background-color);
+                }
+            }
+
+            &.up {
+                left: -0.9rem;
+                bottom: 0.7rem;
+                border-width: 0.9rem 0.9rem 0;
+                border-top-color: var(--tooltip-info-border);
+
+                &:before {
+                    left: -8px;
+                    right: 0;
+                    top: -0.9rem;
+                    border-width: 0.8rem 0.8rem 0;
+                    border-top-color: var(--tooltip-info-background-color);
+                }
             }
         }
     }

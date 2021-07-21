@@ -15,6 +15,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.6rem 0.8rem;
+    margin-bottom: 0.5rem;
     background-color: #5ab379;
     box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
     border-radius: 0.5rem;
@@ -37,16 +38,6 @@
         font: 600 1.6rem var(--font-number);
         color: #2c2f3e;
     }
-}
-
-.bet-control {
-    height: 4rem;
-    margin-top: 0.4rem;
-    margin-bottom: 1rem;
-    background: #fff;
-    border: 0.2rem solid #c9c9c9;
-    box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
-    border-radius: 0.5rem;
 }
 
 .payout {
@@ -73,12 +64,12 @@
 .chip-container {
     position: relative;
     display: grid !important;
-    grid-template-columns: 6.3rem;
-    grid-template-rows: 6.6rem;
+    grid-template-columns: 4.8rem;
+    grid-template-rows: 5rem;
     justify-content: center;
     align-items: center;
-    width: 6.3rem;
-    height: 6.6rem;
+    width: 4.8rem;
+    height: 5rem;
     -webkit-tap-highlight-color: transparent;
 
     .chip {
@@ -92,9 +83,10 @@
         grid-area: 1/1;
         text-align: center;
         font-family: var(--font-money);
-        font-size: 2rem;
+        font-size: 1.6rem;
         color: #2c2f3e;
     }
+
     &.chip-9,
     &.chip-10,
     &.chip-11,
@@ -106,13 +98,13 @@
 
     &.chip-13 {
         .value {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: #ffeda5;
         }
     }
 }
 
-.bet-numbers {
+.numpad-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(2, 4.7rem);
@@ -120,7 +112,7 @@
     margin-top: 1.2rem;
     margin-bottom: 1.2rem;
 
-    .number {
+    .numpad {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -134,62 +126,9 @@
     }
 }
 
-.error-message {
-    margin-bottom: 0.4rem;
-    color: var(--error-color);
-}
-
-.hint-wrapper {
-    position: absolute;
-    left: 50%;
-    bottom: 5.6rem;
-    width: 100%;
-    padding: 1.2rem;
-    padding-right: 4rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 3.6rem rgb(0 0 0 / 25%);
-    transform: translate(-50%, 0);
-    background-color: #ffdede;
-    z-index: 2;
-
-    &::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        border-width: 0.8rem;
-        border-style: solid;
-        border-color: #ffdede transparent transparent transparent;
-    }
-
-    @media (max-width: 414px) {
-    }
-
-    .icon-close-hint {
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-        background-color: #f9b8b8;
-
-        &:before {
-            color: #ce3a3a;
-        }
-    }
-
-    .note {
-        list-style: disc;
-        margin: 0;
-        padding-left: 1.6rem;
-        color: #b11818;
-        font-size: 1.4rem;
-
-        > li {
-            margin-bottom: 0.4rem;
-            line-height: 1.8rem;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-    }
+// tooltip
+.tooltip-inner {
+    width: 27rem;
+    top: 1.5rem;
+    bottom: auto !important;
 }
