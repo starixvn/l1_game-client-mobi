@@ -157,7 +157,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handleKickedOut(data: any) {
         const { umInfo } = data;
-        const { router } = this.props;
+        const { router, i18n } = this.props;
 
         if (umInfo) {
             storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
@@ -167,7 +167,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 finish: false,
             });
             setTimeout(() => {
-                router.push("/um");
+                router.push("/um", "/um", { locale: i18n.language });
             }, 500);
         } else {
             router.push("/timeout");

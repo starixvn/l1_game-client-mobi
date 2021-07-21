@@ -25,8 +25,9 @@ let session: SSOResponse = null;
 const signIn = async (handleSignInSuccess: Function, router: NextRouter, i18n: I18n) => {
     const { settings: settingsService } = UserClientCommunication.getUserClientInstance();
     const settings = await settingsService.getSettings();
+    const { lang } = router.query;
 
-    settings.isUM && router.push("um");
+    settings.isUM && router.push("/um", "/um", { locale: languageMapper[lang as string] ?? router.locale });
 
     if (!settings.isUM) {
         router.query.token
