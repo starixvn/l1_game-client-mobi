@@ -111,9 +111,9 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                     <span className={`icon-close ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
                                     <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowBetStakeTooltip(true)}>
                                         {showBetStakeTooltip && (
-                                            <div className={`tooltip show ${Styles["tooltip"]}`}>
-                                                <div className={`${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
-                                                <div className={`arrow  ${Styles["arrow"]}`}></div>
+                                            <div className={`tooltip info show`}>
+                                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
+                                                <div className="arrow"></div>
                                             </div>
                                         )}
                                     </div>
@@ -137,9 +137,9 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 </div>
                                 <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowQuickBetTooltip(true)}>
                                     {showQuickBetTooltip && (
-                                        <div className={`tooltip show ${Styles["tooltip"]}`}>
-                                            <div className={`${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
-                                            <div className={`arrow  ${Styles["arrow"]}`}></div>
+                                        <div className={`tooltip info show`}>
+                                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
+                                            <div className="arrow"></div>
                                         </div>
                                     )}
                                 </div>

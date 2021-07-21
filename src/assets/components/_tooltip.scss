@@ -1,3 +1,21 @@
+[data-theme="light"] .tooltip {
+    --tooltip-info-background-color: #dcf8ff;
+    --tooltip-info-border: #b0e5f1;
+    --tooltip-info-text-color: #39595f;
+
+    --tooltip-round-history-background: rgba(255, 172, 43, 0.6);
+    --tooltip-round-history-text-color: #2c2f3e;
+}
+
+[data-theme="dark"] .tooltip {
+    --tooltip-info-background-color: #304860;
+    --tooltip-info-border: #567a9b;
+    --tooltip-info-text-color: #fff;
+
+    --tooltip-round-history-background: rgba(79, 112, 143, 0.8);
+    --tooltip-round-history-text-color: #fff;
+}
+
 .tooltip {
     position: relative;
     width: 0;
@@ -18,32 +36,73 @@
     &.show {
         opacity: 1;
     }
-}
 
-.tooltip-inner {
-    position: fixed;
-    top: -6rem;
-    will-change: transform;
-    max-width: 20rem;
-    padding: 0.25rem 0.5rem;
-    background: var(--tooltip-background);
-    color: --tooltip-color;
-    text-align: center;
-    border-radius: 0.25rem;
-}
+    &.mini-round-history {
+        .tooltip-inner {
+            position: fixed;
+            top: -6rem;
+            will-change: transform;
+            max-width: 20rem;
+            padding: 0.25rem 0.5rem;
+            background: var(--tooltip-round-history-background);
+            color: var(--tooltip-round-history-text-color);
+            text-align: center;
+            border-radius: 0.25rem;
+        }
 
-.tooltip-number,
-.tooltip-round {
-    font-size: 1.1rem;
-    font-family: var(--font-number);
-}
+        .tooltip-number,
+        .tooltip-round {
+            font-size: 1.1rem;
+            font-family: var(--font-number);
+        }
 
-.tooltip-title {
-    font-size: 1.1rem;
-    margin-right: 0.3rem;
-}
+        .tooltip-title {
+            font-size: 1.1rem;
+            margin-right: 0.3rem;
+        }
 
-.tooltip-result {
-    font-weight: bold;
-    margin-right: 0.4rem;
+        .tooltip-result {
+            font-weight: bold;
+            margin-right: 0.4rem;
+        }
+    }
+
+    &.info {
+        position: absolute;
+
+        .tooltip-inner {
+            position: absolute;
+            bottom: 1.5rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--tooltip-info-border);
+            box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+            background-color: var(--tooltip-info-background-color);
+            text-align: left;
+            font: 1.3rem/1.8rem var(--font-family);
+            color: var(--tooltip-info-text-color);
+        }
+
+        .arrow {
+            left: -0.9rem;
+            bottom: 0.7rem;
+            border-width: 0.9rem 0.9rem 0;
+            border-top-color: var(--tooltip-info-border);
+
+            &:before {
+                content: "";
+                position: absolute;
+                display: block;
+                left: -8px;
+                right: 0;
+                top: -0.9rem;
+                height: 0.9rem;
+                width: 0.9rem;
+                border-width: 0.8rem 0.8rem 0;
+                border-style: solid;
+                border-color: transparent;
+                border-top-color: var(--tooltip-info-background-color);
+            }
+        }
+    }
 }

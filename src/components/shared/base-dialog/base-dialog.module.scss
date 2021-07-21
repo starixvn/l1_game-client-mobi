@@ -58,6 +58,12 @@
 
     &.modal-placebetform {
         height: 50rem;
+
+        @media (min-width: 1024px) {
+            left: auto;
+            right: auto;
+            width: 30.8rem;
+        }
     }
 
     &.modal-top {
