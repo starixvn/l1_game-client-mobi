@@ -2,12 +2,10 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import { LanguageLocaleMapper } from "../../../common/constants";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
-import GameGuides from "../../shared/game-guide";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
@@ -95,28 +93,6 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     renderBoard() {
         const { gameState, roundHistory } = this.state;
         return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound}></ScoreboardBasic>;
-    }
-
-    renderGuide() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const lang = LanguageLocaleMapper[this.props.i18n?.language];
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <GameGuides
-                    gameId={this.props.id}
-                    language={lang}
-                    theme={this.props.theme}
-                    userStakeLevel={this.state.userStakeLevel}
-                ></GameGuides>
-            </AdvanceModal>
-        );
     }
 
     renderBetHistory() {

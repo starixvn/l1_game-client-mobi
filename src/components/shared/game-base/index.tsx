@@ -16,6 +16,7 @@ import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
+import AdvanceModal from "../advance-modal";
 import AcceptBet from "../animations/accept-bet";
 import WinningBet from "../animations/winning-bet";
 import BalancedBettingPool from "../balanced-betting-pool";
@@ -25,6 +26,7 @@ import { BaseResult } from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
+import GameGuides from "../game-guide";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
@@ -654,8 +656,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderResultCollapse(): React.ReactElement;
 
-    abstract renderGuide(): JSX.Element;
-
     abstract renderBetHistory(): React.ReactElement;
 
     abstract getMainOptions(): string[];
@@ -779,6 +779,28 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     get isShowStartRoundAnimation() {
         return false;
+    }
+
+    renderGuide() {
+        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const lang = LanguageLocaleMapper[this.props.i18n?.language];
+        return (
+            <AdvanceModal
+                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
+                gameName={`(${gameName})`}
+                isOpen={true}
+                onCloseModal={this.closePopup}
+                isAddScrollBody={true}
+                gameId={this.props.id}
+            >
+                <GameGuides
+                    gameId={this.props.id}
+                    language={lang}
+                    theme={this.props.theme}
+                    userStakeLevel={this.state.userStakeLevel}
+                ></GameGuides>
+            </AdvanceModal>
+        );
     }
 
     renderGame() {
