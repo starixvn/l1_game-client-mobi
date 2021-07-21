@@ -8,7 +8,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { KenoProMaxResult } from "./animations";
+import { KenoProMaxResult, getSettleResult } from "./animations";
 import KenoProMaxBetHistory from "./bet-history";
 import KenoProMaxBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
@@ -130,12 +130,16 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderSettlementInfo() {
-        const { result, settlementResult } = this.state;
+        const { result } = this.state;
+        const settleResult = getSettleResult(result);
 
-        const redDotCount = Object.values(result).filter((dot) => dot).length;
-        const whiteDotCount = 4 - redDotCount;
-
-        return <div className={Styles["result-container"]}></div>;
+        return (
+            <div className={Styles["result-container"]}>
+                <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.big ? "big" : "small")}</div>
+                <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.even ? "even" : "odd")}</div>
+                <div className={Styles["result-info-orange"]}>{this.getGameTranslate(settleResult.element)}</div>
+            </div>
+        );
     }
 }
 

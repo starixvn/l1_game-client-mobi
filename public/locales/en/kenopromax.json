@@ -9,6 +9,7 @@
     "gold": "Gold",
     "water": "Water",
     "wood": "Wood",
-    "bigTextDot":"B",
-    "smallTextDot":"S"
+    "bigTextDot": "B",
+    "smallTextDot": "S",
+    "total": "Total"
 }

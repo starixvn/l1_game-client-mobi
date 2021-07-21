@@ -1,7 +1,365 @@
-.result-keno-pro-set {
+@import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
+
+$time-show-num-animation: 0.15s;
+$number-count: 20;
+
+.animation-container {
     position: absolute;
-    top: calc(50% - 5.8rem);
-    left: calc(50% - 6.7rem);
-    width: 13.4rem;
-    height: 12.7rem;
+    top: -6rem;
+    width: 100%;
+    display: flex;
+    transform: scale(0.52);
+    pointer-events: none;
+    justify-content: center;
+
+    background-color: #ffdea9;
+    min-width: 65.5rem;
+    left: -12rem;
+    border-radius: 2rem;
+
+    .number-container {
+        width: 80%;
+        display: inline-block;
+        padding: 2rem;
+    }
+
+    .vertical-separator {
+        display: inline-block;
+    }
+
+    .result-total {
+        width: 40%;
+        display: inline-block;
+        text-align: center;
+        padding-top: 8rem;
+    }
+
+    .shown-number {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        font-size: 2.8rem;
+        margin: 4px;
+        line-height: 4.5rem;
+        background-color: #3a937a;
+        color: white;
+        display: inline-block;
+        padding-top: 0.2rem;
+    }
+
+    .shown-number-1digit {
+        @extend .shown-number;
+        padding-left: 1.5rem;
+    }
+
+    .shown-number-2digit {
+        @extend .shown-number;
+        padding-left: 0.9rem;
+    }
+
+    .result-total-lbl {
+        font-size: 3rem;
+    }
+
+    .result-total-num {
+        font-size: 4rem;
+        font-weight: bold;
+    }
+
+    .num-cover {
+        display: none;
+    }
+
+    .num-animate {
+        display: inline-block;
+    }
+}
+
+.has-animation {
+    .num-cover {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        animation-name: hide-num-cover-animation;
+        animation-duration: $time-show-num-animation;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+    }
+
+    .shown-num {
+        position: relative;
+        animation-name: show-num-animation;
+        animation-duration: $time-show-num-animation;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+    }
+
+    .num-pic {
+        opacity: 0;
+    }
+
+    .animate-1 {
+        .num-cover {
+            animation-delay: 0;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: 0;
+        }
+    }
+
+    .animate-2 {
+        .num-cover {
+            animation-delay: $time-show-num-animation;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation;
+        }
+    }
+
+    .animate-3 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 2;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 2;
+        }
+    }
+
+    .animate-4 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 3;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 3;
+        }
+    }
+
+    .animate-5 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 4;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 4;
+        }
+    }
+
+    .animate-6 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 5;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 5;
+        }
+    }
+
+    .animate-7 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 6;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 6;
+        }
+    }
+
+    .animate-8 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 7;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 7;
+        }
+    }
+
+    .animate-9 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 8;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 8;
+        }
+    }
+
+    .animate-10 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 9;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 9;
+        }
+    }
+
+    .animate-11 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 10;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 10;
+        }
+    }
+
+    .animate-12 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 11;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 11;
+        }
+    }
+
+    .animate-13 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 12;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 12;
+        }
+    }
+
+    .animate-14 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 13;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 13;
+        }
+    }
+
+    .animate-15 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 14;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 14;
+        }
+    }
+
+    .animate-16 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 15;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 15;
+        }
+    }
+
+    .animate-17 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 16;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 16;
+        }
+    }
+
+    .animate-18 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 17;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 17;
+        }
+    }
+
+    .animate-19 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 18;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 18;
+        }
+    }
+
+    .animate-20 {
+        .num-cover {
+            animation-delay: $time-show-num-animation * 19;
+        }
+
+        .num-pic {
+            @extend .shown-num;
+            animation-delay: $time-show-num-animation * 19;
+        }
+    }
+}
+
+@keyframes hide-num-cover-animation {
+    0% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes show-num-animation {
+    0% {
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 0;
+    }
+
+    60% {
+        opacity: 0.9;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }

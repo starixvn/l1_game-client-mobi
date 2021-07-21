@@ -9,3 +9,22 @@
     font-family: var(--font-number);
     color: #2c2f3e;
 }
+
+.result-container {
+    display: flex;
+    width: fit-content;
+
+    .result-info {
+        min-width: 10rem;
+    }
+
+    .result-info-red {
+        @extend .result-info;
+        background: linear-gradient(180deg, #f66460 0%, #e2474e 41.46%, #dc4b56 78.44%, #dc4b56 100%);
+    }
+
+    .result-info-orange {
+        @extend .result-info;
+        background: linear-gradient(180deg, #ffc561 0%, #fb9b09 38.33%, #e38900 100%);
+    }
+}
