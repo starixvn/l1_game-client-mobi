@@ -2,10 +2,12 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
+import { LanguageLocaleMapper } from "../../../common/constants";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import GameGuides from "../../shared/game-guide";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import { RoundDot } from "../../shared/round-history/dot";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
@@ -17,8 +19,6 @@ import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
-import GameGuides from "../../shared/game-guide";
-import { LanguageLocaleMapper } from "../../../common/constants";
 
 class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -92,7 +92,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const lang = LanguageLocaleMapper[this.props.router?.locale];
+        const lang = LanguageLocaleMapper[this.props.i18n?.language];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}

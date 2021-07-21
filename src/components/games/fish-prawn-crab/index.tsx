@@ -2,10 +2,12 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
+import { LanguageLocaleMapper } from "../../../common/constants";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import GameGuides from "../../shared/game-guide";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
@@ -15,8 +17,6 @@ import Styles from "./fish-prawn-crab.module.scss";
 import OddComponent from "./odd";
 import GetElementRound from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
-import GameGuides from "../../shared/game-guide";
-import { LanguageLocaleMapper } from "../../../common/constants";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
 export const choicesBackgroundMapper = {
@@ -99,7 +99,7 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const lang = LanguageLocaleMapper[this.props.router?.locale];
+        const lang = LanguageLocaleMapper[this.props.i18n?.language];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
