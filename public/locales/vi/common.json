@@ -56,5 +56,7 @@
     "quickBetTooltip": "Cho phép đặt cược trực tiếp mà không cần thông qua bước xác nhận.",
     "quickBet": "Cược Nhanh",
     "reset": "Đặt lại",
-    "save": "Lưu"
+    "save": "Lưu",
+    "minBet": "Tối Thiểu",
+    "maxBet" : "Tối Đa"
 }

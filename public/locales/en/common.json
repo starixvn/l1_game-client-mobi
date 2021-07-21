@@ -56,5 +56,7 @@
     "quickBetTooltip": "Allow to place bet directly without confirmation step.",
     "quickBet": "Quick Bet",
     "reset": "Reset",
-    "save": "Save"
+    "save": "Save",
+    "minBet": "Min Bet",
+    "maxBet" : "Max Bet"
 }
