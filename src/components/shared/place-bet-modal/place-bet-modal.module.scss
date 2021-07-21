@@ -127,8 +127,17 @@
 }
 
 // tooltip
-.tooltip-inner {
-    width: 27rem;
-    top: 1.5rem;
-    bottom: auto !important;
+
+.tooltip-info {
+    top: 5rem;
+
+    .tooltip-inner {
+        width: 27rem;
+        top: 0;
+        bottom: auto !important;
+    }
+
+    .arrow {
+        left: 13.5rem !important;
+    }
 }

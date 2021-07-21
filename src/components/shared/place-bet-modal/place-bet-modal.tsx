@@ -7,6 +7,7 @@ import { getSessionStorageItem, SessionStorageKeys } from "../../../common/sessi
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import AdvanceModal from "../advance-modal";
+import { isMobile } from "react-device-detect";
 import { ModalType } from "../base-dialog/type";
 import { BetSettingStorage } from "../bet-settings/type";
 import { numPad } from "./place-bet-constant";
@@ -38,7 +39,10 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: gameConfigs.minbet }));
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
-    const maxBetChoice = gameConfigs.choices_maxbet === null || gameConfigs.choices_maxbet === undefined ? gameConfigs.maxbet :  gameConfigs.choices_maxbet[betChoice];
+    const maxBetChoice =
+        gameConfigs.choices_maxbet === null || gameConfigs.choices_maxbet === undefined
+            ? gameConfigs.maxbet
+            : gameConfigs.choices_maxbet[betChoice];
 
     const chips = [
         {
@@ -138,8 +142,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     <input className="form-control number" type="number" value={numberWithCommas(parseInt(rawStake))} />
                     <span className="icon-close small"></span>
                     {showTooltip && (
-                        <div className="tooltip info show">
-                            <div className="arrow down"></div>
+                        <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
+                            <div className={`arrow down ${Styles["arrow"]}`}></div>
                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
                         </div>
                     )}
@@ -170,17 +174,20 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         </div>
                     ))}
                 </div>
-                <div className={Styles["numpad-container"]}>
-                    {numPad.map((pad, index) => (
-                        <div
-                            className={Styles["numpad"]}
-                            onClick={pad.showValue ? addStakeByPressNumberHandler : deleteNumberHandler}
-                            key={index}
-                        >
-                            {pad.showValue ? pad.value : <span className="icon-delete"></span>}
-                        </div>
-                    ))}
-                </div>
+                {isMobile && (
+                    <div className={Styles["numpad-container"]}>
+                        {numPad.map((pad, index) => (
+                            <div
+                                className={Styles["numpad"]}
+                                onClick={pad.showValue ? addStakeByPressNumberHandler : deleteNumberHandler}
+                                key={index}
+                            >
+                                {pad.showValue ? pad.value : <span className="icon-delete"></span>}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
                 <button onClick={submitBet} className={`btn-orange w-100`} disabled={parseInt(rawStake) <= 0}>
                     {t("common:confirm")}
                 </button>

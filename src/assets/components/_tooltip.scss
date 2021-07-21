@@ -31,6 +31,7 @@
         border-style: solid;
         border-width: 0.4rem 0.4rem 0;
         border-top-color: var(--tooltip-background);
+        z-index: 1;
     }
 
     &.show {
@@ -99,7 +100,7 @@
 
             &.down {
                 left: -0.9rem;
-                bottom: 0.7rem;
+                bottom: 0;
                 border-width: 0 0.9rem 0.9rem;
                 border-bottom-color: var(--tooltip-info-border);
 
