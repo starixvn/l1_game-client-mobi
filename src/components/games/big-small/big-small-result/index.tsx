@@ -21,7 +21,7 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
                     <div className={Styles["toss-dices"]}>
                         <Image
                             key={roundId}
-                            src={"/static/images/bigsmall_dice.gif"}
+                            src={`/static/images/bigsmall_dice.gif?${roundId}`}
                             alt="shake"
                             width={180}
                             height={180}
