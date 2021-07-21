@@ -579,7 +579,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <BaseDialog
                 betContainerPosition={isMobileOnly ? betContainerPosition : null}
-                type={ModalType.Top}
+                type={ModalType.Rebet}
                 isOpen={this.state.displayPopup === PopupType.Rebet}
                 onCloseModal={this.closePopup}
             >

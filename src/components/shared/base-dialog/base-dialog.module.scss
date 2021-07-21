@@ -1,6 +1,6 @@
 [data-theme="light"] .popup {
     --popup-background: #fff;
-    --popup-border: #fff;
+    --popup-border: #cbcbcb;
     --popup-color: #2c2f3e;
     --popup-title-color: #2c2f3e;
     --popup-sub-title-color: #787878;
@@ -12,12 +12,12 @@
 
 [data-theme="dark"] .popup {
     --popup-background: #203040;
-    --popup-border: #2c3e50;
+    --popup-border: #5a789a;
     --popup-color: #fff;
     --popup-title-color: #fff;
     --popup-sub-title-color: #9298a4;
     --popup-game-name-color: #ff9a00;
-    --popup-icon-close-background: #7d8a98;
+    --popup-icon-close-background: #253342;
     --popup-icon-close-color: #1a2430;
     --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
 }
@@ -69,7 +69,7 @@
         }
     }
 
-    &.modal-top {
+    &.modal-rebet {
         top: 4.7rem;
         left: 4rem;
         right: 4rem;
@@ -106,9 +106,5 @@
             background: none;
             border: none;
         }
-    }
-
-    &.simple-mode {
-        position: fixed;
     }
 }

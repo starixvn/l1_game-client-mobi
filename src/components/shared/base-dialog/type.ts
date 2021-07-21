@@ -1,7 +1,6 @@
 export enum ModalType {
     Full,
-    Top,
+    Rebet,
     Center,
     PlaceBetForm,
-    Message,
 }
