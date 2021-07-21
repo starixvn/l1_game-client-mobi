@@ -28,7 +28,15 @@
     outline: none;
 
     &.number {
+        padding-right: 3rem;
         text-align: right;
+        -moz-appearance: textfield;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     }
 }
 

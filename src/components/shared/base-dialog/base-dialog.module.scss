@@ -58,12 +58,14 @@
 
     &.modal-placebetform {
         height: 47rem;
+        border-radius: 0.5rem 0.5rem 0 0;
 
         @media (min-width: 1024px) {
             left: auto;
             right: auto;
             width: 30.8rem;
             height: 36rem;
+            border-radius: 0.5rem;
         }
     }
 

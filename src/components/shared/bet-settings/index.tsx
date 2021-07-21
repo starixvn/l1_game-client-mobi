@@ -102,7 +102,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 <label className={Styles["label"]}>{t("presetStake")}</label>
                                 <div className={`form-group ${Styles["group-help"]}`}>
                                     <input
-                                        className={`form-control number ${Styles["stake"]}`}
+                                        className={`form-control number`}
                                         type={"number"}
                                         onChange={(e) => handleInputBetStake(e)}
                                         value={betStake}
