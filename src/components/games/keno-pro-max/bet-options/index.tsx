@@ -3,8 +3,7 @@ import React, { useEffect } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
-import { RoundDot } from "../../../shared/round-history/dot";
+import { GameState } from "../../../shared/game-base/type";
 import { Choices } from "../keno-pro-max-helper";
 import { SettlementResult } from "../keno-pro-max";
 import Styles from "./bet-options.module.scss";
@@ -44,19 +43,13 @@ const renderBetOptionByChoice = (
 
 const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect } = props;
-    const { gameConfigs, gameSetting, viewMode } = useGameContext();
-    const { odds } = gameConfigs;
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-
-    const renderDots = (dots: boolean[]) =>
-        dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} size="large" />);
-
-    const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
         <div className={`${Styles["layout-keno-pro-max"]}`}>
             {Object.keys(Choices).map((choice, index) => (
-                <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}</div>
+                <div key={index} className={Styles[`choice-${choice}`]}>
+                    {renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}
+                </div>
             ))}
         </div>
     );

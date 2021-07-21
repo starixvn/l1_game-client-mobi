@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
