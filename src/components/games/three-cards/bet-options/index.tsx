@@ -30,7 +30,7 @@ const renderBetOptionByChoice = (
         <BetOption
             choice={choice}
             odd={odds[choice]}
-            isDisplayOdd={false}
+            isDisplayOdd={true}
             isHighlight={isHighLight}
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}

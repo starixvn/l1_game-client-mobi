@@ -103,6 +103,10 @@ $number-count: 20;
         opacity: 0;
     }
 
+    .result-total {
+        opacity: 0;
+    }
+
     .animate-1 {
         .num-cover {
             animation-delay: 0;

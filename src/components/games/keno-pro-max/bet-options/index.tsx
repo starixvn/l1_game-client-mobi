@@ -23,7 +23,7 @@ const renderBetOptionByChoice = (
     const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
-    const { t } = useTranslation("kenopromax");
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
@@ -31,7 +31,7 @@ const renderBetOptionByChoice = (
         <BetOption
             choice={choice}
             odd={odds[choice]}
-            isDisplayOdd={false}
+            isDisplayOdd={true}
             isHighlight={isHighLight}
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
