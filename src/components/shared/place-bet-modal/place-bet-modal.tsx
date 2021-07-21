@@ -28,8 +28,6 @@ type Props = {
     onCloseModal: Function;
 };
 
-const betSettingStorageKey = SessionStorageKeys.betSetting;
-
 const PlaceBetModal: React.FC<Props> = (props) => {
     const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
@@ -39,10 +37,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: gameConfigs.minbet }));
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
-    const maxBetChoice =
-        gameConfigs.choices_maxbet === null || gameConfigs.choices_maxbet === undefined
-            ? gameConfigs.maxbet
-            : gameConfigs.choices_maxbet[betChoice];
+    const maxBetChoice = gameConfigs.choices_maxbet[betChoice] ?? gameConfigs.maxbet;
 
     const chips = [
         {
