@@ -330,8 +330,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleUM({ um, um_message, remainingTime }) {
-        const { durations, router } = this.props;
-        const { locale } = router;
+        const { durations, i18n } = this.props;
         if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
             this.isUMInFirstLoad = true;
         } else {
@@ -344,7 +343,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
             this.setState({
                 gameState: GameState.Disabled,
-                disabledMessage: um_message[LanguageLocaleMapper[locale]],
+                disabledMessage: um_message[LanguageLocaleMapper[i18n.language]],
                 showResultInfo: false,
             });
         }

@@ -1,3 +1,4 @@
+import { I18n, useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { NextRouter, useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -21,22 +22,23 @@ const sessionKey = LocalStorageManager.localStorageKeys.session;
 let authorizeInfo: AuthorizeResponse = null;
 let session: SSOResponse = null;
 
-const signIn = async (handleSignInSuccess: Function, router: NextRouter) => {
+const signIn = async (handleSignInSuccess: Function, router: NextRouter, i18n: I18n) => {
     const { settings: settingsService } = UserClientCommunication.getUserClientInstance();
     const settings = await settingsService.getSettings();
+    const { lang } = router.query;
 
-    settings.isUM && router.push("um");
+    settings.isUM && router.push("/um", "/um", { locale: languageMapper[lang as string] ?? router.locale });
 
     if (!settings.isUM) {
         router.query.token
-            ? handleSignInWithRouteQuery(handleSignInSuccess, router)
+            ? handleSignInWithRouteQuery(handleSignInSuccess, router, i18n)
             : handleSignInWithLocalStorageSession(handleSignInSuccess, router);
     }
 };
 
-const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: NextRouter) => {
+const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: NextRouter, i18n: I18n) => {
     const { auth: authService } = UserClientCommunication.getUserClientInstance();
-    const { token } = router.query;
+    const { token, lang } = router.query;
 
     const userSession = await authService.sso(token as string, 2);
     if (userSession && userSession.isAuthenticated) {
@@ -44,9 +46,9 @@ const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: Nex
         onSignInSuccess(userSession);
 
         window.history.pushState(null, "", location.href.split("?")[0]);
-        const langCode = languageMapper[userSession.language];
+        const langCode = languageMapper[lang as string];
         if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
-            router.push("/", "/", { locale: langCode });
+            i18n.changeLanguage(langCode);
         }
     } else {
         router.push("/timeout");
@@ -81,6 +83,7 @@ function Home() {
     const [apiErrorMessage, setApiErrorMessage] = useState<APIErrorProp>();
     const timer = useRef(null);
     const { auth: authService } = UserClientCommunication.getUserClientInstance();
+    const { i18n } = useTranslation();
 
     async function handleSignInSuccess(userSession: SSOResponse) {
         setUser(userSession);
@@ -136,7 +139,7 @@ function Home() {
     }
 
     useEffect(() => {
-        router.isReady && signIn(handleSignInSuccess.bind(this), router);
+        router.isReady && signIn(handleSignInSuccess.bind(this), router, i18n);
 
         return () => clearInterval(timer.current);
     }, [router.isReady]);
@@ -152,7 +155,8 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen locale={router.locale}></SplashScreen>;
+        const { lang } = router.query;
+        return <SplashScreen locale={languageMapper[lang as string] ?? router.locale}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (

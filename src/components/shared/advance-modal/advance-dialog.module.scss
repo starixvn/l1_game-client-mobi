@@ -41,6 +41,7 @@
         position: absolute;
         top: 1.2rem;
         right: 1.6rem;
+        z-index: 10;
     }
 
     .popup-content-title {
@@ -64,6 +65,9 @@
         &.has-gameName {
             top: 7.3rem;
             z-index: var(--popup-index);
+        }
+        &.has-empty-title {
+            top: 1.6rem;
         }
     }
 }

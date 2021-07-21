@@ -10,9 +10,11 @@ interface SentryOptions {
     dsn: string;
     environment: string;
 }
+
 export default interface AppSettings {
     proxy: ProxySetting;
     sentry: SentryOptions;
     offeredGames: number[];
     gameSettings: { [id: string]: GameBaseProps };
+    guideUrl: string;
 }

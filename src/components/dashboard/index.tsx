@@ -8,10 +8,9 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
-import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
-import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
@@ -158,8 +157,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handleKickedOut(data: any) {
         const { umInfo } = data;
-        const { router } = this.props;
-        removeLocalStorageItem(localStorageKeys.session);
+        const { router, i18n } = this.props;
 
         if (umInfo) {
             storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
@@ -169,7 +167,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 finish: false,
             });
             setTimeout(() => {
-                router.push("/um");
+                router.push("/um", "/um", { locale: i18n.language });
             }, 500);
         } else {
             router.push("/timeout");

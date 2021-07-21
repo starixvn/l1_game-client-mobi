@@ -1,6 +1,7 @@
-import { useRouter } from "next/router";
+import { useTranslation } from "next-i18next";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import { numberWithCommas } from "../../helpers/number-helper";
 import { Settings } from "../shared/settings";
 import Styles from "./header.module.scss";
@@ -18,13 +19,13 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
     const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
-    const { locale } = useRouter();
+    const { i18n } = useTranslation();
 
     return (
         <header className={Styles.header}>
             <div className="game-container d-flex">
                 <div className={Styles["header-container"]}>
-                    <a href={`/${locale}`} className={Styles["site-name"]}>
+                    <a href={`/${i18n.language}`} className={Styles["site-name"]}>
                         Saba.mobi
                     </a>
                     <div className={Styles["header-right"]}>

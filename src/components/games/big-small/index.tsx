@@ -2,11 +2,12 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
+import { LanguageLocaleMapper } from "../../../common/constants";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
-import BigSmallGuide from "../../game-guide/big-small";
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import GameGuides from "../../shared/game-guide";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -99,6 +100,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderGuide() {
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
+        const lang = LanguageLocaleMapper[this.props.i18n?.language];
         return (
             <AdvanceModal
                 title={CommonResourceKeys.GUIDE_POPUP_TITLE}
@@ -108,7 +110,12 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 isAddScrollBody={true}
                 gameId={this.props.id}
             >
-                <BigSmallGuide />
+                <GameGuides
+                    gameId={this.props.id}
+                    language={lang}
+                    theme={this.props.theme}
+                    userStakeLevel={this.state.userStakeLevel}
+                ></GameGuides>
             </AdvanceModal>
         );
     }
