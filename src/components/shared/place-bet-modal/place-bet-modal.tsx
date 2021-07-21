@@ -125,7 +125,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             subTitle={`#${roundId}`}
             isOpen={props.isOpen}
             onCloseModal={closeModal}
-            type={ModalType.Bottom}
+            type={ModalType.PlaceBetForm}
             gameId={gameSetting.id}
         >
             <div className={Styles["place-bet-container"]}>
