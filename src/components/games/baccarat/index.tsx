@@ -7,7 +7,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { BaccaratResult } from "./animations";
+import { BaccaratResult, BaccaratResultCollapse } from "./animations";
 import BaccaratBetHistory from "./bet-history";
 import BaccaratBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderBaccaratDot } from "./round-history";
@@ -81,7 +81,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        const { result, roundId } = this.state;
+        const { result } = this.state;
         return (
             <BaccaratResult
                 result={
@@ -90,14 +90,23 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                         player: { card1: { card: 8, type: 3 }, card2: { card: 5, type: 3 }, card3: { card: 8, type: 1 } },
                     }
                 }
-                roundId={roundId}
             />
         );
     }
 
     renderResultCollapse() {
         const { result, settlementResult } = this.state;
-        return <></>;
+        return (
+            <BaccaratResultCollapse
+                result={
+                    result ?? {
+                        banker: { card1: { card: 1, type: 0 }, card2: { card: 11, type: 2 }, card3: { card: 12, type: 2 } },
+                        player: { card1: { card: 8, type: 3 }, card2: { card: 5, type: 3 }, card3: { card: 8, type: 1 } },
+                    }
+                }
+                settlementResult={settlementResult}
+            />
+        );
     }
 
     renderGuide() {

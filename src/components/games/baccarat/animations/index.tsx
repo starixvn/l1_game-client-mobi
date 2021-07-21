@@ -19,9 +19,8 @@ const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
     });
 };
 
-export const BaccaratResult: React.FC<{ result?: Result; roundId: number }> = ({ result, roundId }) => {
-    const { gameSetting, playResultAnimation, viewMode } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
+    const { playResultAnimation, viewMode } = useGameContext();
     const playerCards = [
         { value: result.player.card3, order: 5 },
         { value: result.player.card2, order: 3 },
@@ -66,9 +65,9 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const playerCards = [
-        { value: result.player.card3, order: 5 },
-        { value: result.player.card2, order: 3 },
         { value: result.player.card1, order: 1 },
+        { value: result.player.card2, order: 3 },
+        { value: result.player.card3, order: 5 },
     ];
 
     const bankerCards = [
@@ -82,8 +81,8 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     }
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className="overlay-mask">
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={Styles["result-container"]}>
                 <div className={`${Styles["animation-container player"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(
                         playerCards.filter((c) => c.value),
@@ -97,6 +96,11 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                     )}
                 </div>
             </div>
+            {!playResultAnimation && settlementResult && (
+                <div className={Styles["result-label"]}>
+                    {settlementResult?.tie ? t("tie") : settlementResult?.banker ? t("bankerWin") : t("playerWin")}
+                </div>
+            )}
         </div>
     );
 };
