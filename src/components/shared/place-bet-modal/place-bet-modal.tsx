@@ -38,7 +38,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: gameConfigs.minbet }));
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
-    const maxBetChoice = gameConfigs.choices_maxbet[betChoice];
+    const maxBetChoice = gameConfigs.choices_maxbet === null || gameConfigs.choices_maxbet === undefined ? gameConfigs.maxbet :  gameConfigs.choices_maxbet[betChoice];
 
     const chips = [
         {
