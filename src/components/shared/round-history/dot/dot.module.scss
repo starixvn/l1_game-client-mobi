@@ -144,6 +144,27 @@
     }
 }
 
+// baccarat
+.dot-banker {
+    @extend %dot;
+    background: var(--baccarat-dot-banker-border);
+    box-shadow: var(--baccarat-dot-banker-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-banker-background);
+    }
+}
+
+.dot-player {
+    @extend %dot;
+    background: var(--baccarat-dot-player-border);
+    box-shadow: var(--baccarat-dot-player-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-player-background);
+    }
+}
+
 // three-cards
 .dot-red {
     @extend %dot;

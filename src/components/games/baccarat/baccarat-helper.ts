@@ -1,4 +1,4 @@
-import { Result } from "./baccarat";
+import { Cards } from "./baccarat";
 
 export const Choices = {
     banker: "banker",
@@ -41,4 +41,17 @@ export const BaccaratConfigs = {
             style: "small",
         },
     ],
+};
+
+export const TotalCardValue = (result: Cards) =>
+    Object.values(result)
+        .filter((value) => value !== null)
+        .reduce((total, value) => total + GetValueCard(value?.card + 1), 0);
+
+export const GetValueCard = (value: number) => {
+    return value >= 10 ? 0 : value;
+};
+
+export const SetPoint = (point: number) => {
+    return point % 10;
 };

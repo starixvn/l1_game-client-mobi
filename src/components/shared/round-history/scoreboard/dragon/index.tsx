@@ -26,7 +26,15 @@ const roundNext = (col: number, row: number) => {
 const drawDragonTailHistory = <R, S>(
     roundHistory: Round<R, S>[],
     isShowBlink: boolean,
-    getElementRound: (result: any, col: number, row: number, roundId: number, translate?: Function, gameSetting?: GameBaseProps) => void,
+    getElementRound: (
+        result: any,
+        col: number,
+        row: number,
+        roundId: number,
+        translate?: Function,
+        gameSetting?: GameBaseProps,
+        settlementResult?: any
+    ) => void,
     checkCondition?: (settlementResult: any) => void,
     translate?: Function,
     gameSetting?: GameBaseProps
@@ -62,7 +70,7 @@ const drawDragonTailHistory = <R, S>(
         }
         previousResult = value;
 
-        return getElementRound(round.result, col, row, round.roundId, translate, gameSetting);
+        return getElementRound(round.result, col, row, round.roundId, translate, gameSetting, round.settlementResult);
     });
 
     isShowBlink && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));

@@ -2,27 +2,27 @@ import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { Choices } from "../baccarat-helper";
-import { SettlementResult } from "../baccarat";
+import { Result, SettlementResult } from "../baccarat";
 
 export const GetElementRound = (
-    result: any,
+    result: Result,
     col: number,
     row: number,
     roundId: number,
     translate: Function,
-    gameSetting: GameBaseProps
+    gameSetting: GameBaseProps,
+    settlementResult: SettlementResult
 ) => {
     const isBanker = true;
-    const isBig = true;
 
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
-            choice={isBig ? Choices.big : Choices.small}
+            choice={settlementResult.big ? Choices.big : Choices.small}
             value={
-                isBanker
-                    ? translate(`${gameSetting.gameName.toLowerCase()}:bankerTextDot`)
-                    : translate(`${gameSetting.gameName.toLowerCase()}:playerTextDot`)
+                settlementResult.big
+                    ? translate(`${gameSetting.gameName.toLowerCase()}:bigTextDot`)
+                    : translate(`${gameSetting.gameName.toLowerCase()}:smallTextDot`)
             }
             col={col}
             row={row}
