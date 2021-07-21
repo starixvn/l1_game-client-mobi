@@ -1,8 +1,8 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
+import { GameState } from "../../../shared/game-base/type";
 import { Choices } from "../three-cards-helper";
 import { SettlementResult } from "../three-cards";
 import Styles from "./bet-options.module.scss";
@@ -42,13 +42,13 @@ const renderBetOptionByChoice = (
 
 const ThreeCardsBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect } = props;
-    const { gameConfigs, gameSetting, viewMode } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
         <div className={`${Styles["layout-three-cards"]}`}>
             {Object.keys(Choices).map((choice, index) => (
-                <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}</div>
+                <div key={index} className={Styles[`choice-${choice}`]}>
+                    {renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}
+                </div>
             ))}
         </div>
     );

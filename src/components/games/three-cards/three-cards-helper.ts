@@ -1,8 +1,8 @@
 export const Choices = {
+    red: "red",
     black: "black",
-    clubs: "clubs",
     diamonds: "diamonds",
     hearts: "hearts",
-    red: "red",
     spades: "spades",
+    clubs: "clubs",
 };
