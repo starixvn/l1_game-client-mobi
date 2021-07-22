@@ -1,70 +1,70 @@
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
+@import "../../../../assets/components/settlement-info";
 
 $time-show-num-animation: 0.15s;
 $number-count: 20;
 
 .animation-container {
-    position: absolute;
-    top: -6rem;
-    width: 100%;
-    display: flex;
-    transform: scale(0.52);
-    pointer-events: none;
-    justify-content: center;
-
     background-color: #ffdea9;
-    min-width: 65.5rem;
-    left: -12rem;
+    width: 28.8rem;
     border-radius: 2rem;
 
-    .number-container {
-        width: 80%;
-        display: inline-block;
-        padding: 2rem;
+    .result {
+        display: grid;
+        grid-template-columns: 1fr 9rem;
+        justify-content: center;
+        align-items: center;
     }
 
-    .vertical-separator {
-        display: inline-block;
+    .number-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, 3rem);
+        grid-template-rows: repeat(4, 3rem);
+        grid-gap: 0.5rem;
+        padding: 1.2rem;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 1.6rem;
+            bottom: 1.6rem;
+            width: 0.2rem;
+            background: linear-gradient(180deg, #ffe8c1 0%, #ffa412 50.83%, #ffd795 100%);
+        }
+    }
+
+    .num-pic {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #c7c7c7 78.96%, #bababa 100%);
+        font: 600 1.6rem var(--font-number);
+        color: #2c2f3e;
     }
 
     .result-total {
-        width: 40%;
-        display: inline-block;
-        text-align: center;
-        padding-top: 8rem;
-    }
-
-    .shown-number {
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50%;
-        font-size: 2.8rem;
-        margin: 4px;
-        line-height: 4.5rem;
-        background-color: #3a937a;
-        color: white;
-        display: inline-block;
-        padding-top: 0.2rem;
-    }
-
-    .shown-number-1digit {
-        @extend .shown-number;
-        padding-left: 1.5rem;
-    }
-
-    .shown-number-2digit {
-        @extend .shown-number;
-        padding-left: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .result-total-lbl {
-        font-size: 3rem;
+        line-height: 1.8rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #5e5e5e;
     }
 
     .result-total-num {
-        font-size: 4rem;
-        font-weight: bold;
+        font: 600 3.2rem var(--font-number);
+        color: #cd000e;
     }
 
     .num-cover {
@@ -72,7 +72,29 @@ $number-count: 20;
     }
 
     .num-animate {
-        display: inline-block;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .settle-info {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1rem;
+        align-items: center;
+        padding: 1rem 1.2rem;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 1.2rem;
+            right: 1.2rem;
+            height: 0.1rem;
+            background: linear-gradient(180deg, #ffdda4 0%, #ffa412 50.83%, #ffdb9f 100%);
+        }
     }
 }
 

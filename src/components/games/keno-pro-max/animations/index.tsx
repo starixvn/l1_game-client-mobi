@@ -55,19 +55,15 @@ const generateResult = (result: Result) => {
     shuffle = _.shuffle(shuffle);
 
     return rows.map((row, ri) => {
-        return (
-            <div key={`row-${ri}`}>
-                {row.map((num, ni) => {
-                    const index = ri * maxNumInRow + ni;
-                    return (
-                        <div key={index} className={`${Styles["num-animate"]} ${Styles[`animate-${shuffle[index]}`]}`}>
-                            <div className={`${Styles[`shown-number-${num >= 10 ? 2 : 1}digit`]} ${Styles["num-pic"]}`}>{num}</div>
-                            <div className={`${Styles["num-cover"]}`}></div>
-                        </div>
-                    );
-                })}
-            </div>
-        );
+        return row.map((num, ni) => {
+            const index = ri * maxNumInRow + ni;
+            return (
+                <div key={index} className={`${Styles["num-animate"]} ${Styles[`animate-${shuffle[index]}`]}`}>
+                    <div className={`${Styles["num-pic"]}`}>{num}</div>
+                    <div className={`${Styles["num-cover"]}`}></div>
+                </div>
+            );
+        });
     });
 };
 
@@ -77,14 +73,21 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${playResultAnimation ? Styles["has-animation"] : Styles["has-animation"]}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]}`}>
-                    <div className={Styles["number-container"]}>{generateResult(result)}</div>
-                    <div className={Styles["vertical-separator"]}></div>
-                    <div className={Styles["result-total"]}>
-                        <div className={Styles["result-total-lbl"]}>{t("total")} </div>
-                        <div className={Styles["result-total-num"]}>{settleResult.total}</div>
+                    <div className={Styles["result"]}>
+                        <div className={Styles["number-container"]}>{generateResult(result)}</div>
+
+                        <div className={Styles["result-total"]}>
+                            <div className={Styles["result-total-lbl"]}>{t("total")} </div>
+                            <div className={Styles["result-total-num"]}>{settleResult.total}</div>
+                        </div>
+                    </div>
+                    <div className={Styles["settle-info"]}>
+                        <div className={Styles["result-info-blue"]}>Big</div>
+                        <div className={Styles["result-info-red"]}>Odd</div>
+                        <div className={Styles["result-info-grey"]}>water</div>
                     </div>
                 </div>
             </div>

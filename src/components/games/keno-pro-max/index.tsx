@@ -8,12 +8,11 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { KenoProMaxResult, KenoProMaxResultCollapse, getSettleResult } from "./animations";
+import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
 import KenoProMaxBetHistory from "./bet-history";
 import KenoProMaxBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
-import Styles from "./keno-pro-max.module.scss";
 import { Result, SettlementResult } from "./keno-pro-max";
 import KenoProMaxStatistic from "./statistic";
 
@@ -130,16 +129,17 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderSettlementInfo() {
-        const { result } = this.state;
-        const settleResult = getSettleResult(result);
+        return;
+        // const { result } = this.state;
+        // const settleResult = getSettleResult(result);
 
-        return (
-            <div className={Styles["result-container"]}>
-                <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.big ? "big" : "small")}</div>
-                <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.even ? "even" : "odd")}</div>
-                <div className={Styles["result-info-orange"]}>{this.getGameTranslate(settleResult.element)}</div>
-            </div>
-        );
+        // return (
+        //     <div className={Styles["result-container"]}>
+        //         <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.big ? "big" : "small")}</div>
+        //         <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.even ? "even" : "odd")}</div>
+        //         <div className={Styles["result-info-orange"]}>{this.getGameTranslate(settleResult.element)}</div>
+        //     </div>
+        // );
     }
 }
 
