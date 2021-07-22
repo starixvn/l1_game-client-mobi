@@ -53,11 +53,11 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             { failure: !betStake, message: t("emptyPresetStakeMsg") },
             {
                 failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
-                message: t("messages:gameMaxBet", { maxBet: props.gameConfigs.maxbet }),
+                message: t("messages:gameMaxBet", { maxBet: props.gameConfigs?.maxbet }),
             },
             {
                 failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
-                message: t("messages:gameMinBet", { minBet: props.gameConfigs.minbet }),
+                message: t("messages:gameMinBet", { minBet: props.gameConfigs?.minbet }),
             },
         ];
         const failureCase = validationCriteria.find((criteria) => criteria.failure);
