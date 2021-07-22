@@ -58,9 +58,9 @@ const generateResult = (result: Result) => {
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
             return (
-                <div key={index} className={`${Styles["num-animate"]} ${Styles[`animate-${shuffle[index]}`]}`}>
-                    <div className={`${Styles["num-pic"]}`}>{num}</div>
-                    <div className={`${Styles["num-cover"]}`}></div>
+                <div key={index} className={`${Styles["number-animate"]} ${Styles[`animate-${shuffle[index]}`]}`}>
+                    <div className={`${Styles["number"]}`}>{num}</div>
+                    <div className={`${Styles["number-cover"]}`}></div>
                 </div>
             );
         });
@@ -81,12 +81,16 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
 
                         <div className={Styles["result-total"]}>
                             <div className={Styles["result-total-lbl"]}>{t("total")} </div>
-                            <div className={Styles["result-total-num"]}>{settleResult.total}</div>
+                            <div className={Styles["result-total-number"]}>{settleResult.total}</div>
                         </div>
                     </div>
                     <div className={Styles["settle-info"]}>
-                        <div className={Styles["result-info-blue"]}>{t(settleResult.big ? "big" : "small")}</div>
-                        <div className={Styles["result-info-red"]}>{t(settleResult.even ? "even" : "odd")}</div>
+                        <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
+                            {t(settleResult.big ? "big" : "small")}
+                        </div>
+                        <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
+                            {t(settleResult.even ? "even" : "odd")}
+                        </div>
                         <div className={Styles["result-info-grey"]}>{t(settleResult.element)}</div>
                     </div>
                 </div>

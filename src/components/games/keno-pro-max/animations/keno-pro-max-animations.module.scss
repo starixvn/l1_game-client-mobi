@@ -36,7 +36,7 @@ $number-count: 20;
         }
     }
 
-    .num-pic {
+    .number {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -62,16 +62,16 @@ $number-count: 20;
         color: #5e5e5e;
     }
 
-    .result-total-num {
+    .result-total-number {
         font: 600 3.2rem var(--font-number);
         color: #cd000e;
     }
 
-    .num-cover {
+    .number-cover {
         display: none;
     }
 
-    .num-animate {
+    .number-animate {
         position: relative;
         display: flex;
         justify-content: center;
@@ -99,7 +99,7 @@ $number-count: 20;
 }
 
 .has-animation {
-    .num-cover {
+    .number-cover {
         display: block;
         position: absolute;
         left: 0;
@@ -107,13 +107,13 @@ $number-count: 20;
         top: 0;
         bottom: 0;
         z-index: 2;
-        animation-name: hide-num-cover-animation;
+        animation-name: hide-number-cover-animation;
         animation-duration: $time-show-num-animation;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
 
-    .shown-num {
+    .shown-number {
         position: relative;
         animation-name: show-num-animation;
         animation-duration: $time-show-num-animation;
@@ -121,7 +121,7 @@ $number-count: 20;
         animation-timing-function: ease-in;
     }
 
-    .num-pic {
+    .number {
         opacity: 0;
     }
 
@@ -130,227 +130,227 @@ $number-count: 20;
     }
 
     .animate-1 {
-        .num-cover {
+        .number-cover {
             animation-delay: 0;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: 0;
         }
     }
 
     .animate-2 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation;
         }
     }
 
     .animate-3 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 2;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 2;
         }
     }
 
     .animate-4 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 3;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 3;
         }
     }
 
     .animate-5 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 4;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 4;
         }
     }
 
     .animate-6 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 5;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 5;
         }
     }
 
     .animate-7 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 6;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 6;
         }
     }
 
     .animate-8 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 7;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 7;
         }
     }
 
     .animate-9 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 8;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 8;
         }
     }
 
     .animate-10 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 9;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 9;
         }
     }
 
     .animate-11 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 10;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 10;
         }
     }
 
     .animate-12 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 11;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 11;
         }
     }
 
     .animate-13 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 12;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 12;
         }
     }
 
     .animate-14 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 13;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 13;
         }
     }
 
     .animate-15 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 14;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 14;
         }
     }
 
     .animate-16 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 15;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 15;
         }
     }
 
     .animate-17 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 16;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 16;
         }
     }
 
     .animate-18 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 17;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 17;
         }
     }
 
     .animate-19 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 18;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 18;
         }
     }
 
     .animate-20 {
-        .num-cover {
+        .number-cover {
             animation-delay: $time-show-num-animation * 19;
         }
 
-        .num-pic {
-            @extend .shown-num;
+        .number {
+            @extend .shown-number;
             animation-delay: $time-show-num-animation * 19;
         }
     }
 }
 
-@keyframes hide-num-cover-animation {
+@keyframes hide-number-cover-animation {
     0% {
         opacity: 1;
     }
