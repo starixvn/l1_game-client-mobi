@@ -36,7 +36,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const [betStake, setBetStake] = useState(minbet);
 
     const [showTooltip, setShowTooltip] = useState(false);
-    const [tooltipMessage, setTooltipMessage] = useState('');
+    const [tooltipMessage, setTooltipMessage] = useState("");
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
     let maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
@@ -177,8 +177,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     <span className="icon-close small" onClick={clearBetStake}></span>
                     {showTooltip && (
                         <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
-                            <div className={`arrow down ${Styles["arrow"]}`}></div>
                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
+                            <div className={`arrow up ${Styles["arrow"]}`}></div>
                         </div>
                     )}
                 </div>
