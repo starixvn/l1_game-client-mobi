@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -25,8 +25,10 @@ type Props = {
     onCloseModal: Function;
 };
 
+const tooltipTimeout = 3000;
+let timeoutIns = null;
+
 const PlaceBetModal: React.FC<Props> = (props) => {
-    const ref = useRef();
     const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
@@ -34,7 +36,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const [betStake, setBetStake] = useState(minbet);
 
     const [showTooltip, setShowTooltip] = useState(false);
-    const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: minbet }));
+    const [tooltipMessage, setTooltipMessage] = useState('');
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
     let maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
@@ -65,7 +67,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const payouts = [
         {
             text: t("common:payout"),
-            value: numberWithCommas(betStake * odd),
+            value:  numberWithCommas(betStake * odd),
         },
         {
             text: t("common:minBet"),
@@ -84,11 +86,31 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     useEffect(() => {
+        if (betStake > maxBetPerRound) {
+            setShowTooltip(true);
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
+            setBetStake(maxBetPerRound);
+            return;
+        }
+
+        if (betStake > maxBetChoice) {
+            setShowTooltip(true);
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetChoice }));
+            setBetStake(maxBetChoice);
+            return;
+        }
+
+        setTimeout(() => {
+            timeoutIns = setShowTooltip(false);
+        }, tooltipTimeout);
+
         window.addEventListener("keyup", handleKeyUp);
-        return () => {
+
+        return () => { 
+            clearTimeout(timeoutIns);
             window.removeEventListener("keyup", handleKeyUp);
-        };
-    }, [showTooltip, tooltipMessage, maxBetPerRound, maxBetChoice, betStake]);
+          }
+    }, [betStake]);
 
     const closeModal = () => {
         props.onCloseModal();
@@ -96,26 +118,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
 
     const addStakeHandler = (event: any, stake: number) => {
         event.preventDefault();
-        validateBetStake(betStake + stake);
-    };
-
-    const validateBetStake = (totalStake: number) => {
-        if (totalStake > maxBetPerRound) {
-            setShowTooltip(true);
-            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
-            setBetStake(maxBetPerRound);
-            return;
-        }
-
-        if (totalStake > maxBetChoice) {
-            setShowTooltip(true);
-            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetChoice }));
-            setBetStake(maxBetChoice);
-            return;
-        }
-
-        setShowTooltip(false);
-        setBetStake(totalStake);
+        setBetStake(betStake + stake);
     };
 
     const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
@@ -164,9 +167,11 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     <NumberFormat
                         readOnly={isMobile}
                         value={betStake}
+                        allowNegative={false}
                         className="form-control number"
                         thousandSeparator={true}
-                        onValueChange={(values) => validateBetStake(parseInt(values.value))}
+                        isNumericString={true}
+                        onValueChange={({value}) => setBetStake(parseInt(value || '0'))}
                     />
 
                     <span className="icon-close small" onClick={clearBetStake}></span>
@@ -211,7 +216,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                                 className={Styles["numpad"]}
                                 onClick={(event) =>
                                     pad.showValue
-                                        ? validateBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
+                                        ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
                                         : deleteNumberHandler(event)
                                 }
                                 key={index}
@@ -222,7 +227,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     </div>
                 )}
 
-                <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`} ref={ref}>
+                <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
                     {t("common:confirm")}
                 </button>
             </div>
