@@ -8,6 +8,7 @@ export type BetHistoryItem = {
 };
 
 export type PropsBetContainer = {
+    gameId: number;
     isRefund: boolean;
     renderResult: Function;
     translate?: Function;

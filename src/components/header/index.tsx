@@ -18,6 +18,8 @@ type Props = {
     onToggleNotification: Function;
     updateBetSetting: Function;
     globalBetSetting: BetSetting;
+    toggleHistoryModal: Function;
+    toggleGuideModal: Function;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -40,6 +42,8 @@ const Header: React.FC<Props> = (props) => {
                                 onToggleNotification={props.onToggleNotification}
                                 globalBetSetting={props.globalBetSetting}
                                 updateBetSetting={props.updateBetSetting}
+                                toggleHistoryModal={props.toggleHistoryModal}
+                                toggleGuideModal={props.toggleGuideModal}
                             />
                         )}
                         <div className={Styles["user"]}>

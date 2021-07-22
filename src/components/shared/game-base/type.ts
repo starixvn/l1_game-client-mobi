@@ -22,8 +22,6 @@ export enum GameState {
     ConnectFailed,
 }
 export enum PopupType {
-    Guide,
-    BetHistory,
     Rebet,
     Error,
     PlaceBet,

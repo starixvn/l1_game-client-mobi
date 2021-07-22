@@ -619,8 +619,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     abstract renderResultCollapse(): React.ReactElement;
 
-    abstract renderBetHistory(): React.ReactElement;
-
     abstract getMainOptions(): string[];
 
     abstract renderSettlementInfo(): JSX.Element;
@@ -701,12 +699,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderPopup(popupType: PopupType) {
         switch (popupType) {
-            case PopupType.Guide:
-                return this.renderGuide();
             case PopupType.Rebet:
                 return this.renderReBet();
-            case PopupType.BetHistory:
-                return this.renderBetHistory();
             case PopupType.Error:
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:

@@ -58,5 +58,6 @@
     "reset": "Đặt lại",
     "save": "Lưu",
     "minBet": "Tối Thiểu",
-    "maxBet" : "Tối Đa"
+    "maxBet" : "Tối Đa",
+    "gameSelectPlaceHolder": "Vui lòng chọn game."
 }

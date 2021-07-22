@@ -6,7 +6,6 @@ import { Table } from "react-infinite-table";
 
 import appSettings from "../../../common/app-settings";
 import { useAuthContext } from "../../../contexts/auth";
-import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { formatDate } from "../../../helpers/time-helper";
 import { signOut } from "../../../pages";
@@ -22,6 +21,8 @@ enum OrderRenderCell {
     win,
 }
 
+const fontWeightClass = "font-weight-medium";
+
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className="font-number">{children}</span>;
 };
@@ -33,7 +34,7 @@ const renderStake = (bet: BetLogs) => {
                 {keysChoices.map((name, index) => {
                     if (bet[name] > 0) {
                         return (
-                            <div key={index} className={bet.settlementResult[name] ? "font-weight-medium" : ""}>
+                            <div key={index} className={bet.settlementResult[name] ? fontWeightClass : ""}>
                                 {numberWithCommas(bet[name])}
                             </div>
                         );
@@ -51,7 +52,7 @@ const renderStakeRefund = (bet: BetLogs) => {
     if (bet.settlementResult) {
         return (
             <>
-                <div className={bet.betwin > 0 ? "font-weight-medium" : ""}>{numberWithCommas(bet.amount)}</div>
+                <div className={bet.betwin > 0 ? fontWeightClass : ""}>{numberWithCommas(bet.amount)}</div>
                 <div className={bet.refund > 0 ? Styles["refund"] : ""}>{numberWithCommas(bet.refund)}</div>
             </>
         );
@@ -68,7 +69,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
             <div className={Styles["list-choices"]}>
                 {keysChoices &&
                     keysChoices.map((name, index) => {
-                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
+                        const classHighLight = bet.settlementResult[name] ? fontWeightClass : "";
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
@@ -93,13 +94,12 @@ const checkCondition = (
     columnIndex: number,
     rowData: BetLogs,
     isRefund: boolean,
-    gameConfigs: any,
     renderResult: Function,
     renderBet: (rowData: BetLogs, translate: Function, odds: object) => {},
     translate: Function
 ) => {
     const { time, phien, betwin } = rowData;
-    const odds = gameConfigs.odds;
+    const odds = rowData.odds;
     const isHighligh = betwin > 0 ? true : false;
     const fontNumber = "font-number";
     switch (columnIndex) {
@@ -134,13 +134,13 @@ const checkCondition = (
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, translate } = props;
+    const { renderResult, isRefund, translate, gameId } = props;
     const router = useRouter();
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
     }
-    const { gameConfigs, gameSetting } = useGameContext();
+    const gameSetting = appSettings.gameSettings[gameId];
     const { proxy } = appSettings;
     const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
     const { session } = useAuthContext();
@@ -152,7 +152,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
-    const paddingBottom = 6;
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslation("bethistory");
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
@@ -162,7 +161,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
     const cellRenderer = ({ columnIndex, rowData }) => {
-        return checkCondition(columnIndex, rowData, isRefund, gameConfigs, renderResult, renderBet, translate);
+        return checkCondition(columnIndex, rowData, isRefund, renderResult, renderBet, translate);
     };
 
     const headerRenderer = ({ column, className, columnIndex }) => {
@@ -190,7 +189,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return _columns;
     };
 
-    const fetchBetHistory = async (betHistory) => {
+    const fetchBetHistory = (betHistory) => {
         if (betHistory && betHistory.betLogs.length > 0) {
             const data = betHistory.betLogs;
             setListBetHistory([...listBetHistory, ...data]);
@@ -218,7 +217,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 username: session.username,
             });
             const bets = resp.data.history;
-            await fetchBetHistory(bets);
+            fetchBetHistory(bets);
             setIsFirstLoad(false);
             if (page === 1) {
                 setTotalPage(Math.ceil(bets.total / 16));
@@ -238,7 +237,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     useEffect(() => {
         function handleResize() {
             if (wrapperRef.current) {
-                setHeightHistory(wrapperRef.current.clientHeight - paddingBottom);
+                setHeightHistory(wrapperRef.current.clientHeight);
             }
         }
 

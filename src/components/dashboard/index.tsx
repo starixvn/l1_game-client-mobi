@@ -17,11 +17,13 @@ import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
 import Header from "../header";
+import AdvanceModal from "../shared/advance-modal";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
+import { HistoryModal } from "./history";
 import Register from "./register";
 import Welcome from "./welcome";
 
@@ -30,7 +32,7 @@ type Props = {
     authorizeInfo: AuthorizeResponse;
     router: NextRouter;
     apiErrorMessage: APIErrorProp;
-    isShowModal: boolean;
+    isShowErrorModal: boolean;
     setApiErrorMessage: (APIErrorProp) => void;
     setIsShowModal: (isOpen: boolean) => void;
 } & WithRouterProps &
@@ -40,6 +42,8 @@ type State = {
     isSignedUp: boolean;
     isSignedIn: boolean;
     isShowNotice: boolean;
+    isShowHistory: boolean;
+    isShowGuide: boolean;
     notice: string;
     user: User;
     orientation: string;
@@ -61,6 +65,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             user: null,
             isShowNotice: true,
             isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
+            isShowHistory: false,
+            isShowGuide: false,
             notice: "",
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
@@ -79,6 +85,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.updateBetSetting = this.updateBetSetting.bind(this);
+        this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
+        this.toggleGuideModal = this.toggleGuideModal.bind(this);
     }
 
     doOnOrientationChange() {
@@ -244,6 +252,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.props.setIsShowModal(false);
     }
 
+    toggleHistoryModal() {
+        this.setState({ isShowHistory: !this.state.isShowHistory });
+    }
+
+    toggleGuideModal() {
+        this.setState({ isShowGuide: !this.state.isShowGuide });
+    }
+
     get globalBetSetting(): BetSetting {
         const setting = this.state.betSettings["global"];
 
@@ -254,8 +270,8 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderDashBoard() {
-        const { apiErrorMessage, balance } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings } = this.state;
+        const { apiErrorMessage, balance, isShowErrorModal } = this.props;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowGuide, isShowHistory } = this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
@@ -271,6 +287,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                     onToggleSound={this.playSoundToggle}
                     updateBetSetting={this.updateBetSetting}
                     globalBetSetting={this.globalBetSetting}
+                    toggleHistoryModal={this.toggleHistoryModal}
+                    toggleGuideModal={this.toggleGuideModal}
                 />
                 {isMobileOnly && (
                     <div className={Styles["settings-container"]}>
@@ -281,6 +299,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                             onToggleSound={this.playSoundToggle}
                             updateBetSetting={this.updateBetSetting}
                             globalBetSetting={this.globalBetSetting}
+                            toggleHistoryModal={this.toggleHistoryModal}
+                            toggleGuideModal={this.toggleGuideModal}
                         />
                     </div>
                 )}
@@ -291,10 +311,11 @@ class Dashboard extends React.PureComponent<Props, State> {
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
                 />
-                {this.props.isShowModal && (
+                {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
+                {isShowErrorModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
-                        <BaseDialog type={ModalType.Center} isOpen={this.props.isShowModal} onCloseModal={this.closeDialog}>
+                        <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
                             <div className="modal-center">
                                 <div className={`icon-warning modal-icon-warning`}></div>
                                 <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>

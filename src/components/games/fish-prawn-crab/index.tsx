@@ -95,22 +95,6 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
         return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound}></ScoreboardBasic>;
     }
 
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <FishPrawnCrabBetHistory />
-            </AdvanceModal>
-        );
-    }
-
     renderSettlementInfo() {
         const { result } = this.state;
         const settlementResultInfo = Object.values(result).map((dice) => {

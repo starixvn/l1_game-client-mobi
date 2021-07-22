@@ -96,22 +96,6 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return duration * 1000;
     }
 
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <BigSmallBetHistory />
-            </AdvanceModal>
-        );
-    }
-
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;

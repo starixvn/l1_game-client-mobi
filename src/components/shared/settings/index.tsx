@@ -29,6 +29,7 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     id="ticket-history"
                     className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    onClick={() => props.toggleHistoryModal()}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
                 </div>

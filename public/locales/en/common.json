@@ -58,5 +58,6 @@
     "reset": "Reset",
     "save": "Save",
     "minBet": "Min Bet",
-    "maxBet" : "Max Bet"
+    "maxBet" : "Max Bet",
+    "gameSelectPlaceHolder": "Please select a game."
 }

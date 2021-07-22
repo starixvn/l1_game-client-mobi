@@ -8,4 +8,6 @@ export interface Props {
     enabledOneClickBet?: boolean;
     updateBetSetting: Function;
     globalBetSetting: BetSetting;
+    toggleGuideModal: Function;
+    toggleHistoryModal: Function;
 }

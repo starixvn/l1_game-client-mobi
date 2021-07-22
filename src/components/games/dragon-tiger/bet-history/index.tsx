@@ -43,10 +43,11 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
     return <></>;
 };
 
-const DragonTigerBetHistory: React.FunctionComponent = () => {
+const DragonTigerBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { t } = useTranslation("dragontiger");
     return (
         <BetHistoryContainer
+            gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}

@@ -95,22 +95,6 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         return <CardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <DragonTigerBetHistory />
-            </AdvanceModal>
-        );
-    }
-
     renderSettlementResult(settlementResult) {
         if (settlementResult.tie) {
             return <div className={Styles["result-info-green"]}>{this.getGameTranslate("tie")}</div>;

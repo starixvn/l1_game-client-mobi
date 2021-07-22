@@ -68,10 +68,11 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
     return <></>;
 };
 
-const FishPrawnCrabBetHistory: React.FunctionComponent = () => {
+const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { t } = useTranslation("baucua");
     return (
         <BetHistoryContainer
+            gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}

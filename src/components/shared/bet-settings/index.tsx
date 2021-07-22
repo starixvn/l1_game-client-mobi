@@ -69,12 +69,12 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             {props.gameId && (
                 <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
                     {enabledQuickBet ? (
-                        <div className={Styles["quick-bet-active"]} onClick={() => onClickChip()}>
+                        <div className={Styles["quick-bet-active"]} onClick={onClickChip}>
                             <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
                             <span className={Styles["selected-bet-stake"]}>{betStake}</span>
                         </div>
                     ) : (
-                        <div className={`${Styles["quick-bet-chip"]}`} onClick={() => onClickChip()}>
+                        <div className={`${Styles["quick-bet-chip"]}`} onClick={onClickChip}>
                             <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
                         </div>
                     )}
