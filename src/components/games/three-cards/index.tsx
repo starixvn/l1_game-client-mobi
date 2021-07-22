@@ -7,7 +7,7 @@ import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { ThreeCardsResult } from "./animations";
+import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
 import ThreeCardsBetHistory from "./bet-history";
 import ThreeCardsBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderThreeCardsDot } from "./round-history";
@@ -68,11 +68,20 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
+        return (
+            this.state.gameState === GameState.BeforeStartRound ||
+            this.state.gameState === GameState.InRound ||
+            this.state.gameState === GameState.LockingBet
+        );
+    }
+
+    renderStartRoundAnimation() {
+        const { durations } = this.props;
+        return <DrawCardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {
-        const { result, roundId } = this.state;
+        const { result } = this.state;
         return (
             <ThreeCardsResult
                 result={
@@ -82,14 +91,24 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                         { rank: "4", suit: 1 },
                     ]
                 }
-                roundId={roundId}
             />
         );
     }
 
     renderResultCollapse() {
         const { result, settlementResult } = this.state;
-        return <></>;
+        return (
+            <ThreeCardsResultCollapse
+                result={
+                    result ?? [
+                        { rank: "Q", suit: 1 },
+                        { rank: "10", suit: 2 },
+                        { rank: "4", suit: 1 },
+                    ]
+                }
+                settlementResult={settlementResult}
+            />
+        );
     }
 
     renderGuide() {
@@ -125,12 +144,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderSettlementInfo() {
-        const { result, settlementResult } = this.state;
-
-        const redDotCount = Object.values(result).filter((dot) => dot).length;
-        const whiteDotCount = 4 - redDotCount;
-
-        return <div className={Styles["result-container"]}></div>;
+        return <></>;
     }
 }
 

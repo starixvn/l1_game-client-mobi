@@ -480,6 +480,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setWinStreakByRoundHistory(roundHistory);
     }
 
+    getFinishAnimationDuration() {
+        const { durations } = this.props;
+        return (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
+    }
+
     handleFinish({ finish }) {
         const { roundHistory } = this.state;
         const { durations } = this.props;
@@ -497,7 +502,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             settlementResult: finish.settlementResult,
         });
 
-        const animationDuration = (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
+        const animationDuration = this.getFinishAnimationDuration();
 
         this.showResultInfoTimeout = setTimeout(() => {
             this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
@@ -805,7 +810,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </div>
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {<BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>}
+                                {this.state.gameState === GameState.DisplayResult && (
+                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                )}
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderSettlementInfo={this.renderSettlementInfo}

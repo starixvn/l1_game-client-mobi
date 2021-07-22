@@ -1,7 +1,301 @@
-.result-keno-pro-set {
+@import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
+
+$time-draw-card-animation: 0.3s;
+$time-open-card-animation: 0.45s;
+
+$time-zoom-in-card-animation: 0.15s;
+$time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation;
+$number-of-cards: 3;
+
+.animation-container {
     position: absolute;
-    top: calc(50% - 5.8rem);
-    left: calc(50% - 6.7rem);
-    width: 13.4rem;
-    height: 12.7rem;
+    top: 0.3rem;
+    width: 100%;
+    display: flex;
+    transform: scale(0.52);
+    pointer-events: none;
+    left: 0;
+    justify-content: center;
+}
+
+.card-back {
+    background: url("/static/images/card-back.png") no-repeat center;
+    background-size: 114px 143px;
+    width: 114px;
+    height: 143px;
+    &.collapse-mode {
+        background-size: 4.2rem 5.4rem;
+        width: 4.2rem;
+        height: 5.4rem;
+    }
+}
+
+.draw-cards.has-animation {
+    %draw-card {
+        animation-name: draw-card-animation;
+        animation-duration: $time-draw-card-animation/$number-of-cards;
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+    }
+
+    .card1 {
+        @extend %draw-card;
+        animation-delay: 0;
+    }
+
+    .card2 {
+        @extend %draw-card;
+        animation-delay: $time-draw-card-animation/$number-of-cards;
+    }
+
+    .card3 {
+        @extend %draw-card;
+        animation-delay: $time-draw-card-animation * 2 / $number-of-cards;
+    }
+}
+
+@keyframes draw-card-animation {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20rem, 0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate3d(0, -12rem, 0);
+    }
+
+    70% {
+        opacity: 0.6;
+        transform: translate3d(0, -5rem, 0);
+    }
+
+    90% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+.open-cards {
+    .animation-container {
+        --move-up-distance: -3.5rem;
+        --result-scale: 1;
+        top: 4.5rem;
+        transform: scale(1);
+        transition: transform 0.7s;
+    }
+
+    .card-back {
+        display: none;
+    }
+
+    .card1,
+    .card2,
+    .card3 {
+        position: relative;
+    }
+
+    &.has-animation {
+        .animation-container {
+            animation-name: zoon-in-animation, move-up-result-animation;
+            animation-duration: $time-zoom-in-card-animation, 0.3s;
+            animation-delay: 0s, $time-delay-move-up-result;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-out;
+        }
+
+        .rotate-card {
+            transform: rotateY(180deg);
+        }
+
+        .card-back {
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 2;
+            animation-name: hide-card-back-animation;
+            animation-duration: $time-open-card-animation/$number-of-cards;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+            transition: transform 0.1s;
+        }
+
+        .open-card {
+            position: relative;
+            animation-name: open-card-animation;
+            animation-duration: $time-open-card-animation/$number-of-cards;
+            animation-fill-mode: forwards;
+            animation-timing-function: ease-in;
+            transition: transform 0.1s;
+        }
+
+        .card1 {
+            .card-back {
+                animation-delay: $time-delay-zoom-in-card-animation;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-delay-zoom-in-card-animation;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: $time-open-card-animation/$number-of-cards + $time-delay-zoom-in-card-animation;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-animation/$number-of-cards + $time-delay-zoom-in-card-animation;
+            }
+        }
+
+        .card3 {
+            .card-back {
+                animation-delay: $time-open-card-animation * 2 / $number-of-cards + $time-delay-zoom-in-card-animation;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-animation * 2 / $number-of-cards + $time-delay-zoom-in-card-animation;
+            }
+        }
+    }
+}
+
+@keyframes zoon-in-animation {
+    0% {
+        transform: scale(0.6);
+    }
+
+    50% {
+        transform: scale(0.8);
+    }
+
+    80% {
+        transform: scale(1);
+    }
+}
+
+@keyframes hide-card-back-animation {
+    0% {
+        transform: rotateY(30deg) scaleX(0.9);
+        opacity: 1;
+    }
+
+    30% {
+        transform: rotateY(80deg) scaleX(0.6);
+        opacity: 1;
+    }
+
+    60% {
+        transform: rotateY(120deg) scaleX(0);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes open-card-animation {
+    0% {
+        opacity: 0;
+        transform: rotateY(180deg) scaleX(0.1);
+    }
+
+    30% {
+        transform: rotateY(120deg) scaleX(0.4);
+    }
+
+    60% {
+        opacity: 0.9;
+        transform: rotateY(80deg) scaleX(0.7);
+    }
+
+    80% {
+        opacity: 1;
+        transform: rotateY(30deg) scaleX(0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateY(0deg) scaleX(1);
+    }
+}
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .result-container {
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        transform: scale(1);
+    }
+
+    .card-back {
+        display: none;
+    }
+
+    .open-card {
+        animation-name: none;
+    }
+
+    &.has-animation {
+        $time-open-card-collape-mode-animation: 1s;
+
+        .card-back {
+            display: block;
+            animation-duration: $time-open-card-collape-mode-animation/ $number-of-cards;
+        }
+
+        .open-card {
+            animation-name: open-card-animation;
+            animation-duration: $time-open-card-collape-mode-animation/ $number-of-cards;
+        }
+
+        .card1 {
+            .card-back {
+                animation-delay: 0s;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: 0s;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: $time-open-card-collape-mode-animation/ $number-of-cards;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-collape-mode-animation/ $number-of-cards;
+            }
+        }
+
+        .card3 {
+            .card-back {
+                animation-delay: $time-open-card-collape-mode-animation * 2 / $number-of-cards;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: $time-open-card-collape-mode-animation * 2 / $number-of-cards;
+            }
+        }
+    }
 }

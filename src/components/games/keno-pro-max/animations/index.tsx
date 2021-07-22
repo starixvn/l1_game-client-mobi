@@ -73,7 +73,7 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div className={`${playResultAnimation ? Styles["has-animation"] : Styles["has-animation"]}`}>
+        <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]}`}>
                     <div className={Styles["result"]}>
@@ -85,9 +85,9 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
                         </div>
                     </div>
                     <div className={Styles["settle-info"]}>
-                        <div className={Styles["result-info-blue"]}>Big</div>
-                        <div className={Styles["result-info-red"]}>Odd</div>
-                        <div className={Styles["result-info-grey"]}>water</div>
+                        <div className={Styles["result-info-blue"]}>{t(settleResult.big ? "big" : "small")}</div>
+                        <div className={Styles["result-info-red"]}>{t(settleResult.even ? "even" : "odd")}</div>
+                        <div className={Styles["result-info-grey"]}>{t(settleResult.element)}</div>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
             </div>
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-container"]}>
-                    <div className={Styles["result-info-red"]}>{t(settleResult.big ? "big" : "small")}</div>
+                    <div className={Styles["result-info-blue"]}>{t(settleResult.big ? "big" : "small")}</div>
                     <div className={Styles["result-info-red"]}>{t(settleResult.even ? "even" : "odd")}</div>
                     <div className={Styles["result-info-orange"]}>{t(settleResult.element)}</div>
                 </div>

@@ -129,17 +129,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderSettlementInfo() {
-        return;
-        // const { result } = this.state;
-        // const settleResult = getSettleResult(result);
-
-        // return (
-        //     <div className={Styles["result-container"]}>
-        //         <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.big ? "big" : "small")}</div>
-        //         <div className={Styles["result-info-red"]}>{this.getGameTranslate(settleResult.even ? "even" : "odd")}</div>
-        //         <div className={Styles["result-info-orange"]}>{this.getGameTranslate(settleResult.element)}</div>
-        //     </div>
-        // );
+        return <></>;
     }
 }
 
