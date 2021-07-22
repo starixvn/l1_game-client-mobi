@@ -12,7 +12,7 @@ import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
-import { UserClientCommunication } from "../../../services";
+import { getBalance } from "../../../services/auth-service";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -85,7 +85,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.messageTransmitter = MessageTransmitter();
         this.initWinStreakCollector();
-        this.authService = UserClientCommunication.getUserClientInstance().auth;
 
         this.closePopup = this.closePopup.bind(this);
         this.openPopup = this.openPopup.bind(this);
@@ -411,8 +410,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     async updateUserBalance() {
-        const { username, ss } = this.context.session;
-        const balanceResponse = await this.authService.getBalance(ss, username);
+        const balanceResponse = await getBalance(this.context.session);
 
         if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);

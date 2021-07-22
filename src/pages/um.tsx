@@ -7,7 +7,6 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import * as LocalStorageManager from "../common/local-storage";
 import { convertToGMT8, formatDate } from "../helpers/time-helper";
-import { UserClientCommunication } from "../services";
 
 function UM({ umInfo }) {
     const router = useRouter();
@@ -46,13 +45,9 @@ function UM({ umInfo }) {
 }
 
 export async function getServerSideProps({ locale }) {
-    const settingsService = UserClientCommunication.getUserClientInstance().settings;
-    const settings = await settingsService.getSettings();
-
     return {
         props: {
             ...(await serverSideTranslations(locale, ["messages", "um"])),
-            umInfo: settings.umInfo,
         },
     };
 }

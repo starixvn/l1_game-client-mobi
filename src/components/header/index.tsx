@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
+import { User } from "sc-user-service-client/dist/auth";
 
 import { numberWithCommas } from "../../helpers/number-helper";
 import { BetSetting } from "../shared/bet-settings/type";
@@ -8,10 +9,7 @@ import { Settings } from "../shared/settings";
 import Styles from "./header.module.scss";
 
 type Props = {
-    avatarId: number;
-    currency: string;
-    name: string;
-    balance: number;
+    user: User;
     enabledSound: boolean;
     enabledNotification: boolean;
     onToggleSound: Function;
@@ -23,7 +21,8 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const pathAvatar = `/static/images/avatar/${props.avatarId}.png`;
+    const { user } = props;
+    const pathAvatar = `/static/images/avatar/${user.avatarId}.png`;
     const { i18n } = useTranslation();
 
     return (
@@ -48,13 +47,13 @@ const Header: React.FC<Props> = (props) => {
                         )}
                         <div className={Styles["user"]}>
                             <div className={Styles["info"]}>
-                                <div className={Styles["user-name"]}>{props.name}</div>
-                                <div key={props.balance} className={`${Styles.balance}`}>
-                                    {numberWithCommas(props.balance ? props.balance : 0)} {props.currency}
+                                <div className={Styles["user-name"]}>{user.name}</div>
+                                <div key={user.red} className={`${Styles.balance}`}>
+                                    {numberWithCommas(user.red ? user.red : 0)} {user.currency}
                                 </div>
                             </div>
                             <div className={Styles["avatar"]}>
-                                {props.avatarId > 0 && props.avatarId < 41 ? (
+                                {user.avatarId > 0 && user.avatarId < 41 ? (
                                     <img src={pathAvatar} className="img-fluid" height="40" width="40" alt="Avatar" />
                                 ) : (
                                     <span className={`icon-user ${Styles["icon-user"]}`}></span>
