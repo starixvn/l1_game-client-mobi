@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
@@ -26,16 +26,18 @@ type Props = {
 };
 
 const PlaceBetModal: React.FC<Props> = (props) => {
+    const ref = useRef();
     const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
+    const {minbet} = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [betStake, setBetStake] = useState(gameConfigs.minbet);
+    const [betStake, setBetStake] = useState(minbet);
 
     const [showTooltip, setShowTooltip] = useState(false);
-    const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: gameConfigs.minbet }));
+    const [tooltipMessage, setTooltipMessage] = useState(t("messages:minBetNotice", { minBet: minbet }));
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
-    const maxBetChoice = gameConfigs.choices_maxbet == null ? gameConfigs.maxbet : gameConfigs.choices_maxbet[betChoice];
+    let maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
 
     const chips = [
         {
@@ -74,6 +76,20 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             value: numberWithCommas(maxBetChoice),
         },
     ];
+    
+    const handleKeyUp = (event: any) => {
+        if (event.keyCode === 13) {
+            submitBet(event);
+        }
+    };
+    
+    useEffect(() => {
+        window.addEventListener("keyup", handleKeyUp);
+        return () => {
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, [showTooltip, tooltipMessage, maxBetPerRound, maxBetChoice, betStake]);
+
 
     const closeModal = () => {
         props.onCloseModal();
@@ -98,7 +114,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             setBetStake(maxBetChoice);
             return;
         }
-        
+
         setShowTooltip(false);
         setBetStake(totalStake);
     };
@@ -116,7 +132,16 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         setBetStake(0);
     };
 
-    const submitBet = () => {
+    const submitBet = (event: any) => {
+        event.preventDefault();
+
+        if(betStake < minbet){
+            setBetStake(minbet);
+            setShowTooltip(true);
+            setTooltipMessage(t("messages:minBetNotice", { minBet: minbet }));
+            return;
+        }
+
         closeModal();
         props.onPlaceBet(props.betChoiceInfo.betChoice, betStake);
     };
@@ -198,7 +223,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     </div>
                 )}
 
-                <button onClick={submitBet} className={`btn-orange w-100`} disabled={betStake <= 0}>
+                <button onClick={submitBet} className={`btn-orange w-100`} ref={ref}>
                     {t("common:confirm")}
                 </button>
             </div>
