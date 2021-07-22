@@ -59,5 +59,6 @@
     "save": "Save",
     "minBet": "Min Bet",
     "maxBet" : "Max Bet",
-    "gameSelectPlaceHolder": "Please select a game."
+    "gameSelectPlaceHolder": "Please select a game.",
+    "emptyPresetStakeMsg": "Please input your Preset Stake."
 }

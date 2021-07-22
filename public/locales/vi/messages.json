@@ -95,5 +95,7 @@
     "accountBlacklistedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Tài khoản đã bị đóng. Vui lòng liên hệ bộ phận CSKH để biết chi tiết. Đặt cược thất bại!({{errorCode}})",
     "userNotFoundPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Không tìm thấy người chơi này. Đặt cược thất bại!({{errorCode}})",
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Hệ thống đang được bảo trì.",
-    "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Lỗi kết nối mạng. Đặt cược thất bại!({{errorCode}})"
+    "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Lỗi kết nối mạng. Đặt cược thất bại!({{errorCode}})",
+    "gameMaxBet": "Tiền cược tối đa của game là {{maxBet}}.",
+    "gameMinBet": "Tiền cược tối thiểu của game là {{minBet}}."
 }

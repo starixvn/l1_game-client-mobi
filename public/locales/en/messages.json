@@ -95,5 +95,7 @@
     "accountBlacklistedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Account has been closed. Please contact CSD for details.({{errorCode}})",
     "userNotFoundPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! User was not found.({{errorCode}})",
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! The game is under maintenance.",
-    "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Network error.({{errorCode}})"
+    "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Network error.({{errorCode}})",
+    "gameMaxBet": "Max bet for this game is {{maxBet}}.",
+    "gameMinBet": "Min bet for this game is {{minBet}}."
 }

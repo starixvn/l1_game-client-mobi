@@ -59,5 +59,6 @@
     "save": "Lưu",
     "minBet": "Tối Thiểu",
     "maxBet" : "Tối Đa",
-    "gameSelectPlaceHolder": "Vui lòng chọn game."
+    "gameSelectPlaceHolder": "Vui lòng chọn game.",
+    "emptyPresetStakeMsg": "Vui lòng nhập Tiền cược đặt sẵn của bạn."
 }

@@ -1,18 +1,22 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { GameConfigs } from "../game-base/type";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting } from "./type";
 
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 
-const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting }> = (props) => {
+const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting; gameConfigs?: GameConfigs }> = (
+    props
+) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 1);
+    const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 0);
     const [enabledQuickBet, setEnabledQuickBet] = useState(props.betSettings?.enabledQuickBet);
     const [showBetStakeTooltip, setShowBetStakeTooltip] = useState(false);
     const [showQuickBetTooltip, setShowQuickBetTooltip] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
     const { t } = useTranslation();
     const dropdownPosition = !props.gameId && isMobile ? "left" : "right";
 
@@ -31,12 +35,13 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             setDropdownOpen(false);
         }
 
+        setErrorMessage("");
         setShowBetStakeTooltip(false);
         setShowQuickBetTooltip(false);
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBetStake(+event.currentTarget.value);
+        event.currentTarget.value && setBetStake(+event.currentTarget.value);
     };
 
     const addBetStake = (amount: number) => {
@@ -44,12 +49,37 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     };
 
     const onSubmit = () => {
-        props.updateBetSetting({ betStake, enabledQuickBet }, props.gameId);
-        setDropdownOpen(false);
+        const validationCriteria = [
+            { failure: !betStake, message: t("emptyPresetStakeMsg") },
+            {
+                failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
+                message: t("messages:gameMaxBet", { maxBet: props.gameConfigs.maxbet }),
+            },
+            {
+                failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
+                message: t("messages:gameMinBet", { minBet: props.gameConfigs.minbet }),
+            },
+        ];
+        const failureCase = validationCriteria.find((criteria) => criteria.failure);
+
+        if (failureCase) {
+            setErrorMessage(failureCase.message);
+        } else {
+            props.updateBetSetting({ betStake, enabledQuickBet }, props.gameId);
+            setDropdownOpen(false);
+        }
     };
 
     const onClickChip = () => {
         props.updateBetSetting({ betStake, enabledQuickBet: !enabledQuickBet }, props.gameId);
+    };
+
+    const onDeleteStake = () => {
+        setBetStake(0);
+    };
+
+    const toggleQuickBet = () => {
+        setEnabledQuickBet(!enabledQuickBet);
     };
 
     useEffect(() => {
@@ -93,7 +123,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 <img src={"/static/images/chip-dollar-icon.svg"} className={Styles["icon-dollar"]} width={5} height={9} />
                             )}
                         </div>
-                        <span className={Styles["quick-bet-text"]}>Quick bet</span>
+                        <span className={Styles["quick-bet-text"]}>{t("quickBet")}</span>
                         <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
                     </div>
                 )}
@@ -108,11 +138,17 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                     <input
                                         className={`form-control number`}
                                         type={"number"}
-                                        onChange={(e) => handleInputBetStake(e)}
-                                        value={betStake}
+                                        onChange={handleInputBetStake}
+                                        value={betStake || ""}
                                         readOnly={isMobile}
                                     ></input>
-                                    <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={() => setBetStake(1)}></span>
+                                    {errorMessage && (
+                                        <div className={`tooltip info show ${Styles["error-info"]}`}>
+                                            <div className={`arrow down ${Styles["arrow"]}`}></div>
+                                            <div className={`tooltip-inner ${Styles["error-inner"]}`}>{errorMessage}</div>
+                                        </div>
+                                    )}
+                                    <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>
                                     <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowBetStakeTooltip(true)}>
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
@@ -133,7 +169,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         type={"checkbox"}
                                         value={"Quick Bet"}
                                         checked={enabledQuickBet}
-                                        onChange={() => setEnabledQuickBet(!enabledQuickBet)}
+                                        onChange={toggleQuickBet}
                                     />
                                     <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                                         <div className={Styles["quick-bet-icon"]}></div>

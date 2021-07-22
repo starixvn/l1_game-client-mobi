@@ -76,7 +76,7 @@ export default function GameHeader() {
 const HeaderRight = ({ displayMenu }) => {
     const gameActions = useGameActionContext();
     const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
+    const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
 
@@ -113,6 +113,7 @@ const HeaderRight = ({ displayMenu }) => {
                     gameId={gameId}
                     betSettings={systemContext.betSettings[gameId]}
                     updateBetSetting={systemContext.updateBetSetting}
+                    gameConfigs={gameConfigs}
                 />
             )}
         </div>
