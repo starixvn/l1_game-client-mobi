@@ -27,10 +27,19 @@
     color: var(--textbox-color);
     outline: none;
 
+    @media (min-width: 768px) {
+        height: 3.2rem;
+        line-height: 3.2rem;
+    }
+
     &.number {
-        padding-right: 3.5rem;
+        padding-right: 3.4rem;
         text-align: right;
         -moz-appearance: textfield;
+
+        @media (min-width: 768px) {
+            padding-right: 2.7rem;
+        }
 
         &::-webkit-outer-spin-button,
         &::-webkit-inner-spin-button {
@@ -53,13 +62,21 @@
         }
 
         &.small {
-            top: 1rem;
+            top: calc(50% - 1.1rem);
             right: 1rem;
-            width: 2.1rem;
-            height: 2.1rem;
+            width: 2.3rem;
+            height: 2.3rem;
+            @media (min-width: 768px) {
+                top: calc(50% - 0.8rem);
+                width: 1.7rem;
+                height: 1.7rem;
+            }
 
             &:before {
                 font-size: 0.9rem;
+                @media (min-width: 768px) {
+                    font-size: 0.7rem;
+                }
             }
         }
     }

@@ -157,10 +157,10 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 ))}
                             </div>
                             <div className={Styles["actions"]}>
-                                <button className="btn-grey" onClick={onClickReset}>
+                                <button className={`btn-grey ${Styles["custom-button"]}`} onClick={onClickReset}>
                                     {t("reset")}
                                 </button>
-                                <button className="btn-orange" onClick={onSubmit}>
+                                <button className={`btn-orange ${Styles["custom-button"]}`} onClick={onSubmit}>
                                     {t("save")}
                                 </button>
                             </div>

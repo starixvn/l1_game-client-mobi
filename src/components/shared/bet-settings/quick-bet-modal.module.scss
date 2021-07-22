@@ -92,15 +92,24 @@
 }
 
 .quick-bet-form {
-    width: 31rem;
-    padding: 0 2rem 1.4rem;
+    width: 28rem;
+    padding: 0 1rem 1.2rem;
+
+    @media (min-width: 768px) {
+        width: 24rem;
+    }
 
     .title {
-        height: 4rem;
-        line-height: 4rem;
+        height: 3.6rem;
+        line-height: 3.6rem;
         text-align: center;
         font-size: 1.6rem;
         font-weight: bold;
+
+        @media (min-width: 768px) {
+            height: 3.2rem;
+            line-height: 3.2rem;
+        }
     }
 }
 
@@ -111,19 +120,30 @@
     }
 
     .icon-cancel {
-        right: 4.2rem !important;
+        right: 3.8rem !important;
+        @media (min-width: 768px) {
+            right: 3.2rem !important;
+        }
     }
 }
 
 .group-help {
     display: grid;
-    grid-template-columns: 1fr 3.5rem;
+    grid-template-columns: 1fr 2.9rem;
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1fr 2.3rem;
+    }
 
     .icon-help {
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
         font-size: 2rem;
+
+        @media (min-width: 768px) {
+            font-size: 1.8rem;
+        }
     }
 }
 
@@ -134,6 +154,9 @@
     justify-content: flex-end;
     height: 4.6rem;
     user-select: none;
+    @media (min-width: 768px) {
+        height: 3.8rem;
+    }
 
     .toggle-checkbox {
         display: none;
@@ -145,10 +168,14 @@
         align-items: center;
         width: 4.4rem;
         height: 1.4rem;
-        margin-left: 1rem;
+        margin-left: 0.6rem;
         background-color: #d8d8d8;
         border-radius: 1.55rem;
         transition: all 0.2s ease-in;
+        @media (min-width: 768px) {
+            width: 3.6rem;
+            height: 1.2rem;
+        }
 
         &:hover {
             cursor: pointer;
@@ -161,6 +188,14 @@
             width: 3.2rem;
             transition: left 100ms ease-in;
             background: url("/static/images/icon-quick-bet.svg?v=1625225065074") no-repeat center;
+            background-size: 3.2rem 3.2rem;
+
+            @media (min-width: 768px) {
+                left: -0.2rem;
+                height: 2.8rem;
+                width: 2.8rem;
+                background-size: 2.8rem 2.8rem;
+            }
         }
     }
 
@@ -169,8 +204,12 @@
             background-color: #32af52;
 
             > .quick-bet-icon {
-                left: 1.4rem;
-                background: url("/static/images/icon-quick-bet-active.svg?v=1625225065074") no-repeat center;
+                left: 1rem;
+                background-image: url("/static/images/icon-quick-bet-active.svg?v=1625225065074");
+
+                @media (min-width: 768px) {
+                    left: 1.4rem;
+                }
             }
         }
     }
@@ -180,8 +219,13 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 4rem);
-    grid-gap: 0.4rem;
-    margin-bottom: 2.3rem;
+    grid-gap: 0.6rem;
+    margin-bottom: 1rem;
+
+    @media (min-width: 768px) {
+        grid-template-rows: repeat(2, 3rem);
+        grid-gap: 0.2rem;
+    }
 
     .numpad {
         display: flex;
@@ -203,4 +247,11 @@
 .tooltip-inner {
     right: -2rem;
     width: 27rem;
+}
+
+@media (min-width: 768px) {
+    .custom-button {
+        height: 3.2rem;
+        line-height: 3.2rem;
+    }
 }
