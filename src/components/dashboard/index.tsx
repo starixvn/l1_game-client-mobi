@@ -44,8 +44,10 @@ type State = {
     betSettings: BetSettingStorage;
     userStakeLevel: UserStakeLevel;
     authorizeInfo: AuthorizeResponse;
-    isShowModal: boolean;
+    isShowErrorModal: boolean;
     apiError: APIErrorProp;
+    isShowHistory: boolean;
+    isShowGuide: boolean;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -63,8 +65,10 @@ class Dashboard extends React.PureComponent<Props, State> {
             betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
             userStakeLevel: { minBet: 0, maxBet: 0 },
             authorizeInfo: null,
-            isShowModal: false,
+            isShowErrorModal: false,
             apiError: null,
+            isShowHistory: false,
+            isShowGuide: false,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -83,6 +87,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.updateAuthorizeInfo = this.updateAuthorizeInfo.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
+        this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
+        this.toggleGuideModal = this.toggleGuideModal.bind(this);
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
@@ -98,7 +104,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handleShowApiErrorMessage(errorCode: string) {
-        this.setState({ isShowModal: true, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
+        this.setState({ isShowErrorModal: true, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
     }
 
     doOnOrientationChange() {
@@ -184,7 +190,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.apiError) {
-            this.setState({ isShowModal: true, apiError: data.apiError.errorCode });
+            this.setState({ isShowErrorModal: true, apiError: data.apiError.errorCode });
         }
 
         if (data.userStakeLevel) {
@@ -269,7 +275,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     closeDialog() {
-        this.setState({ isShowModal: false });
+        this.setState({ isShowErrorModal: false });
     }
 
     toggleHistoryModal() {
@@ -290,7 +296,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderDashBoard() {
-        const { enabledWinningStreakNotification, enabledPlaySound, betSettings } = this.state;
+        const { enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowErrorModal, isShowHistory } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
             <AuthContextProvider value={authContextValue}>
@@ -335,7 +341,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     {this.state.isShowModal && (
                         <div className={Styles["container-modal"]}>
                             <div className={Styles["bg-opacity"]}></div>
-                            <BaseDialog type={ModalType.Center} isOpen={this.state.isShowModal} onCloseModal={this.closeDialog}>
+                            <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
                                 <div className="modal-center">
                                     <div className={`icon-warning modal-icon-warning`}></div>
                                     <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
