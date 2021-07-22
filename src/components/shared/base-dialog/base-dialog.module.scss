@@ -61,10 +61,11 @@
         border-radius: 0.5rem 0.5rem 0 0;
 
         @media (min-width: 1024px) {
+            padding-top: 8px;
             left: auto;
             right: auto;
-            width: 30.8rem;
-            height: 36rem;
+            width: 25rem;
+            height: 28rem;
             border-radius: 0.5rem;
         }
     }

@@ -7,7 +7,7 @@
 }
 
 .place-bet-container {
-    padding: 0 1.6rem 1.6rem;
+    padding: 0 1rem 1rem;
 }
 
 .general-info {
@@ -19,12 +19,19 @@
     background-color: #5ab379;
     box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
     border-radius: 0.5rem;
+    @media (min-width: 768px) {
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+    }
 
     .bet-option {
         font-size: 1.8rem;
         text-transform: capitalize;
         font-weight: bold;
         color: #fff;
+        @media (min-width: 768px) {
+            font-size: 1.4rem;
+        }
     }
 
     .odds {
@@ -37,15 +44,28 @@
         background: #d1e7da;
         font: 600 1.6rem var(--font-number);
         color: #2c2f3e;
+
+        @media (min-width: 768px) {
+            height: 2.2rem;
+            font-size: 1.4rem;
+        }
     }
+}
+
+.stake {
+    margin-bottom: 0.4rem;
 }
 
 .payout {
     display: flex;
     justify-content: space-between;
-    padding: 0 1rem;
     line-height: 2.6rem;
     font-size: 1.6rem;
+
+    @media (min-width: 768px) {
+        line-height: 2.4rem;
+        font-size: 1.4rem;
+    }
 }
 
 .highlight {
@@ -59,6 +79,10 @@
     grid-template-columns: repeat(5, 1fr);
     margin-top: 1rem;
     margin-bottom: 1rem;
+    @media (min-width: 768px) {
+        margin-top: 0;
+        margin-bottom: 0.4rem;
+    }
 }
 
 .chip-container {
@@ -70,7 +94,14 @@
     align-items: center;
     width: 4.8rem;
     height: 5rem;
+    margin: auto;
     -webkit-tap-highlight-color: transparent;
+    @media (min-width: 768px) {
+        grid-template-columns: 3.6rem;
+        grid-template-rows: 3.7rem;
+        width: 3.6rem;
+        height: 3.7rem;
+    }
 
     .chip {
         grid-area: 1/1;
@@ -85,6 +116,9 @@
         font-family: var(--font-money);
         font-size: 1.6rem;
         color: #2c2f3e;
+        @media (min-width: 768px) {
+            font-size: 1.3rem;
+        }
     }
 
     &.chip-9,
@@ -100,6 +134,9 @@
         .value {
             font-size: 1.2rem;
             color: #ffeda5;
+            @media (min-width: 768px) {
+                font-size: 0.9rem;
+            }
         }
     }
 }
@@ -123,6 +160,13 @@
         &:hover {
             cursor: pointer;
         }
+    }
+}
+
+@media (min-width: 768px) {
+    .custom-button {
+        height: 3.2rem;
+        line-height: 3.2rem;
     }
 }
 

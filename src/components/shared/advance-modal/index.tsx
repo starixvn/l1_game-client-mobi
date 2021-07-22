@@ -92,7 +92,6 @@ const AdvanceModal: React.FC<Props> = ({
                     <div className={Styles["popup-header"]}>
                         <h1 className={Styles["popup-title"]}>{t(title)}</h1>
                         {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
-                        {gameName && <p className={Styles["popup-game-name"]}>{gameName}</p>}
                     </div>
                 )}
                 <div

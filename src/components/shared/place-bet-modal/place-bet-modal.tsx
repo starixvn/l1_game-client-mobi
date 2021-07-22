@@ -28,7 +28,7 @@ type Props = {
 const PlaceBetModal: React.FC<Props> = (props) => {
     const ref = useRef();
     const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
-    const {minbet} = gameConfigs;
+    const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
     const [betStake, setBetStake] = useState(minbet);
@@ -76,20 +76,19 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             value: numberWithCommas(maxBetChoice),
         },
     ];
-    
+
     const handleKeyUp = (event: any) => {
         if (event.keyCode === 13) {
             submitBet(event);
         }
     };
-    
+
     useEffect(() => {
         window.addEventListener("keyup", handleKeyUp);
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
         };
     }, [showTooltip, tooltipMessage, maxBetPerRound, maxBetChoice, betStake]);
-
 
     const closeModal = () => {
         props.onCloseModal();
@@ -135,7 +134,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const submitBet = (event: any) => {
         event.preventDefault();
 
-        if(betStake < minbet){
+        if (betStake < minbet) {
             setBetStake(minbet);
             setShowTooltip(true);
             setTooltipMessage(t("messages:minBetNotice", { minBet: minbet }));
@@ -161,7 +160,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     <div className={Styles["odds"]}>1:{odd}</div>
                 </div>
 
-                <div className="form-group">
+                <div className={`form-group ${Styles["stake"]}`}>
                     <NumberFormat
                         readOnly={isMobile}
                         value={betStake}
@@ -223,7 +222,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     </div>
                 )}
 
-                <button onClick={submitBet} className={`btn-orange w-100`} ref={ref}>
+                <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`} ref={ref}>
                     {t("common:confirm")}
                 </button>
             </div>
