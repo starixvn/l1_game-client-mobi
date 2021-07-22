@@ -36,22 +36,25 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
 
     return (
         <BaseDialog onCloseModal={onCloseModal}>
-            <div className={Styles["history-container"]}>
-                <span className={Styles["title"]}>{t("popupTitleHistory")}</span>
-                <div className={Styles["action"]}>
-                    <span>Game</span>
-                    <select value={selectedGameId} onChange={(e) => handleChangeGame(e)}>
-                        <option value={-1} disabled={true} style={{ display: "none" }}>
-                            {t("gameSelectPlaceHolder")}
-                        </option>
-                        {appSettings.offeredGames.map((id) => (
-                            <option value={id} key={id}>
-                                {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+            <div className={`w-100 ${Styles["history-container"]}`}>
+                <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
+                <span className={`icon-close ${Styles["icon-close"]}`}></span>
+                <div className={Styles["form"]}>
+                    <span className={Styles["form-label"]}>Game</span>
+                    <div className={Styles["select"]}>
+                        <select className={Styles["form-control"]} value={selectedGameId} onChange={(e) => handleChangeGame(e)}>
+                            <option className={Styles["option-control"]} value={-1} disabled={true} style={{ display: "none" }}>
+                                {t("gameSelectPlaceHolder")}
                             </option>
-                        ))}
-                    </select>
+                            {appSettings.offeredGames.map((id) => (
+                                <option value={id} key={id}>
+                                    {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
-                <div className={Styles["history-content"]}>{renderHistory()}</div>
+                <div className={`w-100 ${Styles["history-content"]}`}>{renderHistory()}</div>
             </div>
         </BaseDialog>
     );

@@ -29,7 +29,7 @@
     background: var(--popup-background);
     border: 1px solid var(--popup-border);
     box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 3rem 3rem 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
     color: var(--popup-color);
     overflow-y: auto;
     z-index: var(--popup-index);
@@ -52,15 +52,18 @@
     }
 
     &.modal-full {
-        top: 4.6rem;
+        top: 4.7rem;
         z-index: var(--popup-guide-history-index);
+
+        @media (min-width: 768px) {
+            top: -0.7rem;
+        }
     }
 
     &.modal-placebetform {
         height: 47rem;
-        border-radius: 0.5rem 0.5rem 0 0;
 
-        @media (min-width: 1024px) {
+        @media (min-width: 768px) {
             padding-top: 8px;
             left: auto;
             right: auto;
@@ -74,7 +77,6 @@
         top: 4.7rem;
         left: 4rem;
         right: 4rem;
-        border-radius: 0.5rem;
     }
 
     &.modal-center {
