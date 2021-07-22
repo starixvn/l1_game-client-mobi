@@ -90,7 +90,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     }, [wrapperRef]);
 
     useEffect(() => {
-        setBetStake(props.betSettings?.betStake ?? 1);
+        setBetStake(props.betSettings?.betStake ?? 0);
         setEnabledQuickBet(props.betSettings?.enabledQuickBet);
     }, [props.betSettings]);
 
