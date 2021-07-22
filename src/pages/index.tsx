@@ -163,7 +163,7 @@ function Home() {
             <AuthContextProvider value={authContextValue}>
                 <Dashboard
                     balance={balance}
-                    isShowModal={isShowModal}
+                    isShowErrorModal={isShowModal}
                     apiErrorMessage={apiErrorMessage}
                     setIsShowModal={setIsShowModal}
                     setApiErrorMessage={handleShowApiErrorMessage.bind(this)}
