@@ -158,11 +158,11 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         }
 
         if (settlementResult.banker) {
-            return { style: Styles["result-info-orange"], text: "bankerWin" };
+            return { style: Styles["result-info-blue"], text: "playerWin" };
         }
 
         if (settlementResult.player) {
-            return { style: Styles["result-info-red"], text: "playerWin" };
+            return { style: Styles["result-info-red"], text: "bankerWin" };
         }
     }
 

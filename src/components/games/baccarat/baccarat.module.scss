@@ -18,13 +18,18 @@
         min-width: 15rem;
     }
 
-    .result-info-orange {
+    .result-info-red {
         @extend .result-info;
-        background: linear-gradient(180deg, #ffc561 0%, #fb9b09 38.33%, #e38900 100%);
+        background: linear-gradient(180deg, #F66460 0%, #E2474E 38.33%, #DC4B56 100%);
     }
 
     .result-info-green {
         @extend .result-info;
-        background: linear-gradient(180deg, #51a0ae 0%, #388a99 20.62%, #174d57 100%);
+        background: linear-gradient(180deg, #4FFF95 0%, #2CE476 25.31%, #03B053 100%);
+    }
+
+    .result-info-blue {
+        @extend .result-info;
+        background: linear-gradient(180deg, #6BA6EC 0%, #3B7BC6 49.27%, #1A66BF 100%);
     }
 }

@@ -5,31 +5,43 @@
     height: 100%;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(2, 1fr);
+    --light-red-color: #FF4352;
+    --light-blue-color: #3087D7;
+    --green-color: #36D000;
+    --font-small-size: 1.8rem;
+    --font-medium-size: 2.2rem;
 }
 
 .choice-player {
     grid-column: 1/5;
+    color: var(--light-blue-color);
 }
 
 .choice-tie {
     grid-column: 5/7;
+    color: var(--green-color);
 }
 
 .choice-banker {
     grid-column: 7/11;
+    color: var(--light-red-color);
 }
 
 .choice-big {
     grid-column: 1/4;
+    color: var(--light-blue-color);
 }
 
 .choice-player-pair {
     grid-column: 4/6;
+    color: var(--light-blue-color);
 }
 .choice-bank-pair {
     grid-column: 6/8;
+    color: var(--light-red-color);
 }
 
 .choice-small {
     grid-column: 8/11;
+    color: var(--light-red-color);
 }
