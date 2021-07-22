@@ -1,4 +1,5 @@
 import { SSOResponse } from "sc-user-service-client/dist/auth";
+import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import {
     getLocalStorageItem,
@@ -12,6 +13,7 @@ const { settings: settingsService, auth: authService, userSettings: userSettings
 
 export const checkUM = async () => {
     const settings = await settingsService.getSettings();
+    storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, settings.umInfo);
 
     return settings.isUM;
 };

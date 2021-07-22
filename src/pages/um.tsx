@@ -8,7 +8,7 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 import * as LocalStorageManager from "../common/local-storage";
 import { convertToGMT8, formatDate } from "../helpers/time-helper";
 
-function UM({ umInfo }) {
+function UM() {
     const router = useRouter();
     const { locale } = router;
     const { t } = useTranslation(["um", "messages"]);
@@ -19,11 +19,11 @@ function UM({ umInfo }) {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const um = umInfo ?? LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
+        const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
 
-        if (um) {
-            setStartTime(formatDate(convertToGMT8(new Date(um.start)), template));
-            setEndTime(formatDate(convertToGMT8(new Date(um.end)), template));
+        if (umInfo) {
+            setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
+            setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
         }
 
         setIsLoading(false);

@@ -240,14 +240,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.updateAuthorizeInfo(authorizeInfo);
     }
 
-    renderRegister() {
-        return <Register session={this.props.session} handleStateLogin={this.handleRegister}></Register>;
-    }
-
-    renderWelcome() {
-        return <Welcome userInfo={this.state.authorizeInfo.user} handleFirstLoginSM={this.handleFirstLogin}></Welcome>;
-    }
-
     winningStreakNotificationToggle() {
         const { enabledWinningStreakNotification } = this.state;
         this.setState({ enabledWinningStreakNotification: !enabledWinningStreakNotification });
@@ -364,10 +356,14 @@ class Dashboard extends React.PureComponent<Props, State> {
     renderComponents(authorizeInfo: AuthorizeResponse) {
         const { authorized, user } = authorizeInfo;
         if (authorized) {
-            return user.isSignedInSM ? this.renderDashBoard() : this.renderWelcome();
+            return user.isSignedInSM ? (
+                this.renderDashBoard()
+            ) : (
+                <Welcome userInfo={this.state.authorizeInfo.user} handleFirstLoginSM={this.handleFirstLogin} />
+            );
         }
 
-        return this.renderRegister();
+        return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
     }
 
     render() {
@@ -377,11 +373,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             return <LandscapeMode />;
         }
 
-        if (authorizeInfo) {
-            return this.renderComponents(authorizeInfo);
-        }
-
-        return <></>;
+        return authorizeInfo ? this.renderComponents(authorizeInfo) : <></>;
     }
 }
 
