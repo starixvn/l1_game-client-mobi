@@ -140,6 +140,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         type={"number"}
                                         onChange={handleInputBetStake}
                                         value={betStake || ""}
+                                        inputMode={"decimal"}
                                         readOnly={isMobile}
                                     ></input>
                                     {errorMessage && (
