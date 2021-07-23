@@ -154,7 +154,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
                                                 <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
-                                                <div className="arrow up"></div>
+                                                <div className={`arrow up ${Styles["tooltip-arrow"]}`}></div>
                                             </div>
                                         )}
                                     </div>
@@ -180,7 +180,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
                                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
-                                            <div className="arrow up"></div>
+                                            <div className={`arrow up ${Styles["tooltip-arrow"]}`}></div>
                                         </div>
                                     )}
                                 </div>

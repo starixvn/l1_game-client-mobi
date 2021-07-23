@@ -149,6 +149,10 @@
         @media (min-width: 768px) {
             font-size: 1.8rem;
         }
+
+        &:hover:before {
+            color: #2f5794;
+        }
     }
 }
 
@@ -249,9 +253,18 @@
     grid-gap: 2rem;
 }
 
+// Tooltip
 .tooltip-inner {
-    right: -2rem;
-    width: 27rem;
+    right: -0.5rem;
+    width: 26rem;
+
+    @media (min-width: 768px) {
+        width: 22.8rem;
+    }
+}
+
+.tooltip-arrow {
+    left: -1.7rem !important;
 }
 
 .error-info {
