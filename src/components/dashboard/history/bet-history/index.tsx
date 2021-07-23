@@ -4,11 +4,11 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { Table } from "react-infinite-table";
 
-import appSettings from "../../../../common/app-settings";
-import { useAuthContext } from "../../../../contexts/auth";
-import { numberWithCommas } from "../../../../helpers/number-helper";
-import { formatDate } from "../../../../helpers/time-helper";
-import { signOut } from "../../../../pages";
+import appSettings from "../../../common/app-settings";
+import { useAuthContext } from "../../../contexts/auth";
+import { numberWithCommas } from "../../../helpers/number-helper";
+import { formatDate } from "../../../helpers/time-helper";
+import { clearSession } from "../../../services/auth-service";
 import { BetLogs, PropsBetContainer } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 
@@ -224,7 +224,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             }
         } catch (err) {
             if (err.response.status === 401) {
-                signOut();
+                clearSession();
                 router.push("/timeout");
             }
         }
