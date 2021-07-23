@@ -18,12 +18,12 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
     &.player {
         left: 0;
-        justify-content: right;
+        justify-content: flex-end;
     }
 
     &.banker {
         right: 0;
-        justify-content: left;
+        justify-content: flex-start;
     }
 }
 
