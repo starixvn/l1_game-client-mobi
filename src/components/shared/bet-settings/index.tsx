@@ -70,7 +70,8 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         }
     };
 
-    const onClickChip = () => {
+    const onClickChip = (e: React.MouseEvent) => {
+        e.stopPropagation();
         props.updateBetSetting({ betStake, enabledQuickBet: !enabledQuickBet }, props.gameId);
     };
 
