@@ -2,12 +2,14 @@
     --select-border-color: #c9c9c9;
     --select-background-color: #fff;
     --select-color: #2c2f3e;
+    --select-dropdown-icon-color: #4f4f54;
 }
 
 [data-theme="dark"] .form {
     --select-border-color: #435f7a;
     --select-background-color: #1a2430;
     --select-color: #fff;
+    --select-dropdown-icon-color: #7d8a98;
 }
 
 .history-container {
@@ -63,10 +65,11 @@
         &:after {
             position: absolute;
             content: "\e90b";
-            top: 1.2rem;
+            top: 1.5rem;
             right: 0.6rem;
             font-family: "SabaClub" !important;
-            font-size: 1rem;
+            font-size: 0.8rem;
+            color: var(--select-dropdown-icon-color);
         }
     }
 
