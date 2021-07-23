@@ -122,7 +122,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                     {enabledQuickBet ? (
                         <div className={Styles["quick-bet-active"]} onClick={onClickChip}>
                             <img src={"/static/images/game-header-quick-bet-active.svg"} width={20} height={20} />
-                            <span className={Styles["selected-bet-stake"]}>{betStake}</span>
+                            <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake)}</span>
                         </div>
                     ) : (
                         <div className={`${Styles["quick-bet-chip"]}`} onClick={onClickChip}>
