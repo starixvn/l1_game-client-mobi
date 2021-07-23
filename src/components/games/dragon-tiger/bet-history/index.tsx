@@ -1,5 +1,5 @@
 import React from "react";
-import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { useTranslation } from "next-i18next";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../dragon-tiger";

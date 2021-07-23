@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 
 const renderResult = (bet: BetLogs) => {

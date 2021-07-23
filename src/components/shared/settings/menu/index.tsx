@@ -8,13 +8,18 @@ import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
 
-export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean }> = ({ handleToggleSound, enabledSound }) => {
+export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean; handleToggleGuideModal: Function }> = ({
+    handleToggleSound,
+    enabledSound,
+    handleToggleGuideModal,
+}) => {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
 
     const openGuide = () => {
+        handleToggleGuideModal();
         setDropdownOpen(false);
     };
 

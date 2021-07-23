@@ -5,7 +5,6 @@ export interface Props {
     enabledNotification: boolean;
     onToggleSound: Function;
     onToggleNotification: Function;
-    enabledOneClickBet?: boolean;
     updateBetSetting: Function;
     globalBetSetting: BetSetting;
     toggleGuideModal: Function;

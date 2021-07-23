@@ -11,7 +11,6 @@ export const GameContext = React.createContext<GameContextModel>({
     ownBets: {},
     gameSetting: null,
     gameConfigs: null,
-    userStakeLevel: null,
     viewMode: ViewMode.full,
     playResultAnimation: false,
     isShowBlink: false,

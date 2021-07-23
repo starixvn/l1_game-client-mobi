@@ -17,12 +17,13 @@ import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
 import Games from "../games/games";
 import Header from "../header";
-import AdvanceModal from "../shared/advance-modal";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
+import { UserStakeLevel } from "../shared/game-base/type";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
+import { GameGuideModal } from "./game-guide-modal";
 import { HistoryModal } from "./history";
 import Register from "./register";
 import Welcome from "./welcome";
@@ -56,6 +57,7 @@ const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
     userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
+    private userStakeLevel: UserStakeLevel;
 
     constructor(props: Props) {
         super(props);
@@ -158,6 +160,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         if (data.apiError) {
             this.props.setApiErrorMessage(data.apiError.errorCode);
             this.props.setIsShowModal(true);
+        }
+
+        if (data.userStakeLevel) {
+            this.userStakeLevel = data.userStakeLevel;
         }
     }
 
@@ -312,6 +318,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     updateBetSetting={this.updateBetSetting}
                 />
                 {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
+                {isShowGuide && <GameGuideModal userStakeLevel={this.userStakeLevel} onCloseModal={this.toggleGuideModal} />}
                 {isShowErrorModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>

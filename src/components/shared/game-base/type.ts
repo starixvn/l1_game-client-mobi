@@ -57,7 +57,6 @@ export interface GameBaseState<Result, SettlementResult> {
     settlementResult?: SettlementResult;
     totalBets: object;
     ownBets: object;
-    userStakeLevel: UserStakeLevel;
     displayPopup?: PopupType;
     betPercentage?: object;
     errorMessage?: string | string[];

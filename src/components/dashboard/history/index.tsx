@@ -17,6 +17,10 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
         setSelectedGameId(+e.target.value);
     };
 
+    const closeModal = () => {
+        onCloseModal();
+    };
+
     const renderHistory = () => {
         switch (selectedGameId) {
             case 1:
@@ -35,14 +39,14 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
     };
 
     return (
-        <BaseDialog onCloseModal={onCloseModal}>
+        <BaseDialog onCloseModal={closeModal}>
             <div className={`w-100 ${Styles["history-container"]}`}>
                 <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`}></span>
+                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
                     <div className={Styles["select"]}>
-                        <select className={Styles["form-control"]} value={selectedGameId} onChange={(e) => handleChangeGame(e)}>
+                        <select className={Styles["form-control"]} value={selectedGameId} onChange={handleChangeGame}>
                             <option className={Styles["option-control"]} value={-1} disabled={true} style={{ display: "none" }}>
                                 {t("gameSelectPlaceHolder")}
                             </option>

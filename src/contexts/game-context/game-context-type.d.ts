@@ -8,7 +8,6 @@ export type GameContextModel = {
     remainingTime: number;
     gameConfigs: GameConfigs;
     gameState: GameState;
-    userStakeLevel: UserStakeLevel;
     viewMode: ViewMode;
     playResultAnimation: boolean;
     isShowBlink: boolean;

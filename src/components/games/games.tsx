@@ -6,7 +6,7 @@ import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { BetSettingStorage } from "../shared/bet-settings/type";
-import { ViewMode } from "../shared/game-base/type";
+import { UserStakeLevel, ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";

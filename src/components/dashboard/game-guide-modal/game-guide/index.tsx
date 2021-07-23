@@ -1,19 +1,22 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Loader from "../loader";
-import appSettings from "../../../common/app-settings";
-import { UserStakeLevel } from "../game-base/type";
+import Loader from "../../../shared/loader";
+import appSettings from "../../../../common/app-settings";
+import { UserStakeLevel } from "../../../shared/game-base/type";
 import Styles from "./game-guide.module.scss";
-import { gameVipIds } from "../../../common/constants";
+import { gameVipIds, LanguageLocaleMapper } from "../../../../common/constants";
+import { useTheme } from "next-themes";
+import { useTranslation } from "next-i18next";
 
 type Props = {
-    language: string;
     gameId: number;
-    theme: string;
     userStakeLevel: UserStakeLevel;
 };
 const GameGuides: React.FC<Props> = (props) => {
-    const { gameId, language, theme, userStakeLevel } = props;
+    const { gameId, userStakeLevel } = props;
+    const { i18n } = useTranslation();
+    const language = LanguageLocaleMapper[i18n.language];
+    const { theme } = useTheme();
     const { guideUrl } = appSettings;
     const wrapperRef = useRef<HTMLIFrameElement>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -58,7 +61,7 @@ const GameGuides: React.FC<Props> = (props) => {
                 />
             );
         }
-    }, [heightGuide, widthGuide]);
+    }, [heightGuide, widthGuide, gameId]);
 
     return (
         <div className={Styles["container-guide"]} ref={wrapperRef}>
