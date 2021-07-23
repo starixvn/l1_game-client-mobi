@@ -56,7 +56,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     const onSubmit = (e: React.MouseEvent) => {
         e.stopPropagation();
         const validationCriteria = [
-            { failure: !betStake, message: t("emptyPresetStakeMsg") },
+            { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
             {
                 failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
                 message: t("messages:gameMaxBet", { maxBet: props.gameConfigs?.maxbet }),
