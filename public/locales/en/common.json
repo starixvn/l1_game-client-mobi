@@ -57,8 +57,7 @@
     "quickBet": "Quick Bet",
     "reset": "Reset",
     "save": "Save",
-    "minBet": "Min Bet",
-    "maxBet" : "Max Bet",
+    "bettingLimits": "Betting limits",
     "gameSelectPlaceHolder": "Please select a game.",
     "emptyPresetStakeMsg": "Please input your Preset Stake."
 }

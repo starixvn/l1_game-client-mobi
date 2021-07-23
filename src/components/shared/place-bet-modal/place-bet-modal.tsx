@@ -76,12 +76,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             value: numberWithCommas(betStake * odd),
         },
         {
-            text: t("common:minBet"),
-            value: numberWithCommas(gameConfigs.minbet),
-        },
-        {
-            text: t("common:maxBet"),
-            value: numberWithCommas(maxBetChoice),
+            text: t("common:bettingLimits"),
+            value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(maxBetChoice)}`,
         },
     ];
 
@@ -204,7 +200,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                             onClick={(event) => addStakeHandler(event, chip.value)}
                         >
                             <img
-                                src={`/static/images/chips/${chip.style}.svg`}
+                                src={`/static/images/chips/${chip.style}.svg?v=2`}
                                 className={`img-fluid ${Styles["chip"]}`}
                                 width="48"
                                 height="50"
