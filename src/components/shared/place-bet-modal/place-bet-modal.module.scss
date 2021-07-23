@@ -103,6 +103,10 @@
         height: 3.7rem;
     }
 
+    &:hover {
+        cursor: pointer;
+    }
+
     .chip {
         grid-area: 1/1;
         width: 100%;
