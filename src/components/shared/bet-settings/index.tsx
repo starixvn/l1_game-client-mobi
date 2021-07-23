@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
 import { GameConfigs } from "../game-base/type";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting } from "./type";
@@ -27,7 +28,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
     const onClickReset = (e: React.MouseEvent) => {
         e.stopPropagation();
-        props.updateBetSetting({ betStake: 1, enabledQuickBet: false }, props.gameId);
+        props.updateBetSetting({ betStake: 0, enabledQuickBet: false }, props.gameId);
         setDropdownOpen(false);
     };
 
@@ -42,8 +43,9 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.stopPropagation();
-        event.currentTarget.value && setBetStake(+event.currentTarget.value);
+        const value = event.currentTarget.value.replace(",", "");
+        value === "" && setBetStake(0);
+        isNumber(value) && setBetStake(+value);
     };
 
     const addBetStake = (event: React.MouseEvent, amount: number) => {
@@ -158,10 +160,10 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                 <div className={`form-group ${Styles["group-help"]}`}>
                                     <input
                                         className={`form-control number`}
-                                        type={"number"}
+                                        type={"text"}
                                         onChange={handleInputBetStake}
-                                        value={betStake}
-                                        inputMode={"decimal"}
+                                        value={numberWithCommas(betStake) !== "0" ? numberWithCommas(betStake) : ""}
+                                        inputMode={"numeric"}
                                         readOnly={isMobile}
                                     ></input>
                                     {errorMessage && (
