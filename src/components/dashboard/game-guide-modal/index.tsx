@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import BaseDialog from "../../shared/base-dialog";
-import Styles from "./game-guide.module.scss";
+import Styles from "../history/history.module.scss";
 import GameGuides from "./game-guide";
 import { useTranslation } from "next-i18next";
 
@@ -19,7 +19,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel }
 
     return (
         <BaseDialog onCloseModal={closeModal}>
-            <div className={Styles["guide-container"]}>
+            <div className={Styles["popup-container"]}>
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
                 <div className={Styles["form"]}>
