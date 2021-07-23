@@ -38,9 +38,10 @@ const StatisticItem: React.FC<Props> = (props) => {
 };
 
 export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
-    const { statisticRuleEntries, roundHistory } = props;
+    const { statisticRuleEntries, roundHistory, tabsScoreboardValue } = props;
     const { gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const gameName = gameSetting.gameName.toLowerCase();
+    const { t } = useTranslation(gameName);
 
     return useMemo(() => {
         const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
@@ -49,12 +50,12 @@ export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
             <>
                 {Object.keys(statisticResult).map((choice) => (
                     <StatisticItem key={choice} value={`${statisticResult[choice]}%`}>
-                        <span className={Styles[choice]}>{t(choice)}</span>
+                        <span className={`${Styles[choice]} ${Styles[gameName]}`}>{t(choice)}</span>
                     </StatisticItem>
                 ))}
             </>
         );
-    }, [roundHistory]);
+    }, [roundHistory, tabsScoreboardValue]);
 };
 
 export default StatisticItem;

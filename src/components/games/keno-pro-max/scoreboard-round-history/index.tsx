@@ -9,7 +9,7 @@ export const GetElementRound = (
     col: number,
     row: number,
     roundId: number,
-    translate: Function,
+    translateDotTextMapping: Function,
     gameSetting: GameBaseProps
 ) => {
     const isSmall = true;
@@ -18,7 +18,7 @@ export const GetElementRound = (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
             choice={isSmall ? Choices.small : Choices.big}
-            value={isSmall ? translate(`kenopromax:smallTextDot`) : translate(`kenopromax:bigTextDot`)}
+            value={isSmall ? translateDotTextMapping[Choices.small] : translateDotTextMapping[Choices.big]}
             col={col}
             row={row}
         ></RoundDotGrid>

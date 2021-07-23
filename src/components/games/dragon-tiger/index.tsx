@@ -70,7 +70,19 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
 
     renderBoard() {
         const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
+        const gameName = this.props.gameName.toLowerCase();
+        const translateDotTextMapping = {
+            [Choices.tie]: this.props.t(`${gameName}:tieTextDot`),
+            [Choices.tiger]: this.props.t(`${gameName}:tigerTextDot`),
+            [Choices.dragon]: this.props.t(`${gameName}:dragonTextDot`),
+        };
+        return (
+            <ScoreboardDragon
+                roundHistory={roundHistory}
+                getElementRound={GetElementRound}
+                translateDotTextMapping={translateDotTextMapping}
+            />
+        );
     }
 
     get isShowStartRoundAnimation() {

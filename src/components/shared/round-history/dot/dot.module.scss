@@ -165,6 +165,16 @@
     }
 }
 
+.dot-tie-baccarat {
+    @extend %dot;
+    background: var(--baccarat-dot-tie-border);
+    box-shadow: var(--baccarat-dot-tie-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-tie-background);
+    }
+}
+
 // three-cards
 .dot-red {
     @extend %dot;

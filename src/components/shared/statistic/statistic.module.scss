@@ -55,4 +55,18 @@
 .tie {
     @extend %title;
     color: var(--dragonTiger-tie-text-color);
+    &.baccarat,
+    &.vipbaccarat {
+        color: var(--baccarat-tie-statistic-text-color);
+    }
+}
+
+.banker {
+    @extend %title;
+    color: var(--baccarat-banker-text-color);
+}
+
+.player {
+    @extend %title;
+    color: var(--baccarat-player-text-color);
 }

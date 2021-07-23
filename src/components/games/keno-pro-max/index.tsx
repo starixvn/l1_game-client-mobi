@@ -9,12 +9,12 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
-import KenoProMaxBetHistory from "./bet-history";
 import KenoProMaxBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./keno-pro-max";
 import KenoProMaxStatistic from "./statistic";
+import { Choices } from "./keno-pro-max-helper";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -59,12 +59,17 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderBoard() {
         const { roundHistory } = this.state;
+        const gameName = this.props.gameName.toLowerCase();
+        const translateDotTextMapping = {
+            [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
+            [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
+        };
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
                 getElementRound={GetElementRound}
                 checkCondition={CheckCondition}
-                translate={this.props.t}
+                translateDotTextMapping={translateDotTextMapping}
             />
         );
     }
@@ -100,22 +105,6 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 gameId={this.props.id}
             >
                 <></>
-            </AdvanceModal>
-        );
-    }
-
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <KenoProMaxBetHistory />
             </AdvanceModal>
         );
     }

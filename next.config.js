@@ -43,14 +43,5 @@ module.exports = {
 
         return config;
     },
-    async redirects() {
-        return [
-            {
-                source: "/index/en",
-                destination: "/index/vi",
-                permanent: true,
-            },
-        ];
-    },
     basePath,
 };

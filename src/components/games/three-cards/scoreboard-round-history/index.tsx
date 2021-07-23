@@ -9,7 +9,7 @@ export const GetElementRound = (
     col: number,
     row: number,
     roundId: number,
-    translate: Function,
+    translateDotTextMapping: object,
     gameSetting: GameBaseProps
 ) => {
     const isBlack = true;
@@ -18,11 +18,7 @@ export const GetElementRound = (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
             choice={isBlack ? Choices.black : Choices.red}
-            value={
-                isBlack
-                    ? translate(`${gameSetting.gameName.toLowerCase()}:blackTextDot`)
-                    : translate(`${gameSetting.gameName.toLowerCase()}:redTextDot`)
-            }
+            value={isBlack ? translateDotTextMapping[Choices.black] : translateDotTextMapping[Choices.red]}
             col={col}
             row={row}
         ></RoundDotGrid>

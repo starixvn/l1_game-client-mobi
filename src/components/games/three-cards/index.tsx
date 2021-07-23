@@ -8,13 +8,13 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
-import ThreeCardsBetHistory from "./bet-history";
 import ThreeCardsBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderThreeCardsDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import Styles from "./three-cards.module.scss";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic from "./statistic";
+import { Choices } from "./three-cards-helper";
 
 class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -57,12 +57,17 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderBoard() {
         const { roundHistory } = this.state;
+        const gameName = this.props.gameName.toLowerCase();
+        const translateDotTextMapping = {
+            [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
+            [Choices.red]: this.props.t(`${gameName}:redTextDot`),
+        };
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
                 getElementRound={GetElementRound}
                 checkCondition={CheckCondition}
-                translate={this.props.t}
+                translateDotTextMapping={translateDotTextMapping}
             />
         );
     }
@@ -123,22 +128,6 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 gameId={this.props.id}
             >
                 <></>
-            </AdvanceModal>
-        );
-    }
-
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <ThreeCardsBetHistory />
             </AdvanceModal>
         );
     }

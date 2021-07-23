@@ -8,10 +8,10 @@ export interface Props<R, S> {
         col: number,
         row: number,
         roundId: number,
-        translate?: Function,
+        translateDotTextMapping?: object,
         gameSetting?: GameBaseProps,
         settlementResult?: any
     ) => void;
     checkCondition?: (settlementResult: S) => void;
-    translate?: Function;
+    translateDotTextMapping?: object;
 }

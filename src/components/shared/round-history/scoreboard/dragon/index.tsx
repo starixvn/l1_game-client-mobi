@@ -31,12 +31,12 @@ const drawDragonTailHistory = <R, S>(
         col: number,
         row: number,
         roundId: number,
-        translate?: Function,
+        translateDotTextMapping?: object,
         gameSetting?: GameBaseProps,
         settlementResult?: any
     ) => void,
     checkCondition?: (settlementResult: any) => void,
-    translate?: Function,
+    translateDotTextMapping?: object,
     gameSetting?: GameBaseProps
 ) => {
     let col = 1,
@@ -70,7 +70,7 @@ const drawDragonTailHistory = <R, S>(
         }
         previousResult = value;
 
-        return getElementRound(round.result, col, row, round.roundId, translate, gameSetting, round.settlementResult);
+        return getElementRound(round.result, col, row, round.roundId, translateDotTextMapping, gameSetting, round.settlementResult);
     });
 
     isShowBlink && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
@@ -109,12 +109,12 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
                     isShowBlink,
                     getElementRound,
                     checkCondition,
-                    props.translate,
+                    props.translateDotTextMapping,
                     gameSetting
                 )}
             </div>
         );
-    }, [roundHistory, isShowBlink]);
+    }, [roundHistory, isShowBlink, getElementRound, checkCondition]);
 };
 
 export default ScoreboardDragon;

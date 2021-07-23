@@ -8,4 +8,5 @@ export type Props = {
 export type PropsFollowPercent = {
     roundHistory: Round<any, any>[];
     statisticRuleEntries: [string, (countResult: object, total: number) => number][];
+    tabsScoreboardValue?: number;
 };

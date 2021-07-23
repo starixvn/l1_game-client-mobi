@@ -78,6 +78,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         removeBetChoiceFocus: null,
         betOptionElement: null,
         betChoiceElement: null,
+        tabsScoreboardValue: 0,
     };
 
     constructor(props: P) {
@@ -95,6 +96,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.closeNotice = this.closeNotice.bind(this);
         this.renderSettlementInfo = this.renderSettlementInfo.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
+        this.setTabsScoreboardValue = this.setTabsScoreboardValue.bind(this);
     }
 
     componentDidMount() {
@@ -621,6 +623,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
+    setTabsScoreboardValue = (tabsScoreboardValue: number) => {
+        this.setState({ tabsScoreboardValue });
+    };
+
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -795,6 +801,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 this.clearRetryInterval();
             },
             renderResultCollapse: this.renderResultCollapse.bind(this),
+            setTabsScoreboardValue: this.setTabsScoreboardValue,
         };
         return (
             <GameContextProvider value={gameContext}>

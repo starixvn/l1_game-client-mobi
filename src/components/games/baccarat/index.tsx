@@ -5,16 +5,15 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation } from "./animations";
-import BaccaratBetHistory from "./bet-history";
 import BaccaratBetOptions from "./bet-options";
-import { RenderRoundDetail, RenderBaccaratDot } from "./round-history";
-import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
+import { ScoreboardRule } from "./scoreboard-round-history";
 import Styles from "./baccarat.module.scss";
 import { Result, SettlementResult } from "./baccarat";
-import BaccaratStatistic from "./statistic";
+import TabsComponent from "./tabs";
+import { Choices, StatisticRuleMapping } from "./baccarat-helper";
+import { StatisticFollowPercent } from "../../shared/statistic";
 
 class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -49,29 +48,35 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderRoundHistory() {
-        const { gameState, roundHistory } = this.state;
-        return (
-            <ChainRoundHistory
-                roundHistory={roundHistory}
-                gameState={gameState}
-                renderGameDot={RenderBaccaratDot}
-                renderRoundDetail={RenderRoundDetail}
-            ></ChainRoundHistory>
-        );
+        return <TabsComponent></TabsComponent>;
     }
 
     renderStatistic() {
-        return <BaccaratStatistic roundHistory={this.state.roundHistory}></BaccaratStatistic>;
+        return (
+            <StatisticFollowPercent
+                roundHistory={this.state.roundHistory}
+                statisticRuleEntries={StatisticRuleMapping[this.state.tabsScoreboardValue]}
+                tabsScoreboardValue={this.state.tabsScoreboardValue}
+            ></StatisticFollowPercent>
+        );
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
+        const { roundHistory, tabsScoreboardValue } = this.state;
+        const gameName = this.props.gameName.toLowerCase();
+        const translateDotTextMapping = {
+            [Choices.banker]: this.props.t(`${gameName}:bankerTextDot`),
+            [Choices.player]: this.props.t(`${gameName}:playerTextDot`),
+            [Choices.tie]: this.props.t(`${gameName}:tieTextDot`),
+            [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
+            [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
+        };
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={GetElementRound}
-                checkCondition={CheckCondition}
-                translate={this.props.t}
+                getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
+                checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
+                translateDotTextMapping={translateDotTextMapping}
             />
         );
     }
@@ -130,22 +135,6 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 gameId={this.props.id}
             >
                 <></>
-            </AdvanceModal>
-        );
-    }
-
-    renderBetHistory() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.HISTORY_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <BaccaratBetHistory />
             </AdvanceModal>
         );
     }

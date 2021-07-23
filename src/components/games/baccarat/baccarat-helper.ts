@@ -55,3 +55,24 @@ export const GetValueCard = (value: number) => {
 export const SetPoint = (point: number) => {
     return point % 10;
 };
+
+export const StatisticRuleEntriesBankerPlayer = Object.entries({
+    [Choices.player]: (countResult: object, total: number) =>
+        countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0,
+    [Choices.banker]: (countResult: object, total: number) =>
+        countResult[Choices.banker] ? Math.round((countResult[Choices.banker] * 100) / total) : 0,
+    [Choices.tie]: (countResult: object, total: number) =>
+        100 -
+        (countResult[Choices.banker] ? Math.round((countResult[Choices.banker] * 100) / total) : 0) -
+        (countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0),
+});
+
+export const StatisticRuleEntriesBigSmall = Object.entries({
+    [Choices.big]: (countResult: object, total: number) =>
+        countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0,
+
+    [Choices.small]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0),
+});
+
+export const StatisticRuleMapping = [StatisticRuleEntriesBankerPlayer, StatisticRuleEntriesBigSmall];

@@ -18,9 +18,16 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const BaccaratBetHistory: React.FunctionComponent = () => {
+const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
+    return (
+        <BetHistoryContainer
+            gameId={gameId}
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            translate={t}
+        ></BetHistoryContainer>
+    );
 };
 export default BaccaratBetHistory;

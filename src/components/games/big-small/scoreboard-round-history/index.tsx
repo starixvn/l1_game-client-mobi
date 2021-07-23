@@ -3,7 +3,14 @@ import { checkIsSmall, countRedDot, Choices } from "../big-small-helper";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { GameBaseProps } from "../../../shared/game-base/type";
 
-const GetElementRound = (result: any, col: number, row: number, roundId: number, translate: Function, gameSetting: GameBaseProps) => {
+const GetElementRound = (
+    result: any,
+    col: number,
+    row: number,
+    roundId: number,
+    translateDotTextMapping: object,
+    gameSetting: GameBaseProps
+) => {
     const isSmall = checkIsSmall(countRedDot(result));
     return (
         <RoundDotGrid
@@ -11,11 +18,7 @@ const GetElementRound = (result: any, col: number, row: number, roundId: number,
             choice={isSmall ? Choices.small : Choices.big}
             col={col}
             row={row}
-            value={
-                isSmall
-                    ? translate(`${gameSetting.gameName.toLowerCase()}:smallTextDot`)
-                    : translate(`${gameSetting.gameName.toLowerCase()}:bigTextDot`)
-            }
+            value={isSmall ? translateDotTextMapping[Choices.small] : translateDotTextMapping[Choices.big]}
         ></RoundDotGrid>
     );
 };

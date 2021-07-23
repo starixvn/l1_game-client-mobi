@@ -73,8 +73,9 @@ export interface GameBaseState<Result, SettlementResult> {
     isShowBlink: boolean;
     notice: Notice;
     removeBetChoiceFocus?: Function;
-    betOptionElement?: HTMLElement;
-    betChoiceElement?: HTMLElement;
+    betOptionElement?: HTMLElement,
+    betChoiceElement?: HTMLElement
+    tabsScoreboardValue?: number;
 }
 
 export interface Notice {

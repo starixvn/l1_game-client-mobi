@@ -2,7 +2,14 @@ import React from "react";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { checkIsDragon, checkIsTie, Choices } from "../dragon-tiger-helper";
 
-const GetElementRound = (result: any, col: number, row: number, roundId: number, translate: Function, settlementResult: any) => {
+const GetElementRound = (
+    result: any,
+    col: number,
+    row: number,
+    roundId: number,
+    translateDotTextMapping: object,
+    settlementResult: any
+) => {
     const isDragon = checkIsDragon(result);
     const isTie = checkIsTie(result);
     return (
@@ -13,10 +20,10 @@ const GetElementRound = (result: any, col: number, row: number, roundId: number,
             row={row}
             value={
                 isTie
-                    ? translate("dragontiger:tieTextDot")
+                    ? translateDotTextMapping[Choices.tie]
                     : isDragon
-                    ? translate("dragontiger:dragonTextDot")
-                    : translate("dragontiger:tigerTextDot")
+                    ? translateDotTextMapping[Choices.dragon]
+                    : translateDotTextMapping[Choices.tiger]
             }
         ></RoundDotGrid>
     );
