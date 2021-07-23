@@ -77,8 +77,17 @@ class AnimationComponent extends React.PureComponent<
         playResultAnimation?: boolean;
         shuffle: number[];
         settleTotal: number;
+        texts: any;
     },
     {
+        result?: Result;
+        big?: boolean;
+        even?: boolean;
+        element?: string;
+        playResultAnimation?: boolean;
+        shuffle: number[];
+        settleTotal: number;
+        texts: any;
         currentTotal: number;
         currentIndex: number;
     }
@@ -86,40 +95,53 @@ class AnimationComponent extends React.PureComponent<
     constructor(props) {
         super(props);
         this.state = {
-            currentTotal: 0,
-            currentIndex: props.playResultAnimation ? 0 : props.settleTotal,
+            currentTotal: props.playResultAnimation ? 0 : props.settleTotal,
+            currentIndex: 0,
+            ...props,
         };
+    }
 
-        if (props.playResultAnimation) {
-            setInterval(() => {
-                const numberIndex = props.shuffle[this.state.currentIndex];
+    componentDidMount() {
+        let animationInterval = null;
+        if (this.state.playResultAnimation) {
+            const elem = this;
 
-                this.setState({
-                    currentTotal: this.state.currentTotal + props.result[numberIndex],
-                    currentIndex: this.state.currentIndex + 1,
+            animationInterval = setInterval(() => {
+                if (elem.state.currentIndex === elem.state.result.length) {
+                    clearInterval(animationInterval);
+                    return;
+                }
+
+                const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
+                elem.setState({
+                    currentTotal: elem.state.currentTotal + elem.state.result[numberIndex],
+                    currentIndex: elem.state.currentIndex + 1,
                 });
-            }, 0.15);
+            }, 100);
+        } else if (animationInterval) {
+            clearInterval(animationInterval);
+            this.setState({
+                currentTotal: this.state.settleTotal,
+                currentIndex: 0,
+            });
         }
     }
 
     render() {
-        const { gameSetting } = useGameContext();
-        const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-
         return (
             <div className={`${Styles["animation-container"]}`}>
                 <div className={Styles["result"]}>
-                    <div className={Styles["number-container"]}>{generateResult(this.props.result, this.props.shuffle)}</div>
+                    <div className={Styles["number-container"]}>{generateResult(this.state.result, this.state.shuffle)}</div>
 
                     <div className={Styles["result-total"]}>
-                        <div className={Styles["result-total-lbl"]}>{t("total")} </div>
+                        <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
                         <div className={Styles["result-total-number"]}>{this.state.currentTotal}</div>
                     </div>
                 </div>
                 <div className={Styles["settle-info"]}>
-                    <div className={Styles[`result-info-${this.props.big ? "blue" : "red"}`]}>{t(this.props.big ? "big" : "small")}</div>
-                    <div className={Styles[`result-info-${this.props.even ? "blue" : "red"}`]}>{t(this.props.even ? "even" : "odd")}</div>
-                    <div className={Styles["result-info-grey"]}>{t(this.props.element)}</div>
+                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>{this.state.texts.big}</div>
+                    <div className={Styles[`result-info-${this.state.even ? "blue" : "red"}`]}>{this.state.texts.even}</div>
+                    <div className={Styles["result-info-grey"]}>{this.state.texts.element}</div>
                 </div>
             </div>
         );
@@ -128,7 +150,14 @@ class AnimationComponent extends React.PureComponent<
 
 export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const settleResult = getSettleResult(result);
+    const texts = {
+        total: t("total"),
+        big: t(settleResult.big ? "big" : "small"),
+        even: t(settleResult.even ? "even" : "odd"),
+        element: t(settleResult.element),
+    };
 
     return (
         <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -141,6 +170,7 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
                     result={result}
                     shuffle={settleResult.shuffle}
                     settleTotal={settleResult.total}
+                    texts={texts}
                 />
             </div>
         </div>
@@ -153,21 +183,26 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = {
-        ...getSettleResult(result),
-        currentTotal: 0,
-        currentIndex: 0,
+    const settleResult = getSettleResult(result);
+    const texts = {
+        total: t("total"),
+        big: t(settleResult.big ? "big" : "small"),
+        even: t(settleResult.even ? "even" : "odd"),
+        element: t(settleResult.element),
     };
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["animation-container"]}`}>
-                <div className={Styles["number-container"]}>{generateResult(result, settleResult.shuffle)}</div>
-                <div className={Styles["result-total"]}>
-                    <div className={Styles["result-total-lbl"]}>{t("total")} </div>
-                    <div className={Styles["result-total-number"]}>{settleResult.currentTotal}</div>
-                </div>
-            </div>
+            <AnimationComponent
+                big={settleResult.big}
+                even={settleResult.even}
+                element={settleResult.element}
+                playResultAnimation={playResultAnimation}
+                result={result}
+                shuffle={settleResult.shuffle}
+                settleTotal={settleResult.total}
+                texts={texts}
+            />
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-container"]}>
                     <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
