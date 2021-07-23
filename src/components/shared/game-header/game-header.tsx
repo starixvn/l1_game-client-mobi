@@ -99,12 +99,8 @@ const HeaderRight = ({ displayMenu }) => {
 
     return (
         <div className={Styles["header-right"]}>
-            {viewMode !== ViewMode.collapse && (
-                <button
-                    className={`game-header-button ${Styles.rebet}`}
-                    disabled={disabledRebet || Object.keys(ownBets).length !== 0}
-                    onClick={rebetClickHandle}
-                >
+            {viewMode !== ViewMode.collapse && (disabledRebet || Object.keys(ownBets).length !== 0) && (
+                <button className={`game-header-button ${Styles.rebet}`} onClick={rebetClickHandle}>
                     <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
                 </button>
             )}

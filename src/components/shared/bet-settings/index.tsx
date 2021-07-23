@@ -25,7 +25,8 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         setDropdownOpen(!dropdownOpen);
     };
 
-    const onClickReset = () => {
+    const onClickReset = (e: React.MouseEvent) => {
+        e.stopPropagation();
         props.updateBetSetting({ betStake: 1, enabledQuickBet: false }, props.gameId);
         setDropdownOpen(false);
     };
@@ -41,14 +42,17 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
+        event.stopPropagation();
         event.currentTarget.value && setBetStake(+event.currentTarget.value);
     };
 
-    const addBetStake = (amount: number) => {
+    const addBetStake = (event: React.MouseEvent, amount: number) => {
+        event.stopPropagation();
         setBetStake(betStake + amount);
     };
 
-    const onSubmit = () => {
+    const onSubmit = (e: React.MouseEvent) => {
+        e.stopPropagation();
         const validationCriteria = [
             { failure: !betStake, message: t("emptyPresetStakeMsg") },
             {
@@ -75,12 +79,23 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         props.updateBetSetting({ betStake, enabledQuickBet: !enabledQuickBet }, props.gameId);
     };
 
-    const onDeleteStake = () => {
+    const onDeleteStake = (e: React.MouseEvent) => {
+        e.stopPropagation();
         setBetStake(0);
     };
 
     const toggleQuickBet = () => {
         setEnabledQuickBet(!enabledQuickBet);
+    };
+
+    const handlePresetStakeHintClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowBetStakeTooltip(true);
+    };
+
+    const handleQuickBetHintClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setShowQuickBetTooltip(true);
     };
 
     useEffect(() => {
@@ -156,7 +171,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         </div>
                                     )}
                                     <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>
-                                    <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowBetStakeTooltip(true)}>
+                                    <div className={`icon-help ${Styles["icon-help"]}`} onClick={handlePresetStakeHintClick}>
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
                                                 <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
@@ -177,12 +192,13 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         value={"Quick Bet"}
                                         checked={enabledQuickBet}
                                         onChange={toggleQuickBet}
+                                        onClick={(e) => e.stopPropagation()}
                                     />
                                     <label className={Styles["toggle-btn"]} htmlFor="toggle-quickbet">
                                         <div className={Styles["quick-bet-icon"]}></div>
                                     </label>
                                 </div>
-                                <div className={`icon-help ${Styles["icon-help"]}`} onClick={() => setShowQuickBetTooltip(true)}>
+                                <div className={`icon-help ${Styles["icon-help"]}`} onClick={handleQuickBetHintClick}>
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
                                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
@@ -194,7 +210,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
                             <div className={Styles["numpad-container"]}>
                                 {NumpadValues.map((value) => (
-                                    <span className={Styles["numpad"]} key={`numpad-${value}`} onClick={() => addBetStake(value)}>
+                                    <span className={Styles["numpad"]} key={`numpad-${value}`} onClick={(e) => addBetStake(e, value)}>
                                         +{value}
                                     </span>
                                 ))}
