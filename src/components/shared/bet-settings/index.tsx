@@ -60,15 +60,18 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             {
                 failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
                 message: t("messages:gameMaxBet", { maxBet: props.gameConfigs?.maxbet }),
+                action: () => setBetStake(props.gameConfigs.maxbet),
             },
             {
                 failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
                 message: t("messages:gameMinBet", { minBet: props.gameConfigs?.minbet }),
+                action: () => setBetStake(props.gameConfigs.minbet),
             },
         ];
         const failureCase = validationCriteria.find((criteria) => criteria.failure);
 
         if (failureCase) {
+            failureCase.action && failureCase.action();
             setErrorMessage(failureCase.message);
         } else {
             props.updateBetSetting({ betStake, enabledQuickBet }, props.gameId);
