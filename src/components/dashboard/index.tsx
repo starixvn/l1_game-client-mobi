@@ -271,8 +271,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         const setting = this.state.betSettings["global"];
 
         return {
-            betStake: setting?.betStake ?? 1,
-            enabledQuickBet: setting?.enabledQuickBet ?? false,
+            betStake: setting?.betStake,
+            enabledQuickBet: setting?.enabledQuickBet,
         };
     }
 
