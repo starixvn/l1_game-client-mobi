@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
+import { BetSettingStorage } from "../bet-settings/type";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import AdvanceModal from "../advance-modal";
 import { isMobile } from "react-device-detect";
@@ -25,15 +27,17 @@ type Props = {
     onCloseModal: Function;
 };
 
+const betSettingStorageKey = SessionStorageKeys.betSetting;
 const tooltipTimeout = 3000;
 let timeoutIns = null;
 
 const PlaceBetModal: React.FC<Props> = (props) => {
     const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
+    const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [betStake, setBetStake] = useState(minbet);
+    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? minbet);
 
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipMessage, setTooltipMessage] = useState("");
