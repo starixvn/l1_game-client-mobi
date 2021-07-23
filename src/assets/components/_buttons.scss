@@ -99,6 +99,13 @@
     --header-button-border1: #a0a0a0;
     --header-button-border2: #ffc459;
     --header-button-shadow-inner: inset 0 0.2rem 0.3rem #ffffff;
+
+    @media (min-width: 768px) {
+        --header-button-background: linear-gradient(180deg, #ffd586 0%, #ffaa20 100%);
+        --header-button-border1: #e8e8e8;
+        --header-button-border2: #ffc459;
+        --header-button-shadow-inner: inset 0 0.2rem 0.3rem #ffffff;
+    }
 }
 
 [data-theme="dark"] .header-button {
