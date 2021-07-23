@@ -45,9 +45,11 @@
 
     .form-label {
         display: table-cell;
-        margin-right: 1rem;
         font-size: 1.6rem;
         font-weight: 500;
+        width: 4.2rem;
+        padding-right: 1rem;
+        white-space: nowrap;
 
         @media (min-width: 768px) {
             display: inline-block;
