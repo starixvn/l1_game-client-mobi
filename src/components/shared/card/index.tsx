@@ -22,6 +22,17 @@ export const convertRank = (num: number): string => {
     return dict[num] || num.toString();
 };
 
+export const convertCardRankToIndex = (rank: string): number => {
+    const dict = {
+        J: 11,
+        Q: 12,
+        K: 12,
+        A: 1,
+    };
+
+    return dict[rank] ?? parseInt(rank);
+};
+
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";

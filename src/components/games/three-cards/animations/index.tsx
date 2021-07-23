@@ -4,7 +4,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../three-cards";
 import Styles from "./three-cards-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
-import Card from "../../../shared/card";
+import Card, { convertCardRankToIndex } from "../../../shared/card";
 
 export const DrawCardsAnimation = ({ playAnimation = false }) => {
     return (
@@ -27,24 +27,9 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
     );
 };
 
-const convertCardRankToIndex = (rank: string) => {
-    switch (rank) {
-        case "j":
-            return 11;
-        case "q":
-            return 12;
-        case "k":
-            return 13;
-        case "a":
-            return 1;
-        default:
-            return parseInt(rank);
-    }
-};
-
 const generateResult = (cards: Result, viewMode: ViewMode) => {
     return cards.map((card, index) => {
-        const cardType = { card: convertCardRankToIndex(card.rank.toLowerCase()), type: card.suit };
+        const cardType = { card: convertCardRankToIndex(card.rank), type: card.suit };
 
         return (
             <div key={index} className={Styles[`card${index + 1}`]}>

@@ -10,7 +10,7 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
     const { roundId, result } = round;
     return (
         <>
-            <span className="tooltip-round">#{roundId}</span>
+            <div className="tooltip-round">#{roundId}</div>
             <div className={Styles["tooltip-content"]}>
                 <span className="tooltip-result">
                     {t("player")}: {SetPoint(TotalCardValue(result?.player))} - {t("banker")}: {SetPoint(TotalCardValue(result?.banker))}

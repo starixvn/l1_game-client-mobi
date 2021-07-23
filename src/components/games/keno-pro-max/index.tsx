@@ -50,15 +50,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderRoundHistory() {
-        const { gameState, roundHistory } = this.state;
-        return (
-            <ChainRoundHistory
-                roundHistory={roundHistory}
-                gameState={gameState}
-                renderGameDot={RenderKenoProMaxDot}
-                renderRoundDetail={RenderRoundDetail}
-            ></ChainRoundHistory>
-        );
+        return <></>;
     }
 
     renderStatistic() {
