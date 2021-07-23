@@ -296,7 +296,15 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderDashBoard() {
-        const { enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowErrorModal, isShowHistory } = this.state;
+        const {
+            enabledWinningStreakNotification,
+            enabledPlaySound,
+            betSettings,
+            isShowErrorModal,
+            isShowHistory,
+            isShowGuide,
+            userStakeLevel,
+        } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
             <AuthContextProvider value={authContextValue}>
