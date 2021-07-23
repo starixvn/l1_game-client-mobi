@@ -4,6 +4,14 @@ import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { Choices } from "../baccarat-helper";
 import { Result, SettlementResult } from "../baccarat";
 
+enum choiceValueMapping {
+    big,
+    small,
+    banker,
+    player,
+    tie,
+}
+
 export const GetElementRoundBankerPlayer = (
     result: Result,
     col: number,
@@ -51,21 +59,11 @@ export const GetElementRoundBigSmall = (
 };
 
 export const CheckConditionBankerPlayer = (settlementResult: SettlementResult) => {
-    let value = 0;
-    if (settlementResult.banker) {
-        value = 1;
-    } else if (settlementResult.player) {
-        value = 2;
-    }
-    return value;
+    return settlementResult.tie ? choiceValueMapping.tie : settlementResult.player ? choiceValueMapping.player : choiceValueMapping.banker;
 };
 
 export const CheckConditionBigSmall = (settlementResult: SettlementResult) => {
-    let value = 0;
-    if (settlementResult.big) {
-        value = 1;
-    }
-    return value;
+    return settlementResult.big ? choiceValueMapping.big : choiceValueMapping.small;
 };
 
 export const ScoreboardRule = [

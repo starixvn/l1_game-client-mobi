@@ -175,6 +175,70 @@
     }
 }
 
+// keno
+.dot-even-kenopromax {
+    @extend %dot;
+    background: var(--bigSmall-dot-big-border);
+    box-shadow: var(--bigSmall-dot-big-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-big-background);
+    }
+}
+
+.dot-odd-kenopromax {
+    @extend %dot;
+    background: var(--bigSmall-dot-small-border);
+    box-shadow: var(--bigSmall-dot-small-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-small-background);
+    }
+}
+
+.dot-gold {
+    @extend %dot;
+    background: #ff9a00;
+    box-shadow: var(--bigSmall-dot-small-shadow);
+    &:before {
+        background: #ff9a00;
+    }
+}
+
+.dot-wood {
+    @extend %dot;
+    background: #18b43b;
+    box-shadow: var(--bigSmall-dot-small-shadow);
+    &:before {
+        background: #18b43b;
+    }
+}
+.dot-water {
+    @extend %dot;
+    background: #3b7bc6;
+    box-shadow: var(--bigSmall-dot-small-shadow);
+    &:before {
+        background: #3b7bc6;
+    }
+}
+.dot-fire {
+    @extend %dot;
+    background: #ff4352;
+    box-shadow: var(--bigSmall-dot-small-shadow);
+    &:before {
+        background: #ff4352;
+    }
+}
+
+.dot-earth {
+    @extend %dot;
+    background: #ba5600;
+    box-shadow: var(--bigSmall-dot-small-shadow);
+    &:before {
+        background: #ba5600;
+    }
+}
+
 // three-cards
 .dot-red {
     @extend %dot;

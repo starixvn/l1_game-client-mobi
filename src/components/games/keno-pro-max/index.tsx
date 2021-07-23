@@ -6,15 +6,14 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
 import KenoProMaxBetOptions from "./bet-options";
-import { RenderRoundDetail, RenderKenoProMaxDot } from "./round-history";
-import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./keno-pro-max";
-import KenoProMaxStatistic from "./statistic";
-import { Choices } from "./keno-pro-max-helper";
+import { Choices, StatisticRuleMapping } from "./keno-pro-max-helper";
+import { StatisticFollowPercent } from "../../shared/statistic";
+import { ScoreboardRule } from "./scoreboard-round-history";
+import TabsComponent from "./tabs";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -50,25 +49,33 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderRoundHistory() {
-        return <></>;
+        return <TabsComponent></TabsComponent>;
     }
 
     renderStatistic() {
-        return <KenoProMaxStatistic roundHistory={this.state.roundHistory}></KenoProMaxStatistic>;
+        return (
+            <StatisticFollowPercent
+                roundHistory={this.state.roundHistory}
+                statisticRuleEntries={StatisticRuleMapping[this.state.tabsScoreboardValue]}
+                tabsScoreboardValue={this.state.tabsScoreboardValue}
+            ></StatisticFollowPercent>
+        );
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
+        const { roundHistory, tabsScoreboardValue } = this.state;
         const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
             [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
             [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
+            [Choices.odd]: this.props.t(`${gameName}:oddTextDot`),
+            [Choices.even]: this.props.t(`${gameName}:evenTextDot`),
         };
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={GetElementRound}
-                checkCondition={CheckCondition}
+                getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
+                checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

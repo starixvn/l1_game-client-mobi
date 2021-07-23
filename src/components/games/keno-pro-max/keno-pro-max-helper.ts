@@ -9,3 +9,39 @@ export const Choices = {
     fire: "fire",
     earth: "earth",
 };
+
+const StatisticRuleEntriesBigSmall = Object.entries({
+    [Choices.big]: (countResult: object, total: number) =>
+        countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0,
+
+    [Choices.small]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0),
+});
+
+const StatisticRuleEntriesOddEven = Object.entries({
+    [Choices.even]: (countResult: object, total: number) =>
+        countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0,
+
+    [Choices.odd]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.odd] ? Math.round((countResult[Choices.odd] * 100) / total) : 0),
+});
+
+const StatisticRuleEntriesFiveElements = Object.entries({
+    [Choices.gold]: (countResult: object, total: number) =>
+        countResult[Choices.gold] ? Math.round((countResult[Choices.gold] * 100) / total) : 0,
+    [Choices.wood]: (countResult: object, total: number) =>
+        countResult[Choices.wood] ? Math.round((countResult[Choices.wood] * 100) / total) : 0,
+    [Choices.water]: (countResult: object, total: number) =>
+        countResult[Choices.water] ? Math.round((countResult[Choices.water] * 100) / total) : 0,
+    [Choices.fire]: (countResult: object, total: number) =>
+        countResult[Choices.fire] ? Math.round((countResult[Choices.fire] * 100) / total) : 0,
+
+    [Choices.wood]: (countResult: object, total: number) =>
+        100 -
+        (countResult[Choices.gold] ? Math.round((countResult[Choices.gold] * 100) / total) : 0) -
+        (countResult[Choices.wood] ? Math.round((countResult[Choices.wood] * 100) / total) : 0) -
+        (countResult[Choices.water] ? Math.round((countResult[Choices.water] * 100) / total) : 0) -
+        (countResult[Choices.fire] ? Math.round((countResult[Choices.fire] * 100) / total) : 0),
+});
+
+export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven, StatisticRuleEntriesFiveElements];

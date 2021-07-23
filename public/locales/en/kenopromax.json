@@ -11,5 +11,8 @@
     "wood": "Wood",
     "bigTextDot": "B",
     "smallTextDot": "S",
-    "total": "Total"
+    "evenTextDot": "E",
+    "oddTextDot": "O",
+    "total": "Total",
+    "fiveElements": "5 Elements"
 }

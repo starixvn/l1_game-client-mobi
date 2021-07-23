@@ -11,5 +11,8 @@
     "wood": "Mộc",
     "bigTextDot": "B",
     "smallTextDot": "S",
-    "total": "Tổng"
+    "evenTextDot": "C",
+    "oddTextDot": "L",
+    "total": "Tổng",
+    "fiveElements": "Ngũ hành"
 }
