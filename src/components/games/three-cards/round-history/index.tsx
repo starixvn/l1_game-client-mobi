@@ -2,8 +2,8 @@ import React from "react";
 
 import { Round } from "../../../../types";
 import { RoundDot } from "../../../shared/round-history/dot";
-import { Choices } from "../three-cards-helper";
 import { Result, SettlementResult } from "../three-cards";
+import { Choices } from "../three-cards-helper";
 import Styles from "./mini-round-history.module.scss";
 
 const suffix = ["card-heart", "card-diamond", "card-club", "card-spade"];
@@ -14,8 +14,8 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
             <div className="tooltip-round">#{roundId}</div>
             <div className="tooltip-title">
                 <span className="tooltip-result">{settlementResult.black ? t("black") : t("red")}</span>
-                {result.map((card, _) => {
-                    return <img src={`/static/images/${suffix[card.suit]}.png`} className={Styles["icon"]} />;
+                {result.map((card, index) => {
+                    return <img key={index} src={`/static/images/${suffix[card.suit]}.png`} className={Styles["icon"]} />;
                 })}
             </div>
         </div>

@@ -1,5 +1,7 @@
-import * as Sentry from "@sentry/node";
+import * as Sentry from "@sentry/nextjs";
+import { NextPageContext } from "next";
 import { useTheme } from "next-themes";
+import NextErrorComponent from "next/error";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -8,7 +10,7 @@ const errorMsg = {
     vi: "Đã xảy ra lỗi. Vui lòng liên hệ với bộ phận CSKH để được hỗ trợ.",
 };
 
-const Error = ({ hasGetInitialPropsRun, err, res }) => {
+const MyError = ({ statusCode, hasGetInitialPropsRun, err }) => {
     if (!hasGetInitialPropsRun && err) {
         Sentry.captureException(err);
     }
@@ -16,7 +18,6 @@ const Error = ({ hasGetInitialPropsRun, err, res }) => {
     const router = useRouter();
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
-    const statusCode = res ? res.statusCode : err ? err.statusCode : 404;
 
     useEffect(() => {
         setIsLoading(false);
@@ -34,4 +35,21 @@ const Error = ({ hasGetInitialPropsRun, err, res }) => {
     );
 };
 
-export default Error;
+MyError.getInitialProps = async (context: NextPageContext) => {
+    const initialProps = await NextErrorComponent.getInitialProps(context);
+
+    const errorInitialProps = {
+        ...initialProps,
+        hasGetInitialPropsRun: true,
+    };
+
+    context.err
+        ? Sentry.captureException(context.err)
+        : Sentry.captureException(new Error(`_error.js getInitialProps missing data at path: ${context.asPath}`));
+
+    await Sentry.flush(2000);
+
+    return errorInitialProps;
+};
+
+export default MyError;
