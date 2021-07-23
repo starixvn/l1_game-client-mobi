@@ -11,9 +11,6 @@ const appSettings = {
 
 module.exports = {
     i18n,
-    future: {
-        webpack5: true,
-    },
     publicRuntimeConfig: appSettings,
     productionBrowserSourceMaps: configs.enableSourceMap,
     generateBuildId: async () => {
