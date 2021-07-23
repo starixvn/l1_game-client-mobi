@@ -131,12 +131,14 @@
     --header-button-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
     --header-button-border: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
     --header-button-shadow-inner: inset 0 0.2rem 0.3rem #fff;
+    --header-button-background-hover: linear-gradient(180deg, #d78600 0%, #fbae21 100%);
 }
 
 [data-theme="dark"] .game-header-button {
     --header-button-background: linear-gradient(180deg, #284059 1.87%, #243b54 100%);
     --header-button-border: #081d34;
     --header-button-shadow-inner: inset 0 0.2rem 0.3rem #49759f;
+    --header-button-background-hover: linear-gradient(180deg, #d78600 0%, #fbae21 100%);
 }
 
 .game-header-button {
@@ -147,5 +149,11 @@
     &:before {
         background: var(--header-button-background);
         box-shadow: var(--header-button-shadow-inner);
+    }
+
+    &:hover:before {
+        cursor: pointer;
+        box-shadow: none;
+        background: var(--header-button-background-hover);
     }
 }
