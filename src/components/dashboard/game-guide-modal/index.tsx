@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import BaseDialog from "../../shared/base-dialog";
-import Styles from "../history/history.module.scss";
+import Styles from "./game-guide-modal.module.scss";
 import GameGuides from "./game-guide";
 import { useTranslation } from "next-i18next";
 
