@@ -81,7 +81,7 @@ export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
 
                         <div className={Styles["result-total"]}>
                             <div className={Styles["result-total-lbl"]}>{t("total")} </div>
-                            <div className={Styles["result-total-number"]}>{settleResult.total}</div>
+                            <div className={Styles["result-total-number"]}>0</div>
                         </div>
                     </div>
                     <div className={Styles["settle-info"]}>
@@ -114,7 +114,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
                 <div className={Styles["vertical-separator"]}></div>
                 <div className={Styles["result-total"]}>
                     <div className={Styles["result-total-lbl"]}>{t("total")} </div>
-                    <div className={Styles["result-total-num"]}>{settleResult.total}</div>
+                    <div className={Styles["result-total-num"]}>0</div>
                 </div>
             </div>
             {!playResultAnimation && settlementResult && (

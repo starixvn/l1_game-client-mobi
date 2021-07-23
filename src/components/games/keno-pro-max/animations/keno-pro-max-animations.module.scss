@@ -132,12 +132,12 @@ $number-count: 20;
     @for $i from 0 through 19 {
         .animate-#{$i + 1} {
             .number-cover {
-                animation-delay: calc($time-show-num-animation * #{$i});
+                animation-delay: calc(#{$time-show-num-animation} * #{$i});
             }
 
             .number {
                 @extend .shown-number;
-                animation-delay: calc($time-show-num-animation * #{$i});
+                animation-delay: calc(#{$time-show-num-animation} * #{$i});
             }
         }
     }
