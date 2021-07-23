@@ -52,9 +52,9 @@
     align-items: center;
     justify-content: center;
     height: 2.8rem;
-    width: 2.7rem;
+    width: 2.9rem;
     background: url("/static/images/chip-bg.svg?v=2") no-repeat center;
-    background-size: 2.8rem 2.7rem;
+    background-size: 2.8rem 2.9rem;
 }
 
 .game-header-button {
@@ -72,6 +72,7 @@
 
 .header-button {
     min-width: 11rem;
+    padding: 0 0.8rem 0 0.5rem;
 
     .quick-bet-text {
         margin-left: 0.3rem;
