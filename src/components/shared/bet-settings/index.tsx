@@ -105,7 +105,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                         </div>
                     ) : (
                         <div className={`${Styles["quick-bet-chip"]}`} onClick={onClickChip}>
-                            <img src={"/static/images/icon-thunder.svg"} width={16} height={17} />
+                            <img src={"/static/images/icon-thunder.svg"} width={17} height={16} />
                         </div>
                     )}
                 </div>
