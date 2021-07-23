@@ -140,7 +140,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                 ) : (
                     <div className={`dropdown-toggle header-button ${Styles["header-button"]}`} onClick={toggle}>
                         <div className={`${Styles["quick-bet-chip"]}`}>
-                            {enabledQuickBet && (
+                            {(enabledQuickBet || !!betStake) && (
                                 <img
                                     src={"/static/images/chip-dollar-icon.svg?v=2"}
                                     className={Styles["icon-dollar"]}
