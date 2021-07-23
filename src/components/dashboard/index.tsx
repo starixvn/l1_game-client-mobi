@@ -51,13 +51,13 @@ type State = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
     betSettings: BetSettingStorage;
+    userStakeLevel: UserStakeLevel;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
     userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
-    private userStakeLevel: UserStakeLevel;
 
     constructor(props: Props) {
         super(props);
@@ -74,6 +74,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
             betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
+            userStakeLevel: { minBet: 0, maxBet: 0 },
         };
 
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -163,7 +164,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.userStakeLevel) {
-            this.userStakeLevel = data.userStakeLevel;
+            this.setState({ userStakeLevel: data.userStakeLevel });
         }
     }
 
@@ -277,7 +278,8 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     renderDashBoard() {
         const { apiErrorMessage, balance, isShowErrorModal } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowGuide, isShowHistory } = this.state;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowGuide, isShowHistory, userStakeLevel } =
+            this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
@@ -316,9 +318,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                     setApiErrorMessage={this.props.setApiErrorMessage}
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
+                    userStakeLevel={userStakeLevel}
                 />
                 {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
-                {isShowGuide && <GameGuideModal userStakeLevel={this.userStakeLevel} onCloseModal={this.toggleGuideModal} />}
+                {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
                 {isShowErrorModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>

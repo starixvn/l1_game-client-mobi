@@ -12,6 +12,7 @@ import { ModalType } from "../base-dialog/type";
 import { numPad } from "./place-bet-constant";
 import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
+import { useSystemContext } from "../../../contexts/system";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -32,7 +33,8 @@ const tooltipTimeout = 3000;
 let timeoutIns = null;
 
 const PlaceBetModal: React.FC<Props> = (props) => {
-    const { roundId, gameSetting, gameConfigs, userStakeLevel } = useGameContext();
+    const { userStakeLevel } = useSystemContext();
+    const { roundId, gameSetting, gameConfigs } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
@@ -71,7 +73,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const payouts = [
         {
             text: t("common:payout"),
-            value:  numberWithCommas(betStake * odd),
+            value: numberWithCommas(betStake * odd),
         },
         {
             text: t("common:minBet"),
@@ -110,10 +112,10 @@ const PlaceBetModal: React.FC<Props> = (props) => {
 
         window.addEventListener("keyup", handleKeyUp);
 
-        return () => { 
+        return () => {
             clearTimeout(timeoutIns);
             window.removeEventListener("keyup", handleKeyUp);
-          }
+        };
     }, [betStake]);
 
     const closeModal = () => {
@@ -175,7 +177,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         className="form-control number"
                         thousandSeparator={true}
                         isNumericString={true}
-                        onValueChange={({value}) => setBetStake(parseInt(value || '0'))}
+                        onValueChange={({ value }) => setBetStake(parseInt(value || "0"))}
                     />
 
                     <span className="icon-close small" onClick={clearBetStake}></span>

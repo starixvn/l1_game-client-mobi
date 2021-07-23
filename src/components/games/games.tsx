@@ -21,6 +21,7 @@ type Props = {
     setApiErrorMessage: Function;
     updateBetSetting: Function;
     betSettings: BetSettingStorage;
+    userStakeLevel: UserStakeLevel;
 };
 
 let gamesOrder = [];
@@ -31,6 +32,7 @@ export const Games: React.FC<Props> = ({
     setApiErrorMessage,
     betSettings,
     updateBetSetting,
+    userStakeLevel,
 }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
@@ -100,7 +102,9 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting }}>
+            <SystemContextProvider
+                value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
+            >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>

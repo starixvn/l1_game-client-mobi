@@ -5,9 +5,9 @@ import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
-import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
+import { LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
-import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
+import { GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
@@ -64,7 +64,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         roundId: 0,
         ownBets: {},
         totalBets: {},
-        userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
         viewMode: this.props.viewMode,

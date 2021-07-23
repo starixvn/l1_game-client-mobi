@@ -1,5 +1,6 @@
 import React from "react";
 import { BetSettingStorage } from "../../components/shared/bet-settings/type";
+import { UserStakeLevel } from "../../components/shared/game-base/type";
 
 export const SystemContext = React.createContext<{
     setFavorite: Function;
@@ -8,6 +9,7 @@ export const SystemContext = React.createContext<{
     gamesOrder: number[];
     betSettings: BetSettingStorage;
     updateBetSetting: Function;
+    userStakeLevel: UserStakeLevel;
 }>(null);
 
 SystemContext.displayName = "SystemContext";
