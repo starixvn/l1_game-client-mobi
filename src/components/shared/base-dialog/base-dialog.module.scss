@@ -58,6 +58,14 @@
         @media (min-width: 768px) {
             top: -0.7rem;
         }
+
+        @media (min-width: 1260px) {
+            width: 126rem;
+            margin: auto;
+            left: calc(50% - 63rem);
+            right: auto;
+            top: 0;
+        }
     }
 
     &.modal-placebetform {
