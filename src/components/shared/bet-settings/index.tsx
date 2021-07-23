@@ -139,7 +139,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         className={`form-control number`}
                                         type={"number"}
                                         onChange={handleInputBetStake}
-                                        value={betStake || ""}
+                                        value={betStake}
                                         inputMode={"decimal"}
                                         readOnly={isMobile}
                                     ></input>
