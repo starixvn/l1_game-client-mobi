@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
-import { Choices } from "../keno-pro-max-helper";
 import { SettlementResult } from "../keno-pro-max";
+import { Choices } from "../keno-pro-max-helper";
 import Styles from "./bet-options.module.scss";
 
 type Props = {
@@ -16,41 +16,42 @@ type Props = {
 
 const renderBetOptionByChoice = (
     choice: string,
+    label: string,
+    odd: number,
     gameState: GameState,
-    settlementResult: SettlementResult,
+    isHighLight: boolean,
     isShowWinningEffect: boolean
 ) => {
-    const { gameConfigs, gameSetting } = useGameContext();
-    const { odds } = gameConfigs;
-    const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-
-    const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
-
     return (
         <BetOption
             choice={choice}
-            odd={odds[choice]}
+            odd={odd}
             isDisplayOdd={true}
             isHighlight={isHighLight}
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
         >
-            {renderLabel(choice)}
+            <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
         </BetOption>
     );
 };
 
 const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect } = props;
+    const { gameConfigs, gameSetting } = useGameContext();
+    const { odds } = gameConfigs;
 
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <div className={`${Styles["layout-keno-pro-max"]}`}>
-            {Object.keys(Choices).map((choice, index) => (
-                <div key={index} className={Styles[`choice-${choice}`]}>
-                    {renderBetOptionByChoice(choice, gameState, settlementResult, isShowWinningEffect)}
-                </div>
-            ))}
+            {Object.keys(Choices).map((choice, index) => {
+                const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
+                return (
+                    <div key={index} className={Styles[`choice-${choice}`]}>
+                        {renderBetOptionByChoice(choice, t(choice), odds[choice], gameState, isHighLight, isShowWinningEffect)}
+                    </div>
+                );
+            })}
         </div>
     );
 };
