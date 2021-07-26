@@ -12,6 +12,8 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     props
 ) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const betStakeHintRef = useRef<HTMLDivElement>(null);
+    const quickBetHintRef = useRef<HTMLDivElement>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 0);
     const [enabledQuickBet, setEnabledQuickBet] = useState(props.betSettings?.enabledQuickBet);
@@ -37,9 +39,15 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             setDropdownOpen(false);
         }
 
+        if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
+            setShowBetStakeTooltip(false);
+        }
+
+        if (quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+            setShowQuickBetTooltip(false);
+        }
+
         setErrorMessage("");
-        setShowBetStakeTooltip(false);
-        setShowQuickBetTooltip(false);
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,12 +103,12 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
     const handlePresetStakeHintClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setShowBetStakeTooltip(true);
+        setShowBetStakeTooltip(!showBetStakeTooltip);
     };
 
     const handleQuickBetHintClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        setShowQuickBetTooltip(true);
+        setShowQuickBetTooltip(!showQuickBetTooltip);
     };
 
     const stopPropagation = (e: React.MouseEvent) => {
@@ -180,7 +188,11 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         </div>
                                     )}
                                     <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>
-                                    <div className={`icon-help ${Styles["icon-help"]}`} onClick={handlePresetStakeHintClick}>
+                                    <div
+                                        ref={betStakeHintRef}
+                                        className={`icon-help ${Styles["icon-help"]}`}
+                                        onClick={handlePresetStakeHintClick}
+                                    >
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
                                                 <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
@@ -207,7 +219,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         <div className={Styles["quick-bet-icon"]}></div>
                                     </label>
                                 </div>
-                                <div className={`icon-help ${Styles["icon-help"]}`} onClick={handleQuickBetHintClick}>
+                                <div ref={quickBetHintRef} className={`icon-help ${Styles["icon-help"]}`} onClick={handleQuickBetHintClick}>
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
                                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
