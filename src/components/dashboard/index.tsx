@@ -338,8 +338,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                                 globalBetSetting={this.globalBetSetting}
                                 toggleHistoryModal={this.toggleHistoryModal}
                                 toggleGuideModal={this.toggleGuideModal}
-                                isShowHistory={isShowHistory}
-                                isShowGuide={isShowGuide}
                             />
                         </div>
                     )}
@@ -353,7 +351,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
-                    {this.state.isShowModal && (
+                    {isShowErrorModal && (
                         <div className={Styles["container-modal"]}>
                             <div className={Styles["bg-opacity"]}></div>
                             <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>

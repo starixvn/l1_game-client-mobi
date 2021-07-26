@@ -1,8 +1,6 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
-import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
@@ -143,22 +141,6 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 }
                 settlementResult={settlementResult}
             />
-        );
-    }
-
-    renderGuide() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <></>
-            </AdvanceModal>
         );
     }
 
