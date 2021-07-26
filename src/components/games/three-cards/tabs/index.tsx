@@ -4,7 +4,7 @@ import { useGameActionContext } from "../../../../contexts/game-actions-context"
 import Styles from "./tabs.module.scss";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 
-enum TabsValue {
+export enum TabsValue {
     redBlack,
     suits,
 }

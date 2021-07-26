@@ -10,12 +10,13 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderThreeCardsDot } from "./round-history";
-import { ScoreboardRule } from "./scoreboard-round-history";
+import { ScoreboardRule, GetElementRoundSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
-import ThreeCardsStatistic from "./statistic";
+import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
 import { Choices } from "./three-cards-helper";
-import TabsComponent from "./tabs";
+import TabsComponent, { TabsValue } from "./tabs";
 import Styles from "./three-cards.module.scss";
+import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 
 class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -60,25 +61,45 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderStatistic() {
-        return <ThreeCardsStatistic roundHistory={this.state.roundHistory}></ThreeCardsStatistic>;
+        const statisticRuleEntries = StatisticRuleMapping[this.state.tabsScoreboardValue];
+
+        return (
+            <ThreeCardsStatistic
+                roundHistory={this.state.roundHistory}
+                statisticRuleEntries={statisticRuleEntries}
+                tabsScoreboardValue={this.state.tabsScoreboardValue}
+            ></ThreeCardsStatistic>
+        );
     }
 
     renderBoard() {
-        const { roundHistory, tabsScoreboardValue } = this.state;
-        const gameName = this.props.gameName.toLowerCase();
-        const translateDotTextMapping = {
-            [Choices.red]: this.props.t(`${gameName}:redTextDot`),
-            [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
-        };
+        const { roundHistory, tabsScoreboardValue, gameState } = this.state;
+        switch (tabsScoreboardValue) {
+            case TabsValue.suits:
+                return (
+                    <ScoreboardBasic
+                        roundHistory={roundHistory}
+                        gameState={gameState}
+                        getElementRound={GetElementRoundSuits}
+                    ></ScoreboardBasic>
+                );
 
-        return (
-            <ScoreboardDragon
-                roundHistory={roundHistory}
-                getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
-                checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
-                translateDotTextMapping={translateDotTextMapping}
-            />
-        );
+            default:
+                const gameName = this.props.gameName.toLowerCase();
+                const translateDotTextMapping = {
+                    [Choices.red]: this.props.t(`${gameName}:redTextDot`),
+                    [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
+                };
+
+                return (
+                    <ScoreboardDragon
+                        roundHistory={roundHistory}
+                        getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
+                        checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
+                        translateDotTextMapping={translateDotTextMapping}
+                    />
+                );
+        }
     }
 
     get isShowStartRoundAnimation() {

@@ -5,32 +5,71 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
 import { Choices } from "../three-cards-helper";
 import Styles from "./statistic.module.scss";
+import { TabsValue } from "../tabs";
 
-const StatisticRuleEntries = Object.entries({
-    [Choices.black]: (countResult: object, total: number) =>
-        countResult[Choices.black] ? Math.round((countResult[Choices.black] * 100) / total) : 0,
+const calculateEntryPercent = (countResult: object, total: number, choice: string) =>
+    countResult[choice] ? Math.round((countResult[choice] * 100) / total) : 0;
 
-    [Choices.red]: (countResult: object, total: number) =>
-        100 - (countResult[Choices.black] ? Math.round((countResult[Choices.black] * 100) / total) : 0),
+const StatisticRuleEntriesRedBlack = Object.entries({
+    [Choices.black]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.black),
+    [Choices.red]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.red),
 });
 
-const ThreeCardsStatistic = ({ roundHistory }) => {
+const StatisticRuleEntriesSuits = Object.entries({
+    [Choices.diamonds]: (countResult: object, _) => countResult[Choices.diamonds],
+    [Choices.hearts]: (countResult: object, _) => countResult[Choices.hearts],
+    [Choices.spades]: (countResult: object, _) => countResult[Choices.spades],
+    [Choices.clubs]: (countResult: object, _) => countResult[Choices.clubs],
+});
+
+const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
+    const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+
+    return (
+        <>
+            {Object.keys(statisticResult).map((choice) => (
+                <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}%`}>
+                    <span className={`${Styles.title} ${Styles[choice]}`}>{t(choice)}</span>
+                </StatisticItem>
+            ))}
+        </>
+    );
+};
+
+const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
+    const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+    const choiceIcons = { diamonds: "diamond", hearts: "heart", spades: "spade", clubs: "club" };
+
+    return (
+        <>
+            {Object.keys(statisticResult).map((choice) => (
+                <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}`}>
+                    <img
+                        src={`/static/images/card-${choiceIcons[choice]}.png`}
+                        className={Styles["card-suite"]}
+                        alt="suite"
+                        width="16"
+                        height="16"
+                    ></img>
+                </StatisticItem>
+            ))}
+        </>
+    );
+};
+const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, tabsScoreboardValue }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return useMemo(() => {
-        const statisticResult = calculatePercent(StatisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
-
-        return (
-            <>
-                {Object.keys(statisticResult).map((choice) => (
-                    <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}%`}>
-                        <span className={`${Styles.title} ${Styles[choice]}`}>{t(choice)}</span>
-                    </StatisticItem>
-                ))}
-            </>
-        );
-    }, [roundHistory]);
+        switch (tabsScoreboardValue) {
+            case TabsValue.redBlack:
+                return RedBlackStatistics({ roundHistory, statisticRuleEntries, t });
+            default:
+                return SuitStatistics({ roundHistory, statisticRuleEntries, t });
+        }
+    }, [roundHistory, tabsScoreboardValue]);
 };
 
 export default ThreeCardsStatistic;
+
+export const StatisticRuleMapping = [StatisticRuleEntriesRedBlack, StatisticRuleEntriesSuits];

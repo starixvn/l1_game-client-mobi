@@ -12,21 +12,8 @@ const GetElementRound = (
 ) => {
     const isDragon = checkIsDragon(result);
     const isTie = checkIsTie(result);
-    return (
-        <RoundDotGrid
-            key={roundId}
-            choice={isTie ? Choices.tie : isDragon ? Choices.dragon : Choices.tiger}
-            col={col}
-            row={row}
-            value={
-                isTie
-                    ? translateDotTextMapping[Choices.tie]
-                    : isDragon
-                    ? translateDotTextMapping[Choices.dragon]
-                    : translateDotTextMapping[Choices.tiger]
-            }
-        ></RoundDotGrid>
-    );
+    const choiceName = isTie ? Choices.tie : isDragon ? Choices.dragon : Choices.tiger;
+    return <RoundDotGrid key={roundId} choice={choiceName} col={col} row={row} value={translateDotTextMapping[choiceName]}></RoundDotGrid>;
 };
 
 export default GetElementRound;
