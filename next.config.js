@@ -36,4 +36,7 @@ module.exports = withSentryConfig({
         return config;
     },
     basePath,
+    env: {
+        buildVersion: uuidv4(),
+    },
 });

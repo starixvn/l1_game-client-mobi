@@ -17,5 +17,4 @@ export default interface AppSettings {
     offeredGames: number[];
     gameSettings: { [id: string]: GameBaseProps };
     guideUrl: string;
-    buildVersion: number;
 }

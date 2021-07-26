@@ -54,28 +54,31 @@ function Home() {
         return <SplashScreen locale={locale}></SplashScreen>;
     }
 
-    return <Dashboard session={session} />;
+    const buildId = process.env.buildVersion;
+    return <Dashboard session={session} buildId={buildId} />;
 }
 
-export const getStaticProps = async ({ locale }) => ({
-    props: {
-        ...(await serverSideTranslations(locale, [
-            "common",
-            "xocxoc",
-            "taixiu",
-            "baucua",
-            "register",
-            "bethistory",
-            "dragontiger",
-            "vipsedie",
-            "txturbo",
-            "messages",
-            "kenopromax",
-            "baccarat",
-            "vipbaccarat",
-            "threecards",
-        ])),
-    },
-});
+export const getStaticProps = async ({ locale }) => {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, [
+                "common",
+                "xocxoc",
+                "taixiu",
+                "baucua",
+                "register",
+                "bethistory",
+                "dragontiger",
+                "vipsedie",
+                "txturbo",
+                "messages",
+                "kenopromax",
+                "baccarat",
+                "vipbaccarat",
+                "threecards",
+            ])),
+        },
+    };
+};
 
 export default Home;

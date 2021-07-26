@@ -29,6 +29,7 @@ import Welcome from "./welcome";
 
 type Props = {
     session: SSOResponse;
+    buildId: string;
 } & WithRouterProps &
     WithTranslation;
 
@@ -91,8 +92,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
 
         const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
-        if (appSettings.buildVersion !== buildVersion) {
-            storeSessionStorageItem(SessionStorageKeys.buildVersion, appSettings.buildVersion);
+        if (props.buildId !== buildVersion) {
+            storeSessionStorageItem(SessionStorageKeys.buildVersion, props.buildId);
             window.location.reload(true);
         }
     }
