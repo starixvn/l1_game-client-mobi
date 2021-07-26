@@ -31,7 +31,7 @@ const BaseDialog: React.FC<Props> = ({
     eventPosition,
     gameBaseContainerRef,
     gameHeaderRef,
-    isPlaceBetPopup = false
+    isPlaceBetPopup = false,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -49,7 +49,7 @@ const BaseDialog: React.FC<Props> = ({
     };
 
     useEffect(() => {
-        if (!isMobileOnly &&  isPlaceBetPopup && wrapperRef.current.getBoundingClientRect().bottom > window.innerHeight) {
+        if (!isMobileOnly && isPlaceBetPopup && wrapperRef.current.getBoundingClientRect().bottom > window.innerHeight) {
             wrapperRef.current.style.top = `${-eventPosition.height}px`;
             wrapperRef.current.style.bottom = `none`;
         }
@@ -112,10 +112,10 @@ const BaseDialog: React.FC<Props> = ({
         }
     };
 
-    const style = !isMobileOnly && isPlaceBetPopup ?  { ...getCustomStyle(), ...ajustPopupPosition() } :  getCustomStyle();
+    const style = !isMobileOnly && isPlaceBetPopup ? { ...getCustomStyle(), ...ajustPopupPosition() } : getCustomStyle();
     return (
         <>
-            {enableBackdrop && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
+            {enableBackdrop && !isMobileOnly && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
             <div
                 style={style}
                 ref={wrapperRef}

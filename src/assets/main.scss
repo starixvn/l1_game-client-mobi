@@ -188,10 +188,13 @@ body {
 
 .no-scroll {
     overflow: hidden !important;
-    padding-right: 0.5rem;
 
-    header {
+    @media (min-device-width: 1024px) {
         padding-right: 0.5rem;
+
+        header {
+            padding-right: 0.5rem;
+        }
     }
 }
 

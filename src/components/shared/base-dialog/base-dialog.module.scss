@@ -56,13 +56,13 @@
     }
 
     &.modal-full {
-        top: 4.7rem;
+        top: 8.6rem;
         bottom: 0;
         padding-left: 0;
         padding-right: 0;
         z-index: var(--popup-guide-history-index);
 
-        @media (min-width: 768px) {
+        @media (min-device-width: 768px) {
             position: fixed;
             top: 5.2rem;
         }
