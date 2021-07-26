@@ -184,9 +184,14 @@ body {
     font: 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
+}
 
-    &.no-scroll {
-        overflow: hidden !important;
+.no-scroll {
+    overflow: hidden !important;
+    padding-right: 0.5rem;
+
+    header {
+        padding-right: 0.5rem;
     }
 }
 
