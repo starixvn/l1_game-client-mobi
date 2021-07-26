@@ -53,10 +53,14 @@
 
     &.modal-full {
         top: 4.7rem;
+        bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
         z-index: var(--popup-guide-history-index);
 
         @media (min-width: 768px) {
-            top: -0.7rem;
+            position: fixed;
+            top: 5.2rem;
         }
 
         @media (min-width: 900px) {
@@ -64,7 +68,10 @@
             margin: auto;
             left: calc(50% - 43.5rem);
             right: auto;
-            top: 0;
+        }
+
+        @media (min-width: 768px) and (min-height: 900px) {
+            bottom: 10rem;
         }
     }
 

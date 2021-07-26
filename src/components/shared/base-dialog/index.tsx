@@ -34,14 +34,6 @@ const BaseDialog: React.FC<Props> = ({
                 : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
-        if (isMobileOnly) {
-            if (isIOS) {
-                return screen.height > 667 && screen.width >= 375 ? { bottom: "12.3rem" } : { bottom: "9.8rem" };
-            } else {
-                return { bottom: "8.8rem" };
-            }
-        }
-
         return {};
     };
 

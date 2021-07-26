@@ -29,18 +29,26 @@
 .icon-close {
     position: absolute;
     top: -0.6rem;
-    right: -0.4rem;
+    right: 1.2rem;
     z-index: 10;
+
+    @media (min-width: 768px) {
+        right: 1.6rem;
+    }
 }
 
 .form {
     display: table;
     width: 100%;
     margin-top: 0.8rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 
     @media (min-width: 768px) {
         display: flex;
         align-items: center;
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 
     .form-label {
@@ -109,4 +117,11 @@
 .history-content {
     margin-top: 1rem;
     height: calc(100% - 7rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @media (min-width: 768px) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
 }
