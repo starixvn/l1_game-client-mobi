@@ -1,2 +1,36 @@
+@import "../../../assets/components/dropdown";
+
 .selector-container {
+    position: relative;
+    display: table-cell;
+}
+
+.selected-item {
+    height: 4rem;
+    line-height: 4rem;
+    padding: 0 2.5rem 0 1rem;
+    border: 1px solid var(--select-border-color);
+    border-radius: 5px;
+    background: var(--select-background-color);
+    color: var(--select-color);
+    font-size: 1.6rem;
+
+    @media (min-width: 768px) {
+        display: inline-block;
+        min-width: 34.3rem;
+    }
+
+    &:after {
+        position: absolute;
+        content: "\e90b";
+        right: 0.6rem;
+        font-family: "SabaClub" !important;
+        font-size: 0.8rem;
+        color: var(--select-dropdown-icon-color);
+    }
+}
+
+.dropdown-menu {
+    display: block;
+    width: 100%;
 }

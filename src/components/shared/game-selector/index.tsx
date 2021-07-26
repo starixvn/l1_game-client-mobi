@@ -10,13 +10,13 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
 
     return (
         <div className={Styles["selector-container"]}>
-            <div className={"selected-item"} onClick={() => setIsShowOptions(true)}>
+            <div className={Styles["selected-item"]} onClick={() => setIsShowOptions(true)}>
                 {t(`${appSettings.gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
             </div>
             {isShowOptions && (
-                <div className={Styles["items"]}>
+                <div className={Styles["dropdown-menu"]}>
                     {appSettings.offeredGames.map((id) => (
-                        <span key={id} onClick={() => onChangeGame(id)}>
+                        <span className={Styles["dropdown-item"]} key={id} onClick={() => onChangeGame(id)}>
                             {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                         </span>
                     ))}
