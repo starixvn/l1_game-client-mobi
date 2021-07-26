@@ -7,6 +7,7 @@ import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting } from "./type";
 
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
+const MaxInputValue = 99999;
 
 const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting; gameConfigs?: GameConfigs }> = (
     props
@@ -56,12 +57,14 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.currentTarget.value.replace(",", "");
         value === "" && setBetStake(0);
-        isNumber(value) && setBetStake(+value);
+        isNumber(value) && +value <= MaxInputValue && setBetStake(+value);
     };
 
     const addBetStake = (event: React.MouseEvent, amount: number) => {
         event.stopPropagation();
-        setBetStake(betStake + amount);
+        const newBetStake = betStake + amount;
+
+        newBetStake <= MaxInputValue && setBetStake(newBetStake);
     };
 
     const onSubmit = (e: React.MouseEvent) => {
@@ -70,12 +73,12 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
             {
                 failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
-                message: t("messages:gameMaxBet", { maxBet: props.gameConfigs?.maxbet }),
+                message: t("messages:gameMaxBet", { maxBet: numberWithCommas(props.gameConfigs?.maxbet) }),
                 action: () => setBetStake(props.gameConfigs.maxbet),
             },
             {
                 failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
-                message: t("messages:gameMinBet", { minBet: props.gameConfigs?.minbet }),
+                message: t("messages:gameMinBet", { minBet: numberWithCommas(props.gameConfigs?.minbet) }),
                 action: () => setBetStake(props.gameConfigs.minbet),
             },
         ];
@@ -92,7 +95,8 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
     const onClickChip = (e: React.MouseEvent) => {
         e.stopPropagation();
-        props.updateBetSetting({ betStake, enabledQuickBet: !enabledQuickBet }, props.gameId);
+
+        props.updateBetSetting({ betStake: betStake || props.gameConfigs.minbet, enabledQuickBet: !enabledQuickBet }, props.gameId);
     };
 
     const onDeleteStake = (e: React.MouseEvent) => {
@@ -183,6 +187,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                                         value={numberWithCommas(betStake) !== "0" ? numberWithCommas(betStake) : ""}
                                         inputMode={"numeric"}
                                         readOnly={isMobile}
+                                        maxLength={6}
                                     ></input>
                                     {errorMessage && (
                                         <div className={`tooltip info show ${Styles["error-info"]}`}>
