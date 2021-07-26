@@ -10,8 +10,7 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderThreeCardsDot } from "./round-history";
-import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
-import Styles from "./three-cards.module.scss";
+import { ScoreboardRule } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic from "./statistic";
 import { Choices } from "./three-cards-helper";
@@ -56,17 +55,18 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
+        const { roundHistory, tabsScoreboardValue } = this.state;
         const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
-            [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
             [Choices.red]: this.props.t(`${gameName}:redTextDot`),
+            [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
         };
+
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={GetElementRound}
-                checkCondition={CheckCondition}
+                getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
+                checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

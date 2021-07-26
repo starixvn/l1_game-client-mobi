@@ -244,7 +244,7 @@
     @extend %dot;
     background: var(--threeCards-dot-red-border);
     box-shadow: var(--threeCards-dot-red-shadow);
-    color: var(--threeCards-red-text-color);
+    color: var(--threeCards-dot-red-text-color);
 
     &:before {
         background: var(--threeCards-dot-red-background);
