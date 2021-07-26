@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from "react";
 
 type Props = {
@@ -10,6 +11,12 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
     const tooltipRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (isOpen && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
 
         return () => {
@@ -34,13 +41,7 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
 
             innerTooltip.setAttribute("style", `position: absolute; transform: translateX(${customTranslateX})`);
         }
-    }, [innerTooltipRef.current]);
-
-    const handleClickOutside = (event) => {
-        if (isOpen && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
-            onClose();
-        }
-    };
+    }, [innerTooltipRef.current, isOpen]);
 
     return (
         <div className={`tooltip mini-round-history ${isOpen ? "show" : ""}`} ref={tooltipRef}>

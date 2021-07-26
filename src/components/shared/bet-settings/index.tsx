@@ -225,6 +225,7 @@ const BetSettings: React.FC<{
                                     src={"/static/images/game-header-quick-bet-active.svg"}
                                     width={20}
                                     height={20}
+                                    alt="game-header-quick-bet-active"
                                 />
                                 <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake ?? 0)}</span>
                             </div>
@@ -273,6 +274,7 @@ const BetSettings: React.FC<{
                                         className={Styles["icon-dollar"]}
                                         width={14}
                                         height={14}
+                                        alt="chip-dollar-icon"
                                     />
                                 )}
                             </div>

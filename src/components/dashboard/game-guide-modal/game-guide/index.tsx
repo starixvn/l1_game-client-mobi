@@ -61,7 +61,7 @@ const GameGuides: React.FC<Props> = (props) => {
                 />
             );
         }
-    }, [heightGuide, widthGuide, gameId]);
+    }, [heightGuide, widthGuide, gameId, srcPath]);
 
     return (
         <div className={Styles["container-guide"]} ref={wrapperRef}>

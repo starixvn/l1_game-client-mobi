@@ -207,30 +207,30 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         setIsInfiniteLoading(false);
     };
 
-    const sendPostBetHistory = async () => {
-        setIsFetchingData(true);
-        try {
-            const resp = await axios.post(historyAPI, {
-                session: session.ss,
-                page: page,
-                pageSize: 16,
-                username: session.username,
-            });
-            const bets = resp.data.history;
-            fetchBetHistory(bets);
-            setIsFirstLoad(false);
-            if (page === 1) {
-                setTotalPage(Math.ceil(bets.total / 16));
-            }
-        } catch (err) {
-            if (err.response.status === 401) {
-                clearSession();
-                router.push("/timeout");
-            }
-        }
-    };
-
     useEffect(() => {
+        const sendPostBetHistory = async () => {
+            setIsFetchingData(true);
+            try {
+                const resp = await axios.post(historyAPI, {
+                    session: session.ss,
+                    page: page,
+                    pageSize: 16,
+                    username: session.username,
+                });
+                const bets = resp.data.history;
+                fetchBetHistory(bets);
+                setIsFirstLoad(false);
+                if (page === 1) {
+                    setTotalPage(Math.ceil(bets.total / 16));
+                }
+            } catch (err) {
+                if (err.response.status === 401) {
+                    clearSession();
+                    router.push("/timeout");
+                }
+            }
+        };
+
         sendPostBetHistory();
     }, [page]);
 

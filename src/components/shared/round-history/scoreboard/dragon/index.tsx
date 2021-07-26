@@ -94,7 +94,7 @@ const addNextElement = (rowMax: {}, row: number, col: number, nextCol: number, r
 };
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
-    const { roundHistory, getElementRound } = props;
+    const { roundHistory, getElementRound, translateDotTextMapping } = props;
     let { checkCondition } = props;
     if (!checkCondition) {
         checkCondition = checkConditionBase;
@@ -109,12 +109,12 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
                     isShowBlink,
                     getElementRound,
                     checkCondition,
-                    props.translateDotTextMapping,
+                    translateDotTextMapping,
                     gameSetting
                 )}
             </div>
         );
-    }, [roundHistory, isShowBlink, getElementRound, checkCondition]);
+    }, [roundHistory, isShowBlink, getElementRound, checkCondition, gameSetting, translateDotTextMapping]);
 };
 
 export default ScoreboardDragon;
