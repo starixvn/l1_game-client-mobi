@@ -43,11 +43,11 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             setEnabledQuickBet(props.betSettings?.enabledQuickBet);
         }
 
-        if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
+        if (showBetStakeTooltip && betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
             setShowBetStakeTooltip(false);
         }
 
-        if (quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+        if (showQuickBetTooltip && quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
             setShowQuickBetTooltip(false);
         }
 
@@ -132,14 +132,14 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     useEffect(() => {
         setBetStake(props.betSettings?.betStake ?? 0);
         setEnabledQuickBet(props.betSettings?.enabledQuickBet);
-    }, [props.betSettings]);
+    }, [props.betSettings?.enabledQuickBet, props.betSettings?.betStake]);
 
     return (
-        <div className={Styles["game-menu"]} onClick={stopPropagation}>
+        <div className={Styles["game-menu"]} onClick={stopPropagation} ref={wrapperRef}>
             {props.gameId && (
-                <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
+                <div className={`game-header-button ${Styles["quick-bet-info"]}`} onClick={onClickChip}>
                     {enabledQuickBet ? (
-                        <div className={Styles["quick-bet-active"]} onClick={onClickChip}>
+                        <div className={Styles["quick-bet-active"]}>
                             <img
                                 className={Styles["chip-active"]}
                                 src={"/static/images/game-header-quick-bet-active.svg"}
@@ -149,14 +149,14 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                             <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake)}</span>
                         </div>
                     ) : (
-                        <div className={`${Styles["quick-bet-chip"]}`} onClick={onClickChip}>
+                        <div className={`${Styles["quick-bet-chip"]}`}>
                             <img src={"/static/images/icon-thunder.svg?v=2"} width={17} height={16} />
                         </div>
                     )}
                 </div>
             )}
 
-            <div className="dropdown" ref={wrapperRef}>
+            <div className="dropdown">
                 {props.gameId ? (
                     <div className={`dropdown-toggle game-header-button ${Styles["game-header-button"]}`} onClick={toggle}>
                         <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>

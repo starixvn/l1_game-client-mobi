@@ -34,6 +34,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        cursor: pointer;
     }
 
     .selected-bet-stake {
@@ -58,6 +59,7 @@
     width: 2.9rem;
     background: url("/static/images/chip-bg.svg?v=3") no-repeat center;
     background-size: 2.8rem 2.9rem;
+    cursor: pointer;
 }
 
 .game-header-button {
