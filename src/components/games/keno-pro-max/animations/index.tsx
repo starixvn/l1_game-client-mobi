@@ -139,8 +139,8 @@ class AnimationComponent extends React.PureComponent<
                     </div>
                 </div>
                 <div className={Styles["settle-info"]}>
-                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>{this.state.texts.big}</div>
                     <div className={Styles[`result-info-${this.state.even ? "blue" : "red"}`]}>{this.state.texts.even}</div>
+                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>{this.state.texts.big}</div>
                     <div className={Styles["result-info-grey"]}>{this.state.texts.element}</div>
                 </div>
             </div>
