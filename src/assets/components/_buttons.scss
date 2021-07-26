@@ -128,10 +128,12 @@
         box-shadow: var(--header-button-shadow-inner);
     }
 
-    &:hover:before {
-        cursor: pointer;
-        box-shadow: none;
-        background: var(--header-button-background-hover);
+    @media (hover: hover) {
+        &:hover:before {
+            cursor: pointer;
+            box-shadow: none;
+            background: var(--header-button-background-hover);
+        }
     }
 }
 
@@ -159,9 +161,11 @@
         box-shadow: var(--game-header-button-shadow-inner);
     }
 
-    &:hover:before {
-        cursor: pointer;
-        box-shadow: none;
-        background: var(--game-header-button-background-hover);
+    @media (hover: hover) {
+        &:hover:before {
+            cursor: pointer;
+            box-shadow: none;
+            background: var(--game-header-button-background-hover);
+        }
     }
 }
