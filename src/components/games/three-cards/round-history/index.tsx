@@ -15,7 +15,14 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
             <div className="tooltip-title">
                 <span className="tooltip-result">{settlementResult.black ? t("black") : t("red")}</span>
                 {result.map((card, index) => {
-                    return <img key={index} src={`/static/images/${suffix[card.suit]}.png`} className={Styles["icon"]} />;
+                    return (
+                        <img
+                            key={index}
+                            src={`/static/images/${suffix[card.suit]}.png`}
+                            className={Styles["icon"]}
+                            alt={`icon-card-${card.suit}`}
+                        />
+                    );
                 })}
             </div>
         </div>

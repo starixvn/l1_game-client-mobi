@@ -8,7 +8,7 @@ const LandscapeMode = () => {
 
     return (
         <div className={Styles["landscape-mode"]}>
-            <img src="/static/images/landscape-icon.svg" />
+            <img src="/static/images/landscape-icon.svg" alt="landscape-icon" />
             <p className={Styles["info"]}>{t("common:rotateDevice")}</p>
         </div>
     );

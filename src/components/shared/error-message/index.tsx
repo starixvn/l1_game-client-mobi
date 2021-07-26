@@ -13,7 +13,7 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
         return () => {
             clearTimeout(timeOut);
         };
-    }, []);
+    }, [closeModal]);
 
     return (
         <div className={Styles["error-message-container"]}>

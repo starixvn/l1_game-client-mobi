@@ -25,7 +25,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
         const timer = setTimeout(onClose, duration * 1000);
 
         return () => clearTimeout(timer);
-    }, []);
+    }, [onClose, duration]);
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -38,7 +38,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [wrapperRef]);
+    }, [wrapperRef, onClose, isOpen]);
 
     return (
         <div ref={wrapperRef} className={Styles.notice}>

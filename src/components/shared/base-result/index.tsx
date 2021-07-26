@@ -13,7 +13,7 @@ export const BaseResult: React.FC<{ showResultTimeInSecond: number }> = ({ child
         return () => {
             clearTimeout(hidingResultTimeOut);
         };
-    }, []);
+    }, [showResultTimeInSecond]);
 
     return <div className={isHidingResult ? "hide-result-animation" : ""}>{children}</div>;
 };

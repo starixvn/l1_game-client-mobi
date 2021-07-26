@@ -100,24 +100,25 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     }
 
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
-    const actionByGameState = {
-        [GameState.LockingBet]: () => {
-            setIsShowCountOfDice(false);
-        },
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
-        },
-        [GameState.InRound]: () => {
-            setIsShowCountOfDice(true);
-        },
-        [GameState.BeforeStartRound]: () => {
-            setIsShowCountOfDice(true);
-        },
-    };
 
     useEffect(() => {
+        const actionByGameState = {
+            [GameState.LockingBet]: () => {
+                setIsShowCountOfDice(false);
+            },
+            [GameState.DisplayResult]: () => {
+                setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
+            },
+            [GameState.InRound]: () => {
+                setIsShowCountOfDice(true);
+            },
+            [GameState.BeforeStartRound]: () => {
+                setIsShowCountOfDice(true);
+            },
+        };
+
         actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState]);
+    }, [gameState, gameSetting.durations.resultAnimation]);
 
     return (
         <div className={`${Styles["layout-FPC"]}`}>

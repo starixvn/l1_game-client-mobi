@@ -13,7 +13,7 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
         return (
             <>
                 {convertRank(card.card)}
-                <img src={`/static/images/${suffix[card.type]}.png`} className={Styles["icon"]} />
+                <img src={`/static/images/${suffix[card.type]}.png`} className={Styles["icon"]} alt={`icon-card-${card.type}`} />
             </>
         );
     };
