@@ -117,7 +117,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
 
-            const settings = getSessionStorageItem<BetSettingStorage>(betSettingsStorageKey);
+            const settings = getSessionStorageItem<BetSettingStorage>(betSettingsStorageKey) ?? {};
             const gameSettings = props.gameId ? settings[props.gameId] : settings["global"];
             setBetStake(gameSettings?.betStake ?? 0);
             setEnabledQuickBet(gameSettings?.enabledQuickBet);

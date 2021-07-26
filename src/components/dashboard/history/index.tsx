@@ -11,7 +11,7 @@ import Styles from "./history.module.scss";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
     const { t } = useTranslation();
-    const [selectedGameId, setSelectedGameId] = useState<number>(-1);
+    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
 
     const handleChangeGame = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedGameId(+e.target.value);
@@ -47,9 +47,6 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
                     <span className={Styles["form-label"]}>Game</span>
                     <div className={Styles["select"]}>
                         <select className={Styles["form-control"]} value={selectedGameId} onChange={handleChangeGame}>
-                            <option className={Styles["option-control"]} value={-1} disabled={true} style={{ display: "none" }}>
-                                {t("gameSelectPlaceHolder")}
-                            </option>
                             {appSettings.offeredGames.map((id) => (
                                 <option value={id} key={id}>
                                     {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
