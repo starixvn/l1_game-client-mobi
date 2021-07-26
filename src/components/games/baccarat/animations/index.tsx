@@ -11,7 +11,7 @@ const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
         return (
             <div key={card.order} className={Styles[`card${card.order}`]}>
                 <div className={Styles["rotate-card"]}>
-                    <Card result={card.value} viewMode={viewMode} customClassName="card-6"></Card>
+                    <Card result={card.value} viewMode={viewMode}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
             </div>
@@ -41,7 +41,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask">
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["player"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                    className={`${Styles["animation-container"]} ${Styles["player"]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}
                 >
                     {generateResult(
                         playerCards.filter((c) => c.value),
@@ -49,7 +49,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                     )}
                 </div>
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["banker"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                    className={`${Styles["animation-container"]} ${Styles["banker"]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}
                 >
                     {generateResult(
                         bankerCards.filter((c) => c.value),
