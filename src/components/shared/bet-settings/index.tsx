@@ -63,12 +63,12 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
             {
                 failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
-                message: t("messages:gameMaxBet", { maxBet: numberWithCommas(props.gameConfigs?.maxbet) }),
+                message: t("messages:gameMaxBet", { maxBet: numberWithCommas(props.gameConfigs?.maxbet ?? 0) }),
                 action: () => setBetStake(props.gameConfigs.maxbet),
             },
             {
                 failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
-                message: t("messages:gameMinBet", { minBet: numberWithCommas(props.gameConfigs?.minbet) }),
+                message: t("messages:gameMinBet", { minBet: numberWithCommas(props.gameConfigs?.minbet ?? 0) }),
                 action: () => setBetStake(props.gameConfigs.minbet),
             },
         ];
@@ -142,6 +142,11 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             document.removeEventListener("mousedown", registerFunc);
         };
     }, [wrapperRef]);
+
+    useEffect(() => {
+        setBetStake(props.betSettings?.betStake ?? 0);
+        setEnabledQuickBet(props.betSettings?.enabledQuickBet);
+    }, [props.betSettings?.betStake, props.betSettings?.enabledQuickBet]);
 
     return (
         <div className={Styles["game-menu"]} onClick={stopPropagation} ref={wrapperRef}>
