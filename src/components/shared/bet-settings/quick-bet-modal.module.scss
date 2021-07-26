@@ -33,12 +33,13 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
     }
 
     .selected-bet-stake {
         line-height: 1.2rem;
         text-align: center;
-        font-size: 1.1rem;
+        font: 1.1rem var(--font-number);
         color: #fff;
     }
 }
