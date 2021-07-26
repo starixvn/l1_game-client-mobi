@@ -1,13 +1,15 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
 import { GameConfigs } from "../game-base/type";
 import Styles from "./quick-bet-modal.module.scss";
-import { BetSetting } from "./type";
+import { BetSetting, BetSettingStorage } from "./type";
 
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 const MaxInputValue = 99999;
+const betSettingsStorageKey = SessionStorageKeys.betSetting;
 
 const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting; gameConfigs?: GameConfigs }> = (
     props
@@ -24,6 +26,13 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     const { t } = useTranslation();
     const dropdownPosition = !props.gameId && isMobile ? "left" : "right";
 
+    const updateSettings = (stake: number, enabled: boolean) => {
+        props.updateBetSetting({ betStake: stake, enabledQuickBet: enabled }, props.gameId);
+
+        setBetStake(stake);
+        setEnabledQuickBet(enabled);
+    };
+
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
         setDropdownOpen(!dropdownOpen);
@@ -31,27 +40,8 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
 
     const onClickReset = (e: React.MouseEvent) => {
         e.stopPropagation();
-        props.updateBetSetting({ betStake: 0, enabledQuickBet: false }, props.gameId);
+        updateSettings(0, false);
         setDropdownOpen(false);
-    };
-
-    const handleClickOutside = (event) => {
-        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-            setDropdownOpen(false);
-
-            setBetStake(props.betSettings?.betStake ?? 0);
-            setEnabledQuickBet(props.betSettings?.enabledQuickBet);
-        }
-
-        if (showBetStakeTooltip && betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
-            setShowBetStakeTooltip(false);
-        }
-
-        if (showQuickBetTooltip && quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
-            setShowQuickBetTooltip(false);
-        }
-
-        setErrorMessage("");
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,15 +78,16 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
             failureCase.action && failureCase.action();
             setErrorMessage(failureCase.message);
         } else {
-            props.updateBetSetting({ betStake, enabledQuickBet }, props.gameId);
+            updateSettings(betStake, enabledQuickBet);
             setDropdownOpen(false);
         }
     };
 
     const onClickChip = (e: React.MouseEvent) => {
         e.stopPropagation();
+        const newBetStake = betStake || props.gameConfigs.minbet;
 
-        props.updateBetSetting({ betStake: betStake || props.gameConfigs.minbet, enabledQuickBet: !enabledQuickBet }, props.gameId);
+        updateSettings(newBetStake, !enabledQuickBet);
     };
 
     const onDeleteStake = (e: React.MouseEvent) => {
@@ -122,17 +113,35 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         e.stopPropagation();
     };
 
-    useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [wrapperRef]);
+    const handleClickOutside = (event) => {
+        if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            setDropdownOpen(false);
+
+            const settings = getSessionStorageItem<BetSettingStorage>(betSettingsStorageKey);
+            const gameSettings = props.gameId ? settings[props.gameId] : settings["global"];
+            setBetStake(gameSettings?.betStake ?? 0);
+            setEnabledQuickBet(gameSettings?.enabledQuickBet);
+        }
+
+        if (showBetStakeTooltip && betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
+            setShowBetStakeTooltip(false);
+        }
+
+        if (showQuickBetTooltip && quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+            setShowQuickBetTooltip(false);
+        }
+
+        setErrorMessage("");
+    };
 
     useEffect(() => {
-        setBetStake(props.betSettings?.betStake ?? 0);
-        setEnabledQuickBet(props.betSettings?.enabledQuickBet);
-    }, [props.betSettings?.enabledQuickBet, props.betSettings?.betStake]);
+        const registerFunc = handleClickOutside.bind(this);
+
+        document.addEventListener("mousedown", registerFunc);
+        return () => {
+            document.removeEventListener("mousedown", registerFunc);
+        };
+    }, [wrapperRef]);
 
     return (
         <div className={Styles["game-menu"]} onClick={stopPropagation} ref={wrapperRef}>
