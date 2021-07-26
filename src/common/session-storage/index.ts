@@ -1,5 +1,6 @@
 export const SessionStorageKeys = {
     betSetting: "bet-settings",
+    buildVersion: "build-version",
 };
 
 export function removeSessionStorageItem(key: string) {

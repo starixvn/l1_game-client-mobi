@@ -89,6 +89,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
+
+        const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
+        if (appSettings.buildVersion !== buildVersion) {
+            storeSessionStorageItem(SessionStorageKeys.buildVersion, appSettings.buildVersion);
+            window.location.reload(true);
+        }
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
