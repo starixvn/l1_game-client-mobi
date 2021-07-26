@@ -38,7 +38,7 @@ function Home() {
 
             signIn();
         }
-    }, [router.isReady]);
+    }, [router, locale, token]);
 
     const workerRef = useRef(null);
 

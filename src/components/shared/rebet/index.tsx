@@ -11,6 +11,7 @@ import { numberWithCommas } from "../../../helpers/number-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 
 const Rebet: React.FC<Props> = (props) => {
+    const { onCloseModal } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
     const rebetInfo = rebetStorage[props.gameId];
@@ -26,40 +27,40 @@ const Rebet: React.FC<Props> = (props) => {
     const [isSubmit, updateIsSummit] = useState(false);
 
     useEffect(() => {
+        const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
+            if (betTrack[betChoice]) {
+                betTrack[betChoice] = {
+                    state: endBet > 0 ? BetState.Success : BetState.Error,
+                    messages: {
+                        gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
+                        roundId: notice?.gameRoundId || apiError?.gameRoundId,
+                        message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
+                        errorCode: notice?.errorCode || apiError?.errorCode,
+                        minBet: notice?.minBet || apiError?.minBet,
+                        maxBet: notice?.maxBet || apiError?.maxBet,
+                    },
+                    validAmount: endBet > 0 ? endBet : 0,
+                };
+
+                if (checkBetFinish(betTrack)) {
+                    const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
+
+                    updateIsWaiting(false);
+                    gameActionContext.finishProcessingBet();
+                    totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
+                    !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && onCloseModal();
+                }
+                updateBetTrack(betTrack);
+            }
+        };
+
+        const checkBetFinish = (betTrack: { [key: string]: BetTrackModel }) =>
+            !Object.values(betTrack).some((betTrackInfo) => betTrackInfo.state === BetState.Waiting);
+
         const listenerId = gameActionContext.registerMessageHandler("endBet", handleEndBetMessage.bind(this));
 
         return () => gameActionContext.unsubscribeMessageHandler(listenerId);
-    }, []);
-
-    const handleEndBetMessage = ({ endBet, betChoice, notice, apiError }) => {
-        if (betTrack[betChoice]) {
-            betTrack[betChoice] = {
-                state: endBet > 0 ? BetState.Success : BetState.Error,
-                messages: {
-                    gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
-                    roundId: notice?.gameRoundId || apiError?.gameRoundId,
-                    message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
-                    errorCode: notice?.errorCode || apiError?.errorCode,
-                    minBet: notice?.minBet || apiError?.minBet,
-                    maxBet: notice?.maxBet || apiError?.maxBet,
-                },
-                validAmount: endBet > 0 ? endBet : 0,
-            };
-
-            if (checkBetFinish(betTrack)) {
-                const totalSuccessBetAmount = Object.values(betTrack).reduce((total, bet) => total + bet.validAmount, 0);
-
-                updateIsWaiting(false);
-                gameActionContext.finishProcessingBet();
-                totalSuccessBetAmount > 0 && gameActionContext.playAcceptedBetAnimation(totalSuccessBetAmount);
-                !Object.values(betTrack).some((bet) => bet.state !== BetState.Success) && props.onCloseModal();
-            }
-            updateBetTrack(betTrack);
-        }
-    };
-
-    const checkBetFinish = (betTrack: { [key: string]: BetTrackModel }) =>
-        !Object.values(betTrack).some((betTrackInfo) => betTrackInfo.state === BetState.Waiting);
+    }, [betTrack, gameActionContext, gameName, onCloseModal, t]);
 
     const renderLastRoundBet = () => {
         return lastBetChoices
@@ -120,7 +121,7 @@ const Rebet: React.FC<Props> = (props) => {
     };
 
     const handleCloseModal = () => {
-        props.onCloseModal();
+        onCloseModal();
     };
 
     return (

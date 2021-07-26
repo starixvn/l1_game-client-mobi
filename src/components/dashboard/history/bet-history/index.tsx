@@ -189,16 +189,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return _columns;
     };
 
-    const fetchBetHistory = (betHistory) => {
-        if (betHistory && betHistory.betLogs.length > 0) {
-            const data = betHistory.betLogs;
-            setListBetHistory([...listBetHistory, ...data]);
-            setColumns(createColumns());
-            setIsFetchingData(false);
-            setIsInfiniteLoading(false);
-        }
-    };
-
     const onInfiniteLoad = () => {
         setIsInfiniteLoading(true);
         if (page + 1 <= totalPage && !isFetchingData) {
@@ -228,6 +218,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     clearSession();
                     router.push("/timeout");
                 }
+            }
+        };
+
+        const fetchBetHistory = (betHistory) => {
+            if (betHistory && betHistory.betLogs.length > 0) {
+                const data = betHistory.betLogs;
+                setListBetHistory([...listBetHistory, ...data]);
+                setColumns(createColumns());
+                setIsFetchingData(false);
+                setIsInfiniteLoading(false);
             }
         };
 

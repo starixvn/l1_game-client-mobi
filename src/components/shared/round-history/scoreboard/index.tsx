@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Styles from "./round-history.module.scss";
 
@@ -8,10 +8,7 @@ type Props = {
 
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    let scrollLeftWidth = 0;
-    let mouseDown = false;
-    let startX, scrollLeft;
-    let isScrollEndRight = true;
+    const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
 
     const handleTouchEnd = (e) => {
         updateScrollEndRight(e);
@@ -22,6 +19,10 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     useEffect(() => {
+        const wrapperRefCurrent = wrapperRef?.current;
+        let mouseDown = false;
+        let startX, scrollLeft;
+
         const startDragging = (e) => {
             mouseDown = true;
             startX = e.pageX - e.target.offsetLeft;
@@ -30,7 +31,7 @@ const ScoreboardRoundHistory = (props: Props) => {
 
         const stopDragging = (e) => {
             mouseDown = false;
-            updateScrollEndRight(e);
+            isScrollEndRight = e.target.scrollLeft === scrollLeftWidth;
         };
 
         const handleDragging = (e) => {
@@ -43,22 +44,22 @@ const ScoreboardRoundHistory = (props: Props) => {
             }
         };
 
-        if (wrapperRef.current) {
-            wrapperRef.current.addEventListener("mousedown", startDragging);
-            wrapperRef.current.addEventListener("mouseup", stopDragging);
-            wrapperRef.current.addEventListener("mouseleave", stopDragging);
-            wrapperRef.current.addEventListener("mousemove", handleDragging);
+        if (wrapperRefCurrent) {
+            wrapperRefCurrent.addEventListener("mousedown", startDragging);
+            wrapperRefCurrent.addEventListener("mouseup", stopDragging);
+            wrapperRefCurrent.addEventListener("mouseleave", stopDragging);
+            wrapperRefCurrent.addEventListener("mousemove", handleDragging);
         }
 
         return () => {
-            if (wrapperRef.current) {
-                wrapperRef.current.removeEventListener("mousedown", startDragging);
-                wrapperRef.current.removeEventListener("mouseup", stopDragging);
-                wrapperRef.current.removeEventListener("mouseleave", stopDragging);
-                wrapperRef.current.removeEventListener("mousemove", handleDragging);
+            if (wrapperRefCurrent) {
+                wrapperRefCurrent.removeEventListener("mousedown", startDragging);
+                wrapperRefCurrent.removeEventListener("mouseup", stopDragging);
+                wrapperRefCurrent.removeEventListener("mouseleave", stopDragging);
+                wrapperRefCurrent.removeEventListener("mousemove", handleDragging);
             }
         };
-    }, []);
+    }, [scrollLeftWidth]);
 
     useEffect(() => {
         if (isScrollEndRight && wrapperRef?.current?.children[0]) {
@@ -66,9 +67,9 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         if (wrapperRef.current) {
-            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
+            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0));
         }
-    }, [wrapperRef?.current?.children[0]?.scrollWidth]);
+    }, [wrapperRef?.current?.children, scrollLeftWidth]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>

@@ -15,7 +15,7 @@ const ResultDetail: React.FC<{ renderSettlementInfo: Function; timeToShowInSecon
         return () => {
             clearTimeout(timeOut);
         };
-    }, []);
+    }, [props.timeToShowInSecond]);
 
     return (
         <div className={`${Styles["result-detail-container"]} ${bindHideAnimationClass ? Styles["hide-result-animation"] : ""}`}>
