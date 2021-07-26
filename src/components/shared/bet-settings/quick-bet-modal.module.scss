@@ -13,10 +13,6 @@
 .game-menu {
     display: flex;
     align-items: center;
-
-    &:hover {
-        cursor: pointer;
-    }
 }
 
 .quick-bet-info {
@@ -145,6 +141,7 @@
         align-items: center;
         justify-content: flex-end;
         font-size: 2rem;
+        cursor: pointer;
 
         @media (min-width: 768px) {
             font-size: 1.8rem;
@@ -244,6 +241,7 @@
         border-radius: 0.5rem;
         font: 600 1.5rem var(--font-number);
         color: #3c5c95;
+        cursor: pointer;
     }
 }
 

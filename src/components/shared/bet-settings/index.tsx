@@ -103,6 +103,10 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
         setShowQuickBetTooltip(true);
     };
 
+    const stopPropagation = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
+
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -116,7 +120,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     }, [props.betSettings]);
 
     return (
-        <div className={Styles["game-menu"]}>
+        <div className={Styles["game-menu"]} onClick={stopPropagation}>
             {props.gameId && (
                 <div className={`game-header-button ${Styles["quick-bet-info"]}`}>
                     {enabledQuickBet ? (
