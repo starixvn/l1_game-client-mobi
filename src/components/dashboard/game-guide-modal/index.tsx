@@ -18,7 +18,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel }
     };
 
     return (
-        <BaseDialog onCloseModal={closeModal}>
+        <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={Styles["popup-container"]}>
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>

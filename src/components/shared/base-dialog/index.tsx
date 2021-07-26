@@ -12,7 +12,8 @@ type Props = {
     children?: React.ReactNode;
     type?: ModalType;
     betContainerPosition?: number;
-    isCloseOutside?: true;
+    isCloseOutside?: boolean;
+    enableBackdrop?: boolean;
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -21,6 +22,7 @@ const BaseDialog: React.FC<Props> = ({
     isOpen = true,
     type = ModalType.Full,
     betContainerPosition,
+    enableBackdrop,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -51,13 +53,16 @@ const BaseDialog: React.FC<Props> = ({
     }, [wrapperRef]);
 
     return (
-        <div
-            style={getCustomStyle()}
-            ref={wrapperRef}
-            className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
-        >
-            {children}
-        </div>
+        <>
+            {enableBackdrop && <div className={Styles["modal-backdrop"]}></div>}
+            <div
+                style={getCustomStyle()}
+                ref={wrapperRef}
+                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
+            >
+                {children}
+            </div>
+        </>
     );
 };
 

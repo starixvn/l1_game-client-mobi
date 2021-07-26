@@ -39,7 +39,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
     };
 
     return (
-        <BaseDialog onCloseModal={closeModal}>
+        <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={`w-100 ${Styles["popup-container"]}`}>
                 <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
