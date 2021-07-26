@@ -9,6 +9,4 @@ export interface Props {
     globalBetSetting: BetSetting;
     toggleGuideModal: Function;
     toggleHistoryModal: Function;
-    isShowHistory: boolean;
-    isShowGuide: boolean;
 }

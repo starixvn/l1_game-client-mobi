@@ -83,11 +83,9 @@ const BaseDialog: React.FC<Props> = ({
             gameBaseContainerRect = gameBaseContainerRef.current.getBoundingClientRect(),
             betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
             gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
-
-        let popupBottom = gameContainerRect.bottom - gameBaseContainerRect.bottom - gameHeaderRect.height - eventPosition.height;
-
-        let popupLeft = Math.round(betContainerRect.left - eventPosition.left);
-        let popupRight = Math.round(eventPosition.right - betContainerRect.right);
+        const popupBottom = gameContainerRect.bottom - gameBaseContainerRect.bottom - gameHeaderRect.height - eventPosition.height;
+        const popupLeft = Math.round(betContainerRect.left - eventPosition.left);
+        const popupRight = Math.round(eventPosition.right - betContainerRect.right);
 
         if (popupBottom > 0) {
             if (popupLeft === 0) {
