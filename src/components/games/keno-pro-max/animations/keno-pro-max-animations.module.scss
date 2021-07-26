@@ -9,12 +9,17 @@ $number-count: 20;
     background-color: #ffdea9;
     width: 28.8rem;
     border-radius: 2rem;
+    transition: height 0.2s ease;
 
     .result {
+        position: relative;
+        z-index: 1;
         display: grid;
         grid-template-columns: 1fr 9rem;
         justify-content: center;
         align-items: center;
+        border-radius: 2rem;
+        background-color: #ffdea9;
     }
 
     .number-container {
@@ -137,6 +142,11 @@ $number-count: 20;
             }
         }
     }
+
+    .settle-info {
+        margin-top: -5.5rem;
+        animation: show-settle-info 0.6s 2.5s ease forwards;
+    }
 }
 
 @keyframes hide-number-cover-animation {
@@ -176,6 +186,16 @@ $number-count: 20;
 
     100% {
         opacity: 1;
+    }
+}
+
+@keyframes show-settle-info {
+    from {
+        margin-top: -5.5rem;
+    }
+
+    to {
+        margin-top: 0;
     }
 }
 
