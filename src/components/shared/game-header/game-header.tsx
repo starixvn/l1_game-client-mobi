@@ -104,7 +104,7 @@ const HeaderRight = ({ displayMenu }) => {
                     <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
                 </button>
             )}
-            {displayMenu && (
+            {viewMode !== ViewMode.collapse && displayMenu && (
                 <BetSettings
                     gameId={gameId}
                     betSettings={systemContext.betSettings[gameId]}
