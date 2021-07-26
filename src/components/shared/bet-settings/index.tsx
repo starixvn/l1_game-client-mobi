@@ -37,6 +37,9 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
     const handleClickOutside = (event) => {
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
+
+            setBetStake(props.betSettings?.betStake ?? 0);
+            setEnabledQuickBet(props.betSettings?.enabledQuickBet);
         }
 
         if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
