@@ -52,6 +52,18 @@ const BaseDialog: React.FC<Props> = ({
         };
     }, [wrapperRef]);
 
+    useEffect(() => {
+        if (enableBackdrop) {
+            document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+            if (enableBackdrop) {
+                document.body.style.overflow = "auto";
+            }
+        };
+    }, []);
+
     return (
         <>
             {enableBackdrop && <div className={Styles["modal-backdrop"]}></div>}
