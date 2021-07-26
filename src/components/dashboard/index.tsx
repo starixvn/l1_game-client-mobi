@@ -309,6 +309,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                             globalBetSetting={this.globalBetSetting}
                             toggleHistoryModal={this.toggleHistoryModal}
                             toggleGuideModal={this.toggleGuideModal}
+                            isShowHistory={isShowHistory}
+                            isShowGuide={isShowGuide}
                         />
                     </div>
                 )}

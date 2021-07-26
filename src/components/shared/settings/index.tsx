@@ -17,7 +17,15 @@ export const Settings: React.FC<Props> = (props) => {
         onToggleSound,
         enabledSound,
         toggleGuideModal,
+        isShowGuide,
+        isShowHistory,
     } = props;
+
+    const onHistoryClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        e.preventDefault();
+        !isShowHistory && toggleHistoryModal();
+    };
 
     return (
         <div className={styles["settings-container"]}>
@@ -37,7 +45,7 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     id="ticket-history"
                     className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => toggleHistoryModal()}
+                    onClick={onHistoryClick}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
                 </div>

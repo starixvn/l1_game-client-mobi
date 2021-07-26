@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import appSettings from "../../../common/app-settings";
-import { GameResourceKeys } from "../../../common/resources";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
 import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
 import SeDieBetHistory from "../../games/se-die/bet-history";
 import BaseDialog from "../../shared/base-dialog";
+import { GameSelector } from "../../shared/game-selector";
 import Styles from "./history.module.scss";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
     const { t } = useTranslation();
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
-
-    const handleChangeGame = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedGameId(+e.target.value);
-    };
 
     const closeModal = () => {
         onCloseModal();
@@ -45,15 +41,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
-                    <div className={Styles["select"]}>
-                        <select className={Styles["form-control"]} value={selectedGameId} onChange={handleChangeGame}>
-                            {appSettings.offeredGames.map((id) => (
-                                <option value={id} key={id}>
-                                    {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
+                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} />
                 </div>
                 <div className={`w-100 ${Styles["history-content"]}`}>{renderHistory()}</div>
             </div>
