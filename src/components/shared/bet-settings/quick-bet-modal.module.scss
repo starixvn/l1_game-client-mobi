@@ -37,10 +37,16 @@
     }
 
     .selected-bet-stake {
-        line-height: 1.2rem;
+        position: relative;
+        top: -0.1rem;
         text-align: center;
         font: 1.1rem var(--font-number);
         color: #fff;
+    }
+
+    .chip-active {
+        position: relative;
+        top: 0.1rem;
     }
 }
 
