@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
-import { GameConfigs } from "../game-base/type";
+import { GameConfigs, GameState } from "../game-base/type";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting, BetSettingStorage } from "./type";
 
@@ -11,9 +11,13 @@ const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 const MaxInputValue = 99999;
 const betSettingsStorageKey = SessionStorageKeys.betSetting;
 
-const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSettings: BetSetting; gameConfigs?: GameConfigs }> = (
-    props
-) => {
+const BetSettings: React.FC<{
+    gameId?: number;
+    updateBetSetting: Function;
+    betSettings: BetSetting;
+    gameConfigs?: GameConfigs;
+    isDisabled?: boolean;
+}> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const betStakeHintRef = useRef<HTMLDivElement>(null);
     const quickBetHintRef = useRef<HTMLDivElement>(null);
@@ -192,7 +196,7 @@ const BetSettings: React.FC<{ gameId?: number; updateBetSetting: Function; betSe
                     </div>
                 )}
 
-                {dropdownOpen && (
+                {dropdownOpen && !props.isDisabled && (
                     <div className={`dropdown-menu ${Styles["quick-bet-form"]} show ${dropdownPosition}`}>
                         <div className={Styles["title"]}>{t("quickBet")}</div>
                         <div className={Styles["bet-settings"]}>

@@ -110,6 +110,7 @@ const HeaderRight = ({ displayMenu }) => {
                     betSettings={systemContext.betSettings[gameId]}
                     updateBetSetting={systemContext.updateBetSetting}
                     gameConfigs={gameConfigs}
+                    isDisabled={gameState === GameState.Disabled}
                 />
             )}
         </div>
