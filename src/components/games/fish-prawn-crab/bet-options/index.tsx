@@ -6,6 +6,7 @@ import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
+import { GameConfigs, GameSettings } from "../../../shared/game-base/type";
 
 const Choices = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
 
@@ -59,32 +60,14 @@ const renderBetOptionByChoice = (
     gameState: GameState,
     settlementResult: SettlementResult,
     countsAppearDice: object,
-    isShowWinningEffect: boolean
+    isShowWinningEffect: boolean,
+    gameConfigs: GameConfigs,
+    gameSetting: GameSettings,
+    isShowCountOfDice: boolean
 ) => {
-    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
     const classCount = renderHighLightNumber(choice, countsAppearDice);
-    const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
-
-    const actionByGameState = {
-        [GameState.LockingBet]: () => {
-            setIsShowCountOfDice(false);
-        },
-        [GameState.DisplayResult]: () => {
-            setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
-        },
-        [GameState.InRound]: () => {
-            setIsShowCountOfDice(true);
-        },
-        [GameState.BeforeStartRound]: () => {
-            setIsShowCountOfDice(true);
-        },
-    };
-
-    useEffect(() => {
-        actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState]);
 
     return (
         <BetOption
@@ -108,6 +91,7 @@ const renderBetOptionByChoice = (
 const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, result, isShowWinningEffect } = props;
     const countsAppearDice = {};
+    const { gameConfigs, gameSetting } = useGameContext();
 
     if (result) {
         Object.values(result).forEach((value) => {
@@ -115,10 +99,41 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
         });
     }
 
+    const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
+    const actionByGameState = {
+        [GameState.LockingBet]: () => {
+            setIsShowCountOfDice(false);
+        },
+        [GameState.DisplayResult]: () => {
+            setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
+        },
+        [GameState.InRound]: () => {
+            setIsShowCountOfDice(true);
+        },
+        [GameState.BeforeStartRound]: () => {
+            setIsShowCountOfDice(true);
+        },
+    };
+
+    useEffect(() => {
+        actionByGameState[gameState] && actionByGameState[gameState]();
+    }, [gameState]);
+
     return (
         <div className={`${Styles["layout-FPC"]}`}>
             {Choices.map((choice, index) => (
-                <div key={index}>{renderBetOptionByChoice(choice, gameState, settlementResult, countsAppearDice, isShowWinningEffect)}</div>
+                <div key={index}>
+                    {renderBetOptionByChoice(
+                        choice,
+                        gameState,
+                        settlementResult,
+                        countsAppearDice,
+                        isShowWinningEffect,
+                        gameConfigs,
+                        gameSetting,
+                        isShowCountOfDice
+                    )}
+                </div>
             ))}
         </div>
     );

@@ -43,7 +43,7 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
         <IconColumn key={roundId}>
             {result.map((value: Cards, index) => {
                 return (
-                    <div className={Styles["score-board-item"]}>
+                    <div key={`${roundId}_${index}`} className={Styles["score-board-item"]}>
                         <div className={Styles["symbol-size"]}>
                             <img
                                 src={`/static/images/card-${SuitIcons[value.suit]}.png`}
