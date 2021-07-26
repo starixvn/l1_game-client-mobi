@@ -758,6 +758,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return false;
     }
 
+    getRoundHistoryTabStyles() {
+        return "";
+    }
+
     renderGame() {
         const { durations } = this.props;
 
@@ -833,7 +837,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
-                            <div className={`${Styles["mini-round-history"]} d-flex`}>
+                            <div className={`${Styles["mini-round-history"]} d-flex ${this.getRoundHistoryTabStyles()}`}>
                                 {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
                             </div>
                             {viewMode === ViewMode.full && (

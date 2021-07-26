@@ -7,5 +7,6 @@
     "hearts": "Hearts",
     "spades": "Spades",
     "blackTextDot": "B",
-    "redTextDot": "R"
+    "redTextDot": "R",
+    "suits": "Suits"
 }

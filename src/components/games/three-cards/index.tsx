@@ -14,6 +14,8 @@ import { ScoreboardRule } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic from "./statistic";
 import { Choices } from "./three-cards-helper";
+import TabsComponent from "./tabs";
+import Styles from "./three-cards.module.scss";
 
 class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -38,15 +40,22 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         );
     }
 
+    getRoundHistoryTabStyles() {
+        return Styles["round-history-tabs"];
+    }
+
     renderRoundHistory() {
         const { gameState, roundHistory } = this.state;
         return (
-            <ChainRoundHistory
-                roundHistory={roundHistory}
-                gameState={gameState}
-                renderGameDot={RenderThreeCardsDot}
-                renderRoundDetail={RenderRoundDetail}
-            ></ChainRoundHistory>
+            <>
+                <ChainRoundHistory
+                    roundHistory={roundHistory}
+                    gameState={gameState}
+                    renderGameDot={RenderThreeCardsDot}
+                    renderRoundDetail={RenderRoundDetail}
+                ></ChainRoundHistory>
+                <TabsComponent></TabsComponent>
+            </>
         );
     }
 

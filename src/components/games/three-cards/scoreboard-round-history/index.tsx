@@ -26,11 +26,7 @@ export const GetElementRound = (
 };
 
 export const CheckCondition = (settlementResult: SettlementResult) => {
-    let value = 0;
-    if (settlementResult.black) {
-        value = 1;
-    }
-    return value;
+    return settlementResult.black ? 1 : 0;
 };
 
 export const GetElementRoundRedBlack = (
@@ -62,6 +58,35 @@ export const CheckConditionRedBlack = (settlementResult: SettlementResult) => {
     return settlementResult.red ? choiceValueMapping.red : choiceValueMapping.black;
 };
 
-export const ScoreboardRule = [{ elementRound: GetElementRoundRedBlack, condition: CheckConditionRedBlack }];
+const Suites = ["diamonds", "hearts", "spades", "clubs"];
+export const GetElementRoundSuits = (
+    result: Result,
+    col: number,
+    row: number,
+    roundId: number,
+    translateDotTextMapping: object,
+    gameSetting: GameBaseProps,
+    settlementResult: SettlementResult
+) => {
+    return (
+        <RoundDotGrid key={`${roundId}_${gameSetting.id}`} choice={GetNameFromChoice(settlementResult)} col={col} row={row}></RoundDotGrid>
+    );
+};
+
+export const GetNameFromChoice = (settlementResult: SettlementResult) => {
+    let choiceValue = Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
+    return choiceValue;
+};
+
+export const CheckConditionSuits = (settlementResult: SettlementResult) => {
+    let choiceValue = GetNameFromChoice(settlementResult);
+    return Suites.indexOf(choiceValue);
+};
+
+export const ScoreboardRule = [
+    { elementRound: GetElementRoundRedBlack, condition: CheckConditionRedBlack },
+    { elementRound: GetElementRoundSuits, condition: CheckConditionSuits },
+];
+
 
 export default GetElementRound;
