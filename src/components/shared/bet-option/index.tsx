@@ -33,6 +33,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
+    const betChoiceRef = useRef<HTMLDivElement>(null);
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -71,6 +72,7 @@ const BetOption: React.FunctionComponent<Props> = ({
                     isHighlight && isShowWinningEffect && Styles["winning-effect"]
                 }`}
                 onClick={onClickBet}
+                ref={betChoiceRef}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 

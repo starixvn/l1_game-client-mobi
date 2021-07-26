@@ -574,6 +574,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
+    isOverflown = ({ clientWidth, clientHeight, scrollWidth, scrollHeight }) => {
+        return scrollHeight > clientHeight || scrollWidth > clientWidth;
+    };
+
     renderPlaceBet() {
         const { displayPopup, selectedBetChoice, roundId, eventPosition } = this.state;
         const { gameName } = this.props;
