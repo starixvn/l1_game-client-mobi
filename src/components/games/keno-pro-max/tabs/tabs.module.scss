@@ -23,16 +23,20 @@
             &.tabs-active {
                 color: var(--tabs-active-type-color);
                 position: relative;
-                &:before{
-                    content: '';
+                &:before {
+                    content: "";
                     border-left: 6px solid transparent;
-                    border-right: 6px solid transparent;                    
+                    border-right: 6px solid transparent;
                     border-bottom: 6px solid var(--tabs-active-type-color);
                     position: absolute;
                     top: 1.7rem;
-                    left: -.4rem;
+                    left: -0.4rem;
                     margin-left: 50%;
                 }
+            }
+
+            &:hover {
+                cursor: pointer;
             }
         }
     }

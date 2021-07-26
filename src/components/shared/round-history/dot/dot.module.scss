@@ -196,46 +196,76 @@
     }
 }
 
+%icon-keno-promax {
+    content: "";
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-repeat: no-repeat;
+    background-size: 1.2rem 1.2rem;
+}
+
 .dot-gold {
     @extend %dot;
-    background: #ff9a00;
-    box-shadow: var(--bigSmall-dot-small-shadow);
+    background: var(--keno-pro-dot-gold-border);
+    box-shadow: var(--keno-pro-dot-gold-shadow);
     &:before {
-        background: #ff9a00;
+        background: var(--keno-pro-dot-gold-background);
+    }
+
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-gold.svg);
     }
 }
 
 .dot-wood {
     @extend %dot;
-    background: #18b43b;
-    box-shadow: var(--bigSmall-dot-small-shadow);
+    background: var(--keno-pro-dot-wood-border);
+    box-shadow: var(--keno-pro-dot-wood-shadow);
     &:before {
-        background: #18b43b;
+        background: var(--keno-pro-dot-wood-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-wood.svg);
     }
 }
 .dot-water {
     @extend %dot;
-    background: #3b7bc6;
-    box-shadow: var(--bigSmall-dot-small-shadow);
+    background: var(--keno-pro-dot-water-border);
+    box-shadow: var(--keno-pro-dot-water-shadow);
     &:before {
-        background: #3b7bc6;
+        background: var(--keno-pro-dot-water-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-water.svg);
     }
 }
 .dot-fire {
     @extend %dot;
-    background: #ff4352;
-    box-shadow: var(--bigSmall-dot-small-shadow);
+    background: var(--keno-pro-dot-fire-border);
+    box-shadow: var(--keno-pro-dot-fire-shadow);
     &:before {
-        background: #ff4352;
+        background: var(--keno-pro-dot-fire-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-fire.svg);
     }
 }
 
 .dot-earth {
     @extend %dot;
-    background: #ba5600;
-    box-shadow: var(--bigSmall-dot-small-shadow);
+    background: var(--keno-pro-dot-earth-border);
+    box-shadow: var(--keno-pro-dot-earth-shadow);
     &:before {
-        background: #ba5600;
+        background: var(--keno-pro-dot-earth-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-earth.svg);
     }
 }
 
