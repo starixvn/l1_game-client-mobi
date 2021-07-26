@@ -22,14 +22,8 @@
     --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
 }
 
-.modal-backdrop {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #cbcbcb;
-    opacity: 0.7;
-    z-index: calc(var(--popup-guide-history-index) - 1);
+.overlay {
+    top: -0.8rem !important;
 }
 
 .popup {

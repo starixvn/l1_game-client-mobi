@@ -66,7 +66,7 @@ const BaseDialog: React.FC<Props> = ({
 
     return (
         <>
-            {enableBackdrop && <div className={Styles["modal-backdrop"]}></div>}
+            {enableBackdrop && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
             <div
                 style={getCustomStyle()}
                 ref={wrapperRef}
