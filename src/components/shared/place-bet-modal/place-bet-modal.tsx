@@ -6,10 +6,11 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { BetSettingStorage } from "../bet-settings/type";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import AdvanceModal from "../advance-modal";
+import BaseDialog from "../base-dialog";
 import { isMobile } from "react-device-detect";
 import { ModalType } from "../base-dialog/type";
 import { numPad } from "./place-bet-constant";
+import { EventPosition } from "../game-base/type";
 import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
 import { useSystemContext } from "../../../contexts/system";
@@ -26,6 +27,10 @@ type Props = {
     onPlaceBet: (betChoice: string, amount: number) => void;
     betChoiceInfo: BetChoiceInfo;
     onCloseModal: Function;
+    eventPosition?: EventPosition;
+    betContainerPosition? : any,
+    gameBaseContainerRef?: any,
+    gameHeaderRef?: any,
 };
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
@@ -43,6 +48,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
 
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipMessage, setTooltipMessage] = useState("");
+    const title = t(GameResourceKeys.GAME_NAME);
+    const subTitle = `#${roundId}`;
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
     let maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
@@ -88,6 +95,14 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     useEffect(() => {
+        window.addEventListener("keyup", handleKeyUp);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUp);
+        };
+    }, []);
+
+    useEffect(() => {
         if (betStake > maxBetPerRound) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
@@ -106,11 +121,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             timeoutIns = setShowTooltip(false);
         }, tooltipTimeout);
 
-        window.addEventListener("keyup", handleKeyUp);
-
         return () => {
             clearTimeout(timeoutIns);
-            window.removeEventListener("keyup", handleKeyUp);
         };
     }, [betStake]);
 
@@ -151,89 +163,109 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     return (
-        <AdvanceModal
-            title={t(GameResourceKeys.GAME_NAME)}
-            subTitle={`#${roundId}`}
-            isOpen={props.isOpen}
-            onCloseModal={closeModal}
-            type={ModalType.PlaceBetForm}
-            gameId={gameSetting.id}
-        >
-            <div className={Styles["place-bet-container"]}>
-                <div className={`w-100 ${Styles["general-info"]}`}>
-                    <div className={Styles["bet-option"]}>{t(betChoice)}</div>
-                    <div className={Styles["odds"]}>1:{odd}</div>
+        <BaseDialog 
+        betContainerPosition={props.betContainerPosition} 
+        isOpen={props.isOpen}
+         onCloseModal={closeModal} 
+         type={ModalType.PlaceBetForm} 
+         eventPosition={props.eventPosition}
+         gameBaseContainerRef={props.gameBaseContainerRef}
+         gameHeaderRef={props.gameHeaderRef}
+         isPlaceBetPopup={true}
+         >
+            <div className={`${Styles.modal}`}>
+                <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
+                    <span className={`icon-close {Styles["icon-close"]}`}></span>
                 </div>
 
-                <div className={`form-group ${Styles["stake"]}`}>
-                    <NumberFormat
-                        readOnly={isMobile}
-                        value={betStake}
-                        allowNegative={false}
-                        className="form-control number"
-                        thousandSeparator={true}
-                        isNumericString={true}
-                        onValueChange={({ value }) => setBetStake(parseInt(value || "0"))}
-                    />
-
-                    <span className="icon-close small" onClick={clearBetStake}></span>
-                    {showTooltip && (
-                        <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
-                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
-                            <div className={`arrow up ${Styles["arrow"]}`}></div>
-                        </div>
-                    )}
-                </div>
-
-                {payouts.map((payout, index) => (
-                    <div className={Styles["payout"]} key={index}>
-                        <label>{payout.text}:</label>
-                        <span className={Styles["highlight"]}>{payout.value}</span>
-                    </div>
-                ))}
-
-                <div className={Styles["bet-chips"]}>
-                    {chips.map((chip, index) => (
-                        <div
-                            className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
-                            key={index}
-                            onClick={(event) => addStakeHandler(event, chip.value)}
-                        >
-                            <img
-                                src={`/static/images/chips/${chip.style}.svg?v=2`}
-                                className={`img-fluid ${Styles["chip"]}`}
-                                width="48"
-                                height="50"
-                                alt="Chip"
-                            />
-                            <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
-                        </div>
-                    ))}
-                </div>
-
-                {isMobile && (
-                    <div className={Styles["numpad-container"]}>
-                        {numPad.map((pad, index) => (
-                            <div
-                                className={Styles["numpad"]}
-                                onClick={(event) =>
-                                    pad.showValue
-                                        ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
-                                        : deleteNumberHandler(event)
-                                }
-                                key={index}
-                            >
-                                {pad.showValue ? pad.value : <span className="icon-delete"></span>}
-                            </div>
-                        ))}
+                {title && (
+                    <div className={Styles["popup-header"]}>
+                        <h1 className={Styles["popup-title"]}>{t(title)}</h1>
+                        {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
                     </div>
                 )}
+                <div
+                    className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""} ${
+                        !title ? Styles["has-empty-title"] : ""
+                    }`}
+                >
+                    <div className={Styles["place-bet-container"]}>
+                        <div className={`w-100 ${Styles["general-info"]}`}>
+                            <div className={Styles["bet-option"]}>{t(betChoice)}</div>
+                            <div className={Styles["odds"]}>1:{odd}</div>
+                        </div>
 
-                <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
-                    {t("common:confirm")}
-                </button>
+                        <div className={`form-group ${Styles["stake"]}`}>
+                            <NumberFormat
+                                readOnly={isMobile}
+                                value={betStake}
+                                allowNegative={false}
+                                className="form-control number"
+                                thousandSeparator={true}
+                                isNumericString={true}
+                                onValueChange={({ value }) => setBetStake(parseInt(value || "0"))}
+                            />
+
+                            <span className="icon-close small" onClick={clearBetStake}></span>
+                            {showTooltip && (
+                                <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
+                                    <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
+                                    <div className={`arrow up ${Styles["arrow"]}`}></div>
+                                </div>
+                            )}
+                        </div>
+
+                        {payouts.map((payout, index) => (
+                            <div className={Styles["payout"]} key={index}>
+                                <label>{payout.text}:</label>
+                                <span className={Styles["highlight"]}>{payout.value}</span>
+                            </div>
+                        ))}
+
+                        <div className={Styles["bet-chips"]}>
+                            {chips.map((chip, index) => (
+                                <div
+                                    className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
+                                    key={index}
+                                    onClick={(event) => addStakeHandler(event, chip.value)}
+                                >
+                                    <img
+                                src={`/static/images/chips/${chip.style}.svg?v=2`}
+                                        className={`img-fluid ${Styles["chip"]}`}
+                                        width="48"
+                                        height="50"
+                                        alt="Chip"
+                                    />
+                                    <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
+                                </div>
+                            ))}
+                        </div>
+
+                        {isMobile && (
+                            <div className={Styles["numpad-container"]}>
+                                {numPad.map((pad, index) => (
+                                    <div
+                                        className={Styles["numpad"]}
+                                        onClick={(event) =>
+                                            pad.showValue
+                                                ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
+                                                : deleteNumberHandler(event)
+                                        }
+                                        key={index}
+                                    >
+                                        {pad.showValue ? pad.value : <span className="icon-delete"></span>}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
+                        <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
+                            {t("common:confirm")}
+                        </button>
+                    </div>
+                </div>
             </div>
-        </AdvanceModal>
+        </BaseDialog>
     );
 };
 

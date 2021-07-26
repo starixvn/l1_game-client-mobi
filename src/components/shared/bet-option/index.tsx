@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useCountUp } from "react-countup";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 
@@ -28,7 +28,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowWinningEffect = false,
 }) => {
     const { totalBets, ownBets, gameSetting } = useGameContext();
-    const { gameName, id } = gameSetting;
+    const { id } = gameSetting;
     const { openPlaceBetModal, placeBet } = useGameActionContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
@@ -52,13 +52,16 @@ const BetOption: React.FunctionComponent<Props> = ({
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
 
-    const onClickBet = () => {
+    const onClickBet = (event: any) => {
         const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
 
-        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
+
+        let {top, bottom, left, right, height} = event.currentTarget.getBoundingClientRect();
+
+        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice, {top, left,  bottom, right, height});
     };
 
     return (

@@ -33,7 +33,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel,  } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
@@ -42,7 +42,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
-    private readonly gameContainerRef = React.createRef<HTMLDivElement>();
+    private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
+    private readonly gameHeaderRef = React.createRef<HTMLDivElement>();
+
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
@@ -73,6 +75,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         playResultAnimation: false,
         isShowBlink: false,
         notice: null,
+        eventPosition: {},
     };
 
     constructor(props: P) {
@@ -508,8 +511,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string) {
-        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice });
+    openPlaceBetModal(betChoice: string, eventPosition: any) {
+        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, eventPosition: eventPosition });
     }
 
     placeBet(betChoice: string, amount: number) {
@@ -555,7 +558,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderReBet() {
-        const betContainerRef = this.gameContainerRef;
+        const betContainerRef = this.gameBaseContainerRef;
         const domRect = betContainerRef.current.getBoundingClientRect();
         const betContainerPosition = domRect.y;
 
@@ -572,7 +575,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, eventPosition } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -580,6 +583,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 isOpen={displayPopup === PopupType.PlaceBet}
                 onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
+                gameHeaderRef={this.gameHeaderRef}
+                gameBaseContainerRef={this.gameBaseContainerRef}
+                eventPosition={eventPosition}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,
                     gameName: gameName,
@@ -768,11 +774,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    <GameHeader />
+                    <div ref={this.gameHeaderRef}>
+                        <GameHeader />
+                    </div>
+
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
-                                <div ref={this.gameContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
+                                <div ref={this.gameBaseContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
                                     {this.renderBetOptions()}
                                 </div>
 

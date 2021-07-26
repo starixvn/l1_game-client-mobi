@@ -70,6 +70,7 @@ export interface GameBaseState<Result, SettlementResult> {
     playResultAnimation: boolean;
     isShowBlink: boolean;
     notice: Notice;
+    eventPosition?: EventPosition;
 }
 
 export interface Notice {
@@ -144,4 +145,12 @@ export interface WinStreakCollectorModel {
 export enum ViewMode {
     full,
     collapse,
+}
+
+export interface EventPosition {
+  top: number,
+  bottom: number,
+  right: number,
+  left: number,
+  height: number
 }
