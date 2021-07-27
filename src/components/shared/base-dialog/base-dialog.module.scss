@@ -125,12 +125,12 @@
                 border-width: 1.4rem;
             }
 
-            &.up {
+            &.down {
                 bottom: 0;
                 transform: rotate(180deg);
             }
 
-            &.down {
+            &.up {
                 top: 0;
             }
         }
