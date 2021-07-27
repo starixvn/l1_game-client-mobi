@@ -165,7 +165,7 @@ function Home() {
 
         const { lang } = router.query;
         const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
-        const locale = languageMapper[(lang as string) ?? userSession.language] ?? router.locale;
+        const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
 
         return <SplashScreen locale={locale}></SplashScreen>;
     } else {
