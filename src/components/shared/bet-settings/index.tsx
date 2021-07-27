@@ -39,6 +39,8 @@ const BetSettings: React.FC<{
 
     const toggle = (e: React.MouseEvent) => {
         e.stopPropagation();
+
+        dropdownOpen && onCloseSettingsModal();
         setDropdownOpen(!dropdownOpen);
     };
 
@@ -117,14 +119,18 @@ const BetSettings: React.FC<{
         e.stopPropagation();
     };
 
+    const onCloseSettingsModal = () => {
+        const settings = getSessionStorageItem<BetSettingStorage>(betSettingsStorageKey) ?? {};
+        const gameSettings = props.gameId ? settings[props.gameId] : settings["global"];
+        setBetStake(gameSettings?.betStake ?? 0);
+        setEnabledQuickBet(gameSettings?.enabledQuickBet);
+    };
+
     const handleClickOutside = (event) => {
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
 
-            const settings = getSessionStorageItem<BetSettingStorage>(betSettingsStorageKey) ?? {};
-            const gameSettings = props.gameId ? settings[props.gameId] : settings["global"];
-            setBetStake(gameSettings?.betStake ?? 0);
-            setEnabledQuickBet(gameSettings?.enabledQuickBet);
+            onCloseSettingsModal();
         }
 
         if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
