@@ -59,5 +59,10 @@
     "globalSettingHint": "Quick Bet function that allows placing bet directly (without confirmation step) with a single click or tap using preset-stake amount for all games.",
     "globalSettingHintConfirm": "OK",
     "on": "ON",
-    "off": "OFF"
+    "off": "OFF",
+    "category-popular": "Popular",
+    "category-favorite": "Favorite",
+    "category-keno": "Keno",
+    "category-dice": "Dice game",
+    "category-card": "Card game"
 }

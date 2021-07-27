@@ -58,5 +58,10 @@
     "globalSettingHint": "Tính năng Cược Nhanh cho phép đặt cược trực tiếp (không cần bước xác nhận) bằng cách chạm hoặc click vào cửa cược, với mức tiền cược được thiết lập sẵn cho toàn bộ game.",
     "globalSettingHintConfirm": "OK",
     "on": "Bật",
-    "off": "Tắt"
+    "off": "Tắt",
+    "category-popular": "Phổ biến",
+    "category-favorite": "Yêu thích",
+    "category-keno": "Keno",
+    "category-dice": "Xúc xắc",
+    "category-card": "Game bài"
 }

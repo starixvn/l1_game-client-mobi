@@ -8,3 +8,20 @@
         margin-right: -0.3rem;
     }
 }
+
+.game-category {
+    display: flex;
+    justify-content: center;
+
+    .category {
+        background-color: #fff;
+        border: #000 solid 1px;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+
+        &.selected {
+            background-color: #3b7bc6;
+        }
+    }
+}
