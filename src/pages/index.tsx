@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -15,6 +16,7 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const { token, lang } = router.query;
     const locale = languageMapper[lang as string] ?? router.locale;
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         const signIn = async () => {
@@ -31,6 +33,8 @@ function Home() {
         };
 
         if (router.isReady) {
+            i18n.changeLanguage(locale);
+
             if (!checkUM()) {
                 router.push("/um", "/um", { locale });
                 return;
@@ -38,7 +42,7 @@ function Home() {
 
             signIn();
         }
-    }, [router, locale, token]);
+    }, [router.isReady]);
 
     const workerRef = useRef(null);
 
