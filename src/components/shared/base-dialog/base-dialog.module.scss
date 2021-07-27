@@ -97,7 +97,6 @@
 
         .arrow {
             position: absolute;
-            left: 50%;
             width: 0;
             height: 0;
 
@@ -132,6 +131,18 @@
 
             &.up {
                 top: 0;
+            }
+
+            &.left {
+                left: 4rem;
+            }
+
+            &.right {
+                right: 4rem;
+            }
+
+            &.center {
+                left: 50%;
             }
         }
     }
