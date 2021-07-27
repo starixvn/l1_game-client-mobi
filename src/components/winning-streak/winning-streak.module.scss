@@ -6,12 +6,12 @@
     text-align: center;
     z-index: calc(var(--header-index) + 2);
     left: 0;
-    top: 5.6rem;
+    top: 0;
 }
 
 .streak-notification {
     position: relative;
-    top: -5.2rem;
+    top: 0.3rem;
     display: flex;
     align-items: center;
     width: fit-content;
