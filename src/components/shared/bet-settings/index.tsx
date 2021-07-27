@@ -127,11 +127,11 @@ const BetSettings: React.FC<{
             setEnabledQuickBet(gameSettings?.enabledQuickBet);
         }
 
-        if (showBetStakeTooltip && betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
+        if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
             setShowBetStakeTooltip(false);
         }
 
-        if (showQuickBetTooltip && quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+        if (quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
             setShowQuickBetTooltip(false);
         }
 
