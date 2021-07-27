@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import appSettings from "../../../common/app-settings";
-import { GameResourceKeys } from "../../../common/resources";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
@@ -14,6 +13,7 @@ import { GameSelector } from "../../shared/game-selector";
 import Styles from "./history.module.scss";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
+    const { gameSettings } = appSettings;
     const { t } = useTranslation();
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
 
@@ -37,7 +37,9 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
                 return <KenoProMaxBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 10:
             case 27:
-                return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return (
+                    <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} gameName={gameSettings[selectedGameId]?.gameName} />
+                );
             case 35:
                 return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
             default:

@@ -1,3 +1,17 @@
+[data-theme="light"] .popup-result-detail {
+    --popup-result-background: #fff;
+    --popup-result-border: #cbcbcb;
+    --popup-result-color: #2c2f3e;
+   
+}
+
+[data-theme="dark"] .popup-result-detail {
+    --popup-result-background: #203040;
+    --popup-result-border: #5a789a;
+    --popup-result-color: #fff;
+   
+}
+
 .list-choices {
     display: flex;
     flex-direction: column;
@@ -41,4 +55,23 @@
 }
 .history-loading {
     text-align: center;
+}
+
+.popup-result-detail {
+    z-index: 300;
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    width: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    min-height: 17.5rem;
+    background: var(--popup-result-background);
+    border: 1px solid var(--popup-result-border);
+    box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: var(--popup-color);
+    overflow-y: auto;
+    z-index: var(--popup-result-index);
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useTranslation } from "next-i18next";
+import { useTranslation, TFunction } from "next-i18next";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { Table } from "react-infinite-table";
@@ -22,6 +22,10 @@ enum OrderRenderCell {
 }
 
 const fontWeightClass = "font-weight-medium";
+
+export const RenderResultContainer: React.FC = ({ children }) => {
+    return <div className={Styles["popup-result-detail"]}>{children}</div>;
+};
 
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className="font-number nowrap">{children}</span>;
@@ -94,9 +98,17 @@ const checkCondition = (
     columnIndex: number,
     rowData: BetLogs,
     isRefund: boolean,
-    renderResult: Function,
-    renderBet: (rowData: BetLogs, translate: Function, odds: object) => {},
-    translate: Function
+    renderResult: (
+        rowData: BetLogs,
+        roundId?: number,
+        setShowResultDetail?: Function,
+        setResultDetail?: Function,
+        translate?: TFunction
+    ) => JSX.Element,
+    renderBet: (rowData: BetLogs, translate: TFunction, odds: object) => {},
+    translate: TFunction,
+    setShowResultDetail: Function,
+    setResultDetail: Function
 ) => {
     const { time, phien, betwin } = rowData;
     const odds = rowData.odds;
@@ -117,7 +129,7 @@ const checkCondition = (
             return renderDataOnCell(<FormatNumber>{phien}</FormatNumber>, isHighligh);
 
         case OrderRenderCell.result:
-            return renderDataOnCell(renderResult(rowData), isHighligh);
+            return renderDataOnCell(renderResult(rowData, phien, setShowResultDetail, setResultDetail, translate), isHighligh);
 
         case OrderRenderCell.choice:
             return renderDataOnCell(renderBet(rowData, translate, odds), isHighligh);
@@ -134,7 +146,7 @@ const checkCondition = (
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, translate, gameId } = props;
+    const { renderResult, isRefund, translate, gameId, gameName, renderResultDetail } = props;
     const router = useRouter();
     let { renderBet } = props;
     if (!props.renderBet) {
@@ -152,6 +164,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
+    const [showResultDetail, setShowResultDetail] = useState<boolean>(false);
+    const [resultDetail, setResultDetail] = useState<any>();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslation("bethistory");
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
@@ -160,8 +174,12 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     };
     const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
+    const closeModalResultDetail = () => {
+        setShowResultDetail(false);
+    };
+
     const cellRenderer = ({ columnIndex, rowData }) => {
-        return checkCondition(columnIndex, rowData, isRefund, renderResult, renderBet, translate);
+        return checkCondition(columnIndex, rowData, isRefund, renderResult, renderBet, translate, setShowResultDetail, setResultDetail);
     };
 
     const headerRenderer = ({ column, className, columnIndex }) => {
@@ -273,6 +291,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
+            {showResultDetail && renderResultDetail(resultDetail, translate, gameName, closeModalResultDetail)}
         </div>
     );
 };
