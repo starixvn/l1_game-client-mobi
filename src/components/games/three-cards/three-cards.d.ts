@@ -21,3 +21,9 @@ export type Odd = {
     red: number;
     spades: number;
 };
+
+export type Odd = {
+    dragon: number;
+    tiger: number;
+    tie: number;
+};

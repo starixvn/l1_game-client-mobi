@@ -1,19 +1,44 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
-
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import BetHistoryContainer from "../../../dashboard/history/bet-history";
-import { RoundDot } from "../../../shared/round-history/dot";
-import { Choices } from "../three-cards-helper";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
+import { Odd } from "../three-cards";
+import Card, { convertCardRankToIndex } from "../../../shared/card";
+import Styles from "./bet-history.module.scss";
+
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
+    if (bet.settlementResult) {
+        const keysChoices = Object.keys(bet.settlementResult);
+        const odds = bet.odds ? bet.odds : mainOdds;
+        return (
+            <div className={Styles["list-choice"]}>
+                {keysChoices &&
+                    keysChoices.map((name, index) => {
+                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
+                        if (bet[name] > 0) {
+                            return (
+                                <div key={index} className={classHighLight}>
+                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
+                                </div>
+                            );
+                        }
+                        return "";
+                    })}
+            </div>
+        );
+    }
+
+    return <></>;
+};
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
-        const countRed = 1;
-        const isBlack = true;
         return (
             <div className="d-flex justify-content-center">
-                <RoundDot choice={isBlack ? Choices.black : Choices.red} value={countRed} />
+                {bet.result.map((r, _) => {
+                    const cardType = { card: convertCardRankToIndex(r.rank) - 1, type: r.suit };
+                    return <Card key={`$card_${r.rank}_${r.suit}`} result={cardType} isSmall={true}></Card>;
+                })}
             </div>
         );
     }
@@ -21,14 +46,14 @@ const renderResult = (bet: BetLogs) => {
 };
 
 const ThreeCardsBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const { t } = useTranslation("threecards");
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}
+            renderBet={(bet: BetLogs, t: Function, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
         ></BetHistoryContainer>
     );
 };

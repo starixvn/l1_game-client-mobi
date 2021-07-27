@@ -117,7 +117,7 @@ class AnimationComponent extends React.PureComponent<
                     currentTotal: elem.state.currentTotal + elem.state.result[numberIndex],
                     currentIndex: elem.state.currentIndex + 1,
                 });
-            }, 100);
+            }, 200);
         } else if (animationInterval) {
             clearInterval(animationInterval);
             this.setState({
