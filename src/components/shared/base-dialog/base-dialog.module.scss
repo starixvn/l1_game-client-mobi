@@ -65,13 +65,14 @@
         @media (min-device-width: 768px) {
             position: fixed;
             top: 5.2rem;
+            border-radius: 0.5rem;
         }
 
         @media (min-width: 900px) {
-            width: 87rem;
-            margin: auto;
             left: calc(50% - 43.5rem);
             right: auto;
+            width: 87rem;
+            margin: auto;
         }
 
         @media (min-width: 768px) and (min-height: 700px) {
