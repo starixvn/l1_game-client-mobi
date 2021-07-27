@@ -2,15 +2,12 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
-import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import { RoundDot } from "../../shared/round-history/dot";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
-import SeDieBetHistory from "./bet-history";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
 import GetElementRound, { CheckCondition } from "./scoreboard-round-history";

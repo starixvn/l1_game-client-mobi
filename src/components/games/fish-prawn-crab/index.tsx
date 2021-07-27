@@ -3,11 +3,9 @@ import { withRouter } from "next/router";
 import React from "react";
 
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
-import AdvanceModal from "../../shared/advance-modal";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
-import FishPrawnCrabBetHistory from "./bet-history";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
