@@ -31,7 +31,29 @@ const renderBetOptionByChoice = (
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
         >
-            <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
+            {choice == Choices.red || choice == Choices.black ? (
+                <div className="w-100">
+                    <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
+                    {choice == Choices.red ? (
+                        <div className={Styles["icon-list"]}>
+                            <img src={`/static/images/three-cards/diamonds.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/hearts.svg`} className={Styles[choice]} height={18} width={18} />
+                        </div>
+                    ) : (
+                        <div className={Styles["icon-list"]}>
+                            <img src={`/static/images/three-cards/spades.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/clubs.svg`} className={Styles[choice]} height={18} width={18} />
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <img
+                    src={`/static/images/three-cards/${choice}.svg`}
+                    className={`${Styles["bet-choice-icon"]} ${Styles[choice]}`}
+                    height={32}
+                    width={32}
+                />
+            )}
         </BetOption>
     );
 };
