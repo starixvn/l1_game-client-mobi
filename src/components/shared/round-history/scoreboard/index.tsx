@@ -21,7 +21,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     useEffect(() => {
         const wrapperRefCurrent = wrapperRef?.current;
         let mouseDown = false;
-        let startX, scrollLeft;
+        let startX: number, scrollLeft: number;
 
         const startDragging = (e) => {
             mouseDown = true;
@@ -31,7 +31,7 @@ const ScoreboardRoundHistory = (props: Props) => {
 
         const stopDragging = (e) => {
             mouseDown = false;
-            isScrollEndRight = e.target.scrollLeft === scrollLeftWidth;
+            updateScrollEndRight(e);
         };
 
         const handleDragging = (e) => {
@@ -44,11 +44,11 @@ const ScoreboardRoundHistory = (props: Props) => {
             }
         };
 
-        if (wrapperRefCurrent) {
-            wrapperRefCurrent.addEventListener("mousedown", startDragging);
-            wrapperRefCurrent.addEventListener("mouseup", stopDragging);
-            wrapperRefCurrent.addEventListener("mouseleave", stopDragging);
-            wrapperRefCurrent.addEventListener("mousemove", handleDragging);
+        if (wrapperRef.current) {
+            wrapperRef.current.addEventListener("mousedown", startDragging);
+            wrapperRef.current.addEventListener("mouseup", stopDragging);
+            wrapperRef.current.addEventListener("mouseleave", stopDragging);
+            wrapperRef.current.addEventListener("mousemove", handleDragging);
         }
 
         return () => {
@@ -59,7 +59,7 @@ const ScoreboardRoundHistory = (props: Props) => {
                 wrapperRefCurrent.removeEventListener("mousemove", handleDragging);
             }
         };
-    }, [scrollLeftWidth]);
+    }, []);
 
     useEffect(() => {
         if (isScrollEndRight && wrapperRef?.current?.children[0]) {
@@ -69,7 +69,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         if (wrapperRef.current) {
             setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0));
         }
-    }, [wrapperRef?.current?.children, scrollLeftWidth]);
+    }, [wrapperRef?.current?.children[0], scrollLeftWidth]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
