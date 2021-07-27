@@ -35,7 +35,6 @@
     box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem 0.5rem 0 0;
     color: var(--popup-color);
-    overflow-y: auto;
     z-index: var(--popup-index);
 
     @media (min-width: 768px) {
@@ -94,6 +93,46 @@
             width: 25rem;
             height: 27rem;
             border-radius: 0.5rem;
+        }
+
+        .arrow {
+            position: absolute;
+            left: 50%;
+            width: 0;
+            height: 0;
+
+            &:after,
+            &:before {
+                border: solid transparent;
+                content: "";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            &:after {
+                left: calc(50% - 0.5rem);
+                top: -2.4rem;
+                border-bottom-color: #fff;
+                border-width: 1.2rem;
+            }
+
+            &:before {
+                top: -2.8rem;
+                left: calc(50% - 0.7rem);
+                border-bottom-color: #cbcbcb;
+                border-width: 1.4rem;
+            }
+
+            &.up {
+                top: 0;
+            }
+
+            &.down {
+                bottom: 0;
+                transform: rotate(180deg);
+            }
         }
     }
 

@@ -134,6 +134,7 @@ const BaseDialog: React.FC<Props> = ({
                 className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
             >
                 {children}
+                {<div className={`${Styles["arrow"]}`}></div>}
             </div>
         </>
     );
