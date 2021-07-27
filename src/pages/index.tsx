@@ -160,7 +160,7 @@ function Home() {
 
     if (loading) {
         const { lang } = router.query;
-        return <SplashScreen locale={languageMapper[lang as string] ?? router.locale}></SplashScreen>;
+        return <SplashScreen locale={languageMapper[lang as string]}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (
