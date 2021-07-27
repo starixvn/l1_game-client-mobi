@@ -159,8 +159,14 @@ function Home() {
     }, []);
 
     if (loading) {
+        if (!router.isReady) {
+            return <></>;
+        }
+
         const { lang } = router.query;
-        return <SplashScreen locale={languageMapper[lang as string]}></SplashScreen>;
+        const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
+
+        return <SplashScreen locale={languageMapper[(lang as string) ?? userSession.language]}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (
