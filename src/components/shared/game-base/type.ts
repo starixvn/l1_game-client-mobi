@@ -152,5 +152,8 @@ export interface EventPosition {
   bottom: number,
   right: number,
   left: number,
-  height: number
+  height: number,
+  width: number,
+  x: number,
+  y: number
 }

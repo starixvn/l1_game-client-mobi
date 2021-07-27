@@ -43,7 +43,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
     private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
-    private readonly gameHeaderRef = React.createRef<HTMLDivElement>();
 
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
@@ -587,7 +586,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 isOpen={displayPopup === PopupType.PlaceBet}
                 onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
-                gameHeaderRef={this.gameHeaderRef}
                 gameBaseContainerRef={this.gameBaseContainerRef}
                 eventPosition={eventPosition}
                 betChoiceInfo={{
@@ -778,10 +776,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    <div ref={this.gameHeaderRef}>
-                        <GameHeader />
-                    </div>
-
+                    <GameHeader />
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>

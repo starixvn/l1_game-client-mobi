@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
-
+import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 import { EventPosition } from "../game-base/type";
@@ -30,11 +29,11 @@ const BaseDialog: React.FC<Props> = ({
     enableBackdrop,
     eventPosition,
     gameBaseContainerRef,
-    gameHeaderRef,
     isPlaceBetPopup = false,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
+    const [style, setStyle] = useState(null);
 
     const getCustomStyle = () => {
         const browserHeight = window.innerHeight;
@@ -48,25 +47,19 @@ const BaseDialog: React.FC<Props> = ({
         return {};
     };
 
-    useEffect(() => {
-        if (!isMobileOnly && isPlaceBetPopup && wrapperRef.current.getBoundingClientRect().bottom > window.innerHeight) {
-            wrapperRef.current.style.top = `${-eventPosition.height}px`;
-            wrapperRef.current.style.bottom = `none`;
+    const handleClickOutside = (event: any) => {
+        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            onCloseModal && onCloseModal();
         }
+    };
 
-        function handleClickOutside(event: any) {
-            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-                onCloseModal && onCloseModal();
-            }
-        }
-
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [wrapperRef]);
+    const buildPopupStyle = () => {
+        return !isMobileOnly && isPlaceBetPopup ? { ...getCustomStyle(), ...ajustPopupPosition() } : getCustomStyle();
+    };
 
     useEffect(() => {
+        setStyle(buildPopupStyle());
+
         if (enableBackdrop) {
             document.body.classList.add("no-scroll");
         }
@@ -78,39 +71,53 @@ const BaseDialog: React.FC<Props> = ({
         };
     }, []);
 
-    const ajustPopupPosition = () => {
-        const gameHeaderRect = gameHeaderRef.current.getBoundingClientRect(),
-            gameBaseContainerRect = gameBaseContainerRef.current.getBoundingClientRect(),
-            betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
+    useEffect(() => {
+        if (!isMobileOnly && isPlaceBetPopup) {
+            ajustPopupPositionDidUpdate();
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
+    const ajustPopupPositionDidUpdate = () => {
+        const bottomMargin = -10,
             gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
-        const popupBottom = gameContainerRect.bottom - gameBaseContainerRect.bottom - gameHeaderRect.height - eventPosition.height;
-        const popupLeft = Math.round(betContainerRect.left - eventPosition.left);
-        const popupRight = Math.round(eventPosition.right - betContainerRect.right);
 
-        if (popupBottom > 0) {
-            if (popupLeft === 0) {
-                return { bottom: `${popupBottom}px`, top: "none", left: `0px`, right: `none` };
-            }
+        if (gameContainerRect.bottom - window.innerHeight > bottomMargin) {
+            const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
+                popupRef = wrapperRef.current,
+                popupTop = eventPosition.y - gameContainerRect.y - popupRef.getBoundingClientRect().height;
 
-            if (popupRight === 0) {
-                return { bottom: `${popupBottom}px`, top: "none", left: `none`, right: "0px" };
-            }
-
-            return { bottom: `${popupBottom}px`, top: "none", left: `0px`, right: "none" };
-        } else {
-            if (popupLeft === 0) {
-                return { bottom: "none", top: `${gameHeaderRect.height}px`, left: `none`, right: `${popupLeft}px` };
-            }
-
-            if (popupRight === 0) {
-                return { bottom: "none", top: `${gameHeaderRect.height}px`, left: `0px`, right: "none" };
-            }
-
-            return { bottom: "none", top: `${gameHeaderRect.height}px`, left: `0px`, right: "none" };
+            let nextStyle = buildPopupStyle();
+            nextStyle.top = `${popupTop}px`;
+            nextStyle.bottom = "none";
+            setStyle(nextStyle);
         }
     };
 
-    const style = !isMobileOnly && isPlaceBetPopup ? { ...getCustomStyle(), ...ajustPopupPosition() } : getCustomStyle();
+    const ajustPopupPosition = () => {
+        const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
+            gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
+            popupRight = Math.round(eventPosition.right - betContainerRect.right);
+
+        let popupStyle = {
+            top: `${eventPosition.y - gameContainerRect.y + eventPosition.height}px`,
+            bottom: "none",
+            left: `${eventPosition.x - gameContainerRect.x}px`,
+            right: "none",
+        };
+
+        if (popupRight === 0) {
+            popupStyle.right = "0px";
+            popupStyle.left = "none";
+        }
+
+        return popupStyle;
+    };
+
     return (
         <>
             {enableBackdrop && !isMobileOnly && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}

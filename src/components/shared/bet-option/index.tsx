@@ -58,11 +58,9 @@ const BetOption: React.FunctionComponent<Props> = ({
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
+        const {top, bottom, left, right, height, width, x, y} = event.currentTarget.getBoundingClientRect();
 
-
-        let {top, bottom, left, right, height} = event.currentTarget.getBoundingClientRect();
-
-        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice, {top, left,  bottom, right, height});
+        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice, {top, left,  bottom, right, height, width, x, y});
     };
 
     return (

@@ -28,9 +28,9 @@ type Props = {
     betChoiceInfo: BetChoiceInfo;
     onCloseModal: Function;
     eventPosition?: EventPosition;
-    betContainerPosition? : any,
-    gameBaseContainerRef?: any,
-    gameHeaderRef?: any,
+    betContainerPosition?: any;
+    gameBaseContainerRef?: any;
+    gameHeaderRef?: any;
 };
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
@@ -95,14 +95,28 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     useEffect(() => {
-        window.addEventListener("keyup", handleKeyUp);
+        setTooltipContent();
 
+        setTimeout(() => {
+            timeoutIns = setShowTooltip(false);
+        }, tooltipTimeout);
+
+        window.addEventListener("keyup", handleKeyUp);
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
+            clearTimeout(timeoutIns);
         };
-    }, []);
+    }, [betStake]);
 
     useEffect(() => {
+        return () => {
+            setShowTooltip(false);
+            setTooltipMessage('');
+            setBetStake(0);
+        };
+    },[])
+
+    const setTooltipContent =() => {
         if (betStake > maxBetPerRound) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
@@ -116,15 +130,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             setBetStake(maxBetChoice);
             return;
         }
-
-        setTimeout(() => {
-            timeoutIns = setShowTooltip(false);
-        }, tooltipTimeout);
-
-        return () => {
-            clearTimeout(timeoutIns);
-        };
-    }, [betStake]);
+    }
 
     const closeModal = () => {
         props.onCloseModal();
@@ -163,16 +169,15 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     return (
-        <BaseDialog 
-        betContainerPosition={props.betContainerPosition} 
-        isOpen={props.isOpen}
-         onCloseModal={closeModal} 
-         type={ModalType.PlaceBetForm} 
-         eventPosition={props.eventPosition}
-         gameBaseContainerRef={props.gameBaseContainerRef}
-         gameHeaderRef={props.gameHeaderRef}
-         isPlaceBetPopup={true}
-         >
+        <BaseDialog
+            betContainerPosition={props.betContainerPosition}
+            isOpen={props.isOpen}
+            onCloseModal={closeModal}
+            type={ModalType.PlaceBetForm}
+            eventPosition={props.eventPosition}
+            gameBaseContainerRef={props.gameBaseContainerRef}
+            isPlaceBetPopup={true}
+        >
             <div className={`${Styles.modal}`}>
                 <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
                     <span className={`icon-close {Styles["icon-close"]}`}></span>
@@ -230,7 +235,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                                     onClick={(event) => addStakeHandler(event, chip.value)}
                                 >
                                     <img
-                                src={`/static/images/chips/${chip.style}.svg?v=2`}
+                                        src={`/static/images/chips/${chip.style}.svg?v=2`}
                                         className={`img-fluid ${Styles["chip"]}`}
                                         width="48"
                                         height="50"
