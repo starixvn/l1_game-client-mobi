@@ -32,7 +32,7 @@ const signIn = async (handleSignInSuccess: Function, router: NextRouter, i18n: I
     if (!settings.isUM) {
         router.query.token
             ? handleSignInWithRouteQuery(handleSignInSuccess, router, i18n)
-            : handleSignInWithLocalStorageSession(handleSignInSuccess, router);
+            : handleSignInWithLocalStorageSession(handleSignInSuccess, router, i18n);
     }
 };
 
@@ -55,9 +55,8 @@ const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: Nex
     }
 };
 
-const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, router: NextRouter) => {
+const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, router: NextRouter, i18n: I18n) => {
     const { auth: authService } = UserClientCommunication.getUserClientInstance();
-
     const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
     if (!userSession) {
         router.push("/timeout");
@@ -66,6 +65,11 @@ const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, ro
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
     if (verifySessionResponse.isSuccessful) {
         onSignInSuccess(userSession);
+
+        const langCode = languageMapper[userSession.language];
+        if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
+            i18n.changeLanguage(langCode);
+        }
     } else {
         router.push("/timeout");
     }
