@@ -5,7 +5,7 @@ import { ModalType } from "./type";
 import { EventPosition } from "../game-base/type";
 
 const HeaderHeightInPixel = 55;
-const PopupOverflowMargin = 10;
+const PopupOverflowMargin = 20;
 
 type Props = {
     isOpen?: boolean;
@@ -102,18 +102,24 @@ const BaseDialog: React.FC<Props> = ({
     const ajustPopupPosition = () => {
         const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
             gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-            popupRight = Math.round(eventPosition.right - betContainerRect.right);
+            isAlignRight = Math.round(eventPosition.right - betContainerRect.right) === 0,
+            isAlignLeft =  Math.round(betContainerRect.left - eventPosition.left) === 0;
 
         let popupStyle = {
             top: `${eventPosition.y - gameContainerRect.y + eventPosition.height - PopupOverflowMargin}px`,
             bottom: "none",
-            left: `${eventPosition.x - gameContainerRect.x}px`,
-            right: "none",
+            left: `${PopupOverflowMargin}px`,
+            right: "none"
         };
 
-        if (popupRight === 0) {
-            popupStyle.right = "0px";
+        if (isAlignRight) {
+            popupStyle.right = `${PopupOverflowMargin}px`,
             popupStyle.left = "none";
+        }
+
+        if (!isAlignRight && !isAlignLeft) {
+            popupStyle.right = "none";
+            popupStyle.left = `${eventPosition.x - gameContainerRect.x - eventPosition.width/2}px`;
         }
 
         return popupStyle;

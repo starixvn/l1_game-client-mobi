@@ -34,6 +34,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
     const betChoiceRef = useRef<HTMLDivElement>(null);
+    const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -60,13 +61,20 @@ const BetOption: React.FunctionComponent<Props> = ({
         const enabledQuickBet = betSetting?.enabledQuickBet;
         const {top, bottom, left, right, height, width, x, y} = event.currentTarget.getBoundingClientRect();
 
-        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice, {top, left,  bottom, right, height, width, x, y});
+        if(enabledQuickBet)
+        {
+            placeBet(choice, betValue);
+        }
+        else{
+            setIsOpenPopup(true);
+            openPlaceBetModal(choice, {top, left,  bottom, right, height, width, x, y});
+        }
     };
 
     return (
         <div className={Styles.container}>
             <div
-                className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
+                className={`${Styles["bet-option"]} ${isOpenPopup ? Styles["focus"] : ''} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
                     isHighlight && isShowWinningEffect && Styles["winning-effect"]
                 }`}
                 onClick={onClickBet}
