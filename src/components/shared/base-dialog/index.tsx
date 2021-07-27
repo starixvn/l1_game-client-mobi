@@ -5,6 +5,7 @@ import { ModalType } from "./type";
 import { EventPosition } from "../game-base/type";
 
 const HeaderHeightInPixel = 55;
+const PopupOverflowMargin = 10;
 
 type Props = {
     isOpen?: boolean;
@@ -89,7 +90,7 @@ const BaseDialog: React.FC<Props> = ({
         if (gameContainerRect.bottom - window.innerHeight > bottomMargin) {
             const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
                 popupRef = wrapperRef.current,
-                popupTop = eventPosition.y - gameContainerRect.y - popupRef.getBoundingClientRect().height;
+                popupTop = eventPosition.y - gameContainerRect.y - popupRef.getBoundingClientRect().height + PopupOverflowMargin;
 
             let nextStyle = buildPopupStyle();
             nextStyle.top = `${popupTop}px`;
@@ -104,7 +105,7 @@ const BaseDialog: React.FC<Props> = ({
             popupRight = Math.round(eventPosition.right - betContainerRect.right);
 
         let popupStyle = {
-            top: `${eventPosition.y - gameContainerRect.y + eventPosition.height}px`,
+            top: `${eventPosition.y - gameContainerRect.y + eventPosition.height - PopupOverflowMargin}px`,
             bottom: "none",
             left: `${eventPosition.x - gameContainerRect.x}px`,
             right: "none",
