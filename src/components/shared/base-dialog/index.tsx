@@ -35,8 +35,8 @@ const BaseDialog: React.FC<Props> = ({
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
     const [style, setStyle] = useState(null);
-    const [arrowStyle, setArrowStyle] = useState('');
-    const [alignArrowStyle, setAlignArrowStyle] = useState('');
+    const [arrowStyle, setArrowStyle] = useState("");
+    const [alignArrowStyle, setAlignArrowStyle] = useState("");
 
     const getCustomStyle = () => {
         const browserHeight = window.innerHeight;
@@ -98,7 +98,7 @@ const BaseDialog: React.FC<Props> = ({
             nextStyle.top = `${popupTop}px`;
             nextStyle.bottom = "none";
             setStyle(nextStyle);
-            setArrowStyle('down');
+            setArrowStyle("down");
         }
     };
 
@@ -106,27 +106,32 @@ const BaseDialog: React.FC<Props> = ({
         const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
             gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
             isAlignRight = Math.round(eventPosition.right - betContainerRect.right) === 0,
-            isAlignLeft =  Math.round(betContainerRect.left - eventPosition.left) === 0;
+            isAlignLeft = Math.round(betContainerRect.left - eventPosition.left) === 0;
 
-            setArrowStyle('up');
-            setAlignArrowStyle('left');
+        setArrowStyle("up");
+        setAlignArrowStyle("left");
         let popupStyle = {
             top: `${eventPosition.y - gameContainerRect.y + eventPosition.height - PopupOverflowMargin}px`,
             bottom: "none",
             left: `${PopupOverflowMargin}px`,
-            right: "none"
+            right: "none",
         };
 
         if (isAlignRight) {
-            popupStyle.right = `${PopupOverflowMargin}px`,
-            popupStyle.left = "none";
-            setAlignArrowStyle('right');
+            (popupStyle.right = `${PopupOverflowMargin}px`), (popupStyle.left = "none");
+            setAlignArrowStyle("right");
         }
 
         if (!isAlignRight && !isAlignLeft) {
             popupStyle.right = "none";
-            popupStyle.left = `${eventPosition.x - gameContainerRect.x - eventPosition.width/2}px`;
-            setAlignArrowStyle('center');
+            popupStyle.left = `${eventPosition.x - gameContainerRect.x - eventPosition.width / 2}px`;
+            setAlignArrowStyle("center");
+        }
+
+        if (isAlignRight && isAlignLeft) {
+            popupStyle.right = "none";
+            popupStyle.left = `${eventPosition.width / 4}px`;
+            setAlignArrowStyle("center");
         }
 
         return popupStyle;
@@ -141,7 +146,9 @@ const BaseDialog: React.FC<Props> = ({
                 className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
             >
                 {children}
-                {!isMobileOnly && isPlaceBetPopup && <div className={`${Styles["arrow"]} ${Styles[arrowStyle]}  ${Styles[alignArrowStyle]}` }></div>}
+                {!isMobileOnly && isPlaceBetPopup && (
+                    <div className={`${Styles["arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>
+                )}
             </div>
         </>
     );

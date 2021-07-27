@@ -71,6 +71,7 @@ export interface GameBaseState<Result, SettlementResult> {
     isShowBlink: boolean;
     notice: Notice;
     eventPosition?: EventPosition;
+    removeBetChoiceFocus?: Function;
 }
 
 export interface Notice {

@@ -31,6 +31,7 @@ type Props = {
     betContainerPosition?: any;
     gameBaseContainerRef?: any;
     gameHeaderRef?: any;
+    removeBetChoiceFocus?: Function;
 };
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
@@ -113,6 +114,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
             setShowTooltip(false);
             setTooltipMessage('');
             setBetStake(0);
+            props.removeBetChoiceFocus();
         };
     },[])
 

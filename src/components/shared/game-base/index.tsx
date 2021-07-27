@@ -75,6 +75,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         isShowBlink: false,
         notice: null,
         eventPosition: null,
+        removeBetChoiceFocus: null
     };
 
     constructor(props: P) {
@@ -510,8 +511,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string, eventPosition: any) {
-        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, eventPosition: eventPosition });
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, eventPosition: any) {
+        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, removeBetChoiceFocus, eventPosition });
     }
 
     placeBet(betChoice: string, amount: number) {
@@ -578,7 +579,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId, eventPosition } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, eventPosition, removeBetChoiceFocus } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -588,6 +589,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 onPlaceBet={this.placeBet}
                 gameBaseContainerRef={this.gameBaseContainerRef}
                 eventPosition={eventPosition}
+                removeBetChoiceFocus={removeBetChoiceFocus}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,
                     gameName: gameName,
