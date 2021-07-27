@@ -148,10 +148,10 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                     </div>
                 </div>
                 <div className={Styles["result-group"]}>
-                    {result.map((r, _) => {
+                    {result.map((r, index) => {
                         return (
                             <div
-                                key={`result_${r.suit}`}
+                                key={`result_${r.suit}_${index}`}
                                 className={this.isRedSuit(r.suit) ? Styles["result-info-red"] : Styles["result-info-grey"]}
                             >
                                 {this.getGameTranslate(suits[r.suit])}

@@ -83,10 +83,10 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
                         </div>
                     </div>
                     <div className={Styles["result-group"]}>
-                        {result.map((r, _) => {
+                        {result.map((r, index) => {
                             return (
                                 <div
-                                    key={`result_${r.suit}`}
+                                    key={`result_${r.suit}_${index}`}
                                     className={isRedSuit(r.suit) ? Styles["result-info-red"] : Styles["result-info-grey"]}
                                 >
                                     {t(suits[r.suit])}
