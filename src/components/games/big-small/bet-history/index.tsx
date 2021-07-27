@@ -21,11 +21,9 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
     if (bet.settlementResult) {
         const odds = bet.odds ? bet.odds : mainOdds;
         return (
-            <>
-                <div className={bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}>
-                    {t(bet.choice)}@<FormatNumber>{`${odds[bet.choice]}`}</FormatNumber>
-                </div>
-            </>
+            <div className={`text-left ${bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}`}>
+                {t(bet.choice)}@<FormatNumber>{`${odds[bet.choice]}`}</FormatNumber>
+            </div>
         );
     }
 

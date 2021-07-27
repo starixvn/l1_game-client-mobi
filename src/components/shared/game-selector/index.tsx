@@ -18,7 +18,6 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
         function handleClickOutside(event: any) {
             if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
                 setIsShowOptions(false);
-                debugger;
             }
         }
 
