@@ -33,7 +33,11 @@
                 min-height: 3.6rem;
                 vertical-align: middle;
                 border: none;
-                font-size: 1.4rem;
+                font-size: 1.3rem;
+
+                @media (min-width: 768px) {
+                    font-size: 1.4rem;
+                }
             }
 
             thead {
@@ -105,6 +109,10 @@
 
     .date {
         color: #9298a4;
+    }
+
+    .date,
+    .time {
         font-size: 1.2rem;
     }
 }
