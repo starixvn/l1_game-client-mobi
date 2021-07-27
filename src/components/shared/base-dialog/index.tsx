@@ -36,6 +36,7 @@ const BaseDialog: React.FC<Props> = ({
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
     const [style, setStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState('');
+    const [alignArrowStyle, setAlignArrowStyle] = useState('');
 
     const getCustomStyle = () => {
         const browserHeight = window.innerHeight;
@@ -108,6 +109,7 @@ const BaseDialog: React.FC<Props> = ({
             isAlignLeft =  Math.round(betContainerRect.left - eventPosition.left) === 0;
 
             setArrowStyle('up');
+            setAlignArrowStyle('left');
         let popupStyle = {
             top: `${eventPosition.y - gameContainerRect.y + eventPosition.height - PopupOverflowMargin}px`,
             bottom: "none",
@@ -118,11 +120,13 @@ const BaseDialog: React.FC<Props> = ({
         if (isAlignRight) {
             popupStyle.right = `${PopupOverflowMargin}px`,
             popupStyle.left = "none";
+            setAlignArrowStyle('right');
         }
 
         if (!isAlignRight && !isAlignLeft) {
             popupStyle.right = "none";
             popupStyle.left = `${eventPosition.x - gameContainerRect.x - eventPosition.width/2}px`;
+            setAlignArrowStyle('center');
         }
 
         return popupStyle;
@@ -137,7 +141,7 @@ const BaseDialog: React.FC<Props> = ({
                 className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
             >
                 {children}
-                {!isMobileOnly && isPlaceBetPopup &&<div className={`${Styles["arrow"]} ${Styles[arrowStyle]}` }></div>}
+                {!isMobileOnly && isPlaceBetPopup && <div className={`${Styles["arrow"]} ${Styles[arrowStyle]}  ${Styles[alignArrowStyle]}` }></div>}
             </div>
         </>
     );
