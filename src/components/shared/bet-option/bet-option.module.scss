@@ -39,6 +39,10 @@
             transition: background 0s;
         }
 
+        &.focus {
+            background-color: var(--bet-option-background-hover);
+        }
+
         @media (hover: hover) {
             &:hover {
                 background-color: var(--bet-option-background-hover);
