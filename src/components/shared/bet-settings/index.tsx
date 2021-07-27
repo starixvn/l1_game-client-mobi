@@ -159,7 +159,7 @@ const BetSettings: React.FC<{
     }, [props.betSettings?.betStake, props.betSettings?.enabledQuickBet]);
 
     return (
-        <div className={Styles["game-menu"]} onClick={stopPropagation} ref={wrapperRef}>
+        <div className={Styles["game-menu"]} onClick={stopPropagation}>
             {props.gameId && (
                 <div className={`game-header-button ${Styles["quick-bet-info"]}`} onClick={onClickChip}>
                     {enabledQuickBet ? (
@@ -180,7 +180,7 @@ const BetSettings: React.FC<{
                 </div>
             )}
 
-            <div className="dropdown">
+            <div className="dropdown" ref={wrapperRef}>
                 {props.gameId ? (
                     <div className={`dropdown-toggle game-header-button ${Styles["game-header-button"]}`} onClick={toggle}>
                         <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
