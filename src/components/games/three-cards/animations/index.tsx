@@ -29,7 +29,7 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
 
 const generateResult = (cards: Result, viewMode: ViewMode) => {
     return cards.map((card, index) => {
-        const cardType = { card: convertCardRankToIndex(card.rank), type: card.suit };
+        const cardType = { card: convertCardRankToIndex(card.rank) - 1, type: card.suit };
 
         return (
             <div key={index} className={Styles[`card${index + 1}`]}>
@@ -56,13 +56,17 @@ export const ThreeCardsResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
+const isRedSuit = (suit: number) => {
+    return suit === 0 || suit === 1;
+};
+
 export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({
     result,
     settlementResult,
 }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = getSettleResult(result);
+    const suits = ["heart", "diamond", "club", "spade"];
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -71,7 +75,24 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
                     {generateResult(result, viewMode)}
                 </div>
             </div>
-            {!playResultAnimation && settlementResult && <div className={Styles["result-label"]}></div>}
+            {!playResultAnimation && settlementResult && (
+                <div className={Styles["result-label"]}>
+                    <div className={Styles["result-group"]}>
+                        <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-grey"]}>
+                            {t(settlementResult.red ? "red" : "black")}
+                        </div>
+                    </div>
+                    <div className={Styles["result-group"]}>
+                        {result.map((r, _) => {
+                            return (
+                                <div className={isRedSuit(r.suit) ? Styles["result-info-red"] : Styles["result-info-grey"]}>
+                                    {t(suits[r.suit])}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

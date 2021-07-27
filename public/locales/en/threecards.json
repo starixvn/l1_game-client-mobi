@@ -8,5 +8,9 @@
     "spades": "Spades",
     "blackTextDot": "B",
     "redTextDot": "R",
-    "suits": "Suits"
+    "suits": "Suits",
+    "club": "Club",
+    "diamond": "Diamond",
+    "heart": "Heart",
+    "spade": "Spade"
 }

@@ -44,18 +44,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderRoundHistory() {
-        const { gameState, roundHistory } = this.state;
-        return (
-            <>
-                <ChainRoundHistory
-                    roundHistory={roundHistory}
-                    gameState={gameState}
-                    renderGameDot={RenderThreeCardsDot}
-                    renderRoundDetail={RenderRoundDetail}
-                ></ChainRoundHistory>
-                <TabsComponent></TabsComponent>
-            </>
-        );
+        return <TabsComponent></TabsComponent>;
     }
 
     renderStatistic() {
@@ -144,8 +133,31 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         );
     }
 
+    isRedSuit(suit: number) {
+        return suit === 0 || suit === 1;
+    }
     renderSettlementInfo() {
-        return <></>;
+        const { result, settlementResult } = this.state;
+        const suits = ["heart", "diamond", "club", "spade"];
+
+        return (
+            <div className={Styles["result-container"]}>
+                <div className={Styles["result-group"]}>
+                    <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-grey"]}>
+                        {this.getGameTranslate(settlementResult.red ? "red" : "black")}
+                    </div>
+                </div>
+                <div className={Styles["result-group"]}>
+                    {result.map((r, _) => {
+                        return (
+                            <div className={this.isRedSuit(r.suit) ? Styles["result-info-red"] : Styles["result-info-grey"]}>
+                                {this.getGameTranslate(suits[r.suit])}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
     }
 }
 

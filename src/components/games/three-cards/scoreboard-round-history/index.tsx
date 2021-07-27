@@ -35,8 +35,8 @@ export const CheckConditionRedBlack = (settlementResult: SettlementResult) => {
     return settlementResult.red ? choiceValueMapping.red : choiceValueMapping.black;
 };
 
-const Suites = ["diamonds", "hearts", "spades", "clubs"];
-const SuitIcons = ["spade", "club", "diamond", "heart"];
+const Suites = ["hearts", "diamonds", "clubs", "spades"];
+const SuitIcons = ["heart", "diamond", "club", "spade"];
 
 export const GetElementRoundSuits = (result: Result, roundId: number) => {
     return (

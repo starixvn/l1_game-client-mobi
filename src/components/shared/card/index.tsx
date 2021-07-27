@@ -26,7 +26,7 @@ export const convertCardRankToIndex = (rank: string): number => {
     const dict = {
         J: 11,
         Q: 12,
-        K: 12,
+        K: 13,
         A: 1,
     };
 

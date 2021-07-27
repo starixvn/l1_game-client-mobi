@@ -10,7 +10,20 @@
     color: #2c2f3e;
 }
 
-.round-history-tabs {
-    display: block !important;
-    height: 49px;
+.result-container {
+    display: block;
+    width: 35rem;
+
+    .result-info {
+        min-width: 11rem;
+    }
+
+    .result-group {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        .result-info {
+            margin: 0.25rem;
+        }
+    }
 }

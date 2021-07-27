@@ -8,5 +8,9 @@
     "spades": "Bích",
     "blackTextDot": "B",
     "redTextDot": "R",
-    "suits": "Chất Bài"
+    "suits": "Chất Bài",
+    "club": "Chuồn",
+    "diamond": "Rô",
+    "heart": "Cơ",
+    "spade": "Bích"
 }
