@@ -129,7 +129,8 @@ const BetSettings: React.FC<{
     const handleClickOutside = (event) => {
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
-
+            setShowQuickBetTooltip(false);
+            setShowBetStakeTooltip(false);
             onCloseSettingsModal();
         }
 
