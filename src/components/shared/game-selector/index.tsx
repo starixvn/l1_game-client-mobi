@@ -35,9 +35,9 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
             {isShowOptions && (
                 <div className={Styles["dropdown-menu"]}>
                     {appSettings.offeredGames.map((id) => (
-                        <span className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
+                        <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
                             {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        </span>
+                        </div>
                     ))}
                 </div>
             )}
