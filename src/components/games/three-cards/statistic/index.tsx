@@ -67,7 +67,7 @@ const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, tabsScoreboar
             default:
                 return SuitStatistics({ roundHistory, statisticRuleEntries, t });
         }
-    }, [roundHistory, tabsScoreboardValue, statisticRuleEntries, t]);
+    }, [roundHistory, tabsScoreboardValue]);
 };
 
 export default ThreeCardsStatistic;

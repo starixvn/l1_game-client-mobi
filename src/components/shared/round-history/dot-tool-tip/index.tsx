@@ -41,7 +41,7 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
 
             innerTooltip.setAttribute("style", `position: absolute; transform: translateX(${customTranslateX})`);
         }
-    }, [innerTooltipRef.current, isOpen]);
+    }, [innerTooltipRef.current]);
 
     return (
         <div className={`tooltip mini-round-history ${isOpen ? "show" : ""}`} ref={tooltipRef}>

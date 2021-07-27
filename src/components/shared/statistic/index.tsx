@@ -55,7 +55,7 @@ export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
                 ))}
             </>
         );
-    }, [roundHistory, gameName, statisticRuleEntries, t]);
+    }, [roundHistory, statisticRuleEntries]);
 };
 
 export default StatisticItem;

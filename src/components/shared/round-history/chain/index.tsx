@@ -55,7 +55,7 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
                 {isShowBlink && <MiniItemNext></MiniItemNext>}
             </div>
         );
-    }, [roundHistory, isShowBlink, gameName, t, renderGameDot, renderRoundDetail]);
+    }, [roundHistory, isShowBlink]);
 };
 
 export default ChainRoundHistory;

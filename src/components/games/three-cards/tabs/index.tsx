@@ -35,7 +35,7 @@ const TabsComponent: React.FunctionComponent = () => {
                 </div>
             </div>
         );
-    }, [tabValue, gameActionContext, t]);
+    }, [tabValue]);
 };
 
 export default TabsComponent;

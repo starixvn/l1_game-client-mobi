@@ -116,9 +116,8 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
                 setIsShowCountOfDice(true);
             },
         };
-
         actionByGameState[gameState] && actionByGameState[gameState]();
-    }, [gameState, gameSetting.durations.resultAnimation]);
+    }, [gameState]);
 
     return (
         <div className={`${Styles["layout-FPC"]}`}>

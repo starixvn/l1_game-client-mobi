@@ -60,7 +60,7 @@ const Rebet: React.FC<Props> = (props) => {
         const listenerId = gameActionContext.registerMessageHandler("endBet", handleEndBetMessage.bind(this));
 
         return () => gameActionContext.unsubscribeMessageHandler(listenerId);
-    }, [betTrack, gameActionContext, gameName, onCloseModal, t]);
+    }, []);
 
     const renderLastRoundBet = () => {
         return lastBetChoices

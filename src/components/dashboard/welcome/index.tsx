@@ -25,7 +25,7 @@ export default function Welcome({ userInfo, handleFirstLoginSM }: Props) {
 
     useEffect(() => {
         setTheme(Themes.light);
-    }, [setTheme]);
+    }, []);
 
     return (
         <FirstLoginContainer>

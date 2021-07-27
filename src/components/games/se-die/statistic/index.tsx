@@ -29,7 +29,7 @@ const SeDiceStatistic = ({ roundHistory }) => {
                 ))}
             </>
         );
-    }, [roundHistory, t]);
+    }, [roundHistory]);
 };
 
 export default SeDiceStatistic;

@@ -114,7 +114,7 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
                 )}
             </div>
         );
-    }, [roundHistory, isShowBlink, getElementRound, checkCondition, gameSetting, translateDotTextMapping]);
+    }, [roundHistory, isShowBlink, getElementRound, checkCondition]);
 };
 
 export default ScoreboardDragon;
