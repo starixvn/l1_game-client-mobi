@@ -24,7 +24,7 @@ enum OrderRenderCell {
 const fontWeightClass = "font-weight-medium";
 
 export const FormatNumber: React.FC = ({ children }) => {
-    return <span className="font-number">{children}</span>;
+    return <span className="font-number nowrap">{children}</span>;
 };
 const renderStake = (bet: BetLogs) => {
     if (bet.settlementResult) {
