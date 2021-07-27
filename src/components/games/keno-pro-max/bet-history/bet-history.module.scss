@@ -1,0 +1,72 @@
+[data-theme="light"] .result-detail {
+    --popup-result-title-color: #2c2f3e;
+}
+
+[data-theme="dark"] .result-detail {
+    --popup-result-title-color: #fff;
+}
+
+.list-choice {
+    min-width: 5rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+
+    .choice {
+        display: flex;
+        align-items: center;
+    }
+
+    .bet-amount {
+        margin-left: 0.6rem;
+    }
+}
+
+.detail {
+    color: blue;
+    cursor: pointer;
+}
+
+.result-detail {
+    .title {
+        margin-bottom: 1.5rem;
+        line-height: 1.8rem;
+        font-size: 1.8rem;
+        font-weight: 500;
+        text-align: center;
+        color: var(--popup-result-title-color);
+    }
+
+    .icon-close {
+        position: absolute;
+        top: 0;
+        right: 1.2rem;
+        z-index: 10;
+
+        @media (min-width: 768px) {
+            right: 1.6rem;
+        }
+    }
+    .card-result-container {
+        display: grid;
+        grid-template-columns: 10rem 10rem;
+        justify-content: center;
+        text-align: center;
+        font-size: 1.4rem;
+        .card-result {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .roundId {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .winning-detail {
+        text-align: center;
+        font-size: 1.4rem;
+    }
+}

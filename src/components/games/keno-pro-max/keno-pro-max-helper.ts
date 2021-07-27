@@ -1,3 +1,4 @@
+import { SettlementResult } from "./keno-pro-max";
 export const Choices = {
     big: "big",
     small: "small",
@@ -9,6 +10,7 @@ export const Choices = {
     fire: "fire",
     earth: "earth",
 };
+const ChoicesFiveElement = ["gold", "wood", "water", "fire", "earth"];
 
 const StatisticRuleEntriesBigSmall = Object.entries({
     [Choices.big]: (countResult: object, total: number) =>
@@ -45,3 +47,23 @@ const StatisticRuleEntriesFiveElements = Object.entries({
 });
 
 export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven, StatisticRuleEntriesFiveElements];
+
+export const CheckConditionFiveElements = (settlementResult: SettlementResult) => {
+    let valueInit = 0;
+    ChoicesFiveElement.forEach((choice, index) => {
+        if (settlementResult[choice]) {
+            valueInit = index;
+        }
+    });
+    return valueInit;
+};
+
+export const GetNameFromChoice = (settlementResult: SettlementResult) => {
+    let choiceValue = Choices.gold;
+    ChoicesFiveElement.forEach((choice) => {
+        if (settlementResult[choice]) {
+            choiceValue = choice;
+        }
+    });
+    return choiceValue;
+};

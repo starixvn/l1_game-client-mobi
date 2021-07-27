@@ -1,7 +1,7 @@
 import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
-import { Choices } from "../keno-pro-max-helper";
+import { Choices, CheckConditionFiveElements, GetNameFromChoice } from "../keno-pro-max-helper";
 import { Result, SettlementResult } from "../keno-pro-max";
 
 enum choiceValueMapping {
@@ -15,8 +15,6 @@ enum choiceValueMapping {
     fire,
     earth,
 }
-
-const ChoicesFiveElement = ["gold", "wood", "water", "fire", "earth"];
 
 export const GetElementRoundBigSmall = (
     result: Result,
@@ -82,26 +80,6 @@ export const CheckConditionBigSmall = (settlementResult: SettlementResult) => {
 
 export const CheckConditionOddEven = (settlementResult: SettlementResult) => {
     return settlementResult.odd ? choiceValueMapping.odd : choiceValueMapping.even;
-};
-
-export const CheckConditionFiveElements = (settlementResult: SettlementResult) => {
-    let valueInit = 0;
-    ChoicesFiveElement.forEach((choice, index) => {
-        if (settlementResult[choice]) {
-            valueInit = index;
-        }
-    });
-    return valueInit;
-};
-
-export const GetNameFromChoice = (settlementResult: SettlementResult) => {
-    let choiceValue = Choices.gold;
-    ChoicesFiveElement.forEach((choice) => {
-        if (settlementResult[choice]) {
-            choiceValue = choice;
-        }
-    });
-    return choiceValue;
 };
 
 export const ScoreboardRule = [
