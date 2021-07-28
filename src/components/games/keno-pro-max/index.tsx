@@ -87,7 +87,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderResult() {
         const { result, settlementResult } = this.state;
-        debugger;
+
         return (
             <KenoProMaxResult
                 result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
