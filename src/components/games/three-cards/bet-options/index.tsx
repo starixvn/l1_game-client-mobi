@@ -36,13 +36,13 @@ const renderBetOptionByChoice = (
                     <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
                     {choice == Choices.red ? (
                         <div className={Styles["icon-list"]}>
-                            <img src={`/static/images/three-cards/diamonds.svg`} className={Styles[choice]} height={18} width={18} />
-                            <img src={`/static/images/three-cards/hearts.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/diamond.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/heart.svg`} className={Styles[choice]} height={18} width={18} />
                         </div>
                     ) : (
                         <div className={Styles["icon-list"]}>
-                            <img src={`/static/images/three-cards/spades.svg`} className={Styles[choice]} height={18} width={18} />
-                            <img src={`/static/images/three-cards/clubs.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/spade.svg`} className={Styles[choice]} height={18} width={18} />
+                            <img src={`/static/images/three-cards/club.svg`} className={Styles[choice]} height={18} width={18} />
                         </div>
                     )}
                 </div>
