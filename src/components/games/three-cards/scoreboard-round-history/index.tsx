@@ -46,7 +46,7 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
                     <div key={`${roundId}_${index}`} className={Styles["score-board-item"]}>
                         <div className={Styles["symbol-size"]}>
                             <img
-                                src={`/static/images/card-${SuitIcons[value.suit]}.png`}
+                                src={`/static/images/three-cards/${SuitIcons[value.suit]}.svg`}
                                 className="img-fluid"
                                 width="16"
                                 height="16"
@@ -61,7 +61,7 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
 };
 
 export const GetNameFromChoice = (settlementResult: SettlementResult) => {
-    let choiceValue = Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
+    let choiceValue = Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamond;
     return choiceValue;
 };
 

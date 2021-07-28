@@ -16,10 +16,10 @@ const StatisticRuleEntriesRedBlack = Object.entries({
 });
 
 const StatisticRuleEntriesSuits = Object.entries({
-    [Choices.diamonds]: (countResult: object, _) => countResult[Choices.diamonds],
-    [Choices.hearts]: (countResult: object, _) => countResult[Choices.hearts],
-    [Choices.spades]: (countResult: object, _) => countResult[Choices.spades],
-    [Choices.clubs]: (countResult: object, _) => countResult[Choices.clubs],
+    [Choices.diamond]: (countResult: object, _) => countResult[Choices.diamond],
+    [Choices.heart]: (countResult: object, _) => countResult[Choices.heart],
+    [Choices.spade]: (countResult: object, _) => countResult[Choices.spade],
+    [Choices.club]: (countResult: object, _) => countResult[Choices.club],
 });
 
 const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
@@ -38,14 +38,14 @@ const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
 
 const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
     const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
-    const choiceIcons = { diamonds: "diamond", hearts: "heart", spades: "spade", clubs: "club" };
+    const choiceIcons = { diamond: "diamond", heart: "heart", spade: "spade", club: "club" };
 
     return (
         <>
             {Object.keys(statisticResult).map((choice) => (
                 <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}`}>
                     <img
-                        src={`/static/images/card-${choiceIcons[choice]}.png`}
+                        src={`/static/images/three-cards/${choiceIcons[choice]}.svg`}
                         className={Styles["card-suite"]}
                         alt="suite"
                         width="16"

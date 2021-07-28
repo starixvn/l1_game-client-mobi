@@ -18,7 +18,7 @@ export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Fun
                     return (
                         <img
                             key={index}
-                            src={`/static/images/${suffix[card.suit]}.png`}
+                            src={`/static/images/three-cards/${suffix[card.suit]}.svg`}
                             className={Styles["icon"]}
                             alt={`icon-card-${card.suit}`}
                         />
