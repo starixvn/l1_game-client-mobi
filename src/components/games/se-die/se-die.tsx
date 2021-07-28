@@ -67,7 +67,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         const { durations } = this.props;
         const { roundId } = this.state;
 
-        return <ShakeThePlate roundId={roundId} playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
+        return <ShakeThePlate key={roundId} playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {
