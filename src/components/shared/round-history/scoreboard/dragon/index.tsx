@@ -45,7 +45,7 @@ const drawDragonTailHistory = <R, S>(
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    const result = roundHistory.map((round: Round<R, S>) => {
+    const result = roundHistory.reduceRight((resultRound, round: Round<R, S>) => {
         const value = checkCondition(round.settlementResult);
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
@@ -69,9 +69,12 @@ const drawDragonTailHistory = <R, S>(
             colMax = col;
         }
         previousResult = value;
+        resultRound.push(
+            getElementRound(round.result, col, row, round.roundId, translateDotTextMapping, gameSetting, round.settlementResult)
+        );
 
-        return getElementRound(round.result, col, row, round.roundId, translateDotTextMapping, gameSetting, round.settlementResult);
-    });
+        return resultRound;
+    }, []);
 
     isShowBlink && result.push(addNextElement(rowMax, row, col, nextCol, roundNext));
     return result;
@@ -104,14 +107,7 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     return useMemo(() => {
         return (
             <div className={Styles["score-board-dragon-container"]}>
-                {drawDragonTailHistory(
-                    [...roundHistory].reverse(),
-                    isShowBlink,
-                    getElementRound,
-                    checkCondition,
-                    translateDotTextMapping,
-                    gameSetting
-                )}
+                {drawDragonTailHistory(roundHistory, isShowBlink, getElementRound, checkCondition, translateDotTextMapping, gameSetting)}
             </div>
         );
     }, [roundHistory, isShowBlink, getElementRound, checkCondition]);
