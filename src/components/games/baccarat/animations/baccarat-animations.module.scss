@@ -73,7 +73,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         bottom: 10px;
     }
 
-    .player .score {
+    .player .score{
         background: linear-gradient(180deg, #117f99 0%, #123363 100%);
         margin-left: 40%;
         left: -2.4rem;
@@ -84,9 +84,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         right: -2.4rem;
     }
     .animation-container {
-        --move-up-distance: -1.5rem;
+        --move-up-distance: -.5rem;
         --result-scale: 0.8;
-        top: 1.5rem;
+        top: .2rem;
         transform: scale(0.8);
         transition: transform 0.7s;
     }
@@ -266,6 +266,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             animation-name: open-card-animation, move-card-6-right;
         }
     }
+}
+.move-up-animation {
+    --move-up-distance: 1rem;
 }
 
 @keyframes show-score {
@@ -485,10 +488,12 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     display: flex;
     flex-wrap: wrap;
     width: fit-content;
+    padding: 1rem;
+    position: relative;
+    top: -2.7rem;
     .result-info {
         min-width: 10.3rem;
         padding: 0 1.2rem;
-        margin-right: 1rem;
         text-align: center;
     }
 
@@ -496,9 +501,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         @extend .result-info;
         background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
     }
-
-    }
-
     &.result-long {
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 }
