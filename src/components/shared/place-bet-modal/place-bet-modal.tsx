@@ -59,27 +59,27 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         {
             style: "chip-1",
             value: 1,
-            isPlusValue: true
+            isPlusValue: true,
         },
         {
             style: "chip-3",
             value: 10,
-            isPlusValue: true
+            isPlusValue: true,
         },
         {
             style: "chip-6",
             value: 100,
-            isPlusValue: true
+            isPlusValue: true,
         },
         {
             style: "chip-8",
             value: 500,
-            isPlusValue: true
+            isPlusValue: true,
         },
         {
             style: "chip-13",
             value: maxBetChoice,
-            isPlusValue: false
+            isPlusValue: false,
         },
     ];
 
@@ -117,27 +117,27 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     useEffect(() => {
         return () => {
             setShowTooltip(false);
-            setTooltipMessage('');
+            setTooltipMessage("");
             setBetStake(0);
             props.removeBetChoiceFocus();
         };
-    },[])
+    }, []);
 
-    const setTooltipContent =() => {
+    const setTooltipContent = () => {
         if (betStake > maxBetPerRound) {
             setShowTooltip(true);
-            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetPerRound }));
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetPerRound) }));
             setBetStake(maxBetPerRound);
             return;
         }
 
         if (betStake > maxBetChoice) {
             setShowTooltip(true);
-            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: maxBetChoice }));
+            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetChoice) }));
             setBetStake(maxBetChoice);
             return;
         }
-    }
+    };
 
     const closeModal = () => {
         props.onCloseModal();
@@ -221,8 +221,10 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                             <span className="icon-close small" onClick={clearBetStake}></span>
                             {showTooltip && (
                                 <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
-                                    <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{tooltipMessage}</div>
-                                    <div className={`arrow up ${Styles["arrow"]}`}></div>
+                                    <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                        {tooltipMessage}
+                                        <div className={`arrow up ${Styles["arrow"]}`}></div>
+                                    </div>
                                 </div>
                             )}
                         </div>
