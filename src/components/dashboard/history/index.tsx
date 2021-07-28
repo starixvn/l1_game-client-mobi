@@ -15,7 +15,7 @@ import Styles from "./history.module.scss";
 export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
     const { gameSettings } = appSettings;
     const { t } = useTranslation();
-    const [selectedGameId, setSelectedGameId] = useState<number>(10);
+    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
 
     const closeModal = () => {
         onCloseModal();
