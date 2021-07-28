@@ -67,7 +67,7 @@ export const generateSettlementInfo = (settlementResult: SettlementResult, resou
     return (
         <div
             className={`${Styles[isCollapse ? "result-label" : "result-container"]} ${
-                settlementResult.playerPair && settlementResult.playerPair ? Styles["result-long"] : ""
+                settlementResult.playerPair && settlementResult.bankerPair ? Styles["result-long"] : ""
             }`}
         >
             {settlementResult.player ? (
@@ -77,13 +77,13 @@ export const generateSettlementInfo = (settlementResult: SettlementResult, resou
             ) : (
                 <div className={Styles["result-info-green"]}>{resources["tie"]}</div>
             )}
-            {settlementResult.playerPair ? <div className={Styles["result-info-blue"]}>{resources["playerPair"]}</div> : <></>}
-            {settlementResult.bankerPair ? <div className={Styles["result-info-red"]}>{resources["bankerPair"]}</div> : <></>}
             {settlementResult.big ? (
                 <div className={Styles["result-info-blue"]}>{resources["big"]}</div>
             ) : (
                 <div className={Styles["result-info-red"]}>{resources["small"]}</div>
             )}
+            {settlementResult.playerPair ? <div className={Styles["result-info-blue"]}>{resources["playerPair"]}</div> : <></>}
+            {settlementResult.bankerPair ? <div className={Styles["result-info-red"]}>{resources["bankerPair"]}</div> : <></>}
         </div>
     );
 };
