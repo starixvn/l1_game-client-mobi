@@ -45,7 +45,7 @@ const drawDragonTailHistory = <R, S>(
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    const result = roundHistory.reduceRight((resultRound, round: Round<R, S>) => {
+    const result = roundHistory.reduceRight((resultRound, round: Round<R, S>, index) => {
         const value = checkCondition(round.settlementResult);
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
@@ -69,8 +69,14 @@ const drawDragonTailHistory = <R, S>(
             colMax = col;
         }
         previousResult = value;
-        resultRound.push(
-            getElementRound(round.result, col, row, round.roundId, translateDotTextMapping, gameSetting, round.settlementResult)
+        resultRound[index] = getElementRound(
+            round.result,
+            col,
+            row,
+            round.roundId,
+            translateDotTextMapping,
+            gameSetting,
+            round.settlementResult
         );
 
         return resultRound;
