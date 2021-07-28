@@ -45,8 +45,7 @@ export const getSettleResult = (result) => {
 
     return settle;
 };
-
-const generateResult = (result: Result, shuffle) => {
+export const generateResult = (result: Result, shuffle) => {
     const maxNumInRow = 5;
     const rows = [[], [], [], []];
     rows.forEach((row, index) => {

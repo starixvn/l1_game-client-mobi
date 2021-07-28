@@ -10,9 +10,10 @@ import { numberWithCommas } from "../../../../helpers/number-helper";
 import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, PropsResultDetail } from "./bet-history";
-import Styles from "./bet-history.module.scss";
 import BaseDialog from "../../../shared/base-dialog";
 import { ModalType } from "../../../shared/base-dialog/type";
+import { GameResourceKeys } from "../../../../common/resources";
+import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
     roundTime = 0,
@@ -28,9 +29,9 @@ const fontWeightClass = "font-weight-medium";
 export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
     const { children, translate, roundId, closeModal } = props;
     return (
-        <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal} >
+        <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
             <div className={Styles["popup-result-detail"]}>
-                <div className={Styles["game-name"]}>{translate("game_name")}</div>
+                <div className={Styles["game-name"]}>{translate(GameResourceKeys.GAME_NAME)}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
                 <div className={Styles["roundId"]}>#{roundId}</div>
                 {children}
