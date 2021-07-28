@@ -48,8 +48,8 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
                             <img
                                 src={`/static/images/three-cards/${SuitIcons[value.suit]}.svg`}
                                 className="img-fluid"
-                                width="16"
-                                height="16"
+                                width="18"
+                                height="18"
                                 alt="symbol"
                             />
                         </div>

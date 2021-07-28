@@ -19,7 +19,6 @@
     background: var(--score-board-item-color);
     box-shadow: var(--score-board-item-shadow);
     border-radius: 0.5rem;
-    font-size: 2.6rem;
 
     &:last-child {
         margin-bottom: 0;
@@ -29,8 +28,6 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2.9rem;
-        height: 2.9rem;
     }
 }
 
@@ -48,19 +45,4 @@
 .icon-bet-history {
     width: 2rem;
     height: 2rem;
-}
-
-.icon-simple-mode {
-    font-size: 1.8rem;
-    margin-right: 0.6rem;
-    align-items: center;
-    justify-content: center;
-
-    @media (min-width: 1024px) and (max-width: 1278px) {
-        margin-right: 0.2rem;
-    }
-
-    &.icon-bau {
-        font-size: 1.4rem;
-    }
 }

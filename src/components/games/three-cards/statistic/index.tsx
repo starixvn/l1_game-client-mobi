@@ -48,8 +48,8 @@ const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
                         src={`/static/images/three-cards/${choiceIcons[choice]}.svg`}
                         className={Styles["card-suite"]}
                         alt="suite"
-                        width="16"
-                        height="16"
+                        width="18"
+                        height="18"
                     ></img>
                 </StatisticItem>
             ))}
