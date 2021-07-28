@@ -99,5 +99,3 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
         </div>
     );
 };
-
-export const getSettleResult = (result) => {};

@@ -4,7 +4,7 @@ import React from "react";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
+import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
 import { ScoreboardRule, GetElementRoundSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
