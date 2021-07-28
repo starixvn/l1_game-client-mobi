@@ -1,15 +1,15 @@
-import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation, TFunction } from "next-i18next";
 import { useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { Table } from "react-infinite-table";
 
+import axios from "axios";
+import { Table } from "react-infinite-table";
 import appSettings from "../../../../common/app-settings";
 import { useAuthContext } from "../../../../contexts/auth";
 import { numberWithCommas } from "../../../../helpers/number-helper";
 import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
-import { BetLogs, PropsBetContainer } from "./bet-history";
+import { BetLogs, PropsBetContainer, PropsResultDetail } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -23,13 +23,22 @@ enum OrderRenderCell {
 
 const fontWeightClass = "font-weight-medium";
 
-export const RenderResultContainer: React.FC = ({ children }) => {
-    return <div className={Styles["popup-result-detail"]}>{children}</div>;
+export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
+    const { children, translate, roundId, closeModal } = props;
+    return (
+        <div className={Styles["popup-result-detail"]}>
+            <div className={Styles["game-name"]}>{translate("game_name")}</div>
+            <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
+            <div className={Styles["roundId"]}>#{roundId}</div>
+            {children}
+        </div>
+    );
 };
 
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className="font-number nowrap">{children}</span>;
 };
+
 const renderStake = (bet: BetLogs) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
@@ -101,13 +110,13 @@ const checkCondition = (
     renderResult: (
         rowData: BetLogs,
         roundId?: number,
-        setShowResultDetail?: Function,
+        setIsShowResultDetail?: Function,
         setResultDetail?: Function,
         translate?: TFunction
     ) => JSX.Element,
     renderBet: (rowData: BetLogs, translate: TFunction, odds: object) => {},
     translate: TFunction,
-    setShowResultDetail: Function,
+    setIsShowResultDetail: Function,
     setResultDetail: Function
 ) => {
     const { time, phien, betwin } = rowData;
@@ -129,7 +138,7 @@ const checkCondition = (
             return renderDataOnCell(<FormatNumber>{phien}</FormatNumber>, isHighligh);
 
         case OrderRenderCell.result:
-            return renderDataOnCell(renderResult(rowData, phien, setShowResultDetail, setResultDetail, translate), isHighligh);
+            return renderDataOnCell(renderResult(rowData, phien, setIsShowResultDetail, setResultDetail, translate), isHighligh);
 
         case OrderRenderCell.choice:
             return renderDataOnCell(renderBet(rowData, translate, odds), isHighligh);
@@ -146,7 +155,7 @@ const checkCondition = (
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, translate, gameId, gameName, renderResultDetail } = props;
+    const { renderResult, isRefund, translate, gameId, renderResultDetail } = props;
     const router = useRouter();
     let { renderBet } = props;
     if (!props.renderBet) {
@@ -164,7 +173,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
-    const [showResultDetail, setShowResultDetail] = useState<boolean>(false);
+    const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
     const [resultDetail, setResultDetail] = useState<any>();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { t } = useTranslation("bethistory");
@@ -175,36 +184,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
     const closeModalResultDetail = () => {
-        setShowResultDetail(false);
-    };
-
-    const cellRenderer = ({ columnIndex, rowData }) => {
-        return checkCondition(columnIndex, rowData, isRefund, renderResult, renderBet, translate, setShowResultDetail, setResultDetail);
-    };
-
-    const headerRenderer = ({ column, className, columnIndex }) => {
-        return (
-            <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>
-                {headerName[column.i] === headerObjectName.refund && <div>{t("stake")}</div>}
-                {t(headerName[column.i])}
-            </td>
-        );
-    };
-
-    const createColumns = () => {
-        const _columns = [];
-        for (let index = 0; index < headerName.length; index++) {
-            if (headerName[index] === "stake") {
-                setStakeLocation(index);
-            }
-            _columns.push({
-                i: index,
-                cellRenderer: cellRenderer,
-                headerRenderer: headerRenderer,
-                width: 50,
-            });
-        }
-        return _columns;
+        setIsShowResultDetail(false);
     };
 
     const onInfiniteLoad = () => {
@@ -216,6 +196,43 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     };
 
     useEffect(() => {
+        const cellRenderer = ({ columnIndex, rowData }) => {
+            return checkCondition(
+                columnIndex,
+                rowData,
+                isRefund,
+                renderResult,
+                renderBet,
+                translate,
+                setIsShowResultDetail,
+                setResultDetail
+            );
+        };
+        const headerRenderer = ({ column, className, columnIndex }) => {
+            return (
+                <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>
+                    {headerName[column.i] === headerObjectName.refund && <div>{t("stake")}</div>}
+                    {t(headerName[column.i])}
+                </td>
+            );
+        };
+
+        const createColumns = () => {
+            const _columns = [];
+            for (let index = 0; index < headerName.length; index++) {
+                if (headerName[index] === "stake") {
+                    setStakeLocation(index);
+                }
+                _columns.push({
+                    i: index,
+                    cellRenderer: cellRenderer,
+                    headerRenderer: headerRenderer,
+                    width: 50,
+                });
+            }
+            return _columns;
+        };
+
         const sendPostBetHistory = async () => {
             setIsFetchingData(true);
             try {
@@ -253,11 +270,11 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     }, [page]);
 
     useEffect(() => {
-        function handleResize() {
+        const handleResize = () => {
             if (wrapperRef.current) {
                 setHeightHistory(wrapperRef.current.clientHeight);
             }
-        }
+        };
 
         window.addEventListener("resize", handleResize);
         handleResize();
@@ -291,7 +308,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
-            {showResultDetail && renderResultDetail(resultDetail, translate, gameName, closeModalResultDetail)}
+            {isShowResultDetail && renderResultDetail(resultDetail, translate, closeModalResultDetail)}
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import { useTranslation, TFunction } from "next-i18next";
 import React from "react";
 
-import BetHistoryContainer, { FormatNumber, RenderResultContainer } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../../dashboard/history/bet-history";
 import { CardOrder, Odd } from "../baccarat";
 import { BetLogs } from "./bet-history";
 import Card from "../../../shared/card";
@@ -10,10 +10,10 @@ import BaseDialog from "../../../shared/base-dialog";
 import { ModalType } from "../../../shared/base-dialog/type";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 
-const renderResult = (bet: BetLogs, roundId: number, setShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
-            setShowResultDetail(true);
+            setIsShowResultDetail(true);
             setResultDetail({ bet: bet, roundId: roundId });
         };
 
@@ -26,7 +26,7 @@ const renderResult = (bet: BetLogs, roundId: number, setShowResultDetail: Functi
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, gameName: string, closeModal: Function) => {
+const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) => {
     if (resultDetail) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
@@ -49,12 +49,8 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, ga
 
         return (
             <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal} enableBackdrop={true}>
-                <RenderResultContainer>
+                <ResultDetailContainer translate={translate} roundId={roundId} closeModal={closeModal}>
                     <div className={Styles["result-detail"]}>
-                        <div className={Styles["title"]}>{translate("game_name")}</div>
-                        <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
-
-                        <div className={Styles["roundId"]}>#{roundId}</div>
                         <div className={Styles["card-result-container"]}>
                             <div className={Styles["player-label"]}>{translate("player")}</div>
                             <div className={Styles["banker-label"]}>{translate("banker")}</div>
@@ -68,7 +64,7 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, ga
                             {settlementResult?.big ? translate("big") : translate("small")}
                         </div>
                     </div>
-                </RenderResultContainer>
+                </ResultDetailContainer>
             </BaseDialog>
         );
     }
@@ -116,14 +112,17 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number; gameName: st
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setShowResultDetail: Function, setResultDetail: Function, translate: TFunction) =>
-                renderResult(bet, roundId, setShowResultDetail, setResultDetail, translate)
-            }
+            renderResult={(
+                bet: BetLogs,
+                roundId: number,
+                setIsShowResultDetail: Function,
+                setResultDetail: Function,
+                translate: TFunction
+            ) => renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, translate)}
             translate={t}
             renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
-            gameName={gameName.toLowerCase()}
-            renderResultDetail={(resultDetail: ResultDetail, translate: TFunction, gameName: string, closeModal: Function) =>
-                renderResultDetail(resultDetail, translate, gameName, closeModal)
+            renderResultDetail={(resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) =>
+                renderResultDetail(resultDetail, translate, closeModal)
             }
         ></BetHistoryContainer>
     );

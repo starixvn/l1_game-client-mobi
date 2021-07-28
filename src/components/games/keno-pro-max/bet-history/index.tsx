@@ -1,7 +1,7 @@
 import { TFunction, useTranslation } from "next-i18next";
 import React from "react";
 
-import BetHistoryContainer, { RenderResultContainer } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer, { ResultDetailContainer } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import BaseDialog from "../../../shared/base-dialog";
 import { GetNameFromChoice } from "../keno-pro-max-helper";
@@ -9,10 +9,10 @@ import { ModalType } from "../../../shared/base-dialog/type";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
-            setShowResultDetail(true);
+            setIsShowResultDetail(true);
             setResultDetail({ bet: bet, roundId: roundId });
         };
 
@@ -33,7 +33,7 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, ga
 
         return (
             <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal} enableBackdrop={true}>
-                <RenderResultContainer>
+                <ResultDetailContainer>
                     <div className={Styles["result-detail"]}>
                         <div className={Styles["title"]}>{translate("game_name")}</div>
                         <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
@@ -47,7 +47,7 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, ga
                             {translate(GetNameFromChoice(settlementResult))}
                         </div>
                     </div>
-                </RenderResultContainer>
+                </ResultDetailContainer>
             </BaseDialog>
         );
     }
@@ -60,9 +60,13 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number; gameName: 
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setShowResultDetail: Function, setResultDetail: Function, translate: TFunction) =>
-                renderResult(bet, roundId, setShowResultDetail, setResultDetail, translate)
-            }
+            renderResult={(
+                bet: BetLogs,
+                roundId: number,
+                setIsShowResultDetail: Function,
+                setResultDetail: Function,
+                translate: TFunction
+            ) => renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, translate)}
             translate={t}
             gameName={gameName.toLowerCase()}
             renderResultDetail={(resultDetail: ResultDetail, translate: TFunction, gameName: string, closeModal: Function) =>
