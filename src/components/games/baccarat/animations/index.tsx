@@ -14,7 +14,7 @@ const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
                     <Card result={card.value} viewMode={viewMode}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
-            </div>
+            </div>            
         );
     });
 };
@@ -47,7 +47,9 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                         playerCards.filter((c) => c.value),
                         viewMode
                     )}
+                    <div className={Styles["score"]}>6</div>
                 </div>
+                    
                 <div
                     className={`${Styles["animation-container"]} ${Styles["banker"]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}
                 >
@@ -55,7 +57,10 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                         bankerCards.filter((c) => c.value),
                         viewMode
                     )}
+                    <div className={Styles["score"]}>8</div>
                 </div>
+                
+                
             </div>
         </div>
     );
