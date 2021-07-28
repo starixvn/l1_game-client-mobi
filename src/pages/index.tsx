@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";

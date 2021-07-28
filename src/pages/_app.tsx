@@ -4,7 +4,7 @@ import "../assets/main.scss";
 import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "next-themes";
 import App, { AppProps } from "next/app";
-import { useEffect } from "react";
+import Head from "next/head";
 
 import { Themes } from "../common/constants";
 import { buildLocalStorageKey } from "../common/local-storage";
@@ -19,6 +19,9 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 
         return (
             <ThemeProvider storageKey={buildLocalStorageKey("theme")} defaultTheme={Themes.light}>
+                <Head>
+                    <title>Saba Mobi</title>
+                </Head>
                 <Component {...pageProps} err={err} />
             </ThemeProvider>
         );

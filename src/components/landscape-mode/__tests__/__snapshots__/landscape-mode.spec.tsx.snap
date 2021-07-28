@@ -14,3 +14,19 @@ exports[`landscape mode ender correctly 1`] = `
   </p>
 </div>
 `;
+
+exports[`landscape mode render correctly 1`] = `
+<div
+  className="landscape-mode"
+>
+  <img
+    alt="landscape-icon"
+    src="/static/images/landscape-icon.svg"
+  />
+  <p
+    className="info"
+  >
+    common:rotateDevice
+  </p>
+</div>
+`;
