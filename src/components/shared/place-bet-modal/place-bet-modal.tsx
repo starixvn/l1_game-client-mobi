@@ -45,7 +45,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? minbet);
+    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? 0);
 
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipMessage, setTooltipMessage] = useState("");
@@ -59,22 +59,27 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         {
             style: "chip-1",
             value: 1,
+            isPlusValue: true
         },
         {
             style: "chip-3",
             value: 10,
+            isPlusValue: true
         },
         {
             style: "chip-6",
             value: 100,
+            isPlusValue: true
         },
         {
             style: "chip-8",
             value: 500,
+            isPlusValue: true
         },
         {
             style: "chip-13",
             value: maxBetChoice,
+            isPlusValue: false
         },
     ];
 
@@ -138,9 +143,9 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         props.onCloseModal();
     };
 
-    const addStakeHandler = (event: any, stake: number) => {
+    const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        setBetStake(betStake + stake);
+        isPlusValue ? setBetStake(betStake + stake) : setBetStake(stake);
     };
 
     const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
@@ -224,7 +229,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
 
                         {payouts.map((payout, index) => (
                             <div className={Styles["payout"]} key={index}>
-                                <label>{payout.text}:</label>
+                                <label>{payout.text}</label>
                                 <span className={Styles["highlight"]}>{payout.value}</span>
                             </div>
                         ))}
@@ -234,7 +239,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                                 <div
                                     className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
                                     key={index}
-                                    onClick={(event) => addStakeHandler(event, chip.value)}
+                                    onClick={(event) => addStakeHandler(event, chip.value, chip.isPlusValue)}
                                 >
                                     <img
                                         src={`/static/images/chips/${chip.style}.svg?v=2`}
@@ -267,7 +272,7 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                         )}
 
                         <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
-                            {t("common:confirm")}
+                            {t("common:bet")}
                         </button>
                     </div>
                 </div>
