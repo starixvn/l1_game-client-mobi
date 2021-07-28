@@ -1,6 +1,7 @@
+import React from "react";
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
-import React from "react";
+
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
@@ -69,16 +70,14 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
-        const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
-            [Choices.tie]: this.props.t(`${gameName}:tieTextDot`),
-            [Choices.tiger]: this.props.t(`${gameName}:tigerTextDot`),
-            [Choices.dragon]: this.props.t(`${gameName}:dragonTextDot`),
+            [Choices.tie]: this.getGameTranslate("tieTextDot"),
+            [Choices.tiger]: this.getGameTranslate("tigerTextDot"),
+            [Choices.dragon]: this.getGameTranslate("dragonTextDot"),
         };
         return (
             <ScoreboardDragon
-                roundHistory={roundHistory}
+                roundHistory={this.state.roundHistory}
                 getElementRound={GetElementRound}
                 translateDotTextMapping={translateDotTextMapping}
             />

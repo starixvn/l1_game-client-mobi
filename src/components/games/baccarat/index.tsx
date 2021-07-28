@@ -1,13 +1,13 @@
+import React from "react";
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
-import React from "react";
+
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation, generateSettlementInfo } from "./animations";
 import BaccaratBetOptions from "./bet-options";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import Styles from "./baccarat.module.scss";
 import { Result, SettlementResult } from "./baccarat";
 import TabsComponent from "./tabs";
 import { Choices, StatisticRuleMapping } from "./baccarat-helper";
@@ -61,13 +61,12 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderBoard() {
         const { roundHistory, tabsScoreboardValue } = this.state;
-        const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
-            [Choices.banker]: this.props.t(`${gameName}:bankerTextDot`),
-            [Choices.player]: this.props.t(`${gameName}:playerTextDot`),
-            [Choices.tie]: this.props.t(`${gameName}:tieTextDot`),
-            [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
-            [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
+            [Choices.banker]: this.getGameTranslate("bankerTextDot"),
+            [Choices.player]: this.getGameTranslate("playerTextDot"),
+            [Choices.tie]: this.getGameTranslate("tieTextDot"),
+            [Choices.big]: this.getGameTranslate("bigTextDot"),
+            [Choices.small]: this.getGameTranslate("smallTextDot"),
         };
         return (
             <ScoreboardDragon
@@ -93,11 +92,10 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResult() {
-        const { result } = this.state;
         return (
             <BaccaratResult
                 result={
-                    result ?? {
+                    this.state.result ?? {
                         banker: { card1: { card: 1, type: 0 }, card2: { card: 11, type: 2 }, card3: { card: 12, type: 2 } },
                         player: { card1: { card: 8, type: 3 }, card2: { card: 5, type: 3 }, card3: { card: 8, type: 1 } },
                     }

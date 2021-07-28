@@ -82,15 +82,13 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
-        const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
-            [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
-            [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
+            [Choices.big]: this.getGameTranslate("bigTextDot"),
+            [Choices.small]: this.getGameTranslate("smallTextDot"),
         };
         return (
             <ScoreboardDragon
-                roundHistory={roundHistory}
+                roundHistory={ this.state.roundHistory}
                 getElementRound={GetElementRound}
                 translateDotTextMapping={translateDotTextMapping}
             />

@@ -2,7 +2,6 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";

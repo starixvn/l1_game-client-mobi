@@ -3,11 +3,9 @@ import { withRouter } from "next/router";
 import React from "react";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation, getSettleResult } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
-import { RenderRoundDetail, RenderThreeCardsDot } from "./round-history";
 import { ScoreboardRule, GetElementRoundSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
@@ -72,10 +70,9 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 );
 
             default:
-                const gameName = this.props.gameName.toLowerCase();
                 const translateDotTextMapping = {
-                    [Choices.red]: this.props.t(`${gameName}:redTextDot`),
-                    [Choices.black]: this.props.t(`${gameName}:blackTextDot`),
+                    [Choices.red]: this.getGameTranslate("redTextDot"),
+                    [Choices.black]: this.getGameTranslate("blackTextDot"),
                 };
 
                 return (
@@ -103,11 +100,10 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderResult() {
-        const { result } = this.state;
         return (
             <ThreeCardsResult
                 result={
-                    result ?? [
+                    this.state.result ?? [
                         { rank: "Q", suit: 1 },
                         { rank: "10", suit: 2 },
                         { rank: "4", suit: 1 },

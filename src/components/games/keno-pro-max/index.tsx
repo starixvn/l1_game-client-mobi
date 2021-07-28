@@ -62,12 +62,11 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderBoard() {
         const { roundHistory, tabsScoreboardValue } = this.state;
-        const gameName = this.props.gameName.toLowerCase();
         const translateDotTextMapping = {
-            [Choices.big]: this.props.t(`${gameName}:bigTextDot`),
-            [Choices.small]: this.props.t(`${gameName}:smallTextDot`),
-            [Choices.odd]: this.props.t(`${gameName}:oddTextDot`),
-            [Choices.even]: this.props.t(`${gameName}:evenTextDot`),
+            [Choices.big]: this.getGameTranslate("bigTextDot"),
+            [Choices.small]: this.getGameTranslate("smallTextDot"),
+            [Choices.odd]: this.getGameTranslate("oddTextDot"),
+            [Choices.even]: this.getGameTranslate("evenTextDot"),
         };
         return (
             <ScoreboardDragon
@@ -84,8 +83,11 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderResult() {
-        const { result } = this.state;
-        return <KenoProMaxResult result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]} />;
+        return (
+            <KenoProMaxResult
+                result={this.state.result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+            />
+        );
     }
 
     renderResultCollapse() {
