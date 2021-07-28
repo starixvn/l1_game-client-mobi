@@ -15,7 +15,8 @@
     left: 0.4rem;
     right: 0.4rem;
     height: 44rem;
-    padding: 0 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     background: var(--popup-background);
     border: 1px solid var(--popup-border);
     box-shadow: var(--popup-bet-form-shadow);
@@ -33,6 +34,8 @@
         right: auto;
         width: 25rem;
         height: 27rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
         border-radius: 0.5rem;
     }
 
