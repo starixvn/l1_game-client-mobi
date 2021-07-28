@@ -163,7 +163,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             {title && (
                 <div className={Styles["popup-header"]}>
                     <h1 className={Styles["popup-title"]}>{t(title)}</h1>
-                    {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
+                    {subTitle && <div className={Styles["popup-sub-title"]}>{t(subTitle)}</div>}
                 </div>
             )}
             <div
