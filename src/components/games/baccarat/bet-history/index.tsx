@@ -5,10 +5,10 @@ import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../
 import { CardOrder, Odd } from "../baccarat";
 import { BetLogs } from "./bet-history";
 import Card from "../../../shared/card";
-import Styles from "./bet-history.module.scss";
-import BaseDialog from "../../../shared/base-dialog";
-import { ModalType } from "../../../shared/base-dialog/type";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
+import { generateSettlementInfo } from "../animations";
+import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
     if (bet.result) {
@@ -18,7 +18,7 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
         };
 
         return (
-            <div className={Styles["detail"]} onClick={() => clickHandle()}>
+            <div className={Styles["details"]} onClick={() => clickHandle()}>
                 {translate("details")}
             </div>
         );
@@ -31,41 +31,19 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, cl
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
-        const playerCards = [
-            { value: result?.player.card3, order: 5 },
-            { value: result?.player.card2, order: 3 },
-            { value: result?.player.card1, order: 1 },
-        ];
-
-        const bankerCards = [
-            { value: result?.banker.card1, order: 2 },
-            { value: result?.banker.card2, order: 4 },
-            { value: result?.banker.card3, order: 6 },
-        ];
-
-        if (!result?.player.card3) {
-            bankerCards[2].order = 5;
-        }
+        const translateChoiceMapping = GetTranslateChoiceMapping(translate);
 
         return (
-            <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal} enableBackdrop={true}>
-                <ResultDetailContainer translate={translate} roundId={roundId} closeModal={closeModal}>
-                    <div className={Styles["result-detail"]}>
-                        <div className={Styles["card-result-container"]}>
-                            <div className={Styles["player-label"]}>{translate("player")}</div>
-                            <div className={Styles["banker-label"]}>{translate("banker")}</div>
-                            <div className={Styles["card-result"]}> {generateResultOnCard(playerCards)}</div>
+            <ResultDetailContainer translate={translate} roundId={roundId} closeModal={closeModal}>
+                <div className={Styles["card-result-container"]}>
+                    <div className={Styles["player-label"]}>{translate("player")}</div>
+                    <div className={Styles["banker-label"]}>{translate("banker")}</div>
+                    <div className={Styles["card-result"]}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
+                    <div className={Styles["card-result"]}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
+                </div>
 
-                            <div className={Styles["card-result"]}> {generateResultOnCard(bankerCards)}</div>
-                        </div>
-
-                        <div className={Styles["winning-detail"]}>
-                            {settlementResult?.banker ? translate("banker") : translate("player")} -{" "}
-                            {settlementResult?.big ? translate("big") : translate("small")}
-                        </div>
-                    </div>
-                </ResultDetailContainer>
-            </BaseDialog>
+                <div className={Styles["winning-detail"]}>{generateSettlementInfo(settlementResult, translateChoiceMapping)}</div>
+            </ResultDetailContainer>
         );
     }
     return <></>;
@@ -74,8 +52,8 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, cl
 const generateResultOnCard = (cards: CardOrder[]) => {
     return cards.map((card) => {
         return (
-            <div key={card.order} className="d-flex justify-content-center align-items-center">
-                <div>{card.value && <Card result={card.value} isSmall={true}></Card>}</div>
+            <div key={card.order} className={Styles[`card${card.order}`]}>
+                {card.value && <Card result={card.value} isSmall={true}></Card>}
             </div>
         );
     });

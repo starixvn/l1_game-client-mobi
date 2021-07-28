@@ -1,3 +1,5 @@
+@import "../animations/baccarat-animations.module";
+
 [data-theme="light"] .result-detail {
     --popup-result-title-color: #2c2f3e;
 }
@@ -23,26 +25,35 @@
     }
 }
 
-.detail {
-    color: blue;
+.details {
+    color: #04a5ff;
     cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
 }
 
-.result-detail {
-    .card-result-container {
-        display: grid;
-        grid-template-columns: 10rem 10rem;
+.card-result-container {
+    display: grid;
+    grid-template-columns: 10rem 10rem;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.4rem;
+    .card-result {
+        display: flex;
         justify-content: center;
-        text-align: center;
-        font-size: 1.4rem;
-        .card-result {
-            display: flex;
-            justify-content: center;
-        }
     }
 
-    .winning-detail {
-        text-align: center;
-        font-size: 1.4rem;
+    .player-label {
+        color: #216ac0;
     }
+
+    .banker-label {
+        color: #de4a54;
+    }
+}
+
+.winning-detail {
+    text-align: center;
+    font-size: 1.4rem;
 }

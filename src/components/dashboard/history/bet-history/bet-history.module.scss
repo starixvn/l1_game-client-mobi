@@ -1,12 +1,16 @@
 [data-theme="light"] .popup-result-detail {
     --popup-result-background: #fff;
-    --popup-result-border: #cbcbcb;
+    --popup-result-border: #bcbcbc;
+    --popup-result-title-color: #2c2f3e;
+    --popup-result-sub-title-color: #787878;
     --popup-result-color: #2c2f3e;
 }
 
 [data-theme="dark"] .popup-result-detail {
     --popup-result-background: #203040;
     --popup-result-border: #5a789a;
+    --popup-result-title-color: #fff;
+    --popup-result-sub-title-color: #fff;
     --popup-result-color: #fff;
 }
 
@@ -56,25 +60,25 @@
 }
 
 .popup-result-detail {
-    width: 50%;
+    min-width: 22.6rem;
+    min-height: 23rem;
     position: absolute;
-    top: 80px;
+    top: 12rem;
     left: 50%;
     transform: translate(-50%, 0);
-    min-height: 17.5rem;
     background: var(--popup-result-background);
     border: 1px solid var(--popup-result-border);
-    box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
     color: var(--popup-color);
     overflow-y: auto;
     z-index: var(--popup-result-index);
-    padding: 1.6rem;
+    padding: 1rem;
 
     .game-name {
-        margin-bottom: 1.5rem;
-        line-height: 1.8rem;
-        font-size: 1.8rem;
+        margin-bottom: 0.7rem;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
         font-weight: 500;
         text-align: center;
         color: var(--popup-result-title-color);
@@ -82,13 +86,15 @@
 
     .icon-close {
         position: absolute;
-        top: 0.6rem;
-        right: 1.2rem;
+        top: 0.9rem;
+        right: 1.1rem;
         z-index: 10;
     }
 
     .roundId {
-        font-size: 1.6rem;
+        font-family: var(--font-number);
+        font-size: 1.2rem;
         text-align: center;
+        color: var(--popup-result-sub-title-color);
     }
 }

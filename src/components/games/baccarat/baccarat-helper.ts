@@ -1,3 +1,5 @@
+import { TFunction } from "next-i18next";
+import { Result, CardOrder } from "./baccarat";
 import { Cards } from "./baccarat";
 
 export const Choices = {
@@ -76,3 +78,36 @@ export const StatisticRuleEntriesBigSmall = Object.entries({
 });
 
 export const StatisticRuleMapping = [StatisticRuleEntriesBankerPlayer, StatisticRuleEntriesBigSmall];
+
+export const GetPlayerCardsResult = (result: Result): CardOrder[] => {
+    return [
+        { value: result.player.card3, order: 5 },
+        { value: result.player.card2, order: 3 },
+        { value: result.player.card1, order: 1 },
+    ];
+};
+
+export const GetBankerCardsResult = (result: Result): CardOrder[] => {
+    const bankerCards = [
+        { value: result.banker.card1, order: 2 },
+        { value: result.banker.card2, order: 4 },
+        { value: result.banker.card3, order: 6 },
+    ];
+    if (!result.player.card3) {
+        bankerCards[2].order = 5;
+    }
+
+    return bankerCards;
+};
+
+export const GetTranslateChoiceMapping = (translate: TFunction) => {
+    return {
+        player: translate("player"),
+        banker: translate("banker"),
+        tie: translate("tie"),
+        playerPair: translate("playerPair"),
+        bankerPair: translate("bankerPair"),
+        big: translate("big"),
+        small: translate("small"),
+    };
+};
