@@ -8,7 +8,7 @@ type Props = {
 
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const [scrollLeftWidth, setScrollLeftWidth] = useState<number>(0);
+    let scrollLeftWidth = 0;
 
     const handleTouchEnd = (e) => {
         updateScrollEndRight(e);
@@ -67,9 +67,9 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         if (wrapperRef.current) {
-            setScrollLeftWidth(Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0));
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
         }
-    }, [wrapperRef?.current?.children[0], scrollLeftWidth]);
+    }, [wrapperRef?.current?.children[0]?.scrollLeft]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
