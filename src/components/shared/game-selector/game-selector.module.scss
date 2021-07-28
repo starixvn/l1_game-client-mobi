@@ -6,8 +6,8 @@
 }
 
 .selected-item {
-    height: 4rem;
-    line-height: 4rem;
+    height: 3.4rem;
+    line-height: 3.4rem;
     padding: 0 2.5rem 0 1rem;
     border: 1px solid var(--select-border-color);
     border-radius: 5px;
@@ -28,9 +28,12 @@
         color: var(--select-dropdown-icon-color);
     }
 }
-
 .dropdown-menu {
     display: block;
     width: 100%;
-    top: 3.8rem !important;
+    top: 3.2rem !important;
+}
+
+.dropdown-item {
+    height: 3.2rem;
 }
