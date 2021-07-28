@@ -24,9 +24,8 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         return ["big", "small", "odd", "even", "earth", "fire", "gold", "water", "wood"];
     }
 
-    renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
-        const fakeSettlementResult = {
+    getFakeSettlementResult() {
+        return {
             big: true,
             earth: false,
             even: true,
@@ -37,10 +36,14 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             water: true,
             wood: false,
         };
+    }
+
+    renderBetOptions() {
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         return (
             <KenoProMaxBetOptions
                 gameState={gameState}
-                settlementResult={settlementResult ?? fakeSettlementResult}
+                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 isShowWinningEffect={showWinningAnimation}
             />
         );
@@ -83,9 +86,12 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderResult() {
+        const { result, settlementResult } = this.state;
+        debugger;
         return (
             <KenoProMaxResult
-                result={this.state.result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
             />
         );
     }
@@ -95,7 +101,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         return (
             <KenoProMaxResultCollapse
                 result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
-                settlementResult={settlementResult}
+                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
             />
         );
     }

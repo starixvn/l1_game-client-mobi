@@ -5,7 +5,8 @@ import { Result, SettlementResult } from "../keno-pro-max";
 import Styles from "./keno-pro-max-animations.module.scss";
 import * as _ from "lodash";
 
-export const getSettleResult = (result) => {
+const elements = ["gold", "wood", "water", "fire", "earth"];
+export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
     let shuffle = [];
     for (var i = 1; i <= 20; i++) {
         shuffle.push(i);
@@ -17,31 +18,10 @@ export const getSettleResult = (result) => {
     var settle: any = {
         total,
         shuffle,
+        big: settlementResult?.big,
+        even: settlementResult?.even,
+        element: elements.filter((e) => settlementResult[e])[0],
     };
-
-    if (total > 810) {
-        settle.big = true;
-    } else {
-        settle.small = true;
-    }
-
-    if (total % 2 === 1) {
-        settle.odd = true;
-    } else {
-        settle.even = true;
-    }
-
-    if (total < 696) {
-        settle.element = "gold";
-    } else if (total < 764) {
-        settle.element = "wood";
-    } else if (total < 856) {
-        settle.element = "water";
-    } else if (total < 1411) {
-        settle.element = "fire";
-    } else {
-        settle.element = "earth";
-    }
 
     return settle;
 };
@@ -116,7 +96,7 @@ class AnimationComponent extends React.PureComponent<
                     currentTotal: elem.state.currentTotal + elem.state.result[numberIndex],
                     currentIndex: elem.state.currentIndex + 1,
                 });
-            }, 200);
+            }, 100);
         } else if (animationInterval) {
             clearInterval(animationInterval);
             this.setState({
@@ -147,10 +127,10 @@ class AnimationComponent extends React.PureComponent<
     }
 }
 
-export const KenoProMaxResult: React.FC<{ result?: Result }> = ({ result }) => {
+export const KenoProMaxResult: React.FC<{ result?: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = getSettleResult(result);
+    const settleResult = getSettleResult(result, settlementResult);
     const texts = {
         total: t("total"),
         big: t(settleResult.big ? "big" : "small"),
@@ -182,7 +162,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = getSettleResult(result);
+    const settleResult = getSettleResult(result, settlementResult);
     const texts = {
         total: t("total"),
         big: t(settleResult.big ? "big" : "small"),
@@ -207,7 +187,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
                     <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
                         {t(settleResult.big ? "big" : "small")}
                     </div>
-                    <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
+                    <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>
                         {t(settleResult.even ? "even" : "odd")}
                     </div>
                     <div className={Styles["result-info-grey"]}>{t(settleResult.element)}</div>
