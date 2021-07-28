@@ -78,6 +78,27 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
+export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object, isCollapse: boolean = false) => {
+    return (
+        <div className={Styles[isCollapse ? "result-container" : "result-label"]}>
+            {settlementResult.player ? (
+                <div className={Styles["result-info-blue"]}>{resources["player"]}</div>
+            ) : settlementResult.banker ? (
+                <div className={Styles["result-info-red"]}>{resources["banker"]}</div>
+            ) : (
+                <div className={Styles["result-info-green"]}>{resources["tie"]}</div>
+            )}
+            {settlementResult.playerPair ? <div className={Styles["result-info-blue"]}>{resources["playerPair"]}</div> : <></>}
+            {settlementResult.bankerPair ? <div className={Styles["result-info-red"]}>{resources["bankerPair"]}</div> : <></>}
+            {settlementResult.big ? (
+                <div className={Styles["result-info-blue"]}>{resources["big"]}</div>
+            ) : (
+                <div className={Styles["result-info-red"]}>{resources["small"]}</div>
+            )}
+        </div>
+    );
+};
+
 export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -96,6 +117,16 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     if (!result.player.card3) {
         bankerCards[2].order = 5;
     }
+
+    const resources = {
+        player: t("player"),
+        banker: t("banker"),
+        tie: t("tie"),
+        playerPair: t("playerPair"),
+        bankerPair: t("bankerPair"),
+        big: t("big"),
+        small: t("small"),
+    };
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -119,11 +150,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                     {generateDisplayScore(bankerCards)}
                 </div>
             </div>
-            {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-label"]}>
-                    {settlementResult?.tie ? t("tie") : settlementResult?.banker ? t("bankerWin") : t("playerWin")}
-                </div>
-            )}
+            {!playResultAnimation && settlementResult && generateSettlementInfo(settlementResult, resources, true)}
         </div>
     );
 };

@@ -4,7 +4,7 @@ import React from "react";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation } from "./animations";
+import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation, generateSettlementInfo } from "./animations";
 import BaccaratBetOptions from "./bet-options";
 import { ScoreboardRule } from "./scoreboard-round-history";
 import Styles from "./baccarat.module.scss";
@@ -121,36 +121,26 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         );
     }
 
-    getSettlementResult() {
-        const { settlementResult } = this.state;
-
-        if (settlementResult.tie) {
-            return { style: Styles["result-info-green"], text: "tie" };
-        }
-
-        if (settlementResult.banker) {
-            return { style: Styles["result-info-blue"], text: "playerWin" };
-        }
-
-        if (settlementResult.player) {
-            return { style: Styles["result-info-red"], text: "bankerWin" };
-        }
-    }
-
     renderSettlementInfo() {
-        const settlementResult = this.getSettlementResult();
-        return (
-            <div className={Styles["result-container"]}>
-                <div className={settlementResult.style}>{this.getGameTranslate(settlementResult.text)}</div>
-            </div>
-        );
+        const { settlementResult } = this.state;
+        const resources = {
+            player: this.getGameTranslate("player"),
+            banker: this.getGameTranslate("banker"),
+            tie: this.getGameTranslate("tie"),
+            playerPair: this.getGameTranslate("playerPair"),
+            bankerPair: this.getGameTranslate("bankerPair"),
+            big: this.getGameTranslate("big"),
+            small: this.getGameTranslate("small"),
+        };
+
+        return generateSettlementInfo(settlementResult, resources);
     }
 
     getFinishAnimationDuration() {
         const { durations } = this.props;
         const { result } = this.state;
-        const resulAnimation = !!result.banker.card3 || !!result.player.card3 ? 9 : durations.resultAnimation;
-        return (resulAnimation + (durations.balancingBet ?? 0)) * 1000;
+        const resultAnimation = !!result.banker.card3 || !!result.player.card3 ? 9 : durations.resultAnimation;
+        return (resultAnimation + (durations.balancingBet ?? 0)) * 1000;
     }
 }
 

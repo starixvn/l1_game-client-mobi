@@ -1,5 +1,6 @@
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
+@import "../../../../assets/components/settlement-info";
 
 $time-draw-card-animation: 0.6s;
 $time-open-card-animation: 0.6s;
@@ -577,5 +578,28 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
     .banker .score {
         background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
+    }
+}
+
+.result-container {
+    display: flex;
+    width: fit-content;
+
+    .result-info {
+        min-width: 15rem;
+    }
+    .result-info-red {
+        @extend .result-info;
+        background: linear-gradient(180deg, #f66460 0%, #e2474e 38.33%, #dc4b56 100%);
+    }
+
+    .result-info-green {
+        @extend .result-info;
+        background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
+    }
+
+    .result-info-blue {
+        @extend .result-info;
+        background: linear-gradient(180deg, #6ba6ec 0%, #3b7bc6 49.27%, #1a66bf 100%);
     }
 }
