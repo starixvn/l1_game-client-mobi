@@ -1,5 +1,8 @@
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
+@import "../../../../assets/components/animations/card-animation";
+
+@use "sass:math";
 
 $time-draw-card-animation: 0.3s;
 $time-open-card-animation: 0.6s;
@@ -35,7 +38,7 @@ $number-of-cards: 3;
 .draw-cards.has-animation {
     %draw-card {
         animation-name: draw-card-animation;
-        animation-duration: $time-draw-card-animation/$number-of-cards;
+        animation-duration: math.div($time-draw-card-animation, $number-of-cards);
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
@@ -47,12 +50,12 @@ $number-of-cards: 3;
 
     .card2 {
         @extend %draw-card;
-        animation-delay: $time-draw-card-animation/$number-of-cards;
+        animation-delay: math.div($time-draw-card-animation, $number-of-cards);
     }
 
     .card3 {
         @extend %draw-card;
-        animation-delay: $time-draw-card-animation * 2 / $number-of-cards;
+        animation-delay: math.div($time-draw-card-animation * 2, $number-of-cards);
     }
 }
 
@@ -119,7 +122,7 @@ $number-of-cards: 3;
             bottom: 0;
             z-index: 2;
             animation-name: hide-card-back-animation;
-            animation-duration: $time-open-card-animation/$number-of-cards;
+            animation-duration: math.div($time-open-card-animation, $number-of-cards);
             animation-fill-mode: forwards;
             animation-timing-function: linear;
             transition: transform 0.1s;
@@ -128,7 +131,7 @@ $number-of-cards: 3;
         .open-card {
             position: relative;
             animation-name: open-card-animation;
-            animation-duration: $time-open-card-animation/$number-of-cards;
+            animation-duration: math.div($time-open-card-animation, $number-of-cards);
             animation-fill-mode: forwards;
             animation-timing-function: ease-in;
             transition: transform 0.1s;
@@ -147,23 +150,23 @@ $number-of-cards: 3;
 
         .card2 {
             .card-back {
-                animation-delay: $time-open-card-animation/$number-of-cards + $time-delay-zoom-in-card-animation;
+                animation-delay: math.div($time-open-card-animation, $number-of-cards) + $time-delay-zoom-in-card-animation;
             }
 
             .rotate-card {
                 @extend .open-card;
-                animation-delay: $time-open-card-animation/$number-of-cards + $time-delay-zoom-in-card-animation;
+                animation-delay: math.div($time-open-card-animation, $number-of-cards) + $time-delay-zoom-in-card-animation;
             }
         }
 
         .card3 {
             .card-back {
-                animation-delay: $time-open-card-animation * 2 / $number-of-cards + $time-delay-zoom-in-card-animation;
+                animation-delay: math.div($time-open-card-animation * 2, $number-of-cards) + $time-delay-zoom-in-card-animation;
             }
 
             .rotate-card {
                 @extend .open-card;
-                animation-delay: $time-open-card-animation * 2 / $number-of-cards + $time-delay-zoom-in-card-animation;
+                animation-delay: math.div($time-open-card-animation * 2, $number-of-cards) + $time-delay-zoom-in-card-animation;
             }
         }
     }
