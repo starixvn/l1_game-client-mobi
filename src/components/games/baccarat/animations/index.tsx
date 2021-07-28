@@ -80,7 +80,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
 
 export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object, isCollapse: boolean = false) => {
     return (
-        <div className={Styles[isCollapse ? "result-container" : "result-label"]}>
+        <div className={Styles[isCollapse ? "result-label" : "result-container"]}>
             {settlementResult.player ? (
                 <div className={Styles["result-info-blue"]}>{resources["player"]}</div>
             ) : settlementResult.banker ? (
