@@ -48,6 +48,7 @@ type State = {
     apiError: APIErrorProp;
     isShowHistory: boolean;
     isShowGuide: boolean;
+    isShowFavoriteSetting: boolean;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -69,6 +70,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
+            isShowFavoriteSetting: false,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -89,6 +91,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
+        this.toggleFavoriteSetting = this.toggleFavoriteSetting.bind(this);
 
         const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
         if (props.buildId !== buildVersion) {
@@ -292,6 +295,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowGuide: !this.state.isShowGuide });
     }
 
+    toggleFavoriteSetting() {
+        this.setState({ isShowFavoriteSetting: !this.state.isShowFavoriteSetting });
+    }
+
     get globalBetSetting(): BetSetting {
         const setting = this.state.betSettings["global"];
 
@@ -310,6 +317,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory,
             isShowGuide,
             userStakeLevel,
+            isShowFavoriteSetting,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -325,6 +333,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         globalBetSetting={this.globalBetSetting}
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
+                        toggleFavoriteSetting={this.toggleFavoriteSetting}
                     />
                     {isMobileOnly && (
                         <div className={Styles["settings-container"]}>
@@ -337,6 +346,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                                 globalBetSetting={this.globalBetSetting}
                                 toggleHistoryModal={this.toggleHistoryModal}
                                 toggleGuideModal={this.toggleGuideModal}
+                                toggleFavoriteSetting={this.toggleFavoriteSetting}
                             />
                         </div>
                     )}
@@ -347,6 +357,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         betSettings={betSettings}
                         updateBetSetting={this.updateBetSetting}
                         userStakeLevel={userStakeLevel}
+                        isShowFavoriteSetting={isShowFavoriteSetting}
+                        toggleFavoriteSetting={this.toggleFavoriteSetting}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}

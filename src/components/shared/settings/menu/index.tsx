@@ -9,11 +9,12 @@ import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
 
-export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean; handleToggleGuideModal: Function }> = ({
-    handleToggleSound,
-    enabledSound,
-    handleToggleGuideModal,
-}) => {
+export const Menu: React.FC<{
+    handleToggleSound: Function;
+    enabledSound: boolean;
+    handleToggleGuideModal: Function;
+    toggleFavoriteSetting: Function;
+}> = ({ handleToggleSound, enabledSound, handleToggleGuideModal, toggleFavoriteSetting }) => {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,11 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
 
     const openGuide = () => {
         handleToggleGuideModal();
+        setDropdownOpen(false);
+    };
+
+    const openFavoriteSetting = () => {
+        toggleFavoriteSetting();
         setDropdownOpen(false);
     };
 
@@ -82,6 +88,9 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
                     </div>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`} onClick={openGuide}>
                         {t(CommonResourceKeys.GUIDE_POPUP_TITLE)}
+                    </div>
+                    <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`} onClick={openFavoriteSetting}>
+                        {t(CommonResourceKeys.FAVORITE_SETTING)}
                     </div>
                 </div>
             </div>

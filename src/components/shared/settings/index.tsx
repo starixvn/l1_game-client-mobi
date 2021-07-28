@@ -23,6 +23,7 @@ export const Settings: React.FC<Props> = (props) => {
         onToggleSound,
         enabledSound,
         toggleGuideModal,
+        toggleFavoriteSetting,
     } = props;
 
     return (

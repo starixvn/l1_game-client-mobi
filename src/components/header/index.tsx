@@ -18,6 +18,7 @@ type Props = {
     globalBetSetting: BetSetting;
     toggleHistoryModal: Function;
     toggleGuideModal: Function;
+    toggleFavoriteSetting: Function;
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -43,6 +44,7 @@ const Header: React.FC<Props> = (props) => {
                                 updateBetSetting={props.updateBetSetting}
                                 toggleHistoryModal={props.toggleHistoryModal}
                                 toggleGuideModal={props.toggleGuideModal}
+                                toggleFavoriteSetting={props.toggleFavoriteSetting}
                             />
                         )}
                         <div className={Styles["user"]}>

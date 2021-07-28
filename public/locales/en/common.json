@@ -60,9 +60,10 @@
     "globalSettingHintConfirm": "OK",
     "on": "ON",
     "off": "OFF",
-    "category-popular": "Popular",
-    "category-favorite": "Favorite",
+    "category-popular": "Popular Games",
+    "category-favorite": "Favorites",
     "category-keno": "Keno",
-    "category-dice": "Dice game",
-    "category-card": "Card game"
+    "category-dice": "Dice Games",
+    "category-card": "Card Games",
+    "menu-favorite-setting": "Favorite Games"
 }
