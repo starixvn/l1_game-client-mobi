@@ -114,24 +114,31 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         justify-content: center;
         font-size: 1.8rem;
         bottom: 10px;
-       
-        
     }
+
+    .group-2-cards {
+        bottom: 10px;
+    }
+
+    .group-3-cards {
+        bottom: 10px;
+    }
+
     .player .score {
-        background: linear-gradient(180deg, #117F99 0%, #123363 100%);        
+        background: linear-gradient(180deg, #117f99 0%, #123363 100%);
         margin-left: 40%;
         left: -2.4rem;
     }
     .banker .score {
-        background: linear-gradient(180deg, #E72C0E 0%, #8D1A09 100%);
+        background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
         margin-right: 40%;
         right: -2.4rem;
     }
     .animation-container {
         --move-up-distance: -1.5rem;
-        --result-scale: .8;
+        --result-scale: 0.8;
         top: 1.5rem;
-        transform: scale(.8);
+        transform: scale(0.8);
         transition: transform 0.7s;
     }
 
@@ -148,19 +155,22 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         position: relative;
     }
     &.has-animation {
-        .player, .banker{
+        .player,
+        .banker {
             .score {
                 opacity: 0;
                 animation-name: show-score;
-                animation-duration: 0.2s;                
+                animation-duration: 0.2s;
                 animation-fill-mode: forwards;
             }
         }
         .player .score {
-            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation + $time-draw-card-animation*2/4 + 0.2;
+            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation +
+                $time-draw-card-animation * 2/4 + 0.2;
         }
         .banker .score {
-            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation + $time-draw-card-animation*2/4 + 0.6;
+            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation +
+                $time-draw-card-animation * 2/4 + 0.6;
         }
         .animation-container {
             animation-name: zoon-in-animation, move-up-result-animation;
@@ -168,7 +178,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards;
             animation-timing-function: ease-out;
-        }       
+        }
 
         .rotate-card {
             transform: rotateY(180deg);
@@ -182,7 +192,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             top: 0;
             bottom: 0;
             z-index: 2;
-            animation-name:  hide-card-back-animation;
+            animation-name: hide-card-back-animation;
             animation-duration: $time-open-card-animation/6;
             animation-fill-mode: forwards;
             animation-timing-function: linear;
@@ -190,7 +200,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
 
         .open-card {
-            position: relative;            
+            position: relative;
             animation-duration: $time-open-card-animation/6, $time-move-card-animation/6;
             animation-fill-mode: forwards, forwards;
             animation-timing-function: ease-in;
@@ -205,53 +215,57 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             .rotate-card {
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-1-left;
-                animation-delay: $time-delay-zoom-in-card-animation, $time-open-card-animation/6 +  $time-delay-zoom-in-card-animation;
+                animation-delay: $time-delay-zoom-in-card-animation, $time-open-card-animation/6 + $time-delay-zoom-in-card-animation;
             }
         }
 
         .card2 {
             .card-back {
-                
                 animation-delay: $time-open-card-animation/6 + $time-move-card-animation/6 + $time-delay-zoom-in-card-animation;
             }
 
             .rotate-card {
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-2-right;
-                animation-delay: $time-open-card-animation/6 + $time-move-card-animation/6 + $time-delay-zoom-in-card-animation, $time-open-card-animation*2/6 + $time-move-card-animation/6 + $time-delay-zoom-in-card-animation ;
+                animation-delay: $time-open-card-animation/6 + $time-move-card-animation/6 + $time-delay-zoom-in-card-animation,
+                    $time-open-card-animation * 2/6 + $time-move-card-animation/6 + $time-delay-zoom-in-card-animation;
             }
         }
 
         .card3 {
             .card-back {
-                animation-delay: $time-open-card-animation*2/6 + $time-move-card-animation*2/6 + $time-delay-zoom-in-card-animation;
+                animation-delay: $time-open-card-animation * 2/6 + $time-move-card-animation * 2/6 + $time-delay-zoom-in-card-animation;
             }
 
             .rotate-card {
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-3-left;
-                animation-delay: $time-open-card-animation*2/6 + $time-move-card-animation*2/6 + $time-delay-zoom-in-card-animation, $time-open-card-animation*3/6 + $time-move-card-animation*2/6 + $time-delay-zoom-in-card-animation;
+                animation-delay: $time-open-card-animation * 2/6 + $time-move-card-animation * 2/6 + $time-delay-zoom-in-card-animation,
+                    $time-open-card-animation * 3/6 + $time-move-card-animation * 2/6 + $time-delay-zoom-in-card-animation;
             }
         }
 
         .card4 {
             .card-back {
-                animation-delay: $time-open-card-animation*3/6 + $time-move-card-animation*3/6 + $time-delay-zoom-in-card-animation;
+                animation-delay: $time-open-card-animation * 3/6 + $time-move-card-animation * 3/6 + $time-delay-zoom-in-card-animation;
             }
 
             .rotate-card {
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-4-right;
-                animation-delay: $time-open-card-animation*3/6 + $time-move-card-animation*3/6 + $time-delay-zoom-in-card-animation, $time-open-card-animation*4/6 + $time-move-card-animation*3/6 + $time-delay-zoom-in-card-animation;
+                animation-delay: $time-open-card-animation * 3/6 + $time-move-card-animation * 3/6 + $time-delay-zoom-in-card-animation,
+                    $time-open-card-animation * 4/6 + $time-move-card-animation * 3/6 + $time-delay-zoom-in-card-animation;
             }
         }
 
         .card5 {
-            .card-back {  
-                opacity: 0;              
+            .card-back {
+                opacity: 0;
                 animation-name: draw-card-animation, hide-card-back-animation;
                 animation-duration: $time-draw-card-animation/4, $time-open-card-animation/6;
-                animation-delay: $time-open-card-animation*4/6 + $time-move-card-animation*4/6 + $time-delay-zoom-in-card-animation, $time-open-card-animation*4/6 + $time-move-card-animation*4/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation/4;
+                animation-delay: $time-open-card-animation * 4/6 + $time-move-card-animation * 4/6 + $time-delay-zoom-in-card-animation,
+                    $time-open-card-animation * 4/6 + $time-move-card-animation * 4/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation/4;
                 animation-fill-mode: forwards;
             }
 
@@ -259,16 +273,22 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 opacity: 0;
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-5-left;
-                animation-delay: $time-open-card-animation*4/6 + $time-move-card-animation*4/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation/4, $time-open-card-animation*5/6 + $time-move-card-animation*4/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation/4;
+                animation-delay: $time-open-card-animation * 4/6 + $time-move-card-animation * 4/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation/4,
+                    $time-open-card-animation * 5/6 + $time-move-card-animation * 4/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation/4;
             }
         }
 
         .card6 {
             .card-back {
-                opacity: 0; 
+                opacity: 0;
                 animation-name: draw-card-animation, hide-card-back-animation;
                 animation-duration: $time-draw-card-animation/4, $time-open-card-animation/6;
-                animation-delay: $time-open-card-animation*5/6 + $time-move-card-animation*5/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation/4, $time-open-card-animation*5/6 + $time-move-card-animation*5/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation*2/4;
+                animation-delay: $time-open-card-animation * 5/6 + $time-move-card-animation * 5/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation/4,
+                    $time-open-card-animation * 5/6 + $time-move-card-animation * 5/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation * 2/4;
                 animation-fill-mode: forwards;
             }
 
@@ -276,14 +296,16 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 opacity: 0;
                 @extend .open-card;
                 animation-name: open-card-animation, move-card-6-right;
-                animation-delay: $time-open-card-animation*5/6 + $time-move-card-animation*5/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation*2/4, $time-open-card-animation + $time-move-card-animation*5/6 + $time-delay-zoom-in-card-animation + $time-draw-card-animation*2/4;
+                animation-delay: $time-open-card-animation * 5/6 + $time-move-card-animation * 5/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation * 2/4,
+                    $time-open-card-animation + $time-move-card-animation * 5/6 + $time-delay-zoom-in-card-animation +
+                        $time-draw-card-animation * 2/4;
             }
         }
 
         .banker .card5 .rotate-card {
             animation-name: open-card-animation, move-card-6-right;
         }
-
     }
 }
 
@@ -300,7 +322,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 @keyframes move-card-2-right {
     0% {
-       transform: translateX(0)
+        transform: translateX(0);
     }
     100% {
         transform: translateX(70px);
@@ -308,7 +330,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 }
 @keyframes move-card-4-right {
     0% {
-       transform: translateX(0)
+        transform: translateX(0);
     }
     100% {
         transform: translateX(-5px);
@@ -316,7 +338,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 }
 @keyframes move-card-6-right {
     0% {
-       transform: translateX(0)
+        transform: translateX(0);
     }
     100% {
         transform: translateX(-60px);
@@ -385,13 +407,13 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 
     30% {
-        transform: rotateY(120deg) scaleX(0.4) ;
+        transform: rotateY(120deg) scaleX(0.4);
         left: 10px;
     }
 
     60% {
         opacity: 0.9;
-        transform: rotateY(80deg) scaleX(0.7) ;
+        transform: rotateY(80deg) scaleX(0.7);
     }
 
     80% {
@@ -401,7 +423,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
     100% {
         opacity: 1;
-        transform: rotateY(0deg) scaleX(1) ;
+        transform: rotateY(0deg) scaleX(1);
     }
 }
 
@@ -509,18 +531,18 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 }
 
 .move-up-no-animation {
-    transform: scale(.8) translateY(var(--move-up-distance)) !important;
+    transform: scale(0.8) translateY(var(--move-up-distance)) !important;
     .card1 {
         .rotate-card {
             transform: translateX(-70px);
         }
     }
     .card2 .rotate-card {
-        transform: translateX(70px)
+        transform: translateX(70px);
     }
     .card3 .rotate-card {
         transform: translateX(5px);
-    } 
+    }
     .card4 .rotate-card {
         transform: translateX(-5px);
     }
@@ -549,13 +571,11 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         justify-content: center;
         font-size: 1.8rem;
         bottom: 10px;
-        
     }
     .player .score {
-        background: linear-gradient(180deg, #117F99 0%, #123363 100%);
+        background: linear-gradient(180deg, #117f99 0%, #123363 100%);
     }
     .banker .score {
-        background: linear-gradient(180deg, #E72C0E 0%, #8D1A09 100%);
+        background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
     }
-
 }

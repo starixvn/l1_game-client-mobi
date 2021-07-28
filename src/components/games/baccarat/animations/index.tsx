@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result, SettlementResult, CardOrder } from "../baccarat";
+import { Result, SettlementResult, CardOrder, Cards } from "../baccarat";
 import Styles from "./baccarat-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";
@@ -14,9 +14,19 @@ const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
                     <Card result={card.value} viewMode={viewMode}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
-            </div>            
+            </div>
         );
     });
+};
+
+const generateDisplayScore = (cards: CardOrder[]) => {
+    const validCards = cards.filter((c) => !!c.value);
+
+    const point = validCards.reduce((total, c) => {
+        return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
+    }, 0);
+
+    return <div className={`${Styles[`group-${validCards.length}-cards`]} ${Styles["score"]}`}>{point}</div>;
 };
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
@@ -41,26 +51,28 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask">
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["player"]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}
+                    className={`${Styles["animation-container"]} ${Styles["player"]} ${
+                        playResultAnimation ? "" : Styles["move-up-no-animation"]
+                    }`}
                 >
                     {generateResult(
                         playerCards.filter((c) => c.value),
                         viewMode
                     )}
-                    <div className={Styles["score"]}>6</div>
+                    {generateDisplayScore(playerCards)}
                 </div>
-                    
+
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["banker"]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}
+                    className={`${Styles["animation-container"]} ${Styles["banker"]} ${
+                        playResultAnimation ? "" : Styles["move-up-no-animation"]
+                    }`}
                 >
                     {generateResult(
                         bankerCards.filter((c) => c.value),
                         viewMode
                     )}
-                    <div className={Styles["score"]}>8</div>
+                    {generateDisplayScore(bankerCards)}
                 </div>
-                
-                
             </div>
         </div>
     );
@@ -95,6 +107,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                         playerCards.filter((c) => c.value),
                         viewMode
                     )}
+                    {generateDisplayScore(playerCards)}
                 </div>
                 <div
                     className={`${Styles["animation-container"]}  ${Styles["banker"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
@@ -103,6 +116,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                         bankerCards.filter((c) => c.value),
                         viewMode
                     )}
+                    {generateDisplayScore(bankerCards)}
                 </div>
             </div>
             {!playResultAnimation && settlementResult && (
