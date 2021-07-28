@@ -1,44 +1,24 @@
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { BetSettingStorage } from "../bet-settings/type";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import BaseDialog from "../base-dialog";
 import { isMobile } from "react-device-detect";
-import { ModalType } from "../base-dialog/type";
-import { numPad } from "./place-bet-constant";
-import { EventPosition } from "../game-base/type";
+import { numPad, tooltipTimeout } from "./place-bet-constant";
 import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
 import { useSystemContext } from "../../../contexts/system";
-
-type BetChoiceInfo = {
-    gameName: string;
-    roundId: number;
-    betChoice: string;
-    odd: number;
-};
-
-type Props = {
-    isOpen: boolean;
-    onPlaceBet: (betChoice: string, amount: number) => void;
-    betChoiceInfo: BetChoiceInfo;
-    onCloseModal: Function;
-    eventPosition?: EventPosition;
-    betContainerPosition?: any;
-    gameBaseContainerRef?: any;
-    gameHeaderRef?: any;
-    removeBetChoiceFocus?: Function;
-};
+import { PlaceBetModalProps } from "./place-bet-modal-type";
+import { buildChips, ajustPopupPosition, ajustPopupPositionDidUpdate } from "./place-bet-modal-helper";
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
-const tooltipTimeout = 3000;
 let timeoutIns = null;
 
-const PlaceBetModal: React.FC<Props> = (props) => {
+const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
+    const wrapperRef = useRef<HTMLDivElement>(null);
     const { userStakeLevel } = useSystemContext();
     const { roundId, gameSetting, gameConfigs } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
@@ -47,42 +27,18 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     const { betChoice, odd } = props.betChoiceInfo;
     const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? 0);
 
+    const [style, setStyle] = useState(null);
+    const [arrowStyle, setArrowStyle] = useState("");
+    const [alignArrowStyle, setAlignArrowStyle] = useState("");
+
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipMessage, setTooltipMessage] = useState("");
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
-    let maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
-
-    const chips = [
-        {
-            style: "chip-1",
-            value: 1,
-            isPlusValue: true,
-        },
-        {
-            style: "chip-3",
-            value: 10,
-            isPlusValue: true,
-        },
-        {
-            style: "chip-6",
-            value: 100,
-            isPlusValue: true,
-        },
-        {
-            style: "chip-8",
-            value: 500,
-            isPlusValue: true,
-        },
-        {
-            style: "chip-13",
-            value: maxBetChoice,
-            isPlusValue: false,
-        },
-    ];
-
+    const maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
+    const chips = buildChips(maxBetChoice);
     const payouts = [
         {
             text: t("common:payout"),
@@ -94,27 +50,14 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         },
     ];
 
-    const handleKeyUp = (event: any) => {
-        if (event.keyCode === 13) {
-            submitBet(event);
+    useEffect(() => {
+        if (!isMobile) {
+            const popupStyle = ajustPopupPosition(props.gameBaseContainerRef, props.eventPosition);
+            setStyle(popupStyle.position);
+            setAlignArrowStyle(popupStyle.alignArrowStyle);
+            setArrowStyle(popupStyle.arrowStyle);
         }
-    };
 
-    useEffect(() => {
-        setTooltipContent();
-
-        setTimeout(() => {
-            timeoutIns = setShowTooltip(false);
-        }, tooltipTimeout);
-
-        window.addEventListener("keyup", handleKeyUp);
-        return () => {
-            window.removeEventListener("keyup", handleKeyUp);
-            clearTimeout(timeoutIns);
-        };
-    }, [betStake]);
-
-    useEffect(() => {
         return () => {
             setShowTooltip(false);
             setTooltipMessage("");
@@ -123,6 +66,42 @@ const PlaceBetModal: React.FC<Props> = (props) => {
         };
     }, []);
 
+    useEffect(() => {
+        if (!isMobile) {
+            const popupStyle = ajustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.eventPosition);
+            if (popupStyle.isAjustPosition) {
+                setStyle(popupStyle.position);
+                setArrowStyle(popupStyle.arrowStyle);
+            }
+        }
+
+        setTooltipContent();
+
+        setTimeout(() => {
+            timeoutIns = setShowTooltip(false);
+        }, tooltipTimeout);
+
+        window.addEventListener("keyup", handleKeyUp);
+        window.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("keyup", handleKeyUp);
+            window.removeEventListener("mousedown", handleClickOutside);
+            clearTimeout(timeoutIns);
+        };
+    }, [betStake]);
+
+    const handleKeyUp = (event: any) => {
+        if (event.keyCode === 13) {
+            submitBet(event);
+        }
+    };
+
+    const handleClickOutside = (event: any) => {
+        if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            closeModal && closeModal();
+        }
+    };
     const setTooltipContent = () => {
         if (betStake > maxBetPerRound) {
             setShowTooltip(true);
@@ -176,14 +155,10 @@ const PlaceBetModal: React.FC<Props> = (props) => {
     };
 
     return (
-        <BaseDialog
-            betContainerPosition={props.betContainerPosition}
-            isOpen={props.isOpen}
-            onCloseModal={closeModal}
-            type={ModalType.PlaceBetForm}
-            eventPosition={props.eventPosition}
-            gameBaseContainerRef={props.gameBaseContainerRef}
-            isPlaceBetPopup={true}
+        <div
+            style={style}
+            ref={wrapperRef}
+            className={`${Styles.popup} ${Styles["modal-placebetform"]} ${isMobile ? Styles["isMobile"] : ""}`}
         >
             <div className={`${Styles.modal}`}>
                 <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
@@ -279,7 +254,8 @@ const PlaceBetModal: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </div>
-        </BaseDialog>
+            {!isMobile && <div className={`${Styles["arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
+        </div>
     );
 };
 

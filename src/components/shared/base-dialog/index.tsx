@@ -2,10 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
-import { EventPosition } from "../game-base/type";
 
 const HeaderHeightInPixel = 55;
-const PopupOverflowMargin = 20;
 
 type Props = {
     isOpen?: boolean;
@@ -14,11 +12,7 @@ type Props = {
     type?: ModalType;
     betContainerPosition?: number;
     isCloseOutside?: boolean;
-    enableBackdrop?: boolean;
-    eventPosition?: EventPosition;
-    gameBaseContainerRef?: any;
-    gameHeaderRef?: any;
-    isPlaceBetPopup?: boolean;
+    enableBackdrop?: boolean
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -27,16 +21,10 @@ const BaseDialog: React.FC<Props> = ({
     isOpen = true,
     type = ModalType.Full,
     betContainerPosition,
-    enableBackdrop,
-    eventPosition,
-    gameBaseContainerRef,
-    isPlaceBetPopup = false,
+    enableBackdrop
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
-    const [style, setStyle] = useState(null);
-    const [arrowStyle, setArrowStyle] = useState("");
-    const [alignArrowStyle, setAlignArrowStyle] = useState("");
 
     const getCustomStyle = () => {
         const browserHeight = window.innerHeight;
@@ -56,13 +44,7 @@ const BaseDialog: React.FC<Props> = ({
         }
     };
 
-    const buildPopupStyle = () => {
-        return !isMobileOnly && isPlaceBetPopup ? { ...getCustomStyle(), ...ajustPopupPosition() } : getCustomStyle();
-    };
-
     useEffect(() => {
-        setStyle(buildPopupStyle());
-
         if (enableBackdrop) {
             document.body.classList.add("no-scroll");
         }
@@ -75,80 +57,21 @@ const BaseDialog: React.FC<Props> = ({
     }, []);
 
     useEffect(() => {
-        if (!isMobileOnly && isPlaceBetPopup) {
-            ajustPopupPositionDidUpdate();
-        }
-
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef]);
 
-    const ajustPopupPositionDidUpdate = () => {
-        const bottomMargin = -10,
-            gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
-
-        if (gameContainerRect.bottom - window.innerHeight > bottomMargin) {
-            const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-                popupRef = wrapperRef.current,
-                popupTop = eventPosition.y - gameContainerRect.y - popupRef.getBoundingClientRect().height + PopupOverflowMargin;
-
-            let nextStyle = buildPopupStyle();
-            nextStyle.top = `${popupTop}px`;
-            nextStyle.bottom = "none";
-            setStyle(nextStyle);
-            setArrowStyle("down");
-        }
-    };
-
-    const ajustPopupPosition = () => {
-        const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
-            gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-            isAlignRight = Math.round(eventPosition.right - betContainerRect.right) === 0,
-            isAlignLeft = Math.round(betContainerRect.left - eventPosition.left) === 0;
-
-        setArrowStyle("up");
-        setAlignArrowStyle("left");
-        let popupStyle = {
-            top: `${eventPosition.y - gameContainerRect.y + eventPosition.height - PopupOverflowMargin}px`,
-            bottom: "none",
-            left: `${PopupOverflowMargin}px`,
-            right: "none",
-        };
-
-        if (isAlignRight) {
-            (popupStyle.right = `${PopupOverflowMargin}px`), (popupStyle.left = "none");
-            setAlignArrowStyle("right");
-        }
-
-        if (!isAlignRight && !isAlignLeft) {
-            popupStyle.right = "none";
-            popupStyle.left = `${eventPosition.x - gameContainerRect.x - eventPosition.width / 2}px`;
-            setAlignArrowStyle("center");
-        }
-
-        if (isAlignRight && isAlignLeft) {
-            popupStyle.right = "none";
-            popupStyle.left = `${eventPosition.width / 4}px`;
-            setAlignArrowStyle("center");
-        }
-
-        return popupStyle;
-    };
-
     return (
         <>
             {enableBackdrop && !isMobileOnly && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
             <div
-                style={style}
+                style={getCustomStyle()}
                 ref={wrapperRef}
                 className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
             >
                 {children}
-                {!isMobileOnly && isPlaceBetPopup && (
-                    <div className={`${Styles["arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>
-                )}
             </div>
         </>
     );
