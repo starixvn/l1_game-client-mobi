@@ -25,7 +25,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? 0);
+    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? null);
 
     const [style, setStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState("");
@@ -42,7 +42,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const payouts = [
         {
             text: t("common:payout"),
-            value: numberWithCommas(betStake * odd),
+            value: numberWithCommas((betStake || 0) * odd),
         },
         {
             text: t("common:bettingLimits"),
@@ -184,13 +184,15 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
                         <div className={`form-group ${Styles["stake"]}`}>
                             <NumberFormat
+                                autoFocus
                                 readOnly={isMobile}
                                 value={betStake}
                                 allowNegative={false}
                                 className="form-control number"
                                 thousandSeparator={true}
                                 isNumericString={true}
-                                onValueChange={({ value }) => setBetStake(parseInt(value || "0"))}
+                                defaultValue={""}
+                                onValueChange={({ value }) => setBetStake(parseInt(value))}
                             />
 
                             <span className="icon-close small" onClick={clearBetStake}></span>
