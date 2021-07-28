@@ -46,19 +46,17 @@
         top: 0;
     }
 
-    &.modal-full,
-    &.modal-placebetform {
-        bottom: 0;
-        left: 0;
-        right: 0;
-        box-shadow: var(--popup-bet-form-shadow);
+    &.modal-full {
     }
 
     &.modal-full {
         top: 8.9rem;
         bottom: 0;
+        left: 0;
+        right: 0;
         padding-left: 0;
         padding-right: 0;
+        box-shadow: var(--popup-bet-form-shadow);
         z-index: var(--popup-guide-history-index);
 
         @media (min-device-width: 768px) {
@@ -80,72 +78,6 @@
 
         @media (min-width: 768px) and (min-height: 900px) {
             bottom: 10rem;
-        }
-    }
-
-    &.modal-placebetform {
-        left: 0.4rem;
-        right: 0.4rem;
-        height: 44rem;
-
-        @media (min-width: 768px) {
-            padding-top: 8px;
-            left: auto;
-            right: auto;
-            width: 25rem;
-            height: 27rem;
-            border-radius: 0.5rem;
-        }
-
-        .arrow {
-            position: absolute;
-            width: 0;
-            height: 0;
-
-            &:after,
-            &:before {
-                border: solid transparent;
-                content: "";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-
-            &:after {
-                left: calc(50% - 0.5rem);
-                top: -2.4rem;
-                border-bottom-color: #fff;
-                border-width: 1.2rem;
-            }
-
-            &:before {
-                top: -2.8rem;
-                left: calc(50% - 0.7rem);
-                border-bottom-color: #cbcbcb;
-                border-width: 1.4rem;
-            }
-
-            &.down {
-                bottom: 0;
-                transform: rotate(180deg);
-            }
-
-            &.up {
-                top: 0;
-            }
-
-            &.left {
-                left: 4rem;
-            }
-
-            &.right {
-                right: 4rem;
-            }
-
-            &.center {
-                left: 50%;
-            }
         }
     }
 

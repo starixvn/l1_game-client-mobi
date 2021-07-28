@@ -155,108 +155,102 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     return (
-        <div
-            style={style}
-            ref={wrapperRef}
-            className={`${Styles.popup} ${Styles["modal-placebetform"]} ${isMobile ? Styles["isMobile"] : ""}`}
-        >
-            <div className={`${Styles.modal}`}>
-                <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
-                    <span className={`icon-close {Styles["icon-close"]}`}></span>
+        <div style={style} ref={wrapperRef} className={Styles["modal-placebetform"]}>
+            <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
+                <span className={`icon-close {Styles["icon-close"]}`}></span>
+            </div>
+
+            {title && (
+                <div className={Styles["popup-header"]}>
+                    <h1 className={Styles["popup-title"]}>{t(title)}</h1>
+                    {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
                 </div>
-
-                {title && (
-                    <div className={Styles["popup-header"]}>
-                        <h1 className={Styles["popup-title"]}>{t(title)}</h1>
-                        {subTitle && <p className={Styles["popup-sub-title"]}>{t(subTitle)}</p>}
+            )}
+            <div
+                className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""} ${
+                    !title ? Styles["has-empty-title"] : ""
+                }`}
+            >
+                <div className={Styles["place-bet-container"]}>
+                    <div className={`w-100 ${Styles["general-info"]}`}>
+                        <div className={Styles["bet-option"]}>{t(betChoice)}</div>
+                        <div className={Styles["odds"]}>1:{odd}</div>
                     </div>
-                )}
-                <div
-                    className={`${Styles["popup-content"]} ${subTitle ? Styles["has-subtitle"] : ""} ${
-                        !title ? Styles["has-empty-title"] : ""
-                    }`}
-                >
-                    <div className={Styles["place-bet-container"]}>
-                        <div className={`w-100 ${Styles["general-info"]}`}>
-                            <div className={Styles["bet-option"]}>{t(betChoice)}</div>
-                            <div className={Styles["odds"]}>1:{odd}</div>
-                        </div>
 
-                        <div className={`form-group ${Styles["stake"]}`}>
-                            <NumberFormat
-                                autoFocus
-                                readOnly={isMobile}
-                                value={betStake}
-                                allowNegative={false}
-                                className="form-control number"
-                                thousandSeparator={true}
-                                isNumericString={true}
-                                defaultValue={""}
-                                onValueChange={({ value }) => setBetStake(parseInt(value))}
-                            />
+                    <div className={`form-group ${Styles["stake"]}`}>
+                        <NumberFormat
+                            autoFocus
+                            readOnly={isMobile}
+                            value={betStake}
+                            allowNegative={false}
+                            className="form-control number"
+                            thousandSeparator={true}
+                            isNumericString={true}
+                            defaultValue={""}
+                            onValueChange={({ value }) => setBetStake(parseInt(value))}
+                        />
 
-                            <span className="icon-close small" onClick={clearBetStake}></span>
-                            {showTooltip && (
-                                <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
-                                    <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
-                                        {tooltipMessage}
-                                        <div className={`arrow up ${Styles["arrow"]}`}></div>
-                                    </div>
+                        <span className="icon-close small" onClick={clearBetStake}></span>
+                        {showTooltip && (
+                            <div className={`tooltip info show ${Styles["tooltip-info"]}`}>
+                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                    {tooltipMessage}
+                                    <div className={`arrow up ${Styles["arrow"]}`}></div>
                                 </div>
-                            )}
-                        </div>
+                            </div>
+                        )}
+                    </div>
 
-                        {payouts.map((payout, index) => (
-                            <div className={Styles["payout"]} key={index}>
-                                <label>{payout.text}</label>
-                                <span className={Styles["highlight"]}>{payout.value}</span>
+                    {payouts.map((payout, index) => (
+                        <div className={Styles["payout"]} key={index}>
+                            <label>{payout.text}</label>
+                            <span className={Styles["highlight"]}>{payout.value}</span>
+                        </div>
+                    ))}
+
+                    <div className={Styles["bet-chips"]}>
+                        {chips.map((chip, index) => (
+                            <div
+                                className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
+                                key={index}
+                                onClick={(event) => addStakeHandler(event, chip.value, chip.isPlusValue)}
+                            >
+                                <img
+                                    src={`/static/images/chips/${chip.style}.svg?v=2`}
+                                    className={`img-fluid ${Styles["chip"]}`}
+                                    width="48"
+                                    height="50"
+                                    alt="Chip"
+                                />
+                                <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
                             </div>
                         ))}
+                    </div>
 
-                        <div className={Styles["bet-chips"]}>
-                            {chips.map((chip, index) => (
+                    {isMobile && (
+                        <div className={Styles["numpad-container"]}>
+                            {numPad.map((pad, index) => (
                                 <div
-                                    className={`${Styles["chip-container"]} ${Styles[chip.style]}`}
+                                    className={Styles["numpad"]}
+                                    onClick={(event) =>
+                                        pad.showValue
+                                            ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
+                                            : deleteNumberHandler(event)
+                                    }
                                     key={index}
-                                    onClick={(event) => addStakeHandler(event, chip.value, chip.isPlusValue)}
                                 >
-                                    <img
-                                        src={`/static/images/chips/${chip.style}.svg?v=2`}
-                                        className={`img-fluid ${Styles["chip"]}`}
-                                        width="48"
-                                        height="50"
-                                        alt="Chip"
-                                    />
-                                    <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
+                                    {pad.showValue ? pad.value : <span className="icon-delete"></span>}
                                 </div>
                             ))}
                         </div>
+                    )}
 
-                        {isMobile && (
-                            <div className={Styles["numpad-container"]}>
-                                {numPad.map((pad, index) => (
-                                    <div
-                                        className={Styles["numpad"]}
-                                        onClick={(event) =>
-                                            pad.showValue
-                                                ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
-                                                : deleteNumberHandler(event)
-                                        }
-                                        key={index}
-                                    >
-                                        {pad.showValue ? pad.value : <span className="icon-delete"></span>}
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
-                            {t("common:bet")}
-                        </button>
-                    </div>
+                    <button onClick={submitBet} className={`btn-orange w-100 ${Styles["custom-button"]}`}>
+                        {t("common:bet")}
+                    </button>
                 </div>
             </div>
-            {!isMobile && <div className={`${Styles["arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
+            {!isMobile && <div className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
         </div>
     );
 };

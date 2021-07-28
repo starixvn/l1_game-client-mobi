@@ -1,219 +1,47 @@
-[data-theme="light"] .place-bet-container {
+[data-theme="light"] .modal-placebetform {
     --numpad-background: #e6e6e6;
     --numpad-color: #505050;
 }
 
-[data-theme="dark"] .place-bet-container {
+[data-theme="dark"] .modal-placebetform {
     --numpad-background: #5c6d7e;
     --numpad-color: #fff;
 }
 
-.place-bet-container {
-    padding: 0 1rem 1rem;
-}
-
-.general-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 4.8rem;
-    padding: 0 0.9rem;
-    margin-bottom: 0.4rem;
-    background-color: #5ab379;
-    box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
-    border-radius: 0.5rem;
-    @media (min-width: 768px) {
-        height: 4rem;
-    }
-
-    .bet-option {
-        font-size: 2rem;
-        text-transform: capitalize;
-        font-weight: bold;
-        color: #fff;
-        @media (min-width: 768px) {
-            font-size: 1.6rem;
-        }
-    }
-
-    .odds {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 3.5rem;
-        min-width: 6.6rem;
-        border-radius: 2rem;
-        background: #d1e7da;
-        font: 600 1.8rem var(--font-number);
-        color: #2c2f3e;
-
-        @media (min-width: 768px) {
-            height: 2.6rem;
-            font-size: 1.6rem;
-        }
-    }
-}
-
-.stake {
-    margin-bottom: 0.4rem;
-}
-
-.payout {
-    display: flex;
-    justify-content: space-between;
-    line-height: 2.6rem;
-    font-size: 1.6rem;
-
-    @media (min-width: 768px) {
-        line-height: 2.4rem;
-        font-size: 1.4rem;
-    }
-}
-
-.highlight {
-    font-family: var(--font-number);
-    font-weight: 500;
-}
-
-.bet-chips {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    @media (min-width: 768px) {
-        margin-top: 0.4rem;
-        margin-bottom: 0.7rem;
-    }
-}
-
-.chip-container {
-    position: relative;
-    display: grid !important;
-    grid-template-columns: 4.8rem;
-    grid-template-rows: 5rem;
-    justify-content: center;
-    align-items: center;
-    width: 4.8rem;
-    height: 5rem;
-    margin: auto;
-    -webkit-tap-highlight-color: transparent;
-    @media (min-width: 768px) {
-        grid-template-columns: 3.6rem;
-        grid-template-rows: 3.7rem;
-        width: 3.6rem;
-        height: 3.7rem;
-    }
-
-    &:hover {
-        cursor: pointer;
-    }
-
-    .chip {
-        grid-area: 1/1;
-        width: 100%;
-        border-radius: 50%;
-        pointer-events: none;
-    }
-
-    .value {
-        grid-area: 1/1;
-        text-align: center;
-        font-family: var(--font-money);
-        font-size: 1.6rem;
-        color: #2c2f3e;
-        @media (min-width: 768px) {
-            font-size: 1.3rem;
-        }
-    }
-
-    &.chip-9,
-    &.chip-10,
-    &.chip-11,
-    &.chip-12 {
-        .value {
-            color: #fff;
-        }
-    }
-
-    &.chip-13 {
-        .value {
-            font-size: 1.2rem;
-            color: #ffeda5;
-            @media (min-width: 768px) {
-                font-size: 0.9rem;
-            }
-        }
-    }
-}
-
-.numpad-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: repeat(2, 4.7rem);
-    grid-gap: 0.2rem;
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
-
-    .numpad {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: var(--numpad-background);
-        color: var(--numpad-color);
-        font: 1.5rem var(--font-number);
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-}
-
-@media (min-width: 768px) {
-    .custom-button {
-        height: 3.2rem;
-        line-height: 3.2rem;
-        font-size: 1.4rem;
-    }
-}
-
-// tooltip
-
-.tooltip-info {
-    top: 7.8rem;
-    right: 2.5rem;
-
-    @media (min-width: 768px) {
-        right: 1.7rem;
-    }
-
-    .tooltip-inner {
-        width: 23rem;
-        bottom: 1.5rem !important;
-        right: 0;
-        @media (min-width: 768px) {
-            width: 21rem;
-        }
-    }
-
-    .arrow {
-        right: 2.4rem !important;
-    }
-}
-
-.modal {
+.modal-placebetform {
     cursor: auto;
-    height: 100%;
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    -ms-user-select: text;
-    user-select: text;
+    position: fixed;
+    bottom: 0;
+    left: 0.4rem;
+    right: 0.4rem;
+    height: 44rem;
+    padding: 0 2rem;
+    background: var(--popup-background);
+    border: 1px solid var(--popup-border);
+    box-shadow: var(--popup-bet-form-shadow);
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: var(--popup-color);
+    z-index: var(--popup-index);
+
+    @media (min-width: 768px) {
+        position: absolute;
+    }
+
+    @media (min-width: 768px) {
+        padding-top: 8px;
+        left: auto;
+        right: auto;
+        width: 25rem;
+        height: 27rem;
+        border-radius: 0.5rem;
+    }
 
     .popup-header {
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 5rem;
-        padding: 0 4.8rem;
+        padding: 1rem 4.8rem;
     }
 
     .popup-title {
@@ -231,14 +59,6 @@
         text-align: center;
     }
 
-    .popup-game-name {
-        color: var(--popup-game-name-color);
-        font-size: 1.6rem;
-        text-align: center;
-        margin-top: 0.2rem;
-        margin-bottom: 0;
-    }
-
     .popup-closed-icon {
         position: absolute;
         top: 1.2rem;
@@ -246,200 +66,242 @@
         z-index: 10;
     }
 
-    .popup-content-title {
+    .modal-arrow {
         position: absolute;
-        top: 0;
+        width: 0;
+        height: 0;
+
+        &:after,
+        &:before {
+            border: solid transparent;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:after {
+            left: calc(50% - 0.5rem);
+            top: -2.4rem;
+            border-bottom-color: #fff;
+            border-width: 1.2rem;
+        }
+
+        &:before {
+            top: -2.8rem;
+            left: calc(50% - 0.7rem);
+            border-bottom-color: #cbcbcb;
+            border-width: 1.4rem;
+        }
+
+        &.down {
+            bottom: 0;
+            transform: rotate(180deg);
+        }
+
+        &.up {
+            top: 0;
+        }
+
+        &.left {
+            left: 4rem;
+        }
+
+        &.right {
+            right: 4rem;
+        }
+
+        &.center {
+            left: 50%;
+        }
     }
 
-    .popup-content {
-        position: absolute;
-        bottom: 0;
-        top: 5rem;
-        left: 0;
-        right: 0;
-        overflow-y: auto;
-        overflow-x: hidden;
+    .general-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4.8rem;
+        padding: 0 0.9rem;
+        margin-bottom: 0.4rem;
+        background-color: #5ab379;
+        box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
+        border-radius: 0.5rem;
+        @media (min-width: 768px) {
+            height: 4rem;
+        }
 
-        &.has-subtitle {
-            top: 6rem;
-
-            @media (min-width: 1024px) {
-                top: 5rem;
+        .bet-option {
+            font-size: 2rem;
+            text-transform: capitalize;
+            font-weight: bold;
+            color: #fff;
+            @media (min-width: 768px) {
+                font-size: 1.6rem;
             }
         }
 
-        &.has-gameName {
-            top: 7.3rem;
-            z-index: var(--popup-index);
-        }
+        .odds {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3.5rem;
+            min-width: 6.6rem;
+            border-radius: 2rem;
+            background: #d1e7da;
+            font: 600 1.8rem var(--font-number);
+            color: #2c2f3e;
 
-        &.has-empty-title {
-            top: 1.6rem;
-        }
-    }
-}
-
-[data-theme="light"] .popup {
-    --popup-background: #fff;
-    --popup-border: #cbcbcb;
-    --popup-color: #2c2f3e;
-    --popup-title-color: #2c2f3e;
-    --popup-sub-title-color: #787878;
-    --popup-game-name-color: #ff9a00;
-    --popup-icon-close-background: #eaebf0;
-    --popup-icon-close-color: #4f4f54;
-    --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
-}
-
-[data-theme="dark"] .popup {
-    --popup-background: #203040;
-    --popup-border: #5a789a;
-    --popup-color: #fff;
-    --popup-title-color: #fff;
-    --popup-sub-title-color: #9298a4;
-    --popup-game-name-color: #ff9a00;
-    --popup-icon-close-background: #253342;
-    --popup-icon-close-color: #1a2430;
-    --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
-}
-
-.overlay {
-    top: -0.8rem !important;
-}
-
-.popup {
-    cursor: auto;
-    position: fixed;
-    padding: 1.6rem;
-    background: var(--popup-background);
-    border: 1px solid var(--popup-border);
-    box-shadow: 0px -6px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 0.5rem 0.5rem 0 0;
-    color: var(--popup-color);
-    z-index: var(--popup-index);
-
-    @media (min-width: 768px) {
-        position: absolute;
-    }
-
-    .popup-content-title {
-        position: absolute;
-        top: 0;
-    }
-
-    &.modal-full,
-    &.modal-placebetform {
-        bottom: 0;
-        left: 0;
-        right: 0;
-        box-shadow: var(--popup-bet-form-shadow);
-    }
-
-    &.modal-full {
-        top: 8.9rem;
-        bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-        z-index: var(--popup-guide-history-index);
-
-        @media (min-device-width: 768px) {
-            position: fixed;
-            top: 5.2rem;
-            border-radius: 0.5rem;
-        }
-
-        @media (min-width: 900px) {
-            left: calc(50% - 43.5rem);
-            right: auto;
-            width: 87rem;
-            margin: auto;
-        }
-
-        @media (min-width: 768px) and (min-height: 700px) {
-            bottom: 2rem;
-        }
-
-        @media (min-width: 768px) and (min-height: 900px) {
-            bottom: 10rem;
+            @media (min-width: 768px) {
+                height: 2.6rem;
+                font-size: 1.6rem;
+            }
         }
     }
 
-    &.modal-placebetform {
-        height: 44rem;
+    .stake {
+        margin-bottom: 0.4rem;
+    }
+
+    .payout {
+        display: flex;
+        justify-content: space-between;
+        line-height: 2.6rem;
+        font-size: 1.6rem;
 
         @media (min-width: 768px) {
-            padding-top: 8px;
-            left: auto;
-            right: auto;
-            width: 25rem;
-            height: 27rem;
-            border-radius: 0.5rem;
+            line-height: 2.4rem;
+            font-size: 1.4rem;
+        }
+    }
+
+    .highlight {
+        font-family: var(--font-number);
+        font-weight: 500;
+    }
+
+    .bet-chips {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        @media (min-width: 768px) {
+            margin-top: 0.4rem;
+            margin-bottom: 0.7rem;
+        }
+    }
+
+    .chip-container {
+        position: relative;
+        display: grid !important;
+        grid-template-columns: 4.8rem;
+        grid-template-rows: 5rem;
+        justify-content: center;
+        align-items: center;
+        width: 4.8rem;
+        height: 5rem;
+        margin: auto;
+        -webkit-tap-highlight-color: transparent;
+        @media (min-width: 768px) {
+            grid-template-columns: 3.6rem;
+            grid-template-rows: 3.7rem;
+            width: 3.6rem;
+            height: 3.7rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .chip {
+            grid-area: 1/1;
+            width: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .value {
+            grid-area: 1/1;
+            text-align: center;
+            font-family: var(--font-money);
+            font-size: 1.6rem;
+            color: #2c2f3e;
+            @media (min-width: 768px) {
+                font-size: 1.3rem;
+            }
+        }
+
+        &.chip-9,
+        &.chip-10,
+        &.chip-11,
+        &.chip-12 {
+            .value {
+                color: #fff;
+            }
+        }
+
+        &.chip-13 {
+            .value {
+                font-size: 1.2rem;
+                color: #ffeda5;
+                @media (min-width: 768px) {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+    .numpad-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(2, 4.7rem);
+        grid-gap: 0.2rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+
+        .numpad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--numpad-background);
+            color: var(--numpad-color);
+            font: 1.5rem var(--font-number);
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .custom-button {
+            height: 3.2rem;
+            line-height: 3.2rem;
+            font-size: 1.4rem;
+        }
+    }
+
+    // tooltip
+
+    .tooltip-info {
+        top: 8.2rem;
+        right: 2.5rem;
+
+        @media (min-width: 768px) {
+            right: 1.7rem;
+        }
+
+        .tooltip-inner {
+            width: 23rem;
+            bottom: 1.5rem !important;
+            right: 0;
+            @media (min-width: 768px) {
+                width: 21rem;
+            }
         }
 
         .arrow {
-            position: absolute;
-            width: 0;
-            height: 0;
-
-            &:after,
-            &:before {
-                border: solid transparent;
-                content: "";
-                height: 0;
-                width: 0;
-                position: absolute;
-                pointer-events: none;
-            }
-
-            &:after {
-                left: calc(50% - 0.5rem);
-                top: -2.4rem;
-                border-bottom-color: #fff;
-                border-width: 1.2rem;
-            }
-
-            &:before {
-                top: -2.8rem;
-                left: calc(50% - 0.7rem);
-                border-bottom-color: #cbcbcb;
-                border-width: 1.4rem;
-            }
-
-            &.down {
-                bottom: 0;
-                transform: rotate(180deg);
-            }
-
-            &.up {
-                top: 0;
-            }
-
-            &.left {
-                left: 4rem;
-            }
-
-            &.right {
-                right: 4rem;
-            }
-
-            &.center {
-                left: 50%;
-            }
+            right: 2.4rem !important;
         }
-    }
-
-    &.modal-rebet {
-        top: 4.7rem;
-        left: 4rem;
-        right: 4rem;
-    }
-
-    &.modal-center {
-        background: none;
-        border: none;
-        box-shadow: none;
-        position: initial !important;
-        padding: 0;
-        border-radius: 0;
     }
 }

@@ -126,6 +126,17 @@ html {
     // scrollbar
     --scrollbar-background: #f5f5f5;
     --scrollbar-thumb-background: #828282;
+
+    // popup
+    --popup-background: #fff;
+    --popup-border: #cbcbcb;
+    --popup-color: #2c2f3e;
+    --popup-title-color: #2c2f3e;
+    --popup-sub-title-color: #787878;
+    --popup-game-name-color: #ff9a00;
+    --popup-icon-close-background: #eaebf0;
+    --popup-icon-close-color: #4f4f54;
+    --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] {
@@ -168,6 +179,17 @@ html {
     // scrollbar
     --scrollbar-background: #16202d;
     --scrollbar-thumb-background: #294057;
+
+    // popup
+    --popup-background: #203040;
+    --popup-border: #5a789a;
+    --popup-color: #fff;
+    --popup-title-color: #fff;
+    --popup-sub-title-color: #9298a4;
+    --popup-game-name-color: #ff9a00;
+    --popup-icon-close-background: #253342;
+    --popup-icon-close-color: #1a2430;
+    --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
 }
 
 @media (min-width: 1100px) {
