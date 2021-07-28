@@ -1,9 +1,11 @@
-[data-theme="light"] .note {
-    --note-color: #6b6d78;
+[data-theme="light"] .place-bet-container {
+    --numpad-background: #e6e6e6;
+    --numpad-color: #505050;
 }
 
-[data-theme="dark"] .note {
-    --note-color: rgba(255, 255, 255, 0.6);
+[data-theme="dark"] .place-bet-container {
+    --numpad-background: #5c6d7e;
+    --numpad-color: #fff;
 }
 
 .place-bet-container {
@@ -156,8 +158,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #e6e6e6;
-        color: #505050;
+        background-color: var(--numpad-background);
+        color: var(--numpad-color);
         font: 1.5rem var(--font-number);
 
         &:hover {
