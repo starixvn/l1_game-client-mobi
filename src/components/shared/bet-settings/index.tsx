@@ -221,8 +221,8 @@ const BetSettings: React.FC<{
                                     ></input>
                                     {errorMessage && (
                                         <div className={`tooltip info show ${Styles["error-info"]}`}>
-                                            <div className={`arrow down ${Styles["arrow"]}`}></div>
                                             <div className={`tooltip-inner ${Styles["error-inner"]}`}>{errorMessage}</div>
+                                            <div className={`arrow down ${Styles["arrow"]}`}></div>
                                         </div>
                                     )}
                                     <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>
@@ -233,8 +233,10 @@ const BetSettings: React.FC<{
                                     >
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
-                                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("presetStakeTooltip")}</div>
-                                                <div className={`arrow up ${Styles["tooltip-arrow"]}`}></div>
+                                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                                    {t("presetStakeTooltip")}
+                                                    <div className={`arrow down`}></div>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
@@ -260,8 +262,10 @@ const BetSettings: React.FC<{
                                 <div ref={quickBetHintRef} className={`icon-help ${Styles["icon-help"]}`} onClick={handleQuickBetHintClick}>
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
-                                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>{t("quickBetTooltip")}</div>
-                                            <div className={`arrow up ${Styles["tooltip-arrow"]}`}></div>
+                                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                                {t("quickBetTooltip")}
+                                                <div className={`arrow down`}></div>
+                                            </div>
                                         </div>
                                     )}
                                 </div>

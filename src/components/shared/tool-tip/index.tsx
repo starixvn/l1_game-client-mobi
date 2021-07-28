@@ -47,7 +47,7 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
             <div ref={innerTooltipRef} className="tooltip-inner">
                 {children}
             </div>
-            <div className="arrow"></div>
+            <div className="arrow down"></div>
         </div>
     );
 };
