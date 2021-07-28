@@ -46,7 +46,7 @@ export const ThreeCardsResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { viewMode, playResultAnimation } = useGameContext();
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : Styles["has-animation"]}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(result, viewMode)}
