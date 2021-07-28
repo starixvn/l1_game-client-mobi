@@ -483,14 +483,13 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 .result-container {
     display: flex;
+    flex-wrap: wrap;
     width: fit-content;
-
     .result-info {
-        min-width: 15rem;
-    }
-    .result-info-red {
-        @extend .result-info;
-        background: linear-gradient(180deg, #f66460 0%, #e2474e 38.33%, #dc4b56 100%);
+        min-width: 10.3rem;
+        padding: 0 1.2rem;
+        margin-right: 1rem;
+        text-align: center;
     }
 
     .result-info-green {
@@ -498,12 +497,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
     }
 
-    .result-info-blue {
-        @extend .result-info;
-        background: linear-gradient(180deg, #6ba6ec 0%, #3b7bc6 49.27%, #1a66bf 100%);
     }
 
     &.result-long {
         display: flex;
-    }
 }
