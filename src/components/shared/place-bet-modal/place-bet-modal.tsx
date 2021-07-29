@@ -205,7 +205,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     {payouts.map((payout, index) => (
                         <div className={Styles["payout"]} key={index}>
                             <label>{payout.text}</label>
-                            <span className={Styles["highlight"]}>{payout.value}</span>
+                            <span className={Styles["number"]}>{payout.value}</span>
                         </div>
                     ))}
 
