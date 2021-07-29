@@ -5,7 +5,7 @@
 @import "../../../../assets/components/settlement-info";
 
 $time-draw-card-animation: 0.6s;
-$time-open-card-animation: 0.6s;
+$time-open-card-animation: 1.2s;
 $time-move-card-animation: 0.6s;
 $time-zoom-in-card-animation: 0.15s;
 
@@ -456,7 +456,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 
     &.banker .card5 .rotate-card {
-        transform: translateX(-9rem);
+        transform: translateX(-10rem);
     }
 
     .score {
@@ -509,7 +509,13 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     &.result-3 {
         .result-player-pair,
         .result-banker-pair {
-            grid-column: 1fr;
+            grid-column: 1/3;
         }
+    }
+}
+
+.winning-detail .result-container {
+    .result-3, .result-4 {
+        top: 0;
     }
 }
