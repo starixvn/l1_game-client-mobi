@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
-import { isMobile } from "react-device-detect";
+import { isMobile, isMobileOnly } from "react-device-detect";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
@@ -281,7 +281,7 @@ const BetSettings: React.FC<{
                                         onChange={handleInputBetStake}
                                         value={numberWithCommas(betStake) !== "0" ? numberWithCommas(betStake) : ""}
                                         inputMode={"numeric"}
-                                        readOnly={isMobile}
+                                        readOnly={isMobileOnly}
                                         maxLength={6}
                                         autoFocus
                                     ></input>
