@@ -13,8 +13,8 @@ import Styles from "./place-bet-modal.module.scss";
 import { useSystemContext } from "../../../contexts/system";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import { buildChips, ajustPopupPosition, ajustPopupPositionDidUpdate, buildVIPChips } from "./place-bet-modal-helper";
-import { gameVipIds } from "../../../common/constants";
 
+const gameVipIds= [22];
 const betSettingStorageKey = SessionStorageKeys.betSetting;
 let timeoutIns = null;
 
