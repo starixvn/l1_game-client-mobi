@@ -3,13 +3,12 @@
 .result-container {
     position: relative;
     top: -1.7rem;
-    display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 3.6);
     align-items: center;
-    grid-gap: 4px;
+    grid-gap: 0.4rem;
     padding: 1rem;
-    width: 22rem;
+    width: 19rem;
 
     .suits {
         display: grid;
