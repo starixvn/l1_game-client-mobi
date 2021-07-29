@@ -12,7 +12,6 @@ import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, PropsResultDetail, ResultDetail } from "./bet-history";
 import BaseDialog from "../../../shared/base-dialog";
 import { ModalType } from "../../../shared/base-dialog/type";
-import { GameResourceKeys } from "../../../../common/resources";
 import Styles from "./bet-history.module.scss";
 
 enum OrderRenderCell {
@@ -28,11 +27,11 @@ const fontWeightClass = "font-weight-medium";
 const NUMBER_ROWS_DISPLAY = 16;
 
 export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
-    const { children, translate, roundId, closeModal } = props;
+    const { children, roundId, closeModal, gameName } = props;
     return (
         <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
             <div className={Styles["popup-result-detail"]}>
-                <div className={Styles["game-name"]}>{translate(GameResourceKeys.GAME_NAME)}</div>
+                <div className={Styles["game-name"]}>{gameName}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
                 <div className={Styles["roundId"]}>#{roundId}</div>
                 {children}

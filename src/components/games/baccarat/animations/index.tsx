@@ -5,7 +5,7 @@ import { Result, SettlementResult, CardOrder, Cards } from "../baccarat";
 import Styles from "./baccarat-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";
-import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
+import { GetPlayerCardsResult, GetBankerCardsResult } from "../baccarat-helper";
 
 export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
     return cards.map((card, _) => {

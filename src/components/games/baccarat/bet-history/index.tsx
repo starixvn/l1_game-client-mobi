@@ -9,6 +9,7 @@ import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history
 import { generateSettlementInfo } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import Styles from "./bet-history.module.scss";
+import { GameResourceKeys } from "../../../../common/resources";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
     if (bet.result) {
@@ -26,23 +27,23 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void) => {
+const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
     if (resultDetail) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
-        const translateChoiceMapping = GetTranslateChoiceMapping(t);
-
         return (
-            <ResultDetailContainer translate={t} roundId={roundId} closeModal={closeModal}>
+            <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["card-result-container"]}>
-                    <div className={Styles["player-label"]}>{t("player")}</div>
-                    <div className={Styles["banker-label"]}>{t("banker")}</div>
+                    <div className={Styles["player-label"]}>{t(`${gameName}:player`)}</div>
+                    <div className={Styles["banker-label"]}>{t(`${gameName}:banker`)}</div>
                     <div className={`${Styles["player"]} ${Styles["card-result"]}`}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
                     <div className={`${Styles["banker"]} ${Styles["card-result"]}`}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
                 </div>
 
-                <div className={Styles["winning-detail"]}>{generateSettlementInfo(settlementResult, translateChoiceMapping)}</div>
+                <div className={Styles["winning-detail"]}>
+                    {generateSettlementInfo(settlementResult, GetTranslateChoiceMapping(t, gameName))}
+                </div>
             </ResultDetailContainer>
         );
     }
@@ -93,8 +94,8 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameI
                 renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
             }
             renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName) => renderBet(bet, t, mainOdds, gameName)}
-            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void) =>
-                renderResultDetail(resultDetail, t, closeModal)
+            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
+                renderResultDetail(resultDetail, t, closeModal, gameName)
             }
         ></BetHistoryContainer>
     );

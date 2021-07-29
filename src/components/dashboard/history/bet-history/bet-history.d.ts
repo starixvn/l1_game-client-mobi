@@ -43,8 +43,8 @@ export type BetLogs = {
 };
 
 export type PropsResultDetail = {
-    translate: TFunction;
     roundId: number;
     children: React.ReactNode;
     closeModal: () => void;
+    gameName: string;
 };

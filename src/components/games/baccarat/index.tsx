@@ -9,7 +9,7 @@ import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation, generateSet
 import BaccaratBetOptions from "./bet-options";
 import { ScoreboardRule } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./baccarat";
-import { Choices, StatisticRuleMapping } from "./baccarat-helper";
+import { Choices, StatisticRuleMapping, GetTranslateChoiceMapping } from "./baccarat-helper";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import TabsComponent from "../../shared/round-history/tabs";
 
@@ -125,15 +125,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderSettlementInfo() {
         const { settlementResult } = this.state;
-        const resources = {
-            player: this.getGameTranslate("player"),
-            banker: this.getGameTranslate("banker"),
-            tie: this.getGameTranslate("tie"),
-            playerPair: this.getGameTranslate("playerPair"),
-            bankerPair: this.getGameTranslate("bankerPair"),
-            big: this.getGameTranslate("big"),
-            small: this.getGameTranslate("small"),
-        };
+        const resources = GetTranslateChoiceMapping(this.props.t, this.props.gameName.toLowerCase());
 
         return generateSettlementInfo(settlementResult, resources);
     }
