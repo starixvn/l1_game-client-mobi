@@ -35,13 +35,48 @@
 
 .card-result-container {
     display: grid;
-    grid-template-columns: 10rem 10rem;
+    grid-template-columns: 13rem 13rem;
+    grid-template-rows: 2.4rem 11rem;
     justify-content: center;
     text-align: center;
     font-size: 1.4rem;
     .card-result {
         display: flex;
         justify-content: center;
+        transform: scale(0.68);
+        position: relative;
+        top: -1.3rem;
+
+        &.player {
+            justify-content: flex-end;
+        }
+        &.banker {
+            justify-content: flex-start;
+        }
+        .card1 {
+            transform: translateX(2rem);
+        }
+        .card2 {
+            transform: translateX(-2rem); 
+        }
+        .card3 {
+            transform: translateX(10.2rem);
+        }
+        .card4 {
+            transform: translateX(-10.2rem);
+            z-index: 99;
+        }
+        .card5 {
+            transform: translateX(17.5rem);
+        }
+        .card6 {
+            transform: translateX(-17.5rem);
+            z-index: 100;
+        }
+        &.banker .card5 {
+            transform: translateX(-17.5rem);
+            z-index: 100;
+        }
     }
 
     .player-label {
@@ -54,6 +89,7 @@
 }
 
 .winning-detail {
-    text-align: center;
     font-size: 1.4rem;
+    display: flex;
+    justify-content: center;
 }

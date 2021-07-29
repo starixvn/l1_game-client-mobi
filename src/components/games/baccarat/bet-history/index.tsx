@@ -38,8 +38,8 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                 <div className={Styles["card-result-container"]}>
                     <div className={Styles["player-label"]}>{t("player")}</div>
                     <div className={Styles["banker-label"]}>{t("banker")}</div>
-                    <div className={Styles["card-result"]}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
-                    <div className={Styles["card-result"]}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
+                    <div className={`${Styles["player"]} ${Styles["card-result"]}`}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
+                    <div className={`${Styles["banker"]} ${Styles["card-result"]}`}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
                 </div>
 
                 <div className={Styles["winning-detail"]}>{generateSettlementInfo(settlementResult, translateChoiceMapping)}</div>
