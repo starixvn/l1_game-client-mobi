@@ -64,12 +64,11 @@ export const ajustPopupPosition = (gameBaseContainerRef: any, betOptionElement: 
         betChoiceRect = betChoiceElement.getBoundingClientRect(),
         betOptionRect = betOptionElement.getBoundingClientRect(),
         isAlignRight = Math.round(betChoiceRect.right - betContainerRect.right) === 0,
-        isAlignLeft = Math.round(betContainerRect.left - betChoiceRect.left) === 0,
-        popupTop = betOptionElement.getBoundingClientRect().bottom - gameContainerRect.top;
+        isAlignLeft = Math.round(betContainerRect.left - betChoiceRect.left) === 0;
 
     let alignArrowStyle = "left";
     let popupStyle = {
-        top: `${popupTop}px`,
+        top: `${betOptionElement.getBoundingClientRect().bottom - gameContainerRect.top}px`,
         bottom: "none",
         left: `${betOptionRect.left - gameContainerRect.left}px`,
         right: "none",
@@ -110,11 +109,10 @@ export const ajustPopupPositionDidUpdate = (
         betOptionRect = betOptionElement.getBoundingClientRect();
 
     if (window.innerHeight - betOptionRect.bottom < popupRef.getBoundingClientRect().height) {
-        const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-            popupBottom = gameContainerRect.bottom - betOptionRect.top;
+        const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
 
         let result = ajustPopupPosition(gameBaseContainerRef, betOptionElement, betChoiceElement);
-        result.position.bottom = `${popupBottom}px`;
+        result.position.bottom = `${gameContainerRect.bottom - betOptionRect.top}px`;
         result.position.top = "none";
 
         return {

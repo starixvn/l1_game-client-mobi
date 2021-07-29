@@ -6,7 +6,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { BetSettingStorage } from "../bet-settings/type";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { isMobile } from "react-device-detect";
+import { isMobileOnly } from "react-device-detect";
 import { numPad, tooltipTimeout } from "./place-bet-constant";
 import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
@@ -52,7 +52,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     ];
 
     useEffect(() => {
-        if (!isMobile) {
+        if (!isMobileOnly) {
             const popupStyle = ajustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
@@ -68,7 +68,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     }, []);
 
     useEffect(() => {
-        if (!isMobile) {
+        if (!isMobileOnly) {
             const popupStyle = ajustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.betOptionElement, props.betChoiceElement);
             if (popupStyle.isAjustPosition) {
                 setStyle(popupStyle.position);
@@ -181,7 +181,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     <div className={`form-group ${Styles["stake"]}`}>
                         <NumberFormat
                             autoFocus
-                            readOnly={isMobile}
+                            readOnly={isMobileOnly}
                             value={betStake ?? ''}
                             allowNegative={false}
                             className="form-control number"
@@ -223,12 +223,12 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                                     height="50"
                                     alt="Chip"
                                 />
-                                <span className={Styles["value"]}>{chip.value == maxBetChoice ? "MAX" : `+${chip.value}`}</span>
+                                <span className={Styles["value"]}>{chip.isPlusValue ? `+${chip.value}` :"MAX" }</span>
                             </div>
                         ))}
                     </div>
 
-                    {isMobile && (
+                    {isMobileOnly && (
                         <div className={Styles["numpad-container"]}>
                             {numPad.map((pad, index) => (
                                 <div
@@ -251,7 +251,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     </button>
                 </div>
             </div>
-            {!isMobile && <div className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
+            {!isMobileOnly && <div className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
         </div>
     );
 };
