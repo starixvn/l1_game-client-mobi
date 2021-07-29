@@ -221,8 +221,10 @@ const BetSettings: React.FC<{
                                     ></input>
                                     {errorMessage && (
                                         <div className={`tooltip info show ${Styles["error-info"]}`}>
-                                            <div className={`tooltip-inner ${Styles["error-inner"]}`}>{errorMessage}</div>
-                                            <div className={`arrow down ${Styles["arrow"]}`}></div>
+                                            <div className={`tooltip-inner ${Styles["error-inner"]}`}>
+                                                {errorMessage}
+                                                <div className={`arrow up ${Styles["arrow-stake"]}`}></div>
+                                            </div>
                                         </div>
                                     )}
                                     <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>

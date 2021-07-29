@@ -271,16 +271,19 @@
 }
 
 .error-info {
-    top: 4rem;
-
     .error-inner {
-        width: 22rem;
-        top: 0;
         bottom: auto !important;
+        top: 4.2rem;
+        width: 23rem;
+
+        @media (min-width: 768px) {
+            top: 3.5rem;
+            width: 19.5rem;
+        }
     }
 
-    .arrow {
-        left: 13.1rem !important;
+    .arrow-stake {
+        right: 4.7rem !important;
     }
 }
 
