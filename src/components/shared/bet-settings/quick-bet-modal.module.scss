@@ -270,6 +270,32 @@
     }
 }
 
+.global-setting-hint-wrapper {
+    top: 16rem;
+    right: 39rem;
+
+    .global-setting-hint-inner {
+        width: 39rem;
+    }
+
+    .arrow {
+        right: 7rem !important;
+    }
+}
+
+.quick-bet-hint-wrapper {
+    top: 10rem;
+    right: 39rem;
+
+    .quick-bet-hint-inner {
+        width: 39rem;
+    }
+
+    .arrow {
+        right: 7rem !important;
+    }
+}
+
 .error-info {
     .error-inner {
         bottom: auto !important;

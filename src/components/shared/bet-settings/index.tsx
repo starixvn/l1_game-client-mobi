@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
 import { GameConfigs, GameState } from "../game-base/type";
@@ -10,6 +11,9 @@ import { BetSetting, BetSettingStorage } from "./type";
 const NumpadValues = [1, 5, 10, 50, 100, 200, 500, 1000];
 const MaxInputValue = 99999;
 const betSettingsStorageKey = SessionStorageKeys.betSetting;
+const globalSettingHintKey = localStorageKeys.globalSettingHint;
+const quickBetHintKey = localStorageKeys.quickBetHint;
+let quickBetHintShowTimeOut: NodeJS.Timeout = null;
 
 const BetSettings: React.FC<{
     gameId?: number;
@@ -19,14 +23,18 @@ const BetSettings: React.FC<{
     isDisabled?: boolean;
 }> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const betStakeHintRef = useRef<HTMLDivElement>(null);
+    const betStakeTooltipRef = useRef<HTMLDivElement>(null);
+    const quickBetTooltipRef = useRef<HTMLDivElement>(null);
     const quickBetHintRef = useRef<HTMLDivElement>(null);
+    const globalSettingHintRef = useRef<HTMLDivElement>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 0);
     const [enabledQuickBet, setEnabledQuickBet] = useState(props.betSettings?.enabledQuickBet);
     const [showBetStakeTooltip, setShowBetStakeTooltip] = useState(false);
     const [showQuickBetTooltip, setShowQuickBetTooltip] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [isShowGlobalSettingHint, setIsShowGlobalSettingHint] = useState(!getLocalStorageItem<boolean>(globalSettingHintKey));
+    const [isShowQuickBetHint, setIsShowQuickBetHint] = useState(false);
     const { t } = useTranslation();
     const dropdownPosition = !props.gameId && isMobile ? "left" : "right";
 
@@ -35,6 +43,14 @@ const BetSettings: React.FC<{
 
         setBetStake(stake);
         setEnabledQuickBet(enabled);
+
+        if (props.gameId && enabled && !getLocalStorageItem<boolean>(quickBetHintKey)) {
+            setIsShowQuickBetHint(true);
+            storeLocalStorageItem(quickBetHintKey, true);
+            quickBetHintShowTimeOut = setTimeout(() => {
+                setIsShowQuickBetHint(false);
+            }, 3000);
+        }
     };
 
     const toggle = (e: React.MouseEvent) => {
@@ -134,15 +150,27 @@ const BetSettings: React.FC<{
             onCloseSettingsModal();
         }
 
-        if (betStakeHintRef && betStakeHintRef.current && !betStakeHintRef.current.contains(event.target)) {
+        if (betStakeTooltipRef && betStakeTooltipRef.current && !betStakeTooltipRef.current.contains(event.target)) {
             setShowBetStakeTooltip(false);
         }
 
-        if (quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+        if (quickBetTooltipRef && quickBetTooltipRef.current && !quickBetTooltipRef.current.contains(event.target)) {
             setShowQuickBetTooltip(false);
         }
 
+        if (quickBetHintRef && quickBetHintRef.current && !quickBetHintRef.current.contains(event.target)) {
+            setIsShowQuickBetHint(false);
+        }
+
+        if (globalSettingHintRef && globalSettingHintRef.current && !globalSettingHintRef.current.contains(event.target)) {
+            setIsShowGlobalSettingHint(false);
+        }
         setErrorMessage("");
+    };
+
+    const handleConfirmHint = () => {
+        setIsShowGlobalSettingHint(false);
+        storeLocalStorageItem(globalSettingHintKey, true);
     };
 
     useEffect(() => {
@@ -159,26 +187,40 @@ const BetSettings: React.FC<{
         setEnabledQuickBet(props.betSettings?.enabledQuickBet);
     }, [props.betSettings?.betStake, props.betSettings?.enabledQuickBet]);
 
+    useEffect(() => {
+        return () => clearTimeout(quickBetHintShowTimeOut);
+    }, []);
+
     return (
         <div className={Styles["game-menu"]} onClick={stopPropagation}>
             {props.gameId && (
-                <div className={`game-header-button ${Styles["quick-bet-info"]}`} onClick={onClickChip}>
-                    {enabledQuickBet ? (
-                        <div className={Styles["quick-bet-active"]}>
-                            <img
-                                className={Styles["chip-active"]}
-                                src={"/static/images/game-header-quick-bet-active.svg"}
-                                width={20}
-                                height={20}
-                            />
-                            <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake)}</span>
-                        </div>
-                    ) : (
-                        <div className={`${Styles["quick-bet-chip"]}`}>
-                            <img src={"/static/images/icon-thunder.svg?v=2"} width={17} height={16} />
+                <>
+                    <div className={`game-header-button ${Styles["quick-bet-info"]}`} onClick={onClickChip}>
+                        {enabledQuickBet ? (
+                            <div className={Styles["quick-bet-active"]}>
+                                <img
+                                    className={Styles["chip-active"]}
+                                    src={"/static/images/game-header-quick-bet-active.svg"}
+                                    width={20}
+                                    height={20}
+                                />
+                                <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake)}</span>
+                            </div>
+                        ) : (
+                            <div className={`${Styles["quick-bet-chip"]}`}>
+                                <img src={"/static/images/icon-thunder.svg?v=2"} width={17} height={16} alt="icon-thunder" />
+                            </div>
+                        )}
+                    </div>
+                    {isShowQuickBetHint && (
+                        <div ref={quickBetHintRef} className={`tooltip info show ${Styles["quick-bet-hint-wrapper"]}`}>
+                            <div className={`tooltip-inner ${Styles["quick-bet-hint-inner"]}`}>
+                                {t("quickBetHint")}
+                                <div className={`arrow up ${Styles["arrow"]}`}></div>
+                            </div>
                         </div>
                     )}
-                </div>
+                </>
             )}
 
             <div className="dropdown" ref={wrapperRef}>
@@ -187,20 +229,33 @@ const BetSettings: React.FC<{
                         <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
                     </div>
                 ) : (
-                    <div className={`dropdown-toggle header-button ${Styles["header-button"]}`} onClick={toggle}>
-                        <div className={`${Styles["quick-bet-chip"]}`}>
-                            {(enabledQuickBet || !!betStake) && (
-                                <img
-                                    src={"/static/images/chip-dollar-icon.svg?v=2"}
-                                    className={Styles["icon-dollar"]}
-                                    width={14}
-                                    height={14}
-                                />
-                            )}
+                    <>
+                        <div className={`dropdown-toggle header-button ${Styles["header-button"]}`} onClick={toggle}>
+                            <div className={`${Styles["quick-bet-chip"]}`}>
+                                {(enabledQuickBet || !!betStake) && (
+                                    <img
+                                        src={"/static/images/chip-dollar-icon.svg?v=2"}
+                                        className={Styles["icon-dollar"]}
+                                        width={14}
+                                        height={14}
+                                    />
+                                )}
+                            </div>
+                            <span className={Styles["quick-bet-text"]}>{t("quickBet")}</span>
+                            <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
                         </div>
-                        <span className={Styles["quick-bet-text"]}>{t("quickBet")}</span>
-                        <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
-                    </div>
+                        {isShowGlobalSettingHint && (
+                            <div ref={globalSettingHintRef} className={`tooltip info show ${Styles["global-setting-hint-wrapper"]}`}>
+                                <div className={`tooltip-inner ${Styles["global-setting-hint-inner"]}`}>
+                                    {t("globalSettingHint")}
+                                    <div className={`arrow up ${Styles["arrow"]}`}></div>
+                                    <button onClick={handleConfirmHint} className={`btn-orange ${Styles["btn-confirm"]}`}>
+                                        {t("common:ok")}
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </>
                 )}
 
                 {dropdownOpen && !props.isDisabled && (
@@ -229,7 +284,7 @@ const BetSettings: React.FC<{
                                     )}
                                     <span className={`icon-close small ${Styles["icon-cancel"]}`} onClick={onDeleteStake}></span>
                                     <div
-                                        ref={betStakeHintRef}
+                                        ref={betStakeTooltipRef}
                                         className={`icon-help ${Styles["icon-help"]}`}
                                         onClick={handlePresetStakeHintClick}
                                     >
@@ -261,7 +316,11 @@ const BetSettings: React.FC<{
                                         <div className={Styles["quick-bet-icon"]}></div>
                                     </label>
                                 </div>
-                                <div ref={quickBetHintRef} className={`icon-help ${Styles["icon-help"]}`} onClick={handleQuickBetHintClick}>
+                                <div
+                                    ref={quickBetTooltipRef}
+                                    className={`icon-help ${Styles["icon-help"]}`}
+                                    onClick={handleQuickBetHintClick}
+                                >
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
                                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
