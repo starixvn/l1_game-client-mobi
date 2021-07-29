@@ -57,7 +57,7 @@
             transform: translateX(2rem);
         }
         .card2 {
-            transform: translateX(-2rem); 
+            transform: translateX(-2rem);
         }
         .card3 {
             transform: translateX(10.2rem);
@@ -85,6 +85,11 @@
 
     .banker-label {
         color: #de4a54;
+    }
+
+    .card-length-2,
+    .card-length-3 {
+        color: inherit;
     }
 }
 

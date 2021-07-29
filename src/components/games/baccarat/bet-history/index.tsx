@@ -32,13 +32,26 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
+
+        const getClassCardLength = (getCard: Function, result: any) => {
+            return `card-length-${getCard(result).filter((c) => !!c.value).length}`;
+        };
+
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["card-result-container"]}>
                     <div className={Styles["player-label"]}>{t(`${gameName}:player`)}</div>
                     <div className={Styles["banker-label"]}>{t(`${gameName}:banker`)}</div>
-                    <div className={`${Styles["player"]} ${Styles["card-result"]}`}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
-                    <div className={`${Styles["banker"]} ${Styles["card-result"]}`}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
+                    <div
+                        className={`${Styles["player"]} ${Styles["card-result"]} ${
+                            Styles[getClassCardLength(GetPlayerCardsResult, result)]
+                        }`}
+                    >
+                        {generateResultOnCard(GetPlayerCardsResult(result))}
+                    </div>
+                    <div className={`${Styles["banker"]} ${Styles["card-result"]} ${getClassCardLength(GetBankerCardsResult, result)}`}>
+                        {generateResultOnCard(GetBankerCardsResult(result))}
+                    </div>
                 </div>
 
                 <div className={Styles["winning-detail"]}>
