@@ -21,9 +21,27 @@ type Props = {
     toggleFavoriteSetting: Function;
 };
 
+function UserInfo({ user }: { user: User }) {
+    return (
+        <div className={Styles["user"]}>
+            <div className={Styles["info"]}>
+                <div className={Styles["user-name"]}>{user.name}</div>
+                <div key={user.red} className={`${Styles.balance}`}>
+                    {numberWithCommas(user.red ? user.red : 0)} {user.currency}
+                </div>
+            </div>
+            <div className={Styles["avatar"]}>
+                {user.avatarId > 0 && user.avatarId < 41 ? (
+                    <img src={`/static/images/avatar/${user.avatarId}.png`} className="img-fluid" height="40" width="40" alt="Avatar" />
+                ) : (
+                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                )}
+            </div>
+        </div>
+    );
+}
+
 const Header: React.FC<Props> = (props) => {
-    const { user } = props;
-    const pathAvatar = `/static/images/avatar/${user.avatarId}.png`;
     const { i18n } = useTranslation();
 
     return (
@@ -47,21 +65,7 @@ const Header: React.FC<Props> = (props) => {
                                 toggleFavoriteSetting={props.toggleFavoriteSetting}
                             />
                         )}
-                        <div className={Styles["user"]}>
-                            <div className={Styles["info"]}>
-                                <div className={Styles["user-name"]}>{user.name}</div>
-                                <div key={user.red} className={`${Styles.balance}`}>
-                                    {numberWithCommas(user.red ? user.red : 0)} {user.currency}
-                                </div>
-                            </div>
-                            <div className={Styles["avatar"]}>
-                                {user.avatarId > 0 && user.avatarId < 41 ? (
-                                    <img src={pathAvatar} className="img-fluid" height="40" width="40" alt="Avatar" />
-                                ) : (
-                                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
-                                )}
-                            </div>
-                        </div>
+                        <UserInfo user={props.user} />
                     </div>
                 </div>
             </div>

@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
+import appSettings from "../../common/app-settings";
 import { CommonResourceKeys, GameResourceKeys } from "../../common/resources";
 import BaseDialog from "../shared/base-dialog";
-import Styles from "./favorite-setting.module.scss";
-import appSettings from "../../common/app-settings";
 import { ModalType } from "../shared/base-dialog/type";
-import { useState } from "react";
+import Styles from "./favorite-setting.module.scss";
 
 let startDragGameId = -1;
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import appSettings from "../../../common/app-settings";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
@@ -13,7 +14,6 @@ import { GameSelector } from "../../shared/game-selector";
 import Styles from "./history.module.scss";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
-    const { gameSettings } = appSettings;
     const { t } = useTranslation();
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
 
