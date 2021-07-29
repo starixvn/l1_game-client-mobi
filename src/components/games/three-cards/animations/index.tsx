@@ -76,25 +76,7 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
                 </div>
             </div>
             {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-label"]}>
-                    <div className={Styles["result-group"]}>
-                        <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-grey"]}>
-                            {t(settlementResult.red ? "red" : "black")}
-                        </div>
-                    </div>
-                    <div className={Styles["result-group"]}>
-                        {result.map((r, index) => {
-                            return (
-                                <div
-                                    key={`result_${r.suit}_${index}`}
-                                    className={isRedSuit(r.suit) ? Styles["result-info-red"] : Styles["result-info-grey"]}
-                                >
-                                    {t(suits[r.suit])}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                <div className={Styles["result-label"]}>{t(settlementResult.red ? "red" : "black")}</div>
             )}
         </div>
     );

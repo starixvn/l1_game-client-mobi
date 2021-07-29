@@ -183,14 +183,8 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
                 texts={texts}
             />
             {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-container"]}>
-                    <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>
-                        {t(settleResult.big ? "big" : "small")}
-                    </div>
-                    <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>
-                        {t(settleResult.even ? "even" : "odd")}
-                    </div>
-                    <div className={Styles["result-info-grey"]}>{t(settleResult.element)}</div>
+                <div className={Styles["result-label"]}>
+                    {`${t(settleResult.big ? "big" : "small")} - ${t(settleResult.even ? " - even" : " - odd")}`}
                 </div>
             )}
         </div>

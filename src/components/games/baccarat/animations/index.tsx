@@ -63,35 +63,9 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 
-export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object, isCollapse: boolean = false) => {
-    return (
-        <div
-            className={`${Styles[isCollapse ? "result-label" : "result-container"]} ${
-                settlementResult.playerPair && settlementResult.bankerPair ? Styles["result-long"] : ""
-            }`}
-        >
-            {settlementResult.player ? (
-                <div className={Styles["result-info-blue"]}>{resources["player"]}</div>
-            ) : settlementResult.banker ? (
-                <div className={Styles["result-info-red"]}>{resources["banker"]}</div>
-            ) : (
-                <div className={Styles["result-info-green"]}>{resources["tie"]}</div>
-            )}
-            {settlementResult.big ? (
-                <div className={Styles["result-info-blue"]}>{resources["big"]}</div>
-            ) : (
-                <div className={Styles["result-info-red"]}>{resources["small"]}</div>
-            )}
-            {settlementResult.playerPair ? <div className={Styles["result-info-blue"]}>{resources["playerPair"]}</div> : <></>}
-            {settlementResult.bankerPair ? <div className={Styles["result-info-red"]}>{resources["bankerPair"]}</div> : <></>}
-        </div>
-    );
-};
-
 export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const resources = GetTranslateChoiceMapping(t);
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
@@ -115,7 +89,11 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                     {generateDisplayScore(GetBankerCardsResult(result))}
                 </div>
             </div>
-            {!playResultAnimation && settlementResult && generateSettlementInfo(settlementResult, resources, true)}
+            {!playResultAnimation && settlementResult && (
+                <div className={Styles["result-label"]}>
+                    {settlementResult.player ? t("player") : settlementResult.banker ? t("banker") : t("tie")}
+                </div>
+            )}
         </div>
     );
 };
@@ -143,6 +121,37 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
                     <div className={Styles["card-back"]}></div>
                 </div>
             </div>
+        </div>
+    );
+};
+
+export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object) => {
+    const resultCount = 2 + (!settlementResult.playerPair ? 1 : 0) + (settlementResult.bankerPair ? 1 : 0);
+
+    return (
+        <div className={`${Styles["result-container"]} ${Styles[`result-${resultCount}`]}`}>
+            {settlementResult.player ? (
+                <div className={Styles["result-info-blue"]}>{resources["player"]}</div>
+            ) : settlementResult.banker ? (
+                <div className={Styles["result-info-red"]}>{resources["banker"]}</div>
+            ) : (
+                <div className={Styles["result-info-green"]}>{resources["tie"]}</div>
+            )}
+            {settlementResult.big ? (
+                <div className={Styles["result-info-blue"]}>{resources["big"]}</div>
+            ) : (
+                <div className={Styles["result-info-red"]}>{resources["small"]}</div>
+            )}
+            {!settlementResult.playerPair ? (
+                <div className={`${Styles["result-info-blue"]} ${Styles["result-player-pair"]}`}>{resources["playerPair"]}</div>
+            ) : (
+                <></>
+            )}
+            {settlementResult.bankerPair ? (
+                <div className={`${Styles["result-info-red"]} ${Styles["result-banker-pair"]}`}>{resources["bankerPair"]}</div>
+            ) : (
+                <></>
+            )}
         </div>
     );
 };
