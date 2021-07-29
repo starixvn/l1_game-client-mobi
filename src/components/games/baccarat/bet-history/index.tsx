@@ -55,7 +55,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                 </div>
 
                 <div className={Styles["winning-detail"]}>
-                    {generateSettlementInfo(settlementResult, GetTranslateChoiceMapping(t, gameName))}
+                    {generateSettlementInfo(settlementResult, GetTranslateChoiceMapping(t, gameName), true)}
                 </div>
             </ResultDetailContainer>
         );
