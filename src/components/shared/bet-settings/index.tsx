@@ -224,7 +224,7 @@ const BetSettings: React.FC<{
                     </div>
                     {isShowQuickBetHint && (
                         <div ref={quickBetHintRef} className={`tooltip info show ${Styles["quick-bet-hint-wrapper"]}`}>
-                            <div className={`tooltip-inner ${Styles["quick-bet-hint-inner"]}`}>
+                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
                                 {t("quickBetHint")}
                                 <div className={`arrow up ${Styles["arrow"]}`}></div>
                             </div>
@@ -256,7 +256,7 @@ const BetSettings: React.FC<{
                         </div>
                         {isShowGlobalSettingHint && (
                             <div ref={globalSettingHintRef} className={`tooltip info show ${Styles["global-setting-hint-wrapper"]}`}>
-                                <div className={`tooltip-inner ${Styles["global-setting-hint-inner"]}`}>
+                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
                                     {t("globalSettingHint")}
                                     <div className={`arrow up ${Styles["arrow"]}`}></div>
                                     <button onClick={handleConfirmHint} className={`btn-orange ${Styles["btn-confirm"]}`}>
@@ -301,9 +301,9 @@ const BetSettings: React.FC<{
                                     >
                                         {showBetStakeTooltip && (
                                             <div className={`tooltip info show`}>
-                                                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                                <div className={`tooltip-inner ${Styles["tooltip-inner-help"]}`}>
                                                     {t("presetStakeTooltip")}
-                                                    <div className={`arrow down`}></div>
+                                                    <div className={`arrow down ${Styles["arrow-help"]}`}></div>
                                                 </div>
                                             </div>
                                         )}
@@ -334,9 +334,9 @@ const BetSettings: React.FC<{
                                 >
                                     {showQuickBetTooltip && (
                                         <div className={`tooltip info show`}>
-                                            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                                            <div className={`tooltip-inner ${Styles["tooltip-inner-help"]}`}>
                                                 {t("quickBetTooltip")}
-                                                <div className={`arrow down`}></div>
+                                                <div className={`arrow down ${Styles["arrow-help"]}`}></div>
                                             </div>
                                         </div>
                                     )}

@@ -92,14 +92,14 @@
         &:before {
             top: -2rem;
             left: calc(50% - 0.5rem);
-            border-bottom-color: #cbcbcb;
+            border-bottom-color: var(--popup-border);
             border-width: 1rem;
         }
 
         &:after {
             left: calc(50% - 0.3rem);
             top: -1.6rem;
-            border-bottom-color: #fff;
+            border-bottom-color: var(--popup-background);
             border-width: 0.8rem;
         }
 
@@ -300,7 +300,6 @@
         .tooltip-inner {
             width: 23rem;
             top: 3.5rem !important;
-            bottom: auto;
             right: 0;
             @media (min-width: 768px) {
                 width: 21rem;
@@ -308,7 +307,7 @@
         }
 
         .arrow {
-            right: 2.8rem !important;
+            right: 3rem !important;
         }
     }
 }

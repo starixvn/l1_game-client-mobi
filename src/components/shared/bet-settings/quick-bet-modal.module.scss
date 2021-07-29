@@ -11,6 +11,7 @@
 }
 
 .game-menu {
+    position: relative;
     display: flex;
     align-items: center;
 }
@@ -261,44 +262,69 @@
 }
 
 // Tooltip
-.tooltip-inner {
+.tooltip-inner-help {
+    bottom: 1.5rem;
     right: -0.5rem;
     width: 26.8rem;
 
     @media (min-width: 768px) {
         width: 22.8rem;
     }
+
+    .arrow-help {
+        right: 0.6rem;
+    }
+}
+
+@mixin align-right($right: 0) {
+    @media (min-width: 768px) {
+        left: auto;
+        right: $right;
+    }
 }
 
 .global-setting-hint-wrapper {
-    top: 16rem;
-    right: 39rem;
+    top: 0;
+    left: 0;
+    @include align-right(0);
 
-    .global-setting-hint-inner {
-        width: 39rem;
+    .tooltip-inner {
+        top: 4.2rem;
+        left: 0;
+        width: 33rem;
+        padding: 1rem !important;
+        @include align-right(0);
+    }
+
+    .btn-confirm {
+        min-width: 15.5rem;
+        display: block;
+        margin: 1rem auto 0;
     }
 
     .arrow {
-        right: 7rem !important;
+        left: 6.2rem;
+        @include align-right(6.2rem);
     }
 }
 
 .quick-bet-hint-wrapper {
-    top: 10rem;
-    right: 39rem;
+    top: 0;
+    right: 0;
 
-    .quick-bet-hint-inner {
-        width: 39rem;
+    .tooltip-inner {
+        width: 25rem;
+        top: 4.6rem;
+        right: 0;
     }
 
     .arrow {
-        right: 7rem !important;
+        right: 6rem;
     }
 }
 
 .error-info {
     .error-inner {
-        bottom: auto !important;
         top: 4.2rem;
         width: 23rem;
 
@@ -309,7 +335,7 @@
     }
 
     .arrow-stake {
-        right: 4.7rem !important;
+        right: 5rem !important;
     }
 }
 
