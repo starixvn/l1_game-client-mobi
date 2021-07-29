@@ -1,9 +1,12 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
+import { useTranslation } from "next-i18next";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
-import Styles from "./keno-pro-max-animations.module.scss";
+import { GetChoiceTranslate } from "../keno-pro-max-helper";
 import * as _ from "lodash";
+import Styles from "./keno-pro-max-animations.module.scss";
+import { truncate } from "node:fs/promises";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
 export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
@@ -25,7 +28,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
 
     return settle;
 };
-export const generateResult = (result: Result, shuffle) => {
+export const generateResult = (result: Result, shuffle, isAnimation = true) => {
     const maxNumInRow = 5;
     const rows = [[], [], [], []];
     rows.forEach((row, index) => {
@@ -38,7 +41,7 @@ export const generateResult = (result: Result, shuffle) => {
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
             return (
-                <div key={index} className={`${Styles["number-animate"]} ${Styles[`animate-${shuffle[index]}`]}`}>
+                <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[`animate-${shuffle[index]}`]}`}>
                     <div className={`${Styles["number"]}`}>{num}</div>
                     <div className={`${Styles["number-cover"]}`}></div>
                 </div>
@@ -131,19 +134,14 @@ export const KenoProMaxResult: React.FC<{ result?: Result; settlementResult: Set
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const settleResult = getSettleResult(result, settlementResult);
-    const texts = {
-        total: t("total"),
-        big: t(settleResult.big ? "big" : "small"),
-        even: t(settleResult.even ? "even" : "odd"),
-        element: t(settleResult.element),
-    };
+    const texts = GetChoiceTranslate(t, settleResult);
 
     return (
         <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className="overlay-mask">
                 <AnimationComponent
-                    big={settleResult.big}
-                    even={settleResult.even}
+                    big={settlementResult.big}
+                    even={settlementResult.even}
                     element={settleResult.element}
                     playResultAnimation={playResultAnimation}
                     result={result}
@@ -163,18 +161,13 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const settleResult = getSettleResult(result, settlementResult);
-    const texts = {
-        total: t("total"),
-        big: t(settleResult.big ? "big" : "small"),
-        even: t(settleResult.even ? "even" : "odd"),
-        element: t(settleResult.element),
-    };
+    const texts = GetChoiceTranslate(t, settleResult);
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <AnimationComponent
-                big={settleResult.big}
-                even={settleResult.even}
+                big={settlementResult.big}
+                even={settlementResult.even}
                 element={settleResult.element}
                 playResultAnimation={playResultAnimation}
                 result={result}

@@ -106,7 +106,7 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameI
             renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) =>
                 renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
             }
-            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName) => renderBet(bet, t, mainOdds, gameName)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
                 renderResultDetail(resultDetail, t, closeModal, gameName)
             }

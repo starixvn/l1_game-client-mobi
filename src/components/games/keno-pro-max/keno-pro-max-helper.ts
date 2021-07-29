@@ -1,3 +1,4 @@
+import { TFunction } from "next-i18next";
 import { SettlementResult } from "./keno-pro-max";
 export const Choices = {
     big: "big",
@@ -66,4 +67,13 @@ export const GetNameFromChoice = (settlementResult: SettlementResult) => {
         }
     });
     return choiceValue;
+};
+
+export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
+    return {
+        total: t("kenopromax:total"),
+        big: t(settleResult.big ? "kenopromax:big" : "kenopromax:small"),
+        even: t(settleResult.even ? "kenopromax:even" : "kenopromax:odd"),
+        element: t(settleResult.element),
+    };
 };
