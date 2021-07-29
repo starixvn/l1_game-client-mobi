@@ -49,7 +49,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                     >
                         {generateResultOnCard(GetPlayerCardsResult(result))}
                     </div>
-                    <div className={`${Styles["banker"]} ${Styles["card-result"]} ${getClassCardLength(GetBankerCardsResult, result)}`}>
+                    <div className={`${Styles["banker"]} ${Styles["card-result"]} ${Styles[getClassCardLength(GetBankerCardsResult, result)]}`}>
                         {generateResultOnCard(GetBankerCardsResult(result))}
                     </div>
                 </div>

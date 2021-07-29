@@ -49,32 +49,35 @@
 
         &.player {
             justify-content: flex-end;
+            left: .4rem;
+            &.card-length-3 {
+                left: 1.8rem;
+            }
         }
         &.banker {
+            right: .4rem;
             justify-content: flex-start;
+            &.card-length-3 {
+                right: 1.8rem;
+            }
         }
-        .card1 {
-            transform: translateX(2rem);
-        }
-        .card2 {
-            transform: translateX(-2rem);
-        }
+        
         .card3 {
-            transform: translateX(10.2rem);
+            transform: translateX(8.2rem);
         }
         .card4 {
-            transform: translateX(-10.2rem);
+            transform: translateX(-8.2rem);
             z-index: 99;
         }
         .card5 {
-            transform: translateX(17.5rem);
+            transform: translateX(15.5rem);
         }
         .card6 {
-            transform: translateX(-17.5rem);
+            transform: translateX(-15.5rem);
             z-index: 100;
         }
         &.banker .card5 {
-            transform: translateX(-17.5rem);
+            transform: translateX(-15.5rem);
             z-index: 100;
         }
     }

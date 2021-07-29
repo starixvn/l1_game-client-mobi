@@ -497,7 +497,11 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         @extend .result-info;
         background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
     }
-
+    &.ticket-history {
+        &.result-3, .result-4 {
+            top: 0;
+        }
+    }
     &.result-3,
     &.result-4 {
         display: grid;
@@ -511,11 +515,5 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .result-banker-pair {
             grid-column: 1/3;
         }
-    }
-}
-
-.winning-detail .result-container {
-    .result-3, .result-4 {
-        top: 0;
     }
 }
