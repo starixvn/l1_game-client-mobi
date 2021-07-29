@@ -3,9 +3,8 @@ import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
-import { Choices } from "../three-cards-helper";
+import { Choices, TabsValue } from "../three-cards-helper";
 import Styles from "./statistic.module.scss";
-import { TabsValue } from "../tabs";
 
 const calculateEntryPercent = (countResult: object, total: number, choice: string) =>
     countResult[choice] ? Math.round((countResult[choice] * 100) / total) : 0;

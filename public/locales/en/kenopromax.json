@@ -14,5 +14,7 @@
     "evenTextDot": "E",
     "oddTextDot": "O",
     "total": "Total",
-    "fiveElements": "5 Elements"
+    "fiveElementsTabs": "5 Elements",
+    "bigSmallTabs": "Big/Small",
+    "evenOddTabs": "Even/Odd"
 }

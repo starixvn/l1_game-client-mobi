@@ -53,7 +53,7 @@ const generateResultOnCard = (cards: CardOrder[]) => {
     return cards.map((card) => {
         return (
             <div key={card.order} className={Styles[`card${card.order}`]}>
-                {card.value && <Card result={card.value} isSmall={true}></Card>}
+                {card.value && <Card result={card.value}></Card>}
             </div>
         );
     });

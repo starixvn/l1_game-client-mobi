@@ -14,5 +14,7 @@
     "evenTextDot": "C",
     "oddTextDot": "L",
     "total": "Tổng",
-    "fiveElements": "Ngũ hành"
+    "fiveElementsTabs": "Ngũ hành",
+    "bigSmallTabs": "Tài/Xỉu",
+    "evenOddTabs": "Chẵn/Lẻ"
 }

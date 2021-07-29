@@ -11,7 +11,7 @@ import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping } from "./keno-pro-max-helper";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import TabsComponent from "./tabs";
+import TabsComponent from "../../shared/round-history/tabs";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -50,7 +50,13 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderRoundHistory() {
-        return <TabsComponent></TabsComponent>;
+        const sourceTabsValue = {
+            bigSmall: this.getGameTranslate("bigSmallTabs"),
+            oddEven: this.getGameTranslate("evenOddTabs"),
+            fiveElement: this.getGameTranslate("fiveElementsTabs"),
+        };
+
+        return <TabsComponent tabsValue={sourceTabsValue}></TabsComponent>;
     }
 
     renderStatistic() {

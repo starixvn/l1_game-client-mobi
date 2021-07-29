@@ -1,0 +1,39 @@
+import React, { useState, useMemo } from "react";
+import { useGameActionContext } from "../../../../contexts/game-actions-context";
+import Styles from "./tabs.module.scss";
+
+type Props = {
+    tabsValue: object;
+};
+
+const TabsComponent: React.FunctionComponent<Props> = (props) => {
+    const { tabsValue } = props;
+    const tabsKey = Object.keys(tabsValue);
+    const gameActionContext = useGameActionContext();
+    const [tabActive, setTabActive] = useState<number>(0);
+
+    return useMemo(() => {
+        const updateValueTab = (value: number) => {
+            setTabActive(value);
+            gameActionContext.setTabsScoreboardValue(value);
+        };
+
+        return (
+            <div className="d-flex">
+                <div className={Styles["tabs-container"]}>
+                    {tabsKey.map((tab, index) => {
+                        return (
+                            <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>
+                                <span className={`${Styles.type} ${tabActive === index ? Styles["tabs-active"] : ""}`}>
+                                    {tabsValue[tab]}
+                                </span>
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        );
+    }, [tabActive]);
+};
+
+export default TabsComponent;

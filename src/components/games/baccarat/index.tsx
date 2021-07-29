@@ -9,9 +9,9 @@ import { BaccaratResult, BaccaratResultCollapse, DrawCardsAnimation, generateSet
 import BaccaratBetOptions from "./bet-options";
 import { ScoreboardRule } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./baccarat";
-import TabsComponent from "./tabs";
 import { Choices, StatisticRuleMapping } from "./baccarat-helper";
 import { StatisticFollowPercent } from "../../shared/statistic";
+import TabsComponent from "../../shared/round-history/tabs";
 
 class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -46,7 +46,11 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderRoundHistory() {
-        return <TabsComponent></TabsComponent>;
+        const sourceTabsValue = {
+            playerBanKer: this.getGameTranslate("playerBankerTabs"),
+            bigSmall: this.getGameTranslate("bigSmallTabs"),
+        };
+        return <TabsComponent tabsValue={sourceTabsValue}></TabsComponent>;
     }
 
     renderStatistic() {

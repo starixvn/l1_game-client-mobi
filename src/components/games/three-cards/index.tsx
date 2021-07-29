@@ -9,10 +9,10 @@ import ThreeCardsBetOptions from "./bet-options";
 import { ScoreboardRule, GetElementRoundSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
-import { Choices } from "./three-cards-helper";
-import TabsComponent, { TabsValue } from "./tabs";
+import { Choices, TabsValue } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
+import TabsComponent from "../../shared/round-history/tabs";
 
 class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -42,7 +42,11 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderRoundHistory() {
-        return <TabsComponent></TabsComponent>;
+        const sourceTabsValue = {
+            redBlack: this.getGameTranslate("redBlackTabs"),
+            suits: this.getGameTranslate("suitsTabs"),
+        };
+        return <TabsComponent tabsValue={sourceTabsValue}></TabsComponent>;
     }
 
     renderStatistic() {

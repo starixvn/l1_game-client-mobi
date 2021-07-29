@@ -6,3 +6,8 @@ export const Choices = {
     heart: "heart",
     club: "club",
 };
+
+export enum TabsValue {
+    redBlack,
+    suits,
+}

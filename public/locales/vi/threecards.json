@@ -12,5 +12,7 @@
     "club": "Chuồn",
     "diamond": "Rô",
     "heart": "Cơ",
-    "spade": "Bích"
+    "spade": "Bích",
+    "redBlackTabs": "Đỏ/Đen",
+    "suitsTabs": "Chất Bài"
 }

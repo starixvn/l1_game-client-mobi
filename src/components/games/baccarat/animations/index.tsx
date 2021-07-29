@@ -126,7 +126,7 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
 };
 
 export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object) => {
-    const resultCount = 2 + (!settlementResult.playerPair ? 1 : 0) + (settlementResult.bankerPair ? 1 : 0);
+    const resultCount = 2 + (settlementResult.playerPair ? 1 : 0) + (settlementResult.bankerPair ? 1 : 0);
 
     return (
         <div className={`${Styles["result-container"]} ${Styles[`result-${resultCount}`]}`}>
@@ -142,7 +142,7 @@ export const generateSettlementInfo = (settlementResult: SettlementResult, resou
             ) : (
                 <div className={Styles["result-info-red"]}>{resources["small"]}</div>
             )}
-            {!settlementResult.playerPair ? (
+            {settlementResult.playerPair ? (
                 <div className={`${Styles["result-info-blue"]} ${Styles["result-player-pair"]}`}>{resources["playerPair"]}</div>
             ) : (
                 <></>

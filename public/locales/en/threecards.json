@@ -12,5 +12,7 @@
     "club": "Club",
     "diamond": "Diamond",
     "heart": "Heart",
-    "spade": "Spade"
+    "spade": "Spade",
+    "redBlackTabs": "Red/Black",
+    "suitsTabs": "Suits"
 }
