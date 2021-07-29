@@ -22,7 +22,7 @@ $number-of-cards: 3;
 .draw-cards {
     .animation-container {
         top: -2.1rem;
-        transform: scale(0.41);
+        transform: scale(0.33);
     }
 
     .has-animation {
@@ -48,7 +48,7 @@ $number-of-cards: 3;
         --result-scale: 1;
 
         display: grid;
-        grid-template-columns: repeat(3, 4.5rem);
+        grid-template-columns: repeat(3, 3.5rem);
         margin-left: -3.5rem;
         top: 1.5rem;
         transition: transform 0.7s;

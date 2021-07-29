@@ -50,8 +50,8 @@ const renderBetOptionByChoice = (
                 <img
                     src={`/static/images/three-cards/${choice}.svg`}
                     className={`${Styles["bet-choice-icon"]} ${Styles[choice]}`}
-                    height={32}
-                    width={32}
+                    height={26}
+                    width={26}
                 />
             )}
         </BetOption>
