@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
 
 import BetHistoryContainer from "../../../dashboard/history/bet-history";
@@ -19,14 +18,6 @@ const renderResult = (bet: BetLogs) => {
 };
 
 const SeDieBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { t } = useTranslation("xocxoc");
-    return (
-        <BetHistoryContainer
-            gameId={gameId}
-            isRefund={false}
-            renderResult={(bet: BetLogs) => renderResult(bet)}
-            translate={t}
-        ></BetHistoryContainer>
-    );
+    return <BetHistoryContainer gameId={gameId} isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)}></BetHistoryContainer>;
 };
 export default SeDieBetHistory;

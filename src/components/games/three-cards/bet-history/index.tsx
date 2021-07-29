@@ -1,12 +1,13 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
+import { TFunction } from "next-i18next";
+
 import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../three-cards";
 import Card, { convertCardRankToIndex } from "../../../shared/card";
 import Styles from "./bet-history.module.scss";
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -18,7 +19,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
+                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
                                 </div>
                             );
                         }
@@ -46,13 +47,11 @@ const renderResult = (bet: BetLogs) => {
 };
 
 const ThreeCardsBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { t } = useTranslation("threecards");
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            translate={t}
-            renderBet={(bet: BetLogs, t: Function, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
             renderResult={(bet: BetLogs) => renderResult(bet)}
         ></BetHistoryContainer>
     );

@@ -1,4 +1,4 @@
-import { useTranslation, TFunction } from "next-i18next";
+import { TFunction } from "next-i18next";
 import React from "react";
 
 import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../../dashboard/history/bet-history";
@@ -10,7 +10,7 @@ import { generateSettlementInfo } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
@@ -19,25 +19,25 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
 
         return (
             <div className={Styles["details"]} onClick={() => clickHandle()}>
-                {translate("details")}
+                {t("details")}
             </div>
         );
     }
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) => {
+const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void) => {
     if (resultDetail) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
-        const translateChoiceMapping = GetTranslateChoiceMapping(translate);
+        const translateChoiceMapping = GetTranslateChoiceMapping(t);
 
         return (
-            <ResultDetailContainer translate={translate} roundId={roundId} closeModal={closeModal}>
+            <ResultDetailContainer translate={t} roundId={roundId} closeModal={closeModal}>
                 <div className={Styles["card-result-container"]}>
-                    <div className={Styles["player-label"]}>{translate("player")}</div>
-                    <div className={Styles["banker-label"]}>{translate("banker")}</div>
+                    <div className={Styles["player-label"]}>{t("player")}</div>
+                    <div className={Styles["banker-label"]}>{t("banker")}</div>
                     <div className={Styles["card-result"]}> {generateResultOnCard(GetPlayerCardsResult(result))}</div>
                     <div className={Styles["card-result"]}>{generateResultOnCard(GetBankerCardsResult(result))}</div>
                 </div>
@@ -59,7 +59,7 @@ const generateResultOnCard = (cards: CardOrder[]) => {
     });
 };
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -71,7 +71,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
+                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
                                 </div>
                             );
                         }
@@ -84,23 +84,17 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
     return <></>;
 };
 
-const BaccaratBetHistory: React.FunctionComponent<{ gameId: number; gameName: string }> = ({ gameId, gameName }) => {
-    const { t } = useTranslation(gameName.toLowerCase());
+const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(
-                bet: BetLogs,
-                roundId: number,
-                setIsShowResultDetail: Function,
-                setResultDetail: Function,
-                translate: TFunction
-            ) => renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, translate)}
-            translate={t}
-            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
-            renderResultDetail={(resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) =>
-                renderResultDetail(resultDetail, translate, closeModal)
+            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) =>
+                renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
+            }
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName) => renderBet(bet, t, mainOdds, gameName)}
+            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void) =>
+                renderResultDetail(resultDetail, t, closeModal)
             }
         ></BetHistoryContainer>
     );

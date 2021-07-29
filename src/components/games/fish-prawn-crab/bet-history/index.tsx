@@ -1,5 +1,6 @@
 import React from "react";
-import { useTranslation } from "next-i18next";
+import { TFunction } from "next-i18next";
+
 import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../fish-prawn-crab";
@@ -40,7 +41,7 @@ const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
     return classCount;
 };
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => {
     if (bet.settlementResult && bet.result) {
         const keysChoices = bet.settlementResult ? Object.keys(bet.settlementResult) : [];
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -55,7 +56,7 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
                     if (bet[choice] > 0) {
                         return (
                             <div key={index} className={classHighLight}>
-                                {t(choice)}@<FormatNumber>{renderOdd(choice, countsAppearDice, odds)}</FormatNumber>
+                                {t(`${gameName}:${choice}`)}@<FormatNumber>{renderOdd(choice, countsAppearDice, odds)}</FormatNumber>
                             </div>
                         );
                     }
@@ -69,14 +70,12 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
 };
 
 const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { t } = useTranslation("baucua");
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            translate={t}
-            renderBet={(bet: BetLogs, t: Function, mainOdds: Odd) => renderBet(bet, t, mainOdds)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
         ></BetHistoryContainer>
     );
 };

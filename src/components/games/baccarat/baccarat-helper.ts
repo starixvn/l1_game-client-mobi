@@ -100,14 +100,14 @@ export const GetBankerCardsResult = (result: Result): CardOrder[] => {
     return bankerCards;
 };
 
-export const GetTranslateChoiceMapping = (translate: TFunction) => {
+export const GetTranslateChoiceMapping = (t: TFunction, gameName: string = "baccarat") => {
     return {
-        player: translate("player"),
-        banker: translate("banker"),
-        tie: translate("tie"),
-        playerPair: translate("playerPair"),
-        bankerPair: translate("bankerPair"),
-        big: translate("big"),
-        small: translate("small"),
+        player: t(`${gameName}:player`),
+        banker: t(`${gameName}:banker`),
+        tie: t(`${gameName}:tie`),
+        playerPair: t(`${gameName}:playerPair`),
+        bankerPair: t(`${gameName}:bankerPair`),
+        big: t(`${gameName}:big`),
+        small: t(`${gameName}:small`),
     };
 };

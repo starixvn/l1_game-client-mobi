@@ -1,5 +1,5 @@
-import { TFunction, useTranslation } from "next-i18next";
 import React from "react";
+import { TFunction } from "next-i18next";
 
 import BetHistoryContainer, { ResultDetailContainer } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
@@ -7,7 +7,7 @@ import { GetNameFromChoice } from "../keno-pro-max-helper";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, translate: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
@@ -16,27 +16,27 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
 
         return (
             <div className={Styles["detail"]} onClick={() => clickHandle()}>
-                {translate("details")}
+                {t("details")}
             </div>
         );
     }
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) => {
+const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
     if (resultDetail) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
 
         return (
-            <ResultDetailContainer translate={translate} roundId={roundId} closeModal={closeModal}>
+            <ResultDetailContainer translate={t} roundId={roundId} closeModal={closeModal}>
                 <div className={Styles["result-detail"]}>
                     <div className={Styles["card-result-container"]}></div>
 
                     <div className={Styles["winning-detail"]}>
-                        {settlementResult?.big ? translate("big") : translate("small")} -{" "}
-                        {settlementResult?.odd ? translate("odd") : translate("even")} - {translate(GetNameFromChoice(settlementResult))}
+                        {settlementResult?.big ? t(`${gameName}:big`) : t(`${gameName}:small`)} -{" "}
+                        {settlementResult?.odd ? t(`${gameName}:odd`) : t(`${gameName}:even`)} - {t(GetNameFromChoice(settlementResult))}
                     </div>
                 </div>
             </ResultDetailContainer>
@@ -46,7 +46,6 @@ const renderResultDetail = (resultDetail: ResultDetail, translate: TFunction, cl
 };
 
 const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { t } = useTranslation("kenopromax");
     return (
         <BetHistoryContainer
             gameId={gameId}
@@ -56,11 +55,10 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
                 roundId: number,
                 setIsShowResultDetail: Function,
                 setResultDetail: Function,
-                translate: TFunction
-            ) => renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, translate)}
-            translate={t}
-            renderResultDetail={(resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) =>
-                renderResultDetail(resultDetail, translate, closeModal)
+                t: TFunction
+            ) => renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)}
+            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
+                renderResultDetail(resultDetail, t, closeModal, gameName)
             }
         ></BetHistoryContainer>
     );

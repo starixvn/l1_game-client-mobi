@@ -9,7 +9,7 @@ import { useAuthContext } from "../../../../contexts/auth";
 import { numberWithCommas } from "../../../../helpers/number-helper";
 import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
-import { BetLogs, PropsBetContainer, PropsResultDetail } from "./bet-history";
+import { BetLogs, PropsBetContainer, PropsResultDetail, ResultDetail } from "./bet-history";
 import BaseDialog from "../../../shared/base-dialog";
 import { ModalType } from "../../../shared/base-dialog/type";
 import { GameResourceKeys } from "../../../../common/resources";
@@ -25,6 +25,7 @@ enum OrderRenderCell {
 }
 
 const fontWeightClass = "font-weight-medium";
+const NUMBER_ROWS_DISPLAY = 16;
 
 export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
     const { children, translate, roundId, closeModal } = props;
@@ -79,7 +80,7 @@ const renderStakeRefund = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
+const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -91,7 +92,7 @@ const renderBetBase = (bet: BetLogs, t: Function, mainOdds: object) => {
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(name)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
+                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
                                 </div>
                             );
                         }
@@ -117,12 +118,13 @@ const checkCondition = (
         roundId?: number,
         setIsShowResultDetail?: Function,
         setResultDetail?: Function,
-        translate?: TFunction
+        t?: TFunction
     ) => JSX.Element,
-    renderBet: (rowData: BetLogs, translate: TFunction, odds: object) => {},
-    translate: TFunction,
+    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {},
+    t: TFunction,
     setIsShowResultDetail: Function,
-    setResultDetail: Function
+    setResultDetail: Function,
+    gameName: string
 ) => {
     const { time, phien, betwin } = rowData;
     const odds = rowData.odds;
@@ -143,10 +145,10 @@ const checkCondition = (
             return renderDataOnCell(<FormatNumber>{phien}</FormatNumber>, isHighligh);
 
         case OrderRenderCell.result:
-            return renderDataOnCell(renderResult(rowData, phien, setIsShowResultDetail, setResultDetail, translate), isHighligh);
+            return renderDataOnCell(renderResult(rowData, phien, setIsShowResultDetail, setResultDetail, t), isHighligh);
 
         case OrderRenderCell.choice:
-            return renderDataOnCell(renderBet(rowData, translate, odds), isHighligh);
+            return renderDataOnCell(renderBet(rowData, t, odds, gameName), isHighligh);
 
         case OrderRenderCell.refundOrStake:
             return renderDataOnCell(
@@ -160,16 +162,18 @@ const checkCondition = (
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, translate, gameId, renderResultDetail } = props;
-    const router = useRouter();
+    const { renderResult, isRefund, gameId, renderResultDetail } = props;
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
     }
-    const gameSetting = appSettings.gameSettings[gameId];
-    const { proxy } = appSettings;
-    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const router = useRouter();
     const { session } = useAuthContext();
+    const gameSetting = appSettings.gameSettings[gameId];
+    const gameName = gameSetting.gameName.toLowerCase();
+    const { t } = useTranslation(["bethistory", gameName]);
+
     const [listBetHistory, setListBetHistory] = useState<object[]>([{}]);
     const [columns, setColumns] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
@@ -179,14 +183,15 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
-    const [resultDetail, setResultDetail] = useState<any>();
-    const wrapperRef = useRef<HTMLDivElement>(null);
-    const { t } = useTranslation("bethistory");
+    const [resultDetail, setResultDetail] = useState<ResultDetail>();
+    const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
+
+    const { proxy } = appSettings;
+    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
     const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
     const headerObjectName = {
         refund: "refund",
     };
-    const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
     const closeModalResultDetail = () => {
         setIsShowResultDetail(false);
@@ -208,9 +213,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 isRefund,
                 renderResult,
                 renderBet,
-                translate,
+                t,
                 setIsShowResultDetail,
-                setResultDetail
+                setResultDetail,
+                gameName
             );
         };
         const headerRenderer = ({ column, className, columnIndex }) => {
@@ -244,14 +250,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 const resp = await axios.post(historyAPI, {
                     session: session.ss,
                     page: page,
-                    pageSize: 16,
+                    pageSize: NUMBER_ROWS_DISPLAY,
                     username: session.username,
                 });
                 const bets = resp.data.history;
                 fetchBetHistory(bets);
                 setIsFirstLoad(false);
                 if (page === 1) {
-                    setTotalPage(Math.ceil(bets.total / 16));
+                    setTotalPage(Math.ceil(bets.total / NUMBER_ROWS_DISPLAY));
                 }
             } catch (err) {
                 if (err.response.status === 401) {
@@ -313,7 +319,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
-            {isShowResultDetail && renderResultDetail(resultDetail, translate, closeModalResultDetail)}
+            {isShowResultDetail && renderResultDetail(resultDetail, t, closeModalResultDetail, gameName)}
         </div>
     );
 };

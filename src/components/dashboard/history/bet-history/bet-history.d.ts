@@ -17,11 +17,10 @@ export type PropsBetContainer = {
         roundId: number,
         setIsShowResultDetail?: Function,
         setResultDetail?: Function,
-        translate?: TFunction
+        t?: TFunction
     ) => JSX.Element;
-    translate?: TFunction;
-    renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object) => JSX.Element;
-    renderResultDetail?: (resultDetail: ResultDetail, translate: TFunction, closeModal: () => void) => JSX.Element;
+    renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
+    renderResultDetail?: (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => JSX.Element;
 };
 
 export type ResultDetail = {

@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "next-i18next";
+import { TFunction } from "next-i18next";
 
 import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
@@ -17,12 +17,12 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
     if (bet.settlementResult) {
         const odds = bet.odds ? bet.odds : mainOdds;
         return (
             <div className={`text-left ${bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}`}>
-                {t(bet.choice)}@<FormatNumber>{`${odds[bet.choice]}`}</FormatNumber>
+                {t(`${gameName}:${bet.choice}`)}@<FormatNumber>{`${odds[bet.choice]}`}</FormatNumber>
             </div>
         );
     }
@@ -31,14 +31,12 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
 };
 
 const BigSmallBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { t } = useTranslation("txturbo");
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={true}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            translate={t}
-            renderBet={(bet: BetLogs, t: Function, mainOdds: object) => renderBet(bet, t, mainOdds)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
         ></BetHistoryContainer>
     );
 };
