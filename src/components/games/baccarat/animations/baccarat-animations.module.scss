@@ -16,7 +16,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 .animation-container {
     position: absolute;
     top: 0.3rem;
-    width: 65%;
+    width: 60%;
     display: flex;
     pointer-events: none;
     &.player {
@@ -267,9 +267,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
     }
 }
-.move-up-animation {
-    --move-up-distance: 1rem;
-}
 
 @keyframes show-score {
     from {
@@ -287,7 +284,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(7rem);
+        transform: translateX(5rem);
     }
 }
 @keyframes move-card-4-right {
@@ -295,7 +292,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-0.5rem);
+        transform: translateX(-3.2rem);
     }
 }
 @keyframes move-card-6-right {
@@ -303,7 +300,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-6rem);
+        transform: translateX(-10rem);
     }
 }
 @keyframes move-card-1-left {
@@ -311,7 +308,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-7rem);
+        transform: translateX(-5rem);
     }
 }
 @keyframes move-card-3-left {
@@ -319,7 +316,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(0.5rem);
+        transform: translateX(3.2rem);
     }
 }
 @keyframes move-card-5-left {
@@ -327,7 +324,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         transform: translateX(0);
     }
     100% {
-        transform: translateX(6rem);
+        transform: translateX(10rem);
     }
 }
 
@@ -438,28 +435,28 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     transform: scale(0.8) translateY(var(--move-up-distance)) !important;
     .card1 {
         .rotate-card {
-            transform: translateX(-7rem);
+            transform: translateX(-5rem);
         }
     }
     .card2 .rotate-card {
-        transform: translateX(7rem);
+        transform: translateX(5rem);
     }
     .card3 .rotate-card {
-        transform: translateX(0.5rem);
+        transform: translateX(3.2rem);
     }
     .card4 .rotate-card {
-        transform: translateX(-0.5rem);
+        transform: translateX(-3.2rem);
     }
     .card5 .rotate-card {
-        transform: translateX(6rem);
+        transform: translateX(10rem);
     }
 
     .card6 .rotate-card {
-        transform: translateX(-6rem);
+        transform: translateX(-10rem);
     }
 
     &.banker .card5 .rotate-card {
-        transform: translateX(-6rem);
+        transform: translateX(-9rem);
     }
 
     .score {
@@ -488,9 +485,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     display: flex;
     flex-wrap: wrap;
     width: fit-content;
-    padding: 1rem;
-    position: relative;
-    top: -2.7rem;
+    padding: 1rem;   
     .result-info {
         min-width: 10.3rem;
         padding: 0 1.2rem;
@@ -504,5 +499,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     &.result-long {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        position: relative;
+        top: -2.7rem;
     }
 }
