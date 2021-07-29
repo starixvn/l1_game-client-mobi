@@ -74,8 +74,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         playResultAnimation: false,
         isShowBlink: false,
         notice: null,
-        eventPosition: null,
-        removeBetChoiceFocus: null
+        removeBetChoiceFocus: null,
+        betOptionElement: null,
+        betChoiceElement: null
     };
 
     constructor(props: P) {
@@ -511,8 +512,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, eventPosition: any) {
-        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, removeBetChoiceFocus, eventPosition });
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function,  betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
+        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, removeBetChoiceFocus, betOptionElement,  betChoiceElement});
     }
 
     placeBet(betChoice: string, amount: number) {
@@ -579,7 +580,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId, eventPosition, removeBetChoiceFocus } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -588,7 +589,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
                 gameBaseContainerRef={this.gameBaseContainerRef}
-                eventPosition={eventPosition}
+                betOptionElement={betOptionElement}
+                betChoiceElement={betChoiceElement}
                 removeBetChoiceFocus={removeBetChoiceFocus}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,

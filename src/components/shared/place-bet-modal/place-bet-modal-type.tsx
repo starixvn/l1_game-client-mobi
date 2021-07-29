@@ -1,5 +1,3 @@
-import { EventPosition } from "../game-base/type";
-
 type BetChoiceInfo = {
     gameName: string;
     roundId: number;
@@ -12,9 +10,10 @@ export type PlaceBetModalProps = {
     onPlaceBet: (betChoice: string, amount: number) => void;
     betChoiceInfo: BetChoiceInfo;
     onCloseModal: Function;
-    eventPosition?: EventPosition;
     betContainerPosition?: any;
     gameBaseContainerRef?: any;
     gameHeaderRef?: any;
     removeBetChoiceFocus?: Function;
+    betOptionElement?: HTMLElement;
+    betChoiceElement?: HTMLElement;
 };

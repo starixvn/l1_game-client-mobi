@@ -34,6 +34,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
     const betChoiceRef = useRef<HTMLDivElement>(null);
+    const totalBetRef = useRef<HTMLDivElement>(null);
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
 
     const actionByGameState = {
@@ -55,19 +56,21 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = (event: any) => {
+        event.preventDefault();
+        
         const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
-        const {top, bottom, left, right, height, width, x, y} = event.currentTarget.getBoundingClientRect();
-
+       
         if(enabledQuickBet)
         {
             placeBet(choice, betValue);
         }
         else{
             setIsFocusChoice(true);
-            openPlaceBetModal(choice, removeBetChoiceFocus, {top, left,  bottom, right, height, width, x, y});
+            const betOptionElement =  totalBetRef.current.nextElementSibling;
+            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement , betChoiceRef.current);
         }
     };
 
@@ -76,22 +79,21 @@ const BetOption: React.FunctionComponent<Props> = ({
     }
 
     return (
-        <div className={Styles.container}>
+        <div className={Styles.container}  ref={betChoiceRef}>
             <div
                 className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ''} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
                     isHighlight && isShowWinningEffect && Styles["winning-effect"]
                 }`}
                 onClick={onClickBet}
-                ref={betChoiceRef}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
-                <div className={Styles["total-bet"]}>
+                <div className={Styles["total-bet"]}  ref={totalBetRef}>
                     {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
                 </div>
-                {children}
-                <div className={Styles["own-bet"]}>
-                    <span key={ownBets?.[choice]} className="d-inline-block">
+                    {children}
+                <div className={Styles["own-bet"]} >
+                    <span key={ownBets?.[choice]} className="d-inline-block" >
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>

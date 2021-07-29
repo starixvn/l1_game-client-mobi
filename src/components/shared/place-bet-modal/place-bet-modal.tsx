@@ -12,7 +12,8 @@ import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
 import { useSystemContext } from "../../../contexts/system";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
-import { buildChips, ajustPopupPosition, ajustPopupPositionDidUpdate } from "./place-bet-modal-helper";
+import { buildChips, ajustPopupPosition, ajustPopupPositionDidUpdate, buildVIPChips } from "./place-bet-modal-helper";
+import { gameVipIds } from "../../../common/constants";
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
 let timeoutIns = null;
@@ -38,7 +39,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
     const maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
-    const chips = buildChips(maxBetChoice);
+    const chips = gameVipIds.includes(gameSetting.id) ? buildVIPChips(maxBetChoice) : buildChips(maxBetChoice);
     const payouts = [
         {
             text: t("common:payout"),
@@ -52,7 +53,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobile) {
-            const popupStyle = ajustPopupPosition(props.gameBaseContainerRef, props.eventPosition);
+            const popupStyle = ajustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
             setArrowStyle(popupStyle.arrowStyle);
@@ -68,7 +69,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobile) {
-            const popupStyle = ajustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.eventPosition);
+            const popupStyle = ajustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.betOptionElement, props.betChoiceElement);
             if (popupStyle.isAjustPosition) {
                 setStyle(popupStyle.position);
                 setArrowStyle(popupStyle.arrowStyle);
@@ -124,7 +125,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        isPlusValue ? setBetStake(betStake + stake) : setBetStake(stake);
+        isPlusValue && !Number.isNaN(betStake) ? setBetStake(betStake+ stake) : setBetStake(stake);
     };
 
     const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
@@ -137,7 +138,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const clearBetStake = (event: any) => {
         event.preventDefault();
-        setBetStake(0);
+        setBetStake(null);
     };
 
     const submitBet = (event: any) => {
@@ -181,7 +182,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                         <NumberFormat
                             autoFocus
                             readOnly={isMobile}
-                            value={betStake}
+                            value={betStake ?? ''}
                             allowNegative={false}
                             className="form-control number"
                             thousandSeparator={true}

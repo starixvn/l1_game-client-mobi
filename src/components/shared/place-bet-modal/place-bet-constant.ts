@@ -1,5 +1,4 @@
 export const tooltipTimeout = 3000;
-export const popupOverflowMargin = 20;
 
 export const numPad = [
     {
