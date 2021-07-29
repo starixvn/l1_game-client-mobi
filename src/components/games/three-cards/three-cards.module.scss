@@ -4,12 +4,22 @@
     position: relative;
     top: -1.7rem;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 3.6);
+    align-items: center;
+    grid-gap: 4px;
+    padding: 1rem;
     width: 22rem;
 
+    .suits {
+        display: grid;
+        grid-template-columns: repeat(3, 3.2rem);
+        grid-gap: 2rem;
+        justify-content: center;
+    }
+
     .result-info {
-        width: 9.5rem;
+        width: 100%;
         padding: 0;
         text-align: center;
     }

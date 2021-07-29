@@ -44,13 +44,13 @@ $number-of-cards: 3;
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -4rem;
+        --move-up-distance: -2rem;
         --result-scale: 1;
 
         display: grid;
         grid-template-columns: repeat(3, 4.5rem);
         margin-left: -3.5rem;
-        top: 3.5rem;
+        top: 1.5rem;
         transition: transform 0.7s;
     }
 
@@ -92,13 +92,13 @@ $number-of-cards: 3;
                 ($i - 1) +
                 math.div($time-open-card-animation, $number-of-cards) *
                 ($i - 1) +
-                0.15s;
+                0.1s;
 
             $card-time-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
                 ($i) +
                 math.div($time-open-card-animation, $number-of-cards) *
                 ($i - 1) +
-                0.15s;
+                0.1s;
 
             .card#{$i} {
                 position: relative;
