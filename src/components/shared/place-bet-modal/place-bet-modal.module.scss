@@ -290,7 +290,7 @@
     // tooltip
 
     .tooltip-info {
-        top: 8.2rem;
+        top: 0;
         right: 2.5rem;
 
         @media (min-width: 768px) {
@@ -299,7 +299,8 @@
 
         .tooltip-inner {
             width: 23rem;
-            bottom: 1.5rem !important;
+            top: 3.5rem !important;
+            bottom: auto;
             right: 0;
             @media (min-width: 768px) {
                 width: 21rem;
