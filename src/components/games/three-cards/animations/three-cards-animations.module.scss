@@ -6,7 +6,7 @@
 $time-draw-card-animation: 0.3s;
 $time-open-card-animation: 0.6s;
 
-$time-zoom-in-card-animation: 0.45s;
+$time-zoom-in-card-animation: 0.6s;
 $time-delay-move-up-result: $time-open-card-animation + $time-zoom-in-card-animation;
 $number-of-cards: 3;
 
@@ -44,9 +44,13 @@ $number-of-cards: 3;
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -5rem;
+        --move-up-distance: -4rem;
         --result-scale: 1;
-        top: 4.5rem;
+
+        display: grid;
+        grid-template-columns: repeat(3, 4.5rem);
+        margin-left: -3.5rem;
+        top: 3.5rem;
         transition: transform 0.7s;
     }
 
@@ -54,18 +58,7 @@ $number-of-cards: 3;
         display: none;
     }
 
-    .card1,
-    .card2,
-    .card3 {
-    }
-
     &.has-animation {
-        .animation-container {
-            display: grid;
-            grid-template-columns: repeat(3, 4.5rem);
-            margin-left: -3.5rem;
-        }
-
         .rotate-card {
             transform: rotateY(180deg);
         }
@@ -95,12 +88,28 @@ $number-of-cards: 3;
         }
 
         @for $i from 1 through 3 {
-            $card-time-zoom: math.div($time-zoom-in-card-animation * ($i - 1), $number-of-cards);
-            $card-time-zoom-delay: $card-time-zoom + math.div($time-open-card-animation * ($i - 2), $number-of-cards);
-            $card-time-delay: math.div($time-open-card-animation * ($i - 1), $number-of-cards) + $card-time-zoom;
+            $card-time-zoom-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
+                ($i - 1) +
+                math.div($time-open-card-animation, $number-of-cards) *
+                ($i - 1) +
+                0.15s;
+
+            $card-time-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
+                ($i) +
+                math.div($time-open-card-animation, $number-of-cards) *
+                ($i - 1) +
+                0.15s;
 
             .card#{$i} {
                 position: relative;
+                width: 114px;
+                height: 143px;
+                animation: zoon-in-card-animation
+                    math.div($time-zoom-in-card-animation, $number-of-cards)
+                    $card-time-zoom-delay
+                    linear
+                    forwards;
+                opacity: 0;
 
                 .card-back {
                     animation-delay: $card-time-delay;
@@ -117,12 +126,15 @@ $number-of-cards: 3;
 
 @keyframes zoon-in-card-animation {
     0% {
-        transform: scale(0.42);
+        transform: scale(0);
         opacity: 0;
     }
 
-    100% {
+    60% {
         transform: scale(1);
+    }
+
+    100% {
         opacity: 1;
     }
 }
