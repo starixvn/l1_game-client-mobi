@@ -79,7 +79,7 @@ const BetSettings: React.FC<{
         newBetStake <= MaxInputValue && setBetStake(newBetStake);
     };
 
-    const onSubmit = (e: React.MouseEvent) => {
+    const handleSubmit = (e: React.MouseEvent) => {
         e.stopPropagation();
         const validationCriteria = [
             { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
@@ -142,6 +142,12 @@ const BetSettings: React.FC<{
         setEnabledQuickBet(gameSettings?.enabledQuickBet);
     };
 
+    const handleKeyDown = (event: any) => {
+        if (event.keyCode === 13) {
+            dropdownOpen && handleSubmit(event);
+        }
+    };
+
     const handleClickOutside = (event) => {
         if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             setDropdownOpen(false);
@@ -174,13 +180,17 @@ const BetSettings: React.FC<{
     };
 
     useEffect(() => {
-        const registerFunc = handleClickOutside.bind(this);
-
-        document.addEventListener("mousedown", registerFunc);
+        document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", registerFunc);
+            document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef]);
+
+    useEffect(() => {
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [dropdownOpen, betStake, enabledQuickBet]);
 
     useEffect(() => {
         setBetStake(props.betSettings?.betStake ?? 0);
@@ -273,6 +283,7 @@ const BetSettings: React.FC<{
                                         inputMode={"numeric"}
                                         readOnly={isMobile}
                                         maxLength={6}
+                                        autoFocus
                                     ></input>
                                     {errorMessage && (
                                         <div className={`tooltip info show ${Styles["error-info"]}`}>
@@ -343,7 +354,7 @@ const BetSettings: React.FC<{
                                 <button className={`btn-grey ${Styles["custom-button"]}`} onClick={onClickReset}>
                                     {t("reset")}
                                 </button>
-                                <button className={`btn-orange ${Styles["custom-button"]}`} onClick={onSubmit}>
+                                <button className={`btn-orange ${Styles["custom-button"]}`} onClick={handleSubmit}>
                                     {t("save")}
                                 </button>
                             </div>
