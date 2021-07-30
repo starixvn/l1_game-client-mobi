@@ -65,7 +65,6 @@ const BetSettings: React.FC<{
         e.stopPropagation();
         updateSettings(0, false);
         setDropdownOpen(false);
-        inputStakeRef.current.focus();
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +102,7 @@ const BetSettings: React.FC<{
         if (failureCase) {
             failureCase.action && failureCase.action();
             setErrorMessage(failureCase.message);
+            inputStakeRef.current.focus();
         } else {
             updateSettings(betStake, enabledQuickBet);
             setDropdownOpen(false);
@@ -119,6 +119,7 @@ const BetSettings: React.FC<{
     const onDeleteStake = (e: React.MouseEvent) => {
         e.stopPropagation();
         setBetStake(0);
+        inputStakeRef.current.focus();
     };
 
     const toggleQuickBet = () => {
