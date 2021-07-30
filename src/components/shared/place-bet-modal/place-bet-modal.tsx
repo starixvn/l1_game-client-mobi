@@ -60,11 +60,13 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setArrowStyle(popupStyle.arrowStyle);
         }
 
+        document.body.classList.add("no-scroll");
         return () => {
             setShowTooltip(false);
             setTooltipMessage("");
             setBetStake(0);
             props.removeBetChoiceFocus();
+            document.body.classList.remove("no-scroll");
         };
     }, []);
 
