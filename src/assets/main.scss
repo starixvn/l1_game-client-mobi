@@ -191,6 +191,17 @@ html {
     }
 }
 
+// To dock the footer
+html,
+body {
+    height: 100%;
+}
+
+#__next {
+    height: 100%;
+}
+// end
+
 body {
     padding: 0;
     margin: 0;
