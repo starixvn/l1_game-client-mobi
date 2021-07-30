@@ -6,7 +6,6 @@ import { Result, SettlementResult } from "../keno-pro-max";
 import { GetChoiceTranslate } from "../keno-pro-max-helper";
 import * as _ from "lodash";
 import Styles from "./keno-pro-max-animations.module.scss";
-import { truncate } from "node:fs/promises";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
 export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
