@@ -192,7 +192,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                         <NumberFormat
                             getInputRef={numberFormatRef}
                             autoFocus
-                            readOnly
+                            readOnly={isMobileOnly}
                             value={betStake ?? ""}
                             allowNegative={false}
                             className="form-control number"
