@@ -19,16 +19,16 @@
 
 %icon {
     display: inline-block;
-    background-image: url(/static/images/setting-sprites.png);
+    background-image: url("/static/images/setting-sprites.png?v=2");
     background-image: -webkit-image-set(
-        url(/static/images/setting-sprites.png) 1x,
-        url(/static/images/setting-sprites@2x.png) 2x,
-        url(/static/images/setting-sprites@3x.png) 3x
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
     );
     background-image: image-set(
-        url(/static/images/setting-sprites.png) 1x,
-        url(/static/images/setting-sprites@2x.png) 2x,
-        url(/static/images/setting-sprites@3x.png) 3x
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
     );
 }
 
