@@ -4,6 +4,7 @@
     --textbox-color: #2c2f3e;
     --icon-cancel-backround: #eaebf0;
     --icon-cancel-color: #4f4f54;
+    --fake-poiner-animation: fake-pointer-light-theme-animation;
 }
 
 [data-theme="dark"] .form-group {
@@ -12,6 +13,7 @@
     --textbox-color: #fff;
     --icon-cancel-backround: #7d8a98;
     --icon-cancel-color: #1a2430;
+    --fake-poiner-animation: fake-pointer-dark-theme-animation;
 }
 
 .form-control {
@@ -89,10 +91,10 @@
         width: 0.1rem;
         height: 1.4rem;
         background-color: #2c2f3e;
-        animation: fake-pointer-animation 0.9s infinite;
+        animation: var(--fake-poiner-animation) 0.9s infinite;
     }
 
-    @keyframes fake-pointer-animation {
+    @keyframes fake-pointer-light-theme-animation {
         0% {
             background-color: #fff;
         }
@@ -103,6 +105,20 @@
 
         100% {
             background-color: #fff;
+        }
+    }
+
+    @keyframes fake-pointer-dark-theme-animation {
+        0% {
+            background-color: #1a2430;
+        }
+
+        50% {
+            background-color: #fff;
+        }
+
+        100% {
+            background-color: #1a2430;
         }
     }
 }
