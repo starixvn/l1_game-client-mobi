@@ -12,22 +12,25 @@ function UM() {
     const router = useRouter();
     const { locale } = router;
     const { t } = useTranslation(["um", "messages"]);
-    const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
+
     const [startTime, setStartTime] = useState<string>(null);
     const [endTime, setEndTime] = useState<string>(null);
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
+        if (router.isReady) {
+            const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
+            const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
 
-        if (umInfo) {
-            setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
-            setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
+            if (umInfo) {
+                setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
+                setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
+            }
+
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
-    }, [router.isReady]);
+    }, [router]);
 
     if (isLoading) {
         return <></>;

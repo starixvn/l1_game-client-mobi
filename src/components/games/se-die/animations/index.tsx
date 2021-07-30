@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useMemo } from "react";
+import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { RoundDot } from "../../../shared/round-history/dot";

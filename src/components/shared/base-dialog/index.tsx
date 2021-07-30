@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
@@ -38,12 +39,6 @@ const BaseDialog: React.FC<Props> = ({
         return {};
     };
 
-    const handleClickOutside = (event: any) => {
-        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-            onCloseModal && onCloseModal();
-        }
-    };
-
     useEffect(() => {
         enableBackdrop && document.body.classList.add("no-scroll");
 
@@ -53,6 +48,12 @@ const BaseDialog: React.FC<Props> = ({
     }, []);
 
     useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                onCloseModal && onCloseModal();
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
