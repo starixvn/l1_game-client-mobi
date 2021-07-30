@@ -62,7 +62,11 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     justify-content: center;
     font-size: 1.8rem;
     bottom: 10px;
-    background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
+    &.bet-history {
+        width: 5.2rem;
+        height: 2.6rem;
+        z-index: 10;
+    }
 }
 
 .player .score {
