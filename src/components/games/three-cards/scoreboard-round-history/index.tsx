@@ -65,7 +65,7 @@ export const GetNameFromChoice = (settlementResult: SettlementResult) => {
 };
 
 export const CheckConditionSuits = (settlementResult: SettlementResult) => {
-    let choiceValue = GetNameFromChoice(settlementResult);
+    const choiceValue = GetNameFromChoice(settlementResult);
     return Suites.indexOf(choiceValue);
 };
 

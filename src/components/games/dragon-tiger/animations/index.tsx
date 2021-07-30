@@ -7,9 +7,10 @@ import { ViewMode } from "../../../shared/game-base/type";
 import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
+const classHasAnimation = "has-animation";
 export const CardsAnimation = ({ playAnimation = false }) => {
     return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classHasAnimation] : ""}`}>
             <div className={`${Styles["animation-container"]}`}>
                 <div className={Styles["card1"]}>
                     <div className={Styles["card-shadow"]}></div>
@@ -47,7 +48,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     const { viewMode, playResultAnimation } = useGameContext();
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(result, viewMode)}
@@ -63,7 +64,7 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const { playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation("dragontiger");
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]}`}>
             <div className={Styles["result-container"]}>{generateResult(result, viewMode)}</div>
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>

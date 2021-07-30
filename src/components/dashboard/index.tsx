@@ -117,7 +117,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     doOnOrientationChange() {
-        switch (screen.orientation.angle) {
+        switch (window.orientation) {
             case -90:
             case 90:
                 this.setState({ orientation: "landscape" });

@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { Themes } from "../../../../common/constants";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";

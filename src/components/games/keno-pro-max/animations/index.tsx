@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
 import { GetChoiceTranslate } from "../keno-pro-max-helper";
-import * as _ from "lodash";
 import Styles from "./keno-pro-max-animations.module.scss";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
@@ -14,7 +13,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
         shuffle.push(i);
     }
 
-    shuffle = _.shuffle(shuffle);
+    shuffle = shuffle.sort((a, b) => 0.5 - Math.random());
     const total = result.reduce((a, b) => a + b, 0);
 
     return {
@@ -37,8 +36,9 @@ export const generateResult = (result: Result, shuffle, isAnimation = true) => {
     return rows.map((row, ri) => {
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
+            const classAnimateNumber = `animate-${shuffle[index]}`;
             return (
-                <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[`animate-${shuffle[index]}`]}`}>
+                <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
                     <div className={`${Styles["number"]}`}>{num}</div>
                     <div className={`${Styles["number-cover"]}`}></div>
                 </div>

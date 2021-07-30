@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import Styles from "./game-selector.module.scss";

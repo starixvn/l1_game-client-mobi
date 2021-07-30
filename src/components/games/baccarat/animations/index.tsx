@@ -7,6 +7,10 @@ import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";
 import { GetPlayerCardsResult, GetBankerCardsResult } from "../baccarat-helper";
 
+const classAnimation = "has-animation";
+const classAnimationContainer = "animation-container";
+const classMoveUpNoAnimation = "move-up-no-animation";
+
 export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
     return cards.map((card, _) => {
         return (
@@ -22,22 +26,22 @@ export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
 
 export const generateDisplayScore = (cards: CardOrder[]) => {
     const validCards = cards.filter((c) => !!c.value);
-
+    const classGroupCards = `group-${validCards.length}-cards`;
     const point = validCards.reduce((total, c) => {
         return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
     }, 0);
 
-    return <div className={`${Styles[`group-${validCards.length}-cards`]} ${Styles["score"]}`}>{point}</div>;
+    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
 };
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, viewMode } = useGameContext();
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classAnimation] : ""}`}>
             <div className="overlay-mask">
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["player"]} ${
-                        playResultAnimation ? "" : Styles["move-up-no-animation"]
+                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
+                        playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
                     }`}
                 >
                     {generateResult(
@@ -48,8 +52,8 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                 </div>
 
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["banker"]} ${
-                        playResultAnimation ? "" : Styles["move-up-no-animation"]
+                    className={`${Styles[classAnimationContainer]} ${Styles["banker"]} ${
+                        playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
                     }`}
                 >
                     {generateResult(
@@ -68,10 +72,12 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles[classAnimation] : ""}`}>
             <div className={Styles["result-container"]}>
                 <div
-                    className={`${Styles["animation-container"]} ${Styles["player"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
+                        playResultAnimation ? "" : classMoveUpNoAnimation
+                    }`}
                 >
                     {generateResult(
                         GetPlayerCardsResult(result).filter((c) => c.value),
@@ -80,7 +86,9 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                     {generateDisplayScore(GetPlayerCardsResult(result))}
                 </div>
                 <div
-                    className={`${Styles["animation-container"]}  ${Styles["banker"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}
+                    className={`${Styles[classAnimationContainer]}  ${Styles["banker"]} ${
+                        playResultAnimation ? "" : classMoveUpNoAnimation
+                    }`}
                 >
                     {generateResult(
                         GetBankerCardsResult(result).filter((c) => c.value),
@@ -99,21 +107,22 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
 };
 
 export const DrawCardsAnimation = ({ playAnimation = false }) => {
+    const classCardShadow = "card-shadow";
     return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["animation-container"]}  ${Styles["player"]}`}>
+        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classAnimation] : ""}`}>
+            <div className={`${Styles[classAnimationContainer]}  ${Styles["player"]}`}>
                 <div className={Styles["card3"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
                 <div className={Styles["card1"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
             </div>
-            <div className={`${Styles["animation-container"]}  ${Styles["banker"]}`}>
+            <div className={`${Styles[classAnimationContainer]}  ${Styles["banker"]}`}>
                 <div className={Styles["card2"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
                 <div className={Styles["card4"]}>
@@ -127,32 +136,30 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
 
 export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object, isShowTicketHistory = false) => {
     const resultCount = 2 + (settlementResult.playerPair ? 1 : 0) + (settlementResult.bankerPair ? 1 : 0);
-
+    const classResultInfoBlue = "result-info-blue";
+    const classResultInfoRed = "result-info-red";
+    const classResultCount = `result-${resultCount}`;
     return (
-        <div
-            className={`${Styles["result-container"]} ${Styles[`result-${resultCount}`]} ${
-                isShowTicketHistory && Styles["ticket-history"]
-            }`}
-        >
+        <div className={`${Styles["result-container"]} ${Styles[classResultCount]} ${isShowTicketHistory && Styles["ticket-history"]}`}>
             {settlementResult.player ? (
-                <div className={Styles["result-info-blue"]}>{resources["player"]}</div>
+                <div className={Styles[classResultInfoBlue]}>{resources["player"]}</div>
             ) : settlementResult.banker ? (
-                <div className={Styles["result-info-red"]}>{resources["banker"]}</div>
+                <div className={Styles[classResultInfoRed]}>{resources["banker"]}</div>
             ) : (
                 <div className={Styles["result-info-green"]}>{resources["tie"]}</div>
             )}
             {settlementResult.big ? (
-                <div className={Styles["result-info-blue"]}>{resources["big"]}</div>
+                <div className={Styles[classResultInfoBlue]}>{resources["big"]}</div>
             ) : (
-                <div className={Styles["result-info-red"]}>{resources["small"]}</div>
+                <div className={Styles[classResultInfoRed]}>{resources["small"]}</div>
             )}
             {settlementResult.playerPair ? (
-                <div className={`${Styles["result-info-blue"]} ${Styles["result-player-pair"]}`}>{resources["playerPair"]}</div>
+                <div className={`${Styles[classResultInfoBlue]} ${Styles["result-player-pair"]}`}>{resources["playerPair"]}</div>
             ) : (
                 <></>
             )}
             {settlementResult.bankerPair ? (
-                <div className={`${Styles["result-info-red"]} ${Styles["result-banker-pair"]}`}>{resources["bankerPair"]}</div>
+                <div className={`${Styles[classResultInfoRed]} ${Styles["result-banker-pair"]}`}>{resources["bankerPair"]}</div>
             ) : (
                 <></>
             )}

@@ -31,10 +31,10 @@ const renderBetOptionByChoice = (
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
         >
-            {choice == Choices.red || choice == Choices.black ? (
+            {choice === Choices.red || choice === Choices.black ? (
                 <div className="w-100">
                     <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
-                    {choice == Choices.red ? (
+                    {choice === Choices.red ? (
                         <div className={Styles["icon-list"]}>
                             <img src={`/static/images/three-cards/diamond.svg`} className={Styles[choice]} height={18} width={18} />
                             <img src={`/static/images/three-cards/heart.svg`} className={Styles[choice]} height={18} width={18} />

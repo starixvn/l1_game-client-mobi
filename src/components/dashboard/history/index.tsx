@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 
 import appSettings from "../../../common/app-settings";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";

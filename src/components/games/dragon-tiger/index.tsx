@@ -114,6 +114,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         if (settlementResult.tiger) {
             return <div className={Styles["result-info-red"]}>{this.getGameTranslate("tigerWin")}</div>;
         }
+
+        return <></>;
     }
 
     renderSettlementInfo() {

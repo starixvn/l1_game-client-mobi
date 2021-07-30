@@ -7,7 +7,7 @@ import { Result, SettlementResult } from "../keno-pro-max";
 import Styles from "./mini-round-history.module.scss";
 
 export const RenderRoundDetail = (round: Round<Result, SettlementResult>, t: Function) => {
-    const { roundId, settlementResult, result } = round;
+    const { roundId, settlementResult } = round;
     const totalDiceRed = 4;
     const countRed = 1;
 

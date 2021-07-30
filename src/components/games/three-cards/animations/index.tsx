@@ -6,20 +6,24 @@ import Styles from "./three-cards-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
 import Card, { convertCardRankToIndex } from "../../../shared/card";
 
+const classHasAnimation = "has-animation";
+const classAnimationContainer = "animation-container";
+
 export const DrawCardsAnimation = ({ playAnimation = false }) => {
+    const classCardShadow = "card-shadow";
     return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["animation-container"]}`}>
+        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classHasAnimation] : ""}`}>
+            <div className={`${Styles[classAnimationContainer]}`}>
                 <div className={Styles["card1"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
                 <div className={Styles["card2"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
                 <div className={Styles["card3"]}>
-                    <div className={Styles["card-shadow"]}></div>
+                    <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
             </div>
@@ -46,9 +50,9 @@ export const ThreeCardsResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { viewMode, playResultAnimation } = useGameContext();
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
             <div className="overlay-mask">
-                <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(result, viewMode)}
                 </div>
             </div>
@@ -66,12 +70,12 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const suits = ["heart", "diamond", "club", "spade"];
-
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div
+            className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}
+        >
             <div className={Styles["result-container"]}>
-                <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult(result, viewMode)}
                 </div>
             </div>

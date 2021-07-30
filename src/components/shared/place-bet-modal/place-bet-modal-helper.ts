@@ -67,7 +67,7 @@ export const adjustPopupPosition = (gameBaseContainerRef: any, betOptionElement:
         isAlignLeft = Math.round(betContainerRect.left - betChoiceRect.left) === 0;
 
     let alignArrowStyle = "left";
-    let popupStyle = {
+    const popupStyle = {
         top: `${betOptionElement.getBoundingClientRect().bottom - gameContainerRect.top}px`,
         bottom: "none",
         left: `${betOptionRect.left - gameContainerRect.left}px`,
