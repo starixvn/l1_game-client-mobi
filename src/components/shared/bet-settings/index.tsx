@@ -264,7 +264,7 @@ const BetSettings: React.FC<{
                                     {t("globalSettingHint")}
                                     <div className={`arrow up ${Styles["arrow"]}`}></div>
                                     <button onClick={handleConfirmHint} className={`btn-orange ${Styles["btn-confirm"]}`}>
-                                        {t("common:ok")}
+                                        {t("common:globalSettingHintConfirm")}
                                     </button>
                                 </div>
                             </div>
