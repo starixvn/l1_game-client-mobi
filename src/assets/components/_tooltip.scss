@@ -12,7 +12,6 @@
     position: relative;
     width: 0;
     margin: auto;
-    z-index: 1070;
     opacity: 0;
 
     .arrow {
@@ -40,6 +39,7 @@
 
     &.show {
         opacity: 1;
+        z-index: 1070;
     }
 
     &.mini-round-history {

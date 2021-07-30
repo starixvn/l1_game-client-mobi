@@ -57,5 +57,7 @@
     "emptyPresetStakeMsg": "Please input your Preset Stake.",
     "quickBetHint": "Quick Bet is ON. Bets will be confirmed automatically.",
     "globalSettingHint": "Quick Bet function that allows placing bet directly (without confirmation step) with a single click or tap using preset-stake amount for all games.",
-    "globalSettingHintConfirm": "OK"
+    "globalSettingHintConfirm": "OK",
+    "on": "On",
+    "off": "Off"
 }

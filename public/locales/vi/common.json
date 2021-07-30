@@ -56,5 +56,7 @@
     "emptyPresetStakeMsg": "Vui lòng nhập Tiền cược đặt sẵn của bạn.",
     "quickBetHint": "Đã bật tính năng Cược Nhanh. Cược sẽ tự động được xác nhận.",
     "globalSettingHint": "Tính năng Cược Nhanh cho phép đặt cược trực tiếp (không cần bước xác nhận) bằng cách chạm hoặc click vào cửa cược, với mức tiền cược được thiết lập sẵn cho toàn bộ game.",
-    "globalSettingHintConfirm": "OK"
+    "globalSettingHintConfirm": "OK",
+    "on": "Bật",
+    "off": "Tắt"
 }

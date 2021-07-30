@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Themes } from "../../../../common/constants";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
+import { Tooltip } from "../../tooltip";
 import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
@@ -16,6 +17,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const toggleBtnRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
 
     const openGuide = () => {
@@ -39,6 +41,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
     return (
         <div className={Styles["game-menu"]} ref={wrapperRef}>
             <div
+                ref={toggleBtnRef}
                 className={`header-button ${Styles["menu-toggle-btn"]}`}
                 onClick={() => {
                     setDropdownOpen(!dropdownOpen);
@@ -46,6 +49,7 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
             >
                 <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
             </div>
+            <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
             <div className="dropdown">
                 <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
