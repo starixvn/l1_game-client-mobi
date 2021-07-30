@@ -338,7 +338,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     </div>
                 )}
 
-                {isMobileOnly && <div className={Styles["footer"]}>Powered by Saba.club</div>}
+                <div className={Styles["footer"]}>Powered by Saba.club</div>
             </div>
         );
     }

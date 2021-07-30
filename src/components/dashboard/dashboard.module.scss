@@ -1,6 +1,9 @@
 .dashboard {
     position: relative;
-    cursor: auto;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 .container-modal {
@@ -24,26 +27,21 @@
 .settings-container {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     height: 4.5rem;
     margin-top: 4.4rem;
     z-index: var(--setting-index);
 }
 
 [data-theme="light"] .footer {
-    --footer-background: rgba(162, 185, 199, 0.9);
-    --footer-color: #2e2e2e;
+    --footer-color: #424242;
 }
 
 [data-theme="dark"] .footer {
-    --footer-background: rgba(52, 79, 112, 0.9);
-    --footer-color: #cdcdcd;
+    --footer-color: #b2b2b2;
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    width: 100%;
-    bottom: 0;
     height: 3.2rem;
     line-height: 3.2rem;
     padding-right: 1.6rem;
@@ -52,4 +50,9 @@
     color: var(--footer-color);
     font-size: 1.1rem;
     z-index: var(--footer-index);
+
+    @media (min-width: 1260px) {
+        width: 126rem;
+        margin: auto;
+    }
 }
