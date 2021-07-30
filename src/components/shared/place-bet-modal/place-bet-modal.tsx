@@ -72,7 +72,12 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobileOnly) {
-            const popupStyle = ajustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.betOptionElement, props.betChoiceElement);
+            const popupStyle = ajustPopupPositionDidUpdate(
+                props.gameBaseContainerRef,
+                wrapperRef,
+                props.betOptionElement,
+                props.betChoiceElement
+            );
             if (popupStyle.isAjustPosition) {
                 setStyle(popupStyle.position);
                 setArrowStyle(popupStyle.arrowStyle);
@@ -128,7 +133,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        isPlusValue && !Number.isNaN(betStake) ? setBetStake(betStake+ stake) : setBetStake(stake);
+        isPlusValue && !Number.isNaN(betStake) ? setBetStake(betStake + stake) : setBetStake(stake);
     };
 
     const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
@@ -183,12 +188,12 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     </div>
 
                     <div className={`form-group ${Styles["stake"]}`}>
-                        <div className="smart-fake-input-caret"></div>
+                        <div className="fake-input-pointer"></div>
                         <NumberFormat
                             getInputRef={numberFormatRef}
                             autoFocus
                             readOnly
-                            value={betStake ?? ''}
+                            value={betStake ?? ""}
                             allowNegative={false}
                             className="form-control number"
                             thousandSeparator={true}
@@ -229,7 +234,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                                     height="50"
                                     alt="Chip"
                                 />
-                                <span className={Styles["value"]}>{chip.isPlusValue ? `+${chip.value}` :"MAX" }</span>
+                                <span className={Styles["value"]}>{chip.isPlusValue ? `+${chip.value}` : "MAX"}</span>
                             </div>
                         ))}
                     </div>
