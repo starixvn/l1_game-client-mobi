@@ -28,3 +28,18 @@
     margin-top: 4.4rem;
     z-index: var(--setting-index);
 }
+
+.footer {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    height: 4rem;
+    line-height: 4rem;
+    padding-right: 1.6rem;
+    text-align: right;
+    background: rgba(59, 74, 92, 0.75);
+    color: #fff;
+    font-size: 1.1rem;
+    z-index: var(--footer-index);
+}

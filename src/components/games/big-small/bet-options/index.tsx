@@ -38,8 +38,8 @@ const renderBetOptionByChoice = (
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
         >
-            <div className={Styles[choice]}>
-                {t(choice)}
+            <div className={Styles["bet-group"]}>
+                <div className={Styles[choice]}>{t(choice)}</div>
                 <div className={Styles["statistic-user-bet"]}>
                     <span className={`icon-user-group ${Styles["user-group"]}`}></span>
                     <span className={Styles["number"]}>{betPercentage && betPercentage[choice] ? betPercentage[choice] : 0}%</span>
