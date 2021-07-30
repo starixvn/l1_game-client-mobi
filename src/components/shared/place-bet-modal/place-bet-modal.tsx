@@ -20,6 +20,7 @@ let timeoutIns = null;
 
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const numberFormatRef = useRef<HTMLInputElement>(null);
     const { userStakeLevel } = useSystemContext();
     const { roundId, gameSetting, gameConfigs } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
@@ -47,7 +48,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         },
         {
             text: t("common:bettingLimits"),
-            value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(maxBetChoice)}`,
+            value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(Math.min(maxBetChoice, maxBetPerRound))}`,
         },
     ];
 
@@ -139,6 +140,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const clearBetStake = (event: any) => {
         event.preventDefault();
         setBetStake(null);
+        numberFormatRef.current.focus();
     };
 
     const submitBet = (event: any) => {
@@ -180,6 +182,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
                     <div className={`form-group ${Styles["stake"]}`}>
                         <NumberFormat
+                            getInputRef={numberFormatRef}
                             autoFocus
                             readOnly={isMobileOnly}
                             value={betStake ?? ''}
