@@ -6,7 +6,7 @@ import { CardOrder, Odd } from "../baccarat";
 import { BetLogs } from "./bet-history";
 import Card from "../../../shared/card";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
-import { generateSettlementInfo } from "../animations";
+import { generateSettlementInfo, generateDisplayScore } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import Styles from "./bet-history.module.scss";
 import { GameResourceKeys } from "../../../../common/resources";
@@ -48,9 +48,15 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetPlayerCardsResult(result))}
+                        {generateCardsPoint(GetPlayerCardsResult(result))}
                     </div>
-                    <div className={`${Styles["banker"]} ${Styles["card-result"]} ${Styles[getClassCardLength(GetBankerCardsResult, result)]}`}>
+                    <div
+                        className={`${Styles["banker"]} ${Styles["card-result"]} ${
+                            Styles[getClassCardLength(GetBankerCardsResult, result)]
+                        }`}
+                    >
                         {generateResultOnCard(GetBankerCardsResult(result))}
+                        {generateCardsPoint(GetBankerCardsResult(result))}
                     </div>
                 </div>
 
@@ -71,6 +77,10 @@ const generateResultOnCard = (cards: CardOrder[]) => {
             </div>
         );
     });
+};
+
+const generateCardsPoint = (cards: CardOrder[]) => {
+    return <div className={Styles["card-point"]}>{generateDisplayScore(cards)}</div>;
 };
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
