@@ -2,11 +2,11 @@
 
 .winning-streak-container {
     position: fixed;
-    width: 100%;
+    width: 32rem;
+    left: calc(50% - 16rem);
+    top: 0;
     text-align: center;
     z-index: calc(var(--header-index) + 2);
-    left: 0;
-    top: 0;
 }
 
 .streak-notification {
