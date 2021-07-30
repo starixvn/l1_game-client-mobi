@@ -1,9 +1,9 @@
 .dashboard {
     position: relative;
-    width: 100vw;
-    height: 100vh;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .container-modal {
@@ -45,6 +45,7 @@
     height: 3.2rem;
     line-height: 3.2rem;
     padding-right: 1.6rem;
+    margin-bottom: 0;
     text-align: right;
     background: var(--footer-background);
     color: var(--footer-color);
@@ -53,6 +54,7 @@
 
     @media (min-width: 1260px) {
         width: 126rem;
-        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

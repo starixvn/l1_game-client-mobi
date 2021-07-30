@@ -215,16 +215,11 @@ body {
 
 .game-container {
     position: relative;
-    height: 100%;
     width: 100%;
     margin: 0 auto;
 
     &.game-wrapper {
         margin-top: 5.2rem;
-    }
-
-    @media (min-device-width: 768px) {
-        height: auto;
     }
 
     @media (min-width: 1260px) {
