@@ -12,7 +12,7 @@ type Props = {
     type?: ModalType;
     betContainerPosition?: number;
     isCloseOutside?: boolean;
-    enableBackdrop?: boolean
+    enableBackdrop?: boolean;
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -21,7 +21,7 @@ const BaseDialog: React.FC<Props> = ({
     isOpen = true,
     type = ModalType.Full,
     betContainerPosition,
-    enableBackdrop
+    enableBackdrop,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -45,14 +45,10 @@ const BaseDialog: React.FC<Props> = ({
     };
 
     useEffect(() => {
-        if (enableBackdrop) {
-            document.body.classList.add("no-scroll");
-        }
+        enableBackdrop && document.body.classList.add("no-scroll");
 
         return () => {
-            if (enableBackdrop) {
-                document.body.classList.remove("no-scroll");
-            }
+            enableBackdrop && document.body.classList.remove("no-scroll");
         };
     }, []);
 

@@ -4,7 +4,7 @@ import { isMobile, isMobileOnly } from "react-device-detect";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
-import { GameConfigs, GameState } from "../game-base/type";
+import { GameConfigs } from "../game-base/type";
 import Styles from "./quick-bet-modal.module.scss";
 import { BetSetting, BetSettingStorage } from "./type";
 
