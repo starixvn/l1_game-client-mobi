@@ -57,7 +57,12 @@ export const Settings: React.FC<Props> = (props) => {
                     <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                 </div>
 
-                <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
+                <Menu
+                    handleToggleSound={onToggleSound}
+                    enabledSound={enabledSound}
+                    handleToggleGuideModal={toggleGuideModal}
+                    toggleFavoriteSetting={toggleFavoriteSetting}
+                />
             </div>
         </div>
     );
