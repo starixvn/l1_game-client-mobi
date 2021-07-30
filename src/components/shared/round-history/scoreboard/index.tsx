@@ -6,6 +6,8 @@ type Props = {
     children: React.ReactNode;
 };
 
+let isScrollEndRight = true;
+
 const ScoreboardRoundHistory = (props: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     let scrollLeftWidth = 0;
