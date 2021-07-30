@@ -26,13 +26,13 @@ export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
     });
 };
 
-export const generateDisplayScore = (cards: CardOrder[], isBetHistory = false) => {
+export const generateDisplayScore = (cards: CardOrder[]) => {
     const classGroupCards = `group-${cards.length}-cards`;
     const point = cards.reduce((total, c) => {
         return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
     }, 0);
 
-    return <div className={`${Styles[classGroupCards]} ${Styles["score"]} ${isBetHistory && Styles["bet-history"]}`}>{point}</div>;
+    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
 };
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {

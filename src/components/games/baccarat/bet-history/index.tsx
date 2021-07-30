@@ -4,7 +4,7 @@ import React from "react";
 import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
-import { generateSettlementInfo, generateDisplayScore } from "../animations";
+import { generateSettlementInfo } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import { GameResourceKeys } from "../../../../common/resources";
 import { CardOrder, Odd } from "../baccarat";
@@ -47,7 +47,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetPlayerCardsResult(result))}
-                        {generateDisplayScore(GetPlayerCardsResult(result), true)}
+                        {generateScore(GetPlayerCardsResult(result))}
                     </div>
                     <div
                         className={`${Styles["banker"]} ${Styles["card-result"]} ${
@@ -55,7 +55,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetBankerCardsResult(result))}
-                        {generateDisplayScore(GetBankerCardsResult(result), true)}
+                        {generateScore(GetBankerCardsResult(result))}
                     </div>
                 </div>
 
@@ -76,6 +76,15 @@ const generateResultOnCard = (cards: CardOrder[]) => {
             </div>
         );
     });
+};
+
+const generateScore = (cards: CardOrder[]) => {
+    const classGroupCards = `group-${cards.length}-cards`;
+    const point = cards.reduce((total, c) => {
+        return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
+    }, 0);
+
+    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
 };
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
