@@ -26,6 +26,7 @@ const BetSettings: React.FC<{
     const betStakeTooltipRef = useRef<HTMLDivElement>(null);
     const quickBetTooltipRef = useRef<HTMLDivElement>(null);
     const quickBetHintRef = useRef<HTMLDivElement>(null);
+    const inputStakeRef = useRef<HTMLInputElement>(null);
     const globalSettingHintRef = useRef<HTMLDivElement>(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [betStake, setBetStake] = useState<number>(props.betSettings?.betStake ?? 0);
@@ -64,12 +65,14 @@ const BetSettings: React.FC<{
         e.stopPropagation();
         updateSettings(0, false);
         setDropdownOpen(false);
+        inputStakeRef.current.focus();
     };
 
     const handleInputBetStake = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.currentTarget.value.replace(",", "");
         value === "" && setBetStake(0);
         isNumber(value) && +value <= MaxInputValue && setBetStake(+value);
+        inputStakeRef.current.focus();
     };
 
     const addBetStake = (event: React.MouseEvent, amount: number) => {
@@ -77,6 +80,7 @@ const BetSettings: React.FC<{
         const newBetStake = betStake + amount;
 
         newBetStake <= MaxInputValue && setBetStake(newBetStake);
+        inputStakeRef.current.focus();
     };
 
     const handleSubmit = (e: React.MouseEvent) => {
@@ -283,6 +287,7 @@ const BetSettings: React.FC<{
                                         inputMode={"numeric"}
                                         readOnly={isMobileOnly}
                                         maxLength={6}
+                                        ref={inputStakeRef}
                                         autoFocus
                                     ></input>
                                     {errorMessage && (
