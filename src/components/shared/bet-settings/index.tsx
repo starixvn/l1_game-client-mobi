@@ -229,8 +229,13 @@ const BetSettings: React.FC<{
                                 <img src={"/static/images/icon-thunder.svg?v=2"} width={17} height={16} alt="icon-thunder" />
                             </div>
                         )}
+
+                        <Tooltip
+                            message={`${t("quickBet")} : ${enabledQuickBet ? t("on") : t("off")}`}
+                            hoverWrapper={quickBetBtnWrapperRef}
+                        />
                     </div>
-                    <Tooltip message={`${t("quickBet")} : ${enabledQuickBet ? t("on") : t("off")}`} hoverWrapper={quickBetBtnWrapperRef} />
+
                     {isShowQuickBetHint && (
                         <div ref={quickBetHintRef} className={`tooltip info show ${Styles["quick-bet-hint-wrapper"]}`}>
                             <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
@@ -251,8 +256,8 @@ const BetSettings: React.FC<{
                             ref={arrowBtnRef}
                         >
                             <span className={`icon-arrow-down ${Styles["icon-arrow-down"]}`}></span>
+                            <Tooltip message={t("presetStake")} hoverWrapper={arrowBtnRef} />
                         </div>
-                        <Tooltip message={t("presetStake")} hoverWrapper={arrowBtnRef} />
                     </>
                 ) : (
                     <>

@@ -40,11 +40,12 @@ export const Settings: React.FC<Props> = (props) => {
                     <span
                         className={enabledNotification ? styles[`${"icon-notify-on-"}${theme}`] : styles[`${"icon-notify-off-"}${theme}`]}
                     ></span>
+                    <Tooltip
+                        message={`${t("winningStreakNotification")}: ${enabledNotification ? t("on") : t("off")}`}
+                        hoverWrapper={toggleWinningStreakBtnRef}
+                    />
                 </div>
-                <Tooltip
-                    message={`${t("winningStreakNotification")}: ${enabledNotification ? t("on") : t("off")}`}
-                    hoverWrapper={toggleWinningStreakBtnRef}
-                />
+
                 <div
                     ref={toggleHistoryBtnRef}
                     id="ticket-history"
@@ -52,8 +53,9 @@ export const Settings: React.FC<Props> = (props) => {
                     onClick={() => toggleHistoryModal()}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
+                    <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                 </div>
-                <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
+
                 <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
             </div>
         </div>

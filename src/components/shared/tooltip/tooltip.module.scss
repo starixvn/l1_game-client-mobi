@@ -1,4 +1,13 @@
-.tooltip-container {
-    position: absolute;
-    transform: translateX(-50%);
+.tooltip-buttons {
+    top: 4.3rem;
+    right: 0;
+
+    .tooltip-inner {
+        right: 0;
+        white-space: nowrap;
+    }
+
+    .arrow {
+        right: 2.8rem;
+    }
 }

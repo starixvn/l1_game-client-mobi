@@ -48,8 +48,8 @@ export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean
                 }}
             >
                 <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
+                <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
             </div>
-            <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
             <div className="dropdown">
                 <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>

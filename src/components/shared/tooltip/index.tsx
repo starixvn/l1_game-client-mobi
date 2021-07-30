@@ -35,9 +35,11 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
     }, [hoverWrapper]);
 
     return (
-        <div className={`tooltip mini-round-history ${showTooltip ? "show" : ""} ${Styles["tooltip-container"]}`}>
-            <div className="tooltip-inner">{message}</div>
-            <span className={"arrow down"}></span>
+        <div className={`tooltip info ${showTooltip ? "show" : ""} ${Styles["tooltip-buttons"]}`}>
+            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                {message}
+                <span className={`arrow up ${Styles["arrow"]}`}></span>
+            </div>
         </div>
     );
 };
