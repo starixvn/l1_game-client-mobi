@@ -1,37 +1,41 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
+import { useTranslation } from "next-i18next";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult, CardOrder } from "../baccarat";
-import Styles from "./baccarat-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";
 import { GetPlayerCardsResult, GetBankerCardsResult } from "../baccarat-helper";
+import Styles from "./baccarat-animations.module.scss";
 
 const classAnimation = "has-animation";
 const classAnimationContainer = "animation-container";
 const classMoveUpNoAnimation = "move-up-no-animation";
 
-export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
+export const generateResult = (cards: CardOrder[], viewMode: ViewMode, isBetHistory = false) => {
     return cards.map((card, _) => {
+        const classCardOrder = `card${card.order}`;
         return (
-            <div key={card.order} className={Styles[`card${card.order}`]}>
-                <div className={Styles["rotate-card"]}>
+            <div key={card.order} className={`${Styles[classCardOrder]} ${isBetHistory && Styles["bet-history"]}`}>
+                <div className={!isBetHistory && Styles["rotate-card"]}>
                     <Card result={card.value} viewMode={viewMode}></Card>
                 </div>
-                <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
+                {!isBetHistory && (
+                    <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
+                )}
             </div>
         );
     });
 };
 
-export const generateDisplayScore = (cards: CardOrder[]) => {
+export const generateDisplayScore = (cards: CardOrder[], isBetHistory = false) => {
     const validCards = cards.filter((c) => !!c.value);
     const classGroupCards = `group-${validCards.length}-cards`;
     const point = validCards.reduce((total, c) => {
         return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
     }, 0);
 
-    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
+    return <div className={`${Styles[classGroupCards]} ${Styles["score"]} ${isBetHistory && Styles["bet-history"]}`}>{point}</div>;
 };
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {

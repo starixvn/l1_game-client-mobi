@@ -2,13 +2,14 @@ import { TFunction } from "next-i18next";
 import React from "react";
 
 import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../../dashboard/history/bet-history";
-import { CardOrder, Odd } from "../baccarat";
 import { BetLogs } from "./bet-history";
-import Card from "../../../shared/card";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
-import { generateSettlementInfo, generateDisplayScore } from "../animations";
+import { generateSettlementInfo, generateDisplayScore, generateResult } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import { GameResourceKeys } from "../../../../common/resources";
+import { Odd } from "../baccarat";
+
+import { ViewMode } from "../../../shared/game-base/type";
 import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
@@ -32,7 +33,8 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
-
+        const playerCardResultValid = GetPlayerCardsResult(result).filter((c) => c.value);
+        const bankerCardResultValid = GetBankerCardsResult(result).filter((c) => c.value);
         const getClassCardLength = (getCard: Function, result: any) => {
             return `card-length-${getCard(result).filter((c) => !!c.value).length}`;
         };
@@ -47,16 +49,16 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                             Styles[getClassCardLength(GetPlayerCardsResult, result)]
                         }`}
                     >
-                        {generateResultOnCard(GetPlayerCardsResult(result))}
-                        {generateDisplayScore(GetPlayerCardsResult(result))}
+                        {generateResult(playerCardResultValid, ViewMode.full, true)}
+                        {generateDisplayScore(GetPlayerCardsResult(result), true)}
                     </div>
                     <div
                         className={`${Styles["banker"]} ${Styles["card-result"]} ${
                             Styles[getClassCardLength(GetBankerCardsResult, result)]
                         }`}
                     >
-                        {generateResultOnCard(GetBankerCardsResult(result))}
-                        {generateDisplayScore(GetBankerCardsResult(result))}
+                        {generateResult(bankerCardResultValid, ViewMode.full, true)}
+                        {generateDisplayScore(GetBankerCardsResult(result), true)}
                     </div>
                 </div>
 
@@ -67,16 +69,6 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         );
     }
     return <></>;
-};
-
-const generateResultOnCard = (cards: CardOrder[]) => {
-    return cards.map((card) => {
-        return (
-            <div key={card.order} className={Styles[`card${card.order}`]}>
-                {card.value && <Card result={card.value}></Card>}
-            </div>
-        );
-    });
 };
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
