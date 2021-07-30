@@ -29,17 +29,27 @@
     z-index: var(--setting-index);
 }
 
+[data-theme="light"] .footer {
+    --footer-background: rgba(162, 185, 199, 0.9);
+    --footer-color: #2e2e2e;
+}
+
+[data-theme="dark"] .footer {
+    --footer-background: rgba(52, 79, 112, 0.9);
+    --footer-color: #cdcdcd;
+}
+
 .footer {
     position: fixed;
     left: 0;
     width: 100%;
     bottom: 0;
-    height: 4rem;
-    line-height: 4rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
     padding-right: 1.6rem;
     text-align: right;
-    background: rgba(59, 74, 92, 0.6);
-    color: #efefef;
+    background: var(--footer-background);
+    color: var(--footer-color);
     font-size: 1.1rem;
     z-index: var(--footer-index);
 }
