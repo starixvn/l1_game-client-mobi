@@ -312,3 +312,21 @@
         }
     }
 }
+
+.smart-fake-input-caret {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 38px;
+    width: 1px;
+    height: 20px;
+    transform: translateY(-50%);
+    background-color: rgba(79, 110, 160, 0.996);
+    animation-name: F;
+    animation-duration: .9s;
+    animation-iteration-count: infinite;
+}
+
+.smart-fake-input-caret.smart-fake-input-caret-special {
+    right: 5px;
+}

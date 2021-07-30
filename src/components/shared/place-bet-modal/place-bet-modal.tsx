@@ -183,10 +183,11 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     </div>
 
                     <div className={`form-group ${Styles["stake"]}`}>
+                        <div className="smart-fake-input-caret"></div>
                         <NumberFormat
                             getInputRef={numberFormatRef}
                             autoFocus
-                            readOnly={isMobileOnly}
+                            readOnly
                             value={betStake ?? ''}
                             allowNegative={false}
                             className="form-control number"
