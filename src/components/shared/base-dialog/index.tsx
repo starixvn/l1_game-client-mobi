@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import Styles from "./base-dialog.module.scss";

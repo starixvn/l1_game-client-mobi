@@ -8,8 +8,8 @@ import Card from "../../../shared/card";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { generateSettlementInfo, generateDisplayScore } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
-import Styles from "./bet-history.module.scss";
 import { GameResourceKeys } from "../../../../common/resources";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
     if (bet.result) {

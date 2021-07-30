@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "./../fish-prawn-crab";
+import { GameConfigs, GameSettings, GameState } from "../../../shared/game-base/type";
 import Styles from "./bet-options.module.scss";
-import { GameConfigs, GameSettings } from "../../../shared/game-base/type";
 
 const Choices = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
 

@@ -117,7 +117,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetChoice) }));
             setBetStake(maxBetChoice);
-            return;
         }
     };
 

@@ -96,7 +96,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
         if (props.buildId !== buildVersion) {
             storeSessionStorageItem(SessionStorageKeys.buildVersion, props.buildId);
-            window.location.reload(true);
+            location.reload();
         }
     }
 
@@ -117,7 +117,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     doOnOrientationChange() {
-        switch (window.orientation) {
+        switch (screen.orientation.angle) {
             case -90:
             case 90:
                 this.setState({ orientation: "landscape" });

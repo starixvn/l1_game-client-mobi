@@ -60,11 +60,10 @@ const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, tabsScoreboar
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return useMemo(() => {
-        switch (tabsScoreboardValue) {
-            case TabsValue.redBlack:
-                return RedBlackStatistics({ roundHistory, statisticRuleEntries, t });
-            default:
-                return SuitStatistics({ roundHistory, statisticRuleEntries, t });
+        if (tabsScoreboardValue === TabsValue.redBlack) {
+            return RedBlackStatistics({ roundHistory, statisticRuleEntries, t });
+        } else {
+            return SuitStatistics({ roundHistory, statisticRuleEntries, t });
         }
     }, [roundHistory, tabsScoreboardValue]);
 };

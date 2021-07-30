@@ -15,17 +15,15 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
     }
 
     shuffle = _.shuffle(shuffle);
-
     const total = result.reduce((a, b) => a + b, 0);
-    var settle: any = {
+
+    return {
         total,
         shuffle,
         big: settlementResult?.big,
         even: settlementResult?.even,
         element: elements.filter((e) => settlementResult[e])[0],
     };
-
-    return settle;
 };
 export const generateResult = (result: Result, shuffle, isAnimation = true) => {
     const maxNumInRow = 5;

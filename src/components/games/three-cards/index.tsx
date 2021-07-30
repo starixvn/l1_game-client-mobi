@@ -63,30 +63,24 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderBoard() {
         const { roundHistory, tabsScoreboardValue, gameState } = this.state;
-        switch (tabsScoreboardValue) {
-            case TabsValue.suits:
-                return (
-                    <ScoreboardBasic
-                        roundHistory={roundHistory}
-                        gameState={gameState}
-                        getElementRound={GetElementRoundSuits}
-                    ></ScoreboardBasic>
-                );
+        if (tabsScoreboardValue === TabsValue.suits) {
+            return (
+                <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRoundSuits}></ScoreboardBasic>
+            );
+        } else {
+            const translateDotTextMapping = {
+                [Choices.red]: this.getGameTranslate("redTextDot"),
+                [Choices.black]: this.getGameTranslate("blackTextDot"),
+            };
 
-            default:
-                const translateDotTextMapping = {
-                    [Choices.red]: this.getGameTranslate("redTextDot"),
-                    [Choices.black]: this.getGameTranslate("blackTextDot"),
-                };
-
-                return (
-                    <ScoreboardDragon
-                        roundHistory={roundHistory}
-                        getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
-                        checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
-                        translateDotTextMapping={translateDotTextMapping}
-                    />
-                );
+            return (
+                <ScoreboardDragon
+                    roundHistory={roundHistory}
+                    getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
+                    checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
+                    translateDotTextMapping={translateDotTextMapping}
+                />
+            );
         }
     }
 
@@ -147,7 +141,11 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 </div>
                 <div className={Styles["suits"]}>
                     {result.map((r, index) => {
-                        return <span key={index}><img src={`/static/images/three-cards/${suits[r.suit]}.svg`} height={30} width={30} alt={suits[r.suit]}/></span>;
+                        return (
+                            <span key={index}>
+                                <img src={`/static/images/three-cards/${suits[r.suit]}.svg`} height={30} width={30} alt={suits[r.suit]} />
+                            </span>
+                        );
                     })}
                 </div>
             </div>

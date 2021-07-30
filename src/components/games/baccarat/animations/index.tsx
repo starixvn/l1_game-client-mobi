@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result, SettlementResult, CardOrder, Cards } from "../baccarat";
+import { Result, SettlementResult, CardOrder } from "../baccarat";
 import Styles from "./baccarat-animations.module.scss";
 import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";

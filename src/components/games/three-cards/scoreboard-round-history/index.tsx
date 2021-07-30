@@ -61,8 +61,7 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
 };
 
 export const GetNameFromChoice = (settlementResult: SettlementResult) => {
-    let choiceValue = Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamond;
-    return choiceValue;
+    return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamond;
 };
 
 export const CheckConditionSuits = (settlementResult: SettlementResult) => {

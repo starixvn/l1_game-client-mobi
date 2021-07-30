@@ -1,6 +1,5 @@
 import { TFunction } from "next-i18next";
-import { Result, CardOrder } from "./baccarat";
-import { Cards } from "./baccarat";
+import { Result, CardOrder, Cards } from "./baccarat";
 
 export const Choices = {
     banker: "banker",
@@ -100,7 +99,7 @@ export const GetBankerCardsResult = (result: Result): CardOrder[] => {
     return bankerCards;
 };
 
-export const GetTranslateChoiceMapping = (t: TFunction, gameName: string = "baccarat") => {
+export const GetTranslateChoiceMapping = (t: TFunction, gameName = "baccarat") => {
     return {
         player: t(`${gameName}:player`),
         banker: t(`${gameName}:banker`),

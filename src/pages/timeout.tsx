@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 
-const NotFound = () => {
+const TimeOut = () => {
     const router = useRouter();
     const { theme } = useTheme();
     const [isLoading, setIsLoading] = useState(true);
@@ -26,4 +26,4 @@ const NotFound = () => {
     );
 };
 
-export default NotFound;
+export default TimeOut;
