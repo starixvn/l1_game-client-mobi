@@ -48,7 +48,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetPlayerCardsResult(result))}
-                        {generateCardsPoint(GetPlayerCardsResult(result))}
+                        {generateDisplayScore(GetPlayerCardsResult(result))}
                     </div>
                     <div
                         className={`${Styles["banker"]} ${Styles["card-result"]} ${
@@ -56,7 +56,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetBankerCardsResult(result))}
-                        {generateCardsPoint(GetBankerCardsResult(result))}
+                        {generateDisplayScore(GetBankerCardsResult(result))}
                     </div>
                 </div>
 
@@ -77,10 +77,6 @@ const generateResultOnCard = (cards: CardOrder[]) => {
             </div>
         );
     });
-};
-
-const generateCardsPoint = (cards: CardOrder[]) => {
-    return <div className={Styles["card-point"]}>{generateDisplayScore(cards)}</div>;
 };
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {

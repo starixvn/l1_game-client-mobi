@@ -38,24 +38,20 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                     <div className={Styles["result"]}>
                         <div className={Styles["number-container"]}>{generateResult(result, settleResult.shuffle, false)}</div>
 
-                        <div className={Styles["result-total"]}>
-                            <div className={Styles["result-total-number"]}>{settleResult.settleTotal}</div>
-                        </div>
+                        <div className={Styles["result-total-number"]}>{settleResult.total}</div>
                     </div>
 
-                    <div className={Styles["winning-detail"]}>
-                        <div className={Styles["settle-info"]}>
-                            <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>{texts.even}</div>
-                            <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>{texts.big}</div>
-                            <div className={Styles["result-info-grey"]}>{texts.element}</div>
-                        </div>
+                    <div className={Styles["settle-info"]}>
+                        <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>{texts.even}</div>
+                        <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>{texts.big}</div>
+                        <div className={Styles["result-info-grey"]}>{texts.element}</div>
                     </div>
                 </div>
             </ResultDetailContainer>
         );
     }
     return <></>;
-}; 
+};
 
 const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     return (

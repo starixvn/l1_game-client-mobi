@@ -41,18 +41,6 @@ $number-count: 20;
         }
     }
 
-    .number {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 3rem;
-        height: 3rem;
-        border-radius: 50%;
-        background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #c7c7c7 78.96%, #bababa 100%);
-        font: 600 1.6rem var(--font-number);
-        color: #2c2f3e;
-    }
-
     .result-total {
         display: flex;
         flex-direction: column;
@@ -101,6 +89,18 @@ $number-count: 20;
             background: linear-gradient(180deg, #ffdda4 0%, #ffa412 50.83%, #ffdb9f 100%);
         }
     }
+}
+
+.number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #c7c7c7 78.96%, #bababa 100%);
+    font: 600 1.6rem var(--font-number);
+    color: #2c2f3e;
 }
 
 .has-animation {
