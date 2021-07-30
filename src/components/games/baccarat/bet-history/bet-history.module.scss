@@ -49,19 +49,19 @@
 
         &.player {
             justify-content: flex-end;
-            left: .4rem;
+            left: 0.4rem;
             &.card-length-3 {
                 left: 1.8rem;
             }
         }
         &.banker {
-            right: .4rem;
+            right: 0.4rem;
             justify-content: flex-start;
             &.card-length-3 {
                 right: 1.8rem;
             }
         }
-        
+
         .card3 {
             transform: translateX(8.2rem);
         }
@@ -88,11 +88,6 @@
 
     .banker-label {
         color: #de4a54;
-    }
-
-    .card-length-2,
-    .card-length-3 {
-        color: inherit;
     }
 }
 
