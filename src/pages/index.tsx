@@ -6,7 +6,7 @@ import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";
 import Dashboard from "../components/dashboard";
-import SplashScreen from "../components/splash-screen/splash-screen";
+import SplashScreen from "../components/splash-screen";
 import { checkUM, sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
@@ -55,7 +55,7 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen locale={locale}></SplashScreen>;
+        return <SplashScreen locale={locale} />;
     }
 
     const buildId = process.env.buildVersion;

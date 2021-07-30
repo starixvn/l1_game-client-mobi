@@ -1,4 +1,5 @@
 import React from "react";
+
 import { locales } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
