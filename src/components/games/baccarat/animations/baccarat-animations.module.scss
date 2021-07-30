@@ -49,40 +49,40 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 }
 
+.score {
+    position: absolute;
+    bottom: 0;
+    width: 5.4rem;
+    height: 2.7rem;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    bottom: 10px;
+    background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
+}
+
+.player .score {
+    background: linear-gradient(180deg, #117f99 0%, #123363 100%);
+    margin-left: 40%;
+    left: -2.8rem;
+    &.group-card-2 {
+        left: .8rem;
+    }
+}
+.banker .score {
+    background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
+    margin-right: 40%;
+    right: -2.8rem;
+    &.group-card-2 {
+        right: .8rem;
+    }
+}
 .open-cards {
-    .score {
-        position: absolute;
-        bottom: 0;
-        width: 5.4rem;
-        height: 2.7rem;
-        border-top-left-radius: 60px;
-        border-top-right-radius: 60px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        bottom: 10px;
-    }
-
-    .group-2-cards {
-        bottom: 10px;
-    }
-
-    .group-3-cards {
-        bottom: 10px;
-    }
-
-    .player .score {
-        background: linear-gradient(180deg, #117f99 0%, #123363 100%);
-        margin-left: 40%;
-        left: -2.4rem;
-    }
-    .banker .score {
-        background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
-        margin-right: 40%;
-        right: -2.4rem;
-    }
+    
     .animation-container {
         --move-up-distance: -0.5rem;
         --result-scale: 0.9;
@@ -122,11 +122,16 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 math.div($time-draw-card-animation * 2, 4) + 0.6;
         }
         .animation-container {
-            animation-name: zoom-in-animation, move-up-result-animation;
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards;
             animation-timing-function: ease-out;
+            &.player {
+                animation-name: zoom-in-animation-player, move-up-result-animation;
+            }
+            &.banker {
+                animation-name: zoom-in-animation-banker, move-up-result-animation;
+            }
         }
 
         .rotate-card {
@@ -217,7 +222,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
 
         .card5 {
-            .card-back {
+            transform: translateX(8.5rem);
+            .card-back {               
                 opacity: 0;
                 animation-name: draw-card-animation, hide-card-back-animation;
                 animation-duration: math.div($time-draw-card-animation, 4), math.div($time-open-card-animation, 6);
@@ -231,15 +237,15 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             .rotate-card {
                 opacity: 0;
                 @extend .open-card;
-                animation-name: open-card-animation, move-card-5-left;
+                animation-name: open-card-animation;
                 animation-delay: math.div($time-open-card-animation * 4, 6) + math.div($time-move-card-animation * 4, 6) +
-                        $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation, 4),
-                    math.div($time-open-card-animation * 5, 6) + math.div($time-move-card-animation * 4, 6) +
                         $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation, 4);
+                   
             }
         }
 
         .card6 {
+            transform: translateX(-8.5rem);
             .card-back {
                 opacity: 0;
                 animation-name: draw-card-animation, hide-card-back-animation;
@@ -254,16 +260,14 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             .rotate-card {
                 opacity: 0;
                 @extend .open-card;
-                animation-name: open-card-animation, move-card-6-right;
+                animation-name: open-card-animation;
                 animation-delay: math.div($time-open-card-animation * 5, 6) + math.div($time-move-card-animation * 5, 6) +
-                        $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation * 2, 4),
-                    $time-open-card-animation + math.div($time-move-card-animation * 5, 6) + $time-delay-zoom-in-card-animation +
-                        math.div($time-draw-card-animation * 2, 4);
+                        $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation * 2, 4);
             }
         }
 
-        .banker .card5 .rotate-card {
-            animation-name: open-card-animation, move-card-6-right;
+        .banker .card5  {
+            transform: translateX(-8.5rem);
         }
     }
 }
@@ -325,6 +329,26 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
     100% {
         transform: translateX(8.5rem);
+    }
+}
+
+@keyframes zoom-in-animation-player {
+    0% {
+        transform: scale(0.4) translateX(0);
+    }
+
+    100% {
+        transform: scale(0.7) translateX(-4rem);
+    }
+}
+
+@keyframes zoom-in-animation-banker {
+    0% {
+        transform: scale(0.4) translateX(0);
+    }
+
+    100% {
+        transform: scale(0.7) translateX(4rem);
     }
 }
 
@@ -507,7 +531,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         display: grid;
         grid-template-columns: 1fr 1fr;
         position: relative;
-        top: -2.7rem;
+        top: -2.4rem;
     }
 
     &.result-3 {
