@@ -45,12 +45,12 @@
     height: 3.2rem;
     line-height: 3.2rem;
     padding-right: 1.6rem;
+    margin-top: auto;
     margin-bottom: 0;
     text-align: right;
     background: var(--footer-background);
     color: var(--footer-color);
     font-size: 1.1rem;
-    z-index: var(--footer-index);
 
     @media (min-width: 1260px) {
         width: 126rem;
