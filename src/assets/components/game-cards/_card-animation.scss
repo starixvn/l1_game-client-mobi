@@ -41,7 +41,23 @@
     }
 }
 
-@mixin open-card($time-open-card-animation, $number-of-cards) {
+@mixin open-card($number-of-cards) {
+    .card-back {
+        display: none;
+    }
+
+    .open-card {
+        animation-name: none;
+    }
+
+    @for $i from 1 through $number-of-cards {
+        .card#{$i} {
+            position: relative;
+        }
+    }
+}
+
+@mixin open-card-has-animation($time-open-card-animation, $number-of-cards) {
     .card-back {
         display: block;
         position: absolute;

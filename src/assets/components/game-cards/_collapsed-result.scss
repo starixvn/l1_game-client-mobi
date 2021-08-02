@@ -14,10 +14,6 @@
         transform: scale(1);
     }
 
-    .card-back {
-        display: none;
-    }
-
     .open-card {
         animation-name: none;
     }
@@ -25,12 +21,12 @@
     &.has-animation {
         .card-back {
             display: block;
-            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
         }
 
         .open-card {
             animation-name: open-card-animation;
-            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
         }
 
         @for $i from 1 through $number-of-cards {

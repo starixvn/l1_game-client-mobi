@@ -48,6 +48,8 @@ $number-of-cards: 2;
 }
 
 .open-cards {
+    @include open-card($number-of-cards);
+
     .animation-container {
         --move-up-distance: -3.5rem;
         --result-scale: 1;
@@ -56,17 +58,8 @@ $number-of-cards: 2;
         transition: transform 0.7s;
     }
 
-    .card-back {
-        display: none;
-    }
-
-    .card1,
-    .card2 {
-        position: relative;
-    }
-
     &.has-animation {
-        @include open-card($time-open-card-animation, $number-of-cards);
+        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
 
         .animation-container {
             animation-name: zoon-in-animation, move-up-result-animation;

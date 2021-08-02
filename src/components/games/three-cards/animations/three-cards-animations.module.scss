@@ -44,6 +44,8 @@ $number-of-cards: 3;
 }
 
 .open-cards {
+    @include open-card($number-of-cards);
+
     .animation-container {
         --move-up-distance: -2.2rem;
         --result-scale: 1;
@@ -55,15 +57,10 @@ $number-of-cards: 3;
         transition: transform 0.7s;
     }
 
-    .card-back {
-        display: none;
-    }
-
     &.normal-mode {
         .card1,
         .card2,
         .card3 {
-            position: relative;
             width: 114px;
             height: 143px;
             transform: scale(0.75);
@@ -71,7 +68,7 @@ $number-of-cards: 3;
     }
 
     &.has-animation {
-        @include open-card($time-open-card-animation, $number-of-cards);
+        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
 
         @for $i from 1 through 3 {
             $card-time-zoom-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
@@ -124,7 +121,8 @@ $number-of-cards: 3;
 
 // collapsed mode
 .result-collapse-mode {
-    $time-open-card-collape-mode-animation: 1s;
+    $time-open-card-collape-mode-animation: 1.5s;
+
     &.has-animation {
         .card1,
         .card2,
