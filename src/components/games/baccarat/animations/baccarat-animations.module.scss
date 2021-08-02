@@ -290,29 +290,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
     &.has-animation {
         .animation-container {
-            --scale-from: 1;
-            --scale-to: 1;
             transform: scale(1);
             animation-name: none;
-            &.player {
-                --zoom-in-translate-x: -1rem;
-                .score {
-                    --left-value: 1.8rem;
-                    &.group-2-cards {
-                        --left-value: .6rem;
-                    }
-                }
-            }
-            &.banker {
-                --zoom-in-translate-x: 0;
-                .score {
-                    --right-value: 1.8rem;
-                    &.group-2-cards {
-                        --right-value: .6rem;
-                    }
-        .animation-container {
-            --scale-from: 1;
-            --scale-to: 1;
             &.player {
                 --zoom-in-translate-x: -1rem;
                 .score {
@@ -334,9 +313,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             .score {
                 --font-size-score: 1.4rem;
                 --width-score: 3.3rem;
-                --height-score: 1.8rem;
-                --bottom-score: .3rem;
-            }
                 --height-score: 1.8rem;
                 --bottom-score: .3rem;
             }
@@ -379,8 +355,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .banker .card5 {
             transform: translateX(-4.5rem);
         }
-
-       
+      
     }
     
 }
