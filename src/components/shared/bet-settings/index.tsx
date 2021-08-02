@@ -66,7 +66,7 @@ const BetSettings: React.FC<{
 
     const onClickReset = (e: React.MouseEvent) => {
         e.stopPropagation();
-        updateSettings(0, false);
+        updateSettings(null, false);
         setDropdownOpen(false);
     };
 
