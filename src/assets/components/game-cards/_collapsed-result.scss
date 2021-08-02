@@ -1,0 +1,58 @@
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .result-container {
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        transform: scale(1);
+    }
+
+    .card-back {
+        display: none;
+    }
+
+    .open-card {
+        animation-name: none;
+    }
+
+    &.has-animation {
+        $time-open-card-collape-mode-animation: 1s;
+
+        .card-back {
+            display: block;
+            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+        }
+
+        .open-card {
+            animation-name: open-card-animation;
+            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+        }
+
+        .card1 {
+            .card-back {
+                animation-delay: 0s;
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: 0s;
+            }
+        }
+
+        .card2 {
+            .card-back {
+                animation-delay: math.div($time-open-card-collape-mode-animation, 2);
+            }
+
+            .rotate-card {
+                @extend .open-card;
+                animation-delay: math.div($time-open-card-collape-mode-animation, 2);
+            }
+        }
+    }
+}

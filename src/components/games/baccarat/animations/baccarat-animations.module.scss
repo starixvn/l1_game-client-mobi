@@ -1,7 +1,7 @@
 @use "sass:math";
 @import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
-@import "../../../../assets/components/animations/card-animation";
+@import "../../../../assets/components/game-cards/card-animation";
 @import "../../../../assets/components/settlement-info";
 
 $time-draw-card-animation: 0.6s;
@@ -74,7 +74,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     margin-left: 40%;
     left: -2.8rem;
     &.group-card-2 {
-        left: .8rem;
+        left: 0.8rem;
     }
 }
 .banker .score {
@@ -82,11 +82,10 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     margin-right: 40%;
     right: -2.8rem;
     &.group-card-2 {
-        right: .8rem;
+        right: 0.8rem;
     }
 }
 .open-cards {
-    
     .animation-container {
         --move-up-distance: -0.5rem;
         --result-scale: 0.9;
@@ -227,7 +226,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
         .card5 {
             transform: translateX(8.5rem);
-            .card-back {               
+            .card-back {
                 opacity: 0;
                 animation-name: draw-card-animation, hide-card-back-animation;
                 animation-duration: math.div($time-draw-card-animation, 4), math.div($time-open-card-animation, 6);
@@ -243,8 +242,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 @extend .open-card;
                 animation-name: open-card-animation;
                 animation-delay: math.div($time-open-card-animation * 4, 6) + math.div($time-move-card-animation * 4, 6) +
-                        $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation, 4);
-                   
+                    $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation, 4);
             }
         }
 
@@ -266,11 +264,11 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 @extend .open-card;
                 animation-name: open-card-animation;
                 animation-delay: math.div($time-open-card-animation * 5, 6) + math.div($time-move-card-animation * 5, 6) +
-                        $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation * 2, 4);
+                    $time-delay-zoom-in-card-animation + math.div($time-draw-card-animation * 2, 4);
             }
         }
 
-        .banker .card5  {
+        .banker .card5 {
             transform: translateX(-8.5rem);
         }
     }
@@ -526,7 +524,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
     }
     &.ticket-history {
-        &.result-3, .result-4 {
+        &.result-3,
+        .result-4 {
             top: 0;
         }
     }
