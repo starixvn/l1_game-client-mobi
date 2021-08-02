@@ -33,7 +33,15 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
+import {
+    GameBaseProps,
+    GameBaseState,
+    GameState,
+    PopupType,
+    RebetStorageModel,
+    ViewMode,
+    WinStreakCollectorModel,
+} from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
@@ -520,6 +528,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
+        console.log("openPlaceBetModal" + Date.now());
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,
