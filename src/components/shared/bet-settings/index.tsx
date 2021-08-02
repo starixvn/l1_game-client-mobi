@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { isMobile, isMobileOnly } from "react-device-detect";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../../common/local-storage";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
+import { useSystemContext } from "../../../contexts/system";
 import { isNumber, numberWithCommas } from "../../../helpers/number-helper";
 import { GameConfigs } from "../game-base/type";
 import { Tooltip } from "../tooltip";
@@ -39,6 +40,8 @@ const BetSettings: React.FC<{
     const [errorMessage, setErrorMessage] = useState("");
     const [isShowGlobalSettingHint, setIsShowGlobalSettingHint] = useState(!getLocalStorageItem<boolean>(globalSettingHintKey));
     const [isShowQuickBetHint, setIsShowQuickBetHint] = useState(false);
+    const systemContext = useSystemContext();
+
     const { t } = useTranslation();
     const dropdownPosition = !props.gameId && isMobile ? "left" : "right";
 
@@ -87,19 +90,23 @@ const BetSettings: React.FC<{
 
     const handleSubmit = (e: React.MouseEvent) => {
         e.stopPropagation();
+        const userStakeLevel = systemContext?.userStakeLevel;
+        const minBet = Math.max(userStakeLevel?.minBet ?? 0, props.gameConfigs?.minbet);
+        const maxBet = Math.min(userStakeLevel?.maxBet ?? 0, props.gameConfigs?.maxbet);
         const validationCriteria = [
             { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
             {
-                failure: props.gameConfigs && betStake > props.gameConfigs.maxbet,
-                message: t("messages:gameMaxBet", { maxBet: numberWithCommas(props.gameConfigs?.maxbet ?? 0) }),
-                action: () => setBetStake(props.gameConfigs.maxbet),
+                failure: props.gameConfigs && betStake > maxBet,
+                message: t("messages:gameMaxBet", { maxBet: numberWithCommas(maxBet) }),
+                action: () => setBetStake(maxBet),
             },
             {
-                failure: props.gameConfigs && betStake < props.gameConfigs.minbet,
-                message: t("messages:gameMinBet", { minBet: numberWithCommas(props.gameConfigs?.minbet ?? 0) }),
-                action: () => setBetStake(props.gameConfigs.minbet),
+                failure: props.gameConfigs && betStake < minBet,
+                message: t("messages:gameMinBet", { minBet: numberWithCommas(minBet) }),
+                action: () => setBetStake(minBet),
             },
         ];
+
         const failureCase = validationCriteria.find((criteria) => criteria.failure);
 
         if (failureCase) {
