@@ -1,19 +1,19 @@
 import { useTranslation } from "next-i18next";
-import React, { useState, useEffect, useRef } from "react";
-
-import { GameResourceKeys } from "../../../common/resources";
-import { useGameContext } from "../../../contexts/game-context/game-context";
-import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
-import { BetSettingStorage } from "../bet-settings/type";
-import { numberWithCommas } from "../../../helpers/number-helper";
+import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
-import { numPad, tooltipTimeout } from "./place-bet-constant";
 import NumberFormat from "react-number-format";
-import Styles from "./place-bet-modal.module.scss";
-import { useSystemContext } from "../../../contexts/system";
-import { PlaceBetModalProps } from "./place-bet-modal-type";
-import { buildChips, adjustPopupPosition, adjustPopupPositionDidUpdate, buildVIPChips } from "./place-bet-modal-helper";
+
 import { gameVipIds } from "../../../common/constants";
+import { GameResourceKeys } from "../../../common/resources";
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import { useSystemContext } from "../../../contexts/system";
+import { numberWithCommas } from "../../../helpers/number-helper";
+import { BetSettingStorage } from "../bet-settings/type";
+import { numPad, tooltipTimeout } from "./place-bet-constant";
+import { adjustPopupPosition, adjustPopupPositionDidUpdate, buildChips, buildVIPChips } from "./place-bet-modal-helper";
+import { PlaceBetModalProps } from "./place-bet-modal-type";
+import Styles from "./place-bet-modal.module.scss";
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
 let timeoutIns = null;
@@ -53,6 +53,19 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     ];
 
     useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                closeModal && closeModal();
+            }
+        };
+        window.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+
+    useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
@@ -60,11 +73,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setArrowStyle(popupStyle.arrowStyle);
         }
 
-        window.addEventListener("mousedown", handleClickOutside);
-
         return () => {
-            window.removeEventListener("mousedown", handleClickOutside);
-            setShowTooltip(false);
             setTooltipMessage("");
             setBetStake(0);
             props.removeBetChoiceFocus();
@@ -105,13 +114,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }
     };
 
-    const handleClickOutside = (event: any) => {
-        if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-            closeModal && closeModal();
-        }
-    };
     const setTooltipContent = () => {
-        const ownBetsPerRound =  Object.values(ownBets).reduce((total, value) => total + value, 0);
+        const ownBetsPerRound = Object.values(ownBets).reduce((total, value) => total + value, 0);
         if (ownBetsPerRound + betStake > maxBetPerRound) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetPerRound) }));
@@ -152,7 +156,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const onChangeStakeInputHandler = (value: string) => {
         setBetStake(parseInt(value));
         numberFormatRef.current.focus();
-    }
+    };
 
     const submitBet = (event: any) => {
         event.preventDefault();
