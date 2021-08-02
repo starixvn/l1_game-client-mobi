@@ -74,11 +74,7 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
         <div
             className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}
         >
-            <div className={Styles["result-container"]}>
-                <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
-                    {generateResult(result, viewMode)}
-                </div>
-            </div>
+            <div className={Styles["result-container"]}>{generateResult(result, viewMode)}</div>
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>{t(settlementResult.red ? "red" : "black")}</div>
             )}

@@ -49,7 +49,7 @@ $number-of-cards: 3;
 
         display: grid;
         grid-template-columns: repeat(3, 3.5rem);
-        margin-left: -2.9rem;
+        margin-left: -4rem;
         top: 1.5rem;
         transition: transform 0.7s;
     }
@@ -62,6 +62,8 @@ $number-of-cards: 3;
     .card2,
     .card3 {
         transform: scale(0.75);
+        width: 114px;
+        height: 143px;
     }
 
     &.has-animation {
@@ -108,8 +110,6 @@ $number-of-cards: 3;
 
             .card#{$i} {
                 position: relative;
-                width: 114px;
-                height: 143px;
                 animation: zoon-in-card-animation
                     math.div($time-zoom-in-card-animation, $number-of-cards)
                     $card-time-zoom-delay
@@ -165,6 +165,14 @@ $number-of-cards: 3;
 
     .open-card {
         animation-name: none;
+    }
+
+    .card1,
+    .card2,
+    .card3 {
+        transform: scale(1);
+        width: auto !important;
+        height: auto !important;
     }
 
     &.has-animation {
