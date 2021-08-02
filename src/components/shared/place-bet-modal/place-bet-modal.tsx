@@ -144,6 +144,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const clearBetStake = () => {
+        numberFormatRef.current.focus();
         setBetStake(null);
     };
 
