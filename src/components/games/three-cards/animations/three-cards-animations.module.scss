@@ -124,6 +124,15 @@ $number-of-cards: 3;
 
 // collapsed mode
 .result-collapse-mode {
-    $time-open-card-collape-mode-animation: 1.5s;
+    $time-open-card-collape-mode-animation: 1s;
+    &.has-animation {
+        .card1,
+        .card2,
+        .card3 {
+            animation: none;
+            opacity: 1;
+        }
+    }
+
     @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
 }

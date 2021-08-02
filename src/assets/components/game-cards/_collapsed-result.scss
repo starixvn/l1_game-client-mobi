@@ -23,6 +23,16 @@
     }
 
     &.has-animation {
+        .card-back {
+            display: block;
+            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+        }
+
+        .open-card {
+            animation-name: open-card-animation;
+            animation-duration: math.div($time-open-card-collape-mode-animation, 2);
+        }
+
         @for $i from 1 through $number-of-cards {
             $time-delay: math.div($time-open-card-collape-mode-animation, $number-of-cards) * ($i - 1);
             .card#{$i} {
