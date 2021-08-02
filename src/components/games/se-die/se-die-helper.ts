@@ -13,3 +13,5 @@ export const Choices = {
 };
 
 export const MainChoice = [Choices.even, Choices.odd];
+
+export const SeDieMiniId = [9];

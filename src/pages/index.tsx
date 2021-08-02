@@ -80,6 +80,7 @@ export const getStaticProps = async ({ locale }) => {
                 "baccarat",
                 "vipbaccarat",
                 "threecards",
+                "minisedie",
             ])),
         },
     };

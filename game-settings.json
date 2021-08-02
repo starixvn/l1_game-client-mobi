@@ -97,6 +97,22 @@
             "beforeStartRound": 0
         }
     },
+    "9": {
+        "id": 9,
+        "gameName": "MiniSeDie",
+        "socketInfo": {
+            "namespace": "minisedie",
+            "path": "minisedie"
+        },
+        "durations": {
+            "wholeRound": 39,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 6,
+            "resultAnimation": 2,
+            "beforeStartRound": 2
+        }
+    },
     "10": {
         "id": 10,
         "gameName": "Baccarat",

@@ -84,6 +84,7 @@ export const Games: React.FC<Props> = ({
         };
         switch (gameId) {
             case 2:
+            case 9:
             case 22:
                 return <SeDie key={`game-${gameId}`} {...gameProps} />;
             case 3:

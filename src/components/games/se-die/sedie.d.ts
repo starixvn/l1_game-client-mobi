@@ -1,7 +1,7 @@
 export type SettlementResult = {
     even: boolean;
     odd: boolean;
-    red2: boolean;
+    red2?: boolean;
     red3: boolean;
     red4: boolean;
     white3: boolean;
@@ -17,7 +17,7 @@ export type Result = {
 export type Odd = {
     even: number;
     odd: number;
-    red2: number;
+    red2?: number;
     red3: number;
     red4: number;
     white3: number;
