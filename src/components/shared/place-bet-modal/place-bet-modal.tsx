@@ -143,8 +143,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         setBetStake((prevBetStake) => prevBetStake / 10);
     };
 
-    const clearBetStake = (event: any) => {
-        event.preventDefault();
+    const clearBetStake = () => {
         setBetStake(null);
     };
 
