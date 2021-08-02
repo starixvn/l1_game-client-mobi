@@ -12,7 +12,7 @@ import NumberFormat from "react-number-format";
 import Styles from "./place-bet-modal.module.scss";
 import { useSystemContext } from "../../../contexts/system";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
-import { buildChips, ajustPopupPosition, ajustPopupPositionDidUpdate, buildVIPChips } from "./place-bet-modal-helper";
+import { buildChips, adjustPopupPosition, adjustPopupPositionDidUpdate, buildVIPChips } from "./place-bet-modal-helper";
 import { gameVipIds } from "../../../common/constants";
 
 const betSettingStorageKey = SessionStorageKeys.betSetting;
@@ -54,7 +54,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobileOnly) {
-            const popupStyle = ajustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
+            const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
             setArrowStyle(popupStyle.arrowStyle);
@@ -70,13 +70,13 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobileOnly) {
-            const popupStyle = ajustPopupPositionDidUpdate(
+            const popupStyle = adjustPopupPositionDidUpdate(
                 props.gameBaseContainerRef,
                 wrapperRef,
                 props.betOptionElement,
                 props.betChoiceElement
             );
-            if (popupStyle.isAjustPosition) {
+            if (popupStyle.isAdjustPosition) {
                 setStyle(popupStyle.position);
                 setArrowStyle(popupStyle.arrowStyle);
             }
@@ -84,8 +84,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         setTooltipContent();
 
-        setTimeout(() => {
-            timeoutIns = setShowTooltip(false);
+        timeoutIns = setTimeout(() => {
+            setShowTooltip(false);
         }, tooltipTimeout);
 
         window.addEventListener("keyup", handleKeyUp);

@@ -58,7 +58,7 @@ export const buildVIPChips = (maxBetChoice: number) => {
     ];
 };
 
-export const ajustPopupPosition = (gameBaseContainerRef: any, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) => {
+export const adjustPopupPosition = (gameBaseContainerRef: any, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) => {
     const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
         gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
         betChoiceRect = betChoiceElement.getBoundingClientRect(),
@@ -99,7 +99,7 @@ export const ajustPopupPosition = (gameBaseContainerRef: any, betOptionElement: 
     };
 };
 
-export const ajustPopupPositionDidUpdate = (
+export const adjustPopupPositionDidUpdate = (
     gameBaseContainerRef: any,
     wrapperRef: any,
     betOptionElement: HTMLElement,
@@ -111,18 +111,18 @@ export const ajustPopupPositionDidUpdate = (
     if (window.innerHeight - betOptionRect.bottom < popupRef.getBoundingClientRect().height) {
         const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
 
-        let result = ajustPopupPosition(gameBaseContainerRef, betOptionElement, betChoiceElement);
+        let result = adjustPopupPosition(gameBaseContainerRef, betOptionElement, betChoiceElement);
         result.position.bottom = `${gameContainerRect.bottom - betOptionRect.top}px`;
         result.position.top = "none";
 
         return {
-            isAjustPosition: true,
+            isAdjustPosition: true,
             position: result.position,
             arrowStyle: "down",
         };
     }
 
     return {
-        isAjustPosition: false,
+        isAdjustPosition: false,
     };
 };
