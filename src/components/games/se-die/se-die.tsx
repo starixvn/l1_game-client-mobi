@@ -27,13 +27,14 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
+        const { gameState, settlementResult, showWinningAnimation, betPercentage } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
         return (
             <SeDieBetOptions
                 gameState={gameState}
                 settlementResult={settlementResult ?? fakeSettlementResult}
                 isShowWinningEffect={showWinningAnimation}
+                betPercentage={betPercentage}
             />
         );
     }

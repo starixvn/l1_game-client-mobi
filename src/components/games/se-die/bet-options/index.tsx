@@ -28,10 +28,20 @@ type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
+    betPercentage: object;
+};
+
+const renderStatisticUserBet = (betPercentage: object, choice: string) => {
+    return (
+        <div className={Styles["statistic-user-bet"]}>
+            <span className={`icon-user-group ${Styles["user-group"]}`}></span>
+            <span className={Styles["number"]}>{betPercentage && betPercentage[choice] ? betPercentage[choice] : 0}%</span>
+        </div>
+    );
 };
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect } = props;
+    const { gameState, settlementResult, isShowWinningEffect, betPercentage } = props;
     const { gameConfigs, gameSetting, viewMode } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -90,6 +100,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         isShowWinningEffect={isShowWinningEffect}
                     >
                         {renderLabel(choice)}
+                        {SeDieSpecialId.includes(gameSetting.id) && renderStatisticUserBet(betPercentage, choice)}
                     </BetOption>
                 </div>
             ))}
