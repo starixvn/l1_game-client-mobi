@@ -58,12 +58,15 @@ $number-of-cards: 3;
         display: none;
     }
 
-    .card1,
-    .card2,
-    .card3 {
-        transform: scale(0.75);
-        width: 114px;
-        height: 143px;
+    &.normal-mode {
+        .card1,
+        .card2,
+        .card3 {
+            position: relative;
+            width: 114px;
+            height: 143px;
+            transform: scale(0.75);
+        }
     }
 
     &.has-animation {
@@ -109,7 +112,6 @@ $number-of-cards: 3;
                 0.25s;
 
             .card#{$i} {
-                position: relative;
                 animation: zoon-in-card-animation
                     math.div($time-zoom-in-card-animation, $number-of-cards)
                     $card-time-zoom-delay
@@ -165,14 +167,6 @@ $number-of-cards: 3;
 
     .open-card {
         animation-name: none;
-    }
-
-    .card1,
-    .card2,
-    .card3 {
-        transform: scale(1);
-        width: auto !important;
-        height: auto !important;
     }
 
     &.has-animation {
