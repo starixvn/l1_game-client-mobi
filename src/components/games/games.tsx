@@ -125,19 +125,22 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <div className={styles["game-category"]}>
-                    {gameCategories.map((categoryKey) => (
-                        <span
-                            className={`${styles["category"]} ${
-                                selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
-                            }`}
-                            key={categoryKey}
-                            onClick={() => setSelectedCategory(GameCategoryType[categoryKey])}
-                        >
-                            {t(`category-${categoryKey}`)}
-                        </span>
-                    ))}
+                <div className={styles["game-container"]}>
+                    <ul className={styles["game-category"]}>
+                        {gameCategories.map((categoryKey) => (
+                            <li
+                                className={`${styles["category"]} ${
+                                    selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
+                                }`}
+                                key={categoryKey}
+                                onClick={() => setSelectedCategory(GameCategoryType[categoryKey])}
+                            >
+                                <div className={styles["category-text"]}>{t(`category-${categoryKey}`)}</div>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
+
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
