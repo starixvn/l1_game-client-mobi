@@ -11,6 +11,13 @@ $number-count: 20;
     border-radius: 2rem;
     transition: height 0.2s ease;
 
+    &.animation-container-collapse {
+        background-color: transparent;
+        .result {
+            background-color: transparent;
+        }
+    }
+
     .result {
         position: relative;
         z-index: 1;
@@ -39,6 +46,15 @@ $number-count: 20;
             width: 0.2rem;
             background: linear-gradient(180deg, #ffe8c1 0%, #ffa412 50.83%, #ffd795 100%);
         }
+    }
+
+    .number-container-collapse {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(10, 3rem);
+        grid-template-rows: repeat(2, 3rem);
+        grid-gap: 0.5rem;
+        padding: 1.2rem;
     }
 
     .result-total {

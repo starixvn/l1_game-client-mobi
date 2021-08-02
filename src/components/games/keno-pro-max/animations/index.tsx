@@ -24,9 +24,14 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
         element: elements.filter((e) => settlementResult[e])[0],
     };
 };
-export const generateResult = (result: Result, shuffle, isAnimation = true) => {
+export const generateResult = (result: Result, shuffle: number[], isAnimation = true) => {
+    const rows = [];
     const maxNumInRow = 5;
-    const rows = [[], [], [], []];
+    const noRows = 20 / maxNumInRow;
+    for (let i = 0; i < noRows; i++) {
+        rows.push([]);
+    }
+
     rows.forEach((row, index) => {
         for (let i = 0; i < maxNumInRow; i++) {
             row.push(result[i + index * maxNumInRow]);
@@ -162,20 +167,13 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <AnimationComponent
-                big={settlementResult.big}
-                even={settlementResult.even}
-                element={settleResult.element}
-                playResultAnimation={playResultAnimation}
-                result={result}
-                shuffle={settleResult.shuffle}
-                settleTotal={settleResult.total}
-                texts={texts}
-            />
-            {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-label"]}>
-                    {`${t(settleResult.big ? "big" : "small")} - ${t(settleResult.even ? " - even" : " - odd")}`}
+            <div className={`${Styles["animation-container"]} ${Styles["animation-container-collapse"]}`}>
+                <div className={Styles["result"]}>
+                    <div className={Styles["number-container-collapse"]}>{generateResult(result, settleResult.shuffle)}</div>
                 </div>
+            </div>
+            {!playResultAnimation && settlementResult && (
+                <div className={Styles["result-label"]}>{`${settleResult.total} - ${t(settleResult.big ? "big" : "small")}`}</div>
             )}
         </div>
     );
