@@ -74,6 +74,7 @@ export const Games: React.FC<Props> = ({
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
             setApiErrorMessage: setApiErrorMessage,
             theme,
+            userStakeLevel,
         };
         switch (gameId) {
             case 2:

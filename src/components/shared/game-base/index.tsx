@@ -522,9 +522,42 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    isValidBet(betChoice: string, amount: number) {
-        const { gameConfigs } = this.state;
-        const maxBet = Math.min(gameConfigs.maxbet, gameConfigs.choices_maxbet[betChoice]);
+    validateBet(betChoice: string, amount: number) {
+        const { gameConfigs, ownBets } = this.state;
+        const { userStakeLevel, gameName } = this.props;
+        const minBet = Math.max(gameConfigs.minbet, userStakeLevel.minBet);
+        const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
+        const maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
+        const totalBetInRound = Object.values(ownBets).reduce((result, bet) => result + bet, 0);
+
+        const validateCriteria = [
+            {
+                failure: totalBetInRound + amount > maxBetPerRound,
+                errorCode: "SB1911",
+            },
+            {
+                failure: (ownBets[betChoice] ?? 0) + amount > maxBetChoice,
+                errorCode: "SB1910",
+            },
+        ];
+        const failedCriterion = validateCriteria.find((criteria) => criteria.failure);
+
+        if (failedCriterion) {
+            this.setState({
+                notice: {
+                    gameName: gameName,
+                    message: GetLocalizedErrorMessage(failedCriterion.errorCode, true),
+                    duration: 2,
+                    minBet: minBet,
+                    maxBet: failedCriterion.errorCode === "SB1911" ? maxBetPerRound : maxBetChoice,
+                    errorCode: failedCriterion.errorCode,
+                },
+            });
+
+            return false;
+        }
+
+        return true;
     }
 
     placeBet(betChoice: string, amount: number) {
@@ -533,7 +566,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
         } else {
-            if (amount > 0) {
+            if (amount > 0 && this.validateBet(betChoice, amount)) {
                 this.isProcessingBet = true;
                 this.setRetryInterval();
                 this.socket.emit("bet", { betChoice, amount });

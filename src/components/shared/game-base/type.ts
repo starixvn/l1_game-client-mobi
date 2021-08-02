@@ -44,6 +44,7 @@ export type GameBaseProps = {
     viewMode: ViewMode;
     setApiErrorMessage: Function;
     theme: string;
+    userStakeLevel: UserStakeLevel;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
@@ -71,8 +72,8 @@ export interface GameBaseState<Result, SettlementResult> {
     isShowBlink: boolean;
     notice: Notice;
     removeBetChoiceFocus?: Function;
-    betOptionElement?: HTMLElement,
-    betChoiceElement?: HTMLElement
+    betOptionElement?: HTMLElement;
+    betChoiceElement?: HTMLElement;
 }
 
 export interface Notice {
