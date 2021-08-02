@@ -278,6 +278,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .animation-container {
             position: relative;
             --result-scale: 1;
+            --move-up-distance: 0;
+            top: -.1rem;
             .score {
                 transform: scale(0.4);
             }
