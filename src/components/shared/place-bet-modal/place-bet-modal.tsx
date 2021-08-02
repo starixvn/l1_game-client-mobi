@@ -60,7 +60,10 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setArrowStyle(popupStyle.arrowStyle);
         }
 
+        window.addEventListener("mousedown", handleClickOutside);
+
         return () => {
+            window.removeEventListener("mousedown", handleClickOutside);
             setShowTooltip(false);
             setTooltipMessage("");
             setBetStake(0);
@@ -89,11 +92,9 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }, tooltipTimeout);
 
         window.addEventListener("keyup", handleKeyUp);
-        window.addEventListener("mousedown", handleClickOutside);
 
         return () => {
             window.removeEventListener("keyup", handleKeyUp);
-            window.removeEventListener("mousedown", handleClickOutside);
             clearTimeout(timeoutIns);
         };
     }, [betStake]);
