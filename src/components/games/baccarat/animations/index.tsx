@@ -47,6 +47,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                 >
                     {generateResult(GetPlayerCardsResult(result), viewMode)}
                     {generateDisplayScore(GetPlayerCardsResult(result))}
+                    <div className={Styles["test"]}></div>
                 </div>
 
                 <div
@@ -68,7 +69,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles[classAnimation] : ""}`}>
-            <div className={Styles["result-container"]}>
+            <div className={Styles["result-wrapper"]}>
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
                         playResultAnimation ? "" : classMoveUpNoAnimation
