@@ -45,6 +45,7 @@ export type GameBaseProps = {
     setApiErrorMessage: Function;
     theme: string;
     userStakeLevel: UserStakeLevel;
+    updateUserStakeLevel: Function;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {

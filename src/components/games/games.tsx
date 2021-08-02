@@ -22,6 +22,7 @@ type Props = {
     updateBetSetting: Function;
     betSettings: BetSettingStorage;
     userStakeLevel: UserStakeLevel;
+    updateUserStakeLevel: Function;
 };
 
 let gamesOrder = [];
@@ -33,6 +34,7 @@ export const Games: React.FC<Props> = ({
     betSettings,
     updateBetSetting,
     userStakeLevel,
+    updateUserStakeLevel,
 }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
@@ -75,6 +77,7 @@ export const Games: React.FC<Props> = ({
             setApiErrorMessage: setApiErrorMessage,
             theme,
             userStakeLevel,
+            updateUserStakeLevel,
         };
         switch (gameId) {
             case 2:

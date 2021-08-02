@@ -5,9 +5,9 @@ import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
-import { LanguageLocaleMapper } from "../../../common/constants";
+import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
-import { GameResourceKeys } from "../../../common/resources";
+import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
@@ -170,7 +170,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("betPercentage", this.handlePercentageBets.bind(this));
         this.messageTransmitter.register("endBet", this.handleEndBet.bind(this));
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
+        this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
     };
+
+    handleUserStakeLevel({ userStakeLevel }) {
+        this.props.updateUserStakeLevel(userStakeLevel);
+        gameVipIds.includes(this.props.id) &&
+            this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
+    }
 
     handleStatus = ({ status }) => {
         const { win, bet } = status;

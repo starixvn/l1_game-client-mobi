@@ -90,6 +90,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.updateBetSetting = this.updateBetSetting.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
+        this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
     }
 
     doOnOrientationChange() {
@@ -164,8 +165,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.userStakeLevel) {
-            this.setState({ userStakeLevel: data.userStakeLevel });
+            this.handleUpdateUserStakeLevel(data.userStakeLevel);
         }
+    }
+
+    handleUpdateUserStakeLevel(userStakeLevel: UserStakeLevel) {
+        this.setState({ userStakeLevel: userStakeLevel });
     }
 
     handleKickedOut(data: any) {
@@ -319,6 +324,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     betSettings={betSettings}
                     updateBetSetting={this.updateBetSetting}
                     userStakeLevel={userStakeLevel}
+                    updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                 />
                 {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                 {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
