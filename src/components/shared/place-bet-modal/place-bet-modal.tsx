@@ -141,8 +141,11 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         setBetStake(isPlusValue && !Number.isNaN(betStake) ? betStake + stake : stake);
     };
 
-    const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
-        inputValue * powersOfTen + parseInt(numpadValue);
+    const clickNumpadHandler = (event: any, pad: any) => {
+        pad.showValue
+        ? setBetStake((!Number.isNaN(betStake) ? betStake : 0) * pad.powersOfTen + parseInt(pad.value))
+        : deleteNumberHandler(event);
+    };
 
     const deleteNumberHandler = (event: any) => {
         event.preventDefault();
@@ -253,11 +256,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                             {numPad.map((pad, index) => (
                                 <div
                                     className={Styles["numpad"]}
-                                    onClick={(event) =>
-                                        pad.showValue
-                                            ? setBetStake(convertToIntFromNumpad(pad.value, betStake, pad.powersOfTen))
-                                            : deleteNumberHandler(event)
-                                    }
+                                    onClick={(event) => clickNumpadHandler(event, pad)}
                                     key={index}
                                 >
                                     {pad.showValue ? pad.value : <span className="icon-delete"></span>}
