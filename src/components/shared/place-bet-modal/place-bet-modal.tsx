@@ -22,7 +22,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const numberFormatRef = useRef<HTMLInputElement>(null);
     const { userStakeLevel } = useSystemContext();
-    const { roundId, gameSetting, gameConfigs } = useGameContext();
+    const { roundId, gameSetting, gameConfigs, ownBets } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
@@ -110,14 +110,15 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }
     };
     const setTooltipContent = () => {
-        if (betStake > maxBetPerRound) {
+        const ownBetsPerRound =  Object.values(ownBets).reduce((total, value) => total + value, 0);
+        if (ownBetsPerRound + betStake > maxBetPerRound) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetPerRound) }));
             setBetStake(maxBetPerRound);
             return;
         }
 
-        if (betStake > maxBetChoice) {
+        if (ownBets[betChoice] + betStake > maxBetChoice) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetChoice) }));
             setBetStake(maxBetChoice);
@@ -131,7 +132,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        isPlusValue && !Number.isNaN(betStake) ? setBetStake(betStake + stake) : setBetStake(stake);
+        setBetStake(isPlusValue && !Number.isNaN(betStake) ? betStake + stake : stake);
     };
 
     const convertToIntFromNumpad = (numpadValue: string, inputValue: number, powersOfTen: number) =>
@@ -147,6 +148,11 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         setBetStake(null);
         numberFormatRef.current.focus();
     };
+
+    const onChangeStakeInputHandler = (value: string) => {
+        setBetStake(parseInt(value));
+        numberFormatRef.current.focus();
+    }
 
     const submitBet = (event: any) => {
         event.preventDefault();
@@ -197,7 +203,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                             thousandSeparator={true}
                             isNumericString={true}
                             defaultValue={""}
-                            onValueChange={({ value }) => setBetStake(parseInt(value))}
+                            onValueChange={({ value }) => onChangeStakeInputHandler(value)}
                         />
 
                         <span className="icon-close small" onClick={clearBetStake}></span>
