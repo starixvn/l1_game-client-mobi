@@ -296,6 +296,7 @@ const BetSettings: React.FC<{
                             <div className={Styles["stake-control"]}>
                                 <label className={Styles["label"]}>{t("presetStake")}</label>
                                 <div className={`form-group ${Styles["group-help"]}`}>
+                                    {isMobileOnly && <div className={`fake-input-pointer ${Styles["custom-fake-pointer"]}`}></div>}
                                     <input
                                         className={`form-control number`}
                                         type={"text"}
