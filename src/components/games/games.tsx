@@ -5,8 +5,7 @@ import { useTheme } from "next-themes";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
-import { BetSettingStorage } from "../shared/bet-settings/type";
-import { UserStakeLevel, ViewMode } from "../shared/game-base/type";
+import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";
@@ -17,18 +16,14 @@ import SeDie from "./se-die/se-die";
 import KenoProMax from "./keno-pro-max";
 import Baccarat from "./baccarat";
 import ThreeCards from "./three-cards";
-
-type Props = {
-    enabledWinningStreakNotification: boolean;
-    enabledPlaySound: boolean;
-    setApiErrorMessage: Function;
-    updateBetSetting: Function;
-    betSettings: BetSettingStorage;
-    userStakeLevel: UserStakeLevel;
-    updateUserStakeLevel: Function;
-};
+import { useTranslation } from "next-i18next";
+import { GameCategoryType, Props } from "./type";
+import { GameCategory } from "./constants";
 
 let gamesOrder = [];
+const gameCategories: string[] = Object.keys(GameCategoryType)
+    .map((key) => GameCategoryType[key])
+    .filter((value) => typeof value === "string");
 
 export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
@@ -42,8 +37,10 @@ export const Games: React.FC<Props> = ({
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
+    const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType.popular);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
+    const { t } = useTranslation();
     const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
@@ -61,10 +58,16 @@ export const Games: React.FC<Props> = ({
         storeLocalStorageItem(localStorageKeys.favoriteGames, newFavoriteList);
     };
 
-    const unfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId));
-
     const renderListGames = () => {
-        gamesOrder = favoriteGames.concat(unfavoriteGames);
+        const tabGames = selectedCategory !== GameCategoryType.favorite ? GameCategory[GameCategoryType[selectedCategory]] : favoriteGames;
+        const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
+        const tabUnfavoriteGames = appSettings.offeredGames.filter(
+            (gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId)
+        );
+
+        gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
+        console.log(Object.keys(GameCategoryType).keys);
+
         return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
     };
 
@@ -121,6 +124,19 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
+                <div className={styles["game-category"]}>
+                    {gameCategories.map((categoryKey) => (
+                        <span
+                            className={`${styles["category"]} ${
+                                selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
+                            }`}
+                            key={categoryKey}
+                            onClick={() => setSelectedCategory(GameCategoryType[categoryKey])}
+                        >
+                            {t(`category-${categoryKey}`)}
+                        </span>
+                    ))}
+                </div>
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
