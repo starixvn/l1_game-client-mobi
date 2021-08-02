@@ -528,7 +528,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
-        console.log("openPlaceBetModal" + Date.now());
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,

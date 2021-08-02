@@ -56,8 +56,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = (event: any) => {
-        // event.preventDefault();
-        console.log("onClickBet" + Date.now());
+        event.preventDefault();
 
         const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
         const betSetting = betSettingStorage[id];

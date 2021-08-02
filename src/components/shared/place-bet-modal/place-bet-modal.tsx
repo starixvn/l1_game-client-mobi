@@ -80,14 +80,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     }, []);
 
     useEffect(() => {
-        window.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            window.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [wrapperRef]);
-
-    useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPositionDidUpdate(
                 props.gameBaseContainerRef,
