@@ -44,18 +44,24 @@ $number-of-cards: 3;
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -2rem;
+        --move-up-distance: -2.2rem;
         --result-scale: 1;
 
         display: grid;
         grid-template-columns: repeat(3, 3.5rem);
-        margin-left: -3.5rem;
+        margin-left: -2.9rem;
         top: 1.5rem;
         transition: transform 0.7s;
     }
 
     .card-back {
         display: none;
+    }
+
+    .card1,
+    .card2,
+    .card3 {
+        transform: scale(0.75);
     }
 
     &.has-animation {
@@ -131,7 +137,7 @@ $number-of-cards: 3;
     }
 
     80% {
-        transform: scale(1);
+        transform: scale(0.75);
     }
 
     100% {
