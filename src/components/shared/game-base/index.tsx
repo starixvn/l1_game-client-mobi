@@ -33,17 +33,10 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-    PopupType,
-    RebetStorageModel,
-    ViewMode,
-    WinStreakCollectorModel,
-} from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
+let isUpdateUserStakeLevel = false;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private betWin: number;
@@ -146,13 +139,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ signedIn: true });
             this.socket.emit("inGame");
         });
-
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-
         this.socket.on("connect_error", this.onConnectFailed.bind(this));
+        this.socket.on("message", this.onMessageUserStakeLevel.bind(this));
         this.socket.on("disconnect", () => {
             this.setState({ gameState: GameState.None });
         });
+    }
+
+    onMessageUserStakeLevel({ userStakeLevel }) {
+        if (!isUpdateUserStakeLevel) {
+            this.props.updateUserStakeLevel(userStakeLevel);
+            isUpdateUserStakeLevel = true;
+        }
     }
 
     onVisibilityChange() {
