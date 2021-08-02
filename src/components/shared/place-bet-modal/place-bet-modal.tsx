@@ -51,7 +51,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(Math.min(maxBetChoice, maxBetPerRound))}`,
         },
     ];
-
     useEffect(() => {
         const handleClickOutside = (event: any) => {
             if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
@@ -79,6 +78,14 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             props.removeBetChoiceFocus();
         };
     }, []);
+
+    useEffect(() => {
+        window.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
 
     useEffect(() => {
         if (!isMobileOnly) {
