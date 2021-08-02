@@ -76,7 +76,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         notice: null,
         removeBetChoiceFocus: null,
         betOptionElement: null,
-        betChoiceElement: null
+        betChoiceElement: null,
     };
 
     constructor(props: P) {
@@ -512,8 +512,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function,  betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
-        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice, removeBetChoiceFocus, betOptionElement,  betChoiceElement});
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
+        this.setState({
+            displayPopup: PopupType.PlaceBet,
+            selectedBetChoice: betChoice,
+            removeBetChoiceFocus,
+            betOptionElement,
+            betChoiceElement,
+        });
+    }
+
+    isValidBet(betChoice: string, amount: number) {
+        const { gameConfigs } = this.state;
+        const maxBet = Math.min(gameConfigs.maxbet, gameConfigs.choices_maxbet[betChoice]);
     }
 
     placeBet(betChoice: string, amount: number) {

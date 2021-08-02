@@ -29,17 +29,21 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
         hoverWrapper.current.addEventListener("mouseout", handleMouseOut);
 
         return () => {
-            hoverWrapper.current.removeEventListener("mouseover", handleMouseIn);
-            hoverWrapper.current.removeEventListener("mouseout", handleMouseOut);
+            if (hoverWrapper?.current) {
+                hoverWrapper.current.removeEventListener("mouseover", handleMouseIn);
+                hoverWrapper.current.removeEventListener("mouseout", handleMouseOut);
+            }
         };
     }, [hoverWrapper]);
 
     return (
         <div className={`tooltip info ${showTooltip ? "show" : ""} ${Styles["tooltip-buttons"]}`}>
-            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
-                {message}
-                <span className={`arrow up ${Styles["arrow"]}`}></span>
-            </div>
+            {showTooltip && (
+                <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+                    {message}
+                    <span className={`arrow up ${Styles["arrow"]}`}></span>
+                </div>
+            )}
         </div>
     );
 };
