@@ -317,7 +317,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory,
             isShowGuide,
             userStakeLevel,
-            isShowFavoriteSetting,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -357,8 +356,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         betSettings={betSettings}
                         updateBetSetting={this.updateBetSetting}
                         userStakeLevel={userStakeLevel}
-                        isShowFavoriteSetting={isShowFavoriteSetting}
-                        toggleFavoriteSetting={this.toggleFavoriteSetting}
+                        updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
