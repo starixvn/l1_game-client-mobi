@@ -222,7 +222,7 @@ const BetSettings: React.FC<{
                                     width={20}
                                     height={20}
                                 />
-                                <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake)}</span>
+                                <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake ?? 0)}</span>
                             </div>
                         ) : (
                             <div className={`${Styles["quick-bet-chip"]}`}>
@@ -301,7 +301,7 @@ const BetSettings: React.FC<{
                                         className={`form-control number`}
                                         type={"text"}
                                         onChange={handleInputBetStake}
-                                        value={numberWithCommas(betStake) !== "0" ? numberWithCommas(betStake) : ""}
+                                        value={numberWithCommas(betStake ?? 0) !== "0" ? numberWithCommas(betStake) : ""}
                                         inputMode={"numeric"}
                                         readOnly={isMobileOnly}
                                         maxLength={6}
