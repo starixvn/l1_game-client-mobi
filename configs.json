@@ -8,7 +8,7 @@
         "dsn": "https://c8f93631be824a14b9f114f53e3a2bfc@sentry.lumigame.com/3",
         "environment": "LOCAL_1"
     },
-    "offeredGames": [2, 22, 3, 1, 4, 7, 8, 10, 27, 35, 9],
+    "offeredGames": [2, 22, 3, 1, 4, 7, 8, 10, 27, 35, 9, 24],
     "enableSourceMap": true,
     "guideUrl": "https://l1-guide.lumigame.com"
 }

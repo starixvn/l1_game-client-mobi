@@ -5,11 +5,11 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState, ViewMode } from "../../../shared/game-base/type";
 import { RoundDot } from "../../../shared/round-history/dot";
-import { Choices, MainChoice, SeDieMiniId } from "../se-die-helper";
+import { Choices, MainChoice, SeDieMiniId, SeDieSpecialId } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
-const ChoiceIconMapper = {
+const ChoiceSeDieIconMapper = {
     red4: [true, true, true, true],
     red2: [false, false, true, true],
     white4: [false, false, false, false],
@@ -17,7 +17,7 @@ const ChoiceIconMapper = {
     white3: [false, false, false, true],
 };
 
-const ChoiceMiniIconMapper = {
+const ChoiceMiniSeDieIconMapper = {
     red4: [true, true, true, true],
     white4: [false, false, false, false],
     red3: [false, true, true, true],
@@ -41,19 +41,32 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
     const renderIcons = (choice: string) => {
         return choice === "red2" ? (
-            <div className={Styles["wrapper-dots-red2"]}>{renderDots(ChoiceIconMapper[choice])}</div>
+            <div className={Styles["wrapper-dots-red2"]}>{renderDots(ChoiceSeDieIconMapper[choice])}</div>
         ) : (
-            renderDots(ChoiceIconMapper[choice])
+            renderDots(ChoiceSeDieIconMapper[choice])
         );
     };
 
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
-    const choiceIcons = SeDieMiniId.includes(gameSetting.id) ? ChoiceMiniIconMapper : ChoiceIconMapper;
+    const choiceIcons = () => {
+        switch (gameSetting.id) {
+            case 9:
+                return ChoiceMiniSeDieIconMapper;
+            case 24:
+                return {};
+            default:
+                return ChoiceSeDieIconMapper;
+        }
+    };
 
     return (
-        <div className={`${Styles["layout-sedie"]} ${SeDieMiniId.includes(gameSetting.id) ? Styles["layout-sedie-mini"] : ""}`}>
+        <div
+            className={`${Styles["layout-sedie"]} ${SeDieMiniId.includes(gameSetting.id) ? Styles["layout-sedie-mini"] : ""} ${
+                SeDieSpecialId.includes(gameSetting.id) ? Styles["layout-sedie-special"] : ""
+            }`}
+        >
             {viewMode === ViewMode.full &&
-                Object.keys(choiceIcons).map((choice) => (
+                Object.keys(choiceIcons()).map((choice) => (
                     <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                         <BetOption
                             choice={choice}

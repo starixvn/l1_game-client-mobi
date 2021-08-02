@@ -4,6 +4,9 @@
     height: 100%;
     grid-template-columns: 1fr 5.7rem 5.7rem 1fr;
     grid-template-rows: 9.7rem repeat(2, 6.5rem);
+    &.layout-sedie-special {
+        grid-template-rows: repeat(2, 23rem);
+    }
 }
 
 .wrapper-dots-red2 {

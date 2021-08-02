@@ -8,7 +8,7 @@
         "dsn": "https://65f2ba49d2e04240b998eb783efc9315@sentry.sabagame.com/156",
         "environment": "PROD"
     },
-    "offeredGames": [2, 22, 3, 1, 4, 7, 8, 10, 27, 35, 9],
+    "offeredGames": [2, 22, 3, 1, 4, 7, 8, 10, 27, 35, 9, 24],
     "enableSourceMap": false,
     "guideUrl": "https://guides.sabagame.com"
 }

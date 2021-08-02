@@ -89,6 +89,7 @@ export const Games: React.FC<Props> = ({
             case 2:
             case 9:
             case 22:
+            case 24:
                 return <SeDie key={`game-${gameId}`} {...gameProps} />;
             case 3:
                 return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
