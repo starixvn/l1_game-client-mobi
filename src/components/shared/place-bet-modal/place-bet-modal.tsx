@@ -53,6 +53,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     ];
     
     const handleClickOutside = (event: any) => {
+        console.log('handleClickOutside');
+        
         if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
             closeModal && closeModal();
         }

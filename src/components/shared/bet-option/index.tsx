@@ -66,6 +66,7 @@ const BetOption: React.FunctionComponent<Props> = ({
         if (enabledQuickBet) {
             placeBet(choice, betValue);
         } else {
+            console.log('open popup');
             setIsFocusChoice(true);
             const betOptionElement = totalBetRef.current.nextElementSibling;
             openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
