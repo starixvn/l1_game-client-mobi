@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
-import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { GameState } from "../game-base/type";
 import { BetSettingStorage } from "../bet-settings/type";
+import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
 
@@ -56,44 +56,43 @@ const BetOption: React.FunctionComponent<Props> = ({
     }, [gameState, totalBets?.[choice]]);
 
     const onClickBet = (event: any) => {
-        event.preventDefault();
-        
+        // event.preventDefault();
+        console.log("onClickBet" + Date.now());
+
         const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
-       
-        if(enabledQuickBet)
-        {
+
+        if (enabledQuickBet) {
             placeBet(choice, betValue);
-        }
-        else{
+        } else {
             setIsFocusChoice(true);
-            const betOptionElement =  totalBetRef.current.nextElementSibling;
-            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement , betChoiceRef.current);
+            const betOptionElement = totalBetRef.current.nextElementSibling;
+            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
         }
     };
 
     const removeBetChoiceFocus = () => {
         setIsFocusChoice(false);
-    }
+    };
 
     return (
-        <div className={Styles.container}  ref={betChoiceRef}>
+        <div className={Styles.container} ref={betChoiceRef}>
             <div
-                className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ''} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
-                    isHighlight && isShowWinningEffect && Styles["winning-effect"]
-                }`}
+                className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
+                    isHighlight && Styles[HighlightClassNameMapper[highlightType]]
+                } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`}
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
-                <div className={Styles["total-bet"]}  ref={totalBetRef}>
+                <div className={Styles["total-bet"]} ref={totalBetRef}>
                     {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
                 </div>
-                    {children}
-                <div className={Styles["own-bet"]} >
-                    <span key={ownBets?.[choice]} className="d-inline-block" >
+                {children}
+                <div className={Styles["own-bet"]}>
+                    <span key={ownBets?.[choice]} className="d-inline-block">
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
                     </span>
                 </div>
