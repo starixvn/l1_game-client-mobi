@@ -1,7 +1,8 @@
 @use "sass:math";
-@import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/animations/common";
+@import "../../../../assets/components/result-label-collapse-mode";
 @import "../../../../assets/components/game-cards/card-animation";
+@import "../../../../assets/components/game-cards/collapsed-result";
 
 $time-draw-card-animation: 0.3s;
 $time-open-card-animation: 0.6s;
@@ -70,33 +71,7 @@ $number-of-cards: 3;
     }
 
     &.has-animation {
-        .rotate-card {
-            transform: rotateY(180deg);
-        }
-
-        .card-back {
-            display: block;
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            z-index: 2;
-            animation-name: hide-card-back-animation;
-            animation-duration: math.div($time-open-card-animation, $number-of-cards);
-            animation-fill-mode: forwards;
-            animation-timing-function: linear;
-            transition: transform 0.1s;
-        }
-
-        .open-card {
-            position: relative;
-            animation-name: open-card-animation;
-            animation-duration: math.div($time-open-card-animation, $number-of-cards);
-            animation-fill-mode: forwards;
-            animation-timing-function: ease-in;
-            transition: transform 0.1s;
-        }
+        @include open-card($time-open-card-animation, $number-of-cards);
 
         @for $i from 1 through 3 {
             $card-time-zoom-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
@@ -112,7 +87,7 @@ $number-of-cards: 3;
                 0.25s;
 
             .card#{$i} {
-                animation: zoon-in-card-animation
+                animation: zoon-in-3cards-animation
                     math.div($time-zoom-in-card-animation, $number-of-cards)
                     $card-time-zoom-delay
                     linear
@@ -132,7 +107,7 @@ $number-of-cards: 3;
     }
 }
 
-@keyframes zoon-in-card-animation {
+@keyframes zoon-in-3cards-animation {
     0% {
         transform: scale(0);
         opacity: 0;
@@ -147,72 +122,8 @@ $number-of-cards: 3;
     }
 }
 
+// collapsed mode
 .result-collapse-mode {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    .result-container {
-        display: flex;
-        align-items: center;
-        pointer-events: none;
-        transform: scale(1);
-    }
-
-    .card-back {
-        display: none;
-    }
-
-    .open-card {
-        animation-name: none;
-    }
-
-    &.has-animation {
-        $time-open-card-collape-mode-animation: 1s;
-
-        .card-back {
-            display: block;
-            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-        }
-
-        .open-card {
-            animation-name: open-card-animation;
-            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-        }
-
-        .card1 {
-            .card-back {
-                animation-delay: 0s;
-            }
-
-            .rotate-card {
-                @extend .open-card;
-                animation-delay: 0s;
-            }
-        }
-
-        .card2 {
-            .card-back {
-                animation-delay: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-            }
-
-            .rotate-card {
-                @extend .open-card;
-                animation-delay: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-            }
-        }
-
-        .card3 {
-            .card-back {
-                animation-delay: math.div($time-open-card-collape-mode-animation * 2, $number-of-cards);
-            }
-
-            .rotate-card {
-                @extend .open-card;
-                animation-delay: math.div($time-open-card-collape-mode-animation * 2, $number-of-cards);
-            }
-        }
-    }
+    $time-open-card-collape-mode-animation: 1.5s;
+    @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
 }

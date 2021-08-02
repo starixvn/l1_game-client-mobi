@@ -41,6 +41,38 @@
     }
 }
 
+@mixin open-card($time-open-card-animation, $number-of-cards) {
+    .card-back {
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 2;
+        animation-name: hide-card-back-animation;
+        animation-duration: math.div($time-open-card-animation, $number-of-cards);
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        transition: transform 0.1s;
+    }
+
+    .open-card {
+        position: relative;
+        animation-name: open-card-animation;
+        animation-duration: math.div($time-open-card-animation, $number-of-cards);
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+        transition: transform 0.1s;
+    }
+}
+
+.has-animation {
+    .rotate-card {
+        transform: rotateY(180deg);
+    }
+}
+
 @keyframes hide-card-back-animation {
     0% {
         transform: rotateY(30deg) scaleX(0.9);
@@ -62,7 +94,6 @@
     }
 }
 
-
 @keyframes open-card-animation {
     0% {
         opacity: 0;
@@ -71,13 +102,13 @@
     }
 
     30% {
-        transform: rotateY(120deg) scaleX(0.4) ;
+        transform: rotateY(120deg) scaleX(0.4);
         left: 10px;
     }
 
     60% {
         opacity: 0.9;
-        transform: rotateY(80deg) scaleX(0.7) ;
+        transform: rotateY(80deg) scaleX(0.7);
     }
 
     80% {
@@ -87,7 +118,7 @@
 
     100% {
         opacity: 1;
-        transform: rotateY(0deg) scaleX(1) ;
+        transform: rotateY(0deg) scaleX(1);
     }
 }
 
