@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isDesktop } from "react-device-detect";
 import Styles from "./tooltip.module.scss";
 
 export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRefObject<HTMLDivElement> }> = ({ message, hoverWrapper }) => {
@@ -25,11 +26,11 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
             setShowTooltip(false);
         };
 
-        hoverWrapper.current.addEventListener("mouseover", handleMouseIn);
-        hoverWrapper.current.addEventListener("mouseout", handleMouseOut);
+        isDesktop && hoverWrapper.current.addEventListener("mouseover", handleMouseIn);
+        isDesktop && hoverWrapper.current.addEventListener("mouseout", handleMouseOut);
 
         return () => {
-            if (hoverWrapper?.current) {
+            if (hoverWrapper?.current && isDesktop) {
                 hoverWrapper.current.removeEventListener("mouseover", handleMouseIn);
                 hoverWrapper.current.removeEventListener("mouseout", handleMouseOut);
             }
