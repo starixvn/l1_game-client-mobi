@@ -47,7 +47,7 @@
     "openResult": "Open result",
     "total": "Total",
     "presetStake": "Preset Stake",
-    "presetStakeTooltip": "Set the default stake amount for each bet.",
+    "presetStakeTooltip": "Set a default stake amount for each bet.",
     "quickBetTooltip": "Allow placing bet directly without confirmation step.",
     "quickBet": "Quick Bet",
     "reset": "Reset",

@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
@@ -11,6 +11,7 @@ import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
 import BetSettings from "../bet-settings";
 import Styles from "./game-header.module.scss";
+import { Tooltip } from "../tooltip";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
@@ -79,6 +80,8 @@ const HeaderRight = ({ displayMenu }) => {
     const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
+    const { t } = useTranslation();
+    const rebetBtnWrapper = useRef<HTMLDivElement>(null);
 
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -100,9 +103,12 @@ const HeaderRight = ({ displayMenu }) => {
     return (
         <div className={Styles["header-right"]}>
             {viewMode !== ViewMode.collapse && !disabledRebet && Object.keys(ownBets).length === 0 && (
-                <button className={`game-header-button ${Styles.rebet}`} onClick={rebetClickHandle}>
-                    <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} />
-                </button>
+                <div ref={rebetBtnWrapper}>
+                    <button className={`game-header-button ${Styles.rebet}`} onClick={rebetClickHandle}>
+                        <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} alt="game-header-rebet-icon" />
+                        <Tooltip message={t("rebet")} hoverWrapper={rebetBtnWrapper} />
+                    </button>
+                </div>
             )}
             {viewMode !== ViewMode.collapse && displayMenu && (
                 <BetSettings
