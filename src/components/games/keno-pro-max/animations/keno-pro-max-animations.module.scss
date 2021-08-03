@@ -2,7 +2,6 @@
 @import "../../../../assets/components/animations/common";
 @import "../../../../assets/components/settlement-info";
 
-$time-show-num-animation: 0.1s;
 $number-count: 20;
 
 .animation-container {
@@ -111,6 +110,13 @@ $number-count: 20;
 }
 
 .has-animation {
+    --time-show-num-animation: 0.1s;
+
+    .shown-number {
+        position: relative;
+        animation: show-num-animation var(--time-show-num-animation) ease-in forwards;
+    }
+
     .number-cover {
         display: block;
         position: absolute;
@@ -119,18 +125,7 @@ $number-count: 20;
         top: 0;
         bottom: 0;
         z-index: 2;
-        animation-name: hide-number-cover-animation;
-        animation-duration: $time-show-num-animation;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
-    }
-
-    .shown-number {
-        position: relative;
-        animation-name: show-num-animation;
-        animation-duration: $time-show-num-animation;
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in;
+        animation: hide-number-cover-animation var(--time-show-num-animation) linear forwards;
     }
 
     .number {
@@ -139,13 +134,15 @@ $number-count: 20;
 
     @for $i from 0 through 19 {
         .animate-#{$i + 1} {
+            --time-delay: calc(var(--time-show-num-animation) * #{$i});
+
             .number-cover {
-                animation-delay: calc(#{$time-show-num-animation} * #{$i});
+                animation-delay: var(--time-delay);
             }
 
             .number {
                 @extend .shown-number;
-                animation-delay: calc(#{$time-show-num-animation} * #{$i});
+                animation-delay: var(--time-delay);
             }
         }
     }
@@ -220,6 +217,10 @@ $number-count: 20;
         grid-template-columns: repeat(10, 2.2rem);
         grid-template-rows: repeat(2, 2.2rem);
         grid-gap: 0.2rem;
+    }
+
+    .has-animation {
+        --time-show-num-animation: 0.3s;
     }
 
     .number {
