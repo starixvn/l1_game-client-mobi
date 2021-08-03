@@ -25,8 +25,12 @@
 }
 
 .detail {
-    color: blue;
-    cursor: pointer;
+    color: #04a5ff;
+
+    &:hover {
+        cursor: pointer;
+        color: #048ddb;
+    }
 }
 
 .result-detail {
@@ -35,8 +39,9 @@
         display: grid;
         grid-template-columns: repeat(5, 3rem);
         grid-template-rows: repeat(4, 3rem);
-        grid-gap: 0.5rem;
-        padding: 1.2rem;
+        grid-gap: 0.8rem;
+        justify-content: center;
+        padding: 0.8rem 0 1.2rem;
     }
 
     .settle-info {
@@ -45,6 +50,28 @@
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 1rem;
         align-items: center;
-        padding: 1rem 1.2rem;
+        margin-top: 1rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 1rem;
+        background: linear-gradient(180deg, #ffffff 0%, #ffe9c3 3.96%, #ffd693 100%);
+
+        &:before {
+            content: "";
+            position: absolute;
+            left: -0.1rem;
+            right: -0.1rem;
+            top: -0.1rem;
+            bottom: -0.1rem;
+            border-radius: 1rem;
+            background: linear-gradient(180deg, #ffffff 0%, #ffbb4d 100%);
+            z-index: -1;
+        }
+    }
+
+    .result-total-number {
+        background: linear-gradient(90deg, #ffffff 0%, #dbdbdb 50.83%, #ffffff 100%);
+        color: #cd000e;
+        font: 600 2rem/3rem var(--font-number);
+        text-align: center;
     }
 }
