@@ -15,10 +15,10 @@ const StatisticRuleEntriesRedBlack = Object.entries({
 });
 
 const StatisticRuleEntriesSuits = Object.entries({
-    [Choices.diamond]: (countResult: object, _) => countResult[Choices.diamond],
-    [Choices.heart]: (countResult: object, _) => countResult[Choices.heart],
-    [Choices.spade]: (countResult: object, _) => countResult[Choices.spade],
-    [Choices.club]: (countResult: object, _) => countResult[Choices.club],
+    [Choices.diamond]: (countResult: object, _) => countResult["diamonds"],
+    [Choices.heart]: (countResult: object, _) => countResult["hearts"],
+    [Choices.spade]: (countResult: object, _) => countResult["spades"],
+    [Choices.club]: (countResult: object, _) => countResult["clubs"],
 });
 
 const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
