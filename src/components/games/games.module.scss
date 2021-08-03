@@ -90,11 +90,6 @@
             margin-right: 4rem;
         }
 
-        &:hover {
-            cursor: pointer;
-            color: var(--game-category-text-active-color);
-        }
-
         .category-text {
             line-height: 3.4rem;
             padding-left: 0.2rem;
@@ -107,6 +102,12 @@
             @media (min-width: 768px) {
                 padding-left: 1rem;
                 padding-right: 1rem;
+            }
+
+            &:hover {
+                cursor: pointer;
+                color: var(--game-category-text-active-color);
+                opacity: 1;
             }
         }
 
