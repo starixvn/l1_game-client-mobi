@@ -36,7 +36,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
 
-    const maxBetPerRound = gameConfigs.maxbet;
     const maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
     const chips = gameVipIds.includes(gameSetting.id) ? buildVIPChips(maxBetChoice) : buildChips(maxBetChoice);
     const payouts = [
@@ -46,7 +45,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         },
         {
             text: t("common:bettingLimits"),
-            value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(Math.min(maxBetChoice, maxBetPerRound))}`,
+            value: `${numberWithCommas(gameConfigs.minbet)} - ${numberWithCommas(maxBetChoice)}`,
         },
     ];
     
@@ -116,13 +115,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const setTooltipContent = () => {
-        if (betStake > maxBetPerRound) {
-            setShowTooltip(true);
-            setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetPerRound) }));
-            setBetStake(maxBetPerRound);
-            return;
-        }
-
         if (betStake > maxBetChoice) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetChoice) }));
@@ -137,12 +129,12 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        setBetStake(isPlusValue && !Number.isNaN(betStake) ? betStake + stake : stake);
+        setBetStake(isPlusValue && !Number.isNaN(betStake) ? stake : betStake + stake);
     };
 
     const clickNumpadHandler = (event: any, pad: any) => {
         pad.showValue
-        ? setBetStake((!Number.isNaN(betStake) ? betStake : 0) * pad.powersOfTen + parseInt(pad.value))
+        ? setBetStake((Number.isNaN(betStake) ? 0 : betStake) * pad.powersOfTen + parseInt(pad.value))
         : deleteNumberHandler(event);
     };
 
