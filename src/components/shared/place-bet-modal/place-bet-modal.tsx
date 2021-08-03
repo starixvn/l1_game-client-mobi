@@ -59,7 +59,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobileOnly) {
-            window.addEventListener("mousedown", handleClickOutside);
             const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
@@ -67,13 +66,27 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }
 
         return () => {
-            !isMobileOnly && window.removeEventListener("mousedown", handleClickOutside);
             setTooltipMessage("");
             setBetStake(0);
             props.removeBetChoiceFocus();
         };
     }, []);
 
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            console.log("handleClickOutside");
+
+            if (props.isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+                closeModal && closeModal();
+            }
+        };
+        window.addEventListener("mousedown", handleClickOutside);
+
+        return () => {
+            window.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
+    
     useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPositionDidUpdate(
@@ -191,7 +204,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                         <div className="fake-input-pointer"></div>
                         <NumberFormat
                             getInputRef={numberFormatRef}
-                            autoFocus
+                            autoFocus={!isMobileOnly}
                             readOnly={isMobileOnly}
                             value={betStake ?? ""}
                             allowNegative={false}
