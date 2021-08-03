@@ -118,6 +118,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const closeModal = () => {
+        props.removeBetChoiceFocus();
         props.onCloseModal();
     };
 
