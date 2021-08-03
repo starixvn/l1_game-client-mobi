@@ -5,7 +5,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState, ViewMode } from "../../../shared/game-base/type";
 import { RoundDot } from "../../../shared/round-history/dot";
-import { Choices, MainChoice, SeDieMiniId, SeDieSpecialId } from "../se-die-helper";
+import { Choices, MainChoice, SeDieSpecialId } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
@@ -40,6 +40,28 @@ const renderStatisticUserBet = (betPercentage: object, choice: string) => {
     );
 };
 
+const choiceIcons = (gameId: number) => {
+    switch (gameId) {
+        case 9:
+            return ChoiceMiniSeDieIconMapper;
+        case 24:
+            return {};
+        default:
+            return ChoiceSeDieIconMapper;
+    }
+};
+
+const getClassLayout = (gameId: number) => {
+    switch (gameId) {
+        case 9:
+            return "layout-sedie-mini";
+        case 24:
+            return "layout-sedie-special";
+        default:
+            return "";
+    }
+};
+
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect, betPercentage } = props;
     const { gameConfigs, gameSetting, viewMode } = useGameContext();
@@ -63,25 +85,11 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
             {children}
         </div>
     );
-    const choiceIcons = () => {
-        switch (gameSetting.id) {
-            case 9:
-                return ChoiceMiniSeDieIconMapper;
-            case 24:
-                return {};
-            default:
-                return ChoiceSeDieIconMapper;
-        }
-    };
 
     return (
-        <div
-            className={`${Styles["layout-sedie"]} ${SeDieMiniId.includes(gameSetting.id) ? Styles["layout-sedie-mini"] : ""} ${
-                SeDieSpecialId.includes(gameSetting.id) ? Styles["layout-sedie-special"] : ""
-            }`}
-        >
+        <div className={`${Styles["layout-sedie"]} ${Styles[getClassLayout(gameSetting.id)]}`}>
             {viewMode === ViewMode.full &&
-                Object.keys(choiceIcons()).map((choice) => (
+                Object.keys(choiceIcons(gameSetting.id)).map((choice) => (
                     <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                         <BetOption
                             choice={choice}

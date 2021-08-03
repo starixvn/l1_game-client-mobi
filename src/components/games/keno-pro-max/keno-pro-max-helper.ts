@@ -74,6 +74,6 @@ export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
         total: t("kenopromax:total"),
         big: t(settleResult.big ? "kenopromax:big" : "kenopromax:small"),
         even: t(settleResult.even ? "kenopromax:even" : "kenopromax:odd"),
-        element: t(settleResult.element),
+        element: t(`kenopromax:${settleResult.element}`),
     };
 };
