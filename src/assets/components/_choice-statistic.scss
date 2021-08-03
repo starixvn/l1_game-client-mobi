@@ -1,0 +1,31 @@
+.bet-choice {
+    display: block;
+    height: 4.3rem;
+    margin-top: -31px;
+    text-align: center;
+    font-size: 3.6rem;
+    font-weight: bold;
+}
+
+.statistic-user-bet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (min-width: 768px) {
+        margin-top: 0.4rem;
+    }
+
+    .user-group {
+        position: relative;
+        top: -0.1rem;
+        font-size: 20px;
+    }
+
+    .number {
+        margin-left: 0.4rem;
+        font-family: var(--font-number);
+        font-size: 1.4rem;
+        color: #9e9e9e;
+    }
+}

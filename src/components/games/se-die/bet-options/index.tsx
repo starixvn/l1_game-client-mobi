@@ -57,7 +57,12 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
         );
     };
 
-    const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
+    const renderLabel = (choice: string, children) => (
+        <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>
+            {t(choice)}
+            {children}
+        </div>
+    );
     const choiceIcons = () => {
         switch (gameSetting.id) {
             case 9:
@@ -99,8 +104,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
                     >
-                        {renderLabel(choice)}
-                        {SeDieSpecialId.includes(gameSetting.id) && renderStatisticUserBet(betPercentage, choice)}
+                        {renderLabel(choice, SeDieSpecialId.includes(gameSetting.id) && renderStatisticUserBet(betPercentage, choice))}
                     </BetOption>
                 </div>
             ))}
