@@ -36,7 +36,7 @@ export const CheckConditionRedBlack = (settlementResult: SettlementResult) => {
 };
 
 const Suites = ["hearts", "diamonds", "clubs", "spades"];
-const SuitIcons = ["heart", "diamond", "club", "spade"];
+const SuitIcons = ["hearts", "diamonds", "clubs", "spades"];
 
 export const GetElementRoundSuits = (result: Result, roundId: number) => {
     return (
@@ -63,7 +63,7 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
 };
 
 export const GetNameFromChoice = (settlementResult: SettlementResult) => {
-    return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamond;
+    return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
 };
 
 export const CheckConditionSuits = (settlementResult: SettlementResult) => {

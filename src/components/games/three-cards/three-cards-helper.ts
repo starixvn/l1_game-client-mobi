@@ -1,10 +1,10 @@
 export const Choices = {
     red: "red",
     black: "black",
-    diamond: "diamond",
-    spade: "spade",
-    heart: "heart",
-    club: "club",
+    diamonds: "diamonds",
+    spades: "spades",
+    hearts: "hearts",
+    clubs: "clubs",
 };
 
 export enum TabsValue {

@@ -132,8 +132,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
-        const suits = ["heart", "diamond", "club", "spade"];
-
+        const suits = ["hearts", "diamonds", "clubs", "spades"];
         return (
             <div className={Styles["result-container"]}>
                 <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-black"]}>

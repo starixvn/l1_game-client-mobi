@@ -72,6 +72,7 @@ const renderBetOptionByChoice = (
                     className={`${Styles["bet-choice-icon"]} ${Styles[choice]}`}
                     height={26}
                     width={26}
+                    alt={choice}
                 />
             )}
         </BetOption>
