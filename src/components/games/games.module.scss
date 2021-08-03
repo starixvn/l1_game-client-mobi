@@ -92,6 +92,7 @@
 
         &:hover {
             cursor: pointer;
+            color: var(--game-category-text-active-color);
         }
 
         .category-text {
