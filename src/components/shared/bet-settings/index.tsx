@@ -310,7 +310,6 @@ const BetSettings: React.FC<{
                                         readOnly={isMobileOnly}
                                         maxLength={6}
                                         ref={inputStakeRef}
-                                        autoFocus
                                     ></input>
                                     {errorMessage && (
                                         <div className={`tooltip info show ${Styles["error-info"]}`}>
