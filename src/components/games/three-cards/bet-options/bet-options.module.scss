@@ -1,3 +1,11 @@
+[data-theme="light"] .bet-choice-name {
+    --bet-choice-black-color: #2c2f3e;
+}
+
+[data-theme="dark"] .bet-choice-name {
+    --bet-choice-black-color: #fff;
+}
+
 .layout-three-cards {
     display: grid;
     grid-gap: 0.1rem;
@@ -28,7 +36,7 @@
     }
 
     &.black {
-        color: #2c2f3e;
+        color: var(--bet-choice-black-color);
     }
 }
 
