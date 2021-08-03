@@ -50,8 +50,8 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
                                     SuitIcons[value.suit]
                                 }.png 2x, /static/images/three-cards/${SuitIcons[value.suit]}.png 3x`}
                                 className="img-fluid"
-                                width="18"
-                                height="18"
+                                width="22"
+                                height="22"
                                 alt="symbol"
                             />
                         </div>
