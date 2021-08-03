@@ -156,10 +156,10 @@
             "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 4,
+            "showResult": 5,
             "resultAnimation": 2,
             "beforeStartRound": 2,
-            "balancingBet": 3
+            "balancingBet": 2
         }
     },
     "27": {
