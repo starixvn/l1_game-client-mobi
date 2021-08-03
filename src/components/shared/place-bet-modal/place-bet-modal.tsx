@@ -7,7 +7,6 @@ import { gameVipIds } from "../../../common/constants";
 import { GameResourceKeys } from "../../../common/resources";
 import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { BetSettingStorage } from "../bet-settings/type";
 import { numPad, tooltipTimeout } from "./place-bet-constant";
@@ -21,8 +20,7 @@ let timeoutIns = null;
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const numberFormatRef = useRef<HTMLInputElement>(null);
-    const { userStakeLevel } = useSystemContext();
-    const { roundId, gameSetting, gameConfigs, ownBets } = useGameContext();
+    const { roundId, gameSetting, gameConfigs } = useGameContext();
     const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
@@ -38,7 +36,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
 
-    const maxBetPerRound = Math.min(gameConfigs.maxbet, userStakeLevel.maxBet);
+    const maxBetPerRound = gameConfigs.maxbet;
     const maxBetChoice = gameConfigs.choices_maxbet?.[betChoice] ?? gameConfigs.maxbet;
     const chips = gameVipIds.includes(gameSetting.id) ? buildVIPChips(maxBetChoice) : buildChips(maxBetChoice);
     const payouts = [
@@ -118,15 +116,14 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const setTooltipContent = () => {
-        const ownBetsPerRound = Object.values(ownBets).reduce((total, value) => total + value, 0);
-        if (ownBetsPerRound + betStake > maxBetPerRound) {
+        if (betStake > maxBetPerRound) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetPerRound) }));
             setBetStake(maxBetPerRound);
             return;
         }
 
-        if (ownBets[betChoice] + betStake > maxBetChoice) {
+        if (betStake > maxBetChoice) {
             setShowTooltip(true);
             setTooltipMessage(t("messages:maxBetForChoiceNotice", { maxBet: numberWithCommas(maxBetChoice) }));
             setBetStake(maxBetChoice);
