@@ -66,7 +66,6 @@ export const Games: React.FC<Props> = ({
         );
 
         gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
-        console.log(Object.keys(GameCategoryType).keys);
 
         return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
     };
