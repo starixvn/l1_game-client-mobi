@@ -1,10 +1,12 @@
 @import "../../../../assets/components/settlement-info";
 [data-theme="light"] .result-detail {
     --popup-result-title-color: #2c2f3e;
+    --result-total-number-background: linear-gradient(90deg, #ffffff 0%, #dbdbdb 50.83%, #ffffff 100%);
 }
 
 [data-theme="dark"] .result-detail {
     --popup-result-title-color: #fff;
+    --result-total-number-background: linear-gradient(90deg, #203040 0%, #9eb7cd 50.83%, #203040 100%);
 }
 
 .list-choice {
@@ -69,7 +71,7 @@
     }
 
     .result-total-number {
-        background: linear-gradient(90deg, #ffffff 0%, #dbdbdb 50.83%, #ffffff 100%);
+        background: var(--result-total-number-background);
         color: #cd000e;
         font: 600 2rem/3rem var(--font-number);
         text-align: center;
