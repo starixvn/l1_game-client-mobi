@@ -37,31 +37,35 @@ const renderBetOptionByChoice = (
                     {choice === Choices.red ? (
                         <div className={Styles["icon-list"]}>
                             <img
-                                srcSet={`/static/images/three-cards/diamond.png 1x, /static/images/three-cards/diamond.png 2x, /static/images/three-cards/diamond.png 3x`}
+                                srcSet={`/static/images/three-cards/diamonds.png 1x, /static/images/three-cards/diamonds.png 2x, /static/images/three-cards/diamonds.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
+                                alt="diamonds"
                             />
                             <img
-                                srcSet={`/static/images/three-cards/heart.png 1x, /static/images/three-cards/heart.png 2x, /static/images/three-cards/heart.png 3x`}
+                                srcSet={`/static/images/three-cards/hearts.png 1x, /static/images/three-cards/hearts.png 2x, /static/images/three-cards/hearts.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
+                                alt="hearts"
                             />
                         </div>
                     ) : (
                         <div className={Styles["icon-list"]}>
                             <img
-                                srcSet={`/static/images/three-cards/spade.png 1x, /static/images/three-cards/spade.png 2x, /static/images/three-cards/spade.png 3x`}
+                                srcSet={`/static/images/three-cards/spades.png 1x, /static/images/three-cards/spades.png 2x, /static/images/three-cards/spades.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
+                                alt="spades"
                             />
                             <img
-                                srcSet={`/static/images/three-cards/club.png 1x, /static/images/three-cards/club.png 2x, /static/images/three-cards/club.png 3x`}
+                                srcSet={`/static/images/three-cards/clubs.png 1x, /static/images/three-cards/clubs.png 2x, /static/images/three-cards/clubs.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
+                                alt="clubs"
                             />
                         </div>
                     )}
