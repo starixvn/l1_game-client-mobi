@@ -51,7 +51,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 
 .open-cards {
-    
     .animation-container {
         --move-up-distance: -0.5rem;
         --result-scale: 0.8;
@@ -100,6 +99,19 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 --right-value: -1rem;
             }
         }
+
+        $list3: ("1": -7.5rem, "2": 7.5rem, "3": 1rem, "4": -1rem, "5": 8.5rem, "6": -8.5rem);
+
+        @each $num, $distance in $list3 {
+            .card#{$num} {
+                .rotate-card {
+                    transform: translateX($distance);
+                }
+            }
+        }
+        &.banker .card5 .rotate-card {
+            transform: translateX(-8.5rem);
+        }
     }
 
     .card-back {
@@ -118,8 +130,10 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .player,
         .banker {
             .score {
+                --scale-from-appear: 0.8;
+                --scale-to-appear: 1;
                 opacity: 0;
-                animation-name: show-score;
+                animation-name: appearance-animation;
                 animation-duration: 0.2s;
                 animation-fill-mode: forwards;
             }
@@ -135,7 +149,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .animation-container {
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
-            animation-fill-mode: forwards;
+            animation-fill-mode: forwards, forwards;
             animation-timing-function: ease-out;
             animation-name: zoom-in-animation, move-up-result-animation;
             --scale-from: 0.4;
@@ -173,7 +187,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             animation-name: open-card-animation, move-card;
             animation-duration: math.div($time-open-card-animation, 6), math.div($time-move-card-animation, 6);
             animation-fill-mode: forwards, forwards;
-            animation-timing-function: ease-in;
+            animation-timing-function: ease-in, ease-in;
             transition: transform 0.1s;
         }
 
@@ -185,6 +199,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                 }
                
                 .rotate-card {
+                    opacity: 0;
                     @extend .open-card;
                     animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 1), 6) + math.div($time-move-card-animation * ($i - 1), 6), 
                     $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * (($i+1) - 1), 6) + math.div($time-move-card-animation * ($i - 1), 6);
@@ -236,14 +251,14 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 }
 
-@keyframes show-score {
+@keyframes appearance-animation {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(var(--scale-form-appear));
     }
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: scale(var(--scale-to-appear));
     }
 }
 
@@ -291,6 +306,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 
     &.has-animation {
+        $time-draw-card-collapse-mode-animation: 0.9s;
+        $time-open-card-collapse-mode-animation: 1.6s;
+        $time-move-card-collapse-mode-animation: 1.2s;
         .animation-container {
             transform: scale(1);
             animation-name: none;
@@ -324,27 +342,47 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             display: block;
         }
 
-        .card1 {
-            .rotate-card {
-                --move-card-translate-x: 0;                
+        @for $i from 1 through 4 {
+            .card#{$i} {
+                .card-back {
+                    animation-delay : $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6);
+                }
+               
+                .rotate-card {
+                    animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6), 
+                    $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * (($i+1) - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6);
+                }
             }
         }
-
-        .card2 {
-            .rotate-card {
-                --move-card-translate-x: 0;
-            }
+        .card1 .rotate-card{
+            --move-card-translate-x: 0;     
         }
 
-        .card3 {
-            .rotate-card {
-                --move-card-translate-x: 2.5rem;                
-            }
+        .card2 .rotate-card{
+            --move-card-translate-x: 0;
         }
 
-        .card4 {
-            .rotate-card {
-                --move-card-translate-x: -2.5rem;                
+        .card3 .rotate-card{
+            --move-card-translate-x: 2.5rem;
+        }
+
+        .card4 .rotate-card {
+                --move-card-translate-x: -2.5rem;  
+        }
+
+        @for $i from 5 through 6 {
+            .card#{$i} {
+                .card-back {
+                    animation-name: appearance-animation, hide-card-back-animation;
+                    animation-duration: math.div($time-draw-card-collapse-mode-animation, 4), math.div($time-open-card-collapse-mode-animation, 6);
+                    animation-delay : $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6),
+                    $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-draw-card-collapse-mode-animation * ($i - 4), 4);
+                    animation-fill-mode: forwards;
+                }
+               
+                .rotate-card {
+                    animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-move-card-collapse-mode-animation * ($i - 1), 6) + math.div($time-draw-card-collapse-mode-animation * ($i - 4), 4);
+                }
             }
         }
         .card5 {
@@ -364,41 +402,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 .move-up-no-animation {
     transform: scale(0.8) translateY(var(--move-up-distance)) !important;
-
-    $list3: ("1": -7.5rem, "2": 7.5rem, "3": 1rem, "4": -1rem, "5": 8.5rem, "6": -8.5rem);
-
-    @each $num, $distance in $list3 {
-        .card#{$num} {
-            .rotate-card {
-                transform: translateX($distance);
-            }
-        }
-    }
-
-    &.banker .card5 .rotate-card {
-        transform: translateX(-8.5rem);
-    }
-
-    .score {
-        position: absolute;
-        bottom: 0;
-        width: 5.4rem;
-        height: 2.7rem;
-        border-top-left-radius: 60px;
-        border-top-right-radius: 60px;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        bottom: 10px;
-    }
-    .player .score {
-        background: linear-gradient(180deg, #117f99 0%, #123363 100%);
-    }
-    .banker .score {
-        background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
-    }
 }
 
 .result-container {
