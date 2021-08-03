@@ -598,7 +598,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     renderPlaceBet() {
         const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
         const { gameName } = this.props;
-        
+
         return (
             <PlaceBetModal
                 isOpen={displayPopup === PopupType.PlaceBet}
