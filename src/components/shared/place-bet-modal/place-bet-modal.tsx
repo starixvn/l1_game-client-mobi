@@ -129,7 +129,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const addStakeHandler = (event: any, stake: number, isPlusValue = true) => {
         event.preventDefault();
-        setBetStake(isPlusValue && !Number.isNaN(betStake) ? stake : betStake + stake);
+        setBetStake(isPlusValue && Number.isNaN(betStake) ? stake : betStake + stake);
     };
 
     const clickNumpadHandler = (event: any, pad: any) => {
