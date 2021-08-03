@@ -19,6 +19,7 @@ import ThreeCards from "./three-cards";
 import { useTranslation } from "next-i18next";
 import { GameCategoryType, Props } from "./type";
 import { GameCategory } from "./constants";
+import { FavoriteSetting } from "../favorite-setting";
 
 let gamesOrder = [];
 const gameCategories: string[] = Object.keys(GameCategoryType)
@@ -33,6 +34,8 @@ export const Games: React.FC<Props> = ({
     updateBetSetting,
     userStakeLevel,
     updateUserStakeLevel,
+    isShowFavoriteSetting,
+    toggleFavoriteSetting,
 }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
@@ -41,7 +44,6 @@ export const Games: React.FC<Props> = ({
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
     const { t } = useTranslation();
-    const checkFavorite = (gameId: number) => favoriteGames.includes(gameId);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
@@ -50,12 +52,15 @@ export const Games: React.FC<Props> = ({
 
         gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
         if (isFavorite) {
-            newFavoriteList.unshift(gameId);
-            window.scrollTo(0, 0);
+            newFavoriteList.push(gameId);
         }
 
-        updateFavoriteGames(newFavoriteList);
-        storeLocalStorageItem(localStorageKeys.favoriteGames, newFavoriteList);
+        handleChangeFavoriteGames(newFavoriteList);
+    };
+
+    const handleChangeFavoriteGames = (favoriteGames: number[]) => {
+        updateFavoriteGames(favoriteGames);
+        storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
     };
 
     const renderListGames = () => {
@@ -121,9 +126,16 @@ export const Games: React.FC<Props> = ({
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
             <SystemContextProvider
-                value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
+                value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
+                {isShowFavoriteSetting && (
+                    <FavoriteSetting
+                        updateFavorite={handleChangeFavoriteGames}
+                        currentFavoriteGames={favoriteGames}
+                        onCloseModal={toggleFavoriteSetting}
+                    />
+                )}
                 <div className={styles["game-container"]}>
                     <ul className={styles["game-category"]}>
                         {gameCategories.map((categoryKey) => (

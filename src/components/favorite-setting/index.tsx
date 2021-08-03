@@ -7,42 +7,44 @@ import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./favorite-setting.module.scss";
 
-let startDragGameId = -1;
-
-export const FavoriteSetting: React.FC<{ favoriteGames: number[]; updateFavorite: Function; onCloseModal: Function }> = ({
-    favoriteGames,
+export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateFavorite: Function; onCloseModal: Function }> = ({
+    currentFavoriteGames,
     onCloseModal,
     updateFavorite,
 }) => {
-    const [gameOrder, setGameOrder] = useState(favoriteGames);
+    const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames);
+    const unfavoriteGames = appSettings.offeredGames.filter((game) => !favoriteGames.includes(game));
     const { t } = useTranslation();
     const { gameSettings } = appSettings;
 
-    const onDragStart = (event: React.DragEvent, gameId: number) => {
-        event.dataTransfer.effectAllowed = "move";
-        startDragGameId = gameId;
+    const addFavoriteGames = (gameId: number) => {
+        favoriteGames.push(gameId);
+        setFavoriteGames([...favoriteGames]);
     };
 
-    const onDragOver = (dragOverGameId: number) => {
-        if (startDragGameId !== -1 && dragOverGameId !== startDragGameId) {
-            const dragOverIndex = gameOrder.findIndex((id) => dragOverGameId === id);
-            const dragStartIndex = gameOrder.findIndex((id) => startDragGameId === id);
-
-            gameOrder[dragOverIndex] = startDragGameId;
-            gameOrder[dragStartIndex] = dragOverGameId;
-
-            setGameOrder([...gameOrder]);
-        }
+    const removeFavoriteGame = (gameId: number) => {
+        const newFavoriteGames = favoriteGames.filter((id) => id !== gameId);
+        setFavoriteGames(newFavoriteGames);
     };
 
-    const onDragEnd = () => {
-        startDragGameId = -1;
+    const onClickMove = (gameIndex: number, isMoveUp: boolean) => {
+        const switchIndex = isMoveUp ? gameIndex - 1 : gameIndex + 1;
+        const term = favoriteGames[gameIndex];
+
+        favoriteGames[gameIndex] = favoriteGames[switchIndex];
+        favoriteGames[switchIndex] = term;
+
+        setFavoriteGames([...favoriteGames]);
     };
 
-    const onClickReset = () => {};
+    const onClickReset = () => {
+        updateFavorite([]);
+        onCloseModal();
+    };
 
     const onSubmit = () => {
-        updateFavorite([...gameOrder]);
+        updateFavorite([...favoriteGames]);
+        onCloseModal();
     };
 
     return (
@@ -51,17 +53,32 @@ export const FavoriteSetting: React.FC<{ favoriteGames: number[]; updateFavorite
                 <span className={Styles["close-btn"]} onClick={() => onCloseModal()}></span>
                 <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
                 <ul className={Styles["favorite-games"]}>
-                    {gameOrder.map((gameId, index) => (
-                        <li
-                            className={Styles["game"]}
-                            draggable
-                            onDragStart={(event) => onDragStart(event, gameId)}
-                            onDragOver={() => onDragOver(gameId)}
-                            onDragEnd={onDragEnd}
-                            key={index}
-                        >
+                    {favoriteGames.map((gameId, index) => (
+                        <li className={Styles["game"]} key={index}>
+                            <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
+                                <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
+                            </div>
                             <span>{t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</span>
-                            <span className={Styles["hamburger"]}></span>
+                            <button className={Styles["btn-move-up"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
+                                Up
+                            </button>
+                            <button
+                                className={Styles["btn-move-down"]}
+                                disabled={index === favoriteGames.length - 1}
+                                onClick={() => onClickMove(index, false)}
+                            >
+                                Down
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+                <ul className={Styles["unfavorite-games"]}>
+                    {unfavoriteGames.map((gameId, index) => (
+                        <li className={Styles["game"]} key={index}>
+                            <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
+                                <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
+                            </div>
+                            <span>{t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</span>
                         </li>
                     ))}
                 </ul>

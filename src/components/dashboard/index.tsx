@@ -13,6 +13,7 @@ import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
+import { FavoriteSetting } from "../favorite-setting";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
@@ -317,6 +318,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory,
             isShowGuide,
             userStakeLevel,
+            isShowFavoriteSetting,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -357,6 +359,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateBetSetting={this.updateBetSetting}
                         userStakeLevel={userStakeLevel}
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
+                        isShowFavoriteSetting={isShowFavoriteSetting}
+                        toggleFavoriteSetting={this.toggleFavoriteSetting}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}

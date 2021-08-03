@@ -1,3 +1,37 @@
+[data-theme="light"] .header {
+    --game-header-icon-favourite: #fff;
+    --game-header-icon-unfavourite: #fff;
+}
+
+[data-theme="dark"] .header {
+    --game-header-icon-favourite: #ffab2b;
+    --game-header-icon-unfavourite: #7f91a4;
+}
+
 .game {
     cursor: pointer;
+}
+
+.favorite-btn {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 100%;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .icon-favorite-normal:before {
+        font-size: 2rem;
+        color: var(--game-header-icon-unfavourite);
+    }
+
+    .icon-favorite:before {
+        font-size: 1.6rem;
+        color: var(--game-header-icon-favourite);
+    }
 }
