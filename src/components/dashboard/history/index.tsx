@@ -29,6 +29,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
             case 2:
             case 9:
             case 22:
+            case 24:
                 return <SeDieBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 3:
                 return <FishPrawnCrabBetHistory key={selectedGameId} gameId={selectedGameId} />;
