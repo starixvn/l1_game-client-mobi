@@ -46,7 +46,9 @@ export const GetElementRoundSuits = (result: Result, roundId: number) => {
                     <div key={`${roundId}_${index}`} className={Styles["score-board-item"]}>
                         <div className={Styles["symbol-size"]}>
                             <img
-                                src={`/static/images/three-cards/${SuitIcons[value.suit]}.svg`}
+                                srcSet={`/static/images/three-cards/${SuitIcons[value.suit]}.png 1x, /static/images/three-cards/${
+                                    SuitIcons[value.suit]
+                                }.png 2x, /static/images/three-cards/${SuitIcons[value.suit]}.png 3x`}
                                 className="img-fluid"
                                 width="18"
                                 height="18"

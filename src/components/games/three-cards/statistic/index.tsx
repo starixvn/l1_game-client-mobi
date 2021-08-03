@@ -44,7 +44,7 @@ const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
             {Object.keys(statisticResult).map((choice) => (
                 <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}`}>
                     <img
-                        src={`/static/images/three-cards/${choiceIcons[choice]}.svg`}
+                        srcSet={`/static/images/three-cards/${choiceIcons[choice]}.png 1x, /static/images/three-cards/${choiceIcons[choice]}.png 2x, /static/images/three-cards/${choiceIcons[choice]}.png 3x`}
                         className={Styles["card-suite"]}
                         alt="suite"
                         width="18"

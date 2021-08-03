@@ -143,7 +143,14 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                     {result.map((r, index) => {
                         return (
                             <span key={index}>
-                                <img src={`/static/images/three-cards/${suits[r.suit]}.svg`} height={30} width={30} alt={suits[r.suit]} />
+                                <img
+                                    srcSet={`/static/images/three-cards/${suits[r.suit]}.png 1x, /static/images/three-cards/${
+                                        suits[r.suit]
+                                    }.png 2x, /static/images/three-cards/${suits[r.suit]}.png 3x`}
+                                    height={30}
+                                    width={30}
+                                    alt={suits[r.suit]}
+                                />
                             </span>
                         );
                     })}
