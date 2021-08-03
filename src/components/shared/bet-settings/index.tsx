@@ -238,7 +238,7 @@ const BetSettings: React.FC<{
                         )}
 
                         <Tooltip
-                            message={`${t("quickBet")} : ${enabledQuickBet ? t("on") : t("off")}`}
+                            message={`${t("quickBet")}: ${enabledQuickBet ? t("on") : t("off")}`}
                             hoverWrapper={quickBetBtnWrapperRef}
                         />
                     </div>
