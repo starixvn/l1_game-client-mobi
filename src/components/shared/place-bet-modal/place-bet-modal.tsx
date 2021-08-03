@@ -59,6 +59,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     useEffect(() => {
         if (!isMobileOnly) {
+            window.addEventListener("mousedown", handleClickOutside);
             const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
             setStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
@@ -66,19 +67,12 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }
 
         return () => {
+            !isMobileOnly && window.removeEventListener("mousedown", handleClickOutside);
             setTooltipMessage("");
             setBetStake(0);
             props.removeBetChoiceFocus();
         };
     }, []);
-
-    useEffect(() => {
-        window.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-            window.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [wrapperRef]);
 
     useEffect(() => {
         if (!isMobileOnly) {
@@ -171,7 +165,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     return (
         <div style={style} ref={wrapperRef} className={Styles["modal-placebetform"]}>
-            <div className={Styles["popup-closed-icon"]} onClick={() => closeModal()}>
+            <div className={Styles["popup-closed-icon"]} id="bet-form-closed" onClick={() => closeModal()}>
                 <span className={`icon-close {Styles["icon-close"]}`}></span>
             </div>
 

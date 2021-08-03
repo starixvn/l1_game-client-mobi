@@ -603,6 +603,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
         const { gameName } = this.props;
 
+        if(document.getElementById("bet-form-closed")){
+            document.getElementById("bet-form-closed").click();
+        }
+        
         return (
             <PlaceBetModal
                 isOpen={displayPopup === PopupType.PlaceBet}
