@@ -19,7 +19,6 @@ export const GetElementRoundRedBlack = (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
             choice={settlementResult.red ? Choices.red : Choices.black}
-            value={settlementResult.red ? translateDotTextMapping[Choices.red] : translateDotTextMapping[Choices.black]}
             col={col}
             row={row}
         ></RoundDotGrid>
