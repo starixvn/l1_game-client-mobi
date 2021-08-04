@@ -16,7 +16,8 @@ export type Props = {
 export enum GameCategoryType {
     popular,
     favorite,
-    keno,
+    sedie,
     dice,
+    keno,
     card,
 }
