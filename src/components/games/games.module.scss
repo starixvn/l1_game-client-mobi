@@ -6,11 +6,11 @@
     --game-category-text-active-color: #2e6381;
 
     @media (min-width: 768px) {
-        --game-category-background: linear-gradient(180deg, #b9cfda 0%, #a9c1cd 100%);
-        --game-category-border: #53809e;
-        --game-category-border-active-color: #4e7a97;
-        --game-category-text-color: #2c2f3e;
-        --game-category-text-active-color: #2e6381;
+        --game-category-background: linear-gradient(180deg, #cfecfa 0%, #dbeff9 100%);
+        --game-category-border: #6d9cbb;
+        --game-category-border-active-color: #ff8a01;
+        --game-category-text-color: #28526d;
+        --game-category-text-active-color: #ff8a01;
     }
 }
 
@@ -22,11 +22,11 @@
     --game-category-text-active-color: #003867;
 
     @media (min-width: 768px) {
-        --game-category-background: linear-gradient(180deg, #7db0e7 0%, rgba(99, 154, 215, 0.8) 100%);
-        --game-category-border: #7da9db;
-        --game-category-border-active-color: #1e4874;
-        --game-category-text-color: #203449;
-        --game-category-text-active-color: #203449;
+        --game-category-background: linear-gradient(180deg, #3b5a7b 36.77%, #3e658d 100%);
+        --game-category-border: #8cb5e3;
+        --game-category-border-active-color: #ffab2b;
+        --game-category-text-color: #fff;
+        --game-category-text-active-color: #ff9a00;
     }
 }
 
@@ -96,7 +96,6 @@
             padding-right: 0.2rem;
             font-size: 1.4rem;
             color: var(--game-category-text-color);
-            opacity: 0.7;
             white-space: nowrap;
 
             @media (min-width: 768px) {
@@ -107,7 +106,6 @@
             &:hover {
                 cursor: pointer;
                 color: var(--game-category-text-active-color);
-                opacity: 1;
             }
         }
 
@@ -117,22 +115,16 @@
             .category-text {
                 font-weight: 500;
                 color: var(--game-category-text-active-color);
-                opacity: 1;
 
                 &:after {
                     content: "";
                     position: absolute;
                     bottom: -0.3rem;
-                    left: calc(50% - 1.2rem);
-                    width: 2.4rem;
+                    left: calc(50% - 1.3rem);
+                    width: 2.6rem;
                     height: 0.5rem;
                     border-radius: 2rem;
                     background-color: var(--game-category-border-active-color);
-
-                    @media (min-width: 768px) {
-                        left: 0;
-                        width: 100%;
-                    }
                 }
             }
         }

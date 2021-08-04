@@ -66,12 +66,14 @@
         position: absolute;
         right: 17.8rem;
         top: 4.1rem;
-        max-height: 70rem;
+        bottom: auto;
+        height: calc(100vh - 4.4rem);
+        max-height: calc(100vh - 4.4rem);
         border-radius: 0 0 0 0.5rem;
     }
 
-    @media (min-height: 745px) and (min-device-width: 768px) {
-        bottom: auto;
+    @media (min-height: 768px) {
+        max-height: 70rem;
     }
 
     &.open-animation {
