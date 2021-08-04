@@ -49,32 +49,34 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
 
     return (
         <BaseDialog onCloseModal={onCloseModal} type={ModalType.Center}>
-            <div className={`modal-center ${Styles["favorite-setting-container"]}`}>
+            <div className={`${Styles["favorite-setting"]} ${Styles["favorite-setting-container"]}`}>
                 <span className={Styles["close-btn"]} onClick={() => onCloseModal()}></span>
                 <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
                 <ul className={Styles["favorite-games"]}>
                     {favoriteGames.map((gameId, index) => (
-                        <li className={Styles["game"]} key={index}>
+                        <li className={`${Styles["game"]}`} key={index}>
                             <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
                                 <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
                             </div>
                             <span>{t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</span>
-                            <button className={Styles["btn-move-up"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
-                                Up
-                            </button>
-                            <button
-                                className={Styles["btn-move-down"]}
-                                disabled={index === favoriteGames.length - 1}
-                                onClick={() => onClickMove(index, false)}
-                            >
-                                Down
-                            </button>
+                            <div>
+                                <button className={Styles["btn-move-up"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
+                                    Up
+                                </button>
+                                <button
+                                    className={Styles["btn-move-down"]}
+                                    disabled={index === favoriteGames.length - 1}
+                                    onClick={() => onClickMove(index, false)}
+                                >
+                                    Down
+                                </button>
+                            </div>
                         </li>
                     ))}
                 </ul>
                 <ul className={Styles["unfavorite-games"]}>
                     {unfavoriteGames.map((gameId, index) => (
-                        <li className={Styles["game"]} key={index}>
+                        <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
                             <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
                                 <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
                             </div>
@@ -82,7 +84,7 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
                         </li>
                     ))}
                 </ul>
-                <div className={Styles["action"]}>
+                <div className={Styles["actions"]}>
                     <button className={`btn-grey ${Styles["custom-button"]}`} onClick={onClickReset}>
                         {t("reset")}
                     </button>

@@ -8,30 +8,95 @@
     --game-header-icon-unfavourite: #7f91a4;
 }
 
-.game {
-    cursor: pointer;
+.favorite-setting {
+    position: fixed;
+    right: 0;
+    top: 45px;
+    width: 27rem;
+    padding: 1rem;
+    border-radius: 0 0 0 0.5rem;
+    border: 1px solid #bfbfbf;
+    box-shadow: 0px 2px 30px rgba(0, 0, 0, 0.25);
+    background-color: #fff;
+    z-index: var(--header-index);
 }
 
-.favorite-btn {
-    position: relative;
-    z-index: 1;
-    display: flex;
+.favorite-games,
+.unfavorite-games {
+    list-style: none;
+    padding: 0;
+}
+
+%game {
+    display: grid;
+    grid-gap: 1rem;
     align-items: center;
-    justify-content: center;
-    width: 3.6rem;
-    height: 100%;
+    min-height: 4rem;
+    border: 1px solid;
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
 
     &:hover {
         cursor: pointer;
     }
+}
 
-    .icon-favorite-normal:before {
-        font-size: 2rem;
-        color: var(--game-header-icon-unfavourite);
+%button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 2.8rem;
+    border: 1px solid #b26f00;
+    border-radius: 1rem;
+}
+
+.favorite-games {
+    padding-bottom: 1.2rem;
+    border-bottom: 0.1rem solid #c9c9c9;
+
+    .game {
+        @extend %game;
+        grid-template-columns: 3rem 1fr 6.5rem;
+        border-image-source: linear-gradient(180deg, #ffce75 0%, #ffb52e 100%);
+        background: linear-gradient(180deg, #ffe5b7 0%, #ffc966 100%);
     }
 
-    .icon-favorite:before {
-        font-size: 1.6rem;
-        color: var(--game-header-icon-favourite);
+    .favorite-btn {
+        @extend %button;
+
+        .icon-favorite-normal:before {
+            color: #b06e00;
+        }
     }
+}
+
+.unfavorite-games {
+    .game {
+        @extend %game;
+        grid-template-columns: 3rem 1fr;
+        border-image-source: linear-gradient(180deg, #ffe8c3 0%, #ffdda9 100%);
+        background: linear-gradient(180deg, #fff5e5 0%, #ffeccd 100%);
+    }
+
+    .favorite-btn {
+        @extend %button;
+
+        .icon-favorite-normal:before {
+            color: #b06e00;
+        }
+    }
+}
+
+.title {
+    line-height: 4rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.6rem;
 }
