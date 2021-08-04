@@ -63,12 +63,23 @@
     z-index: var(--header-index);
 
     @media (min-width: 768px) {
+        position: absolute;
+        right: 17.8rem;
+        top: 4.1rem;
         max-height: 70rem;
         border-radius: 0 0 0 0.5rem;
     }
 
     @media (min-height: 745px) and (min-device-width: 768px) {
         bottom: auto;
+    }
+
+    &.open-animation {
+        animation: right-to-left-side 0.3s ease-in forwards;
+    }
+
+    &.close-animation {
+        animation: right-to-left-side 0.3s ease-in forwards;
     }
 }
 
@@ -237,8 +248,13 @@
     @extend %btn-unfavorite;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
+    -webkit-tap-highlight-color: transparent;
 
-    &:hover {
+    &:disabled {
+        opacity: 0.6;
+    }
+
+    &:hover:enabled {
         @extend %btn-favorite;
 
         .icon-move {
@@ -265,4 +281,24 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1.6rem;
+}
+
+@keyframes right-to-left-side {
+    from {
+        right: -27rem;
+    }
+
+    to {
+        right: 0;
+    }
+}
+
+@keyframes left-to-right-side {
+    from {
+        right: 0;
+    }
+
+    to {
+        right: -27rem;
+    }
 }

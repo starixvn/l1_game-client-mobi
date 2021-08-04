@@ -48,8 +48,8 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
     };
 
     return (
-        <BaseDialog onCloseModal={onCloseModal} type={ModalType.Center}>
-            <div className={`${Styles["favorite-setting"]} ${Styles["favorite-setting-container"]}`}>
+        <BaseDialog onCloseModal={onCloseModal} type={ModalType.FavoriteSetting}>
+            <div className={`${Styles["favorite-setting"]} ${Styles["open-animation"]}`}>
                 <span className={Styles["close-btn"]} onClick={() => onCloseModal()}></span>
                 <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
                 <ul className={Styles["favorite-games"]}>
@@ -89,10 +89,10 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
                     ))}
                 </ul>
                 <div className={Styles["actions"]}>
-                    <button className={`btn-grey ${Styles["custom-button"]}`} onClick={onClickReset}>
+                    <button className={`btn-grey`} onClick={onClickReset}>
                         {t("reset")}
                     </button>
-                    <button className={`btn-orange ${Styles["custom-button"]}`} onClick={onSubmit}>
+                    <button className={`btn-orange`} onClick={onSubmit}>
                         {t("save")}
                     </button>
                 </div>
