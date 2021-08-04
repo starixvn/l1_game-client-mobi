@@ -99,10 +99,11 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
-    updateFavoriteGames(favoriteGame: number[]) {
+    updateFavoriteGames(favoriteGames: number[]) {
         this.setState({
-            favoriteGames: favoriteGame,
+            favoriteGames: favoriteGames,
         });
+        storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {

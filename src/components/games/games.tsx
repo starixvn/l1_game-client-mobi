@@ -52,12 +52,7 @@ export const Games: React.FC<Props> = ({
             newFavoriteList.push(gameId);
         }
 
-        handleChangeFavoriteGames(newFavoriteList);
-    };
-
-    const handleChangeFavoriteGames = (favoriteGames: number[]) => {
-        updateFavoriteGames(favoriteGames);
-        storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
+        updateFavoriteGames(newFavoriteList);
     };
 
     const renderListGames = () => {
