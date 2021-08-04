@@ -19,6 +19,7 @@
 
 %icon {
     display: inline-block;
+    background-repeat: no-repeat;
     background-image: url("/static/images/setting-sprites.png?v=2");
     background-image: -webkit-image-set(
         url("/static/images/setting-sprites.png?v=2") 1x,
@@ -44,7 +45,7 @@
 %icon-notify {
     @extend %icon;
     width: 18px;
-    height: 18px;
+    height: 19px;
 }
 
 .icon-notify-on-dark {
@@ -64,7 +65,7 @@
 
 .icon-notify-on-light {
     @extend %icon-notify;
-    background-position: -95px -31px;
+    background-position: -95px -30px;
 }
 
 %icon-menu {
