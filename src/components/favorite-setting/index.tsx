@@ -58,17 +58,19 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
                             <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
                                 <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
                             </div>
-                            <span>{t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</span>
-                            <div>
-                                <button className={Styles["btn-move-up"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
-                                    Up
+                            <span className={Styles["game-name"]}>
+                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            </span>
+                            <div className={Styles["group-btn-move"]}>
+                                <button className={Styles["btn-move"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
+                                    <span className={Styles["icon-move-up"]}></span>
                                 </button>
                                 <button
-                                    className={Styles["btn-move-down"]}
+                                    className={Styles["btn-move"]}
                                     disabled={index === favoriteGames.length - 1}
                                     onClick={() => onClickMove(index, false)}
                                 >
-                                    Down
+                                    <span className={Styles["icon-move-down"]}></span>
                                 </button>
                             </div>
                         </li>
@@ -78,9 +80,11 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
                     {unfavoriteGames.map((gameId, index) => (
                         <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
                             <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
-                                <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
+                                <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
                             </div>
-                            <span>{t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</span>
+                            <span className={Styles["game-name"]}>
+                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            </span>
                         </li>
                     ))}
                 </ul>
