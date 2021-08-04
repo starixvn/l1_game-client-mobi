@@ -143,7 +143,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const clearBetStake = () => {
-        numberFormatRef.current.focus();
+        !isMobileOnly && numberFormatRef.current.focus();
         setBetStake(null);
         setShowTooltip(false);
         setTooltipMessage("");
@@ -151,7 +151,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const onChangeStakeInputHandler = (value: string) => {
         setBetStake(parseInt(value));
-        numberFormatRef.current.focus();
+        !isMobileOnly && numberFormatRef.current.focus();
     };
 
     const submitBet = (event: any) => {
