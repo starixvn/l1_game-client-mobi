@@ -91,7 +91,6 @@ const BetSettings: React.FC<{
         const minBet = props.gameConfigs?.minbet ?? 0;
         const maxBet = props.gameConfigs?.maxbet ?? 0;
         const validationCriteria = [
-            { failure: !betStake && !props.gameConfigs?.minbet, message: t("emptyPresetStakeMsg") },
             {
                 failure: props.gameConfigs && betStake > maxBet,
                 message: t("messages:gameMaxBet", { maxBet: numberWithCommas(maxBet) }),

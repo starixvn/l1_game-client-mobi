@@ -2,6 +2,12 @@
     top: 4.3rem;
     right: 0;
     pointer-events: none;
+    visibility: hidden;
+
+    &.show {
+        visibility: visible;
+        transition-delay: 0.5s;
+    }
 
     .tooltip-inner {
         right: 0;
