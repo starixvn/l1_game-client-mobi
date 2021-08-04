@@ -21,7 +21,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     getMainOptions(): string[] {
-        return ["big", "small", "odd", "even", "earth", "fire", "gold", "water", "wood"];
+        return ["big", "small", "odd", "even"];
     }
 
     getFakeSettlementResult() {

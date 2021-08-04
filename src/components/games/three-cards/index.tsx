@@ -22,7 +22,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     getMainOptions(): string[] {
-        return ["black", "red", "diamonds", "hearts", "spades", "clubs"];
+        return ["black", "red"];
     }
 
     renderBetOptions() {

@@ -21,7 +21,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     getMainOptions(): string[] {
-        return ["player", "banker", "big", "small", "tie", "playerPair", "bankerPair"];
+        return ["player", "banker", "big", "small", "tie"];
     }
 
     renderBetOptions() {
