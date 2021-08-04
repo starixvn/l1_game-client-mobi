@@ -32,7 +32,7 @@ const signIn = async (handleSignInSuccess: Function, router: NextRouter, i18n: I
     if (!settings.isUM) {
         router.query.token
             ? handleSignInWithRouteQuery(handleSignInSuccess, router, i18n)
-            : handleSignInWithLocalStorageSession(handleSignInSuccess, router);
+            : handleSignInWithLocalStorageSession(handleSignInSuccess, router, i18n);
     }
 };
 
@@ -55,9 +55,8 @@ const handleSignInWithRouteQuery = async (onSignInSuccess: Function, router: Nex
     }
 };
 
-const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, router: NextRouter) => {
+const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, router: NextRouter, i18n: I18n) => {
     const { auth: authService } = UserClientCommunication.getUserClientInstance();
-
     const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
     if (!userSession) {
         router.push("/timeout");
@@ -66,6 +65,11 @@ const handleSignInWithLocalStorageSession = async (onSignInSuccess: Function, ro
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
     if (verifySessionResponse.isSuccessful) {
         onSignInSuccess(userSession);
+
+        const langCode = languageMapper[userSession.language];
+        if (router.locale !== langCode && router.locales.indexOf(langCode) > -1) {
+            i18n.changeLanguage(langCode);
+        }
     } else {
         router.push("/timeout");
     }
@@ -155,15 +159,22 @@ function Home() {
     }, []);
 
     if (loading) {
+        if (!router.isReady) {
+            return <></>;
+        }
+
         const { lang } = router.query;
-        return <SplashScreen locale={languageMapper[lang as string] ?? router.locale}></SplashScreen>;
+        const userSession = LocalStorageManager.getLocalStorageItem<SSOResponse>(sessionKey);
+        const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
+
+        return <SplashScreen locale={locale}></SplashScreen>;
     } else {
         const authContextValue = { session, setBalance };
         return (
             <AuthContextProvider value={authContextValue}>
                 <Dashboard
                     balance={balance}
-                    isShowModal={isShowModal}
+                    isShowErrorModal={isShowModal}
                     apiErrorMessage={apiErrorMessage}
                     setIsShowModal={setIsShowModal}
                     setApiErrorMessage={handleShowApiErrorMessage.bind(this)}

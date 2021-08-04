@@ -1,5 +1,5 @@
 import React from "react";
-import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { useTranslation } from "next-i18next";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../dragon-tiger";
@@ -43,10 +43,11 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object) => {
     return <></>;
 };
 
-const DragonTigerBetHistory: React.FunctionComponent = () => {
+const DragonTigerBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { t } = useTranslation("dragontiger");
     return (
         <BetHistoryContainer
+            gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}

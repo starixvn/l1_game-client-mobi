@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import BetHistoryContainer from "../../../shared/bet-history";
+import BetHistoryContainer from "../../../dashboard/history/bet-history";
 import { RoundDot } from "../../../shared/round-history/dot";
 import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
 import { BetLogs } from "./bet-history";
@@ -18,8 +18,15 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const SeDieBetHistory: React.FunctionComponent = () => {
+const SeDieBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { t } = useTranslation("xocxoc");
-    return <BetHistoryContainer isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)} translate={t}></BetHistoryContainer>;
+    return (
+        <BetHistoryContainer
+            gameId={gameId}
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            translate={t}
+        ></BetHistoryContainer>
+    );
 };
 export default SeDieBetHistory;

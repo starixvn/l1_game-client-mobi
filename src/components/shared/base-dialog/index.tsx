@@ -1,6 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
-
+import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
@@ -12,7 +11,8 @@ type Props = {
     children?: React.ReactNode;
     type?: ModalType;
     betContainerPosition?: number;
-    isCloseOutside?: true;
+    isCloseOutside?: boolean;
+    enableBackdrop?: boolean;
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -21,6 +21,7 @@ const BaseDialog: React.FC<Props> = ({
     isOpen = true,
     type = ModalType.Full,
     betContainerPosition,
+    enableBackdrop,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -34,24 +35,24 @@ const BaseDialog: React.FC<Props> = ({
                 : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
         }
 
-        if (isMobileOnly) {
-            if (isIOS) {
-                return screen.height > 667 && screen.width >= 375 ? { bottom: "12.3rem" } : { bottom: "9.8rem" };
-            } else {
-                return { bottom: "8.8rem" };
-            }
-        }
-
         return {};
     };
 
-    useEffect(() => {
-        function handleClickOutside(event) {
-            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-                onCloseModal && onCloseModal();
-            }
+    const handleClickOutside = (event: any) => {
+        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            onCloseModal && onCloseModal();
         }
+    };
 
+    useEffect(() => {
+        enableBackdrop && document.body.classList.add("no-scroll");
+
+        return () => {
+            enableBackdrop && document.body.classList.remove("no-scroll");
+        };
+    }, []);
+
+    useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
@@ -59,13 +60,16 @@ const BaseDialog: React.FC<Props> = ({
     }, [wrapperRef]);
 
     return (
-        <div
-            style={getCustomStyle()}
-            ref={wrapperRef}
-            className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
-        >
-            {children}
-        </div>
+        <>
+            {enableBackdrop && !isMobileOnly && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
+            <div
+                style={getCustomStyle()}
+                ref={wrapperRef}
+                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
+            >
+                {children}
+            </div>
+        </>
     );
 };
 

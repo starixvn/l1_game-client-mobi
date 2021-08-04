@@ -1,124 +1,101 @@
 .settings-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     padding: 0 0.5rem;
+}
+
+.setting-left {
+    margin-right: 0.6rem;
 }
 
 .setting-right {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
+    grid-gap: 0.6rem;
     align-items: center;
 }
 
 %icon {
     display: inline-block;
-    background-image: url("/static/images/setting-sprites.png");
+    background-repeat: no-repeat;
+    background-image: url("/static/images/setting-sprites.png?v=2");
     background-image: -webkit-image-set(
-        url("/static/images/setting-sprites.png") 1x,
-        url("/static/images/setting-sprites@2x.png") 2x,
-        url("/static/images/setting-sprites@3x.png") 3x
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
     );
     background-image: image-set(
-        url("/static/images/setting-sprites.png") 1x,
-        url("/static/images/setting-sprites@2x.png") 2x,
-        url("/static/images/setting-sprites@3x.png") 3x
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
     );
 }
 
-%icon-notify {
-    @extend %icon;
-    width: 18px;
-    height: 18px;
-}
-
-%icon-sound {
-    @extend %icon;
-    width: 28px;
-    height: 24px;
-}
-
-%icon-theme {
-    @extend %icon;
-    width: 26px;
-    height: 26px;
-}
-
-%setting_button {
-    @extend %icon;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.setting-button {
     width: 4rem;
-    height: 3.4rem;
-    -webkit-tap-highlight-color: transparent;
+    position: relative;
 
     &:hover {
         cursor: pointer;
     }
 }
 
-.setting_button_dark {
-    @extend %setting_button;
-    background-position: -10px -10px;
-
-    &.desktop-style {
-        background-position: -134px -101px;
-    }
+%icon-notify {
+    @extend %icon;
+    width: 18px;
+    height: 19px;
 }
 
-.setting_button_light {
-    @extend %setting_button;
-    background-position: -70px -10px;
-}
-
-.icon_notify_on_dark {
+.icon-notify-on-dark {
     @extend %icon-notify;
-    background-position: -106px -110px;
+    background-position: -63px -29px;
 }
 
-.icon_notify_off_dark {
+.icon-notify-off-dark {
     @extend %icon-notify;
-    background-position: -178px -86px;
+    background-position: -63px 0;
 }
 
-.icon_sound_on_dark {
-    @extend %icon-sound;
-    background-position: -130px -54px;
-}
-
-.icon_sound_off_dark {
-    @extend %icon-sound;
-    background-position: -130px -10px;
-}
-
-.icon_notify_off_light {
+.icon-notify-off-light {
     @extend %icon-notify;
-    background-position: -178px -10px;
+    background-position: -95px 0;
 }
 
-.icon_notify_on_light {
+.icon-notify-on-light {
     @extend %icon-notify;
-    background-position: -178px -48px;
+    background-position: -95px -30px;
 }
 
-.icon_sound_off_light {
-    @extend %icon-sound;
-    background-position: -10px -110px;
+%icon-menu {
+    @extend %icon;
+    width: 1.3rem;
+    height: 1.3rem;
 }
 
-.icon_sound_on_light {
-    @extend %icon-sound;
-    background-position: -58px -110px;
+.icon-menu-light {
+    @extend %icon-menu;
+    background-position: -1px 0;
 }
 
-.icon_dark_mode {
-    @extend %icon-theme;
-    background-position: -56px -64px;
+.icon-menu-dark {
+    @extend %icon-menu;
+    background-position: -31px 0;
 }
 
-.icon_light_mode {
-    @extend %icon-theme;
-    background-position: -10px -64px;
+%icon-ticket-history {
+    @extend %icon;
+    width: 2.1rem;
+    height: 1.9rem;
+}
+
+.icon-ticket-history-light {
+    @extend %icon-ticket-history;
+    background-position: 0 -19px;
+}
+
+.icon-ticket-history-dark {
+    @extend %icon-ticket-history;
+    background-position: -29px -19px;
 }

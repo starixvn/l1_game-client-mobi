@@ -10,6 +10,7 @@
     transition: background 0.8s;
     text-align: center;
     font-size: 1.6rem;
+    -webkit-tap-highlight-color: transparent;
 
     &:disabled {
         opacity: 0.6;
@@ -67,5 +68,104 @@
 
     &:active {
         background-color: var(--btn-grey-background-hover);
+    }
+}
+
+%button-custom-3d {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+
+    &:before {
+        position: absolute;
+        left: 0.1rem;
+        right: 0.1rem;
+        top: 0.1rem;
+        bottom: 0.1rem;
+        border-radius: 1rem;
+        content: "";
+        z-index: -1;
+    }
+}
+
+[data-theme="light"] .header-button {
+    --header-button-background: linear-gradient(180deg, #ffd586 0%, #ffaa20 100%);
+    --header-button-border1: #a0a0a0;
+    --header-button-border2: #ffc459;
+    --header-button-shadow-inner: inset 0 0.2rem 0.3rem #ffffff;
+    --header-button-background-hover: linear-gradient(180deg, #db8700 0%, #ffbd41 100%);
+
+    @media (min-width: 768px) {
+        --header-button-border1: #e8e8e8;
+    }
+}
+
+[data-theme="dark"] .header-button {
+    --header-button-background: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
+    --header-button-border1: #1472d1;
+    --header-button-border2: #183047;
+    --header-button-shadow-inner: inset 0 0.2rem 0.5rem #d0e6ff;
+    --header-button-background-hover: linear-gradient(180deg, #385675 0%, #4d7198 100%);
+    @media (min-width: 768px) {
+        --header-button-border1: #38536f;
+    }
+}
+
+.header-button {
+    @extend %button-custom-3d;
+    height: 3.4rem;
+    background-color: var(--header-button-border1);
+
+    &:before {
+        background: var(--header-button-background);
+        border: 0.1rem solid var(--header-button-border2);
+        box-shadow: var(--header-button-shadow-inner);
+    }
+
+    @media (hover: hover) {
+        &:hover:before {
+            cursor: pointer;
+            box-shadow: none;
+            background: var(--header-button-background-hover);
+        }
+    }
+}
+
+[data-theme="light"] .game-header-button {
+    --game-header-button-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
+    --game-header-button-border: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
+    --game-header-button-shadow-inner: inset 0 0.2rem 0.3rem #fff;
+    --game-header-button-background-hover: linear-gradient(180deg, #d78600 0%, #fbae21 100%);
+}
+
+[data-theme="dark"] .game-header-button {
+    --game-header-button-background: linear-gradient(180deg, #284059 1.87%, #243b54 100%);
+    --game-header-button-border: #081d34;
+    --game-header-button-shadow-inner: inset 0 0.2rem 0.3rem #49759f;
+    --game-header-button-background-hover: linear-gradient(180deg, #102031 0%, #243b54 100%);
+}
+
+.game-header-button {
+    @extend %button-custom-3d;
+    height: 3.6rem;
+    background: var(--game-header-button-border);
+
+    &:before {
+        background: var(--game-header-button-background);
+        box-shadow: var(--game-header-button-shadow-inner);
+    }
+
+    @media (hover: hover) {
+        &:hover:before {
+            cursor: pointer;
+            box-shadow: none;
+            background: var(--game-header-button-background-hover);
+        }
     }
 }

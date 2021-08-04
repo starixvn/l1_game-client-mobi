@@ -104,14 +104,14 @@ export default function Register(props: Props) {
                 <label className={Styles["input-title"]}>{t("register:registerName")}</label>
 
                 <div className={Styles["user-box"]}>
-                    <div className={Styles["register-wrapper-input"]}>
+                    <div className={`form-group ${Styles["register-wrapper-input"]}`}>
                         <input
                             type="text"
-                            className={Styles["custom-form-control"]}
+                            className={`form-control ${Styles["custom-form-control"]}`}
                             value={name}
                             onChange={(event) => onChangeUserName(event)}
                         />
-                        <span className={`icon-close ${Styles["icon-remove"]}`} onClick={() => clearUserName()}></span>
+                        <span className={`icon-close ${Styles["icon-cancel"]}`} onClick={() => clearUserName()}></span>
                     </div>
 
                     {!isValidUserName && (

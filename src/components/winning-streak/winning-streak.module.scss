@@ -2,16 +2,16 @@
 
 .winning-streak-container {
     position: fixed;
-    width: 100%;
+    width: 32rem;
+    left: calc(50% - 16rem);
+    top: 0;
     text-align: center;
     z-index: calc(var(--header-index) + 2);
-    left: 0;
-    top: 5.6rem;
 }
 
 .streak-notification {
     position: relative;
-    top: -5.2rem;
+    top: 0.3rem;
     display: flex;
     align-items: center;
     width: fit-content;

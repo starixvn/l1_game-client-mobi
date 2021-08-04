@@ -14,14 +14,28 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-back:before {
-    content: "\e919";
-    color: #4f4f54;
+.icon-help:before {
+    content: "\e911";
+    color: #5e85c0;
 }
-.icon-arrow-right:before {
-    content: "\e91a";
-    color: #8d8d8d;
+
+.icon-delete:before {
+    content: "\e900";
 }
+
+.icon-dollar:before {
+    content: "\e907";
+    color: #818181;
+}
+
+.icon-arrow-down:before {
+    display: flex;
+    align-items: center;
+    content: "\e90b";
+    color: #825000;
+    font-size: 0.8rem;
+}
+
 .icon-check:before {
     content: "\e918";
 }

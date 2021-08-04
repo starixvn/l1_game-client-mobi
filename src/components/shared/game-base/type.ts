@@ -22,8 +22,6 @@ export enum GameState {
     ConnectFailed,
 }
 export enum PopupType {
-    Guide,
-    BetHistory,
     Rebet,
     Error,
     PlaceBet,
@@ -46,6 +44,8 @@ export type GameBaseProps = {
     viewMode: ViewMode;
     setApiErrorMessage: Function;
     theme: string;
+    userStakeLevel: UserStakeLevel;
+    updateUserStakeLevel: Function;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
@@ -59,7 +59,6 @@ export interface GameBaseState<Result, SettlementResult> {
     settlementResult?: SettlementResult;
     totalBets: object;
     ownBets: object;
-    userStakeLevel: UserStakeLevel;
     displayPopup?: PopupType;
     betPercentage?: object;
     errorMessage?: string | string[];
@@ -71,9 +70,11 @@ export interface GameBaseState<Result, SettlementResult> {
     acceptedBetQueue: { [key: number]: number };
     showWinningAnimation: boolean;
     playResultAnimation: boolean;
-    displayChips: DisplayChips;
     isShowBlink: boolean;
     notice: Notice;
+    removeBetChoiceFocus?: Function;
+    betOptionElement?: HTMLElement;
+    betChoiceElement?: HTMLElement;
 }
 
 export interface Notice {
@@ -91,10 +92,6 @@ export interface APIError extends Notice {
     roundId?: number;
 }
 
-export interface DisplayChips {
-    [betChoice: string]: number[];
-}
-
 export interface SocketInfo {
     namespace: string;
     path: string;
@@ -108,13 +105,6 @@ export interface GameDurations {
     resultAnimation: number;
     beforeStartRound: number;
     balancingBet?: number;
-}
-
-export interface UserBetChipStorageModal {
-    [gameId: string]: {
-        roundId: number;
-        chips: DisplayChips;
-    };
 }
 
 export interface RebetStorageModel {

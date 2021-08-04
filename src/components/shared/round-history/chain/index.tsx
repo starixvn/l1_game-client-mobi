@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Round } from "../../../../types";
 import { GameState } from "../../../shared/game-base/type";
-import { ContainerToolTip } from "../../tool-tip";
+import { ContainerToolTip } from "../dot-tool-tip";
 import { MiniItemNext } from "../dot-next";
 import Styles from "./styles.module.scss";
 import { Props, PropsDot } from "./types";

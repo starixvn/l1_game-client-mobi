@@ -1,60 +1,332 @@
-[data-theme="light"] .note {
-    --note-color: #6b6d78;
+[data-theme="light"] .modal-placebetform {
+    --numpad-background: #e6e6e6;
+    --numpad-color: #505050;
 }
 
-[data-theme="dark"] .note {
-    --note-color: rgba(255, 255, 255, 0.6);
+[data-theme="dark"] .modal-placebetform {
+    --numpad-background: #5c6d7e;
+    --numpad-color: #fff;
 }
 
-.place-bet-container {
-    padding: 0 1.6rem 1.6rem;
+.modal-placebetform {
+    cursor: auto;
+    position: fixed;
+    bottom: 0;
+    left: 0.4rem;
+    right: 0.4rem;
+    height: 44rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background: var(--popup-background);
+    border: 1px solid var(--popup-border);
+    box-shadow: var(--popup-bet-form-shadow);
+    border-radius: 0.5rem 0.5rem 0 0;
+    color: var(--popup-color);
+    z-index: var(--popup-index);
+
+    @media (min-width: 768px) {
+        position: absolute;
+    }
+
+    @media (min-width: 768px) {
+        padding-top: 8px;
+        left: auto;
+        right: auto;
+        width: 25rem;
+        height: 27rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        border-radius: 0.5rem;
+    }
+
+    .popup-header {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 0.8rem 4.8rem;
+
+        @media (min-width: 768px) {
+            padding-top: 0.4rem;
+            padding-bottom: 0.4rem;
+        }
+    }
+
+    .popup-title {
+        margin-bottom: 0;
+        line-height: 1.6rem;
+        white-space: nowrap;
+        font-size: 1.6rem;
+        font-weight: 500;
+        text-align: center;
+        color: var(--popup-title-color);
+    }
+
+    .popup-sub-title {
+        color: var(--popup-sub-title-color);
+        font: 1.3rem var(--font-number);
+        text-align: center;
+    }
+
+    .popup-closed-icon {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.6rem;
+        z-index: 10;
+    }
+
+    .modal-arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+
+        &:after,
+        &:before {
+            border: solid transparent;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+
+        &:before {
+            top: -2rem;
+            left: calc(50% - 0.5rem);
+            border-bottom-color: var(--popup-border);
+            border-width: 1rem;
+        }
+
+        &:after {
+            left: calc(50% - 0.3rem);
+            top: -1.6rem;
+            border-bottom-color: var(--popup-background);
+            border-width: 0.8rem;
+        }
+
+        &.down {
+            bottom: 0;
+            transform: rotate(180deg);
+        }
+
+        &.up {
+            top: 0;
+        }
+
+        &.left {
+            left: 4rem;
+        }
+
+        &.right {
+            right: 4rem;
+        }
+
+        &.center {
+            left: 50%;
+        }
+    }
+
+    .general-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4.8rem;
+        padding: 0 0.9rem;
+        margin-bottom: 0.4rem;
+        background-color: #5ab379;
+        box-shadow: 0 1rem 1rem rgba(95, 90, 247, 0.03);
+        border-radius: 0.5rem;
+        @media (min-width: 768px) {
+            height: 4rem;
+        }
+
+        .bet-option {
+            font-size: 2rem;
+            text-transform: capitalize;
+            font-weight: bold;
+            color: #fff;
+            @media (min-width: 768px) {
+                font-size: 1.6rem;
+            }
+        }
+
+        .odds {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 3.5rem;
+            min-width: 6.6rem;
+            border-radius: 2rem;
+            background: #d1e7da;
+            font: 600 1.8rem var(--font-number);
+            color: #2c2f3e;
+
+            @media (min-width: 768px) {
+                height: 2.6rem;
+                font-size: 1.6rem;
+            }
+        }
+    }
+
+    .stake {
+        margin-bottom: 0.4rem;
+    }
+
+    .payout {
+        display: flex;
+        justify-content: space-between;
+        line-height: 2.6rem;
+        font-size: 1.6rem;
+
+        @media (min-width: 768px) {
+            line-height: 2.4rem;
+            font-size: 1.4rem;
+        }
+    }
+
+    .number {
+        font-family: var(--font-number);
+    }
+
+    .bet-chips {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        @media (min-width: 768px) {
+            margin-top: 0.4rem;
+            margin-bottom: 0.7rem;
+        }
+    }
+
+    .chip-container {
+        position: relative;
+        display: grid !important;
+        grid-template-columns: 4.8rem;
+        grid-template-rows: 5rem;
+        justify-content: center;
+        align-items: center;
+        width: 4.8rem;
+        height: 5rem;
+        margin: auto;
+        -webkit-tap-highlight-color: transparent;
+        @media (min-width: 768px) {
+            grid-template-columns: 3.6rem;
+            grid-template-rows: 3.7rem;
+            width: 3.6rem;
+            height: 3.7rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        .chip {
+            grid-area: 1/1;
+            width: 100%;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .value {
+            grid-area: 1/1;
+            text-align: center;
+            font: 1.6rem var(--font-money);
+            color: #2c2f3e;
+            @media (min-width: 768px) {
+                font-size: 1.3rem;
+            }
+        }
+
+        &.chip-9,
+        &.chip-10,
+        &.chip-11,
+        &.chip-12 {
+            .value {
+                color: #fff;
+            }
+        }
+
+        &.chip-13 {
+            .value {
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #ffeda5;
+                @media (min-width: 768px) {
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+
+    .numpad-container {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(2, 4.7rem);
+        grid-gap: 0.2rem;
+        margin-top: 1.2rem;
+        margin-bottom: 1.2rem;
+
+        .numpad {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--numpad-background);
+            color: var(--numpad-color);
+            font: 1.5rem var(--font-number);
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .custom-button {
+            height: 3.2rem;
+            line-height: 3.2rem;
+            font-size: 1.4rem;
+        }
+    }
+
+    // tooltip
+
+    .tooltip-info {
+        top: 0;
+        right: 2.5rem;
+
+        @media (min-width: 768px) {
+            right: 1.7rem;
+        }
+
+        .tooltip-inner {
+            width: 23rem;
+            top: 3.5rem !important;
+            right: 0;
+            @media (min-width: 768px) {
+                width: 21rem;
+            }
+        }
+
+        .arrow {
+            right: 3rem !important;
+        }
+    }
 }
 
-.general-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-left: 0.3rem solid;
-    min-height: 4.6rem;
-    margin: 0.5rem 0;
-    padding: 0 1rem;
-    border-left-color: var(--success-color);
-    color: var(--success-color);
-    background-color: var(--success-background);
-    margin-bottom: 0.5rem;
-    font-size: 2rem;
-    text-transform: capitalize;
+.smart-fake-input-caret {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 38px;
+    width: 1px;
+    height: 20px;
+    transform: translateY(-50%);
+    background-color: rgba(79, 110, 160, 0.996);
+    animation-name: F;
+    animation-duration: .9s;
+    animation-iteration-count: infinite;
 }
 
-.confirm-text {
-    text-align: center;
-    font-weight: 500;
-    font-size: 1.6rem;
-    margin-top: 1rem;
-}
-
-.payout {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 1rem;
-    margin: 2rem 0;
-    font-size: 1.6rem;
-}
-
-.highlight {
-    color: var(--primary-color);
-    font-family: var(--font-number);
-    font-weight: 500;
-}
-
-.error-message {
-    margin-bottom: 0.4rem;
-    color: var(--error-color);
-}
-
-.actions {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3rem;
-    margin-top: 0.5rem;
+.smart-fake-input-caret.smart-fake-input-caret-special {
+    right: 5px;
 }

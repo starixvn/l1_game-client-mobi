@@ -28,9 +28,13 @@
     @media (max-width: 300px) {
         min-width: 36rem;
     }
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 }
 
-@media print, screen and (min-width: 768px) {
+@media (min-width: 768px) {
     .game-container {
         flex: 1 1 calc(50% - 0.8rem);
         max-width: calc(50% - 0.8rem);
@@ -38,11 +42,12 @@
 
         &:last-child {
             margin-right: 0;
+            margin-bottom: 0.6rem;
         }
     }
 }
 
-@media print, screen and (min-width: 1024px) {
+@media (min-width: 1024px) {
     .game-container {
         flex: 1 1 calc(100% / 3 - 0.8rem);
         max-width: calc(100% / 3 - 0.8rem);

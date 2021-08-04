@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-import BetHistoryContainer, { FormatNumber } from "../../../shared/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
@@ -68,10 +68,11 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: Odd) => {
     return <></>;
 };
 
-const FishPrawnCrabBetHistory: React.FunctionComponent = () => {
+const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     const { t } = useTranslation("baucua");
     return (
         <BetHistoryContainer
+            gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
             translate={t}

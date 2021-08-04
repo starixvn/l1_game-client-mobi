@@ -11,12 +11,10 @@ import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources"
 import { AuthContext } from "../../../contexts/auth";
 import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
-import { convertAmountToChips } from "../../../helpers/chip-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { UserClientCommunication } from "../../../services";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
-import AdvanceModal from "../advance-modal";
 import AcceptBet from "../animations/accept-bet";
 import WinningBet from "../animations/winning-bet";
 import BalancedBettingPool from "../balanced-betting-pool";
@@ -26,7 +24,6 @@ import { BaseResult } from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
-import GameGuides from "../game-guide";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
@@ -36,25 +33,18 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-    PopupType,
-    RebetStorageModel,
-    UserBetChipStorageModal,
-    ViewMode,
-    WinStreakCollectorModel,
-} from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
-const { userBetChips: userBetChipsKey, rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
+const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
+let isUpdateUserStakeLevel = false;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private betWin: number;
     private isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
-    private readonly gameContainerRef = React.createRef<HTMLDivElement>();
+    private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
+
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
@@ -76,7 +66,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         roundId: 0,
         ownBets: {},
         totalBets: {},
-        userStakeLevel: null,
         displayPopup: null,
         betPercentage: {},
         viewMode: this.props.viewMode,
@@ -84,9 +73,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         acceptedBetQueue: {},
         showWinningAnimation: false,
         playResultAnimation: false,
-        displayChips: {},
         isShowBlink: false,
         notice: null,
+        removeBetChoiceFocus: null,
+        betOptionElement: null,
+        betChoiceElement: null,
     };
 
     constructor(props: P) {
@@ -148,14 +139,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ signedIn: true });
             this.socket.emit("inGame");
         });
-
-        this.socket.on("message", this.setUserStakeLevel.bind(this));
         this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-
         this.socket.on("connect_error", this.onConnectFailed.bind(this));
+        this.socket.on("message", this.onMessageUserStakeLevel.bind(this));
         this.socket.on("disconnect", () => {
             this.setState({ gameState: GameState.None });
         });
+    }
+
+    onMessageUserStakeLevel({ userStakeLevel }) {
+        if (!isUpdateUserStakeLevel) {
+            this.props.updateUserStakeLevel(userStakeLevel);
+            isUpdateUserStakeLevel = true;
+        }
     }
 
     onVisibilityChange() {
@@ -183,6 +179,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
     };
+
+    handleUserStakeLevel({ userStakeLevel }) {
+        this.props.updateUserStakeLevel(userStakeLevel);
+        gameVipIds.includes(this.props.id) &&
+            this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
+    }
 
     handleStatus = ({ status }) => {
         const { win, bet } = status;
@@ -254,8 +256,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleEndBet = ({ endBet, betChoice, notice, kickedOut, apiError }) => {
-        const { id, playPlaceBetSound } = this.props;
-        const { displayPopup, roundId, ownBets } = this.state;
+        const { playPlaceBetSound } = this.props;
+        const { displayPopup, ownBets } = this.state;
         this.isProcessingBet = false;
         this.clearRetryInterval();
         this.setState({ notice: null });
@@ -263,16 +265,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (endBet === -1) {
             !apiError && this.handleBetFailed({ notice, kickedOut });
         } else {
-            const newDisplayChips = this.getDisplayChips(betChoice, endBet);
-
-            LocalStorageManager.storeLocalStorageItem(userBetChipsKey, {
-                [id]: { roundId: roundId, chips: newDisplayChips },
-            });
-
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
             playPlaceBetSound();
             ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
-            this.setState({ displayChips: newDisplayChips });
             this.updateUserBalance();
         }
     };
@@ -288,31 +283,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }, this.animationTime);
     }
 
-    getDisplayChips = (betChoice: string, amount: number) => {
-        const { displayChips } = this.state;
-        const chips = convertAmountToChips(amount);
-
-        displayChips[betChoice] ? displayChips[betChoice].push(...chips) : Object.assign(displayChips, { [betChoice]: [...chips] });
-
-        return displayChips;
-    };
-
     removeAcceptedBetQueue(key: number) {
         const { acceptedBetQueue } = this.state;
         delete acceptedBetQueue[key];
         this.setState({ acceptedBetQueue });
-    }
-
-    setUserStakeLevel = (payload: any) => {
-        if (payload.userStakeLevel) {
-            this.setState({ userStakeLevel: payload.userStakeLevel });
-        }
-    };
-
-    handleUserStakeLevel({ userStakeLevel }) {
-        this.setState({ userStakeLevel });
-        gameVipIds.includes(this.props.id) &&
-            this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
     handleTotalBet = ({ totalBets }) => {
@@ -401,7 +375,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 state: {
                     ownBets: {},
                     totalBets: {},
-                    displayChips: {},
                     showWinningAnimation: false,
                     isShowBlink: false,
                     playResultAnimation: false,
@@ -494,7 +467,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
-        const displayChips = this.getUserBetChipsOnStorage(roundId);
 
         this.setState({
             roundHistory: roundHistory,
@@ -503,7 +475,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
-            displayChips,
         });
 
         this.setWinStreakByRoundHistory(roundHistory);
@@ -542,13 +513,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.runGame(durations.wholeRound);
     }
 
-    getUserBetChipsOnStorage(roundId: number) {
-        const { id } = this.props;
-        const userBetChips = LocalStorageManager.getLocalStorageItem<UserBetChipStorageModal>(userBetChipsKey);
-
-        return userBetChips && userBetChips[id]?.roundId === roundId ? userBetChips[id].chips : {};
-    }
-
     storeOwnBet(roundId: number) {
         const { ownBets } = this.state;
         const gameId = this.props.id;
@@ -562,8 +526,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string) {
-        this.setState({ displayPopup: PopupType.PlaceBet, selectedBetChoice: betChoice });
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
+        this.setState({
+            displayPopup: PopupType.PlaceBet,
+            selectedBetChoice: betChoice,
+            removeBetChoiceFocus,
+            betOptionElement,
+            betChoiceElement,
+        });
     }
 
     placeBet(betChoice: string, amount: number) {
@@ -609,14 +579,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderReBet() {
-        const betContainerRef = this.gameContainerRef;
+        const betContainerRef = this.gameBaseContainerRef;
         const domRect = betContainerRef.current.getBoundingClientRect();
         const betContainerPosition = domRect.y;
 
         return (
             <BaseDialog
                 betContainerPosition={isMobileOnly ? betContainerPosition : null}
-                type={ModalType.Top}
+                type={ModalType.Rebet}
                 isOpen={this.state.displayPopup === PopupType.Rebet}
                 onCloseModal={this.closePopup}
             >
@@ -626,7 +596,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -634,6 +604,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 isOpen={displayPopup === PopupType.PlaceBet}
                 onCloseModal={this.closePopup}
                 onPlaceBet={this.placeBet}
+                gameBaseContainerRef={this.gameBaseContainerRef}
+                betOptionElement={betOptionElement}
+                betChoiceElement={betChoiceElement}
+                removeBetChoiceFocus={removeBetChoiceFocus}
                 betChoiceInfo={{
                     betChoice: selectedBetChoice,
                     gameName: gameName,
@@ -655,8 +629,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract renderResult(): React.ReactElement;
 
     abstract renderResultCollapse(): React.ReactElement;
-
-    abstract renderBetHistory(): React.ReactElement;
 
     abstract getMainOptions(): string[];
 
@@ -738,12 +710,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderPopup(popupType: PopupType) {
         switch (popupType) {
-            case PopupType.Guide:
-                return this.renderGuide();
             case PopupType.Rebet:
                 return this.renderReBet();
-            case PopupType.BetHistory:
-                return this.renderBetHistory();
             case PopupType.Error:
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:
@@ -781,28 +749,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return false;
     }
 
-    renderGuide() {
-        const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
-        const lang = LanguageLocaleMapper[this.props.i18n?.language];
-        return (
-            <AdvanceModal
-                title={CommonResourceKeys.GUIDE_POPUP_TITLE}
-                gameName={`(${gameName})`}
-                isOpen={true}
-                onCloseModal={this.closePopup}
-                isAddScrollBody={true}
-                gameId={this.props.id}
-            >
-                <GameGuides
-                    gameId={this.props.id}
-                    language={lang}
-                    theme={this.props.theme}
-                    userStakeLevel={this.state.userStakeLevel}
-                ></GameGuides>
-            </AdvanceModal>
-        );
-    }
-
     renderGame() {
         const { durations } = this.props;
 
@@ -813,9 +759,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             totalBets,
             ownBets,
             gameConfigs,
-            userStakeLevel,
             viewMode,
-            displayChips,
             playResultAnimation,
             isShowBlink,
             displayPopup,
@@ -829,9 +773,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             gameConfigs,
             gameState,
             remainingTime,
-            userStakeLevel,
             viewMode,
-            displayChips,
             playResultAnimation,
             isShowBlink,
         };
@@ -858,7 +800,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
-                                <div ref={this.gameContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
+                                <div ref={this.gameBaseContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
                                     {this.renderBetOptions()}
                                 </div>
 

@@ -140,24 +140,11 @@
 .header-right {
     display: flex;
     align-items: center;
+    margin-right: 0.5rem;
 
     .rebet {
-        position: relative;
-        z-index: 1;
-        min-width: 7.7rem;
-        height: 3.2rem;
+        width: 4rem;
         margin-right: 1rem;
-        border: 1px solid var(--btn-rebet-background-hover);
-        border-radius: 2rem;
-        background-color: var(--btn-rebet-background);
-        color: var(--btn-rebet-color);
-        text-align: center;
-        font-size: 1.4rem;
-        white-space: nowrap;
-
-        @media (min-width: 1024px) and (max-width: 1278px) {
-            margin-right: 0;
-        }
 
         &:disabled {
             opacity: 0.4;

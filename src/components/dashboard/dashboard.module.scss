@@ -1,6 +1,9 @@
 .dashboard {
     position: relative;
-    cursor: auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%; // To dock the footer
 }
 
 .container-modal {
@@ -24,7 +27,34 @@
 .settings-container {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
     height: 4.5rem;
     margin-top: 4.4rem;
     z-index: var(--setting-index);
+}
+
+[data-theme="light"] .footer {
+    --footer-color: #424242;
+}
+
+[data-theme="dark"] .footer {
+    --footer-color: #b2b2b2;
+}
+
+.footer {
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding-right: 1.6rem;
+    margin-top: auto;
+    margin-bottom: 0;
+    text-align: right;
+    background: var(--footer-background);
+    color: var(--footer-color);
+    font-size: 1.1rem;
+
+    @media (min-width: 1260px) {
+        width: 126rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

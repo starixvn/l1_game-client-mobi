@@ -1,27 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 
+import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
-import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
+import { BetSettingStorage } from "../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
-import DisplayChip from "./display-chip";
 import { HighlightType, Props } from "./types";
 
+const betSettingStorageKey = SessionStorageKeys.betSetting;
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
     [HighlightType.None]: "",
 };
 
 const convertStakeToString = (amount: number) => (amount ? numberWithCommas(amount) : "");
-
-const getUserBetChipClass = (gameName: string, choice: string) => {
-    const distinctStyle = `${gameName}-${choice}`;
-
-    return `${Styles["user-bet-chips"]} ${Styles[distinctStyle]}`;
-};
 
 const BetOption: React.FunctionComponent<Props> = ({
     gameState,
@@ -32,14 +27,15 @@ const BetOption: React.FunctionComponent<Props> = ({
     isDisplayOdd = true,
     isShowWinningEffect = false,
 }) => {
-    const { totalBets, ownBets, gameSetting, displayChips } = useGameContext();
-    const { gameName } = gameSetting;
-    const chips = displayChips[choice] ?? [];
+    const { totalBets, ownBets, gameSetting } = useGameContext();
+    const { id } = gameSetting;
     const { openPlaceBetModal, placeBet } = useGameActionContext();
-    const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
+    const betChoiceRef = useRef<HTMLDivElement>(null);
+    const totalBetRef = useRef<HTMLDivElement>(null);
+    const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
 
     const actionByGameState = {
         [GameState.LockingBet]: () => {
@@ -59,29 +55,41 @@ const BetOption: React.FunctionComponent<Props> = ({
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
 
-    const onClickBet = () => {
-        enabledQuickBet ? placeBet(choice, betValue) : openPlaceBetModal(choice);
+    const onClickBet = (event: any) => {
+        event.preventDefault();
+
+        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
+        const betSetting = betSettingStorage[id];
+        const betValue = betSetting?.betStake ?? 1;
+        const enabledQuickBet = betSetting?.enabledQuickBet;
+
+        if (enabledQuickBet) {
+            placeBet(choice, betValue);
+        } else {
+            setIsFocusChoice(true);
+            const betOptionElement = totalBetRef.current.nextElementSibling;
+            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
+        }
     };
 
-    const renderUserBetChips = () => {
-        return chips.map((value, index) => <DisplayChip key={index} chipValue={value} chipKey={index} />);
+    const removeBetChoiceFocus = () => {
+        setIsFocusChoice(false);
     };
 
     return (
-        <div className={Styles.container}>
+        <div className={Styles.container} ref={betChoiceRef}>
             <div
-                className={`${Styles["bet-option"]} ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} ${
-                    isHighlight && isShowWinningEffect && Styles["winning-effect"]
-                }`}
+                className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
+                    isHighlight && Styles[HighlightClassNameMapper[highlightType]]
+                } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`}
                 onClick={onClickBet}
             >
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
-                <div className={Styles["total-bet"]}>
+                <div className={Styles["total-bet"]} ref={totalBetRef}>
                     {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
                 </div>
                 {children}
-                <div className={getUserBetChipClass(gameName, choice)}>{renderUserBetChips()}</div>
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="d-inline-block">
                         {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}

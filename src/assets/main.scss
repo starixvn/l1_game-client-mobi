@@ -1,13 +1,11 @@
-@import "~slick-carousel/slick/slick-theme.scss";
-@import "~slick-carousel/slick/slick.scss";
 @import "./components/fonts";
 @import "./components/icons";
 @import "./components/common";
 @import "./components/buttons";
+@import "./components/textbox";
 @import "./components/dropdown";
 @import "./components/animations/loader-animation";
 @import "./components/animations/common";
-@import "./components/slick";
 @import "./components/infinite-table";
 @import "./components/tooltip";
 @import "./components/popover";
@@ -36,7 +34,7 @@ html {
 
     // z-index
     --header-index: 1071;
-    --bet-setting-index: 300;
+    --footer-index: 300;
     --popup-index: 250;
     --notice-index: 200;
     --popup-guide-history-index: 100;
@@ -45,10 +43,10 @@ html {
     --balance-betting-pool-index: 80;
     --waiting-time-index: 80;
     --overlay-index: 70;
-    --chip-index: 10;
     --modal-index: 300;
     --loader-layer-index: 250;
     --setting-index: 270;
+    --tooltip-buttons-index: 100;
 
     // dots
     --dot-even-background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 100%);
@@ -92,9 +90,6 @@ html {
     --page-background-image: url("/static/images/themes/background-theme-light.jpg");
     --text-color: #2c2f3e;
 
-    --tooltip-background: rgba(255, 172, 43, 0.6);
-    --tooltip-color: #2c2f3e;
-
     --border-color: #dce2f3;
 
     --opacity-background: rgba(12, 12, 12, 0.36);
@@ -115,7 +110,7 @@ html {
     --dropdown-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
     --dropdown-item-color: var(-text-color);
     --dropdown-item-background: #fff;
-    --dropdown-item-background-hover: #ffd487;
+    --dropdown-item-background-hover: #ffeac5;
     --dropdown-item-color-hover: var(-text-color);
 
     --icon-close-background: #eaebf0;
@@ -127,15 +122,23 @@ html {
     // scrollbar
     --scrollbar-background: #f5f5f5;
     --scrollbar-thumb-background: #828282;
+
+    // popup
+    --popup-background: #fff;
+    --popup-border: #cbcbcb;
+    --popup-color: #2c2f3e;
+    --popup-title-color: #2c2f3e;
+    --popup-sub-title-color: #787878;
+    --popup-game-name-color: #ff9a00;
+    --popup-icon-close-background: #eaebf0;
+    --popup-icon-close-color: #4f4f54;
+    --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="dark"] {
     --page-background-color: #203040;
     --page-background-image: url("/static/images/themes/background-theme-dark.jpg");
     --text-color: #fff;
-
-    --tooltip-background: rgba(79, 112, 143, 0.8);
-    --tooltip-color: #ffffff;
 
     --border-color: #364252;
 
@@ -155,7 +158,7 @@ html {
     --dropdown-background: #203040;
     --dropdown-border: #3b526c;
     --dropdown-shadow: 0px 5px 30px rgba(0, 0, 0, 0.5);
-    --dropdown-item-color: #8dadce;
+    --dropdown-item-color: #fff;
     --dropdown-item-background: #203040;
     --dropdown-item-background-hover: #2c4055;
     --dropdown-item-color-hover: #ffab2b;
@@ -169,6 +172,17 @@ html {
     // scrollbar
     --scrollbar-background: #16202d;
     --scrollbar-thumb-background: #294057;
+
+    // popup
+    --popup-background: #203040;
+    --popup-border: #5a789a;
+    --popup-color: #fff;
+    --popup-title-color: #fff;
+    --popup-sub-title-color: #9298a4;
+    --popup-game-name-color: #ff9a00;
+    --popup-icon-close-background: #253342;
+    --popup-icon-close-color: #1a2430;
+    --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
 }
 
 @media (min-width: 1100px) {
@@ -176,6 +190,17 @@ html {
         --page-background-image: url("/static/images/themes/background-theme-dark-desktop.jpg");
     }
 }
+
+// To dock the footer
+html,
+body {
+    height: 100%;
+}
+
+#__next {
+    height: 100%;
+}
+// end
 
 body {
     padding: 0;
@@ -185,9 +210,17 @@ body {
     font: 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
+}
 
-    &.no-scroll {
-        overflow: hidden !important;
+.no-scroll {
+    overflow: hidden !important;
+
+    @media (min-device-width: 1024px) {
+        padding-right: 0.5rem;
+
+        header {
+            padding-right: 0.5rem;
+        }
     }
 }
 

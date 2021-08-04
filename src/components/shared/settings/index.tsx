@@ -1,54 +1,62 @@
+import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
-import { Themes } from "../../../common/constants";
-import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
+import BetSettings from "../bet-settings";
+import { Tooltip } from "../tooltip";
+import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
 
 export const Settings: React.FC<Props> = (props) => {
-    const { theme, setTheme } = useTheme();
-    var settingButton = `setting_button_${theme}`;
+    const { theme } = useTheme();
+    const { t } = useTranslation();
+    const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
+    const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
+
+    const {
+        updateBetSetting,
+        globalBetSetting,
+        enabledNotification,
+        onToggleNotification,
+        toggleHistoryModal,
+        onToggleSound,
+        enabledSound,
+        toggleGuideModal,
+    } = props;
 
     return (
         <div className={styles["settings-container"]}>
-            {isMobileOnly && (
-                <div className={styles["setting-left"]}>
-                    <QuickBetBtn
-                        enabledQuickBet={props.enabledOneClickBet}
-                        updateEnabledQuickBet={(enabled) => props.updateEnabledQuickBet(enabled)}
-                        isHeaderSetting={true}
-                    />
-                </div>
-            )}
+            <div className={styles["setting-left"]}>
+                <BetSettings updateBetSetting={updateBetSetting} betSettings={globalBetSetting} />
+            </div>
             <div className={styles["setting-right"]}>
                 <div
+                    ref={toggleWinningStreakBtnRef}
                     id="notification-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => props.onToggleNotification()}
+                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    onClick={() => onToggleNotification()}
                 >
                     <span
-                        className={
-                            props.enabledNotification ? styles[`${"icon_notify_on_"}${theme}`] : styles[`${"icon_notify_off_"}${theme}`]
-                        }
+                        className={enabledNotification ? styles[`${"icon-notify-on-"}${theme}`] : styles[`${"icon-notify-off-"}${theme}`]}
                     ></span>
+                    <Tooltip
+                        message={`${t("winningStreakNotification")}: ${enabledNotification ? t("on") : t("off")}`}
+                        hoverWrapper={toggleWinningStreakBtnRef}
+                    />
                 </div>
+
                 <div
-                    id="sound-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => props.onToggleSound()}
+                    ref={toggleHistoryBtnRef}
+                    id="ticket-history"
+                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    onClick={() => toggleHistoryModal()}
                 >
-                    <span
-                        className={props.enabledSound ? styles[`${"icon_sound_on_"}${theme}`] : styles[`${"icon_sound_off_"}${theme}`]}
-                    ></span>
+                    <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
+                    <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                 </div>
-                <div
-                    id="theme-settings"
-                    className={`${styles[settingButton]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => setTheme(theme === Themes.dark ? Themes.light : Themes.dark)}
-                >
-                    <span className={theme === Themes.dark ? styles["icon_dark_mode"] : styles["icon_light_mode"]}></span>
-                </div>
+
+                <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
             </div>
         </div>
     );

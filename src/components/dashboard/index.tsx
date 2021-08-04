@@ -9,18 +9,22 @@ import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../common/session-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContext } from "../../contexts/auth";
 import { APIErrorProp } from "../../pages";
 import { UserClientCommunication } from "../../services";
 import { setCharacterName } from "../../utils/sentry";
-import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
+import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
+import { UserStakeLevel } from "../shared/game-base/type";
 import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
+import { GameGuideModal } from "./game-guide-modal";
+import { HistoryModal } from "./history";
 import Register from "./register";
 import Welcome from "./welcome";
 
@@ -29,7 +33,7 @@ type Props = {
     authorizeInfo: AuthorizeResponse;
     router: NextRouter;
     apiErrorMessage: APIErrorProp;
-    isShowModal: boolean;
+    isShowErrorModal: boolean;
     setApiErrorMessage: (APIErrorProp) => void;
     setIsShowModal: (isOpen: boolean) => void;
 } & WithRouterProps &
@@ -39,13 +43,15 @@ type State = {
     isSignedUp: boolean;
     isSignedIn: boolean;
     isShowNotice: boolean;
+    isShowHistory: boolean;
+    isShowGuide: boolean;
     notice: string;
     user: User;
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    enabledQuickBet: boolean;
-    betValue: number;
+    betSettings: BetSettingStorage;
+    userStakeLevel: UserStakeLevel;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -61,12 +67,14 @@ class Dashboard extends React.PureComponent<Props, State> {
             user: null,
             isShowNotice: true,
             isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
+            isShowHistory: false,
+            isShowGuide: false,
             notice: "",
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
-            enabledQuickBet: props.authorizeInfo?.user?.settings?.quickBet,
-            betValue: 1,
+            betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
+            userStakeLevel: { minBet: 0, maxBet: 0 },
         };
 
         this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
@@ -78,9 +86,11 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
-        this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
-        this.setBetValue = this.setBetValue.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
+        this.updateBetSetting = this.updateBetSetting.bind(this);
+        this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
+        this.toggleGuideModal = this.toggleGuideModal.bind(this);
+        this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
     }
 
     doOnOrientationChange() {
@@ -153,6 +163,14 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.props.setApiErrorMessage(data.apiError.errorCode);
             this.props.setIsShowModal(true);
         }
+
+        if (data.userStakeLevel) {
+            this.handleUpdateUserStakeLevel(data.userStakeLevel);
+        }
+    }
+
+    handleUpdateUserStakeLevel(userStakeLevel: UserStakeLevel) {
+        this.setState({ userStakeLevel: userStakeLevel });
     }
 
     handleKickedOut(data: any) {
@@ -226,21 +244,47 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
-    setEnabledQuickBet(enabled: boolean) {
-        this.setState({ enabledQuickBet: enabled });
-    }
+    updateBetSetting(setting: BetSetting, gameId?: number) {
+        const { betSettings } = this.state;
 
-    setBetValue(value: number) {
-        this.setState({ betValue: value });
+        if (gameId) {
+            betSettings[gameId] = setting;
+        } else {
+            appSettings.offeredGames.forEach((id) => {
+                betSettings[id] = setting;
+            });
+            betSettings["global"] = setting;
+        }
+
+        this.setState({ betSettings: { ...betSettings } });
+        storeSessionStorageItem(SessionStorageKeys.betSetting, betSettings);
     }
 
     closeDialog() {
         this.props.setIsShowModal(false);
     }
 
+    toggleHistoryModal() {
+        this.setState({ isShowHistory: !this.state.isShowHistory });
+    }
+
+    toggleGuideModal() {
+        this.setState({ isShowGuide: !this.state.isShowGuide });
+    }
+
+    get globalBetSetting(): BetSetting {
+        const setting = this.state.betSettings["global"];
+
+        return {
+            betStake: setting?.betStake,
+            enabledQuickBet: setting?.enabledQuickBet,
+        };
+    }
+
     renderDashBoard() {
-        const { apiErrorMessage, balance } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, betValue, enabledQuickBet } = this.state;
+        const { apiErrorMessage, balance, isShowErrorModal } = this.props;
+        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowGuide, isShowHistory, userStakeLevel } =
+            this.state;
         const { avatarId, name, currency } = user ?? {};
 
         return (
@@ -254,6 +298,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                     enabledSound={enabledPlaySound}
                     onToggleNotification={this.winningStreakNotificationToggle}
                     onToggleSound={this.playSoundToggle}
+                    updateBetSetting={this.updateBetSetting}
+                    globalBetSetting={this.globalBetSetting}
+                    toggleHistoryModal={this.toggleHistoryModal}
+                    toggleGuideModal={this.toggleGuideModal}
                 />
                 {isMobileOnly && (
                     <div className={Styles["settings-container"]}>
@@ -262,28 +310,28 @@ class Dashboard extends React.PureComponent<Props, State> {
                             enabledNotification={enabledWinningStreakNotification}
                             onToggleNotification={this.winningStreakNotificationToggle}
                             onToggleSound={this.playSoundToggle}
-                            enabledOneClickBet={enabledQuickBet}
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
+                            updateBetSetting={this.updateBetSetting}
+                            globalBetSetting={this.globalBetSetting}
+                            toggleHistoryModal={this.toggleHistoryModal}
+                            toggleGuideModal={this.toggleGuideModal}
                         />
                     </div>
                 )}
                 <Games
                     enabledWinningStreakNotification={enabledWinningStreakNotification}
                     enabledPlaySound={enabledPlaySound}
-                    enabledQuickBet={enabledQuickBet}
-                    betValue={betValue}
                     setApiErrorMessage={this.props.setApiErrorMessage}
+                    betSettings={betSettings}
+                    updateBetSetting={this.updateBetSetting}
+                    userStakeLevel={userStakeLevel}
+                    updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                 />
-                <BetSettings
-                    enabledQuickBet={enabledQuickBet}
-                    updateEnabledQuickBet={this.setEnabledQuickBet}
-                    updateBetValue={this.setBetValue}
-                    enabledSound={enabledPlaySound}
-                />
-                {this.props.isShowModal && (
+                {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
+                {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
+                {isShowErrorModal && (
                     <div className={Styles["container-modal"]}>
                         <div className={Styles["bg-opacity"]}></div>
-                        <BaseDialog type={ModalType.Center} isOpen={this.props.isShowModal} onCloseModal={this.closeDialog}>
+                        <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
                             <div className="modal-center">
                                 <div className={`icon-warning modal-icon-warning`}></div>
                                 <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
@@ -295,6 +343,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         </BaseDialog>
                     </div>
                 )}
+
+                <div className={Styles["footer"]}>Powered by Saba.club</div>
             </div>
         );
     }

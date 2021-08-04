@@ -5,7 +5,8 @@ import { useTheme } from "next-themes";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
-import { ViewMode } from "../shared/game-base/type";
+import { BetSettingStorage } from "../shared/bet-settings/type";
+import { UserStakeLevel, ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import BigSmall from "./big-small";
@@ -17,19 +18,23 @@ import SeDie from "./se-die/se-die";
 type Props = {
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    enabledQuickBet: boolean;
-    betValue: number;
     setApiErrorMessage: Function;
+    updateBetSetting: Function;
+    betSettings: BetSettingStorage;
+    userStakeLevel: UserStakeLevel;
+    updateUserStakeLevel: Function;
 };
 
 let gamesOrder = [];
 
 export const Games: React.FC<Props> = ({
-    betValue,
-    enabledQuickBet,
     enabledWinningStreakNotification,
     enabledPlaySound,
     setApiErrorMessage,
+    betSettings,
+    updateBetSetting,
+    userStakeLevel,
+    updateUserStakeLevel,
 }) => {
     const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
     const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
@@ -71,6 +76,8 @@ export const Games: React.FC<Props> = ({
             playPlaceBetSound: () => enabledPlaySound && playPlaceBetSound(),
             setApiErrorMessage: setApiErrorMessage,
             theme,
+            userStakeLevel,
+            updateUserStakeLevel,
         };
         switch (gameId) {
             case 2:
@@ -99,7 +106,9 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, checkFavorite, betValue, enabledQuickBet, enabledPlaySound, gamesOrder }}>
+            <SystemContextProvider
+                value={{ setFavorite, checkFavorite, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
+            >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>

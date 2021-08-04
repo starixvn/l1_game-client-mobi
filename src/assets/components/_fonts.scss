@@ -1,10 +1,9 @@
 @font-face {
     font-family: "SabaClub";
-    src: url("/static/fonts/icons/saba-club.eot?uarmrv&v=1623910877514");
-    src: url("/static/fonts/icons/saba-club.eot?uarmrv#iefix&v=1623910877514") format("embedded-opentype"),
-        url("/static/fonts/icons/saba-club.ttf?uarmrv&v=1623910877514") format("truetype"),
-        url("/static/fonts/icons/saba-club.woff?uarmrv&v=1623910877514") format("woff"),
-        url("/static/fonts/icons/saba-club.svg?uarmrv#sabasclb&v=1623910877514") format("svg");
+    src: url("/static/fonts/icons/saba-club.eot?v=2");
+    src: url("/static/fonts/icons/saba-club.eot??v=2#iefix") format("embedded-opentype"),
+        url("/static/fonts/icons/saba-club.ttf?v=2") format("truetype"), url("/static/fonts/icons/saba-club.woff?v=2") format("woff"),
+        url("/static/fonts/icons/saba-club.svg?v=2") format("svg");
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -33,9 +32,8 @@
 
 @font-face {
     font-family: "CardFont";
-    src: url("/static/fonts/CardFont.woff2?v=1623910877514") format("woff2"),
-        url("/static/fonts/CardFont.woff?v=1623910877514") format("woff"),
-        url("/static/fonts/CardFont.ttf?v=1623910877514") format("truetype");
+    src: url("/static/fonts/CardFont.woff2") format("woff2"), url("/static/fonts/CardFont.woff") format("woff"),
+        url("/static/fonts/CardFont.ttf") format("truetype");
     font-weight: 500;
     font-display: swap;
 }

@@ -1,0 +1,103 @@
+.game-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.menu-toggle-btn {
+    min-width: 4rem;
+}
+
+.dropdown-menu {
+    min-width: 15rem;
+    top: 1.7rem;
+
+    .dropdown-item {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+%icon-menu {
+    display: inline-block;
+    background-image: url("/static/images/setting-sprites.png?v=2");
+    background-image: -webkit-image-set(
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
+    );
+    background-image: image-set(
+        url("/static/images/setting-sprites.png?v=2") 1x,
+        url("/static/images/setting-sprites@2x.png?v=2") 2x,
+        url("/static/images/setting-sprites@3x.png?v=2") 3x
+    );
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.icon-menu-light {
+    @extend %icon-menu;
+    background-position: -1px 0;
+}
+
+.icon-menu-dark {
+    @extend %icon-menu;
+    background-position: -31px 0;
+}
+
+.toggle-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 4.6rem;
+    user-select: none;
+
+    .toggle-checkbox {
+        display: none;
+    }
+
+    .toggle-btn {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 3.4rem;
+        height: 1.2rem;
+        margin-left: 1rem;
+        background-color: #d7d7d7;
+        border-radius: 2rem;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+            cursor: pointer;
+        }
+
+        &:before {
+            position: absolute;
+            left: 0;
+            content: "";
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: #afafaf;
+            border: 0.05rem solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    .toggle-checkbox:checked {
+        & + .toggle-btn {
+            background-color: #8edfa2;
+
+            &:before {
+                left: 1.4rem;
+                background-color: #34c759;
+            }
+        }
+    }
+}
