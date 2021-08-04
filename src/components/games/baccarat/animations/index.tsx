@@ -110,11 +110,11 @@ export const DrawCardsAnimation = ({ playAnimation = false }) => {
     return (
         <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classAnimation] : ""}`}>
             <div className={`${Styles[classAnimationContainer]}  ${Styles["player"]}`}>
-                <div className={Styles["card3"]}>
+                <div className={Styles["card1"]}>
                     <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>
-                <div className={Styles["card1"]}>
+                <div className={Styles["card3"]}>
                     <div className={Styles[classCardShadow]}></div>
                     <div className={Styles["card-back"]}></div>
                 </div>

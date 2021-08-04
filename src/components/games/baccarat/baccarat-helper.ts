@@ -80,9 +80,9 @@ export const StatisticRuleMapping = [StatisticRuleEntriesBankerPlayer, Statistic
 
 export const GetPlayerCardsResult = (result: Result): CardOrder[] => {
     return [
-        { value: result.player?.card3, order: 5 },
-        { value: result.player.card2, order: 3 },
         { value: result.player.card1, order: 1 },
+        { value: result.player.card2, order: 3 },
+        { value: result.player?.card3, order: 5 },
     ].filter((c) => c.value);
 };
 
