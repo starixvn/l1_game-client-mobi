@@ -45,31 +45,48 @@ const Header: React.FC<Props> = (props) => {
     const { i18n } = useTranslation();
 
     return (
-        <header className={Styles.header}>
-            <div className="game-container d-flex">
-                <div className={Styles["header-container"]}>
-                    <a href={`/${i18n.language}`} className={Styles["site-name"]}>
-                        Saba.mobi
-                    </a>
-                    <div className={Styles["header-right"]}>
-                        {!isMobileOnly && (
-                            <Settings
-                                enabledSound={props.enabledSound}
-                                enabledNotification={props.enabledNotification}
-                                onToggleSound={props.onToggleSound}
-                                onToggleNotification={props.onToggleNotification}
-                                globalBetSetting={props.globalBetSetting}
-                                updateBetSetting={props.updateBetSetting}
-                                toggleHistoryModal={props.toggleHistoryModal}
-                                toggleGuideModal={props.toggleGuideModal}
-                                toggleFavoriteSetting={props.toggleFavoriteSetting}
-                            />
-                        )}
-                        <UserInfo user={props.user} />
+        <>
+            <header className={Styles.header}>
+                <div className="game-container d-flex">
+                    <div className={Styles["header-container"]}>
+                        <a href={`/${i18n.language}`} className={Styles["site-name"]}>
+                            Saba.mobi
+                        </a>
+                        <div className={Styles["header-right"]}>
+                            {!isMobileOnly && (
+                                <Settings
+                                    enabledSound={props.enabledSound}
+                                    enabledNotification={props.enabledNotification}
+                                    onToggleSound={props.onToggleSound}
+                                    onToggleNotification={props.onToggleNotification}
+                                    globalBetSetting={props.globalBetSetting}
+                                    updateBetSetting={props.updateBetSetting}
+                                    toggleHistoryModal={props.toggleHistoryModal}
+                                    toggleGuideModal={props.toggleGuideModal}
+                                    toggleFavoriteSetting={props.toggleFavoriteSetting}
+                                />
+                            )}
+                            <UserInfo user={props.user} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
+            {isMobileOnly && (
+                <div className={Styles["settings-container"]}>
+                    <Settings
+                        enabledSound={props.enabledSound}
+                        enabledNotification={props.enabledNotification}
+                        onToggleSound={props.onToggleSound}
+                        onToggleNotification={props.onToggleNotification}
+                        globalBetSetting={props.globalBetSetting}
+                        updateBetSetting={props.updateBetSetting}
+                        toggleHistoryModal={props.toggleHistoryModal}
+                        toggleGuideModal={props.toggleGuideModal}
+                        toggleFavoriteSetting={props.toggleFavoriteSetting}
+                    />
+                </div>
+            )}
+        </>
     );
 };
 

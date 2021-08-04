@@ -13,7 +13,6 @@ import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
-import { FavoriteSetting } from "../favorite-setting";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
@@ -336,21 +335,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleGuideModal={this.toggleGuideModal}
                         toggleFavoriteSetting={this.toggleFavoriteSetting}
                     />
-                    {isMobileOnly && (
-                        <div className={Styles["settings-container"]}>
-                            <Settings
-                                enabledSound={enabledPlaySound}
-                                enabledNotification={enabledWinningStreakNotification}
-                                onToggleNotification={this.winningStreakNotificationToggle}
-                                onToggleSound={this.playSoundToggle}
-                                updateBetSetting={this.updateBetSetting}
-                                globalBetSetting={this.globalBetSetting}
-                                toggleHistoryModal={this.toggleHistoryModal}
-                                toggleGuideModal={this.toggleGuideModal}
-                                toggleFavoriteSetting={this.toggleFavoriteSetting}
-                            />
-                        </div>
-                    )}
                     <Games
                         enabledWinningStreakNotification={enabledWinningStreakNotification}
                         enabledPlaySound={enabledPlaySound}
