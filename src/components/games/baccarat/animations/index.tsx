@@ -37,8 +37,11 @@ export const generateDisplayScore = (cards: CardOrder[]) => {
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, viewMode } = useGameContext();
+    const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
+    const classCardCount = `card-${resultCount}`;
+
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classAnimation] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
             <div className="overlay-mask">
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
@@ -66,9 +69,15 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
 export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
+    const classCardCount = `card-${resultCount}`;
 
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles[classAnimation] : ""}`}>
+        <div
+            className={`${Styles["open-cards"]}  ${Styles[classCardCount]} ${Styles["result-collapse-mode"]} ${
+                playResultAnimation ? Styles[classAnimation] : ""
+            }`}
+        >
             <div className={Styles["result-wrapper"]}>
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${

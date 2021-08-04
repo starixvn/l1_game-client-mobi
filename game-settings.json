@@ -121,10 +121,10 @@
             "path": "baccarat"
         },
         "durations": {
-            "wholeRound": 39,
+            "wholeRound": 46,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 8,
+            "showResult": 15,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }
@@ -170,10 +170,10 @@
             "path": "vipbaccarat"
         },
         "durations": {
-            "wholeRound": 39,
+            "wholeRound": 46,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 8,
+            "showResult": 15,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }
