@@ -9,5 +9,6 @@ export interface Props {
     globalBetSetting: BetSetting;
     toggleGuideModal: Function;
     toggleHistoryModal: Function;
-    toggleFavoriteSetting: Function;
+    favoriteGames: number[];
+    updateFavoriteGames: Function;
 }

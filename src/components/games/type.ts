@@ -9,8 +9,8 @@ export type Props = {
     betSettings: BetSettingStorage;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
-    isShowFavoriteSetting: boolean;
-    toggleFavoriteSetting: Function;
+    updateFavoriteGames: Function;
+    favoriteGames: number[];
 };
 
 export enum GameCategoryType {

@@ -18,7 +18,8 @@ type Props = {
     globalBetSetting: BetSetting;
     toggleHistoryModal: Function;
     toggleGuideModal: Function;
-    toggleFavoriteSetting: Function;
+    updateFavoriteGames: Function;
+    favoriteGames: number[];
 };
 
 function UserInfo({ user }: { user: User }) {
@@ -63,7 +64,8 @@ const Header: React.FC<Props> = (props) => {
                                     updateBetSetting={props.updateBetSetting}
                                     toggleHistoryModal={props.toggleHistoryModal}
                                     toggleGuideModal={props.toggleGuideModal}
-                                    toggleFavoriteSetting={props.toggleFavoriteSetting}
+                                    favoriteGames={props.favoriteGames}
+                                    updateFavoriteGames={props.updateFavoriteGames}
                                 />
                             )}
                             <UserInfo user={props.user} />
@@ -82,7 +84,8 @@ const Header: React.FC<Props> = (props) => {
                         updateBetSetting={props.updateBetSetting}
                         toggleHistoryModal={props.toggleHistoryModal}
                         toggleGuideModal={props.toggleGuideModal}
-                        toggleFavoriteSetting={props.toggleFavoriteSetting}
+                        favoriteGames={props.favoriteGames}
+                        updateFavoriteGames={props.updateFavoriteGames}
                     />
                 </div>
             )}

@@ -19,7 +19,6 @@ import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { UserStakeLevel } from "../shared/game-base/type";
-import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
 import { GameGuideModal } from "./game-guide-modal";
 import { HistoryModal } from "./history";
@@ -48,7 +47,7 @@ type State = {
     apiError: APIErrorProp;
     isShowHistory: boolean;
     isShowGuide: boolean;
-    isShowFavoriteSetting: boolean;
+    favoriteGames: number[];
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -64,13 +63,13 @@ class Dashboard extends React.PureComponent<Props, State> {
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
             betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
+            favoriteGames: getLocalStorageItem(localStorageKeys.favoriteGames) ?? [],
             userStakeLevel: { minBet: 0, maxBet: 0 },
             authorizeInfo: null,
             isShowErrorModal: false,
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
-            isShowFavoriteSetting: false,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -91,13 +90,19 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
-        this.toggleFavoriteSetting = this.toggleFavoriteSetting.bind(this);
+        this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
 
         const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
         if (props.buildId !== buildVersion) {
             storeSessionStorageItem(SessionStorageKeys.buildVersion, props.buildId);
             location.reload();
         }
+    }
+
+    updateFavoriteGames(favoriteGame: number[]) {
+        this.setState({
+            favoriteGames: favoriteGame,
+        });
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
@@ -295,10 +300,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowGuide: !this.state.isShowGuide });
     }
 
-    toggleFavoriteSetting() {
-        this.setState({ isShowFavoriteSetting: !this.state.isShowFavoriteSetting });
-    }
-
     get globalBetSetting(): BetSetting {
         const setting = this.state.betSettings["global"];
 
@@ -317,7 +318,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory,
             isShowGuide,
             userStakeLevel,
-            isShowFavoriteSetting,
+            favoriteGames,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -333,7 +334,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         globalBetSetting={this.globalBetSetting}
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
-                        toggleFavoriteSetting={this.toggleFavoriteSetting}
+                        favoriteGames={favoriteGames}
+                        updateFavoriteGames={this.updateFavoriteGames}
                     />
                     <Games
                         enabledWinningStreakNotification={enabledWinningStreakNotification}
@@ -343,8 +345,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateBetSetting={this.updateBetSetting}
                         userStakeLevel={userStakeLevel}
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
-                        isShowFavoriteSetting={isShowFavoriteSetting}
-                        toggleFavoriteSetting={this.toggleFavoriteSetting}
+                        updateFavoriteGames={this.updateFavoriteGames}
+                        favoriteGames={favoriteGames}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}

@@ -1,7 +1,8 @@
 import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+import { FavoriteSetting } from "../../favorite-setting";
 import BetSettings from "../bet-settings";
 import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
@@ -11,6 +12,7 @@ import { Props } from "./types";
 export const Settings: React.FC<Props> = (props) => {
     const { theme } = useTheme();
     const { t } = useTranslation();
+    const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
     const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
 
@@ -23,7 +25,8 @@ export const Settings: React.FC<Props> = (props) => {
         onToggleSound,
         enabledSound,
         toggleGuideModal,
-        toggleFavoriteSetting,
+        favoriteGames,
+        updateFavoriteGames,
     } = props;
 
     return (
@@ -60,13 +63,19 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     id="favorite-setting"
                     className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => toggleFavoriteSetting()}
+                    onClick={() => setShowFavoriteSetting(true)}
                 >
                     <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
                 </div>
-
                 <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
             </div>
+            {showFavoriteSetting && (
+                <FavoriteSetting
+                    currentFavoriteGames={favoriteGames}
+                    onCloseModal={() => setShowFavoriteSetting(false)}
+                    updateFavorite={updateFavoriteGames}
+                />
+            )}
         </div>
     );
 };

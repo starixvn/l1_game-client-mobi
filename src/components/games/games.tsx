@@ -19,7 +19,6 @@ import ThreeCards from "./three-cards";
 import { useTranslation } from "next-i18next";
 import { GameCategoryType, Props } from "./type";
 import { GameCategory } from "./constants";
-import { FavoriteSetting } from "../favorite-setting";
 
 let gamesOrder = [];
 const gameCategories: string[] = Object.keys(GameCategoryType)
@@ -34,11 +33,9 @@ export const Games: React.FC<Props> = ({
     updateBetSetting,
     userStakeLevel,
     updateUserStakeLevel,
-    isShowFavoriteSetting,
-    toggleFavoriteSetting,
+    updateFavoriteGames,
+    favoriteGames,
 }) => {
-    const favoriteGamesOnStorage = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames);
-    const [favoriteGames, updateFavoriteGames] = useState<number[]>(favoriteGamesOnStorage ?? []);
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType.popular);
     const winningStreakRef = useRef(null);
@@ -129,13 +126,6 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                {isShowFavoriteSetting && (
-                    <FavoriteSetting
-                        updateFavorite={handleChangeFavoriteGames}
-                        currentFavoriteGames={favoriteGames}
-                        onCloseModal={toggleFavoriteSetting}
-                    />
-                )}
                 <div className={styles["game-container"]}>
                     <ul className={styles["game-category"]}>
                         {gameCategories.map((categoryKey) => (
