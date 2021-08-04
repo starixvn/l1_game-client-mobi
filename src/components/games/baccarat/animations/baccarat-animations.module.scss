@@ -10,7 +10,7 @@ $time-move-card-animation: 0.9s;
 $time-zoom-in-card-animation: 0.2s;
 
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + 0.8s;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + 1.2s;
 
 .animation-container {
     position: absolute;
@@ -52,9 +52,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -0.5rem;
+        --move-up-distance: -1.5rem;
         --result-scale: 0.8;
-        top: 0.2rem;
+        top: 1.2rem;
         transform: scale(0.8);
         transition: transform 0.7s;
         &.player {                
@@ -88,21 +88,21 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
         
         &.player .score {
-            --left-value: -2.8rem;
+            --left-value: -2.4rem;
             background: linear-gradient(180deg, #117f99 0%, #123363 100%);
             margin-left: 40%;
             left: var(--left-value);
             &.group-2-cards {
-                --left-value: -1rem;
+                --left-value: .2rem;
             }
         }
         &.banker .score {
-            --right-value: -2.8rem;
+            --right-value: -2.4rem;
             background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
             margin-right: 40%;
             right: var(--right-value);
             &.group-2-cards {
-                --right-value: -1rem;
+                --right-value: .2rem;
             }
         }
 
@@ -136,22 +136,20 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .player,
         .banker {
             .score {
-                --scale-from-appear: 0.8;
+                --scale-from-appear: 0;
                 --scale-to-appear: 1;
                 opacity: 0;
                 animation-name: appearance-animation;
                 animation-duration: 0.2s;
                 animation-fill-mode: forwards;
+                animation-delay: $time-open-card-animation  + $time-delay-zoom-in-card-animation +
+            math.div($time-draw-card-animation * 2, 4) + 0.5;
+            }
+            &.group-2-cards .score{
+                animation-delay: $time-open-card-animation + $time-delay-zoom-in-card-animation + 0.2;
             }
         }
-        .player .score {
-            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation +
-            math.div($time-draw-card-animation * 2, 4) + 0.2;
-        }
-        .banker .score {
-            animation-delay: $time-open-card-animation + $time-move-card-animation + $time-delay-zoom-in-card-animation +
-                math.div($time-draw-card-animation * 2, 4) + 0.6;
-        }
+
         .animation-container {
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
@@ -183,8 +181,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
         .open-card {
             position: relative;
-            animation-name: open-card-animation;
-            //animation-duration: math.div($time-open-card-animation, 6), math.div($time-move-card-animation, 6);
+            animation-name: open-card-animation;            
             animation-duration: math.div($time-open-card-animation, 6);
             animation-fill-mode: forwards;
             animation-timing-function: ease-in;
