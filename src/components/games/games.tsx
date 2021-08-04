@@ -20,6 +20,7 @@ import { useTranslation } from "next-i18next";
 import { GameCategoryType, Props } from "./type";
 import { GameCategory } from "./constants";
 
+const gamesInOnePageOnDesktop = 9;
 let gamesOrder = [];
 const gameCategories: string[] = Object.keys(GameCategoryType)
     .map((key) => GameCategoryType[key])
@@ -38,9 +39,17 @@ export const Games: React.FC<Props> = ({
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType.popular);
+    const [selectedPage, setSelectedPage] = useState(1);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
     const { t } = useTranslation();
+    const categoryPage = gameCategories.reduce((result, category) => {
+        const categoryLength = category !== "favorite" ? GameCategory[category].length : favoriteGames.length;
+
+        result[category] = Math.ceil(categoryLength / gamesInOnePageOnDesktop);
+
+        return result;
+    }, {});
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
@@ -63,6 +72,13 @@ export const Games: React.FC<Props> = ({
         );
 
         gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
+
+        if (!isMobileOnly) {
+            const startIndex = (selectedPage - 1) * gamesInOnePageOnDesktop;
+            const renderGames = gamesOrder.slice(startIndex, startIndex + gamesInOnePageOnDesktop);
+
+            return renderGames.map((gameId, index) => getGameComponentById(gameId, index));
+        }
 
         return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
     };
@@ -106,6 +122,25 @@ export const Games: React.FC<Props> = ({
         }
     };
 
+    const selectCategoryPage = (category: string, pageIndex: number) => {
+        setSelectedCategory(GameCategoryType[category]);
+        setSelectedPage(pageIndex);
+    };
+
+    const renderPagingCategory = (category: string, numOfPages: number) => {
+        const result = [];
+
+        for (let i = 0; i < numOfPages; i++) {
+            result.push(
+                <span onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
+                    [{i + 1}]
+                </span>
+            );
+        }
+
+        return result;
+    };
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -129,9 +164,13 @@ export const Games: React.FC<Props> = ({
                                     selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
                                 }`}
                                 key={categoryKey}
-                                onClick={() => setSelectedCategory(GameCategoryType[categoryKey])}
                             >
-                                <div className={styles["category-text"]}>{t(`category-${categoryKey}`)}</div>
+                                <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                                    {t(`category-${categoryKey}`)}
+                                </div>
+                                {!isMobileOnly &&
+                                    categoryPage[categoryKey] > 1 &&
+                                    renderPagingCategory(categoryKey, categoryPage[categoryKey])}
                             </li>
                         ))}
                     </ul>
