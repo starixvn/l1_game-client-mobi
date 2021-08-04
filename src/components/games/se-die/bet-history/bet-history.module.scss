@@ -1,0 +1,12 @@
+.list-choice {
+    min-width: 5rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+
+    .choice {
+        display: flex;
+        align-items: center;
+    }
+}
