@@ -48,10 +48,10 @@
         top: -1.3rem;
         &.card-length-2 {
             &.player .score {
-                left: -2rem;
+                left: 2.8rem;
             }
             &.banker .score {
-                right: -2rem;
+                right: 2.8rem;
             }
         }
         .score {
@@ -77,7 +77,7 @@
             }
             .score {
                 background: linear-gradient(180deg, #117f99 0%, #123363 100%);
-                left: -4rem;
+                left: 1.2rem;
             }
         }
         &.banker {
@@ -88,7 +88,7 @@
             }
             .score {
                 background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
-                right: -4rem;
+                right: 1.2rem;
             }
         }
 

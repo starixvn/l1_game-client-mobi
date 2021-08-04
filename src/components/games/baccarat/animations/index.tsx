@@ -51,7 +51,6 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
                 >
                     {generateResult(GetPlayerCardsResult(result), viewMode)}
                     {generateDisplayScore(GetPlayerCardsResult(result))}
-                    <div className={Styles["test"]}></div>
                 </div>
 
                 <div

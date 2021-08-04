@@ -52,7 +52,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 
 .open-cards {
     .animation-container {
-        --move-up-distance: -1.5rem;
+        --move-up-distance: -2rem;
         --result-scale: 0.8;
         top: 1.2rem;
         transform: scale(0.8);
