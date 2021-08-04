@@ -51,19 +51,23 @@
 .favorite-setting {
     position: fixed;
     right: 0;
-    top: 4.5rem;
+    top: 8.9rem;
     bottom: 0;
     width: 27rem;
-    max-height: 70rem;
     overflow: auto;
     padding: 0 1rem 1rem;
-    border-radius: 0 0 0 0.5rem;
+    border-radius: 0.5rem 0 0 0;
     border: 0.1rem solid var(--favorite-setting-border);
     box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.25);
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
 
-    @media (min-height: 745px) {
+    @media (min-width: 768px) {
+        max-height: 70rem;
+        border-radius: 0 0 0 0.5rem;
+    }
+
+    @media (min-height: 745px) and (min-device-width: 768px) {
         bottom: auto;
     }
 }
