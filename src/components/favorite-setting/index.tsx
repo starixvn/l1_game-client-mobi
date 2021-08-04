@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
 import appSettings from "../../common/app-settings";
@@ -6,6 +6,7 @@ import { CommonResourceKeys, GameResourceKeys } from "../../common/resources";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./favorite-setting.module.scss";
+import { isMobileOnly } from "react-device-detect";
 
 export const FavoriteSetting: React.FC<{
     currentFavoriteGames: number[];
@@ -15,8 +16,10 @@ export const FavoriteSetting: React.FC<{
 }> = ({ currentFavoriteGames, onCloseModal, updateFavorite, toggleBtnRef }) => {
     const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames);
     const unfavoriteGames = appSettings.offeredGames.filter((game) => !favoriteGames.includes(game));
+    const [isOpenModalAnimation, setIsOpenModalAnimation] = useState(true);
     const { t } = useTranslation();
     const { gameSettings } = appSettings;
+    let closeModalTimeOut: NodeJS.Timeout;
 
     const addFavoriteGames = (gameId: number) => {
         favoriteGames.push(gameId);
@@ -40,18 +43,34 @@ export const FavoriteSetting: React.FC<{
 
     const onClickReset = () => {
         updateFavorite([]);
-        onCloseModal();
+        handleCloseModal();
     };
 
     const onSubmit = () => {
         updateFavorite([...favoriteGames]);
-        onCloseModal();
+        handleCloseModal();
     };
+
+    const handleCloseModal = () => {
+        setIsOpenModalAnimation(false);
+
+        if (isMobileOnly) {
+            closeModalTimeOut = setTimeout(() => onCloseModal(), 300);
+        } else {
+            onCloseModal();
+        }
+    };
+
+    useEffect(() => clearTimeout(closeModalTimeOut), []);
 
     return (
         <BaseDialog onCloseModal={onCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
-            <div className={`${Styles["favorite-setting"]}`}>
-                <span className={Styles["close-btn"]} onClick={() => onCloseModal()}></span>
+            <div
+                className={`${Styles["favorite-setting"]} ${
+                    isMobileOnly && isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"]
+                }`}
+            >
+                <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
                 <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
                 <ul className={Styles["favorite-games"]}>
                     {favoriteGames.map((gameId, index) => (
