@@ -15,6 +15,7 @@ export const Settings: React.FC<Props> = (props) => {
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
     const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
+    const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
 
     const {
         updateBetSetting,
@@ -63,7 +64,8 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     id="favorite-setting"
                     className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
-                    onClick={() => setShowFavoriteSetting(true)}
+                    onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
+                    ref={favoriteToggleBtnRef}
                 >
                     <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
                 </div>
@@ -74,6 +76,7 @@ export const Settings: React.FC<Props> = (props) => {
                     currentFavoriteGames={favoriteGames}
                     onCloseModal={() => setShowFavoriteSetting(false)}
                     updateFavorite={updateFavoriteGames}
+                    toggleBtnRef={favoriteToggleBtnRef}
                 />
             )}
         </div>

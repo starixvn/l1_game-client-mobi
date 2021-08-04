@@ -7,11 +7,12 @@ import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./favorite-setting.module.scss";
 
-export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateFavorite: Function; onCloseModal: Function }> = ({
-    currentFavoriteGames,
-    onCloseModal,
-    updateFavorite,
-}) => {
+export const FavoriteSetting: React.FC<{
+    currentFavoriteGames: number[];
+    updateFavorite: Function;
+    onCloseModal: Function;
+    toggleBtnRef: React.MutableRefObject<HTMLElement>;
+}> = ({ currentFavoriteGames, onCloseModal, updateFavorite, toggleBtnRef }) => {
     const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames);
     const unfavoriteGames = appSettings.offeredGames.filter((game) => !favoriteGames.includes(game));
     const { t } = useTranslation();
@@ -48,7 +49,7 @@ export const FavoriteSetting: React.FC<{ currentFavoriteGames: number[]; updateF
     };
 
     return (
-        <BaseDialog onCloseModal={onCloseModal} type={ModalType.FavoriteSetting}>
+        <BaseDialog onCloseModal={onCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
             <div className={`${Styles["favorite-setting"]}`}>
                 <span className={Styles["close-btn"]} onClick={() => onCloseModal()}></span>
                 <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>

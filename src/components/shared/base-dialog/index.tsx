@@ -14,6 +14,7 @@ type Props = {
     betContainerPosition?: number;
     isCloseOutside?: boolean;
     enableBackdrop?: boolean;
+    toggleBtnRef?: React.MutableRefObject<HTMLElement>;
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const BaseDialog: React.FC<Props> = ({
     type = ModalType.Full,
     betContainerPosition,
     enableBackdrop,
+    toggleBtnRef,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -49,7 +51,7 @@ const BaseDialog: React.FC<Props> = ({
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
-            if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+            if (isOpen && !wrapperRef?.current?.contains(event.target) && !toggleBtnRef?.current?.contains(event.target)) {
                 onCloseModal && onCloseModal();
             }
         };
