@@ -26,14 +26,86 @@ export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
     });
 };
 
-export const generateDisplayScore = (cards: CardOrder[]) => {
-    const classGroupCards = `group-${cards.length}-cards`;
-    const point = cards.reduce((total, c) => {
-        return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
-    }, 0);
-
-    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
+const sumScore = (score: number, card: number) => {
+    return card + 1 >= 10 ? score : (score + card + 1) % 10;
 };
+
+class PlayerBankerResultComponent extends React.PureComponent<
+    {
+        playResultAnimation: boolean;
+        result?: Result;
+        viewMode: ViewMode;
+    },
+    {
+        playResultAnimation: boolean;
+        result?: Result;
+        viewMode: ViewMode;
+        playerScore: number;
+        bankerScore: number;
+    }
+> {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...props,
+            playerScore: 0,
+            bankerScore: 0,
+        };
+    }
+
+    componentDidMount() {
+        const cardOpenedTimes = [
+            { t: 600, c: this.state.result.player.card1, isBanker: false },
+            { t: 800, c: this.state.result.player.card2, isBanker: false },
+            { t: 1200, c: this.state.result.banker.card1, isBanker: true },
+            { t: 2200, c: this.state.result.banker.card2, isBanker: true },
+            { t: 3000, c: this.state.result.player.card3 ?? this.state.result.banker.card3, isBanker: !this.state.result.player.card3 },
+            { t: 3500, c: !!this.state.result.player.card3 ? this.state.result.banker.card3 : null, isBanker: true },
+        ];
+        cardOpenedTimes
+            .filter((ct) => !!ct.c)
+            .forEach((ct, _) => {
+                setTimeout(() => {
+                    if (ct.isBanker) {
+                        this.setState({
+                            bankerScore: sumScore(this.state.bankerScore, ct.c.card),
+                        });
+                    } else {
+                        this.setState({
+                            playerScore: sumScore(this.state.playerScore, ct.c.card),
+                        });
+                    }
+                }, ct.t);
+            });
+    }
+
+    render() {
+        const playerCards = GetPlayerCardsResult(this.state.result);
+        const bankerCards = GetBankerCardsResult(this.state.result);
+
+        return (
+            <div className={this.state.viewMode === ViewMode.full ? "overlay-mask" : Styles["result-wrapper"]}>
+                <div
+                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
+                        this.state.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                    }`}
+                >
+                    {generateResult(playerCards, this.state.viewMode)}
+                    <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>{this.state.playerScore}</div>
+                </div>
+
+                <div
+                    className={`${Styles[classAnimationContainer]} ${Styles["banker"]} ${
+                        this.state.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                    }`}
+                >
+                    {generateResult(bankerCards, this.state.viewMode)}
+                    <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>{this.state.bankerScore}</div>
+                </div>
+            </div>
+        );
+    }
+}
 
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, viewMode } = useGameContext();
@@ -43,25 +115,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
-            <div className="overlay-mask">
-                <div
-                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
-                        playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
-                    }`}
-                >
-                    {generateResult(GetPlayerCardsResult(result), viewMode)}
-                    {generateDisplayScore(GetPlayerCardsResult(result))}
-                </div>
-
-                <div
-                    className={`${Styles[classAnimationContainer]} ${Styles["banker"]} ${
-                        playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
-                    }`}
-                >
-                    {generateResult(GetBankerCardsResult(result), viewMode)}
-                    {generateDisplayScore(GetBankerCardsResult(result))}
-                </div>
-            </div>
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} />
         </div>
     );
 };
@@ -79,24 +133,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                 playResultAnimation ? Styles[classAnimation] : ""
             }`}
         >
-            <div className={Styles["result-wrapper"]}>
-                <div
-                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
-                        playResultAnimation ? "" : classMoveUpNoAnimation
-                    }`}
-                >
-                    {generateResult(GetPlayerCardsResult(result), viewMode)}
-                    {generateDisplayScore(GetPlayerCardsResult(result))}
-                </div>
-                <div
-                    className={`${Styles[classAnimationContainer]}  ${Styles["banker"]} ${
-                        playResultAnimation ? "" : classMoveUpNoAnimation
-                    }`}
-                >
-                    {generateResult(GetBankerCardsResult(result), viewMode)}
-                    {generateDisplayScore(GetBankerCardsResult(result))}
-                </div>
-            </div>
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} />
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     {settlementResult.player ? t("player") : settlementResult.banker ? t("banker") : t("tie")}

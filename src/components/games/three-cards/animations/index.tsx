@@ -74,8 +74,14 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const delay3rdCard = (result[0].suit <= 1 && result[1].suit >= 2) || (result[0].suit >= 2 && result[1].suit <= 1);
+
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]}`}>
+        <div
+            className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]}${
+                delay3rdCard ? Styles["delay-3rd-card"] : ""
+            }`}
+        >
             <div className={Styles["result-container"]}>{generateResult(result, viewMode)}</div>
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>{t(settlementResult.red ? "red" : "black")}</div>
