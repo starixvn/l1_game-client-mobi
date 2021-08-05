@@ -20,13 +20,24 @@ import KenoProMax from "./keno-pro-max";
 import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import ThreeCards from "./three-cards";
-import { GameCategoryType, Props } from "./type";
+import { Props } from "./type";
+import { GameCategoryConfig, GameCategoryType, GamesInOnePageOnDesktop } from "../game-category/constants";
+import { GameCategory } from "../game-category";
 
-const gamesInOnePageOnDesktop = 9;
 let gamesOrder = [];
-const gameCategories: string[] = Object.keys(GameCategoryType)
-    .map((key) => GameCategoryType[key])
-    .filter((value) => typeof value === "string");
+
+const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[]) => {
+    const tabGames =
+        selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
+    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
+    const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
+    const startIndex = (selectedPage - 1) * GamesInOnePageOnDesktop;
+
+    const result = tabFavoriteGames.concat(tabUnfavoriteGames);
+    gamesOrder = result;
+
+    return !isMobileOnly ? result.slice(startIndex, startIndex + GamesInOnePageOnDesktop) : result;
+};
 
 export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
@@ -44,14 +55,6 @@ export const Games: React.FC<Props> = ({
     const [selectedPage, setSelectedPage] = useState(1);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
-    const { t } = useTranslation();
-    const categoryPage = gameCategories.reduce((result, category) => {
-        const categoryLength = category !== "favorite" ? GameCategory[category].length : favoriteGames.length;
-
-        result[category] = Math.ceil(categoryLength / gamesInOnePageOnDesktop);
-
-        return result;
-    }, {});
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
@@ -59,30 +62,16 @@ export const Games: React.FC<Props> = ({
         const gameIndex = newFavoriteList.indexOf(gameId);
 
         gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
-        if (isFavorite) {
-            newFavoriteList.push(gameId);
-        }
+
+        isFavorite && newFavoriteList.push(gameId);
 
         updateFavoriteGames(newFavoriteList);
     };
 
     const renderListGames = () => {
-        const tabGames = selectedCategory !== GameCategoryType.favorite ? GameCategory[GameCategoryType[selectedCategory]] : favoriteGames;
-        const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
-        const tabUnfavoriteGames = appSettings.offeredGames.filter(
-            (gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId)
-        );
+        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames);
 
-        gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
-
-        if (!isMobileOnly) {
-            const startIndex = (selectedPage - 1) * gamesInOnePageOnDesktop;
-            const renderGames = gamesOrder.slice(startIndex, startIndex + gamesInOnePageOnDesktop);
-
-            return renderGames.map((gameId, index) => getGameComponentById(gameId, index));
-        }
-
-        return gamesOrder.map((gameId, index) => getGameComponentById(gameId, index));
+        return renderGames.map((gameId, index) => getGameComponentById(gameId, index));
     };
 
     const getGameComponentById = (gameId: number, index: number) => {
@@ -130,28 +119,9 @@ export const Games: React.FC<Props> = ({
         setSelectedPage(pageIndex);
     };
 
-    const renderPagingCategory = (category: string, numOfPages: number) => {
-        const result = [];
-
-        for (let i = 0; i < numOfPages; i++) {
-            result.push(
-                <span key={i} onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
-                    {i + 1}
-                </span>
-            );
-        }
-
-        return result;
-    };
-
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-
-    var deviceClass = "";
-    if (isMobileOnly) {
-        deviceClass = isIOS ? "ios-device" : "android-device";
-    }
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
@@ -159,31 +129,10 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <div className={styles["game-container"]}>
-                    <ul className={styles["game-category"]}>
-                        {gameCategories.map((categoryKey) => (
-                            <li
-                                className={`${styles["category"]} ${
-                                    selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
-                                }`}
-                                key={categoryKey}
-                            >
-                                <div className="d-flex">
-                                    <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
-                                        {t(`category-${categoryKey}`)}
-                                    </div>
-                                    {!isMobileOnly && categoryPage[categoryKey] > 1 && (
-                                        <div className={styles["paging-container"]}>
-                                            {renderPagingCategory(categoryKey, categoryPage[categoryKey])}
-                                        </div>
-                                    )}
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+                <GameCategory favoriteGames={favoriteGames} selectCategoryPage={selectCategoryPage} selectedCategory={selectedCategory} />
+                <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
+                    {renderListGames()}
                 </div>
-
-                <div className={`${styles["game-list"]} ${styles[deviceClass]}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
     );

@@ -12,12 +12,3 @@ export type Props = {
     updateFavoriteGames: Function;
     favoriteGames: number[];
 };
-
-export enum GameCategoryType {
-    popular,
-    favorite,
-    sedie,
-    dice,
-    keno,
-    card,
-}
