@@ -18,14 +18,8 @@
 
     .tabs-child {
         position: relative;
-        margin-left: 1rem;
-        margin-right: 1rem;
-
-        .winning-streak {
-            position: absolute;
-            top: 0;
-            right: 0;
-        }
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
     }
 
     .type {
@@ -49,5 +43,19 @@
         &:hover {
             cursor: pointer;
         }
+    }
+
+    .winning-streak {
+        position: absolute;
+        top: -0.3rem;
+        right: -1.4rem;
+        line-height: 1.4rem;
+        padding: 0 0.4rem;
+        border: 0.1rem solid #ffb022;
+        border-radius: 0.3rem;
+        background: #ffc969;
+        font-weight: 500;
+        font-size: 1.2rem;
+        color: #744800;
     }
 }
