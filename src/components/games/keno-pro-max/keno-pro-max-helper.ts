@@ -38,8 +38,7 @@ const StatisticRuleEntriesFiveElements = Object.entries({
         countResult[Choices.water] ? Math.round((countResult[Choices.water] * 100) / total) : 0,
     [Choices.fire]: (countResult: object, total: number) =>
         countResult[Choices.fire] ? Math.round((countResult[Choices.fire] * 100) / total) : 0,
-
-    [Choices.wood]: (countResult: object, total: number) =>
+    [Choices.earth]: (countResult: object, total: number) =>
         100 -
         (countResult[Choices.gold] ? Math.round((countResult[Choices.gold] * 100) / total) : 0) -
         (countResult[Choices.wood] ? Math.round((countResult[Choices.wood] * 100) / total) : 0) -
