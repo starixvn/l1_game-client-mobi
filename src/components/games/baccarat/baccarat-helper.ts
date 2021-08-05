@@ -1,5 +1,5 @@
 import { TFunction } from "next-i18next";
-import { Result, CardOrder, Cards } from "./baccarat";
+import { Result, CardOrder } from "./baccarat";
 
 export const Choices = {
     banker: "banker",

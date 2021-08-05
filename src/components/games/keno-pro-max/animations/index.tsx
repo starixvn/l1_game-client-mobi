@@ -163,7 +163,6 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const settleResult = getSettleResult(result, settlementResult);
-    const texts = GetChoiceTranslate(t, settleResult);
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
