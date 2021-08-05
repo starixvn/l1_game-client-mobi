@@ -189,7 +189,7 @@
             "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 8,
+            "showResult": 9,
             "resultAnimation": 2,
             "beforeStartRound": 0
         }
