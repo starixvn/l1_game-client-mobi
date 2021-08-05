@@ -94,6 +94,21 @@ $number-of-cards: 3;
                 }
             }
         }
+
+        &.delay-3rd-card {
+            .card3 {
+                $card-3rd-time-delay: 0.4s + (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
+                    $time-delay-zoom-in-card-animation;
+                .card-back {
+                    animation-delay: $card-3rd-time-delay;
+                }
+
+                .rotate-card {
+                    @extend .open-card;
+                    animation-delay: $card-3rd-time-delay;
+                }
+            }
+        }
     }
 }
 
