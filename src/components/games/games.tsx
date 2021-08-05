@@ -127,7 +127,12 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <GameCategory favoriteGames={favoriteGames} selectCategoryPage={selectCategoryPage} selectedCategory={selectedCategory} />
+                <GameCategory
+                    favoriteGames={favoriteGames}
+                    selectedPage={selectedPage}
+                    selectCategoryPage={selectCategoryPage}
+                    selectedCategory={selectedCategory}
+                />
                 <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
                     {renderListGames()}
                 </div>

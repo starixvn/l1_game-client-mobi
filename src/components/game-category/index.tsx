@@ -4,11 +4,12 @@ import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageO
 import { isMobileOnly } from "react-device-detect";
 import { useTranslation } from "next-i18next";
 
-export const GameCategory: React.FC<{ selectedCategory: GameCategoryType; selectCategoryPage: Function; favoriteGames: number[] }> = ({
-    selectedCategory,
-    selectCategoryPage,
-    favoriteGames,
-}) => {
+export const GameCategory: React.FC<{
+    selectedCategory: GameCategoryType;
+    selectedPage: number;
+    selectCategoryPage: Function;
+    favoriteGames: number[];
+}> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
@@ -24,7 +25,13 @@ export const GameCategory: React.FC<{ selectedCategory: GameCategoryType; select
 
         for (let i = 0; i < numOfPages; i++) {
             result.push(
-                <span onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
+                <span
+                    onClick={() => selectCategoryPage(category, i + 1)}
+                    className={`${styles["category-page"]} ${
+                        GameCategoryType[category] === selectedCategory && selectedPage - 1 === i ? styles["selected"] : ""
+                    }`}
+                    key={i}
+                >
                     [{i + 1}]
                 </span>
             );
@@ -41,10 +48,16 @@ export const GameCategory: React.FC<{ selectedCategory: GameCategoryType; select
                         className={`${styles["category"]} ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}`}
                         key={categoryKey}
                     >
-                        <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
-                            {t(`category-${categoryKey}`)}
+                        <div className="d-flex">
+                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                                {t(`category-${categoryKey}`)}
+                            </div>
+                            {!isMobileOnly && categoryPage[categoryKey] > 1 && (
+                                <div className={styles["paging-container"]}>
+                                    {renderPagingCategory(categoryKey, categoryPage[categoryKey])}
+                                </div>
+                            )}
                         </div>
-                        {!isMobileOnly && categoryPage[categoryKey] > 1 && renderPagingCategory(categoryKey, categoryPage[categoryKey])}
                     </li>
                 ))}
             </ul>
