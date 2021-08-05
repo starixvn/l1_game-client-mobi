@@ -13,6 +13,3 @@ export const Choices = {
 };
 
 export const MainChoice = [Choices.even, Choices.odd];
-
-export const SeDieSpecialId = [24];
-export const SeDieSpecialName = ["specialsedie"];

@@ -8,6 +8,7 @@ import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
 import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
 import KenoProMaxBetHistory from "../../games/keno-pro-max/bet-history";
 import SeDieBetHistory from "../../games/se-die/bet-history";
+import SeDieSpecialBetHistory from "../../games/special-sedie/bet-history";
 import ThreeCardsBetHistory from "../../games/three-cards/bet-history";
 import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
@@ -29,7 +30,6 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
             case 2:
             case 9:
             case 22:
-            case 24:
                 return <SeDieBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 3:
                 return <FishPrawnCrabBetHistory key={selectedGameId} gameId={selectedGameId} />;
@@ -40,6 +40,8 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
             case 10:
             case 27:
                 return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} />;
+            case 24:
+                return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 35:
                 return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
             default:

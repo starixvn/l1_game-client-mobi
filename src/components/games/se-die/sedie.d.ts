@@ -14,6 +14,7 @@ export type Result = {
     red3: boolean;
     red4: boolean;
 };
+
 export type Odd = {
     even: number;
     odd: number;
