@@ -62,7 +62,7 @@
         padding: 0;
         border-radius: 0;
 
-        @media (min-width: 768px) {
+        @media (min-device-width: 768px) {
             position: initial;
         }
     }

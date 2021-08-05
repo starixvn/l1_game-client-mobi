@@ -62,7 +62,7 @@
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
 
-    @media (min-width: 768px) {
+    @media (min-device-width: 768px) {
         position: absolute;
         right: 17.8rem;
         top: 4.1rem;
