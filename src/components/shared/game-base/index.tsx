@@ -837,12 +837,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
-                            <div className={`${Styles["mini-round-history"]} d-flex ${this.getRoundHistoryTabStyles()}`}>
+                            <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>
                                 {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
                             </div>
                             {viewMode === ViewMode.full && (
                                 <>
-                                    <div className={`${Styles["statistic"]} d-flex`}>
+                                    <div className={`${Styles["statistic"]}`}>
                                         {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
                                     </div>
                                     <ScoreboardRoundHistory>

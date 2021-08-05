@@ -71,7 +71,7 @@ $number-of-cards: 2;
 
         @for $i from 1 through 2 {
             .card#{$i} {
-                $card-time-delay: (math.div($time-open-card-animation, 2) + $time-delay-zoom-in-card-animation) * ($i - 1);
+                $card-time-delay: (math.div($time-open-card-animation, 2) * ($i - 1)) + $time-delay-zoom-in-card-animation;
 
                 .card-back {
                     animation-delay: $card-time-delay;

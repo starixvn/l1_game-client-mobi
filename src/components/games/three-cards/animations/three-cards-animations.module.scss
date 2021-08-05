@@ -5,10 +5,12 @@
 @import "../../../../assets/components/game-cards/collapsed-result";
 
 $time-draw-card-animation: 0.3s;
-$time-open-card-animation: 0.6s;
+$time-open-card-animation: 0.8s;
 
-$time-zoom-in-card-animation: 0.6s;
-$time-delay-move-up-result: $time-open-card-animation + $time-zoom-in-card-animation;
+$time-zoom-in-card-animation: 0.3s;
+$time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
+
+$time-delay-move-up-result: 0.3s + $time-open-card-animation + $time-delay-zoom-in-card-animation;
 $number-of-cards: 3;
 
 .animation-container {
@@ -70,27 +72,18 @@ $number-of-cards: 3;
     &.has-animation {
         @include open-card-has-animation($time-open-card-animation, $number-of-cards);
 
-        @for $i from 1 through 3 {
-            $card-time-zoom-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
-                ($i - 1) +
-                math.div($time-open-card-animation, $number-of-cards) *
-                ($i - 1) +
-                0.16s;
+        .animation-container {
+            animation-name: zoon-in-3cards-animation, move-up-result-animation;
+            animation-duration: $time-zoom-in-card-animation, 0.3s;
+            animation-delay: 0s, $time-delay-move-up-result;
+            animation-fill-mode: forwards, forwards;
+            animation-timing-function: ease-out, linear;
+        }
 
-            $card-time-delay: math.div($time-zoom-in-card-animation, $number-of-cards) *
-                ($i) +
-                math.div($time-open-card-animation, $number-of-cards) *
-                ($i - 1) +
-                0.25s;
+        @for $i from 1 through 3 {
+            $card-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($i - 1)) + $time-delay-zoom-in-card-animation;
 
             .card#{$i} {
-                animation: zoon-in-3cards-animation
-                    math.div($time-zoom-in-card-animation, $number-of-cards)
-                    $card-time-zoom-delay
-                    linear
-                    forwards;
-                opacity: 0;
-
                 .card-back {
                     animation-delay: $card-time-delay;
                 }
@@ -110,17 +103,15 @@ $number-of-cards: 3;
 
 @keyframes zoon-in-3cards-animation {
     0% {
-        transform: scale(0);
-        opacity: 1;
+        transform: scale(0.6);
+    }
+
+    50% {
+        transform: scale(0.8);
     }
 
     80% {
         transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 1;
     }
 }
 
