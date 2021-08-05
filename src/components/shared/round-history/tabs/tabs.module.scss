@@ -17,8 +17,15 @@
     font-size: 1.4rem;
 
     .tabs-child {
+        position: relative;
         margin-left: 1rem;
         margin-right: 1rem;
+
+        .winning-streak {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
     }
 
     .type {

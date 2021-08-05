@@ -43,10 +43,17 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
 
     renderRoundHistory() {
         const sourceTabsValue = {
-            redBlack: this.getGameTranslate("redBlackTabs"),
-            suits: this.getGameTranslate("suitsTabs"),
+            redBlack: {
+                tabName: this.getGameTranslate("redBlackTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+            },
+            suits: {
+                tabName: this.getGameTranslate("suitsTabs"),
+                tabWinningStreak: 0,
+            },
         };
-        return <TabsComponent tabsValue={sourceTabsValue}></TabsComponent>;
+
+        return <TabsComponent key={this.state.roundId} tabsValue={sourceTabsValue}></TabsComponent>;
     }
 
     renderStatistic() {

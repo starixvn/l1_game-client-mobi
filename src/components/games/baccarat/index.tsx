@@ -47,10 +47,16 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderRoundHistory() {
         const sourceTabsValue = {
-            playerBanKer: this.getGameTranslate("playerBankerTabs"),
-            bigSmall: this.getGameTranslate("bigSmallTabs"),
+            playerBanKer: {
+                tabName: this.getGameTranslate("playerBankerTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions(["player", "banker", "tie"]),
+            },
+            bigSmall: {
+                tabName: this.getGameTranslate("bigSmallTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+            },
         };
-        return <TabsComponent tabsValue={sourceTabsValue}></TabsComponent>;
+        return <TabsComponent key={this.state.roundId} tabsValue={sourceTabsValue}></TabsComponent>;
     }
 
     renderStatistic() {

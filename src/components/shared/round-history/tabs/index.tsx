@@ -24,8 +24,11 @@ const TabsComponent: React.FunctionComponent<Props> = (props) => {
                     {tabsKey.map((tab, index) => {
                         return (
                             <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>
+                                {tabsValue[tab].tabWinningStreak > 3 && (
+                                    <span className={Styles["winning-streak"]}>{tabsValue[tab].tabWinningStreak}</span>
+                                )}
                                 <span className={`${Styles.type} ${tabActive === index ? Styles["tabs-active"] : ""}`}>
-                                    {tabsValue[tab]}
+                                    {tabsValue[tab].tabName}
                                 </span>
                             </div>
                         );
