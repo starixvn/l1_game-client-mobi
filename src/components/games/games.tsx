@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
 import { isIOS, isMobileOnly } from "react-device-detect";
@@ -12,7 +11,6 @@ import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
 import Baccarat from "./baccarat";
 import BigSmall from "./big-small";
-import { GameCategory } from "./constants";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
