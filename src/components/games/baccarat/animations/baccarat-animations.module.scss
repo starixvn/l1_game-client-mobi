@@ -13,7 +13,7 @@ $time-delay-open-card-2: 0.2s;
 $time-delay-open-card-4: $time-delay-open-card-2 + 0.8s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 $time-delay-show-score-animation: $time-delay-zoom-in-card-animation + 0.1s;
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + 1.2s;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-draw-card-animation + 2s;
 
 .animation-container {
     position: absolute;
@@ -250,15 +250,16 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
                     opacity: 0;
                     animation-name: draw-card-animation, hide-card-back-animation;
                     animation-duration: math.div($time-draw-card-animation, 4), math.div($time-open-card-animation, 6);
-                    animation-delay : $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 2), 6) + $time-delay-show-score-animation + $time-delay-open-card-4 + 0.2s,
-                    $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 2), 6)  + $time-delay-show-score-animation + math.div($time-draw-card-animation * ($i - 4), 4) + $time-delay-open-card-4 + 0.3s ;
+                    animation-delay : $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 1), 6)  + $time-delay-open-card-4 + 0.2s,
+                    $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 1), 6) + math.div($time-draw-card-animation * ($i - 4), 4) + $time-delay-open-card-4 + 0.3s ;
                     animation-fill-mode: forwards;
                 }
                
                 .rotate-card {
                     opacity: 0;
                     @extend .open-card;
-                    animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 2), 6)  + $time-delay-show-score-animation +  math.div($time-draw-card-animation * ($i - 4), 4) + $time-delay-open-card-4 + 0.3s;
+                    animation-name: open-card-animation;   
+                    animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * ($i - 1), 6)  +  math.div($time-draw-card-animation * ($i - 4), 4) + $time-delay-open-card-4 + 0.3s;
                 }
             }
         }
