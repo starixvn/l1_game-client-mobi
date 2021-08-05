@@ -52,6 +52,10 @@
         justify-content: center;
         margin-bottom: 1rem;
     }
+
+    @media (min-width: 1024px) {
+        overflow: initial;
+    }
 }
 
 .category-list {
