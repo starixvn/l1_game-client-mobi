@@ -44,19 +44,6 @@ export const BaccaratConfigs = {
     ],
 };
 
-export const TotalCardValue = (result: Cards) =>
-    Object.values(result)
-        .filter((value) => value !== null)
-        .reduce((total, value) => total + GetValueCard(value?.card + 1), 0);
-
-export const GetValueCard = (value: number) => {
-    return value >= 10 ? 0 : value;
-};
-
-export const SetPoint = (point: number) => {
-    return point % 10;
-};
-
 export const StatisticRuleEntriesBankerPlayer = Object.entries({
     [Choices.player]: (countResult: object, total: number) =>
         countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0,
