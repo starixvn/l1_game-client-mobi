@@ -67,7 +67,7 @@ export const FavoriteSetting: React.FC<{
         <BaseDialog onCloseModal={handleCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
             <div
                 className={`${Styles["favorite-setting"]} ${
-                    isMobileOnly && isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"]
+                    isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
                 }`}
             >
                 <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
