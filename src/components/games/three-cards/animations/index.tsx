@@ -48,9 +48,13 @@ const generateResult = (cards: Result, viewMode: ViewMode) => {
 
 export const ThreeCardsResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { viewMode, playResultAnimation } = useGameContext();
+    const delay3rdCard = (result[0].suit <= 1 && result[1].suit >= 2) || (result[0].suit >= 2 && result[1].suit <= 1);
 
     return (
-        <div className={`${Styles["normal-mode"]} ${Styles["open-cards"]} ${playResultAnimation && Styles[classHasAnimation]}`}>
+        <div
+            className={`${Styles["normal-mode"]} ${Styles["open-cards"]} ${playResultAnimation && Styles[classHasAnimation]}
+        ${delay3rdCard ? Styles["delay-3rd-card"] : ""}`}
+        >
             <div className="overlay-mask">
                 <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}>
                     {generateResult(result, viewMode)}
