@@ -52,7 +52,7 @@ export const ThreeCardsResult: React.FC<{ result?: Result }> = ({ result }) => {
     return (
         <div className={`${Styles["normal-mode"]} ${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
             <div className="overlay-mask">
-                <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
+                <div className={`${Styles[classAnimationContainer]} ${playResultAnimation ? "" : Styles["move-up-no-animation"]}`}>
                     {generateResult(result, viewMode)}
                 </div>
             </div>
