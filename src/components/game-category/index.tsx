@@ -32,7 +32,7 @@ export const GameCategory: React.FC<{
                     }`}
                     key={i}
                 >
-                    [{i + 1}]
+                    {i + 1}
                 </span>
             );
         }
@@ -41,11 +41,13 @@ export const GameCategory: React.FC<{
     };
 
     return (
-        <div className={styles["game-container"]}>
-            <ul className={styles["game-category"]}>
+        <div className={styles["category-container"]}>
+            <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li
-                        className={`${styles["category"]} ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}`}
+                        className={`${styles["category-item"]} ${
+                            selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
+                        }`}
                         key={categoryKey}
                     >
                         <div className="d-flex">
