@@ -39,15 +39,20 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["card-result-container"]}>
-                    <div className={Styles["player-label"]}>{t(`${gameName}:player`)}</div>
-                    <div className={Styles["banker-label"]}>{t(`${gameName}:banker`)}</div>
+                    <div className={Styles["player-label"]}>
+                        {t(`${gameName}:player`)}:{" "}
+                        <span className={Styles["number-score"]}>{generateScore(GetPlayerCardsResult(result))}</span>
+                    </div>
+                    <div className={Styles["banker-label"]}>
+                        {t(`${gameName}:banker`)}:{" "}
+                        <span className={Styles["number-score"]}>{generateScore(GetBankerCardsResult(result))}</span>
+                    </div>
                     <div
                         className={`${Styles["player"]} ${Styles["card-result"]} ${
                             Styles[getClassCardLength(GetPlayerCardsResult, result)]
                         }`}
                     >
                         {generateResultOnCard(GetPlayerCardsResult(result))}
-                        {generateScore(GetPlayerCardsResult(result))}
                     </div>
                     <div
                         className={`${Styles["banker"]} ${Styles["card-result"]} ${
@@ -55,7 +60,6 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                         }`}
                     >
                         {generateResultOnCard(GetBankerCardsResult(result))}
-                        {generateScore(GetBankerCardsResult(result))}
                     </div>
                 </div>
 
@@ -79,12 +83,9 @@ const generateResultOnCard = (cards: CardOrder[]) => {
 };
 
 const generateScore = (cards: CardOrder[]) => {
-    const classGroupCards = `group-${cards.length}-cards`;
-    const point = cards.reduce((total, c) => {
+    return cards.reduce((total, c) => {
         return c.value.card + 1 >= 10 ? total : (total + c.value.card + 1) % 10;
     }, 0);
-
-    return <div className={`${Styles[classGroupCards]} ${Styles["score"]}`}>{point}</div>;
 };
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {

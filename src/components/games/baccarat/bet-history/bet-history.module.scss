@@ -46,38 +46,12 @@
         transform: scale(0.68);
         position: relative;
         top: -1.3rem;
-        &.card-length-2 {
-            &.player .score {
-                left: 2.8rem;
-            }
-            &.banker .score {
-                right: 2.8rem;
-            }
-        }
-        .score {
-            position: absolute;
-            bottom: 0;
-            width: 5.2rem;
-            height: 2.6rem;
-            border-top-left-radius: 60px;
-            border-top-right-radius: 60px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            bottom: -2.2rem;
-            z-index: 12;
-        }
+
         &.player {
             justify-content: flex-end;
             left: 0.4rem;
             &.card-length-3 {
                 left: 1.8rem;
-            }
-            .score {
-                background: linear-gradient(180deg, #117f99 0%, #123363 100%);
-                left: 1.2rem;
             }
         }
         &.banker {
@@ -85,10 +59,6 @@
             justify-content: flex-start;
             &.card-length-3 {
                 right: 1.8rem;
-            }
-            .score {
-                background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
-                right: 1.2rem;
             }
         }
 
@@ -111,7 +81,15 @@
             z-index: 11;
         }
     }
-    
+    .player-label,
+    .banker-label {
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        .number-score {
+            font-family: var(--font-number);
+        }
+    }
+
     .player-label {
         color: #216ac0;
     }
