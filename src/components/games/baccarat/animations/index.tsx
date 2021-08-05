@@ -38,7 +38,8 @@ export const generateDisplayScore = (cards: CardOrder[]) => {
 export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, viewMode } = useGameContext();
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
-    const classCardCount = `card-${resultCount}`;
+    const suffix = !result.player.card3 && !!result.banker.card3 ? "-banker" : "";
+    const classCardCount = `card-${resultCount}${suffix}`;
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
@@ -70,7 +71,8 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
-    const classCardCount = `card-${resultCount}`;
+    const suffix = !result.player.card3 && !!result.banker.card3 ? "-banker" : "";
+    const classCardCount = `card-${resultCount}${suffix}`;
 
     return (
         <div
