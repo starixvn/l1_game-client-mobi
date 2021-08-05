@@ -45,7 +45,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const sourceTabsValue = {
             redBlack: {
                 tabName: this.getGameTranslate("redBlackTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+                tabWinningStreak: this.getWinningStreakByOptions(["red", "black"]),
             },
             suits: {
                 tabName: this.getGameTranslate("suitsTabs"),
