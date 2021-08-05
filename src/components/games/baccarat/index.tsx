@@ -139,7 +139,7 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     getFinishAnimationDuration() {
         const { durations } = this.props;
         const { result } = this.state;
-        const resultAnimation = !!result.banker.card3 || !!result.player.card3 ? 3 : durations.resultAnimation;
+        const resultAnimation = !!result.banker.card3 || !!result.player.card3 ? 4 : durations.resultAnimation;
         return (resultAnimation + (durations.balancingBet ?? 0)) * 1000;
     }
 }
