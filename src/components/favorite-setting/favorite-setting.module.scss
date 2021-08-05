@@ -256,6 +256,10 @@
         opacity: 0.6;
     }
 
+    &:hover:disabled {
+        cursor: default;
+    }
+
     &:hover:enabled {
         @extend %btn-favorite;
 
