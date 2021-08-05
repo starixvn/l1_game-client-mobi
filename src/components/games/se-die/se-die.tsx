@@ -15,7 +15,7 @@ import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
-class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
+export class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 

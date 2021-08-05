@@ -1,24 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
-import useSound from "use-sound";
+import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
+import React, { useEffect, useRef, useState } from "react";
+import { isIOS, isMobileOnly } from "react-device-detect";
+import useSound from "use-sound";
+
 import appSettings from "../../common/app-settings";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
+import Baccarat from "./baccarat";
 import BigSmall from "./big-small";
+import { GameCategory } from "./constants";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
-import SeDie from "./se-die/se-die";
 import KenoProMax from "./keno-pro-max";
-import Baccarat from "./baccarat";
+import MiniSeDie from "./mini-sedie";
+import SeDie from "./se-die/se-die";
 import ThreeCards from "./three-cards";
-import { useTranslation } from "next-i18next";
 import { GameCategoryType, Props } from "./type";
-import { GameCategory } from "./constants";
 
 const gamesInOnePageOnDesktop = 9;
 let gamesOrder = [];
@@ -99,7 +101,6 @@ export const Games: React.FC<Props> = ({
         };
         switch (gameId) {
             case 2:
-            case 9:
             case 22:
             case 24:
                 return <SeDie key={`game-${gameId}`} {...gameProps} />;
@@ -109,6 +110,8 @@ export const Games: React.FC<Props> = ({
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
             case 8:
                 return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
+            case 9:
+                return <MiniSeDie key={`game-${gameId}`} {...gameProps} />;
             case 10:
             case 27:
                 return <Baccarat key={`game-${gameId}`} {...gameProps} />;
@@ -132,7 +135,7 @@ export const Games: React.FC<Props> = ({
 
         for (let i = 0; i < numOfPages; i++) {
             result.push(
-                <span onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
+                <span key={i} onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
                     [{i + 1}]
                 </span>
             );

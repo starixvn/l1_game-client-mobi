@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
+import { GameState } from "../../../shared/game-base/type";
 import { RoundDot } from "../../../shared/round-history/dot";
 import { Choices, MainChoice, SeDieSpecialId } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
@@ -64,7 +64,7 @@ const getClassLayout = (gameId: number) => {
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect, betPercentage } = props;
-    const { gameConfigs, gameSetting, viewMode } = useGameContext();
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -88,21 +88,6 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
 
     return (
         <div className={`${Styles["layout-sedie"]} ${Styles[getClassLayout(gameSetting.id)]}`}>
-            {viewMode === ViewMode.full &&
-                Object.keys(choiceIcons(gameSetting.id)).map((choice) => (
-                    <div key={choice} className={Styles[`bet-choice-${choice}`]}>
-                        <BetOption
-                            choice={choice}
-                            odd={odds[choice]}
-                            isHighlight={settlementResult[choice]}
-                            gameState={gameState}
-                            isShowWinningEffect={isShowWinningEffect}
-                        >
-                            {renderIcons(choice)}
-                        </BetOption>
-                    </div>
-                ))}
-
             {MainChoice.map((choice) => (
                 <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                     <BetOption
@@ -113,6 +98,19 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         isShowWinningEffect={isShowWinningEffect}
                     >
                         {renderLabel(choice, SeDieSpecialId.includes(gameSetting.id) && renderStatisticUserBet(betPercentage, choice))}
+                    </BetOption>
+                </div>
+            ))}
+            {Object.keys(choiceIcons(gameSetting.id)).map((choice) => (
+                <div key={choice} className={Styles[`bet-choice-${choice}`]}>
+                    <BetOption
+                        choice={choice}
+                        odd={odds[choice]}
+                        isHighlight={settlementResult[choice]}
+                        gameState={gameState}
+                        isShowWinningEffect={isShowWinningEffect}
+                    >
+                        {renderIcons(choice)}
                     </BetOption>
                 </div>
             ))}
