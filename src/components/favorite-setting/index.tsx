@@ -64,7 +64,7 @@ export const FavoriteSetting: React.FC<{
     useEffect(() => clearTimeout(closeModalTimeOut), []);
 
     return (
-        <BaseDialog onCloseModal={onCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
+        <BaseDialog onCloseModal={handleCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
             <div
                 className={`${Styles["favorite-setting"]} ${
                     isMobileOnly && isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"]
