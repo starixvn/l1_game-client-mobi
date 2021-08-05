@@ -12,6 +12,10 @@
         --game-category-text-color: #28526d;
         --game-category-text-active-color: #ff8a01;
     }
+
+    --paging-item-hover-background: linear-gradient(180deg, #ffffff 0%, #c8c9c9 100%);
+    --paging-item-border: #748e9e;
+    --paging-item-text-color: #28526d;
 }
 
 [data-theme="dark"] .game-container {
@@ -28,6 +32,10 @@
         --game-category-text-color: #fff;
         --game-category-text-active-color: #ff9a00;
     }
+
+    --paging-item-hover-background: linear-gradient(180deg, #7791ab 0%, #345270 100%);
+    --paging-item-border: #072f57;
+    --paging-item-text-color: #fff;
 }
 
 .game-list {
@@ -50,30 +58,35 @@
     border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);
     overflow-x: auto;
-    overflow-y: hidden;
+    z-index: calc(var(--header-index) - 1);
 
     @media (min-width: 768px) {
         overflow-x: initial;
+        position: fixed;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
     }
 }
 
 .game-category {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: 0;
     margin-bottom: 0;
     padding: 0;
     list-style: none;
-    z-index: calc(var(--header-index) - 1);
 
     @media (min-width: 768px) {
-        position: fixed;
-        left: 0;
-        width: 100%;
         justify-content: center;
         padding-left: 1rem;
         padding-right: 1rem;
-        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 1260px) {
+        width: 126rem;
+        margin: 0 auto;
     }
 
     .category {
@@ -103,9 +116,11 @@
                 padding-right: 1rem;
             }
 
-            &:hover {
-                cursor: pointer;
-                color: var(--game-category-text-active-color);
+            @media (hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    color: var(--game-category-text-active-color);
+                }
             }
         }
 
@@ -114,9 +129,8 @@
         }
 
         &.selected {
-            position: relative;
-
             .category-text {
+                position: relative;
                 font-weight: 500;
                 color: var(--game-category-text-active-color);
 
@@ -131,6 +145,28 @@
                     background-color: var(--game-category-border-active-color);
                 }
             }
+        }
+    }
+
+    .paging-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .category-page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.2rem;
+        width: 2.2rem;
+        border: 1px solid var(--paging-item-border);
+        border-radius: 5px;
+        margin: 0 0.5rem;
+        color: var(--paging-item-text-color);
+
+        &:hover,
+        &.selected {
+            background: var(--paging-item-hover-background);
         }
     }
 }

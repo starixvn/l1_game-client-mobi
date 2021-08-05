@@ -136,7 +136,7 @@ export const Games: React.FC<Props> = ({
         for (let i = 0; i < numOfPages; i++) {
             result.push(
                 <span key={i} onClick={() => selectCategoryPage(category, i + 1)} className={styles["category-page"]}>
-                    [{i + 1}]
+                    {i + 1}
                 </span>
             );
         }
@@ -168,12 +168,16 @@ export const Games: React.FC<Props> = ({
                                 }`}
                                 key={categoryKey}
                             >
-                                <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
-                                    {t(`category-${categoryKey}`)}
+                                <div className="d-flex">
+                                    <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                                        {t(`category-${categoryKey}`)}
+                                    </div>
+                                    {!isMobileOnly && categoryPage[categoryKey] > 1 && (
+                                        <div className={styles["paging-container"]}>
+                                            {renderPagingCategory(categoryKey, categoryPage[categoryKey])}
+                                        </div>
+                                    )}
                                 </div>
-                                {!isMobileOnly &&
-                                    categoryPage[categoryKey] > 1 &&
-                                    renderPagingCategory(categoryKey, categoryPage[categoryKey])}
                             </li>
                         ))}
                     </ul>
