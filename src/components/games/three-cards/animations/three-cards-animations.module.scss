@@ -5,9 +5,9 @@
 @import "../../../../assets/components/game-cards/collapsed-result";
 
 $time-draw-card-animation: 0.3s;
-$time-open-card-animation: 0.8s;
+$time-open-card-animation: 1s;
 
-$time-zoom-in-card-animation: 0.3s;
+$time-zoom-in-card-animation: 0.2s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
 $time-delay-move-up-result: 0.3s + $time-open-card-animation + $time-delay-zoom-in-card-animation;
