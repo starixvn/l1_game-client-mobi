@@ -4,6 +4,7 @@ import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
+import UserBetStats from "../../../shared/user-bet-stats";
 import { SettlementResult } from "../big-small";
 import { Choices } from "../big-small-helper";
 import Styles from "./bet-options.module.scss";
@@ -34,12 +35,7 @@ const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
                     >
                         <div className={Styles[choice]}>
                             {t(choice)}
-                            <div className={Styles["statistic-user-bet"]}>
-                                <span className={`icon-user-group ${Styles["user-group"]}`}></span>
-                                <span className={Styles["number"]}>
-                                    {betPercentage && betPercentage[choice] ? betPercentage[choice] : 0}%
-                                </span>
-                            </div>
+                            <UserBetStats value={betPercentage?.[choice]} />
                         </div>
                     </BetOption>
                 );

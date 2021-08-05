@@ -17,6 +17,7 @@ import styles from "./games.module.scss";
 import KenoProMax from "./keno-pro-max";
 import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
+import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { Props } from "./type";
 import { GameCategoryConfig, GameCategoryType, GamesInOnePageOnDesktop } from "../game-category/constants";
@@ -89,16 +90,18 @@ export const Games: React.FC<Props> = ({
         switch (gameId) {
             case 2:
             case 22:
-            case 24:
                 return <SeDie key={`game-${gameId}`} {...gameProps} />;
+            case 9:
+                return <MiniSeDie key={`game-${gameId}`} {...gameProps} />;
+            case 24:
+                return <SpecialSeDie key={`game-${gameId}`} {...gameProps} />;
             case 3:
                 return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
             case 7:
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
             case 8:
                 return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
-            case 9:
-                return <MiniSeDie key={`game-${gameId}`} {...gameProps} />;
+
             case 10:
             case 27:
                 return <Baccarat key={`game-${gameId}`} {...gameProps} />;

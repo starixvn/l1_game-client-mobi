@@ -22,19 +22,23 @@ export class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, Settlem
         this.state = { ...this.defaultState };
     }
 
+    get Choices() {
+        return ["even", "odd", "red3", "red2", "white3", "red4", "white4"];
+    }
+
     getMainOptions(): string[] {
         return ["odd", "even"];
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation, betPercentage } = this.state;
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
         return (
             <SeDieBetOptions
+                choices={this.Choices}
                 gameState={gameState}
                 settlementResult={settlementResult ?? fakeSettlementResult}
                 isShowWinningEffect={showWinningAnimation}
-                betPercentage={betPercentage}
             />
         );
     }
