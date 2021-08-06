@@ -1,4 +1,3 @@
-import { GameBaseProps } from "./../../../game-base/type";
 import { Round } from "../../../../../types";
 
 export interface Props<R, S> {
