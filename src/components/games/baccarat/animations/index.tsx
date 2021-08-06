@@ -94,7 +94,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
                 >
                     {generateResult(playerCards, this.state.viewMode)}
                     <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>
-                        {this.state.texts.player}: {this.state.playerScore}
+                        {this.state.texts.player}:<span className={Styles["score-number"]}> {this.state.playerScore}</span>
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
                 >
                     {generateResult(bankerCards, this.state.viewMode)}
                     <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>
-                        {this.state.texts.banker}: {this.state.bankerScore}
+                        {this.state.texts.banker}: <span className={Styles["score-number"]}> {this.state.bankerScore}</span>
                     </div>
                 </div>
             </div>
