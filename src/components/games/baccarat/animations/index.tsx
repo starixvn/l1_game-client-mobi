@@ -85,18 +85,20 @@ class PlayerBankerResultComponent extends React.PureComponent<
     }
 
     componentDidUpdate() {
-        let pc = sumScore(0, this.props.result.player.card1.card);
-        pc = sumScore(pc, this.props.result.player.card2.card);
-        pc = sumScore(pc, this.props.result.player.card3?.card ?? 0);
+        if (!this.props.playResultAnimation) {
+            let pc = sumScore(0, this.props.result.player.card1.card);
+            pc = sumScore(pc, this.props.result.player.card2.card);
+            pc = sumScore(pc, this.props.result.player.card3?.card ?? -1);
 
-        let bc = sumScore(0, this.props.result.banker.card1.card);
-        bc = sumScore(bc, this.props.result.banker.card2.card);
-        bc = sumScore(bc, this.props.result.banker.card3?.card ?? 0);
+            let bc = sumScore(0, this.props.result.banker.card1.card);
+            bc = sumScore(bc, this.props.result.banker.card2.card);
+            bc = sumScore(bc, this.props.result.banker.card3?.card ?? -1);
 
-        this.setState({
-            playerScore: pc,
-            bankerScore: bc,
-        });
+            this.setState({
+                playerScore: pc,
+                bankerScore: bc,
+            });
+        }
     }
 
     render() {
