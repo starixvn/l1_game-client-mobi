@@ -4,14 +4,13 @@ import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 
-export const GetElementRound = (
-    result: any,
-    col: number,
-    row: number,
-    roundId: number,
-    translate: Function,
-    gameSetting: GameBaseProps
-) => {
+export const GetScoreboardDotDetails: React.FC<{
+    result: any;
+    col: number;
+    row: number;
+    roundId: number;
+    gameSetting: GameBaseProps;
+}> = ({ result, col, row, roundId, gameSetting }) => {
     const count = countRedDot(result);
     const isEven = checkIsEven(count);
 
@@ -26,11 +25,11 @@ export const GetElementRound = (
     );
 };
 
-export const CheckCondition = (settlementResult: SettlementResult) => {
+export const ConditionChangeDot = (settlementResult: SettlementResult) => {
     let value = 0;
     if (settlementResult.even) {
         value = 1;
     }
     return value;
 };
-export default GetElementRound;
+export default GetScoreboardDotDetails;

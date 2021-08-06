@@ -10,7 +10,7 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
-import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
+import GetScoreboardDotDetails, { ConditionChangeDot } from "./scoreboard-round-history";
 import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
@@ -61,7 +61,9 @@ export class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, Settlem
 
     renderBoard() {
         const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} checkCondition={CheckCondition} />;
+        return (
+            <ScoreboardDragon roundHistory={roundHistory} getDotDetails={GetScoreboardDotDetails} conditionChangeDot={ConditionChangeDot} />
+        );
     }
 
     get isShowStartRoundAnimation() {

@@ -2,7 +2,7 @@ import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { Choices } from "../baccarat-helper";
-import { Result, SettlementResult } from "../baccarat";
+import { SettlementResult } from "../baccarat";
 
 enum choiceValueMapping {
     big,
@@ -12,15 +12,14 @@ enum choiceValueMapping {
     tie,
 }
 
-export const GetElementRoundBankerPlayer = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfBankerPlayer: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
@@ -38,15 +37,14 @@ export const GetElementRoundBankerPlayer = (
     );
 };
 
-export const GetElementRoundBigSmall = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfBigSmall: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
@@ -58,15 +56,15 @@ export const GetElementRoundBigSmall = (
     );
 };
 
-export const CheckConditionBankerPlayer = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBankerPlayer = (settlementResult: SettlementResult) => {
     return settlementResult.tie ? choiceValueMapping.tie : settlementResult.player ? choiceValueMapping.player : choiceValueMapping.banker;
 };
 
-export const CheckConditionBigSmall = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBigSmall = (settlementResult: SettlementResult) => {
     return settlementResult.big ? choiceValueMapping.big : choiceValueMapping.small;
 };
 
 export const ScoreboardRule = [
-    { elementRound: GetElementRoundBankerPlayer, condition: CheckConditionBankerPlayer },
-    { elementRound: GetElementRoundBigSmall, condition: CheckConditionBigSmall },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfBankerPlayer, conditionChangeDot: ConditionChangeDotOfBankerPlayer },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfBigSmall, conditionChangeDot: ConditionChangeDotOfBigSmall },
 ];

@@ -81,8 +81,8 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={ScoreboardRule[activeScoreboardTab]?.elementRound}
-                checkCondition={ScoreboardRule[activeScoreboardTab]?.condition}
+                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
+                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

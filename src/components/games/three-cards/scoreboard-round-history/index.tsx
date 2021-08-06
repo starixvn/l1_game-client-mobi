@@ -6,15 +6,13 @@ import { SettlementResult, Result, Cards } from "../three-cards";
 import IconColumn from "../../../shared/round-history/icon-column";
 import Styles from "./three-cards-scoreboard.module.scss";
 
-export const GetElementRoundRedBlack = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfRedBlack: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
@@ -30,14 +28,14 @@ enum choiceValueMapping {
     black,
 }
 
-export const CheckConditionRedBlack = (settlementResult: SettlementResult) => {
+export const  ConditionChangeDotOfRedBlack = (settlementResult: SettlementResult) => {
     return settlementResult.red ? choiceValueMapping.red : choiceValueMapping.black;
 };
 
 const Suites = ["hearts", "diamonds", "clubs", "spades"];
 const SuitIcons = ["hearts", "diamonds", "clubs", "spades"];
 
-export const GetElementRoundSuits = (result: Result, roundId: number) => {
+export const GetScoreboardDotDetailsOfSuits = (result: Result, roundId: number) => {
     return (
         <IconColumn key={roundId}>
             {result.map((value: Cards, index) => {
@@ -65,12 +63,12 @@ export const GetNameFromChoice = (settlementResult: SettlementResult) => {
     return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
 };
 
-export const CheckConditionSuits = (settlementResult: SettlementResult) => {
+export const  ConditionChangeDotOfSuits = (settlementResult: SettlementResult) => {
     const choiceValue = GetNameFromChoice(settlementResult);
     return Suites.indexOf(choiceValue);
 };
 
 export const ScoreboardRule = [
-    { elementRound: GetElementRoundRedBlack, condition: CheckConditionRedBlack },
-    { elementRound: GetElementRoundSuits, condition: CheckConditionSuits },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfRedBlack, conditionChangeDot:  ConditionChangeDotOfRedBlack },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfSuits, conditionChangeDot:  ConditionChangeDotOfSuits },
 ];

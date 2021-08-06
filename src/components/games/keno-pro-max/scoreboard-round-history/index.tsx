@@ -1,8 +1,8 @@
 import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
-import { Choices, CheckConditionFiveElements, GetNameFromChoice } from "../keno-pro-max-helper";
-import { Result, SettlementResult } from "../keno-pro-max";
+import { Choices, ConditionChangeDotOfFiveElements, GetNameFromChoice } from "../keno-pro-max-helper";
+import { SettlementResult } from "../keno-pro-max";
 
 enum choiceValueMapping {
     big,
@@ -16,15 +16,14 @@ enum choiceValueMapping {
     earth,
 }
 
-export const GetElementRoundBigSmall = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfBigSmall: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
@@ -36,15 +35,14 @@ export const GetElementRoundBigSmall = (
     );
 };
 
-export const GetElementRoundOddEven = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfOddEven: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid
             key={`${roundId}_${gameSetting.id}`}
@@ -60,30 +58,28 @@ export const GetElementRoundOddEven = (
     );
 };
 
-export const GetElementRoundFiveElements = (
-    result: Result,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps,
-    settlementResult: SettlementResult
-) => {
+export const GetScoreboardDotDetailsOfFiveElements: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    gameSetting: GameBaseProps;
+    settlementResult: SettlementResult;
+}> = ({ col, row, roundId, gameSetting, settlementResult }) => {
     return (
         <RoundDotGrid key={`${roundId}_${gameSetting.id}`} choice={GetNameFromChoice(settlementResult)} col={col} row={row}></RoundDotGrid>
     );
 };
 
-export const CheckConditionBigSmall = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBigSmall = (settlementResult: SettlementResult) => {
     return settlementResult.big ? choiceValueMapping.big : choiceValueMapping.small;
 };
 
-export const CheckConditionOddEven = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfOddEven = (settlementResult: SettlementResult) => {
     return settlementResult.odd ? choiceValueMapping.odd : choiceValueMapping.even;
 };
 
 export const ScoreboardRule = [
-    { elementRound: GetElementRoundBigSmall, condition: CheckConditionBigSmall },
-    { elementRound: GetElementRoundOddEven, condition: CheckConditionOddEven },
-    { elementRound: GetElementRoundFiveElements, condition: CheckConditionFiveElements },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfBigSmall, conditionChangeDot: ConditionChangeDotOfBigSmall },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfOddEven, conditionChangeDot: ConditionChangeDotOfOddEven },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfFiveElements, conditionChangeDot: ConditionChangeDotOfFiveElements },
 ];

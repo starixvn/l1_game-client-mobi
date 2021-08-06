@@ -10,8 +10,8 @@ const calculateEntryPercent = (countResult: object, total: number, choice: strin
     countResult[choice] ? Math.round((countResult[choice] * 100) / total) : 0;
 
 const StatisticRuleEntriesRedBlack = Object.entries({
-    [Choices.black]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.black),
     [Choices.red]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.red),
+    [Choices.black]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.black),
 });
 
 const StatisticRuleEntriesSuits = Object.entries({

@@ -13,7 +13,7 @@ import { Choices, StatisticRuleEntries } from "./big-small-helper";
 import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
-import GetElementRound from "./scoreboard-round-history";
+import GetScoreboardDotDetails from "./scoreboard-round-history";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -88,8 +88,8 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         };
         return (
             <ScoreboardDragon
-                roundHistory={ this.state.roundHistory}
-                getElementRound={GetElementRound}
+                roundHistory={this.state.roundHistory}
+                getDotDetails={GetScoreboardDotDetails}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

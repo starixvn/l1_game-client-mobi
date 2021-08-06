@@ -6,7 +6,7 @@ import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
-import { ScoreboardRule, GetElementRoundSuits } from "./scoreboard-round-history";
+import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
 import { Choices, TabsValue } from "./three-cards-helper";
@@ -72,7 +72,11 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const { roundHistory, activeScoreboardTab, gameState } = this.state;
         if (activeScoreboardTab === TabsValue.suits) {
             return (
-                <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRoundSuits}></ScoreboardBasic>
+                <ScoreboardBasic
+                    roundHistory={roundHistory}
+                    gameState={gameState}
+                    getDotDetails={GetScoreboardDotDetailsOfSuits}
+                ></ScoreboardBasic>
             );
         } else {
             const translateDotTextMapping = {
@@ -83,8 +87,8 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             return (
                 <ScoreboardDragon
                     roundHistory={roundHistory}
-                    getElementRound={ScoreboardRule[activeScoreboardTab]?.elementRound}
-                    checkCondition={ScoreboardRule[activeScoreboardTab]?.condition}
+                    getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
+                    conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                     translateDotTextMapping={translateDotTextMapping}
                 />
             );

@@ -3,7 +3,7 @@ import React from "react";
 import IconColumn from "../../../shared/round-history/icon-column";
 import ChoiceIcon from "../choice-icon";
 
-const GetElementRound = (result: any, roundId: number) => {
+const GetScoreboardDotDetails = (result: any, roundId: number) => {
     const itemValues = Object.values(result);
     return (
         <IconColumn key={roundId}>
@@ -14,4 +14,4 @@ const GetElementRound = (result: any, roundId: number) => {
     );
 };
 
-export default GetElementRound;
+export default GetScoreboardDotDetails;

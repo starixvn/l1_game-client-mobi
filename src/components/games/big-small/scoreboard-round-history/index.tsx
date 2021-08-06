@@ -3,14 +3,14 @@ import { checkIsSmall, countRedDot, Choices } from "../big-small-helper";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { GameBaseProps } from "../../../shared/game-base/type";
 
-const GetElementRound = (
-    result: any,
-    col: number,
-    row: number,
-    roundId: number,
-    translateDotTextMapping: object,
-    gameSetting: GameBaseProps
-) => {
+const GetScoreboardDotDetails: React.FC<{
+    result: any;
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+}> = ({ result, col, row, roundId, translateDotTextMapping, gameSetting }) => {
     const isSmall = checkIsSmall(countRedDot(result));
     return (
         <RoundDotGrid
@@ -23,4 +23,4 @@ const GetElementRound = (
     );
 };
 
-export default GetElementRound;
+export default GetScoreboardDotDetails;

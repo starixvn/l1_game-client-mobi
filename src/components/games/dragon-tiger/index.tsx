@@ -13,7 +13,7 @@ import { Result, SettlementResult } from "./dragon-tiger";
 import { Choices, StatisticRuleEntries } from "./dragon-tiger-helper";
 import Styles from "./dragon-tiger.module.scss";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
-import GetElementRound from "./scoreboard-round-history";
+import GetScoreboardDotDetails from "./scoreboard-round-history";
 
 class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -78,7 +78,7 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         return (
             <ScoreboardDragon
                 roundHistory={this.state.roundHistory}
-                getElementRound={GetElementRound}
+                getDotDetails={GetScoreboardDotDetails}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

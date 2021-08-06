@@ -89,8 +89,8 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={ScoreboardRule[activeScoreboardTab]?.elementRound}
-                checkCondition={ScoreboardRule[activeScoreboardTab]?.condition}
+                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
+                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );
