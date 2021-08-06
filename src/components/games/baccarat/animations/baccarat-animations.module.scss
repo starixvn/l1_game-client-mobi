@@ -87,8 +87,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             right: 3rem;
         }
         .score {
-            --width-score: 8.4rem;
-            --height-score: 2.4rem;
+            --width-score: 10.5rem;
+            --height-score: 3rem;
             --font-size-score: 1.4rem;
             --bottom-score: 1rem;
             position: absolute;
@@ -104,7 +104,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             font-size: var(--font-size-score);
             bottom: var(--bottom-score);
             &-number{
-                font-size: 1.8rem;
+                font-size: 2rem;
                 font-family: var(--font-number);
                 font-weight: bold;
                 position: relative;
