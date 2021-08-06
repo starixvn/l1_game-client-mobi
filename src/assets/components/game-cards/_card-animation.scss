@@ -83,12 +83,6 @@
     }
 }
 
-.has-animation {
-    .rotate-card {
-        transform: rotateY(180deg);
-    }
-}
-
 @keyframes hide-card-back-animation {
     0% {
         transform: rotateY(30deg) scaleX(0.9);

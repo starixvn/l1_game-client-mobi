@@ -78,7 +78,7 @@ export const ThreeCardsResultCollapse: React.FC<{ result: Result; settlementResu
 
     return (
         <div
-            className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]}${
+            className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]} ${
                 delay3rdCard ? Styles["delay-3rd-card"] : ""
             }`}
         >

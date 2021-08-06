@@ -47,77 +47,79 @@ $number-of-cards: 3;
 
 .open-cards {
     @include open-card($number-of-cards);
-
-    .animation-container {
-        --move-up-distance: -2.2rem;
-        --result-scale: 0.88;
-
-        display: grid;
-        grid-template-columns: repeat(3, 10.5rem);
-        margin-left: -0.4rem;
-        top: 1.5rem;
-        transform: scale(0.88);
-        transition: transform 0.7s;
+    &.has-animation {
+        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
     }
 
+    // normal mode
     &.normal-mode {
+        .animation-container {
+            --move-up-distance: -2.2rem;
+            --result-scale: 0.88;
+
+            display: grid;
+            grid-template-columns: repeat(3, 10.5rem);
+            margin-left: -0.4rem;
+            top: 1.5rem;
+            transform: scale(0.88);
+            transition: transform 0.7s;
+        }
+
         .card1,
         .card2,
         .card3 {
             width: 114px;
             height: 143px;
         }
+
+        &.has-animation {
+            .animation-container {
+                animation-name: zoom-in-animation, move-up-result-animation;
+                animation-duration: $time-zoom-in-card-animation, 0.3s;
+                animation-delay: 0s, $time-delay-move-up-result;
+                animation-fill-mode: forwards, forwards;
+                animation-timing-function: ease-out, linear;
+            }
+
+            @for $i from 1 through 3 {
+                $card-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($i - 1)) + $time-delay-zoom-in-card-animation;
+
+                .card#{$i} {
+                    .card-back {
+                        animation-delay: $card-time-delay;
+                    }
+
+                    .rotate-card {
+                        @extend .open-card;
+                        animation-delay: $card-time-delay;
+                    }
+                }
+            }
+
+            &.delay-3rd-card {
+                .card3 {
+                    $card-3rd-time-delay: 0.4s + (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
+                        $time-delay-zoom-in-card-animation;
+                    .card-back {
+                        animation-delay: $card-3rd-time-delay;
+                    }
+
+                    .rotate-card {
+                        @extend .open-card;
+                        animation-delay: $card-3rd-time-delay;
+                    }
+                }
+            }
+        }
     }
 
-    &.has-animation {
-        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
-
-        .animation-container {
-            animation-name: zoom-in-animation, move-up-result-animation;
-            animation-duration: $time-zoom-in-card-animation, 0.3s;
-            animation-delay: 0s, $time-delay-move-up-result;
-            animation-fill-mode: forwards, forwards;
-            animation-timing-function: ease-out, linear;
-        }
-
-        @for $i from 1 through 3 {
-            $card-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($i - 1)) + $time-delay-zoom-in-card-animation;
-
-            .card#{$i} {
-                .card-back {
-                    animation-delay: $card-time-delay;
-                }
-
-                .rotate-card {
-                    @extend .open-card;
-                    animation-delay: $card-time-delay;
-                }
-            }
-        }
-
-        &.delay-3rd-card {
-            .card3 {
-                $card-3rd-time-delay: 0.4s + (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
-                    $time-delay-zoom-in-card-animation;
-                .card-back {
-                    animation-delay: $card-3rd-time-delay;
-                }
-
-                .rotate-card {
-                    @extend .open-card;
-                    animation-delay: $card-3rd-time-delay;
-                }
-            }
-        }
+    // collapsed mode
+    &.result-collapse-mode {
+        $time-open-card-collape-mode-animation: 1.5s;
+        @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
     }
 }
 
 .move-up-no-animation {
     transform: scale(0.88) translateY(var(--move-up-distance)) !important;
-}
-
-// collapsed mode
-.result-collapse-mode {
-    $time-open-card-collape-mode-animation: 1.5s;
-    @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
 }
