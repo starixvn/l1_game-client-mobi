@@ -45,13 +45,17 @@ export const GameCategory: React.FC<{
             <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li
-                        className={`${styles["category-item"]} ${
-                            selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""
-                        }`}
+                        className={`${styles["category-item"]} 
+                            ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}
+                            ${categoryPage[categoryKey] ? styles["disabled"] : ""}
+                        `}
                         key={categoryKey}
                     >
                         <div className="d-flex">
-                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                            <div
+                                className={styles["category-text"]}
+                                onClick={() => categoryPage[categoryKey] && selectCategoryPage(categoryKey, 1)}
+                            >
                                 {t(`category-${categoryKey}`)}
                             </div>
                             {!isMobileOnly && categoryPage[categoryKey] > 1 && (
