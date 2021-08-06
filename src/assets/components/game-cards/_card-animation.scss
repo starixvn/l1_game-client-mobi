@@ -140,10 +140,14 @@
 
 @keyframes zoom-in-animation {
     0% {
-        transform: scale(0.55);
+        transform: scale(0.6);
     }
 
-    100% {
-        transform: scale(0.65);
+    50% {
+        transform: scale(0.8);
+    }
+
+    80% {
+        transform: scale(1);
     }
 }

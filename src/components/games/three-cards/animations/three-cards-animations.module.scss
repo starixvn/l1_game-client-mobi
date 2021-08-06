@@ -73,7 +73,7 @@ $number-of-cards: 3;
         @include open-card-has-animation($time-open-card-animation, $number-of-cards);
 
         .animation-container {
-            animation-name: zoon-in-3cards-animation, move-up-result-animation;
+            animation-name: zoom-in-animation, move-up-result-animation;
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards, forwards;
@@ -116,32 +116,8 @@ $number-of-cards: 3;
     transform: scale(0.88) translateY(var(--move-up-distance)) !important;
 }
 
-@keyframes zoon-in-3cards-animation {
-    0% {
-        transform: scale(0.6);
-    }
-
-    50% {
-        transform: scale(0.8);
-    }
-
-    80% {
-        transform: scale(1);
-    }
-}
-
 // collapsed mode
 .result-collapse-mode {
     $time-open-card-collape-mode-animation: 1.5s;
-
-    &.has-animation {
-        .card1,
-        .card2,
-        .card3 {
-            animation: none;
-            opacity: 1;
-        }
-    }
-
     @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
 }

@@ -62,7 +62,7 @@ $number-of-cards: 2;
         @include open-card-has-animation($time-open-card-animation, $number-of-cards);
 
         .animation-container {
-            animation-name: zoon-in-animation, move-up-result-animation;
+            animation-name: zoom-in-animation, move-up-result-animation;
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards;
@@ -83,20 +83,6 @@ $number-of-cards: 2;
                 }
             }
         }
-    }
-}
-
-@keyframes zoon-in-animation {
-    0% {
-        transform: scale(0.6);
-    }
-
-    50% {
-        transform: scale(0.8);
-    }
-
-    80% {
-        transform: scale(1);
     }
 }
 
