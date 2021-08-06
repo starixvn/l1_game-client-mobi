@@ -78,7 +78,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         removeBetChoiceFocus: null,
         betOptionElement: null,
         betChoiceElement: null,
-        tabsScoreboardValue: 0,
+        activeScoreboardTab: 0,
     };
 
     constructor(props: P) {
@@ -96,7 +96,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.closeNotice = this.closeNotice.bind(this);
         this.renderSettlementInfo = this.renderSettlementInfo.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
-        this.setTabsScoreboardValue = this.setTabsScoreboardValue.bind(this);
+        this.setActiveScoreboardTab = this.setActiveScoreboardTab.bind(this);
     }
 
     componentDidMount() {
@@ -623,8 +623,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
-    setTabsScoreboardValue = (tabsScoreboardValue: number) => {
-        this.setState({ tabsScoreboardValue });
+    setActiveScoreboardTab = (activeScoreboardTab: number) => {
+        this.setState({ activeScoreboardTab });
     };
 
     abstract renderBetOptions(): React.ReactElement;
@@ -780,6 +780,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
+           activeScoreboardTab
         } = this.state;
 
         const gameContext = {
@@ -809,7 +810,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 this.clearRetryInterval();
             },
             renderResultCollapse: this.renderResultCollapse.bind(this),
-            setTabsScoreboardValue: this.setTabsScoreboardValue,
+            setActiveScoreboardTab: this.setActiveScoreboardTab,
         };
         return (
             <GameContextProvider value={gameContext}>
@@ -849,7 +850,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <div className={`${Styles["statistic"]}`}>
                                         {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
                                     </div>
-                                    <ScoreboardRoundHistory>
+                                    <ScoreboardRoundHistory activeScoreboardTab={activeScoreboardTab}>
                                         {this.state.roundHistory.length > 0 ? this.renderBoard() : <></>}
                                     </ScoreboardRoundHistory>
                                 </>

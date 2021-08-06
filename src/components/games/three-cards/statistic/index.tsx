@@ -54,17 +54,17 @@ const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
         </>
     );
 };
-const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, tabsScoreboardValue }) => {
+const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, activeScoreboardTab }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return useMemo(() => {
-        if (tabsScoreboardValue === TabsValue.redBlack) {
+        if (activeScoreboardTab === TabsValue.redBlack) {
             return RedBlackStatistics({ roundHistory, statisticRuleEntries, t });
         } else {
             return SuitStatistics({ roundHistory, statisticRuleEntries, t });
         }
-    }, [roundHistory, tabsScoreboardValue]);
+    }, [roundHistory, activeScoreboardTab]);
 };
 
 export default ThreeCardsStatistic;

@@ -4,11 +4,13 @@ import Styles from "./round-history.module.scss";
 
 type Props = {
     children: React.ReactNode;
+    activeScoreboardTab: number;
 };
 
 let isScrollEndRight = true;
 
 const ScoreboardRoundHistory = (props: Props) => {
+    const { activeScoreboardTab } = props;
     const wrapperRef = useRef<HTMLDivElement>(null);
     let scrollLeftWidth = 0;
 
@@ -64,14 +66,18 @@ const ScoreboardRoundHistory = (props: Props) => {
     }, []);
 
     useEffect(() => {
+        isScrollEndRight = true;
+    }, [activeScoreboardTab]);
+
+    useEffect(() => {
         if (isScrollEndRight && wrapperRef?.current?.children[0]) {
             wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
         }
 
-        if (wrapperRef.current) {
-            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
+        if (wrapperRef?.current?.children[0]?.scrollLeft) {
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft);
         }
-    }, [wrapperRef?.current?.children[0]?.scrollLeft]);
+    });
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>

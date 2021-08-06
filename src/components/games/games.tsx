@@ -101,7 +101,6 @@ export const Games: React.FC<Props> = ({
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
             case 8:
                 return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
-
             case 10:
             case 27:
                 return <Baccarat key={`game-${gameId}`} {...gameProps} />;

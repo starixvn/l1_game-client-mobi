@@ -26,7 +26,7 @@ const StatisticRuleEntriesOddEven = Object.entries({
         countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0,
 
     [Choices.odd]: (countResult: object, total: number) =>
-        100 - (countResult[Choices.odd] ? Math.round((countResult[Choices.odd] * 100) / total) : 0),
+        100 - (countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0),
 });
 
 const StatisticRuleEntriesFiveElements = Object.entries({

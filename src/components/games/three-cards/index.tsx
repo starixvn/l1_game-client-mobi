@@ -12,7 +12,7 @@ import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
 import { Choices, TabsValue } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
-import TabsComponent from "../../shared/round-history/tabs";
+import ScoreboardTab from "../../shared/scoreboard-tab";
 
 class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -53,24 +53,24 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             },
         };
 
-        return <TabsComponent key={this.state.roundId} tabsValue={sourceTabsValue}></TabsComponent>;
+        return <ScoreboardTab key={this.state.roundId} tabsValue={sourceTabsValue}></ScoreboardTab>;
     }
 
     renderStatistic() {
-        const statisticRuleEntries = StatisticRuleMapping[this.state.tabsScoreboardValue];
+        const statisticRuleEntries = StatisticRuleMapping[this.state.activeScoreboardTab];
 
         return (
             <ThreeCardsStatistic
                 roundHistory={this.state.roundHistory}
                 statisticRuleEntries={statisticRuleEntries}
-                tabsScoreboardValue={this.state.tabsScoreboardValue}
+                activeScoreboardTab={this.state.activeScoreboardTab}
             ></ThreeCardsStatistic>
         );
     }
 
     renderBoard() {
-        const { roundHistory, tabsScoreboardValue, gameState } = this.state;
-        if (tabsScoreboardValue === TabsValue.suits) {
+        const { roundHistory, activeScoreboardTab, gameState } = this.state;
+        if (activeScoreboardTab === TabsValue.suits) {
             return (
                 <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRoundSuits}></ScoreboardBasic>
             );
@@ -83,8 +83,8 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             return (
                 <ScoreboardDragon
                     roundHistory={roundHistory}
-                    getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
-                    checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
+                    getElementRound={ScoreboardRule[activeScoreboardTab]?.elementRound}
+                    checkCondition={ScoreboardRule[activeScoreboardTab]?.condition}
                     translateDotTextMapping={translateDotTextMapping}
                 />
             );

@@ -11,7 +11,7 @@ import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping } from "./keno-pro-max-helper";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import TabsComponent from "../../shared/round-history/tabs";
+import ScoreboardTab from "../../shared/scoreboard-tab";
 
 class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -65,21 +65,21 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             },
         };
 
-        return <TabsComponent key={this.state.roundId} tabsValue={sourceTabsValue}></TabsComponent>;
+        return <ScoreboardTab key={this.state.roundId} tabsValue={sourceTabsValue}></ScoreboardTab>;
     }
 
     renderStatistic() {
         return (
             <StatisticFollowPercent
                 roundHistory={this.state.roundHistory}
-                statisticRuleEntries={StatisticRuleMapping[this.state.tabsScoreboardValue]}
-                tabsScoreboardValue={this.state.tabsScoreboardValue}
+                statisticRuleEntries={StatisticRuleMapping[this.state.activeScoreboardTab]}
+                activeScoreboardTab={this.state.activeScoreboardTab}
             ></StatisticFollowPercent>
         );
     }
 
     renderBoard() {
-        const { roundHistory, tabsScoreboardValue } = this.state;
+        const { roundHistory, activeScoreboardTab } = this.state;
         const translateDotTextMapping = {
             [Choices.big]: this.getGameTranslate("bigTextDot"),
             [Choices.small]: this.getGameTranslate("smallTextDot"),
@@ -89,8 +89,8 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getElementRound={ScoreboardRule[tabsScoreboardValue]?.elementRound}
-                checkCondition={ScoreboardRule[tabsScoreboardValue]?.condition}
+                getElementRound={ScoreboardRule[activeScoreboardTab]?.elementRound}
+                checkCondition={ScoreboardRule[activeScoreboardTab]?.condition}
                 translateDotTextMapping={translateDotTextMapping}
             />
         );

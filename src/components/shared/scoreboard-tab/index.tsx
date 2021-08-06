@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from "react";
-import { useGameActionContext } from "../../../../contexts/game-actions-context";
+import { useGameActionContext } from "../../../contexts/game-actions-context";
 import Styles from "./tabs.module.scss";
 
 type Props = {
     tabsValue: object;
 };
 
-const TabsComponent: React.FunctionComponent<Props> = (props) => {
+const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
     const { tabsValue } = props;
     const tabsKey = Object.keys(tabsValue);
     const gameActionContext = useGameActionContext();
@@ -15,7 +15,7 @@ const TabsComponent: React.FunctionComponent<Props> = (props) => {
     return useMemo(() => {
         const updateValueTab = (value: number) => {
             setTabActive(value);
-            gameActionContext.setTabsScoreboardValue(value);
+            gameActionContext.setActiveScoreboardTab(value);
         };
 
         return (
@@ -39,4 +39,4 @@ const TabsComponent: React.FunctionComponent<Props> = (props) => {
     }, [tabActive]);
 };
 
-export default TabsComponent;
+export default ScoreboardTab;
