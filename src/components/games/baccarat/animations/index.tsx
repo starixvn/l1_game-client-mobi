@@ -48,6 +48,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
 > {
     constructor(props) {
         super(props);
+
         this.state = {
             ...props,
             playerScore: 0,
@@ -56,29 +57,46 @@ class PlayerBankerResultComponent extends React.PureComponent<
     }
 
     componentDidMount() {
-        const cardOpenedTimes = [
-            { t: 600, c: this.props.result.player.card1, isBanker: false },
-            { t: 800, c: this.props.result.player.card2, isBanker: false },
-            { t: 1200, c: this.props.result.banker.card1, isBanker: true },
-            { t: 2200, c: this.props.result.banker.card2, isBanker: true },
-            { t: 3000, c: this.props.result.player.card3 ?? this.props.result.banker.card3, isBanker: !this.props.result.player.card3 },
-            { t: 3500, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
-        ];
-        cardOpenedTimes
-            .filter((ct) => !!ct.c)
-            .forEach((ct, _) => {
-                setTimeout(() => {
-                    if (ct.isBanker) {
-                        this.setState({
-                            bankerScore: sumScore(this.state.bankerScore, ct.c.card),
-                        });
-                    } else {
-                        this.setState({
-                            playerScore: sumScore(this.state.playerScore, ct.c.card),
-                        });
-                    }
-                }, ct.t);
-            });
+        if (this.props.playResultAnimation) {
+            const cardOpenedTimes = [
+                { t: 600, c: this.props.result.player.card1, isBanker: false },
+                { t: 1000, c: this.props.result.player.card2, isBanker: false },
+                { t: 1400, c: this.props.result.banker.card1, isBanker: true },
+                { t: 2600, c: this.props.result.banker.card2, isBanker: true },
+                { t: 3300, c: this.props.result.player.card3 ?? this.props.result.banker.card3, isBanker: !this.props.result.player.card3 },
+                { t: 3900, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
+            ];
+            cardOpenedTimes
+                .filter((ct) => !!ct.c)
+                .forEach((ct, _) => {
+                    setTimeout(() => {
+                        if (ct.isBanker) {
+                            this.setState({
+                                bankerScore: sumScore(this.state.bankerScore, ct.c.card),
+                            });
+                        } else {
+                            this.setState({
+                                playerScore: sumScore(this.state.playerScore, ct.c.card),
+                            });
+                        }
+                    }, ct.t);
+                });
+        }
+    }
+
+    componentDidUpdate() {
+        let pc = sumScore(0, this.props.result.player.card1.card);
+        pc = sumScore(pc, this.props.result.player.card2.card);
+        pc = sumScore(pc, this.props.result.player.card3?.card ?? 0);
+
+        let bc = sumScore(0, this.props.result.banker.card1.card);
+        bc = sumScore(bc, this.props.result.banker.card2.card);
+        bc = sumScore(bc, this.props.result.banker.card3?.card ?? 0);
+
+        this.setState({
+            playerScore: pc,
+            bankerScore: bc,
+        });
     }
 
     render() {
