@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";
+import { getLocalStorageItem, localStorageKeys } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
 import { checkUM, sso, verifySession } from "../services/auth-service";
@@ -15,7 +16,6 @@ function Home() {
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
     const { token, lang } = router.query;
-    const locale = languageMapper[lang as string] ?? router.locale;
     const { i18n } = useTranslation();
 
     useEffect(() => {
@@ -33,6 +33,8 @@ function Home() {
         };
 
         if (router.isReady) {
+            const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
+            const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
             i18n.changeLanguage(locale);
 
             if (!checkUM()) {
@@ -55,7 +57,15 @@ function Home() {
     }, []);
 
     if (loading) {
-        return <SplashScreen locale={locale} />;
+        if (!router.isReady) {
+            return <></>;
+        }
+
+        const { lang } = router.query;
+        const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
+        const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
+
+        return <SplashScreen locale={locale}></SplashScreen>;
     }
 
     const buildId = process.env.buildVersion;
