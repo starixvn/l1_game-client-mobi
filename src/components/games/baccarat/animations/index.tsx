@@ -35,6 +35,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
         playResultAnimation: boolean;
         result?: Result;
         viewMode: ViewMode;
+        texts: any;
     },
     {
         playResultAnimation: boolean;
@@ -42,6 +43,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
         viewMode: ViewMode;
         playerScore: number;
         bankerScore: number;
+        texts: any;
     }
 > {
     constructor(props) {
@@ -91,7 +93,9 @@ class PlayerBankerResultComponent extends React.PureComponent<
                     }`}
                 >
                     {generateResult(playerCards, this.state.viewMode)}
-                    <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>{this.state.playerScore}</div>
+                    <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>
+                        {this.state.texts.player}: {this.state.playerScore}
+                    </div>
                 </div>
 
                 <div
@@ -100,7 +104,9 @@ class PlayerBankerResultComponent extends React.PureComponent<
                     }`}
                 >
                     {generateResult(bankerCards, this.state.viewMode)}
-                    <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>{this.state.bankerScore}</div>
+                    <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>
+                        {this.state.texts.banker}: {this.state.bankerScore}
+                    </div>
                 </div>
             </div>
         );
@@ -112,10 +118,16 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
     const suffix = !result.player.card3 && !!result.banker.card3 ? "-banker" : "";
     const classCardCount = `card-${resultCount}${suffix}`;
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const texts = {
+        player: t("player"),
+        banker: t("banker"),
+    };
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
-            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} />
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} texts={texts} />
         </div>
     );
 };
@@ -126,6 +138,10 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
     const suffix = !result.player.card3 && !!result.banker.card3 ? "-banker" : "";
     const classCardCount = `card-${resultCount}${suffix}`;
+    const texts = {
+        player: t("player"),
+        banker: t("banker"),
+    };
 
     return (
         <div
@@ -133,7 +149,7 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
                 playResultAnimation ? Styles[classAnimation] : ""
             }`}
         >
-            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} />
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} texts={texts} />
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     {settlementResult.player ? t("player") : settlementResult.banker ? t("banker") : t("tie")}
