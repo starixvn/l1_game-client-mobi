@@ -79,6 +79,10 @@
 .even {
     @extend %title;
     color: var(--keno-pro-even-statistic-text-color);
+
+    &.kenopromax {
+        color: var(--keno-pro-even-statistic-text-color);
+    }
 }
 
 .gold {

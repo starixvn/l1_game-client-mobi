@@ -1,5 +1,6 @@
 .overlay {
     top: -0.8rem !important;
+    z-index: var(--popup-guide-history-index);
 }
 
 .popup {
