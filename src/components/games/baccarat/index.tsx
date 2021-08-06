@@ -56,7 +56,13 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
             },
         };
-        return <ScoreboardTab key={this.state.roundId} tabsValue={sourceTabsValue}></ScoreboardTab>;
+        return (
+            <ScoreboardTab
+                key={this.state.roundId}
+                tabsValue={sourceTabsValue}
+                activeScoreboardTab={this.state.activeScoreboardTab}
+            ></ScoreboardTab>
+        );
     }
 
     renderStatistic() {

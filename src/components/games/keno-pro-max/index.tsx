@@ -65,7 +65,7 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             },
         };
 
-        return <ScoreboardTab key={this.state.roundId} tabsValue={sourceTabsValue}></ScoreboardTab>;
+        return <ScoreboardTab key={this.state.roundId} tabsValue={sourceTabsValue} activeScoreboardTab={this.state.activeScoreboardTab}></ScoreboardTab>;
     }
 
     renderStatistic() {

@@ -4,13 +4,14 @@ import Styles from "./tabs.module.scss";
 
 type Props = {
     tabsValue: object;
+    activeScoreboardTab: number;
 };
 
 const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
-    const { tabsValue } = props;
+    const { tabsValue, activeScoreboardTab } = props;
     const tabsKey = Object.keys(tabsValue);
     const gameActionContext = useGameActionContext();
-    const [tabActive, setTabActive] = useState<number>(0);
+    const [tabActive, setTabActive] = useState<number>(activeScoreboardTab);
 
     return useMemo(() => {
         const updateValueTab = (value: number) => {
