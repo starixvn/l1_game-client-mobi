@@ -76,6 +76,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     .animation-container {
         --move-up-distance: -1.2rem;
         --result-scale: 0.8;
+        top: -.4rem;
         transform: scale(0.8);
         transition: transform 0.7s;
         //max-width: 14.2rem;
@@ -88,7 +89,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         .score {
             --width-score: 8.4rem;
             --height-score: 2.4rem;
-            --font-size-score: 1.8rem;
+            --font-size-score: 1.4rem;
             --bottom-score: 1rem;
             position: absolute;
             bottom: 0;
@@ -307,7 +308,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 
     100% {
-        transform:  scale(var(--scale-to)) translateY(1.6rem);
+        transform:  scale(var(--scale-to)) translateY(2.4rem);
     }
 }
 
