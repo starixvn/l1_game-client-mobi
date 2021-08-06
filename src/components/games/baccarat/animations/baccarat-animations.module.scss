@@ -103,6 +103,14 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             justify-content: center;
             font-size: var(--font-size-score);
             bottom: var(--bottom-score);
+            &-number{
+                font-size: 1.8rem;
+                font-family: var(--font-number);
+                font-weight: bold;
+                position: relative;
+                left: .4rem;
+                top: -.1rem;
+            }
             // &.bet-history {
             //     --width-score: 5.2rem;
             //     --height-score: 2.6rem;
@@ -111,21 +119,21 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
         
         &.player .score {
-            --left-value: -2.4rem;
-            background: linear-gradient(180deg, #117f99 0%, #123363 100%);
+            --left-value: -3.4rem;
+            background: linear-gradient(180deg, #65A1E7 0%, #2D6DB8 100%);
             margin-left: 40%;
             left: var(--left-value);
             &.group-2-cards {
-                --left-value: .2rem;
+                --left-value: -1rem;
             }
         }
         &.banker .score {
-            --right-value: -2.4rem;
-            background: linear-gradient(180deg, #e72c0e 0%, #8d1a09 100%);
+            --right-value: -3.4rem;
+            background: linear-gradient(180deg, #F56566 0%, #CE333F 100%);
             margin-right: 40%;
             right: var(--right-value);
             &.group-2-cards {
-                --right-value: .2rem;
+                --right-value: -1rem;
             }
         }
 
