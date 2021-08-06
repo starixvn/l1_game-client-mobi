@@ -13,7 +13,7 @@ $time-delay-open-card-2: 0.2s;
 $time-delay-open-card-4: $time-delay-open-card-2 + 0.8s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 $time-delay-show-score-animation: $time-delay-zoom-in-card-animation + 0.1s;
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-draw-card-animation + 2s;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 0.8;
 
 .animation-container {
     position: absolute;
@@ -74,29 +74,29 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
     
     .animation-container {
-        --move-up-distance: -2rem;
+        --move-up-distance: -1.2rem;
         --result-scale: 0.8;
         top: 1.2rem;
         transform: scale(0.8);
         transition: transform 0.7s;
-        max-width: 14.2rem;
+        //max-width: 14.2rem;
         &.player  {
-            left: 6rem;
+            left: 3rem;
         }
         &.banker {
-            right: 6rem;
+            right: 3rem;
         }
         .score {
-            --width-score: 5.4rem;
-            --height-score: 2.7rem;
+            --width-score: 8.4rem;
+            --height-score: 2.4rem;
             --font-size-score: 1.8rem;
             --bottom-score: 1rem;
             position: absolute;
             bottom: 0;
             width: var(--width-score);
             height: var(--height-score);
-            border-top-left-radius: 60px;
-            border-top-right-radius: 60px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
             color: #fff;
             display: flex;
             align-items: center;
@@ -302,22 +302,13 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
 }
 
-@keyframes move-card {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(var(--move-card-translate-x));
-    }
-}
-
 @keyframes zoom-in-animation {
     0% {
         transform: scale(var(--scale-from));
     }
 
     100% {
-        transform:  scale(var(--scale-to));
+        transform:  scale(var(--scale-to)) translateY(1.6rem);
     }
 }
 

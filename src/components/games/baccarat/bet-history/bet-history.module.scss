@@ -52,6 +52,12 @@
             left: 0.4rem;
             &.card-length-3 {
                 left: 1.8rem;
+                .card3{
+                    transform: translateX(8.2rem);
+                }
+                .card1{
+                    transform: translateX(15.5rem);
+                }
             }
         }
         &.banker {
@@ -62,15 +68,12 @@
             }
         }
 
-        .card3 {
+        .card1{
             transform: translateX(8.2rem);
         }
         .card4 {
             transform: translateX(-8.2rem);
             z-index: 10;
-        }
-        .card5 {
-            transform: translateX(15.5rem);
         }
         .card6 {
             transform: translateX(-15.5rem);
@@ -85,8 +88,12 @@
     .banker-label {
         font-size: 1.4rem;
         line-height: 1.6rem;
+        position: relative;
+        top: 1rem;
+        font-weight: bold;
         .number-score {
             font-family: var(--font-number);
+            font-size: 1.8rem;
         }
     }
 
