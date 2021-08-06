@@ -28,6 +28,7 @@
 .details {
     color: #04a5ff;
     cursor: pointer;
+    font-family: var(--font-number);
     &:hover {
         text-decoration: underline;
     }
@@ -52,10 +53,10 @@
             left: 0.4rem;
             &.card-length-3 {
                 left: 1.8rem;
-                .card3{
+                .card3 {
                     transform: translateX(8.2rem);
                 }
-                .card1{
+                .card1 {
                     transform: translateX(15.5rem);
                 }
             }
@@ -68,7 +69,7 @@
             }
         }
 
-        .card1{
+        .card1 {
             transform: translateX(8.2rem);
         }
         .card4 {

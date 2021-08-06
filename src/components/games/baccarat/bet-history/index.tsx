@@ -17,10 +17,11 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
             setIsShowResultDetail(true);
             setResultDetail({ bet: bet, roundId: roundId });
         };
+        const result: any = bet?.result;
 
         return (
             <div className={Styles["details"]} onClick={() => clickHandle()}>
-                {t("details")}
+                {generateScore(GetPlayerCardsResult(result))} | {generateScore(GetBankerCardsResult(result))}
             </div>
         );
     }

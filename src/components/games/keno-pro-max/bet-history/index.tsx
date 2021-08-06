@@ -15,10 +15,11 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
             setIsShowResultDetail(true);
             setResultDetail({ bet: bet, roundId: roundId });
         };
+        const totalPoint = bet.result.reduce((a, b) => a + b, 0);
 
         return (
             <div className={Styles["detail"]} onClick={() => clickHandle()}>
-                {t("details")}
+                {totalPoint}
             </div>
         );
     }
