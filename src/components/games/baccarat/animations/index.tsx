@@ -84,9 +84,10 @@ class PlayerBankerResultComponent extends React.PureComponent<
     render() {
         const playerCards = GetPlayerCardsResult(this.state.result);
         const bankerCards = GetBankerCardsResult(this.state.result);
+        const isFullMode = this.state.viewMode === ViewMode.full;
 
         return (
-            <div className={this.state.viewMode === ViewMode.full ? "overlay-mask" : Styles["result-wrapper"]}>
+            <div className={isFullMode ? "overlay-mask" : Styles["result-wrapper"]}>
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
                         this.state.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
@@ -94,7 +95,8 @@ class PlayerBankerResultComponent extends React.PureComponent<
                 >
                     {generateResult(playerCards, this.state.viewMode)}
                     <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>
-                        {this.state.texts.player}:<span className={Styles["score-number"]}> {this.state.playerScore}</span>
+                        {isFullMode ? `${this.state.texts.player}: ` : ""}
+                        <span className={Styles["score-number"]}>{this.state.playerScore}</span>
                     </div>
                 </div>
 
@@ -105,7 +107,8 @@ class PlayerBankerResultComponent extends React.PureComponent<
                 >
                     {generateResult(bankerCards, this.state.viewMode)}
                     <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>
-                        {this.state.texts.banker}: <span className={Styles["score-number"]}> {this.state.bankerScore}</span>
+                        {isFullMode ? `${this.state.texts.banker}: ` : ""}
+                        <span className={Styles["score-number"]}>{this.state.bankerScore}</span>
                     </div>
                 </div>
             </div>
