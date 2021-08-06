@@ -13,7 +13,7 @@ $time-delay-open-card-2: 0.2s;
 $time-delay-open-card-4: $time-delay-open-card-2 + 0.8s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 $time-delay-show-score-animation: $time-delay-zoom-in-card-animation + 0.1s;
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 0.8;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 1.4s;
 
 .animation-container {
     position: absolute;
@@ -76,7 +76,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     .animation-container {
         --move-up-distance: -1.2rem;
         --result-scale: 0.8;
-        top: 1.2rem;
         transform: scale(0.8);
         transition: transform 0.7s;
         //max-width: 14.2rem;
