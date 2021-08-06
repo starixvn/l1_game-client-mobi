@@ -106,7 +106,6 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             &-number{
                 font-size: 2rem;
                 font-family: var(--font-number);
-                font-weight: bold;
                 position: relative;
                 left: .4rem;
                 top: -.1rem;
