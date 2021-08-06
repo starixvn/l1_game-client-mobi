@@ -110,7 +110,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
             <div className={isFullMode ? "overlay-mask" : Styles["result-wrapper"]}>
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
-                        this.state.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                        this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
                     }`}
                 >
                     {generateResult(playerCards, this.state.viewMode)}
@@ -122,7 +122,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
 
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["banker"]} ${
-                        this.state.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                        this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
                     }`}
                 >
                     {generateResult(bankerCards, this.state.viewMode)}
