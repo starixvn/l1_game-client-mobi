@@ -8,6 +8,7 @@ type Props = {
 };
 
 let isScrollEndRight = true;
+let activeTabCurrent = 0;
 
 const ScoreboardRoundHistory = (props: Props) => {
     const { activeScoreboardTab } = props;
@@ -66,7 +67,10 @@ const ScoreboardRoundHistory = (props: Props) => {
     }, []);
 
     useEffect(() => {
-        isScrollEndRight = true;
+        if (activeTabCurrent !== activeScoreboardTab) {
+            activeTabCurrent = activeScoreboardTab;
+            isScrollEndRight = true;
+        }
     }, [activeScoreboardTab]);
 
     useEffect(() => {
@@ -77,7 +81,7 @@ const ScoreboardRoundHistory = (props: Props) => {
         if (wrapperRef?.current?.children[0]?.scrollLeft) {
             scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft);
         }
-    });
+    }, [wrapperRef?.current?.children[0], activeScoreboardTab]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>

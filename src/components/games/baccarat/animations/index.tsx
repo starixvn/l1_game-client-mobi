@@ -57,12 +57,12 @@ class PlayerBankerResultComponent extends React.PureComponent<
 
     componentDidMount() {
         const cardOpenedTimes = [
-            { t: 600, c: this.state.result.player.card1, isBanker: false },
-            { t: 800, c: this.state.result.player.card2, isBanker: false },
-            { t: 1200, c: this.state.result.banker.card1, isBanker: true },
-            { t: 2200, c: this.state.result.banker.card2, isBanker: true },
-            { t: 3000, c: this.state.result.player.card3 ?? this.state.result.banker.card3, isBanker: !this.state.result.player.card3 },
-            { t: 3500, c: !!this.state.result.player.card3 ? this.state.result.banker.card3 : null, isBanker: true },
+            { t: 600, c: this.props.result.player.card1, isBanker: false },
+            { t: 800, c: this.props.result.player.card2, isBanker: false },
+            { t: 1200, c: this.props.result.banker.card1, isBanker: true },
+            { t: 2200, c: this.props.result.banker.card2, isBanker: true },
+            { t: 3000, c: this.props.result.player.card3 ?? this.props.result.banker.card3, isBanker: !this.props.result.player.card3 },
+            { t: 3500, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
         ];
         cardOpenedTimes
             .filter((ct) => !!ct.c)
@@ -82,8 +82,8 @@ class PlayerBankerResultComponent extends React.PureComponent<
     }
 
     render() {
-        const playerCards = GetPlayerCardsResult(this.state.result);
-        const bankerCards = GetBankerCardsResult(this.state.result);
+        const playerCards = GetPlayerCardsResult(this.props.result);
+        const bankerCards = GetBankerCardsResult(this.props.result);
         const isFullMode = this.state.viewMode === ViewMode.full;
 
         return (
