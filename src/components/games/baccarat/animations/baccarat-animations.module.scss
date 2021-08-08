@@ -75,16 +75,16 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     
     .animation-container {
         --move-up-distance: -2.4rem;
-        --result-scale: 0.8;
+        --result-scale: 0.85;
         top: 1.6rem;
-        transform: scale(0.8);
+        transform: scale(0.85);
         transition: transform 0.7s;
         //max-width: 14.2rem;
         &.player  {
-            left: 3rem;
+            left: 2.5rem;
         }
         &.banker {
-            right: 3rem;
+            right: 2.5rem;
         }
         .score {
             --width-score: 10.5rem;
@@ -118,21 +118,21 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
         }
         
         &.player .score {
-            --left-value: -3.4rem;
+            --left-value: -4.4rem;
             background: linear-gradient(180deg, #65A1E7 0%, #2D6DB8 100%);
             margin-left: 40%;
             left: var(--left-value);
             &.group-2-cards {
-                --left-value: -1rem;
+                --left-value: -2rem;
             }
         }
         &.banker .score {
-            --right-value: -3.4rem;
+            --right-value: -4.4rem;
             background: linear-gradient(180deg, #F56566 0%, #CE333F 100%);
             margin-right: 40%;
             right: var(--right-value);
             &.group-2-cards {
-                --right-value: -1rem;
+                --right-value: -2rem;
             }
         }
 
@@ -177,7 +177,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
             animation-timing-function: ease-out;
             animation-name: zoom-in-animation, move-up-result-animation;
             --scale-from: 0.29;
-            --scale-to: 0.8;
+            --scale-to: 0.85;
         }
 
         .rotate-card {
@@ -380,7 +380,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     }
     &.has-animation {
         .animation-container  {
-            --scale-from: 0.8;
+            --scale-from: 0.85;
             --scale-to: 1;
         }
     }
@@ -388,7 +388,7 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
 }
 
 .move-up-no-animation {
-    transform: scale(0.8) translateY(var(--move-up-distance)) !important;
+    transform: scale(0.85) translateY(var(--move-up-distance)) !important;
 }
 .result-collapse-mode .move-up-no-animation {
     transform: scale(1) translateY(var(--move-up-distance)) !important;
@@ -398,6 +398,8 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     flex-wrap: wrap;
     width: fit-content;
     padding: 1rem;
+    position: relative;
+    top: -1.2rem;
 
     .result-info {
         min-width: 10.3rem;
@@ -418,9 +420,9 @@ $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card
     &.result-3,
     &.result-4 {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;    
         position: relative;
-        top: -2.8rem;
+        top: -2.8rem;   
     }
 
     &.result-3 {
