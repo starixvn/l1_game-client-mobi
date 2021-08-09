@@ -108,7 +108,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentDidMount() {
-        this.registerMessageHandler();
         this.onStart();
 
         document.addEventListener("visibilitychange", this.onVisibilityChange.bind(this), false);
@@ -117,11 +116,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentWillUnmount() {
         this.onDestroy();
 
-        this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange.bind(this));
     }
 
     onDestroy() {
+        this.messageTransmitter.clearAllListener();
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -136,6 +135,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
+        this.registerMessageHandler();
         this.initWinStreakCollector();
         this.socket = io(socketUri, {
             forceNew: true,
