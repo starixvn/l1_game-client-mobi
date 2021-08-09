@@ -110,13 +110,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentDidMount() {
         this.onStart();
 
-        document.addEventListener("visibilitychange", this.onVisibilityChange.bind(this), false);
+        document.addEventListener("visibilitychange", this.onVisibilityChange);
     }
 
     componentWillUnmount() {
         this.onDestroy();
 
-        document.removeEventListener("visibilitychange", this.onVisibilityChange.bind(this));
+        document.removeEventListener("visibilitychange", this.onVisibilityChange);
     }
 
     onDestroy() {
@@ -165,10 +165,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     }
 
-    onVisibilityChange() {
+    onVisibilityChange = () => {
         const visibleState = document.visibilityState;
         visibleState === "hidden" ? this.onDestroy() : this.onStart();
-    }
+    };
 
     onConnectFailed() {
         this.onDestroy();
