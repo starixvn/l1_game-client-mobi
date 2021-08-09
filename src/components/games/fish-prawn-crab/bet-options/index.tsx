@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { Result, SettlementResult } from "./../fish-prawn-crab";
 import { GameConfigs, GameSettings, GameState } from "../../../shared/game-base/type";
+import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
 const Choices = ["stag", "gourd", "rooster", "fish", "crab", "prawn"];
@@ -101,12 +101,13 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
     const [isShowCountOfDice, setIsShowCountOfDice] = useState<boolean>(false);
 
     useEffect(() => {
+        let displayResultTimeOut = null;
         const actionByGameState = {
             [GameState.LockingBet]: () => {
                 setIsShowCountOfDice(false);
             },
             [GameState.DisplayResult]: () => {
-                setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
+                displayResultTimeOut = setTimeout(() => setIsShowCountOfDice(true), gameSetting.durations.resultAnimation * 1000);
             },
             [GameState.InRound]: () => {
                 setIsShowCountOfDice(true);
@@ -116,6 +117,8 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
             },
         };
         actionByGameState[gameState] && actionByGameState[gameState]();
+
+        return () => displayResultTimeOut && clearTimeout(displayResultTimeOut);
     }, [gameState]);
 
     return (

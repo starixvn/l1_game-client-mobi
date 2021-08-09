@@ -123,6 +123,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.interval && clearInterval(this.interval);
+        this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
+        this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
         this.clearRetryInterval();
         this.socket && this.socket.disconnect();
     }
