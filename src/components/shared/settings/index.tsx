@@ -9,26 +9,27 @@ import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
 
-export const Settings: React.FC<Props> = (props) => {
+const ButtonSettingClassName = "setting-button";
+
+export const Settings: React.FC<Props> = ({
+    updateBetSetting,
+    globalBetSetting,
+    enabledNotification,
+    onToggleNotification,
+    toggleHistoryModal,
+    onToggleSound,
+    enabledSound,
+    toggleGuideModal,
+    favoriteGames,
+    updateFavoriteGames,
+}) => {
     const { theme } = useTheme();
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
     const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
-
-    const {
-        updateBetSetting,
-        globalBetSetting,
-        enabledNotification,
-        onToggleNotification,
-        toggleHistoryModal,
-        onToggleSound,
-        enabledSound,
-        toggleGuideModal,
-        favoriteGames,
-        updateFavoriteGames,
-    } = props;
+    const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
 
     return (
         <div className={styles["settings-container"]}>
@@ -39,7 +40,7 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     ref={toggleWinningStreakBtnRef}
                     id="notification-settings"
-                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => onToggleNotification()}
                 >
                     <span
@@ -54,7 +55,7 @@ export const Settings: React.FC<Props> = (props) => {
                 <div
                     ref={toggleHistoryBtnRef}
                     id="ticket-history"
-                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => toggleHistoryModal()}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
@@ -63,7 +64,7 @@ export const Settings: React.FC<Props> = (props) => {
 
                 <div
                     id="favorite-setting"
-                    className={`header-button ${styles["setting-button"]} ${!isMobileOnly ? styles["desktop-style"] : ""}`}
+                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
                     ref={favoriteToggleBtnRef}
                 >
