@@ -10,6 +10,17 @@ class SpecialSeDie extends SeDie {
         return ["even", "odd"];
     }
 
+    handleFinish({ finish }) {
+        super.handleFinish({ finish });
+
+        const { totalBets } = this.state;
+        const balancedBetAmount = Math.min(...Object.values(totalBets));
+        Object.keys(totalBets).forEach((choice) => {
+            totalBets[choice] = balancedBetAmount;
+        });
+        this.setState({ totalBets });
+    }
+
     renderBetOptions() {
         const { gameState, settlementResult, showWinningAnimation, betPercentage } = this.state;
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
