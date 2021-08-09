@@ -1,12 +1,6 @@
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
-
-import {
-    getLocalStorageItem,
-    localStorageKeys,
-    removeLocalStorageItem,
-    storeLocalStorageItem,
-} from "../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../common/local-storage";
 import { UserClientCommunication } from "./user-client-communication";
 
 const { settings: settingsService, auth: authService, userSettings: userSettingsService } = UserClientCommunication.getUserClientInstance();

@@ -1,5 +1,4 @@
 import UserServiceClient from "sc-user-service-client";
-
 import appSettings from "../common/app-settings";
 
 export class UserClientCommunication {
