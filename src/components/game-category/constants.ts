@@ -1,4 +1,4 @@
-export const GamesInOnePageOnDesktop = 9;
+export const GamesInOnePage = 6;
 
 export const GameCategoryConfig = {
     popular: [22, 2, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],

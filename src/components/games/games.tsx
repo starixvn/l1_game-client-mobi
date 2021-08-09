@@ -20,7 +20,7 @@ import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { Props } from "./type";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageOnDesktop } from "../game-category/constants";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
 import { GameCategory } from "../game-category";
 
 let gamesOrder = [];
@@ -30,12 +30,12 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
     const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
     const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
-    const startIndex = (selectedPage - 1) * GamesInOnePageOnDesktop;
+    const startIndex = (selectedPage - 1) * GamesInOnePage;
 
     const result = tabFavoriteGames.concat(tabUnfavoriteGames);
     gamesOrder = result;
 
-    return !isMobileOnly ? result.slice(startIndex, startIndex + GamesInOnePageOnDesktop) : result;
+    return result.slice(startIndex, startIndex + GamesInOnePage);
 };
 
 const getCategoryByGameId = (gameId: number) => {

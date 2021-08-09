@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import styles from "./game-category.module.scss";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageOnDesktop } from "./constants";
-import { isMobileOnly } from "react-device-detect";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import { useTranslation } from "next-i18next";
 
 const renderPagingCategory = (
@@ -42,7 +41,7 @@ export const GameCategory: React.FC<{
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
         const categoryLength = category !== "favorite" ? GameCategoryConfig[category].length : favoriteGames.length;
 
-        result[category] = Math.ceil(categoryLength / GamesInOnePageOnDesktop);
+        result[category] = Math.ceil(categoryLength / GamesInOnePage);
 
         return result;
     }, {});
@@ -65,7 +64,7 @@ export const GameCategory: React.FC<{
                             >
                                 {t(`category-${categoryKey}`)}
                             </div>
-                            {!isMobileOnly && categoryPage[categoryKey] > 1 && (
+                            {categoryPage[categoryKey] > 1 && (
                                 <div className={styles["paging-container"]}>
                                     {renderPagingCategory(
                                         categoryKey,
