@@ -37,7 +37,6 @@ export const GameCategory: React.FC<{
     favoriteGames: number[];
 }> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
-    const [isShowScrollBar, setIsShowScrollBar] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
@@ -48,30 +47,8 @@ export const GameCategory: React.FC<{
         return result;
     }, {});
 
-    useEffect(() => {
-        const handleMouseEnter = () => {
-            setIsShowScrollBar(true);
-        };
-
-        const handleMouseLeave = () => {
-            setIsShowScrollBar(false);
-        };
-
-        if (wrapperRef?.current) {
-            wrapperRef.current.addEventListener("touchmove", handleMouseEnter);
-            wrapperRef.current.addEventListener("touchend", handleMouseLeave);
-        }
-
-        return () => {
-            if (wrapperRef?.current) {
-                wrapperRef.current.removeEventListener("touchmove", handleMouseEnter);
-                wrapperRef.current.removeEventListener("touchend", handleMouseLeave);
-            }
-        };
-    }, [wrapperRef]);
-
     return (
-        <div ref={wrapperRef} className={`${styles["category-container"]} ${!isShowScrollBar ? styles["hide-scroll-bar"] : ""}`}>
+        <div ref={wrapperRef} className={styles["category-container"]}>
             <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li

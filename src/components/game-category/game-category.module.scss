@@ -48,13 +48,11 @@
     overflow-y: hidden;
     z-index: calc(var(--header-index) - 1);
     -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 
-    &.hide-scroll-bar {
-        &::-webkit-scrollbar {
-            display: none;
-        }
-        -ms-overflow-style: none;
-        scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
     }
 
     &::-webkit-scrollbar-track {
