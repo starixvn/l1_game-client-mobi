@@ -175,9 +175,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.mainSocket.close();
         clearInterval(this.reCheckInInterval);
         window.removeEventListener("orientationchange", this.doOnOrientationChange);
-        this.setState = () => {
-            return;
-        };
     }
 
     sendMessage(data: any) {

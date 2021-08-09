@@ -1,11 +1,11 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
+import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result, SettlementResult, CardOrder } from "../baccarat";
-import { ViewMode } from "../../../shared/game-base/type";
 import Card from "../../../shared/card";
-import { GetPlayerCardsResult, GetBankerCardsResult } from "../baccarat-helper";
+import { ViewMode } from "../../../shared/game-base/type";
+import { CardOrder, Result, SettlementResult } from "../baccarat";
+import { GetBankerCardsResult, GetPlayerCardsResult } from "../baccarat-helper";
 import Styles from "./baccarat-animations.module.scss";
 
 const classAnimation = "has-animation";
@@ -99,12 +99,6 @@ class PlayerBankerResultComponent extends React.PureComponent<
                 bankerScore: bc,
             });
         }
-    }
-
-    componentWillUnmount() {
-        this.setState = () => {
-            return;
-        };
     }
 
     render() {

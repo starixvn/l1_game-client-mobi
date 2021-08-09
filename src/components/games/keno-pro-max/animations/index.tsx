@@ -1,5 +1,5 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
+import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
@@ -76,6 +76,7 @@ class AnimationComponent extends React.PureComponent<
         currentIndex: number;
     }
 > {
+    private animationInterval: NodeJS.Timer;
     constructor(props) {
         super(props);
         this.state = {
@@ -86,13 +87,12 @@ class AnimationComponent extends React.PureComponent<
     }
 
     componentDidMount() {
-        let animationInterval = null;
         if (this.state.playResultAnimation) {
             const elem = this;
 
-            animationInterval = setInterval(() => {
+            this.animationInterval = setInterval(() => {
                 if (elem.state.currentIndex === elem.state.result.length) {
-                    clearInterval(animationInterval);
+                    clearInterval(this.animationInterval);
                     return;
                 }
 
@@ -102,8 +102,8 @@ class AnimationComponent extends React.PureComponent<
                     currentIndex: elem.state.currentIndex + 1,
                 });
             }, 100);
-        } else if (animationInterval) {
-            clearInterval(animationInterval);
+        } else if (this.animationInterval) {
+            clearInterval(this.animationInterval);
             this.setState({
                 currentTotal: this.state.settleTotal,
                 currentIndex: 0,
@@ -112,9 +112,7 @@ class AnimationComponent extends React.PureComponent<
     }
 
     componentWillUnmount() {
-        this.setState = () => {
-            return;
-        };
+        this.animationInterval && clearInterval(this.animationInterval);
     }
 
     render() {
