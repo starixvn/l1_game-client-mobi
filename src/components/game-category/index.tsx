@@ -58,20 +58,20 @@ export const GameCategory: React.FC<{
         };
 
         if (wrapperRef?.current) {
-            wrapperRef.current.addEventListener("mouseenter", handleMouseEnter);
-            wrapperRef.current.addEventListener("mouseleave", handleMouseLeave);
+            wrapperRef.current.addEventListener("touchmove", handleMouseEnter);
+            wrapperRef.current.addEventListener("touchend", handleMouseLeave);
         }
 
         return () => {
             if (wrapperRef?.current) {
-                wrapperRef.current.removeEventListener("mouseenter", handleMouseEnter);
-                wrapperRef.current.removeEventListener("mouseleave", handleMouseLeave);
+                wrapperRef.current.removeEventListener("touchmove", handleMouseEnter);
+                wrapperRef.current.removeEventListener("touchend", handleMouseLeave);
             }
         };
     }, [wrapperRef]);
 
     return (
-        <div ref={wrapperRef} className={`${styles["category-container"]} ${isShowScrollBar ? styles["show-scroll-bar"] : ""}`}>
+        <div ref={wrapperRef} className={`${styles["category-container"]} ${!isShowScrollBar ? styles["hide-scroll-bar"] : ""}`}>
             <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li

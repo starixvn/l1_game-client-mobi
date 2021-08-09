@@ -4,6 +4,8 @@
     --game-category-border-active-color: #ff8a01;
     --game-category-text-color: #28526d;
     --game-category-text-active-color: #ff8a01;
+    --scrollbar-background: #fff;
+    --scoreboard-background: #f3f3f3;
 
     @media (min-width: 768px) {
         --game-category-background: linear-gradient(180deg, #cfecfa 0%, #dbeff9 100%);
@@ -24,6 +26,7 @@
     --game-category-border-active-color: #ffab2b;
     --game-category-text-color: #fff;
     --game-category-text-active-color: #ffab2b;
+    --scoreboard-background: #1a2430;
 
     @media (min-width: 768px) {
         --game-category-background: linear-gradient(180deg, #3b5a7b 36.77%, #3e658d 100%);
@@ -41,13 +44,33 @@
 .category-container {
     border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y: hidden;
     z-index: calc(var(--header-index) - 1);
+    -webkit-overflow-scrolling: touch;
 
-    &.show-scroll-bar {
-        overflow-x: auto;
-        overflow-y: hidden;
+    &.hide-scroll-bar {
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: none;
+        border-radius: 10px;
+        background-color: var(--scrollbar-background);
+    }
+
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: var(--scrollbar-background);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: var(--scrollbar-thumb-background);
     }
 
     @media (min-width: 768px) {
