@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { RoundDot } from "../../../shared/round-history/dot";
@@ -18,15 +18,17 @@ const Plate: React.FC = ({ children }) => {
     );
 };
 
-export const ShakeThePlate = React.memo(function ShakeThePlate({ playAnimation = false }: { playAnimation?: boolean }) {
-    return (
-        <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
-            <div className="overlay-mask-no-bg">
-                <Plate />
+export const ShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
+    useMemo(
+        () => (
+            <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
+                <div className="overlay-mask-no-bg">
+                    <Plate />
+                </div>
             </div>
-        </div>
+        ),
+        [roundId]
     );
-});
 
 export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
