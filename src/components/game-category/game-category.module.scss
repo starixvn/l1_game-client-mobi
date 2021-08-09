@@ -41,9 +41,14 @@
 .category-container {
     border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);
-    overflow-x: auto;
+    overflow-x: hidden;
     overflow-y: hidden;
     z-index: calc(var(--header-index) - 1);
+
+    &.show-scroll-bar {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
 
     @media (min-width: 768px) {
         position: fixed;

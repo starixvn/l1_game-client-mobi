@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./game-category.module.scss";
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageOnDesktop } from "./constants";
 import { isMobileOnly } from "react-device-detect";
@@ -11,6 +11,8 @@ export const GameCategory: React.FC<{
     favoriteGames: number[];
 }> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
+    const [isShowScrollBar, setIsShowScrollBar] = useState(false);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
         const categoryLength = category !== "favorite" ? GameCategoryConfig[category].length : favoriteGames.length;
@@ -19,6 +21,28 @@ export const GameCategory: React.FC<{
 
         return result;
     }, {});
+
+    useEffect(() => {
+        const handleMouseEnter = () => {
+            setIsShowScrollBar(true);
+        };
+
+        const handleMouseLeave = () => {
+            setIsShowScrollBar(false);
+        };
+
+        if (wrapperRef?.current) {
+            wrapperRef.current.addEventListener("mouseenter", handleMouseEnter);
+            wrapperRef.current.addEventListener("mouseleave", handleMouseLeave);
+        }
+
+        return () => {
+            if (wrapperRef?.current) {
+                wrapperRef.current.removeEventListener("mouseenter", handleMouseEnter);
+                wrapperRef.current.removeEventListener("mouseleave", handleMouseLeave);
+            }
+        };
+    }, [wrapperRef]);
 
     const renderPagingCategory = (category: string, numOfPages: number) => {
         const result = [];
@@ -41,7 +65,7 @@ export const GameCategory: React.FC<{
     };
 
     return (
-        <div className={styles["category-container"]}>
+        <div ref={wrapperRef} className={`${styles["category-container"]} ${isShowScrollBar ? styles["show-scroll-bar"] : ""}`}>
             <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li
