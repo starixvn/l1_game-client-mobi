@@ -111,6 +111,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange.bind(this));
+
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = () => {
+            return;
+        };
     }
 
     onDestroy() {
@@ -780,7 +785,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             displayPopup,
-           activeScoreboardTab
+            activeScoreboardTab,
         } = this.state;
 
         const gameContext = {

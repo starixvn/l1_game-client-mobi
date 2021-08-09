@@ -111,6 +111,12 @@ class AnimationComponent extends React.PureComponent<
         }
     }
 
+    componentWillUnmount() {
+        this.setState = () => {
+            return;
+        };
+    }
+
     render() {
         return (
             <div className={`${Styles["animation-container"]}`}>

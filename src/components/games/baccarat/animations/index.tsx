@@ -101,6 +101,12 @@ class PlayerBankerResultComponent extends React.PureComponent<
         }
     }
 
+    componentWillUnmount() {
+        this.setState = () => {
+            return;
+        };
+    }
+
     render() {
         const playerCards = GetPlayerCardsResult(this.props.result);
         const bankerCards = GetBankerCardsResult(this.props.result);
