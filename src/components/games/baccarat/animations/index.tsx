@@ -44,6 +44,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
         playerScore: number;
         bankerScore: number;
         texts: any;
+        openedCards: number;
     }
 > {
     private timeouts: NodeJS.Timeout[] = [];
@@ -55,6 +56,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
             ...props,
             playerScore: 0,
             bankerScore: 0,
+            openedCards: 0,
         };
     }
 
@@ -70,15 +72,17 @@ class PlayerBankerResultComponent extends React.PureComponent<
             ];
             cardOpenedTimes
                 .filter((ct) => !!ct.c)
-                .forEach((ct, _) => {
+                .forEach((ct, i) => {
                     const timeout = setTimeout(() => {
                         if (ct.isBanker) {
                             this.setState({
                                 bankerScore: sumScore(this.state.bankerScore, ct.c.card),
+                                openedCards: i + 1,
                             });
                         } else {
                             this.setState({
                                 playerScore: sumScore(this.state.playerScore, ct.c.card),
+                                openedCards: i + 1,
                             });
                         }
                     }, ct.t);
@@ -118,7 +122,9 @@ class PlayerBankerResultComponent extends React.PureComponent<
         const isFullMode = this.state.viewMode === ViewMode.full;
 
         return (
-            <div className={isFullMode ? "overlay-mask" : Styles["result-wrapper"]}>
+            <div
+                className={`${isFullMode ? "overlay-mask" : Styles["result-wrapper"]} ${Styles[`opened-cards-${this.state.openedCards}`]}`}
+            >
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
                         this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
