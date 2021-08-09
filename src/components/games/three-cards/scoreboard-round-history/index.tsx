@@ -28,7 +28,7 @@ enum choiceValueMapping {
     black,
 }
 
-export const  ConditionChangeDotOfRedBlack = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfRedBlack = (settlementResult: SettlementResult) => {
     return settlementResult.red ? choiceValueMapping.red : choiceValueMapping.black;
 };
 
@@ -45,7 +45,7 @@ export const GetScoreboardDotDetailsOfSuits = (result: Result, roundId: number) 
                             <img
                                 srcSet={`/static/images/three-cards/${SuitIcons[value.suit]}.png 1x, /static/images/three-cards/${
                                     SuitIcons[value.suit]
-                                }.png 2x, /static/images/three-cards/${SuitIcons[value.suit]}.png 3x`}
+                                }@2x.png 2x, /static/images/three-cards/${SuitIcons[value.suit]}@3x.png 3x`}
                                 className="img-fluid"
                                 width="22"
                                 height="22"
@@ -63,12 +63,12 @@ export const GetNameFromChoice = (settlementResult: SettlementResult) => {
     return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
 };
 
-export const  ConditionChangeDotOfSuits = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfSuits = (settlementResult: SettlementResult) => {
     const choiceValue = GetNameFromChoice(settlementResult);
     return Suites.indexOf(choiceValue);
 };
 
 export const ScoreboardRule = [
-    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfRedBlack, conditionChangeDot:  ConditionChangeDotOfRedBlack },
-    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfSuits, conditionChangeDot:  ConditionChangeDotOfSuits },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfRedBlack, conditionChangeDot: ConditionChangeDotOfRedBlack },
+    { GetScoreboardDotDetails: GetScoreboardDotDetailsOfSuits, conditionChangeDot: ConditionChangeDotOfSuits },
 ];

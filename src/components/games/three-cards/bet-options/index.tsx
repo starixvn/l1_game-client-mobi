@@ -37,14 +37,14 @@ const renderBetOptionByChoice = (
                     {choice === Choices.red ? (
                         <div className={Styles["icon-list"]}>
                             <img
-                                srcSet={`/static/images/three-cards/diamonds.png 1x, /static/images/three-cards/diamonds.png 2x, /static/images/three-cards/diamonds.png 3x`}
+                                srcSet={`/static/images/three-cards/diamonds.png 1x, /static/images/three-cards/diamonds@2x.png 2x, /static/images/three-cards/diamonds@3x.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
                                 alt="diamonds"
                             />
                             <img
-                                srcSet={`/static/images/three-cards/hearts.png 1x, /static/images/three-cards/hearts.png 2x, /static/images/three-cards/hearts.png 3x`}
+                                srcSet={`/static/images/three-cards/hearts.png 1x, /static/images/three-cards/hearts@2x.png 2x, /static/images/three-cards/hearts@3x.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
@@ -54,14 +54,14 @@ const renderBetOptionByChoice = (
                     ) : (
                         <div className={Styles["icon-list"]}>
                             <img
-                                srcSet={`/static/images/three-cards/spades.png 1x, /static/images/three-cards/spades.png 2x, /static/images/three-cards/spades.png 3x`}
+                                srcSet={`/static/images/three-cards/spades.png 1x, /static/images/three-cards/spades@2x.png 2x, /static/images/three-cards/spades@3x.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
                                 alt="spades"
                             />
                             <img
-                                srcSet={`/static/images/three-cards/clubs.png 1x, /static/images/three-cards/clubs.png 2x, /static/images/three-cards/clubs.png 3x`}
+                                srcSet={`/static/images/three-cards/clubs.png 1x, /static/images/three-cards/clubs@2x.png 2x, /static/images/three-cards/clubs@3x.png 3x`}
                                 className={Styles[choice]}
                                 height={18}
                                 width={18}
@@ -72,7 +72,7 @@ const renderBetOptionByChoice = (
                 </div>
             ) : (
                 <img
-                    srcSet={`/static/images/three-cards/${choice}.png 1x, /static/images/three-cards/${choice}.png 2x, /static/images/three-cards/${choice}.png 3x`}
+                    srcSet={`/static/images/three-cards/${choice}.png 1x, /static/images/three-cards/${choice}@2x.png 2x, /static/images/three-cards/${choice}@3x.png 3x`}
                     className={`${Styles["bet-choice-icon"]} ${Styles[choice]}`}
                     height={26}
                     width={26}

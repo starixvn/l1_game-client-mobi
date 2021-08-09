@@ -149,7 +149,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                                 key={index}
                                 srcSet={`/static/images/three-cards/${suits[r.suit]}.png 1x, /static/images/three-cards/${
                                     suits[r.suit]
-                                }.png 2x, /static/images/three-cards/${suits[r.suit]}.png 3x`}
+                                }@2x.png 2x, /static/images/three-cards/${suits[r.suit]}@3x.png 3x`}
                                 height={30}
                                 width={30}
                                 alt={suits[r.suit]}
