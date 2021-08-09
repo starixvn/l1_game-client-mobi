@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
@@ -11,24 +11,14 @@ import SplashScreen from "../components/splash-screen";
 import { checkUM, sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
-const renderLoadingPage = (router: NextRouter) => {
-    if (!router.isReady) {
-        return <></>;
-    }
-
-    const { lang } = router.query;
-    const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
-    const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
-
-    return <SplashScreen locale={locale}></SplashScreen>;
-};
-
 const getUserSession = (token: string) => (token ? sso(token) : verifySession());
 
 function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
+    const [language, setLanguage] = useState<string>(null);
+
     const { token, lang, gameId } = router.query;
     const { i18n } = useTranslation();
 
@@ -49,6 +39,7 @@ function Home() {
         if (router.isReady) {
             const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
             const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
+            setLanguage(locale);
             i18n.changeLanguage(locale);
 
             if (!checkUM()) {
@@ -58,7 +49,7 @@ function Home() {
 
             signIn();
         }
-    }, [router.isReady]);
+    }, [router]);
 
     const workerRef = useRef(null);
 
@@ -71,7 +62,7 @@ function Home() {
     }, []);
 
     if (loading) {
-        return renderLoadingPage(router);
+        return <SplashScreen locale={language}></SplashScreen>;
     }
 
     const buildId = process.env.buildVersion;
