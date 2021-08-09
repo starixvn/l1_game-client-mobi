@@ -46,6 +46,8 @@ class PlayerBankerResultComponent extends React.PureComponent<
         texts: any;
     }
 > {
+    private timeouts: NodeJS.Timeout[] = [];
+
     constructor(props) {
         super(props);
 
@@ -69,7 +71,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
             cardOpenedTimes
                 .filter((ct) => !!ct.c)
                 .forEach((ct, _) => {
-                    setTimeout(() => {
+                    const timeout = setTimeout(() => {
                         if (ct.isBanker) {
                             this.setState({
                                 bankerScore: sumScore(this.state.bankerScore, ct.c.card),
@@ -80,7 +82,16 @@ class PlayerBankerResultComponent extends React.PureComponent<
                             });
                         }
                     }, ct.t);
+                    this.timeouts.push(timeout);
                 });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.timeouts && this.timeouts.length) {
+            this.timeouts.forEach((timeout) => {
+                clearTimeout(timeout);
+            });
         }
     }
 
