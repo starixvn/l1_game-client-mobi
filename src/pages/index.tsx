@@ -15,7 +15,7 @@ function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
-    const { token, lang } = router.query;
+    const { token, lang, gameId } = router.query;
     const { i18n } = useTranslation();
 
     useEffect(() => {
@@ -69,7 +69,7 @@ function Home() {
     }
 
     const buildId = process.env.buildVersion;
-    return <Dashboard session={session} buildId={buildId} />;
+    return <Dashboard session={session} buildId={buildId} queryGame={+gameId} />;
 }
 
 export const getStaticProps = async ({ locale }) => {

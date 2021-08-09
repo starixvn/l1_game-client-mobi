@@ -20,7 +20,7 @@ import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { Props } from "./type";
-import { GameCategoryConfig, GameCategoryType, GamesInOnePageOnDesktop } from "../game-category/constants";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageOnDesktop } from "../game-category/constants";
 import { GameCategory } from "../game-category";
 
 let gamesOrder = [];
@@ -38,6 +38,10 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
     return !isMobileOnly ? result.slice(startIndex, startIndex + GamesInOnePageOnDesktop) : result;
 };
 
+const getCategoryByGameId = (gameId: number) => {
+    return GameCategoryKeys.find((category) => GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)) ?? "popular";
+};
+
 export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
     enabledPlaySound,
@@ -48,9 +52,11 @@ export const Games: React.FC<Props> = ({
     updateUserStakeLevel,
     updateFavoriteGames,
     favoriteGames,
+    queryGame,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
-    const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType.popular);
+    const queryCategory = getCategoryByGameId(queryGame);
+    const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType[queryCategory]);
     const [selectedPage, setSelectedPage] = useState(1);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();

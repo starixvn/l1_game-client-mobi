@@ -4,6 +4,32 @@ import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePageO
 import { isMobileOnly } from "react-device-detect";
 import { useTranslation } from "next-i18next";
 
+const renderPagingCategory = (
+    category: string,
+    numOfPages: number,
+    selectedCategory: GameCategoryType,
+    selectedPage: number,
+    onSelectPage: Function
+) => {
+    const result = [];
+
+    for (let i = 0; i < numOfPages; i++) {
+        result.push(
+            <span
+                onClick={() => onSelectPage(category, i + 1)}
+                className={`${styles["category-page"]} ${
+                    GameCategoryType[category] === selectedCategory && selectedPage - 1 === i ? styles["selected"] : ""
+                }`}
+                key={i}
+            >
+                {i + 1}
+            </span>
+        );
+    }
+
+    return result;
+};
+
 export const GameCategory: React.FC<{
     selectedCategory: GameCategoryType;
     selectedPage: number;
@@ -44,26 +70,6 @@ export const GameCategory: React.FC<{
         };
     }, [wrapperRef]);
 
-    const renderPagingCategory = (category: string, numOfPages: number) => {
-        const result = [];
-
-        for (let i = 0; i < numOfPages; i++) {
-            result.push(
-                <span
-                    onClick={() => selectCategoryPage(category, i + 1)}
-                    className={`${styles["category-page"]} ${
-                        GameCategoryType[category] === selectedCategory && selectedPage - 1 === i ? styles["selected"] : ""
-                    }`}
-                    key={i}
-                >
-                    {i + 1}
-                </span>
-            );
-        }
-
-        return result;
-    };
-
     return (
         <div ref={wrapperRef} className={`${styles["category-container"]} ${isShowScrollBar ? styles["show-scroll-bar"] : ""}`}>
             <ul className={styles["category-list"]}>
@@ -84,7 +90,13 @@ export const GameCategory: React.FC<{
                             </div>
                             {!isMobileOnly && categoryPage[categoryKey] > 1 && (
                                 <div className={styles["paging-container"]}>
-                                    {renderPagingCategory(categoryKey, categoryPage[categoryKey])}
+                                    {renderPagingCategory(
+                                        categoryKey,
+                                        categoryPage[categoryKey],
+                                        selectedCategory,
+                                        selectedPage,
+                                        selectCategoryPage
+                                    )}
                                 </div>
                             )}
                         </div>

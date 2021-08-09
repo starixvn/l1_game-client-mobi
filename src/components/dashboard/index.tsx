@@ -28,6 +28,7 @@ import Welcome from "./welcome";
 type Props = {
     session: SSOResponse;
     buildId: string;
+    queryGame: number;
 } & WithRouterProps &
     WithTranslation;
 
@@ -320,13 +321,14 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowGuide,
             userStakeLevel,
             favoriteGames,
+            authorizeInfo,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
             <AuthContextProvider value={authContextValue}>
                 <div className={Styles["dashboard"]}>
                     <Header
-                        user={this.state.authorizeInfo.user}
+                        user={authorizeInfo.user}
                         enabledNotification={enabledWinningStreakNotification}
                         enabledSound={enabledPlaySound}
                         onToggleNotification={this.winningStreakNotificationToggle}
@@ -348,6 +350,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
+                        queryGame={this.props.queryGame}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
