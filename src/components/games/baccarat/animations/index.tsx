@@ -182,34 +182,6 @@ export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult
     );
 };
 
-export const DrawCardsAnimation = ({ playAnimation = false }) => {
-    const classCardShadow = "card-shadow";
-    return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classAnimation] : ""}`}>
-            <div className={`${Styles[classAnimationContainer]}  ${Styles["player"]}`}>
-                <div className={Styles["card1"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card3"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            </div>
-            <div className={`${Styles[classAnimationContainer]}  ${Styles["banker"]}`}>
-                <div className={Styles["card2"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card4"]}>
-                    <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 export const generateSettlementInfo = (settlementResult: SettlementResult, resources: Object, isShowTicketHistory = false) => {
     const resultCount = 2 + (settlementResult.playerPair ? 1 : 0) + (settlementResult.bankerPair ? 1 : 0);
     const classResultInfoBlue = "result-info-blue";
