@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
@@ -11,6 +11,20 @@ import SplashScreen from "../components/splash-screen";
 import { checkUM, sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
+const renderLoadingPage = (router: NextRouter) => {
+    if (!router.isReady) {
+        return <></>;
+    }
+
+    const { lang } = router.query;
+    const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
+    const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
+
+    return <SplashScreen locale={locale}></SplashScreen>;
+};
+
+const getUserSession = (token: string) => (token ? sso(token) : verifySession());
+
 function Home() {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(true);
@@ -20,7 +34,7 @@ function Home() {
 
     useEffect(() => {
         const signIn = async () => {
-            const userSession = token ? await sso(token as string) : await verifySession();
+            const userSession = await getUserSession(token as string);
             if (userSession && userSession.isAuthenticated) {
                 setSession(userSession);
                 Sentry.setUser(userSession);
@@ -57,15 +71,7 @@ function Home() {
     }, []);
 
     if (loading) {
-        if (!router.isReady) {
-            return <></>;
-        }
-
-        const { lang } = router.query;
-        const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
-        const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
-
-        return <SplashScreen locale={locale}></SplashScreen>;
+        return renderLoadingPage(router);
     }
 
     const buildId = process.env.buildVersion;
