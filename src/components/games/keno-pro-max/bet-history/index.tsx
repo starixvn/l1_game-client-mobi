@@ -43,8 +43,8 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
                     </div>
 
                     <div className={Styles["settle-info"]}>
-                        <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>{texts.even}</div>
                         <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>{texts.big}</div>
+                        <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>{texts.even}</div>
                         <div className={Styles["result-info-grey"]}>{texts.element}</div>
                     </div>
                 </div>
