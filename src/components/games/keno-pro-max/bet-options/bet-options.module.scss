@@ -6,22 +6,22 @@
     grid-template-rows: repeat(2, 6rem) repeat(2, 5.3rem);
 }
 
-.choice-even {
+.choice-big {
     grid-column: 1/8;
     grid-row: 1/2;
 }
 
-.choice-odd {
+.choice-small {
     grid-column: 8/15;
     grid-row: 1/2;
 }
 
-.choice-big {
+.choice-even {
     grid-column: 1/8;
     grid-row: 2/3;
 }
 
-.choice-small {
+.choice-odd {
     grid-column: 8/15;
     grid-row: 2/3;
 }
