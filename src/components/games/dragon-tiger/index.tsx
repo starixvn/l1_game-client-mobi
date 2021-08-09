@@ -3,11 +3,11 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { CardsAnimation, DragonTigerResult, DragonTigerResultCollapse } from "./animations";
+import { DragonTigerResult, DragonTigerResultCollapse } from "./animations";
 import DragonTigerBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./dragon-tiger";
 import { Choices, StatisticRuleEntries } from "./dragon-tiger-helper";
@@ -84,22 +84,8 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
         );
     }
 
-    get isShowStartRoundAnimation() {
-        return (
-            this.state.gameState === GameState.BeforeStartRound ||
-            this.state.gameState === GameState.InRound ||
-            this.state.gameState === GameState.LockingBet
-        );
-    }
-
     get winningAnimationWaitingTimeInSecond() {
         return this.props.durations.resultAnimation * 1000;
-    }
-
-    renderStartRoundAnimation() {
-        const { durations } = this.props;
-
-        return <CardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderSettlementResult(settlementResult) {

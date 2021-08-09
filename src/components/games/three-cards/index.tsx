@@ -2,9 +2,9 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { ThreeCardsResult, ThreeCardsResultCollapse, DrawCardsAnimation } from "./animations";
+import { ThreeCardsResult, ThreeCardsResultCollapse } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
 import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
@@ -99,19 +99,6 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 />
             );
         }
-    }
-
-    get isShowStartRoundAnimation() {
-        return (
-            this.state.gameState === GameState.BeforeStartRound ||
-            this.state.gameState === GameState.InRound ||
-            this.state.gameState === GameState.LockingBet
-        );
-    }
-
-    renderStartRoundAnimation() {
-        const { durations } = this.props;
-        return <DrawCardsAnimation playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
     }
 
     renderResult() {

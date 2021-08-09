@@ -76,9 +76,9 @@
             "wholeRound": 37,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 4,
+            "showResult": 6,
             "resultAnimation": 1,
-            "beforeStartRound": 2
+            "beforeStartRound": 0
         }
     },
     "8": {

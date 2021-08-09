@@ -22,29 +22,6 @@ $number-of-cards: 3;
     pointer-events: none;
 }
 
-.draw-cards {
-    .animation-container {
-        top: -2.1rem;
-        transform: scale(0.33);
-    }
-
-    &.has-animation {
-        %draw-card {
-            animation-name: draw-card-animation;
-            animation-duration: math.div($time-draw-card-animation, $number-of-cards);
-            animation-fill-mode: forwards;
-            animation-timing-function: linear;
-        }
-
-        @for $i from 1 through 3 {
-            .card#{$i} {
-                @include draw-card(4, $time-draw-card-animation);
-                animation-delay: math.div($time-draw-card-animation * ($i - 1), 4);
-            }
-        }
-    }
-}
-
 .open-cards {
     @include open-card($number-of-cards);
     &.has-animation {

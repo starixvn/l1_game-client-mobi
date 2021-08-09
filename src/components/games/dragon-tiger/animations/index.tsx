@@ -8,22 +8,6 @@ import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
 import Styles from "./dragon-tiger-animations.module.scss";
 
 const classHasAnimation = "has-animation";
-export const CardsAnimation = ({ playAnimation = false }) => {
-    return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classHasAnimation] : ""}`}>
-            <div className={`${Styles["animation-container"]}`}>
-                <div className={Styles["card1"]}>
-                    <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card2"]}>
-                    <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            </div>
-        </div>
-    );
-};
 
 type Props = {
     result?: Result;

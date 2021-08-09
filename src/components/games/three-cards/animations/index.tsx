@@ -9,28 +9,6 @@ import Card, { convertCardRankToIndex } from "../../../shared/card";
 const classHasAnimation = "has-animation";
 const classAnimationContainer = "animation-container";
 
-export const DrawCardsAnimation = ({ playAnimation = false }) => {
-    const classCardShadow = "card-shadow";
-    return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles[classHasAnimation] : ""}`}>
-            <div className={`${Styles[classAnimationContainer]}`}>
-                <div className={Styles["card1"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card2"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card3"]}>
-                    <div className={Styles[classCardShadow]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            </div>
-        </div>
-    );
-};
-
 const generateResult = (cards: Result, viewMode: ViewMode) => {
     return cards.map((card, index) => {
         const cardType = { card: convertCardRankToIndex(card.rank) - 1, type: card.suit };

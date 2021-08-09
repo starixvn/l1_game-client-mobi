@@ -3,7 +3,7 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { BaccaratResult, BaccaratResultCollapse, generateSettlementInfo } from "./animations";
 import BaccaratBetOptions from "./bet-options";
@@ -91,14 +91,6 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
                 conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                 translateDotTextMapping={translateDotTextMapping}
             />
-        );
-    }
-
-    get isShowStartRoundAnimation() {
-        return (
-            this.state.gameState === GameState.BeforeStartRound ||
-            this.state.gameState === GameState.InRound ||
-            this.state.gameState === GameState.LockingBet
         );
     }
 
