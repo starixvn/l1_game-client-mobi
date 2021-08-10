@@ -33,15 +33,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-    PopupType,
-    RebetStorageModel,
-    ViewMode,
-    WinStreakCollectorModel,
-} from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -822,6 +814,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             renderResultCollapse: this.renderResultCollapse.bind(this),
             setActiveScoreboardTab: this.setActiveScoreboardTab,
         };
+
+        const animationDuration = this.getFinishAnimationDuration() / 1000;
+
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
@@ -840,7 +835,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderSettlementInfo={this.renderSettlementInfo}
-                                        timeToShowInSecond={durations.showResult - durations.resultAnimation}
+                                        timeToShowInSecond={durations.showResult - animationDuration}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
