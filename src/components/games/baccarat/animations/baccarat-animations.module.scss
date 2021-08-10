@@ -142,9 +142,12 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
+                &.group-2-cards {
+                    --left-value: -1.8rem;
+                }
             }            
             &.group-2-cards {
-                --left-value: -1.8rem;
+                font-size: inherit;                
             }
         }
         &.banker {
@@ -153,9 +156,12 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
                 right: var(--right-value);
+                &.group-2-cards {
+                    --right-value: -1.8rem;
+                }
             }            
             &.group-2-cards {
-                --right-value: -1.8rem;
+                font-size: inherit;                
             }
         }
     }
