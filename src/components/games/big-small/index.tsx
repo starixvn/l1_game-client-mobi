@@ -78,7 +78,7 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
 
     renderResultCollapse() {
         const { result, settlementResult, roundId } = this.state;
-        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} roundId={roundId} />;
+        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} />;
     }
 
     renderBoard() {

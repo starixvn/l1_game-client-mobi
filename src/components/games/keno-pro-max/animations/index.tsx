@@ -172,7 +172,9 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container-collapse"]}>{generateResult(result, settleResult.shuffle)}</div>
             {!playResultAnimation && settlementResult && (
-                <div className={Styles["result-label"]}>{`${settleResult.total} - ${t(settleResult.big ? "big" : "small")}`}</div>
+                <div className={Styles["result-label"]}>
+                    <span className={Styles["total-point"]}>{settleResult.total}</span>-{` ${t(settleResult.big ? "big" : "small")}`}
+                </div>
             )}
         </div>
     );

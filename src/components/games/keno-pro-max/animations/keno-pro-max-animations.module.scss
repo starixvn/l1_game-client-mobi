@@ -226,4 +226,9 @@ $number-count: 20;
     .number {
         font-size: 1.4rem;
     }
+
+    .total-point {
+        margin-right: 0.3rem;
+        font-family: var(--font-number);
+    }
 }
