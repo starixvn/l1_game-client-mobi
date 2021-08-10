@@ -115,7 +115,7 @@
     }
 }
 
-%btn {
+@mixin btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,8 +130,8 @@
     }
 }
 
-%btn-favorite {
-    @extend %btn;
+@mixin btn-favorite {
+    @include btn;
     position: relative;
     border: none;
     background: var(--btn-favorite-border);
@@ -158,8 +158,8 @@
     }
 }
 
-%btn-unfavorite {
-    @extend %btn;
+@mixin btn-unfavorite {
+    @include btn;
     background: none;
     border: 1px solid var(--btn-un-favorite-border);
 
@@ -190,10 +190,12 @@
     }
 
     .favorite-btn {
-        @extend %btn-favorite;
+        @include btn-favorite;
 
-        &:hover {
-            @extend %btn-unfavorite;
+        @media (hover: hover) {
+            &:hover {
+                @include btn-unfavorite;
+            }
         }
     }
 }
@@ -211,10 +213,12 @@
     }
 
     .favorite-btn {
-        @extend %btn-unfavorite;
+        @include btn-unfavorite;
 
-        &:hover {
-            @extend %btn-favorite;
+        @media (hover: hover) {
+            &:hover {
+                @include btn-favorite;
+            }
         }
     }
 }
@@ -246,7 +250,7 @@
 }
 
 .btn-move {
-    @extend %btn-unfavorite;
+    @include btn-unfavorite;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     -webkit-tap-highlight-color: transparent;
@@ -260,7 +264,7 @@
     }
 
     &:hover:enabled {
-        @extend %btn-favorite;
+        @include btn-unfavorite;
 
         .icon-move {
             border-top-color: var(--icon-move-hover-color);
