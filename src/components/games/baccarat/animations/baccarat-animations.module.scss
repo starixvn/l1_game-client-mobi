@@ -189,7 +189,6 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 animation-duration: 0.2s;
                 animation-fill-mode: forwards;
                 .score-number {
-                    opacity: 0;
                     animation-name: blink, blink, blink;
                     animation-duration: $time-blink-score-animation, $time-blink-score-animation, $time-blink-score-animation;
                     animation-fill-mode: forwards, forwards, forwards;
@@ -446,15 +445,12 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
 
 @keyframes blink {
     0% {
-        opacity: 0;
         transform: scale(1)
     }
     50% {
-        opacity: 1;
         transform: scale(1.5);
     }
     100% {
-        opacity: 1;
         transform: scale(1);
     }
 }
