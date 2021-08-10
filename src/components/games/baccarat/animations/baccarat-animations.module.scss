@@ -193,6 +193,7 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                     animation-name: blink, blink, blink;
                     animation-duration: $time-blink-score-animation, $time-blink-score-animation, $time-blink-score-animation;
                     animation-fill-mode: forwards, forwards, forwards;
+                    animation-timing-function: ease-in-out;
                 }
 
             }            
@@ -213,6 +214,7 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation, 6) + $time-show-score-animation, 
                     $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 2, 6) + $time-blink-score-animation + $time-show-score-animation;
                 animation-fill-mode: forwards, forwards;
+                animation-timing-function: ease-in-out;
             }
            
         }
@@ -449,7 +451,7 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
     }
     50% {
         opacity: 1;
-        transform: scale(2);
+        transform: scale(1.5);
     }
     100% {
         opacity: 1;
