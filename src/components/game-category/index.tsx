@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./game-category.module.scss";
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import { useTranslation } from "next-i18next";
@@ -29,10 +29,6 @@ const renderPagingCategory = (
     return result;
 };
 
-const getCategoryHashTag = (category: string, pageIndex: number) => {
-    return GameCategoryConfig[category] / GamesInOnePage > 1 ? `${category}_${pageIndex}` : category;
-};
-
 export const GameCategory: React.FC<{
     selectedCategory: GameCategoryType;
     selectedPage: number;
@@ -41,6 +37,7 @@ export const GameCategory: React.FC<{
 }> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const selectedTabRef = useRef<HTMLLIElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
         const categoryLength = category !== "favorite" ? GameCategoryConfig[category].length : favoriteGames.length;
@@ -49,6 +46,13 @@ export const GameCategory: React.FC<{
 
         return result;
     }, {});
+
+    useEffect(() => {
+        if (selectedTabRef?.current) {
+            const boundingRect = selectedTabRef.current.getBoundingClientRect();
+            wrapperRef.current.scrollLeft = boundingRect.left - 15;
+        }
+    }, [wrapperRef]);
 
     return (
         <div ref={wrapperRef} className={styles["category-container"]}>
@@ -60,6 +64,7 @@ export const GameCategory: React.FC<{
                             ${categoryPage[categoryKey] ? styles["disabled"] : ""}
                         `}
                         key={categoryKey}
+                        ref={selectedCategory === GameCategoryType[categoryKey] ? selectedTabRef : null}
                     >
                         <div className="d-flex">
                             <div
