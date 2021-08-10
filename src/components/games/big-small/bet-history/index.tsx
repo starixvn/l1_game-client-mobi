@@ -3,11 +3,12 @@ import { TFunction } from "next-i18next";
 
 import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
+import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result && bet.settlementResult) {
         return (
-            <div className="d-flex justify-content-center">
+            <div className={Styles["w-result"]}>
                 <FormatNumber>
                     {bet.result.dice1}-{bet.result.dice2}-{bet.result.dice3} {Object.values(bet.result).reduce((a, b) => a + b)}
                 </FormatNumber>

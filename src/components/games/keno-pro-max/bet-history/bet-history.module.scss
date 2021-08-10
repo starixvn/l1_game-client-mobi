@@ -29,6 +29,10 @@
 .detail {
     color: #04a5ff;
     font-family: var(--font-number);
+    min-width: 5rem;
+    @media (min-width: 768px) {
+        min-width: 9rem;
+    }
     &:hover {
         cursor: pointer;
         color: #048ddb;

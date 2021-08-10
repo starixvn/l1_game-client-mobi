@@ -12,7 +12,7 @@ const renderResult = (bet: BetLogs) => {
     if (bet.result) {
         const itemValues = Object.values(bet.result);
         return (
-            <div className="d-flex justify-content-center">
+            <div className={Styles["w-result"]}>
                 {itemValues.map((value: number, index) => {
                     return <ChoiceIconHistory key={index} type={value}></ChoiceIconHistory>;
                 })}

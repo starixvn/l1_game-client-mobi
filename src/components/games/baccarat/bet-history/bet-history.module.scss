@@ -29,6 +29,10 @@
     color: #04a5ff;
     cursor: pointer;
     font-family: var(--font-number);
+    min-width: 5rem;
+    @media (min-width: 768px) {
+        min-width: 9rem;
+    }
     &:hover {
         text-decoration: underline;
     }

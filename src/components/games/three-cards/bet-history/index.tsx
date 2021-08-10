@@ -35,8 +35,8 @@ const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: strin
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
         return (
-            <div className="d-flex justify-content-center">
-                {bet.result.map((r, _) => {
+            <div className={Styles["w-result"]}>
+                {bet.result.map((r) => {
                     const cardType = { card: convertCardRankToIndex(r.rank) - 1, type: r.suit };
                     return <Card key={`$card_${r.rank}_${r.suit}`} result={cardType} isSmall={true}></Card>;
                 })}

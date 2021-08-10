@@ -10,7 +10,7 @@ import Styles from "./bet-history.module.scss";
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
         return (
-            <div className="d-flex justify-content-center align-items-center">
+            <div className={Styles["w-result"]}>
                 <Card result={bet.result.dragon} isSmall={true} isAnimation={false}></Card> |{" "}
                 <Card result={bet.result.tiger} isSmall={true}></Card>
             </div>
