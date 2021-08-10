@@ -69,6 +69,7 @@ export const Settings: React.FC<Props> = ({
                     ref={favoriteToggleBtnRef}
                 >
                     <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
+                    <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                 </div>
                 <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
             </div>
