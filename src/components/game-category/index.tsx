@@ -29,6 +29,10 @@ const renderPagingCategory = (
     return result;
 };
 
+const getCategoryHashTag = (category: string, pageIndex: number) => {
+    return GameCategoryConfig[category] / GamesInOnePage > 1 ? `${category}_${pageIndex}` : category;
+};
+
 export const GameCategory: React.FC<{
     selectedCategory: GameCategoryType;
     selectedPage: number;

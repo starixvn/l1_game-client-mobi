@@ -42,6 +42,22 @@ const getCategoryByGameId = (gameId: number) => {
     return GameCategoryKeys.find((category) => GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)) ?? "popular";
 };
 
+const getCategoryHashTag = (category: string, pageIndex: number) => {
+    return pageIndex > 1 ? `${category}_${pageIndex - 1}` : category;
+};
+
+const getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
+    const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
+    const newFavoriteList = [...favorites];
+    const gameIndex = newFavoriteList.indexOf(gameId);
+
+    gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
+
+    isFavorite && newFavoriteList.push(gameId);
+
+    return newFavoriteList;
+};
+
 export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
     enabledPlaySound,
@@ -55,22 +71,16 @@ export const Games: React.FC<Props> = ({
     queryGame,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
-    const queryCategory = window.location.hash.replace("#", "") || getCategoryByGameId(queryGame);
-    debugger;
-    history.pushState(null, "", `#${queryCategory}`);
+    const urlHashtag = window.location.hash.replace("#", "").split("_");
+    const queryCategory = urlHashtag[0] || getCategoryByGameId(queryGame);
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType[queryCategory]);
-    const [selectedPage, setSelectedPage] = useState(1);
+    const [selectedPage, setSelectedPage] = useState(+urlHashtag[1] + 1 || 1);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
+    history.pushState(null, "", `#${getCategoryHashTag(queryCategory, selectedPage)}`);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
-        const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
-        const newFavoriteList = [...favorites];
-        const gameIndex = newFavoriteList.indexOf(gameId);
-
-        gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
-
-        isFavorite && newFavoriteList.push(gameId);
+        const newFavoriteList = getUpdatedFavoriteList(gameId, isFavorite);
 
         updateFavoriteGames(newFavoriteList);
     };
@@ -125,7 +135,7 @@ export const Games: React.FC<Props> = ({
     const selectCategoryPage = (category: string, pageIndex: number) => {
         setSelectedCategory(GameCategoryType[category]);
         setSelectedPage(pageIndex);
-        history.pushState(null, category, `#${category}`);
+        history.pushState(null, "", `#${getCategoryHashTag(category, pageIndex)}`);
     };
 
     useEffect(() => {
