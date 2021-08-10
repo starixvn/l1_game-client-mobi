@@ -6,6 +6,8 @@ import useSound from "use-sound";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
+import { GameCategory } from "../game-category";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -69,6 +71,7 @@ export const Games: React.FC<Props> = ({
     updateFavoriteGames,
     favoriteGames,
     queryGame,
+    socketGateway,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -108,6 +111,7 @@ export const Games: React.FC<Props> = ({
             theme,
             userStakeLevel,
             updateUserStakeLevel,
+            socketGateway,
         };
         switch (gameId) {
             case 2:

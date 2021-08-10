@@ -1,3 +1,5 @@
+import { Socket } from "socket.io-client";
+
 import { BetSettingStorage } from "../shared/bet-settings/type";
 import { UserStakeLevel } from "../shared/game-base/type";
 
@@ -12,4 +14,5 @@ export type Props = {
     updateFavoriteGames: Function;
     favoriteGames: number[];
     queryGame: number;
+    socketGateway: Socket;
 };

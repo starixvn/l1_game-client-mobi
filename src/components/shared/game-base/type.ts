@@ -1,5 +1,6 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
+import { Socket } from "socket.io-client";
 
 import { Round } from "../../../types";
 
@@ -46,6 +47,7 @@ export type GameBaseProps = {
     theme: string;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
+    socketGateway: Socket;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {

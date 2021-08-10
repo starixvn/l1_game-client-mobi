@@ -1,10 +1,8 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import Auth from "sc-user-service-client/dist/auth";
-import io from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
-import appSettings from "../../../common/app-settings";
 import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -48,7 +46,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
 
-    protected socket: SocketIOClient.Socket;
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
     protected reBetStorageKey: string;
@@ -101,7 +98,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentDidMount() {
         this.registerMessageHandler();
         this.onStart();
-
+        this.props.socketGateway.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
         document.addEventListener("visibilitychange", this.onVisibilityChange);
     }
 
@@ -117,36 +114,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
         this.clearRetryInterval();
-        this.socket && this.socket.disconnect();
     }
 
     onStart() {
         this.isProcessingBet = false;
-        const { socketInfo } = this.props;
-        const { session } = this.context;
-        const { proxy } = appSettings;
-        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
 
         this.initWinStreakCollector();
-        this.socket = io(socketUri, {
-            forceNew: true,
-            transports: ["websocket"],
-            upgrade: false,
-            path: `${proxy.path}/${socketInfo.path}/socket.io`,
-        });
-        this.socket.on("connect", () => {
-            this.socket.emit("signin", session);
-        });
-        this.socket.on("signedIn", () => {
-            this.setState({ signedIn: true });
-            this.socket.emit("inGame");
-        });
-        this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-        this.socket.on("connect_error", this.onConnectFailed.bind(this));
-        this.socket.on("message", this.onMessageUserStakeLevel.bind(this));
-        this.socket.on("disconnect", () => {
-            this.setState({ gameState: GameState.None });
-        });
+
+        const { socketGateway, gameName } = this.props;
+        const { session } = this.context;
+        socketGateway.emit("signIn", { gameName, session });
     }
 
     onMessageUserStakeLevel({ userStakeLevel }) {
@@ -167,6 +144,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     registerMessageHandler = () => {
+        this.messageTransmitter.register("signedIn", this.handleSignedIn.bind(this));
         this.messageTransmitter.register("um", this.handleUM.bind(this));
         this.messageTransmitter.register("remainingTime", this.handleRemainingTime.bind(this));
         this.messageTransmitter.register("gameConfigs", this.handleGameConfigs.bind(this));
@@ -180,6 +158,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("endBet", this.handleEndBet.bind(this));
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
+    };
+
+    handleSignedIn = ({ signedIn }) => {
+        if (signedIn) {
+            this.setState({ signedIn: true });
+            this.props.socketGateway.emit("inGame", this.props.gameName);
+        }
     };
 
     handleUserStakeLevel({ userStakeLevel }) {
@@ -551,7 +536,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             if (amount > 0) {
                 this.isProcessingBet = true;
                 this.setRetryInterval();
-                this.socket.emit("bet", { betChoice, amount });
+                const { socketGateway, gameName } = this.props;
+                const betData = { betChoice, amount };
+                socketGateway.emit("bet", { gameName, betData });
             }
         }
     }
@@ -560,7 +547,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.clearRetryInterval();
 
         this.retryInterval = setInterval(() => {
-            this.socket.emit("retry");
+            this.props.socketGateway.emit("retry");
         }, 3 * 1000);
     }
 
