@@ -15,6 +15,9 @@
         grid-template-columns: repeat(3, 3.2rem);
         grid-gap: 2rem;
         justify-content: center;
+        &.suit-length-2 {
+            grid-template-columns: repeat(2, 3.2rem);
+        }
     }
 
     .result-info {

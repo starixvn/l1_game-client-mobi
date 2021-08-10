@@ -137,25 +137,26 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const suits = ["hearts", "diamonds", "clubs", "spades"];
+        const resultUniqueSuit = result.map((card) => card.suit).filter((value, index, self) => self.indexOf(value) === index);
+        const suitsLength = `suit-length-${resultUniqueSuit.length}`;
         return (
             <div className={Styles["result-container"]}>
                 <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-black"]}>
                     {this.getGameTranslate(settlementResult.red ? "red" : "black")}
                 </div>
-                <div className={Styles["suits"]}>
-                    {result.map((r, index) => {
-                        return (
-                            <img
-                                key={index}
-                                srcSet={`/static/images/three-cards/${suits[r.suit]}.png 1x, /static/images/three-cards/${
-                                    suits[r.suit]
-                                }@2x.png 2x, /static/images/three-cards/${suits[r.suit]}@3x.png 3x`}
-                                height={30}
-                                width={30}
-                                alt={suits[r.suit]}
-                            />
-                        );
-                    })}
+                <div className={`${Styles["suits"]} ${Styles[suitsLength]}`}>
+                    {resultUniqueSuit &&
+                        resultUniqueSuit.map((suit, index) => {
+                            return (
+                                <img
+                                    key={index}
+                                    srcSet={`/static/images/three-cards/${suits[suit]}.png 1x, /static/images/three-cards/${suits[suit]}@2x.png 2x, /static/images/three-cards/${suits[suit]}@3x.png 3x`}
+                                    height={30}
+                                    width={30}
+                                    alt={suits[suit]}
+                                />
+                            );
+                        })}
                 </div>
             </div>
         );
