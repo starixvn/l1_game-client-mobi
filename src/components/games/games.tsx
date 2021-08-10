@@ -55,7 +55,9 @@ export const Games: React.FC<Props> = ({
     queryGame,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
-    const queryCategory = getCategoryByGameId(queryGame);
+    const queryCategory = window.location.hash.replace("#", "") || getCategoryByGameId(queryGame);
+    debugger;
+    history.pushState(null, "", `#${queryCategory}`);
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType[queryCategory]);
     const [selectedPage, setSelectedPage] = useState(1);
     const winningStreakRef = useRef(null);
@@ -123,6 +125,7 @@ export const Games: React.FC<Props> = ({
     const selectCategoryPage = (category: string, pageIndex: number) => {
         setSelectedCategory(GameCategoryType[category]);
         setSelectedPage(pageIndex);
+        history.pushState(null, category, `#${category}`);
     };
 
     useEffect(() => {
