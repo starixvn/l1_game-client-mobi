@@ -64,11 +64,11 @@ class PlayerBankerResultComponent extends React.PureComponent<
         if (this.props.playResultAnimation) {
             const cardOpenedTimes = [
                 { t: 700, c: this.props.result.player.card1, isBanker: false },
-                { t: 1500, c: this.props.result.player.card2, isBanker: false },
-                { t: 2000, c: this.props.result.banker.card1, isBanker: true },
-                { t: 2600, c: this.props.result.banker.card2, isBanker: true },
-                { t: 3900, c: this.props.result.player.card3 ?? this.props.result.banker.card3, isBanker: !this.props.result.player.card3 },
-                { t: 6300, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
+                { t: 1700, c: this.props.result.player.card2, isBanker: false },
+                { t: 2300, c: this.props.result.banker.card1, isBanker: true },
+                { t: 3100, c: this.props.result.banker.card2, isBanker: true },
+                { t: 4400, c: this.props.result.player.card3 ?? this.props.result.banker.card3, isBanker: !this.props.result.player.card3 },
+                { t: 5800, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
             ];
             cardOpenedTimes
                 .filter((ct) => !!ct.c)
