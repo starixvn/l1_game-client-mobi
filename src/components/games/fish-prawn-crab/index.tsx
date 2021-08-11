@@ -90,7 +90,11 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
     renderBoard() {
         const { gameState, roundHistory } = this.state;
         return (
-            <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getDotDetails={GetScoreboardDotDetails}></ScoreboardBasic>
+            <ScoreboardBasic
+                roundHistory={roundHistory.slice(0, 30)}
+                gameState={gameState}
+                getDotDetails={GetScoreboardDotDetails}
+            ></ScoreboardBasic>
         );
     }
 

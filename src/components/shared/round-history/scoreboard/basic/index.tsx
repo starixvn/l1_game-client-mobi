@@ -13,7 +13,7 @@ const drawHistory = <R, S>(roundHistory: Round<R, S>[], getDotDetails: (round: R
 
 const ScoreboardBasic = <R, S>(props: Props<R, S>) => {
     const { roundHistory, getDotDetails } = props;
-    return <div className={Styles["score-board-container"]}>{drawHistory([...roundHistory.slice(0, 30)].reverse(), getDotDetails)}</div>;
+    return <div className={Styles["score-board-container"]}>{drawHistory([...roundHistory].reverse(), getDotDetails)}</div>;
 };
 
 export default React.memo(ScoreboardBasic);

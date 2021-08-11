@@ -3,7 +3,8 @@ import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import StatisticItem, { calculatePercent, countSettlementResult } from "../../../shared/statistic";
-import { Choices, TabsValue } from "../three-cards-helper";
+import { Choices, TabsValue, ChoiceSuitOrder, SuitKeys } from "../three-cards-helper";
+import { Round } from "../../../../types";
 import Styles from "./statistic.module.scss";
 
 const calculateEntryPercent = (countResult: object, total: number, choice: string) =>
@@ -14,12 +15,14 @@ const StatisticRuleEntriesRedBlack = Object.entries({
     [Choices.black]: (countResult: object, total: number) => calculateEntryPercent(countResult, total, Choices.black),
 });
 
-const StatisticRuleEntriesSuits = Object.entries({
-    [Choices.diamonds]: (countResult: object, _) => countResult[Choices.diamonds],
-    [Choices.hearts]: (countResult: object, _) => countResult[Choices.hearts],
-    [Choices.spades]: (countResult: object, _) => countResult[Choices.spades],
-    [Choices.clubs]: (countResult: object, _) => countResult[Choices.clubs],
-});
+const countResult = (roundHistory: Round<any, any>[]) => {
+    return roundHistory.reduce((resultCount, { result }) => {
+        Object.values(result).forEach((card: any) => {
+            resultCount[SuitKeys[card.suit]] = (resultCount[SuitKeys[card.suit]] ?? 0) + 1;
+        });
+        return resultCount;
+    }, {});
+};
 
 const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
     const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
@@ -35,12 +38,12 @@ const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
     );
 };
 
-const SuitStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
-    const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
+const SuitStatistics = ({ roundHistory }) => {
+    const statisticResult = countResult(roundHistory);
 
     return (
         <>
-            {Object.keys(statisticResult).map((choice) => (
+            {ChoiceSuitOrder.map((choice) => (
                 <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}`}>
                     <img
                         srcSet={`/static/images/three-cards/${Choices[choice]}.png 1x, /static/images/three-cards/${Choices[choice]}@2x.png 2x, /static/images/three-cards/${Choices[choice]}@3x.png 3x`}
@@ -62,11 +65,11 @@ const ThreeCardsStatistic = ({ roundHistory, statisticRuleEntries, activeScorebo
         if (activeScoreboardTab === TabsValue.redBlack) {
             return RedBlackStatistics({ roundHistory, statisticRuleEntries, t });
         } else {
-            return SuitStatistics({ roundHistory, statisticRuleEntries, t });
+            return SuitStatistics({ roundHistory });
         }
     }, [roundHistory, activeScoreboardTab]);
 };
 
 export default ThreeCardsStatistic;
 
-export const StatisticRuleMapping = [StatisticRuleEntriesRedBlack, StatisticRuleEntriesSuits];
+export const StatisticRuleMapping = [StatisticRuleEntriesRedBlack];

@@ -46,7 +46,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
 
     const result = props.result ? Object.values(props.result) : [];
     const translateChoiceMapping = [t("dragon"), t("tiger")];
-    let timeouts: NodeJS.Timeout[] = [];
+    const timeouts: NodeJS.Timeout[] = [];
 
     useEffect(() => {
         if (playResultAnimation) {

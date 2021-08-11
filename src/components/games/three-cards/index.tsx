@@ -9,7 +9,7 @@ import ThreeCardsBetOptions from "./bet-options";
 import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
-import { Choices, TabsValue, SuitOrder } from "./three-cards-helper";
+import { Choices, TabsValue, SuitOrder, SuitKeys } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import ScoreboardTab from "../../shared/scoreboard-tab";
@@ -136,7 +136,6 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
-        const suits = ["hearts", "diamonds", "clubs", "spades"];
         const resultUniqueSuit = result.map((card) => card.suit).filter((value, index, self) => self.indexOf(value) === index);
         const suitsLength = `suit-length-${resultUniqueSuit.length}`;
 
@@ -151,10 +150,10 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                             return (
                                 <img
                                     key={index}
-                                    srcSet={`/static/images/three-cards/${suits[suit]}.png 1x, /static/images/three-cards/${suits[suit]}@2x.png 2x, /static/images/three-cards/${suits[suit]}@3x.png 3x`}
+                                    srcSet={`/static/images/three-cards/${SuitKeys[suit]}.png 1x, /static/images/three-cards/${SuitKeys[suit]}@2x.png 2x, /static/images/three-cards/${SuitKeys[suit]}@3x.png 3x`}
                                     height={30}
                                     width={30}
-                                    alt={suits[suit]}
+                                    alt={SuitKeys[suit]}
                                 />
                             );
                         }
