@@ -33,6 +33,31 @@ $number-of-cards: 2;
         top: 4.5rem;
         transform: scale(1);
         transition: transform 0.7s;
+        .score {
+            font-size: 1.6rem;
+            text-align: center;
+            color: #fff;
+            width: 7rem;
+            height: 2.5rem;
+            border-radius: 10px 10px 0px 0px;
+            position: absolute;
+            bottom: 1.2rem;
+            left: 2.1rem;
+            z-index: 1;
+        
+            &.dragon-score {
+                background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
+            }
+        
+            &.tiger-score {
+                background: linear-gradient(180deg, #f56566 0%, #ce333f 83.33%, #de4a53 91.46%, #fb6667 100%);
+            }
+            .score-number {
+                font-family: var(--font-number);
+                font-size: 2.2rem;
+            }
+        }
+        
     }
 
     &.has-animation {
@@ -69,28 +94,3 @@ $number-of-cards: 2;
     @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
 }
 
-.score {
-    font-size: 1.6rem;
-    text-align: center;
-    color: #fff;
-    width: 7.1rem;
-    height: 2.5rem;
-    border-radius: 10px 10px 0px 0px;
-    position: absolute;
-    bottom: 1.2rem;
-    left: 2.1rem;
-    z-index: 1;
-
-    &.dragon-score {
-        background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
-    }
-
-    &.tiger-score {
-        background: linear-gradient(180deg, #f56566 0%, #ce333f 83.33%, #de4a53 91.46%, #fb6667 100%);
-    }
-    .score-number {
-        font-family: var(--font-number);
-        font-size: 2rem;
-        font-weight: 700;
-    }
-}
