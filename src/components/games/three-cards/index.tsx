@@ -9,7 +9,7 @@ import ThreeCardsBetOptions from "./bet-options";
 import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import { Result, SettlementResult } from "./three-cards";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
-import { Choices, TabsValue } from "./three-cards-helper";
+import { Choices, TabsValue, SuitOrder } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import ScoreboardTab from "../../shared/scoreboard-tab";
@@ -139,14 +139,15 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const suits = ["hearts", "diamonds", "clubs", "spades"];
         const resultUniqueSuit = result.map((card) => card.suit).filter((value, index, self) => self.indexOf(value) === index);
         const suitsLength = `suit-length-${resultUniqueSuit.length}`;
+
         return (
             <div className={Styles["result-container"]}>
                 <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-black"]}>
                     {this.getGameTranslate(settlementResult.red ? "red" : "black")}
                 </div>
                 <div className={`${Styles["suits"]} ${Styles[suitsLength]}`}>
-                    {resultUniqueSuit &&
-                        resultUniqueSuit.map((suit, index) => {
+                    {SuitOrder.map((suit, index) => {
+                        if (resultUniqueSuit.includes(suit)) {
                             return (
                                 <img
                                     key={index}
@@ -156,7 +157,8 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                                     alt={suits[suit]}
                                 />
                             );
-                        })}
+                        }
+                    })}
                 </div>
             </div>
         );

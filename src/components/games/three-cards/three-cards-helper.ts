@@ -11,3 +11,5 @@ export enum TabsValue {
     redBlack,
     suits,
 }
+
+export const SuitOrder = [1, 0, 3, 2];
