@@ -239,11 +239,11 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
         }
 
         .animation-container {
-            animation-duration: $time-zoom-in-card-animation, 0.6s;
+            animation-name: zoom-in-animation, move-up-result-animation;
+            animation-duration: $time-zoom-in-card-animation, 0.3s;
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards, forwards;
-            animation-timing-function: ease-out, linear;
-            animation-name: zoom-in-animation, move-up-result-animation;
+            animation-timing-function: ease-out, linear;            
             --scale-from: 0.29;
             --scale-to: 0.85;
         }
