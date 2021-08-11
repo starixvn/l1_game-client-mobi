@@ -15,7 +15,7 @@ $time-delay-open-card-4: $time-delay-open-card-2 + 0s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 //$time-delay-show-score-animation: $time-delay-zoom-in-card-animation + 0.2s;
 //$time-delay-blink-score-animation : $time-delay-show-score-animation + 0.1s;
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 3.7s;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 4s;
 $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 0.6s;
 
 .animation-container {
@@ -192,7 +192,7 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                     animation-name: blink, blink, blink;
                     animation-duration: $time-blink-score-animation, $time-blink-score-animation, $time-blink-score-animation;
                     animation-fill-mode: forwards, forwards, forwards;
-                    animation-timing-function: ease-in-out;
+                    animation-timing-function: ease-in-out, ease-in-out, ease-in-out;
                 }
 
             }            
@@ -213,7 +213,7 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation, 6) + $time-show-score-animation, 
                     $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 2, 6) + $time-blink-score-animation + $time-show-score-animation;
                 animation-fill-mode: forwards, forwards;
-                animation-timing-function: ease-in-out;
+                animation-timing-function: ease-in-out, ease-in-out;
             }
            
         }
@@ -233,15 +233,16 @@ $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-
                 animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 3, 6) + $time-show-score-animation * 2 + $time-blink-score-animation * 2 + $time-delay-open-card-2,
                     $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 4, 6) + $time-show-score-animation * 2 + $time-blink-score-animation * 3 + $time-delay-open-card-4;
                 animation-fill-mode: forwards, forwards;
+                animation-timing-function: ease-in-out, ease-in-out;
             }
             
         }
 
         .animation-container {
-            animation-duration: $time-zoom-in-card-animation, 0.3s;
+            animation-duration: $time-zoom-in-card-animation, 0.6s;
             animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards, forwards;
-            animation-timing-function: ease-out;
+            animation-timing-function: ease-out, linear;
             animation-name: zoom-in-animation, move-up-result-animation;
             --scale-from: 0.29;
             --scale-to: 0.85;
