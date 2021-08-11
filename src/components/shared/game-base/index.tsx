@@ -383,6 +383,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     playResultAnimation: false,
                     showResultInfo: false,
                     betPercentage: {},
+                },
+            },
+            {
+                condition: nextGameState === GameState.InRound,
+                state: {
                     roundId: roundId + 1,
                 },
             },
