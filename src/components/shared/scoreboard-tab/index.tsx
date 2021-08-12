@@ -37,7 +37,7 @@ const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
                 </div>
             </div>
         );
-    }, [tabActive]);
+    }, [tabActive, tabsValue]);
 };
 
 export default ScoreboardTab;
