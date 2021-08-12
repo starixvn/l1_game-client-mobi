@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
@@ -43,14 +42,12 @@ function UserInfo({ user }: { user: User }) {
 }
 
 const Header: React.FC<Props> = (props) => {
-    const { i18n } = useTranslation();
-
     return (
         <>
             <header className={Styles.header}>
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
-                        <a href={`/${i18n.language}`} className={Styles["site-name"]}>
+                        <a href={"javascript:window.location.reload()"} className={Styles["site-name"]}>
                             Saba.mobi
                         </a>
                         <div className={Styles["header-right"]}>
