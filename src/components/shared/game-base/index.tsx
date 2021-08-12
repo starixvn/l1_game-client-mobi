@@ -366,6 +366,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     getStateByNextGameState(nextGameState: GameState) {
         const { roundId, displayPopup, notice } = this.state;
+        const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === GameState.InRound) {
@@ -386,7 +387,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 },
             },
             {
-                condition: nextGameState === GameState.InRound,
+                condition: durations.beforeStartRound ? nextGameState === GameState.BeforeStartRound : nextGameState === GameState.InRound,
                 state: {
                     roundId: roundId + 1,
                 },
@@ -472,9 +473,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.setState({
             roundHistory: roundHistory,
-            roundId: [GameState.BeforeStartRound, GameState.DisplayResult, GameState.BalancingBet].includes(gameState)
-                ? roundId - 1
-                : roundId,
+            roundId: [GameState.DisplayResult, GameState.BalancingBet].includes(gameState) ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
         });
