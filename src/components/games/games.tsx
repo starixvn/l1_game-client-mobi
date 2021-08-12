@@ -1,6 +1,7 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
 import { isIOS, isMobileOnly } from "react-device-detect";
+import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
 
 import appSettings from "../../common/app-settings";
@@ -71,7 +72,6 @@ export const Games: React.FC<Props> = ({
     updateFavoriteGames,
     favoriteGames,
     queryGame,
-    socketGateway,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -81,6 +81,8 @@ export const Games: React.FC<Props> = ({
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
     history.pushState(null, "", `#${getCategoryHashTag(queryCategory, selectedPage)}`);
+    const socketGatewayRef = useRef<Socket>(null);
+    const [isSocketConnected, setIsSocketConnected] = useState<boolean>(false);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const newFavoriteList = getUpdatedFavoriteList(gameId, isFavorite);
@@ -111,7 +113,7 @@ export const Games: React.FC<Props> = ({
             theme,
             userStakeLevel,
             updateUserStakeLevel,
-            socketGateway,
+            socketGateway: socketGatewayRef.current,
         };
         switch (gameId) {
             case 2:
@@ -147,6 +149,17 @@ export const Games: React.FC<Props> = ({
     };
 
     useEffect(() => {
+        socketGatewayRef.current = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
+        socketGatewayRef.current.on("connect", () => {
+            setIsSocketConnected(true);
+        });
+
+        return () => {
+            socketGatewayRef.current.close();
+        };
+    }, []);
+
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
@@ -163,7 +176,7 @@ export const Games: React.FC<Props> = ({
                     selectedCategory={selectedCategory}
                 />
                 <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                    {renderListGames()}
+                    {isSocketConnected ? renderListGames() : <></>}
                 </div>
             </SystemContextProvider>
         </div>

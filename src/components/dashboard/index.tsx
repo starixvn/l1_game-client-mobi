@@ -5,7 +5,6 @@ import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
-import { io, Socket } from "socket.io-client";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -50,14 +49,12 @@ type State = {
     isShowHistory: boolean;
     isShowGuide: boolean;
     favoriteGames: number[];
-    loading: boolean;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
     private mainSocket: WebSocket = null;
     private reCheckInInterval: NodeJS.Timeout;
-    private socketGateway: Socket;
 
     constructor(props: Props) {
         super(props);
@@ -74,7 +71,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
-            loading: true,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -174,18 +170,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.mainSocket = this.connectMainSocket();
         window.addEventListener("orientationchange", this.doOnOrientationChange);
         this.doOnOrientationChange();
-
-        this.socketGateway = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
-        this.socketGateway.on("connect", () => {
-            this.setState({ loading: false });
-        });
     }
 
     componentWillUnmount() {
         this.mainSocket.close();
         clearInterval(this.reCheckInInterval);
         window.removeEventListener("orientationchange", this.doOnOrientationChange);
-        this.socketGateway.close();
     }
 
     sendMessage(data: any) {
@@ -362,7 +352,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
                         queryGame={this.props.queryGame}
-                        socketGateway={this.socketGateway}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
@@ -401,11 +390,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     render() {
-        const { orientation, authorizeInfo, loading } = this.state;
-
-        if (loading) {
-            return <></>;
-        }
+        const { orientation, authorizeInfo } = this.state;
 
         if (orientation === orientationType.landscape && isMobileOnly) {
             return <LandscapeMode />;
