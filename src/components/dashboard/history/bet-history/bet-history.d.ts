@@ -21,6 +21,7 @@ export type PropsBetContainer = {
     ) => JSX.Element;
     renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
     renderResultDetail?: (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => JSX.Element;
+    rowHeight?: number;
 };
 
 export type ResultDetail = {

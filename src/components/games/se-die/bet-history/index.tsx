@@ -19,6 +19,13 @@ export const renderResult = (bet: BetLogs) => {
 };
 
 const SeDieBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    return <BetHistoryContainer gameId={gameId} isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)}></BetHistoryContainer>;
+    return (
+        <BetHistoryContainer
+            gameId={gameId}
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            rowHeight={65}
+        ></BetHistoryContainer>
+    );
 };
 export default SeDieBetHistory;

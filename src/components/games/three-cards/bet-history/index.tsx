@@ -53,6 +53,7 @@ const ThreeCardsBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
             isRefund={false}
             renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
             renderResult={(bet: BetLogs) => renderResult(bet)}
+            rowHeight={72}
         ></BetHistoryContainer>
     );
 };

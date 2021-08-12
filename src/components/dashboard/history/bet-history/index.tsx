@@ -160,8 +160,12 @@ const checkCondition = (
     }
 };
 
+let totalPage = 0;
+let isInfiniteLoading = false;
+let isFetchingData = false;
+let stakeIndex = -1;
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, gameId, renderResultDetail } = props;
+    const { renderResult, isRefund, gameId, renderResultDetail, rowHeight } = props;
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
@@ -176,75 +180,28 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [listBetHistory, setListBetHistory] = useState<object[]>([{}]);
     const [columns, setColumns] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
-    const [totalPage, setTotalPage] = useState<number>(0);
-    const [isInfiniteLoading, setIsInfiniteLoading] = useState<boolean>(false);
-    const [stakeLocation, setStakeLocation] = useState<number>(-1);
     const [heightHistory, setHeightHistory] = useState<number>(0);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
     const [resultDetail, setResultDetail] = useState<ResultDetail>();
-    const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
-
-    const { proxy } = appSettings;
-    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
-    const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
-    const headerObjectName = {
-        refund: "refund",
-    };
 
     const closeModalResultDetail = () => {
         setIsShowResultDetail(false);
     };
 
     const onInfiniteLoad = () => {
-        setIsInfiniteLoading(true);
+        isInfiniteLoading = true;
         if (page + 1 <= totalPage && !isFetchingData) {
             setPage(page + 1);
         }
-        setIsInfiniteLoading(false);
     };
 
     useEffect(() => {
-        const cellRenderer = ({ columnIndex, rowData }) => {
-            return checkCondition(
-                columnIndex,
-                rowData,
-                isRefund,
-                renderResult,
-                renderBet,
-                t,
-                setIsShowResultDetail,
-                setResultDetail,
-                gameName
-            );
-        };
-        const headerRenderer = ({ column, className, columnIndex }) => {
-            return (
-                <td className={stakeLocation === columnIndex ? Styles["stake-width"] : className}>
-                    {headerName[column.i] === headerObjectName.refund && <div>{t("stake")}</div>}
-                    {t(headerName[column.i])}
-                </td>
-            );
-        };
-
-        const createColumns = () => {
-            const _columns = [];
-            for (let index = 0; index < headerName.length; index++) {
-                if (headerName[index] === "stake") {
-                    setStakeLocation(index);
-                }
-                _columns.push({
-                    i: index,
-                    cellRenderer: cellRenderer,
-                    headerRenderer: headerRenderer,
-                    width: 50,
-                });
-            }
-            return _columns;
-        };
+        const { proxy } = appSettings;
+        const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
 
         const sendPostBetHistory = async () => {
-            setIsFetchingData(true);
+            isFetchingData = true;
             try {
                 const resp = await axios.post(historyAPI, {
                     session: session.ss,
@@ -256,7 +213,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 fetchBetHistory(bets);
                 setIsFirstLoad(false);
                 if (page === 1) {
-                    setTotalPage(Math.ceil(bets.total / NUMBER_ROWS_DISPLAY));
+                    totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
                 }
             } catch (err) {
                 if (err.response.status === 401) {
@@ -269,15 +226,64 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         const fetchBetHistory = (betHistory) => {
             if (betHistory && betHistory.betLogs.length > 0) {
                 const data = betHistory.betLogs;
-                setListBetHistory([...listBetHistory, ...data]);
-                setColumns(createColumns());
-                setIsFetchingData(false);
-                setIsInfiniteLoading(false);
+                setListBetHistory([...listBetHistory.filter((value) => Object.keys(value).length !== 0), ...data]);
+
+                isFetchingData = false;
+                isInfiniteLoading = false;
             }
         };
 
         sendPostBetHistory();
     }, [page]);
+
+    useEffect(() => {
+        const headerName = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+        const headerObjectName = {
+            refund: "refund",
+        };
+
+        const cellRenderer = (props) => {
+            const { columnIndex, rowData } = props;
+            return checkCondition(
+                columnIndex,
+                rowData,
+                isRefund,
+                renderResult,
+                renderBet,
+                t,
+                setIsShowResultDetail,
+                setResultDetail,
+                gameName
+            );
+        };
+
+        const headerRenderer = ({ column, className, columnIndex }) => {
+            return (
+                <td className={stakeIndex === columnIndex ? Styles["stake-width"] : className}>
+                    {headerName[column.i] === headerObjectName.refund && <div>{t("stake")}</div>}
+                    {t(headerName[column.i])}
+                </td>
+            );
+        };
+
+        const createColumns = () => {
+            const _columns = [];
+            for (let index = 0; index < headerName.length; index++) {
+                if (headerName[index] === "stake") {
+                    stakeIndex = index;
+                }
+                _columns.push({
+                    i: index,
+                    cellRenderer: cellRenderer,
+                    headerRenderer: headerRenderer,
+                    width: 50,
+                });
+            }
+            return _columns;
+        };
+
+        setColumns(createColumns());
+    }, [listBetHistory, page]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -296,6 +302,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
     return (
         <div className="table-container" ref={wrapperRef}>
+            {isShowResultDetail && renderResultDetail(resultDetail, t, closeModalResultDetail, gameName)}
             {isFirstLoad ? (
                 <div className={Styles["history-loading"]}>
                     <span className={Styles["spinner"]} />
@@ -305,12 +312,12 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     className="table"
                     tableClassName="table text-center"
                     height={heightHistory}
-                    rowHeight={40}
+                    rowHeight={rowHeight ? rowHeight : 65}
                     rows={listBetHistory}
                     columns={columns}
                     fillTableWidth={true}
                     noRowsRenderer={() => t("noBetHistory")}
-                    infiniteLoadBeginEdgeOffset={100}
+                    infiniteLoadBeginEdgeOffset={rowHeight ? rowHeight : 65}
                     isInfiniteLoading={isInfiniteLoading}
                     onInfiniteLoad={onInfiniteLoad}
                     getLoadingSpinner={() => <span className={Styles["spinner"]} />}
@@ -318,7 +325,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             ) : (
                 t("noBetHistory")
             )}
-            {isShowResultDetail && renderResultDetail(resultDetail, t, closeModalResultDetail, gameName)}
         </div>
     );
 };
