@@ -29,6 +29,7 @@ type Props = {
     session: SSOResponse;
     buildId: string;
     queryGame: number;
+    setIsUm: Function;
 } & WithRouterProps &
     WithTranslation;
 
@@ -220,7 +221,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handleKickedOut(data: any) {
         const { umInfo } = data;
-        const { router, i18n } = this.props;
+        const { router, setIsUm } = this.props;
 
         if (umInfo) {
             storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
@@ -230,7 +231,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 finish: false,
             });
             setTimeout(() => {
-                router.push("/um", "/um", { locale: i18n.language });
+                setIsUm(true);
             }, 500);
         } else {
             router.push("/timeout");

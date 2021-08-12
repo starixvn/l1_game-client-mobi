@@ -1,18 +1,14 @@
 import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { UMInfo } from "sc-user-service-client/dist/settings";
+import { convertToGMT8, formatDate } from "../../helpers/time-helper";
+import * as LocalStorageManager from "../../common/local-storage";
 
-import * as LocalStorageManager from "../common/local-storage";
-import { convertToGMT8, formatDate } from "../helpers/time-helper";
-
-function UM() {
+export const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
     const router = useRouter();
-    const { locale } = router;
     const { t } = useTranslation(["um", "messages"]);
-
     const [startTime, setStartTime] = useState<string>(null);
     const [endTime, setEndTime] = useState<string>(null);
     const { theme } = useTheme();
@@ -45,14 +41,4 @@ function UM() {
             <p>{t("um:umNotice")}</p>
         </div>
     );
-}
-
-export async function getServerSideProps({ locale }) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, ["messages", "um"])),
-        },
-    };
-}
-
-export default UM;
+};

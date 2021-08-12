@@ -8,6 +8,7 @@ import { languageMapper } from "../common/constants";
 import { getLocalStorageItem, localStorageKeys } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
+import { UMPage } from "../components/um-page";
 import { checkUM, sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
@@ -15,6 +16,7 @@ const getUserSession = (token: string) => (token ? sso(token) : verifySession())
 
 function Home() {
     const router = useRouter();
+    const [isUM, setIsUm] = useState(false);
     const [loading, setLoading] = useState<boolean>(true);
     const [session, setSession] = useState<SSOResponse>(null);
     const [language, setLanguage] = useState<string>(null);
@@ -43,7 +45,7 @@ function Home() {
             i18n.changeLanguage(locale);
 
             if (!checkUM()) {
-                router.push("/um", "/um", { locale });
+                setIsUm(true);
                 return;
             }
 
@@ -61,12 +63,16 @@ function Home() {
         };
     }, []);
 
+    if (isUM) {
+        return <UMPage locale={language} />;
+    }
+
     if (loading) {
         return <SplashScreen locale={language}></SplashScreen>;
     }
 
     const buildId = process.env.buildVersion;
-    return <Dashboard session={session} buildId={buildId} queryGame={+gameId} />;
+    return <Dashboard session={session} buildId={buildId} queryGame={+gameId} setIsUm={setIsUm} />;
 }
 
 export const getStaticProps = async ({ locale }) => {
@@ -89,6 +95,7 @@ export const getStaticProps = async ({ locale }) => {
                 "threecards",
                 "minisedie",
                 "specialsedie",
+                "um",
             ])),
         },
     };
