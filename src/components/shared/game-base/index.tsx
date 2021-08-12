@@ -97,9 +97,26 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentDidMount() {
         this.registerMessageHandler();
-        this.onStart();
         this.props.socketGateway.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+        this.requestSignIn();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
+        this.onStart();
+    }
+
+    requestSignIn() {
+        const { socketGateway, gameName } = this.props;
+        const { session } = this.context;
+        socketGateway.emit("signIn", { gameName, session });
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.socketGateway.connected !== prevProps.socketGateway.connected) {
+            if (this.props.socketGateway.connected) {
+                this.requestSignIn();
+            } else {
+                this.setState({ signedIn: false });
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -120,10 +137,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.isProcessingBet = false;
 
         this.initWinStreakCollector();
-
-        const { socketGateway, gameName } = this.props;
-        const { session } = this.context;
-        socketGateway.emit("signIn", { gameName, session });
     }
 
     onMessageUserStakeLevel({ userStakeLevel }) {
@@ -135,7 +148,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onVisibilityChange = () => {
         const visibleState = document.visibilityState;
-        visibleState === "hidden" ? this.onDestroy() : this.onStart();
+        if (visibleState === "hidden") {
+            this.onDestroy();
+        } else {
+            this.onStart();
+            const { socketGateway } = this.props;
+            socketGateway.connected && socketGateway.emit("inGame", this.props.gameName);
+        }
     };
 
     onConnectFailed() {

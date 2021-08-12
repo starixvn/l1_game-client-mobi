@@ -160,6 +160,20 @@ export const Games: React.FC<Props> = ({
     }, []);
 
     useEffect(() => {
+        const onVisibilityChange = () => {
+            if (document.visibilityState === "visible" && socketGatewayRef.current && !socketGatewayRef.current.connected) {
+                socketGatewayRef.current.connect();
+            }
+        };
+
+        document.addEventListener("visibilitychange", onVisibilityChange);
+
+        return () => {
+            document.removeEventListener("visibilitychange", onVisibilityChange);
+        };
+    }, []);
+
+    useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
