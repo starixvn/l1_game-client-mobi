@@ -7,12 +7,13 @@
 
 $time-draw-card-animation: 0.3s;
 
-$time-open-card-animation: 0.4s;
+$time-open-card-animation: 0.8s;
 
-$time-zoom-in-card-animation: 0.15s;
+$time-zoom-in-card-animation: 0.2s;
+$time-show-score-animation: 0.2s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation;
+$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-show-score-animation * 2 + 0.2s;
 $number-of-cards: 2;
 
 .animation-container {
@@ -35,7 +36,6 @@ $number-of-cards: 2;
         transition: transform 0.7s;
         .score {
             font-size: 1.6rem;
-            text-align: center;
             color: #fff;
             width: 7rem;
             height: 2.5rem;
@@ -44,6 +44,9 @@ $number-of-cards: 2;
             bottom: 1.2rem;
             left: 2.1rem;
             z-index: 1;
+            font-size: 1.6rem;
+            line-height: 2.4rem;
+            text-align: center;
         
             &.dragon-score {
                 background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
@@ -54,7 +57,8 @@ $number-of-cards: 2;
             }
             .score-number {
                 font-family: var(--font-number);
-                font-size: 2.2rem;
+                font-size: 2rem;
+                padding-left: .4rem;
             }
         }
         
@@ -71,9 +75,26 @@ $number-of-cards: 2;
             animation-timing-function: ease-out;
         }
 
+        .score {
+            --scale-form-appear: 0;
+            --scale-to-appear: 1;
+            opacity: 0;
+            animation-name: appearance-animation;
+            animation-duration:  0.3s;
+            animation-fill-mode:  forwards;
+            animation-timing-function:  ease-out;
+            &.dragon-score {
+                animation-delay: $time-zoom-in-card-animation + math.div($time-open-card-animation, 2);
+            }
+            &.tiger-score {
+                animation-delay: $time-zoom-in-card-animation + $time-open-card-animation + $time-show-score-animation;
+            }
+        }
+        
+
         @for $i from 1 through 2 {
             .card#{$i} {
-                $card-time-delay: (math.div($time-open-card-animation, 2) * ($i - 1)) + $time-delay-zoom-in-card-animation;
+                $card-time-delay: (math.div($time-open-card-animation, 2) * ($i - 1)) + $time-delay-zoom-in-card-animation + $time-show-score-animation * ($i - 1);
 
                 .card-back {
                     animation-delay: $card-time-delay;
@@ -85,6 +106,17 @@ $number-of-cards: 2;
                 }
             }
         }
+    }
+}
+
+@keyframes appearance-animation {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
