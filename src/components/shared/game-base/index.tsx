@@ -97,26 +97,22 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentDidMount() {
         this.registerMessageHandler();
-        this.props.socketGateway.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+
         this.requestSignIn();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
         this.onStart();
     }
 
     requestSignIn() {
-        const { socketGateway, gameName } = this.props;
+        const { gameName } = this.props;
         const { session } = this.context;
-
-        socketGateway.emit("signIn", { gameName, session });
+        this.props.socketGateway.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+        this.props.socketGateway.emit("signIn", { gameName, session });
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.socketGateway.connected !== prevProps.socketGateway.connected) {
-            if (this.props.socketGateway.connected) {
-                this.requestSignIn();
-            } else {
-                this.setState({ signedIn: false });
-            }
+            this.props.socketGateway.connected ? this.requestSignIn() : this.setState({ signedIn: false });
         }
     }
 
@@ -136,7 +132,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onStart() {
         this.isProcessingBet = false;
-
         this.initWinStreakCollector();
     }
 
@@ -153,8 +148,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.onDestroy();
         } else {
             this.onStart();
-            const { socketGateway } = this.props;
-            socketGateway.connected && socketGateway.emit("inGame", this.props.gameName);
+            this.props.socketGateway.connected && this.props.socketGateway.emit("inGame", this.props.gameName);
         }
     };
 
@@ -181,7 +175,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleSignedIn = ({ signedIn }) => {
-        console.log("handleSignedIn");
         if (signedIn) {
             this.setState({ signedIn: true });
             this.props.socketGateway.emit("inGame", this.props.gameName);
@@ -557,9 +550,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             if (amount > 0) {
                 this.isProcessingBet = true;
                 this.setRetryInterval();
-                const { socketGateway, gameName } = this.props;
+                const { gameName } = this.props;
                 const betData = { betChoice, amount };
-                socketGateway.emit("bet", { gameName, betData });
+                this.props.socketGateway.emit("bet", { gameName, betData });
             }
         }
     }

@@ -168,10 +168,8 @@ export const Games: React.FC<Props> = ({
         };
 
         const onVisibilityChange = () => {
-            if (document.visibilityState === "visible") {
+            if (document.visibilityState === "visible" && socketGatewayRef.current && !socketGatewayRef.current.connected) {
                 socketGatewayRef.current = initSocket();
-            } else {
-                socketGatewayRef.current.close();
             }
         };
 
