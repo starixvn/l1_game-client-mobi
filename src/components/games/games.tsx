@@ -29,6 +29,13 @@ import { FavoriteGuide } from "../favorite-guide";
 
 let gamesOrder = [];
 
+enum SocketState {
+    None,
+    Connected,
+    Error,
+    Disconnected,
+}
+
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
@@ -82,7 +89,7 @@ export const Games: React.FC<Props> = ({
     const { theme } = useTheme();
     history.pushState(null, "", `#${getCategoryHashTag(queryCategory, selectedPage)}`);
     const socketGatewayRef = useRef<Socket>(null);
-    const [isSocketConnected, setIsSocketConnected] = useState<boolean>(false);
+    const [socketState, setSocketState] = useState<SocketState>(SocketState.None);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const newFavoriteList = getUpdatedFavoriteList(gameId, isFavorite);
@@ -152,7 +159,10 @@ export const Games: React.FC<Props> = ({
         const initSocket = () => {
             const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
             socket.on("connect", () => {
-                setIsSocketConnected(true);
+                setSocketState(SocketState.Connected);
+            });
+            socket.on("disconnect", () => {
+                setSocketState(SocketState.Disconnected);
             });
             return socket;
         };
@@ -191,7 +201,7 @@ export const Games: React.FC<Props> = ({
                     selectedCategory={selectedCategory}
                 />
                 <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                    {isSocketConnected ? renderListGames() : <></>}
+                    {socketState === SocketState.None ? <></> : renderListGames()}
                 </div>
             </SystemContextProvider>
         </div>

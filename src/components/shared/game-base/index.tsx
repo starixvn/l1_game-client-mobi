@@ -106,6 +106,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     requestSignIn() {
         const { socketGateway, gameName } = this.props;
         const { session } = this.context;
+
         socketGateway.emit("signIn", { gameName, session });
     }
 
@@ -180,6 +181,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleSignedIn = ({ signedIn }) => {
+        console.log("handleSignedIn");
         if (signedIn) {
             this.setState({ signedIn: true });
             this.props.socketGateway.emit("inGame", this.props.gameName);
