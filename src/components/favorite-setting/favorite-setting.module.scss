@@ -259,16 +259,20 @@
         opacity: 0.6;
     }
 
-    &:hover:disabled {
-        cursor: default;
-    }
+    @media (hover: hover) {
+        &:hover {
+            &:disabled {
+                cursor: default;
+            }
 
-    &:hover:enabled {
-        @include btn-unfavorite;
+            &:enabled {
+                @include btn-unfavorite;
 
-        .icon-move {
-            border-top-color: var(--icon-move-hover-color);
-            border-right-color: var(--icon-move-hover-color);
+                .icon-move {
+                    border-top-color: var(--icon-move-hover-color);
+                    border-right-color: var(--icon-move-hover-color);
+                }
+            }
         }
     }
 }
