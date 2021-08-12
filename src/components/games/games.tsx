@@ -149,26 +149,27 @@ export const Games: React.FC<Props> = ({
     };
 
     useEffect(() => {
-        socketGatewayRef.current = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
-        socketGatewayRef.current.on("connect", () => {
-            setIsSocketConnected(true);
-        });
-
-        return () => {
-            socketGatewayRef.current.close();
+        const initSocket = () => {
+            const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
+            socket.on("connect", () => {
+                setIsSocketConnected(true);
+            });
+            return socket;
         };
-    }, []);
 
-    useEffect(() => {
         const onVisibilityChange = () => {
-            if (document.visibilityState === "visible" && socketGatewayRef.current && !socketGatewayRef.current.connected) {
-                socketGatewayRef.current.connect();
+            if (document.visibilityState === "visible") {
+                socketGatewayRef.current = initSocket();
+            } else {
+                socketGatewayRef.current.close();
             }
         };
 
+        socketGatewayRef.current = initSocket();
         document.addEventListener("visibilitychange", onVisibilityChange);
 
         return () => {
+            socketGatewayRef.current.close();
             document.removeEventListener("visibilitychange", onVisibilityChange);
         };
     }, []);
