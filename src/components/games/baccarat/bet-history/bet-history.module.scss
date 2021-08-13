@@ -45,20 +45,21 @@
     justify-content: center;
     text-align: center;
     font-size: 1.4rem;
+    margin-top: .8rem;
     .card-result {
         display: flex;
         justify-content: center;
         transform: scale(0.68);
         position: relative;
-        top: -1.3rem;
 
         &.player {
             justify-content: flex-end;
             left: 0.4rem;
+            top: -1.4rem;
             &.card-length-3 {
                 left: 1.8rem;
                 .card3 {
-                    transform: translateX(8.2rem);
+                    transform: translateX(7.2rem);
                 }
                 .card1 {
                     transform: translateX(15.5rem);
@@ -68,6 +69,7 @@
         &.banker {
             right: 0.4rem;
             justify-content: flex-start;
+            top: -1.4rem;
             &.card-length-3 {
                 right: 1.8rem;
             }
@@ -94,11 +96,15 @@
         font-size: 1.4rem;
         line-height: 1.6rem;
         position: relative;
-        top: 1rem;
-        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
         .number-score {
             font-family: var(--font-number);
             font-size: 1.8rem;
+            padding-left: .4rem;
+            position: relative;
+            top: -.1rem;
         }
     }
 
@@ -115,4 +121,5 @@
     font-size: 1.4rem;
     display: flex;
     justify-content: center;
+    margin-bottom: .8rem;
 }
