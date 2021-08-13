@@ -47,7 +47,7 @@ const Header: React.FC<Props> = (props) => {
             <header className={Styles.header}>
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
-                        <a href={"javascript:window.location.reload()"} className={Styles["site-name"]}>
+                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
                             Saba.mobi
                         </a>
                         <div className={Styles["header-right"]}>
