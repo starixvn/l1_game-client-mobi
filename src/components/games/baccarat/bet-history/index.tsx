@@ -38,7 +38,11 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         };
 
         return (
-            <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
+            <ResultDetailContainer
+                roundId={roundId}
+                closeModal={closeModal}
+                gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}
+            >
                 <div className={Styles["card-result-container"]}>
                     <div className={Styles["player-label"]}>
                         {t(`${gameName}:player`)}:{" "}

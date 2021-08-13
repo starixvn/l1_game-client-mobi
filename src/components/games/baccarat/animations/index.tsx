@@ -47,7 +47,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
         openedCards: number;
     }
 > {
-    private timeouts: NodeJS.Timeout[] = [];
+    private readonly timeouts: NodeJS.Timeout[] = [];
 
     constructor(props) {
         super(props);
@@ -120,18 +120,18 @@ class PlayerBankerResultComponent extends React.PureComponent<
         const playerCards = GetPlayerCardsResult(this.props.result);
         const bankerCards = GetBankerCardsResult(this.props.result);
         const isFullMode = this.state.viewMode === ViewMode.full;
-
+        const classOpenCards = `opened-cards-${this.state.openedCards}`;
+        const classGroupPlayerCards = `group-${playerCards.length}-cards`;
+        const classGroupBankerCards = `group-${bankerCards.length}-cards`;
         return (
-            <div
-                className={`${isFullMode ? "overlay-mask" : Styles["result-wrapper"]} ${Styles[`opened-cards-${this.state.openedCards}`]}`}
-            >
+            <div className={`${isFullMode ? "overlay-mask" : Styles["result-wrapper"]} ${Styles[classOpenCards]}`}>
                 <div
                     className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
                         this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
                     }`}
                 >
                     {generateResult(playerCards, this.state.viewMode)}
-                    <div className={`${Styles[`group-${playerCards.length}-cards`]} ${Styles["score"]}`}>
+                    <div className={`${Styles[classGroupPlayerCards]} ${Styles["score"]}`}>
                         {isFullMode ? `${this.state.texts.player}: ` : ""}
                         <span className={Styles["score-number"]}>{this.state.playerScore}</span>
                     </div>
@@ -143,7 +143,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
                     }`}
                 >
                     {generateResult(bankerCards, this.state.viewMode)}
-                    <div className={`${Styles[`group-${bankerCards.length}-cards`]} ${Styles["score"]}`}>
+                    <div className={`${Styles[classGroupBankerCards]} ${Styles["score"]}`}>
                         {isFullMode ? `${this.state.texts.banker}: ` : ""}
                         <span className={Styles["score-number"]}>{this.state.bankerScore}</span>
                     </div>

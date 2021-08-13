@@ -30,7 +30,7 @@ export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
     const { children, roundId, closeModal, gameName } = props;
     return (
         <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
-            <div className={Styles["popup-result-detail"]}>
+            <div key={roundId} className={Styles["popup-result-detail"]}>
                 <div className={Styles["game-name"]}>{gameName}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
                 <div className={Styles["roundId"]}>#{roundId}</div>
@@ -108,23 +108,23 @@ const renderDataOnCell = (data: any, isHighligh: boolean) => {
     return <td className={`${isHighligh ? "highlight" : ""}`}>{data}</td>;
 };
 
-const checkCondition = (
-    columnIndex: number,
-    rowData: BetLogs,
-    isRefund: boolean,
+const CheckCondition: React.FC<{
+    columnIndex: number;
+    rowData: BetLogs;
+    isRefund: boolean;
     renderResult: (
         rowData: BetLogs,
         roundId?: number,
         setIsShowResultDetail?: Function,
         setResultDetail?: Function,
         t?: TFunction
-    ) => JSX.Element,
-    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {},
-    t: TFunction,
-    setIsShowResultDetail: Function,
-    setResultDetail: Function,
-    gameName: string
-) => {
+    ) => JSX.Element;
+    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {};
+    t: TFunction;
+    setIsShowResultDetail: Function;
+    setResultDetail: Function;
+    gameName: string;
+}> = ({ columnIndex, rowData, isRefund, renderResult, renderBet, t, setIsShowResultDetail, setResultDetail, gameName }) => {
     const { time, phien, betwin } = rowData;
     const odds = rowData.odds;
     const isHighligh = betwin > 0 ? true : false;
@@ -226,7 +226,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         const fetchBetHistory = (betHistory) => {
             if (betHistory && betHistory.betLogs.length > 0) {
                 const data = betHistory.betLogs;
-                setListBetHistory([...listBetHistory.filter((value) => Object.keys(value).length !== 0), ...data]);
+                setListBetHistory([...listBetHistory, ...data]);
 
                 isFetchingData = false;
                 isInfiniteLoading = false;
@@ -242,19 +242,18 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             refund: "refund",
         };
 
-        const cellRenderer = (props) => {
-            const { columnIndex, rowData } = props;
-            return checkCondition(
-                columnIndex,
-                rowData,
-                isRefund,
-                renderResult,
-                renderBet,
-                t,
-                setIsShowResultDetail,
-                setResultDetail,
-                gameName
-            );
+        const cellRenderer = ({ columnIndex, rowData }) => {
+            return CheckCondition({
+                columnIndex: columnIndex,
+                rowData: rowData,
+                isRefund: isRefund,
+                renderResult: renderResult,
+                renderBet: renderBet,
+                t: t,
+                setIsShowResultDetail: setIsShowResultDetail,
+                setResultDetail: setResultDetail,
+                gameName: gameName,
+            });
         };
 
         const headerRenderer = ({ column, className, columnIndex }) => {

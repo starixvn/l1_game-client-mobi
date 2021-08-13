@@ -157,6 +157,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                                 />
                             );
                         }
+                        return <></>;
                     })}
                 </div>
             </div>

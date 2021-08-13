@@ -1,4 +1,3 @@
-import { checkIsTie } from './../dragon-tiger/dragon-tiger-helper';
 import { TFunction } from "next-i18next";
 import { Result, CardOrder } from "./baccarat";
 
