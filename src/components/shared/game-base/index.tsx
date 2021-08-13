@@ -11,6 +11,7 @@ import { GameActionsContextProvider } from "../../../contexts/game-actions-conte
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { getBalance } from "../../../services/auth-service";
+import { SocketState } from "../../../types";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -98,7 +99,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentDidMount() {
         this.registerMessageHandler();
 
-        this.requestSignIn();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
         this.onStart();
     }
@@ -111,8 +111,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.socketGateway.connected !== prevProps.socketGateway.connected) {
-            this.props.socketGateway.connected ? this.requestSignIn() : this.setState({ signedIn: false });
+        if (this.props.socketGatewayState !== prevProps.socketGatewayState) {
+            switch (this.props.socketGatewayState) {
+                case SocketState.Connected:
+                    this.requestSignIn();
+                    break;
+                case SocketState.Error:
+                    this.setState({ gameState: GameState.ConnectFailed });
+                    break;
+                default:
+                    this.setState({ signedIn: false });
+                    break;
+            }
         }
     }
 
@@ -877,7 +887,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        retryConnect={this.onStart.bind(this)}
+                        retryConnect={this.props.retryConnectSocket}
                     />
                 )}
             </GameContainer>

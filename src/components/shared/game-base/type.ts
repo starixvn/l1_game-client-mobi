@@ -2,7 +2,7 @@ import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
 import { Socket } from "socket.io-client";
 
-import { Round } from "../../../types";
+import { Round, SocketState } from "../../../types";
 
 export interface GameConfigs {
     odds: { [key: string]: number };
@@ -48,6 +48,8 @@ export type GameBaseProps = {
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
     socketGateway: Socket;
+    socketGatewayState: SocketState;
+    retryConnectSocket: () => void;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {

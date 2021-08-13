@@ -7,6 +7,7 @@ import useSound from "use-sound";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
+import { SocketState } from "../../types";
 import { GameCategory } from "../game-category";
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
@@ -28,13 +29,6 @@ import { GameCategory } from "../game-category";
 import { FavoriteGuide } from "../favorite-guide";
 
 let gamesOrder = [];
-
-enum SocketState {
-    None,
-    Connected,
-    Error,
-    Disconnected,
-}
 
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[]) => {
     const tabGames =
@@ -121,6 +115,8 @@ export const Games: React.FC<Props> = ({
             userStakeLevel,
             updateUserStakeLevel,
             socketGateway: socketGatewayRef.current,
+            socketGatewayState: socketState,
+            retryConnectSocket: connectSocket,
         };
         switch (gameId) {
             case 2:
@@ -155,27 +151,31 @@ export const Games: React.FC<Props> = ({
         history.pushState(null, "", `#${getCategoryHashTag(category, pageIndex)}`);
     };
 
+    const connectSocket = () => {
+        console.log("connectSocket");
+        const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
+        socket.on("connect", () => {
+            setSocketState(SocketState.Connected);
+        });
+        socket.on("connect_error", () => {
+            setSocketState(SocketState.Error);
+        });
+        socket.on("disconnect", (reason) => {
+            setSocketState(SocketState.Disconnected);
+            console.log(reason);
+        });
+
+        socketGatewayRef.current = socket;
+    };
+
     useEffect(() => {
-        const initSocket = () => {
-            const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
-            socket.on("connect", () => {
-                setSocketState(SocketState.Connected);
-            });
-            socket.on("disconnect", (reason) => {
-                setSocketState(SocketState.Disconnected);
-                console.log(reason);
-            });
-
-            return socket;
-        };
-
         const onVisibilityChange = () => {
             if (document.visibilityState === "visible" && socketGatewayRef.current && !socketGatewayRef.current.connected) {
-                socketGatewayRef.current = initSocket();
+                connectSocket();
             }
         };
 
-        socketGatewayRef.current = initSocket();
+        connectSocket();
         document.addEventListener("visibilitychange", onVisibilityChange);
 
         return () => {
@@ -201,7 +201,7 @@ export const Games: React.FC<Props> = ({
                     selectedCategory={selectedCategory}
                 />
                 <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                    {socketState === SocketState.None ? <></> : renderListGames()}
+                    {renderListGames()}
                 </div>
             </SystemContextProvider>
         </div>
