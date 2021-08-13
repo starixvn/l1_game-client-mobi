@@ -1,3 +1,4 @@
+import { checkIsTie } from './../dragon-tiger/dragon-tiger-helper';
 import { TFunction } from "next-i18next";
 import { Result, CardOrder } from "./baccarat";
 
@@ -47,12 +48,12 @@ export const BaccaratConfigs = {
 export const StatisticRuleEntriesBankerPlayer = Object.entries({
     [Choices.player]: (countResult: object, total: number) =>
         countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0,
-    [Choices.banker]: (countResult: object, total: number) =>
-        countResult[Choices.banker] ? Math.round((countResult[Choices.banker] * 100) / total) : 0,
     [Choices.tie]: (countResult: object, total: number) =>
+        countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0,
+    [Choices.banker]: (countResult: object, total: number) =>
         100 -
-        (countResult[Choices.banker] ? Math.round((countResult[Choices.banker] * 100) / total) : 0) -
-        (countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0),
+        (countResult[Choices.player] ? Math.round((countResult[Choices.player] * 100) / total) : 0) -
+        (countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0),
 });
 
 export const StatisticRuleEntriesBigSmall = Object.entries({

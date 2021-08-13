@@ -9,7 +9,7 @@
     "playerPair": "Player Pair",
     "bankerTextDot": "B",
     "playerTextDot": "P",
-    "tieTextDot": "T",
+    "tieTextDot": "/",
     "bigTextDot": "B",
     "smallTextDot": "S",
     "bankerWin": "Bank Win",

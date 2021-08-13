@@ -66,9 +66,10 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderStatistic() {
+        const roundHistory = this.state.roundHistory.length > 100 ? this.state.roundHistory.slice(0, 100) : this.state.roundHistory;
         return (
             <StatisticFollowPercent
-                roundHistory={this.state.roundHistory}
+                roundHistory={roundHistory}
                 statisticRuleEntries={StatisticRuleMapping[this.state.activeScoreboardTab]}
                 activeScoreboardTab={this.state.activeScoreboardTab}
             ></StatisticFollowPercent>
@@ -76,7 +77,8 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderBoard() {
-        const { roundHistory, activeScoreboardTab } = this.state;
+        const { activeScoreboardTab } = this.state;
+        const roundHistory = this.state.roundHistory.length > 100 ? this.state.roundHistory.slice(0, 100) : this.state.roundHistory;
         const translateDotTextMapping = {
             [Choices.banker]: this.getGameTranslate("bankerTextDot"),
             [Choices.player]: this.getGameTranslate("playerTextDot"),

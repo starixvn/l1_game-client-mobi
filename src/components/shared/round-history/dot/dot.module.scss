@@ -145,7 +145,8 @@
 }
 
 // baccarat
-.dot-banker {
+.dot-banker,
+.dot-banker-baccarat {
     @extend %dot;
     background: var(--baccarat-dot-banker-border);
     box-shadow: var(--baccarat-dot-banker-shadow);
@@ -155,7 +156,8 @@
     }
 }
 
-.dot-player {
+.dot-player,
+.dot-player-baccarat {
     @extend %dot;
     background: var(--baccarat-dot-player-border);
     box-shadow: var(--baccarat-dot-player-shadow);
