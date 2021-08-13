@@ -161,9 +161,11 @@ export const Games: React.FC<Props> = ({
             socket.on("connect", () => {
                 setSocketState(SocketState.Connected);
             });
-            socket.on("disconnect", () => {
+            socket.on("disconnect", (reason) => {
                 setSocketState(SocketState.Disconnected);
+                console.log(reason);
             });
+
             return socket;
         };
 
