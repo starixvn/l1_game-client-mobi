@@ -98,7 +98,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentDidMount() {
         this.registerMessageHandler();
-
+        this.props.socketGateway?.connected && this.requestSignIn();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
         this.onStart();
     }
@@ -129,6 +129,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     componentWillUnmount() {
         this.onDestroy();
 
+        this.props.socketGateway && this.props.socketGateway.emit("outGame", this.props.gameName);
         this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
     }
