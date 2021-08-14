@@ -9,7 +9,7 @@
 }
 
 .list-choice {
-    min-width: 5rem !important;
+    min-width: 8.2rem !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,7 +45,7 @@
     justify-content: center;
     text-align: center;
     font-size: 1.4rem;
-    margin-top: .8rem;
+    margin-top: 0.8rem;
     .card-result {
         display: flex;
         justify-content: center;
@@ -102,9 +102,9 @@
         .number-score {
             font-family: var(--font-number);
             font-size: 1.8rem;
-            padding-left: .4rem;
+            padding-left: 0.4rem;
             position: relative;
-            top: -.1rem;
+            top: -0.1rem;
         }
     }
 
@@ -121,5 +121,5 @@
     font-size: 1.4rem;
     display: flex;
     justify-content: center;
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
 }

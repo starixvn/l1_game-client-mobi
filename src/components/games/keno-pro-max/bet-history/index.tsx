@@ -65,7 +65,6 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
                 renderResultDetail(resultDetail, t, closeModal, gameName)
             }
-            rowHeight={110}
         ></BetHistoryContainer>
     );
 };

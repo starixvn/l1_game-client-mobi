@@ -24,7 +24,6 @@ const SeDieBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }
             gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            rowHeight={65}
         ></BetHistoryContainer>
     );
 };

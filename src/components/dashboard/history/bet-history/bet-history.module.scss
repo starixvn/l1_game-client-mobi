@@ -14,6 +14,11 @@
     --popup-result-color: #fff;
 }
 
+.history-loading {
+    position: relative;
+    text-align: center;
+}
+
 .list-choices {
     display: flex;
     flex-direction: column;
@@ -55,9 +60,6 @@
 .refund {
     color: red;
 }
-.history-loading {
-    text-align: center;
-}
 
 .popup-result-detail {
     min-width: 22.6rem;
@@ -95,5 +97,13 @@
         font-size: 1.2rem;
         text-align: center;
         color: var(--popup-result-sub-title-color);
+    }
+}
+
+.number-text {
+    min-width: 5.6rem !important;
+    text-align: center;
+    @media (max-width: 768px) {
+        text-align: left;
     }
 }
