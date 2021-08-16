@@ -105,7 +105,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     requestSignIn() {
         const { gameName } = this.props;
         const { session } = this.context;
-        this.props.socketGateway.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+        this.props.socketGateway.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
         this.props.socketGateway.emit("signIn", { gameName, session });
     }
 
