@@ -98,7 +98,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentDidMount() {
         this.registerMessageHandler();
-        this.props.socketGateway?.connected && this.requestSignIn();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
         this.onStart();
     }
@@ -114,7 +113,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (this.props.socketGatewayState !== prevProps.socketGatewayState) {
             switch (this.props.socketGatewayState) {
                 case SocketState.Connected:
-                    this.requestSignIn();
+                    this.onStart();
                     break;
                 case SocketState.Error:
                     this.setState({ gameState: GameState.ConnectFailed });
@@ -128,13 +127,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     componentWillUnmount() {
         this.onDestroy();
-
-        this.props.socketGateway && this.props.socketGateway.emit("outGame", this.props.gameName);
         this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
     }
 
     onDestroy() {
+        this.props.socketGateway && this.props.socketGateway.emit("outGame", this.props.gameName);
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -144,6 +142,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onStart() {
         this.isProcessingBet = false;
         this.initWinStreakCollector();
+        this.props.socketGateway?.connected && this.requestSignIn();
     }
 
     onMessageUserStakeLevel({ userStakeLevel }) {
@@ -155,12 +154,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onVisibilityChange = () => {
         const visibleState = document.visibilityState;
-        if (visibleState === "hidden") {
-            this.onDestroy();
-        } else {
-            this.onStart();
-            this.props.socketGateway.connected && this.props.socketGateway.emit("inGame", this.props.gameName);
-        }
+        visibleState === "hidden" ? this.onDestroy() : this.onStart();
     };
 
     onConnectFailed() {
