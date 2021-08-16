@@ -246,7 +246,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             updateSignInSMStatus(session);
             updateThemeSetting(session, theme);
 
-            authorizeInfo.user.settings.theme = theme;
+            authorizeInfo.user.settings = { theme };
             authorizeInfo.user.isSignedInSM = true;
 
             this.updateAuthorizeInfo(authorizeInfo);
