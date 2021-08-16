@@ -11,13 +11,10 @@
     width: 15.6rem;
 
     .suits {
-        display: flex;
-        flex: 0 0 3.2rem;
-        //grid-template-columns: repeat(3, 3.2rem);
-        grid-gap: 2rem;
-        justify-content: space-evenly;
-        &.suit-length-2 {
-            //grid-template-columns: repeat(2, 3.2rem);
+        display: flex;       
+        justify-content: space-around;
+        &.suit-length-3 {
+            justify-content: space-between;
         }
     }
 
