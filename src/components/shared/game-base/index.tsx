@@ -112,7 +112,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({ viewMode: nextProps.viewMode });
     }
 
