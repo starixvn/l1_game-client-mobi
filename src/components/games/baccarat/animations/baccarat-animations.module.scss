@@ -621,6 +621,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     }
     &.ticket-history {
         top: 0;
+        min-height: unset;
         &.result-3,
         &.result-4 {
             top: 0 ;
