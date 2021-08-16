@@ -88,19 +88,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
                     }, ct.t);
                     this.timeouts.push(timeout);
                 });
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.timeouts && this.timeouts.length) {
-            this.timeouts.forEach((timeout) => {
-                clearTimeout(timeout);
-            });
-        }
-    }
-
-    componentDidUpdate() {
-        if (!this.props.playResultAnimation) {
+        } else {
             let pc = sumScore(0, this.props.result.player.card1.card);
             pc = sumScore(pc, this.props.result.player.card2.card);
             pc = sumScore(pc, this.props.result.player.card3?.card ?? -1);
@@ -112,6 +100,14 @@ class PlayerBankerResultComponent extends React.PureComponent<
             this.setState({
                 playerScore: pc,
                 bankerScore: bc,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.timeouts && this.timeouts.length) {
+            this.timeouts.forEach((timeout) => {
+                clearTimeout(timeout);
             });
         }
     }
