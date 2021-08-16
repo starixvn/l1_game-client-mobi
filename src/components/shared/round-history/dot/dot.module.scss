@@ -145,6 +145,12 @@
 }
 
 // baccarat
+.dot-big-baccarat {
+    @extend .dot-big;
+}
+.dot-small-baccarat {
+    @extend .dot-small;
+}
 .dot-banker,
 .dot-banker-baccarat {
     @extend %dot;
@@ -178,6 +184,12 @@
 }
 
 // keno
+.dot-big-kenopromax {
+    @extend .dot-big;
+}
+.dot-small-kenopromax {
+    @extend .dot-small;
+}
 .dot-even-kenopromax {
     @extend %dot;
     background: var(--bigSmall-dot-big-border);
