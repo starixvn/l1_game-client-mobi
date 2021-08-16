@@ -9,7 +9,7 @@ export const LanguageLocaleMapper = {
 
 export const languageNameMapper = { en: "English", vi: "Tiếng Việt" };
 
-export const gameVipIds = [22];
+export const gameVipIds = [22, 27];
 
 export const Themes = {
     light: "light",
