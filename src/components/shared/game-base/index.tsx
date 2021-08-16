@@ -39,12 +39,11 @@ const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
+    private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
     private betWin: number;
     private isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
-    private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
-
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
@@ -316,7 +315,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.isUMInFirstLoad = false;
         }
 
-        if (um && (this.timeCounter <= durations.placingBets + durations.beforeStartRound || remainingTime + 1 === durations.wholeRound)) {
+        if (
+            um &&
+            (this.timeCounter <= durations.placingBets + durations.beforeStartRound + 1 || remainingTime + 1 === durations.wholeRound)
+        ) {
             this.interval && clearInterval(this.interval);
             this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
             this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
