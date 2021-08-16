@@ -130,12 +130,18 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
         &.player {
             .score {
-                --left-value: -4rem;
+                --left-value: -5rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
+                @media (min-width: 768px) {
+                    --left-value: -4rem;
+                }
                 &.group-2-cards {
-                    --left-value: -1.8rem;
+                    --left-value: -2.8rem;
+                    @media (min-width: 768px) {
+                        --left-value: -1.8rem;
+                    }
                 }
             }            
             &.group-2-cards {
@@ -144,12 +150,18 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
         &.banker {
             .score {
-                --right-value: -4rem;
+               --right-value: -5rem;
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
                 right: var(--right-value);
+                @media (min-width: 768px) {
+                    --right-value: -4rem;
+                }
                 &.group-2-cards {
-                    --right-value: -1.8rem;
+                    --right-value: -2.8rem;
+                    @media (min-width: 768px) {
+                        --right-value: -1.8rem;
+                    }
                 }
             }            
             &.group-2-cards {
