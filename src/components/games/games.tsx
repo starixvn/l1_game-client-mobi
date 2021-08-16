@@ -152,7 +152,6 @@ export const Games: React.FC<Props> = ({
     };
 
     const connectSocket = () => {
-        console.log("connectSocket");
         const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
         socket.on("connect", () => {
             setSocketState(SocketState.Connected);

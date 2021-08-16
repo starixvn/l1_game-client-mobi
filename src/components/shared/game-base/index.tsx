@@ -181,7 +181,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleError = ({ errorCode }) => {
-        console.log("handleError" + errorCode);
         if (errorCode === "SB0010") {
             this.setState({ gameState: GameState.ConnectFailed });
         }
