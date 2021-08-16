@@ -177,6 +177,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("endBet", this.handleEndBet.bind(this));
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
+        this.messageTransmitter.register("errorCode", this.handleError.bind(this));
+    };
+
+    handleError = ({ errorCode }) => {
+        console.log("handleError" + errorCode);
+        if (errorCode === "SB0010") {
+            this.setState({ gameState: GameState.ConnectFailed });
+        }
     };
 
     handleSignedIn = ({ signedIn }) => {
@@ -873,6 +881,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
+    retryConnect = () => {
+        this.props.socketGateway.connected ? this.onStart() : this.props.retryConnectSocket();
+    };
+
     render() {
         const { signedIn, gameState, disabledMessage, viewMode } = this.state;
         return (
@@ -882,7 +894,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        retryConnect={this.props.retryConnectSocket}
+                        retryConnect={this.retryConnect}
                     />
                 )}
             </GameContainer>
