@@ -607,7 +607,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     padding: .8rem;
     position: relative;
     top: -1.2rem;
-    grid-gap: .5rem;
+    gap: .5rem;
 
     .result-info {
         min-width: 10.3rem;
@@ -623,7 +623,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         top: 0;
         &.result-3,
         .result-4 {
-            top: 0;
+            top: 0 !important;
         }
     }
     &.result-3,
