@@ -3,13 +3,8 @@ import { Props } from "./type";
 import Styles from "./card.module.scss";
 import { ViewMode } from "../game-base/type";
 
-const suffixClassMapping = ["card-heart", "card-diamond", "card-club", "card-spade"];
+const suffixNameMapping = ["heart", "diamond", "club", "spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
-const pictureCard = {
-    J: "card-picture-j",
-    Q: "card-picture-q",
-    K: "card-picture-k",
-};
 
 export const convertRank = (num: number): string => {
     num++;
@@ -36,7 +31,26 @@ export const convertCardRankToIndex = (rank: string): number => {
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
-    const iconLarge = pictureCard[convertRank(result.card)] ? pictureCard[convertRank(result.card)] : suffixClassMapping[result.type];
+    const srcPath = viewMode === ViewMode.collapse || isSmall ? "/static/images/cards/mini/" : "/static/images/cards/";
+    const getCardsFull = () => {
+        const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
+        return <img src={`${srcPath}${nameCard}`} className={Styles["card-suite"]} height={117} width={94} alt="suite" />;
+    };
+
+    const getCardMini = () => {
+        return (
+            <>
+                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>{convertRank(result.card)}</div>
+                <img
+                    src={`${srcPath}mini-${suffixNameMapping[result.type]}.svg`}
+                    className={Styles["card-suite-mini"]}
+                    height={48}
+                    width={37}
+                    alt="suite"
+                />
+            </>
+        );
+    };
     return (
         <div
             className={`${Styles[customClassName]} ${Styles["card"]} ${isSmall && Styles["small"]} ${
@@ -44,31 +58,7 @@ const Card: React.FC<Props> = (props) => {
             }`}
         >
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["card-bg"]}>
-                <div className={Styles["result"]}>
-                    <div className={Styles["card-group-left"]}>
-                        <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>
-                            {convertRank(result.card)}
-                        </div>
-                        <img
-                            src={`/static/images/${suffixClassMapping[result.type]}.png`}
-                            className={Styles["card-suite-small"]}
-                            height={8}
-                            width={8}
-                            alt="suite"
-                        />
-                    </div>
-                    <div className={Styles["card-group-right"]}>
-                        <img
-                            src={`/static/images/${iconLarge}.png`}
-                            className={`${pictureCard[convertRank(result.card)] ? Styles["card-picture"] : Styles["card-suite-large"]}`}
-                            height={21}
-                            width={21}
-                            alt="suite"
-                        />
-                    </div>
-                </div>
-            </div>
+            <div className={Styles["result"]}>{viewMode === ViewMode.collapse || isSmall ? getCardMini() : getCardsFull()}</div>
         </div>
     );
 };

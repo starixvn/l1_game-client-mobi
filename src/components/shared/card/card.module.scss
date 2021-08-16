@@ -1,17 +1,9 @@
-.card-bg {
-    position: relative;
-    background: url("/static/images/card-bg.png") no-repeat center;
-    background-size: 114px 143px;
-    width: 114px;
-    height: 143px;
-}
-
 .card-shadow {
+    width: 8.6rem;
+    height: 11.7rem;
     position: absolute;
-    left: 0.9rem;
-    width: 9.6rem;
-    top: 1.1rem;
-    bottom: 1.1rem;
+    top: 0;
+    left: 0.4rem;
     border-radius: 0.8rem;
     box-shadow: 0px 0px 3.6rem rgb(0 0 0 / 25%);
     border: 1px solid #ccc;
@@ -26,157 +18,48 @@
     color: #000;
 }
 
-.card-group-left {
+.card-number {
     position: absolute;
-    z-index: 2;
-    left: 1.5rem;
-    top: 1.6rem;
-
-    .card-number {
-        position: relative;
-        top: 0.4rem;
-        line-height: 2.3rem;
-        font-size: 2.2rem;
-        font-weight: bold;
-        font-family: "CardFont";
-        text-align: center;
-    }
-
-    .card-suite-small {
-        width: 2rem;
-        height: auto;
-    }
-}
-
-.card-group-right {
-    position: absolute;
-    z-index: 1;
-    right: 1.2rem;
-    bottom: 1rem;
-
-    .card-suite-large {
-        width: 6.4rem;
-        height: auto;
-        position: relative;
-        bottom: 4px;
-    }
-
-    .card-picture {
-        position: relative;
-        top: -0.4rem;
-        width: 8.8rem;
-        height: auto;
-        right: 0.1rem;
-    }
+    top: 0.8rem;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    line-height: 2.3rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: "CardFont";
+    text-align: center;
 }
 
 .card {
     position: relative;
     z-index: 1;
 
-    &.small {
-        .card-bg {
-            position: relative;
-            background-size: 3.2rem 4.1rem;
-            width: 3.2rem;
-            height: 4.1rem;
-        }
-
+    &.small,
+    &.collapse {
         .card-shadow {
-            left: 0.2rem;
-            right: 0.2rem;
-            top: 0.3rem;
-            bottom: 0.3rem;
-            width: auto;
+            left: 0;
+            width: 3.7rem;
+            height: 100%;
             border-radius: 0.3rem;
             box-shadow: none;
             border: 1px solid #ccc;
         }
+    }
 
-        .card-group-left {
-            left: 0.4rem;
-            top: 0.2rem;
-
-            .card-number {
-                top: 0.6rem;
-                line-height: 0.5;
-                font-size: 0.8rem;
-            }
-
-            .card-suite-small {
-                width: 0.8rem;
-            }
-        }
-
-        .card-group-right {
-            right: 0.3rem;
-            bottom: 0.4rem;
-
-            .card-suite-large {
-                width: 2.1rem;
-                bottom: 0.1rem;
-                right: -0.1rem;
-            }
-
-            .card-picture {
-                width: 2.4rem;
-                right: 0.1rem;
-                top: -0.1rem;
-            }
+    &.small {
+        .card-number {
+            line-height: 0.5;
+            font-size: 1.1rem;
         }
     }
 
     &.collapse {
-        .card-bg {
-            position: relative;
-            background-size: 4.2rem 5.4rem;
-            width: 4.2rem;
-            height: 5.4rem;
-        }
-
-        .card-shadow {
-            left: 0.3rem;
-            right: 0.3rem;
-            top: 0.4rem;
-            bottom: 0.4rem;
-            width: auto;
-            border-radius: 0.3rem;
-            box-shadow: none;
-            border: 1px solid #ccc;
-        }
-
-        .card-group-left {
-            left: 0.5rem;
-            top: 0.3rem;
-
-            .card-number {
-                top: 0.8rem;
-                line-height: 0.5;
-                font-size: 1.2rem;
-            }
-
-            .card-suite-small {
-                margin-top: 0.5rem;
-                width: 1rem;
-            }
-        }
-
-        .card-group-right {
-            right: 0.3rem;
-            bottom: 0.3rem;
-
-            .card-suite-large {
-                width: 2.3rem;
-                bottom: 0.2rem;
-                right: 0.1rem;
-            }
-
-            .card-picture {
-                width: 3.3rem;
-                right: 0.1rem;
-                top: -0.1rem;
-            }
+        .card-number {
+            line-height: 0.5;
+            font-size: 1.2rem;
         }
     }
 }
-
