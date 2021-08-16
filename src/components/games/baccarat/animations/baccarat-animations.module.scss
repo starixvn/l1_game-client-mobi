@@ -601,13 +601,13 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     transform: scale(1) translateY(var(--move-up-distance)) !important;
 }
 .result-container {
-    display: flex;
-    flex-wrap: wrap;
-    width: fit-content;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     padding: .8rem;
     position: relative;
     top: -1.2rem;
-    gap: .5rem;
+    grid-gap: .5rem;
+    width: auto;
 
     .result-info {
         min-width: 10.3rem;
@@ -622,14 +622,17 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.ticket-history {
         top: 0;
         &.result-3,
-        .result-4 {
-            top: 0 !important;
+        &.result-4 {
+            top: 0 ;
+        }
+        [class*="result-info"] {
+            font-size: 1.4rem;
+            height: 2.8rem;
+            min-width: 7.8rem;
         }
     }
     &.result-3,
-    &.result-4 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+    &.result-4 {        
         position: relative;
         top: -2.5rem;
     }
