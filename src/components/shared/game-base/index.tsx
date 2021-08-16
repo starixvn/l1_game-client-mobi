@@ -112,6 +112,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({ viewMode: nextProps.viewMode });
+    }
+
     onDestroy() {
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
