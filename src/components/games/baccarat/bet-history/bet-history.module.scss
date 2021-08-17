@@ -41,7 +41,7 @@
 .card-result-container {
     display: grid;
     grid-template-columns: 13rem 13rem;
-    grid-template-rows: 2.4rem 9rem;
+    grid-template-rows: 2.4rem 9.6rem;
     justify-content: center;
     text-align: center;
     font-size: 1.4rem;
@@ -49,45 +49,44 @@
     .card-result {
         display: flex;
         justify-content: center;
-        // transform: scale(0.68);
         position: relative;
 
         &.player {
             justify-content: flex-end;
-            left: 0.4rem;
+            left: -1rem;
             top: 1rem;
             &.card-length-3 {
-                left: 1rem;
+                left: -1rem;
                 .card3 {
-                    transform: translateX(4rem);
+                    transform: translateX(2rem);
                 }
                 .card1 {
-                    transform: translateX(9.8rem);
+                    transform: translateX(4.8rem);
                 }
             }
         }
         &.banker {
-            right: 0.4rem;
+            right: -1rem;
             justify-content: flex-start;
             top: 1rem;
             &.card-length-3 {
-                right: 1rem;
+                right: -1rem;
             }
         }
 
         .card1 {
-            transform: translateX(4rem);
+            transform: translateX(2.8rem);
         }
         .card4 {
-            transform: translateX(-5.8rem);
+            transform: translateX(-2.8rem);
             z-index: 10;
         }
         .card6 {
-            transform: translateX(-9.8rem);
+            transform: translateX(-4.8rem);
             z-index: 11;
         }
         &.banker .card5 {
-            transform: translateX(-9.8rem);
+            transform: translateX(-4.8rem);
             z-index: 11;
         }
     }
@@ -99,21 +98,28 @@
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        font-weight: bold;
         .number-score {
             font-family: var(--font-number);
             font-size: 1.8rem;
             padding-left: 0.4rem;
             position: relative;
             top: -0.1rem;
-        }
+        }       
     }
 
     .player-label {
         color: #216ac0;
+        &.card-length-2 {
+            left: 1.9rem;
+        }
     }
 
     .banker-label {
         color: #de4a54;
+        &.card-length-2 {
+            left: -2rem;
+        }
     }
 }
 
