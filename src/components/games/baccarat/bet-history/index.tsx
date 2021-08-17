@@ -38,17 +38,13 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
         };
 
         return (
-            <ResultDetailContainer
-                roundId={roundId}
-                closeModal={closeModal}
-                gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}
-            >
+            <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["card-result-container"]}>
-                    <div className={Styles["player-label"]}>
+                    <div className={`${Styles["player-label"]} ${Styles[getClassCardLength(GetPlayerCardsResult, result)]}`}>
                         {t(`${gameName}:player`)}:{" "}
                         <span className={Styles["number-score"]}>{generateScore(GetPlayerCardsResult(result))}</span>
                     </div>
-                    <div className={Styles["banker-label"]}>
+                    <div className={`${Styles["banker-label"]} ${Styles[getClassCardLength(GetBankerCardsResult, result)]}`}>
                         {t(`${gameName}:banker`)}:{" "}
                         <span className={Styles["number-score"]}>{generateScore(GetBankerCardsResult(result))}</span>
                     </div>
@@ -81,7 +77,7 @@ const generateResultOnCard = (cards: CardOrder[]) => {
     return cards.map((card) => {
         return (
             <div key={card.order} className={Styles[`card${card.order}`]}>
-                {card.value && <Card result={card.value}></Card>}
+                {card.value && <Card result={card.value} isTicketDetail={true}></Card>}
             </div>
         );
     });

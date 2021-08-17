@@ -29,9 +29,9 @@ export const convertCardRankToIndex = (rank: string): number => {
 };
 
 const Card: React.FC<Props> = (props) => {
-    const { result, isSmall, viewMode } = props;
+    const { result, isSmall, viewMode, isTicketDetail } = props;
     const customClassName = props.customClassName ?? "";
-    const srcPath = viewMode === ViewMode.collapse || isSmall ? "/static/images/cards/mini/" : "/static/images/cards/";
+    const srcPath = viewMode === ViewMode.collapse || isSmall || isTicketDetail ? "/static/images/cards/mini/" : "/static/images/cards/";
 
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
@@ -54,12 +54,14 @@ const Card: React.FC<Props> = (props) => {
     };
     return (
         <div
-            className={`${Styles[customClassName]} ${Styles["card"]} ${isSmall && Styles["small"]} ${
-                viewMode === ViewMode.collapse && Styles["collapse"]
-            }`}
+            className={`${Styles[customClassName]} ${Styles["card"]} ${isSmall && Styles["small"]}  ${
+                isTicketDetail && Styles["small-ticket-detail"]
+            } ${viewMode === ViewMode.collapse && Styles["collapse"]}`}
         >
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["result"]}>{viewMode === ViewMode.collapse || isSmall ? getCardMini() : getCardsDefault()}</div>
+            <div className={Styles["result"]}>
+                {viewMode === ViewMode.collapse || isSmall || isTicketDetail ? getCardMini() : getCardsDefault()}
+            </div>
         </div>
     );
 };

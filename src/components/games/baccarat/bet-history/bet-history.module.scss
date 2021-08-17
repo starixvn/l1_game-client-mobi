@@ -41,7 +41,7 @@
 .card-result-container {
     display: grid;
     grid-template-columns: 13rem 13rem;
-    grid-template-rows: 2.4rem 11rem;
+    grid-template-rows: 2.4rem 9rem;
     justify-content: center;
     text-align: center;
     font-size: 1.4rem;
@@ -49,13 +49,13 @@
     .card-result {
         display: flex;
         justify-content: center;
-        transform: scale(0.68);
+        // transform: scale(0.68);
         position: relative;
 
         &.player {
             justify-content: flex-end;
             left: 0.4rem;
-            top: -.8rem;
+            top: 1rem;
             &.card-length-3 {
                 left: 1rem;
                 .card3 {
@@ -69,7 +69,7 @@
         &.banker {
             right: 0.4rem;
             justify-content: flex-start;
-            top: -.8rem;
+            top: 1rem;
             &.card-length-3 {
                 right: 1rem;
             }

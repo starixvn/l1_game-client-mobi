@@ -32,7 +32,8 @@
     position: relative;
     z-index: 1;
     &.small,
-    &.collapse {
+    &.collapse,
+    &.small-ticket-detail {
         .card-shadow {
             left: 0;
             height: 100%;
@@ -49,6 +50,7 @@
         .card-shadow {
             width: 3rem;
         }
+
         .card-number {
             top: 0.6rem;
             left: 0.48rem;
@@ -68,6 +70,25 @@
 
         .card-number {
             font-size: 1.2rem;
+        }
+    }
+
+    &.small-ticket-detail {
+        .card-shadow {
+            width: 5rem;
+            border-radius: 5px;
+        }
+
+        .card-suite-mini {
+            width: 5rem;
+            height: 7.1rem;
+        }
+
+        .card-number {
+            top: 0.2rem;
+            left: 0.8rem;
+            font-size: 1.8rem;
+            line-height: 2.1rem;
         }
     }
 }
