@@ -187,6 +187,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleSignedIn = ({ signedIn }) => {
+        console.log("signedIn" + this.props.gameName);
         if (signedIn) {
             this.setState({ signedIn: true });
             this.props.socketGateway.emit("inGame", this.props.gameName);
