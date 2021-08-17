@@ -13,11 +13,10 @@
     width: 8.6rem;
     height: 11.9rem;
     &.collapse-mode {
-        background: url("/static/images/cards/mini/card-back.svg") no-repeat center;
-        background-size: 3.45rem 4.907rem;
-        width: 3.45rem;
-        height: 4.907rem;
-        border-radius: 0.5rem;
+        background: url("/static/images/cards/mini/card-back.png") no-repeat center;
+        background-size: 6rem 8.5rem;
+        width: 6rem;
+        height: 8.5rem;
     }
 }
 
@@ -87,17 +86,17 @@
 
 @keyframes hide-card-back-animation {
     0% {
-        transform: rotate3d(0, 1, 0, 30deg) scale3d(0.9, 1, 1);
+        transform: rotateY(30deg) scaleX(0.9);
         opacity: 1;
     }
 
     30% {
-        transform: rotate3d(0, 1, 0, 80deg) scale3d(0.6, 1, 1);
+        transform: rotateY(80deg) scaleX(0.6);
         opacity: 1;
     }
 
     60% {
-        transform: rotate3d(0, 1, 0, 120deg) scale3d(0, 0, 0);
+        transform: rotateY(120deg) scaleX(0);
         opacity: 0;
     }
 
@@ -109,77 +108,41 @@
 @keyframes open-card-animation {
     0% {
         opacity: 0;
-        transform: rotateY(180deg);
+        transform: rotateY(180deg) scaleX(0.1);
         left: 5px;
     }
 
     30% {
-        transform: rotateY(120deg) scale3d(0.4, 1, 1);
+        transform: rotateY(120deg) scaleX(0.4);
         left: 10px;
     }
 
     60% {
         opacity: 0.9;
-        transform: rotateY(80deg) scale3d(0.6, 1, 1);
+        transform: rotateY(80deg) scaleX(0.7);
     }
 
     80% {
         opacity: 1;
-        transform: rotateY(30deg) scale3d(0.8, 1, 1);
+        transform: rotateY(30deg) scaleX(0.8);
     }
 
     100% {
         opacity: 1;
-        transform: rotateY(0deg) scale3d(1, 1, 1);
+        transform: rotateY(0deg) scaleX(1);
     }
 }
 
 @keyframes zoom-in-animation {
     0% {
-        transform: scale3d(0.6, 0.6, 0.6);
+        transform: scale(0.6);
     }
 
     50% {
-        transform: scale3d(0.8, 0.8, 0.8);
+        transform: scale(0.8);
     }
 
     80% {
-        transform: scale3d(1, 1, 1);
-    }
-}
-
-@keyframes appearance-settlement-info-animation {
-    0% {
-        opacity: 0;
-        transform: scale3d(0, 0, 0);
-    }
-
-    50% {
-        opacity: 0.5;
-        transform: scale3d(0.5, 0.5, 0.5);
-    }
-
-    80% {
-        opacity: 0.8;
-        transform: scale3d(0.8, 0.8, 0.8);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale3d(1, 1, 1);
-    }
-}
-
-@keyframes score-blink {
-    0% {
-        transform: scale3d(1, 1, 1);
-    }
-
-    50% {
-        transform: scale3d(1.3, 1.3, 1.3);
-    }
-
-    100% {
-        transform: scale3d(1, 1, 1);
+        transform: scale(1);
     }
 }
