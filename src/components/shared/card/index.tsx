@@ -32,7 +32,7 @@ const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
     const srcPath = viewMode === ViewMode.collapse || isSmall ? "/static/images/cards/mini/" : "/static/images/cards/";
-    
+
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
         return <img src={`${srcPath}${nameCard}`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
@@ -45,8 +45,8 @@ const Card: React.FC<Props> = (props) => {
                 <img
                     src={`${srcPath}mini-${suffixNameMapping[result.type]}.svg`}
                     className={Styles["card-suite-mini"]}
-                    height={85}
-                    width={60}
+                    height={51}
+                    width={36}
                     alt="suite"
                 />
             </>
