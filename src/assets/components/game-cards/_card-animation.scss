@@ -108,7 +108,6 @@
 @keyframes open-card-animation {
     0% {
         opacity: 0;
-        transform: rotateY(180deg) scaleX(0.1);
         left: 5px;
     }
 
