@@ -52,7 +52,7 @@ export const GameCategory: React.FC<{
             const boundingRect = selectedTabRef.current.getBoundingClientRect();
             wrapperRef.current.scrollLeft = boundingRect.left - 15;
         }
-    }, [wrapperRef]);
+    }, [wrapperRef?.current]);
 
     return (
         <div ref={wrapperRef} className={styles["category-container"]}>
