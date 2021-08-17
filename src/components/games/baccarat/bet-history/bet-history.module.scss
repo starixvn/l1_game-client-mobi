@@ -55,39 +55,39 @@
         &.player {
             justify-content: flex-end;
             left: 0.4rem;
-            top: -1.4rem;
+            top: -.8rem;
             &.card-length-3 {
-                left: 1.8rem;
+                left: 1rem;
                 .card3 {
-                    transform: translateX(7.2rem);
+                    transform: translateX(4rem);
                 }
                 .card1 {
-                    transform: translateX(15.5rem);
+                    transform: translateX(9.8rem);
                 }
             }
         }
         &.banker {
             right: 0.4rem;
             justify-content: flex-start;
-            top: -1.4rem;
+            top: -.8rem;
             &.card-length-3 {
-                right: 1.8rem;
+                right: 1rem;
             }
         }
 
         .card1 {
-            transform: translateX(8.2rem);
+            transform: translateX(4rem);
         }
         .card4 {
-            transform: translateX(-8.2rem);
+            transform: translateX(-5.8rem);
             z-index: 10;
         }
         .card6 {
-            transform: translateX(-15.5rem);
+            transform: translateX(-9.8rem);
             z-index: 11;
         }
         &.banker .card5 {
-            transform: translateX(-15.5rem);
+            transform: translateX(-9.8rem);
             z-index: 11;
         }
     }
