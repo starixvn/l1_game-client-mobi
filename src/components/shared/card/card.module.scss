@@ -53,8 +53,11 @@
 
         .card-number {
             top: 0.5rem;
-            left: 0.48rem;
+            left: 0.5rem;
             font-size: 1rem;
+            &.card-number-10 {
+                left: 0.35rem;
+            }
         }
 
         .card-suite-mini {
@@ -89,6 +92,9 @@
             left: 0.8rem;
             font-size: 1.8rem;
             line-height: 2.1rem;
+            &.card-number-10 {
+                left: 0.4rem;
+            }
         }
     }
 }

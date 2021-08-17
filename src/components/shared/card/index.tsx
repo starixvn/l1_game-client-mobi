@@ -28,22 +28,42 @@ export const convertCardRankToIndex = (rank: string): number => {
     return dict[rank] ?? parseInt(rank);
 };
 
+const classFollowCondition = ({ viewMode, isTicketDetail, isSmall }) => {
+    if (viewMode === ViewMode.collapse) {
+        return Styles["collapse"];
+    }
+    if (isTicketDetail) {
+        return Styles["small-ticket-detail"];
+    }
+    if (isSmall) {
+        return Styles["small"];
+    }
+
+    return "";
+};
+
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode, isTicketDetail } = props;
     const customClassName = props.customClassName ?? "";
-    const srcPath = viewMode === ViewMode.collapse || isSmall || isTicketDetail ? "/static/images/cards/mini/" : "/static/images/cards/";
-
+    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall || isTicketDetail ? true : false;
+    const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
-        return <img src={`${srcPath}${nameCard}`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
+        return <img src={`${srcPathCard}${nameCard}`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
     };
 
     const getCardMini = () => {
         return (
             <>
-                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>{convertRank(result.card)}</div>
+                <div
+                    className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${
+                        +convertRank(result.card) === 10 && Styles["card-number-10"]
+                    }`}
+                >
+                    {convertRank(result.card)}
+                </div>
                 <img
-                    src={`${srcPath}mini-${suffixNameMapping[result.type]}.svg`}
+                    src={`${srcPathCard}mini-${suffixNameMapping[result.type]}.svg`}
                     className={Styles["card-suite-mini"]}
                     height={51}
                     width={36}
@@ -52,16 +72,11 @@ const Card: React.FC<Props> = (props) => {
             </>
         );
     };
+
     return (
-        <div
-            className={`${Styles[customClassName]} ${Styles["card"]} ${isSmall && Styles["small"]}  ${
-                isTicketDetail && Styles["small-ticket-detail"]
-            } ${viewMode === ViewMode.collapse && Styles["collapse"]}`}
-        >
+        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isTicketDetail, isSmall })}`}>
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["result"]}>
-                {viewMode === ViewMode.collapse || isSmall || isTicketDetail ? getCardMini() : getCardsDefault()}
-            </div>
+            <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
         </div>
     );
 };
