@@ -33,13 +33,12 @@ $number-of-cards: 3;
         .animation-container {
             --move-up-distance: -1.6rem;
             --result-scale: 0.9;
+
             display: grid;
             grid-template-columns: repeat(3, 9.5rem);
             top: 2rem;
-            transform: scale(0.9);
             transition: transform 0.7s;
         }
-
 
         &.has-animation {
             .animation-container {

@@ -93,7 +93,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         --move-up-distance: -2.3rem;
         --result-scale: 0.9;
         top: 2.4rem;
-        transform: scale(0.9);
+
         transition: transform 0.7s;
         &.player {
             left: 1.5rem;
@@ -137,9 +137,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     --left-value: -4.7rem;
                 }
                 &.group-2-cards {
-                    --left-value: -.4rem;
+                    --left-value: -0.4rem;
                     @media (min-width: 768px) {
-                        --left-value: -.4rem;
+                        --left-value: -0.4rem;
                     }
                 }
             }
@@ -151,10 +151,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
-                --right-value: -.8rem;
+                --right-value: -0.8rem;
                 right: var(--right-value);
                 @media (min-width: 768px) {
-                    --right-value: -.4rem;
+                    --right-value: -0.4rem;
                 }
             }
             &.group-2-cards {
@@ -248,8 +248,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             animation-fill-mode: forwards, forwards;
             animation-timing-function: ease-out, linear;
             --scale-from: 0.29;
-            --scale-to: 0.9;
+            --scale-to: 1;
         }
+
         .rotate-card {
             transform: rotateY(180deg);
         }
@@ -510,12 +511,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         );
     }
     .result-wrapper {
+        transform: scale(0.9);
         display: flex;
         .animation-container {
             position: relative;
             --result-scale: 1;
             --move-up-distance: 0;
-            transform: scale(1);
             top: -0.1rem;
             .score {
                 --width-score: 3.2rem;
