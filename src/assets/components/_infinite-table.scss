@@ -73,17 +73,8 @@
 
             tr {
                 border-bottom: 1px solid var(--table-border);
-
                 &:last-child {
                     border-bottom: none !important;
-                }
-
-                &:nth-child(3) {
-                    display: none;
-                }
-
-                &.react-infinite-table-spacer {
-                    background-color: transparent !important;
                 }
             }
 
