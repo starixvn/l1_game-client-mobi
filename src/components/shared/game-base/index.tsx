@@ -438,6 +438,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleGameConfigs({ gameConfigs }) {
+        console.log("handleGameConfigs" + this.props.gameName);
         this.setState({ gameConfigs });
     }
 
