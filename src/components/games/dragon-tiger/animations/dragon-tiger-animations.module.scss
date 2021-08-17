@@ -29,7 +29,7 @@ $number-of-cards: 2;
     @include open-card($number-of-cards);
 
     .animation-container {
-        --move-up-distance: -3.5rem;
+        --move-up-distance: -2.5rem;
         --result-scale: 1;
         top: 4.5rem;
         transform: scale(1);
@@ -41,12 +41,13 @@ $number-of-cards: 2;
             height: 2.5rem;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
-            bottom: 1.2rem;
-            left: 2.1rem;
+            bottom: 0;
+            left: -3.5rem;
             z-index: 1;
             font-size: 1.6rem;
             line-height: 2.4rem;
             text-align: center;
+            margin-left: 50%;
         
             &.dragon-score {
                 background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
@@ -61,7 +62,12 @@ $number-of-cards: 2;
                 padding-left: .4rem;
             }
         }
-        
+        .card1 {
+            margin-right: .4rem;
+        }
+        .card2 {
+            margin-left: .4rem;
+        }
     }
 
     &.has-animation {

@@ -31,23 +31,15 @@ $number-of-cards: 3;
     // normal mode
     &.normal-mode {
         .animation-container {
-            --move-up-distance: -2.2rem;
-            --result-scale: 0.88;
-
+            --move-up-distance: -1.6rem;
+            --result-scale: 0.9;
             display: grid;
-            grid-template-columns: repeat(3, 10.5rem);
-            margin-left: -0.4rem;
-            top: 1.5rem;
-            transform: scale(0.88);
+            grid-template-columns: repeat(3, 9.5rem);
+            top: 2rem;
+            transform: scale(0.9);
             transition: transform 0.7s;
         }
 
-        .card1,
-        .card2,
-        .card3 {
-            width: 114px;
-            height: 143px;
-        }
 
         &.has-animation {
             .animation-container {
@@ -98,5 +90,5 @@ $number-of-cards: 3;
 }
 
 .move-up-no-animation {
-    transform: scale(0.88) translateY(var(--move-up-distance)) !important;
+    transform: scale(0.9) translateY(var(--move-up-distance)) !important;
 }

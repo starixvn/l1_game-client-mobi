@@ -48,31 +48,31 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         font-size: inherit;
         @include position-cards(
             (
-                "1": 8rem,
+                "1": 5.2rem,
                 "2": 0,
                 "3": 0,
-                "4": -8rem,
+                "4": -5.2rem,
             )
         );
     }
     &.card-5 {
         @include position-cards(
             (
-                "1": 15rem,
+                "1": 9.4rem,
                 "2": 0,
-                "3": 7rem,
-                "4": -8rem,
+                "3": 4.2rem,
+                "4": -5.2rem,
                 "5": 0,
             )
         );
         &-banker {
             @include position-cards(
                 (
-                    "1": 8rem,
+                    "1": 5.2rem,
                     "2": 0,
                     "3": 0,
-                    "4": -8rem,
-                    "5": -15rem,
+                    "4": -5.2rem,
+                    "5": -9.4rem,
                 )
             );
         }
@@ -80,33 +80,33 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-6 {
         @include position-cards(
             (
-                "1": 15rem,
+                "1": 9.4rem,
                 "2": 0,
-                "3": 7rem,
-                "4": -8rem,
+                "3": 4.2rem,
+                "4": -5.2rem,
                 "5": 0,
-                "6": -15rem,
+                "6": -9.4rem,
             )
         );
     }
 
     .animation-container {
-        --move-up-distance: -2.8rem;
-        --result-scale: 0.85;
-        top: 1.6rem;
-        transform: scale(0.85);
+        --move-up-distance: -2.3rem;
+        --result-scale: 0.9;
+        top: 2.4rem;
+        transform: scale(0.9);
         transition: transform 0.7s;
         &.player {
-            left: 2.5rem;
+            left: 1.5rem;
         }
         &.banker {
-            right: 2.5rem;
+            right: 1.5rem;
         }
         .score {
             --width-score: 9.9rem;
             --height-score: 2.6rem;
             --font-size-score: 1.4rem;
-            --bottom-score: 1rem;
+            --bottom-score: 0;
             position: absolute;
             bottom: 0;
             width: var(--width-score);
@@ -135,12 +135,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 margin-left: 40%;
                 left: var(--left-value);
                 @media (min-width: 768px) {
-                    --left-value: -4rem;
+                    --left-value: -2.7rem;
                 }
                 &.group-2-cards {
                     --left-value: -2.8rem;
                     @media (min-width: 768px) {
-                        --left-value: -1.8rem;
+                        --left-value: -.4rem;
                     }
                 }
             }            
@@ -155,12 +155,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 margin-right: 40%;
                 right: var(--right-value);
                 @media (min-width: 768px) {
-                    --right-value: -4rem;
+                    --right-value: -2.7rem;
                 }
                 &.group-2-cards {
                     --right-value: -2.8rem;
                     @media (min-width: 768px) {
-                        --right-value: -1.8rem;
+                        --right-value: -.4rem;
                     }
                 }
             }            
@@ -251,7 +251,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             animation-fill-mode: forwards, forwards;
             animation-timing-function: ease-out, linear;            
             --scale-from: 0.29;
-            --scale-to: 0.85;
+            --scale-to: 0.9;
         }
         .rotate-card {
             transform: rotateY(180deg);
@@ -595,7 +595,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 }
 
 .move-up-no-animation {
-    transform: scale(0.85) translateY(var(--move-up-distance)) !important;
+    transform: scale(0.9) translateY(var(--move-up-distance)) !important;
 }
 .result-collapse-mode .move-up-no-animation {
     transform: scale(1) translateY(var(--move-up-distance)) !important;
