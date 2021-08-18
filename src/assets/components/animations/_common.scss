@@ -18,12 +18,24 @@
 }
 
 @keyframes move-up-result-animation-cards {
-    from {
-        transform: translateY(0);
+    0% {
+        transform: translate3d(0, 0, 0);
     }
 
-    to {
-        transform: translateY(var(--move-up-distance));
+    30% {
+        transform: translate3d(0, calc(var(--move-up-distance) * 0.3), 0);
+    }
+
+    50% {
+        transform: translate3d(0, calc(var(--move-up-distance) * 0.5), 0);
+    }
+
+    70% {
+        transform: translate3d(0, calc(var(--move-up-distance) * 0.7), 0);
+    }
+
+    100% {
+        transform: translate3d(0, var(--move-up-distance), 0);
     }
 }
 

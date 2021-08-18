@@ -6,7 +6,7 @@
 
 $time-draw-card-animation: 0.8s;
 $time-open-card-animation: 1.8s;
-$time-zoom-in-card-animation: 0.3s;
+$time-zoom-in-card-animation: 0.4s;
 $time-show-score-animation: 0.2s;
 $time-blink-score-animation: 0.3s;
 
@@ -239,10 +239,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             animation-name: zoom-in-animation, move-up-result-animation-cards;
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             //animation-delay: 0s, $time-delay-move-up-result;
-            animation-fill-mode: forwards, forwards;
+            animation-fill-mode: forwards, both;
             animation-timing-function: ease-out, linear;
-            --scale-from: 0.29;
-            --scale-to: 1;
+            // --scale-from: 0.29;
+            // --scale-to: 1;
         }
 
         .rotate-card {
@@ -431,15 +431,15 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     }
 }
 
-@keyframes zoom-in-animation {
-    0% {
-        transform: scale(var(--scale-from));
-    }
+// @keyframes zoom-in-animation {
+//     0% {
+//         transform: scale(var(--scale-from));
+//     }
 
-    100% {
-        transform: scale(var(--scale-to));
-    }
-}
+//     100% {
+//         transform: scale(var(--scale-to));
+//     }
+// }
 
 @keyframes blink {
     from {
@@ -582,8 +582,8 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     }
     &.has-animation {
         .animation-container {
-            --scale-from: 0;
-            --scale-to: 1;
+            // --scale-from: 0;
+            // --scale-to: 1;
             .score .score-number {
                 animation: none;
             }

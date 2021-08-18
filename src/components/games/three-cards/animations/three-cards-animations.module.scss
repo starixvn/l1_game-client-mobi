@@ -10,7 +10,7 @@ $time-open-card-animation: 1.2s;
 $time-zoom-in-card-animation: 0.3s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
-$time-delay-move-up-result: 0.3s + $time-open-card-animation + $time-delay-zoom-in-card-animation;
+$time-delay-move-up-result: 0.4s + $time-open-card-animation + $time-delay-zoom-in-card-animation;
 $number-of-cards: 3;
 
 .animation-container {
@@ -43,7 +43,7 @@ $number-of-cards: 3;
                 animation-name: zoom-in-animation, move-up-result-animation-cards;
                 animation-duration: $time-zoom-in-card-animation, 0.3s;
                 animation-delay: 0s, $time-delay-move-up-result;
-                animation-fill-mode: forwards, forwards;
+                animation-fill-mode: forwards, both;
                 animation-timing-function: ease-out, linear;
             }
 
@@ -82,8 +82,6 @@ $number-of-cards: 3;
                 width: 7.757rem;
                 height: 10.74rem;
             }
-
-          
         }
     }
 
@@ -95,5 +93,5 @@ $number-of-cards: 3;
 }
 
 .move-up-no-animation {
-    transform: translateY(var(--move-up-distance)) !important;
+    transform: translate3d(0, var(--move-up-distance), 0) !important;
 }
