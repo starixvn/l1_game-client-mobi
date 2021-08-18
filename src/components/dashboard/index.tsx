@@ -1,5 +1,6 @@
 import { Trans, WithTranslation, withTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
+import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
@@ -396,7 +397,28 @@ class Dashboard extends React.PureComponent<Props, State> {
             return <LandscapeMode />;
         }
 
-        return authorizeInfo ? this.renderComponents(authorizeInfo) : <></>;
+        return authorizeInfo ? (
+            <>
+                <Head>
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRWMQHR3Z9"></script>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', 'G-MRWMQHR3Z9', {
+                            page_path: window.location.pathname,
+                            });
+                        `,
+                        }}
+                    />
+                </Head>
+                {this.renderComponents(authorizeInfo)}
+            </>
+        ) : (
+            <></>
+        );
     }
 }
 
