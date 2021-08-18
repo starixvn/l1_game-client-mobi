@@ -32,7 +32,6 @@ $number-of-cards: 3;
     &.normal-mode {
         .animation-container {
             --move-up-distance: -1.2rem;
-            --result-scale: 1;
             display: grid;
             grid-template-columns: repeat(3, 8.7rem);
             top: 2.4rem;
@@ -41,7 +40,7 @@ $number-of-cards: 3;
 
         &.has-animation {
             .animation-container {
-                animation-name: zoom-in-animation, move-up-result-animation;
+                animation-name: zoom-in-animation, move-up-result-animation-cards;
                 animation-duration: $time-zoom-in-card-animation, 0.3s;
                 animation-delay: 0s, $time-delay-move-up-result;
                 animation-fill-mode: forwards, forwards;
@@ -83,6 +82,8 @@ $number-of-cards: 3;
                 width: 7.757rem;
                 height: 10.74rem;
             }
+
+          
         }
     }
 

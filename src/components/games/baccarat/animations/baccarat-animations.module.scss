@@ -91,7 +91,6 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
     .animation-container {
         --move-up-distance: -1.8rem;
-        --result-scale: 1;
         top: 2.8rem;
         transition: transform 0.7s;
 
@@ -237,7 +236,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
 
         .animation-container {
-            animation-name: zoom-in-animation, move-up-result-animation;
+            animation-name: zoom-in-animation, move-up-result-animation-cards;
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             //animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards, forwards;
@@ -477,16 +476,15 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         .animation-container {
             &.player {
                 .score {
-                    --left-value: -.8rem;
+                    --left-value: -0.8rem;
                 }
             }
             &.banker {
                 .score {
-                    --right-value: -.8rem;
+                    --right-value: -0.8rem;
                 }
             }
         }
-
     }
     &.card-5 {
         @include position-cards(
@@ -506,7 +504,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             }
             &.banker {
                 .score {
-                    --right-value: .4rem;
+                    --right-value: 0.4rem;
                 }
             }
         }
@@ -523,12 +521,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .animation-container {
                 &.player {
                     .score {
-                        --left-value: .2rem;
+                        --left-value: 0.2rem;
                     }
                 }
                 &.banker {
                     .score {
-                        --right-value: .4rem;
+                        --right-value: 0.4rem;
                     }
                 }
             }
@@ -564,7 +562,6 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     }
     .animation-container {
         position: relative;
-        --result-scale: 1;
         --move-up-distance: 0;
         top: -0.1rem;
         .score {
