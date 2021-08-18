@@ -31,11 +31,11 @@ $number-of-cards: 3;
     // normal mode
     &.normal-mode {
         .animation-container {
-            --move-up-distance: -1.6rem;
+            --move-up-distance: -1.2rem;
             --result-scale: 1;
             display: grid;
-            grid-template-columns: repeat(3, 9.5rem);
-            top: 2rem;
+            grid-template-columns: repeat(3, 8.7rem);
+            top: 2.4rem;
             transition: transform 0.7s;
         }
 

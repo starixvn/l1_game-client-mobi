@@ -47,31 +47,31 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         font-size: inherit;
         @include position-cards(
             (
-                "1": 5.2rem,
+                "1": 4.5rem,
                 "2": 0,
                 "3": 0,
-                "4": -5.2rem,
+                "4": -4.5rem,
             )
         );
     }
     &.card-5 {
         @include position-cards(
             (
-                "1": 9.4rem,
+                "1": 8rem,
                 "2": 0,
-                "3": 4.2rem,
-                "4": -5.2rem,
+                "3": 3.5rem,
+                "4": -4.5rem,
                 "5": 0,
             )
         );
         &-banker {
             @include position-cards(
                 (
-                    "1": 5.2rem,
+                    "1": 4.5rem,
                     "2": 0,
                     "3": 0,
-                    "4": -5.2rem,
-                    "5": -9.4rem,
+                    "4": -4.5rem,
+                    "5": -8rem,
                 )
             );
         }
@@ -79,31 +79,25 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-6 {
         @include position-cards(
             (
-                "1": 9.4rem,
+                "1": 8rem,
                 "2": 0,
-                "3": 4.2rem,
-                "4": -5.2rem,
+                "3": 3.5rem,
+                "4": -4.5rem,
                 "5": 0,
-                "6": -9.4rem,
+                "6": -8rem,
             )
         );
     }
 
     .animation-container {
-        --move-up-distance: -2.3rem;
+        --move-up-distance: -1.8rem;
         --result-scale: 1;
-        top: 2.4rem;
-
+        top: 2.8rem;
         transition: transform 0.7s;
-        &.player {
-            left: 1.5rem;
-        }
-        &.banker {
-            right: 1.5rem;
-        }
+
         .score {
-            --width-score: 9.9rem;
-            --height-score: 2.6rem;
+            --width-score: 8.4rem;
+            --height-score: 2.2rem;
             --font-size-score: 1.4rem;
             --bottom-score: 0;
             position: absolute;
@@ -114,8 +108,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             border-top-right-radius: 10px;
             color: #fff;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
+            line-height: 1.9rem;
             font-size: var(--font-size-score);
             bottom: var(--bottom-score);
             &-number {
@@ -123,23 +118,23 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 font-family: var(--font-number);
                 position: relative;
                 left: 0.4rem;
-                top: -0.1rem;
+                top: -0.2rem;
             }
         }
 
         &.player {
             .score {
-                --left-value: -4.7rem;
+                --left-value: -3.2rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
                 @media (min-width: 768px) {
-                    --left-value: -4.7rem;
+                    --left-value: -3.2rem;
                 }
                 &.group-2-cards {
-                    --left-value: -0.4rem;
+                    --left-value: 0.8rem;
                     @media (min-width: 768px) {
-                        --left-value: -0.4rem;
+                        --left-value: 0.8rem;
                     }
                 }
             }
@@ -151,10 +146,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
-                --right-value: -0.8rem;
+                --right-value: .8rem;
                 right: var(--right-value);
                 @media (min-width: 768px) {
-                    --right-value: -0.4rem;
+                    --right-value: .8rem;
                 }
             }
             &.group-2-cards {
