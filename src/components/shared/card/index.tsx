@@ -63,8 +63,8 @@ const Card: React.FC<Props> = (props) => {
                 <img
                     src={`${srcPathCard}mini-${suffixNameMapping[result.type]}.svg`}
                     className={Styles["card-suite-mini"]}
-                    height={51}
-                    width={36}
+                    height={49.07}
+                    width={34.5}
                     alt="suite"
                 />
             </>

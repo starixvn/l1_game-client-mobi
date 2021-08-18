@@ -146,10 +146,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
-                --right-value: .8rem;
+                --right-value: 0.8rem;
                 right: var(--right-value);
                 @media (min-width: 768px) {
-                    --right-value: .8rem;
+                    --right-value: 0.8rem;
                 }
             }
             &.group-2-cards {
@@ -399,6 +399,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 @keyframes open-card-animation {
     0% {
         opacity: 0;
+        transform: rotateY(180deg) scaleX(0.1);
     }
 
     30% {
@@ -508,10 +509,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             )
         );
     }
+
     .result-wrapper {
-        transform: scale(0.9);
         display: flex;
-        
     }
     .animation-container {
         position: relative;
@@ -528,7 +528,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             }
         }
         &.player {
-            left: -.6rem;
+            left: -0.6rem;
             .score {
                 --left-value: 1.2rem;
                 &.group-2-cards {
@@ -537,7 +537,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             }
         }
         &.banker {
-            right: -.6rem;
+            right: -0.6rem;
             .score {
                 --right-value: 1.2rem;
                 &.group-2-cards {
@@ -554,6 +554,13 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 animation: none;
             }
         }
+
+        .card-back {
+            background-size: 3.45rem 4.907rem;
+            width: 3.45rem;
+            height: 4.907rem;
+        }
+
         @for $i from 5 through 6 {
             .card#{$i} {
                 .card-back {
