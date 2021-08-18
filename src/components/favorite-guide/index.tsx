@@ -18,6 +18,7 @@ export const FavoriteGuide: React.FC = () => {
             <p>{t("favorite-setting-guideline")}</p>
             <div className={Styles["favorite-setting"]}>
                 <p className={Styles["favorite-setting-btn-hint"]}>{t("favorite-setting-btn-hint")}</p>
+                <div className={Styles["title"]}>Game yêu thích</div>
                 <ul className={Styles["favorite-games"]}>
                     {favoriteGames.map((gameId, index) => (
                         <li className={`${Styles["game"]}`} key={index}>

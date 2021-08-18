@@ -17,9 +17,8 @@
 }
 
 .container {
-    display: inline-block;
-    text-align: center;
     width: 100%;
+    padding: 0 .5rem;
 }
 
 .favorite-setting {
@@ -139,4 +138,22 @@
 .header-favorite-btn-hint,
 .favorite-setting-btn-hint {
     position: absolute;
+}
+
+.favorite-games {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.unfavorite-games {
+    margin-bottom: 0;
+}
+.favorite-games, .unfavorite-games {
+    .game:last-child {
+        margin-bottom: 0;
+    }
+}
+.group-btn-move {
+    .btn-move {
+        background: var(--btn-favorite-border);
+    }
 }
