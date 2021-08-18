@@ -468,46 +468,95 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-4 {
         @include position-cards(
             (
-                "1": 1.5rem,
+                "1": 1.2rem,
                 "2": 0,
                 "3": 0,
-                "4": -1.5rem,
+                "4": -1.2rem,
             )
         );
+        .animation-container {
+            &.player {
+                .score {
+                    --left-value: -.8rem;
+                }
+            }
+            &.banker {
+                .score {
+                    --right-value: -.8rem;
+                }
+            }
+        }
+
     }
     &.card-5 {
         @include position-cards(
             (
-                "1": 3.5rem,
+                "1": 2.4rem,
                 "2": 0,
-                "3": 1.5rem,
-                "4": -2rem,
+                "3": 1.2rem,
+                "4": -1.2rem,
                 "5": 0,
             )
         );
+        .animation-container {
+            &.player {
+                .score {
+                    --left-value: -2.5rem;
+                }
+            }
+            &.banker {
+                .score {
+                    --right-value: .4rem;
+                }
+            }
+        }
         &-banker {
             @include position-cards(
                 (
-                    "1": 1.5rem,
+                    "1": 1.2rem,
                     "2": 0,
                     "3": 0,
-                    "4": -2rem,
-                    "5": -3.5rem,
+                    "4": -1.2rem,
+                    "5": -2.4rem,
                 )
             );
+            .animation-container {
+                &.player {
+                    .score {
+                        --left-value: .2rem;
+                    }
+                }
+                &.banker {
+                    .score {
+                        --right-value: .4rem;
+                    }
+                }
+            }
         }
     }
     &.card-6 {
         @include position-cards(
             (
-                "1": 3.5rem,
+                "1": 2.4rem,
                 "2": 0,
-                "3": 1.5rem,
-                "4": -2rem,
+                "3": 1.2rem,
+                "4": -1.2rem,
                 "5": 0,
-                "6": -3.5rem,
+                "6": -2.4rem,
             )
         );
+        .animation-container {
+            &.player {
+                .score {
+                    --left-value: -1.6rem;
+                }
+            }
+            &.banker {
+                .score {
+                    --right-value: 1.2rem;
+                }
+            }
+        }
     }
 
     .result-wrapper {
@@ -529,18 +578,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
         &.player {
             left: -0.6rem;
-            .score {
-                --left-value: -1.2rem;
-                &.group-2-cards {
-                    --left-value: -.8rem;
-                }
-            }
         }
         &.banker {
             right: -0.6rem;
-            .score {
-                --right-value: -.8rem;
-            }
         }
     }
     &.has-animation {

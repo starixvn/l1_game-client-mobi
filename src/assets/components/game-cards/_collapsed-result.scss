@@ -18,6 +18,13 @@
         animation-name: none;
     }
 
+    [class*="card"] {
+        margin-right: .2rem;
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
     &.has-animation {
         .card-back {
             display: block;
