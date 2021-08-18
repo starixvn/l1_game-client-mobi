@@ -24,8 +24,6 @@ import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { Props } from "./type";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
-import { GameCategory } from "../game-category";
 import { FavoriteGuide } from "../favorite-guide";
 
 let gamesOrder = [];
