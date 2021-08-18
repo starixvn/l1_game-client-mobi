@@ -77,7 +77,7 @@ const generateResultOnCard = (cards: CardOrder[]) => {
     return cards.map((card) => {
         return (
             <div key={card.order} className={Styles[`card${card.order}`]}>
-                {card.value && <Card result={card.value} isTicketDetail={true}></Card>}
+                {card.value && <Card result={card.value} isSmall={true} customClassName={"baccarat-ticket-detail"}></Card>}
             </div>
         );
     });

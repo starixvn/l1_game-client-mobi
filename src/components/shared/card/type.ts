@@ -6,7 +6,6 @@ export type Props = {
     isAnimation?: boolean;
     viewMode?: ViewMode;
     customClassName?: string;
-    isTicketDetail?: boolean;
 };
 
 export interface ObjectResult {

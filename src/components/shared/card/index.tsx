@@ -28,13 +28,11 @@ export const convertCardRankToIndex = (rank: string): number => {
     return dict[rank] ?? parseInt(rank);
 };
 
-const classFollowCondition = ({ viewMode, isTicketDetail, isSmall }) => {
+const classFollowCondition = ({ viewMode, isSmall }) => {
     if (viewMode === ViewMode.collapse) {
         return Styles["collapse"];
     }
-    if (isTicketDetail) {
-        return Styles["small-ticket-detail"];
-    }
+
     if (isSmall) {
         return Styles["small"];
     }
@@ -43,9 +41,9 @@ const classFollowCondition = ({ viewMode, isTicketDetail, isSmall }) => {
 };
 
 const Card: React.FC<Props> = (props) => {
-    const { result, isSmall, viewMode, isTicketDetail } = props;
+    const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
-    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall || isTicketDetail ? true : false;
+    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall ? true : false;
     const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
@@ -74,7 +72,7 @@ const Card: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isTicketDetail, isSmall })}`}>
+        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
             <div className={Styles["card-shadow"]}></div>
             <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
         </div>
