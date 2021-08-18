@@ -33,15 +33,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import {
-    GameBaseProps,
-    GameBaseState,
-    GameState,
-    PopupType,
-    RebetStorageModel,
-    ViewMode,
-    WinStreakCollectorModel,
-} from "./type";
+import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -483,7 +475,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.setState({
             roundHistory: roundHistory,
-            roundId: [GameState.DisplayResult, GameState.BalancingBet].includes(gameState) ? roundId - 1 : roundId,
+            roundId: [GameState.DisplayResult, GameState.BalancingBet].includes(gameState) || this.isUMInFirstLoad ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
         });
