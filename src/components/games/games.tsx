@@ -22,6 +22,7 @@ import ThreeCards from "./three-cards";
 import { Props } from "./type";
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
 import { GameCategory } from "../game-category";
+import { FavoriteGuide } from "../favorite-guide";
 
 let gamesOrder = [];
 
@@ -88,7 +89,11 @@ export const Games: React.FC<Props> = ({
     const renderListGames = () => {
         const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames);
 
-        return renderGames.map((gameId, index) => getGameComponentById(gameId, index));
+        return renderGames.length === 0 && selectedCategory === GameCategoryType.favorite ? (
+            <FavoriteGuide />
+        ) : (
+            renderGames.map((gameId, index) => getGameComponentById(gameId, index))
+        );
     };
 
     const getGameComponentById = (gameId: number, index: number) => {

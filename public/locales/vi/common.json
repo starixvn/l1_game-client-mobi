@@ -65,5 +65,9 @@
     "category-dice": "Xúc Xắc",
     "category-card": "Game bài",
     "category-sedie": "Xóc Đĩa",
-    "menu-favorite-setting": "Game yêu thích"
+    "menu-favorite-setting": "Game yêu thích",
+    "favorite-setting-guideline": "Tính năng \"Game yêu thích\" cho phép bạn tạo ra bộ sưu tập những game thường chơi của mình.",
+    "favorite-setting-btn-hint": "Sắp xếp theo ý thích",
+    "favorite-btn-guideline": "Bạn cũng có thể thêm game vào bộ sưu tập này bằng cách click hoặc chạm vào biểu tượng {icon} trên từng game.",
+    "header-favorite-btn-hint": "Chọn game yêu thích"
 }

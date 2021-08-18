@@ -61,16 +61,12 @@ export const GameCategory: React.FC<{
                     <li
                         className={`${styles["category-item"]} 
                             ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}
-                            ${categoryPage[categoryKey] ? styles["disabled"] : ""}
                         `}
                         key={categoryKey}
                         ref={selectedCategory === GameCategoryType[categoryKey] ? selectedTabRef : null}
                     >
                         <div className="d-flex">
-                            <div
-                                className={styles["category-text"]}
-                                onClick={() => categoryPage[categoryKey] && selectCategoryPage(categoryKey, 1)}
-                            >
+                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
                                 {t(`category-${categoryKey}`)}
                             </div>
                             {categoryPage[categoryKey] > 1 && (

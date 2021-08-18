@@ -66,5 +66,9 @@
     "category-dice": "Dice Games",
     "category-card": "Card Games",
     "category-sedie": "Se Die",
-    "menu-favorite-setting": "Favorite Games"
+    "menu-favorite-setting": "Favorite Games",
+    "favorite-setting-guideline": "Let use the \"Favorite Games\" feature to create your own collection of most frequently played games.",
+    "favorite-setting-btn-hint": "Customize your list in desired order",
+    "favorite-btn-guideline": "Or simply click or touch the {{icon}} icon on each game to add favorites.",
+    "header-favorite-btn-hint": "Add favorite"
 }
