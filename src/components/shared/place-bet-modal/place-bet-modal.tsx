@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
-import NumberFormat from "react-number-format";
+import NumberFormat, { NumberFormatValues } from "react-number-format";
 
 import { gameVipIds } from "../../../common/constants";
 import { GameResourceKeys } from "../../../common/resources";
@@ -56,12 +56,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setAlignArrowStyle(popupStyle.alignArrowStyle);
             setArrowStyle(popupStyle.arrowStyle);
         }
-
-        return () => {
-            setTooltipMessage("");
-            setBetStake(0);
-            props.removeBetChoiceFocus();
-        };
     }, []);
 
     useEffect(() => {
@@ -70,14 +64,14 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 closeModal && closeModal();
             }
         };
-        
+
         window.addEventListener("mousedown", handleClickOutside);
 
         return () => {
             window.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef]);
-    
+
     useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPositionDidUpdate(
@@ -132,8 +126,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const clickNumpadHandler = (event: any, pad: any) => {
         pad.showValue
-        ? setBetStake((Number.isNaN(betStake) ? 0 : betStake) * pad.powersOfTen + parseInt(pad.value))
-        : deleteNumberHandler(event);
+            ? setBetStake((Number.isNaN(betStake) ? 0 : betStake) * pad.powersOfTen + parseInt(pad.value))
+            : deleteNumberHandler(event);
     };
 
     const deleteNumberHandler = (event: any) => {
@@ -148,7 +142,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         setTooltipMessage("");
     };
 
-    const onChangeStakeInputHandler = (value: string) => {
+    const onChangeStakeInputHandler = ({ value }: NumberFormatValues) => {
+        console.log(value);
         setBetStake(parseInt(value));
         !isMobileOnly && numberFormatRef.current.focus();
     };
@@ -156,7 +151,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const submitBet = (event: any) => {
         event.preventDefault();
 
-        if (betStake < minbet) {
+        if (!betStake || betStake < minbet) {
             setBetStake(minbet);
             setShowTooltip(true);
             setTooltipMessage(t("messages:minBetNotice", { minBet: minbet }));
@@ -196,13 +191,13 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                             getInputRef={numberFormatRef}
                             autoFocus={!isMobileOnly}
                             readOnly={isMobileOnly}
-                            value={betStake ?? ""}
+                            value={betStake || ""}
                             allowNegative={false}
                             className="form-control number"
                             thousandSeparator={true}
                             isNumericString={true}
                             defaultValue={""}
-                            onValueChange={({ value }) => onChangeStakeInputHandler(value)}
+                            onValueChange={onChangeStakeInputHandler}
                         />
 
                         <span className="icon-close small" onClick={clearBetStake}></span>
@@ -245,11 +240,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     {isMobileOnly && (
                         <div className={Styles["numpad-container"]}>
                             {numPad.map((pad, index) => (
-                                <div
-                                    className={Styles["numpad"]}
-                                    onClick={(event) => clickNumpadHandler(event, pad)}
-                                    key={index}
-                                >
+                                <div className={Styles["numpad"]} onClick={(event) => clickNumpadHandler(event, pad)} key={index}>
                                     {pad.showValue ? pad.value : <span className="icon-delete"></span>}
                                 </div>
                             ))}
