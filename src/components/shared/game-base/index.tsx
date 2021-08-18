@@ -33,7 +33,15 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
+import {
+    GameBaseProps,
+    GameBaseState,
+    GameState,
+    PopupType,
+    RebetStorageModel,
+    ViewMode,
+    WinStreakCollectorModel,
+} from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -110,10 +118,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({ viewMode: nextProps.viewMode });
     }
 
     onDestroy() {
