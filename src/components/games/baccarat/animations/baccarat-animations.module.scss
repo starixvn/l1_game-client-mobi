@@ -530,19 +530,16 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         &.player {
             left: -0.6rem;
             .score {
-                --left-value: 1.2rem;
+                --left-value: -1.2rem;
                 &.group-2-cards {
-                    --left-value: -0.2rem;
+                    --left-value: -.8rem;
                 }
             }
         }
         &.banker {
             right: -0.6rem;
             .score {
-                --right-value: 1.2rem;
-                &.group-2-cards {
-                    --right-value: -0.2rem;
-                }
+                --right-value: -.8rem;
             }
         }
     }
