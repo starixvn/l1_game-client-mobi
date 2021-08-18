@@ -607,9 +607,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     }
 }
 
-.move-up-no-animation {
-    transform: translateY(var(--move-up-distance)) !important;
-}
+// .move-up-no-animation {
+//     transform: translateY(var(--move-up-distance)) !important;
+// }
 .result-collapse-mode .move-up-no-animation {
     transform: scale(1) translateY(var(--move-up-distance)) !important;
 }
