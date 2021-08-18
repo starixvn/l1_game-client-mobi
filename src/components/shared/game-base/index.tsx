@@ -237,7 +237,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     minBet: apiError?.minBet,
                     maxBet: apiError?.maxBet,
                     errorCode: apiError.errorCode,
-                },
+                }, 
             });
     };
 
@@ -389,7 +389,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     }
 
-    getStateByNextGameState(nextGameState: GameState) {
+    getStateByNextGameState(nextGameState: any): any {
         const { roundId, displayPopup, notice, removeBetChoiceFocus } = this.state;
         const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
@@ -457,7 +457,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ gameConfigs });
     }
 
-    determineGameState(remainingTime: number) {
+    determineGameState(remainingTime: number): any  {
         const { durations } = this.props;
         if (durations.balancingBet && remainingTime > durations.wholeRound - durations.balancingBet) {
             return GameState.BalancingBet;
@@ -862,7 +862,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    <GameHeader />
+                    { this.props.socketInfo.namespace !== 'kenomatch1' && <GameHeader /> }
+                    { this.props.socketInfo.namespace === 'kenomatch1' && <KenoMatchGameHeader /> }
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>

@@ -192,6 +192,23 @@
             "showResult": 9,
             "resultAnimation": 3,
             "beforeStartRound": 0
+    "36": {
+        "id": 36,
+        "gameName": "KenoMatch1",
+        "socketInfo": {
+            "namespace": "kenomatch1",
+            "path": "kenomatch1"
+        },
+        "durations": {
+            "wholeRound": 60,
+            "placingBets": 18,
+            "lockingBet": 5,
+            "showResult": 7,
+            "halfTimePlacingBets": 52,
+            "halfTimeLockingBet": 30,
+            "finishHalfTime": 25,
+            "resultAnimation": 2,
+            "beforeStartRound": 2
         }
     }
 }

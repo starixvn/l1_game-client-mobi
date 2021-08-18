@@ -1,0 +1,17 @@
+.draw-result {
+    width: 100%;
+    position: relative;
+    background: #1d3d56;
+    height: 235px;
+
+    .field {
+        width: 100%;
+        height: 235px;
+        position: relative;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        background: #012828;
+        background-size: cover;
+    }
+}

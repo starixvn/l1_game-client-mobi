@@ -1,0 +1,108 @@
+.result {
+    height: 47%;
+    margin: 0 2px;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    background: rgba(1, 40, 40, 0.2);
+}
+
+.active {
+    display: block;
+    bottom: 0;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.half-time {
+    bottom: -49%;
+    border: 1px solid #8b8b8b;
+    border-radius: 10px;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    opacity: 0.6;
+    filter: grayscale(100%);
+
+    &.active {
+        bottom: -1%;
+        border: 1px solid rgba(0, 255, 246, 0.4);
+        border-radius: 10px;
+        filter: none;
+        opacity: 1;
+    }
+}
+
+.full-time {
+    top: 2%;
+    border: 1px solid #8b8b8b;
+    border-radius: 10px;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: 0.6;
+
+    &.active {
+        top: -46%;
+        border: 1px solid rgba(0, 255, 246, 0.4);
+        border-radius: 10px;
+        filter: none;
+        opacity: 1;
+    }
+}
+
+.row {
+    text-align: center;
+}
+
+.team {
+    height: 50%;
+    padding: 20px 0;
+    width: 45%;
+    display: inline-block;
+
+    &.home {
+        background: url("/static/images/BlueLight.png") no-repeat 50%;
+        background-size: cover;
+
+        .tie {
+            background: url("/static/images/BlueShirt.png") no-repeat 50%;
+            background-size: contain;
+        }
+    }
+
+    &.away {
+        background: url("/static/images/RedLight.png") no-repeat 50%;
+        background-size: cover;
+
+        .tie {
+            background: url("/static/images/RedShirt.png") no-repeat 50%;
+            background-size: contain;
+        }
+    }
+
+    .tie {
+        width: 27px;
+        height: 30px;
+        margin-bottom: 4px;
+        position: relative;
+        display: inline-block;
+        margin-right: 1px;
+        font-size: 11px;
+        color: #fff;
+        line-height: -1;
+        margin-left: 1px;
+        padding-top: 3px;
+        font-family: Roboto Condensed;
+    }
+}
+
+.middle-column {
+    display: inline-block;
+    text-align: center;
+    width: 10%;
+    vertical-align: top;
+    height: 100%;
+    text-transform: uppercase;
+}

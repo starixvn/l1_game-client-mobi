@@ -18,6 +18,7 @@ import Baccarat from "./baccarat";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
+import KenoMatch from './keno-match';
 import styles from "./games.module.scss";
 import KenoProMax from "./keno-pro-max";
 import MiniSeDie from "./mini-sedie";
@@ -117,6 +118,7 @@ export const Games: React.FC<Props> = ({
             socketGatewayState: socketState,
             retryConnectSocket: connectSocket,
         };
+
         switch (gameId) {
             case 2:
             case 22:
@@ -139,6 +141,9 @@ export const Games: React.FC<Props> = ({
                 return <BigSmall key={`game-${gameId}`} {...gameProps} />;
             case 35:
                 return <ThreeCards key={`game-${gameId}`} {...gameProps} />;
+            case 36:
+            case 37:
+                return <KenoMatch  key={`game-${gameId}`}  { ...gameProps as any}/>;
             default:
                 return null;
         }
