@@ -18,7 +18,7 @@ export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
         return (
             <div key={card.order} className={`${Styles[classCardOrder]}`}>
                 <div className={Styles["rotate-card"]}>
-                    <Card result={card.value} viewMode={viewMode}></Card>
+                    <Card result={card.value} viewMode={viewMode} customClassName={"card-baccarat"}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
             </div>

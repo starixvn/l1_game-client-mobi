@@ -16,7 +16,7 @@ const generateResult = (cards: Result, viewMode: ViewMode) => {
         return (
             <div key={index} className={Styles[`card${index + 1}`]}>
                 <div className={Styles["rotate-card"]}>
-                    <Card result={cardType} viewMode={viewMode}></Card>
+                    <Card result={cardType} viewMode={viewMode} customClassName={"card-baccarat"}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
             </div>

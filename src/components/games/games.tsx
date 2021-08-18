@@ -106,25 +106,25 @@ export const Games: React.FC<Props> = ({
             updateUserStakeLevel,
         };
         switch (gameId) {
-            case 2:
-            case 22:
-                return <SeDie key={`game-${gameId}`} {...gameProps} />;
-            case 9:
-                return <MiniSeDie key={`game-${gameId}`} {...gameProps} />;
-            case 24:
-                return <SpecialSeDie key={`game-${gameId}`} {...gameProps} />;
-            case 3:
-                return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
+            // case 2:
+            // case 22:
+            //     return <SeDie key={`game-${gameId}`} {...gameProps} />;
+            // case 9:
+            //     return <MiniSeDie key={`game-${gameId}`} {...gameProps} />;
+            // case 24:
+            //     return <SpecialSeDie key={`game-${gameId}`} {...gameProps} />;
+            // case 3:
+            //     return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
             case 7:
                 return <DragonTiger key={`game-${gameId}`} {...gameProps} />;
-            case 8:
-                return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
+            // case 8:
+            //     return <KenoProMax key={`game-${gameId}`} {...gameProps} />;
             case 10:
             case 27:
                 return <Baccarat key={`game-${gameId}`} {...gameProps} />;
             case 1:
-            case 4:
-                return <BigSmall key={`game-${gameId}`} {...gameProps} />;
+            // case 4:
+            //     return <BigSmall key={`game-${gameId}`} {...gameProps} />;
             case 35:
                 return <ThreeCards key={`game-${gameId}`} {...gameProps} />;
             default:

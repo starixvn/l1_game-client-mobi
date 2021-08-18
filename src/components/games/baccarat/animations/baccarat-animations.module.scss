@@ -91,7 +91,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
     .animation-container {
         --move-up-distance: -2.3rem;
-        --result-scale: 0.9;
+        --result-scale: 1;
         top: 2.4rem;
 
         transition: transform 0.7s;
@@ -256,6 +256,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
 
         .card-back {
+            background-size: 7.757rem 110.74rem;
+            width: 7.757rem;
+            height: 10.74rem;
             display: block;
             position: absolute;
             left: 0;
@@ -569,7 +572,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 }
 
 .move-up-no-animation {
-    transform: scale(0.9) translateY(var(--move-up-distance)) !important;
+    transform: translateY(var(--move-up-distance)) !important;
 }
 .result-collapse-mode .move-up-no-animation {
     transform: scale(1) translateY(var(--move-up-distance)) !important;

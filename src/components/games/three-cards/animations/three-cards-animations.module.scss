@@ -32,8 +32,7 @@ $number-of-cards: 3;
     &.normal-mode {
         .animation-container {
             --move-up-distance: -1.6rem;
-            --result-scale: 0.9;
-
+            --result-scale: 1;
             display: grid;
             grid-template-columns: repeat(3, 9.5rem);
             top: 2rem;
@@ -78,6 +77,12 @@ $number-of-cards: 3;
                     }
                 }
             }
+
+            .card-back {
+                background-size: 7.757rem 110.74rem;
+                width: 7.757rem;
+                height: 10.74rem;
+            }
         }
     }
 
@@ -89,5 +94,5 @@ $number-of-cards: 3;
 }
 
 .move-up-no-animation {
-    transform: scale(0.9) translateY(var(--move-up-distance)) !important;
+    transform: translateY(var(--move-up-distance)) !important;
 }
