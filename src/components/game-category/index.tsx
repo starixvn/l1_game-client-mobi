@@ -48,11 +48,19 @@ export const GameCategory: React.FC<{
     }, {});
 
     useEffect(() => {
-        if (selectedTabRef?.current) {
-            const boundingRect = selectedTabRef.current.getBoundingClientRect();
-            wrapperRef.current.scrollLeft = boundingRect.left - 15;
-        }
-    }, [wrapperRef?.current]);
+        const getFocusOnSelectedCategory = () => {
+            console.log("hit");
+            if (wrapperRef?.current) {
+                const boundingRect = selectedTabRef.current.getBoundingClientRect();
+                wrapperRef.current.scrollLeft = boundingRect.left - 15;
+            }
+        };
+
+        window.addEventListener("orientationchange", getFocusOnSelectedCategory);
+        getFocusOnSelectedCategory();
+
+        return () => window.removeEventListener("orientationchange", getFocusOnSelectedCategory);
+    }, [wrapperRef?.current, selectedTabRef?.current]);
 
     return (
         <div ref={wrapperRef} className={styles["category-container"]}>
