@@ -54,32 +54,43 @@
     @for $i from 1 through $number-of-cards {
         .card#{$i} {
             position: relative;
+            overflow: hidden;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            animation: fr-card-entry-anim-opacity 0.5s 7.25s forwards;
         }
     }
 }
 
 @mixin open-card-has-animation($time-open-card-animation, $number-of-cards) {
+    .open-card {
+        position: relative;
+        backface-visibility: hidden;
+        z-index: 2;
+        transform: translate3d(101%, 0, 0) rotate3d(0, 0, 1, 0deg);
+        animation-name: fr-card-flipper-front-anim-0, fr-card-flipper-front-anim-1, fr-card-flipper-front-anim-2;
+        animation-duration: 0.4s, 2.3s, 3.8s;
+        animation-delay: 0.6s, 6.45s, 11.2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-in;
+        transition: transform 0.1s;
+    }
+
     .card-back {
+        z-index: 1;
         display: block;
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
-        z-index: 2;
-        animation-name: hide-card-back-animation;
-        animation-duration: math.div($time-open-card-animation, $number-of-cards);
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+        animation-name: fr-card-flipper-back-anim-0, fr-noneOut-anim, fr-card-flipper-back-anim-1, fr-noneOut-anim,
+            fr-card-flipper-back-anim-2, fr-noneOut-anim;
+        animation-duration: 0.5s, 0.5s, 2.5s, 0.5s, 4s, 0.5s;
+        animation-delay: 0.5s, 1s, 6.25s, 8.75s, 11s, 15s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
-        transition: transform 0.1s;
-    }
-
-    .open-card {
-        position: relative;
-        animation-name: open-card-animation;
-        animation-duration: math.div($time-open-card-animation, $number-of-cards);
-        animation-fill-mode: forwards;
-        animation-timing-function: ease-in;
         transition: transform 0.1s;
     }
 }
@@ -144,5 +155,131 @@
 
     80% {
         transform: scale(1);
+    }
+}
+
+@keyframes fr-card-flipper-front-anim-0 {
+    0% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    50% {
+        transform: translate3d(60%, 0, 0) rotate3d(0, 0, 1, 10deg);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-card-flipper-back-anim-0 {
+    0% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    50% {
+        transform: translate3d(40%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    }
+
+    100% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-card-flipper-front-anim-1 {
+    0% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    20% {
+        transform: translate3d(85%, 0, 0) rotate3d(0, 0, 1, 5deg);
+    }
+
+    90% {
+        transform: translate3d(70%, 0, 0) rotate3d(0, 0, 1, 10deg);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-card-flipper-back-anim-1 {
+    0% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    20% {
+        transform: translate3d(15%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+
+    90% {
+        transform: translate3d(30%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    }
+
+    100% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-card-flipper-front-anim-2 {
+    0% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    12% {
+        transform: translate3d(85%, 0, 0) rotate3d(0, 0, 1, 5deg);
+    }
+
+    54% {
+        transform: translate3d(70%, 0, 0) rotate3d(0, 0, 1, 10deg);
+    }
+
+    96% {
+        transform: translate3d(50%, 0, 0) rotate3d(0, 0, 1, 4deg);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-card-flipper-back-anim-2 {
+    0% {
+        transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+
+    12% {
+        transform: translate3d(15%, 0, 0) rotate3d(0, 0, 1, -5deg);
+    }
+
+    54% {
+        transform: translate3d(30%, 0, 0) rotate3d(0, 0, 1, -10deg);
+    }
+
+    96% {
+        transform: translate3d(50%, 0, 0) rotate3d(0, 0, 1, -4deg);
+    }
+
+    100% {
+        transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
+    }
+}
+
+@keyframes fr-noneOut-anim {
+    0%,
+    100% {
+        visibility: hidden;
+    }
+}
+
+@keyframes fr-card-entry-anim-opacity {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+        margin: 0 3px;
     }
 }

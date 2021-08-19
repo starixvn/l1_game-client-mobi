@@ -21,6 +21,7 @@ const generateResult: React.FC<{ result: ObjectResult[]; viewMode: ViewMode; tra
         return (
             <div key={index} className={Styles[`card${index + 1}`]}>
                 <div className={Styles["rotate-card"]}>
+                    <div className={Styles["card-surface-shadow"]}></div>
                     <Card result={result} viewMode={viewMode}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
@@ -80,7 +81,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
     }, [result]);
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : Styles[classHasAnimation]}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
                     {generateResult({
