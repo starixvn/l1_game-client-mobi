@@ -1,7 +1,10 @@
 import React from "react";
+
+import { isIOS, isMobileOnly } from "react-device-detect";
 import { Props } from "./type";
-import Styles from "./card.module.scss";
+
 import { ViewMode } from "../game-base/type";
+import Styles from "./card.module.scss";
 
 const suffixNameMapping = ["heart", "diamond", "club", "spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
@@ -40,6 +43,8 @@ const classFollowCondition = ({ viewMode, isSmall }) => {
     return "";
 };
 
+const numberOnIOS = isIOS && isMobileOnly ? Styles["number-ios"] : "";
+
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
@@ -47,17 +52,14 @@ const Card: React.FC<Props> = (props) => {
     const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
-        return <img src={`${srcPathCard}${nameCard}`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
+        return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
     };
+    const formatCard10 = +convertRank(result.card) === 10 ? Styles["card-number-10"] : "";
 
     const getCardMini = () => {
         return (
             <>
-                <div
-                    className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${
-                        +convertRank(result.card) === 10 && Styles["card-number-10"]
-                    }`}
-                >
+                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${formatCard10} ${numberOnIOS}`}>
                     {convertRank(result.card)}
                 </div>
                 <img
