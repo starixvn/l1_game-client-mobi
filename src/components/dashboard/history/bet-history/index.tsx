@@ -217,7 +217,13 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     <th>{t("round")}</th>
                     <th>{t("result")}</th>
                     <th>{t("choice")}</th>
-                    {isRefund ? <th>{t("refund")}</th> : <th>{t("stake")}</th>}
+                    {isRefund ? (
+                        <th>
+                            {t("stake")} <br></br> {t("refund")}
+                        </th>
+                    ) : (
+                        <th>{t("stake")}</th>
+                    )}
                     <th>{t("win")}</th>
                 </tr>
             );

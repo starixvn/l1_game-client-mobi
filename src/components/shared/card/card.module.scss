@@ -42,6 +42,10 @@
         .card-number {
             line-height: 0.5;
         }
+
+        .card-suite-mini {
+            border-radius: 0.5rem;
+        }
     }
 
     &.small {
@@ -68,6 +72,7 @@
         }
 
         .card-suite-mini {
+            border-radius: 0.5rem;
             width: 3rem;
             height: 4.25rem;
         }
@@ -108,6 +113,7 @@
             }
 
             .card-suite-mini {
+                border-radius: 1rem;
                 width: 5rem;
                 height: 7.1rem;
             }
