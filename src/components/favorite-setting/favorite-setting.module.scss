@@ -16,8 +16,8 @@
     --game-un-favorite-background: linear-gradient(180deg, #fff5e5 0%, #ffeccd 100%);
     --game-un-favorite-border: linear-gradient(180deg, #ffe8c3 0%, #ffdda9 100%);
 
-    --icon-move-color: #935e08;
-    --icon-move-hover-color: #fff;
+    --icon-move-color: #fff;
+    --icon-move-hover-color: #935E08;
 
     --game-text-color: #2c2f3e;
     --seperate-line-color: #c9c9c9;
@@ -34,15 +34,15 @@
     --btn-un-favorite-border: #83a6cb;
 
     --icon-favorite: #ffc634;
-    --icon-un-favorite: #aacff5;
+    --icon-un-favorite: #aacff5; 
 
     --game-favorite-background: linear-gradient(180deg, #537597 0%, #3c5979 100%);
     --game-favorite-border: linear-gradient(180deg, #7caadc 0%, #466586 100%);
     --game-un-favorite-background: linear-gradient(180deg, #2b4561 0%, #263e58 100%);
     --game-un-favorite-border: linear-gradient(180deg, #0b1c2f 0%, #071522 100%);
 
-    --icon-move-color: #aacff5;
-    --icon-move-hover-color: #fff;
+    --icon-move-color: #fff;
+    --icon-move-hover-color: #AACFF5;
 
     --game-text-color: #ffbb0b;
     --seperate-line-color: #405e7e;
@@ -235,6 +235,8 @@
         height: 0.8rem;
         border-top: 0.3rem solid var(--icon-move-color);
         border-right: 0.3rem solid var(--icon-move-color);
+        box-shadow: 1px -1px  2px rgba(0, 0, 0, 0.25);
+        top: .2rem;
     }
 
     .icon-move-down:before {
@@ -250,7 +252,7 @@
 }
 
 .btn-move {
-    @include btn-unfavorite;
+    @include btn-favorite;
     margin-left: 0.25rem;
     margin-right: 0.25rem;
     -webkit-tap-highlight-color: transparent;
@@ -272,6 +274,13 @@
                     border-top-color: var(--icon-move-hover-color);
                     border-right-color: var(--icon-move-hover-color);
                 }
+            }
+            @include btn-unfavorite;
+
+            .icon-move {
+                border-top-color: var(--icon-move-hover-color);
+                border-right-color: var(--icon-move-hover-color);
+                box-shadow: none;
             }
         }
     }

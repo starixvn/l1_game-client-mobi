@@ -14,56 +14,72 @@ export const FavoriteGuide: React.FC = () => {
     const { gameSettings } = appSettings;
 
     return (
-        <div className={Styles["container"]}>
-            <p>{t("favorite-setting-guideline")}</p>
-            <div className={Styles["favorite-setting"]}>
-                <p className={Styles["favorite-setting-btn-hint"]}>{t("favorite-setting-btn-hint")}</p>
-                <div className={Styles["title"]}>Game yêu thích</div>
-                <ul className={Styles["favorite-games"]}>
-                    {favoriteGames.map((gameId, index) => (
-                        <li className={`${Styles["game"]}`} key={index}>
-                            <div className={Styles[favoriteBtnClass]}>
-                                <span className={`icon-favorite ${Styles[favoriteIconClass]}`}></span>
-                            </div>
-                            <span className={Styles["game-name"]}>
-                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                            </span>
-                            <div className={Styles["group-btn-move"]}>
-                                <button className={Styles["btn-move"]} disabled={index === 0}>
-                                    <span className={Styles["icon-move-up"]}></span>
-                                </button>
-                                <button className={Styles["btn-move"]}>
-                                    <span className={Styles["icon-move-down"]}></span>
-                                </button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-                <ul className={Styles["unfavorite-games"]}>
-                    {unfavoriteGames.map((gameId, index) => (
-                        <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
-                            <div className={Styles[favoriteBtnClass]}>
-                                <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
-                            </div>
-                            <span className={Styles["game-name"]}>
-                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
+        <div className={Styles["container"]}>            
+            <p>{t("favorite-setting-guideline")}</p>  
+                  
+            <div className={Styles["favorite-wrapper"]}>
+                <div className={Styles["favorite-games"]}>
+                    <div className={`${Styles[favoriteBtnClass]} ${Styles["btn-favorite-single"]}`}>
+                        <span className={`icon-favorite ${Styles[favoriteIconClass]}`}></span>
+                    </div>  
+                </div>                  
+                <div className={`${Styles["hint"]} ${Styles["top"]}`}>  
+                    <div className={Styles["text"]}>{t("favorite-setting-btn-hint")}</div>                  
+                    <span className={Styles["direction"]}></span>                    
+                </div>                
+                <div className={Styles["favorite-setting"]}>
+                    <div className={Styles["title"]}>Game yêu thích</div>
+                    <ul className={Styles["favorite-games"]}>
+                        {favoriteGames.map((gameId, index) => (
+                            <li className={`${Styles["game"]}`} key={index}>
+                                <div className={Styles[favoriteBtnClass]}>
+                                    <span className={`icon-favorite ${Styles[favoriteIconClass]}`}></span>
+                                </div>
+                                <span className={Styles["game-name"]}>
+                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                </span>
+                                <div className={Styles["group-btn-move"]}>
+                                    <button className={Styles["btn-move"]}>
+                                        <span className={Styles["icon-move-up"]}></span>
+                                    </button>
+                                    <button className={Styles["btn-move"]}>
+                                        <span className={Styles["icon-move-down"]}></span>
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                    <ul className={Styles["unfavorite-games"]}>
+                        {unfavoriteGames.map((gameId, index) => (
+                            <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
+                                <div className={Styles[favoriteBtnClass]}>
+                                    <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
+                                </div>
+                                <span className={Styles["game-name"]}>
+                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className= {Styles["hint"]}>                    
+                    <span className={Styles["direction"]}></span>{t("header-favorite-btn-hint")}
+                </div>
             </div>
+            
             <div>
                 {t("favorite-btn-guideline").split("{icon}")[0]}
                 <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
                 {t("favorite-btn-guideline").split("{icon}")[1]}
             </div>
+            {/* <div className={Styles["header-favorite-btn-hint"]}>{t("header-favorite-btn-hint")}</div> */}
+            
             <div className={Styles["header"]}>
-                <p className={Styles["header-favorite-btn-hint"]}>{t("header-favorite-btn-hint")}</p>
+                <div className={Styles[favoriteBtnClass]}>
+                    <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
+                </div>
+                <div className={Styles["header-overlay"]}></div>
                 <div className={Styles["header-left"]}>
-                    <div className={Styles["header-overlay"]}></div>
-                    <div className={Styles[favoriteBtnClass]}>
-                        <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
-                    </div>
                     <div className={Styles["title-roundID"]}>
                         <div className={Styles.title}>
                             {t(`${gameSettings[2].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
