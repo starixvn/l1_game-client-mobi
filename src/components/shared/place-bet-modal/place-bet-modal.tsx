@@ -143,7 +143,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     const onChangeStakeInputHandler = ({ value }: NumberFormatValues) => {
-        console.log(value);
+
         setBetStake(parseInt(value));
         !isMobileOnly && numberFormatRef.current.focus();
     };
