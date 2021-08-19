@@ -235,11 +235,11 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
 
         .animation-container {
-            animation-name: zoom-in-animation, move-up-result-animation-cards;
+            animation-name: zoom-in-animation, cubic-bezier(1, 0.01, 0, 1);
             animation-duration: $time-zoom-in-card-animation, 0.3s;
             //animation-delay: 0s, $time-delay-move-up-result;
             animation-fill-mode: forwards, both;
-            animation-timing-function: ease-out, linear;
+            animation-timing-function: ease-out, cubic-bezier(1, 0.01, 1, 0.01);
         }
 
         .rotate-card {
