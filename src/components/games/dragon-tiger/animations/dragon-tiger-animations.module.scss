@@ -103,11 +103,12 @@ $number-of-cards: 2;
                     ($i - 1);
 
                 .card-back {
+                    @extend .card-back-speed-default;
                     // animation-delay: $card-time-delay;
                 }
 
                 .rotate-card {
-                    @extend .open-card;
+                    @extend .open-card-speed-default;
                     // animation-delay: $card-time-delay;
                 }
             }
