@@ -13,10 +13,10 @@
     width: 8.6rem;
     height: 11.9rem;
     &.collapse-mode {
-        background: url("/static/images/cards/mini/card-back.png") no-repeat center;
-        background-size: 6rem 8.5rem;
-        width: 6rem;
-        height: 8.5rem;
+        background: url("/static/images/cards/mini/card-back.svg") no-repeat center;
+        background-size: 3.45rem 4.907rem;
+        width: 3.45rem;
+        height: 4.907rem;
     }
 }
 
@@ -68,12 +68,28 @@
         backface-visibility: hidden;
         z-index: 2;
         transform: translate3d(101%, 0, 0) rotate3d(0, 0, 1, 0deg);
-        animation-name: fr-card-flipper-front-anim-0, fr-card-flipper-front-anim-1, fr-card-flipper-front-anim-2;
-        animation-duration: 0.4s, 2.3s, 3.8s;
-        animation-delay: 0.6s, 6.45s, 11.2s;
+        animation-name: fr-card-flipper-front-anim-0;
+        animation-duration: 0.4s;
+        animation-delay: 0.6s;
         animation-fill-mode: forwards;
         animation-timing-function: ease-in;
         transition: transform 0.1s;
+
+        &.speed-medium {
+            animation-name: fr-card-flipper-front-anim-1;
+            animation-duration: 2.3s;
+            animation-delay: 6.45s;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
+
+        &.speed-high {
+            animation-name: fr-card-flipper-front-anim-2;
+            animation-duration: 3.8s;
+            animation-delay: 11.2s;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
     }
 
     .card-back {
@@ -85,29 +101,44 @@
         top: 0;
         bottom: 0;
         transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
-        animation-name: fr-card-flipper-back-anim-0, fr-noneOut-anim, fr-card-flipper-back-anim-1, fr-noneOut-anim,
-            fr-card-flipper-back-anim-2, fr-noneOut-anim;
-        animation-duration: 0.5s, 0.5s, 2.5s, 0.5s, 4s, 0.5s;
-        animation-delay: 0.5s, 1s, 6.25s, 8.75s, 11s, 15s;
+        animation-name: fr-card-flipper-back-anim-0, fr-noneOut-anim;
+        animation-duration: 0.5s, 0.5s;
+        animation-delay: 0.5s, 1s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
         transition: transform 0.1s;
+
+        &.speed-medium {
+            animation-name: fr-card-flipper-back-anim-1, fr-noneOut-anim;
+            animation-duration: 2.5s, 0.5s;
+            animation-delay: 6.25s, 8.75s;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
+
+        &.speed-high {
+            animation-name: fr-card-flipper-back-anim-2, fr-noneOut-anim;
+            animation-duration: 4s, 0.5s;
+            animation-delay: 11s, 15s;
+            animation-fill-mode: forwards;
+            animation-timing-function: linear;
+        }
     }
 }
 
 @keyframes hide-card-back-animation {
     0% {
-        transform: rotateY(30deg) scaleX(0.9);
+        transform: rotate3d(0, 1, 0, 30deg) scale3d(0.9, 1, 1);
         opacity: 1;
     }
 
     30% {
-        transform: rotateY(80deg) scaleX(0.6);
+        transform: rotate3d(0, 1, 0, 80deg) scale3d(0.6, 1, 1);
         opacity: 1;
     }
 
     60% {
-        transform: rotateY(120deg) scaleX(0);
+        transform: rotate3d(0, 1, 0, 120deg) scale3d(0, 0, 0);
         opacity: 0;
     }
 
@@ -119,42 +150,82 @@
 @keyframes open-card-animation {
     0% {
         opacity: 0;
-        transform: rotateY(180deg) scaleX(0.1);
+        transform: rotate3d(0, 1, 0, 180deg);
         left: 5px;
     }
 
     30% {
-        transform: rotateY(120deg) scaleX(0.4);
+        transform: rotate3d(0, 1, 0, 120deg) scale3d(0.4, 1, 1);
         left: 10px;
     }
 
     60% {
         opacity: 0.9;
-        transform: rotateY(80deg) scaleX(0.7);
+        transform: rotate3d(0, 1, 0, 80deg) scale3d(0.7, 1, 1);
     }
 
     80% {
         opacity: 1;
-        transform: rotateY(30deg) scaleX(0.8);
+        transform: rotate3d(0, 1, 0, 30deg) scale3d(0.8, 1, 1);
     }
 
     100% {
         opacity: 1;
-        transform: rotateY(0deg) scaleX(1);
+        transform: rotate3d(0, 1, 0, 0deg) scale3d(1, 1, 1);
     }
 }
 
 @keyframes zoom-in-animation {
     0% {
-        transform: scale(0.6);
+        transform: scale3d(0.6, 0.6, 0.6);
     }
 
     50% {
-        transform: scale(0.8);
+        transform: scale3d(0.8, 0.8, 0.8);
     }
 
     80% {
-        transform: scale(1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes appearance-settlement-info-animation {
+    0% {
+        opacity: 0;
+        transform: scale3d(0, 0, 0);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale3d(0.5, 0.5, 0.5);
+    }
+
+    80% {
+        opacity: 0.8;
+        transform: scale3d(0.8, 0.8, 0.8);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes score-blink {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: scale3d(1.3, 1.3, 1.3);
+    }
+
+    100% {
+        transform: scale3d(1, 1, 1);
     }
 }
 
