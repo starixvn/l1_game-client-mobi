@@ -49,7 +49,6 @@ export const GameCategory: React.FC<{
 
     useEffect(() => {
         const getFocusOnSelectedCategory = () => {
-            console.log("hit");
             if (wrapperRef?.current) {
                 const boundingRect = selectedTabRef.current.getBoundingClientRect();
                 wrapperRef.current.scrollLeft = boundingRect.left - 15;

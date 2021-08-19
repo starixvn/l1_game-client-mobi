@@ -346,7 +346,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             if (this.timeCounter > 0) {
                 this.timeCounter = this.timeCounter - 1;
             }
-
             this.handleGamePlay(this.timeCounter);
         }, 1000);
 
@@ -484,8 +483,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getFinishAnimationDuration() {
-        const { durations } = this.props;
-        return (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
+        return this.props.durations.resultAnimation * 1000;
     }
 
     handleFinish({ finish }) {
