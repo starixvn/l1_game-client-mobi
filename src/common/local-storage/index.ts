@@ -8,6 +8,7 @@ export const localStorageKeys = {
     playSound: buildLocalStorageKey("play-sound"),
     globalSettingHint: buildLocalStorageKey("global-setting-hint"),
     quickBetHint: buildLocalStorageKey("quick-bet-hint"),
+    buildVersion: buildLocalStorageKey("build-version"),
 };
 
 export function removeLocalStorageItem(key: string) {

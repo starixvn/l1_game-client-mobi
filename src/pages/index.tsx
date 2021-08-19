@@ -71,8 +71,7 @@ function Home() {
         return <SplashScreen locale={language}></SplashScreen>;
     }
 
-    const buildId = process.env.buildVersion;
-    return <Dashboard session={session} buildId={buildId} queryGame={+gameId} setIsUm={setIsUm} />;
+    return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm} />;
 }
 
 export const getStaticProps = async ({ locale }) => {

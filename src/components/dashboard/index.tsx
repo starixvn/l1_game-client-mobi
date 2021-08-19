@@ -27,7 +27,6 @@ import Welcome from "./welcome";
 
 type Props = {
     session: SSOResponse;
-    buildId: string;
     queryGame: number;
     setIsUm: Function;
 } & WithRouterProps &
@@ -94,9 +93,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
 
-        const buildVersion = getSessionStorageItem(SessionStorageKeys.buildVersion) ?? 0;
-        if (props.buildId !== buildVersion) {
-            storeSessionStorageItem(SessionStorageKeys.buildVersion, props.buildId);
+        const buildId = process.env.buildVersion;
+        const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
+        if (buildId !== buildVersion) {
+            storeLocalStorageItem(localStorageKeys.buildVersion, buildId);
             location.reload();
         }
     }
