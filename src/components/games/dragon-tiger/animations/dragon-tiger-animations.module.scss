@@ -7,13 +7,13 @@
 
 $time-draw-card-animation: 0.3s;
 
-$time-open-card-animation: 0.8s;
-
+$time-open-card-front-animation: 0.8s;
+$time-open-card-back-animation: 1s;
 $time-zoom-in-card-animation: 0.2s;
 $time-show-score-animation: 0.2s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
-$time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-show-score-animation * 2 + 0.2s;
+$time-delay-move-up-result: $time-open-card-front-animation + $time-delay-zoom-in-card-animation + $time-show-score-animation * 2 + 0.2s;
 $number-of-cards: 2;
 
 .animation-container {
@@ -41,12 +41,13 @@ $number-of-cards: 2;
             border-radius: 10px 10px 0px 0px;
             position: absolute;
             bottom: 0;
-            left: -3.8rem;
-            z-index: 1;
-            font-size: 1.4rem;
+            left: -3.5rem;
+            z-index: 3;
+            font-size: 1.6rem;
             line-height: 2.4rem;
             text-align: center;
             margin-left: 50%;
+            transform: scale(1);
 
             &.dragon-score {
                 background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
@@ -62,16 +63,19 @@ $number-of-cards: 2;
                 letter-spacing: -.2rem;
             }
         }
+
         .card1 {
             margin-right: 0.4rem;
         }
+
         .card2 {
             margin-left: 0.4rem;
         }
     }
 
     &.has-animation {
-        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
+        @include open-card-front-has-animation();
+        @include hide-card-back-has-animation();
 
         .animation-container {
             animation-name: zoom-in-animation, move-up-result-animation-cards;
@@ -88,28 +92,28 @@ $number-of-cards: 2;
             animation-fill-mode: forwards;
             animation-timing-function: ease-out;
             &.dragon-score {
-                animation-delay: $time-zoom-in-card-animation + math.div($time-open-card-animation, 2);
+                animation-delay: $time-zoom-in-card-animation + math.div($time-open-card-front-animation, 2);
             }
             &.tiger-score {
-                animation-delay: $time-zoom-in-card-animation + $time-open-card-animation + $time-show-score-animation;
+                animation-delay: $time-zoom-in-card-animation + $time-open-card-front-animation + $time-show-score-animation;
             }
         }
 
         @for $i from 1 through 2 {
             .card#{$i} {
-                $card-time-delay: (math.div($time-open-card-animation, 2) * ($i - 1)) +
+                $card-time-delay: (math.div($time-open-card-front-animation, 2) * ($i - 1)) +
                     $time-delay-zoom-in-card-animation +
                     $time-show-score-animation *
                     ($i - 1);
 
                 .card-back {
-                    @extend .card-back-speed-default;
-                    // animation-delay: $card-time-delay;
+                    @extend %card-back-speed-default;
+                    animation-delay: $card-time-delay, $card-time-delay + (math.div($time-open-card-back-animation, 2));
                 }
 
                 .rotate-card {
-                    @extend .open-card-speed-default;
-                    // animation-delay: $card-time-delay;
+                    @extend %open-card-speed-default;
+                    animation-delay: $card-time-delay;
                 }
             }
         }

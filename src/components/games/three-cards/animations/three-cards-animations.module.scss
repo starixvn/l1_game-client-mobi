@@ -25,7 +25,9 @@ $number-of-cards: 3;
 .open-cards {
     @include open-card($number-of-cards);
     &.has-animation {
-        @include open-card-has-animation($time-open-card-animation, $number-of-cards);
+        // @include open-card-has-animation($time-open-card-animation, $number-of-cards);
+        @include open-card-front-has-animation();
+        @include hide-card-back-has-animation();
     }
 
     // normal mode
@@ -53,11 +55,12 @@ $number-of-cards: 3;
 
                 .card#{$i} {
                     .card-back {
+                        @extend %card-back-speed-default;
                         animation-delay: $card-time-delay;
                     }
 
                     .rotate-card {
-                        @extend .open-card;
+                        @extend %open-card-speed-default;
                         animation-delay: $card-time-delay;
                     }
                 }
@@ -68,11 +71,12 @@ $number-of-cards: 3;
                     $card-3rd-time-delay: 0.4s + (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
                         $time-delay-zoom-in-card-animation;
                     .card-back {
+                        @extend %card-back-speed-medium;
                         animation-delay: $card-3rd-time-delay;
                     }
 
                     .rotate-card {
-                        @extend .open-card;
+                        @extend %open-card-speed-medium;
                         animation-delay: $card-3rd-time-delay;
                     }
                 }

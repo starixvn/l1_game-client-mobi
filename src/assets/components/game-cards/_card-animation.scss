@@ -48,10 +48,6 @@
         display: none;
     }
 
-    .open-card {
-        animation-name: none;
-    }
-
     @for $i from 1 through $number-of-cards {
         .card#{$i} {
             position: relative;
@@ -63,29 +59,31 @@
     }
 }
 
-@mixin open-card-has-animation($time-open-card-animation, $number-of-cards) {
-    .open-card {
+@mixin open-card-front-has-animation() {
+    %open-card {
         position: relative;
         backface-visibility: hidden;
         z-index: 2;
         transform: translate3d(101%, 0, 0) rotate3d(0, 0, 1, 0deg);
     }
 
-    .open-card-speed-default {
-        @extend .open-card;
+    %open-card-speed-default {
+        @extend %open-card;
         animation: open-card-front-animation-default 0.4s 0.6s ease-in forwards;
     }
 
-    .open-card-speed-medium {
-        @extend .open-card;
+    %open-card-speed-medium {
+        @extend %open-card;
         animation: open-card-front-animation-medium 2.3s 0.6s ease-in forwards;
     }
 
-    .open-card-speed-high {
-        @extend .open-card;
+    %open-card-speed-high {
+        @extend %open-card;
         animation: open-card-front-animation-slow 3.8s 0.6s ease-in forwards;
     }
+}
 
+@mixin hide-card-back-has-animation() {
     .card-back {
         z-index: 1;
         display: block;
@@ -97,7 +95,7 @@
         transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
     }
 
-    .card-back-speed-default {
+    %card-back-speed-default {
         @extend .card-back;
         animation-name: hide-card-back-animation-default, fr-noneOut-anim;
         animation-duration: 0.5s, 0.5s;
@@ -106,7 +104,7 @@
         animation-timing-function: linear;
     }
 
-    .card-back-speed-medium {
+    %card-back-speed-medium {
         @extend .card-back;
         animation-name: hide-card-back-animation-medium, fr-noneOut-anim;
         animation-duration: 2.5s, 0.5s;
@@ -115,7 +113,7 @@
         animation-timing-function: linear;
     }
 
-    .card-back-speed-high {
+    %card-back-speed-high {
         @extend .card-back;
         animation-name: hide-card-back-animation-slow, fr-noneOut-anim;
         animation-duration: 4s, 0.5s;
