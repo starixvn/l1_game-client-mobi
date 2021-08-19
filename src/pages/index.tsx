@@ -26,6 +26,11 @@ function Home() {
 
     useEffect(() => {
         const signIn = async () => {
+            if (await checkUM()) {
+                setIsUm(true);
+                return;
+            }
+
             const userSession = await getUserSession(token as string);
             if (userSession && userSession.isAuthenticated) {
                 setSession(userSession);
@@ -43,11 +48,6 @@ function Home() {
             const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
             setLanguage(locale);
             i18n.changeLanguage(locale);
-
-            if (!checkUM()) {
-                setIsUm(true);
-                return;
-            }
 
             signIn();
         }
