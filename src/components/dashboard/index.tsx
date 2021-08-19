@@ -97,7 +97,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
         if (buildId !== buildVersion) {
             storeLocalStorageItem(localStorageKeys.buildVersion, buildId);
-            location.reload();
+            buildVersion && location.reload();
         }
     }
 
