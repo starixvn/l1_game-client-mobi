@@ -6,7 +6,7 @@
     --game-header-icon-unfavourite: #fff;
     --game-header-game-name-color: #2c2f3e;
     --game-header-round-id-color: #5a5a5a;
-    --color-arrow-hint: #2C2F3E;    
+    --color-arrow-hint: #2c2f3e;
 }
 
 [data-theme="dark"] .header {
@@ -15,32 +15,28 @@
     --game-header-icon-unfavourite: #7f91a4;
     --game-header-game-name-color: #ffab2b;
     --game-header-round-id-color: #7f91a4;
-    --color-arrow-hint: #fff;    
+    --color-arrow-hint: #fff;
 }
 
 [data-theme="light"] .favorite-wrapper {
-    --btn-favorite-single: linear-gradient(180deg, #FFD586 0%, #FFAA20 100%);
-    --btn-favorite-single-border: #A0A0A0;
-    --btn-favorite-color: #945F08;
+    --btn-favorite-single: linear-gradient(180deg, #ffd586 0%, #ffaa20 100%);
+    --btn-favorite-single-border: #a0a0a0;
+    --btn-favorite-color: #945f08;
     --btn-box-shadow: none;
-    --hint-arrow-color: #0E0E0E;
-
+    --hint-arrow-color: #0e0e0e;
 }
 
 [data-theme="dark"] .favorite-wrapper {
-    --btn-favorite-single: linear-gradient(180deg, #C0E0FF 1.87%, #496C92 52.4%, #2B445F 100%);
+    --btn-favorite-single: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
     --btn-favorite-single-border: #183047;
-    --btn-favorite-color: #D3E8FF;
-    --btn-box-shadow: inset 0px 2px 5px #D0E6FF;
+    --btn-favorite-color: #d3e8ff;
+    --btn-box-shadow: inset 0px 2px 5px #d0e6ff;
     --hint-arrow-color: #fff;
-    
 }
-
-
 
 .container {
     width: 100%;
-    padding: 0 .5rem;
+    padding: 0 0.5rem;
     @media (min-width: 1024px) {
         width: 87rem;
         margin: 0 auto;
@@ -68,12 +64,8 @@
         border: 1px solid var(--btn-favorite-single-border);
         box-shadow: var(--btn-box-shadow);
         box-sizing: border-box;
-        &:hover{
-            background: var(--btn-favorite-single);
-            .icon-favorite:before {
-                color: var(--btn-favorite-color);
-            }
-        }
+        pointer-events: none;
+
         .icon-favorite:before {
             color: var(--btn-favorite-color);
         }
@@ -140,10 +132,6 @@
     width: 3.6rem;
     height: 100%;
 
-    &:hover {
-        cursor: pointer;
-    }
-
     .icon-favorite-normal:before {
         font-size: 2rem;
         color: var(--game-header-icon-unfavourite);
@@ -207,18 +195,18 @@
 .unfavorite-games {
     margin-bottom: 0;
 }
-.favorite-games, .unfavorite-games {
+.favorite-games,
+.unfavorite-games {
     .game:last-child {
         margin-bottom: 0;
     }
 }
 
-
 .header {
-    margin-top: .6rem;
+    margin-top: 0.6rem;
     .header-overlay {
         background: #242424;
-        opacity: .5;
+        opacity: 0.5;
         position: absolute;
         left: 0;
         top: 0;
@@ -244,14 +232,14 @@
     margin: 0 auto;
     margin-bottom: 3rem;
     margin-top: 5rem;
-    .hint {        
+    .hint {
         position: absolute;
         bottom: -25px;
         z-index: 12;
         left: -44px;
         font-weight: bold;
         color: var(--color-arrow-hint);
-        .direction{
+        .direction {
             mask: url("/static/images/right-arrow-curved.svg") no-repeat center;
             background-size: 6.4rem 5.5rem;
             width: 6.4rem;
@@ -263,7 +251,7 @@
             top: -2rem;
             right: 0;
             left: unset;
-            .direction{
+            .direction {
                 transform: rotate(140deg);
                 position: absolute;
                 right: -2.5rem;
@@ -274,8 +262,4 @@
             }
         }
     }
-    
-    
 }
-
-
