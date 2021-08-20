@@ -5,18 +5,6 @@
 @import "../../../../assets/components/game-cards/card-animation";
 @import "../../../../assets/components/game-cards/collapsed-result";
 
-$time-draw-card-animation: 0.3s;
-
-$time-open-card1-front-animation: 0.4s;
-$time-open-card2-back-animation: 1.2s;
-$time-visbility-card-back-animation: 0.5s;
-$time-open-card-back-animation: 1s;
-$time-zoom-in-card-animation: 0.2s;
-$time-show-score-animation: 0.2s;
-$time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
-
-$time-delay-move-up-result: $time-open-card1-front-animation + $time-open-card2-back-animation + $time-visbility-card-back-animation +
-    $time-delay-zoom-in-card-animation + $time-show-score-animation * 2;
 $number-of-cards: 2;
 
 .animation-container {
@@ -31,11 +19,30 @@ $number-of-cards: 2;
 .open-cards {
     @include open-card($number-of-cards);
 
+    // card1
+    // card1 with default speed
+    --dragon-score-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
+
+    // card2
+    // overwrite medium speed
+    --card-front-speed-medium-duration-time: 0.8s;
+    --card-front-speed-medium-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
+    --card-back-speed-medium-duration-time: 1s;
+    --card-back-speed-medium-delay-time: var(--card-front-speed-medium-delay-time);
+
+    --time-zoom-in-card-animation: 0.2s;
+    --time-show-score-animation: 0.2s;
+    --time-delay-zoom-in-card-animation: calc(0.1s + var(--time-zoom-in-card-animation));
+    --tiger-score-delay-time: calc(var(--card-front-speed-medium-delay-time) + var(--card-front-speed-medium-duration-time));
+
     .animation-container {
         --move-up-distance: -2.5rem;
+        --time-delay-move-up-result: calc(var(--tiger-score-delay-time) + var(--time-show-score-animation));
+
         top: 4.5rem;
         transform: scale3d(1, 1, 1);
         transition: transform 0.7s;
+
         .score {
             font-size: 1.6rem;
             color: #fff;
@@ -82,8 +89,8 @@ $number-of-cards: 2;
 
         .animation-container {
             animation-name: zoom-in-animation, move-up-result-animation-cards;
-            animation-duration: $time-zoom-in-card-animation, 0.3s;
-            animation-delay: 0s, $time-delay-move-up-result;
+            animation-duration: var(--time-zoom-in-card-animation), 0.3s;
+            animation-delay: 0s, var(--time-delay-move-up-result);
             animation-fill-mode: forwards, both;
             animation-timing-function: ease-out, cubic-bezier(1, 0.01, 0, 1);
         }
@@ -94,38 +101,32 @@ $number-of-cards: 2;
             animation-duration: 0.3s;
             animation-fill-mode: forwards;
             animation-timing-function: ease-out;
+
             &.dragon-score {
-                animation-delay: $time-zoom-in-card-animation + $time-open-card1-front-animation;
+                animation-delay: var(--dragon-score-delay-time);
             }
             &.tiger-score {
-                animation-delay: $time-zoom-in-card-animation + $time-open-card1-front-animation + $time-open-card2-back-animation + +
-                    $time-show-score-animation;
+                animation-delay: var(--tiger-score-delay-time);
             }
         }
 
         .card1 {
             .card-back {
                 @extend %card-back-speed-default;
-                animation-delay: 0, $time-delay-zoom-in-card-animation + 0.5s;
             }
 
             .rotate-card {
                 @extend %open-card-speed-default;
-                animation-delay: 0;
             }
         }
 
         .card2 {
-            $card-time-delay: $time-open-card1-front-animation + $time-delay-zoom-in-card-animation + $time-show-score-animation;
-
             .card-back {
                 @extend %card-back-speed-medium;
-                animation-delay: $card-time-delay, $card-time-delay + $time-open-card2-back-animation;
             }
 
             .rotate-card {
                 @extend %open-card-speed-medium;
-                animation-delay: $card-time-delay;
             }
         }
     }

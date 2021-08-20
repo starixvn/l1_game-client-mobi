@@ -1,12 +1,5 @@
 @use "sass:math";
 
-@mixin draw-card($card-number, $time-duration) {
-    animation-name: draw-card-animation;
-    animation-duration: math.div($time-duration, $card-number);
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
-}
-
 .card-back {
     background: url("/static/images/cards/card-back.svg") no-repeat center;
     background-size: 8.6rem 11.9rem;
@@ -44,6 +37,21 @@
 }
 
 @mixin open-card($number-of-cards) {
+    --card-front-speed-default-duration-time: 0.4s;
+    --card-front-speed-default-delay-time: 0.1s;
+    --card-back-speed-default-duration-time: 0.5s;
+    --card-back-speed-default-delay-time: 0s;
+
+    --card-front-speed-medium-duration-time: 1s;
+    --card-front-speed-medium-delay-time: 0.1s;
+    --card-back-speed-medium-duration-time: 1.2s;
+    --card-back-speed-medium-delay-time: 0s;
+
+    --card-front-speed-slow-duration-time: 2s;
+    --card-front-speed-slow-delay-time: 0.1s;
+    --card-back-speed-slow-duration-time: 2.2s;
+    --card-back-speed-slow-delay-time: 0s;
+
     .card-back {
         display: none;
     }
@@ -67,17 +75,20 @@
 
     %open-card-speed-default {
         @extend %open-card;
-        animation: open-card-front-animation-default 0.4s 0.1s ease-in forwards;
+        animation: open-card-front-animation-default var(--card-front-speed-default-duration-time)
+            var(--card-front-speed-default-delay-time) ease-in forwards;
     }
 
     %open-card-speed-medium {
         @extend %open-card;
-        animation: open-card-front-animation-medium 1s 0.1s ease-in forwards;
+        animation: open-card-front-animation-medium var(--card-front-speed-medium-duration-time) var(--card-front-speed-medium-delay-time)
+            ease-in forwards;
     }
 
     %open-card-speed-slow {
         @extend %open-card;
-        animation: open-card-front-animation-slow 2s 0.1s ease-in forwards;
+        animation: open-card-front-animation-slow var(--card-front-speed-slow-duration-time) var(--card-front-speed-slow-delay-time) ease-in
+            forwards;
     }
 }
 
@@ -95,29 +106,19 @@
 
     %card-back-speed-default {
         @extend .card-back;
-        animation-name: hide-card-back-animation-default, visbility-card-back-animation;
-        animation-duration: 0.5s, 0.5s;
-        animation-delay: 0s, 0.5s;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        animation: hide-card-back-animation-default var(--card-back-speed-default-duration-time) var(--card-back-speed-default-delay-time)
+            forwards;
     }
 
     %card-back-speed-medium {
         @extend .card-back;
-        animation-name: hide-card-back-animation-medium, visbility-card-back-animation;
-        animation-duration: 1.2s, 0.5s;
-        animation-delay: 0s, 1.2s;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        animation: hide-card-back-animation-medium var(--card-back-speed-medium-duration-time) var(--card-back-speed-medium-delay-time)
+            forwards;
     }
 
     %card-back-speed-slow {
         @extend .card-back;
-        animation-name: hide-card-back-animation-slow, visbility-card-back-animation;
-        animation-duration: 2.2s, 0.5s;
-        animation-delay: 0s, 2.2s;
-        animation-fill-mode: forwards;
-        animation-timing-function: linear;
+        animation: hide-card-back-animation-slow var(--card-back-speed-slow-duration-time) var(--card-back-speed-slow-delay-time) forwards;
     }
 }
 
@@ -324,12 +325,5 @@
 
     100% {
         transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 0deg);
-    }
-}
-
-@keyframes visbility-card-back-animation {
-    0%,
-    100% {
-        visibility: hidden;
     }
 }
