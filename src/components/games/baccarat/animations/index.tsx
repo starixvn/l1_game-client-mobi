@@ -72,8 +72,8 @@ class PlayerBankerResultComponent extends React.PureComponent<
 
             const cardOpenedTimes = [
                 { t: tOpenPlayer1, c: this.props.result.player.card1, isBanker: false },
-                { t: tOpenPlayer2, c: this.props.result.player.card2, isBanker: false },
                 { t: tOpenBanker1, c: this.props.result.banker.card1, isBanker: true },
+                { t: tOpenPlayer2, c: this.props.result.player.card2, isBanker: false },
                 { t: tOpenBanker2, c: this.props.result.banker.card2, isBanker: true },
                 {
                     t: tOpenPlayer3,
