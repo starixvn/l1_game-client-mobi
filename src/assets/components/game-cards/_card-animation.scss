@@ -95,7 +95,7 @@
 
     %card-back-speed-default {
         @extend .card-back;
-        animation-name: hide-card-back-animation-default, fr-noneOut-anim;
+        animation-name: hide-card-back-animation-default, visbility-card-back-animation;
         animation-duration: 0.5s, 0.5s;
         animation-delay: 0s, 0.5s;
         animation-fill-mode: forwards;
@@ -104,7 +104,7 @@
 
     %card-back-speed-medium {
         @extend .card-back;
-        animation-name: hide-card-back-animation-medium, fr-noneOut-anim;
+        animation-name: hide-card-back-animation-medium, visbility-card-back-animation;
         animation-duration: 1.2s, 0.5s;
         animation-delay: 0s, 1.2s;
         animation-fill-mode: forwards;
@@ -113,7 +113,7 @@
 
     %card-back-speed-slow {
         @extend .card-back;
-        animation-name: hide-card-back-animation-slow, fr-noneOut-anim;
+        animation-name: hide-card-back-animation-slow, visbility-card-back-animation;
         animation-duration: 2.2s, 0.5s;
         animation-delay: 0s, 2.2s;
         animation-fill-mode: forwards;
