@@ -132,12 +132,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
         &.player {
             .score {
-                --left-value: -3.2rem;
+                --left-value: .8rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
                 @media (min-width: 768px) {
-                    --left-value: 1.8rem;
+                    --left-value: .8rem;
                 }
                 &.group-2-cards {
                     --left-value: 0.8rem;
@@ -201,7 +201,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation, 6) +
                             $time-show-score-animation,
                         $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 3, 6) + $time-blink-score-animation * 2 +
-                            $time-show-score-animation,
+                            $time-show-score-animation*2 + $time-delay-open-card-2,
                         $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 5, 6) + $time-show-score-animation * 2 +
                             $time-blink-score-animation * 5 + $time-delay-open-card-4 + 0.5s;
                 }
@@ -211,7 +211,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation, 6) +
                             $time-show-score-animation,
                         $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 3, 6) + $time-blink-score-animation*2 +
-                            $time-show-score-animation;
+                            $time-show-score-animation*2 + $time-delay-open-card-2;
                     animation-fill-mode: forwards, forwards;
                     animation-timing-function: ease-in-out, ease-in-out;
                 }
