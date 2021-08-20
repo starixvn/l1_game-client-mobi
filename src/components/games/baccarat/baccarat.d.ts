@@ -1,3 +1,5 @@
+import { GameBaseState } from "../../shared/game-base/type";
+
 export type SettlementResult = {
     banker: boolean;
     bankerPair: boolean;
@@ -39,3 +41,7 @@ export type CardOrder = {
     value: CardType;
     order: number;
 };
+
+export interface BaccaratState<Result, SettlementResult> extends GameBaseState<any, any> {
+    isOpenCardThree?: boolean;
+}

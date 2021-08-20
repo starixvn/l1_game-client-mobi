@@ -32,7 +32,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
+import { GameBaseProps, GameBaseState, GameState, NewStateDetectorProps, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -369,23 +369,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (this.state.gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
-                ...this.getStateByNextGameState(newGameState),
+                ...this.getStateByNextGameState(newGameState, this.getNewStateDetector(newGameState)),
             };
 
             this.setState(newState);
         }
     }
 
-    getStateByNextGameState(nextGameState: GameState) {
+    getNewStateDetector(nextGameState: GameState) {
         const { roundId, displayPopup, notice } = this.state;
         const { durations } = this.props;
-        const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
-
-        if (nextGameState === GameState.InRound) {
-            this.betWin = 0;
-        }
-
-        const newStateDetector = [
+        return [
             {
                 condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState),
                 state: {
@@ -413,6 +407,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 },
             },
         ];
+    }
+
+    getStateByNextGameState(nextGameState: GameState, newStateDetector: NewStateDetectorProps[]) {
+        const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
+        if (nextGameState === GameState.InRound) {
+            this.betWin = 0;
+        }
 
         return newStateDetector.reduce(
             (newState, stateDetector) => {
@@ -828,7 +829,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         const animationDuration = this.getFinishAnimationDuration() / 1000;
-
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
