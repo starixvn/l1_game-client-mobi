@@ -64,9 +64,9 @@ class PlayerBankerResultComponent extends React.PureComponent<
         if (this.props.playResultAnimation) {
             const isOpenCardThree = this.props.cardThreeOptions.isOpenCardThree;
             const tOpenPlayer1 = isOpenCardThree ? 0 : 700;
-            const tOpenPlayer2 = isOpenCardThree ? 0 : 1500;
+            const tOpenPlayer2 = isOpenCardThree ? 0 : 2300;
             const tOpenPlayer3 = isOpenCardThree ? 1300 : 4400;
-            const tOpenBanker1 = isOpenCardThree ? 0 : 2300;
+            const tOpenBanker1 = isOpenCardThree ? 0 : 1500;
             const tOpenBanker2 = isOpenCardThree ? 0 : 3100;
             const tOpenBanker3 = isOpenCardThree ? 1400 : 5800;
 
