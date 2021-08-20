@@ -14,21 +14,21 @@ export const FavoriteGuide: React.FC = () => {
     const { gameSettings } = appSettings;
 
     return (
-        <div className={Styles["container"]}>            
-            <p>{t("favorite-setting-guideline")}</p>  
-                  
+        <div className={Styles["container"]}>
+            <p>{t("favorite-setting-guideline")}</p>
+
             <div className={Styles["favorite-wrapper"]}>
                 <div className={Styles["favorite-games"]}>
                     <div className={`${Styles[favoriteBtnClass]} ${Styles["btn-favorite-single"]}`}>
                         <span className={`icon-favorite ${Styles[favoriteIconClass]}`}></span>
-                    </div>  
-                </div>                  
-                <div className={`${Styles["hint"]} ${Styles["top"]}`}>  
-                    <div className={Styles["text"]}>{t("favorite-setting-btn-hint")}</div>                  
-                    <span className={Styles["direction"]}></span>                    
-                </div>                
+                    </div>
+                </div>
+                <div className={`${Styles["hint"]} ${Styles["top"]}`}>
+                    <div className={Styles["text"]}>{t("favorite-setting-btn-hint")}</div>
+                    <span className={Styles["direction"]}></span>
+                </div>
                 <div className={Styles["favorite-setting"]}>
-                    <div className={Styles["title"]}>Game yêu thích</div>
+                    <div className={Styles["title"]}>{t("menu-favorite-setting")}</div>
                     <ul className={Styles["favorite-games"]}>
                         {favoriteGames.map((gameId, index) => (
                             <li className={`${Styles["game"]}`} key={index}>
@@ -62,18 +62,19 @@ export const FavoriteGuide: React.FC = () => {
                         ))}
                     </ul>
                 </div>
-                <div className= {Styles["hint"]}>                    
-                    <span className={Styles["direction"]}></span>{t("header-favorite-btn-hint")}
+                <div className={Styles["hint"]}>
+                    <span className={Styles["direction"]}></span>
+                    {t("header-favorite-btn-hint")}
                 </div>
             </div>
-            
+
             <div>
                 {t("favorite-btn-guideline").split("{icon}")[0]}
                 <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
                 {t("favorite-btn-guideline").split("{icon}")[1]}
             </div>
             {/* <div className={Styles["header-favorite-btn-hint"]}>{t("header-favorite-btn-hint")}</div> */}
-            
+
             <div className={Styles["header"]}>
                 <div className={Styles[favoriteBtnClass]}>
                     <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
