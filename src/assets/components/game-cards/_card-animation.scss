@@ -52,9 +52,7 @@
         .card#{$i} {
             position: relative;
             overflow: hidden;
-            transform: translateZ(0);
             backface-visibility: hidden;
-            animation: show-card-animation 0.5s 7.25s forwards;
         }
     }
 }
@@ -69,17 +67,17 @@
 
     %open-card-speed-default {
         @extend %open-card;
-        animation: open-card-front-animation-default 0.4s 0.6s ease-in forwards;
+        animation: open-card-front-animation-default 0.4s 0.1s ease-in forwards;
     }
 
     %open-card-speed-medium {
         @extend %open-card;
-        animation: open-card-front-animation-medium 2.3s 0.6s ease-in forwards;
+        animation: open-card-front-animation-medium 2.3s 0.1s ease-in forwards;
     }
 
     %open-card-speed-high {
         @extend %open-card;
-        animation: open-card-front-animation-slow 3.8s 0.6s ease-in forwards;
+        animation: open-card-front-animation-slow 3.8s 0.1s ease-in forwards;
     }
 }
 
@@ -99,7 +97,7 @@
         @extend .card-back;
         animation-name: hide-card-back-animation-default, fr-noneOut-anim;
         animation-duration: 0.5s, 0.5s;
-        animation-delay: 0.5s, 1s;
+        animation-delay: 0s, 0.5s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
@@ -108,7 +106,7 @@
         @extend .card-back;
         animation-name: hide-card-back-animation-medium, fr-noneOut-anim;
         animation-duration: 2.5s, 0.5s;
-        animation-delay: 0.5s, 3s;
+        animation-delay: 0s, 2.5s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
@@ -117,7 +115,7 @@
         @extend .card-back;
         animation-name: hide-card-back-animation-slow, fr-noneOut-anim;
         animation-duration: 4s, 0.5s;
-        animation-delay: 0.5s, 4.5s;
+        animation-delay: 0s, 4s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
@@ -180,7 +178,7 @@
         transform: scale3d(0.8, 0.8, 0.8);
     }
 
-    80% {
+    100% {
         transform: scale3d(1, 1, 1);
     }
 }
@@ -333,16 +331,5 @@
     0%,
     100% {
         visibility: hidden;
-    }
-}
-
-@keyframes show-card-animation {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-        margin: 0 3px;
     }
 }

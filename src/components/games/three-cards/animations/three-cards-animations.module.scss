@@ -6,11 +6,11 @@
 
 $time-draw-card-animation: 0.6s;
 $time-open-card-animation: 1.2s;
+$time-open-card-back-animation: 1s;
 
 $time-zoom-in-card-animation: 0.3s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
-$time-delay-move-up-result: 0.4s + $time-open-card-animation + $time-delay-zoom-in-card-animation;
 $number-of-cards: 3;
 
 .animation-container {
@@ -32,10 +32,13 @@ $number-of-cards: 3;
 
     // normal mode
     &.normal-mode {
+        --time-delay-move-up-result: calc(0.6s + #{$time-open-card-animation} + #{$time-delay-zoom-in-card-animation});
+
         .animation-container {
             --move-up-distance: -1.2rem;
             display: grid;
-            grid-template-columns: repeat(3, 8.7rem);
+            grid-template-columns: repeat(3, 7.757rem);
+            grid-gap: 0.5rem;
             top: 2.4rem;
             transform: scale3d(1, 1, 1);
             transition: transform 0.7s;
@@ -45,18 +48,20 @@ $number-of-cards: 3;
             .animation-container {
                 animation-name: zoom-in-animation, move-up-result-animation-cards;
                 animation-duration: $time-zoom-in-card-animation, 0.3s;
-                animation-delay: 0s, $time-delay-move-up-result;
-                animation-fill-mode: forwards, forwards;
-                animation-timing-function: cubic-bezier(0,0,.59,1), cubic-bezier(1, 0.01, 0, 1);
+                animation-delay: 0s, var(--time-delay-move-up-result);
+                animation-fill-mode: forwards, both;
+                animation-timing-function: ease-out, cubic-bezier(1, 0.01, 0, 1);
             }
 
             @for $i from 1 through 3 {
                 $card-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($i - 1)) + $time-delay-zoom-in-card-animation;
 
                 .card#{$i} {
+                    width: 7.757rem;
+
                     .card-back {
                         @extend %card-back-speed-default;
-                        animation-delay: $card-time-delay;
+                        animation-delay: $card-time-delay, $card-time-delay + (math.div($time-open-card-back-animation, 2));
                     }
 
                     .rotate-card {
@@ -67,12 +72,14 @@ $number-of-cards: 3;
             }
 
             &.delay-3rd-card {
+                --time-delay-move-up-result: calc(3s + #{$time-open-card-animation} + #{$time-delay-zoom-in-card-animation});
+
                 .card3 {
-                    $card-3rd-time-delay: 0.4s + (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
+                    $card-3rd-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
                         $time-delay-zoom-in-card-animation;
                     .card-back {
                         @extend %card-back-speed-medium;
-                        animation-delay: $card-3rd-time-delay;
+                        animation-delay: $card-3rd-time-delay, $card-3rd-time-delay + 2.5s;
                     }
 
                     .rotate-card {
@@ -83,7 +90,7 @@ $number-of-cards: 3;
             }
 
             .card-back {
-                background-size: 7.757rem 110.74rem;
+                background-size: 7.757rem 10.74rem;
                 width: 7.757rem;
                 height: 10.74rem;
             }
