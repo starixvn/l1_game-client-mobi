@@ -31,12 +31,11 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
     const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
     const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
-    const startIndex = (selectedPage - 1) * GamesInOnePage;
 
-    const result = tabFavoriteGames.concat(tabUnfavoriteGames);
-    gamesOrder = result;
+    gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
+    const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;
 
-    return result.slice(startIndex, startIndex + GamesInOnePage);
+    return gamesOrder.slice(startIndex, startIndex + GamesInOnePage);
 };
 
 const getCategoryByGameId = (gameId: number) => {
