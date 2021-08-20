@@ -35,11 +35,11 @@ $number-of-cards: 3;
         --time-delay-move-up-result: calc(0.6s + #{$time-open-card-animation} + #{$time-delay-zoom-in-card-animation});
 
         .animation-container {
-            --move-up-distance: -1.2rem;
+            --move-up-distance: -3rem;
             display: grid;
             grid-template-columns: repeat(3, 7.757rem);
             grid-gap: 0.5rem;
-            top: 2.4rem;
+            top: 4.2rem;
             transform: scale3d(1, 1, 1);
             transition: transform 0.7s;
         }
@@ -72,14 +72,14 @@ $number-of-cards: 3;
             }
 
             &.delay-3rd-card {
-                --time-delay-move-up-result: calc(3s + #{$time-open-card-animation} + #{$time-delay-zoom-in-card-animation});
+                --time-delay-move-up-result: calc(1.2s + #{$time-open-card-animation} + #{$time-delay-zoom-in-card-animation});
 
                 .card3 {
                     $card-3rd-time-delay: (math.div($time-open-card-animation, $number-of-cards) * ($number-of-cards - 1)) +
                         $time-delay-zoom-in-card-animation;
                     .card-back {
                         @extend %card-back-speed-medium;
-                        animation-delay: $card-3rd-time-delay, $card-3rd-time-delay + 2.5s;
+                        animation-delay: $card-3rd-time-delay, $card-3rd-time-delay + 1.2s;
                     }
 
                     .rotate-card {

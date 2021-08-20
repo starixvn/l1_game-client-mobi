@@ -72,12 +72,12 @@
 
     %open-card-speed-medium {
         @extend %open-card;
-        animation: open-card-front-animation-medium 2.3s 0.1s ease-in forwards;
+        animation: open-card-front-animation-medium 1s 0.1s ease-in forwards;
     }
 
-    %open-card-speed-high {
+    %open-card-speed-slow {
         @extend %open-card;
-        animation: open-card-front-animation-slow 3.8s 0.1s ease-in forwards;
+        animation: open-card-front-animation-slow 2s 0.1s ease-in forwards;
     }
 }
 
@@ -105,17 +105,17 @@
     %card-back-speed-medium {
         @extend .card-back;
         animation-name: hide-card-back-animation-medium, fr-noneOut-anim;
-        animation-duration: 2.5s, 0.5s;
-        animation-delay: 0s, 2.5s;
+        animation-duration: 1.2s, 0.5s;
+        animation-delay: 0s, 1.2s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
 
-    %card-back-speed-high {
+    %card-back-speed-slow {
         @extend .card-back;
         animation-name: hide-card-back-animation-slow, fr-noneOut-anim;
-        animation-duration: 4s, 0.5s;
-        animation-delay: 0s, 4s;
+        animation-duration: 2.2s, 0.5s;
+        animation-delay: 0s, 2.2s;
         animation-fill-mode: forwards;
         animation-timing-function: linear;
     }
