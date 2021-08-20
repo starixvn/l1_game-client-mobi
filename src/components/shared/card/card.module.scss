@@ -109,6 +109,7 @@
     &.card {
         &.small {
             .card-shadow {
+                box-shadow: none !important;
                 width: 5rem;
             }
 
