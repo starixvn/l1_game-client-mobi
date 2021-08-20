@@ -47,16 +47,9 @@ export const GameCategory: React.FC<{
     }, {});
 
     useEffect(() => {
-        const getFocusOnSelectedCategory = () => {
-            if (wrapperRef?.current) {
-                wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100;
-            }
-        };
-
-        window.addEventListener("orientationchange", getFocusOnSelectedCategory);
-        getFocusOnSelectedCategory();
-
-        return () => window.removeEventListener("orientationchange", getFocusOnSelectedCategory);
+        if (wrapperRef?.current) {
+            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100;
+        }
     }, [wrapperRef?.current, selectedCategory]);
 
     return (
