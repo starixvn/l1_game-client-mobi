@@ -3,8 +3,7 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 
 import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameState, NewStateDetectorProps } from "../../shared/game-base/type";
-import { BaccaratState } from "./baccarat";
+import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { BaccaratResult, BaccaratResultCollapse, generateSettlementInfo } from "./animations";
 import BaccaratBetOptions from "./bet-options";
@@ -14,11 +13,11 @@ import { Choices, StatisticRuleMapping, GetTranslateChoiceMapping } from "./bacc
 import { StatisticFollowPercent } from "../../shared/statistic";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 
-class Baccarat extends GameBase<GameBaseProps, BaccaratState<Result, SettlementResult>> {
+class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
-        this.state = { ...this.defaultState, isOpenCardThree: false };
+        this.state = { ...this.defaultState };
     }
 
     getMainOptions(): string[] {
@@ -106,8 +105,6 @@ class Baccarat extends GameBase<GameBaseProps, BaccaratState<Result, SettlementR
                         player: { card1: { card: 8, type: 3 }, card2: { card: 5, type: 3 }, card3: { card: 8, type: 1 } },
                     }
                 }
-                isOpenCardThree={this.state.isOpenCardThree}
-                setIsOpenCardThree={this.setIsOpenCardThree.bind(this)}
             />
         );
     }
@@ -123,8 +120,6 @@ class Baccarat extends GameBase<GameBaseProps, BaccaratState<Result, SettlementR
                     }
                 }
                 settlementResult={settlementResult}
-                isOpenCardThree={this.state.isOpenCardThree}
-                setIsOpenCardThree={this.setIsOpenCardThree.bind(this)}
             />
         );
     }
@@ -147,21 +142,6 @@ class Baccarat extends GameBase<GameBaseProps, BaccaratState<Result, SettlementR
         }
 
         return super.getFinishAnimationDuration();
-    }
-
-    setIsOpenCardThree = (isOpenCardThree: boolean) => {
-        this.setState({ isOpenCardThree });
-    };
-
-    getStateByNextGameState(nextGameState: GameState, newStateDetector: NewStateDetectorProps[]) {
-        newStateDetector.push({
-            condition: [GameState.InRound].includes(nextGameState),
-            state: {
-                isOpenCardThree: false,
-            },
-        });
-
-        return super.getStateByNextGameState(super.determineGameState(nextGameState), newStateDetector);
     }
 }
 

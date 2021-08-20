@@ -29,13 +29,13 @@ export const generateResult = (cards: CardOrder[], viewMode: ViewMode) => {
 const sumScore = (score: number, card: number) => {
     return card + 1 >= 10 ? score : (score + card + 1) % 10;
 };
+
 class PlayerBankerResultComponent extends React.PureComponent<
     {
         playResultAnimation: boolean;
         result?: Result;
         viewMode: ViewMode;
         texts: any;
-        cardThreeOptions: { isOpenCardThree: boolean; setIsOpenCardThree: Function };
     },
     {
         playResultAnimation: boolean;
@@ -62,33 +62,22 @@ class PlayerBankerResultComponent extends React.PureComponent<
 
     componentDidMount() {
         if (this.props.playResultAnimation) {
-            const isOpenCardThree = this.props.cardThreeOptions.isOpenCardThree;
-            const tOpenPlayer1 = isOpenCardThree ? 0 : 700;
-            const tOpenPlayer2 = isOpenCardThree ? 0 : 2300;
-            const tOpenPlayer3 = isOpenCardThree ? 1300 : 4400;
-            const tOpenBanker1 = isOpenCardThree ? 0 : 1500;
-            const tOpenBanker2 = isOpenCardThree ? 0 : 3100;
-            const tOpenBanker3 = isOpenCardThree ? 1400 : 5800;
-
             const cardOpenedTimes = [
-                { t: tOpenPlayer1, c: this.props.result.player.card1, isBanker: false },
-                { t: tOpenBanker1, c: this.props.result.banker.card1, isBanker: true },
-                { t: tOpenPlayer2, c: this.props.result.player.card2, isBanker: false },
-                { t: tOpenBanker2, c: this.props.result.banker.card2, isBanker: true },
+                { t: 700, c: this.props.result.player.card1, isBanker: false },
+                { t: 1500, c: this.props.result.banker.card1, isBanker: true },
+                { t: 2300, c: this.props.result.player.card2, isBanker: false },
+                { t: 3100, c: this.props.result.banker.card2, isBanker: true },
                 {
-                    t: tOpenPlayer3,
+                    t: 4400,
                     c: this.props.result.player.card3 ?? this.props.result.banker.card3,
                     isBanker: !this.props.result.player.card3,
                 },
-                { t: tOpenBanker3, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
+                { t: 5800, c: !!this.props.result.player.card3 ? this.props.result.banker.card3 : null, isBanker: true },
             ];
 
             cardOpenedTimes
                 .filter((ct) => !!ct.c)
                 .forEach((ct, i) => {
-                    if (i === 2) {
-                        this.props.cardThreeOptions.setIsOpenCardThree(true);
-                    }
                     const timeout = setTimeout(() => {
                         if (ct.isBanker) {
                             this.setState({
@@ -165,11 +154,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
     }
 }
 
-export const BaccaratResult: React.FC<{ result?: Result; isOpenCardThree: boolean; setIsOpenCardThree: Function }> = ({
-    result,
-    isOpenCardThree,
-    setIsOpenCardThree,
-}) => {
+export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation, viewMode } = useGameContext();
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
     const suffix = !result.player.card3 && !!result.banker.card3 ? "-banker" : "";
@@ -183,23 +168,12 @@ export const BaccaratResult: React.FC<{ result?: Result; isOpenCardThree: boolea
 
     return (
         <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
-            <PlayerBankerResultComponent
-                playResultAnimation={playResultAnimation}
-                result={result}
-                viewMode={viewMode}
-                texts={texts}
-                cardThreeOptions={{ isOpenCardThree, setIsOpenCardThree }}
-            />
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} texts={texts} />
         </div>
     );
 };
 
-export const BaccaratResultCollapse: React.FC<{
-    result: Result;
-    settlementResult: SettlementResult;
-    isOpenCardThree: boolean;
-    setIsOpenCardThree: Function;
-}> = ({ result, settlementResult, isOpenCardThree, setIsOpenCardThree }) => {
+export const BaccaratResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { gameSetting, playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const resultCount = 4 + (!!result.player.card3 ? 1 : 0) + (!!result.banker.card3 ? 1 : 0);
@@ -216,13 +190,7 @@ export const BaccaratResultCollapse: React.FC<{
                 playResultAnimation ? Styles[classAnimation] : ""
             }`}
         >
-            <PlayerBankerResultComponent
-                playResultAnimation={playResultAnimation}
-                result={result}
-                viewMode={viewMode}
-                texts={texts}
-                cardThreeOptions={{ isOpenCardThree, setIsOpenCardThree }}
-            />
+            <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} texts={texts} />
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     {settlementResult.player ? t("player") : settlementResult.banker ? t("banker") : t("tie")}

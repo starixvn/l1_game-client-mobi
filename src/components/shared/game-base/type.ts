@@ -155,8 +155,3 @@ export enum ViewMode {
     full,
     collapse,
 }
-
-export type NewStateDetectorProps = {
-    condition: boolean;
-    state: object;
-};
