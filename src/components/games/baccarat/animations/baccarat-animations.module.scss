@@ -410,7 +410,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         animation-name: zoom-in-animation, move-left, move-up-result-animation-cards;
         animation-duration: $time-zoom-in-card-animation, $time-move-left-player, 0.3s;        
         animation-fill-mode: forwards, forwards, forwards;
-        animation-timing-function: cubic-bezier(.17,.67,.83,.67), linear, cubic-bezier(1, 0.01, 1, 0.01);
+        animation-timing-function: cubic-bezier(.17,.67,.83,.67), linear,  cubic-bezier(1, 0.01, 1, 0.01);
     }
 }
 
@@ -429,6 +429,8 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     math.div($time-draw-card-animation, 4) + $time-delay-open-card-4 + 0.5s + $time-show-score-animation * 2 +
     $time-blink-score-animation * 5 + $time-move-left-player + 0.2s + 0.2s;
 }
+
+
 
 
 
