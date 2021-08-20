@@ -37,7 +37,6 @@ export const GameCategory: React.FC<{
 }> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const selectedTabRef = useRef<HTMLLIElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
         const categoryLength = category !== "favorite" ? GameCategoryConfig[category].length : favoriteGames.length;
@@ -50,8 +49,7 @@ export const GameCategory: React.FC<{
     useEffect(() => {
         const getFocusOnSelectedCategory = () => {
             if (wrapperRef?.current) {
-                const boundingRect = selectedTabRef.current.getBoundingClientRect();
-                wrapperRef.current.scrollLeft = boundingRect.left - 15;
+                wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100;
             }
         };
 
@@ -59,7 +57,7 @@ export const GameCategory: React.FC<{
         getFocusOnSelectedCategory();
 
         return () => window.removeEventListener("orientationchange", getFocusOnSelectedCategory);
-    }, [wrapperRef?.current, selectedTabRef?.current]);
+    }, [wrapperRef?.current, selectedCategory]);
 
     return (
         <div ref={wrapperRef} className={styles["category-container"]}>
@@ -70,7 +68,6 @@ export const GameCategory: React.FC<{
                             ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}
                         `}
                         key={categoryKey}
-                        ref={selectedCategory === GameCategoryType[categoryKey] ? selectedTabRef : null}
                     >
                         <div className="d-flex">
                             <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
