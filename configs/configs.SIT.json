@@ -1,4 +1,5 @@
 {
+    "socketGatewayUri": "https://l1gwsit.sgamesuat.com",
     "proxy": {
         "ssl": true,
         "uri": "uatproxy.sabagame.com",
