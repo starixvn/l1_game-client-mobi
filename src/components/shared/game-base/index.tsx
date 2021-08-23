@@ -566,7 +566,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    placeBet(betChoice: string, amount: number, betPosition: BetPosition) {
+    placeBet(betChoice: string, amount: number, betPosition?: BetPosition) {
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
@@ -869,7 +869,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderSettlementInfo={this.renderSettlementInfo}
-                                        timeToShowInSecond={(durations.showResult + (durations.balancingBet ?? 0)) - animationDuration }
+                                        timeToShowInSecond={durations.showResult + (durations.balancingBet ?? 0) - animationDuration}
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
