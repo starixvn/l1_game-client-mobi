@@ -60,13 +60,21 @@ class DragonTiger extends GameBase<GameBaseProps, GameBaseState<Result, Settleme
     }
 
     renderResult() {
-        const { result, settlementResult } = this.state;
-        return <DragonTigerResult result={result} settlementResult={settlementResult} />;
+        return (
+            <DragonTigerResult
+                result={this.state.result ?? { dragon: { card: 1, type: 2 }, tiger: { card: 5, type: 1 } }}
+                settlementResult={this.state.settlementResult ?? { dragon: false, tiger: true, tie: false }}
+            />
+        );
     }
 
     renderResultCollapse() {
-        const { result, settlementResult } = this.state;
-        return <DragonTigerResultCollapse result={result} settlementResult={settlementResult} />;
+        return (
+            <DragonTigerResultCollapse
+                result={this.state.result ?? { dragon: { card: 1, type: 2 }, tiger: { card: 5, type: 1 } }}
+                settlementResult={this.state.settlementResult ?? { dragon: false, tiger: true, tie: false }}
+            />
+        );
     }
 
     renderBoard() {

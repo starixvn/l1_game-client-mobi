@@ -94,18 +94,7 @@ class PlayerBankerResultComponent extends React.PureComponent<
                     this.timeouts.push(timeout);
                 });
         } else {
-            let pc = sumScore(0, this.props.result.player.card1.card);
-            pc = sumScore(pc, this.props.result.player.card2.card);
-            pc = sumScore(pc, this.props.result.player.card3?.card ?? -1);
-
-            let bc = sumScore(0, this.props.result.banker.card1.card);
-            bc = sumScore(bc, this.props.result.banker.card2.card);
-            bc = sumScore(bc, this.props.result.banker.card3?.card ?? -1);
-
-            this.setState({
-                playerScore: pc,
-                bankerScore: bc,
-            });
+            this.updateScorePlayerBanker();
         }
     }
 
@@ -116,6 +105,27 @@ class PlayerBankerResultComponent extends React.PureComponent<
             });
         }
     }
+
+    componentDidUpdate() {
+        if (!this.props.playResultAnimation) {
+            this.updateScorePlayerBanker();
+        }
+    }
+
+    updateScorePlayerBanker = () => {
+        let pc = sumScore(0, this.props.result.player.card1.card);
+        pc = sumScore(pc, this.props.result.player.card2.card);
+        pc = sumScore(pc, this.props.result.player.card3?.card ?? -1);
+
+        let bc = sumScore(0, this.props.result.banker.card1.card);
+        bc = sumScore(bc, this.props.result.banker.card2.card);
+        bc = sumScore(bc, this.props.result.banker.card3?.card ?? -1);
+
+        this.setState({
+            playerScore: pc,
+            bankerScore: bc,
+        });
+    };
 
     render() {
         const playerCards = GetPlayerCardsResult(this.props.result);

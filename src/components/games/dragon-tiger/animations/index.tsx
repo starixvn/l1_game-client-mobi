@@ -77,7 +77,7 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
             timeouts.forEach((timeout) => {
                 clearTimeout(timeout);
             });
-    }, []);
+    }, [result]);
 
     return (
         <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
