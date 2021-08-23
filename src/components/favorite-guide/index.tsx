@@ -68,12 +68,11 @@ export const FavoriteGuide: React.FC = () => {
                 </div>
             </div>
 
-            <div>
+            <div className={Styles["game-favortite-paragraph"]}>
                 {t("favorite-btn-guideline").split("{icon}")[0]}
                 <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
                 {t("favorite-btn-guideline").split("{icon}")[1]}
             </div>
-            {/* <div className={Styles["header-favorite-btn-hint"]}>{t("header-favorite-btn-hint")}</div> */}
 
             <div className={Styles["header"]}>
                 <div className={Styles[favoriteBtnClass]}>

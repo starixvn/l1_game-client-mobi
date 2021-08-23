@@ -121,6 +121,15 @@
     &.border-radius-bottom {
         border-radius: 0.5rem;
     }
+    .favorite-btn .icon-favorite-normal:before {
+        color: #fff;
+    }
+}
+
+.game-favortite-paragraph .icon-favorite:before{
+    font-size: 1.8rem;
+    position: relative;
+    top: .3rem;
 }
 
 .favorite-btn {
