@@ -855,7 +855,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderSettlementInfo={this.renderSettlementInfo}
-                                        timeToShowInSecond={durations.showResult - animationDuration}
+                                        timeToShowInSecond={(durations.showResult + (durations.balancingBet ?? 0)) - animationDuration }
                                     />
                                 )}
                                 {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
