@@ -78,6 +78,7 @@ export const FavoriteGuide: React.FC = () => {
                 <div className={Styles[favoriteBtnClass]}>
                     <span className={`icon-favorite-normal ${Styles["icon-favorite-normal"]}`}></span>
                 </div>
+                <div className={Styles["header-overlay-img"]}></div>
                 <div className={Styles["header-overlay"]}></div>
                 <div className={Styles["header-left"]}>
                     <div className={Styles["title-roundID"]}>

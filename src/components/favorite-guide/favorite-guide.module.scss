@@ -7,6 +7,8 @@
     --game-header-game-name-color: #2c2f3e;
     --game-header-round-id-color: #5a5a5a;
     --color-arrow-hint: #2c2f3e;
+    --game-header-overlay-image: url(/static/images/game-header-overlay.png);
+    --game-header-border: linear-gradient(180deg, #FFB93A 0%, #FFB640 100%);
 }
 
 [data-theme="dark"] .header {
@@ -16,6 +18,8 @@
     --game-header-game-name-color: #ffab2b;
     --game-header-round-id-color: #7f91a4;
     --color-arrow-hint: #fff;
+    --game-header-overlay-image: url(/static/images/dark-mode-game-header-overlay.png);
+    --game-header-border: linear-gradient(180deg, #7FA1C4 0%, #2F4761 100%);
 }
 
 [data-theme="light"] .favorite-wrapper {
@@ -113,16 +117,39 @@
     position: relative;
     width: 32rem;
     height: 5.6rem;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    border-radius: 4px;
     cursor: auto;
     margin: auto;
+    margin-top: 0.6rem;
 
     &.border-radius-bottom {
         border-radius: 0.5rem;
     }
     .favorite-btn .icon-favorite-normal:before {
         color: #fff;
+    }
+
+    .header-overlay, .header-overlay-img {
+        background: rgba(36, 36, 36, 0.5);
+        position: absolute;
+        left: .1rem;
+        top: .2rem;
+        z-index: 10;
+        right: .1rem;
+        bottom: 0rem;
+        border-radius: 4px;
+    }
+    .header-overlay-img {
+        background: var(--game-header-overlay-image) top left no-repeat;
+        z-index: 9;
+    }
+    .favorite-btn {
+        z-index: 11;
+        position: absolute;
+    }
+    .header-left {
+        justify-content: flex-start;
+        padding-left: 3.6rem;
     }
 }
 
@@ -208,30 +235,6 @@
 .unfavorite-games {
     .game:last-child {
         margin-bottom: 0;
-    }
-}
-
-.header {
-    margin-top: 0.6rem;
-    .header-overlay {
-        background: #242424;
-        opacity: 0.5;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 10;
-        right: 0;
-        bottom: 0;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-    .favorite-btn {
-        z-index: 11;
-        position: absolute;
-    }
-    .header-left {
-        justify-content: flex-start;
-        padding-left: 3.6rem;
     }
 }
 
