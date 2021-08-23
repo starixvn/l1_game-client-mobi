@@ -36,8 +36,8 @@
         .card-shadow {
             left: 0;
             height: 100%;
-            border-radius: 3px;
-            box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.9);
+            border-radius: 0.3rem;
+            box-shadow: none;
         }
         .card-number {
             top: 0.6rem;
@@ -72,7 +72,6 @@
         }
 
         .card-suite-mini {
-            border-radius: 0.5rem;
             width: 3rem;
             height: 4.25rem;
         }
@@ -110,14 +109,14 @@
     &.card {
         &.small {
             .card-shadow {
+                border-radius: 0.5rem;
                 box-shadow: none !important;
                 width: 5rem;
             }
 
             .card-suite-mini {
-                border-radius: 1rem;
                 width: 5rem;
-                height: 7.1rem;
+                height: 7rem;
             }
 
             .card-number {
