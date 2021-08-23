@@ -14,6 +14,7 @@ type GameActionsContextType = {
     playAcceptedBetAnimation: (amount: number) => void;
     renderResultCollapse: () => React.ReactElement;
     setActiveScoreboardTab: Function;
+    updateStatusShowResult: Function;
 };
 const GameActionsContext = React.createContext<GameActionsContextType>(null);
 GameActionsContext.displayName = "GameActionsContext";

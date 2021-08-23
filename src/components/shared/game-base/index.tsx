@@ -641,6 +641,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ activeScoreboardTab });
     };
 
+    updateStatusShowResult = () => {
+        if (this.state.gameState === GameState.DisplayResult) {
+            this.setState({ playResultAnimation: false });
+            this.setState({ showResultInfo: true });
+        }
+    };
+
     abstract renderBetOptions(): React.ReactElement;
 
     abstract renderRoundHistory(): React.ReactElement;
@@ -825,6 +832,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             },
             renderResultCollapse: this.renderResultCollapse.bind(this),
             setActiveScoreboardTab: this.setActiveScoreboardTab,
+            updateStatusShowResult: this.updateStatusShowResult,
         };
 
         const animationDuration = this.getFinishAnimationDuration() / 1000;

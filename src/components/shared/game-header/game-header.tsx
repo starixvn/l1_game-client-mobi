@@ -20,7 +20,7 @@ export const getViewModeWhenClick = (viewMode: ViewMode) => {
 export default function GameHeader() {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
     const { favoriteGames, setFavorite } = useSystemContext();
-    const { updateViewMode, renderResultCollapse } = useGameActionContext();
+    const { updateViewMode, renderResultCollapse, updateStatusShowResult } = useGameActionContext();
 
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteGames.includes(gameId));
@@ -42,6 +42,7 @@ export default function GameHeader() {
             if (isMobileOnly) {
                 const mode = getViewModeWhenClick(viewMode);
                 updateViewMode(mode);
+                updateStatusShowResult();
             }
         };
 
