@@ -17,10 +17,20 @@ $number-of-cards: 3;
 
 .open-cards {
     @include open-card($number-of-cards);
-    --time-zoom-in-card-animation: 0.3s;
-    --time-delay-zoom-in-card-animation: calc(0.1s + var(--time-zoom-in-card-animation));
+
+    .card-back {
+        background-size: 7.757rem 10.74rem;
+        width: 7.757rem;
+        height: 10.74rem;
+    }
 
     &.has-animation {
+        --time-zoom-in-card-animation: 0.3s;
+        --time-delay-zoom-in-card-animation: calc(0.1s + var(--time-zoom-in-card-animation));
+        --time-delay-move-up-result: calc(
+            0.6s + calc(var(--card-front-speed-default-duration-time) * 3) + var(--time-delay-zoom-in-card-animation)
+        );
+
         @include open-card-front-has-animation();
         @include hide-card-back-has-animation();
     }
@@ -46,7 +56,7 @@ $number-of-cards: 3;
                 animation-timing-function: cubic-bezier(0, 0, 0.59, 1), cubic-bezier(1, 0.01, 0, 1);
             }
 
-            @for $i from 1 through 2 {
+            @for $i from 1 through $number-of-cards {
                 $card-time-delay: calc(
                     calc(var(--card-front-speed-default-duration-time) * calc(#{$i} - 1)) + var(--time-delay-zoom-in-card-animation)
                 );
@@ -64,49 +74,26 @@ $number-of-cards: 3;
                 }
             }
 
-            $card-3rd-time-delay: calc(calc(var(--card-front-speed-default-duration-time) * 2) + var(--time-delay-zoom-in-card-animation));
-
-            &:not(.delay-3rd-card) {
-                --time-delay-move-up-result: calc(
-                    0.6s + calc(var(--card-front-speed-default-duration-time) * 3) + var(--time-delay-zoom-in-card-animation)
-                );
-
-                .card3 {
-                    .card-back {
-                        @extend %card-back-speed-default;
-                        --card-back-speed-default-delay-time: #{$card-3rd-time-delay};
-                    }
-
-                    .rotate-card {
-                        @extend %open-card-speed-default;
-                        --card-front-speed-default-delay-time: #{$card-3rd-time-delay};
-                    }
-                }
-            }
-
             &.delay-3rd-card {
                 --time-delay-move-up-result: calc(
                     var(--card-back-speed-medium-duration-time) + calc(var(--card-front-speed-default-duration-time) * 2) +
                         var(--time-delay-zoom-in-card-animation)
                 );
+                --card-3rd-time-delay: calc(
+                    calc(var(--card-front-speed-default-duration-time) * 2) + var(--time-delay-zoom-in-card-animation)
+                );
 
                 .card3 {
                     .card-back {
                         @extend %card-back-speed-medium;
-                        --card-back-speed-medium-delay-time: #{$card-3rd-time-delay};
+                        --card-back-speed-medium-delay-time: var(--card-3rd-time-delay);
                     }
 
                     .rotate-card {
                         @extend %open-card-speed-medium;
-                        --card-front-speed-medium-delay-time: #{$card-3rd-time-delay};
+                        --card-front-speed-medium-delay-time: var(--card-3rd-time-delay);
                     }
                 }
-            }
-
-            .card-back {
-                background-size: 7.757rem 10.74rem;
-                width: 7.757rem;
-                height: 10.74rem;
             }
         }
     }
