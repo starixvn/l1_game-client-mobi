@@ -198,8 +198,8 @@ html {
     --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
 
     --container-color-bg: #fff;
-    --container-border-color: #CBCBCB;
-    --icon-favorite-game-guide: #2C2F3E;
+    --container-border-color: #cbcbcb;
+    --icon-favorite-game-guide: #2c2f3e;
 }
 
 [data-theme="dark"] {
@@ -252,7 +252,7 @@ html {
     --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
 
     --container-color-bg: #203040;
-    --container-border-color: #426D91;
+    --container-border-color: #426d91;
     --icon-favorite-game-guide: #fff;
 }
 
@@ -305,6 +305,6 @@ body {
     }
 
     @media (min-width: 1260px) {
-        width: 126rem;
+        width: 126.1rem;
     }
 }
