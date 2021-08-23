@@ -404,6 +404,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 .open-cards.card-6.has-animation .animation-container,
 .open-cards.card-5.has-animation .animation-container {
     &.player {
+        --move-left-player: -4rem;
         animation-name: zoom-in-animation, move-left, move-up-result-animation-cards;
         animation-duration: $time-zoom-in-card-animation, $time-move-left-player, 0.3s;        
         animation-fill-mode: forwards, forwards, forwards;
@@ -427,12 +428,6 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     $time-blink-score-animation * 5 + $time-move-left-player + 0.2s + 0.2s;
 }
 
-
-
-
-
-
-
 .open-cards.card-5-banker.has-animation .animation-container.banker .score .score-number {
     animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 3, 6) + $time-show-score-animation * 2 +
             $time-blink-score-animation * 2 + $time-delay-open-card-2,
@@ -448,7 +443,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         left: 0;
     }
     to {
-        left: -4rem;
+        left: var(--move-left-player);
     }
 }
 
@@ -464,7 +459,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "1": 1.2rem,
                 "2": 0,
                 "3": 0,
-                "4": -1.2rem,
+                "4": -1.2rem
             )
         );
         .animation-container {
@@ -483,23 +478,26 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-5 {
         @include position-cards(
             (
-                "1": 2.4rem,
+                "1": 4.8rem,
                 "2": 0,
-                "3": 1.2rem,
+                "3": 3.6rem,
                 "4": -1.2rem,
-                "5": 0,
+                "5": 2.4rem
             )
-        );
+        ); 
         .animation-container {
             &.player {
                 .score {
-                    --left-value: -2.5rem;
+                    --left-value: 0.2rem;
                 }
             }
             &.banker {
                 .score {
                     --right-value: 0.4rem;
                 }
+            }
+            &.move-up-no-animation.player {
+                left: -2.8rem;
             }
         }
         &-banker {
@@ -509,7 +507,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     "2": 0,
                     "3": 0,
                     "4": -1.2rem,
-                    "5": -2.4rem,
+                    "5": -2.4rem
                 )
             );
             .animation-container {
@@ -529,24 +527,27 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-6 {
         @include position-cards(
             (
-                "1": 2.4rem,
+                "1": 4.8rem,
                 "2": 0,
-                "3": 1.2rem,
+                "3": 3.6rem,
                 "4": -1.2rem,
-                "5": 0,
+                "5": 2.4rem,
                 "6": -2.4rem,
             )
         );
         .animation-container {
             &.player {
                 .score {
-                    --left-value: -1.6rem;
+                    --left-value: 0.8rem;
                 }
             }
             &.banker {
                 .score {
                     --right-value: 1.2rem;
                 }
+            }
+            &.move-up-no-animation.player {
+                left: -2.8rem;
             }
         }
     }
@@ -573,6 +574,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         &.banker {
             right: -0.6rem;
         }
+        .card5 {
+            z-index: 90;
+        }
     }
     &.has-animation {
         .animation-container {
@@ -594,6 +598,13 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 }
             }
         }
+    }
+}
+
+.result-collapse-mode.open-cards.card-6.has-animation .animation-container,
+.result-collapse-mode.open-cards.card-5.has-animation .animation-container {
+    &.player {
+        --move-left-player: -2.8rem;
     }
 }
 
