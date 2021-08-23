@@ -14,9 +14,6 @@ $time-move-left-player: 0.4s;
 $time-delay-open-card-2: 0.2s;
 $time-delay-open-card-4: $time-delay-open-card-2 + 0s;
 $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
-// $time-delay-move-up-result: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 3.3s;
-// $time-delay-move-up-result-card-4: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 1.6s;
-// $time-delay-move-up-result-card-5: $time-open-card-animation + $time-delay-zoom-in-card-animation + $time-delay-open-card-4 + 3s;
 
 .animation-container {
     position: absolute;
@@ -132,7 +129,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
         &.player {
             .score {
-                --left-value: .8rem;
+                --left-value: -1.2rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
@@ -140,7 +137,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     --left-value: .8rem;
                 }
                 &.group-2-cards {
-                    --left-value: 0.8rem;
+                    --left-value: -1.2rem;
                     @media (min-width: 768px) {
                         --left-value: 0.8rem;
                     }
@@ -154,7 +151,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
-                --right-value: 0.8rem;
+                --right-value: -1.2rem;
                 right: var(--right-value);
                 @media (min-width: 768px) {
                     --right-value: 0.8rem;
