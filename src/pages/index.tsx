@@ -104,6 +104,7 @@ export const getStaticProps = async ({ locale }) => {
                 "threecards",
                 "minisedie",
                 "specialsedie",
+                "kenomatch1",
                 "um",
             ])),
         },

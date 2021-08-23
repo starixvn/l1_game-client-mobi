@@ -63,16 +63,16 @@ export interface KenoMatchGameDurations extends GameDurations {
     fullTimeLockingBet: number;
 }
 
-export type KenoMatchGameSetting = {
+export type GameSetting = {
     id: number;
     gameName: string;
     durations: KenoMatchGameDurations;
 };
 
-export interface KenoMatchProps extends GameBaseProps
-{
-    kenoMatchGameSetting: KenoMatchGameSetting
-}
+// export interface KenoMatchProps extends GameBaseProps
+// {
+//     GameSetting: GameSetting
+// }
 
 // export type KenoMatchProps = KenoMatchGameSetting &
 //     WithTranslation &

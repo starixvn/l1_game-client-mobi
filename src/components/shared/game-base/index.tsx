@@ -12,7 +12,6 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { getBalance } from "../../../services/auth-service";
 import { SocketState } from "../../../types";
-import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
