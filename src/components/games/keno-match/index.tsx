@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import { withTranslation } from "next-i18next";
+import { withRouter } from "next/router";
+import React from "react";
 
+import KenoMatchGameHeader from "../../games/keno-match/header";
+import GameBase from "../../shared/game-base";
+import { GameState } from "../../shared/game-base/type";
 import DrawResult from "./bet-options";
 import Styles from "./game.module.scss";
 import {
     KenoMatchGameBaseState,
-    KenoMatchProps,
-    KenoMatchSettlementResult,
-    KenoMatchResult,
-    KenoMatchGameState,
     KenoMatchGameDurations,
+    KenoMatchGameState,
+    KenoMatchProps,
+    KenoMatchResult,
+    KenoMatchSettlementResult,
 } from "./type";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
-import GameBase from "../../shared/game-base";
 
 export const choicesMapper = {
     fhBlue: 1,
@@ -114,10 +117,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
         return <div className={Styles["result-container"]}></div>;
     }
 
-    registerMessageHandler = () => {
+    registerMessageHandler() {
         super.registerMessageHandler();
         this.messageTransmitter.register("finishHalfTime", this.handleFinishHalfTime.bind(this));
-    };
+    }
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
@@ -136,14 +139,14 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
         if (this.state.kenoMatchGameState !== newGameState) {
             const newState = {
                 KenoMatchGameState: newGameState,
-                roundHistory:[],
-                activeHalfTimeResult:false,
-                ...this.getStateByNextGameState(newGameState)
+                roundHistory: [],
+                activeHalfTimeResult: false,
+                ...this.getStateByNextGameState(newGameState),
             };
 
             this.setState(newState as any);
 
-            console.log('set new state');
+            console.log("set new state");
         }
     }
 
@@ -202,7 +205,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
         this.setState({
             roundHistory: roundHistory.slice(0, 40),
-            roundId: [KenoMatchGameState.ShowFullTimeResult, KenoMatchGameState.ShowFullTimeSettlementResult].includes(kenoMatchGameState) ? roundId - 1 : roundId,
+            roundId: [KenoMatchGameState.ShowFullTimeResult, KenoMatchGameState.ShowFullTimeSettlementResult].includes(kenoMatchGameState)
+                ? roundId - 1
+                : roundId,
         });
     }
 
@@ -229,6 +234,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
         this.runGame(durations.wholeRound);
     }
+
+    renderGameHeader() {
+        return <KenoMatchGameHeader />;
+    }
 }
 
-export default KenoMatch;
+export default withRouter(withTranslation()(KenoMatch));

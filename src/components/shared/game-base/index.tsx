@@ -12,6 +12,7 @@ import { GameContextProvider } from "../../../contexts/game-context/game-context
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { getBalance } from "../../../services/auth-service";
 import { SocketState } from "../../../types";
+import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -172,7 +173,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         visibleState === "hidden" ? this.onDestroy() : this.onStart();
     };
 
-    registerMessageHandler = () => {
+    onConnectFailed() {
+        this.onDestroy();
+        this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
+    }
+
+    registerMessageHandler() {
         this.messageTransmitter.register("signedIn", this.handleSignedIn.bind(this));
         this.messageTransmitter.register("um", this.handleUM.bind(this));
         this.messageTransmitter.register("remainingTime", this.handleRemainingTime.bind(this));
@@ -188,7 +194,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
         this.messageTransmitter.register("errorCode", this.handleError.bind(this));
-    };
+    }
 
     handleError = ({ errorCode }) => {
         if (errorCode === "SB0010") {
@@ -237,7 +243,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     minBet: apiError?.minBet,
                     maxBet: apiError?.maxBet,
                     errorCode: apiError.errorCode,
-                }, 
+                },
             });
     };
 
@@ -457,7 +463,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ gameConfigs });
     }
 
-    determineGameState(remainingTime: number): any  {
+    determineGameState(remainingTime: number): any {
         const { durations } = this.props;
         if (durations.balancingBet && remainingTime > durations.wholeRound - durations.balancingBet) {
             return GameState.BalancingBet;
@@ -809,6 +815,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return "";
     }
 
+    renderGameHeader() {
+        return <GameHeader />;
+    }
+
     renderGame() {
         const { durations } = this.props;
 
@@ -862,8 +872,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    { this.props.socketInfo.namespace !== 'kenomatch1' && <GameHeader /> }
-                    { this.props.socketInfo.namespace === 'kenomatch1' && <KenoMatchGameHeader /> }
+                    {this.props.socketInfo.namespace !== "kenomatch1" && <GameHeader />}
+                    {this.props.socketInfo.namespace === "kenomatch1" && <KenoMatchGameHeader />}
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>

@@ -192,6 +192,8 @@
             "showResult": 9,
             "resultAnimation": 3,
             "beforeStartRound": 0
+        }
+    },
     "36": {
         "id": 36,
         "gameName": "KenoMatch1",

@@ -1,4 +1,3 @@
-
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
@@ -8,11 +7,11 @@ import { GameResourceKeys } from "../../../../common/resources/game-resource-key
 import { useGameActionContext } from "../../../../contexts/game-actions-context";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../../contexts/system";
-import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, PopupType, RebetStorageModel, ViewMode } from "../../../shared/game-base/type";
 import BetSettings from "../../../shared/bet-settings";
+import { GameState, PopupType, RebetStorageModel, ViewMode } from "../../../shared/game-base/type";
 import Styles from "../../../shared/game-header/game-header.module.scss";
 import { Tooltip } from "../../../shared/tooltip";
+import CountdownTimer from "../countdown-timer/countdown-timer";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
@@ -20,17 +19,19 @@ export const getViewModeWhenClick = (viewMode: ViewMode) => {
 
 export default function GameHeader() {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
-    const systemContext = useSystemContext();
     const { updateViewMode, renderResultCollapse } = useGameActionContext();
 
+    const { favoriteGames, setFavorite } = useSystemContext();
+
     const { id: gameId, gameName } = gameSetting;
-    const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
+    const [isFavorite, updateFavorite] = useState<boolean>(favoriteGames.includes(gameId));
+
     const { t } = useTranslation([gameName.toLowerCase()]);
 
     return useMemo(() => {
         const favoriteClickHandle = (e: React.MouseEvent) => {
             e.stopPropagation();
-            systemContext.setFavorite(gameId, !isFavorite);
+            setFavorite(gameId, !isFavorite);
             updateFavorite(!isFavorite);
         };
 
@@ -123,7 +124,6 @@ const HeaderRight = ({ displayMenu }) => {
         </div>
     );
 };
-
 
 // import React, { useEffect, useState } from "react";
 

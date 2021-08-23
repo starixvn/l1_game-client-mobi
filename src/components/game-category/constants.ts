@@ -5,6 +5,7 @@ export const GameCategoryConfig = {
     sedie: [22, 2, 9, 24],
     dice: [1, 4, 3],
     card: [7, 10, 27, 35],
+    keno: [36],
 };
 
 export enum GameCategoryType {
@@ -13,6 +14,7 @@ export enum GameCategoryType {
     sedie,
     dice,
     card,
+    keno,
 }
 
 export const GameCategoryKeys: string[] = Object.keys(GameCategoryType)
