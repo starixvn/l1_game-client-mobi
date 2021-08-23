@@ -1,7 +1,9 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
+import { io, Socket } from "socket.io-client";
 
+import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
 import { GameState } from "../../shared/game-base/type";
@@ -43,10 +45,10 @@ const defaultResult = {
 };
 
 class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult>> {
+    private socket: Socket;
+
     constructor(props: KenoMatchProps) {
         super(props);
-
-        // this.state = { ...this.defaultState };
 
         this.state = {
             ...this.defaultState,
@@ -58,8 +60,34 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
                 activeHalfTimeResult: false,
             },
         };
+    }
 
-        // this.registerMessageHandler();
+    onStart() {
+        const { socketInfo } = this.props;
+        const { session } = this.context;
+        const { proxy } = appSettings;
+        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
+
+        this.initWinStreakCollector();
+        this.socket = io(socketUri, {
+            forceNew: true,
+            transports: ["websocket"],
+            upgrade: false,
+            path: `${proxy.path}/${socketInfo.path}/socket.io`,
+        });
+        this.socket.on("connect", () => {
+            this.socket.emit("signin", session);
+        });
+        this.socket.on("signedIn", () => {
+            this.setState({ signedIn: true });
+            this.socket.emit("inGame");
+        });
+        this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+        this.socket.on("connect_error", this.onConnectFailed.bind(this));
+        this.socket.on("message", this.onMessageUserStakeLevel.bind(this));
+        this.socket.on("disconnect", () => {
+            this.setState({ gameState: GameState.None });
+        });
     }
 
     getMainOptions(): string[] {
