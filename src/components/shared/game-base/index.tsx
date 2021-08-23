@@ -32,7 +32,16 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import { GameBaseProps, GameBaseState, GameState, PopupType, RebetStorageModel, ViewMode, WinStreakCollectorModel } from "./type";
+import {
+    BetPosition,
+    GameBaseProps,
+    GameBaseState,
+    GameState,
+    PopupType,
+    RebetStorageModel,
+    ViewMode,
+    WinStreakCollectorModel,
+} from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -46,6 +55,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
+    private betPosition: BetPosition;
 
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -288,7 +298,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     playAcceptedBetAnimation(amount: number) {
         const { acceptedBetQueue } = this.state;
         const key = uuidv4();
-        acceptedBetQueue[key] = amount;
+        acceptedBetQueue[key] = {
+            amount,
+            betPosition: { ...this.betPosition },
+        };
 
         this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });
         setTimeout(() => {
@@ -553,13 +566,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    placeBet(betChoice: string, amount: number) {
+    placeBet(betChoice: string, amount: number, betPosition: BetPosition) {
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
         } else {
             if (amount > 0) {
+                this.betPosition = betPosition;
                 this.isProcessingBet = true;
                 this.setRetryInterval();
                 const { gameName } = this.props;
@@ -864,7 +878,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <WinningBet amount={this.betWin} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                    <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
+                                    <AcceptBet key={key} betInfo={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>

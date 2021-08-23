@@ -71,7 +71,12 @@ export interface GameBaseState<Result, SettlementResult> {
     viewMode: ViewMode;
     disabledMessage?: string;
     showResultInfo: boolean;
-    acceptedBetQueue: { [key: number]: number };
+    acceptedBetQueue: {
+        [key: number]: {
+            amount: number;
+            betPosition: BetPosition;
+        };
+    };
     showWinningAnimation: boolean;
     playResultAnimation: boolean;
     isShowBlink: boolean;
@@ -154,4 +159,9 @@ export interface WinStreakCollectorModel {
 export enum ViewMode {
     full,
     collapse,
+}
+
+export interface BetPosition {
+    x: number;
+    y: number;
 }

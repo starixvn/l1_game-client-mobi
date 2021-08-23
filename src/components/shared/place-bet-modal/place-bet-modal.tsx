@@ -149,6 +149,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
     const submitBet = (event: any) => {
         event.preventDefault();
+        const betOptionsRect = props.betOptionElement.getBoundingClientRect();
 
         if (!betStake || betStake < minbet) {
             setBetStake(minbet);
@@ -158,7 +159,10 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         }
 
         closeModal();
-        props.onPlaceBet(props.betChoiceInfo.betChoice, betStake);
+        props.onPlaceBet(props.betChoiceInfo.betChoice, betStake, {
+            x: betOptionsRect.left + betOptionsRect.width / 2,
+            y: betOptionsRect.top + 60,
+        });
     };
 
     return (
