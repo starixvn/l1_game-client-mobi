@@ -19,25 +19,8 @@ $number-of-cards: 2;
 .open-cards {
     @include open-card($number-of-cards);
 
-    // card1
-    // card1 with default speed
-    --dragon-score-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
-
-    // card2
-    // overwrite medium speed
-    --card-front-speed-medium-duration-time: 0.8s;
-    --card-front-speed-medium-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
-    --card-back-speed-medium-duration-time: 1s;
-    --card-back-speed-medium-delay-time: var(--card-front-speed-medium-delay-time);
-
-    --time-zoom-in-card-animation: 0.2s;
-    --time-show-score-animation: 0.2s;
-    --time-delay-zoom-in-card-animation: calc(0.1s + var(--time-zoom-in-card-animation));
-    --tiger-score-delay-time: calc(var(--card-front-speed-medium-delay-time) + var(--card-front-speed-medium-duration-time));
-
     .animation-container {
         --move-up-distance: -2.5rem;
-        --time-delay-move-up-result: calc(var(--tiger-score-delay-time) + var(--time-show-score-animation));
 
         top: 4.5rem;
         transform: scale3d(1, 1, 1);
@@ -84,6 +67,23 @@ $number-of-cards: 2;
     }
 
     &.has-animation {
+        // card1
+        // card1 with default speed
+        --dragon-score-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
+
+        // card2
+        // overwrite medium speed
+        --card-front-speed-medium-duration-time: 0.8s;
+        --card-front-speed-medium-delay-time: calc(var(--time-zoom-in-card-animation) + var(--card-front-speed-default-duration-time));
+        --card-back-speed-medium-duration-time: 1s;
+        --card-back-speed-medium-delay-time: var(--card-front-speed-medium-delay-time);
+
+        --time-zoom-in-card-animation: 0.2s;
+        --time-show-score-animation: 0.2s;
+        --time-delay-zoom-in-card-animation: calc(0.1s + var(--time-zoom-in-card-animation));
+        --tiger-score-delay-time: calc(var(--card-front-speed-medium-delay-time) + var(--card-front-speed-medium-duration-time));
+        --time-delay-move-up-result: calc(var(--tiger-score-delay-time) + var(--time-show-score-animation));
+
         @include open-card-front-has-animation();
         @include hide-card-back-has-animation();
 
