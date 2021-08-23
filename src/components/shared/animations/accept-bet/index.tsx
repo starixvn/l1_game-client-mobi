@@ -8,7 +8,7 @@ const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition: BetPosition 
     const customStyle: React.CSSProperties = {
         position: "fixed",
         left: betInfo.betPosition.x - 20,
-        top: betInfo.betPosition.y - 90,
+        top: betInfo.betPosition.y - 30,
         right: "auto",
     };
 

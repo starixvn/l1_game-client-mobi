@@ -161,7 +161,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         closeModal();
         props.onPlaceBet(props.betChoiceInfo.betChoice, betStake, {
             x: betOptionsRect.left + betOptionsRect.width / 2,
-            y: betOptionsRect.top + 60,
+            y: betOptionsRect.top + 30,
         });
     };
 
