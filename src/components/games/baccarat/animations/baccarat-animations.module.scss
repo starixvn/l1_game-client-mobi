@@ -129,7 +129,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 
         &.player {
             .score {
-                --left-value: -1.2rem;
+                --left-value: -.4rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
@@ -137,7 +137,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     --left-value: .8rem;
                 }
                 &.group-2-cards {
-                    --left-value: -1.2rem;
+                    --left-value: -0.4rem;
                     @media (min-width: 768px) {
                         --left-value: 0.8rem;
                     }
@@ -151,7 +151,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             .score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
                 margin-right: 40%;
-                --right-value: -1.2rem;
+                --right-value: -.4rem;
                 right: var(--right-value);
                 @media (min-width: 768px) {
                     --right-value: 0.8rem;
