@@ -1,21 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { numberWithCommas } from "../../../../helpers/number-helper";
 import { BetPosition } from "../../game-base/type";
 import Styles from "./styles.module.scss";
 
 const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition } }> = ({ betInfo }) => {
-    const customStyle: React.CSSProperties = {
-        position: "fixed",
-        left: betInfo.betPosition?.x - 20,
-        top: betInfo.betPosition?.y - 30,
-        right: "auto",
-    };
+    const wrapperRef = useRef<HTMLDivElement>(null);
+    const [customStyle, setCustomStyle] = useState<React.CSSProperties>({ position: "fixed", right: "auto" });
+
+    useEffect(() => {
+        if (wrapperRef.current) {
+            const windowWidth = window.innerWidth;
+            const wrapperWidth = wrapperRef.current.getBoundingClientRect().width;
+            const newCustomStyle = { ...customStyle };
+            newCustomStyle.top = betInfo.betPosition?.y - 30;
+            newCustomStyle.left =
+                betInfo.betPosition?.x + wrapperWidth > windowWidth ? windowWidth - wrapperWidth - 10 : betInfo.betPosition?.x - 30;
+
+            setCustomStyle(newCustomStyle);
+        }
+    }, [wrapperRef]);
 
     return (
-        <div style={betInfo.betPosition ? customStyle : null} className={`${Styles["accepted-bet"]}`}>{`-${numberWithCommas(
-            betInfo.amount
-        )}`}</div>
+        <div
+            ref={wrapperRef}
+            style={betInfo.betPosition ? customStyle : null}
+            className={`${Styles["accepted-bet"]}`}
+        >{`-${numberWithCommas(betInfo.amount)}`}</div>
     );
 };
 
