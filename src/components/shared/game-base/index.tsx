@@ -501,16 +501,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             roundId: [GameState.DisplayResult, GameState.BalancingBet].includes(gameState) || this.isUMInFirstLoad ? roundId - 1 : roundId,
             result: roundHistory[0]?.result,
             settlementResult: roundHistory[0]?.settlementResult,
-            playResultAnimation: [GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad ? false : true,
-            showResultInfo: [GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad ? true : false,
         });
 
         this.setWinStreakByRoundHistory(roundHistory);
     }
 
     getFinishAnimationDuration() {
-        const { durations } = this.props;
-        return (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
+        return this.props.durations.resultAnimation * 1000;
     }
 
     handleFinish({ finish }) {
@@ -867,7 +864,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 </div>
 
                                 {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {<BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>}
+                                {this.state.gameState === GameState.DisplayResult && (
+                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                )}
                                 {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
                                     <ResultDetail
                                         renderSettlementInfo={this.renderSettlementInfo}
@@ -880,7 +879,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <WinningBet amount={this.betWin} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                    <AcceptBet key={key} betInfo={this.state.acceptedBetQueue[key]} />
+                                    <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>

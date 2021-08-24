@@ -105,19 +105,16 @@
     }
 
     %card-back-speed-default {
-        @extend .card-back;
         animation: hide-card-back-animation-default var(--card-back-speed-default-duration-time) var(--card-back-speed-default-delay-time)
             forwards;
     }
 
     %card-back-speed-medium {
-        @extend .card-back;
         animation: hide-card-back-animation-medium var(--card-back-speed-medium-duration-time) var(--card-back-speed-medium-delay-time)
             forwards;
     }
 
     %card-back-speed-slow {
-        @extend .card-back;
         animation: hide-card-back-animation-slow var(--card-back-speed-slow-duration-time) var(--card-back-speed-slow-delay-time) forwards;
     }
 }

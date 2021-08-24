@@ -180,11 +180,7 @@ export const BaccaratResult: React.FC<{ result?: Result }> = ({ result }) => {
     };
 
     return (
-        <div
-            className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${
-                playResultAnimation ? Styles[classAnimation] : Styles[classAnimation]
-            }`}
-        >
+        <div className={`${Styles["open-cards"]} ${Styles[classCardCount]}  ${playResultAnimation ? Styles[classAnimation] : ""}`}>
             <PlayerBankerResultComponent playResultAnimation={playResultAnimation} result={result} viewMode={viewMode} texts={texts} />
         </div>
     );
