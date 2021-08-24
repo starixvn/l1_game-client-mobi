@@ -16,6 +16,7 @@ export enum KenoMatchGameStateEnum  {
     ShowHalfTimeSettlementResult,
     FullTime,
     FullTimeLockingBet,
+    BeforeStartFullTimePlacingBet
 }
 
 export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;
@@ -50,14 +51,17 @@ export interface KenoMatchRound<KenoMatchResult,KenoMatchSettlementResult> exten
 
 export interface KenoMatchGameDurations extends GameDurations {
     wholeRound: number;
-    showFullTimeSettlementResult: number;
     halfTimePlacingBets: number;
-    resetResult: number;
     halfTimeLockingBet: number;
-    finishHalfTime: number;
+    showHalfTimeResult: number;
     showHalfTimeSettlementResult: number;
     fullTimePlacingBets: number;
     fullTimeLockingBet: number;
+    showFullTimeResult: number;
+    showFullTimeSettlementResult: number;
+    beforeStartFullTimePlacingBet: number;
+    resetResult: number;
+    // finishHalfTime: number;
 }
 
 export type KenoMatchGameSetting = {

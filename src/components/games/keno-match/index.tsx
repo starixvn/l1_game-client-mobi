@@ -152,6 +152,16 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
         this.messageTransmitter.register("finishHalfTime", this.handleFinishHalfTime.bind(this));
     }
 
+    handleRemainingTime({ remainingTime }) {
+        const { gameState } = this.state;
+        console.log(`handleRemainingTime gameState : ${gameState}`);
+        console.log(`handleRemainingTime remainingTime : ${remainingTime}s`);
+
+        if (gameState === GameState.None || !this.isUMInFirstLoad) {
+            this.runGame(remainingTime);
+        }
+    }
+
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
         const activeHalfTimeResult = remainingTime <= durations.resetResult && remainingTime >= 0;
@@ -165,7 +175,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
         }
 
         const newGameState = this.determineGameState(remainingTime);
-
+        console.log(`newGameState ${newGameState}`);
         if (this.state.gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
@@ -176,31 +186,38 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
             this.setState(newState as any);
 
-            console.log("set new state");
-            console.log(JSON.stringify(newState,null, 2));
+            // console.log("set new state");
+            // console.log(JSON.stringify(newState,null, 2));
         }
     }
 
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
+        console.log(JSON.stringify(durations,null, 2));
+        console.log(`remainingTime ${remainingTime}`);
 
         switch (true) {
-            case remainingTime <= durations.wholeRound && remainingTime > durations.showFullTimeSettlementResult:
-                return KenoMatchGameStateEnum.ShowFullTimeResult;
-            case remainingTime <= durations.showFullTimeSettlementResult && remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
             case remainingTime <= durations.halfTimePlacingBets && remainingTime > durations.halfTimeLockingBet:
                 return KenoMatchGameStateEnum.HalfTime;
-            case remainingTime <= durations.halfTimeLockingBet && remainingTime >= durations.finishHalfTime:
+            case remainingTime <= durations.halfTimeLockingBet && remainingTime >= durations.showHalfTimeResult:
                 return KenoMatchGameStateEnum.HalfTimeLockingBet;
-            case remainingTime <= durations.finishHalfTime && remainingTime > durations.halfTimeLockingBet:
-                return KenoMatchGameStateEnum.ShowHalfTimeResult;
-            case remainingTime <= durations.showHalfTimeSettlementResult && remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
-            case remainingTime <= durations.fullTimePlacingBets && remainingTime > durations.fullTimeLockingBet:
-                return KenoMatchGameStateEnum.FullTime;
-            case remainingTime <= durations.fullTimeLockingBet && remainingTime >= 0:
-                return KenoMatchGameStateEnum.FullTimeLockingBet;
+            case remainingTime <= durations.showHalfTimeResult && remainingTime >= durations.showHalfTimeSettlementResult:
+                return KenoMatchGameStateEnum.ShowHalfTimeResult;     
+            case remainingTime <= durations.showHalfTimeSettlementResult && remainingTime >= durations.beforeStartFullTimePlacingBet:
+                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;   
+
+            case remainingTime <= durations.beforeStartFullTimePlacingBet && remainingTime >= durations.fullTimePlacingBets:
+                return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;   
+
+            case remainingTime <= durations.fullTimePlacingBets && remainingTime >= durations.fullTimeLockingBet:
+                return KenoMatchGameStateEnum.FullTime;   
+            case remainingTime <= durations.fullTimeLockingBet && remainingTime >= durations.showFullTimeResult:
+                return KenoMatchGameStateEnum.FullTimeLockingBet;  
+            case remainingTime <= durations.showFullTimeResult && remainingTime >= durations.showFullTimeSettlementResult:
+                return KenoMatchGameStateEnum.ShowFullTimeResult;     
+            case remainingTime <= durations.showFullTimeSettlementResult && remainingTime >= 0:
+                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
+
             default:
                 return GameState.None;
         }

@@ -52,7 +52,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly animationTime = 3000;
     private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
     private betWin: number;
-    private isUMInFirstLoad = false;
+    protected isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
     private isProcessingBet = false;

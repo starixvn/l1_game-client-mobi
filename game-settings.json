@@ -203,11 +203,17 @@
         },
         "durations": {
             "wholeRound": 60,
-            "placingBets": 18,
-            "lockingBet": 5,
-            "showResult": 7,
-            "halfTimePlacingBets": 52,
-            "halfTimeLockingBet": 30,
+            "halfTimePlacingBets": 60,
+            "halfTimeLockingBet": 38,
+            "showHalfTimeResult":33,
+            "showHalfTimeSettlementResult": 29,
+
+            "beforeStartFullTimePlacingBet": 26,
+            "fullTimePlacingBets": 25,
+            "fullTimeLockingBet": 12,
+            "showFullTimeResult":7,
+            "showFullTimeSettlementResult": 3,
+
             "finishHalfTime": 25,
             "resultAnimation": 2,
             "beforeStartRound": 2

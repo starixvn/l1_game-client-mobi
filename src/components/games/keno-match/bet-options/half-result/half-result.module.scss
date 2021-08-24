@@ -23,6 +23,7 @@
     -ms-filter: grayscale(100%);
     opacity: 0.6;
     filter: grayscale(100%);
+    color:red;
 
     &.active {
         bottom: -1%;
@@ -42,7 +43,8 @@
     -ms-filter: grayscale(100%);
     filter: grayscale(100%);
     opacity: 0.6;
-
+    color:red;
+    
     &.active {
         top: -46%;
         border: 1px solid rgba(0, 255, 246, 0.4);

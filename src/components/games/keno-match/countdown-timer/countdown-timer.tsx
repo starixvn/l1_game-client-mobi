@@ -72,6 +72,7 @@ const CountdownTimer: React.FC = () => {
 const Timer = () => {
     const ctx = useGameContext();
     const { durations } = ctx.gameSetting;
+    const kenoMatchGameDurations = durations as KenoMatchGameDurations;
     const kenoMatchGameState = ctx.gameState as KenoMatchGameState;
 
     const timerProps = {
@@ -80,8 +81,8 @@ const Timer = () => {
         strokeWidth: 3,
         trailColor: "#fff",
         trailStrokeWidth: 1,
-        initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? durations.placingBets : ctx.remainingTime,
-        duration: durations.placingBets,
+        initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? kenoMatchGameDurations.halfTimePlacingBets : ctx.remainingTime,
+        duration: kenoMatchGameDurations.halfTimePlacingBets,
     };
 
     return (
