@@ -288,19 +288,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (endBet === -1) {
             !apiError && this.handleBetFailed({ notice, kickedOut });
         } else {
-            displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet);
+            displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet, this.betPosition);
             playPlaceBetSound();
             ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
             this.updateUserBalance();
         }
     };
 
-    playAcceptedBetAnimation(amount: number) {
+    playAcceptedBetAnimation(amount: number, betPosition?: BetPosition) {
         const { acceptedBetQueue } = this.state;
         const key = uuidv4();
         acceptedBetQueue[key] = {
             amount,
-            betPosition: { ...this.betPosition },
+            betPosition: betPosition ? { ...betPosition } : null,
         };
 
         this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });

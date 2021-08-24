@@ -11,7 +11,7 @@ type GameActionsContextType = {
     openPlaceBetModal: Function;
     finishProcessingBet: Function;
     updateViewMode: (mode: ViewMode) => void;
-    playAcceptedBetAnimation: (amount: number) => void;
+    playAcceptedBetAnimation: (amount: number, betPosition?: BetPosition) => void;
     renderResultCollapse: () => React.ReactElement;
     setActiveScoreboardTab: Function;
     updateStatusShowResult: Function;
