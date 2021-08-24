@@ -14,6 +14,7 @@ import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
     KenoMatchGameState,
+    KenoMatchGameStateEnum,
     KenoMatchResult,
     KenoMatchSettlementResult,
     KenoMatchProps
@@ -54,7 +55,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
         this.state = {
             ...this.defaultState,
             ...{
-                gameState: GameState.None,
+                // kenoMatchGameState: GameState.None,
                 roundHistory: [],
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
@@ -96,10 +97,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
     }
 
     renderBetOptions() {
-        const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult, kenoMatchGameState } = this.state;
+        const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult } = this.state;
         return (
             <DrawResult
-                gameState={kenoMatchGameState}
+                gameState={gameState}
                 halfTimeResult={halfTimeResult}
                 fullTimeResult={fullTimeResult}
                 isHalfTimeActive={activeHalfTimeResult}
@@ -165,9 +166,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
         const newGameState = this.determineGameState(remainingTime);
 
-        if (this.state.kenoMatchGameState !== newGameState) {
+        if (this.state.gameState !== newGameState) {
             const newState = {
-                KenoMatchGameState: newGameState,
+                gameState: newGameState,
                 roundHistory: [],
                 activeHalfTimeResult: false,
                 ...this.getStateByNextGameState(newGameState),
@@ -176,6 +177,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
             this.setState(newState as any);
 
             console.log("set new state");
+            console.log(JSON.stringify(newState,null, 2));
         }
     }
 
@@ -184,30 +186,30 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
         switch (true) {
             case remainingTime <= durations.wholeRound && remainingTime > durations.showFullTimeSettlementResult:
-                return KenoMatchGameState.ShowFullTimeResult;
+                return KenoMatchGameStateEnum.ShowFullTimeResult;
             case remainingTime <= durations.showFullTimeSettlementResult && remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameState.ShowFullTimeSettlementResult;
+                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
             case remainingTime <= durations.halfTimePlacingBets && remainingTime > durations.halfTimeLockingBet:
-                return KenoMatchGameState.HalfTime;
+                return KenoMatchGameStateEnum.HalfTime;
             case remainingTime <= durations.halfTimeLockingBet && remainingTime >= durations.finishHalfTime:
-                return KenoMatchGameState.HalfTimeLockingBet;
+                return KenoMatchGameStateEnum.HalfTimeLockingBet;
             case remainingTime <= durations.finishHalfTime && remainingTime > durations.halfTimeLockingBet:
-                return KenoMatchGameState.ShowHalfTimeResult;
+                return KenoMatchGameStateEnum.ShowHalfTimeResult;
             case remainingTime <= durations.showHalfTimeSettlementResult && remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameState.ShowHalfTimeSettlementResult;
+                return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
             case remainingTime <= durations.fullTimePlacingBets && remainingTime > durations.fullTimeLockingBet:
-                return KenoMatchGameState.FullTime;
+                return KenoMatchGameStateEnum.FullTime;
             case remainingTime <= durations.fullTimeLockingBet && remainingTime >= 0:
-                return KenoMatchGameState.FullTimeLockingBet;
+                return KenoMatchGameStateEnum.FullTimeLockingBet;
             default:
-                return KenoMatchGameState.None;
+                return GameState.None;
         }
     }
 
     getStateByNextGameState(nextGameState: KenoMatchGameState) {
         const newStateDetector = [
             {
-                condition: nextGameState === KenoMatchGameState.HalfTime,
+                condition: nextGameState === KenoMatchGameStateEnum.HalfTime,
                 state: {
                     roundId: this.state.roundId + 1,
                     ownBets: {},
@@ -230,11 +232,15 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
     }
 
     handleRoundHistory({ roundHistory, roundId }) {
-        const { kenoMatchGameState } = this.state;
+        const { gameState } = this.state;
+        const kenoMatchGameState = gameState as KenoMatchGameState;
 
         this.setState({
             roundHistory: roundHistory.slice(0, 40),
-            roundId: [KenoMatchGameState.ShowFullTimeResult, KenoMatchGameState.ShowFullTimeSettlementResult].includes(kenoMatchGameState)
+            roundId: kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
                 ? roundId - 1
                 : roundId,
         });

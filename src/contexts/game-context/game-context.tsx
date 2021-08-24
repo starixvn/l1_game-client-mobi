@@ -15,7 +15,7 @@ export const GameContext = React.createContext<GameContextModel>({
     viewMode: ViewMode.full,
     playResultAnimation: false,
     isShowBlink: false,
-    kenoMatchGameState: KenoMatchGameState.None,
+    // kenoMatchGameState: KenoMatchGameState.None,
     // kenoMatchGameSetting: null
 });
 GameContext.displayName = "GameContext";

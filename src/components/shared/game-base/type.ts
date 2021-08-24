@@ -88,7 +88,7 @@ export interface GameBaseState<Result, SettlementResult> {
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
     activeScoreboardTab?: number;
-    kenoMatchGameState:KenoMatchGameState;
+    // kenoMatchGameState:KenoMatchGameState;
     // kenoMatchGameSetting: KenoMatchGameSetting;
 }
 

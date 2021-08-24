@@ -12,6 +12,6 @@ export type GameContextModel = {
     viewMode: ViewMode;
     playResultAnimation: boolean;
     isShowBlink: boolean;
-    kenoMatchGameState:KenoMatchGameState;
+    // kenoMatchGameState:KenoMatchGameState;
     // kenoMatchGameSetting: KenoMatchProps;
 };

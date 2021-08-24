@@ -44,7 +44,7 @@ import {
     WinStreakCollectorModel,
 } from "./type";
 
-import {KenoMatchGameState,KenoMatchGameSetting, KenoMatchProps} from "../../../components/games/keno-match/type";
+import { KenoMatchGameState, KenoMatchGameSetting, KenoMatchProps } from "../../../components/games/keno-match/type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
@@ -91,8 +91,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betOptionElement: null,
         betChoiceElement: null,
         activeScoreboardTab: 0,
-        kenoMatchGameState: KenoMatchGameState.None,
-        kenoMatchGameSetting: null
+        //  kenoMatchGameState: KenoMatchGameState.None,
+        kenoMatchGameSetting: null,
     };
 
     constructor(props: P) {
@@ -134,7 +134,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     break;
                 case SocketState.Error:
                     this.setState({ gameState: GameState.ConnectFailed });
-                    this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed });
+                    //this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed });
                     break;
                 default:
                     this.setState({ signedIn: false });
@@ -180,7 +180,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onConnectFailed() {
         this.onDestroy();
         this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
-        this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed, signedIn: false });
+        //  this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed, signedIn: false });
     }
 
     registerMessageHandler() {
@@ -205,7 +205,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (errorCode === "SB0010") {
             this.isConnectFailed = true;
             this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
-            this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed });
         }
     };
 
@@ -361,7 +360,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
             this.setState({
                 gameState: GameState.Disabled,
-                kenoMatchGameState: KenoMatchGameState.Disabled,
+                //kenoMatchGameState: KenoMatchGameState.Disabled,
                 disabledMessage: um_message[LanguageLocaleMapper[i18n.language]],
                 showResultInfo: false,
             });
@@ -841,7 +840,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             isShowBlink,
             displayPopup,
             activeScoreboardTab,
-            kenoMatchGameState
+            // kenoMatchGameState
         } = this.state;
 
         const gameContext = {
@@ -855,7 +854,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             viewMode,
             playResultAnimation,
             isShowBlink,
-            kenoMatchGameState
+            // kenoMatchGameState
         };
 
         const gameActionsContext = {

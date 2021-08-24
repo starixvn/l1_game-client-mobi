@@ -1,13 +1,13 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
-import { GameBaseProps, GameBaseState, GameDurations, } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameDurations,  GameState} from "../../shared/game-base/type";
 import { Round } from "../../../types";
 
-export enum KenoMatchGameState {
-    None,
-    BeforeStartRound,
-    ConnectFailed,
-    Disabled,
+export enum KenoMatchGameStateEnum  {
+    // None,
+    // BeforeStartRound,
+    // ConnectFailed,
+    // Disabled,
     ShowFullTimeResult,
     ShowFullTimeSettlementResult,
     HalfTime,
@@ -17,6 +17,8 @@ export enum KenoMatchGameState {
     FullTime,
     FullTimeLockingBet,
 }
+
+export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;
 
 export interface KenoMatchResult {
     blue: number[];
@@ -88,8 +90,8 @@ export interface KenoMatchProps extends GameBaseProps
 // };
 
 export interface KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult> extends GameBaseState<KenoMatchResult, KenoMatchSettlementResult> {
-    kenoMatchGameState: KenoMatchGameState;
-    kenoMatchGameSetting: KenoMatchGameSetting;
+    // gameState: KenoMatchGameState;
+    // kenoMatchGameSetting: KenoMatchGameSetting;
     roundHistory: KenoMatchRound<KenoMatchResult, KenoMatchSettlementResult>[];
     halfTimeResult?: KenoMatchResult;
     fullTimeResult?: KenoMatchResult;
