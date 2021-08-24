@@ -51,6 +51,16 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "4": -4.5rem,
             )
         );
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 5.5rem,
+                    "2": 0,
+                    "3": 0,
+                    "4": -5.5rem,
+                )
+            );
+        }
     }
     &.card-5 {
         @include position-cards(
@@ -62,8 +72,22 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "5": 4rem,
             )
         );
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 13rem,
+                    "2": 0,
+                    "3": 7.5rem,
+                    "4": -5.5rem,
+                    "5": 3rem
+                )
+            );
+        }
         .animation-container.move-up-no-animation.player{
             left: -4rem;
+            @media (min-width: 1024px) and (max-width: 1278px) {
+                left: -3rem;
+            }
         }  
         &-banker {
             @include position-cards(
@@ -75,6 +99,17 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     "5": -8rem,
                 )
             );
+            @media (min-width: 1024px) and (max-width: 1278px) {
+                @include position-cards(
+                    (
+                        "1": 5.5rem,
+                        "2": 0,
+                        "3": 0,
+                        "4": -5.5rem,
+                        "5": -10rem
+                    )
+                );
+            }
         }
     }
     &.card-6 {
@@ -87,11 +122,26 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "5": 4rem,
                 "6": -8rem,
             )
-        );   
+        );  
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 13rem,
+                    "2": 0,
+                    "3": 7.5rem,
+                    "4": -5.5rem,
+                    "5": 3rem,
+                    "6": -10rem,
+                )
+            );
+        } 
         .animation-container.move-up-no-animation.player{
             left: -4rem;
+            @media (min-width: 1024px) and (max-width: 1278px) {
+                left: -3rem;
+            }
 
-        }     
+        } 
     }
 
     .animation-container {
@@ -136,11 +186,8 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 @media (min-width: 768px) {
                     --left-value: .8rem;
                 }
-                &.group-2-cards {
-                    --left-value: -0.4rem;
-                    @media (min-width: 768px) {
-                        --left-value: 0.8rem;
-                    }
+                @media (min-width: 1024px) and (max-width: 1278px) {
+                    --left-value: -.2rem;
                 }
             }
             &.group-2-cards {
@@ -155,6 +202,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 right: var(--right-value);
                 @media (min-width: 768px) {
                     --right-value: 0.8rem;
+                }
+                @media (min-width: 1024px) and (max-width: 1278px) {
+                    --right-value: -.2rem;
                 }
             }
             &.group-2-cards {
@@ -409,6 +459,9 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         animation-duration: $time-zoom-in-card-animation, $time-move-left-player, 0.3s;        
         animation-fill-mode: forwards, forwards, forwards;
         animation-timing-function: cubic-bezier(.17,.67,.83,.67), linear, cubic-bezier(1, 0.01, 1, 0.01);
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            --move-left-player: -3rem;
+        }
     }
 }
 
