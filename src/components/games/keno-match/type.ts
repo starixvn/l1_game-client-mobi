@@ -1,10 +1,12 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
-import { GameBaseProps, GameBaseState, GameState, GameDurations, } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameDurations, } from "../../shared/game-base/type";
 import { Round } from "../../../types";
 
 export enum KenoMatchGameState {
     None,
+    BeforeStartRound,
+    ConnectFailed,
     Disabled,
     ShowFullTimeResult,
     ShowFullTimeSettlementResult,
@@ -15,13 +17,6 @@ export enum KenoMatchGameState {
     FullTime,
     FullTimeLockingBet,
 }
-
-// export interface GameConfigs {
-//     odds: { [key: string]: number };
-//     minbet: number;
-//     maxbet: number;
-//     choices_maxbet: any;
-// }
 
 export interface KenoMatchResult {
     blue: number[];
@@ -63,18 +58,18 @@ export interface KenoMatchGameDurations extends GameDurations {
     fullTimeLockingBet: number;
 }
 
-export type GameSetting = {
+export type KenoMatchGameSetting = {
     id: number;
     gameName: string;
     durations: KenoMatchGameDurations;
 };
 
-// export interface KenoMatchProps extends GameBaseProps
-// {
-//     GameSetting: GameSetting
-// }
+export interface KenoMatchProps extends GameBaseProps
+{
+    GameSetting: KenoMatchGameSetting
+}
 
-// export type KenoMatchProps = KenoMatchGameSetting &
+// export type KenoMatchProps = GameBaseProps & KenoMatchGameSetting &
 //     WithTranslation &
 //     WithRouterProps;
 
@@ -94,6 +89,7 @@ export type GameSetting = {
 
 export interface KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult> extends GameBaseState<KenoMatchResult, KenoMatchSettlementResult> {
     kenoMatchGameState: KenoMatchGameState;
+    kenoMatchGameSetting: KenoMatchGameSetting;
     roundHistory: KenoMatchRound<KenoMatchResult, KenoMatchSettlementResult>[];
     halfTimeResult?: KenoMatchResult;
     fullTimeResult?: KenoMatchResult;

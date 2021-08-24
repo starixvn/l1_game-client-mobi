@@ -6,10 +6,9 @@ import { io, Socket } from "socket.io-client";
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
-import { GameState } from "../../shared/game-base/type";
 import DrawResult from "./bet-options";
 import Styles from "./game.module.scss";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 
 import {
     KenoMatchGameBaseState,
@@ -17,6 +16,7 @@ import {
     KenoMatchGameState,
     KenoMatchResult,
     KenoMatchSettlementResult,
+    KenoMatchProps
 } from "./type";
 
 export const choicesMapper = {
@@ -45,16 +45,16 @@ const defaultResult = {
     red: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
-class KenoMatch extends GameBase<GameBaseProps, KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult>> {
+class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult>> {
     private socket: Socket;
 
-    constructor(props: GameBaseProps) {
+    constructor(props: KenoMatchProps) {
         super(props);
 
         this.state = {
             ...this.defaultState,
             ...{
-                kenoMatchGameState: KenoMatchGameState.None,
+                gameState: GameState.None,
                 roundHistory: [],
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,

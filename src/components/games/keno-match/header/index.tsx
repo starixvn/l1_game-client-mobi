@@ -8,17 +8,17 @@ import { useGameActionContext } from "../../../../contexts/game-actions-context"
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../../contexts/system";
 import BetSettings from "../../../shared/bet-settings";
-import { GameState, PopupType, RebetStorageModel, ViewMode } from "../../../shared/game-base/type";
+import { PopupType, RebetStorageModel, ViewMode } from "../../../shared/game-base/type";
 import Styles from "../../../shared/game-header/game-header.module.scss";
 import { Tooltip } from "../../../shared/tooltip";
 import CountdownTimer from "../countdown-timer/countdown-timer";
-
+import {KenoMatchGameState} from "../type";
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
 };
 
 export default function GameHeader() {
-    const { roundId, gameSetting, viewMode, gameState } = useGameContext();
+    const { roundId, gameSetting, viewMode, kenoMatchGameState } = useGameContext();
     const { updateViewMode, renderResultCollapse } = useGameActionContext();
 
     const { favoriteGames, setFavorite } = useSystemContext();
@@ -44,7 +44,10 @@ export default function GameHeader() {
         };
 
         const showCollapseResult = () =>
-            viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
+            viewMode === ViewMode.collapse && (
+                kenoMatchGameState === KenoMatchGameState.ShowFullTimeSettlementResult ||  
+                kenoMatchGameState === KenoMatchGameState.ShowHalfTimeSettlementResult || 
+                kenoMatchGameState === KenoMatchGameState.BeforeStartRound);
         return (
             <div
                 className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`}
@@ -68,18 +71,18 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                {!showCollapseResult() && <CountdownTimer key={gameState} />}
+                {!showCollapseResult() && <CountdownTimer key={kenoMatchGameState} />}
                 <HeaderRight displayMenu={!showCollapseResult()} />
                 {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
         );
-    }, [gameState, roundId, viewMode, isFavorite]);
+    }, [kenoMatchGameState, roundId, viewMode, isFavorite]);
 }
 
 const HeaderRight = ({ displayMenu }) => {
     const gameActions = useGameActionContext();
     const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
+    const { roundId, kenoMatchGameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
     const { t } = useTranslation();
@@ -95,8 +98,8 @@ const HeaderRight = ({ displayMenu }) => {
     };
 
     useEffect(() => {
-        gameState !== GameState.InRound && updateDisableRebet(true);
-    }, [gameState]);
+        (kenoMatchGameState !== KenoMatchGameState.FullTime ||  KenoMatchGameState.HalfTime) && updateDisableRebet(true);
+    }, [kenoMatchGameState]);
 
     useEffect(() => {
         updateDisableRebet(rebetInfo?.betInfo === undefined || rebetInfo?.roundId + 1 !== roundId);
@@ -118,7 +121,7 @@ const HeaderRight = ({ displayMenu }) => {
                     betSettings={systemContext.betSettings[gameId]}
                     updateBetSetting={systemContext.updateBetSetting}
                     gameConfigs={gameConfigs}
-                    isDisabled={gameState === GameState.Disabled}
+                    isDisabled={kenoMatchGameState === KenoMatchGameState.Disabled}
                 />
             )}
         </div>
