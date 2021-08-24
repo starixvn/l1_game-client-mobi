@@ -48,7 +48,13 @@ export const FavoriteSetting: React.FC<{
 
     const onSubmit = () => {
         updateFavorite([...favoriteGames]);
-        handleCloseModal();
+        setIsOpenModalAnimation(false);
+
+        if (isMobileOnly) {
+            closeModalTimeOut = setTimeout(() => onCloseModal(), 300);
+        } else {
+            onCloseModal();
+        }
     };
 
     const handleCloseModal = () => {
