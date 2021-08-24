@@ -509,7 +509,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getFinishAnimationDuration() {
-        return this.props.durations.resultAnimation * 1000;
+        const { durations } = this.props;
+        return (durations.resultAnimation + (durations.balancingBet ?? 0)) * 1000;
     }
 
     handleFinish({ finish }) {

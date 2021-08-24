@@ -153,10 +153,10 @@
             "path": "specialsedie"
         },
         "durations": {
-            "wholeRound": 39,
+            "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 4,
+            "showResult": 5,
             "resultAnimation": 2,
             "beforeStartRound": 2,
             "balancingBet": 2
