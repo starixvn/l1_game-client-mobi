@@ -15,8 +15,8 @@ export const FavoriteGuide: React.FC = () => {
 
     return (
         <div className={Styles["container"]}>
-            <p>{t("favorite-setting-guideline")}</p>
-
+            <p>{t("favorite-setting-guideline-1")}</p>
+            <p>{t("favorite-setting-guideline-2")}</p>
             <div className={Styles["favorite-wrapper"]}>
                 <div className={Styles["favorite-games"]}>
                     <div className={`${Styles[favoriteBtnClass]} ${Styles["btn-favorite-single"]}`}>
