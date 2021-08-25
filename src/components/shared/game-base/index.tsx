@@ -143,6 +143,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.props.socketGateway && this.props.socketGateway.emit("outGame", this.props.gameName);
+        this.setState({ gameState: GameState.None });
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -378,7 +379,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleGamePlay(remainingTime: number) {
         const newGameState = this.determineGameState(remainingTime);
-
         if (this.state.gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
