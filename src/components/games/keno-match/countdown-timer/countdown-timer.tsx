@@ -2,44 +2,62 @@ import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { GameBaseProps, GameState } from "../../../shared/game-base/type";
+import { GameState } from "../../../shared/game-base/type";
 import Loader from "../../../shared/loader";
 import styles from "./countdown-timer.module.scss";
 
 import {
-    KenoMatchGameBaseState,
-    KenoMatchSettlementResult,
-    KenoMatchResult,
     KenoMatchGameState,
     KenoMatchGameStateEnum,
     KenoMatchGameDurations,
+    TimerProps
 } from "../type";
 
 const CountdownTimer: React.FC = () => {
-    const { gameState } = useGameContext();
+    const { gameState, remainingTime, gameSetting } = useGameContext(),
+        durationSetting = gameSetting.durations as KenoMatchGameDurations,
+        {halfTimeDuration, showHalfTimeResult, fullTimeDuration, showFullTimeResult} = durationSetting;
+
     const kenoMatchGameState = gameState as KenoMatchGameState;
     const { t } = useTranslation("common");
 
-    console.log(`kenoMatchGameState = ${kenoMatchGameState}`);
+    
+
     switch (kenoMatchGameState) {
-        case GameState.BeforeStartRound:
-            return <Timer />;
-        case GameState.InRound:
-        case KenoMatchGameStateEnum.HalfTime:
-        case KenoMatchGameStateEnum.FullTime:
+        // case GameState.BeforeStartRound:
+        //     return <Timer />;
+        case KenoMatchGameStateEnum.HalfTimePlacingBet:
             return (
                 <>
-                    <Timer />
+                    <Timer duration={halfTimeDuration} initialRemainingTime = {remainingTime - showHalfTimeResult} lockingBet = {false}/>
                     <GameStatus>
                         <div className={styles["start-betting"]}>{t("startBetting")}</div>
                     </GameStatus>
                 </>
             );
-        case KenoMatchGameStateEnum.HalfTimeLockingBet:
+
+        case KenoMatchGameStateEnum.FullTimePlacingBet:
+            return (
+                <>
+                    <Timer duration={fullTimeDuration} initialRemainingTime = {remainingTime - showFullTimeResult} lockingBet = {false}/>
+                    <GameStatus>
+                        <div className={styles["start-betting"]}>{t("startBetting")}</div>
+                    </GameStatus>
+                </>
+            );
+         case KenoMatchGameStateEnum.HalfTimeLockingBet:
+            return (
+                <>
+                   <Timer duration={halfTimeDuration} initialRemainingTime = {remainingTime - showHalfTimeResult} lockingBet = {true}/>
+                    <GameStatus>
+                        <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
+                    </GameStatus>
+                </>
+            );
         case KenoMatchGameStateEnum.FullTimeLockingBet:
             return (
                 <>
-                    <Timer />
+                      <Timer duration={fullTimeDuration} initialRemainingTime = {remainingTime - showFullTimeResult} lockingBet = {true}/>
                     <GameStatus>
                         <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
                     </GameStatus>
@@ -55,7 +73,7 @@ const CountdownTimer: React.FC = () => {
                 </>
             );
 
-        case GameState.None:
+        case KenoMatchGameStateEnum.None:
             return <Loader />;
         default:
             return (
@@ -69,20 +87,15 @@ const CountdownTimer: React.FC = () => {
     }
 };
 
-const Timer = () => {
-    const ctx = useGameContext();
-    const { durations } = ctx.gameSetting;
-    const kenoMatchGameDurations = durations as KenoMatchGameDurations;
-    const kenoMatchGameState = ctx.gameState as KenoMatchGameState;
-
+const Timer = ({duration, initialRemainingTime, lockingBet} : TimerProps) => {
     const timerProps = {
-        isPlaying: kenoMatchGameState !== GameState.BeforeStartRound,
+        isPlaying:true,
         size: 30,
         strokeWidth: 3,
         trailColor: "#fff",
         trailStrokeWidth: 1,
-        initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? kenoMatchGameDurations.halfTimePlacingBets : ctx.remainingTime,
-        duration: kenoMatchGameDurations.halfTimePlacingBets,
+        initialRemainingTime,
+        duration
     };
 
     return (
@@ -91,8 +104,7 @@ const Timer = () => {
                 {...timerProps}
                 colors={[
                     [
-                        kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
-                        kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet
+                        lockingBet
                             ? "#FF0505"
                             : "#19A32F",
                         1,

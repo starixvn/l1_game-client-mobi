@@ -51,7 +51,7 @@ let isUpdateUserStakeLevel = false;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
-    private betWin: number;
+    protected betWin: number;
     protected isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;

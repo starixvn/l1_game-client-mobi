@@ -1,22 +1,20 @@
-import { WithTranslation } from "next-i18next";
-import { WithRouterProps } from "next/dist/client/with-router";
 import { GameBaseProps, GameBaseState, GameDurations,  GameState} from "../../shared/game-base/type";
 import { Round } from "../../../types";
 
 export enum KenoMatchGameStateEnum  {
-    // None,
-    // BeforeStartRound,
-    // ConnectFailed,
-    // Disabled,
-    ShowFullTimeResult,
-    ShowFullTimeSettlementResult,
-    HalfTime,
+    None,
+    BeforeStartRound,
+    ConnectFailed,
+    Disabled,
+    HalfTimePlacingBet,
     HalfTimeLockingBet,
     ShowHalfTimeResult,
     ShowHalfTimeSettlementResult,
-    FullTime,
+    BeforeStartFullTimePlacingBet,
+    FullTimePlacingBet,
     FullTimeLockingBet,
-    BeforeStartFullTimePlacingBet
+    ShowFullTimeResult,
+    ShowFullTimeSettlementResult
 }
 
 export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;
@@ -60,6 +58,9 @@ export interface KenoMatchGameDurations extends GameDurations {
     showFullTimeResult: number;
     showFullTimeSettlementResult: number;
     beforeStartFullTimePlacingBet: number;
+    halfTimeDuration: number,
+    fullTimeDuration: number,
+
     resetResult: number;
     // finishHalfTime: number;
 }
@@ -75,30 +76,18 @@ export interface KenoMatchProps extends GameBaseProps
     GameSetting: KenoMatchGameSetting
 }
 
-// export type KenoMatchProps = GameBaseProps & KenoMatchGameSetting &
-//     WithTranslation &
-//     WithRouterProps;
-
-// export type KenoMatchState = {
-//     signedIn: boolean;
-//     gameState: KenoMatchGameState;
-//     remainingTime: number;
-//     gameConfigs: GameConfigs;
-//     roundId: number;
-//     roundHistory: KenoMatchRound[];
-//     ownBets: object;
-//     halfTimeResult?: KenoMatchResult;
-//     fullTimeResult?: KenoMatchResult;
-//     settlementResult?: KenoMatchSettlementResult;
-//     activeHalfTimeResult: boolean;
-// };
 
 export interface KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult> extends GameBaseState<KenoMatchResult, KenoMatchSettlementResult> {
-    // gameState: KenoMatchGameState;
-    // kenoMatchGameSetting: KenoMatchGameSetting;
     roundHistory: KenoMatchRound<KenoMatchResult, KenoMatchSettlementResult>[];
     halfTimeResult?: KenoMatchResult;
     fullTimeResult?: KenoMatchResult;
     settlementResult?: KenoMatchSettlementResult;
     activeHalfTimeResult: boolean;
+}
+
+
+export interface TimerProps {
+    duration: number;
+    initialRemainingTime: number;
+    lockingBet: boolean;
 }

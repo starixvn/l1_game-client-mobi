@@ -103,7 +103,7 @@ const HeaderRight = ({ displayMenu }) => {
     };
 
     useEffect(() => {
-        (kenoMatchGameState !== KenoMatchGameStateEnum.FullTime ||  KenoMatchGameStateEnum.HalfTime) && updateDisableRebet(true);
+        (kenoMatchGameState !== KenoMatchGameStateEnum.FullTimePlacingBet ||  KenoMatchGameStateEnum.HalfTimePlacingBet) && updateDisableRebet(true);
     }, [kenoMatchGameState]);
 
     useEffect(() => {
