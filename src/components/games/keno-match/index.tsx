@@ -154,8 +154,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
-        // console.log(`handleRemainingTime gameState : ${gameState}`);
-        // console.log(`handleRemainingTime remainingTime : ${remainingTime}s`);
 
         if (gameState === GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
@@ -176,19 +174,16 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
 
         const newGameState = this.determineGameState(remainingTime);
         const gameState = this.state.gameState as KenoMatchGameState;
-        // console.log(`newGameState ${newGameState}`);
+
         if (gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
                 roundHistory: [],
-                activeHalfTimeResult: false,
+                // activeHalfTimeResult: false,
                 ...this.getStateByNextGameState(newGameState),
             };
 
             this.setState(newState as any);
-
-            // console.log("set new state");
-            // console.log(JSON.stringify(newState,null, 2));
         }
     }
 

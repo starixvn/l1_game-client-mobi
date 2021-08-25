@@ -216,6 +216,7 @@
             
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
+            "resetResult": 41,
 
             "finishHalfTime": 25,
             "resultAnimation": 2,
@@ -244,6 +245,7 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
+            "resetResult": 41,
 
             "finishHalfTime": 25,
             "resultAnimation": 2,
