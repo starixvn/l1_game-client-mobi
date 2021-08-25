@@ -75,6 +75,7 @@ export interface GameBaseState<Result, SettlementResult> {
         [key: number]: {
             amount: number;
             betPosition: BetPosition;
+            betOptionRightCoordinates: number;
         };
     };
     showWinningAnimation: boolean;

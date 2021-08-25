@@ -62,9 +62,10 @@ const BetOption: React.FunctionComponent<Props> = ({
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
+        const betOptionRightCoordinates = betChoiceRef.current.getBoundingClientRect().right;
 
         if (enabledQuickBet) {
-            placeBet(choice, betValue, { x: event.clientX, y: event.clientY });
+            placeBet(choice, betValue, { x: event.clientX, y: event.clientY }, betOptionRightCoordinates);
         } else {
             setIsFocusChoice(true);
             const betOptionElement = totalBetRef.current.nextElementSibling;

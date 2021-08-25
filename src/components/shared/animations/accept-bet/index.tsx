@@ -4,7 +4,9 @@ import { numberWithCommas } from "../../../../helpers/number-helper";
 import { BetPosition } from "../../game-base/type";
 import Styles from "./styles.module.scss";
 
-const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition } }> = ({ betInfo }) => {
+const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition; betOptionRightCoordinates?: number } }> = ({
+    betInfo,
+}) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [customStyle, setCustomStyle] = useState<React.CSSProperties>({ position: "fixed", right: "auto" });
 
@@ -15,7 +17,11 @@ const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition
             const newCustomStyle = { ...customStyle };
 
             newCustomStyle.top = betInfo.betPosition?.y - 30;
-            newCustomStyle.left = Math.min(windowWidth - wrapperWidth - 10, betInfo.betPosition?.x - 15);
+            newCustomStyle.left = Math.min(
+                windowWidth - wrapperWidth - 10,
+                betInfo.betPosition?.x - 15,
+                (betInfo.betOptionRightCoordinates || 1000) - wrapperWidth
+            );
             newCustomStyle.left = Math.max(10, newCustomStyle.left);
 
             setCustomStyle(newCustomStyle);

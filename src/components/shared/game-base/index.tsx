@@ -56,6 +56,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
     private betPosition: BetPosition;
+    private betOptionRightCoordinates: number;
 
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -302,6 +303,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         acceptedBetQueue[key] = {
             amount,
             betPosition: betPosition ? { ...betPosition } : null,
+            betOptionRightCoordinates: this.betOptionRightCoordinates,
         };
 
         this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });
@@ -569,7 +571,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    placeBet(betChoice: string, amount: number, betPosition?: BetPosition) {
+    placeBet(betChoice: string, amount: number, betPosition?: BetPosition, betOptionRightCoordinates?: number) {
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
@@ -577,6 +579,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.betPosition = betPosition;
+                this.betOptionRightCoordinates = betOptionRightCoordinates;
                 this.isProcessingBet = true;
                 this.setRetryInterval();
                 const { gameName } = this.props;

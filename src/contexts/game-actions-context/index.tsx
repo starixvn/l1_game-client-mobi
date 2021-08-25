@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { BetPosition, PopupType, ViewMode } from "../../components/shared/game-base/type";
 
 type GameActionsContextType = {
-    placeBet: (betChoice: string, amount: number, betPosition?: BetPosition) => void;
+    placeBet: (betChoice: string, amount: number, betPosition?: BetPosition, betOptionRightCoordinates?: number) => void;
     openPopup: (type: PopupType) => void;
     closePopup: () => void;
     registerMessageHandler: Function;
