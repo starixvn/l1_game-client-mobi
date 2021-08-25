@@ -261,6 +261,9 @@ html {
         --page-background-image: url("/static/images/themes/background-theme-dark-desktop.jpg");
     }
 }
+html {
+    overscroll-behavior: none;
+}
 
 // To dock the footer
 html,

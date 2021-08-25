@@ -71,64 +71,62 @@ export const FavoriteSetting: React.FC<{
     useEffect(() => clearTimeout(closeModalTimeOut), []);
 
     return (
-        <BaseDialog onCloseModal={handleCloseModal} type={ModalType.FavoriteSetting} toggleBtnRef={toggleBtnRef}>
-            <div
-                className={`${Styles["favorite-setting"]} ${
-                    isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
-                }`}
-            >
-                <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
-                <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
-                {favoriteGames.length > 0 && (
-                    <ul className={Styles["favorite-games"]}>
-                        {favoriteGames.map((gameId, index) => (
-                            <li className={`${Styles["game"]}`} key={index}>
-                                <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
-                                    <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
-                                </div>
-                                <span className={Styles["game-name"]}>
-                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                                </span>
-                                <div className={Styles["group-btn-move"]}>
-                                    <button className={Styles["btn-move"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
-                                        <span className={Styles["icon-move-up"]}></span>
-                                    </button>
-                                    <button
-                                        className={Styles["btn-move"]}
-                                        disabled={index === favoriteGames.length - 1}
-                                        onClick={() => onClickMove(index, false)}
-                                    >
-                                        <span className={Styles["icon-move-down"]}></span>
-                                    </button>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-                {unfavoriteGames.length > 0 && (
-                    <ul className={Styles["unfavorite-games"]}>
-                        {unfavoriteGames.map((gameId, index) => (
-                            <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
-                                <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
-                                    <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
-                                </div>
-                                <span className={Styles["game-name"]}>
-                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+        <div
+            className={`${Styles["favorite-setting"]} ${
+                isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
+            }`}
+        >
+            <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
+            <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>
+            {favoriteGames.length > 0 && (
+                <ul className={Styles["favorite-games"]}>
+                    {favoriteGames.map((gameId, index) => (
+                        <li className={`${Styles["game"]}`} key={index}>
+                            <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
+                                <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
+                            </div>
+                            <span className={Styles["game-name"]}>
+                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            </span>
+                            <div className={Styles["group-btn-move"]}>
+                                <button className={Styles["btn-move"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
+                                    <span className={Styles["icon-move-up"]}></span>
+                                </button>
+                                <button
+                                    className={Styles["btn-move"]}
+                                    disabled={index === favoriteGames.length - 1}
+                                    onClick={() => onClickMove(index, false)}
+                                >
+                                    <span className={Styles["icon-move-down"]}></span>
+                                </button>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
+            {unfavoriteGames.length > 0 && (
+                <ul className={Styles["unfavorite-games"]}>
+                    {unfavoriteGames.map((gameId, index) => (
+                        <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
+                            <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
+                                <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
+                            </div>
+                            <span className={Styles["game-name"]}>
+                                {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            )}
 
-                <div className={Styles["actions"]}>
-                    <button className={`btn-grey`} onClick={onClickReset}>
-                        {t("reset")}
-                    </button>
-                    <button className={`btn-orange`} onClick={onSubmit}>
-                        {t("save")}
-                    </button>
-                </div>
+            <div className={Styles["actions"]}>
+                <button className={`btn-grey`} onClick={onClickReset}>
+                    {t("reset")}
+                </button>
+                <button className={`btn-orange`} onClick={onSubmit}>
+                    {t("save")}
+                </button>
             </div>
-        </BaseDialog>
+        </div>
     );
 };
