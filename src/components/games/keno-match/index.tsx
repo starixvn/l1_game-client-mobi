@@ -6,7 +6,7 @@ import { io, Socket } from "socket.io-client";
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
-import DrawResult from "./bet-options";
+import DrawResult from "./round-result";
 import Styles from "./game.module.scss";
 import { GameState, PopupType } from "../../shared/game-base/type";
 
@@ -98,14 +98,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderBetOptions() {
         const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult } = this.state;
-        return (
-            <DrawResult
-                gameState={gameState}
-                halfTimeResult={halfTimeResult}
-                fullTimeResult={fullTimeResult}
-                isHalfTimeActive={activeHalfTimeResult}
-            />
-        );
+        return <></>;
     }
 
     renderRoundHistory() {
@@ -175,7 +168,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             const newState = {
                 gameState: newGameState,
                 roundHistory: [],
-                // activeHalfTimeResult: false,
                 ...this.getStateByNextGameState(newGameState),
             };
 
@@ -325,6 +317,18 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderGameHeader() {
         return <KenoMatchGameHeader />;
+    }
+
+    renderRoundResult() {
+        const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult } = this.state;
+        return (
+            <DrawResult
+                gameState={gameState}
+                halfTimeResult={halfTimeResult}
+                fullTimeResult={fullTimeResult}
+                isHalfTimeActive={activeHalfTimeResult}
+            />
+        );
     }
 }
 

@@ -1,10 +1,10 @@
 import React from "react";
 
-import { KenoMatchResult } from "../../type";
-import Styles from "./half-result.module.scss";
+import { Result } from "../../type";
+import Styles from "./half-round-result.module.scss";
 
 type Props = {
-    result: KenoMatchResult;
+    result: Result;
     isHalfTime: boolean;
     active: boolean;
 };

@@ -825,6 +825,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return <GameHeader />;
     }
 
+    renderRoundResult() {
+        return <> </>;
+    }
     renderGame() {
         const { durations } = this.props;
 
@@ -880,8 +883,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    {this.props.socketInfo.namespace !== "kenomatch1" && <GameHeader />}
-                    {this.props.socketInfo.namespace === "kenomatch1" && <KenoMatchGameHeader />}
+                    {this.renderGameHeader()}
+                    {this.renderRoundResult()}
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
