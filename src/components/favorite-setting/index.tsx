@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
 
@@ -17,6 +17,7 @@ export const FavoriteSetting: React.FC<{
     const [isOpenModalAnimation, setIsOpenModalAnimation] = useState(true);
     const { t } = useTranslation();
     const { gameSettings } = appSettings;
+    const wrapperRef = useRef<HTMLDivElement>(null);
     let closeModalTimeOut: NodeJS.Timeout;
 
     const addFavoriteGames = (gameId: number) => {
@@ -66,10 +67,25 @@ export const FavoriteSetting: React.FC<{
         }
     };
 
-    useEffect(() => clearTimeout(closeModalTimeOut), []);
+    useEffect(() => {
+        clearTimeout(closeModalTimeOut);
+    }, []);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (wrapperRef?.current && !wrapperRef.current.contains(event.target) && !toggleBtnRef.current.contains(event.target)) {
+                handleCloseModal();
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [wrapperRef]);
 
     return (
         <div
+            ref={wrapperRef}
             className={`${Styles["favorite-setting"]} ${
                 isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
             } ${isMobileOnly ? Styles["mobile"] : ""}`}
