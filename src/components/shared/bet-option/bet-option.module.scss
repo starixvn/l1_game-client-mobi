@@ -70,7 +70,7 @@
     .total-bet,
     .own-bet {
         font-family: var(--font-number);
-    }
+    }    
 
     .odd {
         position: absolute;
@@ -79,6 +79,10 @@
         color: var(--bet-option-odds-color);
         text-align: left;
         font-size: 1.2rem;
+        letter-spacing: -.1rem;
+        @media (min-width: 1136px) {
+            letter-spacing: unset;
+        }
     }
 
     .total-bet,
@@ -91,7 +95,10 @@
     .total-bet {
         top: 0;
         color: var(--bet-option-total-bet-color);
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        @media (min-width: 1136px) {
+            font-size: 1.5rem;
+        }
     }
 
     .own-bet {

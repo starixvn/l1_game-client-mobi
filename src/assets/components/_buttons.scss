@@ -11,6 +11,9 @@
     text-align: center;
     font-size: 1.6rem;
     -webkit-tap-highlight-color: transparent;
+    @media (min-width: 1024px) and (max-width: 1136px) {
+        font-size: 1.4rem;
+    }
 
     &:disabled {
         opacity: 0.6;
