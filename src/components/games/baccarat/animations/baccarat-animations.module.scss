@@ -45,10 +45,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         font-size: inherit;
         @include position-cards(
             (
-                "1": 4.5rem,
+                "1": 5rem,
                 "2": 0,
                 "3": 0,
-                "4": -4.5rem,
+                "4": -5rem,
             )
         );
         @media (min-width: 1024px) and (max-width: 1278px) {
@@ -65,10 +65,10 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-5 {
         @include position-cards(
             (
-                "1": 12rem,
+                "1": 12.5rem,
                 "2": 0,
                 "3": 7.5rem,
-                "4": -4.5rem,
+                "4": -5rem,
                 "5": 4rem,
             )
         );
@@ -92,11 +92,11 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         &-banker {
             @include position-cards(
                 (
-                    "1": 4.5rem,
+                    "1": 5rem,
                     "2": 0,
                     "3": 0,
-                    "4": -4.5rem,
-                    "5": -8rem,
+                    "4": -5rem,
+                    "5": -8.5rem,
                 )
             );
             @media (min-width: 1024px) and (max-width: 1278px) {
@@ -115,12 +115,12 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
     &.card-6 {
         @include position-cards(
             (
-                "1": 12rem,
+                "1": 12.5rem,
                 "2": 0,
                 "3": 7.5rem,
-                "4": -4.5rem,
+                "4": -5rem,
                 "5": 4rem,
-                "6": -8rem,
+                "6": -8.5rem,
             )
         );  
         @media (min-width: 1024px) and (max-width: 1278px) {
@@ -183,11 +183,17 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
                 margin-left: 40%;
                 left: var(--left-value);
-                @media (min-width: 768px) {
-                    --left-value: .8rem;
+                @media (min-width: 580px) and (max-width: 767px) {
+                    --left-value: 6.8rem;
+                }
+                @media (min-width: 768px) and (max-width: 1023px) {
+                    --left-value: 2.4rem;
                 }
                 @media (min-width: 1024px) and (max-width: 1278px) {
                     --left-value: -.2rem;
+                }
+                @media(min-width: 1279px) {
+                    --left-value: 1.2rem;
                 }
             }
             &.group-2-cards {
@@ -200,11 +206,17 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 margin-right: 40%;
                 --right-value: -.4rem;
                 right: var(--right-value);
-                @media (min-width: 768px) {
-                    --right-value: 0.8rem;
+                @media (min-width: 480px) and (max-width: 767px) {
+                    --right-value: 6.8rem;
+                }                
+                @media (min-width: 768px) and (max-width: 1023px) {
+                    --right-value: 2.4rem;
                 }
                 @media (min-width: 1024px) and (max-width: 1278px) {
                     --right-value: -.2rem;
+                }
+                @media(min-width: 1279px) {
+                    --right-value: 1.2rem;
                 }
             }
             &.group-2-cards {
@@ -535,7 +547,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "2": 0,
                 "3": 3.6rem,
                 "4": -1.2rem,
-                "5": 2.4rem
+                "5": 3rem
             )
         ); 
         .animation-container {
@@ -550,7 +562,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 }
             }
             &.move-up-no-animation.player {
-                left: -2.8rem;
+                left: -3.4rem;
             }
         }
         &-banker {
@@ -560,7 +572,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                     "2": 0,
                     "3": 0,
                     "4": -1.2rem,
-                    "5": -2.4rem
+                    "5": -1.8rem
                 )
             );
             .animation-container {
@@ -584,8 +596,8 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 "2": 0,
                 "3": 3.6rem,
                 "4": -1.2rem,
-                "5": 2.4rem,
-                "6": -2.4rem,
+                "5": 3rem,
+                "6": -1.8rem,
             )
         );
         .animation-container {
@@ -600,7 +612,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
                 }
             }
             &.move-up-no-animation.player {
-                left: -2.8rem;
+                left: -3.4rem;
             }
         }
     }
@@ -657,7 +669,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 .result-collapse-mode.open-cards.card-6.has-animation .animation-container,
 .result-collapse-mode.open-cards.card-5.has-animation .animation-container {
     &.player {
-        --move-left-player: -2.8rem;
+        --move-left-player: -3.4rem;
     }
 }
 
