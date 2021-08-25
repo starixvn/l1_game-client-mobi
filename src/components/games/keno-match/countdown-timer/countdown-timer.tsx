@@ -21,8 +21,6 @@ const CountdownTimer: React.FC = () => {
     const kenoMatchGameState = gameState as KenoMatchGameState;
     const { t } = useTranslation("common");
 
-    
-
     switch (kenoMatchGameState) {
         // case GameState.BeforeStartRound:
         //     return <Timer />;
@@ -63,6 +61,7 @@ const CountdownTimer: React.FC = () => {
                     </GameStatus>
                 </>
             );
+            
         case GameState.BalancingBet:
             return (
                 <>

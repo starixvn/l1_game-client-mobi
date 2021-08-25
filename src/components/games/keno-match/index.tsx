@@ -8,15 +8,15 @@ import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
 import DrawResult from "./bet-options";
 import Styles from "./game.module.scss";
-import { GameBaseProps, GameBaseState, GameState, PopupType } from "../../shared/game-base/type";
+import { GameState, PopupType } from "../../shared/game-base/type";
 
 import {
+    Result,
+    SettlementResult,
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
     KenoMatchGameState,
     KenoMatchGameStateEnum,
-    KenoMatchResult,
-    KenoMatchSettlementResult,
     KenoMatchProps,
 } from "./type";
 
@@ -46,7 +46,7 @@ const defaultResult = {
     red: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 };
 
-class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult>> {
+class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     private socket: Socket;
 
     constructor(props: KenoMatchProps) {
@@ -120,10 +120,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<KenoMatc
     renderBoard() {
         const { roundHistory } = this.state;
         return <></>;
-    }
-
-    get isShowStartRoundAnimation() {
-        return this.state.gameState === GameState.BeforeStartRound;
     }
 
     renderStartRoundAnimation() {

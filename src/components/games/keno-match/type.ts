@@ -1,4 +1,4 @@
-import { GameBaseProps, GameBaseState, GameDurations,  GameState} from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameDurations,  GameSettings,  GameState} from "../../shared/game-base/type";
 import { Round } from "../../../types";
 
 export enum KenoMatchGameStateEnum  {
@@ -19,12 +19,12 @@ export enum KenoMatchGameStateEnum  {
 
 export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;
 
-export interface KenoMatchResult {
+export interface Result {
     blue: number[];
     red: number[];
 }
 
-export interface KenoMatchSettlementResult {
+export interface SettlementResult {
     blue: boolean;
     red: boolean;
     over: boolean;
@@ -33,22 +33,19 @@ export interface KenoMatchSettlementResult {
     even: boolean;
 }
 
-export interface KenoMatchHalfResult {
-    result: KenoMatchResult;
+export interface HalfRoundResult {
+    result: Result;
     sum: number;
-    settlementResult: KenoMatchSettlementResult;
+    settlementResult: SettlementResult;
     time: Date;
 }
 
-export interface KenoMatchRound<KenoMatchResult,KenoMatchSettlementResult> extends Round<KenoMatchResult,KenoMatchSettlementResult> {
-    roundId: number;
-    halfTime: KenoMatchHalfResult;
-    fullTime: KenoMatchHalfResult;
-    time: Date;
+export interface KenoMatchRound<Result, SettlementResult> extends Round<Result, SettlementResult> {
+    halfTime: HalfRoundResult;
+    fullTime: HalfRoundResult;
 }
 
 export interface KenoMatchGameDurations extends GameDurations {
-    wholeRound: number;
     halfTimePlacingBets: number;
     halfTimeLockingBet: number;
     showHalfTimeResult: number;
@@ -58,16 +55,12 @@ export interface KenoMatchGameDurations extends GameDurations {
     showFullTimeResult: number;
     showFullTimeSettlementResult: number;
     beforeStartFullTimePlacingBet: number;
-    halfTimeDuration: number,
-    fullTimeDuration: number,
-
+    halfTimeDuration: number;
+    fullTimeDuration: number;
     resetResult: number;
-    // finishHalfTime: number;
 }
 
-export type KenoMatchGameSetting = {
-    id: number;
-    gameName: string;
+export interface KenoMatchGameSetting extends GameSettings {
     durations: KenoMatchGameDurations;
 };
 
@@ -76,15 +69,13 @@ export interface KenoMatchProps extends GameBaseProps
     GameSetting: KenoMatchGameSetting
 }
 
-
-export interface KenoMatchGameBaseState<KenoMatchResult, KenoMatchSettlementResult> extends GameBaseState<KenoMatchResult, KenoMatchSettlementResult> {
-    roundHistory: KenoMatchRound<KenoMatchResult, KenoMatchSettlementResult>[];
-    halfTimeResult?: KenoMatchResult;
-    fullTimeResult?: KenoMatchResult;
-    settlementResult?: KenoMatchSettlementResult;
+export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBaseState<Result, SettlementResult> {
+    roundHistory: KenoMatchRound<Result, SettlementResult>[];
+    halfTimeResult?: Result;
+    fullTimeResult?: Result;
+    settlementResult?: SettlementResult;
     activeHalfTimeResult: boolean;
 }
-
 
 export interface TimerProps {
     duration: number;
