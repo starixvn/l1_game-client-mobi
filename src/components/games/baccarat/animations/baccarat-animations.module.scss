@@ -164,8 +164,8 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
     }
 
     .animation-container {
-        --move-up-distance: -4.8rem;
-        top: 0;
+        --move-up-distance: -2.8rem;
+        top: -2rem;
         transform: scale3d(1, 1, 1);
         transition: transform 0.7s;
 
