@@ -63,6 +63,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected reBetStorageKey: string;
     protected messageTransmitter: MessageTransmitterType;
     protected authService: Auth;
+    private isConnectFailed = false;
 
     private readonly defaultGameConfig = { odds: {}, minbet: 0, maxbet: 0, choices_maxbet: {}, enableFreeBet: false };
     protected readonly defaultState = {
@@ -152,6 +153,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onStart() {
+        this.isConnectFailed = false;
         this.isProcessingBet = false;
         this.initWinStreakCollector();
         this.props.socketGateway?.connected && this.requestSignIn();
@@ -168,11 +170,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const visibleState = document.visibilityState;
         visibleState === "hidden" ? this.onDestroy() : this.onStart();
     };
-
-    onConnectFailed() {
-        this.onDestroy();
-        this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
-    }
 
     registerMessageHandler = () => {
         this.messageTransmitter.register("signedIn", this.handleSignedIn.bind(this));
@@ -194,7 +191,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleError = ({ errorCode }) => {
         if (errorCode === "SB0010") {
-            this.setState({ gameState: GameState.ConnectFailed });
+            this.isConnectFailed = true;;
+            this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
         }
     };
 
@@ -381,7 +379,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleGamePlay(remainingTime: number) {
         const newGameState = this.determineGameState(remainingTime);
-        if (this.state.gameState !== newGameState) {
+        if (this.state.gameState !== newGameState && !this.isConnectFailed) {
             const newState = {
                 gameState: newGameState,
                 ...this.getStateByNextGameState(newGameState),
@@ -457,7 +455,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     determineGameState(remainingTime: number) {
         const { durations } = this.props;
-
         if (durations.balancingBet && remainingTime > durations.wholeRound - durations.balancingBet) {
             return GameState.BalancingBet;
         }
