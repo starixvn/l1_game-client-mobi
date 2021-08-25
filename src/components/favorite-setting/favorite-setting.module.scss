@@ -61,6 +61,7 @@
     box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.25);
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
+    transform: scale(1);
 
     @media (min-device-width: 768px) {
         position: absolute;
@@ -69,7 +70,6 @@
         bottom: auto;
         max-height: calc(100vh - 4.4rem);
         border-radius: 0 0 0 0.5rem;
-        margin-right: 0.5rem;
     }
 
     @media (min-device-width: 768px) and (min-height: 768px) {
@@ -77,6 +77,9 @@
     }
 
     &.mobile {
+        position: absolute;
+        bottom: auto;
+        margin-right: 0.5rem;
         border-radius: 0.5rem;
         max-height: none;
         min-height: 50rem;
@@ -314,20 +317,20 @@
 
 @keyframes right-to-left-side {
     from {
-        right: -27rem;
+        transform: translate3d(27rem, 0, 0);
     }
 
     to {
-        right: 0;
+        transform: translate3d(0, 0, 0);
     }
 }
 
 @keyframes left-to-right-side {
     from {
-        right: 0;
+        transform: translate3d(0, 0, 0);
     }
 
     to {
-        right: -27rem;
+        transform: translate3d(27rem, 0, 0);
     }
 }
