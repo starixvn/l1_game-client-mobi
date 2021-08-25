@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import styles from "./game-category.module.scss";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import { useTranslation } from "next-i18next";
+
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
+import styles from "./game-category.module.scss";
 
 const renderPagingCategory = (
     category: string,

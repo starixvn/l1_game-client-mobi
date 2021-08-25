@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../common/app-settings";
 import { CommonResourceKeys, GameResourceKeys } from "../../common/resources";
-import BaseDialog from "../shared/base-dialog";
-import { ModalType } from "../shared/base-dialog/type";
 import Styles from "./favorite-setting.module.scss";
-import { isMobileOnly } from "react-device-detect";
 
 export const FavoriteSetting: React.FC<{
     currentFavoriteGames: number[];
@@ -74,7 +72,7 @@ export const FavoriteSetting: React.FC<{
         <div
             className={`${Styles["favorite-setting"]} ${
                 isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
-            }`}
+            } ${isMobileOnly ? Styles["mobile"] : ""}`}
         >
             <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
             <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>

@@ -17,7 +17,7 @@
     --game-un-favorite-border: linear-gradient(180deg, #ffe8c3 0%, #ffdda9 100%);
 
     --icon-move-color: #fff;
-    --icon-move-hover-color: #935E08;
+    --icon-move-hover-color: #935e08;
 
     --game-text-color: #2c2f3e;
     --seperate-line-color: #c9c9c9;
@@ -34,7 +34,7 @@
     --btn-un-favorite-border: #83a6cb;
 
     --icon-favorite: #ffc634;
-    --icon-un-favorite: #aacff5; 
+    --icon-un-favorite: #aacff5;
 
     --game-favorite-background: linear-gradient(180deg, #537597 0%, #3c5979 100%);
     --game-favorite-border: linear-gradient(180deg, #7caadc 0%, #466586 100%);
@@ -42,7 +42,7 @@
     --game-un-favorite-border: linear-gradient(180deg, #0b1c2f 0%, #071522 100%);
 
     --icon-move-color: #fff;
-    --icon-move-hover-color: #AACFF5;
+    --icon-move-hover-color: #aacff5;
 
     --game-text-color: #ffbb0b;
     --seperate-line-color: #405e7e;
@@ -68,11 +68,17 @@
         top: 4.1rem;
         bottom: auto;
         max-height: calc(100vh - 4.4rem);
+
         border-radius: 0 0 0 0.5rem;
     }
 
     @media (min-device-width: 768px) and (min-height: 768px) {
         max-height: 70rem;
+    }
+
+    &.mobile {
+        max-height: none;
+        min-height: 50rem;
     }
 
     &.open-animation {
@@ -235,8 +241,8 @@
         height: 0.8rem;
         border-top: 0.3rem solid var(--icon-move-color);
         border-right: 0.3rem solid var(--icon-move-color);
-        box-shadow: 1px -1px  2px rgba(0, 0, 0, 0.25);
-        top: .2rem;
+        box-shadow: 1px -1px 2px rgba(0, 0, 0, 0.25);
+        top: 0.2rem;
     }
 
     .icon-move-down:before {
