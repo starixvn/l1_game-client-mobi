@@ -74,8 +74,8 @@ export interface GameBaseState<Result, SettlementResult> {
     acceptedBetQueue: {
         [key: number]: {
             amount: number;
-            betPosition: BetPosition;
-            betOptionRightCoordinates: number;
+            betPosition: Position;
+            betOptionBoundary: Boundary;
         };
     };
     showWinningAnimation: boolean;
@@ -162,7 +162,12 @@ export enum ViewMode {
     collapse,
 }
 
-export interface BetPosition {
+export interface Position {
     x: number;
     y: number;
+}
+
+export interface Boundary {
+    left: number;
+    right: number;
 }

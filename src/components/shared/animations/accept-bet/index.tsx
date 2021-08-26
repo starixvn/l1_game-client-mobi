@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
 import { numberWithCommas } from "../../../../helpers/number-helper";
-import { BetPosition } from "../../game-base/type";
+import { Boundary, Position } from "../../game-base/type";
 import Styles from "./styles.module.scss";
 
-const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition; betOptionRightCoordinates?: number } }> = ({
-    betInfo,
-}) => {
+const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: Position; betOptionBoundary?: Boundary } }> = ({ betInfo }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [customStyle, setCustomStyle] = useState<React.CSSProperties>({ position: "fixed", right: "auto" });
 
@@ -20,9 +18,9 @@ const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: BetPosition
             newCustomStyle.left = Math.min(
                 windowWidth - wrapperWidth - 10,
                 betInfo.betPosition?.x - 15,
-                (betInfo.betOptionRightCoordinates || 1000) - wrapperWidth
+                (betInfo.betOptionBoundary?.right || 1000) - wrapperWidth
             );
-            newCustomStyle.left = Math.max(10, newCustomStyle.left);
+            newCustomStyle.left = Math.max(betInfo.betOptionBoundary?.left || 10, newCustomStyle.left);
 
             setCustomStyle(newCustomStyle);
         }

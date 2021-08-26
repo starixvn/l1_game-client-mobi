@@ -1,4 +1,4 @@
-import { BetPosition } from "../game-base/type";
+import { Position } from "../game-base/type";
 
 type BetChoiceInfo = {
     gameName: string;
@@ -9,7 +9,7 @@ type BetChoiceInfo = {
 
 export type PlaceBetModalProps = {
     isOpen: boolean;
-    onPlaceBet: (betChoice: string, amount: number, betPosition: BetPosition) => void;
+    onPlaceBet: (betChoice: string, amount: number, betPosition: Position) => void;
     betChoiceInfo: BetChoiceInfo;
     onCloseModal: Function;
     betContainerPosition?: any;

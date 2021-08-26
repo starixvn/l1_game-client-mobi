@@ -33,11 +33,12 @@ import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
 import {
-    BetPosition,
+    Boundary,
     GameBaseProps,
     GameBaseState,
     GameState,
     PopupType,
+    Position,
     RebetStorageModel,
     ViewMode,
     WinStreakCollectorModel,
@@ -55,8 +56,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
-    private betPosition: BetPosition;
-    private betOptionRightCoordinates: number;
+    private betPosition: Position;
+    private betOptionBoundary: Boundary;
 
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -295,13 +296,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     };
 
-    playAcceptedBetAnimation(amount: number, betPosition?: BetPosition) {
+    playAcceptedBetAnimation(amount: number, betPosition?: Position) {
         const { acceptedBetQueue } = this.state;
         const key = uuidv4();
         acceptedBetQueue[key] = {
             amount,
             betPosition: betPosition ? { ...betPosition } : null,
-            betOptionRightCoordinates: this.betOptionRightCoordinates,
+            betOptionBoundary: this.betOptionBoundary,
         };
 
         this.setState({ acceptedBetQueue: { ...acceptedBetQueue } });
@@ -568,7 +569,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    placeBet(betChoice: string, amount: number, betPosition?: BetPosition, betOptionRightCoordinates?: number) {
+    placeBet(betChoice: string, amount: number, betPosition?: Position, betOptionBoundary?: Boundary) {
         const { displayPopup } = this.state;
 
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
@@ -576,7 +577,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         } else {
             if (amount > 0) {
                 this.betPosition = betPosition;
-                this.betOptionRightCoordinates = betOptionRightCoordinates;
+                this.betOptionBoundary = betOptionBoundary;
                 this.isProcessingBet = true;
                 this.setRetryInterval();
                 const { gameName } = this.props;
