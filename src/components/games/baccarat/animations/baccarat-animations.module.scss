@@ -42,7 +42,7 @@ $total-5cards-move-up-delay: $card5-delay-time + $third-card-duration-time + $ti
 $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $time-move-left-player + $time-show-card-animation;
 
 .full-mode {
-    --player-banker-space: 2rem;
+    --player-banker-space: 3rem;
     @media (min-width: 1200px) {
         --player-banker-space: 4rem;
     }
@@ -95,11 +95,16 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 "4": calc(var(--distance-first-second-card) * -1),
             )
         );
-    }
-    &.card-5, &.card-6 {
-        .player {
-            position: relative;
-            left: 4rem;
+
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 5.5rem,
+                    "2": 0,
+                    "3": 0,
+                    "4": -5.5rem,
+                )
+            );
         }
         .animation-container .move-up-no-animation.player{
             left: 0;
@@ -115,8 +120,19 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 "5": 0,
             )
         );
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 13rem,
+                    "2": 0,
+                    "3": 7.5rem,
+                    "4": -5.5rem,
+                    "5": 3rem,
+                )
+            );
+        }
         .animation-container.move-up-no-animation.player {
-            left: -4rem;
+            left: calc(var(--player-banker-space) * (-1));
         }
         @media (min-width: 1024px) and (max-width: 1278px) {
             @include position-cards(
@@ -145,7 +161,17 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                     "5": calc(var(--distance-second-third-card) * -1),
                 )
             );
-            
+            @media (min-width: 1024px) and (max-width: 1278px) {
+                @include position-cards(
+                    (
+                        "1": 5.5rem,
+                        "2": 0,
+                        "3": 0,
+                        "4": -5.5rem,
+                        "5": -10rem,
+                    )
+                );
+            }
         }
     }
     &.card-6 {
@@ -159,6 +185,18 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 "6": calc(var(--distance-second-third-card) * -1),
             )
         );
+        @media (min-width: 1024px) and (max-width: 1278px) {
+            @include position-cards(
+                (
+                    "1": 13rem,
+                    "2": 0,
+                    "3": 7.5rem,
+                    "4": -5.5rem,
+                    "5": 3rem,
+                    "6": -10rem,
+                )
+            );
+        }
 
         .animation-container.move-up-no-animation.player {
             left: calc(var(--player-banker-space) * (-1));
