@@ -42,7 +42,7 @@ $total-5cards-move-up-delay: $card5-delay-time + $third-card-duration-time + $ti
 $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $time-move-left-player + $time-show-card-animation;
 
 .full-mode {
-    --player-banker-space: 3rem;
+    --player-banker-space: 2rem;
     @media (min-width: 1200px) {
         --player-banker-space: 4rem;
     }
