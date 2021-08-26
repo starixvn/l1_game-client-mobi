@@ -29,7 +29,11 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
 .full-mode {
     display: grid;
     grid-template-columns: repeat(2, minmax(232px, 1fr));
-    grid-gap: 3rem;
+    grid-gap: 1.5rem;
+
+    @media (min-width: 1200px) {
+        grid-gap: 3rem;
+    }
 }
 
 .animation-container {
@@ -139,28 +143,9 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
                 "6": calc(var(--distance-second-third-card) * -1),
             )
         );
-        .animation-container.move-up-no-animation.player {
-            left: -4rem;
-        } 
-        @media (min-width: 1024px) and (max-width: 1278px) {
-            @include position-cards(
-                (
-                    "1": 13rem,
-                    "2": 0,
-                    "3": 7.5rem,
-                    "4": -5.5rem,
-                    "5": 3rem,
-                    "6": -10rem,
-                )
-            );
-        } 
-        .animation-container.move-up-no-animation.player{
-            left: -4rem;
-            @media (min-width: 1024px) and (max-width: 1278px) {
-                left: -3rem;
-            }
-
-        } 
+        // .animation-container.move-up-no-animation.player {
+        //     left: -4rem;
+        // }
     }
 
     .animation-container {
@@ -438,7 +423,10 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
 .open-cards.card-5.has-animation .animation-container,
 .open-cards.card-6.has-animation .animation-container {
     &.player {
-        --move-left-player: -5rem;
+        --move-left-player: -4rem;
+        @media (min-width: 1200px) {
+            --move-left-player: -5rem;
+        }
         animation-name: move-left, move-up-result-animation-cards;
         animation-duration: $time-move-left-player, 0.3s;
         animation-fill-mode: forwards, forwards;
