@@ -19,6 +19,7 @@
     letter-spacing: -0.2rem;
     text-shadow: 0 0.1rem 0.2rem rgba(98, 98, 98, 0.25);
     pointer-events: none;
+    z-index: var(--header-index);
 }
 
 @keyframes bet-animation {
