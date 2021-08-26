@@ -192,7 +192,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleError = ({ errorCode }) => {
         if (errorCode === "SB0010") {
-            this.isConnectFailed = true;;
+            this.isConnectFailed = true;
             this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
         }
     };

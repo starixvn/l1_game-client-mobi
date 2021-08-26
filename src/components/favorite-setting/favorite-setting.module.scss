@@ -81,9 +81,8 @@
         bottom: auto;
         margin-right: 0.5rem;
         border-radius: 0.5rem;
-        max-height: calc(100vh - 13.4rem);
-        overscroll-behavior-y: contain;
-        -ms-overscroll-behavior-y: contain;
+        max-height: none;
+        min-height: 50rem;
     }
 
     &.open-animation {
