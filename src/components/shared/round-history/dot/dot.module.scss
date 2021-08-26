@@ -122,7 +122,7 @@
     }
 }
 
-// bbig-small
+// big-small
 
 .dot-big {
     @extend %dot;
@@ -141,6 +141,168 @@
 
     &:before {
         background: var(--bigSmall-dot-small-background);
+    }
+}
+
+// baccarat
+.dot-big-baccarat {
+    @extend .dot-big;
+}
+.dot-small-baccarat {
+    @extend .dot-small;
+}
+.dot-banker,
+.dot-banker-baccarat {
+    @extend %dot;
+    background: var(--baccarat-dot-banker-border);
+    box-shadow: var(--baccarat-dot-banker-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-banker-background);
+    }
+}
+
+.dot-player,
+.dot-player-baccarat {
+    @extend %dot;
+    background: var(--baccarat-dot-player-border);
+    box-shadow: var(--baccarat-dot-player-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-player-background);
+    }
+}
+
+.dot-tie-baccarat {
+    @extend %dot;
+    background: var(--baccarat-dot-tie-border);
+    box-shadow: var(--baccarat-dot-tie-shadow);
+
+    &:before {
+        background: var(--baccarat-dot-tie-background);
+    }
+}
+
+// keno
+.dot-big-kenopromax {
+    @extend .dot-big;
+}
+.dot-small-kenopromax {
+    @extend .dot-small;
+}
+.dot-even-kenopromax {
+    @extend %dot;
+    background: var(--bigSmall-dot-big-border);
+    box-shadow: var(--bigSmall-dot-big-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-big-background);
+    }
+}
+
+.dot-odd-kenopromax {
+    @extend %dot;
+    background: var(--bigSmall-dot-small-border);
+    box-shadow: var(--bigSmall-dot-small-shadow);
+
+    &:before {
+        background: var(--bigSmall-dot-small-background);
+    }
+}
+
+%icon-keno-promax {
+    content: "";
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    background-repeat: no-repeat;
+    background-size: 1.2rem 1.2rem;
+}
+
+.dot-gold {
+    @extend %dot;
+    background: var(--keno-pro-dot-gold-border);
+    box-shadow: var(--keno-pro-dot-gold-shadow);
+    &:before {
+        background: var(--keno-pro-dot-gold-background);
+    }
+
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-gold.svg);
+    }
+}
+
+.dot-wood {
+    @extend %dot;
+    background: var(--keno-pro-dot-wood-border);
+    box-shadow: var(--keno-pro-dot-wood-shadow);
+    &:before {
+        background: var(--keno-pro-dot-wood-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-wood.svg);
+    }
+}
+.dot-water {
+    @extend %dot;
+    background: var(--keno-pro-dot-water-border);
+    box-shadow: var(--keno-pro-dot-water-shadow);
+    &:before {
+        background: var(--keno-pro-dot-water-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-water.svg);
+    }
+}
+.dot-fire {
+    @extend %dot;
+    background: var(--keno-pro-dot-fire-border);
+    box-shadow: var(--keno-pro-dot-fire-shadow);
+    &:before {
+        background: var(--keno-pro-dot-fire-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-fire.svg);
+    }
+}
+
+.dot-earth {
+    @extend %dot;
+    background: var(--keno-pro-dot-earth-border);
+    box-shadow: var(--keno-pro-dot-earth-shadow);
+    &:before {
+        background: var(--keno-pro-dot-earth-background);
+    }
+    &:after {
+        @extend %icon-keno-promax;
+        background-image: url(/static/images/keno-promax/icon-earth.svg);
+    }
+}
+
+// three-cards
+.dot-red {
+    @extend %dot;
+    background: var(--threeCards-dot-red-border);
+    box-shadow: var(--threeCards-dot-red-shadow);
+    color: var(--threeCards-dot-red-text-color);
+
+    &:before {
+        background: var(--threeCards-dot-red-background);
+    }
+}
+
+.dot-black {
+    @extend %dot;
+    background: var(--threeCards-dot-black-border);
+    box-shadow: var(--threeCards-dot-black-shadow);
+    color: var(--threeCards-black-text-color);
+
+    &:before {
+        background: var(--threeCards-dot-black-background);
     }
 }
 

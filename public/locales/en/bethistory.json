@@ -1,10 +1,11 @@
 {
-    "roundTime":"Time", 
-    "round":"Round", 
-    "result":"Result", 
-    "choice":"Choice", 
-    "stake":"Stake",
-    "refund":"Refund",
-     "win":"Win",
-     "noBetHistory": "No data available."
+    "roundTime": "Time",
+    "round": "Round",
+    "result": "Result",
+    "choice": "Choice",
+    "stake": "Stake",
+    "refund": "Refund",
+    "win": "Win",
+    "noBetHistory": "No data available.",
+    "details": "Details"
 }

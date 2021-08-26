@@ -76,9 +76,57 @@
             "wholeRound": 37,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 4,
-            "resultAnimation": 1,
+            "showResult": 6,
+            "resultAnimation": 2,
+            "beforeStartRound": 0
+        }
+    },
+    "8": {
+        "id": 8,
+        "gameName": "KenoProMax",
+        "socketInfo": {
+            "namespace": "kenopromax",
+            "path": "kenopromax"
+        },
+        "durations": {
+            "wholeRound": 40,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 9,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "9": {
+        "id": 9,
+        "gameName": "MiniSeDie",
+        "socketInfo": {
+            "namespace": "minisedie",
+            "path": "minisedie"
+        },
+        "durations": {
+            "wholeRound": 38,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 5,
+            "resultAnimation": 2,
             "beforeStartRound": 2
+        }
+    },
+    "10": {
+        "id": 10,
+        "gameName": "Baccarat",
+        "socketInfo": {
+            "namespace": "baccarat",
+            "path": "baccarat"
+        },
+        "durations": {
+            "wholeRound": 46,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 15,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
         }
     },
     "22": {
@@ -95,6 +143,55 @@
             "showResult": 7,
             "resultAnimation": 2,
             "beforeStartRound": 2
+        }
+    },
+    "24": {
+        "id": 24,
+        "gameName": "SpecialSeDie",
+        "socketInfo": {
+            "namespace": "specialsedie",
+            "path": "specialsedie"
+        },
+        "durations": {
+            "wholeRound": 40,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 5,
+            "resultAnimation": 2,
+            "beforeStartRound": 2,
+            "balancingBet": 2
+        }
+    },
+    "27": {
+        "id": 27,
+        "gameName": "VipBaccarat",
+        "socketInfo": {
+            "namespace": "vipbaccarat",
+            "path": "vipbaccarat"
+        },
+        "durations": {
+            "wholeRound": 46,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 15,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "35": {
+        "id": 35,
+        "gameName": "ThreeCards",
+        "socketInfo": {
+            "namespace": "threecards",
+            "path": "threecards"
+        },
+        "durations": {
+            "wholeRound": 40,
+            "placingBets": 30,
+            "lockingBet": 5,
+            "showResult": 9,
+            "resultAnimation": 3,
+            "beforeStartRound": 0
         }
     }
 }

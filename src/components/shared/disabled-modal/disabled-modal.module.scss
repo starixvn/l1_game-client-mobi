@@ -8,6 +8,9 @@
     --disabled-modal-background: linear-gradient(90deg, rgba(68, 95, 121, 0.5) 0%, #4f708f 50%, rgba(68, 95, 121, 0.5) 100%);
 }
 
+.popover-container {
+    z-index: var(--popup-guide-history-index);
+}
 .disabled-modal {
     @extend %notice;
     display: flex;

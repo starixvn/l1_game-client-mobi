@@ -26,10 +26,6 @@ const GameGuides: React.FC<Props> = (props) => {
     const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
     const srcPath = `${guideUrl}/?gId=${gameId}&lang=${language}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
 
-    const hideSpinner = () => {
-        setIsLoading(false);
-    };
-
     useEffect(() => {
         function handleResize() {
             if (wrapperRef.current) {
@@ -47,6 +43,10 @@ const GameGuides: React.FC<Props> = (props) => {
     }, [wrapperRef]);
 
     useEffect(() => {
+        const hideSpinner = () => {
+            setIsLoading(false);
+        };
+
         if (heightGuide > 0 && widthGuide > 0) {
             setContentGuide(
                 <iframe

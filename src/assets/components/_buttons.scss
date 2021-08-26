@@ -11,6 +11,9 @@
     text-align: center;
     font-size: 1.6rem;
     -webkit-tap-highlight-color: transparent;
+    @media (min-width: 1024px) and (max-width: 1136px) {
+        font-size: 1.4rem;
+    }
 
     &:disabled {
         opacity: 0.6;
@@ -108,7 +111,7 @@
 
 [data-theme="dark"] .header-button {
     --header-button-background: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
-    --header-button-border1: #1472d1;
+    --header-button-border1: #204e7d;
     --header-button-border2: #183047;
     --header-button-shadow-inner: inset 0 0.2rem 0.5rem #d0e6ff;
     --header-button-background-hover: linear-gradient(180deg, #385675 0%, #4d7198 100%);

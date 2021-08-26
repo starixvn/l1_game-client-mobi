@@ -3,24 +3,29 @@ import "../assets/main.scss";
 
 import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "next-themes";
+import App, { AppProps } from "next/app";
+import Head from "next/head";
 
-import { init } from "../utils/sentry";
-import { buildLocalStorageKey } from "../common/local-storage";
 import { Themes } from "../common/constants";
-import { useEffect } from "react";
+import { buildLocalStorageKey } from "../common/local-storage";
 
-init();
+interface KenoSoccerAppProps extends AppProps {
+    err: any;
+}
 
-const SabaMobiApp = ({ Component, pageProps }) => {
-    useEffect(() => {
-        document.title = "Saba Mobi";
-    }, []);
+class SabaMobiApp extends App<KenoSoccerAppProps> {
+    render() {
+        const { Component, pageProps, err } = this.props;
 
-    return (
-        <ThemeProvider storageKey={buildLocalStorageKey("theme")} defaultTheme={Themes.light}>
-            <Component {...pageProps} />
-        </ThemeProvider>
-    );
-};
+        return (
+            <ThemeProvider storageKey={buildLocalStorageKey("theme")} defaultTheme={Themes.light}>
+                <Head>
+                    <title>Saba Mobi</title>
+                </Head>
+                <Component {...pageProps} err={err} />
+            </ThemeProvider>
+        );
+    }
+}
 
 export default appWithTranslation(SabaMobiApp);

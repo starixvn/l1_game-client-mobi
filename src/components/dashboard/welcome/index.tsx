@@ -4,8 +4,8 @@ import React, { useEffect } from "react";
 import { User } from "sc-user-service-client/dist/auth";
 
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
-import FirstLoginContainer from "../container";
 import ProfilePicture from "../../profile-picture";
+import FirstLoginContainer from "../container";
 import TextBlock from "../text-block";
 import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
@@ -15,9 +15,13 @@ type Props = {
     handleFirstLoginSM: (theme: string) => void;
 };
 
-export default function Welcome(props: Props) {
+export default function Welcome({ userInfo, handleFirstLoginSM }: Props) {
     const { t } = useTranslation(["common", "register"]);
     const { theme, setTheme } = useTheme();
+
+    const handleSubmit = () => {
+        handleFirstLoginSM(theme);
+    };
 
     useEffect(() => {
         setTheme(Themes.light);
@@ -26,7 +30,7 @@ export default function Welcome(props: Props) {
     return (
         <FirstLoginContainer>
             <TextBlock>
-                <Trans t={t}>{t("common:welcomeMsg", { userName: props.userInfo?.name, sabaMobileName: sabaMobileName })}</Trans>
+                <Trans t={t}>{t("common:welcomeMsg", { userName: userInfo?.name, sabaMobileName: sabaMobileName })}</Trans>
             </TextBlock>
             <TextBlock>
                 <Trans t={t}>{t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}</Trans>
@@ -34,10 +38,10 @@ export default function Welcome(props: Props) {
             <TextBlock>
                 <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
             </TextBlock>
-            <ProfilePicture avatarId={props.userInfo?.avatarId} />
+            <ProfilePicture avatarId={userInfo?.avatarId} />
 
             <ThemeSelection />
-            <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={() => props.handleFirstLoginSM(theme)}>
+            <button className={`${Styles["btn-orange"]} ${Styles["btn-submit"]}`} onClick={handleSubmit}>
                 {t("common:enterGameBtn")}
             </button>
         </FirstLoginContainer>

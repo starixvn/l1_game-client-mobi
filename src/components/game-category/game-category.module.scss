@@ -1,0 +1,166 @@
+[data-theme="light"] .category-container {
+    --game-category-background: linear-gradient(180deg, #a9cee7 36.77%, #bedbe9 100%);
+    --game-category-border: #8db3cc;
+    --game-category-border-active-color: #ff8a01;
+    --game-category-text-color: #28526d;
+    --game-category-text-active-color: #ff8a01;
+
+    @media (min-width: 768px) {
+        --game-category-background: linear-gradient(180deg, #cfecfa 0%, #dbeff9 100%);
+        --game-category-border: #6d9cbb;
+        --game-category-border-active-color: #ff8a01;
+        --game-category-text-color: #28526d;
+        --game-category-text-active-color: #ff8a01;
+    }
+
+    --paging-item-hover-background: linear-gradient(180deg, #ffffff 0%, #c8c9c9 100%);
+    --paging-item-border: #748e9e;
+    --paging-item-text-color: #28526d;
+}
+
+[data-theme="dark"] .category-container {
+    --game-category-background: linear-gradient(180deg, #283f56 0%, #1d344b 100%);
+    --game-category-border: #91a2b5;
+    --game-category-border-active-color: #ffab2b;
+    --game-category-text-color: #fff;
+    --game-category-text-active-color: #ffab2b;
+
+    @media (min-width: 768px) {
+        --game-category-background: linear-gradient(180deg, #3b5a7b 36.77%, #3e658d 100%);
+        --game-category-border: #8cb5e3;
+        --game-category-border-active-color: #ffab2b;
+        --game-category-text-color: #fff;
+        --game-category-text-active-color: #ff9a00;
+    }
+
+    --paging-item-hover-background: linear-gradient(180deg, #7791ab 0%, #345270 100%);
+    --paging-item-border: #072f57;
+    --paging-item-text-color: #fff;
+}
+
+.category-container {
+    border-bottom: 0.1rem solid var(--game-category-border);
+    background: var(--game-category-background);
+    overflow-x: auto;
+    overflow-y: hidden;
+    z-index: calc(var(--header-index) - 1);
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overscroll-behavior-y: contain;
+    -ms-overscroll-behavior-y: contain;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (min-width: 768px) {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    @media (min-width: 1024px) {
+        overflow: initial;
+    }
+}
+
+.category-list {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0;
+    list-style: none;
+
+    @media (min-width: 768px) {
+        justify-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @media (min-width: 1260px) {
+        width: 126rem;
+        margin: 0 auto;
+    }
+
+    .category-item {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+
+        @media (min-width: 768px) {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            padding-left: 4rem;
+            padding-right: 4rem;
+        }
+
+        .category-text {
+            line-height: 3.4rem;
+            padding-left: 0.2rem;
+            padding-right: 0.2rem;
+            font-size: 1.4rem;
+            color: var(--game-category-text-color);
+            white-space: nowrap;
+
+            @media (min-width: 768px) {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            @media (hover: hover) {
+                &:hover {
+                    cursor: pointer;
+                    color: var(--game-category-text-active-color);
+                }
+            }
+        }
+
+        &.selected {
+            .category-text {
+                position: relative;
+                font-weight: 500;
+                color: var(--game-category-text-active-color);
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: -0.3rem;
+                    left: calc(50% - 1.3rem);
+                    width: 2.6rem;
+                    height: 0.5rem;
+                    border-radius: 2rem;
+                    background-color: var(--game-category-border-active-color);
+                }
+            }
+        }
+    }
+
+    .paging-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .category-page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 2.2rem;
+        width: 2.2rem;
+        border: 1px solid var(--paging-item-border);
+        border-radius: 5px;
+        margin: 0 0.3rem;
+        color: var(--paging-item-text-color);
+
+        &:hover,
+        &.selected {
+            cursor: pointer;
+            background: var(--paging-item-hover-background);
+        }
+    }
+}

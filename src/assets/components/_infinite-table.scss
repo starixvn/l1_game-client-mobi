@@ -16,95 +16,76 @@
     --table-row-highlight-background: #2a415a;
 }
 
+.table-container {
+    height: 100%;
+    padding: 0;
+}
+
 .react-infinite-table {
-    .react-infinite-table-wrapper {
-        margin-bottom: 6px;
-        max-height: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        position: relative;
-        z-index: var(--popup-index);
-        -webkit-overflow-scrolling: touch;
-        overflow: auto;
+    overflow-y: auto;
+    position: relative;
+    border-collapse: collapse;
+    .table {
+        td,
+        th {
+            box-sizing: border-box;
+            min-height: 3.6rem;
+            vertical-align: middle;
+            border: none;
+            font-size: 1.3rem;
 
-        .table {
-            td {
-                box-sizing: border-box;
-                min-height: 3.6rem;
-                vertical-align: middle;
-                border: none;
-                font-size: 1.3rem;
-
-                @media (min-width: 768px) {
-                    font-size: 1.4rem;
-                }
+            @media (min-width: 768px) {
+                font-size: 1.4rem;
             }
+        }
 
-            thead {
-                box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
-                box-sizing: border-box;
+        thead {
+            box-shadow: 0px 10px 10px rgba(95, 90, 247, 0.03);
+            box-sizing: border-box;
 
-                td {
-                    position: sticky;
-                    top: 0;
-                    z-index: 2;
-                    height: 3.6rem;
-                    padding: 0;
-                    background: var(--table-header-background);
-                    color: var(--table-header-color);
-                    border-bottom: none;
-                    font-weight: 500;
-                    white-space: nowrap;
+            th {
+                width: 4rem;
+                position: sticky;
+                top: 0;
+                left: 0;
+                z-index: var(--table-thead-index);
+                height: 3.6rem;
+                padding: 0;
+                background: var(--table-header-background);
+                color: var(--table-header-color);
+                border-bottom: none;
+                font-weight: 500;
+                white-space: nowrap;
 
-                    &:first-child {
-                        border-radius: 0.5rem 0 0 0.5rem;
-                    }
-
-                    &:last-child {
-                        border-radius: 0 0.5rem 0.5rem 0;
-                    }
-                }
-            }
-
-            tbody {
-                background-color: var(--table-background);
-                color: var(--table-color);
-
-                tr {
-                    border-bottom: 1px solid var(--table-border);
-
-                    &:last-child {
-                        border-bottom: none !important;
-                    }
-
-                    &:nth-child(3) {
-                        display: none;
-                    }
-
-                    &.react-infinite-table-spacer {
-                        background-color: transparent !important;
-                    }
+                &:first-child {
+                    border-radius: 0.5rem 0 0 0.5rem;
                 }
 
-                td {
-                    padding: 0.2rem;
-
-                    &.highlight {
-                        background-color: var(--table-row-highlight-background);
-                    }
+                &:last-child {
+                    border-radius: 0 0.5rem 0.5rem 0;
                 }
             }
         }
-    }
 
-    .react-infinite-table-scroll-smoother {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 5;
-        pointer-events: none;
+        tbody {
+            background-color: var(--table-background);
+            color: var(--table-color);
+
+            tr {
+                border-bottom: 1px solid var(--table-border);
+                &:last-child {
+                    border-bottom: none !important;
+                }
+            }
+
+            td {
+                padding: 0.2rem;
+
+                &.highlight {
+                    background-color: var(--table-row-highlight-background);
+                }
+            }
+        }
     }
 
     .date {
@@ -115,9 +96,4 @@
     .time {
         font-size: 1.2rem;
     }
-}
-
-.table-container {
-    height: 100%;
-    padding: 0;
 }

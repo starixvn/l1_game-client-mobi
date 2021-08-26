@@ -13,7 +13,7 @@ import { Choices, StatisticRuleEntries } from "./big-small-helper";
 import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
-import GetElementRound from "./scoreboard-round-history";
+import GetScoreboardDotDetails from "./scoreboard-round-history";
 
 class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -77,13 +77,22 @@ class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
     }
 
     renderResultCollapse() {
-        const { result, settlementResult, roundId } = this.state;
-        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} roundId={roundId} />;
+        const { result, settlementResult } = this.state;
+        return <BigSmallResultCollapse result={result} settlementResult={settlementResult} />;
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} translate={this.props.t} />;
+        const translateDotTextMapping = {
+            [Choices.big]: this.getGameTranslate("bigTextDot"),
+            [Choices.small]: this.getGameTranslate("smallTextDot"),
+        };
+        return (
+            <ScoreboardDragon
+                roundHistory={this.state.roundHistory}
+                getDotDetails={GetScoreboardDotDetails}
+                translateDotTextMapping={translateDotTextMapping}
+            />
+        );
     }
 
     get winningAnimationWaitingTimeInSecond() {

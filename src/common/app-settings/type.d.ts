@@ -12,6 +12,7 @@ interface SentryOptions {
 }
 
 export default interface AppSettings {
+    socketGatewayUri: string;
     proxy: ProxySetting;
     sentry: SentryOptions;
     offeredGames: number[];

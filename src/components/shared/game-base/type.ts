@@ -1,7 +1,8 @@
 import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
+import { Socket } from "socket.io-client";
 
-import { Round } from "../../../types";
+import { Round, SocketState } from "../../../types";
 
 export interface GameConfigs {
     odds: { [key: string]: number };
@@ -46,6 +47,9 @@ export type GameBaseProps = {
     theme: string;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
+    socketGateway: Socket;
+    socketGatewayState: SocketState;
+    retryConnectSocket: () => void;
 } & WithTranslation &
     WithRouterProps;
 export interface GameBaseState<Result, SettlementResult> {
@@ -67,7 +71,13 @@ export interface GameBaseState<Result, SettlementResult> {
     viewMode: ViewMode;
     disabledMessage?: string;
     showResultInfo: boolean;
-    acceptedBetQueue: { [key: number]: number };
+    acceptedBetQueue: {
+        [key: number]: {
+            amount: number;
+            betPosition: Position;
+            betOptionBoundary: Boundary;
+        };
+    };
     showWinningAnimation: boolean;
     playResultAnimation: boolean;
     isShowBlink: boolean;
@@ -75,6 +85,7 @@ export interface GameBaseState<Result, SettlementResult> {
     removeBetChoiceFocus?: Function;
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
+    activeScoreboardTab?: number;
 }
 
 export interface Notice {
@@ -149,4 +160,14 @@ export interface WinStreakCollectorModel {
 export enum ViewMode {
     full,
     collapse,
+}
+
+export interface Position {
+    x: number;
+    y: number;
+}
+
+export interface Boundary {
+    left: number;
+    right: number;
 }

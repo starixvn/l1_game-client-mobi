@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
+
 import appSettings from "../../../common/app-settings";
+import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
 import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
+import KenoProMaxBetHistory from "../../games/keno-pro-max/bet-history";
 import SeDieBetHistory from "../../games/se-die/bet-history";
+import SeDieSpecialBetHistory from "../../games/special-sedie/bet-history";
+import ThreeCardsBetHistory from "../../games/three-cards/bet-history";
 import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
 import Styles from "./history.module.scss";
@@ -23,12 +28,22 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
             case 4:
                 return <BigSmallBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 2:
+            case 9:
             case 22:
                 return <SeDieBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 3:
                 return <FishPrawnCrabBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 7:
                 return <DragonTigerBetHistory key={selectedGameId} gameId={selectedGameId} />;
+            case 8:
+                return <KenoProMaxBetHistory key={selectedGameId} gameId={selectedGameId} />;
+            case 10:
+            case 27:
+                return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} />;
+            case 24:
+                return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} />;
+            case 35:
+                return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
             default:
                 return null;
         }

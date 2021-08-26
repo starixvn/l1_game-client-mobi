@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
 import { Themes } from "../../../../common/constants";
 
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
@@ -9,11 +9,11 @@ import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
 
-export const Menu: React.FC<{ handleToggleSound: Function; enabledSound: boolean; handleToggleGuideModal: Function }> = ({
-    handleToggleSound,
-    enabledSound,
-    handleToggleGuideModal,
-}) => {
+export const Menu: React.FC<{
+    handleToggleSound: Function;
+    enabledSound: boolean;
+    handleToggleGuideModal: Function;
+}> = ({ handleToggleSound, enabledSound, handleToggleGuideModal }) => {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);

@@ -1,15 +1,13 @@
 import React from "react";
-import { Props } from "./type";
-import Styles from "./card.module.scss";
-import { ViewMode } from "../game-base/type";
 
-const suffixClassMapping = ["card-heart", "card-diamond", "card-club", "card-spade"];
+import { isIOS, isMobileOnly } from "react-device-detect";
+import { Props } from "./type";
+
+import { ViewMode } from "../game-base/type";
+import Styles from "./card.module.scss";
+
+const suffixNameMapping = ["heart", "diamond", "club", "spade"];
 const colorNumberSuffix = ["text-red", "text-red", "text-black", "text-black"];
-const pictureCard = {
-    J: "card-picture-j",
-    Q: "card-picture-q",
-    K: "card-picture-k",
-};
 
 export const convertRank = (num: number): string => {
     num++;
@@ -22,37 +20,63 @@ export const convertRank = (num: number): string => {
     return dict[num] || num.toString();
 };
 
+export const convertCardRankToIndex = (rank: string): number => {
+    const dict = {
+        J: 11,
+        Q: 12,
+        K: 13,
+        A: 1,
+    };
+
+    return dict[rank] ?? parseInt(rank);
+};
+
+const classFollowCondition = ({ viewMode, isSmall }) => {
+    if (viewMode === ViewMode.collapse) {
+        return Styles["collapse"];
+    }
+
+    if (isSmall) {
+        return Styles["small"];
+    }
+
+    return "";
+};
+
+const numberOnIOS = isIOS && isMobileOnly ? Styles["number-ios"] : "";
+
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
-    const iconLarge = pictureCard[convertRank(result.card)] ? pictureCard[convertRank(result.card)] : suffixClassMapping[result.type];
-    return (
-        <div className={`${Styles["card"]} ${isSmall && Styles["small"]} ${viewMode === ViewMode.collapse && Styles["collapse"]}`}>
-            <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["card-bg"]}>
-                <div className={Styles["result"]}>
-                    <div className={Styles["card-group-left"]}>
-                        <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]}`}>
-                            {convertRank(result.card)}
-                        </div>
-                        <img
-                            src={`/static/images/${suffixClassMapping[result.type]}.png`}
-                            className={Styles["card-suite-small"]}
-                            height={8}
-                            width={8}
-                            alt="suite"
-                        />
-                    </div>
-                    <div className={Styles["card-group-right"]}>
-                        <img
-                            src={`/static/images/${iconLarge}.png`}
-                            className={`${pictureCard[convertRank(result.card)] ? Styles["card-picture"] : Styles["card-suite-large"]}`}
-                            height={21}
-                            width={21}
-                            alt="suite"
-                        />
-                    </div>
+    const customClassName = props.customClassName ?? "";
+    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall ? true : false;
+    const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
+    const getCardsDefault = () => {
+        const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
+        return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
+    };
+    const formatCard10 = +convertRank(result.card) === 10 ? Styles["card-number-10"] : "";
+
+    const getCardMini = () => {
+        return (
+            <>
+                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${formatCard10} ${numberOnIOS}`}>
+                    {convertRank(result.card)}
                 </div>
-            </div>
+                <img
+                    src={`${srcPathCard}mini-${suffixNameMapping[result.type]}.svg`}
+                    className={Styles["card-suite-mini"]}
+                    height={49.07}
+                    width={34.5}
+                    alt="suite"
+                />
+            </>
+        );
+    };
+
+    return (
+        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
+            <div className={Styles["card-shadow"]}></div>
+            <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
         </div>
     );
 };

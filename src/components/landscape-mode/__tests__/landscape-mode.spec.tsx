@@ -10,7 +10,7 @@ jest.mock("next-i18next", () => ({
 }));
 
 describe("landscape mode", () => {
-    it("ender correctly", function () {
+    it("render correctly", function () {
         const wrapper = shallow(<LandscapeMode />);
         expect(wrapper).toMatchSnapshot();
     });

@@ -1,35 +1,22 @@
 import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Card from "../../../shared/card";
 import { ViewMode } from "../../../shared/game-base/type";
-import { ObjectResult, Result, SettlementResult } from "../dragon-tiger";
+import { ObjectResult } from "../dragon-tiger";
+import { Props, ResultChoiceMapping } from "./type";
 import Styles from "./dragon-tiger-animations.module.scss";
 
-export const CardsAnimation = ({ playAnimation = false }) => {
-    return (
-        <div className={`${Styles["draw-cards"]} ${playAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["animation-container"]}`}>
-                <div className={Styles["card1"]}>
-                    <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-                <div className={Styles["card2"]}>
-                    <div className={Styles["card-shadow"]}></div>
-                    <div className={Styles["card-back"]}></div>
-                </div>
-            </div>
-        </div>
-    );
-};
+const classHasAnimation = "has-animation";
 
-type Props = {
-    result?: Result;
-    settlementResult?: SettlementResult;
-};
-
-const generateResult = (result: ObjectResult[], viewMode: ViewMode) => {
+const generateResult: React.FC<{ result: ObjectResult[]; viewMode: ViewMode; translateChoiceMapping?: string[]; scores?: number[] }> = ({
+    result,
+    viewMode,
+    translateChoiceMapping,
+    scores,
+}): any => {
+    const classCards = ["dragon-score", "tiger-score"];
     return result.map((result, index) => {
         return (
             <div key={index} className={Styles[`card${index + 1}`]}>
@@ -37,20 +24,71 @@ const generateResult = (result: ObjectResult[], viewMode: ViewMode) => {
                     <Card result={result} viewMode={viewMode}></Card>
                 </div>
                 <div className={`${Styles["card-back"]} ${viewMode === ViewMode.collapse && Styles["collapse-mode"]}`}></div>
+                {viewMode === ViewMode.full && (
+                    <div className={`${Styles[classCards[index]]} ${Styles["score"]}`}>
+                        {translateChoiceMapping[index]}:<span className={Styles["score-number"]}>{scores[index]}</span>
+                    </div>
+                )}
             </div>
         );
     });
 };
 
+const SumScore = (number: number) => {
+    return number + 1;
+};
+
 export const DragonTigerResult: React.FC<Props> = (props) => {
-    const result = props.result ? Object.values(props.result) : [];
+    const { t } = useTranslation("dragontiger");
     const { viewMode, playResultAnimation } = useGameContext();
+    const [scoreTiger, setScoreTiger] = useState<number>(0);
+    const [scoreDragon, setScoreDragon] = useState<number>(0);
+
+    const result = props.result ? Object.values(props.result) : [];
+    const translateChoiceMapping = [t("dragon"), t("tiger")];
+    const timeouts: NodeJS.Timeout[] = [];
+
+    useEffect(() => {
+        if (playResultAnimation) {
+            const cardOpenedTimes = [500, 900];
+            result.forEach((cardValue, index) => {
+                const cardNumber = cardValue.card;
+                const timeout = setTimeout(() => {
+                    if (ResultChoiceMapping.dragon === index) {
+                        setScoreDragon(SumScore(cardNumber));
+                    } else {
+                        setScoreTiger(SumScore(cardNumber));
+                    }
+                }, cardOpenedTimes[index]);
+                timeouts.push(timeout);
+            });
+        } else {
+            result.forEach((cardValue, index) => {
+                const cardNumber = cardValue.card;
+                if (ResultChoiceMapping.dragon === index) {
+                    setScoreDragon(SumScore(cardNumber));
+                } else {
+                    setScoreTiger(SumScore(cardNumber));
+                }
+            });
+        }
+
+        return () =>
+            timeouts.forEach((timeout) => {
+                clearTimeout(timeout);
+            });
+    }, [result]);
 
     return (
-        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
+        <div className={`${Styles["open-cards"]} ${playResultAnimation ? Styles[classHasAnimation] : ""}`}>
             <div className="overlay-mask">
                 <div className={`${Styles["animation-container"]} ${playResultAnimation ? "" : "move-up-no-animation"}`}>
-                    {generateResult(result, viewMode)}
+                    {generateResult({
+                        result: result,
+                        viewMode: viewMode,
+                        translateChoiceMapping: translateChoiceMapping,
+                        scores: [scoreDragon, scoreTiger],
+                    })}
                 </div>
             </div>
         </div>
@@ -63,8 +101,13 @@ export const DragonTigerResultCollapse: React.FC<Props> = (props) => {
     const { playResultAnimation, viewMode } = useGameContext();
     const { t } = useTranslation("dragontiger");
     return (
-        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
-            <div className={Styles["result-container"]}>{generateResult(result, viewMode)}</div>
+        <div className={`${Styles["open-cards"]} ${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[classHasAnimation]}`}>
+            <div className={Styles["result-container"]}>
+                {generateResult({
+                    result: result,
+                    viewMode: viewMode,
+                })}
+            </div>
             {!playResultAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     {settlementResult?.tie ? t("tie") : settlementResult?.dragon ? t("dragonWin") : t("tigerWin")}

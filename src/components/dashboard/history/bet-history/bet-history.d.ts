@@ -1,3 +1,5 @@
+import { TFunction } from "next-i18next";
+
 export type BetHistoryItem = {
     time: string;
     phien: number;
@@ -10,9 +12,20 @@ export type BetHistoryItem = {
 export type PropsBetContainer = {
     gameId: number;
     isRefund: boolean;
-    renderResult: Function;
-    translate?: Function;
-    renderBet?: (bet: BetLogs, t: Function, mainOdds: object) => JSX.Element;
+    renderResult: (
+        bet: BetLogs,
+        roundId: number,
+        setIsShowResultDetail?: Function,
+        setResultDetail?: Function,
+        t?: TFunction
+    ) => JSX.Element;
+    renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
+    renderResultDetail?: (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => JSX.Element;
+};
+
+export type ResultDetail = {
+    bet: BetLogs;
+    roundId: number;
 };
 
 export type BetLogs = {
@@ -27,4 +40,11 @@ export type BetLogs = {
     refund?: number;
     odds?: object;
     amount?: number;
+};
+
+export type PropsResultDetail = {
+    roundId: number;
+    children: React.ReactNode;
+    closeModal: () => void;
+    gameName: string;
 };

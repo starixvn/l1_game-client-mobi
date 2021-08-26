@@ -1,27 +1,25 @@
 import { Trans, WithTranslation, withTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
-import { NextRouter, withRouter } from "next/router";
+import Head from "next/head";
+import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { AuthorizeResponse, User } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 import { UMInfo } from "sc-user-service-client/dist/settings";
-import UserSettings from "sc-user-service-client/dist/userSettings";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../common/session-storage";
 import LandscapeMode from "../../components/landscape-mode";
-import { AuthContext } from "../../contexts/auth";
-import { APIErrorProp } from "../../pages";
-import { UserClientCommunication } from "../../services";
-import { setCharacterName } from "../../utils/sentry";
+import { AuthContextProvider } from "../../contexts/auth";
+import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
+import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { UserStakeLevel } from "../shared/game-base/type";
-import { Settings } from "../shared/settings";
 import Styles from "./dashboard.module.scss";
 import { GameGuideModal } from "./game-guide-modal";
 import { HistoryModal } from "./history";
@@ -29,56 +27,54 @@ import Register from "./register";
 import Welcome from "./welcome";
 
 type Props = {
-    balance: number;
-    authorizeInfo: AuthorizeResponse;
-    router: NextRouter;
-    apiErrorMessage: APIErrorProp;
-    isShowErrorModal: boolean;
-    setApiErrorMessage: (APIErrorProp) => void;
-    setIsShowModal: (isOpen: boolean) => void;
+    session: SSOResponse;
+    queryGame: number;
+    setIsUm: Function;
 } & WithRouterProps &
     WithTranslation;
 
+type APIErrorProp = {
+    message: string;
+    errorCode: string;
+};
+
 type State = {
-    isSignedUp: boolean;
-    isSignedIn: boolean;
-    isShowNotice: boolean;
-    isShowHistory: boolean;
-    isShowGuide: boolean;
-    notice: string;
-    user: User;
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
     betSettings: BetSettingStorage;
     userStakeLevel: UserStakeLevel;
+    authorizeInfo: AuthorizeResponse;
+    isShowErrorModal: boolean;
+    apiError: APIErrorProp;
+    isShowHistory: boolean;
+    isShowGuide: boolean;
+    favoriteGames: number[];
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
-    userSettingsService: UserSettings = null;
     private mainSocket: WebSocket = null;
+    private reCheckInInterval: NodeJS.Timeout;
 
     constructor(props: Props) {
         super(props);
 
         this.state = {
-            isSignedUp: true,
-            user: null,
-            isShowNotice: true,
-            isSignedIn: props.authorizeInfo?.user?.isSignedInSM,
-            isShowHistory: false,
-            isShowGuide: false,
-            notice: "",
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
             betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
+            favoriteGames: getLocalStorageItem(localStorageKeys.favoriteGames) ?? [],
             userStakeLevel: { minBet: 0, maxBet: 0 },
+            authorizeInfo: null,
+            isShowErrorModal: false,
+            apiError: null,
+            isShowHistory: false,
+            isShowGuide: false,
         };
 
-        this.userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
-
+        this.handleFirstLogin = this.handleFirstLogin.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
@@ -91,6 +87,42 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
+        this.updateAuthorizeInfo = this.updateAuthorizeInfo.bind(this);
+        this.updateUserBalance = this.updateUserBalance.bind(this);
+        this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
+        this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
+        this.toggleGuideModal = this.toggleGuideModal.bind(this);
+        this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
+
+        const buildId = process.env.buildVersion;
+        const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
+        if (buildId !== buildVersion) {
+            storeLocalStorageItem(localStorageKeys.buildVersion, buildId);
+            buildVersion && location.reload();
+        }
+    }
+
+    updateFavoriteGames(favoriteGames: number[]) {
+        this.setState({
+            favoriteGames: favoriteGames,
+        });
+        storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
+    }
+
+    updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
+        this.setState({ authorizeInfo });
+    }
+
+    updateUserBalance(balance: number) {
+        const authorizeInfo = { ...this.state.authorizeInfo };
+        if (authorizeInfo && authorizeInfo.authorized && authorizeInfo.user.red !== balance) {
+            authorizeInfo.user.red = balance;
+            this.setState({ authorizeInfo });
+        }
+    }
+
+    handleShowApiErrorMessage(errorCode: string) {
+        this.setState({ isShowErrorModal: true, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
     }
 
     doOnOrientationChange() {
@@ -105,30 +137,46 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
-    async componentDidMount() {
-        const { authorizeInfo } = this.props;
-        this.mainSocket = this.connectMainSocket();
+    signOut() {
+        this.props.router.push("/timeout");
+    }
 
-        authorizeInfo.authorized ? this.setState({ user: authorizeInfo.user, isSignedUp: true }) : this.setState({ isSignedUp: false });
+    handleRecheckInResponse(response: ReCheckInResponse) {
+        if (!response || !response.isSuccessful) {
+            this.signOut();
+        } else {
+            if (response.apiError) {
+                response.isDisableAccount &&
+                    setTimeout(() => {
+                        this.signOut();
+                    }, 10000);
+
+                this.handleShowApiErrorMessage(response.apiError.errorCode);
+            } else {
+                this.updateUserBalance(response.balance);
+            }
+        }
+    }
+
+    async componentDidMount() {
+        const authorizeInfo = (await authorize(this.props.session)) as AuthorizeResponse;
+        this.updateAuthorizeInfo(authorizeInfo);
+        this.updateUserBalance(authorizeInfo?.user?.red);
+
+        this.reCheckInInterval = setInterval(async () => {
+            const reCheckInResponse = await reCheckIn(this.props.session);
+            this.handleRecheckInResponse(reCheckInResponse);
+        }, 60 * 1000);
+
+        this.mainSocket = this.connectMainSocket();
         window.addEventListener("orientationchange", this.doOnOrientationChange);
         this.doOnOrientationChange();
     }
 
     componentWillUnmount() {
         this.mainSocket.close();
+        clearInterval(this.reCheckInInterval);
         window.removeEventListener("orientationchange", this.doOnOrientationChange);
-    }
-
-    handleRegister(user: User, theme: string) {
-        const { session, setBalance } = this.context;
-
-        Object.assign(user, { settings: { theme } });
-
-        this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
-        this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
-        this.setState({ isSignedUp: true, isSignedIn: true, user });
-        setBalance(user?.red);
-        setCharacterName(user?.name);
     }
 
     sendMessage(data: any) {
@@ -146,7 +194,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     onSocketConnect() {
-        const { session } = this.context;
+        const { session } = this.props;
         const authentication = { username: session.username, data: session };
         setTimeout(() => {
             this.sendMessage({ authentication });
@@ -160,8 +208,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.apiError) {
-            this.props.setApiErrorMessage(data.apiError.errorCode);
-            this.props.setIsShowModal(true);
+            this.setState({ isShowErrorModal: true, apiError: data.apiError.errorCode });
         }
 
         if (data.userStakeLevel) {
@@ -175,7 +222,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handleKickedOut(data: any) {
         const { umInfo } = data;
-        const { router, i18n } = this.props;
+        const { router, setIsUm } = this.props;
 
         if (umInfo) {
             storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
@@ -185,7 +232,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 finish: false,
             });
             setTimeout(() => {
-                router.push("/um", "/um", { locale: i18n.language });
+                setIsUm(true);
             }, 500);
         } else {
             router.push("/timeout");
@@ -193,43 +240,28 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handleFirstLogin(theme: string) {
-        const { session } = this.context;
-        const { user } = this.state;
+        const { session } = this.props;
+        const authorizeInfo = { ...this.state.authorizeInfo };
 
-        Object.assign(user, { settings: { theme } });
+        if (authorizeInfo && authorizeInfo.authorized) {
+            updateSignInSMStatus(session);
+            updateThemeSetting(session, theme);
 
-        this.userSettingsService.updateSignInSMStatus(session.ss, session.username);
-        this.userSettingsService.updateUserThemeSetting(session.ss, session.username, theme);
-        this.setState({ isSignedIn: true, user });
+            authorizeInfo.user.settings = { theme };
+            authorizeInfo.user.isSignedInSM = true;
+
+            this.updateAuthorizeInfo(authorizeInfo);
+        }
     }
 
-    getRenderComponent(isSignedUp: boolean, isSignedIn: boolean) {
-        const strategies = [
-            {
-                condition: !isSignedUp,
-                result: this.renderRegister(),
-            },
-            {
-                condition: isSignedUp && !isSignedIn,
-                result: this.renderWelcome(),
-            },
-            {
-                condition: isSignedUp && isSignedIn,
-                result: this.renderDashBoard(),
-            },
-        ];
+    handleRegister(authorizeInfo: AuthorizeResponse) {
+        const { session } = this.props;
 
-        return strategies.find((strategy) => strategy.condition === true).result;
-    }
+        updateSignInSMStatus(session);
+        authorizeInfo.user.isSignedInSM = true;
+        updateThemeSetting(session, authorizeInfo.user.settings.theme);
 
-    renderRegister() {
-        return <Register handleStateLogin={(user: User, theme: string) => this.handleRegister(user, theme)}></Register>;
-    }
-
-    renderWelcome() {
-        const { user } = this.state;
-
-        return <Welcome userInfo={user} handleFirstLoginSM={(theme) => this.handleFirstLogin(theme)}></Welcome>;
+        this.updateAuthorizeInfo(authorizeInfo);
     }
 
     winningStreakNotificationToggle() {
@@ -261,7 +293,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     closeDialog() {
-        this.props.setIsShowModal(false);
+        this.setState({ isShowErrorModal: false });
     }
 
     toggleHistoryModal() {
@@ -282,84 +314,112 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderDashBoard() {
-        const { apiErrorMessage, balance, isShowErrorModal } = this.props;
-        const { user, enabledWinningStreakNotification, enabledPlaySound, betSettings, isShowGuide, isShowHistory, userStakeLevel } =
-            this.state;
-        const { avatarId, name, currency } = user ?? {};
-
+        const {
+            enabledWinningStreakNotification,
+            enabledPlaySound,
+            betSettings,
+            isShowErrorModal,
+            isShowHistory,
+            isShowGuide,
+            userStakeLevel,
+            favoriteGames,
+            authorizeInfo,
+        } = this.state;
+        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
-            <div className={Styles["dashboard"]}>
-                <Header
-                    avatarId={avatarId}
-                    name={name}
-                    balance={balance}
-                    currency={currency}
-                    enabledNotification={enabledWinningStreakNotification}
-                    enabledSound={enabledPlaySound}
-                    onToggleNotification={this.winningStreakNotificationToggle}
-                    onToggleSound={this.playSoundToggle}
-                    updateBetSetting={this.updateBetSetting}
-                    globalBetSetting={this.globalBetSetting}
-                    toggleHistoryModal={this.toggleHistoryModal}
-                    toggleGuideModal={this.toggleGuideModal}
-                />
-                {isMobileOnly && (
-                    <div className={Styles["settings-container"]}>
-                        <Settings
-                            enabledSound={enabledPlaySound}
-                            enabledNotification={enabledWinningStreakNotification}
-                            onToggleNotification={this.winningStreakNotificationToggle}
-                            onToggleSound={this.playSoundToggle}
-                            updateBetSetting={this.updateBetSetting}
-                            globalBetSetting={this.globalBetSetting}
-                            toggleHistoryModal={this.toggleHistoryModal}
-                            toggleGuideModal={this.toggleGuideModal}
-                        />
-                    </div>
-                )}
-                <Games
-                    enabledWinningStreakNotification={enabledWinningStreakNotification}
-                    enabledPlaySound={enabledPlaySound}
-                    setApiErrorMessage={this.props.setApiErrorMessage}
-                    betSettings={betSettings}
-                    updateBetSetting={this.updateBetSetting}
-                    userStakeLevel={userStakeLevel}
-                    updateUserStakeLevel={this.handleUpdateUserStakeLevel}
-                />
-                {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
-                {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
-                {isShowErrorModal && (
-                    <div className={Styles["container-modal"]}>
-                        <div className={Styles["bg-opacity"]}></div>
-                        <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
-                            <div className="modal-center">
-                                <div className={`icon-warning modal-icon-warning`}></div>
-                                <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
+            <AuthContextProvider value={authContextValue}>
+                <div className={Styles["dashboard"]}>
+                    <Header
+                        user={authorizeInfo.user}
+                        enabledNotification={enabledWinningStreakNotification}
+                        enabledSound={enabledPlaySound}
+                        onToggleNotification={this.winningStreakNotificationToggle}
+                        onToggleSound={this.playSoundToggle}
+                        updateBetSetting={this.updateBetSetting}
+                        globalBetSetting={this.globalBetSetting}
+                        toggleHistoryModal={this.toggleHistoryModal}
+                        toggleGuideModal={this.toggleGuideModal}
+                        favoriteGames={favoriteGames}
+                        updateFavoriteGames={this.updateFavoriteGames}
+                    />
+                    <Games
+                        enabledWinningStreakNotification={enabledWinningStreakNotification}
+                        enabledPlaySound={enabledPlaySound}
+                        setApiErrorMessage={this.handleShowApiErrorMessage}
+                        betSettings={betSettings}
+                        updateBetSetting={this.updateBetSetting}
+                        userStakeLevel={userStakeLevel}
+                        updateUserStakeLevel={this.handleUpdateUserStakeLevel}
+                        updateFavoriteGames={this.updateFavoriteGames}
+                        favoriteGames={favoriteGames}
+                        queryGame={this.props.queryGame}
+                    />
+                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
+                    {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
+                    {isShowErrorModal && (
+                        <div className={Styles["container-modal"]}>
+                            <div className={Styles["bg-opacity"]}></div>
+                            <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
+                                <div className="modal-center">
+                                    <div className={`icon-warning modal-icon-warning`}></div>
+                                    <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
 
-                                <Trans t={this.props.t}>
-                                    {this.props.t(apiErrorMessage?.message, { errorCode: apiErrorMessage?.errorCode })}
-                                </Trans>
-                            </div>
-                        </BaseDialog>
-                    </div>
-                )}
-
-                <div className={Styles["footer"]}>Powered by Saba.club</div>
-            </div>
+                                    <Trans t={this.props.t}>
+                                        {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}
+                                    </Trans>
+                                </div>
+                            </BaseDialog>
+                        </div>
+                    )}
+                    <div className={Styles["footer"]}>Powered by Saba.club</div>
+                </div>
+            </AuthContextProvider>
         );
+    }
+
+    renderComponents(authorizeInfo: AuthorizeResponse) {
+        const { authorized, user } = authorizeInfo;
+        if (authorized) {
+            return user.isSignedInSM ? (
+                this.renderDashBoard()
+            ) : (
+                <Welcome userInfo={this.state.authorizeInfo.user} handleFirstLoginSM={this.handleFirstLogin} />
+            );
+        }
+
+        return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
     }
 
     render() {
-        const { isSignedUp, isSignedIn, orientation } = this.state;
+        const { orientation, authorizeInfo } = this.state;
 
-        return orientation === orientationType.landscape && isMobileOnly ? (
-            <LandscapeMode />
+        if (orientation === orientationType.landscape && isMobileOnly) {
+            return <LandscapeMode />;
+        }
+
+        return authorizeInfo ? (
+            <>
+                <Head>
+                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRWMQHR3Z9"></script>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', 'G-MRWMQHR3Z9', {
+                            page_path: window.location.pathname,
+                            });
+                        `,
+                        }}
+                    />
+                </Head>
+                {this.renderComponents(authorizeInfo)}
+            </>
         ) : (
-            this.getRenderComponent(isSignedUp, isSignedIn)
+            <></>
         );
     }
 }
-
-Dashboard.contextType = AuthContext;
 
 export default withRouter(withTranslation()(Dashboard));

@@ -55,4 +55,57 @@
 .tie {
     @extend %title;
     color: var(--dragonTiger-tie-text-color);
+    &.baccarat,
+    &.vipbaccarat {
+        color: var(--baccarat-tie-statistic-text-color);
+    }
+}
+
+.banker {
+    @extend %title;
+    color: var(--baccarat-banker-text-color);
+}
+
+.player {
+    @extend %title;
+    color: var(--baccarat-player-text-color);
+}
+
+.odd {
+    @extend %title;
+    color: var(--keno-pro-odd-statistic-text-color);
+}
+
+.even {
+    @extend %title;
+    color: var(--keno-pro-even-statistic-text-color);
+
+    &.kenopromax {
+        color: var(--keno-pro-even-statistic-text-color);
+    }
+}
+
+.gold {
+    @extend %title;
+    color: var(--keno-pro-gold-statistic-text-color);
+}
+
+.wood {
+    @extend %title;
+    color: var(--keno-pro-wood-statistic-text-color);
+}
+
+.water {
+    @extend %title;
+    color: var(--keno-pro-water-statistic-text-color);
+}
+
+.fire {
+    @extend %title;
+    color: var(--keno-pro-fire-statistic-text-color);
+}
+
+.earth {
+    @extend %title;
+    color: var(--keno-pro-earth-statistic-text-color);
 }

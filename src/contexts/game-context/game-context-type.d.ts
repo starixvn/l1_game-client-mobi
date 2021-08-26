@@ -1,4 +1,4 @@
-import { GameBaseProps, GameConfigs, GameState, UserStakeLevel, ViewMode } from "../../components/shared/game-base/type";
+import { GameBaseProps, GameConfigs, GameState, ViewMode } from "../../components/shared/game-base/type";
 
 export type GameContextModel = {
     totalBets: object;

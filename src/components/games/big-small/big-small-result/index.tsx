@@ -48,10 +48,9 @@ const BigSmallResult: React.FC<{ result?: Result; roundId: number }> = ({ result
     );
 };
 
-export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult; roundId: number }> = ({
+export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResult?: SettlementResult }> = ({
     result,
     settlementResult,
-    roundId,
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
@@ -74,9 +73,10 @@ export const BigSmallResultCollapse: React.FC<{ result?: Result; settlementResul
                 ))}
 
             {!playResultAnimation && result && (
-                <div
-                    className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]}`}
-                >{`${countRedDot(result)} - ${settlementResult.big ? t("big") : t("small")}`}</div>
+                <div className={`${Styles["result-label"]} ${gameSetting.id === 1 ? Styles["taixiu"] : Styles["turbo-taixiu"]}`}>
+                    <span className={Styles["number-count"]}>{countRedDot(result)}</span>-
+                    {` ${settlementResult.big ? t("big") : t("small")}`}
+                </div>
             )}
         </div>
     );

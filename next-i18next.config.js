@@ -9,5 +9,6 @@ module.exports = {
             transKeepBasicHtmlNodesFor: ["br", "strong", "i"], // don't convert to <1></1> if simple react elements
             useSuspense: true,
         },
+        fallbackLng: ["vi", "en"],
     },
 };

@@ -3,13 +3,13 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
+import { GameState } from "../../../shared/game-base/type";
 import { RoundDot } from "../../../shared/round-history/dot";
 import { Choices, MainChoice } from "../se-die-helper";
 import { SettlementResult } from "../sedie";
 import Styles from "./bet-options.module.scss";
 
-const ChoiceIconMapper = {
+const ChoiceSeDieIconMapper = {
     red4: [true, true, true, true],
     red2: [false, false, true, true],
     white4: [false, false, false, false],
@@ -18,14 +18,15 @@ const ChoiceIconMapper = {
 };
 
 type Props = {
+    choices: string[];
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
 };
 
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect } = props;
-    const { gameConfigs, gameSetting, viewMode } = useGameContext();
+    const { choices, gameState, settlementResult, isShowWinningEffect } = props;
+    const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -33,33 +34,18 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
         dots.map((isRed, index) => <RoundDot key={index} choice={isRed ? Choices.odd : Choices.even} size="large" />);
 
     const renderIcons = (choice: string) => {
-        return choice === "red2" ? (
-            <div className={Styles["wrapper-dots-red2"]}>{renderDots(ChoiceIconMapper[choice])}</div>
+        return choice === Choices.red2 ? (
+            <div className={Styles["wrapper-dots-red2"]}>{renderDots(ChoiceSeDieIconMapper[choice])}</div>
         ) : (
-            renderDots(ChoiceIconMapper[choice])
+            renderDots(ChoiceSeDieIconMapper[choice])
         );
     };
 
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
-        <div className={`${Styles["layout-sedie"]}`}>
-            {viewMode === ViewMode.full &&
-                Object.keys(ChoiceIconMapper).map((choice) => (
-                    <div key={choice} className={Styles[`bet-choice-${choice}`]}>
-                        <BetOption
-                            choice={choice}
-                            odd={odds[choice]}
-                            isHighlight={settlementResult[choice]}
-                            gameState={gameState}
-                            isShowWinningEffect={isShowWinningEffect}
-                        >
-                            {renderIcons(choice)}
-                        </BetOption>
-                    </div>
-                ))}
-
-            {MainChoice.map((choice) => (
+        <div className={`${Styles["layout-sedie"]} ${!choices.includes(Choices.red2) && Styles["mini"]}`}>
+            {choices.map((choice) => (
                 <div key={choice} className={Styles[`bet-choice-${choice}`]}>
                     <BetOption
                         choice={choice}
@@ -68,7 +54,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
                     >
-                        {renderLabel(choice)}
+                        {MainChoice.includes(choice) ? renderLabel(choice) : renderIcons(choice)}
                     </BetOption>
                 </div>
             ))}

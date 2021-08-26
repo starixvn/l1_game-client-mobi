@@ -4,6 +4,7 @@
     flex-direction: column;
     width: 100%;
     min-height: 100%; // To dock the footer
+    overflow: hidden;
 }
 
 .container-modal {
@@ -22,15 +23,6 @@
         position: absolute;
         z-index: 100;
     }
-}
-
-.settings-container {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    height: 4.5rem;
-    margin-top: 4.4rem;
-    z-index: var(--setting-index);
 }
 
 [data-theme="light"] .footer {

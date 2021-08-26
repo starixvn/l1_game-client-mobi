@@ -2,33 +2,41 @@
     --header-background: linear-gradient(180deg, #f9f9f9 0%, #dedede 100%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
+    --header-border-bottom: #dedede;
     --icon-menu-color: #6e809a;
     --slide-nav-background: #fff;
     --icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
     --site-name-color: #324b6d;
+    --settings-container-background: #a9cee7;
 }
 
 [data-theme="dark"] .header {
     --header-background: linear-gradient(180deg, #324a62 0%, #223a51 100%);
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
+    --header-border-bottom: #28445f;
     --icon-menu-color: #fff;
     --slide-nav-background: #252b3b;
     --icon-menu-background-hover: radial-gradient(circle, rgba(20, 31, 47, 0) 0%, rgba(20, 31, 47, 1) 100%);
     --site-name-color: #ffffff;
+    --settings-container-background: #283f56;
 }
 
 .header {
     display: flex;
     align-items: center;
     height: 4.4rem;
-    margin-bottom: 0.6rem;
     background: var(--header-background);
+    border-bottom: 0.1rem solid var(--header-border-bottom);
     position: fixed;
     top: 0;
     width: 100%;
     box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
     z-index: var(--header-index);
+
+    @media (min-width: 768px) {
+        border-bottom: none;
+    }
 
     .header-right {
         display: flex;
@@ -51,6 +59,7 @@
 
         &:hover {
             text-decoration: none;
+            cursor: pointer;
         }
     }
 }
@@ -125,4 +134,22 @@
             opacity: 1;
         }
     }
+}
+
+[data-theme="light"] .settings-container {
+    --settings-container-background: #a9cee7;
+}
+
+[data-theme="dark"] .settings-container {
+    --settings-container-background: #283f56;
+}
+
+.settings-container {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 4.5rem;
+    margin-top: 4.4rem;
+    z-index: var(--setting-index);
+    background-color: var(--settings-container-background);
 }

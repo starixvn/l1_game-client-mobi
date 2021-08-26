@@ -14,3 +14,13 @@
         margin-left: 0.6rem;
     }
 }
+
+.w-result {
+    display: flex;
+    justify-content: center;
+    min-width: 5rem;
+    @media (min-width: 768px) {
+        min-width: 9rem;
+    }
+}
+

@@ -1,13 +1,12 @@
 import { Trans, useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useEffect, useState } from "react";
-import { AuthorizeResponse, Response, User } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, Response, SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
-import { useAuthContext } from "../../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { randomInteger } from "../../../helpers/number-helper";
-import { UserClientCommunication } from "../../../services";
+import { createNickname, updateThemeSetting } from "../../../services/auth-service";
 import ProfilePicture from "../../profile-picture";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
@@ -18,21 +17,20 @@ import NameGenerator from "./name-generator";
 import Styles from "./register.module.scss";
 
 type Props = {
-    handleStateLogin: (user: User, theme: string) => void;
+    session: SSOResponse;
+    handleStateLogin: (authorizeInfo: AuthorizeResponse) => void;
 };
 
 const maxAvatarId = 40;
-export default function Register(props: Props) {
+export default function Register({ session, handleStateLogin }: Props) {
     const { t } = useTranslation(["register", "common", "messages"]);
-    const { handleStateLogin } = props;
-    const { session } = useAuthContext();
+
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
     const [selectedAvatarId, setSelectedAvatarId] = useState<number>(randomInteger(1, maxAvatarId));
     const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
     const [isOpenGalleryAvatar, setIsOpenGalleryAvatar] = useState<boolean>(false);
     const [nameInValid, setNameInValid] = useState<string>("");
-    const authService = UserClientCommunication.getUserClientInstance().auth;
     const { theme, setTheme } = useTheme();
 
     useEffect(() => {
@@ -46,10 +44,12 @@ export default function Register(props: Props) {
             setNameInValid(t("register:invalidUsername"));
             return;
         }
-        const response = await authService.signName(session.ss, session.username, name, selectedAvatarId);
+        const response = await createNickname(session, name, selectedAvatarId);
         const authorizeResponse = response as AuthorizeResponse;
         if (authorizeResponse && authorizeResponse.authorized) {
-            handleStateLogin(authorizeResponse.user, theme);
+            updateThemeSetting(session, theme);
+            Object.assign(authorizeResponse.user, { settings: { theme } });
+            handleStateLogin(authorizeResponse);
         } else {
             setNameInValid(t(GetLocalizedErrorMessage((response as Response).errorCode)));
             setIsValidUserName(false);

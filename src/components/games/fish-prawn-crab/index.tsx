@@ -2,7 +2,6 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
@@ -11,7 +10,7 @@ import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
 import Styles from "./fish-prawn-crab.module.scss";
 import OddComponent from "./odd";
-import GetElementRound from "./scoreboard-round-history";
+import GetScoreboardDotDetails from "./scoreboard-round-history";
 import StatisticComponent from "./statistic";
 
 export const choicesMapper = { stag: 0, gourd: 1, rooster: 2, fish: 3, crab: 4, prawn: 5 };
@@ -90,7 +89,13 @@ class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, Settle
 
     renderBoard() {
         const { gameState, roundHistory } = this.state;
-        return <ScoreboardBasic roundHistory={roundHistory} gameState={gameState} getElementRound={GetElementRound}></ScoreboardBasic>;
+        return (
+            <ScoreboardBasic
+                roundHistory={roundHistory.slice(0, 30)}
+                gameState={gameState}
+                getDotDetails={GetScoreboardDotDetails}
+            ></ScoreboardBasic>
+        );
     }
 
     renderSettlementInfo() {

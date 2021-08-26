@@ -4,7 +4,7 @@ import { UserStakeLevel } from "../../components/shared/game-base/type";
 
 export const SystemContext = React.createContext<{
     setFavorite: Function;
-    checkFavorite: Function;
+    favoriteGames: number[];
     enabledPlaySound: boolean;
     gamesOrder: number[];
     betSettings: BetSettingStorage;

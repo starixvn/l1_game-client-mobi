@@ -13,19 +13,6 @@ export default class extends Document {
             <Html>
                 <Head>
                     <meta name="apple-mobile-web-app-capable" content="yes" />
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRWMQHR3Z9"></script>
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', 'G-MRWMQHR3Z9', {
-                            page_path: window.location.pathname,
-                            });
-                        `,
-                        }}
-                    />
                 </Head>
                 <body>
                     <Main />

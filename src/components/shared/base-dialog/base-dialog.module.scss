@@ -1,5 +1,6 @@
 .overlay {
     top: -0.8rem !important;
+    z-index: var(--popup-guide-history-index);
 }
 
 .popup {
@@ -29,7 +30,7 @@
 
         @media (min-device-width: 768px) {
             position: fixed;
-            top: 5.2rem;
+            top: 8.6rem;
             border-radius: 0.5rem;
         }
 
@@ -55,12 +56,20 @@
         right: 4rem;
     }
 
-    &.modal-center {
+    &.modal-favoritesetting {
         background: none;
         border: none;
         box-shadow: none;
-        position: initial !important;
         padding: 0;
         border-radius: 0;
+
+        @media (min-device-width: 768px) {
+            position: initial;
+        }
+    }
+
+    &.modal-center {
+        @extend .modal-favoritesetting;
+        position: initial !important;
     }
 }

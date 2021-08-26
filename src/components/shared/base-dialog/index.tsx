@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { isMobileOnly } from "react-device-detect";
+
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
 
@@ -13,6 +14,7 @@ type Props = {
     betContainerPosition?: number;
     isCloseOutside?: boolean;
     enableBackdrop?: boolean;
+    toggleBtnRef?: React.MutableRefObject<HTMLElement>;
 };
 
 const BaseDialog: React.FC<Props> = ({
@@ -22,6 +24,7 @@ const BaseDialog: React.FC<Props> = ({
     type = ModalType.Full,
     betContainerPosition,
     enableBackdrop,
+    toggleBtnRef,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -38,12 +41,6 @@ const BaseDialog: React.FC<Props> = ({
         return {};
     };
 
-    const handleClickOutside = (event: any) => {
-        if (isOpen && wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-            onCloseModal && onCloseModal();
-        }
-    };
-
     useEffect(() => {
         enableBackdrop && document.body.classList.add("no-scroll");
 
@@ -53,6 +50,12 @@ const BaseDialog: React.FC<Props> = ({
     }, []);
 
     useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (isOpen && !wrapperRef?.current?.contains(event.target) && !toggleBtnRef?.current?.contains(event.target)) {
+                onCloseModal && onCloseModal();
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);

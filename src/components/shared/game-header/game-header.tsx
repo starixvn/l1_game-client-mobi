@@ -19,17 +19,21 @@ export const getViewModeWhenClick = (viewMode: ViewMode) => {
 
 export default function GameHeader() {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
-    const systemContext = useSystemContext();
-    const { updateViewMode, renderResultCollapse } = useGameActionContext();
+    const { favoriteGames, setFavorite } = useSystemContext();
+    const { updateViewMode, renderResultCollapse, updateStatusShowResult } = useGameActionContext();
 
     const { id: gameId, gameName } = gameSetting;
-    const [isFavorite, updateFavorite] = useState<boolean>(systemContext.checkFavorite(gameId));
+    const [isFavorite, updateFavorite] = useState<boolean>(favoriteGames.includes(gameId));
     const { t } = useTranslation([gameName.toLowerCase()]);
+
+    useEffect(() => {
+        updateFavorite(favoriteGames.includes(gameId));
+    }, [favoriteGames]);
 
     return useMemo(() => {
         const favoriteClickHandle = (e: React.MouseEvent) => {
             e.stopPropagation();
-            systemContext.setFavorite(gameId, !isFavorite);
+            setFavorite(gameId, !isFavorite);
             updateFavorite(!isFavorite);
         };
 
@@ -38,6 +42,7 @@ export default function GameHeader() {
             if (isMobileOnly) {
                 const mode = getViewModeWhenClick(viewMode);
                 updateViewMode(mode);
+                updateStatusShowResult();
             }
         };
 

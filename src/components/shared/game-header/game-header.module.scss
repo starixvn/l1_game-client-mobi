@@ -68,6 +68,10 @@
     width: 3.6rem;
     height: 100%;
 
+    @media (min-width: 1024px) and (max-width: 1278px) {
+        width: 2.6rem;
+    }
+
     &:hover {
         cursor: pointer;
     }
@@ -100,11 +104,11 @@
         color: var(--game-header-game-name-color);
 
         @media (min-width: 1024px) and (max-width: 1278px) {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
 
         @media (max-width: 575.99px) {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
         }
     }
 
@@ -145,6 +149,9 @@
     .rebet {
         width: 4rem;
         margin-right: 1rem;
+        @media (min-width: 1024px) and (max-width: 1136px) {
+            margin-right: 0.3rem;
+        }
 
         &:disabled {
             opacity: 0.4;

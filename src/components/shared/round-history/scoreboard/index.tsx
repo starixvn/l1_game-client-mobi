@@ -4,14 +4,16 @@ import Styles from "./round-history.module.scss";
 
 type Props = {
     children: React.ReactNode;
+    activeScoreboardTab: number;
 };
 
+let isScrollEndRight = true;
+let activeTabCurrent = 0;
+
 const ScoreboardRoundHistory = (props: Props) => {
+    const { activeScoreboardTab } = props;
     const wrapperRef = useRef<HTMLDivElement>(null);
     let scrollLeftWidth = 0;
-    let mouseDown = false;
-    let startX, scrollLeft;
-    let isScrollEndRight = true;
 
     const handleTouchEnd = (e) => {
         updateScrollEndRight(e);
@@ -22,6 +24,10 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     useEffect(() => {
+        const wrapperRefCurrent = wrapperRef?.current;
+        let mouseDown = false;
+        let startX: number, scrollLeft: number;
+
         const startDragging = (e) => {
             mouseDown = true;
             startX = e.pageX - e.target.offsetLeft;
@@ -51,24 +57,31 @@ const ScoreboardRoundHistory = (props: Props) => {
         }
 
         return () => {
-            if (wrapperRef.current) {
-                wrapperRef.current.removeEventListener("mousedown", startDragging);
-                wrapperRef.current.removeEventListener("mouseup", stopDragging);
-                wrapperRef.current.removeEventListener("mouseleave", stopDragging);
-                wrapperRef.current.removeEventListener("mousemove", handleDragging);
+            if (wrapperRefCurrent) {
+                wrapperRefCurrent.removeEventListener("mousedown", startDragging);
+                wrapperRefCurrent.removeEventListener("mouseup", stopDragging);
+                wrapperRefCurrent.removeEventListener("mouseleave", stopDragging);
+                wrapperRefCurrent.removeEventListener("mousemove", handleDragging);
             }
         };
     }, []);
+
+    useEffect(() => {
+        if (activeTabCurrent !== activeScoreboardTab) {
+            activeTabCurrent = activeScoreboardTab;
+            isScrollEndRight = true;
+        }
+    }, [activeScoreboardTab]);
 
     useEffect(() => {
         if (isScrollEndRight && wrapperRef?.current?.children[0]) {
             wrapperRef.current.children[0].scrollLeft = wrapperRef.current.children[0].scrollWidth;
         }
 
-        if (wrapperRef.current) {
-            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef?.current?.children[0]?.scrollLeft ?? 0);
+        if (wrapperRef?.current?.children[0]?.scrollLeft) {
+            scrollLeftWidth = Math.max(scrollLeftWidth, wrapperRef.current.children[0].scrollLeft);
         }
-    }, [wrapperRef?.current?.children[0]?.scrollWidth]);
+    }, [wrapperRef?.current?.children[0], activeScoreboardTab]);
 
     return (
         <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>

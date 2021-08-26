@@ -75,7 +75,7 @@ const BetSettings: React.FC<{
         const value = event.currentTarget.value.replace(",", "");
         value === "" && setBetStake(0);
         isNumber(value) && +value <= MaxInputValue && setBetStake(+value);
-        inputStakeRef.current.focus();
+        focusInput();
     };
 
     const addBetStake = (event: React.MouseEvent, amount: number) => {
@@ -83,7 +83,7 @@ const BetSettings: React.FC<{
         const newBetStake = betStake + amount;
 
         newBetStake <= MaxInputValue && setBetStake(newBetStake);
-        inputStakeRef.current.focus();
+        focusInput();
     };
 
     const handleSubmit = (e: React.MouseEvent) => {
@@ -109,7 +109,7 @@ const BetSettings: React.FC<{
         if (failureCase) {
             failureCase.action && failureCase.action();
             setErrorMessage(failureCase.message);
-            inputStakeRef.current.focus();
+            focusInput();
         } else {
             updateSettings(betStake, enabledQuickBet);
             setDropdownOpen(false);
@@ -126,7 +126,11 @@ const BetSettings: React.FC<{
     const onDeleteStake = (e: React.MouseEvent) => {
         e.stopPropagation();
         setBetStake(0);
-        inputStakeRef.current.focus();
+        focusInput();
+    };
+
+    const focusInput = () => {
+        !isMobile && inputStakeRef.current.focus();
     };
 
     const toggleQuickBet = () => {
@@ -225,6 +229,7 @@ const BetSettings: React.FC<{
                                     src={"/static/images/game-header-quick-bet-active.svg"}
                                     width={20}
                                     height={20}
+                                    alt="game-header-quick-bet-active"
                                 />
                                 <span className={Styles["selected-bet-stake"]}>{numberWithCommas(betStake ?? 0)}</span>
                             </div>
@@ -273,6 +278,7 @@ const BetSettings: React.FC<{
                                         className={Styles["icon-dollar"]}
                                         width={14}
                                         height={14}
+                                        alt="chip-dollar-icon"
                                     />
                                 )}
                             </div>

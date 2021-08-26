@@ -34,10 +34,13 @@ html {
 
     // z-index
     --header-index: 1071;
+    --table-thead-index: 999;
     --footer-index: 300;
+    --bet-setting-index: 300;
+    --popup-result-index: 260;
     --popup-index: 250;
     --notice-index: 200;
-    --popup-guide-history-index: 100;
+    --popup-guide-history-index: 101;
     --amount-index: 91;
     --result-animation-index: 90;
     --balance-betting-pool-index: 80;
@@ -83,6 +86,66 @@ html {
     --dragonTiger-dot-tie-border: linear-gradient(180deg, #4dbdd1 0%, #084c58 100%);
     --dragonTiger-dot-tie-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     --dragonTiger-tie-text-color: #235f6a;
+
+    --baccarat-dot-banker-background: linear-gradient(180deg, #40a0b1 0%, #235f6a 100%);
+    --baccarat-dot-banker-border: linear-gradient(180deg, #4dbdd1 0%, #084c58 100%);
+    --baccarat-dot-banker-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --baccarat-tie-banker-color: #235f6a;
+
+    --baccarat-dot-banker-background: linear-gradient(180deg, #ff6e79 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --baccarat-dot-banker-border: linear-gradient(180deg, #ff8e95 6.04%, #a80915 100%);
+    --baccarat-dot-banker-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --baccarat-banker-text-color: #ff3434;
+
+    --baccarat-dot-player-background: linear-gradient(180deg, #3f7fca 0%, #225694 100%);
+    --baccarat-dot-player-border: linear-gradient(180deg, #4c91e2 0%, #0e3462 100%);
+    --baccarat-dot-player-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --baccarat-player-text-color: #3b7bc6;
+
+    --baccarat-dot-tie-background: linear-gradient(180deg, #24cf4a 0%, #0f9e2f 100%);
+    --baccarat-dot-tie-border: linear-gradient(180deg, #2ee457 0%, #10903c 100%);
+    --baccarat-dot-tie-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --baccarat-tie-text-color: #fff;
+    --baccarat-tie-statistic-text-color: #36d000;
+
+    --keno-pro-even-statistic-text-color: #3b7bc6;
+    --keno-pro-odd-statistic-text-color: #ff4352;
+    --keno-pro-gold-statistic-text-color: #ff9a00;
+    --keno-pro-wood-statistic-text-color: #18b43b;
+    --keno-pro-water-statistic-text-color: #3b7bc6;
+    --keno-pro-fire-statistic-text-color: #ff4352;
+    --keno-pro-earth-statistic-text-color: #ba5600;
+
+    --keno-pro-dot-earth-background: linear-gradient(180deg, #e1802e 0%, #c56f26 100%);
+    --keno-pro-dot-earth-border: linear-gradient(180deg, #ff9c4a 0%, #a24702 100%);
+    --keno-pro-dot-earth-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+
+    --keno-pro-dot-fire-background: linear-gradient(180deg, #ff636f 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --keno-pro-dot-fire-border: linear-gradient(180deg, #f63643 6.04%, #990510 100%);
+    --keno-pro-dot-fire-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+
+    --keno-pro-dot-water-background: linear-gradient(180deg, #3a78c0 0%, #285f9f 100%);
+    --keno-pro-dot-water-border: linear-gradient(180deg, #4c91e2 0%, #193f63 100%);
+    --keno-pro-dot-water-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+
+    --keno-pro-dot-wood-background: linear-gradient(180deg, #24cf4a 0%, #0f9e2f 100%);
+    --keno-pro-dot-wood-border: linear-gradient(180deg, #2ee457 0%, #10903c 100%);
+    --keno-pro-dot-wood-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+
+    --keno-pro-dot-gold-background: linear-gradient(180deg, #ffb94e 0%, #ff9a00 100%);
+    --keno-pro-dot-gold-border: linear-gradient(180deg, #ffcc7e 0%, #cf7d00 100%);
+    --keno-pro-dot-gold-shadow: 0px 1px 1px rgba(0, 0, 0, 0.4);
+
+    --threeCards-dot-red-background: linear-gradient(180deg, #ff636f 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --threeCards-dot-red-border: linear-gradient(180deg, #f63643 6.04%, #990510 100%);
+    --threeCards-dot-red-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --threeCards-dot-red-text-color: #fff;
+    --three-cards-red-statistic-text-color: #ff4352;
+
+    --threeCards-dot-black-background: linear-gradient(180deg, #55657c 0%, #2d3d52 100%);
+    --threeCards-dot-black-border: linear-gradient(180deg, #627591 0%, #0d213d 100%);
+    --threeCards-dot-black-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
+    --threeCards-black-text-color: #fff;
 }
 
 [data-theme="light"] {
@@ -133,6 +196,10 @@ html {
     --popup-icon-close-background: #eaebf0;
     --popup-icon-close-color: #4f4f54;
     --popup-bet-form-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
+
+    --container-color-bg: #fff;
+    --container-border-color: #cbcbcb;
+    --icon-favorite-game-guide: #2c2f3e;
 }
 
 [data-theme="dark"] {
@@ -183,12 +250,20 @@ html {
     --popup-icon-close-background: #253342;
     --popup-icon-close-color: #1a2430;
     --popup-bet-form-shadow: 0 -1.5rem 6rem rgba(0, 0, 0, 0.7);
+
+    --container-color-bg: #203040;
+    --container-border-color: #426d91;
+    --icon-favorite-game-guide: #fff;
 }
 
 @media (min-width: 1100px) {
     [data-theme="dark"] {
         --page-background-image: url("/static/images/themes/background-theme-dark-desktop.jpg");
     }
+}
+html {
+    overscroll-behavior: none;
+    -ms-overscroll-behavior: none;
 }
 
 // To dock the footer
@@ -230,10 +305,10 @@ body {
     margin: 0 auto;
 
     &.game-wrapper {
-        margin-top: 5.2rem;
+        margin-top: 4.4rem;
     }
 
     @media (min-width: 1260px) {
-        width: 126rem;
+        width: 126.7rem;
     }
 }

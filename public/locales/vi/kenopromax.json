@@ -1,0 +1,20 @@
+{
+    "game_name": "Keno Pro Max",
+    "big": "Tài",
+    "small": "Xỉu",
+    "even": "Chẵn",
+    "odd": "Lẻ",
+    "earth": "Thổ",
+    "fire": "Hỏa",
+    "gold": "Kim",
+    "water": "Thủy",
+    "wood": "Mộc",
+    "bigTextDot": "T",
+    "smallTextDot": "X",
+    "evenTextDot": "C",
+    "oddTextDot": "L",
+    "total": "Tổng",
+    "fiveElementsTabs": "Ngũ hành",
+    "bigSmallTabs": "Tài/Xỉu",
+    "evenOddTabs": "Chẵn/Lẻ"
+}

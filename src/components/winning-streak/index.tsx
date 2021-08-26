@@ -14,14 +14,20 @@ const BauCuaIconMapper = {
     rooster: "icon-ga",
 };
 
-const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie"];
+const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie", "minisedie", "specialsedie", "threecards"];
 
 const getIconClassName = (gameName: string, choice: string) => {
-    if (gameName.toLocaleLowerCase() === "baucua") {
-        return `${styles.dice} ${BauCuaIconMapper[choice]}`;
+    switch (gameName.toLocaleLowerCase()) {
+        case "baucua":
+            return `${styles.dice} ${BauCuaIconMapper[choice]}`;
+        case "kenopromax":
+            return styles[`dot-${choice}-kenopromax`];
+        case "baccarat":
+        case "vipbaccarat":
+            return styles[`dot-${choice}-baccarat`];
+        default:
+            return styles[`dot-${choice}`];
     }
-
-    return styles[`dot-${choice}`];
 };
 
 const getTextOnIconChoice = (gameName: string, choice: string, translate: Function) => {

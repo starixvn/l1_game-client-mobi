@@ -10,16 +10,20 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
-import GetElementRound, { CheckCondition } from "./scoreboard-round-history";
+import GetScoreboardDotDetails, { ConditionChangeDot } from "./scoreboard-round-history";
 import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
 
-class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
+export class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    get Choices() {
+        return ["even", "odd", "red3", "red2", "white3", "red4", "white4"];
     }
 
     getMainOptions(): string[] {
@@ -31,6 +35,7 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         const fakeSettlementResult = { even: false, odd: false, red2: false, red3: false, red4: false, white3: false, white4: false };
         return (
             <SeDieBetOptions
+                choices={this.Choices}
                 gameState={gameState}
                 settlementResult={settlementResult ?? fakeSettlementResult}
                 isShowWinningEffect={showWinningAnimation}
@@ -56,7 +61,9 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
 
     renderBoard() {
         const { roundHistory } = this.state;
-        return <ScoreboardDragon roundHistory={roundHistory} getElementRound={GetElementRound} checkCondition={CheckCondition} />;
+        return (
+            <ScoreboardDragon roundHistory={roundHistory} getDotDetails={GetScoreboardDotDetails} conditionChangeDot={ConditionChangeDot} />
+        );
     }
 
     get isShowStartRoundAnimation() {
@@ -67,7 +74,13 @@ class SeDie extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResu
         const { durations } = this.props;
         const { roundId } = this.state;
 
-        return <ShakeThePlate roundId={roundId} playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound} />;
+        return (
+            <ShakeThePlate
+                key={roundId}
+                playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound}
+                roundId={roundId}
+            />
+        );
     }
 
     renderResult() {

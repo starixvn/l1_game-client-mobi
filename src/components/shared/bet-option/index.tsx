@@ -37,19 +37,19 @@ const BetOption: React.FunctionComponent<Props> = ({
     const totalBetRef = useRef<HTMLDivElement>(null);
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
 
-    const actionByGameState = {
-        [GameState.LockingBet]: () => {
-            updateHighlightType(HighlightType.None);
-        },
-        [GameState.InRound]: () => {
-            updateHighlightType(HighlightType.Background);
-        },
-        [GameState.BeforeStartRound]: () => {
-            updateHighlightType(HighlightType.Background);
-        },
-    };
-
     useEffect(() => {
+        const actionByGameState = {
+            [GameState.LockingBet]: () => {
+                updateHighlightType(HighlightType.None);
+            },
+            [GameState.InRound]: () => {
+                updateHighlightType(HighlightType.Background);
+            },
+            [GameState.BeforeStartRound]: () => {
+                updateHighlightType(HighlightType.Background);
+            },
+        };
+
         actionByGameState[gameState] && actionByGameState[gameState]();
         setTotalBet(totalBets[choice]);
         update(totalBet);
@@ -62,9 +62,10 @@ const BetOption: React.FunctionComponent<Props> = ({
         const betSetting = betSettingStorage[id];
         const betValue = betSetting?.betStake ?? 1;
         const enabledQuickBet = betSetting?.enabledQuickBet;
+        const betChoiceRect = betChoiceRef.current.getBoundingClientRect();
 
         if (enabledQuickBet) {
-            placeBet(choice, betValue);
+            placeBet(choice, betValue, { x: event.clientX, y: event.clientY }, { left: betChoiceRect.left, right: betChoiceRect.right });
         } else {
             setIsFocusChoice(true);
             const betOptionElement = totalBetRef.current.nextElementSibling;
