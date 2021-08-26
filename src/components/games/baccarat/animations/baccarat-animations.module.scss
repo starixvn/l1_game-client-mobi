@@ -19,21 +19,30 @@ $third-card-duration-time: 1.2s;
 $second-card-delay-time: 0.2s;
 $third-card-delay-time: 0.5s;
 
-$card1-delay-time: 0.1s;
-$card2-delay-time: $card1-delay-time + $first-card-duration-time + $time-show-card-animation;
-$card3-delay-time: $card2-delay-time + $first-card-duration-time + $time-show-card-animation;
-$card4-delay-time: $card3-delay-time + $second-card-duration-time + $time-show-card-animation;
-$card5-delay-time: $card4-delay-time + $second-card-duration-time + $time-show-card-animation;
-$card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-card-animation;
+$card1-delay-time: 0.2s;
+$card2-delay-time: 0.2s + $time-show-card-animation + $first-card-duration-time;
+$card3-delay-time: 0.2s + $time-show-card-animation * 2 + $first-card-duration-time * 2 + $second-card-delay-time;
+$card4-delay-time: 0.2s + $time-show-card-animation * 3 + $first-card-duration-time * 2 + $second-card-delay-time * 2 +
+    $second-card-duration-time;
+$card5-delay-time: 0.2s + $time-show-card-animation * 4 + $first-card-duration-time * 2 + $second-card-delay-time * 2 +
+    $second-card-duration-time * 2 + $third-card-delay-time;
+$card6-delay-time: 0.2s + $time-show-card-animation * 5 + $first-card-duration-time * 2 + $second-card-delay-time * 2 +
+    $second-card-duration-time * 2 + $third-card-delay-time * 2 + $third-card-duration-time;
+
+$player-move-left-delay-time: $card4-delay-time + $time-show-card-animation + $second-card-duration-time + $third-card-delay-time;
+$total-4cards-move-up-delay: $card4-delay-time + $second-card-duration-time + $time-show-card-animation;
+$total-5cards-move-up-delay: $card5-delay-time + $third-card-duration-time + $time-move-left-player + $time-show-card-animation;
+$total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $time-move-left-player + $time-show-card-animation;
 
 .full-mode {
+    --player-banker-space: 3rem;
+    @media (min-width: 1200px) {
+        --player-banker-space: 4rem;
+    }
+
     display: grid;
     grid-template-columns: repeat(2, minmax(232px, 1fr));
-    grid-gap: 1.5rem;
-
-    @media (min-width: 1200px) {
-        grid-gap: 3rem;
-    }
+    grid-gap: var(--player-banker-space);
 }
 
 .animation-container {
@@ -143,9 +152,10 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
                 "6": calc(var(--distance-second-third-card) * -1),
             )
         );
-        // .animation-container.move-up-no-animation.player {
-        //     left: -4rem;
-        // }
+
+        .animation-container.move-up-no-animation.player {
+            left: calc(var(--player-banker-space) * (-1));
+        }
     }
 
     .animation-container {
@@ -338,10 +348,9 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
         }
 
         .card3 {
-            $delay-show-card3: $card3-delay-time + $second-card-delay-time;
-            animation: show-card-animation $time-show-card-animation $delay-show-card3 ease forwards;
+            animation: show-card-animation $time-show-card-animation $card3-delay-time ease forwards;
 
-            $card3-open-delay-time: $delay-show-card3 + $time-show-card-animation;
+            $card3-open-delay-time: $card3-delay-time + $time-show-card-animation;
             .card-back {
                 --card-back-speed-medium-duration-time: #{$second-card-duration-time};
                 @extend %card-back-speed-medium;
@@ -355,10 +364,9 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
         }
 
         .card4 {
-            $delay-show-card4: $card4-delay-time + $second-card-delay-time * 2;
-            animation: show-card-animation $time-show-card-animation $delay-show-card4 ease forwards;
+            animation: show-card-animation $time-show-card-animation $card4-delay-time ease forwards;
 
-            $card4-open-delay-time: $delay-show-card4 + $time-show-card-animation;
+            $card4-open-delay-time: $card4-delay-time + $time-show-card-animation;
             .card-back {
                 --card-back-speed-medium-duration-time: #{$second-card-duration-time};
                 @extend %card-back-speed-medium;
@@ -386,10 +394,9 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
         }
 
         .card5 {
-            $delay-show-card5: $card5-delay-time + $second-card-delay-time * 2 + $third-card-delay-time;
-            animation: show-card-animation $time-show-card-animation $delay-show-card5 ease forwards;
+            animation: show-card-animation $time-show-card-animation $card5-delay-time ease forwards;
 
-            $card5-open-delay-time: $delay-show-card5 + $time-show-card-animation;
+            $card5-open-delay-time: $card5-delay-time + $time-show-card-animation;
             .card-back {
                 @extend %card-back-speed-slow;
                 animation-delay: $card5-open-delay-time;
@@ -401,10 +408,9 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
         }
 
         .card6 {
-            $delay-show-card6: $card6-delay-time + $second-card-delay-time * 2 + $third-card-delay-time * 2;
-            animation: show-card-animation $time-show-card-animation ($card6-delay-time + 1s) ease forwards;
+            animation: show-card-animation $time-show-card-animation $card6-delay-time ease forwards;
 
-            $card6-open-delay-time: $delay-show-card6 + $time-show-card-animation;
+            $card6-open-delay-time: $card6-delay-time + $time-show-card-animation;
             .card-back {
                 animation-delay: $card6-open-delay-time;
             }
@@ -417,16 +423,12 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
 
 // set delay-time move-up animation
 .open-cards.card-4.has-animation .animation-container {
-    animation-delay: $card4-delay-time + $second-card-duration-time + $second-card-delay-time * 2;
+    animation-delay: $total-4cards-move-up-delay;
 }
 
 .open-cards.card-5.has-animation .animation-container,
 .open-cards.card-6.has-animation .animation-container {
     &.player {
-        --move-left-player: -4rem;
-        @media (min-width: 1200px) {
-            --move-left-player: -5rem;
-        }
         animation-name: move-left, move-up-result-animation-cards;
         animation-duration: $time-move-left-player, 0.3s;
         animation-fill-mode: forwards, forwards;
@@ -434,30 +436,29 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
     }
 }
 
+// card5 appears on player
+// player
 .open-cards.card-5.has-animation .animation-container.player {
-    $card5-player-move-left-delay-time: $card4-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2;
-    $card5-player-move-up-delay-time: $card5-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2 +
-        $third-card-delay-time + $time-move-left-player;
-
-    animation-delay: $card5-player-move-left-delay-time, $card5-player-move-up-delay-time;
+    animation-delay: $player-move-left-delay-time, $total-5cards-move-up-delay;
 }
 
+// banker
+.open-cards.card-5.has-animation .animation-container {
+    animation-delay: $total-5cards-move-up-delay;
+}
+
+// card5 appears on banker
 .open-cards.card-5-banker.has-animation .animation-container {
-    animation-delay: $card5-delay-time + $second-card-duration-time + $second-card-delay-time * 2 + $third-card-delay-time + +
-        $time-show-card-animation + $time-show-card-animation;
+    animation-delay: $card5-delay-time + $time-show-card-animation + $third-card-duration-time;
 }
 
+// 6 cards appears on player and banker
 .open-cards.card-6.has-animation .animation-container.player {
-    $card6-player-move-left-delay-time: $card4-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2;
-    $card6-player-move-up-delay-time: $card5-delay-time + $second-card-duration-time * 2 + $third-card-duration-time * 2 +
-        $second-card-delay-time * 2 + $third-card-delay-time * 2 + $time-move-left-player + $time-show-card-animation;
-
-    animation-delay: $card6-player-move-left-delay-time, $card6-player-move-up-delay-time;
+    animation-delay: $player-move-left-delay-time, $total-6cards-move-up-delay;
 }
 
 .open-cards.card-6.has-animation .animation-container {
-    animation-delay: $card5-delay-time + $second-card-duration-time * 2 + $third-card-duration-time * 2 + $second-card-delay-time * 2 +
-        $third-card-delay-time * 2 + $time-move-left-player + $time-show-card-animation;
+    animation-delay: $total-6cards-move-up-delay;
 }
 
 // .open-cards.card-5-banker.has-animation .animation-container.banker .score .score-number {
@@ -472,7 +473,7 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
         left: var(--move-left-from-player);
     }
     to {
-        left: var(--move-left-to-player);
+        left: calc(var(--player-banker-space) * (-1));
     }
 }
 
@@ -623,9 +624,8 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
 
 .result-collapse-mode.open-cards.card-6.has-animation .animation-container,
 .result-collapse-mode.open-cards.card-5.has-animation .animation-container {
-    .player {
-        --move-left-from-player: 2.6rem;
-        --move-left-to-player: 0;
+    &.player {
+        --player-banker-space: -2.8rem;
     }
 }
 
