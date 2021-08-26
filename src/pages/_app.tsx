@@ -21,6 +21,7 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
             <ThemeProvider storageKey={buildLocalStorageKey("theme")} defaultTheme={Themes.light}>
                 <Head>
                     <title>Saba Mobi</title>
+                    <link rel="shortcut icon" href={`/favicon.icov?v=${process.env.buildVersion}`} />
                 </Head>
                 <Component {...pageProps} err={err} />
             </ThemeProvider>
