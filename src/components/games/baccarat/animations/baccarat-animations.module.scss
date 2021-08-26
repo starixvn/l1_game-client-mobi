@@ -435,19 +435,6 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
     animation-delay: $card4-delay-time + $second-card-duration-time + $second-card-delay-time * 2;
 }
 
-.open-cards.card-5.has-animation .animation-container {
-    animation-delay: $card5-delay-time + $second-card-duration-time + $second-card-delay-time * 2 + $third-card-delay-time;
-}
-
-.open-cards.card-6.has-animation .animation-container {
-    animation-delay: $card6-delay-time + $third-card-duration-time + $time-move-left-player + $second-card-delay-time * 2 +
-        $third-card-delay-time * 2;
-}
-
-// .open-cards.card-5-banker.has-animation .animation-container {
-//     animation-delay: $card5-delay-time + $card-second-duration-time;
-// }
-
 .open-cards.card-5.has-animation .animation-container,
 .open-cards.card-6.has-animation .animation-container {
     &.player {
@@ -460,15 +447,29 @@ $card6-delay-time: $card5-delay-time + $third-card-duration-time + $time-show-ca
 }
 
 .open-cards.card-5.has-animation .animation-container.player {
-    $card5-player-move-left-delay-time: $card5-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2 +
-        $third-card-delay-time;
-    animation-delay: $card5-player-move-left-delay-time, $card5-player-move-left-delay-time + $time-move-left-player;
+    $card5-player-move-left-delay-time: $card4-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2;
+    $card5-player-move-up-delay-time: $card5-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2 +
+        $third-card-delay-time + $time-move-left-player;
+
+    animation-delay: $card5-player-move-left-delay-time, $card5-player-move-up-delay-time;
+}
+
+.open-cards.card-5-banker.has-animation .animation-container {
+    animation-delay: $card5-delay-time + $second-card-duration-time + $second-card-delay-time * 2 + $third-card-delay-time + +
+        $time-show-card-animation + $time-show-card-animation;
 }
 
 .open-cards.card-6.has-animation .animation-container.player {
-    $card6-player-move-left-delay-time: $card6-delay-time + $third-card-duration-time * 2 + $second-card-delay-time * 2 +
-        $third-card-delay-time * 2;
-    animation-delay: $card6-player-move-left-delay-time, $card6-player-move-left-delay-time + $time-move-left-player;
+    $card6-player-move-left-delay-time: $card4-delay-time + $second-card-duration-time * 2 + $second-card-delay-time * 2;
+    $card6-player-move-up-delay-time: $card5-delay-time + $second-card-duration-time * 2 + $third-card-duration-time * 2 +
+        $second-card-delay-time * 2 + $third-card-delay-time * 2 + $time-move-left-player + $time-show-card-animation;
+
+    animation-delay: $card6-player-move-left-delay-time, $card6-player-move-up-delay-time;
+}
+
+.open-cards.card-6.has-animation .animation-container {
+    animation-delay: $card5-delay-time + $second-card-duration-time * 2 + $third-card-duration-time * 2 + $second-card-delay-time * 2 +
+        $third-card-delay-time * 2 + $time-move-left-player + $time-show-card-animation;
 }
 
 // .open-cards.card-5-banker.has-animation .animation-container.banker .score .score-number {
