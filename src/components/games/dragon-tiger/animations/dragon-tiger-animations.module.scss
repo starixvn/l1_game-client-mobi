@@ -27,20 +27,19 @@ $number-of-cards: 2;
         transition: transform 0.7s;
 
         .score {
-            font-size: 1.6rem;
-            color: #fff;
-            width: 7.6rem;
-            height: 2.5rem;
-            border-radius: 10px 10px 0px 0px;
             position: absolute;
             bottom: 0;
-            left: -3.5rem;
-            z-index: 3;
-            font-size: 1.6rem;
+            left: -3.8rem;
+            width: 7.6rem;
+            height: 2.5rem;
             line-height: 2.4rem;
-            text-align: center;
             margin-left: 50%;
             transform: scale(1);
+            border-radius: 1rem 1rem 0 0;
+            color: #fff;
+            font-size: 1.4rem;
+            text-align: center;
+            z-index: 3;
 
             &.dragon-score {
                 background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
@@ -50,10 +49,10 @@ $number-of-cards: 2;
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 83.33%, #de4a53 91.46%, #fb6667 100%);
             }
             .score-number {
+                padding-left: 0.1rem;
                 font-family: var(--font-number);
                 font-size: 2rem;
-                padding-left: 0.1rem;
-                letter-spacing: -.2rem;
+                letter-spacing: -0.2rem;
             }
         }
 

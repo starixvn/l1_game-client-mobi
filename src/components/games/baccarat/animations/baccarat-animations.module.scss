@@ -141,16 +141,16 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                     "2": 0,
                     "3": 7.5rem,
                     "4": -5.5rem,
-                    "5": 3rem
+                    "5": 3rem,
                 )
             );
         }
-        .animation-container.move-up-no-animation.player{
+        .animation-container.move-up-no-animation.player {
             left: -4rem;
             @media (min-width: 1024px) and (max-width: 1278px) {
                 left: -3rem;
             }
-        }  
+        }
         &-banker {
             @include position-cards(
                 (
@@ -562,7 +562,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 "2": 0,
                 "3": 3.6rem,
                 "4": -1.2rem,
-                "5": 2.4rem,
+                "5": 3rem,
             )
         );
         .animation-container {
@@ -587,7 +587,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                     "2": 0,
                     "3": 0,
                     "4": -1.2rem,
-                    "5": -2.4rem,
+                    "5": -1.8rem,
                 )
             );
             .animation-container {
