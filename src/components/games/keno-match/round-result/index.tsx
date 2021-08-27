@@ -1,54 +1,71 @@
 import React from "react";
-
 import { KenoMatchGameState, Result } from "../type";
 import Styles from "./draw-result.module.scss";
 import HalfRoundResult from "./half-round-result";
-import { HalfRoundResultProps } from "./half-round-result/half-round-result-props";
 
 type Props = {
     gameState: KenoMatchGameState;
     halfTimeResult: Result;
     fullTimeResult: Result;
-    isHalfTimeActive: boolean;
+    activeHalfTimeResult: boolean;
 };
 
-export function DrawHalfResult({ halfTimeResult, fullTimeResult, isHalfTimeActive }: Props) {
-    const resultProps = isHalfTimeActive
+const halfTimeProps = {
+    className: "half-time",
+    headerText: "Half Time",
+};
+
+const fullTimeProps = {
+    className: "full-time",
+    headerText: "Full Time",
+};
+
+export function DrawHalfResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult }: Props) {
+    const resultProps = activeHalfTimeResult
         ? {
-              result: halfTimeResult,
-              active: isHalfTimeActive,
-              className: "half-time",
-              headerText: "Half Time",
+              ...{
+                  result: halfTimeResult,
+                  active: activeHalfTimeResult,
+              },
+              ...halfTimeProps,
           }
         : {
-              result: fullTimeResult,
-              active: !isHalfTimeActive,
-              className: "full-time",
-              headerText: "Full Time",
+              ...{
+                  result: fullTimeResult,
+                  active: !activeHalfTimeResult,
+              },
+              ...fullTimeProps,
           };
 
-    return <HalfRoundResult {...resultProps} />;
+    return (
+        <div className={Styles["popup-result"]}>
+            <HalfRoundResult {...resultProps} />
+        </div>
+    );
 }
 
-export default function DrawResult({ halfTimeResult, fullTimeResult, isHalfTimeActive }: Props) {
-    const halfTimeProps: HalfRoundResultProps = {
-            result: halfTimeResult,
-            active: isHalfTimeActive,
-            className: "half-time",
-            headerText: "Half Time",
-        },
-        fullTimeProps: HalfRoundResultProps = {
-            result: fullTimeResult,
-            active: !isHalfTimeActive,
-            className: "full-time",
-            headerText: "Full Time",
-        };
-
+export function DrawFullResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult }: Props) {
     return (
         <div className={Styles["draw-result"]}>
             <div className={Styles.field}>
-                <HalfRoundResult {...halfTimeProps} />
-                <HalfRoundResult {...fullTimeProps} />
+                <HalfRoundResult
+                    {...{
+                        ...{
+                            result: halfTimeResult,
+                            active: activeHalfTimeResult,
+                        },
+                        ...halfTimeProps,
+                    }}
+                />
+                <HalfRoundResult
+                    {...{
+                        ...{
+                            result: fullTimeResult,
+                            active: !activeHalfTimeResult,
+                        },
+                        ...fullTimeProps,
+                    }}
+                />
             </div>
         </div>
     );

@@ -6,11 +6,10 @@ import { io, Socket } from "socket.io-client";
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
-import DrawResult, { DrawHalfResult } from "./round-result";
+import { DrawHalfResult, DrawFullResult } from "./round-result";
 import Styles from "./game.module.scss";
 import KenoMatchBetOptions from "./bet-options";
 import { GameState, PopupType } from "../../shared/game-base/type";
-import SimplePopup from "./simple-popup/simple-popup";
 import BaseDialog from "../../shared/base-dialog";
 
 import {
@@ -157,26 +156,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderPopupResult() {
         const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
-        return <></>;
-        // return (
-        //     <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
-        //         <ErrorMessage message={""} closeModal={this.closePopup}></ErrorMessage>
-        //     </BaseDialog>
-        // );
 
         return (
-            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
-                <DrawHalfResult
-                gameState={gameState}
-                halfTimeResult={halfTimeResult}
-                fullTimeResult={fullTimeResult}
-                isHalfTimeActive={activeHalfTimeResult}
-            />
-            </BaseDialog>
-        );
-        return (
-            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
-               <div>test test</div>
+            <BaseDialog type={ModalType.Center} isOpen={true}>
+                <DrawHalfResult {...{ gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult }} />
             </BaseDialog>
         );
     }
@@ -377,13 +360,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderRoundResult() {
         const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
+        
         return (
-            <DrawResult
-                gameState={gameState}
-                halfTimeResult={halfTimeResult}
-                fullTimeResult={fullTimeResult}
-                isHalfTimeActive={activeHalfTimeResult}
-            />
+            <DrawFullResult {...{ gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult }} />
         );
     }
 }
