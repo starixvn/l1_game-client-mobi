@@ -33,6 +33,15 @@ export interface SettlementResult {
     even: boolean;
 }
 
+export type Odd = {
+    blue: number;
+    red: number;
+    over: number;
+    under: number;
+    odd: number;
+    even: number;
+};
+
 export interface HalfRoundResult {
     result: Result;
     sum: number;
@@ -75,6 +84,7 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     fullTimeResult?: Result;
     settlementResult?: SettlementResult;
     activeHalfTimeResult: boolean;
+    showPopup: boolean;
 }
 
 export interface TimerProps {

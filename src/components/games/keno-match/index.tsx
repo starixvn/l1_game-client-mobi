@@ -6,9 +6,12 @@ import { io, Socket } from "socket.io-client";
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import GameBase from "../../shared/game-base";
-import DrawResult from "./round-result";
+import DrawResult, { DrawHalfResult } from "./round-result";
 import Styles from "./game.module.scss";
+import KenoMatchBetOptions from "./bet-options";
 import { GameState, PopupType } from "../../shared/game-base/type";
+import SimplePopup from "./simple-popup/simple-popup";
+import BaseDialog from "../../shared/base-dialog";
 
 import {
     Result,
@@ -19,6 +22,8 @@ import {
     KenoMatchGameStateEnum,
     KenoMatchProps,
 } from "./type";
+import { ModalType } from "../../shared/base-dialog/type";
+import { ErrorMessage } from "../../shared/error-message";
 
 export const choicesMapper = {
     fhBlue: 1,
@@ -60,6 +65,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
                 activeHalfTimeResult: false,
+                showPopup: false,
             },
         };
     }
@@ -97,8 +103,32 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderBetOptions() {
-        const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult } = this.state;
-        return <></>;
+        const {
+            gameState,
+            settlementResult,
+            roundId,
+            halfTimeResult,
+            fullTimeResult,
+            remainingTime,
+            activeHalfTimeResult,
+            showWinningAnimation,
+        } = this.state;
+        const fakeSettlementResult = {
+            blue: false,
+            red: false,
+            over: true,
+            under: false,
+            odd: true,
+            even: false,
+        };
+        return (
+            <KenoMatchBetOptions
+                gameState={gameState}
+                settlementResult={settlementResult ?? fakeSettlementResult}
+                isShowWinningEffect={showWinningAnimation}
+                activeHalfTimeResult={activeHalfTimeResult}
+            />
+        );
     }
 
     renderRoundHistory() {
@@ -117,14 +147,38 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderStartRoundAnimation() {
         const { durations } = this.props;
-        const { roundId } = this.state;
-
+        const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
         return <></>;
     }
 
     renderResult() {
-        const { result } = this.state;
         return <></>;
+    }
+
+    renderPopupResult() {
+        const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
+        return <></>;
+        // return (
+        //     <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
+        //         <ErrorMessage message={""} closeModal={this.closePopup}></ErrorMessage>
+        //     </BaseDialog>
+        // );
+
+        return (
+            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
+                <DrawHalfResult
+                gameState={gameState}
+                halfTimeResult={halfTimeResult}
+                fullTimeResult={fullTimeResult}
+                isHalfTimeActive={activeHalfTimeResult}
+            />
+            </BaseDialog>
+        );
+        return (
+            <BaseDialog type={ModalType.Center} isOpen={this.state.displayPopup === PopupType.Error} onCloseModal={this.closePopup}>
+               <div>test test</div>
+            </BaseDialog>
+        );
     }
 
     renderResultCollapse() {
@@ -195,7 +249,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
             case remainingTime > durations.fullTimeLockingBet:
                 return KenoMatchGameStateEnum.FullTimePlacingBet;
-            case  remainingTime > durations.showFullTimeResult:
+            case remainingTime > durations.showFullTimeResult:
                 return KenoMatchGameStateEnum.FullTimeLockingBet;
             case remainingTime > durations.showFullTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowFullTimeResult;
@@ -251,7 +305,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 },
             },
             {
-                condition: durations.beforeStartRound ? nextGameState === KenoMatchGameStateEnum.BeforeStartRound : nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet,
+                condition: durations.beforeStartRound
+                    ? nextGameState === KenoMatchGameStateEnum.BeforeStartRound
+                    : nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet,
                 state: {
                     roundId: roundId + 1,
                 },
@@ -320,7 +376,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderRoundResult() {
-        const { gameState, roundId, halfTimeResult, fullTimeResult, remainingTime, activeHalfTimeResult } = this.state;
+        const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
         return (
             <DrawResult
                 gameState={gameState}

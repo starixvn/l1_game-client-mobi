@@ -64,7 +64,7 @@
     width: 45%;
     display: inline-block;
 
-    &.home {
+    &.blue {
         background: url("/static/images/BlueLight.png") no-repeat 50%;
         background-size: cover;
 
@@ -74,7 +74,7 @@
         }
     }
 
-    &.away {
+    &.red {
         background: url("/static/images/RedLight.png") no-repeat 50%;
         background-size: cover;
 

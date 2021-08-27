@@ -1,57 +1,42 @@
 import React from "react";
 
-import { Result } from "../../type";
+import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
 import Styles from "./half-round-result.module.scss";
 
-type Props = {
-    result: Result;
-    isHalfTime: boolean;
-    active: boolean;
-};
+export default function HalfRoundResult({result, active, className, headerText}: HalfRoundResultProps) {
+    const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
+    blueTeamProps: TeamProps = {
+        result: result.blue,
+        className: Styles.blue
+    },
+    redTeamProps:  TeamProps = {
+        result: result.red,
+        className: Styles.red
+    };
 
-export default function HalfResult(props: Props) {
     return (
-        <div
-            className={`${Styles.result} ${props.isHalfTime ? Styles["half-time"] : Styles["full-time"]} ${
-                props.active ? Styles.active : ""
-            }`}
-        >
-            <Team result={props.result.blue} isHome={true} />
+        <div className={classNames}>
+            <Team {...blueTeamProps}/>
             <div className={Styles["middle-column"]}>
                 <div className={Styles.name}>
-                    {props.isHalfTime ? (
-                        <>
-                            <div>half</div>
-                            <div>time</div>
-                        </>
-                    ) : (
-                        <>
-                            <div>full</div>
-                            <div>time</div>
-                        </>
-                    )}
+                   {headerText}
                 </div>
             </div>
-            <Team result={props.result.red} isHome={false} />
+            <Team  {...redTeamProps} />
         </div>
     );
 }
 
-type TeamProps = {
-    result: number[];
-    isHome: boolean;
-};
-
-function Team(props: TeamProps) {
+function Team({result, className}: TeamProps) {
     return (
-        <div className={`${Styles.team} ${props.isHome ? Styles.home : Styles.away}`}>
+        <div className={`${Styles.team} ${className}`}>
             <div className={Styles.row}>
-                {props.result.slice(0, 4).map((number, index) => (
+                {result.slice(0, 4).map((number, index) => (
                     <Tie key={index} number={number} />
                 ))}
             </div>
             <div className={Styles.row}>
-                {props.result.slice(5, 9).map((number, index) => (
+                {result.slice(5, 9).map((number, index) => (
                     <Tie key={index} number={number} />
                 ))}
             </div>

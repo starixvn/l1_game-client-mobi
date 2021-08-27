@@ -1,0 +1,64 @@
+.layout-kenomatch1,
+.layout-kenomatch1 {
+    display: grid;
+    grid-gap: 0.1rem;
+    // height: 100%;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 55% 45%;
+    --light-red-color: #FF4352;
+    --light-blue-color: #3087D7;
+    --green-color: #36D000;
+    --font-small-size: 1.8rem;
+    --font-medium-size: 2.2rem;
+}
+
+.bet-choice-name {
+    --font-size: 1.8rem;
+    font-size: var(--font-size);
+    font-weight: bold;
+    text-align: center;
+}
+
+.choice-blue {
+    grid-column: 1/6;
+    color: var(--light-blue-color);
+    .bet-choice-name {
+        --font-size: 2.2rem;
+        padding-top: .8rem;
+    }
+}
+
+.choice-red {
+    grid-column: 6/11;
+    color: var(--light-red-color);
+    .bet-choice-name {
+        --font-size: 2.2rem;
+        padding-top: .8rem;
+    }
+}
+
+.choice-over{
+    grid-column: 1/4;
+    color: var(--light-blue-color);
+    .bet-choice-name {
+        --font-size: 2.4rem;
+    }
+}
+
+.choice-under {
+    grid-column: 4/6;
+    color: var(--light-blue-color);
+}
+
+.choice-odd {
+    grid-column:  8/11;
+    color: var(--light-red-color);
+}
+
+.choice-even {
+    grid-column: 6/8;
+    color: var(--light-red-color);
+    .bet-choice-name {
+        --font-size: 2.4rem;
+    }
+}

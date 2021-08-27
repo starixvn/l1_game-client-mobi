@@ -1,3 +1,9 @@
 {
-    "game_name": "Keno Match 1"
+    "game_name": "Keno Match 1",
+    "blue": "blue",
+    "red": "red",
+    "over": "over",
+    "under": "under",
+    "odd": "odd",
+    "even": "even"
 }
