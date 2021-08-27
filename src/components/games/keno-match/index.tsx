@@ -185,7 +185,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     registerMessageHandler() {
         super.registerMessageHandler();
-        this.messageTransmitter.register("finishHalfTime", this.handleFinishHalfTime.bind(this));
+        this.messageTransmitter.register("firstHalfResult", this.handleFinishHalfTime.bind(this));
     }
 
     handleRemainingTime({ remainingTime }) {
@@ -282,15 +282,14 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
-        if (nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet || nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet) {
+        if (nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet || nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet) {
             this.betWin = 0;
         }
 
         const newStateDetector = [
             {
                 condition: [
-                    KenoMatchGameStateEnum.BeforeStartRound,
-                    // KenoMatchGameStateEnum.HalfTimePlacingBet,
+                    KenoMatchGameStateEnum.HalfTimePlacingBet,
                     KenoMatchGameStateEnum.FullTimePlacingBet,
                 ].includes(nextGameState),
                 state: {
@@ -304,9 +303,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 },
             },
             {
-                condition: durations.beforeStartRound
-                    ? nextGameState === KenoMatchGameStateEnum.BeforeStartRound
-                    : nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet,
+                condition:  nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
                 state: {
                     roundId: roundId + 1,
                 },
@@ -343,7 +340,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 this.betPosition = betPosition;
                 this.betOptionBoundary = betOptionBoundary;
                 this.isProcessingBet = true;
-                this.setRetryInterval();
+                this.setRetryInterval(); 
                 this.socket.emit("bet",{ betChoice, amount });
             }
         }
@@ -365,10 +362,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         });
     }
 
-    handleFinishHalfTime({ finishHalfTime }) {
+    handleFinishHalfTime({ firstHalfResult }) {
         this.setState({
-            halfTimeResult: finishHalfTime.result,
-            settlementResult: finishHalfTime.settlementResult,
+            halfTimeResult: firstHalfResult.result,
+            settlementResult: firstHalfResult.settlementResult,
             showPopup: true
         });
     }
@@ -377,6 +374,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const { roundHistory } = this.state;
         const roundHistoryClone = [...roundHistory];
 
+        this.isProcessingBet = false;
+        this.clearRetryInterval();
+        this.storeOwnBet(finish.roundId);
         roundHistoryClone.unshift(finish);
         roundHistoryClone.length > 100 && roundHistoryClone.pop();
 
@@ -386,6 +386,19 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             roundHistory: roundHistoryClone,
             showPopup: true
         });
+        
+        const animationDuration = this.getFinishAnimationDuration();
+
+        this.showResultInfoTimeout = setTimeout(() => {
+            this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
+            this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
+        }, animationDuration);
+
+        this.showWinningAnimationTimeout = setTimeout(() => {
+            this.setState({
+                showWinningAnimation: true,
+            });
+        }, this.winningAnimationWaitingTimeInSecond);
     }
 
     renderGameHeader() {

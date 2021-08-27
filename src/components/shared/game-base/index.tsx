@@ -53,8 +53,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
     protected betWin: number;
     protected isUMInFirstLoad = false;
-    private showResultInfoTimeout: NodeJS.Timeout;
-    private showWinningAnimationTimeout: NodeJS.Timeout;
+    protected showResultInfoTimeout: NodeJS.Timeout;
+    protected showWinningAnimationTimeout: NodeJS.Timeout;
     protected isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
