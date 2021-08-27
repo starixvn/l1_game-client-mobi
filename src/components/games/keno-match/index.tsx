@@ -70,6 +70,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     componentDidUpdate(prevProps) {}
 
     onStart() {
+        this.isProcessingBet = false;
         const { socketInfo } = this.props;
         const { session } = this.context;
         const { proxy } = appSettings;
@@ -96,6 +97,15 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             this.setState({ gameState: GameState.None });
         });
     }
+
+    onDestroy() {
+       super.onDestroy();
+        this.socket && this.socket.disconnect();
+    }
+
+    retryConnect = () => {
+       this.onStart();
+    };
 
     getMainOptions(): string[] {
         return Object.keys(choicesMapper);
@@ -325,7 +335,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const kenoMatchGameState = gameState as KenoMatchGameState;
 
         this.setState({
-            roundHistory: roundHistory.slice(0, 40),
+            roundHistory: roundHistory,
             roundId:
                 kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
                 kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||

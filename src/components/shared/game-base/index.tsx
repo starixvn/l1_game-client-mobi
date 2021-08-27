@@ -55,7 +55,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected isUMInFirstLoad = false;
     private showResultInfoTimeout: NodeJS.Timeout;
     private showWinningAnimationTimeout: NodeJS.Timeout;
-    private isProcessingBet = false;
+    protected isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
     private betPosition: Position;
@@ -180,7 +180,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onConnectFailed() {
         this.onDestroy();
         this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
-        //  this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed, signedIn: false });
     }
 
     registerMessageHandler() {
