@@ -77,12 +77,29 @@
     }
 
     &.mobile {
-        position: absolute;
-        bottom: auto;
+        position: fixed;
+        bottom: 0;
         margin-right: 0.5rem;
         border-radius: 0.5rem;
-        max-height: none;
         min-height: 50rem;
+        height: calc(100vh - 8.9rem);
+        overflow: hidden;
+        padding-bottom: 0;
+        padding: 0;
+        .favorite-games,
+        .unfavorite-games {
+            padding: 0 1rem 1rem;
+            max-height:  calc(100% - 4.4rem);
+            overflow: auto;
+        }
+        .actions {
+            position: fixed;
+            bottom: 0;
+            z-index: 99;
+            background: #fff;
+            padding: 1rem;
+            width: 100%;
+        }
     }
 
     &.open-animation {
