@@ -226,18 +226,21 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 return KenoMatchGameStateEnum.ShowHalfTimeResult;
             case remainingTime > durations.beforeStartFullTimePlacingBet:
                 return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
+            case remainingTime > durations.highLightFirstHalf:
+                return KenoMatchGameStateEnum.HighLightFirstHalf;
 
             case remainingTime > durations.fullTimePlacingBets:
                 return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;
-
             case remainingTime > durations.fullTimeLockingBet:
                 return KenoMatchGameStateEnum.FullTimePlacingBet;
             case remainingTime > durations.showFullTimeResult:
                 return KenoMatchGameStateEnum.FullTimeLockingBet;
             case remainingTime > durations.showFullTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowFullTimeResult;
-            case remainingTime > 0:
+            case remainingTime > durations.showFullTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
+            case remainingTime > durations.highLightFirstHalf:
+                return KenoMatchGameStateEnum.HighLightFirstHalf;
 
             default:
                 return KenoMatchGameStateEnum.None;

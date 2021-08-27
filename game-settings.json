@@ -202,21 +202,23 @@
             "path": "kenomatch"
         },
         "durations": {
-            "wholeRound": 60,
-            "halfTimePlacingBets": 60,
-            "halfTimeLockingBet": 38,
-            "showHalfTimeResult":33,
-            "showHalfTimeSettlementResult": 29,
+            "wholeRound": 62,
+            "halfTimePlacingBets": 62,
+            "halfTimeLockingBet": 40,
+            "showHalfTimeResult":35,
+            "showHalfTimeSettlementResult": 31,
+            "highLightFirstHalf": 28,
 
-            "beforeStartFullTimePlacingBet": 26,
-            "fullTimePlacingBets": 25,
-            "fullTimeLockingBet": 12,
-            "showFullTimeResult":7,
-            "showFullTimeSettlementResult": 3,
-            
+            "beforeStartFullTimePlacingBet": 27,
+            "fullTimePlacingBets": 26,
+            "fullTimeLockingBet": 13,
+            "showFullTimeResult":8,
+            "showFullTimeSettlementResult": 4,
+            "highLightFullTime": 1,
+
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "resetResult": 41,
+            "resetResult": 43,
 
             "finishHalfTime": 25,
             "resultAnimation": 2,
