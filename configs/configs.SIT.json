@@ -2,7 +2,7 @@
     "socketGatewayUri": "https://l1gwsit.sgamesuat.com",
     "proxy": {
         "ssl": true,
-        "uri": "uatproxy.sabagame.com",
+        "uri": "l1uatproxy.sgamesuat.com",
         "path": "/sit"
     },
     "sentry": {
@@ -11,5 +11,5 @@
     },
     "offeredGames": [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35],
     "enableSourceMap": false,
-    "guideUrl": "https://guidessit.sabagame.com"
+    "guideUrl": "https://l1guidessit.sgamesuat.com"
 }
