@@ -18,10 +18,12 @@ $number-of-cards: 3;
 .open-cards {
     @include open-card($number-of-cards);
 
-    .card-back {
-        background-size: 7.757rem 10.74rem;
-        width: 7.757rem;
-        height: 10.74rem;
+    &.normal-mode {
+        .card-back {
+            background-size: 7.757rem 10.74rem;
+            width: 7.757rem;
+            height: 10.74rem;
+        }
     }
 
     &.has-animation {
@@ -36,63 +38,59 @@ $number-of-cards: 3;
     }
 
     // normal mode
-    &.normal-mode {
+    .animation-container {
+        --move-up-distance: -3rem;
+        display: grid;
+        grid-template-columns: repeat(3, 7.757rem);
+        grid-gap: 0.5rem;
+        top: 4.2rem;
+        transform: scale3d(1, 1, 1);
+        transition: transform 0.7s;
+    }
+
+    &.has-animation {
         .animation-container {
-            --move-up-distance: -3rem;
-            display: grid;
-            grid-template-columns: repeat(3, 7.757rem);
-            grid-gap: 0.5rem;
-            top: 4.2rem;
-            transform: scale3d(1, 1, 1);
-            transition: transform 0.7s;
+            animation-name: zoom-in-animation, move-up-result-animation-cards;
+            animation-duration: var(--time-zoom-in-card-animation), 0.3s;
+            animation-delay: 0s, var(--time-delay-move-up-result);
+            animation-fill-mode: forwards, both;
+            animation-timing-function: cubic-bezier(0, 0, 0.59, 1), cubic-bezier(1, 0.01, 0, 1);
         }
 
-        &.has-animation {
-            .animation-container {
-                animation-name: zoom-in-animation, move-up-result-animation-cards;
-                animation-duration: var(--time-zoom-in-card-animation), 0.3s;
-                animation-delay: 0s, var(--time-delay-move-up-result);
-                animation-fill-mode: forwards, both;
-                animation-timing-function: cubic-bezier(0, 0, 0.59, 1), cubic-bezier(1, 0.01, 0, 1);
-            }
+        @for $i from 1 through $number-of-cards {
+            $card-time-delay: calc(
+                calc(var(--card-front-speed-default-duration-time) * calc(#{$i} - 1)) + var(--time-delay-zoom-in-card-animation)
+            );
 
-            @for $i from 1 through $number-of-cards {
-                $card-time-delay: calc(
-                    calc(var(--card-front-speed-default-duration-time) * calc(#{$i} - 1)) + var(--time-delay-zoom-in-card-animation)
-                );
+            .card#{$i} {
+                .card-back {
+                    @extend %card-back-speed-default;
+                    --card-back-speed-default-delay-time: #{$card-time-delay};
+                }
 
-                .card#{$i} {
-                    .card-back {
-                        @extend %card-back-speed-default;
-                        --card-back-speed-default-delay-time: #{$card-time-delay};
-                    }
-
-                    .rotate-card {
-                        @extend %open-card-speed-default;
-                        --card-front-speed-default-delay-time: #{$card-time-delay};
-                    }
+                .rotate-card {
+                    @extend %open-card-speed-default;
+                    --card-front-speed-default-delay-time: #{$card-time-delay};
                 }
             }
+        }
 
-            &.delay-3rd-card {
-                --time-delay-move-up-result: calc(
-                    var(--card-back-speed-medium-duration-time) + calc(var(--card-front-speed-default-duration-time) * 2) +
-                        var(--time-delay-zoom-in-card-animation)
-                );
-                --card-3rd-time-delay: calc(
-                    calc(var(--card-front-speed-default-duration-time) * 2) + var(--time-delay-zoom-in-card-animation)
-                );
+        &.delay-3rd-card {
+            --time-delay-move-up-result: calc(
+                var(--card-back-speed-medium-duration-time) + calc(var(--card-front-speed-default-duration-time) * 2) +
+                    var(--time-delay-zoom-in-card-animation)
+            );
+            --card-3rd-time-delay: calc(calc(var(--card-front-speed-default-duration-time) * 2) + var(--time-delay-zoom-in-card-animation));
 
-                .card3 {
-                    .card-back {
-                        @extend %card-back-speed-medium;
-                        --card-back-speed-medium-delay-time: var(--card-3rd-time-delay);
-                    }
+            .card3 {
+                .card-back {
+                    @extend %card-back-speed-medium;
+                    --card-back-speed-medium-delay-time: var(--card-3rd-time-delay);
+                }
 
-                    .rotate-card {
-                        @extend %open-card-speed-medium;
-                        --card-front-speed-medium-delay-time: var(--card-3rd-time-delay);
-                    }
+                .rotate-card {
+                    @extend %open-card-speed-medium;
+                    --card-front-speed-medium-delay-time: var(--card-3rd-time-delay);
                 }
             }
         }
@@ -100,8 +98,7 @@ $number-of-cards: 3;
 
     // collapsed mode
     &.result-collapse-mode {
-        $time-open-card-collape-mode-animation: 1.5s;
-        @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
+        @include result-collapse-mode($number-of-cards);
     }
 }
 

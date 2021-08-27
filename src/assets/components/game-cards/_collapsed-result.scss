@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-@mixin result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards) {
+@mixin result-collapse-mode($number-of-cards) {
     .result-container {
         display: flex;
         align-items: center;
@@ -14,39 +14,15 @@
         transform: scale3d(1, 1, 1);
     }
 
-    .open-card {
-        animation-name: none;
-    }
+    @for $i from 1 through $number-of-cards {
+        .card#{$i} {
+            padding: 0;
+            border-radius: 0.4rem;
+            margin: 0 0.4rem;
 
-    [class*="card"] {
-        margin-right: 0.2rem;
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-
-    &.has-animation {
-        .card-back {
-            display: block;
-            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-        }
-
-        .open-card {
-            animation-name: open-card-animation;
-            animation-duration: math.div($time-open-card-collape-mode-animation, $number-of-cards);
-        }
-
-        @for $i from 1 through $number-of-cards {
-            $time-delay: math.div($time-open-card-collape-mode-animation, $number-of-cards) * ($i - 1);
-            .card#{$i} {
-                .card-back {
-                    animation-delay: $time-delay;
-                }
-
-                .rotate-card {
-                    @extend .open-card;
-                    animation-delay: $time-delay;
-                }
+            .rotate-card {
+                box-shadow: none;
+                border-radius: none;
             }
         }
     }

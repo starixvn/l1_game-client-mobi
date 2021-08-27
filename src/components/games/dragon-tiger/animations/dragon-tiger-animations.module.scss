@@ -133,6 +133,5 @@ $number-of-cards: 2;
 
 // collapsed mode
 .result-collapse-mode {
-    $time-open-card-collape-mode-animation: 1s;
-    @include result-collapse-mode($time-open-card-collape-mode-animation, $number-of-cards);
+    @include result-collapse-mode($number-of-cards);
 }
