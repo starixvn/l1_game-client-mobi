@@ -73,6 +73,11 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
         display: flex;
         flex: 1 1 8.9rem;
     }
+
+    .card-group {
+        position: relative;
+        display: flex;
+    }
 }
 
 @mixin position-cards($list-position) {
@@ -239,51 +244,30 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
         .player {
             position: relative;
             .score {
+                --left-value: 6.3rem;
                 background: linear-gradient(180deg, #65a1e7 0%, #2d6db8 100%);
-                margin-left: 40%;
                 left: var(--left-value);
-
-                &.group-2-cards {
-                    --left-value: 11.2rem;
-                    @media (min-width: 768px) {
-                        --left-value: 4.2rem;
-                    }
+                @media (min-width: 1024px) and (max-width: 1278px) {
+                    --left-value: 6.6rem;
                 }
 
                 &.group-3-cards {
-                    --left-value: 11.2rem;
-                    @media (min-width: 768px) {
-                        --left-value: 3.8rem;
+                    --left-value: 13.8rem;
+                    @media (min-width: 1024px) and (max-width: 1278px) {
+                        --left-value: 14.2rem;
                     }
                 }
-            }
-            &.group-2-cards {                
-                font-size: inherit;
             }
         }
         .banker {
             position: relative;
             .score {
+                --left-value: 1.3rem;
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 100%);
-                margin-left: 40%;
                 left: var(--left-value);
-
-                &.group-2-cards {
-                    --left-value: -12.8rem;
-                    @media (min-width: 768px) {
-                        --left-value: -8rem;
-                    }
+                @media (min-width: 1024px) and (max-width: 1278px) {
+                    --left-value: 1.1rem;
                 }
-
-                &.group-3-cards {
-                    --left-value: -12.8rem;
-                    @media (min-width: 768px) {
-                        --left-value: -8.2rem;
-                    }
-                }
-            }
-            &.group-2-cards {
-                font-size: inherit;
             }
         }
     }
