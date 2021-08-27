@@ -879,7 +879,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                     <WinningBet amount={this.betWin} />
                                 )}
                                 {Object.keys(this.state.acceptedBetQueue).map((key) => (
-                                    <AcceptBet key={key} amount={this.state.acceptedBetQueue[key]} />
+                                    <AcceptBet key={key} betInfo={this.state.acceptedBetQueue[key]} />
                                 ))}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>
