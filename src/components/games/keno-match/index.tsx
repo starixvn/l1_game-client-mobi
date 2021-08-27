@@ -5,24 +5,22 @@ import { io, Socket } from "socket.io-client";
 
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
-import GameBase from "../../shared/game-base";
-import { DrawHalfResult, DrawFullResult } from "./round-result";
-import Styles from "./game.module.scss";
-import KenoMatchBetOptions from "./bet-options";
-import { GameState, PopupType } from "../../shared/game-base/type";
 import BaseDialog from "../../shared/base-dialog";
-
+import { ModalType } from "../../shared/base-dialog/type";
+import GameBase from "../../shared/game-base";
+import { GameState, PopupType } from "../../shared/game-base/type";
+import KenoMatchBetOptions from "./bet-options";
+import Styles from "./game.module.scss";
+import { DrawFullResult, DrawHalfResult } from "./round-result";
 import {
-    Result,
-    SettlementResult,
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
     KenoMatchGameState,
     KenoMatchGameStateEnum,
     KenoMatchProps,
+    Result,
+    SettlementResult,
 } from "./type";
-import { ModalType } from "../../shared/base-dialog/type";
-import { ErrorMessage } from "../../shared/error-message";
 
 export const choicesMapper = {
     fhBlue: 1,
@@ -68,6 +66,8 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             },
         };
     }
+
+    componentDidUpdate(prevProps) {}
 
     onStart() {
         const { socketInfo } = this.props;
@@ -360,10 +360,8 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderRoundResult() {
         const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
-        
-        return (
-            <DrawFullResult {...{ gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult }} />
-        );
+
+        return <DrawFullResult {...{ gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult }} />;
     }
 }
 
