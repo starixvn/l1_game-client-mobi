@@ -58,8 +58,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected isProcessingBet = false;
     private winStreakCollector: WinStreakCollectorModel;
     private retryInterval: NodeJS.Timeout;
-    private betPosition: Position;
-    private betOptionBoundary: Boundary;
+    protected betPosition: Position;
+    protected betOptionBoundary: Boundary;
 
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;

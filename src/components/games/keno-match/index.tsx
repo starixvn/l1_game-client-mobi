@@ -8,7 +8,7 @@ import KenoMatchGameHeader from "../../games/keno-match/header";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import GameBase from "../../shared/game-base";
-import { GameState, PopupType } from "../../shared/game-base/type";
+import { Boundary, GameState, PopupType, Position } from "../../shared/game-base/type";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
 import { DrawFullResult, DrawHalfResult } from "./round-result";
@@ -165,10 +165,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderPopupResult() {
-        const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult } = this.state;
+        const { gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult, showPopup } = this.state;
 
         return (
-            <BaseDialog type={ModalType.Center} isOpen={true}>
+            showPopup && <BaseDialog type={ModalType.Center}>
                 <DrawHalfResult {...{ gameState, halfTimeResult, fullTimeResult, activeHalfTimeResult }} />
             </BaseDialog>
         );
@@ -193,6 +193,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
         if (gameState === GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
+            this.setState({
+                showPopup: false
+            });
         }
     }
 
@@ -330,6 +333,22 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         );
     }
 
+    placeBet(betChoice: string, amount: number, betPosition?: Position, betOptionBoundary?: Boundary) {
+        const { displayPopup } = this.state;
+
+        if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
+            this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
+        } else {
+            if (amount > 0) {
+                this.betPosition = betPosition;
+                this.betOptionBoundary = betOptionBoundary;
+                this.isProcessingBet = true;
+                this.setRetryInterval();
+                this.socket.emit("bet",{ betChoice, amount });
+            }
+        }
+    }
+    
     handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
@@ -350,6 +369,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         this.setState({
             halfTimeResult: finishHalfTime.result,
             settlementResult: finishHalfTime.settlementResult,
+            showPopup: true
         });
     }
 
@@ -364,6 +384,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             fullTimeResult: finish.result,
             settlementResult: finish.settlementResult,
             roundHistory: roundHistoryClone,
+            showPopup: true
         });
     }
 
