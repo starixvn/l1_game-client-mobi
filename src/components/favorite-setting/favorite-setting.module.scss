@@ -78,18 +78,19 @@
 
     &.mobile {
         position: fixed;
-        bottom: 0;
+        bottom: 4rem;
         margin-right: 0.5rem;
         border-radius: 0.5rem;
-        min-height: 50rem;
-        height: calc(100vh - 8.9rem);
         overflow: hidden;
         padding-bottom: 0;
         padding: 0;
-        .favorite-games,
-        .unfavorite-games {
+        // .favorite-games,
+        // .unfavorite-games {
+           
+        // }
+        .main-content {
             padding: 0 1rem 1rem;
-            max-height:  calc(100% - 4.4rem);
+            height:  calc(100% - 8.4rem);
             overflow: auto;
         }
         .actions {
