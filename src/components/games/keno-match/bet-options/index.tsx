@@ -7,6 +7,7 @@ import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult, KenoMatchGameStateEnum, KenoMatchGameState } from "../type";
 import { KenoMatchConfigs } from "../keno-match-helper";
 import Styles from "./bet-options.module.scss";
+import {choicesMapper} from "../keno-match-helper";
 
 type Props = {
     settlementResult: SettlementResult;
@@ -23,6 +24,7 @@ const renderBetOptionByChoice = (
     gameState: GameState,
     isShowWinningEffect: boolean
 ) => {
+    console.log(`${choice}: ${isHighLight}`);
     return (
         <BetOption
             choice={choice}
@@ -46,6 +48,7 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
 
+    console.log(JSON.stringify(settlementResult, null, 2))
     const firstBetAreaChoiceConfig =activeHalfTimeResult ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime;
     return (
         <div>
@@ -53,13 +56,20 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                 <div>{firstBetAreaChoiceConfig.name}</div>
                 <div className={Styles[`layout-${gameName}`]}>
                     {firstBetAreaChoiceConfig.config.map((choice, index) => {
-                        const isHighLight =
-                            kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet &&
-                            settlementResult[choice.name];
+                        const choiceName =  choicesMapper[choice.name],
+                        isHighLight =
+                            // kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet &&
+                            settlementResult[choiceName];
+
+                            
+                        //     console.log("choice.name: " + aa);
+                        // console.log("isHighLight: " + isHighLight);
+
+                        
                         return (
                             <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
                                 {renderBetOptionByChoice(
-                                    choice.name,
+                                    choiceName,
                                     t(choice.displayedName),
                                     odds[choice.name],
                                     isHighLight,
@@ -75,13 +85,14 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                 <div>{KenoMatchConfigs.choices.fullTime.name}</div>
                 <div className={`${Styles[`layout-${gameName}`]} disabled`} >
                     {KenoMatchConfigs.choices.fullTime.config.map((choice, index) => {
-                        const isHighLight =
-                            kenoMatchGameState !== KenoMatchGameStateEnum.FullTimeLockingBet &&
-                            settlementResult[choice.name];
+                        const choiceName =  choicesMapper[choice.name],
+                        isHighLight =
+                            // kenoMatchGameState !== KenoMatchGameStateEnum.FullTimeLockingBet &&
+                            settlementResult[choiceName];
                         return (
                             <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
                                 {renderBetOptionByChoice(
-                                    choice.name,
+                                    choiceName,
                                     t(choice.displayedName),
                                     odds[choice.name],
                                     isHighLight,

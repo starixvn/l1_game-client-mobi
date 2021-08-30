@@ -134,7 +134,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     break;
                 case SocketState.Error:
                     this.setState({ gameState: GameState.ConnectFailed });
-                    //this.setState({ kenoMatchGameState: KenoMatchGameState.ConnectFailed });
                     break;
                 default:
                     this.setState({ signedIn: false });
@@ -359,7 +358,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
             this.setState({
                 gameState: GameState.Disabled,
-                //kenoMatchGameState: KenoMatchGameState.Disabled,
                 disabledMessage: um_message[LanguageLocaleMapper[i18n.language]],
                 showResultInfo: false,
             });

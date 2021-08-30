@@ -1,6 +1,32 @@
 import { TFunction } from "next-i18next";
 import { Result } from "./type";
 
+export const defaultResult = {
+    blue: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    red: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+};
+
+export const choicesMapper = {
+    fhBlue: "blue",
+    fhRed: "red",
+    fhOver: "over",
+    fhUnder: "under",
+    fhOdd: "odd",
+    fhEven: "even",
+    ftBlue: "blue", 
+    ftRed: "red",
+    ftOver: "over",
+    ftUnder: "under",
+    ftOdd: "odd",
+    ftEven: "even",
+    liveFTBlue: "blue",
+    liveFTRed: "red",
+    liveFTOver: "over",
+    liveFTUnder: "under",
+    liveFTOdd: "odd",
+    liveFTEven: "even",
+};
+
 export const Choices = {
     blue: "blue",
     red: "red",
@@ -9,6 +35,7 @@ export const Choices = {
     odd: "odd",
     even: "even",
 };
+
 
 export const KenoMatchConfigs = {
     choices:  {

@@ -7,6 +7,7 @@ type Props = {
     halfTimeResult: Result;
     fullTimeResult: Result;
     activeHalfTimeResult: boolean;
+    gameName: string;
 };
 
 const halfTimeProps = {
@@ -19,12 +20,13 @@ const fullTimeProps = {
     headerText: "Full Time",
 };
 
-export function DrawHalfResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult }: Props) {
+export function PopupResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult, gameName }: Props) {
     const resultProps = activeHalfTimeResult
         ? {
               ...{
                   result: halfTimeResult,
                   active: activeHalfTimeResult,
+                  gameName
               },
               ...halfTimeProps,
           }
@@ -32,6 +34,7 @@ export function DrawHalfResult({ halfTimeResult, fullTimeResult, activeHalfTimeR
               ...{
                   result: fullTimeResult,
                   active: !activeHalfTimeResult,
+                  gameName
               },
               ...fullTimeProps,
           };
@@ -43,7 +46,34 @@ export function DrawHalfResult({ halfTimeResult, fullTimeResult, activeHalfTimeR
     );
 }
 
-export function DrawFullResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult }: Props) {
+
+export function DrawHalfResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult,gameName }: Props) {
+    const resultProps = activeHalfTimeResult
+        ? {
+              ...{
+                  result: halfTimeResult,
+                  active: activeHalfTimeResult,
+                  gameName
+              },
+              ...halfTimeProps,
+          }
+        : {
+              ...{
+                  result: fullTimeResult,
+                  active: !activeHalfTimeResult,
+                  gameName
+              },
+              ...fullTimeProps,
+          };
+
+    return (
+        <div className={Styles["popup-result"]}>
+            <HalfRoundResult {...resultProps} />
+        </div>
+    );
+}
+
+export function DrawFullResult({ halfTimeResult, fullTimeResult, activeHalfTimeResult,gameName}: Props) {
     return (
         <div className={Styles["draw-result"]}>
             <div className={Styles.field}>
@@ -52,6 +82,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, activeHalfTimeR
                         ...{
                             result: halfTimeResult,
                             active: activeHalfTimeResult,
+                            gameName
                         },
                         ...halfTimeProps,
                     }}
@@ -61,6 +92,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, activeHalfTimeR
                         ...{
                             result: fullTimeResult,
                             active: !activeHalfTimeResult,
+                            gameName
                         },
                         ...fullTimeProps,
                     }}

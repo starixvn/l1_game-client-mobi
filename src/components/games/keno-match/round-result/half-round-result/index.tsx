@@ -1,17 +1,23 @@
 import React from "react";
+import { useTranslation } from "next-i18next";
 
 import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
 import Styles from "./half-round-result.module.scss";
 
-export default function HalfRoundResult({result, active, className, headerText}: HalfRoundResultProps) {
+export default function HalfRoundResult({result, active, className, headerText, gameName}: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
+     { t } = useTranslation(gameName),
     blueTeamProps: TeamProps = {
         result: result.blue,
-        className: Styles.blue
+        totalPoint: result.blue.reduce((a, b) => a + b, 0),
+        className: Styles.blue,
+        teamName: t(`${gameName}:blue`)
     },
     redTeamProps:  TeamProps = {
         result: result.red,
-        className: Styles.red
+        totalPoint: result.red.reduce((a, b) => a + b, 0),
+        className: Styles.red,
+        teamName: t(`${gameName}:red`)
     };
 
     return (
@@ -21,13 +27,14 @@ export default function HalfRoundResult({result, active, className, headerText}:
                 <div className={Styles.name}>
                    {headerText}
                 </div>
+                <div>Total : {blueTeamProps.totalPoint + redTeamProps.totalPoint}</div>
             </div>
             <Team  {...redTeamProps} />
         </div>
     );
 }
 
-function Team({result, className}: TeamProps) {
+function Team({result, className, teamName, totalPoint}: TeamProps) {
     return (
         <div className={`${Styles.team} ${className}`}>
             <div className={Styles.row}>
@@ -40,6 +47,7 @@ function Team({result, className}: TeamProps) {
                     <Tie key={index} number={number} />
                 ))}
             </div>
+            <div className={Styles["team-name"]}>{teamName}: {totalPoint}</div>
         </div>
     );
 }
