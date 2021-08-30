@@ -83,12 +83,25 @@
         border-radius: 0.5rem;
         overflow: hidden;
         padding-bottom: 0;
-        padding: 0;
+        padding: 0;        
        
         .main-content {
             padding: 0 1rem 1rem;
             height:  calc(100% - 8.4rem);
             overflow: auto;
+            &::-webkit-scrollbar{
+
+                -webkit-appearance: none;
+                width: 4px;
+            
+            }
+            
+            &::-webkit-scrollbar-thumb {
+            
+                border-radius: 4px;
+                background-color: rgba(0,0,0,.4); 
+                -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+            }
         }
         .actions {
             position: fixed;
