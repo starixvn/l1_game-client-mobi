@@ -86,6 +86,8 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     roundHistory: KenoMatchRound<Result, SettlementResult>[];
     halfTimeResult?: Result;
     fullTimeResult?: Result;
+    halfTimeResultPopup?: Result;
+    fullTimeResultPopup?: Result;
     settlementResult?: SettlementResult;
     activeHalfTimeResult: boolean;
     showPopup: boolean;

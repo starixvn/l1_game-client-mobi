@@ -22,8 +22,6 @@ const CountdownTimer: React.FC = () => {
     const { t } = useTranslation("common");
 
     switch (kenoMatchGameState) {
-        // case GameState.BeforeStartRound:
-        //     return <Timer />;
         case KenoMatchGameStateEnum.HalfTimePlacingBet:
             return (
                 <>
@@ -47,6 +45,7 @@ const CountdownTimer: React.FC = () => {
             return (
                 <>
                    <Timer duration={halfTimeDuration} initialRemainingTime = {remainingTime - showHalfTimeResult} lockingBet = {true}/>
+                  
                     <GameStatus>
                         <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
                     </GameStatus>
@@ -71,18 +70,20 @@ const CountdownTimer: React.FC = () => {
                     </GameStatus>
                 </>
             );
-
-        case KenoMatchGameStateEnum.None:
-            return <Loader />;
-        default:
-            return (
-                <>
-                    <div className="loader-show-result"></div>
-                    <GameStatus>
-                        <div className={styles["open-result"]}>{t("openResult")}</div>
-                    </GameStatus>
-                </>
-            );
+            default:
+                return <> </>;
+        // case KenoMatchGameStateEnum.ShowHalfTimeResult:
+        // case KenoMatchGameStateEnum.ShowFullTimeResult:
+        //     return <Loader />;
+        // default:
+        //     return (
+        //         <>
+        //             <div className="loader-show-result"></div>
+        //             <GameStatus>
+        //                 <div className={styles["open-result"]}>{t("openResult")}</div>
+        //             </GameStatus>
+        //         </>
+        //     );
     }
 };
 

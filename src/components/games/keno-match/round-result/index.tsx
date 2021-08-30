@@ -4,7 +4,6 @@ import Styles from "./draw-result.module.scss";
 import HalfRoundResult from "./half-round-result";
 
 type Props = {
-    gameState: KenoMatchGameState;
     halfTimeResult: Result;
     fullTimeResult: Result;
     activeHalfTimeResult: boolean;
