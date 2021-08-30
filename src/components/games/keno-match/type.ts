@@ -2,9 +2,8 @@ import { GameBaseProps, GameBaseState, GameDurations,  GameSettings,  GameState}
 import { Round } from "../../../types";
 
 export enum KenoMatchGameStateEnum  {
-    None,
+    None = 20,
     BeforeStartRound,
-    ConnectFailed,
     Disabled,
     HalfTimePlacingBet,
     HalfTimeLockingBet,
@@ -90,7 +89,6 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     fullTimeResultPopup?: Result;
     settlementResult?: SettlementResult;
     activeHalfTimeResult: boolean;
-    showPopup: boolean;
 }
 
 export interface TimerProps {

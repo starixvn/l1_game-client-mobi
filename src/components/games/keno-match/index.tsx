@@ -63,8 +63,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 fullTimeResult: defaultResult,
                 halfTimeResultPopup: defaultResult,
                 fullTimeResultPopup: defaultResult,
-                activeHalfTimeResult: false,
-                showPopup: false,
+                activeHalfTimeResult: false
             },
         };
     }
@@ -197,13 +196,13 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         }
 
         if (remainingTime === durations.resetResult) {
-            this.setState({ halfTimeResult: defaultResult, fullTimeResult: defaultResult,  halfTimeResultPopup: defaultResult, fullTimeResultPopup: defaultResult,});
+            this.setState({ halfTimeResult: defaultResult, fullTimeResult: defaultResult,  halfTimeResultPopup: defaultResult, fullTimeResultPopup: defaultResult});
         }
 
-        console.log(`--------------`);
-        console.log(`remainingTime ${remainingTime}`);
+        // console.log(`--------------`);
+        // console.log(`remainingTime ${remainingTime}`);
         const newGameState = this.determineGameState(remainingTime);
-        console.log(`newGameState ${newGameState}`);
+        // console.log(`newGameState ${newGameState}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
 
@@ -253,8 +252,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     getTimeCounter(remainingTime: number, gameState: KenoMatchGameState) {
-        const { durations } = this.props;
-
         switch (gameState) {
             case KenoMatchGameStateEnum.HalfTimePlacingBet:
             case KenoMatchGameStateEnum.HalfTimeLockingBet:
@@ -262,8 +259,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             case KenoMatchGameStateEnum.FullTimePlacingBet:
             case KenoMatchGameStateEnum.FullTimeLockingBet:
                 return remainingTime;
-            case KenoMatchGameStateEnum.BeforeStartRound:
-                return durations.beforeStartRound;
             default:
                 return 0;
         }
@@ -301,18 +296,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 },
             },
             {
-                condition:  nextGameState === KenoMatchGameStateEnum.ShowHalfTimeResult || nextGameState === KenoMatchGameStateEnum.ShowFullTimeResult,
-                state: {
-                   showPopup: true
-                },
-            },
-            {
                 condition:  nextGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult || nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
                 state: {
-                   showPopup: false,
                    halfTimeResult: halfTimeResultPopup,
                    fullTimeResult: fullTimeResultPopup
-
                 },
             },
             {
@@ -413,10 +400,11 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderPopupResult() {
-        const {halfTimeResultPopup, fullTimeResultPopup, activeHalfTimeResult, showPopup } = this.state;
+        const {halfTimeResultPopup, fullTimeResultPopup, activeHalfTimeResult, gameState } = this.state,
+        kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
-            showPopup && <BaseDialog type={ModalType.Center}>
+            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult || kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && <BaseDialog type={ModalType.Center}>
                 <DrawHalfResult {...{ halfTimeResult: halfTimeResultPopup, fullTimeResult: fullTimeResultPopup, activeHalfTimeResult }} />
             </BaseDialog>
         );

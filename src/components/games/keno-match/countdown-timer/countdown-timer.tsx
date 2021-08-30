@@ -70,20 +70,18 @@ const CountdownTimer: React.FC = () => {
                     </GameStatus>
                 </>
             );
-            default:
-                return <> </>;
-        // case KenoMatchGameStateEnum.ShowHalfTimeResult:
-        // case KenoMatchGameStateEnum.ShowFullTimeResult:
-        //     return <Loader />;
-        // default:
-        //     return (
-        //         <>
-        //             <div className="loader-show-result"></div>
-        //             <GameStatus>
-        //                 <div className={styles["open-result"]}>{t("openResult")}</div>
-        //             </GameStatus>
-        //         </>
-        //     );
+        case KenoMatchGameStateEnum.ShowHalfTimeResult:
+        case KenoMatchGameStateEnum.ShowFullTimeResult:
+            return <Loader />;
+        default:
+            return (
+                <>
+                    <div className="loader-show-result"></div>
+                    <GameStatus>
+                        <div className={styles["open-result"]}>{t("openResult")}</div>
+                    </GameStatus>
+                </>
+            );
     }
 };
 
