@@ -70,11 +70,11 @@ export const GetScoreboardDotDetailsOfFiveElements: React.FC<{
     );
 };
 
-export const ConditionChangeDotOfBigSmall = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBigSmall = ({ settlementResult }) => {
     return settlementResult.big ? choiceValueMapping.big : choiceValueMapping.small;
 };
 
-export const ConditionChangeDotOfOddEven = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfOddEven = ({ settlementResult }) => {
     return settlementResult.odd ? choiceValueMapping.odd : choiceValueMapping.even;
 };
 

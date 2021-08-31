@@ -306,6 +306,21 @@
     }
 }
 
+// keno match
+.dot-tie-keno-match {
+    @extend .dot-tie-baccarat;
+}
+.dot-blue {
+    @extend .dot-big;
+}
+
+.dot-over {
+    @extend .dot-big;
+}
+
+.dot-under {
+    @extend .dot-small;
+}
 // animations
 
 @keyframes blinker {

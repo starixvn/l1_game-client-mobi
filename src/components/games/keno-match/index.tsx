@@ -22,6 +22,11 @@ import {
     Result,
     SettlementResult,
 } from "./type";
+import ScoreboardTab from "../../shared/scoreboard-tab";
+import { StatisticFollowPercent } from "../../shared/statistic";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import { ScoreboardRule } from "./scoreboard-round-history";
+import { Choices, StatisticRuleMapping, countSettlementResultFirstHalf, countSettlementResultFullTime } from "./keno-match-helper";
 
 class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     private socket: Socket;
@@ -102,6 +107,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const fakeSettlementResult = {
             blue: false,
             red: false,
+            tie: true,
             over: true,
             under: false,
             odd: true,
@@ -118,17 +124,84 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderRoundHistory() {
-        const { gameState, roundHistory } = this.state;
-        return <></>;
+        const sourceTabsValue = {
+            firstHalfBlueRed: {
+                tabName: this.getGameTranslate("firstHalfBlueRed"),
+                tabWinningStreak: this.getWinningStreakByOptions(["blue", "red", "tie"]),
+            },
+            firstHalfOverUnder: {
+                tabName: this.getGameTranslate("firstHalfOverUnder"),
+                tabWinningStreak: this.getWinningStreakByOptions(["over", "under"]),
+            },
+            firstHalfEvenOdd: {
+                tabName: this.getGameTranslate("firstHalfEvenOdd"),
+                tabWinningStreak: this.getWinningStreakByOptions(["even", "odd"]),
+            },
+            fullTimeBlueRed: {
+                tabName: this.getGameTranslate("fullTimeBlueRed"),
+                tabWinningStreak: this.getWinningStreakByOptions(["blue", "red", "tie"]),
+            },
+            fullTimeOverUnder: {
+                tabName: this.getGameTranslate("fullTimeOverUnder"),
+                tabWinningStreak: this.getWinningStreakByOptions(["over", "under"]),
+            },
+            fullTimeEvenOdd: {
+                tabName: this.getGameTranslate("fullTimeEvenOdd"),
+                tabWinningStreak: this.getWinningStreakByOptions(["even", "odd"]),
+            },
+        };
+        return (
+            <ScoreboardTab
+                key={this.state.roundId}
+                tabsValue={sourceTabsValue}
+                activeScoreboardTab={this.state.activeScoreboardTab}
+            ></ScoreboardTab>
+        );
     }
 
     renderStatistic() {
-        return <></>;
+        const { activeScoreboardTab, roundHistory } = this.state;
+        const countSettlementResult = () => {
+            switch (activeScoreboardTab) {
+                case 0:
+                case 1:
+                case 2:
+                    return countSettlementResultFirstHalf;
+                case 3:
+                case 4:
+                case 5:
+                    return countSettlementResultFullTime;
+            }
+        };
+        return (
+            <StatisticFollowPercent
+                roundHistory={roundHistory}
+                statisticRuleEntries={StatisticRuleMapping[this.state.activeScoreboardTab]}
+                activeScoreboardTab={this.state.activeScoreboardTab}
+                countSettlementResult={countSettlementResult()}
+            ></StatisticFollowPercent>
+        );
     }
 
     renderBoard() {
-        const { roundHistory } = this.state;
-        return <></>;
+        const { activeScoreboardTab, roundHistory } = this.state;
+        const translateDotTextMapping = {
+            [Choices.blue]: this.getGameTranslate("blueTextDot"),
+            [Choices.red]: this.getGameTranslate("redTextDot"),
+            [Choices.tie]: this.getGameTranslate("tieTextDot"),
+            [Choices.over]: this.getGameTranslate("overTextDot"),
+            [Choices.under]: this.getGameTranslate("underTextDot"),
+            [Choices.even]: this.getGameTranslate("evenTextDot"),
+            [Choices.odd]: this.getGameTranslate("oddTextDot"),
+        };
+        return (
+            <ScoreboardDragon
+                roundHistory={roundHistory}
+                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
+                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
+                translateDotTextMapping={translateDotTextMapping}
+            />
+        );
     }
 
     renderStartRoundAnimation() {
@@ -186,11 +259,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         // console.log(`newGameState ${newGameState}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
-
         if (gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
-                roundHistory: [],
                 ...this.getStateByNextGameState(newGameState),
             };
 
@@ -208,7 +279,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
             case remainingTime > durations.halfTimePlacingBets:
                 return KenoMatchGameStateEnum.HighLightFullTime;
-
             case remainingTime > durations.halfTimeLockingBet:
                 return KenoMatchGameStateEnum.HalfTimePlacingBet;
             case remainingTime > durations.showHalfTimeResult:
@@ -219,7 +289,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
             case remainingTime > durations.beforeStartFullTimePlacingBet:
                 return KenoMatchGameStateEnum.HighLightFirstHalf;
-
             case remainingTime > durations.fullTimePlacingBets:
                 return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;
             case remainingTime > durations.fullTimeLockingBet:

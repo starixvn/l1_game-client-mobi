@@ -1,5 +1,5 @@
 import { TFunction } from "next-i18next";
-import { Result } from "./type";
+import { KenoMatchRound, Result, SettlementResult } from "./type";
 
 export const defaultResult = {
     blue: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -30,6 +30,7 @@ export const choicesMapper = {
 export const Choices = {
     blue: "blue",
     red: "red",
+    tie: "tie",
     over: "over",
     under: "under",
     odd: "odd",
@@ -38,12 +39,35 @@ export const Choices = {
 
 
 export const KenoMatchConfigs = {
-    choices:  {
+    choices: {
         firstHalf: {
             name: "First Half",
-        config : [{
-            name:"fhBlue",
-            displayedName: "blue"
+            config: [
+                {
+                    name: "fhBlue",
+                    displayedName: "blue",
+                },
+                {
+                    name: "fhRed",
+                    displayedName: "red",
+                },
+                {
+                    name: "fhOver",
+                    displayedName: "over",
+                },
+                {
+                    name: "fhUnder",
+                    displayedName: "under",
+                },
+                {
+                    name: "fhEven",
+                    displayedName: "even",
+                },
+                {
+                    name: "fhOdd",
+                    displayedName: "odd",
+                },
+            ],
         },
         {
             name:"fhRed",
@@ -87,19 +111,7 @@ export const KenoMatchConfigs = {
             name:"ftOver",
             displayedName: "over"
         },
-        {
-            name:"ftUnder",
-            displayedName: "under"
-        },
-        {
-            name:"ftEven",
-            displayedName: "even"
-        },
-        {
-            name:"ftOdd",
-            displayedName: "odd"
-        }]},
-        liveFullTime:   {
+        liveFullTime: {
             name: "Live",
         config: [{
             name:"liveFTBlue",
@@ -125,11 +137,7 @@ export const KenoMatchConfigs = {
             name:"liveFTEven",
             displayedName: "even"
         },
-        {
-            name:"liveFTOdd",
-            displayedName: "odd"
-        }]}
-    }
+    },
 };
 
 export const GetTranslateChoiceMapping = (t: TFunction, gameName = "kenomatch1") => {
@@ -139,6 +147,70 @@ export const GetTranslateChoiceMapping = (t: TFunction, gameName = "kenomatch1")
         over: t(`${gameName}:over`),
         under: t(`${gameName}:under`),
         odd: t(`${gameName}:odd`),
-        even: t(`${gameName}:even`)
+        even: t(`${gameName}:even`),
     };
+};
+
+export const StatisticRuleEntriesBlueRed = Object.entries({
+    [Choices.blue]: (countResult: object, total: number) =>
+        countResult[Choices.blue] ? Math.round((countResult[Choices.blue] * 100) / total) : 0,
+    [Choices.tie]: (countResult: object, total: number) =>
+        countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0,
+    [Choices.red]: (countResult: object, total: number) =>
+        100 -
+        (countResult[Choices.blue] ? Math.round((countResult[Choices.blue] * 100) / total) : 0) -
+        (countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0),
+});
+
+export const StatisticRuleEntriesOverUnder = Object.entries({
+    [Choices.over]: (countResult: object, total: number) =>
+        countResult[Choices.over] ? Math.round((countResult[Choices.over] * 100) / total) : 0,
+
+    [Choices.under]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.over] ? Math.round((countResult[Choices.over] * 100) / total) : 0),
+});
+
+export const StatisticRuleEntriesEvenOdd = Object.entries({
+    [Choices.even]: (countResult: object, total: number) =>
+        countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0,
+
+    [Choices.odd]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0),
+});
+
+export const StatisticRuleMapping = [
+    StatisticRuleEntriesBlueRed,
+    StatisticRuleEntriesOverUnder,
+    StatisticRuleEntriesEvenOdd,
+    StatisticRuleEntriesBlueRed,
+    StatisticRuleEntriesOverUnder,
+    StatisticRuleEntriesEvenOdd,
+];
+
+export const countSettlementResultFirstHalf = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
+    return roundHistory.reduce((result, { firstHalf }) => {
+        if (firstHalf?.settlementResult) {
+            for (const [choice, win] of Object.entries(firstHalf.settlementResult)) {
+                if (win) {
+                    result[choice] = result[choice] ? (result[choice] += 1) : 1;
+                }
+            }
+        }
+
+        return result;
+    }, {});
+};
+
+export const countSettlementResultFullTime = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
+    return roundHistory.reduce((result, { fullTime }) => {
+        if (fullTime?.settlementResult) {
+            for (const [choice, win] of Object.entries(fullTime.settlementResult)) {
+                if (win) {
+                    result[choice] = result[choice] ? (result[choice] += 1) : 1;
+                }
+            }
+        }
+
+        return result;
+    }, {});
 };

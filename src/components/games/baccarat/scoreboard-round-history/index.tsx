@@ -56,11 +56,11 @@ export const GetScoreboardDotDetailsOfBigSmall: React.FC<{
     );
 };
 
-export const ConditionChangeDotOfBankerPlayer = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBankerPlayer = ({ settlementResult }) => {
     return settlementResult.tie ? choiceValueMapping.tie : settlementResult.player ? choiceValueMapping.player : choiceValueMapping.banker;
 };
 
-export const ConditionChangeDotOfBigSmall = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfBigSmall = ({ settlementResult }) => {
     return settlementResult.big ? choiceValueMapping.big : choiceValueMapping.small;
 };
 

@@ -1,8 +1,9 @@
-import { Round } from "../../../../../types";
+import { Round, RoundKenoMatch } from "../../../../../types";
 
 export interface Props<R, S> {
-    roundHistory: Round<R, S>[];
+    roundHistory: Round<R, S>[] | RoundKenoMatch[];
     getDotDetails: Function;
-    conditionChangeDot?: (settlementResult: S) => void;
+    conditionChangeDot?: Function;
     translateDotTextMapping?: object;
+    getRoundValue?: Function;
 }

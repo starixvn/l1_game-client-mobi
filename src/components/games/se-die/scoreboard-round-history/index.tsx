@@ -2,7 +2,6 @@ import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { checkIsEven, countRedDot, Choices } from "../se-die-helper";
-import { SettlementResult } from "../sedie";
 
 export const GetScoreboardDotDetails: React.FC<{
     result: any;
@@ -25,7 +24,7 @@ export const GetScoreboardDotDetails: React.FC<{
     );
 };
 
-export const ConditionChangeDot = (settlementResult: SettlementResult) => {
+export const ConditionChangeDot = ({settlementResult}) => {
     let value = 0;
     if (settlementResult.even) {
         value = 1;

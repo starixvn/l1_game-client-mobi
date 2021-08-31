@@ -28,7 +28,7 @@ enum choiceValueMapping {
     black,
 }
 
-export const ConditionChangeDotOfRedBlack = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfRedBlack = ({ settlementResult }) => {
     return settlementResult.red ? choiceValueMapping.red : choiceValueMapping.black;
 };
 
@@ -63,7 +63,7 @@ export const GetNameFromChoice = (settlementResult: SettlementResult) => {
     return Suites.filter((choice) => settlementResult[choice])[0] ?? Choices.diamonds;
 };
 
-export const ConditionChangeDotOfSuits = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfSuits = ({ settlementResult }) => {
     const choiceValue = GetNameFromChoice(settlementResult);
     return Suites.indexOf(choiceValue);
 };

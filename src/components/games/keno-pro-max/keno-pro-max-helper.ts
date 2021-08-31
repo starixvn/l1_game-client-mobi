@@ -48,7 +48,7 @@ const StatisticRuleEntriesFiveElements = Object.entries({
 
 export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven, StatisticRuleEntriesFiveElements];
 
-export const ConditionChangeDotOfFiveElements = (settlementResult: SettlementResult) => {
+export const ConditionChangeDotOfFiveElements = ({ settlementResult }) => {
     let valueInit = 0;
     ChoicesFiveElement.forEach((choice, index) => {
         if (settlementResult[choice]) {
