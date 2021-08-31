@@ -304,6 +304,9 @@
     &:disabled {
         opacity: 0.6;
     }
+    &:before {
+        z-index: unset;
+    }
 
     @media (hover: hover) {
         &:hover {
