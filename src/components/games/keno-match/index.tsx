@@ -111,14 +111,12 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             even: false,
         };
         return (
-            <div className={Styles["choice-kenomatch1"]}>
-                <KenoMatchBetOptions
+            <KenoMatchBetOptions
                     gameState={gameState}
                     settlementResult={settlementResult ?? fakeSettlementResult}
                     isShowWinningEffect={showWinningAnimation}
                     isActiveFullTime={isActiveFullTime}
                 />
-            </div>
         );
     }
 

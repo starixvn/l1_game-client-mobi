@@ -60,9 +60,9 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                     isShowWinningEffect
                                 };
 
-                                if(!isActiveFullTime){
-                                    console.log(`${choiceName}: ${isHighlight}`);
-                                }
+                                // if(!isActiveFullTime){
+                                //     console.log(`${choiceName}: ${isHighlight}`);
+                                // }
                               
                                 return choice.name.toLowerCase() === "total" ?
                                         <TotalCell/>

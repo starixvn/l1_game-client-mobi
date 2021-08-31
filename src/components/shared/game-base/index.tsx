@@ -882,6 +882,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         const animationDuration = this.getFinishAnimationDuration() / 1000;
 
+        const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[`bet-options-${this.props.gameName.toLowerCase()}`]}`;
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
@@ -890,7 +891,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
-                                <div ref={this.gameBaseContainerRef} className={`${Styles["bet-options"]} ${Styles[this.props.gameName]}`}>
+                                <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
                                     {this.renderBetOptions()}
                                 </div>
 
