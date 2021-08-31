@@ -1,3 +1,25 @@
+[data-theme="light"] .title-wrapper {
+    --title-left-color: linear-gradient(180deg, #F9D698 0%, #FFDFA5 100%);
+    --title-right-color: #FCE6BF;
+    --title-color: #2C2F3E;
+}
+
+[data-theme="dark"] .title-wrapper {
+    --title-left-color: linear-gradient(180deg, #57799F 0%, #425B7A 100%);
+    --title-right-color: #608AB5;
+    --title-color: #FFF;
+}
+
+[data-theme="light"] .layout-kenomatch1 {
+    --text-color: #2C2F3E;
+    --total-color-bg: #D7DEF8;
+}
+
+[data-theme="dark"] .layout-kenomatch1 {
+    --text-color: #fff;
+    --total-color-bg: #6B7075;
+}
+
 .layout-kenomatch1,
 .layout-kenomatch1 {
     display: grid;
@@ -23,8 +45,8 @@
     grid-column: 1/5;
     text-align: center;
     font-size: 1.1rem;
-    color: #2C2F3E;
-    background-color: #D7DEF8;
+    color: var(--text-color);
+    background-color: var(--total-color-bg);
 }
 
 .choice-blue {
@@ -70,14 +92,15 @@
     justify-content: space-between;    
     font-size: 1.1rem;
     font-weight: 500;
-    background: linear-gradient(180deg, #F9D698 0%, #FFDFA5 100%);
+    background: var(--title-left-color);
+    color: var(--title-color);
     .title-left{
         padding: .2rem .8rem;
     }
     .title-right {
         clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
         text-align: right;
-        background-color: #FCE6BF;
+        background-color: var(--title-right-color);
         padding: .2rem .8rem .2rem 0;
         width: 15rem;
     }

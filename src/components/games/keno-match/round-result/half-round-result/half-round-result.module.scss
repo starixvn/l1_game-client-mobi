@@ -4,7 +4,7 @@
     background: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
     .team {
         width: 100%;
-        padding: 0 .8rem;
+        padding: .5rem .8rem;
         &.blue {
             background: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
         }
@@ -77,18 +77,16 @@
 }
 
 .middle-column {
-    display: inline-block;
-    text-align: center;
-    width: 10%;
-    vertical-align: top;
-    height: 100%;
-    text-transform: uppercase;
+    font-size: 1.1rem;
 }
 
 .team-name {
-    display: inline-block;
     text-align: center;
-    text-transform: uppercase;
-    font-weight: bold;
-    width: 100%;
+    color: #3B7BC6;
+    font-size: 1.2rem;
+    font-weight: 600;
+    .score {
+        font: 500 1.6rem var(--font-number);
+        padding-left: .2rem;
+    }
 }

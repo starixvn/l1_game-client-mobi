@@ -46,7 +46,7 @@ function Team({ result, className, teamName, totalPoint }: TeamProps) {
                 <TeamResultRow result={result} key={parentIndex} />
             ))}
             <div className={Styles["team-name"]}>
-                {teamName}: {totalPoint}
+                <span className={Styles["name"]}>{teamName}:</span><span className={Styles["score"]}>{totalPoint}</span>
             </div>
         </div>
     );
