@@ -13,21 +13,31 @@ interface Props {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
-    activeHalfTimeResult: boolean;
+    isActiveFullTime: boolean;
 }
 
+const TotalCell = () =>  <div className={Styles["total-row"]}>Total</div>;
+
 const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect, activeHalfTimeResult } = props;
+    const { gameState, settlementResult, isShowWinningEffect, isActiveFullTime } = props;
+    const kenoMatchGameState = gameState as KenoMatchGameState;
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
 
+    // console.log(`-----------------------------------------`);
+    // console.log(`isActiveFullTime: ${isActiveFullTime}`);
     // console.log(JSON.stringify(settlementResult, null, 2));
     const configs = [
-        activeHalfTimeResult ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
+        isActiveFullTime ? KenoMatchConfigs.choices.liveFullTime : KenoMatchConfigs.choices.firstHalf,
         KenoMatchConfigs.choices.fullTime,
     ];
+
+    // if(isActiveFullTime)
+    // {
+    //     console.log(JSON.stringify(configs[0], null, 2));
+    // }
 
     return (
         <>
@@ -38,23 +48,26 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                         <div className={Styles[`layout-${gameName}`]}>
                             {halfMatchConfig.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
-                                    isHighLight =
-                                        // kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet &&
-                                        settlementResult[choiceName];
-                                //     console.log("choice.name: " + aa);
-                                // console.log("isHighLight: " + isHighLight);
+                                isHighlight = settlementResult[choiceName] ;
+                                        //  && kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet ;
 
+                                const betOptionProps = {
+                                    choice:choiceName,
+                                    odd:odds[choice.name],
+                                    isDisplayOdd:true,
+                                    isHighlight: true,
+                                    gameState,
+                                    isShowWinningEffect
+                                };
+
+                                if(!isActiveFullTime){
+                                    console.log(`${choiceName}: ${isHighlight}`);
+                                }
+                              
                                 return choice.name.toLowerCase() === "total" ?
-                                    <div className={Styles["total-row"]}>Total</div>
+                                        <TotalCell/>
                                     :  <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
-                                        <BetOption
-                                            choice={choiceName}
-                                            odd={odds[choice.name]}
-                                            isDisplayOdd={true}
-                                            isHighlight={isHighLight}
-                                            gameState={gameState}
-                                            isShowWinningEffect={isShowWinningEffect}
-                                        >
+                                        <BetOption {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}
                                             </div>
