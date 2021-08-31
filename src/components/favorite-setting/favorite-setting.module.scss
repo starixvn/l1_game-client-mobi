@@ -296,6 +296,10 @@
     margin-right: 0.25rem;
     -webkit-tap-highlight-color: transparent;
 
+    &:not([disabled]) {
+        opacity: 1;
+    }
+
     &:disabled {
         opacity: 0.6;
     }
