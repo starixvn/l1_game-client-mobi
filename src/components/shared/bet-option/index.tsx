@@ -21,6 +21,8 @@ const BetOption: React.FunctionComponent<Props> = ({
     choice,
     odd,
     children,
+    highlightTypeCustom,
+    isHighlightTypeCustom = false,
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
@@ -36,6 +38,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
 
     useEffect(() => {
+        if(!isHighlightTypeCustom){
         const actionByGameState = {
             [GameState.LockingBet]: () => {
                 updateHighlightType(HighlightType.None);
@@ -49,6 +52,10 @@ const BetOption: React.FunctionComponent<Props> = ({
         };
 
         actionByGameState[gameState] && actionByGameState[gameState]();
+    }
+    else{
+        updateHighlightType(highlightTypeCustom);
+    }
         setTotalBet(totalBets[choice]);
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
