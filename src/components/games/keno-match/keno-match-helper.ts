@@ -13,7 +13,7 @@ export const choicesMapper = {
     fhUnder: "under",
     fhOdd: "odd",
     fhEven: "even",
-    ftBlue: "blue", 
+    ftBlue: "blue",
     ftRed: "red",
     ftOver: "over",
     ftUnder: "under",
@@ -37,7 +37,6 @@ export const Choices = {
     even: "even",
 };
 
-
 export const KenoMatchConfigs = {
     choices: {
         firstHalf: {
@@ -50,6 +49,10 @@ export const KenoMatchConfigs = {
                 {
                     name: "fhRed",
                     displayedName: "red",
+                },
+                {
+                    name: "total",
+                    displayedName: "total",
                 },
                 {
                     name: "fhOver",
@@ -69,73 +72,71 @@ export const KenoMatchConfigs = {
                 },
             ],
         },
-        {
-            name:"fhRed",
-            displayedName: "red"
-        },
-        {
-            name:"total",
-            displayedName: "total"
-        },
-        {
-            name:"fhOver",
-            displayedName: "over"
-        },
-        {
-            name:"fhUnder",
-            displayedName: "under"
-        },
-        {
-            name:"fhEven",
-            displayedName: "even"
-        },
-        {
-            name:"fhOdd",
-            displayedName: "odd"
-        }]}, 
-        fullTime:  {
+        fullTime: {
             name: "Full Time",
-        config: [{
-            name:"ftBlue",
-            displayedName: "blue"
-        },
-        {
-            name:"ftRed",
-            displayedName: "red"
-        },
-        {
-            name:"total",
-            displayedName: "total"
-        },
-        {
-            name:"ftOver",
-            displayedName: "over"
+            config: [
+                {
+                    name: "ftBlue",
+                    displayedName: "blue",
+                },
+                {
+                    name: "ftRed",
+                    displayedName: "red",
+                },
+                {
+                    name: "total",
+                    displayedName: "total",
+                },
+                {
+                    name: "ftOver",
+                    displayedName: "over",
+                },
+                {
+                    name: "ftUnder",
+                    displayedName: "under",
+                },
+                {
+                    name: "ftEven",
+                    displayedName: "even",
+                },
+                {
+                    name: "ftOdd",
+                    displayedName: "odd",
+                },
+            ],
         },
         liveFullTime: {
             name: "Live",
-        config: [{
-            name:"liveFTBlue",
-            displayedName: "blue"
-        },
-        {
-            name:"liveFTRed",
-            displayedName: "red"
-        },
-        {
-            name:"total",
-            displayedName: "total"
-        },
-        {
-            name:"liveFTOver",
-            displayedName: "over"
-        },
-        {
-            name:"liveFTUnder",
-            displayedName: "under"
-        },
-        {
-            name:"liveFTEven",
-            displayedName: "even"
+            config: [
+                {
+                    name: "liveFTBlue",
+                    displayedName: "blue",
+                },
+                {
+                    name: "liveFTRed",
+                    displayedName: "red",
+                },
+                {
+                    name: "total",
+                    displayedName: "total",
+                },
+                {
+                    name: "liveFTOver",
+                    displayedName: "over",
+                },
+                {
+                    name: "liveFTUnder",
+                    displayedName: "under",
+                },
+                {
+                    name: "liveFTEven",
+                    displayedName: "even",
+                },
+                {
+                    name: "liveFTOdd",
+                    displayedName: "odd",
+                },
+            ],
         },
     },
 };
