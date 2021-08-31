@@ -24,21 +24,19 @@ const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
         };
 
         return (
-            <div className="d-flex">
-                <div className={classTabs}>
-                    {tabsKey.map((tab, index) => {
-                        return (
-                            <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>
-                                {tabsValue[tab].tabWinningStreak > 3 && (
-                                    <span className={Styles["winning-streak"]}>{tabsValue[tab].tabWinningStreak}</span>
-                                )}
-                                <span className={`${Styles.type} ${tabActive === index ? Styles["tabs-active"] : ""}`}>
-                                    {tabsValue[tab].tabName}
-                                </span>
-                            </div>
-                        );
-                    })}
-                </div>
+            <div className={classTabs}>
+                {tabsKey.map((tab, index) => {
+                    return (
+                        <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>
+                            {tabsValue[tab].tabWinningStreak > 3 && (
+                                <span className={Styles["winning-streak"]}>{tabsValue[tab].tabWinningStreak}</span>
+                            )}
+                            <span className={`${Styles.type} ${tabActive === index ? Styles["tabs-active"] : ""}`}>
+                                {tabsValue[tab].tabName}
+                            </span>
+                        </div>
+                    );
+                })}
             </div>
         );
     }, [tabActive, tabsValue]);
