@@ -1,17 +1,25 @@
 .result {
-    height: 47%;
-    margin: 0 2px;
-    position: relative;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
-    background: rgba(1, 40, 40, 0.2);
-}
-
-.active {
-    display: block;
-    bottom: 0;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+    display: grid;
+    grid-template-columns: 1fr 6.4rem 1fr;
+    background: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
+    .team {
+        width: 100%;
+        padding: 0 .8rem;
+        &.blue {
+            background: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
+        }
+        &.red {
+            background: linear-gradient(180deg, #FFFCF6 0%, #FFEDED 100%);
+        }
+        .row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            margin-bottom: .3rem;
+            .number {
+                justify-self: center;
+            }
+        }
+    }
 }
 
 .half-time {
@@ -58,46 +66,14 @@
     text-align: center;
 }
 
-.team {
-    height: 50%;
-    padding: 20px 0;
-    width: 45%;
-    display: inline-block;
-
-    &.blue {
-        background: url("/static/images/BlueLight.png") no-repeat 50%;
-        background-size: cover;
-
-        .tie {
-            background: url("/static/images/BlueShirt.png") no-repeat 50%;
-            background-size: contain;
-        }
-    }
-
-    &.red {
-        background: url("/static/images/RedLight.png") no-repeat 50%;
-        background-size: cover;
-
-        .tie {
-            background: url("/static/images/RedShirt.png") no-repeat 50%;
-            background-size: contain;
-        }
-    }
-
-    .tie {
-        width: 27px;
-        height: 30px;
-        margin-bottom: 4px;
-        position: relative;
-        display: inline-block;
-        margin-right: 1px;
-        font-size: 11px;
-        color: #fff;
-        line-height: -1;
-        margin-left: 1px;
-        padding-top: 3px;
-        font-family: Roboto Condensed;
-    }
+.number {
+    background: radial-gradient(50% 50% at 50% 50%, #FCFCFC 0%, #D7D7D7 78.96%, #C7C7C7 100%);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;        
+    font: 600 1.3rem var(--font-number);
+    color: #2c2f3e;
+    line-height: 2.2rem;
 }
 
 .middle-column {

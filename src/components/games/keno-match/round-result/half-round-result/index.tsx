@@ -60,7 +60,7 @@ function Team({result, className, teamName, totalPoint}: TeamProps) {
 
 function Tie({ number }: { number: number }) {
     return (
-        <div className={Styles.tie} style={{ transform: "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)" }}>
+        <div className={Styles["number"]} >
             {number}
         </div>
     );
