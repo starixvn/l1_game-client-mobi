@@ -50,6 +50,10 @@ export const KenoMatchConfigs = {
             displayedName: "red"
         },
         {
+            name:"total",
+            displayedName: "total"
+        },
+        {
             name:"fhOver",
             displayedName: "over"
         },
@@ -76,6 +80,10 @@ export const KenoMatchConfigs = {
             displayedName: "red"
         },
         {
+            name:"total",
+            displayedName: "total"
+        },
+        {
             name:"ftOver",
             displayedName: "over"
         },
@@ -100,6 +108,10 @@ export const KenoMatchConfigs = {
         {
             name:"liveFTRed",
             displayedName: "red"
+        },
+        {
+            name:"total",
+            displayedName: "total"
         },
         {
             name:"liveFTOver",

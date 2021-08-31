@@ -4,18 +4,20 @@ import { useTranslation } from "next-i18next";
 import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
 import Styles from "./half-round-result.module.scss";
 
+ const calculateTotalPoint = (results: number[]) =>  results.reduce((a, b) => a + b, 0);
+
 export default function HalfRoundResult({result, active, className, headerText, gameName}: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
      { t } = useTranslation(gameName),
     blueTeamProps: TeamProps = {
         result: result.blue,
-        totalPoint: result.blue.reduce((a, b) => a + b, 0),
+        totalPoint: calculateTotalPoint(result.blue),
         className: Styles.blue,
         teamName: t(`${gameName}:blue`)
     },
     redTeamProps:  TeamProps = {
         result: result.red,
-        totalPoint: result.red.reduce((a, b) => a + b, 0),
+        totalPoint: calculateTotalPoint(result.red),
         className: Styles.red,
         teamName: t(`${gameName}:red`)
     };
@@ -35,15 +37,19 @@ export default function HalfRoundResult({result, active, className, headerText, 
 }
 
 function Team({result, className, teamName, totalPoint}: TeamProps) {
+    const halfLength = Math.ceil(result.length / 2);   
+    const firstHalfResult = result.slice(0, halfLength);
+    const secondHalfResult = result.slice(-halfLength);
+
     return (
         <div className={`${Styles.team} ${className}`}>
             <div className={Styles.row}>
-                {result.slice(0, 4).map((number, index) => (
+                {firstHalfResult.map((number, index) => (
                     <Tie key={index} number={number} />
                 ))}
             </div>
             <div className={Styles.row}>
-                {result.slice(5, 9).map((number, index) => (
+                {secondHalfResult.map((number, index) => (
                     <Tie key={index} number={number} />
                 ))}
             </div>

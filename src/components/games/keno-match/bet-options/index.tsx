@@ -7,104 +7,66 @@ import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult, KenoMatchGameStateEnum, KenoMatchGameState } from "../type";
 import { KenoMatchConfigs } from "../keno-match-helper";
 import Styles from "./bet-options.module.scss";
-import {choicesMapper} from "../keno-match-helper";
+import { choicesMapper } from "../keno-match-helper";
 
-type Props = {
+interface Props {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
     activeHalfTimeResult: boolean;
-};
-
-const renderBetOptionByChoice = (
-    choice: string,
-    label: string,
-    odd: number,
-    isHighLight: boolean,
-    gameState: GameState,
-    isShowWinningEffect: boolean
-) => {
-    console.log(`${choice}: ${isHighLight}`);
-    return (
-        <BetOption
-            choice={choice}
-            odd={odd}
-            isDisplayOdd={true}
-            isHighlight={isHighLight}
-            gameState={gameState}
-            isShowWinningEffect={isShowWinningEffect}
-        >
-            <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
-        </BetOption>
-    );
-};
+}
 
 const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect, activeHalfTimeResult } = props;
-    const kenoMatchGameState = gameState as KenoMatchGameState;
-
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
 
-    console.log(JSON.stringify(settlementResult, null, 2))
-    const firstBetAreaChoiceConfig =activeHalfTimeResult ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime;
+    // console.log(JSON.stringify(settlementResult, null, 2));
+    const configs = [
+        activeHalfTimeResult ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
+        KenoMatchConfigs.choices.fullTime,
+    ];
+
     return (
-        <div>
-            <div>
-                <div>{firstBetAreaChoiceConfig.name}</div>
-                <div className={Styles[`layout-${gameName}`]}>
-                    {firstBetAreaChoiceConfig.config.map((choice, index) => {
-                        const choiceName =  choicesMapper[choice.name],
-                        isHighLight =
-                            // kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet &&
-                            settlementResult[choiceName];
+        <>
+            {configs.map((halfMatchConfig, parentIndex) => {
+                return (
+                    <div key={parentIndex}>
+                        <div>{halfMatchConfig.name}</div>
+                        <div className={Styles[`layout-${gameName}`]}>
+                            {halfMatchConfig.config.map((choice, index) => {
+                                const choiceName = choicesMapper[choice.name],
+                                    isHighLight =
+                                        // kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet &&
+                                        settlementResult[choiceName];
+                                //     console.log("choice.name: " + aa);
+                                // console.log("isHighLight: " + isHighLight);
 
-                            
-                        //     console.log("choice.name: " + aa);
-                        // console.log("isHighLight: " + isHighLight);
-
-                        
-                        return (
-                            <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
-                                {renderBetOptionByChoice(
-                                    choiceName,
-                                    t(choice.displayedName),
-                                    odds[choice.name],
-                                    isHighLight,
-                                    gameState,
-                                    isShowWinningEffect
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-            <div>
-                <div>{KenoMatchConfigs.choices.fullTime.name}</div>
-                <div className={`${Styles[`layout-${gameName}`]} disabled`} >
-                    {KenoMatchConfigs.choices.fullTime.config.map((choice, index) => {
-                        const choiceName =  choicesMapper[choice.name],
-                        isHighLight =
-                            // kenoMatchGameState !== KenoMatchGameStateEnum.FullTimeLockingBet &&
-                            settlementResult[choiceName];
-                        return (
-                            <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
-                                {renderBetOptionByChoice(
-                                    choiceName,
-                                    t(choice.displayedName),
-                                    odds[choice.name],
-                                    isHighLight,
-                                    gameState,
-                                    isShowWinningEffect
-                                )}
-                            </div>
-                        );
-                    })}
-                </div>
-            </div>
-        </div>
+                                return choice.name.toLowerCase() === "total" ?
+                                    <div className={Styles["total-row"]}>Total</div>
+                                    :  <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
+                                        <BetOption
+                                            choice={choiceName}
+                                            odd={odds[choice.name]}
+                                            isDisplayOdd={true}
+                                            isHighlight={isHighLight}
+                                            gameState={gameState}
+                                            isShowWinningEffect={isShowWinningEffect}
+                                        >
+                                            <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
+                                                {t(choice.displayedName)}
+                                            </div>
+                                        </BetOption>
+                                    </div>
+                                ;
+                            })}
+                        </div>
+                    </div>
+                );
+            })}
+        </>
     );
 };
 
