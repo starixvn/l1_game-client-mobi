@@ -44,7 +44,10 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
             {configs.map((halfMatchConfig, parentIndex) => {
                 return (
                     <div key={parentIndex}>
-                        <div>{halfMatchConfig.name}</div>
+                        <div className={Styles["title-wrapper"]}>
+                            <div className={Styles["title-left"]}>{halfMatchConfig.name}</div>
+                            <div className={Styles["title-right"]}>Mời cược</div>
+                        </div>
                         <div className={Styles[`layout-${gameName}`]}>
                             {halfMatchConfig.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
