@@ -1,17 +1,21 @@
 import React, { useState, useMemo } from "react";
+
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import Styles from "./tabs.module.scss";
 
 type Props = {
     tabsValue: object;
     activeScoreboardTab: number;
+    customClassName?: string;
 };
 
 const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
     const { tabsValue, activeScoreboardTab } = props;
+    const customClassName = props.customClassName ?? "";
     const tabsKey = Object.keys(tabsValue);
     const gameActionContext = useGameActionContext();
     const [tabActive, setTabActive] = useState<number>(activeScoreboardTab);
+    const classTabs = `${Styles["tabs-container"]} ${Styles[customClassName]}`;
 
     return useMemo(() => {
         const updateValueTab = (value: number) => {
@@ -21,7 +25,7 @@ const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
 
         return (
             <div className="d-flex">
-                <div className={Styles["tabs-container"]}>
+                <div className={classTabs}>
                     {tabsKey.map((tab, index) => {
                         return (
                             <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>

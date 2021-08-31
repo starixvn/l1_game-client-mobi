@@ -152,6 +152,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 key={this.state.roundId}
                 tabsValue={sourceTabsValue}
                 activeScoreboardTab={this.state.activeScoreboardTab}
+                customClassName={"keno-match"}
             ></ScoreboardTab>
         );
     }

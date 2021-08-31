@@ -9,7 +9,7 @@ import Styles from "../round-history.module.scss";
 import { GameBaseProps } from "../../../game-base/type";
 
 const rowTotal = 7;
-const conditionChangeDotDefault = ({settlementResult}) => {
+const conditionChangeDotDefault = ({ settlementResult }) => {
     let value = 0;
     Object.keys(settlementResult).forEach((name, index) => {
         if (settlementResult[name]) {
@@ -30,7 +30,7 @@ const drawDragonTailHistory = <R, S>(
     getDotDetails: Function,
     conditionChangeDot: Function,
     translateDotTextMapping?: object,
-    gameSetting?: GameBaseProps,
+    gameSetting?: GameBaseProps
 ) => {
     let col = 1,
         row = 1;
@@ -39,7 +39,7 @@ const drawDragonTailHistory = <R, S>(
     const rowMax = {};
     let colMax = 0;
     const result = roundHistory.reduceRight((resultRound, round, index) => {
-        const value = conditionChangeDot({round: round, settlementResult : round?.settlementResult});
+        const value = conditionChangeDot({ round: round, settlementResult: round?.settlementResult });
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
 
@@ -66,7 +66,7 @@ const drawDragonTailHistory = <R, S>(
             result: round?.result,
             col: col,
             row: row,
-            roundId: round?.roundId ?? round.id,
+            roundId: round?.roundId,
             translateDotTextMapping: translateDotTextMapping,
             gameSetting: gameSetting,
             settlementResult: round?.settlementResult,
@@ -108,14 +108,7 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     return useMemo(() => {
         return (
             <div className={Styles["score-board-dragon-container"]}>
-                {drawDragonTailHistory(
-                    roundHistory,
-                    isShowBlink,
-                    getDotDetails,
-                    conditionChangeDot,
-                    translateDotTextMapping,
-                    gameSetting,
-                )}
+                {drawDragonTailHistory(roundHistory, isShowBlink, getDotDetails, conditionChangeDot, translateDotTextMapping, gameSetting)}
             </div>
         );
     }, [roundHistory, isShowBlink, getDotDetails, conditionChangeDot]);
