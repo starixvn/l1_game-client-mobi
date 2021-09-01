@@ -6,7 +6,40 @@ import Styles from "./half-round-result.module.scss";
 
 const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => a + b, 0);
 
-export default function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
+export function HalfResultPopup({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
+    const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
+        { t } = useTranslation(gameName),
+        blueTeamProps: TeamProps = {
+            result: result.blue,
+            totalPoint: calculateTotalPoint(result.blue),
+            className: Styles.blue,
+            teamName: t(`${gameName}:blue`),
+        },
+        redTeamProps: TeamProps = {
+            result: result.red,
+            totalPoint: calculateTotalPoint(result.red),
+            className: Styles.red,
+            teamName: t(`${gameName}:red`),
+        };
+
+    return (
+        <div className={classNames}>
+             <div className={Styles.name}>{headerText}</div>
+            <div className={Styles["main-content"]}>
+                <Team {...blueTeamProps} />
+                <Team {...redTeamProps} />
+            </div>
+            <div >
+                <div className={Styles["blue"]}></div>
+                <div></div>
+                <div className={Styles["red"]}></div>
+            </div>
+            <div >Total <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+        </div>
+    );
+}
+
+export function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {

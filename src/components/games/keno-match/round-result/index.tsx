@@ -1,7 +1,7 @@
 import React from "react";
 import { KenoMatchGameState, Result } from "../type";
 import Styles from "./draw-result.module.scss";
-import HalfRoundResult from "./half-round-result";
+import {HalfRoundResult, HalfResultPopup} from "./half-round-result";
 
 type Props = {
     halfTimeResult: Result;
@@ -41,7 +41,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
 
     return (
         <div className={Styles["popup-result"]}>
-            <HalfRoundResult {...resultProps} />
+            <HalfResultPopup {...resultProps} />
         </div>
     );
 }
