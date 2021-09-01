@@ -50,9 +50,9 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                     <div key={parentIndex}>
                         <div className={Styles["title-wrapper"]}>
                             <div className={Styles["title-left"]}>{halfMatchConfig.config.name}</div>
-                            <div className={Styles["title-right"]}>Mời cược</div>
+                           { halfMatchConfig.isActive && <div className={Styles["title-right"]}>Mời cược</div>}
                         </div>
-                        <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive? "" : Styles["disabled"]}`}>
+                        <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.config.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
                                 isHighlight = settlementResult[choiceName] ;

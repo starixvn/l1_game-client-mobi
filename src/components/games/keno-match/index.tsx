@@ -253,10 +253,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             });
         }
 
-        // console.log(`--------------`);
-        // console.log(`${remainingTime}s`);
+        console.log(`--------------`);
+        console.log(`${remainingTime}s`);
         const newGameState = this.determineGameState(remainingTime);
-     //   console.log(`${KenoMatchGameStateEnum[newGameState]}`);
+       console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -427,10 +427,23 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     handleFinishHalfTime({ firstHalfResult }) {
+        const { gameState } = this.state;
+        const kenoMatchGameState = gameState as KenoMatchGameState;
+
         this.settlementResultOrg = firstHalfResult.settlementResult;
         this.setState({
             halfTimeResultPopup: firstHalfResult.result
         });
+
+        if(kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult)
+        {
+            this.setState({
+                halfTimeResult: firstHalfResult.result
+            });
+        }
     }
 
     handleLiveOdds({ liveOdds }) {
