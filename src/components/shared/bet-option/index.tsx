@@ -77,14 +77,13 @@ const BetOption: React.FunctionComponent<Props> = ({
         setIsFocusChoice(false);
     };
 
+    const betOptionClasses = `${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
+        isHighlight && Styles[HighlightClassNameMapper[highlightType]]
+    } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`;
+
     return (
         <div className={Styles.container} ref={betChoiceRef}>
-            <div
-                className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
-                    isHighlight && Styles[HighlightClassNameMapper[highlightType]]
-                } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`}
-                onClick={onClickBet}
-            >
+            <div className={betOptionClasses} onClick={onClickBet}>
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
                 <div className={Styles["total-bet"]} ref={totalBetRef}>

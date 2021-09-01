@@ -40,11 +40,12 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             ...{
                 // kenoMatchGameState: GameState.None,
                 roundHistory: [],
+                liveOdds: null,
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
                 halfTimeResultPopup: defaultResult,
                 fullTimeResultPopup: defaultResult,
-                isActiveFullTime: false,
+                isActiveLiveFullTime: false,
             },
         };
     }
@@ -97,8 +98,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const {
             gameState,
             settlementResult,
-            isActiveFullTime,
+            isActiveLiveFullTime,
             showWinningAnimation,
+            liveOdds
         } = this.state;
 
         const fakeSettlementResult = {
@@ -110,13 +112,17 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             odd: true,
             even: false,
         };
+        
+        const betOptionsProps = {
+            liveOdds,
+            gameState,
+            settlementResult: settlementResult ?? fakeSettlementResult,
+            isShowWinningEffect: showWinningAnimation,
+            isActiveLiveFullTime: isActiveLiveFullTime
+        };
+
         return (
-            <KenoMatchBetOptions
-                    gameState={gameState}
-                    settlementResult={settlementResult ?? fakeSettlementResult}
-                    isShowWinningEffect={showWinningAnimation}
-                    isActiveFullTime={isActiveFullTime}
-                />
+            <KenoMatchBetOptions {...betOptionsProps}/>
         );
     }
 
@@ -204,7 +210,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     renderStartRoundAnimation() {
         const { durations } = this.props;
-        const { gameState, halfTimeResult, fullTimeResult, isActiveFullTime } = this.state;
+        const { gameState, halfTimeResult, fullTimeResult, isActiveLiveFullTime } = this.state;
         return <></>;
     }
 
@@ -224,6 +230,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     registerMessageHandler() {
         super.registerMessageHandler();
         this.messageTransmitter.register("firstHalfResult", this.handleFinishHalfTime.bind(this));
+        this.messageTransmitter.register("liveOdds", this.handleLiveOdds.bind(this));
     }
 
     handleRemainingTime({ remainingTime }) {
@@ -236,11 +243,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
-        // const isActiveFullTime = remainingTime <= durations.resetResult && remainingTime >= 0;
-
-        // if (this.state.isActiveFullTime !== isActiveFullTime) {
-        //     this.setState({ isActiveFullTime });
-        // }
 
         if (remainingTime === durations.resetResult) {
             this.setState({
@@ -254,7 +256,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         // console.log(`--------------`);
         // console.log(`${remainingTime}s`);
         const newGameState = this.determineGameState(remainingTime);
-        // console.log(`${KenoMatchGameStateEnum[newGameState]}`);
+     //   console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -343,13 +345,13 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             {
                 condition: nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet,
                 state: {
-                    isActiveFullTime: true,
+                    isActiveLiveFullTime: true,
                 },
             },
             {
                 condition: nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
                 state: {
-                    isActiveFullTime: false,
+                    isActiveLiveFullTime: false,
                 },
             },
             {
@@ -358,7 +360,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 state: {
                     halfTimeResult: halfTimeResultPopup,
                     fullTimeResult: fullTimeResultPopup,
-                    settlementResult: this.settlementResultOrg
+                    settlementResult: this.settlementResultOrg,
                 },
             },
             {
@@ -383,6 +385,13 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             },
             { remainingTime: timeCounter }
         );
+    }
+
+    
+    getOddsByChoice(choice: string) {
+        const { gameConfigs, liveOdds } = this.state;
+
+        return liveOdds?.[choice] ?? gameConfigs.odds[choice];
     }
 
     placeBet(betChoice: string, amount: number, betPosition?: Position, betOptionBoundary?: Boundary) {
@@ -422,8 +431,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         this.setState({
             halfTimeResultPopup: firstHalfResult.result
         });
+    }
 
-        // console.log(JSON.stringify(firstHalfResult.settlementResult, null, 2));
+    handleLiveOdds({ liveOdds }) {
+        this.setState({ liveOdds });
     }
 
     handleFinish({ finish }) {
@@ -440,9 +451,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         this.setState({
             fullTimeResultPopup: finish.result,
             roundHistory: roundHistoryClone,
+            liveOdds:null
         });
 
-        // console.log(JSON.stringify(finish.settlementResult, null, 2));
         const animationDuration = this.getFinishAnimationDuration();
 
         this.showResultInfoTimeout = setTimeout(() => {
@@ -462,7 +473,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderPopupResult() {
-        const { halfTimeResultPopup, fullTimeResultPopup, isActiveFullTime, gameState } = this.state,
+        const { halfTimeResultPopup, fullTimeResultPopup, isActiveLiveFullTime, gameState } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
@@ -473,7 +484,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                         {...{
                             halfTimeResult: halfTimeResultPopup,
                             fullTimeResult: fullTimeResultPopup,
-                            isActiveFullTime,
+                            isActiveLiveFullTime,
                             gameName: this.props.gameName,
                         }}
                     />
@@ -483,9 +494,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderRoundResult() {
-        const { halfTimeResult, fullTimeResult, isActiveFullTime } = this.state;
+        const { halfTimeResult, fullTimeResult, isActiveLiveFullTime } = this.state;
 
-        return <DrawFullResult {...{ halfTimeResult, fullTimeResult, isActiveFullTime, gameName: this.props.gameName }} />;
+        return <DrawFullResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName }} />;
     }
 }
 

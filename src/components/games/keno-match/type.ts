@@ -92,7 +92,8 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     halfTimeResultPopup?: Result;
     fullTimeResultPopup?: Result;
     settlementResult?: SettlementResult;
-    isActiveFullTime: boolean;
+    isActiveLiveFullTime: boolean;
+    liveOdds: any;
 }
 
 export interface TimerProps {

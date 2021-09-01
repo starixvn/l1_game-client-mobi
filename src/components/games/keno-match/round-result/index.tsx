@@ -6,7 +6,7 @@ import HalfRoundResult from "./half-round-result";
 type Props = {
     halfTimeResult: Result;
     fullTimeResult: Result;
-    isActiveFullTime: boolean;
+    isActiveLiveFullTime: boolean;
     gameName: string;
 };
 
@@ -20,12 +20,12 @@ const fullTimeProps = {
     headerText: "Full Time",
 };
 
-export function PopupResult({ halfTimeResult, fullTimeResult, isActiveFullTime, gameName }: Props) {
-    const resultProps = isActiveFullTime
+export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
+    const resultProps = isActiveLiveFullTime
         ? {
               ...{
                   result: fullTimeResult,
-                  active: isActiveFullTime,
+                  active: isActiveLiveFullTime,
                   gameName,
               },
               ...fullTimeProps,
@@ -33,7 +33,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveFullTime, 
         : {
               ...{
                   result: halfTimeResult,
-                  active: !isActiveFullTime,
+                  active: !isActiveLiveFullTime,
                   gameName,
               },
               ...halfTimeProps,
@@ -46,7 +46,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveFullTime, 
     );
 }
 
-export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveFullTime, gameName }: Props) {
+export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
     return (
         <div className={Styles["draw-result"]}>
             <div className={Styles.field}>
@@ -54,7 +54,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveFullTim
                     {...{
                         ...{
                             result: halfTimeResult,
-                            active: isActiveFullTime,
+                            active: isActiveLiveFullTime,
                             gameName,
                         },
                         ...halfTimeProps,
@@ -64,7 +64,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveFullTim
                     {...{
                         ...{
                             result: fullTimeResult,
-                            active: !isActiveFullTime,
+                            active: !isActiveLiveFullTime,
                             gameName,
                         },
                         ...fullTimeProps,

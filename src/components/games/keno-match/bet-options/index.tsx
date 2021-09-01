@@ -14,59 +14,61 @@ interface Props {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
-    isActiveFullTime: boolean;
+    isActiveLiveFullTime: boolean;
+    liveOdds: any;
 }
 
 const TotalCell = () =>  <div className={Styles["total-row"]}>Total</div>;
 
 const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect, isActiveFullTime } = props;
+    const { gameState, settlementResult, isShowWinningEffect, isActiveLiveFullTime } = props;
     const kenoMatchGameState = gameState as KenoMatchGameState;
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
 
-    
-    // console.log(`-----------------------------------------`);
-    // console.log(`isActiveFullTime: ${isActiveFullTime}`);
-    //  console.log(JSON.stringify(settlementResult, null, 2));
-    const configs = [
-        isActiveFullTime ? KenoMatchConfigs.choices.liveFullTime : KenoMatchConfigs.choices.firstHalf,
-        KenoMatchConfigs.choices.fullTime,
+    const halfMatchConfigs = [
+        {
+            isActive: isActiveLiveFullTime ? (props.liveOdds !== null) : true,
+            config: isActiveLiveFullTime ? KenoMatchConfigs.choices.liveFullTime : KenoMatchConfigs.choices.firstHalf,
+        },
+        {
+            isActive: !isActiveLiveFullTime,
+            config: KenoMatchConfigs.choices.fullTime,
+        }
     ];
 
-    // if(!isActiveFullTime)
-    // {
-    //     console.log(JSON.stringify(settlementResult, null, 2));
-    // }
+    function getOddsByChoice(choiceName: string) {
+        return props.liveOdds?.[choiceName] ?? odds[choiceName];
+    }
 
     return (
-        <>
-            {configs.map((halfMatchConfig, parentIndex) => {
+        <> 
+            {halfMatchConfigs.map((halfMatchConfig, parentIndex) => {
                 return (
                     <div key={parentIndex}>
                         <div className={Styles["title-wrapper"]}>
-                            <div className={Styles["title-left"]}>{halfMatchConfig.name}</div>
+                            <div className={Styles["title-left"]}>{halfMatchConfig.config.name}</div>
                             <div className={Styles["title-right"]}>Mời cược</div>
                         </div>
-                        <div className={Styles[`layout-${gameName}`]}>
-                            {halfMatchConfig.config.map((choice, index) => {
+                        <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive? "" : Styles["disabled"]}`}>
+                            {halfMatchConfig.config.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
                                 isHighlight = settlementResult[choiceName] ;
                                         //  && kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet ;
 
                                 const betOptionProps = {
-                                    choice:choiceName,
-                                    odd:odds[choice.name],
+                                    choice:choice.name,
+                                    odd: getOddsByChoice(choice.name),
                                     isDisplayOdd:true,
                                     isHighlight,
                                     gameState,
                                     isShowWinningEffect
                                 };
 
-                                // if(!isActiveFullTime){
-                                //     console.log(`${choiceName}: ${isHighlight}`);
+                                // if(isActiveFullTime){
+                                // console.log(JSON.stringify(betOptionProps, null, 2));
                                 // }
                               
                                 return choice.name.toLowerCase() === "total" ?

@@ -112,6 +112,10 @@
         background-color: var(--bet-option-background-highlight);
     }
 
+    &.disabled{
+        background-color: gray
+    }
+
     &.winning-effect {
         animation: var(--winning-effect-animation-name) 1s forwards;
     }
