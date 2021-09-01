@@ -1,16 +1,14 @@
 .result {
+    position: relative;
+    border-bottom: 1px solid #D1DBF8;
+    height: 8.2rem;
     display: grid;
-    grid-template-columns: 1fr 6.4rem 1fr;
+    grid-template-columns: 1fr 7.2rem 1fr;
     background: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
     .team {
         width: 100%;
         padding: .5rem .8rem;
-        &.blue {
-            background: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
-        }
-        &.red {
-            background: linear-gradient(180deg, #FFFCF6 0%, #FFEDED 100%);
-        }
+       
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -78,6 +76,25 @@
 
 .middle-column {
     font-size: 1.1rem;
+    text-align: center;
+    position: relative;
+    padding-top: .8rem;
+    .score-wrapper {
+        position: absolute;
+        bottom: 0;
+        width: 6.4rem;
+        height: 4rem;
+        background: linear-gradient(180deg, #D8E1FD 0%, #CAD4F3 56.04%, #B5BFE1 82.08%, #DEE4F3 100%);
+        font-size: 1rem;
+        padding: .3rem .6rem;
+        clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        .score {
+            font: 500 2rem var(--font-number);
+            line-height: 2rem;
+        }
+    }
 }
 
 .team-name {
@@ -89,4 +106,35 @@
         font: 500 1.6rem var(--font-number);
         padding-left: .2rem;
     }
+}
+
+.overlay, .main-content {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: 1fr 7.2rem 1fr;
+    
+}
+.overlay {
+    z-index: 10;
+    .blue {
+        background: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
+    }
+    .red {
+        background: linear-gradient(180deg, #FFFCF6 0%, #FFEDED 100%);
+    }
+    &:before {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        content: '';
+        background: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
+    }
+}
+
+.main-content  {
+    z-index: 11;
 }
