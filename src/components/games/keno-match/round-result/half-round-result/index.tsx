@@ -46,7 +46,8 @@ function Team({ result, className, teamName, totalPoint }: TeamProps) {
                 <TeamResultRow result={result} key={parentIndex} />
             ))}
             <div className={Styles["team-name"]}>
-                <span className={Styles["name"]}>{teamName}:</span><span className={Styles["score"]}>{totalPoint}</span>
+                <span className={Styles["name"]}>{teamName}:</span>
+                <span className={Styles["score"]}>{totalPoint}</span>
             </div>
         </div>
     );
@@ -63,9 +64,5 @@ function TeamResultRow({ result }) {
 }
 
 function Tie({ number }: { number: number }) {
-    return (
-        <div className={Styles["number"]} >
-            {number}
-        </div>
-    );
+    return <div className={Styles["number"]}>{number}</div>;
 }

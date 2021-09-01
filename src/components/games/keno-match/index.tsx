@@ -11,7 +11,7 @@ import GameBase from "../../shared/game-base";
 import { Boundary, GameState, PopupType, Position } from "../../shared/game-base/type";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
-import { DrawFullResult, DrawHalfResult } from "./round-result";
+import { DrawFullResult, PopupResult } from "./round-result";
  import {choicesMapper, defaultResult} from "./keno-match-helper";
 import {
     KenoMatchGameBaseState,
@@ -469,7 +469,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
                 kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (
                 <BaseDialog type={ModalType.Center}>
-                    <DrawHalfResult
+                    <PopupResult
                         {...{
                             halfTimeResult: halfTimeResultPopup,
                             fullTimeResult: fullTimeResultPopup,

@@ -46,32 +46,6 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveFullTime, 
     );
 }
 
-export function DrawHalfResult({ halfTimeResult, fullTimeResult, isActiveFullTime, gameName }: Props) {
-    const resultProps = isActiveFullTime
-        ? {
-              ...{
-                  result: fullTimeResult,
-                  active: isActiveFullTime,
-                  gameName,
-              },
-              ...fullTimeProps,
-          }
-        : {
-              ...{
-                  result: halfTimeResult,
-                  active: !isActiveFullTime,
-                  gameName,
-              },
-              ...halfTimeProps,
-          };
-
-    return (
-        <div className={Styles["popup-result"]}>
-            <HalfRoundResult {...resultProps} />
-        </div>
-    );
-}
-
 export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveFullTime, gameName }: Props) {
     return (
         <div className={Styles["draw-result"]}>
