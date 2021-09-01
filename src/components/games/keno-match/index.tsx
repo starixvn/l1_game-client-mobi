@@ -21,16 +21,21 @@ import {
     KenoMatchProps,
     Result,
     SettlementResult,
+    KenoMatchRound,
+    SeparateRoundHistoryProps,
 } from "./type";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import { Choices, StatisticRuleMapping, countSettlementResultFirstHalf, countSettlementResultFullTime } from "./keno-match-helper";
+import { Choices, StatisticRuleMapping } from "./keno-match-helper";
+import { RoundKenoMatchBase } from "../../../types";
 
 class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     private socket: Socket;
     private settlementResultOrg: SettlementResult;
+    protected showResultInfoH1Timeout: NodeJS.Timeout;
+    private isResetResult = false;
 
     constructor(props: KenoMatchProps) {
         super(props);
@@ -38,14 +43,17 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         this.state = {
             ...this.defaultState,
             ...{
-                // kenoMatchGameState: GameState.None,
                 roundHistory: [],
                 liveOdds: null,
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
                 halfTimeResultPopup: defaultResult,
                 fullTimeResultPopup: defaultResult,
-                isActiveLiveFullTime: false,
+isActiveLiveFullTime: false,
+                isShowBlinkH1: false,
+                isShowBlinkFH: false,
+                roundHistoryH1: [],
+                roundHistoryFH: [],
             },
         };
     }
@@ -83,6 +91,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     onDestroy() {
         super.onDestroy();
+        this.showResultInfoH1Timeout && clearTimeout(this.showResultInfoH1Timeout);
         this.socket && this.socket.disconnect();
     }
 
@@ -164,31 +173,30 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderStatistic() {
-        const { activeScoreboardTab, roundHistory } = this.state;
-        const countSettlementResult = () => {
+        const { activeScoreboardTab, roundHistoryH1, roundHistoryFH } = this.state;
+        const getRoundHistory = () => {
             switch (activeScoreboardTab) {
                 case 0:
                 case 1:
                 case 2:
-                    return countSettlementResultFirstHalf;
+                    return roundHistoryH1;
                 case 3:
                 case 4:
                 case 5:
-                    return countSettlementResultFullTime;
+                    return roundHistoryFH;
             }
         };
         return (
             <StatisticFollowPercent
-                roundHistory={roundHistory}
+                roundHistory={getRoundHistory()}
                 statisticRuleEntries={StatisticRuleMapping[this.state.activeScoreboardTab]}
                 activeScoreboardTab={this.state.activeScoreboardTab}
-                countSettlementResult={countSettlementResult()}
             ></StatisticFollowPercent>
         );
     }
 
     renderBoard() {
-        const { activeScoreboardTab, roundHistory } = this.state;
+        const { activeScoreboardTab, isShowBlinkH1, isShowBlinkFH, roundHistoryH1, roundHistoryFH } = this.state;
         const translateDotTextMapping = {
             [Choices.blue]: this.getGameTranslate("blueTextDot"),
             [Choices.red]: this.getGameTranslate("redTextDot"),
@@ -198,12 +206,26 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             [Choices.even]: this.getGameTranslate("evenTextDot"),
             [Choices.odd]: this.getGameTranslate("oddTextDot"),
         };
+        const getDataFollowTabActive = () => {
+            switch (activeScoreboardTab) {
+                case 0:
+                case 1:
+                case 2:
+                    return { roundHistory: roundHistoryH1, isShowBlink: isShowBlinkH1 };
+                case 3:
+                case 4:
+                case 5:
+                    return { roundHistory: roundHistoryFH, isShowBlink: isShowBlinkFH };
+            }
+        };
+
         return (
             <ScoreboardDragon
-                roundHistory={roundHistory}
+                roundHistory={getDataFollowTabActive().roundHistory}
                 getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
                 conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                 translateDotTextMapping={translateDotTextMapping}
+                isShowBlink={getDataFollowTabActive().isShowBlink}
             />
         );
     }
@@ -244,19 +266,16 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
 
-        if (remainingTime === durations.resetResult) {
+        if (remainingTime > durations.showHalfTimeResult && remainingTime <= durations.resetResult) {
             this.setState({
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
                 halfTimeResultPopup: defaultResult,
                 fullTimeResultPopup: defaultResult,
             });
+            this.isResetResult = true;
         }
-
-        console.log(`--------------`);
-        console.log(`${remainingTime}s`);
         const newGameState = this.determineGameState(remainingTime);
-       console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -316,24 +335,41 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     getStateByNextGameState(nextGameState: KenoMatchGameStateEnum): any {
         const { roundId, displayPopup, notice, fullTimeResultPopup, halfTimeResultPopup, settlementResult } = this.state;
-        const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet || nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet) {
             this.betWin = 0;
+            this.isResetResult = false;
         }
 
         const newStateDetector = [
             {
-                condition: [KenoMatchGameStateEnum.HalfTimePlacingBet, KenoMatchGameStateEnum.FullTimePlacingBet].includes(nextGameState),
+                condition: [
+                    KenoMatchGameStateEnum.BeforeStartRound,
+                    KenoMatchGameStateEnum.HalfTimePlacingBet,
+                    KenoMatchGameStateEnum.FullTimePlacingBet,
+                    KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
+                ].includes(nextGameState),
                 state: {
                     ownBets: {},
                     totalBets: {},
                     showWinningAnimation: false,
-                    isShowBlink: false,
+                    isShowBlinkH1: false,
+                    isShowBlinkFH: false,
                     playResultAnimation: false,
                     showResultInfo: false,
                     betPercentage: {},
+                },
+            },
+            {
+                condition: [
+                    KenoMatchGameStateEnum.BeforeStartRound,
+                    KenoMatchGameStateEnum.ShowHalfTimeResult,
+                    KenoMatchGameStateEnum.ShowHalfTimeSettlementResult,
+                    KenoMatchGameStateEnum.FullTimePlacingBet,
+                ].includes(nextGameState),
+                state: {
+                    fullTimeResult: defaultResult,
                 },
             },
             {
@@ -355,12 +391,18 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 },
             },
             {
-                condition: nextGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult ||
-                nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
+                condition:
+                    nextGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult ||
+                    nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
                 state: {
                     halfTimeResult: halfTimeResultPopup,
-                    fullTimeResult: fullTimeResultPopup,
                     settlementResult: this.settlementResultOrg,
+                },
+            },
+            {
+                condition: nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
+                state: {
+                    fullTimeResult: fullTimeResultPopup,
                 },
             },
             {
@@ -368,9 +410,20 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                     nextGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
                     nextGameState === KenoMatchGameStateEnum.HalfTimeLockingBet,
                 state: {
-                    isShowBlink: true,
                     displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
                     notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
+                },
+            },
+            {
+                condition: nextGameState === KenoMatchGameStateEnum.HalfTimeLockingBet,
+                state: {
+                    isShowBlinkH1: true,
+                },
+            },
+            {
+                condition: nextGameState === KenoMatchGameStateEnum.FullTimeLockingBet,
+                state: {
+                    isShowBlinkFH: true,
                 },
             },
         ];
@@ -410,11 +463,12 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         }
     }
 
-    handleRoundHistory({ roundHistory, roundId }) {
+    handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
         const { gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
+        const rounds: SeparateRoundHistoryProps = this.separateRoundHistory(roundHistory);
 
-        this.setState({
+        const sourceState = {
             roundHistory: roundHistory,
             roundId:
                 kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
@@ -423,27 +477,49 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
                     ? roundId - 1
                     : roundId,
-        });
+            roundHistoryH1: rounds.roundHistoryH1,
+            roundHistoryFH: rounds.roundHistoryFH,
+            halfTimeResult:
+                kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet
+                    ? firstHalfResult?.result
+                    : roundHistory[0]?.firstHalf?.result,
+        };
+
+        if (kenoMatchGameState === KenoMatchGameStateEnum.HalfTimePlacingBet && !this.isResetResult) {
+            Object.assign(sourceState, { fullTimeResult: roundHistory[0]?.fullTime?.result });
+        }
+
+        this.setState(sourceState);
     }
 
+    separateRoundHistory = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
+        const rounds = {
+            roundHistoryH1: [],
+            roundHistoryFH: [],
+        };
+
+        roundHistory.forEach((round) => {
+            rounds.roundHistoryH1.push({ ...round.firstHalf, roundId: round.roundId, odds: round.odds });
+            rounds.roundHistoryFH.push({ ...round.fullTime, roundId: round.roundId, odds: round.odds });
+        });
+
+        return rounds;
+    };
+
     handleFinishHalfTime({ firstHalfResult }) {
-        const { gameState } = this.state;
-        const kenoMatchGameState = gameState as KenoMatchGameState;
+        const { roundHistoryH1, roundId } = this.state;
+        const roundHistoryH1Clone = [...roundHistoryH1];
+        roundHistoryH1Clone.unshift({ ...firstHalfResult, roundId: roundId } as RoundKenoMatchBase<Result, SettlementResult>);
+        roundHistoryH1Clone.length > 100 && roundHistoryH1Clone.pop();
 
         this.settlementResultOrg = firstHalfResult.settlementResult;
         this.setState({
-            halfTimeResultPopup: firstHalfResult.result
+            halfTimeResultPopup: firstHalfResult?.result,
         });
-
-        if(kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult)
-        {
-            this.setState({
-                halfTimeResult: firstHalfResult.result
-            });
-        }
+        const animationDuration = this.getFinishAnimationDuration();
+        this.showResultInfoH1Timeout = setTimeout(() => {
+            this.setState({ roundHistoryH1: roundHistoryH1Clone, isShowBlinkH1: false });
+        }, animationDuration);
     }
 
     handleLiveOdds({ liveOdds }) {
@@ -451,26 +527,25 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     handleFinish({ finish }) {
-        const { roundHistory } = this.state;
-        const roundHistoryClone = [...roundHistory];
+        const { roundHistoryFH } = this.state;
+        const roundHistoryFHClone = [...roundHistoryFH];
 
         this.isProcessingBet = false;
         this.clearRetryInterval();
         this.storeOwnBet(finish.roundId);
-        roundHistoryClone.unshift(finish);
-        roundHistoryClone.length > 100 && roundHistoryClone.pop();
+        roundHistoryFHClone.unshift(finish);
+        roundHistoryFHClone.length > 100 && roundHistoryFHClone.pop();
 
         this.settlementResultOrg = finish.settlementResult;
         this.setState({
             fullTimeResultPopup: finish.result,
-            roundHistory: roundHistoryClone,
             liveOdds:null
         });
 
         const animationDuration = this.getFinishAnimationDuration();
 
         this.showResultInfoTimeout = setTimeout(() => {
-            this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
+            this.setState({ showResultInfo: true, isShowBlinkFH: false, roundHistoryFH: roundHistoryFHClone, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
 

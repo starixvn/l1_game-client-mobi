@@ -1,4 +1,4 @@
-import { Round } from "../../../types";
+import { Round, RoundKenoMatchBase } from "../../../types";
 
 export type Props = {
     children: React.ReactNode;
@@ -6,8 +6,7 @@ export type Props = {
 };
 
 export type PropsFollowPercent = {
-    roundHistory: Round<any, any>[];
+    roundHistory: Round<any, any>[] | RoundKenoMatchBase<any, any>[];
     statisticRuleEntries: [string, (countResult: object, total: number) => number][];
     activeScoreboardTab?: number;
-    countSettlementResult?: Function;
 };

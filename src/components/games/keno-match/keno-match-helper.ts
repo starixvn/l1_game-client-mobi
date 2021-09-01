@@ -187,31 +187,3 @@ export const StatisticRuleMapping = [
     StatisticRuleEntriesOverUnder,
     StatisticRuleEntriesEvenOdd,
 ];
-
-export const countSettlementResultFirstHalf = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
-    return roundHistory.reduce((result, { firstHalf }) => {
-        if (firstHalf?.settlementResult) {
-            for (const [choice, win] of Object.entries(firstHalf.settlementResult)) {
-                if (win) {
-                    result[choice] = result[choice] ? (result[choice] += 1) : 1;
-                }
-            }
-        }
-
-        return result;
-    }, {});
-};
-
-export const countSettlementResultFullTime = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
-    return roundHistory.reduce((result, { fullTime }) => {
-        if (fullTime?.settlementResult) {
-            for (const [choice, win] of Object.entries(fullTime.settlementResult)) {
-                if (win) {
-                    result[choice] = result[choice] ? (result[choice] += 1) : 1;
-                }
-            }
-        }
-
-        return result;
-    }, {});
-};

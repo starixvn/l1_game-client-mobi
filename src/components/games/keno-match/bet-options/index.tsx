@@ -18,7 +18,7 @@ interface Props {
     liveOdds: any;
 }
 
-const TotalCell = () =>  <div className={Styles["total-row"]}>Total</div>;
+const TotalCell = () => <div className={Styles["total-row"]}>Total</div>;
 
 const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect, isActiveLiveFullTime } = props;
@@ -55,8 +55,8 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.config.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
-                                isHighlight = settlementResult[choiceName] ;
-                                        //  && kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet ;
+                                    isHighlight = settlementResult[choiceName];
+                                //  && kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet ;
 
                                 const betOptionProps = {
                                     choice:choice.name,
@@ -64,23 +64,24 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                     isDisplayOdd:true,
                                     isHighlight,
                                     gameState,
-                                    isShowWinningEffect
+                                    isShowWinningEffect,
                                 };
 
                                 // if(isActiveFullTime){
                                 // console.log(JSON.stringify(betOptionProps, null, 2));
                                 // }
-                              
-                                return choice.name.toLowerCase() === "total" ?
-                                        <TotalCell/>
-                                    :  <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
-                                        <KenoMatchBetOption key={index}  {...betOptionProps} >
+
+                                return choice.name.toLowerCase() === "total" ? (
+                                    <TotalCell key={index} />
+                                ) : (
+                                    <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
+                                        <KenoMatchBetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}
                                             </div>
                                         </KenoMatchBetOption>
                                     </div>
-                                ;
+                                );
                             })}
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import { GameBaseProps, GameBaseState, GameDurations, GameSettings, GameState } from "../../shared/game-base/type";
-import { Round } from "../../../types";
+import { Round, RoundKenoMatchBase } from "../../../types";
 
-export enum KenoMatchGameStateEnum  {
+export enum KenoMatchGameStateEnum {
     None = 20,
     BeforeStartRound,
     Disabled,
@@ -50,13 +50,15 @@ export interface HalfRoundResult {
     resultKey: string;
     sum: number;
     settlementResult: SettlementResult;
-    time: Date;
+    time: string;
+    totalBlue?: number;
+    totalRed?: number;
 }
 
 export interface KenoMatchRound<Result, SettlementResult> extends Round<Result, SettlementResult> {
     firstHalf: HalfRoundResult;
     fullTime: HalfRoundResult;
-    id: number;
+    roundId: number;
     odds: Odd;
 }
 
@@ -94,10 +96,21 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     settlementResult?: SettlementResult;
     isActiveLiveFullTime: boolean;
     liveOdds: any;
+    md5?: string;
+    firstHalfResult?: HalfRoundResult;
+    roundHistoryH1: RoundKenoMatchBase<Result, SettlementResult>[];
+    roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
+    isShowBlinkH1: boolean;
+    isShowBlinkFH: boolean;
 }
 
 export interface TimerProps {
     duration: number;
     initialRemainingTime: number;
     lockingBet: boolean;
+}
+
+export interface SeparateRoundHistoryProps {
+    roundHistoryH1: RoundKenoMatchBase<Result, SettlementResult>[];
+    roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
 }

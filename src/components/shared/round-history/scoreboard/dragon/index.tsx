@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 
-import { Round, RoundKenoMatch } from "../../../../../types";
 import { ScoreboardItemNext } from "../../dot-next";
 import { Props } from "./types";
 import { v4 as uuidV4 } from "uuid";
@@ -99,19 +98,27 @@ const addDotNext = (rowMax: {}, row: number, col: number, nextCol: number, getDo
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     const { roundHistory, getDotDetails, translateDotTextMapping } = props;
+
     let { conditionChangeDot } = props;
     if (!conditionChangeDot) {
         conditionChangeDot = conditionChangeDotDefault;
     }
     const { isShowBlink, gameSetting } = useGameContext();
-
+    const isShowDotBlink = props?.isShowBlink ?? isShowBlink;
     return useMemo(() => {
         return (
             <div className={Styles["score-board-dragon-container"]}>
-                {drawDragonTailHistory(roundHistory, isShowBlink, getDotDetails, conditionChangeDot, translateDotTextMapping, gameSetting)}
+                {drawDragonTailHistory(
+                    roundHistory,
+                    isShowDotBlink,
+                    getDotDetails,
+                    conditionChangeDot,
+                    translateDotTextMapping,
+                    gameSetting
+                )}
             </div>
         );
-    }, [roundHistory, isShowBlink, getDotDetails, conditionChangeDot]);
+    }, [roundHistory, props?.isShowBlink ?? isShowBlink, getDotDetails, conditionChangeDot]);
 };
 
 export default ScoreboardDragon;

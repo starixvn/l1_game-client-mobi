@@ -39,13 +39,12 @@ const StatisticItem: React.FC<Props> = (props) => {
 
 export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
     const { statisticRuleEntries, roundHistory, activeScoreboardTab } = props;
-    let handleCountSettlementResult = props.countSettlementResult ? props.countSettlementResult : countSettlementResult;
     const { gameSetting } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameName);
 
     return useMemo(() => {
-        const statisticResult = calculatePercent(statisticRuleEntries, handleCountSettlementResult(roundHistory), roundHistory.length);
+        const statisticResult = calculatePercent(statisticRuleEntries, countSettlementResult(roundHistory), roundHistory.length);
 
         return (
             <>
