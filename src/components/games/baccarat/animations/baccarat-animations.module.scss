@@ -210,7 +210,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     .animation-container {
         --move-up-distance: -2.8rem;
-        top: -2rem;
+        margin-top: -2rem;
         transform: scale3d(1, 1, 1);
         transition: transform 0.7s;
 
@@ -546,7 +546,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 (
                     "1": 1.2rem,
                     "2": 0,
-                    "3": 0,
+                    "3": -1rem,
                     "4": -2.2rem,
                     "5": -3.8rem,
                 )
@@ -578,7 +578,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     .animation-container {
         position: relative;
-        top: 0;
+        margin-top: -0.6rem;
         --move-up-distance: 0;
 
         .score {
