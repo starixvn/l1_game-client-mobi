@@ -23,18 +23,20 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
         };
 
     return (
-        <div className={classNames}>
-             <div className={Styles.name}>{headerText}</div>
+        <div className={`${classNames} ${Styles["open-result"]}`}>
+             <div className={Styles["header"]}>{headerText}</div>
             <div className={Styles["main-content"]}>
                 <Team {...blueTeamProps} />
                 <Team {...redTeamProps} />
             </div>
-            <div >
+            <div className="progress-bar-team">
                 <div className={Styles["blue"]}></div>
-                <div></div>
                 <div className={Styles["red"]}></div>
             </div>
-            <div >Total <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+            <div className="total-section">
+                <div >Total <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+            </div>
+            
         </div>
     );
 }
