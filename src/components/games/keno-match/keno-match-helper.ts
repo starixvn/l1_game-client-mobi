@@ -40,7 +40,7 @@ export const Choices = {
 export const KenoMatchConfigs = {
     choices: {
         firstHalf: {
-            name: "First Half",
+            name: "firstHalf",
             config: [
                 {
                     name: "fhBlue",
@@ -73,7 +73,7 @@ export const KenoMatchConfigs = {
             ],
         },
         fullTime: {
-            name: "Full Time",
+            name: "fullTime",
             config: [
                 {
                     name: "ftBlue",
@@ -106,7 +106,7 @@ export const KenoMatchConfigs = {
             ],
         },
         liveFullTime: {
-            name: "Live",
+            name: "live",
             config: [
                 {
                     name: "liveFTBlue",

@@ -18,8 +18,6 @@ interface Props {
     liveOdds: any;
 }
 
-const TotalCell = () => <div className={Styles["total-row"]}>Total</div>;
-
 const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
     const { gameState, settlementResult, isShowWinningEffect, isActiveLiveFullTime } = props;
     const kenoMatchGameState = gameState as KenoMatchGameState;
@@ -49,8 +47,8 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                 return (
                     <div key={parentIndex}>
                         <div className={Styles["title-wrapper"]}>
-                            <div className={Styles["title-left"]}>{halfMatchConfig.config.name}</div>
-                           { halfMatchConfig.isActive && <div className={Styles["title-right"]}>Mời cược</div>}
+                            <div className={Styles["title-left"]}>{t(`${gameName}:${halfMatchConfig.config.name}`)}</div>
+                           { halfMatchConfig.isActive && <div className={Styles["title-right"]}>{t(`${gameName}:betInvite`)}</div>}
                         </div>
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.config.config.map((choice, index) => {
@@ -72,7 +70,7 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                 // }
 
                                 return choice.name.toLowerCase() === "total" ? (
-                                    <TotalCell key={index} />
+                                    <div className={Styles["total-row"]}>{t(`${gameName}:total`)}</div>
                                 ) : (
                                     <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
                                         <KenoMatchBetOption key={index} {...betOptionProps}>

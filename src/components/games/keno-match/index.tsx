@@ -267,7 +267,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             });
             this.isResetResult = true;
         }
+        // console.log(`--------------`);
+        // console.log(`${remainingTime}s`);
         const newGameState = this.determineGameState(remainingTime);
+    //    console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -582,7 +585,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                             halfTimeResult: halfTimeResultPopup,
                             fullTimeResult: fullTimeResultPopup,
                             isActiveLiveFullTime,
-                            gameName: this.props.gameName,
+                            gameName: this.props.gameName.toLocaleLowerCase(),
                         }}
                     />
                 </BaseDialog>
@@ -593,7 +596,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     renderRoundResult() {
         const { halfTimeResult, fullTimeResult, isActiveLiveFullTime } = this.state;
 
-        return <DrawFullResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName }} />;
+        return <DrawFullResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }} />;
     }
 }
 
