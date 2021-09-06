@@ -210,7 +210,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
     }
 
     .animation-container {
-        --move-up-distance: -2.8rem;
+        --move-up-distance: -2rem;
         top: -2rem;
         transform: scale3d(1, 1, 1);
         transition: transform 0.7s;
