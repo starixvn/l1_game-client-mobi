@@ -522,13 +522,14 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
     &.card-4 {
         @include position-cards(
             (
-                "1": 1.2rem,
-                "2": -1rem,
+                "1": 2.2rem,
+                "2": 0,
                 "3": 0,
                 "4": -2.2rem,
             )
         );
     }
+
     &.card-5 {
         @include position-cards(
             (
@@ -566,7 +567,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
     }
 
     .result-wrapper {
-        --player-banker-space: 2rem;
+        --player-banker-space: 1rem;
         display: grid;
         justify-content: center;
         align-items: center;
@@ -577,8 +578,8 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     .animation-container {
         position: relative;
+        top: 0;
         --move-up-distance: 0;
-        top: -0.1rem;
 
         .score {
             --width-score: 3.2rem;
