@@ -52,7 +52,7 @@ const Card: React.FC<Props> = (props) => {
     const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
-        return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
+        return <img src={`${srcPathCard}${nameCard}#v2`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
     };
     const formatCard10 = +convertRank(result.card) === 10 ? Styles["card-number-10"] : "";
 
@@ -63,7 +63,7 @@ const Card: React.FC<Props> = (props) => {
                     {convertRank(result.card)}
                 </div>
                 <img
-                    src={`${srcPathCard}mini-${suffixNameMapping[result.type]}.svg`}
+                    src={`${srcPathCard}mini-${suffixNameMapping[result.type]}.svg?v=2`}
                     className={Styles["card-suite-mini"]}
                     height={49}
                     width={35}
@@ -75,7 +75,6 @@ const Card: React.FC<Props> = (props) => {
 
     return (
         <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
-            <div className={Styles["card-shadow"]}></div>
             <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
         </div>
     );

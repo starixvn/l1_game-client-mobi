@@ -377,12 +377,12 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
             $card3-open-delay-time: $card3-delay-time + $time-show-card-animation;
             .card-back {
-                --card-back-speed-medium-duration-time: #{$second-card-duration-time};
+                --card-back-speed-medium-duration-time: #{$second-card-duration-time + 0.1s};
                 @extend %card-back-speed-medium;
                 animation-delay: $card3-open-delay-time;
             }
             .rotate-card {
-                --card-front-speed-medium-duration-time: #{$second-card-duration-time - 0.2s};
+                --card-front-speed-medium-duration-time: #{$second-card-duration-time};
                 @extend %open-card-speed-medium;
                 animation-delay: $card3-open-delay-time;
             }
@@ -393,12 +393,12 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
             $card4-open-delay-time: $card4-delay-time + $time-show-card-animation;
             .card-back {
-                --card-back-speed-medium-duration-time: #{$second-card-duration-time};
+                --card-back-speed-medium-duration-time: #{$second-card-duration-time + 0.1s};
                 @extend %card-back-speed-medium;
                 animation-delay: $card4-open-delay-time;
             }
             .rotate-card {
-                --card-front-speed-medium-duration-time: #{$second-card-duration-time - 0.2s};
+                --card-front-speed-medium-duration-time: #{$second-card-duration-time};
                 @extend %open-card-speed-medium;
                 animation-delay: $card4-open-delay-time;
             }
@@ -407,12 +407,12 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
         @for $i from 5 through 6 {
             .card#{$i} {
                 .card-back {
-                    --card-front-speed-slow-duration-time: #{$third-card-duration-time};
+                    --card-front-speed-slow-duration-time: #{$third-card-duration-time + 0.1s};
                     @extend %card-back-speed-slow;
                 }
 
                 .rotate-card {
-                    --card-front-speed-slow-duration-time: #{$third-card-duration-time - 0.2s};
+                    --card-front-speed-slow-duration-time: #{$third-card-duration-time};
                     @extend %open-card-speed-slow;
                 }
             }
