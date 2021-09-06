@@ -593,7 +593,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
         }
 
         &.player .score {
-            --left-value: 2.8rem;
+            --left-value: 3.8rem;
             left: var(--left-value);
 
             &.group-3-cards {

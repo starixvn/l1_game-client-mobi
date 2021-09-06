@@ -16,7 +16,6 @@
 
     @for $i from 1 through $number-of-cards {
         .card#{$i} {
-            padding: 0;
             border-radius: 0.5rem;
             margin: 0 0.4rem;
         }
