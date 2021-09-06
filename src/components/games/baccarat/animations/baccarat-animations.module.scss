@@ -49,6 +49,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     display: grid;
     grid-template-columns: repeat(2, minmax(232px, 1fr));
+    grid-template-rows: 1fr;
     grid-gap: var(--player-banker-space);
 }
 
@@ -210,7 +211,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     .animation-container {
         --move-up-distance: -2.8rem;
-        margin-top: -2rem;
+        top: -2rem;
         transform: scale3d(1, 1, 1);
         transition: transform 0.7s;
 
@@ -578,7 +579,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     .animation-container {
         position: relative;
-        margin-top: -0.6rem;
+        top: -0.1rem;
         --move-up-distance: 0;
 
         .score {
