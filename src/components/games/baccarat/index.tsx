@@ -49,11 +49,11 @@ class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementR
         const sourceTabsValue = {
             playerBanKer: {
                 tabName: this.getGameTranslate("playerBankerTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["player", "banker", "tie"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["player", "banker", "tie"] }),
             },
             bigSmall: {
                 tabName: this.getGameTranslate("bigSmallTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["big", "small"] }),
             },
         };
         return (

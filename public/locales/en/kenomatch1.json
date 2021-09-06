@@ -20,9 +20,10 @@
     "underTextDot": "U",
     "evenTextDot": "E",
     "oddTextDot": "O",
-    "firstHalf":"First Half",
+    "firstHalf": "First Half",
     "fullTime": "Full Time",
     "betInvite": "Mời cược",
     "live": "Live",
-    "total": "Total"
+    "total": "Total",
+    "winStreakText": "FH/FT"
 }

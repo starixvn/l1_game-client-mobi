@@ -2,13 +2,14 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 import { io, Socket } from "socket.io-client";
+import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import GameBase from "../../shared/game-base";
-import { Boundary, GameState, PopupType, Position } from "../../shared/game-base/type";
+import { Boundary, GameState, PopupType, Position, WinStreakCollectorModel } from "../../shared/game-base/type";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
 import { DrawFullResult, PopupResult } from "./round-result";
@@ -24,6 +25,7 @@ import {
     KenoMatchRound,
     SeparateRoundHistoryProps,
     HalfRoundResult,
+    TimeMatch,
 } from "./type";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -37,6 +39,8 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     private settlementResultOrg: SettlementResult;
     protected showResultInfoH1Timeout: NodeJS.Timeout;
     private isResetResult = false;
+    private winStreakCollectorFH: WinStreakCollectorModel;
+    private winStreakCollectorFT: WinStreakCollectorModel;
 
     constructor(props: KenoMatchProps) {
         super(props);
@@ -107,7 +111,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     };
 
     getMainOptions(): string[] {
-        return Object.keys(choicesMapper);
+        return ["blue", "red", "over", "under", "odd", "even"];
     }
 
     renderBetOptions() {
@@ -138,27 +142,27 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const sourceTabsValue = {
             firstHalfBlueRed: {
                 tabName: this.getGameTranslate("firstHalfBlueRed"),
-                tabWinningStreak: this.getWinningStreakByOptions(["blue", "red", "tie"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red", "tie"], timeMatch: TimeMatch.FH }),
             },
             firstHalfOverUnder: {
                 tabName: this.getGameTranslate("firstHalfOverUnder"),
-                tabWinningStreak: this.getWinningStreakByOptions(["over", "under"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["over", "under"], timeMatch: TimeMatch.FH }),
             },
             firstHalfEvenOdd: {
                 tabName: this.getGameTranslate("firstHalfEvenOdd"),
-                tabWinningStreak: this.getWinningStreakByOptions(["even", "odd"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["even", "odd"], timeMatch: TimeMatch.FH }),
             },
             fullTimeBlueRed: {
                 tabName: this.getGameTranslate("fullTimeBlueRed"),
-                tabWinningStreak: this.getWinningStreakByOptions(["blue", "red", "tie"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red", "tie"], timeMatch: TimeMatch.FT }),
             },
             fullTimeOverUnder: {
                 tabName: this.getGameTranslate("fullTimeOverUnder"),
-                tabWinningStreak: this.getWinningStreakByOptions(["over", "under"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["over", "under"], timeMatch: TimeMatch.FT }),
             },
             fullTimeEvenOdd: {
                 tabName: this.getGameTranslate("fullTimeEvenOdd"),
-                tabWinningStreak: this.getWinningStreakByOptions(["even", "odd"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["even", "odd"], timeMatch: TimeMatch.FT }),
             },
         };
         return (
@@ -506,7 +510,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         });
 
         if (firstHalfResult && rounds.roundHistoryFH[0]?.roundId !== roundIdCurrent) {
-            rounds.roundHistoryFH = this.handleroundHistoryFH({
+            rounds.roundHistoryFH = this.handleRoundHistoryFH({
                 firstHalfResult,
                 roundHistoryFH: rounds.roundHistoryFH,
                 roundId: roundIdCurrent,
@@ -521,7 +525,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const kenoMatchGameState = gameState as KenoMatchGameState;
         const roundHistoryFHClone =
             roundHistoryFH[0]?.roundId !== roundId
-                ? this.handleroundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
+                ? this.handleRoundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
                 : roundHistoryFH;
 
         this.settlementResultOrg = firstHalfResult.settlementResult;
@@ -531,6 +535,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, halfTimeResult: firstHalfResult.result });
+            this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
 
         if (
@@ -545,7 +550,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         }
     }
 
-    handleroundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
+    handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
         const roundHistoryFHClone = [...roundHistoryFH];
         roundHistoryFHClone.unshift({ ...firstHalfResult, roundId: roundId } as RoundKenoMatchBase<Result, SettlementResult>);
         roundHistoryFHClone.length > 100 && roundHistoryFHClone.pop();
@@ -583,7 +588,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 playResultAnimation: false,
                 fullTimeResult: finish.result,
             });
-            this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
+            this.notifyWinStreakByLatestSettlementResultTimeMatch(finish.settlementResult, TimeMatch.FT);
         }, animationDuration);
 
         this.showWinningAnimationTimeout = setTimeout(() => {
@@ -591,6 +596,52 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 showWinningAnimation: true,
             });
         }, this.winningAnimationWaitingTimeInSecond);
+    }
+
+    initWinStreakCollector() {
+        const mainOptions = this.getMainOptions();
+        const getWinningStreakByTimeMatch = () => {
+            return mainOptions.reduce((result, option) => {
+                result[option] = {
+                    streak: 0,
+                    isStopStreak: false,
+                };
+
+                return result;
+            }, {});
+        };
+        this.winStreakCollectorFH = getWinningStreakByTimeMatch();
+        this.winStreakCollectorFT = getWinningStreakByTimeMatch();
+    }
+
+    getWinningStreakByOptions = ({ options, timeMatch }) => {
+        const winStreakCollector = timeMatch === TimeMatch.FH ? this.winStreakCollectorFH : this.winStreakCollectorFT;
+        return Math.max(...options.map((option) => winStreakCollector[option]?.streak ?? 0));
+    };
+
+    notifyWinStreakByLatestSettlementResultTimeMatch(settlementResult: SettlementResult, timeMatch: TimeMatch) {
+        const { notifyWinStreak, gameName } = this.props;
+        const mainOptions = this.getMainOptions();
+
+        mainOptions.forEach((option) => {
+            const winStreak = timeMatch === TimeMatch.FH ? this.winStreakCollectorFH[option] : this.winStreakCollectorFT[option];
+
+            if (settlementResult[option]) {
+                winStreak.streak += 1;
+
+                if (winStreak.streak > 3) {
+                    notifyWinStreak({
+                        key: uuidv4(),
+                        gameName: gameName,
+                        choice: option,
+                        streak: winStreak.streak,
+                        optional: this.getGameTranslate("winStreakText"),
+                    });
+                }
+            } else {
+                winStreak.streak = 0;
+            }
+        });
     }
 
     renderGameHeader() {
@@ -602,18 +653,16 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
-            (
-                <BaseDialog type={ModalType.Center}>
-                    <PopupResult
-                        {...{
-                            halfTimeResult: halfTimeResultPopup,
-                            fullTimeResult: fullTimeResultPopup,
-                            isActiveLiveFullTime,
-                            gameName: this.props.gameName.toLocaleLowerCase(),
-                        }}
-                    />
-                </BaseDialog>
-            )
+            <BaseDialog type={ModalType.Center}>
+                <PopupResult
+                    {...{
+                        halfTimeResult: halfTimeResultPopup,
+                        fullTimeResult: fullTimeResultPopup,
+                        isActiveLiveFullTime,
+                        gameName: this.props.gameName.toLocaleLowerCase(),
+                    }}
+                />
+            </BaseDialog>
         );
     }
 

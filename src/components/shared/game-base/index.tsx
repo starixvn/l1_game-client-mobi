@@ -734,7 +734,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }, {});
     }
 
-    getWinningStreakByOptions = (options: string[]) => {
+    getWinningStreakByOptions = ({options}) => {
         return Math.max(...options.map((option) => this.winStreakCollector[option]?.streak ?? 0));
     };
 

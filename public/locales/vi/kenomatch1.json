@@ -20,9 +20,10 @@
     "underTextDot": "X",
     "evenTextDot": "C",
     "oddTextDot": "L",
-    "firstHalf":"HIệp 1",
+    "firstHalf": "HIệp 1",
     "fullTime": "Toàn Trận",
     "betInvite": "Mời cược",
     "live": "Live",
-    "total": "Tổng"
+    "total": "Tổng",
+    "winStreakText": "H1/TT"
 }

@@ -53,11 +53,11 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const sourceTabsValue = {
             bigSmall: {
                 tabName: this.getGameTranslate("bigSmallTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["big", "small"] }),
             },
             oddEven: {
                 tabName: this.getGameTranslate("evenOddTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["odd", "even"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["odd", "even"] }),
             },
             fiveElement: {
                 tabName: this.getGameTranslate("fiveElementsTabs"),
