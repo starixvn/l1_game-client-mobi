@@ -49,7 +49,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 
     display: grid;
     grid-template-columns: repeat(2, minmax(232px, 1fr));
-    grid-template-rows: 1fr;
+    grid-template-rows: 23rem;
     grid-gap: var(--player-banker-space);
 }
 
