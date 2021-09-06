@@ -98,10 +98,10 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     liveOdds: any;
     md5?: string;
     firstHalfResult?: HalfRoundResult;
-    roundHistoryH1: RoundKenoMatchBase<Result, SettlementResult>[];
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
-    isShowBlinkH1: boolean;
+    roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];
     isShowBlinkFH: boolean;
+    isShowBlinkFT: boolean;
 }
 
 export interface TimerProps {
@@ -111,6 +111,6 @@ export interface TimerProps {
 }
 
 export interface SeparateRoundHistoryProps {
-    roundHistoryH1: RoundKenoMatchBase<Result, SettlementResult>[];
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
+    roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];
 }
