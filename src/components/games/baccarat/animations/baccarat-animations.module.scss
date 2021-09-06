@@ -485,13 +485,6 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
     animation-delay: $total-6cards-move-up-delay;
 }
 
-// .open-cards.card-5-banker.has-animation .animation-container.banker .score .score-number {
-//     animation-delay: $time-delay-zoom-in-card-animation + $card-first-duration-time * 2 + $card-second-duration-time * 2 +
-//             $time-show-score-animation * 2 + $time-blink-score-animation * 3 + $time-delay-open-card-4,
-//         $time-delay-zoom-in-card-animation + $card-first-duration-time * 2 + $card-second-duration-time * 2 + $card-third-duration-time +
-//             $time-show-score-animation * 2 + $time-blink-score-animation * 5 + $time-delay-open-card-4 + 0.5s;
-// }
-
 @keyframes move-left {
     from {
         left: var(--move-left-from-player);
@@ -517,95 +510,76 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @for $i from 1 through $number-of-cards {
+        .card#{$i} {
+            padding: 0;
+            border-radius: 0.5rem;
+            margin: 0 0.4rem;
+        }
+    }
+
     &.card-4 {
         @include position-cards(
             (
                 "1": 1.2rem,
-                "2": 0,
+                "2": -1rem,
                 "3": 0,
-                "4": -1.2rem,
+                "4": -2.2rem,
             )
         );
-        .animation-container {
-            &.player {
-                .score {
-                    --left-value: -0.8rem;
-                }
-            }
-            &.banker {
-                .score {
-                    --right-value: -0.8rem;
-                }
-            }
-        }
     }
     &.card-5 {
         @include position-cards(
             (
                 "1": 4.8rem,
                 "2": 0,
-                "3": 3.6rem,
-                "4": -1.2rem,
-                "5": 3rem,
+                "3": 2.6rem,
+                "4": -2.2rem,
+                "5": 1rem,
             )
         );
-        .animation-container {
-            &.player {
-                .score {
-                    --left-value: 0.2rem;
-                }
-            }
-            &.banker {
-                .score {
-                    --right-value: 0.4rem;
-                }
-            }
-            &.move-up-no-animation.player {
-                left: -3.4rem;
-            }
-        }
+
         &-banker {
             @include position-cards(
                 (
                     "1": 1.2rem,
                     "2": 0,
                     "3": 0,
-                    "4": -1.2rem,
-                    "5": -1.8rem,
+                    "4": -2.2rem,
+                    "5": -3.8rem,
                 )
             );
-            .animation-container {
-                &.player {
-                    .score {
-                        --left-value: 0.2rem;
-                    }
-                    .rotate-card {
-                        animation-delay: $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 4, 6) +
-                            math.div($time-draw-card-animation, 4) + $time-delay-open-card-4 + 0.5s + $time-show-score-animation * 2 +
-                            $time-blink-score-animation * 4 + $time-move-left-player;
-                    }
-                }
-    
-            }
-            .player {
-                position: relative;
-                left: 2.6rem;
-                .score {
-                    left: -1.8rem;
-                }
-            }
         }
+    }
+    &.card-6 {
+        @include position-cards(
+            (
+                "1": 4.8rem,
+                "2": 0,
+                "3": 2.6rem,
+                "4": -2.2rem,
+                "5": 1rem,
+                "6": -3.8rem,
+            )
+        );
     }
 
     .result-wrapper {
-        display: flex;
+        --player-banker-space: 2rem;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: var(--player-banker-space);
+        margin-left: -2rem;
     }
 
     .animation-container {
         position: relative;
         --move-up-distance: 0;
         top: -0.1rem;
-        --gap-player-banker: 0.6rem;
+
         .score {
             --width-score: 3.2rem;
             --height-score: 1.8rem;
@@ -615,17 +589,13 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
                 top: 0;
             }
         }
-        .player .score {
-            left: -1rem;
-        }
-        .banker .score {
-            left: 1.3rem;
-        }
-    }
-    &.has-animation {
-        .animation-container {
-            .score .score-number {
-                animation: none;
+
+        &.player .score {
+            --left-value: 2.8rem;
+            left: var(--left-value);
+
+            &.group-3-cards {
+                --left-value: 6.3rem;
             }
         }
 
@@ -633,14 +603,15 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
             background-size: 3.45rem 4.907rem;
             width: 3.45rem;
             height: 4.907rem;
+        &.banker .score {
+            left: 1.5rem;
         }
-
-        @for $i from 5 through 6 {
-            .card#{$i} {
-                .card-back {
-                    animation-name: appearance-settlement-info-animation, hide-card-back-animation;
-                }
-            }
+    }
+    &.has-animation {
+        .card-back {
+            background-size: 3.5rem 4.9rem;
+            width: 3.5rem;
+            height: 4.9rem;
         }
     }
     
@@ -649,7 +620,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
 .result-collapse-mode.open-cards.card-6.has-animation .animation-container,
 .result-collapse-mode.open-cards.card-5.has-animation .animation-container {
     &.player {
-        --player-banker-space: -2.8rem;
+        --player-banker-space: 2rem;
     }
 }
 
@@ -676,6 +647,7 @@ $total-6cards-move-up-delay: $card6-delay-time + $third-card-duration-time + $ti
         @extend .result-info;
         background: linear-gradient(180deg, #4fff95 0%, #2ce476 25.31%, #03b053 100%);
     }
+
     &.ticket-history {
         top: 0;
         min-height: unset;
