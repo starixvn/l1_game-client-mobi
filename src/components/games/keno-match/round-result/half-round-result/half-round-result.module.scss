@@ -20,45 +20,27 @@
     }
 }
 
-.half-time {
-    bottom: -49%;
-    border: 1px solid #8b8b8b;
-    border-radius: 10px;
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    opacity: 0.6;
-    filter: grayscale(100%);
-    color:red;
+// .half-time {
 
-    &.active {
-        bottom: -1%;
-        border: 1px solid rgba(0, 255, 246, 0.4);
-        border-radius: 10px;
-        filter: none;
-        opacity: 1;
-    }
-}
+//     &.active {
+//         bottom: -1%;
+//         border: 1px solid rgba(0, 255, 246, 0.4);
+//         border-radius: 10px;
+//         filter: none;
+//         opacity: 1;
+//     }
+// }
 
-.full-time {
-    top: 2%;
-    border: 1px solid #8b8b8b;
-    border-radius: 10px;
-    -webkit-filter: grayscale(100%);
-    -moz-filter: grayscale(100%);
-    -ms-filter: grayscale(100%);
-    filter: grayscale(100%);
-    opacity: 0.6;
-    color:red;
+// .full-time {
     
-    &.active {
-        top: -46%;
-        border: 1px solid rgba(0, 255, 246, 0.4);
-        border-radius: 10px;
-        filter: none;
-        opacity: 1;
-    }
-}
+//     &.active {
+//         top: -46%;
+//         border: 1px solid rgba(0, 255, 246, 0.4);
+//         border-radius: 10px;
+//         filter: none;
+//         opacity: 1;
+//     }
+// }
 
 .row {
     text-align: center;
@@ -147,7 +129,7 @@
     .main-content {
         grid-template-columns: 1fr 1fr;
         grid-column-gap: 2rem;  
-        padding-top: 1rem; 
+        padding: 1rem; 
         position: relative;     
     }
     .header {
@@ -158,5 +140,104 @@
         .team-name {
             display: none;
         }
+    }
+    .progress-bar-team {
+        padding: 0 1.6rem;
+        .title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.6rem;
+            font-weight: 700;
+            &-blue {
+                color: #3B7BC6;
+            }
+            &-red {
+                color: #FF4352;
+            }
+        }
+        .progress-bar {
+            display: grid;
+            grid-template-columns: 1fr .1rem 1fr;
+            grid-template-rows: 3rem;
+            position: relative;
+            .triangle {
+                position: absolute;
+                width: 0;
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-bottom: 14px solid  #08BE58;
+                bottom: -2rem;
+                left: -.8rem;
+                margin-left: 50%;
+            }
+            .sperate {
+                background-color: #2F2F2F;
+                height: 3.6rem;
+                position: relative;
+                top: -.3rem;
+            }
+            .blue-team {
+                background: linear-gradient(to left, #4B8AD3 0%, #256DC1 100%);
+                border-top-left-radius: .3rem;
+                border-bottom-left-radius: .3rem;
+            }
+            .red-team {
+                background: linear-gradient(to left, #DC4B56 0%, #F56769 100%);
+                border-top-right-radius: .3rem;
+                border-bottom-right-radius: .3rem;
+            }
+        }
+    }
+
+    .label-total {
+        background: linear-gradient(270deg, #FBE1B7 0%, #FFF5E5 47.43%, #FBE1B7 98.34%);
+        height: 2rem;
+        text-align: center;
+        margin-top: 3rem;
+    }
+
+    .total-section {
+        background: linear-gradient(180deg, #FFE5BA 0%, #FFE5BA 100%);
+        border-bottom-left-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 9.8rem;
+        .total-score-match {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #5E5E5E;
+            text-align: center;
+            .score-match {
+                font: 500 2.4rem var(--font-number);
+                color: #CD000E;
+                position: relative;
+                &:before {
+                    content: "";
+                    background:  linear-gradient(90deg, #FFE6BD 0.31%, #FFC66A 51.35%, #FFE6BC 100%);
+                    width: 4.7rem;
+                    position: absolute;
+                    left: -2.4rem;
+                    height: .1rem;
+                    transform: rotate(90deg);
+                    top: .4rem;
+                }
+
+            }
+        }
+        // .result-info {
+        //     justify-content: center;
+        //     display: flex;
+        //     align-items: center;
+        //     [class*="result-info"] {
+        //         min-width: 8rem;
+        //         border-radius: 3rem;
+        //         font-size: 1.6rem;
+        //         font-weight: bold;
+        //         color: #fff;
+        //     }
+        //     &-blue {
+        //         background: 
+        //     }
+        // }
     }
 }

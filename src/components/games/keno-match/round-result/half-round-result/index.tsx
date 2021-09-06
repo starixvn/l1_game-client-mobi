@@ -29,12 +29,26 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
                 <Team {...blueTeamProps} />
                 <Team {...redTeamProps} />
             </div>
-            <div className="progress-bar-team">
-                <div className={Styles["blue"]}></div>
-                <div className={Styles["red"]}></div>
+            <div className={Styles["progress-bar-team"]}>
+                <div className={Styles["title"]}><span className={Styles["title-blue"]}>Đội xanh</span><span className={Styles["title-red"]}>Đội đỏ</span></div>
+                <div className={Styles["progress-bar"]}>
+                    <div className={Styles["triangle"]}></div>
+                    <div className={Styles["blue-team"]}>
+                        <span className={Styles["blue-score"]}></span>
+                    </div>
+                    <div className={Styles["sperate"]}></div>
+                    <div className={Styles["red-team"]}>
+                        <span className={Styles["red-score"]}></span>
+                    </div>
+                </div>                
             </div>
-            <div className="total-section">
-                <div > {t("total")} <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+            <div className={Styles["label-total"]}>Tổng</div>
+            <div className={Styles["total-section"]}>
+                <div className={Styles["result-info"]}>
+                    <div className={Styles["result-info-blue"]}>Tài</div>
+                    <div className={Styles["result-info-red"]}>Lẻ</div>
+                </div>
+                <div className={Styles["total-score-match"]}>Total <div className={Styles["score-match"]}>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
             </div>
             
         </div>
