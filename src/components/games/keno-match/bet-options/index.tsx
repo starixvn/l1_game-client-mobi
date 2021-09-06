@@ -28,19 +28,19 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
 
     const halfMatchConfigs = [
         {
-            isActive: isActiveLiveFullTime ? (props.liveOdds !== null) : true,
+            isActive: isActiveLiveFullTime ? props.liveOdds !== null : true,
             config: isActiveLiveFullTime ? KenoMatchConfigs.choices.liveFullTime : KenoMatchConfigs.choices.firstHalf,
         },
         {
             isActive: !isActiveLiveFullTime,
             config: KenoMatchConfigs.choices.fullTime,
-        }
+        },
     ];
 
     const getOddsByChoice = (choiceName: string) =>  props.liveOdds?.[choiceName] ?? odds[choiceName];
 
     return (
-        <> 
+        <>
             {halfMatchConfigs.map((halfMatchConfig, parentIndex) => {
                 return (
                     <div key={parentIndex}>
@@ -55,9 +55,9 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                 //  && kenoMatchGameState !== KenoMatchGameStateEnum.HalfTimeLockingBet ;
 
                                 const betOptionProps = {
-                                    choice:choice.name,
+                                    choice: choice.name,
                                     odd: getOddsByChoice(choice.name),
-                                    isDisplayOdd:true,
+                                    isDisplayOdd: true,
                                     isHighlight,
                                     gameState,
                                     isShowWinningEffect,
@@ -68,7 +68,7 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                 // }
 
                                 return choice.name.toLowerCase() === "total" ? (
-                                    <div className={Styles["total-row"]}>{t("total")}</div>
+                                    <div key={index} className={Styles["total-row"]}>{t("total")}</div>
                                 ) : (
                                     <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
                                         <KenoMatchBetOption key={index} {...betOptionProps}>

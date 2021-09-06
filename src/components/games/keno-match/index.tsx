@@ -23,6 +23,7 @@ import {
     SettlementResult,
     KenoMatchRound,
     SeparateRoundHistoryProps,
+    HalfRoundResult,
 } from "./type";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -91,9 +92,15 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     onDestroy() {
         super.onDestroy();
-        this.showResultInfoH1Timeout && clearTimeout(this.showResultInfoH1Timeout);
+        this.clearTimeout();
         this.socket && this.socket.disconnect();
     }
+
+    clearTimeout = () => {
+        this.showResultInfoH1Timeout && clearTimeout(this.showResultInfoH1Timeout);
+        this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
+        this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
+    };
 
     retryConnect = () => {
         this.onStart();
@@ -460,17 +467,18 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
         const { gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
-        const rounds: SeparateRoundHistoryProps = this.separateRoundHistory(roundHistory);
+        const roundIdCurrent =
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeResult ||
+            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
+                ? roundId - 1
+                : roundId;
+        const rounds: SeparateRoundHistoryProps = this.separateRoundHistory({ roundHistory, firstHalfResult, roundIdCurrent });
 
         const sourceState = {
             roundHistory: roundHistory,
-            roundId:
-                kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
-                kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
-                kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
-                    ? roundId - 1
-                    : roundId,
+            roundId: roundIdCurrent,
             roundHistoryH1: rounds.roundHistoryH1,
             roundHistoryFH: rounds.roundHistoryFH,
             halfTimeResult:
@@ -486,16 +494,24 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         this.setState(sourceState);
     }
 
-    separateRoundHistory = (roundHistory: KenoMatchRound<Result, SettlementResult>[]) => {
+    separateRoundHistory = ({ roundHistory, firstHalfResult, roundIdCurrent }) => {
         const rounds = {
             roundHistoryH1: [],
             roundHistoryFH: [],
         };
 
-        roundHistory.forEach((round) => {
+        roundHistory.forEach((round: KenoMatchRound<Result, SettlementResult>) => {
             rounds.roundHistoryH1.push({ ...round.firstHalf, roundId: round.roundId, odds: round.odds });
             rounds.roundHistoryFH.push({ ...round.fullTime, roundId: round.roundId, odds: round.odds });
         });
+
+        if (firstHalfResult && rounds.roundHistoryH1[0]?.roundId !== roundIdCurrent) {
+            rounds.roundHistoryH1 = this.handleRoundHistoryH1({
+                firstHalfResult,
+                roundHistoryH1: rounds.roundHistoryH1,
+                roundId: roundIdCurrent,
+            });
+        }
 
         return rounds;
     };
@@ -503,9 +519,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     handleFinishHalfTime({ firstHalfResult }) {
         const { roundHistoryH1, roundId, gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
-        const roundHistoryH1Clone = [...roundHistoryH1];
-        roundHistoryH1Clone.unshift({ ...firstHalfResult, roundId: roundId } as RoundKenoMatchBase<Result, SettlementResult>);
-        roundHistoryH1Clone.length > 100 && roundHistoryH1Clone.pop();
+        const roundHistoryH1Clone =
+            roundHistoryH1[0]?.roundId !== roundId
+                ? this.handleRoundHistoryH1({ firstHalfResult, roundHistoryH1, roundId })
+                : roundHistoryH1;
 
         this.settlementResultOrg = firstHalfResult.settlementResult;
         this.setState({
@@ -527,6 +544,14 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             });
         }
     }
+
+    handleRoundHistoryH1 = ({ firstHalfResult, roundHistoryH1, roundId }) => {
+        const roundHistoryH1Clone = [...roundHistoryH1];
+        roundHistoryH1Clone.unshift({ ...firstHalfResult, roundId: roundId } as RoundKenoMatchBase<Result, SettlementResult>);
+        roundHistoryH1Clone.length > 100 && roundHistoryH1Clone.pop();
+
+        return roundHistoryH1Clone;
+    };
 
     handleLiveOdds({ liveOdds }) {
         this.setState({ liveOdds });
