@@ -1,8 +1,7 @@
 import React from "react";
-import { KenoMatchGameState, Result } from "../type";
+import { Result } from "../type";
 import Styles from "./draw-result.module.scss";
 import { HalfRoundResult, HalfResultPopup } from "./half-round-result";
-import { useTranslation } from "next-i18next";
 
 interface Props {
     halfTimeResult: Result;
@@ -11,20 +10,13 @@ interface Props {
     gameName: string;
 }
 
-const buildHalfMatchProps = (isActiveLiveFullTime: boolean, headerText: string, gameName: string) => {
-    return isActiveLiveFullTime
-        ? {
-              className: "full-time",
-              headerText
-          }
-        : {
-              className: "half-time",
-              headerText
-          };
+const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
+    return { 
+        className: isActiveLiveFullTime ? "full-time": "half-time", 
+        headerText: isActiveLiveFullTime ? "fullTime" : "firstHalf"};
 };
 
 export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
-    const { t } = useTranslation(gameName.toLowerCase());
     const resultProps = isActiveLiveFullTime
         ? {
               ...{
@@ -32,7 +24,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
                   active: isActiveLiveFullTime,
                   gameName,
               },
-              ...buildHalfMatchProps(true, t(`${gameName}:fullTime`), gameName),
+              ...buildHalfMatchProps(true),
           }
         : {
               ...{
@@ -40,7 +32,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
                   active: !isActiveLiveFullTime,
                   gameName,
               },
-              ...buildHalfMatchProps(false, t(`${gameName}:firstHalf`), gameName),
+              ...buildHalfMatchProps(false),
           };
 
     return (
@@ -51,7 +43,6 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
 }
 
 export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
-    const { t } = useTranslation([gameName.toLowerCase()]);
     return (
         <div className={Styles["draw-result"]}>
             <div className={Styles.field}>
@@ -62,7 +53,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFul
                             active: isActiveLiveFullTime,
                             gameName,
                         },
-                        ...buildHalfMatchProps(false, t(`${gameName}:firstHalf`), gameName),
+                        ...buildHalfMatchProps(false),
                     }}
                 />
                 <HalfRoundResult
@@ -72,7 +63,7 @@ export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFul
                             active: !isActiveLiveFullTime,
                             gameName,
                         },
-                        ...buildHalfMatchProps(true, t(`${gameName}:fullTime`), gameName),
+                        ...buildHalfMatchProps(true),
                     }}
                 />
             </div>

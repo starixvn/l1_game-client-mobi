@@ -13,18 +13,18 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
             result: result.blue,
             totalPoint: calculateTotalPoint(result.blue),
             className: Styles.blue,
-            teamName: t(`${gameName}:blue`),
+            teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
             totalPoint: calculateTotalPoint(result.red),
             className: Styles.red,
-            teamName: t(`${gameName}:red`),
+            teamName: t("red"),
         };
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
-             <div className={Styles["header"]}>{headerText}</div>
+             <div className={Styles["header"]}>{t(headerText)}</div>
             <div className={Styles["main-content"]}>
                 <Team {...blueTeamProps} />
                 <Team {...redTeamProps} />
@@ -34,7 +34,7 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
                 <div className={Styles["red"]}></div>
             </div>
             <div className="total-section">
-                <div >Total <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+                <div > {t("total")} <div>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
             </div>
             
         </div>
@@ -48,13 +48,13 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
             result: result.blue,
             totalPoint: calculateTotalPoint(result.blue),
             className: Styles.blue,
-            teamName: t(`${gameName}:blue`),
+            teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
             totalPoint: calculateTotalPoint(result.red),
             className: Styles.red,
-            teamName: t(`${gameName}:red`),
+            teamName: t("red"),
         };
 
     return (
@@ -67,12 +67,13 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
             <div className={Styles["main-content"]}>
                 <Team {...blueTeamProps} />
                 <div className={Styles["middle-column"]}>
-                    <div className={Styles.name}>{headerText}</div>
-                    <div className={Styles["score-wrapper"]}>{ t(`${gameName}:total`)} <div className={Styles["score"]}>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+                    <div className={Styles.name}>{t(headerText)}</div>
+                    <div className={Styles["score-wrapper"]}>
+                        {t("total")} <div className={Styles["score"]}>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div>
+                    </div>
                 </div>
                 <Team {...redTeamProps} />
             </div>
-            
         </div>
     );
 }
