@@ -12,7 +12,7 @@ const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick
     };
 
     return (
-        <div className={Styles["profile-picture"]} onClick={handleClick}>
+        <div className={Styles["profile-picture"]} onClick={handleClick} data-testid="profile-picture">
             {avatarId > 0 && avatarId < 41 ? (
                 <img
                     src={`/static/images/avatar/${avatarId}.png`}
@@ -31,7 +31,7 @@ const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick
 
 const EditIcon = () => {
     return (
-        <div className={Styles["chose-avatar"]}>
+        <div className={Styles["chose-avatar"]} data-testid="edit-icon">
             <span className={`icon-edit ${Styles["icon-edit"]}`}></span>
         </div>
     );
