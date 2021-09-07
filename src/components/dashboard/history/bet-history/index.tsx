@@ -37,7 +37,7 @@ export const FormatNumber: React.FC = ({ children }) => {
     return <span className={`font-number nowrap ${Styles["number-text"]}`}>{children}</span>;
 };
 
-const renderStake = (bet: BetLogs) => {
+const renderStake = (bet: BetLogs, freeBet: boolean) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         return (
@@ -46,7 +46,7 @@ const renderStake = (bet: BetLogs) => {
                     if (bet[name] > 0) {
                         return (
                             <div key={index} className={bet.settlementResult[name] ? fontWeightClass : ""}>
-                                {numberWithCommas(bet[name])}
+                                {freeBet ? 0 : numberWithCommas(bet[name])}
                             </div>
                         );
                     }
@@ -97,6 +97,19 @@ const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: s
     return <></>;
 };
 
+const renderRound = ({ phien, freeBet }) => {
+    return (
+        <>
+            <FormatNumber>{phien}</FormatNumber>
+            {freeBet && (
+                <div>
+                    <img src={`/static/images/L2-cash/scoin.png`} className={Styles["scoin"]} alt="scoin" />
+                </div>
+            )}
+        </>
+    );
+};
+
 const renderDataOnCell = (data: any, isHighligh: boolean) => {
     return <td className={`${isHighligh ? "highlight" : ""}`}>{data}</td>;
 };
@@ -117,7 +130,7 @@ const RenderCell: React.FC<{
     setResultDetail: Function;
     gameName: string;
 }> = ({ betHistoryItem, renderResult, renderBet, isRefund, setIsShowResultDetail, setResultDetail, t, gameName }) => {
-    const { time, phien, betwin } = betHistoryItem;
+    const { time, phien, betwin, freeBet } = betHistoryItem;
     const odds = betHistoryItem.odds;
     const isHighligh = betwin > 0 ? true : false;
     const fontNumber = "font-number";
@@ -129,15 +142,14 @@ const RenderCell: React.FC<{
                     <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
                     <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
                 </FormatNumber>,
-
                 isHighligh
             )}
-            {renderDataOnCell(<FormatNumber>{phien}</FormatNumber>, isHighligh)}
+            {renderDataOnCell(renderRound({ phien, freeBet }), isHighligh)}
             {renderDataOnCell(renderResult(betHistoryItem, phien, setIsShowResultDetail, setResultDetail, t), isHighligh)}
             {renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName), isHighligh)}
             {renderDataOnCell(
                 <div className={`${Styles["stake"]} ${fontNumber}`}>
-                    {isRefund ? renderStakeRefund(betHistoryItem) : renderStake(betHistoryItem)}
+                    {isRefund ? renderStakeRefund(betHistoryItem) : renderStake(betHistoryItem, freeBet)}
                 </div>,
                 isHighligh
             )}
@@ -186,7 +198,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
                 }
             } catch (err) {
-                if (err.response.status === 401) {
+                if (err?.response?.status === 401) {
                     clearSession();
                     router.push("/timeout");
                 }
