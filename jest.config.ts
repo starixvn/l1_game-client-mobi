@@ -10,17 +10,14 @@ export default {
             useBabelrc: true,
         },
     },
-    testEnvironment: 'jsdom',
-    coveragePathIgnorePatterns: ["node_modules", "enzyme.js", ".d.ts"],
-    setupFilesAfterEnv: [
-        "<rootDir>/enzyme.js", "jest-extended",
-        "@testing-library/jest-dom/extend-expect"],
+    testEnvironment: "jsdom",
+    coveragePathIgnorePatterns: ["node_modules", ".d.ts"],
+    setupFilesAfterEnv: ["jest-extended", "@testing-library/jest-dom/extend-expect"],
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
     moduleNameMapper: {
         "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/mocks.js",
         "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     },
-    snapshotSerializers: ["enzyme-to-json/serializer"],
     testResultsProcessor: "jest-sonar-reporter",
 };
