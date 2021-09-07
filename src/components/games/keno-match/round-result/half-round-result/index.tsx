@@ -11,12 +11,10 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {
             result: result.blue,
-            className: Styles.blue,
             teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
-            className: Styles.red,
             teamName: t("red"),
         },
         totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
@@ -59,18 +57,16 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {
             result: result.blue,
-            className: Styles.blue,
             teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
-            className: Styles.red,
             teamName: t("red"),
         },
         totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
 
     return (
-        <div className={classNames}>
+        <div className={classNames} data-testid="half-round-result-component">
             <div className={Styles["overlay"]}>
                 <div className={Styles["blue"]}></div>
                 <div></div>
@@ -90,14 +86,14 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
     );
 }
 
-export function Team({ result, className, teamName }: TeamProps) {
+export function Team({ result, teamName }: TeamProps) {
     const halfLength = Math.ceil(result.length / 2);
     const firstHalfResult = result.slice(0, halfLength);
     const secondHalfResult = result.slice(-halfLength);
     const results = [firstHalfResult, secondHalfResult];
 
     return (
-        <div className={`${Styles.team} ${className}`}>
+        <div className={`${Styles.team}`} data-testid="team-component">
             {results.map((result, parentIndex) => (
                 <TeamResultRow result={result} key={parentIndex} />
             ))}
@@ -111,7 +107,7 @@ export function Team({ result, className, teamName }: TeamProps) {
 
 export function TeamResultRow({ result }) {
     return (
-        <div className={Styles.row}>
+        <div className={Styles.row} data-testid="team-result-row-component">
             {result.map((number: number, index: number) => (
                 <Tie key={index} number={number} />
             ))}
@@ -120,5 +116,5 @@ export function TeamResultRow({ result }) {
 }
 
 export function Tie({ number }: { number: number }) {
-    return <div className={Styles["number"]}>{number}</div>;
+    return <div className={Styles["number"]} data-testid="tie-component" >{number}</div>;
 }
