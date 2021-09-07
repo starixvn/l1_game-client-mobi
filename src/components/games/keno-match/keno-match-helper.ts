@@ -37,6 +37,17 @@ export const Choices = {
     even: "even",
 };
 
+
+export const FakeSettlementResult = {
+    blue: false,
+    red: false,
+    tie: true,
+    over: true,
+    under: false,
+    odd: true,
+    even: false,
+};
+
 export const KenoMatchConfigs = {
     choices: {
         firstHalf: {

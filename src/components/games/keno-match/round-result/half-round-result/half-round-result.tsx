@@ -92,7 +92,7 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
     );
 }
 
-function Team({ result, className, teamName, totalPoint }: TeamProps) {
+export function Team({ result, className, teamName, totalPoint }: TeamProps) {
     const halfLength = Math.ceil(result.length / 2);
     const firstHalfResult = result.slice(0, halfLength);
     const secondHalfResult = result.slice(-halfLength);
@@ -111,7 +111,7 @@ function Team({ result, className, teamName, totalPoint }: TeamProps) {
     );
 }
 
-function TeamResultRow({ result }) {
+export function TeamResultRow({ result }) {
     return (
         <div className={Styles.row}>
             {result.map((number, index) => (
@@ -121,6 +121,6 @@ function TeamResultRow({ result }) {
     );
 }
 
-function Tie({ number }: { number: number }) {
+export function Tie({ number }: { number: number }) {
     return <div className={Styles["number"]}>{number}</div>;
 }
