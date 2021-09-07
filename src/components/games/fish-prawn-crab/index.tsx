@@ -2,8 +2,8 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
@@ -39,8 +39,8 @@ export enum ResultBet {
 const DefaultOdds = "single";
 const DiceImgMapper = ["dice-nai", "dice-bau", "dice-ga", "dice-ca", "dice-cua", "dice-tom"];
 
-class FishPrawnCrab extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+class FishPrawnCrab extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };

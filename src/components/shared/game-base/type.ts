@@ -3,7 +3,6 @@ import { WithRouterProps } from "next/dist/client/with-router";
 import { Socket } from "socket.io-client";
 
 import { Round, SocketState } from "../../../types";
-import {KenoMatchGameState, KenoMatchGameSetting} from "../../../components/games/keno-match/type";
 
 export interface GameConfigs {
     odds: { [key: string]: number };
@@ -36,6 +35,12 @@ export interface GameSettings {
     durations: GameDurations;
 }
 
+export type GatewayGameBaseProps = {
+    socketGateway: Socket;
+    socketGatewayState: SocketState;
+    retryConnectSocket: () => void;
+} & GameBaseProps;
+
 export type GameBaseProps = {
     id: number;
     gameName: string;
@@ -48,9 +53,6 @@ export type GameBaseProps = {
     theme: string;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
-    socketGateway: Socket;
-    socketGatewayState: SocketState;
-    retryConnectSocket: () => void;
 } & WithTranslation &
     WithRouterProps;
 
@@ -88,8 +90,6 @@ export interface GameBaseState<Result, SettlementResult> {
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
     activeScoreboardTab?: number;
-    // kenoMatchGameState:KenoMatchGameState;
-    // kenoMatchGameSetting: KenoMatchGameSetting;
 }
 
 export interface Notice {

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 
 import { GameState, ViewMode } from "../../components/shared/game-base/type";
 import { GameContextModel } from "./game-context-type";
-import {KenoMatchGameState } from "../../components/games/keno-match/type";
 
 export const GameContext = React.createContext<GameContextModel>({
     roundId: 0,
@@ -15,8 +14,6 @@ export const GameContext = React.createContext<GameContextModel>({
     viewMode: ViewMode.full,
     playResultAnimation: false,
     isShowBlink: false,
-    // kenoMatchGameState: KenoMatchGameState.None,
-    // kenoMatchGameSetting: null
 });
 GameContext.displayName = "GameContext";
 

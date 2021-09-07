@@ -1,21 +1,22 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
+import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import ScoreboardTab from "../../shared/scoreboard-tab";
 import { ThreeCardsResult, ThreeCardsResultCollapse } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
-import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
-import { Result, SettlementResult } from "./three-cards";
+import { GetScoreboardDotDetailsOfSuits, ScoreboardRule } from "./scoreboard-round-history";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
-import { Choices, TabsValue, SuitOrder, SuitKeys } from "./three-cards-helper";
+import { Result, SettlementResult } from "./three-cards";
+import { Choices, SuitKeys, SuitOrder, TabsValue } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
-import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
-import ScoreboardTab from "../../shared/scoreboard-tab";
 
-class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+class ThreeCards extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };

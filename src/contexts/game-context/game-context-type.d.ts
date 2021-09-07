@@ -1,5 +1,4 @@
 import { GameBaseProps, GameConfigs, GameState, ViewMode } from "../../components/shared/game-base/type";
-import {KenoMatchGameState, KenoMatchGameSetting, KenoMatchProps} from "../../components/games/keno-match/type";
 
 export type GameContextModel = {
     totalBets: object;
@@ -12,6 +11,4 @@ export type GameContextModel = {
     viewMode: ViewMode;
     playResultAnimation: boolean;
     isShowBlink: boolean;
-    // kenoMatchGameState:KenoMatchGameState;
-    // kenoMatchGameSetting: KenoMatchProps;
 };

@@ -1,20 +1,20 @@
-import React from "react";
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
+import React from "react";
 
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import ScoreboardTab from "../../shared/scoreboard-tab";
+import { StatisticFollowPercent } from "../../shared/statistic";
 import { BaccaratResult, BaccaratResultCollapse, generateSettlementInfo } from "./animations";
+import { Result, SettlementResult } from "./baccarat";
+import { Choices, GetTranslateChoiceMapping, StatisticRuleMapping } from "./baccarat-helper";
 import BaccaratBetOptions from "./bet-options";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import { Result, SettlementResult } from "./baccarat";
-import { Choices, StatisticRuleMapping, GetTranslateChoiceMapping } from "./baccarat-helper";
-import { StatisticFollowPercent } from "../../shared/statistic";
-import ScoreboardTab from "../../shared/scoreboard-tab";
 
-class Baccarat extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+class Baccarat extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };

@@ -1,41 +1,36 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import { io, Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
-import appSettings from "../../../common/app-settings";
+import { RoundKenoMatchBase } from "../../../types";
 import KenoMatchGameHeader from "../../games/keno-match/header";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import GameBase from "../../shared/game-base";
-import { Boundary, GameState, PopupType, Position, WinStreakCollectorModel } from "../../shared/game-base/type";
+import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
+import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import ScoreboardTab from "../../shared/scoreboard-tab";
+import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
+import { Choices, defaultResult, StatisticRuleMapping } from "./keno-match-helper";
 import { DrawFullResult, PopupResult } from "./round-result";
-import { choicesMapper, defaultResult } from "./keno-match-helper";
+import { ScoreboardRule } from "./scoreboard-round-history";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
     KenoMatchGameState,
     KenoMatchGameStateEnum,
     KenoMatchProps,
-    Result,
-    SettlementResult,
     KenoMatchRound,
+    Result,
     SeparateRoundHistoryProps,
-    HalfRoundResult,
+    SettlementResult,
     TimeMatch,
 } from "./type";
-import ScoreboardTab from "../../shared/scoreboard-tab";
-import { StatisticFollowPercent } from "../../shared/statistic";
-import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { ScoreboardRule } from "./scoreboard-round-history";
-import { Choices, StatisticRuleMapping } from "./keno-match-helper";
-import { RoundKenoMatchBase } from "../../../types";
 
 class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
-    private socket: Socket;
     private settlementResultOrg: SettlementResult;
     protected showResultInfoH1Timeout: NodeJS.Timeout;
     private isResetResult = false;
@@ -61,37 +56,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 roundHistoryFT: [],
             },
         };
-    }
-
-    componentDidUpdate(prevProps) {}
-
-    onStart() {
-        this.isProcessingBet = false;
-        const { socketInfo } = this.props;
-        const { session } = this.context;
-        const { proxy } = appSettings;
-        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
-
-        this.initWinStreakCollector();
-        this.socket = io(socketUri, {
-            forceNew: true,
-            transports: ["websocket"],
-            upgrade: false,
-            path: `${proxy.path}/${socketInfo.path}/socket.io`,
-        });
-        this.socket.on("connect", () => {
-            this.socket.emit("signin", session);
-        });
-        this.socket.on("signedIn", () => {
-            this.setState({ signedIn: true });
-            this.socket.emit("inGame");
-        });
-        this.socket.on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-        this.socket.on("connect_error", this.onConnectFailed.bind(this));
-        this.socket.on("message", this.onMessageUserStakeLevel.bind(this));
-        this.socket.on("disconnect", () => {
-            this.setState({ gameState: GameState.None });
-        });
     }
 
     onDestroy() {
@@ -450,22 +414,6 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         const { gameConfigs, liveOdds } = this.state;
 
         return liveOdds?.[choice] ?? gameConfigs.odds[choice];
-    }
-
-    placeBet(betChoice: string, amount: number, betPosition?: Position, betOptionBoundary?: Boundary) {
-        const { displayPopup } = this.state;
-
-        if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
-            this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
-        } else {
-            if (amount > 0) {
-                this.betPosition = betPosition;
-                this.betOptionBoundary = betOptionBoundary;
-                this.isProcessingBet = true;
-                this.setRetryInterval();
-                this.socket.emit("bet", { betChoice, amount });
-            }
-        }
     }
 
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {

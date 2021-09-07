@@ -2,8 +2,8 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -15,8 +15,8 @@ import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 import GetScoreboardDotDetails from "./scoreboard-round-history";
 
-class BigSmall extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };

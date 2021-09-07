@@ -1,8 +1,10 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import Auth from "sc-user-service-client/dist/auth";
+import { io, Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
+import appSettings from "../../../common/app-settings";
 import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -11,7 +13,6 @@ import { GameActionsContextProvider } from "../../../contexts/game-actions-conte
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { getBalance } from "../../../services/auth-service";
-import { SocketState } from "../../../types";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -44,8 +45,6 @@ import {
     WinStreakCollectorModel,
 } from "./type";
 
-import { KenoMatchGameState, KenoMatchGameSetting, KenoMatchProps } from "../../../components/games/keno-match/type";
-
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 let isUpdateUserStakeLevel = false;
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
@@ -60,6 +59,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private retryInterval: NodeJS.Timeout;
     protected betPosition: Position;
     protected betOptionBoundary: Boundary;
+    protected socket: Socket;
 
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
@@ -91,8 +91,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betOptionElement: null,
         betChoiceElement: null,
         activeScoreboardTab: 0,
-        //  kenoMatchGameState: KenoMatchGameState.None,
-        kenoMatchGameSetting: null,
     };
 
     constructor(props: P) {
@@ -119,29 +117,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.onStart();
     }
 
-    requestSignIn() {
-        const { gameName } = this.props;
-        const { session } = this.context;
-        this.props.socketGateway.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
-        this.props.socketGateway.emit("signIn", { gameName, session });
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.socketGatewayState !== prevProps.socketGatewayState) {
-            switch (this.props.socketGatewayState) {
-                case SocketState.Connected:
-                    this.onStart();
-                    break;
-                case SocketState.Error:
-                    this.setState({ gameState: GameState.ConnectFailed });
-                    break;
-                default:
-                    this.setState({ signedIn: false });
-                    break;
-            }
-        }
-    }
-
     componentWillUnmount() {
         this.onDestroy();
         this.messageTransmitter.clearAllListener();
@@ -149,7 +124,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onDestroy() {
-        this.props.socketGateway && this.props.socketGateway.emit("outGame", this.props.gameName);
         this.setState({ gameState: GameState.None });
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
@@ -161,7 +135,38 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.isConnectFailed = false;
         this.isProcessingBet = false;
         this.initWinStreakCollector();
-        this.props.socketGateway?.connected && this.requestSignIn();
+
+        this.socket = this.initSocket();
+        this.socket && this.socket.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
+    }
+
+    protected initSocket() {
+        const { socketInfo } = this.props;
+        const { session } = this.context;
+        const { proxy } = appSettings;
+        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
+
+        const socket = io(socketUri, {
+            forceNew: true,
+            transports: ["websocket"],
+            upgrade: false,
+            path: `${proxy.path}/${socketInfo.path}/socket.io`,
+        });
+        socket.on("connect", () => {
+            socket.emit("signin", session);
+        });
+        socket.on("signedIn", () => {
+            this.setState({ signedIn: true });
+            this.socket.emit("inGame");
+        });
+
+        socket.on("connect_error", this.onConnectFailed.bind(this));
+        socket.on("message", this.onMessageUserStakeLevel.bind(this));
+        socket.on("disconnect", () => {
+            this.setState({ gameState: GameState.None });
+        });
+
+        return socket;
     }
 
     onMessageUserStakeLevel({ userStakeLevel }) {
@@ -206,12 +211,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     };
 
-    protected handleSignedIn = ({ signedIn }) => {
+    protected handleSignedIn({ signedIn }) {
         if (signedIn) {
             this.setState({ signedIn: true });
-            this.props.socketGateway.emit("inGame", this.props.gameName);
+            this.socket.emit("inGame", this.props.gameName);
         }
-    };
+    }
 
     handleUserStakeLevel({ userStakeLevel }) {
         this.props.updateUserStakeLevel(userStakeLevel);
@@ -593,18 +598,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 this.betOptionBoundary = betOptionBoundary;
                 this.isProcessingBet = true;
                 this.setRetryInterval();
-                const { gameName } = this.props;
-                const betData = { betChoice, amount };
-                this.props.socketGateway.emit("bet", { gameName, betData });
+                this.sendBetMessage(betChoice, amount);
             }
         }
+    }
+
+    protected sendBetMessage(betChoice: string, amount: number) {
+        this.socket.emit("bet", { betChoice, amount });
     }
 
     setRetryInterval() {
         this.clearRetryInterval();
 
         this.retryInterval = setInterval(() => {
-            this.props.socketGateway.emit("retry");
+            this.socket.emit("retry");
         }, 3 * 1000);
     }
 
@@ -734,7 +741,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }, {});
     }
 
-    getWinningStreakByOptions = ({options}) => {
+    getWinningStreakByOptions = ({ options }) => {
         return Math.max(...options.map((option) => this.winStreakCollector[option]?.streak ?? 0));
     };
 
@@ -845,7 +852,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             isShowBlink,
             displayPopup,
             activeScoreboardTab,
-            // kenoMatchGameState
         } = this.state;
 
         const gameContext = {
@@ -859,7 +865,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             viewMode,
             playResultAnimation,
             isShowBlink,
-            // kenoMatchGameState
         };
 
         const gameActionsContext = {
@@ -936,9 +941,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
-    retryConnect = () => {
-        this.props.socketGateway.connected ? this.onStart() : this.props.retryConnectSocket();
-    };
+    protected retryConnect() {
+        this.onStart();
+    }
 
     render() {
         const { signedIn, gameState, disabledMessage, viewMode } = this.state;
@@ -949,7 +954,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        retryConnect={this.retryConnect}
+                        retryConnect={this.retryConnect.bind(this)}
                     />
                 )}
             </GameContainer>
