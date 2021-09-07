@@ -136,29 +136,32 @@ class PlayerBankerResultComponent extends React.PureComponent<
         const classGroupBankerCards = `group-${bankerCards.length}-cards`;
         return (
             <div className={`${isFullMode ? "overlay-mask" : Styles["result-wrapper"]} ${Styles[classOpenCards]}`}>
-                <div
-                    className={`${Styles[classAnimationContainer]} ${Styles["player"]} ${
-                        this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
-                    }`}
-                >
-                    {generateResult(playerCards, this.state.viewMode)}
-                    <div className={`${Styles[classGroupPlayerCards]} ${Styles["score"]}`}>
-                        {isFullMode ? `${this.state.texts.player}: ` : ""}
-                        <span className={Styles["score-number"]}>{this.state.playerScore}</span>
+                <div className={`${Styles[classAnimationContainer]}`}>
+                    <div
+                        className={`${Styles["player"]} ${
+                            this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                        }`}
+                    >
+                        {generateResult(playerCards, this.state.viewMode)}
+                        <div className={`${Styles[classGroupPlayerCards]} ${Styles["score"]}`}>
+                            {isFullMode ? `${this.state.texts.player}: ` : ""}
+                            <span className={Styles["score-number"]}>{this.state.playerScore}</span>
+                        </div>
                     </div>
-                </div>
 
-                <div
-                    className={`${Styles[classAnimationContainer]} ${Styles["banker"]} ${
-                        this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
-                    }`}
-                >
-                    {generateResult(bankerCards, this.state.viewMode)}
-                    <div className={`${Styles[classGroupBankerCards]} ${Styles["score"]}`}>
-                        {isFullMode ? `${this.state.texts.banker}: ` : ""}
-                        <span className={Styles["score-number"]}>{this.state.bankerScore}</span>
+                    <div
+                        className={`${Styles["banker"]} ${
+                            this.props.playResultAnimation ? "" : Styles[classMoveUpNoAnimation]
+                        }`}
+                    >
+                        {generateResult(bankerCards, this.state.viewMode)}
+                        <div className={`${Styles[classGroupBankerCards]} ${Styles["score"]}`}>
+                            {isFullMode ? `${this.state.texts.banker}: ` : ""}
+                            <span className={Styles["score-number"]}>{this.state.bankerScore}</span>
+                        </div>
                     </div>
                 </div>
+                
             </div>
         );
     }

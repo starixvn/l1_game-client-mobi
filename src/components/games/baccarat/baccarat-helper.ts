@@ -30,6 +30,10 @@ export const BaccaratConfigs = {
             style: "big",
         },
         {
+            name: "small",
+            style: "small",
+        },
+        {
             name: "playerPair",
             style: "player-pair",
         },
@@ -37,10 +41,7 @@ export const BaccaratConfigs = {
             name: "bankerPair",
             style: "bank-pair",
         },
-        {
-            name: "small",
-            style: "small",
-        },
+      
     ],
 };
 
