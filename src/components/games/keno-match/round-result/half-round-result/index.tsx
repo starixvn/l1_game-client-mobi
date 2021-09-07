@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
+import { TeamProps, HalfRoundResultProps, HalfRoundResultPopupProps } from "./half-round-result-props";
 import Styles from "./half-round-result.module.scss";
 
 const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => a + b, 0);
 
-export function HalfResultPopup({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
+export function HalfResultPopup({ result, settlementResult, active, className, headerText, gameName }: HalfRoundResultPopupProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {
@@ -21,13 +21,16 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
-             <div className={Styles["header"]}>{t(headerText)}</div>
+            <div className={Styles["header"]}>{t(headerText)}</div>
             <div className={Styles["main-content"]}>
                 <Team {...blueTeamProps} />
                 <Team {...redTeamProps} />
             </div>
             <div className={Styles["progress-bar-team"]}>
-                <div className={Styles["title"]}><span className={Styles["title-blue"]}>Đội xanh</span><span className={Styles["title-red"]}>Đội đỏ</span></div>
+                <div className={Styles["title"]}>
+                    <span className={Styles["title-blue"]}>{t("blue")}</span>
+                    <span className={Styles["title-red"]}>{t("red")}</span>
+                </div>
                 <div className={Styles["progress-bar"]}>
                     <div className={Styles["triangle"]}></div>
                     <div className={Styles["blue-team"]}>
@@ -37,17 +40,22 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
                     <div className={Styles["red-team"]}>
                         <span className={Styles["red-score"]}></span>
                     </div>
-                </div>                
+                </div>
             </div>
-            <div className={Styles["label-total"]}>Tổng</div>
+            <div className={Styles["label-total"]}>{t("total")} </div>
             <div className={Styles["total-section"]}>
                 <div className={Styles["result-info"]}>
-                    <div className={Styles["result-info-blue"]}>Tài</div>
-                    <div className={Styles["result-info-red"]}>Lẻ</div>
+                    {settlementResult !== undefined &&
+                        Object.keys(settlementResult).map((key) => {
+                            return settlementResult[key] ? <div key={key}>{key}</div> : <></>;
+                        })}
+                    {/* <div className={Styles["result-info-blue"]}>Tài</div>
+                    <div className={Styles["result-info-red"]}>Lẻ</div> */}
                 </div>
-                <div className={Styles["total-score-match"]}>Total <div className={Styles["score-match"]}>{totalPoint}</div></div>
+                <div className={Styles["total-score-match"]}>
+                    {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
+                </div>
             </div>
-            
         </div>
     );
 }
@@ -116,5 +124,9 @@ export function TeamResultRow({ result }) {
 }
 
 export function Tie({ number }: { number: number }) {
-    return <div className={Styles["number"]} data-testid="tie-component" >{number}</div>;
+    return (
+        <div className={Styles["number"]} data-testid="tie-component">
+            {number}
+        </div>
+    );
 }

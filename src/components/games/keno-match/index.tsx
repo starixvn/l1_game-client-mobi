@@ -31,7 +31,6 @@ import {
 } from "./type";
 
 class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
-    private settlementResultOrg: SettlementResult;
     protected showResultInfoH1Timeout: NodeJS.Timeout;
     private isResetResult = false;
     private winStreakCollectorFH: WinStreakCollectorModel;
@@ -304,7 +303,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     getStateByNextGameState(nextGameState: KenoMatchGameStateEnum): any {
-        const { roundId, displayPopup, notice, fullTimeResultPopup, halfTimeResultPopup, settlementResult } = this.state;
+        const { roundId, displayPopup, notice, fullTimeResultPopup, halfTimeResultPopup, settlementResult, settlementResultPopup } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet || nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet) {
@@ -366,7 +365,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                     nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
                 state: {
                     halfTimeResult: halfTimeResultPopup,
-                    settlementResult: this.settlementResultOrg,
+                    settlementResult: settlementResultPopup,
                 },
             },
             // {
@@ -476,9 +475,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 ? this.handleRoundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
                 : roundHistoryFH;
 
-        this.settlementResultOrg = firstHalfResult.settlementResult;
         this.setState({
             halfTimeResultPopup: firstHalfResult?.result,
+            settlementResultPopup: firstHalfResult?.settlementResult
         });
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
@@ -520,9 +519,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
         roundHistoryFTClone.unshift(finish);
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
 
-        this.settlementResultOrg = finish.settlementResult;
         this.setState({
             fullTimeResultPopup: finish.result,
+            settlementResultPopup: finish.settlementResult,
             liveOdds: null,
         });
 
@@ -597,7 +596,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     }
 
     renderPopupResult() {
-        const { halfTimeResultPopup, fullTimeResultPopup, isActiveLiveFullTime, gameState } = this.state,
+        const { halfTimeResultPopup, fullTimeResultPopup, settlementResult, isActiveLiveFullTime, gameState } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
@@ -607,6 +606,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                         halfTimeResult: halfTimeResultPopup,
                         fullTimeResult: fullTimeResultPopup,
                         isActiveLiveFullTime,
+                        settlementResult,
                         gameName: this.props.gameName.toLocaleLowerCase(),
                     }}
                 />

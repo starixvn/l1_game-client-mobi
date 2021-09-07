@@ -1,13 +1,17 @@
 import React from "react";
-import { Result } from "../type";
+import { Result, SettlementResult } from "../type";
 import Styles from "./draw-result.module.scss";
 import { HalfRoundResult, HalfResultPopup } from "./half-round-result";
 
-interface Props {
+interface ResultProps {
     halfTimeResult: Result;
     fullTimeResult: Result;
     isActiveLiveFullTime: boolean;
     gameName: string;
+}
+
+interface PopupResultProps extends ResultProps {
+    settlementResult: SettlementResult;
 }
 
 const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
@@ -16,12 +20,13 @@ const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
         headerText: isActiveLiveFullTime ? "fullTime" : "firstHalf"};
 };
 
-export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
+export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName, settlementResult }: PopupResultProps) {
     const resultProps = isActiveLiveFullTime
         ? {
               ...{
                   result: fullTimeResult,
                   active: isActiveLiveFullTime,
+                  settlementResult,
                   gameName,
               },
               ...buildHalfMatchProps(true),
@@ -30,6 +35,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
               ...{
                   result: halfTimeResult,
                   active: !isActiveLiveFullTime,
+                  settlementResult,
                   gameName,
               },
               ...buildHalfMatchProps(false),
@@ -42,7 +48,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
     );
 }
 
-export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: Props) {
+export function DrawFullResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: ResultProps) {
     return (
         <div className={Styles["draw-result"]}>
             <div className={Styles.field}>
