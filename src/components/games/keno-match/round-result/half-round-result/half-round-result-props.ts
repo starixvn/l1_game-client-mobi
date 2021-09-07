@@ -10,7 +10,6 @@ export interface HalfRoundResultProps {
 
 export interface TeamProps {
     result: number[];
-    totalPoint: number;
     className: string,
     teamName: string
 };

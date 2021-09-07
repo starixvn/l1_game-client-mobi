@@ -1,7 +1,7 @@
 import React from "react";
 import { Result } from "../type";
 import Styles from "./draw-result.module.scss";
-import { HalfRoundResult, HalfResultPopup } from "./half-round-result/half-round-result";
+import { HalfRoundResult, HalfResultPopup } from "./half-round-result";
 
 interface Props {
     halfTimeResult: Result;

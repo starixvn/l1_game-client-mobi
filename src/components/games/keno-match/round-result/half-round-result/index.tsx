@@ -11,16 +11,15 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {
             result: result.blue,
-            totalPoint: calculateTotalPoint(result.blue),
             className: Styles.blue,
             teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
-            totalPoint: calculateTotalPoint(result.red),
             className: Styles.red,
             teamName: t("red"),
-        };
+        },
+        totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
@@ -48,7 +47,7 @@ export function HalfResultPopup({ result, active, className, headerText, gameNam
                     <div className={Styles["result-info-blue"]}>Tài</div>
                     <div className={Styles["result-info-red"]}>Lẻ</div>
                 </div>
-                <div className={Styles["total-score-match"]}>Total <div className={Styles["score-match"]}>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div></div>
+                <div className={Styles["total-score-match"]}>Total <div className={Styles["score-match"]}>{totalPoint}</div></div>
             </div>
             
         </div>
@@ -60,16 +59,15 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
         { t } = useTranslation(gameName),
         blueTeamProps: TeamProps = {
             result: result.blue,
-            totalPoint: calculateTotalPoint(result.blue),
             className: Styles.blue,
             teamName: t("blue"),
         },
         redTeamProps: TeamProps = {
             result: result.red,
-            totalPoint: calculateTotalPoint(result.red),
             className: Styles.red,
             teamName: t("red"),
-        };
+        },
+        totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
 
     return (
         <div className={classNames}>
@@ -83,7 +81,7 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
                 <div className={Styles["middle-column"]}>
                     <div className={Styles.name}>{t(headerText)}</div>
                     <div className={Styles["score-wrapper"]}>
-                        {t("total")} <div className={Styles["score"]}>{blueTeamProps.totalPoint + redTeamProps.totalPoint}</div>
+                        {t("total")} <div className={Styles["score"]}>{totalPoint}</div>
                     </div>
                 </div>
                 <Team {...redTeamProps} />
@@ -92,7 +90,7 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
     );
 }
 
-export function Team({ result, className, teamName, totalPoint }: TeamProps) {
+export function Team({ result, className, teamName }: TeamProps) {
     const halfLength = Math.ceil(result.length / 2);
     const firstHalfResult = result.slice(0, halfLength);
     const secondHalfResult = result.slice(-halfLength);
@@ -105,7 +103,7 @@ export function Team({ result, className, teamName, totalPoint }: TeamProps) {
             ))}
             <div className={Styles["team-name"]}>
                 <span className={Styles["name"]}>{teamName}:</span>
-                <span className={Styles["score"]}>{totalPoint}</span>
+                <span className={Styles["score"]}>{calculateTotalPoint(result)}</span>
             </div>
         </div>
     );
@@ -114,7 +112,7 @@ export function Team({ result, className, teamName, totalPoint }: TeamProps) {
 export function TeamResultRow({ result }) {
     return (
         <div className={Styles.row}>
-            {result.map((number, index) => (
+            {result.map((number: number, index: number) => (
                 <Tie key={index} number={number} />
             ))}
         </div>

@@ -10,8 +10,11 @@ export default {
             useBabelrc: true,
         },
     },
+    testEnvironment: 'jsdom',
     coveragePathIgnorePatterns: ["node_modules", "enzyme.js", ".d.ts"],
-    setupFilesAfterEnv: ["<rootDir>/enzyme.js", "jest-extended"],
+    setupFilesAfterEnv: [
+        "<rootDir>/enzyme.js", "jest-extended",
+        "@testing-library/jest-dom/extend-expect"],
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
     moduleNameMapper: {
