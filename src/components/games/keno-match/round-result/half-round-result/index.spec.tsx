@@ -1,7 +1,7 @@
 // import '@testing-library/jest-dom';
 import { render, fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { Tie, TeamResultRow, Team, HalfRoundResult, HalfResultPopup } from ".";
+import { Tie, Team, HalfRoundResult, HalfResultPopup } from ".";
 
 jest.mock("next-i18next", () => ({
     useTranslation: () => ({
@@ -34,12 +34,12 @@ test("Tie should be render correctly", () => {
     expect(component).toHaveClass("number");
 });
 
-test("TeamResultRow should be render correctly", () => {
-    render(<TeamResultRow result={[5, 6, 7, 8, 9]} />);
+// test("TeamResultRow should be render correctly", () => {
+//     render(<TeamResultRow result={[5, 6, 7, 8, 9]} />);
 
-    expect(screen.getAllByTestId("tie-component")).toHaveLength(5);
-    expect(screen.getByTestId("team-result-row-component")).toHaveClass("row");
-});
+//     expect(screen.getAllByTestId("tie-component")).toHaveLength(5);
+//     expect(screen.getByTestId("team-result-row-component")).toHaveClass("row");
+// });
 
 test("Team should be render correctly", () => {
     const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],

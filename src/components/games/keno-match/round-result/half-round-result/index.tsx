@@ -109,16 +109,18 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
 }
 
 export function Team({ result, teamName }: TeamProps) {
-    const halfLength = Math.ceil(result.length / 2);
-    const firstHalfResult = result.slice(0, halfLength);
-    const secondHalfResult = result.slice(-halfLength);
-    const results = [firstHalfResult, secondHalfResult];
+    // const halfLength = Math.ceil(result.length / 2);
+    // const firstHalfResult = result.slice(0, halfLength);
+    // const secondHalfResult = result.slice(-halfLength);
+    // const results = [firstHalfResult, secondHalfResult];
 
     return (
         <div className={`${Styles.team}`} data-testid="team-component">
-            {results.map((result, parentIndex) => (
-                <TeamResultRow result={result} key={parentIndex} />
+            <div className={Styles.row} data-testid="team-result-row-component">
+            {result.map((number: number, index: number) => (
+                <Tie key={index} number={number} />
             ))}
+        </div>
             <div className={Styles["team-name"]}>
                 <span className={Styles["name"]}>{teamName}:</span>
                 <span className={Styles["score"]}>{calculateTotalPoint(result)}</span>
@@ -127,15 +129,15 @@ export function Team({ result, teamName }: TeamProps) {
     );
 }
 
-export function TeamResultRow({ result }) {
-    return (
-        <div className={Styles.row} data-testid="team-result-row-component">
-            {result.map((number: number, index: number) => (
-                <Tie key={index} number={number} />
-            ))}
-        </div>
-    );
-}
+// export function TeamResultRow({ result }) {
+//     return (
+//         <div className={Styles.row} data-testid="team-result-row-component">
+//             {result.map((number: number, index: number) => (
+//                 <Tie key={index} number={number} />
+//             ))}
+//         </div>
+//     );
+// }
 
 export function Tie({ number }: { number: number }) {
     return (
