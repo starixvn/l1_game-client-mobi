@@ -1,3 +1,5 @@
+@import "~slick-carousel/slick/slick-theme.scss";
+@import "~slick-carousel/slick/slick.scss";
 @import "./components/fonts";
 @import "./components/icons";
 @import "./components/common";
@@ -6,6 +8,7 @@
 @import "./components/dropdown";
 @import "./components/animations/loader-animation";
 @import "./components/animations/common";
+@import "./components/slick";
 @import "./components/infinite-table";
 @import "./components/tooltip";
 @import "./components/popover";
