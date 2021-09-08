@@ -5,6 +5,7 @@ import { User } from "sc-user-service-client/dist/auth";
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
 import Styles from "./header.module.scss";
+import UserInfo from "./user-info";
 
 type Props = {
     user: User;
