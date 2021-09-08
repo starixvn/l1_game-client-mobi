@@ -1,5 +1,8 @@
 @import "../../../../../assets/components/settlement-info";
 
+$time-open-ball: 0.3s;
+$time-run-progress-bar: 0.3s;
+
 .result {
     position: relative;
     border-bottom: 1px solid #D1DBF8;
@@ -28,10 +31,10 @@
 
 .number {
     background: radial-gradient(50% 50% at 50% 50%, #FCFCFC 0%, #D7D7D7 78.96%, #C7C7C7 100%);
-    width: 22px;
-    height: 22px;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;        
-    font: 500 1.3rem var(--font-number);
+    font: 500 1.2rem var(--font-number);
     color: #2c2f3e;
     line-height: 2.2rem;
 }
@@ -240,20 +243,20 @@
         --ball-blue-10: 44;
     }
     @include value-ball();
-    .main-content .team {
-        .number {            
-            @for $i from 1 through 10 {
-                .number:nth-child(#{$i}) {
-                    opacity: 0;
-                animation: appear-value 0.2s linear forwards;
-                    animation-delay: calc(0.2s * $i);
-                }
-              }
+    .main-content .team {           
+        @for $i from 1 through 10 {
+            .number {
+                opacity: 0;
+            }
+            .number:nth-child(#{$i}) {                
+                animation: show-value 0.2s ease-in-out forwards;
+                animation-delay: calc($time-open-ball * #{$i});
+            }
         }
     }
 }
 
-@keyframes appear-value {
+@keyframes show-value {
     from {
         opacity: 0;
         transform: scale3d(0, 0 , 0);
