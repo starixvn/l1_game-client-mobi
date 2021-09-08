@@ -31,7 +31,7 @@
     width: 22px;
     height: 22px;
     border-radius: 50%;        
-    font: 600 1.3rem var(--font-number);
+    font: 500 1.3rem var(--font-number);
     color: #2c2f3e;
     line-height: 2.2rem;
 }
@@ -241,9 +241,14 @@
     }
     @include value-ball();
     .main-content .team {
-        .number {
-            opacity: 0;
-            animation: appear-value 0.2s 0.2s linear forwards;
+        .number {            
+            @for $i from 1 through 10 {
+                .number:nth-child(#{$i}) {
+                    opacity: 0;
+                animation: appear-value 0.2s linear forwards;
+                    animation-delay: calc(0.2s * $i);
+                }
+              }
         }
     }
 }
@@ -255,7 +260,7 @@
     }
     to {
         opacity: 1;
-        transform: scale3d(1, 0 , 0);
+        transform: scale3d(1, 1 , 1);
     }
     
 }
