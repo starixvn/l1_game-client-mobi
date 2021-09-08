@@ -278,6 +278,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
+    setEnabledQuickBet(enabled: boolean) {
+        this.setState({ enabledQuickBet: enabled });
+    }
+
+    setBetValue(value: number) {
+        this.setState({ betValue: value });
+    }
+
     closeDialog() {
         this.setState({ isShowErrorModal: false });
     }
