@@ -22,28 +22,6 @@
     }
 }
 
-// .half-time {
-
-//     &.active {
-//         bottom: -1%;
-//         border: 1px solid rgba(0, 255, 246, 0.4);
-//         border-radius: 10px;
-//         filter: none;
-//         opacity: 1;
-//     }
-// }
-
-// .full-time {
-    
-//     &.active {
-//         top: -46%;
-//         border: 1px solid rgba(0, 255, 246, 0.4);
-//         border-radius: 10px;
-//         filter: none;
-//         opacity: 1;
-//     }
-// }
-
 .row {
     text-align: center;
 }
@@ -138,6 +116,7 @@
         text-align: center;
         font-weight: bold;
         margin-top: 1rem;
+        
     }
     .team {
         padding: 0;
@@ -206,6 +185,7 @@
         border-bottom-right-radius: 2rem;
         display: grid;
         grid-template-columns: 1fr 9.8rem;
+        align-items: center;
         .total-score-match {
             font-size: 1.4rem;
             font-weight: 500;
@@ -228,20 +208,56 @@
 
             }
         }
-        // .result-info {
-        //     justify-content: center;
-        //     display: flex;
-        //     align-items: center;
-        //     [class*="result-info"] {
-        //         min-width: 8rem;
-        //         border-radius: 3rem;
-        //         font-size: 1.6rem;
-        //         font-weight: bold;
-        //         color: #fff;
-        //     }
-        //     &-blue {
-        //         background: 
-        //     }
-        // }
+        .result-info {
+            grid-gap: .6rem;
+            [class*="result-info"] {
+                min-width: 8rem;
+            }
+        }
+    }
+
+    @mixin value-ball(){
+        --ball-red-1: 52;
+        --ball-red-2: 65;
+        --ball-red-3: 18;
+        --ball-red-4: 3;
+        --ball-red-5: 39;
+        --ball-red-6: 27;
+        --ball-red-7: 20;
+        --ball-red-8: 11;
+        --ball-red-9: 19;
+        --ball-red-10: 6;
+
+        --ball-blue-1: 80;
+        --ball-blue-2: 11;
+        --ball-blue-3: 78;
+        --ball-blue-4: 13;
+        --ball-blue-5: 3;
+        --ball-blue-6: 61;
+        --ball-blue-7: 25;
+        --ball-blue-8: 7;
+        --ball-blue-9: 8;
+        --ball-blue-10: 44;
+    }
+    @include value-ball();
+    .main-content .team {
+        .number {
+            opacity: 0;
+            animation: appear-value 0.2s 0.2s linear forwards;
+        }
     }
 }
+
+@keyframes appear-value {
+    from {
+        opacity: 0;
+        transform: scale3d(0, 0 , 0);
+    }
+    to {
+        opacity: 1;
+        transform: scale3d(1, 0 , 0);
+    }
+    
+}
+
+
