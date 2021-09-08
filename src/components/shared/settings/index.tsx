@@ -3,7 +3,6 @@ import { useTheme } from "next-themes";
 import React, { useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import { FavoriteSetting } from "../../favorite-setting";
-import BetSettings from "../bet-settings";
 import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
@@ -12,8 +11,6 @@ import { Props } from "./types";
 const ButtonSettingClassName = "setting-button";
 
 export const Settings: React.FC<Props> = ({
-    updateBetSetting,
-    globalBetSetting,
     enabledNotification,
     onToggleNotification,
     toggleHistoryModal,
@@ -33,9 +30,6 @@ export const Settings: React.FC<Props> = ({
 
     return (
         <div className={styles["settings-container"]}>
-            <div className={styles["setting-left"]}>
-                <BetSettings updateBetSetting={updateBetSetting} betSettings={globalBetSetting} />
-            </div>
             <div className={styles["setting-right"]}>
                 <div
                     ref={toggleWinningStreakBtnRef}

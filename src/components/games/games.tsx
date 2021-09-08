@@ -64,8 +64,6 @@ export const Games: React.FC<Props> = ({
     enabledWinningStreakNotification,
     enabledPlaySound,
     setApiErrorMessage,
-    betSettings,
-    updateBetSetting,
     userStakeLevel,
     updateUserStakeLevel,
     updateFavoriteGames,
@@ -187,9 +185,7 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider
-                value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, betSettings, updateBetSetting, userStakeLevel }}
-            >
+            <SystemContextProvider value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel }}>
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <GameCategory
                     favoriteGames={favoriteGames}

@@ -9,7 +9,6 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
-import BetSettings from "../bet-settings";
 import Styles from "./game-header.module.scss";
 import { Tooltip } from "../tooltip";
 
@@ -81,8 +80,7 @@ export default function GameHeader() {
 
 const HeaderRight = ({ displayMenu }) => {
     const gameActions = useGameActionContext();
-    const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
+    const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
     const { t } = useTranslation();
@@ -114,15 +112,6 @@ const HeaderRight = ({ displayMenu }) => {
                         <Tooltip message={t("rebet")} hoverWrapper={rebetBtnWrapper} />
                     </button>
                 </div>
-            )}
-            {viewMode !== ViewMode.collapse && displayMenu && (
-                <BetSettings
-                    gameId={gameId}
-                    betSettings={systemContext.betSettings[gameId]}
-                    updateBetSetting={systemContext.updateBetSetting}
-                    gameConfigs={gameConfigs}
-                    isDisabled={gameState === GameState.Disabled}
-                />
             )}
         </div>
     );

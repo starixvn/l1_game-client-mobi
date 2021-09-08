@@ -1,16 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 
-import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { BetSettingStorage } from "../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
 
-const betSettingStorageKey = SessionStorageKeys.betSetting;
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
     [HighlightType.None]: "",
@@ -58,19 +55,9 @@ const BetOption: React.FunctionComponent<Props> = ({
     const onClickBet = (event: any) => {
         event.preventDefault();
 
-        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
-        const betSetting = betSettingStorage[id];
-        const betValue = betSetting?.betStake ?? 1;
-        const enabledQuickBet = betSetting?.enabledQuickBet;
-        const betChoiceRect = betChoiceRef.current.getBoundingClientRect();
-
-        if (enabledQuickBet) {
-            placeBet(choice, betValue, { x: event.clientX, y: event.clientY }, { left: betChoiceRect.left, right: betChoiceRect.right });
-        } else {
-            setIsFocusChoice(true);
-            const betOptionElement = totalBetRef.current.nextElementSibling;
-            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
-        }
+        setIsFocusChoice(true);
+        const betOptionElement = totalBetRef.current.nextElementSibling;
+        openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
     };
 
     const removeBetChoiceFocus = () => {

@@ -5,27 +5,23 @@ import NumberFormat, { NumberFormatValues } from "react-number-format";
 
 import { gameVipIds } from "../../../common/constants";
 import { GameResourceKeys } from "../../../common/resources";
-import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { BetSettingStorage } from "../bet-settings/type";
 import { numPad, tooltipTimeout } from "./place-bet-constant";
 import { adjustPopupPosition, adjustPopupPositionDidUpdate, buildChips, buildVIPChips } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
 
-const betSettingStorageKey = SessionStorageKeys.betSetting;
 let timeoutIns = null;
 
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const numberFormatRef = useRef<HTMLInputElement>(null);
     const { roundId, gameSetting, gameConfigs } = useGameContext();
-    const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
     const { minbet } = gameConfigs;
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
-    const [betStake, setBetStake] = useState(betSettingStorage[gameSetting.id]?.betStake ?? null);
+    const [betStake, setBetStake] = useState(null);
 
     const [style, setStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState("");
