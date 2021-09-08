@@ -309,6 +309,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             favoriteGames,
             authorizeInfo,
             enabledQuickBet,
+            betValue,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -326,6 +327,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                     />
                     <Games
+                        enabledQuickBet={enabledQuickBet}
+                        betValue={betValue}
                         enabledWinningStreakNotification={enabledWinningStreakNotification}
                         enabledPlaySound={enabledPlaySound}
                         setApiErrorMessage={this.handleShowApiErrorMessage}

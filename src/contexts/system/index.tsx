@@ -1,7 +1,10 @@
 import React from "react";
+
 import { UserStakeLevel } from "../../components/shared/game-base/type";
 
 export const SystemContext = React.createContext<{
+    betValue: number;
+    enabledQuickBet: boolean;
     setFavorite: Function;
     favoriteGames: number[];
     enabledPlaySound: boolean;

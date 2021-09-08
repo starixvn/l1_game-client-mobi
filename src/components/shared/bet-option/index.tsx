@@ -3,6 +3,7 @@ import { useCountUp } from "react-countup";
 
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
@@ -27,6 +28,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const { totalBets, ownBets, gameSetting } = useGameContext();
     const { id } = gameSetting;
     const { openPlaceBetModal, placeBet } = useGameActionContext();
+    const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
@@ -54,10 +56,13 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const onClickBet = (event: any) => {
         event.preventDefault();
-
-        setIsFocusChoice(true);
-        const betOptionElement = totalBetRef.current.nextElementSibling;
-        openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
+        if (enabledQuickBet) {
+            placeBet(choice, betValue);
+        } else {
+            setIsFocusChoice(true);
+            const betOptionElement = totalBetRef.current.nextElementSibling;
+            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
+        }
     };
 
     const removeBetChoiceFocus = () => {

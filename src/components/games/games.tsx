@@ -8,6 +8,7 @@ import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { SocketState } from "../../types";
+import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
@@ -24,7 +25,6 @@ import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { Props } from "./type";
-import { FavoriteGuide } from "../favorite-guide";
 
 let gamesOrder = [];
 
@@ -61,6 +61,8 @@ const getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
 };
 
 export const Games: React.FC<Props> = ({
+    enabledQuickBet,
+    betValue,
     enabledWinningStreakNotification,
     enabledPlaySound,
     setApiErrorMessage,
@@ -185,7 +187,9 @@ export const Games: React.FC<Props> = ({
 
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
-            <SystemContextProvider value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel }}>
+            <SystemContextProvider
+                value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
+            >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <GameCategory
                     favoriteGames={favoriteGames}
