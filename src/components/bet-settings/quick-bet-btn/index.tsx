@@ -3,6 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { useAuthContext } from "../../../contexts/auth";
+import { updateUserQuickBetSetting } from "../../../services/user-setting-service";
+import BaseDialog from "../../shared/base-dialog";
+import { ModalType } from "../../shared/base-dialog/type";
+import ConfirmMessage from "../confirm-message";
 import Styles from "./quick-bet-btn.module.scss";
 
 export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; isHeaderSetting: boolean }> = ({
@@ -13,7 +17,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const tooltipRef = useRef<HTMLDivElement>(null);
-    //const userSettingsService = UserClientCommunication.getUserClientInstance().userSettings;
+
     const authContext = useAuthContext();
     const { t } = useTranslation();
 
@@ -21,7 +25,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
         setIsShowTooltip(false);
         closeModal();
         updateEnabledQuickBet(true);
-        //userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, true);
+        updateUserQuickBetSetting(authContext.session, true);
     };
 
     const closeModal = () => {
@@ -46,7 +50,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
             setIsShowPopup(true);
         } else {
             updateEnabledQuickBet(false);
-            //userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, false);
+            updateUserQuickBetSetting(authContext.session, false);
         }
     };
 
@@ -57,7 +61,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
 
     const closeHintTooltip = () => {
         setIsShowTooltip(false);
-        //userSettingsService.updateUserQuickBetSetting(authContext.session.ss, authContext.session.username, false);
+        updateUserQuickBetSetting(authContext.session, false);
     };
 
     return (
@@ -82,9 +86,9 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
             {isShowModalConfirm && !!enabledQuickBet === false && (
                 <div className={Styles["modalConfirm"]}>
                     <div className={`${Styles["bg-opacity"]}`}></div>
-                    {/* <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
+                    <BaseDialog type={ModalType.Message} isOpen={isShowModalConfirm} onCloseModal={closeModal}>
                         <ConfirmMessage closeModal={closeModal} confirmQuickBet={confirmQuickBet} />
-                    </BaseDialog> */}
+                    </BaseDialog>
                 </div>
             )}
             {enabledQuickBet === undefined && isShowTooltip && (
