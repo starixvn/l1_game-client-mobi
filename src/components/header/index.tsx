@@ -16,6 +16,8 @@ type Props = {
     toggleGuideModal: Function;
     updateFavoriteGames: Function;
     favoriteGames: number[];
+    enabledQuickBet?: boolean;
+    updateEnabledQuickBet?: Function;
 };
 
 function UserInfo({ user }: { user: User }) {
@@ -58,6 +60,8 @@ const Header: React.FC<Props> = (props) => {
                                     toggleGuideModal={props.toggleGuideModal}
                                     favoriteGames={props.favoriteGames}
                                     updateFavoriteGames={props.updateFavoriteGames}
+                                    enabledQuickBet={props.enabledQuickBet}
+                                    updateEnabledQuickBet={props.updateEnabledQuickBet}
                                 />
                             )}
                             <UserInfo user={props.user} />
@@ -76,6 +80,8 @@ const Header: React.FC<Props> = (props) => {
                         toggleGuideModal={props.toggleGuideModal}
                         favoriteGames={props.favoriteGames}
                         updateFavoriteGames={props.updateFavoriteGames}
+                        enabledQuickBet={props.enabledQuickBet}
+                        updateEnabledQuickBet={props.updateEnabledQuickBet}
                     />
                 </div>
             )}

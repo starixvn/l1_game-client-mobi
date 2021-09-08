@@ -325,6 +325,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleGuideModal={this.toggleGuideModal}
                         favoriteGames={favoriteGames}
                         updateFavoriteGames={this.updateFavoriteGames}
+                        enabledQuickBet={enabledQuickBet}
+                        updateEnabledQuickBet={this.setEnabledQuickBet}
                     />
                     <Games
                         enabledQuickBet={enabledQuickBet}

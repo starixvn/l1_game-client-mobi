@@ -72,4 +72,27 @@
         @extend .modal-favoritesetting;
         position: initial !important;
     }
+
+    // quick-bet confirm
+    &.modal-message {
+        border-radius: 0.5rem !important;
+        padding: 0 !important;
+        bottom: 8rem;
+        left: 5px;
+        right: 5px;
+        box-shadow: none;
+
+        &.isMobile {
+            top: 9rem;
+            bottom: auto !important;
+        }
+
+        @media (min-width: 1024px) {
+            display: flex;
+            top: 0;
+            bottom: 8rem;
+            background: none;
+            border: none;
+        }
+    }
 }
