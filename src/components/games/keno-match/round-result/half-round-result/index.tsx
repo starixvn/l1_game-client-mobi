@@ -3,9 +3,11 @@ import { useTranslation } from "next-i18next";
 
 import { TeamProps, HalfRoundResultProps, HalfRoundResultPopupProps } from "./half-round-result-props";
 import { SettlementResult } from "../../type";
+import { resetValue } from "../../keno-match-helper";
 import Styles from "./half-round-result.module.scss";
 
-const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => a + b, 0);
+const validateResetValue = (value: number) => value !== resetValue ? value : 0;
+const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => (validateResetValue(a) + validateResetValue(b)), 0);
 
 export function HalfResultPopup({ result, settlementResult, active, className, headerText, gameName }: HalfRoundResultPopupProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
@@ -26,14 +28,15 @@ export function HalfResultPopup({ result, settlementResult, active, className, h
             return  <></>;
         }
         
-        return Object.keys(settlementResult).map((key) => {
-            return settlementResult[key] && ["odd", "even", "over", "under"].includes(key) ? (
-                <div key={key} className={Styles["result-info-red"] }>
-                    {t(key)}
-                </div>
-            ) : (
-                <></>
-            );
+        return Object.keys(settlementResult).map((keyName, index) => {
+            if(settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName))
+            {
+                return  (
+                    <div key={index} className={Styles["result-info-red"] }>
+                        {t(keyName)}
+                    </div>
+                )
+            }
         })
     };
 
@@ -137,7 +140,7 @@ export function TeamResultRow({ result }) {
 export function Tie({ number }: { number: number }) {
     return (
         <div className={Styles["number"]} data-testid="tie-component">
-            {number}
+            {number !== resetValue ? number : ""}
         </div>
     );
 }

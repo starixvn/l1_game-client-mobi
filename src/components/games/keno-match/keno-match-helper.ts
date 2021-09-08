@@ -1,9 +1,21 @@
 import { TFunction } from "next-i18next";
 import { KenoMatchRound, Result, SettlementResult } from "./type";
 
+export const resetValue = -1;
+const buildDefaultResult = () =>{
+    let index = 10, emptyResult =[];
+    while( index > 0)
+    {
+        emptyResult.push(resetValue);
+        index--;
+    }
+
+    return emptyResult;
+}
+
 export const defaultResult = {
-    blue: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    red: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    blue: buildDefaultResult(),
+    red:  buildDefaultResult()
 };
 
 export const choicesMapper = {
