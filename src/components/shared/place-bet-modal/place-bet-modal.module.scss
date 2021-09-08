@@ -125,37 +125,6 @@
         }
     }
 
-    .stake {
-        margin-bottom: 0.4rem;
-    }
-
-    .payout {
-        display: flex;
-        justify-content: space-between;
-        line-height: 2.6rem;
-        font-size: 1.6rem;
-
-        @media (min-width: 768px) {
-            line-height: 2.4rem;
-            font-size: 1.4rem;
-        }
-    }
-
-    .number {
-        font-family: var(--font-number);
-    }
-
-    .bet-chips {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        @media (min-width: 768px) {
-            margin-top: 0.4rem;
-            margin-bottom: 0.7rem;
-        }
-    }
-
     .place-bet-container {
         padding: 0 1.6rem 1.6rem;
     }
@@ -216,22 +185,4 @@
             font-size: 1.4rem;
         }
     }
-}
-
-.smart-fake-input-caret {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 38px;
-    width: 1px;
-    height: 20px;
-    transform: translateY(-50%);
-    background-color: rgba(79, 110, 160, 0.996);
-    animation-name: F;
-    animation-duration: .9s;
-    animation-iteration-count: infinite;
-}
-
-.smart-fake-input-caret.smart-fake-input-caret-special {
-    right: 5px;
 }

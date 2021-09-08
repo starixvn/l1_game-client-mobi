@@ -1,16 +1,14 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
-import NumberFormat, { NumberFormatValues } from "react-number-format";
 
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { adjustPopupPosition, adjustPopupPositionDidUpdate, buildChips, buildVIPChips } from "./place-bet-modal-helper";
+import { adjustPopupPosition, adjustPopupPositionDidUpdate } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
-
 
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -44,12 +42,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         window.addEventListener("mousedown", handleClickOutside);
 
-        return () => {
-            window.removeEventListener("mousedown", handleClickOutside);
-        };
-    }, [wrapperRef]);
-
-    useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPositionDidUpdate(
                 props.gameBaseContainerRef,
@@ -62,7 +54,11 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 setArrowStyle(popupStyle.arrowStyle);
             }
         }
-    }, []);
+
+        return () => {
+            window.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [wrapperRef]);
 
     const closeModal = () => {
         props.removeBetChoiceFocus();
