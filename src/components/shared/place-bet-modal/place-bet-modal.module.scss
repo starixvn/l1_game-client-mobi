@@ -11,10 +11,10 @@
 .modal-placebetform {
     cursor: auto;
     position: fixed;
-    bottom: 0;
+    bottom: 12rem;
     left: 0.4rem;
     right: 0.4rem;
-    height: 44rem;
+    height: 24rem;
     padding-left: 2rem;
     padding-right: 2rem;
     background: var(--popup-background);
@@ -33,7 +33,6 @@
         left: auto;
         right: auto;
         width: 25rem;
-        height: 27rem;
         padding-left: 1rem;
         padding-right: 1rem;
         border-radius: 0.5rem;
@@ -125,10 +124,6 @@
         }
     }
 
-    .place-bet-container {
-        padding: 0 1.6rem 1.6rem;
-    }
-    
     .general-info {
         display: flex;
         align-items: center;
@@ -144,40 +139,40 @@
         font-size: 2rem;
         text-transform: capitalize;
     }
-    
+
     .confirm-text {
         text-align: center;
         font-weight: 500;
         font-size: 1.6rem;
         margin-top: 1rem;
     }
-    
+
     .payout {
         display: flex;
         justify-content: space-between;
         padding: 0 1rem;
-        margin: 2rem 0;
+        margin: 1rem 0;
         font-size: 1.6rem;
     }
-    
+
     .highlight {
         color: var(--primary-color);
         font-family: var(--font-number);
         font-weight: 500;
     }
-    
+
     .error-message {
         margin-bottom: 0.4rem;
         color: var(--error-color);
     }
-    
+
     .actions {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 3rem;
         margin-top: 0.5rem;
     }
-    
+
     @media (min-width: 768px) {
         .custom-button {
             height: 3.2rem;
