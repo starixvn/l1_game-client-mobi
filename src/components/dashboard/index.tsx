@@ -14,6 +14,7 @@ import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
+import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
@@ -50,6 +51,8 @@ type State = {
     isShowHistory: boolean;
     isShowGuide: boolean;
     favoriteGames: number[];
+    enabledQuickBet: boolean;
+    betValue: number;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -72,6 +75,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
+            enabledQuickBet: false,
+            betValue: 1,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -93,6 +98,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
+        this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
+        this.setBetValue = this.setBetValue.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -110,7 +117,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
-        this.setState({ authorizeInfo });
+        this.setState({ authorizeInfo, enabledQuickBet: authorizeInfo?.user?.settings?.quickBet });
     }
 
     updateUserBalance(balance: number) {
@@ -276,6 +283,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
+    setEnabledQuickBet(enabled: boolean) {
+        this.setState({ enabledQuickBet: enabled });
+    }
+
+    setBetValue(value: number) {
+        this.setState({ betValue: value });
+    }
+
     updateBetSetting(setting: BetSetting, gameId?: number) {
         const { betSettings } = this.state;
 
@@ -324,6 +339,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             userStakeLevel,
             favoriteGames,
             authorizeInfo,
+            enabledQuickBet,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -353,6 +369,12 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
                         queryGame={this.props.queryGame}
+                    />
+                    <BetSettings
+                        enabledQuickBet={enabledQuickBet}
+                        updateEnabledQuickBet={this.setEnabledQuickBet}
+                        updateBetValue={this.setBetValue}
+                        enabledSound={enabledPlaySound}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
