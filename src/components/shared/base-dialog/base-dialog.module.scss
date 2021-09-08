@@ -73,26 +73,20 @@
         position: initial !important;
     }
 
-    // quick-bet confirm
     &.modal-message {
-        border-radius: 0.5rem !important;
-        padding: 0 !important;
-        bottom: 8rem;
+        border-radius: 0.5rem;
+        padding: 0;
         left: 5px;
+        bottom: 8rem;
         right: 5px;
+        background: none;
         box-shadow: none;
-
-        &.isMobile {
-            top: 9rem;
-            bottom: auto !important;
-        }
+        border: none;
 
         @media (min-width: 1024px) {
             display: flex;
             top: 0;
             bottom: 8rem;
-            background: none;
-            border: none;
         }
     }
 }
