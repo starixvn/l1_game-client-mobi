@@ -9,6 +9,23 @@ jest.mock("next-i18next", () => ({
     }),
 }));
 
+describe("Tie", () => {
+    test("should be have `number` class", () => {
+        render(<Tie number={5} />);
+        expect(screen.getByTestId("tie-component")).toHaveClass("number");
+    });
+
+    test.each`
+        result | expectedInnerHtml
+        ${5}   | ${"5"}
+        ${-1}  | ${""}
+    `("should render inner html correctly", ({ result, expectedInnerHtml }) => {
+        render(<Tie number={result} />);
+
+        expect(screen.getByTestId("tie-component").innerHTML).toEqual(expectedInnerHtml);
+    });
+});
+
 test("Tie should be render correctly", () => {
     render(<Tie number={5} />);
     const component = screen.getByTestId("tie-component");
@@ -25,7 +42,8 @@ test("TeamResultRow should be render correctly", () => {
 });
 
 test("Team should be render correctly", () => {
-    const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], teamName = "red";
+    const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        teamName = "red";
 
     render(<Team {...{ result, teamName }} />);
 
