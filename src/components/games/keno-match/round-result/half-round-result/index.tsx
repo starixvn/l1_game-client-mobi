@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 
 import { TeamProps, HalfRoundResultProps, HalfRoundResultPopupProps } from "./half-round-result-props";
+import { SettlementResult } from "../../type";
 import Styles from "./half-round-result.module.scss";
 
 const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => a + b, 0);
@@ -18,6 +19,23 @@ export function HalfResultPopup({ result, settlementResult, active, className, h
             teamName: t("red"),
         },
         totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
+
+    const buildWinning = (settlementResult: SettlementResult) => {
+        if(settlementResult === undefined)
+        {
+            return  <></>;
+        }
+        
+        return Object.keys(settlementResult).map((key) => {
+            return settlementResult[key] && ["odd", "even", "over", "under"].includes(key) ? (
+                <div key={key} className={Styles["result-info-red"] }>
+                    {t(key)}
+                </div>
+            ) : (
+                <></>
+            );
+        })
+    };
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
@@ -42,16 +60,9 @@ export function HalfResultPopup({ result, settlementResult, active, className, h
                     </div>
                 </div>
             </div>
-            <div className={Styles["label-total"]}>{t("total")} </div>
+            <div className={Styles["label-total"]}>{t("sum")} </div>
             <div className={Styles["total-section"]}>
-                <div className={Styles["result-info"]}>
-                    {settlementResult !== undefined &&
-                        Object.keys(settlementResult).map((key) => {
-                            return settlementResult[key] ? <div key={key}>{key}</div> : <></>;
-                        })}
-                    {/* <div className={Styles["result-info-blue"]}>Tài</div>
-                    <div className={Styles["result-info-red"]}>Lẻ</div> */}
-                </div>
+                <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
                 <div className={Styles["total-score-match"]}>
                     {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
                 </div>
