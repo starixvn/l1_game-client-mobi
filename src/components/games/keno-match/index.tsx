@@ -570,8 +570,9 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
-            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (<BaseDialog type={ModalType.Center}>
+            // (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+            //     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
+                (<BaseDialog type={ModalType.Center}>
                 <PopupResult
                     {...{
                         halfTimeResult: halfTimeResultPopup,
@@ -591,8 +592,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
         return (
             <>
-                {(kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                    kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && <div className="overlay-mask-white"></div>}
+                {
+                // (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+                //     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
+                    <div className="overlay-mask-white"></div>}
                 <DrawFullResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
