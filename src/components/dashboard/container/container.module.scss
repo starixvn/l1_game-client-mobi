@@ -25,17 +25,14 @@
     @media (max-width: 767px) {
         background-color: var(--page-background);
         align-items: initial;
-        min-height: 69rem;
-    }
-
-    @media (max-width: 320px) {
-        height: auto;
+        min-height: 81rem;
     }
 }
 
 .page-bg {
     display: flex;
     flex-direction: column;
+    height: 81rem;
     width: 100%;
     padding: 1rem 2rem;
 

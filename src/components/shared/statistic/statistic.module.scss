@@ -4,10 +4,19 @@
     display: inline-block;
     margin-right: 0.4rem;
     margin-left: 1rem;
-}
 
-.number {
-    margin-left: 0.2rem;
+    @media (min-width: 1024px) and (max-width: 1278px) {
+        margin-left: 0.6rem;
+        margin-right: 0;
+    }
+
+    @media (max-width: 380px) {
+        margin-left: 0.8rem;
+        margin-right: 0;
+    }
+    @media (max-width: 350px) {
+        margin-left: 0.4rem;
+    }
 }
 
 .statistic-container {
@@ -20,14 +29,31 @@
     display: flex;
     align-items: center;
     margin-right: 0.6rem;
+
+    @media (min-width: 1024px) and (max-width: 1278px) {
+        margin-right: 0;
+    }
+
+    @media (max-width: 400px) {
+        margin-right: 0;
+    }
 }
 
 .number {
     margin-left: 0.2rem;
+    font-size: 1.4rem;
     font-family: var(--font-number);
     color: var(--statistic-number-color);
 
     @media (min-width: 1024px) and (max-width: 1278px) {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 380px) {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 350px) {
         font-size: 1.2rem;
     }
 }
