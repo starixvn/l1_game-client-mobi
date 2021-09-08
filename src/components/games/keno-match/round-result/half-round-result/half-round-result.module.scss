@@ -17,7 +17,7 @@ $time-run-progress-bar: 0.3s;
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            margin-bottom: .3rem;
+            grid-row-gap: .5rem;
             .number {
                 justify-self: center;
             }
@@ -250,9 +250,12 @@ $time-run-progress-bar: 0.3s;
             }
             .number:nth-child(#{$i}) {                
                 animation: show-value 0.2s ease-in-out forwards;
-                animation-delay: calc($time-open-ball * #{$i});
+                animation-delay: calc(#{$time-open-ball} * #{$i});
             }
         }
+    }
+    .progress-bar-team {
+        --number-total-1: var(--ball-blue-1) + var(--ball-red-1);
     }
 }
 
