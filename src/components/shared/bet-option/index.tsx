@@ -56,6 +56,7 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const onClickBet = (event: any) => {
         event.preventDefault();
+        
         if (enabledQuickBet) {
             placeBet(choice, betValue);
         } else {
