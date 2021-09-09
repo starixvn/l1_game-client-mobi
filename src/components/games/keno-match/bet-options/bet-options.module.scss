@@ -10,18 +10,20 @@
     --title-color: #FFF;
 }
 
-[data-theme="light"] .layout-kenomatch1 {
+[data-theme="light"] .layout-kenomatch1,
+.layout-kenomatch2 {
     --text-color: #2C2F3E;
     --total-color-bg: #D7DEF8;
 }
 
-[data-theme="dark"] .layout-kenomatch1 {
+[data-theme="dark"] .layout-kenomatch1,
+.layout-kenomatch2 {
     --text-color: #fff;
     --total-color-bg: #6B7075;
 }
 
 .layout-kenomatch1,
-.layout-kenomatch1 {
+.layout-kenomatch2 {
     position: relative;
     display: grid;
     grid-gap: 0.1rem;

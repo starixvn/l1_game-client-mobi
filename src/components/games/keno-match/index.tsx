@@ -30,7 +30,7 @@ import {
     TimeMatch,
 } from "./type";
 
-class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
+export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     protected showResultInfoH1Timeout: NodeJS.Timeout;
     private winStreakCollectorFH: WinStreakCollectorModel;
     private winStreakCollectorFT: WinStreakCollectorModel;
@@ -241,7 +241,7 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
 
-        if (remainingTime > durations.showHalfTimeResult && remainingTime <= durations.resetResult) {
+        if (remainingTime === durations.resetResult) {
             this.setState({
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
@@ -249,10 +249,12 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
                 fullTimeResultPopup: defaultResult,
             });
         }
-        // console.log(`--------------`);
-        // console.log(`${remainingTime}s`);
+        
+      
         const newGameState = this.determineGameState(remainingTime);
-        //    console.log(`${KenoMatchGameStateEnum[newGameState]}`);
+        console.log(`${KenoMatchGameStateEnum[newGameState]}`);
+
+       // console.log(JSON.stringify(durations, null, 2));
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -267,6 +269,10 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
 
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
+
+        console.log(`--------------`);
+        console.log(`${remainingTime}s`);
+        // console.log(JSON.stringify(durations, null, 2));
 
         switch (true) {
             case remainingTime > durations.showFullTimeSettlementResult:
@@ -582,8 +588,8 @@ class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, 
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
-            // (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-            //     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) &&
+            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) &&
             <BaseDialog type={ModalType.Center}>
                 <PopupResult
                     {...{

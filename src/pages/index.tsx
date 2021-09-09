@@ -105,6 +105,7 @@ export const getStaticProps = async ({ locale }) => {
                 "minisedie",
                 "specialsedie",
                 "kenomatch1",
+                "kenomatch2",
                 "um",
             ])),
         },

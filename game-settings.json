@@ -203,7 +203,11 @@
         },
         "durations": {
             "wholeRound": 62,
+            "showFullTimeSettlementResult": 58,
+            "highLightFullTime": 55,
+            
             "halfTimePlacingBets": 54,
+            "resetResult": 35,
             "halfTimeLockingBet": 32,
             "showHalfTimeResult":27,
             "showHalfTimeSettlementResult": 23,
@@ -213,16 +217,9 @@
             "fullTimePlacingBets": 18,
             "fullTimeLockingBet": 5,
             "showFullTimeResult":0,
-            "showFullTimeSettlementResult": 58,
-            "highLightFullTime": 55,
-            "resetResult": 35,
 
             "halfTimeDuration": 27,
-            "fullTimeDuration": 18,
-
-            "finishHalfTime": 25,
-            "resultAnimation": 2,
-            "beforeStartRound": 2
+            "fullTimeDuration": 18
         }
     },
     "37": {
@@ -233,27 +230,24 @@
             "path": "kenomatch"
         },
         "durations": {
-            "wholeRound": 62,
-            "halfTimePlacingBets": 54,
-            "halfTimeLockingBet": 32,
-            "showHalfTimeResult":27,
-            "showHalfTimeSettlementResult": 23,
-            "highLightFirstHalf": 20,
+            "wholeRound": 70,
+            "showFullTimeSettlementResult": 66,
+            "highLightFullTime": 63,
+
+            "halfTimePlacingBets": 58,
+            "resetResult": 39,
+            "halfTimeLockingBet": 36,
+            "showHalfTimeResult":31,
+            "showHalfTimeSettlementResult": 27,
+            "highLightFirstHalf": 24,
 
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
             "fullTimeLockingBet": 5,
             "showFullTimeResult":0,
-            "showFullTimeSettlementResult": 58,
-            "highLightFullTime": 55,
-            "resetResult": 35,
 
             "halfTimeDuration": 27,
-            "fullTimeDuration": 18,
-
-            "finishHalfTime": 25,
-            "resultAnimation": 2,
-            "beforeStartRound": 2
+            "fullTimeDuration": 18
         }
     }
 }
