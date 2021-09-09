@@ -41,7 +41,7 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
 };
 
 const getCategoryByGameId = (gameId: number) => {
-    return GameCategoryKeys.find((category) => GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)) ?? "popular";
+    return GameCategoryKeys.find((category) => GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)) ?? "hot";
 };
 
 const getCategoryHashTag = (category: string, pageIndex: number) => {
