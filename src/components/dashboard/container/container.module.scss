@@ -25,14 +25,18 @@
     @media (max-width: 767px) {
         background-color: var(--page-background);
         align-items: initial;
-        min-height: 81rem;
+        &.mobile {
+            min-height: 76rem;
+            .page-bg {
+                height: 76rem;
+            }
+        }
     }
 }
 
 .page-bg {
     display: flex;
     flex-direction: column;
-    height: 81rem;
     width: 100%;
     padding: 1rem 2rem;
 
