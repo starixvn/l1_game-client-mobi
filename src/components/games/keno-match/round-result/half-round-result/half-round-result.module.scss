@@ -2,7 +2,7 @@
 @import "../../../../../assets/components/settlement-info";
 
 $time-open-ball: 0.3s;
-$time-run-progress-bar: 0.3s;
+$time-run-progress-bar: 1s;
 
 .result {
     position: relative;
@@ -252,54 +252,58 @@ $time-run-progress-bar: 0.3s;
                 opacity: 0;
             }
             .number:nth-child(#{$i}) {                
-                animation: show-value 0.2s ease-in-out forwards;
-                animation-delay: calc(#{$time-open-ball} * #{$i});
+                animation: show-value 0.3s ease-in-out forwards;
+                animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
             }
         }
     }
     .progress-bar-team {
         @include value-ball();
-        --score-total: calc(var(--ball-blue-1) + var(--ball-red-1));
-        .progress-bar {            
-            .blue-team {
-                --from-width: 50%;
-                --to-width: calc(var(--ball-blue-1) / var(--score-total) * 100%);
-                width:  var(--to-width);
-                animation: run-bar 0.3s linear forwards;
-                animation-delay: 0.3s;               
-                
-                .blue-score {
-                    &:before{
-                        font: 400 2rem var(--font-number);
-                        color: #fff;                        
-                        counter-reset: ball-blue-1 var(--ball-blue-1);
-                        content: counter(ball-blue-1);
-                        line-height: 3rem;
-                        padding-left: .6rem;
+        @for $i from 1 through 10  {
+            --score-total: calc(var(--ball-blue-#{$i}) + var(--ball-red-#{$i}));
+            .progress-bar {            
+                .blue-team {
+                    --from-width: 50%;
+                    --to-width: calc(var(--ball-blue-#{$i}) / var(--score-total) * 100%);
+                    width:  var(--to-width);
+                    animation: run-bar $time-run-progress-bar linear forwards;
+                    animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});  
+                    //--ball-blue: calc(var(--ball-blue-#{$i}));           
+                    
+                    .blue-score {
+                        &:before{
+                            font: 400 2rem var(--font-number);
+                            color: #fff;                        
+                            counter-reset: ball-blue-#{$i} var(--ball-blue-#{$i});
+                            content: counter(ball-blue-#{$i});
+                            line-height: 3rem;
+                            padding-left: .6rem;
+                        }
                     }
                 }
-            }
 
-            .red-team {
-                --from-width: 50%;
-                --to-width: calc(var(--ball-red-1) / var(--score-total) * 100%);
-                width:  var(--to-width);
-                animation: run-bar 1s linear forwards;
-                animation-delay: 0.3s;
-                .red-score {
-                    &:before{
-                        font: 400 2rem var(--font-number);
-                        color: #fff;
-                        content: var(--ball-red-1);
-                        counter-reset: ball-red-1 var(--ball-red-1);
-                        content: counter(ball-red-1);
-                        line-height: 3rem;
-                        padding-right: .6rem;
-                        float: right;
+                .red-team {
+                    --from-width: 50%;
+                    --to-width: calc(var(--ball-red-#{$i}) / var(--score-total) * 100%);
+                    width:  var(--to-width);
+                    animation: run-bar 1s linear forwards;
+                    animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});
+                    .red-score {
+                        &:before{
+                            font: 400 2rem var(--font-number);
+                            color: #fff;
+                            content: var(--ball-red-#{$i});
+                            counter-reset: ball-red-#{$i} var(--ball-red-#{$i});
+                            content: counter(ball-red-#{$i});
+                            line-height: 3rem;
+                            padding-right: .6rem;
+                            float: right;
+                        }
                     }
                 }
             }
         }
+        
     }
 }
 
