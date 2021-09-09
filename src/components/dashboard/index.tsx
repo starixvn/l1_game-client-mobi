@@ -363,7 +363,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
-                    <div className={Styles["footer"]}>Powered by Saba.club</div>
                 </div>
             </AuthContextProvider>
         );
