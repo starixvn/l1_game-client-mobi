@@ -14,12 +14,13 @@
 .popup-result{
     width: 33.3rem;
     position: absolute;
-    top: 100px;
-    margin-left: 20px;
+    top: 15rem;
     border-radius: 2rem;
     padding: .1rem;
     background: transparent;
-    left: 40rem;
+    margin-left: 50%;
+    left: -16.6rem;
+    z-index: 12;
     &:before {
         position: absolute;
         top: 0;
