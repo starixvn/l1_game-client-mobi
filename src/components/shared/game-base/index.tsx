@@ -829,10 +829,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return <GameHeader />;
     }
 
-    renderRoundResult() {
-        return <> </>;
-    }
-
     renderPopupResult() {
         return <> </>;
     }
@@ -892,7 +888,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
                     {this.renderGameHeader()}
-                    {this.renderRoundResult()}
                     {viewMode !== ViewMode.collapse && (
                         <>
                             <BetContainer gameState={gameState}>
