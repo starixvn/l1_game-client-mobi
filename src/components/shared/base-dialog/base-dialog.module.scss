@@ -41,12 +41,8 @@
             margin: auto;
         }
 
-        @media (min-width: 768px) and (min-height: 700px) {
-            bottom: 2rem;
-        }
-
-        @media (min-width: 768px) and (min-height: 900px) {
-            bottom: 10rem;
+        @media (min-width: 768px) {
+            bottom: 8.5rem;
         }
     }
 
@@ -71,5 +67,27 @@
     &.modal-center {
         @extend .modal-favoritesetting;
         position: initial !important;
+    }
+
+    &.modal-message {
+        border-radius: 0.5rem !important;
+        padding: 0 !important;
+        left: 5px;
+        right: 5px;
+        box-shadow: none;
+
+        &.isMobile {
+            top: 9rem;
+            bottom: auto !important;
+        }
+
+        @media (min-width: 1024px) {
+            display: flex;
+            top: 0;
+            bottom: 8rem;
+            background: none;
+            box-shadow: none;
+            border: none;
+        }
     }
 }

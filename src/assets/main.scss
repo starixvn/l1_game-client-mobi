@@ -1,3 +1,5 @@
+@import "~slick-carousel/slick/slick-theme.scss";
+@import "~slick-carousel/slick/slick.scss";
 @import "./components/fonts";
 @import "./components/icons";
 @import "./components/common";
@@ -6,6 +8,7 @@
 @import "./components/dropdown";
 @import "./components/animations/loader-animation";
 @import "./components/animations/common";
+@import "./components/slick";
 @import "./components/infinite-table";
 @import "./components/tooltip";
 @import "./components/popover";
@@ -33,14 +36,15 @@ html {
     --btn-grey-color: #2c2f3e;
 
     // z-index
+    --bet-setting-index: 300;
+    --chip-index: 10;
     --header-index: 1071;
     --table-thead-index: 999;
     --footer-index: 300;
-    --bet-setting-index: 300;
     --popup-result-index: 260;
-    --popup-index: 250;
+    --popup-index: 301;
     --notice-index: 200;
-    --popup-guide-history-index: 101;
+    --popup-guide-history-index: 300;
     --amount-index: 91;
     --result-animation-index: 90;
     --balance-betting-pool-index: 80;
@@ -48,7 +52,7 @@ html {
     --overlay-index: 70;
     --modal-index: 300;
     --loader-layer-index: 250;
-    --setting-index: 270;
+    --setting-index: 302;
     --tooltip-buttons-index: 100;
 
     // dots

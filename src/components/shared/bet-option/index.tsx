@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
 
-import { getSessionStorageItem, SessionStorageKeys } from "../../../common/session-storage";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
+import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { BetSettingStorage } from "../bet-settings/type";
 import { GameState } from "../game-base/type";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
 
-const betSettingStorageKey = SessionStorageKeys.betSetting;
 const HighlightClassNameMapper = {
     [HighlightType.Background]: "highlight-winning",
     [HighlightType.None]: "",
@@ -27,9 +25,9 @@ const BetOption: React.FunctionComponent<Props> = ({
     isDisplayOdd = true,
     isShowWinningEffect = false,
 }) => {
-    const { totalBets, ownBets, gameSetting } = useGameContext();
-    const { id } = gameSetting;
+    const { totalBets, ownBets } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
+    const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0 });
@@ -57,11 +55,6 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const onClickBet = (event: any) => {
         event.preventDefault();
-
-        const betSettingStorage = getSessionStorageItem<BetSettingStorage>(betSettingStorageKey) ?? {};
-        const betSetting = betSettingStorage[id];
-        const betValue = betSetting?.betStake ?? 1;
-        const enabledQuickBet = betSetting?.enabledQuickBet;
         const betChoiceRect = betChoiceRef.current.getBoundingClientRect();
 
         if (enabledQuickBet) {

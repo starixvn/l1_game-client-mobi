@@ -24,29 +24,3 @@
         z-index: 100;
     }
 }
-
-[data-theme="light"] .footer {
-    --footer-color: #424242;
-}
-
-[data-theme="dark"] .footer {
-    --footer-color: #b2b2b2;
-}
-
-.footer {
-    height: 3.2rem;
-    line-height: 3.2rem;
-    padding-right: 1.6rem;
-    margin-top: auto;
-    margin-bottom: 0;
-    text-align: right;
-    background: var(--footer-background);
-    color: var(--footer-color);
-    font-size: 1.1rem;
-
-    @media (min-width: 1260px) {
-        width: 126rem;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}

@@ -25,11 +25,12 @@
     @media (max-width: 767px) {
         background-color: var(--page-background);
         align-items: initial;
-        min-height: 69rem;
-    }
-
-    @media (max-width: 320px) {
-        height: auto;
+        &.mobile {
+            min-height: 76rem;
+            .page-bg {
+                height: 76rem;
+            }
+        }
     }
 }
 

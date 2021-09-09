@@ -6,8 +6,6 @@ export const localStorageKeys = {
     loginStatus: buildLocalStorageKey("login-status"),
     winningStreakNotification: buildLocalStorageKey("winning-streak-notification"),
     playSound: buildLocalStorageKey("play-sound"),
-    globalSettingHint: buildLocalStorageKey("global-setting-hint"),
-    quickBetHint: buildLocalStorageKey("quick-bet-hint"),
     buildVersion: buildLocalStorageKey("build-version"),
 };
 

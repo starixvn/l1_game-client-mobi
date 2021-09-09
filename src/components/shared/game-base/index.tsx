@@ -391,12 +391,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getStateByNextGameState(nextGameState: GameState) {
-        const { roundId, displayPopup, notice } = this.state;
+        const { roundId, displayPopup, notice, removeBetChoiceFocus } = this.state;
         const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === GameState.InRound) {
             this.betWin = 0;
+        }
+
+        if (nextGameState === GameState.LockingBet) {
+            removeBetChoiceFocus && removeBetChoiceFocus();
         }
 
         const newStateDetector = [

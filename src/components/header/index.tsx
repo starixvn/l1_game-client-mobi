@@ -3,7 +3,6 @@ import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
 
 import { numberWithCommas } from "../../helpers/number-helper";
-import { BetSetting } from "../shared/bet-settings/type";
 import { Settings } from "../shared/settings";
 import Styles from "./header.module.scss";
 
@@ -13,12 +12,12 @@ type Props = {
     enabledNotification: boolean;
     onToggleSound: Function;
     onToggleNotification: Function;
-    updateBetSetting: Function;
-    globalBetSetting: BetSetting;
     toggleHistoryModal: Function;
     toggleGuideModal: Function;
     updateFavoriteGames: Function;
     favoriteGames: number[];
+    enabledQuickBet?: boolean;
+    updateEnabledQuickBet?: Function;
 };
 
 function UserInfo({ user }: { user: User }) {
@@ -57,12 +56,12 @@ const Header: React.FC<Props> = (props) => {
                                     enabledNotification={props.enabledNotification}
                                     onToggleSound={props.onToggleSound}
                                     onToggleNotification={props.onToggleNotification}
-                                    globalBetSetting={props.globalBetSetting}
-                                    updateBetSetting={props.updateBetSetting}
                                     toggleHistoryModal={props.toggleHistoryModal}
                                     toggleGuideModal={props.toggleGuideModal}
                                     favoriteGames={props.favoriteGames}
                                     updateFavoriteGames={props.updateFavoriteGames}
+                                    enabledQuickBet={props.enabledQuickBet}
+                                    updateEnabledQuickBet={props.updateEnabledQuickBet}
                                 />
                             )}
                             <UserInfo user={props.user} />
@@ -77,12 +76,12 @@ const Header: React.FC<Props> = (props) => {
                         enabledNotification={props.enabledNotification}
                         onToggleSound={props.onToggleSound}
                         onToggleNotification={props.onToggleNotification}
-                        globalBetSetting={props.globalBetSetting}
-                        updateBetSetting={props.updateBetSetting}
                         toggleHistoryModal={props.toggleHistoryModal}
                         toggleGuideModal={props.toggleGuideModal}
                         favoriteGames={props.favoriteGames}
                         updateFavoriteGames={props.updateFavoriteGames}
+                        enabledQuickBet={props.enabledQuickBet}
+                        updateEnabledQuickBet={props.updateEnabledQuickBet}
                     />
                 </div>
             )}

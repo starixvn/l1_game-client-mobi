@@ -55,11 +55,9 @@
     "gameSelectPlaceHolder": "Vui lòng chọn game.",
     "emptyPresetStakeMsg": "Vui lòng nhập Tiền cược đặt sẵn của bạn.",
     "quickBetHint": "Đã bật tính năng Cược Nhanh. Cược sẽ tự động được xác nhận.",
-    "globalSettingHint": "Tính năng Cược Nhanh cho phép đặt cược trực tiếp (không cần bước xác nhận) bằng cách chạm hoặc click vào cửa cược, với mức tiền cược được thiết lập sẵn cho toàn bộ game.",
-    "globalSettingHintConfirm": "OK",
     "on": "Bật",
     "off": "Tắt",
-    "category-popular": "Phổ biến",
+    "category-hot": "Hot Games",
     "category-favorite": "Yêu thích",
     "category-keno": "Keno",
     "category-dice": "Xúc Xắc",
@@ -70,5 +68,11 @@
     "favorite-setting-guideline-2": "Hãy tạo cho riêng mình bộ sưu tập những game thường chơi bằng tính năng \"Game yêu thích\".",
     "favorite-setting-btn-hint": "Sắp xếp theo ý thích",
     "favorite-btn-guideline": "Bạn cũng có thể thêm game vào bộ sưu tập này bằng cách click hoặc chạm vào biểu tượng {icon} trên từng game.",
-    "header-favorite-btn-hint": "Chọn game yêu thích"
+    "header-favorite-btn-hint": "Chọn game yêu thích",
+    "messageConfirmQuickBet": "Tính năng cược nhanh cho phép bạn đặt cược trực tiếp chỉ với một cú click chuột hoặc một chạm vào các cửa cược mong muốn. Bạn có muốn bật tính năng này?",
+    "confirmBetNote": "1-Click Bet là tính năng cược nhanh, cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Bật ngay tính năng này tại",
+    "oneClickHintMsg": "<strong>1-Click Bet</strong> là tính năng cho phép bạn đặt cược trực tiếp mà không cần thông qua bước xác nhận. Người chơi đặt cược bằng cách click chuột hoặc chạm vào cửa cược mong muốn.",
+    "oneClickTitle": "1-Click Bet",
+    "turnOn": "Bật 1-Click Bet",
+    "oneClickBetOn": "1-Click Bet đã bật"
 }

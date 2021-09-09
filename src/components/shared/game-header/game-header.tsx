@@ -9,9 +9,8 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import CountdownTimer from "../countdown-timer/countdown-timer";
 import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
-import BetSettings from "../bet-settings";
 import Styles from "./game-header.module.scss";
-import { Tooltip } from "../tooltip";
+import { CommonResourceKeys } from "../../../common/resources";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
@@ -72,21 +71,19 @@ export default function GameHeader() {
                     </div>
                 </div>
                 {!showCollapseResult() && <CountdownTimer key={gameState} />}
-                <HeaderRight displayMenu={!showCollapseResult()} />
+                <HeaderRight />
                 {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
         );
     }, [gameState, roundId, viewMode, isFavorite]);
 }
 
-const HeaderRight = ({ displayMenu }) => {
+const HeaderRight = () => {
     const gameActions = useGameActionContext();
-    const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
+    const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
     const { t } = useTranslation();
-    const rebetBtnWrapper = useRef<HTMLDivElement>(null);
 
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -107,22 +104,10 @@ const HeaderRight = ({ displayMenu }) => {
 
     return (
         <div className={Styles["header-right"]}>
-            {viewMode !== ViewMode.collapse && !disabledRebet && Object.keys(ownBets).length === 0 && (
-                <div ref={rebetBtnWrapper}>
-                    <button className={`game-header-button ${Styles.rebet}`} onClick={rebetClickHandle}>
-                        <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} alt="game-header-rebet-icon" />
-                        <Tooltip message={t("rebet")} hoverWrapper={rebetBtnWrapper} />
-                    </button>
-                </div>
-            )}
-            {viewMode !== ViewMode.collapse && displayMenu && (
-                <BetSettings
-                    gameId={gameId}
-                    betSettings={systemContext.betSettings[gameId]}
-                    updateBetSetting={systemContext.updateBetSetting}
-                    gameConfigs={gameConfigs}
-                    isDisabled={gameState === GameState.Disabled}
-                />
+            {viewMode !== ViewMode.collapse && (
+                <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
+                    {t(CommonResourceKeys.REBET)}
+                </button>
             )}
         </div>
     );

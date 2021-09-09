@@ -9,16 +9,15 @@ import { UMInfo } from "sc-user-service-client/dist/settings";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
-import { getSessionStorageItem, SessionStorageKeys, storeSessionStorageItem } from "../../common/session-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
+import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
-import { BetSetting, BetSettingStorage } from "../shared/bet-settings/type";
 import { UserStakeLevel } from "../shared/game-base/type";
 import Styles from "./dashboard.module.scss";
 import { GameGuideModal } from "./game-guide-modal";
@@ -42,7 +41,6 @@ type State = {
     orientation: string;
     enabledWinningStreakNotification: boolean;
     enabledPlaySound: boolean;
-    betSettings: BetSettingStorage;
     userStakeLevel: UserStakeLevel;
     authorizeInfo: AuthorizeResponse;
     isShowErrorModal: boolean;
@@ -50,6 +48,8 @@ type State = {
     isShowHistory: boolean;
     isShowGuide: boolean;
     favoriteGames: number[];
+    enabledQuickBet: boolean;
+    betValue: number;
 };
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
@@ -64,7 +64,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
-            betSettings: getSessionStorageItem(SessionStorageKeys.betSetting) ?? {},
             favoriteGames: getLocalStorageItem(localStorageKeys.favoriteGames) ?? [],
             userStakeLevel: { minBet: 0, maxBet: 0 },
             authorizeInfo: null,
@@ -72,6 +71,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
+            enabledQuickBet: false,
+            betValue: 1,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -83,7 +84,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
-        this.updateBetSetting = this.updateBetSetting.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
@@ -93,6 +93,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
+        this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
+        this.setBetValue = this.setBetValue.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -110,7 +112,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
-        this.setState({ authorizeInfo });
+        this.setState({ authorizeInfo, enabledQuickBet: authorizeInfo?.user?.settings?.quickBet });
     }
 
     updateUserBalance(balance: number) {
@@ -276,20 +278,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         storeLocalStorageItem(localStorageKeys.playSound, !enabledPlaySound);
     }
 
-    updateBetSetting(setting: BetSetting, gameId?: number) {
-        const { betSettings } = this.state;
+    setEnabledQuickBet(enabled: boolean) {
+        this.setState({ enabledQuickBet: enabled });
+    }
 
-        if (gameId) {
-            betSettings[gameId] = setting;
-        } else {
-            appSettings.offeredGames.forEach((id) => {
-                betSettings[id] = setting;
-            });
-            betSettings["global"] = setting;
-        }
-
-        this.setState({ betSettings: { ...betSettings } });
-        storeSessionStorageItem(SessionStorageKeys.betSetting, betSettings);
+    setBetValue(value: number) {
+        this.setState({ betValue: value });
     }
 
     closeDialog() {
@@ -304,26 +298,18 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowGuide: !this.state.isShowGuide });
     }
 
-    get globalBetSetting(): BetSetting {
-        const setting = this.state.betSettings["global"];
-
-        return {
-            betStake: setting?.betStake,
-            enabledQuickBet: setting?.enabledQuickBet,
-        };
-    }
-
     renderDashBoard() {
         const {
             enabledWinningStreakNotification,
             enabledPlaySound,
-            betSettings,
             isShowErrorModal,
             isShowHistory,
             isShowGuide,
             userStakeLevel,
             favoriteGames,
             authorizeInfo,
+            enabledQuickBet,
+            betValue,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         return (
@@ -335,24 +321,30 @@ class Dashboard extends React.PureComponent<Props, State> {
                         enabledSound={enabledPlaySound}
                         onToggleNotification={this.winningStreakNotificationToggle}
                         onToggleSound={this.playSoundToggle}
-                        updateBetSetting={this.updateBetSetting}
-                        globalBetSetting={this.globalBetSetting}
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
                         favoriteGames={favoriteGames}
                         updateFavoriteGames={this.updateFavoriteGames}
+                        enabledQuickBet={enabledQuickBet}
+                        updateEnabledQuickBet={this.setEnabledQuickBet}
                     />
                     <Games
+                        enabledQuickBet={enabledQuickBet}
+                        betValue={betValue}
                         enabledWinningStreakNotification={enabledWinningStreakNotification}
                         enabledPlaySound={enabledPlaySound}
                         setApiErrorMessage={this.handleShowApiErrorMessage}
-                        betSettings={betSettings}
-                        updateBetSetting={this.updateBetSetting}
                         userStakeLevel={userStakeLevel}
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
                         queryGame={this.props.queryGame}
+                    />
+                    <BetSettings
+                        enabledQuickBet={enabledQuickBet}
+                        updateEnabledQuickBet={this.setEnabledQuickBet}
+                        updateBetValue={this.setBetValue}
+                        enabledSound={enabledPlaySound}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
@@ -371,7 +363,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
-                    <div className={Styles["footer"]}>Powered by Saba.club</div>
                 </div>
             </AuthContextProvider>
         );
