@@ -10,8 +10,6 @@
     display: block;
     position: relative;
     user-select: none;
-    left: 0;
-    top: 0.8rem;
     animation-delay: 2s;
     animation-iteration-count: 3;
     z-index: calc(var(--result-animation-index) + 1);
@@ -76,7 +74,7 @@
         .one-click-bet {
             position: absolute;
             left: 5.2rem;
-            top: 0;
+            top: 0.3rem;
             white-space: nowrap;
             font-size: 1.4rem;
             color: var(--one-click-bet-text-color);
