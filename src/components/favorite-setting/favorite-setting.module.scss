@@ -13,7 +13,7 @@
 
     --game-favorite-background: #ffc966; //linear-gradient(180deg, #ffe5b7 0%, #ffc966 100%);
     --game-favorite-border: linear-gradient(180deg, #ffce75 0%, #ffb52e 100%);
-    
+
     --game-un-favorite-background: linear-gradient(180deg, #fff5e5 0%, #ffeccd 100%);
     --game-un-favorite-border: linear-gradient(180deg, #ffe8c3 0%, #ffdda9 100%);
 
@@ -69,7 +69,7 @@
         right: 17.8rem;
         top: 4.1rem;
         bottom: auto;
-        max-height: calc(100vh - 4.4rem);
+        max-height: calc(100vh - 13rem);
         border-radius: 0 0 0 0.5rem;
     }
 
@@ -234,7 +234,7 @@
     .game {
         @extend %game;
         grid-template-columns: 3rem 1fr 7rem;
-       
+
         &:before {
             background: var(--game-favorite-background);
         }
@@ -260,7 +260,7 @@
     .game {
         @extend %game;
         grid-template-columns: 3rem 1fr;
-        
+
         &:before {
             background: var(--game-un-favorite-background);
         }
