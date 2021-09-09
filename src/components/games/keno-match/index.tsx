@@ -112,10 +112,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
         return (
             <div>
-                 {
+                 {/* {
                 (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
                     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
-                    <div className="overlay-mask"></div>}
+                    <div className="overlay-mask"></div>} */}
                 <DrawFullResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
@@ -263,11 +263,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             });
         }
         
-      
         const newGameState = this.determineGameState(remainingTime);
-        console.log(`${KenoMatchGameStateEnum[newGameState]}`);
-
-       // console.log(JSON.stringify(durations, null, 2));
+        // console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         const gameState = this.state.gameState as KenoMatchGameState;
         if (gameState !== newGameState) {
@@ -283,8 +280,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
 
-        console.log(`--------------`);
-        console.log(`${remainingTime}s`);
+        // console.log(`--------------`);
+        // console.log(`${remainingTime}s`);
         // console.log(JSON.stringify(durations, null, 2));
 
         switch (true) {

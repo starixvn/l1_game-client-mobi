@@ -63,10 +63,6 @@ const KenoMatchBetOptions: React.FunctionComponent<Props> = (props) => {
                                     isShowWinningEffect,
                                 };
 
-                                // if(isActiveFullTime){
-                                // console.log(JSON.stringify(betOptionProps, null, 2));
-                                // }
-
                                 return choice.name.toLowerCase() === "total" ? (
                                     <div key={index} className={Styles["total-row"]}>{t("total")}</div>
                                 ) : (
