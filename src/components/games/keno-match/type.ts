@@ -78,6 +78,7 @@ export interface KenoMatchGameDurations extends GameDurations {
     resetResult: number;
     highLightFirstHalf: number;
     highLightFullTime: number;
+    supportMD5: boolean;
 }
 
 export interface KenoMatchGameSetting extends GameSettings {
@@ -99,6 +100,8 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     isActiveLiveFullTime: boolean;
     liveOdds: any;
     md5?: string;
+    resultKey?: string;
+    showResultKey?: boolean;
     firstHalfResult?: HalfRoundResult;
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
     roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];

@@ -219,7 +219,8 @@
             "showFullTimeResult":0,
 
             "halfTimeDuration": 27,
-            "fullTimeDuration": 18
+            "fullTimeDuration": 18,
+            "supportMD5": false
         }
     },
     "37": {
@@ -247,7 +248,8 @@
             "showFullTimeResult":0,
 
             "halfTimeDuration": 27,
-            "fullTimeDuration": 18
+            "fullTimeDuration": 18,
+            "supportMD5": true
         }
     }
 }

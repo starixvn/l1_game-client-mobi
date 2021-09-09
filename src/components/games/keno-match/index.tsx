@@ -54,6 +54,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 roundHistoryFT: [],
             },
         };
+
+        this.copyToClipboard = this.copyToClipboard.bind(this);
     }
 
     onDestroy() {
@@ -76,10 +78,18 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return ["blue", "red", "over", "under", "odd", "even"];
     }
 
+    copyToClipboard(event: any) {
+        event.preventDefault();
+
+        const { md5, resultKey, showResultKey} = this.state;
+        navigator.clipboard.writeText(showResultKey ? resultKey : md5);
+      };
+
     renderBetOptions() {
-        const { halfTimeResult, fullTimeResult, gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } =
+        const { md5, resultKey, showResultKey, halfTimeResult, fullTimeResult, gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } =
                 this.state,
-            kenoMatchGameState = gameState as KenoMatchGameState;
+            kenoMatchGameState = gameState as KenoMatchGameState,
+            durations = this.props.durations as KenoMatchGameDurations;
 
         const fakeSettlementResult = {
             blue: false,
@@ -99,6 +109,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             isActiveLiveFullTime: isActiveLiveFullTime,
         };
 
+        const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
         return (
             <div>
                  {
@@ -108,6 +119,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 <DrawFullResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
+                 {durations.supportMD5 && <div><span>{md5Text}</span><button type="button" onClick={this.copyToClipboard}>Copy</button></div>}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -228,6 +240,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         super.registerMessageHandler();
         this.messageTransmitter.register("firstHalfResult", this.handleFinishHalfTime.bind(this));
         this.messageTransmitter.register("liveOdds", this.handleLiveOdds.bind(this));
+        this.messageTransmitter.register("md5", this.handleMD5.bind(this));
     }
 
     handleRemainingTime({ remainingTime }) {
@@ -456,6 +469,14 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return rounds;
     };
 
+    handleMD5({md5})
+    {
+        this.setState({
+            md5: md5,
+            showResultKey: false
+        });
+    }
+
     handleFinishHalfTime({ firstHalfResult }) {
         const { roundHistoryFH, roundId, gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
@@ -465,9 +486,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 : roundHistoryFH;
 
         this.setState({
-            halfTimeResultPopup: firstHalfResult?.result,
-            settlementResultPopup: firstHalfResult?.settlementResult,
+            halfTimeResultPopup: firstHalfResult.result,
+            settlementResultPopup: firstHalfResult.settlementResult,
+            resultKey: firstHalfResult.resultKey,
+            showResultKey: true
         });
+
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false });
@@ -482,6 +506,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         ) {
             this.setState({
                 halfTimeResult: firstHalfResult.result,
+                resultKey: firstHalfResult.resultKey,
+                showResultKey: true
             });
         }
     }
@@ -512,6 +538,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             fullTimeResultPopup: finish.result,
             settlementResultPopup: finish.settlementResult,
             liveOdds: null,
+            resultKey: finish.resultKey,
+            showResultKey: true
         });
 
         const animationDuration = this.getFinishAnimationDuration();
