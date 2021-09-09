@@ -18,7 +18,7 @@ const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: Position; b
             newCustomStyle.left = Math.min(
                 windowWidth - wrapperWidth - 10,
                 betInfo.betPosition?.x - 15,
-                (betInfo.betOptionBoundary?.right || 1000) - wrapperWidth
+                (betInfo.betOptionBoundary?.right || 2000) - wrapperWidth
             );
             newCustomStyle.left = Math.max(betInfo.betOptionBoundary?.left || 10, newCustomStyle.left);
 
