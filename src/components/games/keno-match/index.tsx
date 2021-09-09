@@ -81,13 +81,23 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     copyToClipboard(event: any) {
         event.preventDefault();
 
-        const { md5, resultKey, showResultKey} = this.state;
+        const { md5, resultKey, showResultKey } = this.state;
         navigator.clipboard.writeText(showResultKey ? resultKey : md5);
-      };
+    }
 
     renderBetOptions() {
-        const { md5, resultKey, showResultKey, halfTimeResult, fullTimeResult, gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } =
-                this.state,
+        const {
+                md5,
+                resultKey,
+                showResultKey,
+                halfTimeResult,
+                fullTimeResult,
+                gameState,
+                settlementResult,
+                isActiveLiveFullTime,
+                showWinningAnimation,
+                liveOdds,
+            } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState,
             durations = this.props.durations as KenoMatchGameDurations;
 
@@ -112,15 +122,19 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
         return (
             <div>
-                 {/* {
-                (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                    kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
-                    <div className="overlay-mask"></div>} */}
-                    <div className="overlay-mask"></div>
+                {(kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+                    kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && <div className="overlay-mask"></div>}
                 <DrawFullResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
-                 {durations.supportMD5 && <div><span>{md5Text}</span><button type="button" onClick={this.copyToClipboard}>Copy</button></div>}
+                {durations.supportMD5 && (
+                    <div>
+                        <span>{md5Text}</span>
+                        <button type="button" onClick={this.copyToClipboard}>
+                            Copy
+                        </button>
+                    </div>
+                )}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -263,7 +277,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 fullTimeResultPopup: defaultResult,
             });
         }
-        
+
         const newGameState = this.determineGameState(remainingTime);
         // console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
@@ -467,11 +481,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return rounds;
     };
 
-    handleMD5({md5})
-    {
+    handleMD5({ md5 }) {
         this.setState({
             md5: md5,
-            showResultKey: false
+            showResultKey: false,
         });
     }
 
@@ -487,7 +500,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             halfTimeResultPopup: firstHalfResult.result,
             settlementResultPopup: firstHalfResult.settlementResult,
             resultKey: firstHalfResult.resultKey,
-            showResultKey: true
+            showResultKey: true,
         });
 
         const animationDuration = this.getFinishAnimationDuration();
@@ -505,7 +518,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({
                 halfTimeResult: firstHalfResult.result,
                 resultKey: firstHalfResult.resultKey,
-                showResultKey: true
+                showResultKey: true,
             });
         }
     }
@@ -537,7 +550,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             settlementResultPopup: finish.settlementResult,
             liveOdds: null,
             resultKey: finish.resultKey,
-            showResultKey: true
+            showResultKey: true,
         });
 
         const animationDuration = this.getFinishAnimationDuration();
@@ -614,19 +627,20 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             kenoMatchGameState = gameState as KenoMatchGameState;
 
         return (
-            // (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-            //     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) &&
-            <BaseDialog type={ModalType.Center}>
-                <PopupResult
-                    {...{
-                        halfTimeResult: halfTimeResultPopup,
-                        fullTimeResult: fullTimeResultPopup,
-                        isActiveLiveFullTime,
-                        settlementResult,
-                        gameName: this.props.gameName.toLocaleLowerCase(),
-                    }}
-                />
-            </BaseDialog>
+            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (
+                <BaseDialog type={ModalType.Center}>
+                    <PopupResult
+                        {...{
+                            halfTimeResult: halfTimeResultPopup,
+                            fullTimeResult: fullTimeResultPopup,
+                            isActiveLiveFullTime,
+                            settlementResult,
+                            gameName: this.props.gameName.toLocaleLowerCase(),
+                        }}
+                    />
+                </BaseDialog>
+            )
         );
     }
 }
