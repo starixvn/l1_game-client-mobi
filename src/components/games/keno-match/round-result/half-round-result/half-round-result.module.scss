@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../../../../../assets/components/settlement-info";
 
 $time-open-ball: 0.3s;
@@ -36,7 +37,7 @@ $time-run-progress-bar: 0.3s;
     border-radius: 50%;        
     font: 500 1.2rem var(--font-number);
     color: #2c2f3e;
-    line-height: 2.2rem;
+    line-height: 2.4rem;
 }
 
 .middle-column {
@@ -128,7 +129,7 @@ $time-run-progress-bar: 0.3s;
         }
     }
     .progress-bar-team {
-        padding: 0 1.6rem;
+        padding: 0 1.6rem;        
         .title {
             display: flex;
             justify-content: space-between;
@@ -142,10 +143,9 @@ $time-run-progress-bar: 0.3s;
             }
         }
         .progress-bar {
-            display: grid;
-            grid-template-columns: 1fr .1rem 1fr;
-            grid-template-rows: 3rem;
             position: relative;
+            display: flex;
+            height: 3rem;
             .triangle {
                 position: absolute;
                 width: 0;
@@ -159,15 +159,19 @@ $time-run-progress-bar: 0.3s;
             .sperate {
                 background-color: #2F2F2F;
                 height: 3.6rem;
-                position: relative;
+                position: absolute;
                 top: -.3rem;
+                margin-left: 50%;
+                width: .1rem;
             }
             .blue-team {
+                width: 50%;
                 background: linear-gradient(to left, #4B8AD3 0%, #256DC1 100%);
                 border-top-left-radius: .3rem;
                 border-bottom-left-radius: .3rem;
             }
             .red-team {
+                width: 50%;
                 background: linear-gradient(to left, #DC4B56 0%, #F56769 100%);
                 border-top-right-radius: .3rem;
                 border-bottom-right-radius: .3rem;
@@ -241,8 +245,7 @@ $time-run-progress-bar: 0.3s;
         --ball-blue-8: 7;
         --ball-blue-9: 8;
         --ball-blue-10: 44;
-    }
-    @include value-ball();
+    }    
     .main-content .team {           
         @for $i from 1 through 10 {
             .number {
@@ -255,7 +258,48 @@ $time-run-progress-bar: 0.3s;
         }
     }
     .progress-bar-team {
-        --number-total-1: var(--ball-blue-1) + var(--ball-red-1);
+        @include value-ball();
+        --score-total: calc(var(--ball-blue-1) + var(--ball-red-1));
+        .progress-bar {            
+            .blue-team {
+                --from-width: 50%;
+                --to-width: calc(var(--ball-blue-1) / var(--score-total) * 100%);
+                width:  var(--to-width);
+                animation: run-bar 0.3s linear forwards;
+                animation-delay: 0.3s;               
+                
+                .blue-score {
+                    &:before{
+                        font: 400 2rem var(--font-number);
+                        color: #fff;                        
+                        counter-reset: ball-blue-1 var(--ball-blue-1);
+                        content: counter(ball-blue-1);
+                        line-height: 3rem;
+                        padding-left: .6rem;
+                    }
+                }
+            }
+
+            .red-team {
+                --from-width: 50%;
+                --to-width: calc(var(--ball-red-1) / var(--score-total) * 100%);
+                width:  var(--to-width);
+                animation: run-bar 1s linear forwards;
+                animation-delay: 0.3s;
+                .red-score {
+                    &:before{
+                        font: 400 2rem var(--font-number);
+                        color: #fff;
+                        content: var(--ball-red-1);
+                        counter-reset: ball-red-1 var(--ball-red-1);
+                        content: counter(ball-red-1);
+                        line-height: 3rem;
+                        padding-right: .6rem;
+                        float: right;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -267,6 +311,16 @@ $time-run-progress-bar: 0.3s;
     to {
         opacity: 1;
         transform: scale3d(1, 1 , 1);
+    }
+    
+}
+
+@keyframes run-bar{
+    from {
+        width: var(--from-width);
+    }
+    to {
+        width: var(--to-width);
     }
     
 }
