@@ -16,22 +16,22 @@ export interface TeamWithAnimationProps {
     result: number[];
     teamName: string[];
     gameName: string;
-};
+}
 
-export const TieWithAnimation = ({value, index, gameName}: TieWithAnimationProps) => {
+export const TieWithAnimation = ({ value, index, gameName }: TieWithAnimationProps) => {
     return (
         <div className={`${Styles["hidden"]} ${Styles["number"]} ${`${gameName}ball-${index}`}`} data-testid="tie-component">
             {value !== resetValue ? value : ""}
         </div>
     );
-}
+};
 
 export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) => {
     return (
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
-                    <TieWithAnimation key={index} value={number} index={index} gameName={gameName}/>
+                    <TieWithAnimation key={index} value={number} index={index} gameName={gameName} />
                 ))}
             </div>
         </div>
@@ -51,17 +51,18 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
     const [totalPointBlue, setTotalPointBlue] = useState(0);
     const [totalPointRed, setTotalPointRed] = useState(0);
     const [totalPoint, setTotalPoint] = useState(0);
+    const [showSettlement, setShowSettlement] = useState(false);
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamWithAnimationProps = {
             result: result.blue,
             teamName: t("blue"),
-            gameName
+            gameName,
         },
         redTeamProps: TeamWithAnimationProps = {
             result: result.red,
             teamName: t("red"),
-            gameName
+            gameName,
         };
 
     const buildWinning = (settlementResult: SettlementResult) => {
@@ -82,36 +83,38 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
 
     useEffect(() => {
         let index = 0;
-        setProgressBarStyle("");
-        const timerId = setInterval(()=>{
-            if(index === blueTeamProps.result.length){
+
+        function doAnimation() {
+            if (index === blueTeamProps.result.length) {
+                setShowSettlement(true);
                 clearInterval(timerId);
                 return;
             }
 
             setTotalPointBlue((prev) => prev + blueTeamProps.result[index]);
             setTotalPointRed((prev) => prev + redTeamProps.result[index]);
-            setTotalPoint((prev) => prev + redTeamProps.result[index] + + blueTeamProps.result[index]);
+            setTotalPoint((prev) => prev + redTeamProps.result[index] + +blueTeamProps.result[index]);
 
             const animationClass = `${gameName}ball-${index}`;
             document.getElementsByClassName(animationClass)[0].classList.remove(Styles["hidden"]);
             document.getElementsByClassName(animationClass)[1].classList.remove(Styles["hidden"]);
-
-            setTimeout(() => {
-                setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
-            }, 100);
+            setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
+            // setTimeout(() => {
+            //     setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
+            // }, 100);
             index++;
-        }, 100);
+        }
 
-      
+        const timerId = setInterval(doAnimation, 150);
+
         return () => {
             clearInterval(timerId);
-            setTotalPointBlue(0);
-            setTotalPointRed(0);
-            index = 0;
-            setProgressBarStyle("");
         };
     }, [result]);
+
+    const totalRedScoreStyle = { "--red-score": totalPointRed } as React.CSSProperties,
+        totalBlueScoreStyle = { "--red-score": totalPointBlue } as React.CSSProperties,
+        totalScoreStyle = { "--red-score": totalPoint } as React.CSSProperties;
 
     return (
         <div ref={wrapperRef} className={`${classNames} ${Styles["open-result"]}`}>
@@ -127,19 +130,19 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
                 </div>
                 <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
                     <div className={Styles["triangle"]}></div>
-                    <div className={Styles["blue-team"]}>
+                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
                         <span className={Styles["blue-score"]}>{totalPointBlue}</span>
                     </div>
                     <div className={Styles["sperate"]}></div>
-                    <div className={Styles["red-team"]}>
+                    <div className={Styles["red-team"]} style={totalRedScoreStyle}>
                         <span className={Styles["red-score"]}>{totalPointRed}</span>
                     </div>
                 </div>
             </div>
             <div className={Styles["label-total"]}>{t("sum")} </div>
             <div className={Styles["total-section"]}>
-                <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
-                <div className={Styles["total-score-match"]}>
+                {showSettlement && <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>}
+                <div className={Styles["total-score-match"]} style={totalScoreStyle}>
                     {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
                 </div>
             </div>
