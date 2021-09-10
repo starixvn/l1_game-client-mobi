@@ -10,6 +10,8 @@ export interface HalfRoundResultProps {
 
 export interface HalfRoundResultPopupProps extends HalfRoundResultProps {
     settlementResult: SettlementResult;
+    showSettlement: boolean;
+    progressBarStyle: string;
 };
 
 export interface TeamProps {

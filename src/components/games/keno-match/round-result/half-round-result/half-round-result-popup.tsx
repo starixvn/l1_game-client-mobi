@@ -1,37 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 
 import { HalfRoundResultPopupProps } from "./half-round-result-props";
 import { SettlementResult } from "../../type";
-import { resetValue } from "../../keno-match-helper";
+import { calculateTotalPoint } from "../../keno-match-helper";
+import { Tie } from ".";
 import Styles from "./half-round-result.module.scss";
-
-interface TieWithAnimationProps {
-    value: number;
-    index: number;
-    gameName: string;
-}
 
 export interface TeamWithAnimationProps {
     result: number[];
     teamName: string[];
     gameName: string;
+    total: number;
 }
 
-export const TieWithAnimation = ({ value, index, gameName }: TieWithAnimationProps) => {
-    return (
-        <div className={`${Styles["hidden"]} ${Styles["number"]} ${`${gameName}ball-${index}`}`} data-testid="tie-component">
-            {value !== resetValue ? value : ""}
-        </div>
-    );
-};
 
 export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) => {
     return (
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
-                    <TieWithAnimation key={index} value={number} index={index} gameName={gameName} />
+                    <Tie key={index} number={number} />
                 ))}
             </div>
         </div>
@@ -45,25 +34,24 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
     className,
     headerText,
     gameName,
+    showSettlement,
+    progressBarStyle,
 }: HalfRoundResultPopupProps) => {
-    const wrapperRef = useRef<HTMLDivElement>(null);
-    const [progressBarStyle, setProgressBarStyle] = useState("");
-    const [totalPointBlue, setTotalPointBlue] = useState(0);
-    const [totalPointRed, setTotalPointRed] = useState(0);
-    const [totalPoint, setTotalPoint] = useState(0);
-    const [showSettlement, setShowSettlement] = useState(false);
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamWithAnimationProps = {
-            result: result.blue,
+            result: result?.blue,
             teamName: t("blue"),
             gameName,
+            total: calculateTotalPoint(result.blue),
         },
         redTeamProps: TeamWithAnimationProps = {
-            result: result.red,
+            result: result?.red,
             teamName: t("red"),
             gameName,
-        };
+            total: calculateTotalPoint(result.red),
+        },
+        totalPoint = blueTeamProps.total + redTeamProps.total;
 
     const buildWinning = (settlementResult: SettlementResult) => {
         if (settlementResult === undefined) {
@@ -81,44 +69,12 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
         });
     };
 
-    useEffect(() => {
-        let index = 0;
-        setProgressBarStyle("");
-
-        function doAnimation() {
-            if (index === blueTeamProps.result.length) {
-                setShowSettlement(true);
-                clearInterval(timerId);
-                return;
-            }
-
-            setTotalPointBlue((prev) => prev + blueTeamProps.result[index]);
-            setTotalPointRed((prev) => prev + redTeamProps.result[index]);
-            setTotalPoint((prev) => prev + redTeamProps.result[index] + +blueTeamProps.result[index]);
-
-            const animationClass = `${gameName}ball-${index}`;
-            document.getElementsByClassName(animationClass)[0].classList.remove(Styles["hidden"]);
-            document.getElementsByClassName(animationClass)[1].classList.remove(Styles["hidden"]);
-            setProgressBarStyle(`${Styles[`open-ball-${index + 1}`]}`);
-            // setTimeout(() => {
-            //     setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
-            // }, 100);
-            index++;
-        }
-
-        const timerId = setInterval(doAnimation, 400);
-
-        return () => {
-            clearInterval(timerId);
-        };
-    }, [result]);
-
-    const totalRedScoreStyle = { "--red-score": totalPointRed, "--total-score": totalPoint } as React.CSSProperties,
-    totalBlueScoreStyle = { "--blue-score": totalPointBlue, "--total-score": totalPoint } as React.CSSProperties,
-    totalScoreStyle = { "--total-score": totalPoint } as React.CSSProperties;
+    const totalRedScoreStyle = { "--red-score": redTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
+        totalBlueScoreStyle = { "--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
+        totalScoreStyle = { "--total-score": totalPoint } as React.CSSProperties;
 
     return (
-        <div ref={wrapperRef} className={`${classNames} ${Styles["open-result"]}`}>
+        <div className={`${classNames} ${Styles["open-result"]}`}>
             <div className={Styles["header"]}>{t(headerText)}</div>
             <div className={Styles["main-content"]}>
                 <TeamWithAnimation {...blueTeamProps} />
@@ -132,11 +88,11 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
                 <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
                     <div className={Styles["triangle"]}></div>
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
-                        <span className={Styles["blue-score"]}>{totalPointBlue}</span>
+                        <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
                     </div>
                     <div className={Styles["sperate"]}></div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}>
-                        <span className={Styles["red-score"]}>{totalPointRed}</span>
+                        <span className={Styles["red-score"]}>{redTeamProps.total}</span>
                     </div>
                 </div>
             </div>
