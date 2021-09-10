@@ -1,6 +1,9 @@
 import { TFunction } from "next-i18next";
 import { KenoMatchRound, Result, SettlementResult } from "./type";
 
+const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
+export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
+
 export const resetValue = -1;
 const buildDefaultResult = () =>{
     let index = 10, emptyResult =[];

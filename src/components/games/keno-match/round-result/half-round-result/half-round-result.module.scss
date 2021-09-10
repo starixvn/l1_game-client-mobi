@@ -4,6 +4,10 @@
 $time-open-ball: 0.3s;
 $time-run-progress-bar: 1s;
 
+.hidden{
+    display: none;
+}
+
 .result {
     position: relative;
     border-bottom: 1px solid #D1DBF8;
@@ -246,17 +250,17 @@ $time-run-progress-bar: 1s;
         --ball-blue-9: 8;
         --ball-blue-10: 44;
     }    
-    .main-content .team {           
-        @for $i from 1 through 10 {
-            .number {
-                opacity: 0;
-            }
-            .number:nth-child(#{$i}) {                
-                animation: show-value 0.3s ease-in-out forwards;
-                animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
-            }
-        }
-    }
+    // .main-content .team {           
+    //     @for $i from 1 through 10 {
+    //         .number {
+    //             opacity: 0;
+    //         }
+    //         .number:nth-child(#{$i}) {                
+    //             animation: show-value 0.3s ease-in-out forwards;
+    //             animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
+    //         }
+    //     }
+    // }
     .progress-bar-team {
         @include value-ball();
         @for $i from 1 through 10  {

@@ -1,7 +1,8 @@
 import React from "react";
 import { Result, SettlementResult } from "../type";
 import Styles from "./draw-result.module.scss";
-import { HalfRoundResult, HalfResultPopup } from "./half-round-result";
+import { HalfRoundResult } from "./half-round-result";
+import { HalfRoundResultPopup } from "./half-round-result/half-round-result-popup";
 
 interface ResultProps {
     halfTimeResult: Result;
@@ -43,7 +44,7 @@ export function PopupResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTi
 
     return (
         <div className={Styles["popup-result"]}>
-            <HalfResultPopup {...resultProps} />
+            <HalfRoundResultPopup {...resultProps} />
         </div>
     );
 }

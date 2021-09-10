@@ -1,7 +1,7 @@
 // import '@testing-library/jest-dom';
 import { render, fireEvent, screen } from "@testing-library/react";
 import React from "react";
-import { Tie, Team, HalfRoundResult, HalfResultPopup } from ".";
+import { Tie, Team, HalfRoundResult } from ".";
 
 jest.mock("next-i18next", () => ({
     useTranslation: () => ({

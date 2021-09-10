@@ -1,94 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { TeamProps, HalfRoundResultProps, HalfRoundResultPopupProps } from "./half-round-result-props";
-import { SettlementResult } from "../../type";
-import { resetValue } from "../../keno-match-helper";
+import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
+import { resetValue, calculateTotalPoint } from "../../keno-match-helper";
 import Styles from "./half-round-result.module.scss";
 
-const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
-const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
-
-export const HalfResultPopup: React.FC<HalfRoundResultPopupProps> = ({
-    result,
-    settlementResult,
-    active,
-    className,
-    headerText,
-    gameName,
-}: HalfRoundResultPopupProps) => {
-    const [progressBarStyle, setProgressBarStyle] = useState("");
-    const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
-        { t } = useTranslation(gameName),
-        blueTeamProps: TeamProps = {
-            result: result.blue,
-            teamName: t("blue"),
-        },
-        redTeamProps: TeamProps = {
-            result: result.red,
-            teamName: t("red"),
-        },
-        totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
-
-    const buildWinning = (settlementResult: SettlementResult) => {
-        if (settlementResult === undefined) {
-            return <></>;
-        }
-
-        return Object.keys(settlementResult).map((keyName, index) => {
-            if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-                return (
-                    <div key={index} className={Styles["result-info-red"]}>
-                        {t(keyName)}
-                    </div>
-                );
-            }
-        });
-    };
-
-    useEffect(() => {
-        blueTeamProps.result.map((value, index) => {
-            setTimeout(() => {
-                setProgressBarStyle(prev => `${prev} ${`open-ball-${index + 1}`}`);
-                // console.log( `${progressBarStyle} ${`open-ball-${index + 1}`}`);
-            }, 100);
-        });
-        // setProgressBarStyle("");
-    }, []);
-
-    return (
-        <div className={`${classNames} ${Styles["open-result"]}`}>
-            <div className={Styles["header"]}>{t(headerText)}</div>
-            <div className={Styles["main-content"]}>
-                <Team {...blueTeamProps} />
-                <Team {...redTeamProps} />
-            </div>
-            <div className={Styles["progress-bar-team"]}>
-                <div className={Styles["title"]}>
-                    <span className={Styles["title-blue"]}>{t("blue")}</span>
-                    <span className={Styles["title-red"]}>{t("red")}</span>
-                </div>
-                <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
-                    <div className={Styles["triangle"]}></div>
-                    <div className={Styles["blue-team"]}>
-                        <span className={Styles["blue-score"]}></span>
-                    </div>
-                    <div className={Styles["sperate"]}></div>
-                    <div className={Styles["red-team"]}>
-                        <span className={Styles["red-score"]}></span>
-                    </div>
-                </div>
-            </div>
-            <div className={Styles["label-total"]}>{t("sum")} </div>
-            <div className={Styles["total-section"]}>
-                <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
-                <div className={Styles["total-score-match"]}>
-                    {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
-                </div>
-            </div>
-        </div>
-    );
-};
 export function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
