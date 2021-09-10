@@ -59,15 +59,25 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                     className={`${Styles["slider-collapse"]} ${isChangingMode ? Styles["collapse-animation"] : ""}`}
                     onClick={clickSliderCollapseHandle}
                 >
-                    <img
-                        src={`/static/images/chips/${ChipMapper[betValue]}.svg`}
-                        className={`img-fluid ${Styles["chip"]}`}
-                        width="60"
-                        height="62"
+                    <span className={`${Styles["icon-expand"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}></span>
+                    <div className={Styles["chip-container"]}>
+                        <img
+                            src={`/static/images/chips/${ChipMapper[betValue]}.svg`}
+                            className={`img-fluid ${Styles["chip"]}`}
+                            width="40"
+                            height="42"
+                            alt="Chip"
+                        />
+                        <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>
+                    </div>
+
+                    {enabledQuickBet && <img
+                        src={`/static/images/icon-quick-bet-active.svg?v=1625225065074`}
+                        className={`img-fluid ${Styles["icon-enable-quickbet"]}`}
+                        width="20"
+                        height="20"
                         alt="Chip"
-                    />
-                    <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>
-                    {enabledQuickBet && <span>Enable</span>}
+                    />}
                 </div>
             ) : (
                 <div
@@ -94,19 +104,6 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                             </div>
                         </div>
                     </div>
-
-                    {isMobileOnly && (
-                        <div className={Styles["footer"]}>
-                            {enabledQuickBet && (
-                                <div className={Styles["one-click-bet-turn-on"]}>
-                                    <span className={Styles["left"]}></span>
-                                    <span className={Styles["content"]}>{t("common:oneClickBetOn")}</span>
-                                    <span className={Styles["right"]}></span>
-                                </div>
-                            )}
-                            <span className={Styles["copyright"]}>Powered by Saba.club</span>
-                        </div>
-                    )}
                 </div>
             )}
         </>

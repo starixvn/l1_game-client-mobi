@@ -43,28 +43,13 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 0.4rem;
-    margin-bottom: 10.5rem;
+    margin-bottom: 6rem;
     background-color: transparent;
     align-content: flex-start;
-
-    &.android-device {
-        margin-bottom: 9.5rem;
-    }
 
     @media (min-width: 768px) {
         margin-top: 4.2rem;
         margin-bottom: 8rem;
-    }
-
-    @media (min-width: 1280px) {
-        margin-left: -0.3rem;
-        margin-right: -0.3rem;
-    }
-
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
-        &.ios-device {
-            margin-bottom: 13rem;
-        }
     }
 }
 

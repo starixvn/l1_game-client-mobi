@@ -1,3 +1,5 @@
+@import "../../assets/components/chip";
+
 [data-theme="light"] .bet-settings {
     --bet-settings-background: linear-gradient(180deg, #8494a7 0%, #42566d 9.69%, #4f5c6a 100%);
 
@@ -155,78 +157,43 @@
     }
 }
 
-// Only phone
-.footer {
-    position: relative;
+
+
+// collapse bet-setting
+
+.slider-collapse {
+    position: fixed;
+    right: 0;
+    bottom: 0.3rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 4.4rem;
-    border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
-    text-align: center;
-    font-size: 1.1rem;
-    color: var(--saba-copyright);
+    height: 6rem;
+    padding-left: 1.8rem;
+    padding-right: 1rem;
+    z-index: var(--bet-setting-index);
+    background: linear-gradient(180deg, rgba(132, 148, 167, 0.9) 0%, rgba(66, 86, 109, 0.9) 9.69%, rgba(79, 92, 106, 0.9) 100%);
+    border-radius: 4rem 0 0 4rem;
 
-    .copyright {
+    .icon-expand {
         position: absolute;
-        top: 0.6rem;
-        right: 1.2rem;
-    }
+        left: -8px;
+        display: inline-block;
+        transform: rotate(90deg);
 
-    .one-click-bet-turn-on {
-        position: relative;
-        top: -1rem;
-        display: flex;
-        align-items: stretch;
-        height: 2.9rem;
-        z-index: 1;
-
-        .left {
-            width: 2rem;
-            margin-right: -0.1rem;
-            background: url(/static/images/footer-1-click-bet-background-left.png);
+        &:before {
+            content: "";
+            border: 0.6rem solid;
+            border-color: #fff transparent transparent transparent;
         }
 
-        .content {
-            width: fit-content;
-            line-height: 3.4rem;
-            padding: 0 0.3rem;
-            background: url(/static/images/footer-1-click-bet-background.png);
-            color: #54ff26;
-        }
-
-        .right {
-            @extend .left;
-            margin-left: -0.1rem;
-            transform: scaleX(-1);
+        &.quick-bet:before {
+            border-top-color: #52F428 ;
         }
     }
-}
 
-// Iphone X or newer
-.ios-device {
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
-        .settings-container {
-            height: 6.9rem;
-        }
-
-        .footer {
-            height: 5.4rem;
-
-            .one-click-bet-turn-on {
-                top: -1.4rem;
-            }
-        }
-    }
-}
-
-// Android
-.adroid-device {
-    .footer {
-        height: 3.4rem;
-
-        .one-click-bet-turn-on {
-            top: -0.4rem;
-        }
+    .icon-enable-quickbet{
+        position: absolute;
+        right: 5px;
+        bottom: 7px;
     }
 }
