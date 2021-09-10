@@ -1,7 +1,8 @@
 import { TFunction } from "next-i18next";
 import React from "react";
 
-import BetHistoryContainer, { FormatNumber, ResultDetailContainer } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
+import ResultDetailContainer from "../../../dashboard/history/bet-history/result-detail";
 import { BetLogs } from "./bet-history";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { generateSettlementInfo } from "../animations";
@@ -11,11 +12,11 @@ import { CardOrder, Odd } from "../baccarat";
 import Card from "../../../shared/card";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
-            setResultDetail({ bet: bet, roundId: roundId });
+            setBetLog({ bet: bet, roundId: roundId, t });
         };
         const result: any = bet?.result;
 
@@ -119,8 +120,8 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameI
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) =>
-                renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
+            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) =>
+                renderResult(bet, roundId, setIsShowResultDetail, setBetLog, t)
             }
             renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>

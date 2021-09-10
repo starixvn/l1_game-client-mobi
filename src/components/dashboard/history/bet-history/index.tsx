@@ -8,30 +8,16 @@ import { useAuthContext } from "../../../../contexts/auth";
 import { numberWithCommas } from "../../../../helpers/number-helper";
 import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
-import { BetLogs, PropsBetContainer, PropsResultDetail, ResultDetail } from "./bet-history";
-import BaseDialog from "../../../shared/base-dialog";
-import { ModalType } from "../../../shared/base-dialog/type";
+import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
 import Loader from "../../../shared/loader";
 import { v4 as uuidv4 } from "uuid";
+import { GamesIdKenoMatch } from "./constants";
 import Styles from "./bet-history.module.scss";
+import BetHistoryDetailsContainer from "./bet-history-details";
 
 const fontWeightClass = "font-weight-medium";
 const NUMBER_ROWS_DISPLAY = 16;
 const infiniteLoadBeginEdgeOffset = 100;
-
-export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
-    const { children, roundId, closeModal, gameName } = props;
-    return (
-        <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
-            <div key={roundId} className={Styles["popup-result-detail"]}>
-                <div className={Styles["game-name"]}>{gameName}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
-                <div className={Styles["roundId"]}>#{roundId}</div>
-                {children}
-            </div>
-        </BaseDialog>
-    );
-};
 
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className={`font-number nowrap ${Styles["number-text"]}`}>{children}</span>;
@@ -110,58 +96,132 @@ const renderRound = ({ phien, freeBet }) => {
     );
 };
 
-const renderDataOnCell = (data: any, isHighligh: boolean) => {
-    return <td className={`${isHighligh ? "highlight" : ""}`}>{data}</td>;
+const renderDataOnCell = (data: any, isHighligh: boolean, index: number) => {
+    return (
+        <td key={index} className={`${isHighligh ? "highlight" : ""}`}>
+            {data}
+        </td>
+    );
 };
 
 const RenderCell: React.FC<{
     betHistoryItem: BetLogs;
-    isRefund: boolean;
     renderResult: (
         rowData: BetLogs,
         roundId?: number,
         setIsShowResultDetail?: Function,
-        setResultDetail?: Function,
+        setBetLog?: Function,
         t?: TFunction
     ) => JSX.Element;
     renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {};
     t: TFunction;
     setIsShowResultDetail: Function;
-    setResultDetail: Function;
     gameName: string;
-}> = ({ betHistoryItem, renderResult, renderBet, isRefund, setIsShowResultDetail, setResultDetail, t, gameName }) => {
-    const { time, phien, betwin, freeBet } = betHistoryItem;
+    setIsShowBetLogDetails: Function;
+    setBetLog: Function;
+    headerName: string[];
+}> = ({ betHistoryItem, renderResult, renderBet, setIsShowResultDetail, t, gameName, setIsShowBetLogDetails, setBetLog, headerName }) => {
+    const { time, phien, betwin, freeBet, totalAmount } = betHistoryItem;
     const odds = betHistoryItem.odds;
     const isHighligh = betwin > 0 ? true : false;
     const fontNumber = "font-number";
     const classBetWin = `font-weight-medium ${Styles["bet-win"]} ${fontNumber}`;
+
+    const onClickTotalAmount = () => {
+        setIsShowBetLogDetails(true);
+        setBetLog({ bet: betHistoryItem, roundId: phien, t });
+    };
+
     return (
         <>
-            {renderDataOnCell(
-                <FormatNumber>
-                    <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
-                    <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
-                </FormatNumber>,
-                isHighligh
-            )}
-            {renderDataOnCell(renderRound({ phien, freeBet }), isHighligh)}
-            {renderDataOnCell(renderResult(betHistoryItem, phien, setIsShowResultDetail, setResultDetail, t), isHighligh)}
-            {renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName), isHighligh)}
-            {renderDataOnCell(
-                <div className={`${Styles["stake"]} ${fontNumber}`}>
-                    {isRefund ? renderStakeRefund(betHistoryItem) : renderStake(betHistoryItem, freeBet)}
-                </div>,
-                isHighligh
-            )}
-            {renderDataOnCell(<div className={classBetWin}> {betwin && numberWithCommas(betwin)}</div>, isHighligh)}
+            {headerName.map((name, index) => {
+                switch (name) {
+                    case "roundTime":
+                        return renderDataOnCell(
+                            <FormatNumber>
+                                <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
+                                <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
+                            </FormatNumber>,
+                            isHighligh,
+                            index
+                        );
+                    case "round":
+                        return renderDataOnCell(renderRound({ phien, freeBet }), isHighligh, index);
+                    case "result":
+                        return renderDataOnCell(
+                            renderResult(betHistoryItem, phien, setIsShowResultDetail, setBetLog, t),
+                            isHighligh,
+                            index
+                        );
+                    case "choice":
+                        return renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName), isHighligh, index);
+                    case "stake":
+                        return renderDataOnCell(
+                            <div className={`${Styles["stake"]} ${fontNumber}`}>{renderStake(betHistoryItem, freeBet)}</div>,
+                            isHighligh,
+                            index
+                        );
+                    case "refund":
+                        return renderDataOnCell(
+                            <div className={`${Styles["stake"]} ${fontNumber}`}>{renderStakeRefund(betHistoryItem)}</div>,
+                            isHighligh,
+                            index
+                        );
+                    case "totalStake":
+                        return renderDataOnCell(
+                            <div className={`${Styles["total-stake"]} ${fontNumber}`} onClick={() => onClickTotalAmount()}>
+                                <FormatNumber>{totalAmount}</FormatNumber>
+                            </div>,
+                            isHighligh,
+                            index
+                        );
+                    case "win":
+                        return renderDataOnCell(
+                            <div className={classBetWin}> {betwin && numberWithCommas(betwin)}</div>,
+                            isHighligh,
+                            index
+                        );
+                }
+            })}
         </>
+    );
+};
+
+const renderHeaderRows = ({ headerName, t }) => {
+    return (
+        <tr>
+            {headerName.map((name: string, index: number) => {
+                switch (name) {
+                    case "roundTime":
+                        return <th key={index}>{t("roundTime")}</th>;
+                    case "round":
+                        return <th key={index}>{t("round")}</th>;
+                    case "result":
+                        return <th key={index}>{t("result")}</th>;
+                    case "choice":
+                        return <th key={index}>{t("choice")}</th>;
+                    case "stake":
+                        return <th key={index}>{t("stake")}</th>;
+                    case "refund":
+                        return (
+                            <th key={index}>
+                                {t("stake")} <br></br> {t("refund")}
+                            </th>
+                        );
+                    case "totalStake":
+                        return <th key={index}>{t("totalStake")}</th>;
+                    case "win":
+                        return <th key={index}>{t("win")}</th>;
+                }
+            })}
+        </tr>
     );
 };
 
 let totalPage = 0;
 let isFetchingData = false;
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, gameId, renderResultDetail } = props;
+    const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal } = props;
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
@@ -176,11 +236,16 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [page, setPage] = useState<number>(1);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
-    const [resultDetail, setResultDetail] = useState<ResultDetail>();
-
+    const [betLog, setBetLog] = useState<ResultDetail>();
+    const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
+    const headerNameDefault = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+    const headerName = props.nameHeaderOnTable ? props.nameHeaderOnTable : headerNameDefault;
     useEffect(() => {
         const { proxy } = appSettings;
-        const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
+        const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
+            ? `${gameSetting.socketInfo.path}/api/${gameSetting.socketInfo.namespace}/history`
+            : `${gameSetting.socketInfo.path}/api/history`;
+        const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
 
         const sendPostBetHistory = async () => {
             isFetchingData = true;
@@ -222,23 +287,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             setIsShowResultDetail(false);
         };
 
-        const renderHeaderRows = () => {
-            return (
-                <tr>
-                    <th>{t("roundTime")}</th>
-                    <th>{t("round")}</th>
-                    <th>{t("result")}</th>
-                    <th>{t("choice")}</th>
-                    {isRefund ? (
-                        <th>
-                            {t("stake")} <br></br> {t("refund")}
-                        </th>
-                    ) : (
-                        <th>{t("stake")}</th>
-                    )}
-                    <th>{t("win")}</th>
-                </tr>
-            );
+        const closeModalBetLogDetails = () => {
+            setIsShowBetLogDetails(false);
         };
 
         const handleScroll = (e) => {
@@ -260,7 +310,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 ) : listBetHistory.length > 0 ? (
                     <div className="table-container react-infinite-table" onScroll={(e) => handleScroll(e)}>
                         <table key={uuidv4()} className="table text-center">
-                            <thead>{renderHeaderRows()}</thead>
+                            <thead>{renderHeaderRows({ headerName, t })}</thead>
                             <tbody>
                                 {listBetHistory.length > 0 &&
                                     listBetHistory.map((bet: BetLogs) => {
@@ -268,13 +318,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                                             <tr key={bet.phien} className={bet.betwin > 0 ? "highlight" : ""}>
                                                 {RenderCell({
                                                     betHistoryItem: bet,
-                                                    isRefund: isRefund,
                                                     renderResult: renderResult,
                                                     renderBet: renderBet,
-                                                    t: t,
                                                     setIsShowResultDetail: setIsShowResultDetail,
-                                                    setResultDetail: setResultDetail,
+                                                    setIsShowBetLogDetails: setIsShowBetLogDetails,
+                                                    setBetLog: setBetLog,
                                                     gameName: gameName,
+                                                    t: t,
+                                                    headerName: headerName,
                                                 })}
                                             </tr>
                                         );
@@ -285,7 +336,15 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 ) : (
                     t("noBetHistory")
                 )}
-                {isShowResultDetail && renderResultDetail(resultDetail, t, closeModalResultDetail, gameName)}
+                {isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+                {isShowBetLogDetails && (
+                    <BetHistoryDetailsContainer
+                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t })}
+                        t={t}
+                        closeModalBetDetails={closeModalBetLogDetails}
+                        closeModalBetHistory={closeModal}
+                    ></BetHistoryDetailsContainer>
+                )}
             </>
         );
     }, [isFirstLoad, listBetHistory, isShowResultDetail]);

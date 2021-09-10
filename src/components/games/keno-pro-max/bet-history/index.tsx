@@ -1,7 +1,8 @@
 import React from "react";
 import { TFunction } from "next-i18next";
 
-import BetHistoryContainer, { ResultDetailContainer } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer from "../../../dashboard/history/bet-history";
+import ResultDetailContainer from "../../../dashboard/history/bet-history/result-detail";
 import { BetLogs } from "./bet-history";
 import { GetChoiceTranslate } from "../keno-pro-max-helper";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
@@ -9,11 +10,11 @@ import { GameResourceKeys } from "../../../../common/resources";
 import { getSettleResult, generateResult } from "../animations";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
+const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
     if (bet.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
-            setResultDetail({ bet: bet, roundId: roundId });
+            setBetLog({ bet: bet, roundId: roundId, t });
         };
         const totalPoint = bet.result.reduce((a, b) => a + b, 0);
 
@@ -59,8 +60,8 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) =>
-                renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
+            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) =>
+                renderResult(bet, roundId, setIsShowResultDetail, setBetLog, t)
             }
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
                 renderResultDetail(resultDetail, t, closeModal, gameName)

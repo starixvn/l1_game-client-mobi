@@ -40,7 +40,9 @@
     }
 }
 
-.stake {
+.stake,
+.bet-win,
+.total-stake {
     text-align: right;
 }
 
@@ -53,55 +55,8 @@
     text-align: center;
 }
 
-.bet-win {
-    text-align: right;
-}
-
 .refund {
     color: red;
-}
-
-.scoin{
-    width: 1.75rem;
-}
-
-.popup-result-detail {
-    min-width: 22.6rem;
-    min-height: 23rem;
-    position: absolute;
-    top: 12rem;
-    left: 50%;
-    transform: translate(-50%, 0);
-    background: var(--popup-result-background);
-    border: 1px solid var(--popup-result-border);
-    box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
-    border-radius: 0.5rem;
-    color: var(--popup-color);
-    overflow-y: auto;
-    z-index: var(--popup-result-index);
-    padding: 1rem;
-
-    .game-name {
-        font-size: 1.4rem;
-        line-height: 1.6rem;
-        font-weight: 500;
-        text-align: center;
-        color: var(--popup-result-title-color);
-    }
-
-    .icon-close {
-        position: absolute;
-        top: 0.9rem;
-        right: 1.1rem;
-        z-index: 10;
-    }
-
-    .roundId {
-        font-family: var(--font-number);
-        font-size: 1.2rem;
-        text-align: center;
-        color: var(--popup-result-sub-title-color);
-    }
 }
 
 .number-text {
@@ -109,5 +64,13 @@
     text-align: center;
     @media (max-width: 768px) {
         text-align: left;
+    }
+}
+
+.total-stake {
+    color: #04a5ff;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
     }
 }

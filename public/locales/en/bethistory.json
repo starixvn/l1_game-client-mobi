@@ -7,5 +7,8 @@
     "refund": "Refund",
     "win": "Win",
     "noBetHistory": "No data available.",
-    "details": "Details"
+    "details": "Details",
+    "totalStake": "Total Stake",
+    "betType": "Bet Type",
+    "betChoice": "Bet Choice"
 }
