@@ -345,6 +345,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateEnabledQuickBet={this.setEnabledQuickBet}
                         updateBetValue={this.setBetValue}
                         enabledSound={enabledPlaySound}
+                        betValue={betValue}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
                     {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
