@@ -8,8 +8,10 @@ export default function UserInfo({ user }: { user: User }) {
     return (
         <div className={Styles["user"]}>
             <div className={Styles["info"]}>
-                <div className={Styles["user-name"]}>{user.name}</div>
-                <div key={user.red} className={`${Styles.balance}`}>
+                <div className={Styles["user-name"]} data-testid="user-name">
+                    {user.name}
+                </div>
+                <div key={user.red} className={`${Styles.balance}`} data-testid="balance">
                     {numberWithCommas(user.red ? user.red : 0)} {user.currency}
                 </div>
             </div>
@@ -17,7 +19,7 @@ export default function UserInfo({ user }: { user: User }) {
                 {user.avatarId > 0 && user.avatarId < 41 ? (
                     <img src={`/static/images/avatar/${user.avatarId}.png`} className="img-fluid" height="40" width="40" alt="Avatar" />
                 ) : (
-                    <span className={`icon-user ${Styles["icon-user"]}`}></span>
+                    <span className={`icon-user ${Styles["icon-user"]}`} data-testid="icon-user" />
                 )}
             </div>
         </div>

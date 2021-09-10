@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import { GameState } from "../game-base/type";
-import LockingBet from "../locking-bet";
-import { Props } from "./bet-container";
-import { useSystemContext } from "../../../contexts/system";
 import { ChipMapper } from "../../../common/constants";
+import { useSystemContext } from "../../../contexts/system";
+import { GameState } from "../game-base/type";
+import OverlayMaskWhite from "../overlay-mask-white";
+import { Props } from "./bet-container";
 import Styles from "./bet-container.module.scss";
 
 const BetContainer: React.FC<Props> = (props) => {
@@ -28,7 +28,7 @@ const BetContainer: React.FC<Props> = (props) => {
     return (
         <div className={Styles["bet-container"]} style={customStyle}>
             {props.children}
-            {GameState.LockingBet === props.gameState && <LockingBet />}
+            {GameState.LockingBet === props.gameState && <OverlayMaskWhite />}
         </div>
     );
 };

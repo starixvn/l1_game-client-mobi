@@ -17,7 +17,6 @@ import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
 import WinningBet from "../animations/winning-bet";
-import BalancedBettingPool from "../balanced-betting-pool";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import { BaseResult } from "../base-result";
@@ -27,6 +26,7 @@ import { ConnectFailedMessage, ErrorMessage } from "../error-message";
 import GameHeader from "../game-header/game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
+import OverlayMaskWhite from "../overlay-mask-white";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import ResultDetail from "../result-detail";
@@ -905,7 +905,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                         timeToShowInSecond={durations.showResult + (durations.balancingBet ?? 0) - animationDuration}
                                     />
                                 )}
-                                {this.state.gameState === GameState.BalancingBet && <BalancedBettingPool />}
+                                {this.state.gameState === GameState.BalancingBet && <OverlayMaskWhite />}
                                 {this.state.notice && this.renderNotice()}
                                 {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
                                     <WinningBet amount={this.betWin} />
