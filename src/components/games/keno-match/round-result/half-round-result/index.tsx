@@ -48,9 +48,12 @@ export const HalfResultPopup: React.FC<HalfRoundResultPopupProps> = ({
 
     useEffect(() => {
         blueTeamProps.result.map((value, index) => {
-            setProgressBarStyle(`open-ball-${index + 1}`);
-            console.log(`open-ball-${index + 1}`);
+            setTimeout(() => {
+                setProgressBarStyle(prev => `${prev} ${`open-ball-${index + 1}`}`);
+                // console.log( `${progressBarStyle} ${`open-ball-${index + 1}`}`);
+            }, 100);
         });
+        // setProgressBarStyle("");
     }, []);
 
     return (
@@ -65,7 +68,7 @@ export const HalfResultPopup: React.FC<HalfRoundResultPopupProps> = ({
                     <span className={Styles["title-blue"]}>{t("blue")}</span>
                     <span className={Styles["title-red"]}>{t("red")}</span>
                 </div>
-                <div className={`${Styles["progress-bar"]} ${Styles[progressBarStyle]}`}>
+                <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
                     <div className={Styles["triangle"]}></div>
                     <div className={Styles["blue-team"]}>
                         <span className={Styles["blue-score"]}></span>
