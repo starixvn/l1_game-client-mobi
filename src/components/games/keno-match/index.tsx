@@ -128,11 +128,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
                 {durations.supportMD5 && (
-                    <div>
-                        <span>{md5Text}</span>
-                        <button type="button" onClick={this.copyToClipboard}>
-                            Copy
-                        </button>
+                    <div className={Styles["md5-section"]}>
+                        <span className={Styles["text"]}>{md5Text}</span>
+                        <div className={Styles["copy-box"]}><button type="button" onClick={this.copyToClipboard} className={Styles["copy-icon"]}></button></div>
                     </div>
                 )}
                 <KenoMatchBetOptions {...betOptionsProps} />
