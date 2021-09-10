@@ -227,82 +227,70 @@ $time-run-progress-bar: 1s;
         }
     }
 
-    @mixin value-ball(){
-        --ball-red-1: 52;
-        --ball-red-2: 65;
-        --ball-red-3: 18;
-        --ball-red-4: 3;
-        --ball-red-5: 39;
-        --ball-red-6: 27;
-        --ball-red-7: 20;
-        --ball-red-8: 11;
-        --ball-red-9: 19;
-        --ball-red-10: 6;
+    // @mixin value-ball(){
+    //     --ball-red-1: 52;
+    //     --ball-red-2: 65;
+    //     --ball-red-3: 18;
+    //     --ball-red-4: 3;
+    //     --ball-red-5: 39;
+    //     --ball-red-6: 27;
+    //     --ball-red-7: 20;
+    //     --ball-red-8: 11;
+    //     --ball-red-9: 19;
+    //     --ball-red-10: 6;
 
-        --ball-blue-1: 80;
-        --ball-blue-2: 11;
-        --ball-blue-3: 78;
-        --ball-blue-4: 13;
-        --ball-blue-5: 3;
-        --ball-blue-6: 61;
-        --ball-blue-7: 25;
-        --ball-blue-8: 7;
-        --ball-blue-9: 8;
-        --ball-blue-10: 44;
-    }    
-    // .main-content .team {           
-    //     @for $i from 1 through 10 {
-    //         .number {
-    //             opacity: 0;
-    //         }
-    //         .number:nth-child(#{$i}) {                
-    //             animation: show-value 0.3s ease-in-out forwards;
-    //             animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
-    //         }
-    //     }
-    // }
+    //     --ball-blue-1: 80;
+    //     --ball-blue-2: 11;
+    //     --ball-blue-3: 78;
+    //     --ball-blue-4: 13;
+    //     --ball-blue-5: 3;
+    //     --ball-blue-6: 61;
+    //     --ball-blue-7: 25;
+    //     --ball-blue-8: 7;
+    //     --ball-blue-9: 8;
+    //     --ball-blue-10: 44;
+    // }    
+    .main-content .team {           
+        @for $i from 1 through 10 {
+            .number {
+                opacity: 0;
+            }
+            .number:nth-child(#{$i}) {                
+                animation: show-value 0.3s ease-in-out forwards;
+                //animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
+                animation-delay: calc(0.2s * #{$i - 1});
+            }
+        }
+    }
     .progress-bar-team {
-        @include value-ball();
+        --from-width: 50%;
         @for $i from 1 through 10  {
-            --score-total: calc(var(--ball-blue-#{$i}) + var(--ball-red-#{$i}));
-            .progress-bar {            
+            .progress-bar.open-ball-#{$i} {            
                 .blue-team {
-                    --from-width: 50%;
-                    --to-width: calc(var(--ball-blue-#{$i}) / var(--score-total) * 100%);
+                    --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar $time-run-progress-bar linear forwards;
                     animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});  
-                    //--ball-blue: calc(var(--ball-blue-#{$i}));           
-                    
+                    --from-width: var(--to-width);
                     .blue-score {
-                        &:before{
-                            font: 400 2rem var(--font-number);
-                            color: #fff;                        
-                            counter-reset: ball-blue-#{$i} var(--ball-blue-#{$i});
-                            content: counter(ball-blue-#{$i});
-                            line-height: 3rem;
-                            padding-left: .6rem;
-                        }
+                        font: 400 2rem var(--font-number);
+                        color: #fff;  
+                        padding-left: .6rem;
                     }
                 }
 
                 .red-team {
                     --from-width: 50%;
-                    --to-width: calc(var(--ball-red-#{$i}) / var(--score-total) * 100%);
+                    --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar 1s linear forwards;
                     animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});
+                    --from-width: var(--to-width);
                     .red-score {
-                        &:before{
-                            font: 400 2rem var(--font-number);
-                            color: #fff;
-                            content: var(--ball-red-#{$i});
-                            counter-reset: ball-red-#{$i} var(--ball-red-#{$i});
-                            content: counter(ball-red-#{$i});
-                            line-height: 3rem;
-                            padding-right: .6rem;
-                            float: right;
-                        }
+                        font: 400 2rem var(--font-number);
+                        color: #fff;
+                        padding-right: .6rem;
+                        text-align: right;
                     }
                 }
             }

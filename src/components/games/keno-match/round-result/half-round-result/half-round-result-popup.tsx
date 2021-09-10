@@ -113,8 +113,8 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
     }, [result]);
 
     const totalRedScoreStyle = { "--red-score": totalPointRed } as React.CSSProperties,
-        totalBlueScoreStyle = { "--red-score": totalPointBlue } as React.CSSProperties,
-        totalScoreStyle = { "--red-score": totalPoint } as React.CSSProperties;
+    totalBlueScoreStyle = { "--blue-score": totalPointBlue } as React.CSSProperties,
+    totalScoreStyle = { "--total-score": totalPoint } as React.CSSProperties;
 
     return (
         <div ref={wrapperRef} className={`${classNames} ${Styles["open-result"]}`}>
