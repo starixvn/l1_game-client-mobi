@@ -83,6 +83,7 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
 
     useEffect(() => {
         let index = 0;
+        setProgressBarStyle("");
 
         function doAnimation() {
             if (index === blueTeamProps.result.length) {
@@ -98,22 +99,22 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
             const animationClass = `${gameName}ball-${index}`;
             document.getElementsByClassName(animationClass)[0].classList.remove(Styles["hidden"]);
             document.getElementsByClassName(animationClass)[1].classList.remove(Styles["hidden"]);
-            setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
+            setProgressBarStyle(`${Styles[`open-ball-${index + 1}`]}`);
             // setTimeout(() => {
             //     setProgressBarStyle((prev) => `${prev} ${`open-ball-${index + 1}`}`);
             // }, 100);
             index++;
         }
 
-        const timerId = setInterval(doAnimation, 150);
+        const timerId = setInterval(doAnimation, 400);
 
         return () => {
             clearInterval(timerId);
         };
     }, [result]);
 
-    const totalRedScoreStyle = { "--red-score": totalPointRed } as React.CSSProperties,
-    totalBlueScoreStyle = { "--blue-score": totalPointBlue } as React.CSSProperties,
+    const totalRedScoreStyle = { "--red-score": totalPointRed, "--total-score": totalPoint } as React.CSSProperties,
+    totalBlueScoreStyle = { "--blue-score": totalPointBlue, "--total-score": totalPoint } as React.CSSProperties,
     totalScoreStyle = { "--total-score": totalPoint } as React.CSSProperties;
 
     return (

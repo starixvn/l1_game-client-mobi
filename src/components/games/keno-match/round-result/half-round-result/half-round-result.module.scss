@@ -1,7 +1,7 @@
 @use "sass:math";
 @import "../../../../../assets/components/settlement-info";
 
-$time-open-ball: 0.3s;
+$time-open-ball: 1s;
 $time-run-progress-bar: 1s;
 
 .hidden{
@@ -22,7 +22,9 @@ $time-run-progress-bar: 1s;
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             grid-row-gap: .5rem;
+            height: 5.3rem;
             .number {
                 justify-self: center;
             }
@@ -227,29 +229,6 @@ $time-run-progress-bar: 1s;
         }
     }
 
-    // @mixin value-ball(){
-    //     --ball-red-1: 52;
-    //     --ball-red-2: 65;
-    //     --ball-red-3: 18;
-    //     --ball-red-4: 3;
-    //     --ball-red-5: 39;
-    //     --ball-red-6: 27;
-    //     --ball-red-7: 20;
-    //     --ball-red-8: 11;
-    //     --ball-red-9: 19;
-    //     --ball-red-10: 6;
-
-    //     --ball-blue-1: 80;
-    //     --ball-blue-2: 11;
-    //     --ball-blue-3: 78;
-    //     --ball-blue-4: 13;
-    //     --ball-blue-5: 3;
-    //     --ball-blue-6: 61;
-    //     --ball-blue-7: 25;
-    //     --ball-blue-8: 7;
-    //     --ball-blue-9: 8;
-    //     --ball-blue-10: 44;
-    // }    
     .main-content .team {           
         @for $i from 1 through 10 {
             .number {
@@ -263,20 +242,26 @@ $time-run-progress-bar: 1s;
         }
     }
     .progress-bar-team {
-        --from-width: 50%;
         @for $i from 1 through 10  {
             .progress-bar.open-ball-#{$i} {            
                 .blue-team {
-                    --to-width: calc(var(--red-score) / var(--total-score) * 100%);
+                    --from-width: 50%;
+                    --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar $time-run-progress-bar linear forwards;
-                    animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});  
-                    --from-width: var(--to-width);
+                    animation-delay: calc(#{$time-run-progress-bar} * #{$i - 1});  
+                    //--from-width: var(--to-width);
                     .blue-score {
                         font: 400 2rem var(--font-number);
                         color: #fff;  
                         padding-left: .6rem;
+                        
                     }
+                    // &:before{
+                    //     counter-reset: blue-score var(--blue-score);
+                    //     content: counter(--blue-score);
+                    //     color: #000;
+                    // }
                 }
 
                 .red-team {
@@ -284,13 +269,13 @@ $time-run-progress-bar: 1s;
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar 1s linear forwards;
-                    animation-delay: calc(#{$time-open-ball} * #{$i} + #{$time-run-progress-bar} * #{$i - 1});
-                    --from-width: var(--to-width);
+                    animation-delay: calc( #{$time-run-progress-bar} * #{$i - 1});
                     .red-score {
                         font: 400 2rem var(--font-number);
                         color: #fff;
                         padding-right: .6rem;
                         text-align: right;
+                        
                     }
                 }
             }
