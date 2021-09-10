@@ -7,11 +7,10 @@ import { GameResourceKeys } from "../../../../common/resources/game-resource-key
 import { useGameActionContext } from "../../../../contexts/game-actions-context";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../../contexts/system";
-import BetSettings from "../../../shared/bet-settings";
 import { PopupType, RebetStorageModel, ViewMode, GameState } from "../../../shared/game-base/type";
 import Styles from "../../../shared/game-header/game-header.module.scss";
-import { Tooltip } from "../../../shared/tooltip";
 import CountdownTimer from "../countdown-timer/countdown-timer";
+import {CommonResourceKeys} from "../../../../common/resources";
 import {KenoMatchGameStateEnum, KenoMatchGameState} from "../type";
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
@@ -20,16 +19,17 @@ export const getViewModeWhenClick = (viewMode: ViewMode) => {
 
 export default function GameHeader() {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
-    const { updateViewMode, renderResultCollapse } = useGameActionContext();
-
     const { favoriteGames, setFavorite } = useSystemContext();
+    const { updateViewMode, renderResultCollapse, updateStatusShowResult } = useGameActionContext();
 
     const { id: gameId, gameName } = gameSetting;
     const [isFavorite, updateFavorite] = useState<boolean>(favoriteGames.includes(gameId));
-
     const { t } = useTranslation([gameName.toLowerCase()]);
 
-    const kenoMatchGameState = gameState as KenoMatchGameState;
+    useEffect(() => {
+        updateFavorite(favoriteGames.includes(gameId));
+    }, [favoriteGames]);
+
     return useMemo(() => {
         const favoriteClickHandle = (e: React.MouseEvent) => {
             e.stopPropagation();
@@ -42,15 +42,12 @@ export default function GameHeader() {
             if (isMobileOnly) {
                 const mode = getViewModeWhenClick(viewMode);
                 updateViewMode(mode);
+                updateStatusShowResult();
             }
         };
 
-        const showCollapseResult = 
-            viewMode === ViewMode.collapse && (
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||  
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult || 
-                kenoMatchGameState === GameState.BeforeStartRound);
-
+        const showCollapseResult = () =>
+            viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
         return (
             <div
                 className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`}
@@ -74,24 +71,20 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                {!showCollapseResult && <CountdownTimer key={kenoMatchGameState} />}
-                <HeaderRight displayMenu={!showCollapseResult} />
-                {showCollapseResult && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
+                {!showCollapseResult() && <CountdownTimer key={gameState} />}
+                <HeaderRight />
+                {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
         );
     }, [gameState, roundId, viewMode, isFavorite]);
 }
 
-const HeaderRight = ({ displayMenu }) => {
+const HeaderRight = () => {
     const gameActions = useGameActionContext();
-    const systemContext = useSystemContext();
-    const { roundId, gameState, gameSetting, ownBets, viewMode, gameConfigs } = useGameContext();
-    const kenoMatchGameState = gameState as KenoMatchGameState;
-
+    const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { id: gameId } = gameSetting;
     const [disabledRebet, updateDisableRebet] = useState<boolean>(false);
     const { t } = useTranslation();
-    const rebetBtnWrapper = useRef<HTMLDivElement>(null);
 
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -103,8 +96,8 @@ const HeaderRight = ({ displayMenu }) => {
     };
 
     useEffect(() => {
-        (kenoMatchGameState !== KenoMatchGameStateEnum.FullTimePlacingBet ||  KenoMatchGameStateEnum.HalfTimePlacingBet) && updateDisableRebet(true);
-    }, [kenoMatchGameState]);
+        gameState !== GameState.InRound && updateDisableRebet(true);
+    }, [gameState]);
 
     useEffect(() => {
         updateDisableRebet(rebetInfo?.betInfo === undefined || rebetInfo?.roundId + 1 !== roundId);
@@ -112,22 +105,10 @@ const HeaderRight = ({ displayMenu }) => {
 
     return (
         <div className={Styles["header-right"]}>
-            {viewMode !== ViewMode.collapse && !disabledRebet && Object.keys(ownBets).length === 0 && (
-                <div ref={rebetBtnWrapper}>
-                    <button className={`game-header-button ${Styles.rebet}`} onClick={rebetClickHandle}>
-                        <img src={"/static/images/game-header-rebet-icon.svg"} width={33} height={33} alt="game-header-rebet-icon" />
-                        <Tooltip message={t("rebet")} hoverWrapper={rebetBtnWrapper} />
-                    </button>
-                </div>
-            )}
-            {viewMode !== ViewMode.collapse && displayMenu && (
-                <BetSettings
-                    gameId={gameId}
-                    betSettings={systemContext.betSettings[gameId]}
-                    updateBetSetting={systemContext.updateBetSetting}
-                    gameConfigs={gameConfigs}
-                    isDisabled={kenoMatchGameState === GameState.Disabled}
-                />
+            {viewMode !== ViewMode.collapse && (
+                <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
+                    {t(CommonResourceKeys.REBET)}
+                </button>
             )}
         </div>
     );

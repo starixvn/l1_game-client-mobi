@@ -628,7 +628,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         return (
             (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (
+                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
+                (
                 <BaseDialog type={ModalType.Center}>
                     <PopupResult
                         {...{
