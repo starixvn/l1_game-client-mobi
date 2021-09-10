@@ -10,5 +10,6 @@
     "details": "Details",
     "totalStake": "Total Stake",
     "betType": "Bet Type",
-    "betChoice": "Bet Choice"
+    "betChoice": "Bet Choice",
+    "betDetails": "Bet Details"
 }

@@ -11,13 +11,13 @@ import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
 import Loader from "../../../shared/loader";
 import { v4 as uuidv4 } from "uuid";
-import { GamesIdKenoMatch } from "./constants";
+import { GamesIdKenoMatch, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
 import Styles from "./bet-history.module.scss";
 import BetHistoryDetailsContainer from "./bet-history-details";
 
 const fontWeightClass = "font-weight-medium";
-const NUMBER_ROWS_DISPLAY = 16;
-const infiniteLoadBeginEdgeOffset = 100;
+let totalPage = 0;
+let isFetchingData = false;
 
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className={`font-number nowrap ${Styles["number-text"]}`}>{children}</span>;
@@ -96,11 +96,20 @@ const renderRound = ({ phien, freeBet }) => {
     );
 };
 
-const renderDataOnCell = (data: any, isHighligh: boolean, index: number) => {
+export const renderDataOnCell = (data: any, isHighligh: boolean, index: number) => {
     return (
         <td key={index} className={`${isHighligh ? "highlight" : ""}`}>
             {data}
         </td>
+    );
+};
+
+export const renderTimes = ({ time }) => {
+    return (
+        <FormatNumber>
+            <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
+            <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
+        </FormatNumber>
     );
 };
 
@@ -137,14 +146,7 @@ const RenderCell: React.FC<{
             {headerName.map((name, index) => {
                 switch (name) {
                     case "roundTime":
-                        return renderDataOnCell(
-                            <FormatNumber>
-                                <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
-                                <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
-                            </FormatNumber>,
-                            isHighligh,
-                            index
-                        );
+                        return renderDataOnCell(renderTimes({ time }), isHighligh, index);
                     case "round":
                         return renderDataOnCell(renderRound({ phien, freeBet }), isHighligh, index);
                     case "result":
@@ -187,7 +189,7 @@ const RenderCell: React.FC<{
     );
 };
 
-const renderHeaderRows = ({ headerName, t }) => {
+export const renderHeaderRows = ({ headerName, t }) => {
     return (
         <tr>
             {headerName.map((name: string, index: number) => {
@@ -210,6 +212,10 @@ const renderHeaderRows = ({ headerName, t }) => {
                         );
                     case "totalStake":
                         return <th key={index}>{t("totalStake")}</th>;
+                    case "betType":
+                        return <th key={index}>{t("betType")}</th>;
+                    case "betChoice":
+                        return <th key={index}>{t("betChoice")}</th>;
                     case "win":
                         return <th key={index}>{t("win")}</th>;
                 }
@@ -218,8 +224,6 @@ const renderHeaderRows = ({ headerName, t }) => {
     );
 };
 
-let totalPage = 0;
-let isFetchingData = false;
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal } = props;
     let { renderBet } = props;
@@ -240,6 +244,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
     const headerNameDefault = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
     const headerName = props.nameHeaderOnTable ? props.nameHeaderOnTable : headerNameDefault;
+
     useEffect(() => {
         const { proxy } = appSettings;
         const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
@@ -292,7 +297,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         };
 
         const handleScroll = (e) => {
-            if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) > e.target.scrollHeight - infiniteLoadBeginEdgeOffset) {
+            if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) > e.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
                 return;
             }
 
@@ -307,7 +312,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     <div className={Styles["history-loading"]}>
                         <Loader></Loader>
                     </div>
-                ) : listBetHistory.length > 0 ? (
+                ) : listBetHistory.length > 0 && !isShowBetLogDetails ? (
                     <div className="table-container react-infinite-table" onScroll={(e) => handleScroll(e)}>
                         <table key={uuidv4()} className="table text-center">
                             <thead>{renderHeaderRows({ headerName, t })}</thead>
@@ -334,20 +339,24 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </table>
                     </div>
                 ) : (
-                    t("noBetHistory")
+                    !isShowBetLogDetails && t("noBetHistory")
                 )}
-                {isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+
+                {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+
                 {isShowBetLogDetails && (
                     <BetHistoryDetailsContainer
-                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t })}
-                        t={t}
+                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail })}
+                        renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+                        isShowResultDetail={isShowResultDetail}
                         closeModalBetDetails={closeModalBetLogDetails}
                         closeModalBetHistory={closeModal}
+                        translateText={{ betDetails: t("betDetails") }}
                     ></BetHistoryDetailsContainer>
                 )}
             </>
         );
-    }, [isFirstLoad, listBetHistory, isShowResultDetail]);
+    }, [isFirstLoad, listBetHistory, isShowResultDetail, isShowBetLogDetails]);
 };
 
 export default BetHistoryContainer;

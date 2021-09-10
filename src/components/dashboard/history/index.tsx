@@ -46,6 +46,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
             case 35:
                 return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 36:
+            case 37:
                 return <KenoMatchBetHistory key={selectedGameId} gameId={selectedGameId} closeModal={closeModal} />;
             default:
                 return null;

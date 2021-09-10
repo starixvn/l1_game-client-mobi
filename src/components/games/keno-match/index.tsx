@@ -130,7 +130,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 {durations.supportMD5 && (
                     <div className={Styles["md5-section"]}>
                         <span className={Styles["text"]}>{md5Text}</span>
-                        <div className={Styles["copy-box"]}><button type="button" onClick={this.copyToClipboard} className={Styles["copy-icon"]}></button></div>
+                        <div className={Styles["copy-box"]}>
+                            <button type="button" onClick={this.copyToClipboard} className={Styles["copy-icon"]}></button>
+                        </div>
                     </div>
                 )}
                 <KenoMatchBetOptions {...betOptionsProps} />

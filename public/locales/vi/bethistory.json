@@ -10,5 +10,6 @@
     "details": "Chi tiết",
     "totalStake": "Tổng Cược",
     "betType": "Loại Cược",
-    "betChoice": "Lựa Chọn"
+    "betChoice": "Lựa Chọn",
+    "betDetails": "Chi tiết cược"
 }

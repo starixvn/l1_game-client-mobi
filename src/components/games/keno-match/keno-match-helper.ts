@@ -5,20 +5,20 @@ const validateResetValue = (value: number) => (value !== resetValue ? value : 0)
 export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
 
 export const resetValue = -1;
-const buildDefaultResult = () =>{
-    let index = 10, emptyResult =[];
-    while( index > 0)
-    {
+const buildDefaultResult = () => {
+    let index = 10,
+        emptyResult = [];
+    while (index > 0) {
         emptyResult.push(resetValue);
         index--;
     }
 
     return emptyResult;
-}
+};
 
 export const defaultResult = {
     blue: buildDefaultResult(),
-    red:  buildDefaultResult()
+    red: buildDefaultResult(),
 };
 
 export const choicesMapper = {
@@ -51,7 +51,6 @@ export const Choices = {
     odd: "odd",
     even: "even",
 };
-
 
 export const FakeSettlementResult = {
     blue: false,
@@ -167,14 +166,19 @@ export const KenoMatchConfigs = {
     },
 };
 
-export const GetTranslateChoiceMapping = (t: TFunction, gameName = "kenomatch1") => {
+export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
     return {
+        firstHalf: t(`${gameName}:firstHalf`),
+        fullTime: t(`${gameName}:fullTime`),
         blue: t(`${gameName}:blue`),
         red: t(`${gameName}:red`),
         over: t(`${gameName}:over`),
         under: t(`${gameName}:under`),
         odd: t(`${gameName}:odd`),
         even: t(`${gameName}:even`),
+        live: t(`${gameName}:live`),
+        sum: t(`${gameName}:sum`),
+        total: t(`${gameName}:total`),
     };
 };
 

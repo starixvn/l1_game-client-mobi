@@ -12,7 +12,7 @@ export type BetHistoryItem = {
 export type PropsBetContainer = {
     gameId: number;
     isRefund: boolean;
-    renderResult: (
+    renderResult?: (
         bet: BetLogs,
         roundId: number,
         setIsShowResultDetail?: Function,

@@ -5,3 +5,45 @@
 [data-theme="dark"] .result-detail {
     --popup-result-title-color: #fff;
 }
+
+.details {
+    cursor: pointer;
+    color: #216ac0;
+}
+
+.bet-logs-table {
+    overflow-y: auto;
+    thead th {
+        z-index: 250 !important;
+    }
+
+    .bet-type,
+    .bet-choice {
+        text-align: left;
+    }
+
+    .stake-refund {
+        text-align: right;
+    }
+
+    .refund {
+        color: red;
+    }
+}
+
+.result-details {
+    .score-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 0.5rem;
+        .number {
+            justify-self: center;
+        }
+    }
+    .blue-label {
+        color: #3b7bc6;
+    }
+    .red-label {
+        color: #ff4352;
+    }
+}
