@@ -3,7 +3,7 @@ import React from "react";
 import { GameBaseProps } from "../../../shared/game-base/type";
 import { RoundDotGrid } from "../../../shared/round-history/dot";
 import { Choices } from "../keno-match-helper";
-import { Result, SettlementResult, KenoMatchRound } from "../type";
+import { SettlementResult } from "../type";
 
 enum choiceValueMapping {
     blue,

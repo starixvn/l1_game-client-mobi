@@ -183,6 +183,8 @@ const RenderCell: React.FC<{
                             isHighligh,
                             index
                         );
+                    default:
+                        return <></>;
                 }
             })}
         </>
@@ -218,6 +220,8 @@ export const renderHeaderRows = ({ headerName, t }) => {
                         return <th key={index}>{t("betChoice")}</th>;
                     case "win":
                         return <th key={index}>{t("win")}</th>;
+                    default:
+                        return <></>;
                 }
             })}
         </tr>

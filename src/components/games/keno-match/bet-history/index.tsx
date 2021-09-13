@@ -63,13 +63,12 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
 
 const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     return Object.keys(settlementResult).map((keyName, index) => {
-        if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-            return (
-                <div key={index} className={Styles["result-info-red"]}>
-                    {translateMapping[keyName]}
-                </div>
-            );
-        }
+        settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName);
+        return (
+            <div key={index} className={Styles["result-info-red"]}>
+                {translateMapping[keyName]}
+            </div>
+        );
     });
 };
 
@@ -105,31 +104,31 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
 };
 
 const detectStateRound = (choice: string) => {
-    if (choice.includes("ht")) {
-        return StateRound.ht;
-    }
+    let stateRound = StateRound.ht;
 
     if (choice.includes("ft")) {
-        return StateRound.ft;
+        stateRound = StateRound.ft;
+    } else if (choice.includes("liveFT")) {
+        stateRound = StateRound.live;
     }
 
-    if (choice.includes("liveFT")) {
-        return StateRound.live;
-    }
+    return stateRound;
 };
 
 const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
+    let labelChoice = "";
     if (["red", "blue"].includes(formatChoice)) {
-        return `${translateMapping["blue"]}/${translateMapping["red"]}`;
+        labelChoice = `${translateMapping["blue"]}/${translateMapping["red"]}`;
     }
 
     if (["over", "under"].includes(formatChoice)) {
-        return `${translateMapping["over"]}/${translateMapping["under"]}`;
+        labelChoice = `${translateMapping["over"]}/${translateMapping["under"]}`;
     }
 
     if (["odd", "even"].includes(formatChoice)) {
-        return `${translateMapping["even"]}/${translateMapping["odd"]}`;
+        labelChoice = `${translateMapping["even"]}/${translateMapping["odd"]}`;
     }
+    return labelChoice;
 };
 
 const RenderCell: React.FC<{
