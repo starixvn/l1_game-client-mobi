@@ -27,7 +27,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         animationTimeOut = setTimeout(() => {
             setIsCollapse(false);
             setIsChangingMode(false);
-        }, 300);
+        }, 200);
     };
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                 animationTimeOut = setTimeout(() => {
                     setIsCollapse(true);
                     setIsChangingMode(false);
-                }, 300);
+                }, 200);
             }
         };
 
