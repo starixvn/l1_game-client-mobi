@@ -33,10 +33,9 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
                             {renderWinningInfo({ settlementResult: firstHalf?.settlementResult, translateMapping })}
                         </div>
 
-                        <div>
+                        <div className={Styles["total-section"]}>
                             {translateMapping.total}
-                            <br></br>
-                            <span className={Styles["total"]}>{firstHalf?.sum}</span>
+                            <div className={Styles["total"]}>{firstHalf?.sum}</div>
                         </div>
                     </div>
                     <div className={Styles["round-label"]}>
@@ -47,10 +46,9 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
                             {renderWinningInfo({ settlementResult: fullTime?.settlementResult, translateMapping })}
                         </div>
 
-                        <div>
+                        <div className={Styles["total-section"]}>
                             {translateMapping.total}
-                            <br></br>
-                            <span className={Styles["total"]}>{firstHalf?.sum}</span>
+                            <div className={Styles["total"]}>{firstHalf?.sum}</div>
                         </div>
                     </div>
                 </div>
