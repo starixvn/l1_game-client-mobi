@@ -24,7 +24,6 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-details"]}>
                     {renderScoreRounds({ result: firstHalf?.result, stateRound: StateRound.ht, translateMapping })}
-                    <span></span>
                     {renderScoreRounds({ result: fullTime?.result, stateRound: StateRound.ft, translateMapping })}
                     <div className={Styles["round-label"]}>
                         {translateMapping.firstHalf}-{translateMapping.sum}
@@ -83,7 +82,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
                     ))}
                 </div>
                 <div className={Styles["blue-label"]}>
-                    {translateMapping.blue}:{calculateTotalPoint(result.blue)}
+                    {translateMapping.blue}:<span className={Styles["score"]}>{calculateTotalPoint(result.blue)}</span>
                 </div>
             </div>
             <div className={Styles["round-name"]}>
@@ -96,7 +95,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
                     ))}
                 </div>
                 <div className={Styles["red-label"]}>
-                    {translateMapping.red}:{calculateTotalPoint(result.red)}
+                    {translateMapping.red}: <span className={Styles["score"]}>{calculateTotalPoint(result.red)}</span>
                 </div>
             </div>
         </div>
@@ -182,12 +181,14 @@ const renderBetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) =>
 
         return (
             <>
-                <div>
-                    {t(`${gameName}:game_name`)} - {t("round")}: {roundId}
-                </div>
-                <div onClick={() => clickOpenDetails()}>
-                    {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
-                </div>
+                <div className={Styles["top-title"]}>
+                    <div>
+                        {t(`${gameName}:game_name`)} - {t("round")}: {roundId}
+                    </div>
+                    <div onClick={() => clickOpenDetails()}>
+                        {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
+                    </div>
+                </div>                
                 <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`}>
                     <table className="table text-center">
                         <thead>{renderHeaderRows({ headerName, t })}</thead>

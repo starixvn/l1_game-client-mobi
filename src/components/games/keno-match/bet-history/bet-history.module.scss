@@ -8,7 +8,8 @@
 
 .details {
     cursor: pointer;
-    color: #216ac0;
+    color: #04A5FF;
+    padding-left: .4rem;
 }
 
 .bet-logs-table {
@@ -35,15 +36,52 @@
     .score-row {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        grid-row-gap: 0.5rem;
-        .number {
-            justify-self: center;
-        }
+        grid-template-rows: repeat(2, 1fr);
+        grid-gap: .4rem .4rem;
     }
     .blue-label {
         color: #3b7bc6;
     }
     .red-label {
         color: #ff4352;
+    }
+}
+
+.top-title {
+    display: flex;
+    justify-content: space-between;
+    padding: .6rem 0;
+}
+.container-round {
+    display: grid;
+    grid-template-columns: 1fr 6.8rem 1fr;
+    padding: .8rem 0;
+    &:first-child {
+        position: relative;
+        &:before {
+            width: calc(100% + 2rem);
+            content: '';
+            position: absolute;
+            height: .1rem;
+            background-color: #DEDEDE;
+            bottom: .1rem;
+            margin: 0 -1rem;
+        }
+    }
+    .round-name {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #2C2F3E;
+    }
+    .red-label, .blue-label{
+        position: relative;
+        top: .4rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-align: center;
+        .score {
+            font: 500 1.6rem var(--font-number);
+            padding-left: .2rem;
+        }
     }
 }
