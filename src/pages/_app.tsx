@@ -3,7 +3,7 @@ import "../assets/main.scss";
 
 import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "next-themes";
-import App, { AppContext, AppProps } from "next/app";
+import App, { AppProps } from "next/app";
 import Head from "next/head";
 
 import { Themes } from "../common/constants";
@@ -14,12 +14,6 @@ interface KenoSoccerAppProps extends AppProps {
 }
 
 class SabaMobiApp extends App<KenoSoccerAppProps> {
-    static getInitialProps = async (appContext: AppContext) => {
-        const appProps = await App.getInitialProps(appContext);
-
-        return { ...appProps };
-    };
-
     render() {
         const { Component, pageProps, err } = this.props;
 
