@@ -9,7 +9,7 @@
         "dsn": "https://936d6f9d99064ccdab5bece39bc3bc07@scsentry.sgamesuat.com/258",
         "environment": "UAT"
     },
-    "offeredGames": [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35],
+    "offeredGames": [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35, 36, 37],
     "enableSourceMap": false,
     "guideUrl": "https://l1guidesuat.sgamesuat.com"
 }
