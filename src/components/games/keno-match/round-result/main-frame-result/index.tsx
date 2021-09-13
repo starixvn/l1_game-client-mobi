@@ -12,12 +12,12 @@ export interface HalfRoundResultProps {
     className: string;
     active: boolean;
     gameName: string;
-};
+}
 
 export interface TeamProps {
     result: number[];
     teamName: string;
-};
+}
 
 export function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
@@ -69,9 +69,9 @@ export function Team({ result, teamName }: TeamProps) {
     );
 }
 
-export function Tie({ number }: { number: number }) {
+export function Tie({ number, isBetHistory = false }: { number: number; isBetHistory?: boolean }) {
     return (
-        <div className={Styles["number"]} data-testid="tie-component">
+        <div className={`${Styles["number"]} ${isBetHistory ? Styles["bet-history"] : ""}`} data-testid="tie-component">
             {number !== resetValue ? number : ""}
         </div>
     );

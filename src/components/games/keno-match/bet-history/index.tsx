@@ -80,7 +80,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-blue"]}>
                 <div className={Styles["score-row"]}>
                     {blue.map((number: number, index: number) => (
-                        <Tie key={index} number={number} />
+                        <Tie key={index} number={number} isBetHistory={true}/>
                     ))}
                 </div>
                 <div className={Styles["blue-label"]}>
@@ -93,7 +93,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-red"]}>
                 <div className={Styles["score-row"]}>
                     {red.map((number: number, index: number) => (
-                        <Tie key={index} number={number} />
+                        <Tie key={index} number={number} isBetHistory={true}/>
                     ))}
                 </div>
                 <div className={Styles["red-label"]}>
