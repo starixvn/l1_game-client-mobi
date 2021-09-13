@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
-import { isIOS, isMobileOnly } from "react-device-detect";
+import { isMobileOnly } from "react-device-detect";
 import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
 
@@ -197,7 +197,7 @@ export const Games: React.FC<Props> = ({
                     selectCategoryPage={selectCategoryPage}
                     selectedCategory={selectedCategory}
                 />
-                <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
+                <div className={styles["game-list"]}>
                     {renderListGames()}
                 </div>
             </SystemContextProvider>
