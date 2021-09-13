@@ -14,6 +14,15 @@ import * as Sentry from "../utils/sentry";
 
 const getUserSession = (token: string) => (token ? sso(token) : verifySession());
 
+const addCustomStyle = () => {
+    const customClass = window.navigator?.userAgent?.includes("iPhone") ? "isIOS-mobile" : "";
+
+    if (customClass) {
+        document.querySelector("body").classList.add(customClass);
+        document.querySelector("html").classList.add(customClass);
+    }
+};
+
 function Home() {
     const router = useRouter();
     const [isUM, setIsUm] = useState(false);
@@ -48,6 +57,7 @@ function Home() {
             const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
             setLanguage(locale);
             i18n.changeLanguage(locale);
+            addCustomStyle();
 
             signIn();
         }

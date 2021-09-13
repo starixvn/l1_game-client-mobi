@@ -4,20 +4,17 @@ import React from "react";
 export default class extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
-        const userAgent = typeof window !== "undefined" ? window.navigator?.userAgent : ctx.req?.headers["user-agent"];
-
-        initialProps.styles = userAgent?.includes("iPhone") ? "isIOS-mobile" : "";
 
         return { ...initialProps };
     }
 
     render() {
         return (
-            <Html className={this.props.styles as string}>
+            <Html>
                 <Head>
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                 </Head>
-                <body className={this.props.styles as string}>
+                <body>
                     <Main />
                     <NextScript />
                 </body>
