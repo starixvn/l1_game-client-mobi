@@ -14,7 +14,7 @@ import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
-import { Choices, defaultResult, StatisticRuleMapping } from "./keno-match-helper";
+import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import PopupResult from "./round-result/popup-result/index";
 import MainFrameResult from "./round-result/main-frame-result/index";
 import { ScoreboardRule } from "./scoreboard-round-history";
@@ -100,28 +100,17 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 showWinningAnimation,
                 liveOdds,
             } = this.state,
-            kenoMatchGameState = gameState as KenoMatchGameState,
-            durations = this.props.durations as KenoMatchGameDurations;
-
-        const fakeSettlementResult = {
-            blue: false,
-            red: false,
-            tie: true,
-            over: true,
-            under: false,
-            odd: true,
-            even: false,
-        };
+            kenoMatchGameState = gameState as KenoMatchGameState;
 
         const betOptionsProps = {
             liveOdds,
             gameState,
-            settlementResult: settlementResult ?? fakeSettlementResult,
+            settlementResult: settlementResult ?? FakeSettlementResult,
             isShowWinningEffect: showWinningAnimation,
             isActiveLiveFullTime: isActiveLiveFullTime,
         };
-
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
+
         return (
             <div>
                 {(kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
@@ -129,7 +118,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 <MainFrameResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
-                {durations.supportMD5 && (
+                {this.props.supportMD5 && (
                     <div className={Styles["md5-section"]}>
                         <span className={Styles["text"]}>{md5Text}</span>
                         <div className={Styles["copy-box"]}>

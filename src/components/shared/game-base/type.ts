@@ -51,6 +51,7 @@ export type GameBaseProps = {
     viewMode: ViewMode;
     setApiErrorMessage: Function;
     theme: string;
+    supportMD5?: boolean;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
 } & WithTranslation &

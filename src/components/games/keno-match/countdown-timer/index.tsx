@@ -2,70 +2,99 @@ import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Loader from "../../../shared/loader";
-import styles from "./countdown-timer.module.scss";
-
+import Styles from "../../../shared/countdown-timer/countdown-timer.module.scss";
 import { KenoMatchGameState, KenoMatchGameStateEnum, KenoMatchGameDurations, TimerProps } from "../type";
+
+interface GameStatusWithTimerProps {
+    duration: number;
+    initialRemainingTime: number;
+    lockingBet: boolean;
+    isStarBetting: boolean;
+}
 
 const KenoCountdownTimer: React.FC = () => {
     const { gameState, remainingTime, gameSetting } = useGameContext(),
         durationSetting = gameSetting.durations as KenoMatchGameDurations,
-        { halfTimeDuration, showHalfTimeResult, fullTimeDuration, showFullTimeResult } = durationSetting;
-
-    const kenoMatchGameState = gameState as KenoMatchGameState;
-    const { t } = useTranslation("common");
+        { halfTimeDuration, showHalfTimeResult, fullTimeDuration, showFullTimeResult } = durationSetting,
+        kenoMatchGameState = gameState as KenoMatchGameState;
 
     switch (kenoMatchGameState) {
         case KenoMatchGameStateEnum.HalfTimePlacingBet:
             return (
-                <>
-                    <Timer duration={halfTimeDuration} initialRemainingTime={remainingTime - showHalfTimeResult} lockingBet={false} />
-                    <GameStatus>
-                        <div className={styles["start-betting"]}>{t("startBetting")}</div>
-                    </GameStatus>
-                </>
+                <GameStatusAndTimer
+                    duration={halfTimeDuration}
+                    initialRemainingTime={remainingTime - showHalfTimeResult}
+                    lockingBet={false}
+                    isStarBetting={true}
+                />
             );
 
         case KenoMatchGameStateEnum.FullTimePlacingBet:
             return (
-                <>
-                    <Timer duration={fullTimeDuration} initialRemainingTime={remainingTime - showFullTimeResult} lockingBet={false} />
-                    <GameStatus>
-                        <div className={styles["start-betting"]}>{t("startBetting")}</div>
-                    </GameStatus>
-                </>
+                <GameStatusAndTimer
+                    duration={fullTimeDuration}
+                    initialRemainingTime={remainingTime - showFullTimeResult}
+                    lockingBet={false}
+                    isStarBetting={true}
+                />
             );
+
         case KenoMatchGameStateEnum.HalfTimeLockingBet:
             return (
-                <>
-                    <Timer duration={halfTimeDuration} initialRemainingTime={remainingTime - showHalfTimeResult} lockingBet={true} />
-
-                    <GameStatus>
-                        <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
-                    </GameStatus>
-                </>
+                <GameStatusAndTimer
+                    duration={halfTimeDuration}
+                    initialRemainingTime={remainingTime - showHalfTimeResult}
+                    lockingBet={true}
+                    isStarBetting={false}
+                />
             );
+
         case KenoMatchGameStateEnum.FullTimeLockingBet:
             return (
-                <>
-                    <Timer duration={fullTimeDuration} initialRemainingTime={remainingTime - showFullTimeResult} lockingBet={true} />
-                    <GameStatus>
-                        <div className={styles["no-more-bets"]}>{t("noMoreBets")}</div>
-                    </GameStatus>
-                </>
+                <GameStatusAndTimer
+                    duration={fullTimeDuration}
+                    initialRemainingTime={remainingTime - showFullTimeResult}
+                    lockingBet={true}
+                    isStarBetting={false}
+                />
             );
+
         case KenoMatchGameStateEnum.ShowHalfTimeResult:
         case KenoMatchGameStateEnum.ShowFullTimeResult:
             return <Loader />;
         default:
-            return (
-                <>
-                    <div className="loader-show-result"></div>
-                    <GameStatus>
-                        <div className={styles["open-result"]}>{t("openResult")}</div>
-                    </GameStatus>
-                </>
-            );
+            return <GameStatusAndShowResult />;
     }
+};
+
+function GameStatusAndShowResult() {
+    const { t } = useTranslation("common");
+    return (
+        <>
+            <div className="loader-show-result"></div>
+            <GameStatus>
+                <div className={Styles["open-result"]}>{t("openResult")}</div>
+            </GameStatus>
+        </>
+    );
+}
+
+const GameStatusAndTimer = ({ duration, initialRemainingTime, lockingBet, isStarBetting }: GameStatusWithTimerProps) => {
+    const { t } = useTranslation("common");
+    const content = isStarBetting ? (
+        <div className={Styles["start-betting"]}>{t("startBetting")}</div>
+    ) : (
+        <div className={Styles["no-more-bets"]}>{t("noMoreBets")}</div>
+    );
+
+    return (
+        <>
+            <Timer {...{ duration, initialRemainingTime, lockingBet }} />
+            <div className={Styles["game-status"]}>{content}</div>
+
+            <GameStatus>{content}</GameStatus>
+        </>
+    );
 };
 
 const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps) => {
@@ -80,21 +109,16 @@ const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps) => {
     };
 
     return (
-        <div className={styles.timer}>
+        <div className={Styles.timer}>
             <CountdownCircleTimer {...timerProps} colors={[[lockingBet ? "#FF0505" : "#19A32F", 1]]}>
-                {({ remainingTime }) => {
-                    if (remainingTime === 0) {
-                        return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });
-                    }
-                    return remainingTime.toLocaleString("en-US", { minimumIntegerDigits: 2 });
-                }}
+                {({ remainingTime }) => (remainingTime === 0 ? 1 : remainingTime).toLocaleString("en-US", { minimumIntegerDigits: 2 })}
             </CountdownCircleTimer>
         </div>
     );
 };
 
 const GameStatus: React.FC = ({ children }) => {
-    return <div className={styles["game-status"]}>{children}</div>;
+    return <div className={Styles["game-status"]}>{children}</div>;
 };
 
 export default KenoCountdownTimer;

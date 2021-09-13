@@ -78,7 +78,6 @@ export interface KenoMatchGameDurations extends GameDurations {
     resetResult: number;
     highLightFirstHalf: number;
     highLightFullTime: number;
-    supportMD5: boolean;
 }
 
 export interface KenoMatchGameSetting extends GameSettings {

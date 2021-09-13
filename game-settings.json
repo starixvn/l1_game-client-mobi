@@ -201,6 +201,7 @@
             "namespace": "kenomatch1",
             "path": "kenomatch"
         },
+        "supportMD5": false,
         "durations": {
             "wholeRound": 63,
             "showFullTimeSettlementResult": 59,
@@ -220,7 +221,6 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "supportMD5": false,
             "resultAnimation": 3
         }
     },
@@ -231,6 +231,7 @@
             "namespace": "kenomatch2",
             "path": "kenomatch"
         },
+        "supportMD5": true,
         "durations": {
             "wholeRound": 70,
             "showFullTimeSettlementResult": 66,
@@ -250,7 +251,6 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "supportMD5": true,
             "resultAnimation": 3
         }
     }
