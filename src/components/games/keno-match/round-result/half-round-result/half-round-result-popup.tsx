@@ -86,7 +86,7 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
                     <span className={Styles["title-red"]}>{t("red")}</span>
                 </div>
                 <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
-                    <div className={Styles["triangle"]}></div>
+                    <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
                         <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
                     </div>
