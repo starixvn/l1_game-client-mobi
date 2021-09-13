@@ -216,3 +216,10 @@ export const StatisticRuleMapping = [
     StatisticRuleEntriesOverUnder,
     StatisticRuleEntriesEvenOdd,
 ];
+
+export const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
+    return {
+        className: isActiveLiveFullTime ? "full-time" : "half-time",
+        headerText: isActiveLiveFullTime ? "fullTime" : "firstHalf",
+    };
+};

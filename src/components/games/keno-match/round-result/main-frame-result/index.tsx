@@ -1,22 +1,37 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-
 import { resetValue, calculateTotalPoint } from "../../keno-match-helper";
 import Styles from "./main-frame-result.module.scss";
+import {buildHalfMatchProps} from "../../keno-match-helper";
+import MainFrameResultProps, {TeamProps, HalfRoundResultProps } from "./main-frame-result-props";
 
-import { Result } from "../../type";
-
-export interface HalfRoundResultProps {
-    result: Result;
-    headerText: string;
-    className: string;
-    active: boolean;
-    gameName: string;
-}
-
-export interface TeamProps {
-    result: number[];
-    teamName: string;
+export default function MainFrameResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) {
+    return (
+        <div className={Styles["main-result"]}>
+            <div className={Styles.field}>
+                <HalfRoundResult
+                    {...{
+                        ...{
+                            result: halfTimeResult,
+                            active: isActiveLiveFullTime,
+                            gameName,
+                        },
+                        ...buildHalfMatchProps(false),
+                    }}
+                />
+                <HalfRoundResult
+                    {...{
+                        ...{
+                            result: fullTimeResult,
+                            active: !isActiveLiveFullTime,
+                            gameName,
+                        },
+                        ...buildHalfMatchProps(true),
+                    }}
+                />
+            </div>
+        </div>
+    );
 }
 
 export function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {

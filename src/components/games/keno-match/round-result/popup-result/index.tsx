@@ -1,11 +1,12 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { useTranslation } from "next-i18next";
 
-import { HalfRoundResultProps } from "../main-frame-result";
+import MainFrameResultProps, { HalfRoundResultProps } from "../main-frame-result/main-frame-result-props";
 import { SettlementResult } from "../../type";
 import { calculateTotalPoint } from "../../keno-match-helper";
 import { Tie } from "../main-frame-result";
 import Styles from "../main-frame-result/main-frame-result.module.scss";
+import {buildHalfMatchProps} from "../../keno-match-helper";
 
 export interface HalfRoundResultPopupProps extends HalfRoundResultProps {
     settlementResult: SettlementResult;
@@ -19,6 +20,87 @@ export interface TeamWithAnimationProps {
     gameName: string;
     total: number;
 }
+
+interface PopupResultProps extends MainFrameResultProps {
+    settlementResult: SettlementResult;
+}
+
+const PopupResult: React.FC<PopupResultProps> = ({
+    halfTimeResult,
+    fullTimeResult,
+    isActiveLiveFullTime,
+    gameName,
+    settlementResult,
+}: PopupResultProps) => {
+    const emptyResult = { blue: [], red: [] };
+    const [resultProps, setResultProps] = useState(null);
+    const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
+    const [halfTimeResultAnimation, setHalfTimeResultAnimation] = useState(emptyResult);
+
+    useEffect(() => {
+        let index = 0;
+        
+        function doAnimation() {
+            if (index === halfTimeResult.blue.length) {
+                clearInterval(timerId);
+                return;
+            }
+
+            const showSettlement = index === halfTimeResult.blue.length - 1,
+            progressBarStyle = `open-ball-${index + 1}`;
+
+            if (isActiveLiveFullTime) {
+                setFullTimeResultAnimation(prev => {
+                    prev.blue.push(fullTimeResult.blue[index]);
+                    prev.red.push(fullTimeResult.red[index]);
+
+                    return prev;
+                });
+                
+                setResultProps({
+                    ...{
+                        result: fullTimeResultAnimation,
+                        active: isActiveLiveFullTime,
+                        settlementResult,
+                        gameName,
+                        showSettlement,
+                        progressBarStyle
+                    },
+                    ...buildHalfMatchProps(true),
+                });
+            } else {
+                setHalfTimeResultAnimation(prev => {
+                    prev.blue.push(halfTimeResult.blue[index]);
+                    prev.red.push(halfTimeResult.red[index]);
+
+                    return prev;
+                });
+
+                setResultProps({
+                    ...{
+                        result: halfTimeResultAnimation,
+                        active: !isActiveLiveFullTime,
+                        settlementResult,
+                        gameName,
+                        showSettlement,
+                        progressBarStyle
+                    },
+                    ...buildHalfMatchProps(false),
+                });
+            }
+            index++;
+        }
+
+        doAnimation();
+        const timerId = setInterval(doAnimation, 200);
+
+        return () => {
+            clearInterval(timerId);
+        };
+    }, [halfTimeResult, fullTimeResult]);
+
+    return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundResultPopup {...resultProps} />}</div>;
+};
 
 export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) => {
     return (
@@ -111,3 +193,5 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
         </div>
     );
 };
+
+export default PopupResult;

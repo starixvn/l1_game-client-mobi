@@ -15,7 +15,8 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import Styles from "./game.module.scss";
 import { Choices, defaultResult, StatisticRuleMapping } from "./keno-match-helper";
-import { DrawFullResult, PopupResult } from "./round-result";
+import PopupResult from "./round-result/popup-result/index";
+import MainFrameResult from "./round-result/main-frame-result/index";
 import { ScoreboardRule } from "./scoreboard-round-history";
 import KenoCountdownTimer from "./countdown-timer";
 import {
@@ -125,7 +126,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             <div>
                 {(kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
                     kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && <div className="overlay-mask"></div>}
-                <DrawFullResult
+                <MainFrameResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
                 {durations.supportMD5 && (

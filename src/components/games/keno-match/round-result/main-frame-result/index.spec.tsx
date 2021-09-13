@@ -2,7 +2,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import { HalfRoundResult, Tie } from ".";
+import { HalfRoundResult, Tie } from "./";
 
 jest.mock("next-i18next", () => ({
     useTranslation: () => ({
