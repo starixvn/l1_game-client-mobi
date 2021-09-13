@@ -56,10 +56,10 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         <>
             {isCollapse && isMobileOnly ? (
                 <div
-                    className={`${Styles["slider-collapse"]} ${isChangingMode ? Styles["collapse-animation"] : ""}`}
+                    className={`${Styles["slider-collapse"]} ${isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]}`}
                     onClick={clickSliderCollapseHandle}
                 >
-                    <span className={`${Styles["icon-expand"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}></span>
+                    <span className={`icon-arrow-left ${Styles["icon-expand"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}></span>
                     <div className={Styles["chip-container"]}>
                         <img
                             src={`/static/images/chips/${ChipMapper[betValue]}.svg`}
@@ -82,7 +82,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
             ) : (
                 <div
                     ref={wrapperRef}
-                    className={`${Styles["bet-settings"]} ${deviceClass}  ${isChangingMode ? Styles["expand-animation"] : ""}`}
+                    className={`${Styles["bet-settings"]} ${deviceClass}  ${isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]}`}
                 >
                     <div className={Styles["settings-container"]}>
                         <div className={`game-container ${Styles["container"]}`}>

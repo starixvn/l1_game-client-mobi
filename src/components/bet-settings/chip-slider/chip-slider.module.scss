@@ -2,14 +2,14 @@
 
 %icon {
     position: absolute;
-    top: calc(50% - 2.5rem);
+    top: calc(50% - 2.2rem);
     display: flex;
     align-items: center;
     justify-content: center;
     height: 5rem;
     width: 3rem;
     color: #fff;
-    font-size: 2rem;
+    font-size: 1.6rem;
 
     &:hover:not(.disabled) {
         cursor: pointer;
@@ -21,23 +21,18 @@
         opacity: 0.5;
     }
 
-    &.quick-bet {
+    &.quick-bet:before {
         color: #52f428 !important;
 
         &.disabled {
             color: #4ee42c;
         }
     }
-
-    &:before {
-        content: "▲";
-    }
 }
 
 .icon-prev {
     @extend %icon;
     left: -2rem;
-    transform: rotate(-90deg);
 
     @media (min-width: 768px) {
         left: -4rem;
@@ -47,7 +42,7 @@
 .icon-next {
     @extend %icon;
     right: -2rem;
-    transform: rotate(90deg);
+    transform: rotate(180deg);
 
     @media (min-width: 768px) {
         right: -4rem;

@@ -14,35 +14,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-help:before {
-    content: "\e911";
-    color: #5e85c0;
-}
-
-.icon-delete:before {
+.icon-arrow-left:before {
     content: "\e900";
-}
-
-.icon-dollar:before {
-    content: "\e907";
-    color: #818181;
-}
-
-.icon-arrow-down:before {
-    display: flex;
-    align-items: center;
-    content: "\e90b";
-    color: #825000;
-    font-size: 0.8rem;
-}
-
-.icon-check:before {
-    content: "\e918";
-}
-
-.icon-moon:before {
-    content: "\e90b";
-    color: #f3f3f3;
+    color: #fff;
 }
 
 .icon-edit:before {
@@ -70,16 +44,6 @@
     color: #ffb52a;
 }
 
-.icon-dragon:before {
-    content: "\e911";
-    color: #ff9a00;
-}
-
-.icon-tiger:before {
-    content: "\e912";
-    color: #de4b56;
-}
-
 .icon-error:before {
     content: "\e90f";
     color: #f00;
@@ -105,30 +69,6 @@
     color: #fff;
 }
 
-.icon-tom:before {
-    content: "\e903";
-    color: #0870a3;
-}
-.icon-bau:before {
-    content: "\e905";
-    color: #4861bb;
-}
-.icon-ca:before {
-    content: "\e906";
-    color: #d03824;
-}
-.icon-cua:before {
-    content: "\e915";
-    color: #359b5b;
-}
-.icon-ga:before {
-    content: "\e916";
-    color: #f9604f;
-}
-.icon-nai:before {
-    content: "\e917";
-    color: #c59400;
-}
 .icon-menu:before {
     content: "\e900";
     color: #9298a4;

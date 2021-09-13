@@ -144,7 +144,7 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
     return (
         <React.Fragment>
             <span
-                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                className={`icon-arrow-left ${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
                 onClick={onClickPrev}
             ></span>
             <Slider
@@ -173,7 +173,7 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
                 ))}
             </Slider>
             <span
-                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
+                className={`icon-arrow-left ${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
                 onClick={onClickNext}
             ></span>
         </React.Fragment>
