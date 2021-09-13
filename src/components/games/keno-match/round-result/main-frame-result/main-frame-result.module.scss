@@ -45,6 +45,11 @@ $time-run-progress-bar: 1s;
     color: #2c2f3e;
     line-height: 2.4rem;
     text-align: center;
+    &.bet-history {
+        height: 2.2rem;
+        width: 2.2rem;
+        line-height: 2.2rem;
+    }
 }
 
 .middle-column {
