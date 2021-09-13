@@ -1,7 +1,8 @@
 // import '@testing-library/jest-dom';
-import { render, fireEvent, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
-import { Tie, Team, HalfRoundResult } from ".";
+
+import { HalfRoundResult, Tie } from ".";
 
 jest.mock("next-i18next", () => ({
     useTranslation: () => ({
@@ -41,25 +42,25 @@ test("Tie should be render correctly", () => {
 //     expect(screen.getByTestId("team-result-row-component")).toHaveClass("row");
 // });
 
-test("Team should be render correctly", () => {
-    const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        teamName = "red";
+// test("Team should be render correctly", () => {
+//     const result = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+//         teamName = "red";
 
-    render(<Team {...{ result, teamName }} />);
+//     render(<Team {...{ result, teamName }} />);
 
-    const component = screen.getByTestId("team-component");
-    expect(component).toHaveClass("team");
-    expect(screen.getAllByTestId("team-result-row-component")).toHaveLength(2);
-    expect(document.getElementsByClassName("team-name")).toHaveLength(1);
+//     const component = screen.getByTestId("team-component");
+//     expect(component).toHaveClass("team");
+//     expect(screen.getAllByTestId("team-result-row-component")).toHaveLength(2);
+//     expect(document.getElementsByClassName("team-name")).toHaveLength(1);
 
-    const teamNameElements = document.getElementsByClassName("name");
-    expect(teamNameElements).toHaveLength(1);
-    expect(teamNameElements[0].innerHTML).toEqual("red:");
+//     const teamNameElements = document.getElementsByClassName("name");
+//     expect(teamNameElements).toHaveLength(1);
+//     expect(teamNameElements[0].innerHTML).toEqual("red:");
 
-    const scoreElements = document.getElementsByClassName("score");
-    expect(scoreElements).toHaveLength(1);
-    expect(scoreElements[0].innerHTML).toEqual("55");
-});
+//     const scoreElements = document.getElementsByClassName("score");
+//     expect(scoreElements).toHaveLength(1);
+//     expect(scoreElements[0].innerHTML).toEqual("55");
+// });
 
 const buildProps = (active: boolean) => {
     return {
