@@ -1,9 +1,23 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { TeamProps, HalfRoundResultProps } from "./half-round-result-props";
 import { resetValue, calculateTotalPoint } from "../../keno-match-helper";
-import Styles from "./half-round-result.module.scss";
+import Styles from "./main-frame-result.module.scss";
+
+import { Result } from "../../type";
+
+export interface HalfRoundResultProps {
+    result: Result;
+    headerText: string;
+    className: string;
+    active: boolean;
+    gameName: string;
+};
+
+export interface TeamProps {
+    result: number[];
+    teamName: string;
+};
 
 export function HalfRoundResult({ result, active, className, headerText, gameName }: HalfRoundResultProps) {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,

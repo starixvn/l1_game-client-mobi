@@ -5,7 +5,7 @@ import ResultDetailContainer from "../../../dashboard/history/bet-history/result
 import BetHistoryContainer, { renderHeaderRows, renderTimes } from "../../../dashboard/history/bet-history";
 import { BetLogs, BetDetailProps } from "./bet-history";
 import { GameResourceKeys } from "../../../../common/resources";
-import { Tie } from "../round-result/half-round-result";
+import { Tie } from "../round-result/main-frame-result";
 import { calculateTotalPoint, GetTranslateMapping } from "../keno-match-helper";
 import Styles from "./bet-history.module.scss";
 

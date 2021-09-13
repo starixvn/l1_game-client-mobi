@@ -1,11 +1,17 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { HalfRoundResultPopupProps } from "./half-round-result-props";
+import { HalfRoundResultProps } from "../main-frame-result";
 import { SettlementResult } from "../../type";
 import { calculateTotalPoint } from "../../keno-match-helper";
-import { Tie } from ".";
-import Styles from "./half-round-result.module.scss";
+import { Tie } from "../main-frame-result";
+import Styles from "../main-frame-result/main-frame-result.module.scss";
+
+export interface HalfRoundResultPopupProps extends HalfRoundResultProps {
+    settlementResult: SettlementResult;
+    showSettlement: boolean;
+    progressBarStyle: string;
+};
 
 export interface TeamWithAnimationProps {
     result: number[];
@@ -13,7 +19,6 @@ export interface TeamWithAnimationProps {
     gameName: string;
     total: number;
 }
-
 
 export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) => {
     return (

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Result, SettlementResult } from "../type";
 import Styles from "./draw-result.module.scss";
-import { HalfRoundResult } from "./half-round-result";
-import { HalfRoundResultPopup } from "./half-round-result/half-round-result-popup";
+import { HalfRoundResult } from "./main-frame-result/index";
+import { HalfRoundResultPopup } from "./popup-result/index";
 
 interface ResultProps {
     halfTimeResult: Result;
