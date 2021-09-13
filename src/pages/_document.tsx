@@ -4,9 +4,9 @@ import React from "react";
 export default class extends Document {
     static async getInitialProps(ctx: DocumentContext) {
         const initialProps = await Document.getInitialProps(ctx);
-        const userAgent = ctx.req?.headers["user-agent"] ?? "";
+        const userAgent = typeof window !== "undefined" ? window.navigator?.userAgent : ctx.req?.headers["user-agent"];
 
-        initialProps.styles = userAgent.includes("iPhone") ? "isIOS-mobile" : "";
+        initialProps.styles = userAgent?.includes("iPhone") ? "isIOS-mobile" : "";
 
         return { ...initialProps };
     }
