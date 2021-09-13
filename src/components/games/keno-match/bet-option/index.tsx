@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useCountUp } from "react-countup";
-
 import { GameState } from "../../../shared/game-base/type";
-import { HighlightType, Props } from "../../../shared/bet-option/types";
-
+import { HighlightType } from "../../../shared/bet-option/types";
 import BetOption from "../../../shared/bet-option";
 import { KenoMatchGameStateEnum, KenoMatchGameState } from "../type";
 
-interface NewProps {
+interface KenoMatchBetOptionProps {
     choice: string;
     odd: number;
     isHighlight: boolean;
@@ -17,7 +14,7 @@ interface NewProps {
     isShowWinningEffect: boolean;
 }
 
-const KenoMatchBetOption: React.FunctionComponent<NewProps> = ({
+const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
     gameState,
     choice,
     odd,
@@ -29,8 +26,6 @@ const KenoMatchBetOption: React.FunctionComponent<NewProps> = ({
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
 
     useEffect(() => {
-        // console.log(KenoMatchGameStateEnum[gameState]);
-
         const actionByGameState = {
             [KenoMatchGameStateEnum.ShowFullTimeSettlementResult]: () => {
                 updateHighlightType(HighlightType.Background);

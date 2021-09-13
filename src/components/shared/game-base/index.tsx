@@ -33,6 +33,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
+import CountdownTimer from "../../shared//countdown-timer/countdown-timer";
 import {
     Boundary,
     GameBaseProps,
@@ -826,7 +827,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGameHeader() {
-        return <GameHeader />;
+        const {gameState} = this.state;
+
+        const gameHeaderProps = {
+            isShowCollapse: [GameState.DisplayResult,  GameState.BeforeStartRound].includes(gameState),
+            isUpdateDisableRebet: gameState !== GameState.InRound,
+            countdownTimerComponent:<CountdownTimer key={gameState} />
+        };
+
+        return <GameHeader {...gameHeaderProps}/>;
     }
 
     renderPopupResult() {

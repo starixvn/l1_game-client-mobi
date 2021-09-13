@@ -7,16 +7,25 @@ import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
-import CountdownTimer from "../countdown-timer/countdown-timer";
-import { GameState, PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
+import { PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
 import Styles from "./game-header.module.scss";
 import { CommonResourceKeys } from "../../../common/resources";
+
+export type GameHeaderProps = {
+    isShowCollapse: boolean;
+    isUpdateDisableRebet: boolean;
+    countdownTimerComponent: any
+};
 
 export const getViewModeWhenClick = (viewMode: ViewMode) => {
     return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
 };
 
-export default function GameHeader() {
+export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({
+    isShowCollapse ,
+    isUpdateDisableRebet,
+    countdownTimerComponent
+}) => {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
     const { favoriteGames, setFavorite } = useSystemContext();
     const { updateViewMode, renderResultCollapse, updateStatusShowResult } = useGameActionContext();
@@ -45,8 +54,8 @@ export default function GameHeader() {
             }
         };
 
-        const showCollapseResult = () =>
-            viewMode === ViewMode.collapse && (gameState === GameState.DisplayResult || gameState === GameState.BeforeStartRound);
+        const showCollapseResult = isShowCollapse && viewMode === ViewMode.collapse;
+
         return (
             <div
                 className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`}
@@ -70,15 +79,15 @@ export default function GameHeader() {
                         </div>
                     </div>
                 </div>
-                {!showCollapseResult() && <CountdownTimer key={gameState} />}
-                <HeaderRight />
-                {showCollapseResult() && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
+                {!showCollapseResult && countdownTimerComponent }
+                <HeaderRight isUpdateDisableRebet={isUpdateDisableRebet} />
+                {showCollapseResult && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
         );
     }, [gameState, roundId, viewMode, isFavorite]);
 }
 
-const HeaderRight = () => {
+const HeaderRight = ({isUpdateDisableRebet}) => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { id: gameId } = gameSetting;
@@ -95,7 +104,7 @@ const HeaderRight = () => {
     };
 
     useEffect(() => {
-        gameState !== GameState.InRound && updateDisableRebet(true);
+        isUpdateDisableRebet && updateDisableRebet(true);
     }, [gameState]);
 
     useEffect(() => {
@@ -112,3 +121,5 @@ const HeaderRight = () => {
         </div>
     );
 };
+
+export default GameHeader;

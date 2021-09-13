@@ -1,14 +1,12 @@
 import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { GameState } from "../../../shared/game-base/type";
 import Loader from "../../../shared/loader";
 import styles from "./countdown-timer.module.scss";
 
 import { KenoMatchGameState, KenoMatchGameStateEnum, KenoMatchGameDurations, TimerProps } from "../type";
 
-const CountdownTimer: React.FC = () => {
+const KenoCountdownTimer: React.FC = () => {
     const { gameState, remainingTime, gameSetting } = useGameContext(),
         durationSetting = gameSetting.durations as KenoMatchGameDurations,
         { halfTimeDuration, showHalfTimeResult, fullTimeDuration, showFullTimeResult } = durationSetting;
@@ -99,4 +97,4 @@ const GameStatus: React.FC = ({ children }) => {
     return <div className={styles["game-status"]}>{children}</div>;
 };
 
-export default CountdownTimer;
+export default KenoCountdownTimer;

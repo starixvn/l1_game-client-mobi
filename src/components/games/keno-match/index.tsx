@@ -4,7 +4,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { RoundKenoMatchBase } from "../../../types";
-import KenoMatchGameHeader from "../../games/keno-match/header";
+import  GameHeader from "../../shared/game-header/game-header";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import GameBase from "../../shared/game-base";
@@ -17,6 +17,7 @@ import Styles from "./game.module.scss";
 import { Choices, defaultResult, StatisticRuleMapping } from "./keno-match-helper";
 import { DrawFullResult, PopupResult } from "./round-result";
 import { ScoreboardRule } from "./scoreboard-round-history";
+import KenoCountdownTimer from "./countdown-timer";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
@@ -332,7 +333,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         switch (gameState) {
             case KenoMatchGameStateEnum.HalfTimePlacingBet:
             case KenoMatchGameStateEnum.HalfTimeLockingBet:
-            case KenoMatchGameStateEnum.HalfTimePlacingBet:
             case KenoMatchGameStateEnum.FullTimePlacingBet:
             case KenoMatchGameStateEnum.FullTimeLockingBet:
                 return remainingTime;
@@ -496,6 +496,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 ? this.handleRoundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
                 : roundHistoryFH;
 
+        this.storeOwnBet(roundId);
         this.setState({
             halfTimeResultPopup: firstHalfResult.result,
             settlementResultPopup: firstHalfResult.settlementResult,
@@ -542,7 +543,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         this.isProcessingBet = false;
         this.clearRetryInterval();
-        this.storeOwnBet(finish.roundId);
         roundHistoryFTClone.unshift(finish);
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
 
@@ -621,7 +621,20 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderGameHeader() {
-        return <KenoMatchGameHeader />;
+        const { gameState} = this.state,
+        kenoGameState = gameState as KenoMatchGameState;
+
+        const gameHeaderProps = {
+            isShowCollapse: [KenoMatchGameStateEnum.ShowHalfTimeSettlementResult, 
+                KenoMatchGameStateEnum.ShowFullTimeSettlementResult, 
+                KenoMatchGameStateEnum.BeforeStartRound,
+                KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet
+            ].includes(kenoGameState as KenoMatchGameStateEnum),
+            isUpdateDisableRebet: kenoGameState !== KenoMatchGameStateEnum.HalfTimePlacingBet,
+            countdownTimerComponent: <KenoCountdownTimer />
+        };
+
+        return <GameHeader {...gameHeaderProps}/>;
     }
 
     renderPopupResult() {
@@ -630,8 +643,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         return (
             (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && 
-                (
+                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (
                 <BaseDialog type={ModalType.Center}>
                     <PopupResult
                         {...{

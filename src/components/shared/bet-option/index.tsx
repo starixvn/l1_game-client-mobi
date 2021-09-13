@@ -38,24 +38,23 @@ const BetOption: React.FunctionComponent<Props> = ({
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
 
     useEffect(() => {
-        if(!isHighlightTypeCustom){
-        const actionByGameState = {
-            [GameState.LockingBet]: () => {
-                updateHighlightType(HighlightType.None);
-            },
-            [GameState.InRound]: () => {
-                updateHighlightType(HighlightType.Background);
-            },
-            [GameState.BeforeStartRound]: () => {
-                updateHighlightType(HighlightType.Background);
-            },
-        };
+        if (!isHighlightTypeCustom) {
+            const actionByGameState = {
+                [GameState.LockingBet]: () => {
+                    updateHighlightType(HighlightType.None);
+                },
+                [GameState.InRound]: () => {
+                    updateHighlightType(HighlightType.Background);
+                },
+                [GameState.BeforeStartRound]: () => {
+                    updateHighlightType(HighlightType.Background);
+                },
+            };
 
-        actionByGameState[gameState] && actionByGameState[gameState]();
-    }
-    else{
-        updateHighlightType(highlightTypeCustom);
-    }
+            actionByGameState[gameState] && actionByGameState[gameState]();
+        } else {
+            updateHighlightType(highlightTypeCustom);
+        }
         setTotalBet(totalBets[choice]);
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
