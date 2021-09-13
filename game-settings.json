@@ -205,7 +205,7 @@
             "wholeRound": 62,
             "showFullTimeSettlementResult": 58,
             "highLightFullTime": 55,
-            
+
             "halfTimePlacingBets": 54,
             "resetResult": 35,
             "halfTimeLockingBet": 32,
@@ -216,11 +216,12 @@
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
             "fullTimeLockingBet": 5,
-            "showFullTimeResult":0,
+            "showFullTimeResult": 0,
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "supportMD5": false
+            "supportMD5": false,
+            "resultAnimation": 3
         }
     },
     "37": {
@@ -238,18 +239,19 @@
             "halfTimePlacingBets": 58,
             "resetResult": 39,
             "halfTimeLockingBet": 36,
-            "showHalfTimeResult":31,
+            "showHalfTimeResult": 31,
             "showHalfTimeSettlementResult": 27,
             "highLightFirstHalf": 24,
 
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
             "fullTimeLockingBet": 5,
-            "showFullTimeResult":0,
+            "showFullTimeResult": 0,
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "supportMD5": true
+            "supportMD5": true,
+            "resultAnimation": 3
         }
     }
 }
