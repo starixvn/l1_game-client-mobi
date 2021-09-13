@@ -265,6 +265,19 @@ html {
         --page-background-image: url("/static/images/themes/background-theme-dark-desktop.jpg");
     }
 }
+
+html {
+    overflow: hidden;
+    width: 100%;
+}
+
+body {
+    height: 100%;
+    position: fixed;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+
 html {
     overscroll-behavior: none;
     -ms-overscroll-behavior: none;
