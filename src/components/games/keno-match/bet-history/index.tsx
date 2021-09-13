@@ -26,7 +26,7 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
                     {renderScoreRounds({ result: firstHalf?.result, stateRound: StateRound.ht, translateMapping })}
                     {renderScoreRounds({ result: fullTime?.result, stateRound: StateRound.ft, translateMapping })}
                     <div className={Styles["round-label"]}>
-                        {translateMapping.firstHalf}-{translateMapping.sum}
+                        {translateMapping.firstHalf} - {translateMapping.sum}
                     </div>
                     <div className={Styles["winning-info"]}>
                         <div className={Styles["result-info"]}>
@@ -40,7 +40,7 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
                         </div>
                     </div>
                     <div className={Styles["round-label"]}>
-                        {translateMapping.fullTime}-{translateMapping.sum}
+                        {translateMapping.fullTime} - {translateMapping.sum}
                     </div>
                     <div className={Styles["winning-info"]}>
                         <div className={Styles["result-info"]}>
