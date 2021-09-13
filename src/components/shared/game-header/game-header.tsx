@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";

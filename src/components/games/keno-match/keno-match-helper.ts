@@ -5,8 +5,8 @@ export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) 
 
 export const resetValue = -1;
 const buildDefaultResult = () => {
-    let index = 10,
-        emptyResult = [];
+    let index = 10;
+    const emptyResult = [];
     while (index > 0) {
         emptyResult.push(resetValue);
         index--;
