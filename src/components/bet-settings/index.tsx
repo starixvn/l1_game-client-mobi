@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 import { ChipLabelMapper, ChipMapper } from "../../common/constants";
@@ -15,17 +14,17 @@ type Props = {
 };
 
 const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, betValue }) => {
-    const { t } = useTranslation("common");
-    const [isCollapse, setIsCollapse] = useState(false);
+    const [isCollapse, setIsCollapse] = useState(true);
     const [isChangingMode, setIsChangingMode] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
+    let animationTimeOut: NodeJS.Timeout = null;
 
     var deviceClass = "";
 
     const clickSliderCollapseHandle = () => {
         setIsChangingMode(true);
 
-        setTimeout(() => {
+        animationTimeOut = setTimeout(() => {
             setIsCollapse(false);
             setIsChangingMode(false);
         }, 300);
@@ -33,10 +32,10 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!isCollapse && wrapperRef?.current && !wrapperRef.current.contains(event.target)) {
+            if (!isCollapse && isMobileOnly && wrapperRef?.current && !wrapperRef.current.contains(event.target)) {
                 setIsChangingMode(true);
 
-                setTimeout(() => {
+                animationTimeOut = setTimeout(() => {
                     setIsCollapse(true);
                     setIsChangingMode(false);
                 }, 300);
@@ -46,7 +45,9 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         document.addEventListener("mousedown", handleClickOutside);
 
         return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [wrapperRef]);
+    }, [wrapperRef, isCollapse]);
+
+    useEffect(() => animationTimeOut && clearTimeout(animationTimeOut), []);
 
     if (isMobileOnly) {
         deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
@@ -71,18 +72,22 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                         <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>
                     </div>
 
-                    {enabledQuickBet && <img
-                        src={`/static/images/icon-quick-bet-active.svg?v=1625225065074`}
-                        className={`img-fluid ${Styles["icon-enable-quickbet"]}`}
-                        width="20"
-                        height="20"
-                        alt="Chip"
-                    />}
+                    {enabledQuickBet && (
+                        <img
+                            src={`/static/images/icon-quick-bet-active.svg?v=1625225065074`}
+                            className={`img-fluid ${Styles["icon-enable-quickbet"]}`}
+                            width="20"
+                            height="20"
+                            alt="Chip"
+                        />
+                    )}
                 </div>
             ) : (
                 <div
                     ref={wrapperRef}
-                    className={`${Styles["bet-settings"]} ${deviceClass}  ${isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]}`}
+                    className={`${Styles["bet-settings"]} ${deviceClass}  ${
+                        isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]
+                    }`}
                 >
                     <div className={Styles["settings-container"]}>
                         <div className={`game-container ${Styles["container"]}`}>
