@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation, TFunction } from "next-i18next";
 import { useRouter } from "next/router";
-
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+
 import appSettings from "../../../../common/app-settings";
 import { useAuthContext } from "../../../../contexts/auth";
 import { numberWithCommas } from "../../../../helpers/number-helper";
@@ -10,14 +11,13 @@ import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
 import Loader from "../../../shared/loader";
-import { v4 as uuidv4 } from "uuid";
 import { GamesIdKenoMatch, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
-import Styles from "./bet-history.module.scss";
 import BetHistoryDetailsContainer from "./bet-history-details";
+import Styles from "./bet-history.module.scss";
 
 const fontWeightClass = "font-weight-medium";
 let totalPage = 0;
-let isFetchingData = false;
+let isFetchingHistory = false;
 
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className={`font-number nowrap ${Styles["number-text"]}`}>{children}</span>;
@@ -113,7 +113,7 @@ export const renderTimes = ({ time }) => {
     );
 };
 
-const RenderCell: React.FC<{
+const renderCellOnTable: React.FC<{
     betHistoryItem: BetLogs;
     renderResult: (
         rowData: BetLogs,
@@ -228,6 +228,67 @@ export const renderHeaderRows = ({ headerName, t }) => {
     );
 };
 
+const sendPostBetHistory = async ({
+    gameId,
+    gameSetting,
+    proxy,
+    session,
+    page,
+    setIsFirstLoad,
+    router,
+    setListBetHistory,
+    listBetHistory,
+}) => {
+    const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
+        ? `${gameSetting.socketInfo.path}/api/${gameSetting.socketInfo.namespace}/history`
+        : `${gameSetting.socketInfo.path}/api/history`;
+    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
+    isFetchingHistory = true;
+    try {
+        const resp = await axios.post(historyAPI, {
+            session: session.ss,
+            page: page,
+            pageSize: NUMBER_ROWS_DISPLAY,
+            username: session.username,
+        });
+        const bets = resp.data.history;
+        fetchBetHistory({ betHistory: bets, setListBetHistory, listBetHistory });
+        setIsFirstLoad(false);
+        if (page === 1) {
+            totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
+        }
+    } catch (err) {
+        if (err?.response?.status === 401) {
+            clearSession();
+            router.push("/timeout");
+        }
+    }
+};
+
+const fetchBetHistory = ({ betHistory, setListBetHistory, listBetHistory }) => {
+    if (betHistory && betHistory.betLogs.length > 0) {
+        const data = betHistory.betLogs;
+        setListBetHistory([...listBetHistory, ...data]);
+
+        isFetchingHistory = false;
+    }
+};
+
+const getHeaderName = ({ nameHeaderOnTable, isRefund }) => {
+    const headerNameDefault = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+    return nameHeaderOnTable ? nameHeaderOnTable : headerNameDefault;
+};
+
+const handleScrollBetHistory = ({ event, page, setPage }) => {
+    if (Math.ceil(event.target.offsetHeight + event.target.scrollTop) > event.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
+        return;
+    }
+
+    if (page + 1 <= totalPage && !isFetchingHistory) {
+        setPage(page + 1);
+    }
+};
+
 const BetHistoryContainer = (props: PropsBetContainer) => {
     const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal } = props;
     let { renderBet } = props;
@@ -236,59 +297,29 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     }
     const router = useRouter();
     const { session } = useAuthContext();
-    const gameSetting = appSettings.gameSettings[gameId];
-    const gameName = gameSetting.gameName.toLowerCase();
-    const { t } = useTranslation(["bethistory", gameName]);
-
     const [listBetHistory, setListBetHistory] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
     const [betLog, setBetLog] = useState<ResultDetail>();
     const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
-    const headerNameDefault = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
-    const headerName = props.nameHeaderOnTable ? props.nameHeaderOnTable : headerNameDefault;
+    const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
+    const gameSetting = appSettings.gameSettings[gameId];
+    const gameName = gameSetting.gameName.toLowerCase();
+    const { t } = useTranslation(["bethistory", gameName]);
 
     useEffect(() => {
-        const { proxy } = appSettings;
-        const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
-            ? `${gameSetting.socketInfo.path}/api/${gameSetting.socketInfo.namespace}/history`
-            : `${gameSetting.socketInfo.path}/api/history`;
-        const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
-
-        const sendPostBetHistory = async () => {
-            isFetchingData = true;
-            try {
-                const resp = await axios.post(historyAPI, {
-                    session: session.ss,
-                    page: page,
-                    pageSize: NUMBER_ROWS_DISPLAY,
-                    username: session.username,
-                });
-                const bets = resp.data.history;
-                fetchBetHistory(bets);
-                setIsFirstLoad(false);
-                if (page === 1) {
-                    totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
-                }
-            } catch (err) {
-                if (err?.response?.status === 401) {
-                    clearSession();
-                    router.push("/timeout");
-                }
-            }
-        };
-
-        const fetchBetHistory = (betHistory) => {
-            if (betHistory && betHistory.betLogs.length > 0) {
-                const data = betHistory.betLogs;
-                setListBetHistory([...listBetHistory, ...data]);
-
-                isFetchingData = false;
-            }
-        };
-
-        sendPostBetHistory();
+        sendPostBetHistory({
+            gameId,
+            gameSetting,
+            proxy: appSettings?.proxy,
+            session,
+            page,
+            setIsFirstLoad,
+            router,
+            listBetHistory,
+            setListBetHistory,
+        });
     }, [page]);
 
     return useMemo(() => {
@@ -300,16 +331,6 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             setIsShowBetLogDetails(false);
         };
 
-        const handleScroll = (e) => {
-            if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) > e.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
-                return;
-            }
-
-            if (page + 1 <= totalPage && !isFetchingData) {
-                setPage(page + 1);
-            }
-        };
-
         return (
             <>
                 {isFirstLoad ? (
@@ -317,28 +338,30 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         <Loader></Loader>
                     </div>
                 ) : listBetHistory.length > 0 && !isShowBetLogDetails ? (
-                    <div className="table-container react-infinite-table" onScroll={(e) => handleScroll(e)}>
+                    <div
+                        className="table-container react-infinite-table"
+                        onScroll={(e) => handleScrollBetHistory({ event: e, page, setPage })}
+                    >
                         <table key={uuidv4()} className="table text-center">
                             <thead>{renderHeaderRows({ headerName, t })}</thead>
                             <tbody>
-                                {listBetHistory.length > 0 &&
-                                    listBetHistory.map((bet: BetLogs) => {
-                                        return (
-                                            <tr key={bet.phien} className={bet.betwin > 0 ? "highlight" : ""}>
-                                                {RenderCell({
-                                                    betHistoryItem: bet,
-                                                    renderResult: renderResult,
-                                                    renderBet: renderBet,
-                                                    setIsShowResultDetail: setIsShowResultDetail,
-                                                    setIsShowBetLogDetails: setIsShowBetLogDetails,
-                                                    setBetLog: setBetLog,
-                                                    gameName: gameName,
-                                                    t: t,
-                                                    headerName: headerName,
-                                                })}
-                                            </tr>
-                                        );
-                                    })}
+                                {listBetHistory.map((bet: BetLogs) => {
+                                    return (
+                                        <tr key={bet.phien} className={bet.betwin > 0 ? "highlight" : ""}>
+                                            {renderCellOnTable({
+                                                betHistoryItem: bet,
+                                                renderResult: renderResult,
+                                                renderBet: renderBet,
+                                                setIsShowResultDetail: setIsShowResultDetail,
+                                                setIsShowBetLogDetails: setIsShowBetLogDetails,
+                                                setBetLog: setBetLog,
+                                                gameName: gameName,
+                                                t: t,
+                                                headerName: headerName,
+                                            })}
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
