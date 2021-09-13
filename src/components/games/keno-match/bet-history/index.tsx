@@ -62,7 +62,7 @@ const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     return Object.keys(settlementResult).map((keyName, index) => {
         if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
             return (
-                <div key={index} className={Styles["result-info-red"]}>
+                <div key={index} className={Styles[keyName]}>
                     {translateMapping[keyName]}
                 </div>
             );

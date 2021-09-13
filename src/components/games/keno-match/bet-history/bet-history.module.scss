@@ -9,8 +9,8 @@
 
 .details {
     cursor: pointer;
-    color: #04A5FF;
-    padding-left: .4rem;
+    color: #04a5ff;
+    padding-left: 0.4rem;
 }
 
 .bet-logs-table {
@@ -38,7 +38,7 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
-        grid-gap: .4rem .4rem;
+        grid-gap: 0.4rem 0.4rem;
     }
     .blue-label {
         color: #3b7bc6;
@@ -51,49 +51,50 @@
 .top-title {
     display: flex;
     justify-content: space-between;
-    padding: .6rem 0;
+    padding: 0.6rem 0;
 }
-.overwidth{
+.overwidth {
     width: calc(100% + 2rem);
     margin: 0 -1rem;
 }
 .container-round {
     display: grid;
     grid-template-columns: 1fr 7.2rem 1fr;
-    padding: .8rem 0;
+    padding: 0.8rem 0;
     &:first-child {
         position: relative;
         &:before {
             @extend .overwidth;
-            content: '';
+            content: "";
             position: absolute;
-            height: .1rem;
-            background-color: #DEDEDE;
-            bottom: .1rem;
+            height: 0.1rem;
+            background-color: #dedede;
+            bottom: 0.1rem;
         }
     }
     .round-name {
         text-align: center;
         font-size: 1.2rem;
-        color: #2C2F3E;
+        color: #2c2f3e;
     }
-    .red-label, .blue-label{
+    .red-label,
+    .blue-label {
         position: relative;
-        top: .4rem;
+        top: 0.4rem;
         font-size: 1.2rem;
         font-weight: 700;
         text-align: center;
         .score {
             font: 500 1.6rem var(--font-number);
-            padding-left: .2rem;
+            padding-left: 0.2rem;
         }
     }
 }
 .round-label {
     @extend .overwidth;
-    background-color: #DBDBDB;
-    text-align: center;    
-    color: #5E5E5E;
+    background-color: #dbdbdb;
+    text-align: center;
+    color: #5e5e5e;
     font-weight: 500;
 }
 .winning-info {
@@ -105,33 +106,48 @@
     .total-section {
         position: relative;
         text-align: center;
-        padding-top: .4rem;
+        padding-top: 0.4rem;
         font-weight: 500;
-        &:before{
-            content: '';
-            height: .1rem;
+        &:before {
+            content: "";
+            height: 0.1rem;
             left: -2.4rem;
             position: absolute;
-            background: linear-gradient(90deg, #FFFFFF 0.31%, #929292 51.35%, #FFFFFF 100%);
+            background: linear-gradient(90deg, #ffffff 0.31%, #929292 51.35%, #ffffff 100%);
             width: 4.7rem;
             top: 2.6rem;
             transform: rotate(90deg);
         }
         .total {
             font: 500 1.8rem var(--font-number);
-            color: #CD000E;
+            color: #cd000e;
         }
     }
     .result-info {
         justify-content: center;
         display: flex;
-        grid-gap: .6rem;
+        grid-gap: 0.6rem;
         align-items: center;
-        .result-info-red,  .result-info-blue{
+        .over,
+        .under,
+        .odd,
+        .even {
             min-width: 6rem;
             height: 2.8rem;
             font-size: 1.4rem;
             padding: 0 1.4rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            font-size: 1.6rem;
+            line-height: 2.8rem;
+        }
+        .over,
+        .under {
+            background: linear-gradient(180deg, #6ba6ec 0%, #3b7bc6 49.27%, #1a66bf 100%);
+        }
+        .odd,
+        .even {
+            background: linear-gradient(180deg, #f66460 0%, #e2474e 41.46%, #dc4b56 78.44%, #dc4b56 100%);
         }
     }
 }
