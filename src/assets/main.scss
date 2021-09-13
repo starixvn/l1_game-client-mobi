@@ -267,10 +267,13 @@ html {
 }
 
 html {
-    overflow: hidden;
-    width: 100%;
     overscroll-behavior: none;
     -ms-overscroll-behavior: none;
+
+    &.isIOS-mobile {
+        overflow: hidden;
+        width: 100%;
+    }
 }
 
 // To dock the footer

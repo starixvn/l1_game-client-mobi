@@ -11,7 +11,7 @@ export default class extends Document {
 
     render() {
         return (
-            <Html>
+            <Html className={isIOS && isMobileOnly ? "isIOS-mobile" : ""}>
                 <Head>
                     <meta name="apple-mobile-web-app-capable" content="yes" />
                 </Head>
