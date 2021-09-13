@@ -88,7 +88,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
                 </div>
             </div>
             <div className={Styles["round-name"]}>
-                {stateRound === StateRound.ft ? translateMapping.firstHalf : translateMapping.fullTime}
+                {stateRound === StateRound.ft ? translateMapping.fullTime : translateMapping.firstHalf}
             </div>
             <div className={Styles["container-red"]}>
                 <div className={Styles["score-row"]}>
@@ -118,7 +118,7 @@ const detectStateRound = (choice: string) => {
     }
 };
 
-const getChoiceLabel = ({ translateMapping, formatChoice }) => {
+const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
     if (["red", "blue"].includes(formatChoice)) {
         return `${translateMapping["blue"]}/${translateMapping["red"]}`;
     }
@@ -141,7 +141,7 @@ const RenderCell: React.FC<{
     const { time, amount, choice } = betDetail;
     const stateRound = detectStateRound(choice);
     const formatChoice = stateRound === StateRound.live ? choice.slice(6).toLowerCase() : choice.slice(2).toLowerCase();
-    const settlementResult = stateRound === StateRound.ht ? firstHalf.settlementResult : fullTime.settlementResult;
+    const settlementResult = stateRound === StateRound.live ? fullTime.settlementResult : firstHalf.settlementResult;
     const isHighligh = settlementResult[formatChoice] ? true : false;
     const isShowRefundAmount = settlementResult["tie"] ? true : false;
     const liveLabel = stateRound === StateRound.live ? `(${translateMapping["live"]})` : "";
@@ -153,7 +153,7 @@ const RenderCell: React.FC<{
             <td className={`${Styles["bet-type"]} ${isHighligh ? "highlight" : ""}`}>
                 <span>{stateRound === StateRound.ht ? translateMapping.firstHalf : translateMapping.fullTime}</span> <br></br>
                 <span>
-                    {getChoiceLabel({ translateMapping, formatChoice })}
+                    {getLabelFollowChoice({ translateMapping, formatChoice })}
                     {liveLabel}
                 </span>
             </td>
@@ -179,23 +179,13 @@ const renderBetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) =>
             setIsShowResultDetail(true);
         };
 
-        const translateMapping = {
-            firstHalf: t(`${gameName}:firstHalf`),
-            fullTime: t(`${gameName}:fullTime`),
-            blue: t(`${gameName}:blue`),
-            red: t(`${gameName}:red`),
-            over: t(`${gameName}:over`),
-            under: t(`${gameName}:under`),
-            odd: t(`${gameName}:odd`),
-            even: t(`${gameName}:even`),
-            live: t(`${gameName}:live`),
-        };
+        const translateMapping = GetTranslateMapping(t, gameName);
 
         return (
             <>
-                <h1>
+                <div>
                     {t(`${gameName}:game_name`)} - {t("round")}: {roundId}
-                </h1>
+                </div>
                 <div onClick={() => clickOpenDetails()}>
                     {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
                 </div>
