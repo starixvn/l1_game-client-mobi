@@ -269,19 +269,6 @@ html {
 html {
     overflow: hidden;
     width: 100%;
-}
-
-body {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-}
-
-html {
     overscroll-behavior: none;
     -ms-overscroll-behavior: none;
 }
@@ -305,6 +292,16 @@ body {
     font: 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
+
+    &.isIOS-mobile {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
 }
 
 .no-scroll {
