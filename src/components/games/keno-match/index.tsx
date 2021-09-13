@@ -501,11 +501,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             settlementResultPopup: firstHalfResult.settlementResult,
             resultKey: firstHalfResult.resultKey,
             showResultKey: true,
+            playResultAnimation: true,
         });
 
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
-            this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false });
+            this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false,  playResultAnimation: false, showResultInfo: true,});
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
 
@@ -551,6 +552,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             liveOdds: null,
             resultKey: finish.resultKey,
             showResultKey: true,
+            playResultAnimation: true,
         });
 
         const animationDuration = this.getFinishAnimationDuration();

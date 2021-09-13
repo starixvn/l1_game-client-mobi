@@ -62,12 +62,14 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
 
 const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     return Object.keys(settlementResult).map((keyName, index) => {
-        settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName);
-        return (
-            <div key={index} className={Styles["result-info-red"]}>
-                {translateMapping[keyName]}
-            </div>
-        );
+        if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
+            return (
+                <div key={index} className={Styles["result-info-red"]}>
+                    {translateMapping[keyName]}
+                </div>
+            );
+        }
+        return "";
     });
 };
 
