@@ -13,6 +13,7 @@ import { GameActionsContextProvider } from "../../../contexts/game-actions-conte
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { getBalance } from "../../../services/auth-service";
+import CountdownTimer from "../../shared//countdown-timer/countdown-timer";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
 import AcceptBet from "../animations/accept-bet";
@@ -23,7 +24,7 @@ import { BaseResult } from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
-import GameHeader from "../game-header/game-header";
+import GameHeader from "../game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
 import OverlayMaskWhite from "../overlay-mask-white";
@@ -33,7 +34,6 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import CountdownTimer from "../../shared//countdown-timer/countdown-timer";
 import {
     Boundary,
     GameBaseProps,
@@ -827,15 +827,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGameHeader() {
-        const {gameState} = this.state;
+        const { gameState } = this.state;
 
         const gameHeaderProps = {
-            isShowCollapse: [GameState.DisplayResult,  GameState.BeforeStartRound].includes(gameState),
+            isShowCollapse: [GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState),
             isUpdateDisableRebet: gameState !== GameState.InRound,
-            countdownTimerComponent:<CountdownTimer key={gameState} />
+            countdownTimerComponent: <CountdownTimer key={gameState} />,
         };
 
-        return <GameHeader {...gameHeaderProps}/>;
+        return <GameHeader {...gameHeaderProps} />;
     }
 
     renderPopupResult() {

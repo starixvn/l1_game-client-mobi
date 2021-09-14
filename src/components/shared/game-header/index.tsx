@@ -3,29 +3,21 @@ import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { CommonResourceKeys } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { PopupType, RebetStorageModel, ViewMode } from "../game-base/type";
 import Styles from "./game-header.module.scss";
-import { CommonResourceKeys } from "../../../common/resources";
 
 export type GameHeaderProps = {
     isShowCollapse: boolean;
     isUpdateDisableRebet: boolean;
-    countdownTimerComponent: any
+    countdownTimerComponent: any;
 };
 
-export const getViewModeWhenClick = (viewMode: ViewMode) => {
-    return viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
-};
-
-export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({
-    isShowCollapse ,
-    isUpdateDisableRebet,
-    countdownTimerComponent
-}) => {
+export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({ isShowCollapse, isUpdateDisableRebet, countdownTimerComponent }) => {
     const { roundId, gameSetting, viewMode, gameState } = useGameContext();
     const { favoriteGames, setFavorite } = useSystemContext();
     const { updateViewMode, renderResultCollapse, updateStatusShowResult } = useGameActionContext();
@@ -48,7 +40,7 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({
         const onHeaderClick = (e: React.MouseEvent) => {
             e.stopPropagation();
             if (isMobileOnly) {
-                const mode = getViewModeWhenClick(viewMode);
+                const mode = viewMode === ViewMode.full ? ViewMode.collapse : ViewMode.full;
                 updateViewMode(mode);
                 updateStatusShowResult();
             }
@@ -79,15 +71,15 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({
                         </div>
                     </div>
                 </div>
-                {!showCollapseResult && countdownTimerComponent }
+                {!showCollapseResult && countdownTimerComponent}
                 <HeaderRight isUpdateDisableRebet={isUpdateDisableRebet} />
                 {showCollapseResult && <div className={Styles["header-result"]}>{renderResultCollapse()}</div>}
             </div>
         );
     }, [gameState, roundId, viewMode, isFavorite]);
-}
+};
 
-const HeaderRight = ({isUpdateDisableRebet}) => {
+const HeaderRight = ({ isUpdateDisableRebet }) => {
     const gameActions = useGameActionContext();
     const { roundId, gameState, gameSetting, ownBets, viewMode } = useGameContext();
     const { id: gameId } = gameSetting;

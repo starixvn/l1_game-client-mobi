@@ -4,21 +4,21 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { RoundKenoMatchBase } from "../../../types";
-import  GameHeader from "../../shared/game-header/game-header";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
+import GameHeader from "../../shared/game-header";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
+import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
 import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
-import PopupResult from "./round-result/popup-result/index";
-import MainFrameResult from "./round-result/main-frame-result/index";
+import MainFrameResult from "./round-result/main-frame-result";
+import PopupResult from "./round-result/popup-result";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import KenoCountdownTimer from "./countdown-timer";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
@@ -497,7 +497,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
-            this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false,  playResultAnimation: false, showResultInfo: true,});
+            this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false, showResultInfo: true });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
 
@@ -611,20 +611,21 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderGameHeader() {
-        const { gameState} = this.state,
-        kenoGameState = gameState as KenoMatchGameState;
+        const { gameState } = this.state,
+            kenoGameState = gameState as KenoMatchGameState;
 
         const gameHeaderProps = {
-            isShowCollapse: [KenoMatchGameStateEnum.ShowHalfTimeSettlementResult, 
-                KenoMatchGameStateEnum.ShowFullTimeSettlementResult, 
+            isShowCollapse: [
+                KenoMatchGameStateEnum.ShowHalfTimeSettlementResult,
+                KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
                 KenoMatchGameStateEnum.BeforeStartRound,
-                KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet
+                KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
             ].includes(kenoGameState as KenoMatchGameStateEnum),
             isUpdateDisableRebet: kenoGameState !== KenoMatchGameStateEnum.HalfTimePlacingBet,
-            countdownTimerComponent: <KenoCountdownTimer />
+            countdownTimerComponent: <KenoCountdownTimer />,
         };
 
-        return <GameHeader {...gameHeaderProps}/>;
+        return <GameHeader {...gameHeaderProps} />;
     }
 
     renderPopupResult() {
