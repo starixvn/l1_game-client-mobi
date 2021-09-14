@@ -895,8 +895,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         const animationDuration = this.getFinishAnimationDuration() / 1000;
-
-        const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[`bet-options-${this.props.gameName.toLowerCase()}`]}`;
+        const betOptionFollowGameName = `bet-options-${this.props.gameName.toLowerCase()}`;
+        const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[betOptionFollowGameName]}`;
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>

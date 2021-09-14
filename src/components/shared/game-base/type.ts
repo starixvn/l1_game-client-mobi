@@ -50,7 +50,6 @@ export type GameBaseProps = {
     playPlaceBetSound: Function;
     viewMode: ViewMode;
     setApiErrorMessage: Function;
-    theme: string;
     supportMD5?: boolean;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
