@@ -96,6 +96,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 <div className={Styles["place-bet-container"]}>
                     <div className={`w-100 ${Styles["general-info"]}`}>
                         <div className={Styles["left"]}>
+                            {betChoiceInfo.isShowBettype &&  <span className="font-weight-bold">{betChoiceInfo.bettypeName}</span>}
                             <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
                         </div>
                         <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>

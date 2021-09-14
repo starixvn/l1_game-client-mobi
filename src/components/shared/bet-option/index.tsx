@@ -26,6 +26,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
+    isShowBettype = false
 }) => {
     const { totalBets, ownBets } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();

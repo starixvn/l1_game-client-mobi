@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GameState } from "../../../shared/game-base/type";
 import { HighlightType } from "../../../shared/bet-option/types";
 import BetOption from "../../../shared/bet-option";

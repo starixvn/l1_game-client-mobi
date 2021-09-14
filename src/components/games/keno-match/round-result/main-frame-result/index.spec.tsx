@@ -4,12 +4,6 @@ import React from "react";
 
 import { HalfRoundResult, Tie } from "./";
 
-jest.mock("next-i18next", () => ({
-    useTranslation: () => ({
-        t: (key: string): string => key,
-    }),
-}));
-
 describe("Tie", () => {
     test("should be have `number` class", () => {
         render(<Tie number={5} />);

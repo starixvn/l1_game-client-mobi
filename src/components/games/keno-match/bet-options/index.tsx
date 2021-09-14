@@ -8,7 +8,7 @@ import Styles from "./bet-options.module.scss";
 import { choicesMapper } from "../keno-match-helper";
 import KenoMatchBetOption from "../bet-option";
 
-interface Props {
+interface KenoMatchBetOptionsProps {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
@@ -16,7 +16,7 @@ interface Props {
     liveOdds: any;
 }
 
-const KenoMatchBetOptions: React.FunctionComponent<Props> = ({
+const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = ({
     liveOdds,
     gameState,
     settlementResult,

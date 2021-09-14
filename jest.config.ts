@@ -25,8 +25,8 @@ export default {
     },
     testEnvironment: "jsdom",
     coveragePathIgnorePatterns: ["node_modules", ".d.ts"],
-    setupFilesAfterEnv: ["jest-extended", "@testing-library/jest-dom/extend-expect"],
+    setupFilesAfterEnv: ["jest-extended", "@testing-library/jest-dom/extend-expect","./__mocks__/global.js"],
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
-    testResultsProcessor: "jest-sonar-reporter",
+    testResultsProcessor: "jest-sonar-reporter"
 };
