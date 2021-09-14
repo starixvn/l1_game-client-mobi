@@ -1,4 +1,5 @@
 import React from "react";
+
 import Styles from "./styles.module.scss";
 
 const GameLoading: React.FC<{}> = () => {
@@ -6,7 +7,7 @@ const GameLoading: React.FC<{}> = () => {
     const classSkeletonItem = "skeleton-item";
 
     return (
-        <div className={Styles.container}>
+        <div className={Styles.container} data-testid="game-loading">
             <div className={Styles.header}>
                 <div className={Styles["header-left"]}>
                     <div className={`${Styles[classBorder]} ${Styles[classSkeletonItem]} ${Styles["game-name"]}`} />

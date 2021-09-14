@@ -33,12 +33,12 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
     }, [wrapperRef]);
 
     return (
-        <div className={Styles["selector-container"]} ref={wrapperRef}>
-            <div className={Styles["selected-item"]} onClick={() => setIsShowOptions(!isShowOptions)}>
+        <div className={Styles["selector-container"]} ref={wrapperRef} data-testid="game-selector">
+            <div data-testid="selected-item" className={Styles["selected-item"]} onClick={() => setIsShowOptions(!isShowOptions)}>
                 {t(`${appSettings.gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
             </div>
             {isShowOptions && (
-                <div className={Styles["dropdown-menu"]}>
+                <div className={Styles["dropdown-menu"]} data-testid="dropdown-menu">
                     {appSettings.offeredGames
                         .filter((game) => offerGames.includes(game))
                         .map((id) => (
@@ -51,3 +51,5 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
         </div>
     );
 };
+
+export default GameSelector;
