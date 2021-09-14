@@ -11,6 +11,11 @@ jest.mock("next-i18next", () => ({
 
 jest.mock("next/config", () => () => ({
     publicRuntimeConfig: {
+        proxy: {
+            ssl: false,
+            uri: "localhost",
+            path: "",
+        },
         offeredGames: [1],
         gameSettings: {
             1: {

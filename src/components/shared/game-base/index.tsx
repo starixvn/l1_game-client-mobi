@@ -20,7 +20,7 @@ import AcceptBet from "../animations/accept-bet";
 import WinningBet from "../animations/winning-bet";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
-import { BaseResult } from "../base-result";
+import BaseResult from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
@@ -578,7 +578,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement, isShowBettype: boolean = false, bettypeName: string) {
+    openPlaceBetModal(
+        betChoice: string,
+        removeBetChoiceFocus: Function,
+        betOptionElement: HTMLElement,
+        betChoiceElement: HTMLElement,
+        isShowBettype: boolean = false,
+        bettypeName: string
+    ) {
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,
@@ -586,7 +593,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             betOptionElement,
             betChoiceElement,
             isShowBettype,
-            bettypeName
+            bettypeName,
         });
     }
 
@@ -656,7 +663,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement, isShowBettype, bettypeName } = this.state;
+        const {
+            displayPopup,
+            selectedBetChoice,
+            roundId,
+            removeBetChoiceFocus,
+            betOptionElement,
+            betChoiceElement,
+            isShowBettype,
+            bettypeName,
+        } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -674,7 +690,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     roundId: roundId,
                     odd: this.getOddsByChoice(selectedBetChoice),
                     isShowBettype,
-                    bettypeName
+                    bettypeName,
                 }}
             />
         );
