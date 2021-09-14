@@ -35,7 +35,7 @@
     height: 5.4rem;
 
     // For Ipad and Desktop
-    @media (min-width: 768px) {
+    @media (min-device-width: 768px) {
         height: 8rem;
     }
 }
