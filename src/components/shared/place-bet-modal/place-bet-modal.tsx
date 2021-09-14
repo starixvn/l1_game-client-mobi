@@ -94,25 +94,25 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 }`}
             >
                 <div className={Styles["place-bet-container"]}>
-                <div className={`w-100 ${Styles["general-info"]}`}>
-                    <div className={Styles["left"]}>
-                        <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
+                    <div className={`w-100 ${Styles["general-info"]}`}>
+                        <div className={Styles["left"]}>
+                            <span className="font-weight-bold">{t(betChoice)}</span>@1:{odd}
+                        </div>
+                        <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
                     </div>
-                    <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
-                </div>
 
-                <div className={Styles["payout"]}>
-                    <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
-                </div>
-                <p className={Styles["confirm-text"]}>{t("common:confirmBetAutomatic")}</p>
-                <div className={Styles["actions"]}>
-                    <button onClick={closeModal} className="btn-grey" disabled={betValue <= 0}>
-                        {t("common:cancel")}
-                    </button>
-                    <button onClick={submitBet} className="btn-orange" disabled={betValue <= 0}>
-                        {t("common:confirm")}
-                    </button>
-                </div>
+                    <div className={Styles["payout"]}>
+                        <label>{t("common:payout")}:</label> <span className={Styles["highlight"]}>{numberWithCommas(betValue * odd)}</span>
+                    </div>
+                    <p className={Styles["confirm-text"]}>{t("common:confirmBetAutomatic")}</p>
+                    <div className={Styles["actions"]}>
+                        <button onClick={closeModal} className={`btn-grey ${Styles["custom-button"]}`} disabled={betValue <= 0}>
+                            {t("common:cancel")}
+                        </button>
+                        <button onClick={submitBet} className={`btn-orange ${Styles["custom-button"]}`} disabled={betValue <= 0}>
+                            {t("common:confirm")}
+                        </button>
+                    </div>
                 </div>
             </div>
             {!isMobileOnly && <div className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
