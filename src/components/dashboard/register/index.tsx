@@ -6,7 +6,8 @@ import { AuthorizeResponse, Response, SSOResponse } from "sc-user-service-client
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { randomInteger } from "../../../helpers/number-helper";
-import { createNickname, updateThemeSetting } from "../../../services/auth-service";
+import { createNickname } from "../../../services/auth-service";
+import { updateThemeSetting } from "../../../services/user-setting-service";
 import ProfilePicture from "../../profile-picture";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";

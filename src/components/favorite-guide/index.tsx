@@ -1,5 +1,6 @@
+import { useTranslation } from "next-i18next";
 import React from "react";
-import { useTranslation } from "react-i18next";
+
 import appSettings from "../../common/app-settings";
 import { GameResourceKeys } from "../../common/resources";
 import Styles from "./favorite-guide.module.scss";
