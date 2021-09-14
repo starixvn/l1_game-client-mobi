@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import Slider from "react-slick";
 import useSound from "use-sound";
 import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
@@ -23,7 +24,7 @@ export const ChipSlider: React.FC<{
 
     const onClickChip = (chipValue: number) => {
         if (currentBetValue === chipValue) {
-            updateSliderCollapseHandle(true);
+            isMobileOnly && updateSliderCollapseHandle(true);
         } else {
             const chipIndex = ChipValues.indexOf(chipValue);
             const currentSlideToShow = getCurrentSlidesToShow();
