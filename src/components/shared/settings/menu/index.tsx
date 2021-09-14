@@ -6,6 +6,7 @@ import { Themes } from "../../../../common/constants";
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
 import { Tooltip } from "../../tooltip";
 import Styles from "./menu.module.scss";
+import { isMobileOnly } from "react-device-detect";
 
 const dropdownItemClassName = "dropdown-item";
 
@@ -32,9 +33,11 @@ export const Menu: React.FC<{
     };
 
     useEffect(() => {
-        document.addEventListener("mousedown", handleClickOutside);
+        !isMobileOnly && document.addEventListener("mousedown", handleClickOutside);
+        isMobileOnly && document.addEventListener("touchstart", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            !isMobileOnly && document.removeEventListener("mousedown", handleClickOutside);
+            isMobileOnly && document.removeEventListener("touchstart", handleClickOutside);
         };
     }, [wrapperRef]);
 
