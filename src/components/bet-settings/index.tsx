@@ -49,7 +49,6 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                     className={`${Styles["slider-collapse"]} ${isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]}`}
                     onClick={() => updateSliderCollapseHandle(false)}
                 >
-                    <span className={`icon-arrow-left ${Styles["icon-expand"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}></span>
                     <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]}`}>
                         <img
                             src={`/static/images/chips/${ChipMapper[betValue]}.svg`}
