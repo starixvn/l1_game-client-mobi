@@ -13,7 +13,7 @@ jest.mock("next/config", () => () => ({
     publicRuntimeConfig: {
         offeredGames: [1],
         gameSettings: {
-            "1": {
+            1: {
                 id: 1,
                 gameName: "taixiu",
                 socketInfo: {

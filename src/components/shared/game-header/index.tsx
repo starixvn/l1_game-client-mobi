@@ -50,6 +50,7 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({ isShowCol
 
         return (
             <div
+                data-testid="header"
                 className={`${Styles.header} ${viewMode === ViewMode.collapse ? Styles["border-radius-bottom"] : ""}`}
                 onClick={onHeaderClick}
             >

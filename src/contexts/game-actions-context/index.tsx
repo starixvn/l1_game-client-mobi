@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { Position, PopupType, ViewMode, Boundary } from "../../components/shared/game-base/type";
+import { Boundary, PopupType, Position, ViewMode } from "../../components/shared/game-base/type";
 
 type GameActionsContextType = {
     placeBet: (betChoice: string, amount: number, betPosition?: Position, betOptionPosition?: Boundary) => void;
@@ -16,7 +16,7 @@ type GameActionsContextType = {
     setActiveScoreboardTab: Function;
     updateStatusShowResult: Function;
 };
-const GameActionsContext = React.createContext<GameActionsContextType>(null);
+const GameActionsContext = React.createContext<Partial<GameActionsContextType>>({});
 GameActionsContext.displayName = "GameActionsContext";
 
 export const GameActionsContextProvider = GameActionsContext.Provider;
