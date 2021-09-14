@@ -91,6 +91,8 @@ export interface GameBaseState<Result, SettlementResult> {
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
     activeScoreboardTab?: number;
+    isShowBettype?: boolean;
+    bettypeName?: string;
 }
 
 export interface Notice {

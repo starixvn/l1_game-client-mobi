@@ -15,5 +15,6 @@ export type Props = {
     isShowWinningEffect: boolean;
     isHighlightTypeCustom?: boolean;
     highlightTypeCustom?: HighlightType;
-    isShowBettype?:  boolean;
+    isShowBettype?: boolean;
+    bettypeName?: string;
 };

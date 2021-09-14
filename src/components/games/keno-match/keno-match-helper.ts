@@ -69,10 +69,12 @@ export const KenoMatchConfigs = {
                 {
                     name: "fhBlue",
                     displayedName: "blue",
+                    bettypeName:"FirstHalfTeamBlueTeamRed"
                 },
                 {
                     name: "fhRed",
                     displayedName: "red",
+                    bettypeName:"FirstHalfTeamBlueTeamRed"
                 },
                 {
                     name: "total",
@@ -81,18 +83,22 @@ export const KenoMatchConfigs = {
                 {
                     name: "fhOver",
                     displayedName: "over",
+                    bettypeName:"FirstHalfOverUnder"
                 },
                 {
                     name: "fhUnder",
                     displayedName: "under",
+                    bettypeName:"FirstHalfOverUnder"
                 },
                 {
                     name: "fhEven",
                     displayedName: "even",
+                    bettypeName:"FirstHalfEvenOdd"
                 },
                 {
                     name: "fhOdd",
                     displayedName: "odd",
+                    bettypeName:"FirstHalfEvenOdd"
                 },
             ],
         },
@@ -102,30 +108,36 @@ export const KenoMatchConfigs = {
                 {
                     name: "ftBlue",
                     displayedName: "blue",
+                    bettypeName:"FullTimeTeamBlueTeamRed"
                 },
                 {
                     name: "ftRed",
                     displayedName: "red",
+                    bettypeName:"FullTimeTeamBlueTeamRed"
                 },
                 {
                     name: "total",
-                    displayedName: "total",
+                    displayedName: "total"
                 },
                 {
                     name: "ftOver",
                     displayedName: "over",
+                    bettypeName:"FullTimeOverUnderRed"
                 },
                 {
                     name: "ftUnder",
                     displayedName: "under",
+                    bettypeName:"FullTimeOverUnderRed"
                 },
                 {
                     name: "ftEven",
                     displayedName: "even",
+                    bettypeName:"FullTimeEvenOdd"
                 },
                 {
                     name: "ftOdd",
                     displayedName: "odd",
+                    bettypeName:"FullTimeEvenOdd"
                 },
             ],
         },
@@ -135,10 +147,12 @@ export const KenoMatchConfigs = {
                 {
                     name: "liveFTBlue",
                     displayedName: "blue",
+                    bettypeName:"FullTimeTeamBlueTeamRedLive"
                 },
                 {
                     name: "liveFTRed",
                     displayedName: "red",
+                    bettypeName:"FullTimeTeamBlueTeamRedLive"
                 },
                 {
                     name: "total",
@@ -147,18 +161,22 @@ export const KenoMatchConfigs = {
                 {
                     name: "liveFTOver",
                     displayedName: "over",
+                    bettypeName:"FullTimeOverUnderLive"
                 },
                 {
                     name: "liveFTUnder",
                     displayedName: "under",
+                    bettypeName:"FullTimeOverUnderLive"
                 },
                 {
                     name: "liveFTEven",
                     displayedName: "even",
+                    bettypeName:"FullTimeEvenOddLive"
                 },
                 {
                     name: "liveFTOdd",
                     displayedName: "odd",
+                    bettypeName:"FullTimeEvenOddLive"
                 },
             ],
         },

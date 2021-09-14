@@ -12,6 +12,7 @@ interface KenoMatchBetOptionProps {
     isDisplayOdd?: boolean;
     gameState: GameState;
     isShowWinningEffect: boolean;
+    bettypeName: string
 }
 
 const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
@@ -19,6 +20,7 @@ const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
     choice,
     odd,
     children,
+    bettypeName,
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
@@ -58,7 +60,10 @@ const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
         gameState,
         isShowWinningEffect,
         isHighlightTypeCustom: true,
-        highlightTypeCustom: highlightType
+        highlightTypeCustom: highlightType,
+        isShowBettype: true,
+        bettypeName
+
     };
 
     return <BetOption {...betOptionProps}>{children}</BetOption>;

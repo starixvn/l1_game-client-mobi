@@ -578,13 +578,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement, isShowBettype: boolean = false, bettypeName: string) {
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,
             removeBetChoiceFocus,
             betOptionElement,
             betChoiceElement,
+            isShowBettype,
+            bettypeName
         });
     }
 
@@ -654,7 +656,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderPlaceBet() {
-        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement, isShowBettype, bettypeName } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -671,6 +673,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     gameName: gameName,
                     roundId: roundId,
                     odd: this.getOddsByChoice(selectedBetChoice),
+                    isShowBettype,
+                    bettypeName
                 }}
             />
         );
