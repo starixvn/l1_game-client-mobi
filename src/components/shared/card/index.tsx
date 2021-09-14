@@ -48,8 +48,8 @@ const numberOnIOS = isIOS && isMobileOnly ? Styles["number-ios"] : "";
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
-    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall ? true : false;
-    const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
+    const isDisplayMiniCard = viewMode === ViewMode.collapse || isSmall ? true : false;
+    const srcPathCard = isDisplayMiniCard ? "/static/images/cards/mini/" : "/static/images/cards/";
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
         return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
@@ -76,7 +76,7 @@ const Card: React.FC<Props> = (props) => {
     return (
         <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
+            <div className={Styles["result"]}>{isDisplayMiniCard ? getCardMini() : getCardsDefault()}</div>
         </div>
     );
 };
