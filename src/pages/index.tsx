@@ -2,6 +2,7 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import { isIOS, isMobileOnly } from "react-device-detect";
 import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";
@@ -15,7 +16,7 @@ import * as Sentry from "../utils/sentry";
 const getUserSession = (token: string) => (token ? sso(token) : verifySession());
 
 const addCustomStyle = () => {
-    const customClass = window.navigator?.userAgent?.includes("iPhone") ? "isIOS-mobile" : "";
+    const customClass = isIOS && isMobileOnly ? "isIOS-mobile" : "";
 
     if (customClass) {
         document.querySelector("body").classList.add(customClass);
