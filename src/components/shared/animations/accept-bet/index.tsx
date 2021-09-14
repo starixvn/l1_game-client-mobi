@@ -4,7 +4,13 @@ import { numberWithCommas } from "../../../../helpers/number-helper";
 import { Boundary, Position } from "../../game-base/type";
 import Styles from "./styles.module.scss";
 
-const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: Position; betOptionBoundary?: Boundary } }> = ({ betInfo }) => {
+type Props = {
+    amount: number;
+    betPosition?: Position;
+    betOptionBoundary?: Boundary;
+};
+
+const AcceptBet: React.FC<Props> = ({ amount, betPosition, betOptionBoundary }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [customStyle, setCustomStyle] = useState<React.CSSProperties>({ position: "fixed", right: "auto" });
 
@@ -14,24 +20,22 @@ const AcceptBet: React.FC<{ betInfo: { amount: number; betPosition?: Position; b
             const wrapperWidth = wrapperRef.current.getBoundingClientRect().width;
             const newCustomStyle = { ...customStyle };
 
-            newCustomStyle.top = betInfo.betPosition?.y - 30;
+            newCustomStyle.top = betPosition?.y - 30;
             newCustomStyle.left = Math.min(
                 windowWidth - wrapperWidth - 10,
-                betInfo.betPosition?.x - 15,
-                (betInfo.betOptionBoundary?.right || 2000) - wrapperWidth
+                betPosition?.x - 15,
+                (betOptionBoundary?.right || 2000) - wrapperWidth
             );
-            newCustomStyle.left = Math.max(betInfo.betOptionBoundary?.left || 10, newCustomStyle.left);
+            newCustomStyle.left = Math.max(betOptionBoundary?.left || 10, newCustomStyle.left);
 
             setCustomStyle(newCustomStyle);
         }
     }, [wrapperRef]);
 
     return (
-        <div
-            ref={wrapperRef}
-            style={betInfo.betPosition ? customStyle : null}
-            className={`${Styles["accepted-bet"]}`}
-        >{`-${numberWithCommas(betInfo.amount)}`}</div>
+        <div ref={wrapperRef} style={betPosition ? customStyle : null} className={`${Styles["accepted-bet"]}`}>{`-${numberWithCommas(
+            amount
+        )}`}</div>
     );
 };
 
