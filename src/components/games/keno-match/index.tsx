@@ -113,8 +113,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         return (
             <div>
-                {(kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                    kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && <div className="overlay-mask"></div>}
+                {(kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
+                    kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet) && <div className="overlay-mask"></div>}
                 <MainFrameResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
                 />
