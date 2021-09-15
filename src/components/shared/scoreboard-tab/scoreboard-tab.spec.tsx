@@ -9,7 +9,8 @@ describe("test scoreboard tab", () => {
             redBlack: { tabName: "Red/Back", tabWinningStreak: 1 },
             suits: { tabName: "suits", tabWinningStreak: 0 },
         };
-        const { container } = render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />);
-        expect(container.getElementsByClassName("tabs-active").length).toBe(1);
+        
+        render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />);
+        expect(document.getElementsByClassName("tabs-active").length).toBe(1);
     });
 });
