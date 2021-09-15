@@ -36,10 +36,10 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
     let animationTimeOut: NodeJS.Timeout = null;
 
     const updateSliderCollapseHandle = (isCollapse: boolean) => {
+        isCollapse ? removeCustomStyle() : addCustomStyle();
         setIsChangingMode(true);
 
         animationTimeOut = setTimeout(() => {
-            isCollapse ? removeCustomStyle() : addCustomStyle();
             setIsCollapse(isCollapse);
             setIsChangingMode(false);
         }, 200);
