@@ -11,10 +11,16 @@
 }
 
 .bet-log-details {
+    position: relative;
+    .back {
+        position: absolute;
+        left: 1rem;
+        top: -1.6rem;
+    }
     .icon-close {
         position: absolute;
-        top: 0.9rem;
-        right: 1.1rem;
+        top: -1rem;
+        right: 1.6rem;
         z-index: 10;
     }
     .arrow-left {
@@ -27,5 +33,6 @@
         font-weight: 500;
         font-size: 1.6rem;
         color: #2c2f3e;
+        text-align: center;
     }
 }
