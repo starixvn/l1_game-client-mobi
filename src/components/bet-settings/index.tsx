@@ -39,6 +39,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         setIsChangingMode(true);
 
         animationTimeOut = setTimeout(() => {
+            isCollapse ? removeCustomStyle() : addCustomStyle();
             setIsCollapse(isCollapse);
             setIsChangingMode(false);
         }, 200);
@@ -55,10 +56,6 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [wrapperRef, isCollapse]);
-
-    useEffect(() => {
-        isCollapse ? removeCustomStyle() : addCustomStyle();
-    }, [isCollapse]);
 
     useEffect(() => animationTimeOut && clearTimeout(animationTimeOut), []);
 
