@@ -59,7 +59,7 @@ const BetOption: React.FunctionComponent<Props> = ({
         }
         setTotalBet(totalBets[choice]);
         update(totalBet);
-    }, [gameState, totalBets?.[choice]]);
+    }, [gameState, totalBets?.[choice], highlightTypeCustom]);
 
     const onClickBet = (event: any) => {
         event.preventDefault();

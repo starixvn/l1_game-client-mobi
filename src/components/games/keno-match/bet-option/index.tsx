@@ -35,17 +35,17 @@ const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
             [KenoMatchGameStateEnum.ShowHalfTimeSettlementResult]: () => {
                 updateHighlightType(HighlightType.Background);
             },
-            [KenoMatchGameStateEnum.HalfTimeLockingBet]: () => {
-                updateHighlightType(HighlightType.None);
-            },
-            [KenoMatchGameStateEnum.FullTimeLockingBet]: () => {
-                updateHighlightType(HighlightType.None);
-            },
             [KenoMatchGameStateEnum.FullTimePlacingBet]: () => {
                 updateHighlightType(HighlightType.Background);
             },
             [KenoMatchGameStateEnum.HalfTimePlacingBet]: () => {
                 updateHighlightType(HighlightType.Background);
+            },
+            [KenoMatchGameStateEnum.HalfTimeLockingBet]: () => {
+                updateHighlightType(HighlightType.None);
+            },
+            [KenoMatchGameStateEnum.FullTimeLockingBet]: () => {
+                updateHighlightType(HighlightType.None);
             },
         };
 

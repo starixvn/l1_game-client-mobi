@@ -40,10 +40,12 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
         blueTeamProps: TeamProps = {
             result: result.blue,
             teamName: t("blue"),
+            className: "blue-team"
         },
         redTeamProps: TeamProps = {
             result: result.red,
             teamName: t("red"),
+            className: "red-team"
         },
         totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
 
@@ -68,9 +70,9 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
     );
 }
 
-export function Team({ result, teamName }: TeamProps) {
+export function Team({ result, teamName, className }: TeamProps) {
     return (
-        <div className={`${Styles.team}`} data-testid="team-component">
+        <div className={`${Styles.team} ${Styles[className]}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
                     <Tie key={index} number={number} />
