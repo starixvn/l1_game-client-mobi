@@ -57,7 +57,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
     }, [wrapperRef, isCollapse]);
 
     useEffect(() => {
-        isCollapse ? addCustomStyle() : removeCustomStyle();
+        isCollapse ? removeCustomStyle() : addCustomStyle();
     }, [isCollapse]);
 
     useEffect(() => animationTimeOut && clearTimeout(animationTimeOut), []);
