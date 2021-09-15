@@ -169,7 +169,7 @@
 .slider-collapse {
     position: fixed;
     right: 0;
-    bottom: 1rem;
+    bottom: 0;
     display: flex;
     align-items: center;
     height: 6rem;
@@ -211,11 +211,6 @@
         @media (min-device-width: 375px) and (min-device-height: 668px) {
             bottom: 6rem;
         }
-    }
-
-    // Android
-    &.adroid-device {
-        bottom: 0;
     }
 }
 
