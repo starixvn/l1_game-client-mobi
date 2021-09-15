@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isIOS, isMobileOnly } from "react-device-detect";
 import { ChipLabelMapper, ChipMapper } from "../../common/constants";
 import Styles from "./bet-setting.module.scss";
 import { ChipSlider } from "./chip-slider";
@@ -42,11 +42,18 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
     useEffect(() => animationTimeOut && clearTimeout(animationTimeOut), []);
 
+    var deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
+    }
+
     return (
         <>
             {isCollapse && isMobileOnly ? (
                 <div
-                    className={`${Styles["slider-collapse"]} ${isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]}`}
+                    className={`${Styles["slider-collapse"]} ${deviceClass} ${
+                        isChangingMode ? Styles["collapse-animation"] : Styles["expand-animation"]
+                    }`}
                     onClick={() => updateSliderCollapseHandle(false)}
                 >
                     <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]}`}>
