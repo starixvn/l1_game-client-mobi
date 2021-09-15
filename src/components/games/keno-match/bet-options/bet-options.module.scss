@@ -117,5 +117,10 @@
         background-color: var(--title-right-color);
         padding: .2rem .8rem .2rem 0;
         width: 15rem;
+        .live-icon {
+            position: relative;
+            top: -.2rem;
+            left: .4rem;
+        }
     }
 }

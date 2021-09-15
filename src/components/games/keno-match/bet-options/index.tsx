@@ -48,7 +48,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                     <div key={parentIndex}>
                         <div className={Styles["title-wrapper"]}>
                             <div className={Styles["title-left"]}>{t(`${halfMatchConfig.config.name}`)}</div>
-                            {halfMatchConfig.isActive && <div className={Styles["title-right"]}>{t("betInvite")}</div>}
+                            {halfMatchConfig.isActive && <div className={Styles["title-right"]}><span>{t("betInvite")}</span><img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]}/></div>}
                         </div>
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.config.config.map((choice, index) => {
