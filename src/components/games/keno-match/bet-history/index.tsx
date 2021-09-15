@@ -61,8 +61,9 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
 const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     return Object.keys(settlementResult).map((keyName, index) => {
         if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
+            const classFollowKey = ["odd", "even"].includes(keyName) ? "result-info-red" : "result-info-blue";
             return (
-                <div key={index} className={Styles[keyName]}>
+                <div key={index} className={`${classFollowKey} ${Styles[keyName]}`}>
                     {translateMapping[keyName]}
                 </div>
             );
@@ -78,7 +79,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-blue"]}>
                 <div className={Styles["score-row"]}>
                     {blue.map((number: number, index: number) => (
-                        <Tie key={index} number={number} isBetHistory={true}/>
+                        <Tie key={index} number={number} isBetHistory={true} />
                     ))}
                 </div>
                 <div className={Styles["blue-label"]}>
@@ -91,7 +92,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-red"]}>
                 <div className={Styles["score-row"]}>
                     {red.map((number: number, index: number) => (
-                        <Tie key={index} number={number} isBetHistory={true}/>
+                        <Tie key={index} number={number} isBetHistory={true} />
                     ))}
                 </div>
                 <div className={Styles["red-label"]}>
@@ -188,7 +189,7 @@ const renderBetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) =>
                     <div onClick={() => clickOpenDetails()}>
                         {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
                     </div>
-                </div>                
+                </div>
                 <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`}>
                     <table className="table text-center">
                         <thead>{renderHeaderRows({ headerName, t })}</thead>
