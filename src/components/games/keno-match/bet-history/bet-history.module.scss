@@ -128,14 +128,13 @@
         display: flex;
         grid-gap: 0.6rem;
         align-items: center;
-       
     }
-    .result-info-red, .result-info-blue{
+    .result-info-red,
+    .result-info-blue {
         min-width: 6rem;
         height: 2.8rem;
         font-size: 1.4rem;
         padding: 0 1.4rem;
         line-height: 2.8rem;
     }
-    
 }
