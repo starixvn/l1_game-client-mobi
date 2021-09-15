@@ -13,6 +13,22 @@ type Props = {
     betValue: number;
 };
 
+const customGlobalClassIPhone = "isIOS-mobile";
+
+const addCustomStyle = () => {
+    const customClass = isIOS && isMobileOnly ? customGlobalClassIPhone : "";
+
+    if (customClass && !document.querySelector("body").classList.contains(customGlobalClassIPhone)) {
+        document.querySelector("body").classList.add(customClass);
+        document.querySelector("html").classList.add(customClass);
+    }
+};
+
+const removeCustomStyle = () => {
+    document.querySelector("body").classList.remove(customGlobalClassIPhone);
+    document.querySelector("html").classList.remove(customGlobalClassIPhone);
+};
+
 const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, betValue }) => {
     const [isCollapse, setIsCollapse] = useState(true);
     const [isChangingMode, setIsChangingMode] = useState(false);
@@ -39,6 +55,10 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [wrapperRef, isCollapse]);
+
+    useEffect(() => {
+        isCollapse ? addCustomStyle() : removeCustomStyle();
+    }, [isCollapse]);
 
     useEffect(() => animationTimeOut && clearTimeout(animationTimeOut), []);
 
