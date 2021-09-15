@@ -31,13 +31,13 @@ export const convertCardRankToIndex = (rank: string): number => {
     return dict[rank] ?? parseInt(rank);
 };
 
-const classFollowCondition = ({ viewMode, isSmall }) => {
+export const getClassFollowCondition = ({ viewMode, isSmall }) => {
     if (viewMode === ViewMode.collapse) {
-        return Styles["collapse"];
+        return "collapse";
     }
 
     if (isSmall) {
-        return Styles["small"];
+        return "small";
     }
 
     return "";
@@ -74,9 +74,11 @@ const Card: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
+        <div className={`${Styles[customClassName]} ${Styles["card"]} ${Styles[getClassFollowCondition({ viewMode, isSmall })]}`}>
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["result"]}>{isDisplayMiniCard ? getCardMini() : getCardsDefault()}</div>
+            <div className={Styles["result"]} data-testid="result-card">
+                {isDisplayMiniCard ? getCardMini() : getCardsDefault()}
+            </div>
         </div>
     );
 };
