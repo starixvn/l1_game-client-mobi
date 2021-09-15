@@ -128,27 +128,14 @@
         display: flex;
         grid-gap: 0.6rem;
         align-items: center;
-        .over,
-        .under,
-        .odd,
-        .even {
-            min-width: 6rem;
-            height: 2.8rem;
-            font-size: 1.4rem;
-            padding: 0 1.4rem;
-            border-radius: 3rem;
-            font-weight: bold;
-            font-size: 1.6rem;
-            line-height: 2.8rem;
-            text-align: center;
-        }
-        .over,
-        .under {
-            background: linear-gradient(180deg, #6ba6ec 0%, #3b7bc6 49.27%, #1a66bf 100%);
-        }
-        .odd,
-        .even {
-            background: linear-gradient(180deg, #f66460 0%, #e2474e 41.46%, #dc4b56 78.44%, #dc4b56 100%);
-        }
+       
     }
+    .result-info-red, .result-info-blue{
+        min-width: 6rem;
+        height: 2.8rem;
+        font-size: 1.4rem;
+        padding: 0 1.4rem;
+        line-height: 2.8rem;
+    }
+    
 }

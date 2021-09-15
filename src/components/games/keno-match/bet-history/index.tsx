@@ -61,9 +61,9 @@ const renderResultDetail = (resultDetail, t: TFunction, closeModal: () => void, 
 const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     return Object.keys(settlementResult).map((keyName, index) => {
         if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-            const classFollowKey = ["odd", "even"].includes(keyName) ? "result-info-red" : "result-info-blue";
+            const classFollowKey = ["odd", "even"].includes(keyName) ? "{result-info-red" : "result-info-blue";
             return (
-                <div key={index} className={`${classFollowKey} ${Styles[keyName]}`}>
+                <div key={index} className={`${Styles[classFollowKey]} ${Styles[keyName]}`}>
                     {translateMapping[keyName]}
                 </div>
             );
