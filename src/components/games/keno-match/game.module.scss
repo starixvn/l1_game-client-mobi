@@ -77,15 +77,18 @@
         }
     }
     .copy-box {
-        width: 1.7rem;
-        height: 1.7rem;
+        width: 1.8rem;
+        height: 1.8rem;
         position: relative;
         .copy-icon {
+            width: 1rem;
+            height: 1.2rem;
             position: relative;
-            background: url("/static/images/copy.svg") center center no-repeat;
-            width: .88rem;
-            height: 1.175rem;
+            z-index: 2;
+            left: .4rem;
+            top: -.1rem;
         }
+
         &:before {
             content: '';
             background: linear-gradient(180deg, #F19F0A 0%, #B77406 100%);
@@ -104,7 +107,6 @@
             right: .1rem;
             left: .1rem;
             bottom: .1rem;
-            z-index: 1;
             border-radius: 5px;
         }
     }
