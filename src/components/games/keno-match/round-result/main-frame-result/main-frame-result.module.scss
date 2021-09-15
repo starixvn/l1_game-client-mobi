@@ -86,9 +86,8 @@ $time-run-progress-bar: 1s;
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            grid-template-rows: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 2.2rem);
             grid-row-gap: .5rem;
-            height: 5.3rem;
             .number {
                 justify-self: center;
             }
@@ -102,12 +101,12 @@ $time-run-progress-bar: 1s;
 
 .number {
     background: radial-gradient(50% 50% at 50% 50%, #FCFCFC 0%, #D7D7D7 78.96%, #C7C7C7 100%);
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.2rem;
+    height: 2.2rem;
     border-radius: 50%;        
     font: 500 1.2rem var(--font-number);
     color: #2c2f3e;
-    line-height: 2.4rem;
+    line-height: 2.2rem;
     text-align: center;
     &.bet-history {
         height: 2.2rem;
@@ -121,12 +120,9 @@ $time-run-progress-bar: 1s;
     text-align: center;
     position: relative;
     padding-top: .8rem;
-    // .header {
-    //     color: var(--header-middle-column-color);
-    // }
     .score-wrapper {
         position: absolute;
-        bottom: .3rem;
+        bottom: .5rem;
         width: 6.4rem;
         height: 4rem;
         background: var(--middle-column-background-color);
@@ -145,13 +141,28 @@ $time-run-progress-bar: 1s;
 
 .team-name {
     text-align: center;
-    color: #3B7BC6;
     font-size: 1.2rem;
     font-weight: 600;
     .score {
         font: 500 1.6rem var(--font-number);
         padding-left: .2rem;
     }
+    .medal {
+        background: url("/static/images/medal.svg") center center no-repeat;
+        width: 1.7rem;
+        height: 2.2rem;
+        display: inline-block;
+        position: relative;
+        top: .3rem;
+        margin-right: .4rem;
+    }
+}
+.blue-team .team-name {
+    color: #3B7BC6;
+}
+
+.red-team .team-name {
+    color: #FF4352;
 }
 
 .overlay, .main-content {
