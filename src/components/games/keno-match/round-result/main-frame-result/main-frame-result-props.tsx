@@ -11,6 +11,7 @@ export interface HalfRoundResultProps {
 export interface TeamProps {
     result: number[];
     teamName: string;
+    className: string;
 }
 
 export default interface MainFrameResultProps {
