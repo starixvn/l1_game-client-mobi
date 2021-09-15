@@ -4,6 +4,22 @@
 $time-open-ball: 1s;
 $time-run-progress-bar: 1s;
 
+[data-theme="light"] .main-result {
+    --header-middle-column-color: #2C2F3E;
+    --middle-column-background-color: linear-gradient(180deg, #D8E1FD 0%, #CAD4F3 56.04%, #B5BFE1 82.08%, #DEE4F3 100%);
+    --overlay-blue-team-bg-color: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
+    --overlay-red-team-bg-color: linear-gradient(180deg, #FFFCF6 0%, #FFEDED 100%);
+    --overlay-team-background-color: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
+}
+
+[data-theme="dark"] .main-result {
+    --header-middle-column-color: #fff;
+    --middle-column-background-color: linear-gradient(180deg, #7EA8D7 0%, #4E77A3 56.04%, #436C98 82.08%, #759AC0 100%);
+    --overlay-blue-team-bg-color: linear-gradient(180deg, #2C4D75 0%, #1F2B6B 100%);
+    --overlay-red-team-bg-color: linear-gradient(180deg, #2C4D75 0%, #762828 100%);
+    --overlay-team-background-color: linear-gradient(90deg, rgba(19, 33, 49, 0) 0%, #2F455E 49.79%, rgba(19, 33, 49, 0) 100%);
+}
+
 .main-result {
     width: 100%;
     position: relative;
@@ -105,17 +121,21 @@ $time-run-progress-bar: 1s;
     text-align: center;
     position: relative;
     padding-top: .8rem;
+    // .header {
+    //     color: var(--header-middle-column-color);
+    // }
     .score-wrapper {
         position: absolute;
         bottom: .3rem;
         width: 6.4rem;
         height: 4rem;
-        background: linear-gradient(180deg, #D8E1FD 0%, #CAD4F3 56.04%, #B5BFE1 82.08%, #DEE4F3 100%);
+        background: var(--middle-column-background-color);
         font-size: 1rem;
         padding: .3rem .6rem;
         clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
+        left: .4rem;
         .score {
             font: 500 2rem var(--font-number);
             line-height: 2rem;
@@ -144,12 +164,13 @@ $time-run-progress-bar: 1s;
     
 }
 .overlay {
+    grid-template-columns: 1fr 1fr;
     z-index: 10;
     .blue {
-        background: linear-gradient(180deg, #FFFCF6 0%, #E8F3FF 100%);
+        background: var(--overlay-blue-team-bg-color);
     }
     .red {
-        background: linear-gradient(180deg, #FFFCF6 0%, #FFEDED 100%);
+        background: var(--overlay-red-team-bg-color);
     }
     &:before {
         position: absolute;
@@ -157,7 +178,7 @@ $time-run-progress-bar: 1s;
         top: 0;
         bottom: 0;
         content: '';
-        background: linear-gradient(90deg, rgba(244, 247, 249, 0.1) 0%, #FFFFFF 49.79%, rgba(254, 237, 234, 0.1) 100%);
+        background: var(--overlay-team-background-color);
     }
 }
 

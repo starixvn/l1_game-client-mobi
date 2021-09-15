@@ -53,13 +53,12 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
         <div className={classNames} data-testid="half-round-result-component">
             <div className={Styles["overlay"]}>
                 <div className={Styles["blue"]}></div>
-                <div></div>
                 <div className={Styles["red"]}></div>
             </div>
             <div className={Styles["main-content"]}>
                 <Team {...blueTeamProps} />
                 <div className={Styles["middle-column"]}>
-                    <div className={Styles.name}>{t(headerText)}</div>
+                    <div className={Styles["header"]}>{t(headerText)}</div>
                     <div className={Styles["score-wrapper"]}>
                         {t("total")} <div className={Styles["score"]}>{totalPoint}</div>
                     </div>
