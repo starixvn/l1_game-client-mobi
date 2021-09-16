@@ -20,16 +20,16 @@ const ScoreboardTab: React.FunctionComponent<Props> = (props) => {
     return useMemo(() => {
         const updateValueTab = (value: number) => {
             setTabActive(value);
-            gameActionContext.setActiveScoreboardTab(value);
+            gameActionContext?.setActiveScoreboardTab && gameActionContext.setActiveScoreboardTab(value);
         };
 
         return (
             <div className={classTabs}>
                 {tabsKey.map((tab, index) => {
                     return (
-                        <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)}>
+                        <div key={index} className={Styles["tabs-child"]} onClick={() => updateValueTab(index)} data-testid="tab-child">
                             {tabsValue[tab].tabWinningStreak > 3 && (
-                                <span className={Styles["winning-streak"]}>{tabsValue[tab].tabWinningStreak}</span>
+                                <span className={Styles["winning-streak"]} data-testid="winning-streak">{tabsValue[tab].tabWinningStreak}</span>
                             )}
                             <span className={`${Styles.type} ${tabActive === index ? Styles["tabs-active"] : ""}`}>
                                 {tabsValue[tab].tabName}

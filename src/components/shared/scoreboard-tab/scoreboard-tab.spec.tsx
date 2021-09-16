@@ -1,16 +1,38 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 
 import ScoreboardTab from ".";
 
-describe("test scoreboard tab", () => {
+describe("Scoreboard tab", () => {
+    // arrange
+    const resourceTab = {
+        redBlack: { tabName: "Red/Back", tabWinningStreak: 4 },
+        suits: { tabName: "suits", tabWinningStreak: 0 },
+    };
+
     test("should render once class active", () => {
-        const resourceTab = {
-            redBlack: { tabName: "Red/Back", tabWinningStreak: 1 },
-            suits: { tabName: "suits", tabWinningStreak: 0 },
-        };
-        
+        // act
         render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />);
+
+        // assert
         expect(document.getElementsByClassName("tabs-active").length).toBe(1);
+    });
+
+    test("click tab", () => {
+        // act
+        const { getAllByTestId } = render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />);
+        let tabs = getAllByTestId("tab-child");
+        fireEvent.click(tabs[0]);
+
+        // assert
+        expect(tabs[0].getElementsByClassName("tabs-active").length).toBe(1);
+    });
+
+    test("show winning streak when tabWinningStreak is greater than three", () => {
+        // act
+        const { getAllByTestId } = render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={0} />);
+
+        // assert
+        expect(getAllByTestId("winning-streak").length).toBeGreaterThan(0);
     });
 });

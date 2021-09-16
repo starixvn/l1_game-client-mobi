@@ -26,9 +26,14 @@ describe("test render component card", () => {
     });
 
     test("should render correct card", () => {
+        // arrange
         const cardResult = { card: 8, type: 3 };
         const linkCard = "/static/images/cards/9-spade.svg#v1";
+
+        // act
         render(<Card result={cardResult} isSmall={false} viewMode={ViewMode.full} />);
+
+        // assert
         expect(screen.getByRole("img")).toHaveAttribute("src", linkCard);
     });
 });
