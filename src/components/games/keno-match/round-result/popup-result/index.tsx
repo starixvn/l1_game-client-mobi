@@ -162,19 +162,7 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
-            {showSettlement && (
-                <>
-                    <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
-                    <div className={Styles["label-total"]}>{t("sum")} </div>
-                    <div className={Styles["total-section"]}>
-                        <div className={Styles["total-score-match"]} style={totalScoreStyle}>
-                            {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
-                        </div>
-                    </div>
-                </>
-            )}
-            {!showSettlement && (
-                <>
+          
                     <div className={Styles["header"]}>{t(headerText)}</div>
                     <div className={Styles["main-content"]}>
                         <TeamWithAnimation {...blueTeamProps} />
@@ -196,8 +184,16 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
                             </div>
                         </div>
                     </div>
-                </>
-            )}
+
+                    <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
+                    <div className={Styles["label-total"]}>{t("sum")} </div>
+                    <div className={Styles["total-section"]}>
+                        <div className={Styles["total-score-match"]} style={totalScoreStyle}>
+                            {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
+                        </div>
+                    </div>
+                
+            
         </div>
     );
 };
