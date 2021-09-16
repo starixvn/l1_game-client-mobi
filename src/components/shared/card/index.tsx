@@ -32,34 +32,44 @@ export const convertCardRankToIndex = (rank: string): number => {
 };
 
 export const getClassFollowCondition = ({ viewMode, isSmall }) => {
+    let name = "";
     if (viewMode === ViewMode.collapse) {
-        return "collapse";
+        name = "collapse";
     }
 
     if (isSmall) {
-        return "small";
+        name = "small";
     }
 
-    return "";
+    return name;
 };
-
-const numberOnIOS = isIOS && isMobileOnly ? Styles["number-ios"] : "";
 
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
     const isDisplayMiniCard = viewMode === ViewMode.collapse || isSmall ? true : false;
     const srcPathCard = isDisplayMiniCard ? "/static/images/cards/mini/" : "/static/images/cards/";
+
+    const getClassOnIOS = () => {
+        return isIOS && isMobileOnly ? "number-ios" : "";
+    };
+
+    const getClassCard10 = () => {
+        return +convertRank(result.card) === 10 ? "card-number-10" : "";
+    };
+
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
         return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
     };
-    const formatCard10 = +convertRank(result.card) === 10 ? Styles["card-number-10"] : "";
-
     const getCardMini = () => {
         return (
             <>
-                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${formatCard10} ${numberOnIOS}`}>
+                <div
+                    className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${Styles[getClassCard10()]} ${
+                        Styles[getClassOnIOS()]
+                    }`}
+                >
                     {convertRank(result.card)}
                 </div>
                 <img
