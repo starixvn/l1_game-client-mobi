@@ -583,7 +583,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         removeBetChoiceFocus: Function,
         betOptionElement: HTMLElement,
         betChoiceElement: HTMLElement,
-        isShowBettype: boolean = false,
+        isShowBettype = false,
         bettypeName: string
     ) {
         this.setState({

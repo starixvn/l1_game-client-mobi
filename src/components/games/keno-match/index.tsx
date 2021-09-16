@@ -170,25 +170,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     renderStatistic() {
         const { activeScoreboardTab, roundHistoryFH, roundHistoryFT } = this.state;
-        const getRoundHistory = () => {
-            switch (activeScoreboardTab) {
-                case 0:
-                case 1:
-                case 2:
-                    return roundHistoryFH;
-                case 3:
-                case 4:
-                case 5:
-                    return roundHistoryFT;
-            }
+        const roundHistory = [0, 1, 2].includes(activeScoreboardTab) ? roundHistoryFH : roundHistoryFT;
+        const statisticFollowPercentProps = {
+            roundHistory, activeScoreboardTab, statisticRuleEntries: StatisticRuleMapping[activeScoreboardTab]
         };
-        return (
-            <StatisticFollowPercent
-                roundHistory={getRoundHistory()}
-                statisticRuleEntries={StatisticRuleMapping[this.state.activeScoreboardTab]}
-                activeScoreboardTab={this.state.activeScoreboardTab}
-            ></StatisticFollowPercent>
-        );
+
+        return  <StatisticFollowPercent {...statisticFollowPercentProps} />;
     }
 
     renderBoard() {
@@ -270,9 +257,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }
 
         const newGameState = this.determineGameState(remainingTime);
-        // console.log(`${KenoMatchGameStateEnum[newGameState]}`);
-
         const gameState = this.state.gameState as KenoMatchGameState;
+
         if (gameState !== newGameState) {
             const newState = {
                 gameState: newGameState,
@@ -285,10 +271,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
-
-        // console.log(`--------------`);
-        // console.log(`${remainingTime}s`);
-        // console.log(JSON.stringify(durations, null, 2));
 
         switch (true) {
             case remainingTime > durations.showFullTimeSettlementResult:
@@ -431,10 +413,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const { gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
         const roundIdCurrent =
-            kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeResult ||
-            kenoMatchGameState == KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
-            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeResult ||
-            kenoMatchGameState == KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
                 ? roundId - 1
                 : roundId;
         const rounds: SeparateRoundHistoryProps = this.separateRoundHistory({ roundHistory, firstHalfResult, roundIdCurrent });

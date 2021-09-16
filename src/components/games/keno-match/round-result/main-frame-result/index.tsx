@@ -1,8 +1,7 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-import { resetValue, calculateTotalPoint } from "../../keno-match-helper";
+import { resetValue, calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
 import Styles from "./main-frame-result.module.scss";
-import {buildHalfMatchProps} from "../../keno-match-helper";
 import MainFrameResultProps, {TeamProps, HalfRoundResultProps } from "./main-frame-result-props";
 
 export default function MainFrameResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) {

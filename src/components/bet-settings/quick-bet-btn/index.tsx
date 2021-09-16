@@ -67,6 +67,9 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
         updateUserQuickBetSetting(authContext.session, false);
     };
 
+    const toolTipPositionClass = isMobileOnly ? `bottom ${Styles["isMobile"]}` : "top",
+    toolTipClass = `popover-custom ${toolTipPositionClass} ${Styles["hint-one-click-bet"]} `;
+
     return (
         <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]} ${deviceClass}`}>
             <div>
@@ -95,10 +98,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                 </div>
             )}
             {enabledQuickBet === undefined && isShowTooltip && (
-                <div
-                    ref={tooltipRef}
-                    className={`popover-custom ${isMobileOnly ? `bottom ${Styles["isMobile"]}` : "top"} ${Styles["hint-one-click-bet"]} `}
-                >
+                <div ref={tooltipRef} className={toolTipClass}>
                     <div className={Styles.content}>
                         <Trans t={t}>{t("common:oneClickHintMsg")}</Trans>
                     </div>
