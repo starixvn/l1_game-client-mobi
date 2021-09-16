@@ -544,7 +544,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({
                 showWinningAnimation: true,
             });
-            this.updateUserBalance();
+            this.betWin > 0 && this.updateUserBalance();
         }, this.winningAnimationWaitingTimeInSecond);
 
         this.runGame(durations.wholeRound);
