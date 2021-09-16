@@ -334,6 +334,14 @@ $time-run-progress-bar: 1s;
     }
 }
 
+.popup-result {
+    position: absolute;
+    width: 100%;
+    height: 15.2rem;
+    background-color: #cecece;
+    z-index: 12;
+}
+
 @keyframes show-value {
     from {
         opacity: 0;
