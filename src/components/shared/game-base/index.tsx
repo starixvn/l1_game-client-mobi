@@ -858,10 +858,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return <GameHeader {...gameHeaderProps} />;
     }
 
-    renderPopupResult() {
-        return <> </>;
-    }
-
     renderGame() {
         const { durations } = this.props;
 
@@ -959,7 +955,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         </>
                     )}
                     {this.renderPopup(displayPopup)}
-                    {this.renderPopupResult()}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );

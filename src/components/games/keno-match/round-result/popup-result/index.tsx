@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
 import MainFrameResultProps, { HalfRoundResultProps } from "../main-frame-result/main-frame-result-props";
@@ -6,13 +6,13 @@ import { SettlementResult } from "../../type";
 import { calculateTotalPoint } from "../../keno-match-helper";
 import { Tie } from "../main-frame-result";
 import Styles from "../main-frame-result/main-frame-result.module.scss";
-import {buildHalfMatchProps} from "../../keno-match-helper";
+import { buildHalfMatchProps } from "../../keno-match-helper";
 
 export interface HalfRoundResultPopupProps extends HalfRoundResultProps {
     settlementResult: SettlementResult;
     showSettlement: boolean;
     progressBarStyle: string;
-};
+}
 
 export interface TeamWithAnimationProps {
     result: number[];
@@ -39,7 +39,7 @@ const PopupResult: React.FC<PopupResultProps> = ({
 
     useEffect(() => {
         let index = 0;
-        
+
         function doAnimation() {
             if (index === halfTimeResult.blue.length) {
                 clearInterval(timerId);
@@ -47,16 +47,16 @@ const PopupResult: React.FC<PopupResultProps> = ({
             }
 
             const showSettlement = index === halfTimeResult.blue.length - 1,
-            progressBarStyle = `open-ball-${index + 1}`;
+                progressBarStyle = `open-ball-${index + 1}`;
 
             if (isActiveLiveFullTime) {
-                setFullTimeResultAnimation(prev => {
+                setFullTimeResultAnimation((prev) => {
                     prev.blue.push(fullTimeResult.blue[index]);
                     prev.red.push(fullTimeResult.red[index]);
 
                     return prev;
                 });
-                
+
                 setResultProps({
                     ...{
                         result: fullTimeResultAnimation,
@@ -64,12 +64,12 @@ const PopupResult: React.FC<PopupResultProps> = ({
                         settlementResult,
                         gameName,
                         showSettlement,
-                        progressBarStyle
+                        progressBarStyle,
                     },
                     ...buildHalfMatchProps(true),
                 });
             } else {
-                setHalfTimeResultAnimation(prev => {
+                setHalfTimeResultAnimation((prev) => {
                     prev.blue.push(halfTimeResult.blue[index]);
                     prev.red.push(halfTimeResult.red[index]);
 
@@ -83,7 +83,7 @@ const PopupResult: React.FC<PopupResultProps> = ({
                         settlementResult,
                         gameName,
                         showSettlement,
-                        progressBarStyle
+                        progressBarStyle,
                     },
                     ...buildHalfMatchProps(false),
                 });
@@ -162,34 +162,42 @@ export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
-            <div className={Styles["header"]}>{t(headerText)}</div>
-            <div className={Styles["main-content"]}>
-                <TeamWithAnimation {...blueTeamProps} />
-                <TeamWithAnimation {...redTeamProps} />
-            </div>
-            <div className={Styles["progress-bar-team"]}>
-                <div className={Styles["title"]}>
-                    <span className={Styles["title-blue"]}>{t("blue")}</span>
-                    <span className={Styles["title-red"]}>{t("red")}</span>
-                </div>
-                <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
-                    <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
-                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
-                        <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
+            {showSettlement && (
+                <>
+                    <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
+                    <div className={Styles["label-total"]}>{t("sum")} </div>
+                    <div className={Styles["total-section"]}>
+                        <div className={Styles["total-score-match"]} style={totalScoreStyle}>
+                            {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
+                        </div>
                     </div>
-                    <div className={Styles["sperate"]}></div>
-                    <div className={Styles["red-team"]} style={totalRedScoreStyle}>
-                        <span className={Styles["red-score"]}>{redTeamProps.total}</span>
+                </>
+            )}
+            {!showSettlement && (
+                <>
+                    <div className={Styles["header"]}>{t(headerText)}</div>
+                    <div className={Styles["main-content"]}>
+                        <TeamWithAnimation {...blueTeamProps} />
+                        <TeamWithAnimation {...redTeamProps} />
                     </div>
-                </div>
-            </div>
-            <div className={Styles["label-total"]}>{t("sum")} </div>
-            <div className={Styles["total-section"]}>
-                {showSettlement && <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>}
-                <div className={Styles["total-score-match"]} style={totalScoreStyle}>
-                    {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
-                </div>
-            </div>
+                    <div className={Styles["progress-bar-team"]}>
+                        <div className={Styles["title"]}>
+                            <span className={Styles["title-blue"]}>{t("blue")}</span>
+                            <span className={Styles["title-red"]}>{t("red")}</span>
+                        </div>
+                        <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
+                            <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
+                            <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
+                                <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
+                            </div>
+                            <div className={Styles["sperate"]}></div>
+                            <div className={Styles["red-team"]} style={totalRedScoreStyle}>
+                                <span className={Styles["red-score"]}>{redTeamProps.total}</span>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
         </div>
     );
 };

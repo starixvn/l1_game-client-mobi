@@ -99,6 +99,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isActiveLiveFullTime,
                 showWinningAnimation,
                 liveOdds,
+                halfTimeResultPopup,
+                fullTimeResultPopup
             } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
 
@@ -111,13 +113,29 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
 
+        const isShowPopup = kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+        kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult;
         return (
+          
             <div>
+                  {isShowPopup && (
+                <BaseDialog type={ModalType.Center}>
+                    <PopupResult
+                        {...{
+                            halfTimeResult: halfTimeResultPopup,
+                            fullTimeResult: fullTimeResultPopup,
+                            isActiveLiveFullTime,
+                            settlementResult,
+                            gameName: this.props.gameName.toLocaleLowerCase(),
+                        }}
+                    />
+                </BaseDialog>
+            )}
                 {(kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
                     kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet) && <div className="overlay-mask"></div>}
-                <MainFrameResult
+               {!isShowPopup &&  <MainFrameResult
                     {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName: this.props.gameName.toLocaleLowerCase() }}
-                />
+                />}
                 {this.props.supportMD5 && (
                     <div className={Styles["md5-section"]}>
                         <span className={Styles["text"]}>{md5Text}</span>
@@ -602,28 +620,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
 
         return <GameHeader {...gameHeaderProps} />;
-    }
-
-    renderPopupResult() {
-        const { halfTimeResultPopup, fullTimeResultPopup, settlementResult, isActiveLiveFullTime, gameState } = this.state,
-            kenoMatchGameState = gameState as KenoMatchGameState;
-
-        return (
-            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult) && (
-                <BaseDialog type={ModalType.Center}>
-                    <PopupResult
-                        {...{
-                            halfTimeResult: halfTimeResultPopup,
-                            fullTimeResult: fullTimeResultPopup,
-                            isActiveLiveFullTime,
-                            settlementResult,
-                            gameName: this.props.gameName.toLocaleLowerCase(),
-                        }}
-                    />
-                </BaseDialog>
-            )
-        );
     }
 }
 
