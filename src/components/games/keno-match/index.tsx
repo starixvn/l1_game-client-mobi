@@ -172,10 +172,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const { activeScoreboardTab, roundHistoryFH, roundHistoryFT } = this.state;
         const roundHistory = [0, 1, 2].includes(activeScoreboardTab) ? roundHistoryFH : roundHistoryFT;
         const statisticFollowPercentProps = {
-            roundHistory, activeScoreboardTab, statisticRuleEntries: StatisticRuleMapping[activeScoreboardTab]
+            roundHistory,
+            activeScoreboardTab,
+            statisticRuleEntries: StatisticRuleMapping[activeScoreboardTab],
         };
 
-        return  <StatisticFollowPercent {...statisticFollowPercentProps} />;
+        return <StatisticFollowPercent {...statisticFollowPercentProps} />;
     }
 
     renderBoard() {
@@ -189,26 +191,18 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             [Choices.even]: this.getGameTranslate("evenTextDot"),
             [Choices.odd]: this.getGameTranslate("oddTextDot"),
         };
-        const getDataFollowTabActive = () => {
-            switch (activeScoreboardTab) {
-                case 0:
-                case 1:
-                case 2:
-                    return { roundHistory: roundHistoryFH, isShowBlink: isShowBlinkFH };
-                case 3:
-                case 4:
-                case 5:
-                    return { roundHistory: roundHistoryFT, isShowBlink: isShowBlinkFT };
-            }
-        };
+
+        const dataFollowTabActive = [0, 1, 2].includes(activeScoreboardTab)
+            ? { roundHistory: roundHistoryFH, isShowBlink: isShowBlinkFH }
+            : { roundHistory: roundHistoryFT, isShowBlink: isShowBlinkFT };
 
         return (
             <ScoreboardDragon
-                roundHistory={getDataFollowTabActive().roundHistory}
+                roundHistory={dataFollowTabActive.roundHistory}
                 getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
                 conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
                 translateDotTextMapping={translateDotTextMapping}
-                isShowBlink={getDataFollowTabActive().isShowBlink}
+                isShowBlink={dataFollowTabActive.isShowBlink}
             />
         );
     }
