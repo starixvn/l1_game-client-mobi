@@ -17,7 +17,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
 
-    const [style, setStyle] = useState(null);
+    const [positionStyle, setPositionStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState("");
     const [alignArrowStyle, setAlignArrowStyle] = useState("");
 
@@ -27,7 +27,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     useEffect(() => {
         if (!isMobileOnly) {
             const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
-            setStyle(popupStyle.position);
+            setPositionStyle(popupStyle.position);
             setAlignArrowStyle(popupStyle.alignArrowStyle);
             setArrowStyle(popupStyle.arrowStyle);
         }
@@ -43,15 +43,16 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         window.addEventListener("mousedown", handleClickOutside);
 
         if (!isMobileOnly) {
-            const popupStyle = adjustPopupPositionDidUpdate(
+            const adjustedBetFormCss = adjustPopupPositionDidUpdate(
                 props.gameBaseContainerRef,
                 wrapperRef,
                 props.betOptionElement,
                 props.betChoiceElement
             );
-            if (popupStyle.isAdjustPosition) {
-                setStyle(popupStyle.position);
-                setArrowStyle(popupStyle.arrowStyle);
+
+            if (adjustedBetFormCss.isAdjust) {
+                setPositionStyle(adjustedBetFormCss.styles.position);
+                setArrowStyle(adjustedBetFormCss.styles.arrowStyle);
             }
         }
 
@@ -77,7 +78,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     return (
-        <div style={style} ref={wrapperRef} className={Styles["modal-placebetform"]}>
+        <div style={positionStyle} ref={wrapperRef} className={Styles["modal-placebetform"]}>
             <div className={Styles["popup-closed-icon"]} id="bet-form-closed" onClick={() => closeModal()}>
                 <span className={`icon-close {Styles["icon-close"]}`}></span>
             </div>
