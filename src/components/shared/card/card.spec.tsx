@@ -4,47 +4,29 @@ import { render, screen } from "@testing-library/react";
 import Card, { convertRank, convertCardRankToIndex, getClassFollowCondition } from ".";
 import { ViewMode } from "../game-base/type";
 
-describe("convert rank card by number", () => {
-    test("should render correct number", () => {
-        expect(convertRank(1)).toBe("2");
-    });
-
-    test("return string if value exist", () => {
-        // arrange
-        const resource = {
-            11: "J",
-            12: "Q",
-            13: "K",
-            1: "A",
-        };
-
-        // act
-        Object.keys(resource).forEach((number) => {
-            // assert
-            expect(convertRank(+number - 1)).toBe(resource[number]);
-        });
+describe("convert rank card", () => {
+    test.each`
+        rank  | expectedResult
+        ${10} | ${"J"}
+        ${11} | ${"Q"}
+        ${12} | ${"K"}
+        ${0}  | ${"A"}
+        ${1}  | ${"2"}
+    `("should convert correct rank", ({ rank, expectedResult }) => {
+        expect(convertRank(rank)).toBe(expectedResult);
     });
 });
 
 describe("convert rank card to number", () => {
-    test("should return number if value exist", () => {
-        // arrange
-        const resource = {
-            J: 11,
-            Q: 12,
-            K: 13,
-            A: 1,
-        };
-
-        // act
-        Object.keys(resource).forEach((text) => {
-            // assert
-            expect(convertCardRankToIndex(text)).toBe(resource[text]);
-        });
-    });
-
-    test("should render number if value not exist", () => {
-        expect(convertCardRankToIndex("11")).toBe(11);
+    test.each`
+        rank   | expectedResult
+        ${"J"} | ${11}
+        ${"Q"} | ${12}
+        ${"K"} | ${13}
+        ${"A"} | ${1}
+        ${1}   | ${1}
+    `("should convert correct number", ({ rank, expectedResult }) => {
+        expect(convertCardRankToIndex(rank)).toBe(expectedResult);
     });
 });
 
