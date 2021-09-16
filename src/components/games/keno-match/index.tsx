@@ -118,8 +118,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return (
           
             <div>
-                   <BaseDialog type={ModalType.Center}>
-                    <PopupResult
+                   <PopupResult
                         {...{
                             halfTimeResult: halfTimeResultPopup,
                             fullTimeResult: fullTimeResultPopup,
@@ -128,7 +127,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                             gameName: this.props.gameName.toLocaleLowerCase(),
                         }}
                     />
-                </BaseDialog>
                 {(kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
                     kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet) && <div className="overlay-mask"></div>}
                {!isShowPopup &&  <MainFrameResult
