@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
+import * as rdd from "react-device-detect";
 
 import Card, { convertRank, convertCardRankToIndex, getClassFollowCondition } from ".";
 import { ViewMode } from "../game-base/type";
@@ -68,5 +69,17 @@ describe("test render component card", () => {
 
         // assert
         expect(document.getElementsByClassName("card-number-10").length).toBeGreaterThan(0);
+    });
+
+    test("should render class IOS", () => {
+        // arrange
+        rdd.isIOS = true;
+        rdd.isMobileOnly = true;
+
+        // act
+        render(<Card result={cardResult} isSmall={true} viewMode={ViewMode.collapse} />);
+
+        // assert
+        expect(document.getElementsByClassName("number-ios").length).toBeGreaterThan(0);
     });
 });

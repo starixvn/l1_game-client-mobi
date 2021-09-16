@@ -2,6 +2,7 @@ import "@testing-library/jest-dom";
 import { render, fireEvent } from "@testing-library/react";
 
 import ScoreboardTab from ".";
+import { GameActionsContextProvider } from "../../../contexts/game-actions-context";
 
 describe("Scoreboard tab", () => {
     // arrange
@@ -19,8 +20,28 @@ describe("Scoreboard tab", () => {
     });
 
     test("click tab", () => {
+        // arrange
+        const gameActionsContext = {
+            placeBet: null,
+            openPopup: null,
+            closePopup: () => {},
+            registerMessageHandler: Function,
+            unsubscribeMessageHandler: Function,
+            openPlaceBetModal: Function,
+            updateViewMode: null,
+            playAcceptedBetAnimation: () => {},
+            finishProcessingBet: () => {},
+            renderResultCollapse: null,
+            setActiveScoreboardTab: jest.fn(),
+            updateStatusShowResult: Function,
+        };
+
         // act
-        const { getAllByTestId } = render(<ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />);
+        const { getAllByTestId } = render(
+            <GameActionsContextProvider value={gameActionsContext}>
+                <ScoreboardTab tabsValue={resourceTab} activeScoreboardTab={1} />
+            </GameActionsContextProvider>
+        );
         let tabs = getAllByTestId("tab-child");
         fireEvent.click(tabs[0]);
 
