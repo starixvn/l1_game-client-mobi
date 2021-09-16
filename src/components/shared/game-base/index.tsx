@@ -214,7 +214,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;
-            this.updateUserBalance();
         }
     };
 
@@ -545,6 +544,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({
                 showWinningAnimation: true,
             });
+            this.updateUserBalance();
         }, this.winningAnimationWaitingTimeInSecond);
 
         this.runGame(durations.wholeRound);
