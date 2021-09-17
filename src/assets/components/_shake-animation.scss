@@ -1,9 +1,5 @@
 .animation-container {
     --plate-set-scale: 1;
-
-    &.simple-mode {
-        --plate-set-scale: 0.8;
-    }
 }
 
 @keyframes show-plate-animation {

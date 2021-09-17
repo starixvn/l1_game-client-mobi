@@ -26,9 +26,6 @@
 
     @media (min-width: 768px) {
         position: absolute;
-    }
-
-    @media (min-width: 768px) {
         padding-top: 8px;
         left: auto;
         right: auto;
@@ -174,6 +171,11 @@
 
         @media (min-width: 768px) {
             grid-gap: 1rem;
+        }
+
+        .custom-button {
+            padding-left: 1rem;
+            padding-right: 1rem;
         }
     }
 }

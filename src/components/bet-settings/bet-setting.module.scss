@@ -35,7 +35,7 @@
     height: 5.4rem;
 
     // For Ipad and Desktop
-    @media (min-width: 768px) {
+    @media (min-device-width: 768px) {
         height: 8rem;
     }
 }
@@ -65,11 +65,15 @@
     z-index: 1;
 
     @media (min-width: 768px) {
-        width: 40rem;
+        width: 42rem;
         margin-left: 0;
     }
 
     @media (min-width: 1024px) {
+        width: 60rem;
+    }
+
+    @media (min-width: 1025px) {
         width: 70rem;
     }
 
