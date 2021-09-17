@@ -9,10 +9,14 @@ export const ResultDetailContainer: React.FC<Props> = (props) => {
     const { children, roundId, closeModal, gameName } = props;
     return (
         <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
-            <div key={roundId} className={Styles["popup-result-detail"]}>
-                <div className={Styles["game-name"]}>{gameName}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
-                <div className={Styles["roundId"]}>#{roundId}</div>
+            <div key={roundId} className={Styles["popup-result-detail"]} data-testid="bet-history-result-detail">
+                <div className={Styles["game-name"]} data-testid="game-name">
+                    {gameName}
+                </div>
+                <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()} data-testid="icon-close"></span>
+                <div className={Styles["roundId"]} data-testid="roundId">
+                    #{roundId}
+                </div>
                 {children}
             </div>
         </BaseDialog>

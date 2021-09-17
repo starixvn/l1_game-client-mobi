@@ -240,8 +240,8 @@ const sendPostBetHistory = async ({
     listBetHistory,
 }) => {
     const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
-        ? `${gameSetting.socketInfo.path}/api/${gameSetting.socketInfo.namespace}/history`
-        : `${gameSetting.socketInfo.path}/api/history`;
+        ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
+        : `${gameSetting?.socketInfo?.path}/api/history`;
     const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
     isFetchingHistory = true;
     try {
@@ -304,8 +304,8 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [betLog, setBetLog] = useState<ResultDetail>();
     const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
     const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
-    const gameSetting = appSettings.gameSettings[gameId];
-    const gameName = gameSetting.gameName.toLowerCase();
+    const gameSetting = appSettings?.gameSettings[gameId];
+    const gameName = gameSetting?.gameName.toLowerCase();
     const { t } = useTranslation(["bethistory", gameName]);
 
     useEffect(() => {
@@ -334,13 +334,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         return (
             <>
                 {isFirstLoad ? (
-                    <div className={Styles["history-loading"]}>
+                    <div className={Styles["history-loading"]} data-testid="bet-history-loading">
                         <Loader></Loader>
                     </div>
                 ) : listBetHistory.length > 0 && !isShowBetLogDetails ? (
                     <div
                         className="table-container react-infinite-table"
                         onScroll={(e) => handleScrollBetHistory({ event: e, page, setPage })}
+                        data-testid="bet-history"
                     >
                         <table key={uuidv4()} className="table text-center">
                             <thead>{renderHeaderRows({ headerName, t })}</thead>
@@ -366,7 +367,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </table>
                     </div>
                 ) : (
-                    !isShowBetLogDetails && t("noBetHistory")
+                    !isShowBetLogDetails && <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
                 )}
 
                 {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
