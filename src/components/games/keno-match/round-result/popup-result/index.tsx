@@ -30,8 +30,12 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
     useEffect(() => {
         let index = 0;
 
+        const timerId = setInterval(doAnimation, 200);
+
         function doAnimation() {
             if (index === halfTimeResult.blue.length) {
+                setFullTimeResultAnimation(emptyResult);
+                setHalfTimeResultAnimation(emptyResult);
                 clearInterval(timerId);
                 return;
             }
@@ -77,7 +81,7 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
             index++;
         }
 
-        const timerId = setInterval(doAnimation, 200);
+        
 
         return () => {
             clearInterval(timerId);
@@ -87,7 +91,7 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
     return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundResultPopup {...resultProps} />}</div>;
 };
 
-export const TeamWithAnimation = ({ result }: {result:  number[]}) => {
+export const TeamWithAnimation = ({ result }: { result: number[] }) => {
     return (
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
@@ -116,11 +120,19 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
         },
         totalPoint = blueTeamProps.total + redTeamProps.total;
 
-    const totalRedScoreStyle = { "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],"--red-score": redTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
-        totalBlueScoreStyle = { "--blue-score-prev": blueTeamProps.total- result.blue[result.blue.length - 1],"--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties;
+    const totalRedScoreStyle = {
+            "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
+            "--red-score": redTeamProps.total,
+            "--total-score": totalPoint,
+        } as React.CSSProperties,
+        totalBlueScoreStyle = {
+            "--blue-score-prev": blueTeamProps.total - result.blue[result.blue.length - 1],
+            "--blue-score": blueTeamProps.total,
+            "--total-score": totalPoint,
+        } as React.CSSProperties;
 
     const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
-    triangleClass = `${Styles["triangle"]} ${triangleWinningClass}`;
+        triangleClass = `${Styles["triangle"]} ${triangleWinningClass}`;
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
@@ -134,7 +146,7 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
                     <span className={Styles["title-blue"]}>{t("blue")}</span>
                     <span className={Styles["title-red"]}>{t("red")}</span>
                 </div>
-                <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
+                <div className={`${Styles["progress-bar"]} ${Styles[progressBarStyle]}`}>
                     <div className={triangleClass} style={totalBlueScoreStyle}></div>
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
                         <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
