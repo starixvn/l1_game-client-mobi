@@ -112,12 +112,15 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
             result: result.red,
             teamName: t("red"),
             gameName,
-            total: calculateTotalPoint(result.red),
+            total: calculateTotalPoint(result.red)
         },
         totalPoint = blueTeamProps.total + redTeamProps.total;
 
-    const totalRedScoreStyle = { "--red-score": redTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
-        totalBlueScoreStyle = { "--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties;
+    const totalRedScoreStyle = { "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],"--red-score": redTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
+        totalBlueScoreStyle = { "--blue-score-prev": blueTeamProps.total- result.blue[result.blue.length - 1],"--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties;
+
+    const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
+    triangleClass = `${Styles["triangle"]} ${triangleWinningClass}`;
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
@@ -132,7 +135,7 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
                     <span className={Styles["title-red"]}>{t("red")}</span>
                 </div>
                 <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
-                    <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
+                    <div className={triangleClass} style={totalBlueScoreStyle}></div>
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
                         <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
                     </div>
