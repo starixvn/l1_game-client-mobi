@@ -294,42 +294,45 @@ $time-run-progress-bar: 1s;
         // }
     }
     .progress-bar-team {
-        .progress-bar {            
-            .blue-team {
-                --from-width: 50%;
-                --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
-                width:  var(--to-width);
-                animation: run-bar $time-run-progress-bar linear forwards;
-                animation-delay: 0.3s;  
-                .blue-score {
-                    font: 400 2rem var(--font-number);
-                    color: #fff;  
-                    padding-left: .6rem;
+        @for $i from 1 through 10 {
+            .progress-bar.open-ball-#{$i} {            
+                .blue-team {
+                    --from-width: 50%;
+                    --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
+                    width:  var(--to-width);
+                    animation: run-bar $time-run-progress-bar linear forwards;
+                    animation-delay: calc(0.5s * $i);  
+                    .blue-score {
+                        font: 400 2rem var(--font-number);
+                        color: #fff;  
+                        padding-left: .6rem;
+                    }
+                    // &:before{
+                    //     counter-reset: blue-score var(--blue-score);
+                    //     content: counter(--blue-score);
+                    //     color: #000;
+                    // }
                 }
-                // &:before{
-                //     counter-reset: blue-score var(--blue-score);
-                //     content: counter(--blue-score);
-                //     color: #000;
-                // }
-            }
-
-            .red-team {
-                --from-width: 50%;
-                --to-width: calc(var(--red-score) / var(--total-score) * 100%);
-                width:  var(--to-width);
-                animation: run-bar 1s linear forwards;
-                animation-delay: 0.3s;
-                text-align: right;
-                .red-score {
-                    font: 400 2rem var(--font-number);
-                    color: #fff;
-                    padding-right: .6rem;
+    
+                .red-team {
+                    --from-width: 50%;
+                    --to-width: calc(var(--red-score) / var(--total-score) * 100%);
+                    width:  var(--to-width);
+                    animation: run-bar 1s linear forwards;
+                    animation-delay: 0.3s;
+                    text-align: right;
+                    .red-score {
+                        font: 400 2rem var(--font-number);
+                        color: #fff;
+                        padding-right: .6rem;
+                    }
                 }
-            }
-            .triangle {
-                margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
+                .triangle {
+                    margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
+                }
             }
         }
+       
         
     }
 }
