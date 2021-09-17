@@ -282,16 +282,16 @@ $time-run-progress-bar: 1s;
     }
 
     .main-content .team {           
-        @for $i from 1 through 10 {
-            .number {
-                opacity: 0;
-            }
-            .number:nth-child(#{$i}) {                
-                animation: show-value 0.3s ease-in-out forwards;
-                //animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
-                animation-delay: calc(0.2s * #{$i - 1});
-            }
-        }
+        // @for $i from 1 through 10 {
+        //     .number {
+        //         opacity: 0;
+        //     }
+        //     .number:nth-child(#{$i}) {                
+        //         animation: show-value 0.3s ease-in-out forwards;
+        //         //animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
+        //         animation-delay: calc(0.2s * #{$i - 1});
+        //     }
+        // }
     }
     .progress-bar-team {
         .progress-bar {            
@@ -334,12 +334,16 @@ $time-run-progress-bar: 1s;
     }
 }
 
-.popup-result {
+.popup-result, .half-round-settlement {
     position: absolute;
     width: 100%;
     height: 15.2rem;
     background-color: #cecece;
     z-index: 12;
+    top: 0;
+}
+.half-round-settlement {
+    z-index: 13;
 }
 
 @keyframes show-value {

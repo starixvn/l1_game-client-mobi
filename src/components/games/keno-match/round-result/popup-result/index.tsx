@@ -139,20 +139,16 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
                         <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
                     </div>
-                    <div className={Styles["sperate"]}></div>
-                                <div className={Styles["total-score-match"]} style={totalScoreStyle}>
-                                    {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
-                                </div>
-                            </div>
+                    <div className={Styles["sperate"]}>
+                        <div className={Styles["total-score-match"]}>
+                            {t("sum")} <div className={Styles["score-match"]}>{totalPoint}</div>
+                        </div>
+                    </div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}>
                         <span className={Styles["red-score"]}>{redTeamProps.total}</span>
                     </div>
                 </div>
-            </div>
-                    {/* <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
-                    <div className={Styles["label-total"]}>{t("sum")} </div> */}
-                    {/* <div className={Styles["total-section"]}>
-                    </div> */}
+            </div>                   
         </div>
     );
 };
