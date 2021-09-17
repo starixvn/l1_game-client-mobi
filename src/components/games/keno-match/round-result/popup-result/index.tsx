@@ -21,17 +21,7 @@ export interface TeamWithAnimationProps {
     total: number;
 }
 
-interface PopupResultProps extends MainFrameResultProps {
-    settlementResult: SettlementResult;
-}
-
-const PopupResult: React.FC<PopupResultProps> = ({
-    halfTimeResult,
-    fullTimeResult,
-    isActiveLiveFullTime,
-    gameName,
-    settlementResult,
-}: PopupResultProps) => {
+const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) => {
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -46,8 +36,7 @@ const PopupResult: React.FC<PopupResultProps> = ({
                 return;
             }
 
-            const showSettlement = index === halfTimeResult.blue.length - 1,
-                progressBarStyle = `open-ball-${index + 1}`;
+            const progressBarStyle = `open-ball-${index + 1}`;
 
             if (isActiveLiveFullTime) {
                 setFullTimeResultAnimation((prev) => {
@@ -61,9 +50,7 @@ const PopupResult: React.FC<PopupResultProps> = ({
                     ...{
                         result: fullTimeResultAnimation,
                         active: isActiveLiveFullTime,
-                        settlementResult,
                         gameName,
-                        showSettlement,
                         progressBarStyle,
                     },
                     ...buildHalfMatchProps(true),
@@ -80,18 +67,16 @@ const PopupResult: React.FC<PopupResultProps> = ({
                     ...{
                         result: halfTimeResultAnimation,
                         active: !isActiveLiveFullTime,
-                        settlementResult,
                         gameName,
-                        showSettlement,
                         progressBarStyle,
                     },
                     ...buildHalfMatchProps(false),
                 });
             }
+
             index++;
         }
 
-        doAnimation();
         const timerId = setInterval(doAnimation, 200);
 
         return () => {
@@ -102,7 +87,7 @@ const PopupResult: React.FC<PopupResultProps> = ({
     return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundResultPopup {...resultProps} />}</div>;
 };
 
-export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) => {
+export const TeamWithAnimation = ({ result }: {result:  number[]}) => {
     return (
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
@@ -114,86 +99,49 @@ export const TeamWithAnimation = ({ result, gameName }: TeamWithAnimationProps) 
     );
 };
 
-export const HalfRoundResultPopup: React.FC<HalfRoundResultPopupProps> = ({
-    result,
-    settlementResult,
-    active,
-    className,
-    headerText,
-    gameName,
-    showSettlement,
-    progressBarStyle,
-}: HalfRoundResultPopupProps) => {
+export const HalfRoundResultPopup = ({ result, active, className, headerText, gameName, progressBarStyle }: HalfRoundResultPopupProps) => {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamWithAnimationProps = {
-            result: result?.blue,
+            result: result.blue,
             teamName: t("blue"),
             gameName,
             total: calculateTotalPoint(result.blue),
         },
         redTeamProps: TeamWithAnimationProps = {
-            result: result?.red,
+            result: result.red,
             teamName: t("red"),
             gameName,
             total: calculateTotalPoint(result.red),
         },
         totalPoint = blueTeamProps.total + redTeamProps.total;
 
-    const buildWinning = (settlementResult: SettlementResult) => {
-        if (settlementResult === undefined) {
-            return <></>;
-        }
-
-        return Object.keys(settlementResult).map((keyName, index) => {
-            if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-                return (
-                    <div key={index} className={Styles["result-info-red"]}>
-                        {t(keyName)}
-                    </div>
-                );
-            }
-        });
-    };
-
     const totalRedScoreStyle = { "--red-score": redTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
-        totalBlueScoreStyle = { "--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties,
-        totalScoreStyle = { "--total-score": totalPoint } as React.CSSProperties;
+        totalBlueScoreStyle = { "--blue-score": blueTeamProps.total, "--total-score": totalPoint } as React.CSSProperties;
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
-          
-                    <div className={Styles["header"]}>{t(headerText)}</div>
-                    <div className={Styles["main-content"]}>
-                        <TeamWithAnimation {...blueTeamProps} />
-                        <TeamWithAnimation {...redTeamProps} />
+            <div className={Styles["header"]}>{t(headerText)}</div>
+            <div className={Styles["main-content"]}>
+                <TeamWithAnimation result={blueTeamProps.result} />
+                <TeamWithAnimation result={redTeamProps.result} />
+            </div>
+            <div className={Styles["progress-bar-team"]}>
+                <div className={Styles["title"]}>
+                    <span className={Styles["title-blue"]}>{t("blue")}</span>
+                    <span className={Styles["title-red"]}>{t("red")}</span>
+                </div>
+                <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
+                    <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
+                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
+                        <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
                     </div>
-                    <div className={Styles["progress-bar-team"]}>
-                        <div className={Styles["title"]}>
-                            <span className={Styles["title-blue"]}>{t("blue")}</span>
-                            <span className={Styles["title-red"]}>{t("red")}</span>
-                        </div>
-                        <div className={`${Styles["progress-bar"]} ${progressBarStyle}`}>
-                            <div className={Styles["triangle"]} style={totalBlueScoreStyle}></div>
-                            <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
-                                <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
-                            </div>
-                            <div className={Styles["sperate"]}></div>
-                            <div className={Styles["red-team"]} style={totalRedScoreStyle}>
-                                <span className={Styles["red-score"]}>{redTeamProps.total}</span>
-                            </div>
-                        </div>
+                    <div className={Styles["sperate"]}></div>
+                    <div className={Styles["red-team"]} style={totalRedScoreStyle}>
+                        <span className={Styles["red-score"]}>{redTeamProps.total}</span>
                     </div>
-
-                    <div className={Styles["result-info"]}>{buildWinning(settlementResult)}</div>
-                    <div className={Styles["label-total"]}>{t("sum")} </div>
-                    <div className={Styles["total-section"]}>
-                        <div className={Styles["total-score-match"]} style={totalScoreStyle}>
-                            {t("total")} <div className={Styles["score-match"]}>{totalPoint}</div>
-                        </div>
-                    </div>
-                
-            
+                </div>
+            </div>
         </div>
     );
 };
