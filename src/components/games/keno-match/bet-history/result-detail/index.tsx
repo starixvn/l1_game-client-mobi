@@ -3,7 +3,7 @@ import React from "react";
 
 import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../../common/resources";
-import { Tie } from "../../round-result/main-frame-result/index";
+import { Tie } from "../../round-result/index";
 import { calculateTotalPoint, GetTranslateMapping } from "../../keno-match-helper";
 import { StateRound } from "../index";
 import Styles from "../bet-history.module.scss";

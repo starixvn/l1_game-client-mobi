@@ -14,8 +14,8 @@ import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
 import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
-import MainFrameResult from "./round-result/main-frame-result";
-import PopupResult from "./round-result/popup-result";
+import MainFrameResult from "./round-result";
+import PopupResult from "./round-result/animation-result";
 import { ScoreboardRule } from "./scoreboard-round-history";
 import {
     KenoMatchGameBaseState,
@@ -29,7 +29,7 @@ import {
     SettlementResult,
     TimeMatch,
 } from "./type";
-import HalfRoundSettlement from "./round-result/popup-result/half-round-settlement";
+import HalfRoundSettlement from "./round-result/half-round-settlement";
 
 export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     protected showResultInfoH1Timeout: NodeJS.Timeout;
@@ -132,9 +132,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             <div>
                 {isShowOverlay && <div className="overlay-mask"></div>}
 
-                {!isShowPopup && !isShowSettlement && (
-                    <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
-                )}
+                <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
 
                 {isShowPopup && (
                     <PopupResult

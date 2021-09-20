@@ -1,4 +1,5 @@
-import { Result } from "../../type";
+import { Result } from "../type";
+import { SettlementResult } from "../type";
 
 export interface HalfRoundResultProps {
     result: Result;
@@ -19,4 +20,18 @@ export default interface MainFrameResultProps {
     fullTimeResult: Result;
     isActiveLiveFullTime: boolean;
     gameName: string;
+}
+
+
+export interface HalfRoundAnimationResultProps extends HalfRoundResultProps {
+    settlementResult: SettlementResult;
+    showSettlement: boolean;
+    progressBarStyle: string;
+}
+
+export interface TeamWithAnimationProps {
+    result: number[];
+    teamName: string[];
+    gameName: string;
+    total: number;
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { SettlementResult } from "../../type";
-import Styles from "../main-frame-result/main-frame-result.module.scss";
-import { buildHalfMatchProps } from "../../keno-match-helper";
+import { SettlementResult } from "../type";
+import Styles from "./main-frame-result.module.scss";
+import { buildHalfMatchProps } from "../keno-match-helper";
 
 interface HalfRoundSettlementProps {
     settlementResult: SettlementResult;

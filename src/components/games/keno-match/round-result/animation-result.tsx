@@ -1,27 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-import MainFrameResultProps, { HalfRoundResultProps } from "../main-frame-result/main-frame-result-props";
-import { SettlementResult } from "../../type";
-import { calculateTotalPoint } from "../../keno-match-helper";
-import { Tie } from "../main-frame-result";
-import Styles from "../main-frame-result/main-frame-result.module.scss";
-import { buildHalfMatchProps } from "../../keno-match-helper";
+import MainFrameResultProps, { HalfRoundAnimationResultProps, TeamWithAnimationProps } from "./main-frame-result-props";
+import { calculateTotalPoint } from "../keno-match-helper";
+import { Tie } from ".";
+import Styles from "./main-frame-result.module.scss";
+import { buildHalfMatchProps } from "../keno-match-helper";
 
-export interface HalfRoundResultPopupProps extends HalfRoundResultProps {
-    settlementResult: SettlementResult;
-    showSettlement: boolean;
-    progressBarStyle: string;
-}
-
-export interface TeamWithAnimationProps {
-    result: number[];
-    teamName: string[];
-    gameName: string;
-    total: number;
-}
-
-const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) => {
+const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) => {
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -86,7 +72,7 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
         };
     }, [halfTimeResult, fullTimeResult]);
 
-    return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundResultPopup {...resultProps} />}</div>;
+    return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundAnimationResult {...resultProps} />}</div>;
 };
 
 export const TeamWithAnimation = ({ result }: { result: number[] }) => {
@@ -101,7 +87,7 @@ export const TeamWithAnimation = ({ result }: { result: number[] }) => {
     );
 };
 
-export const HalfRoundResultPopup = ({ result, active, className, headerText, gameName, progressBarStyle }: HalfRoundResultPopupProps) => {
+export const HalfRoundAnimationResult = ({ result, active, className, headerText, gameName, progressBarStyle }: HalfRoundAnimationResultProps) => {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamWithAnimationProps = {
@@ -165,4 +151,4 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
     );
 };
 
-export default PopupResult;
+export default AnimationResult;
