@@ -23,18 +23,20 @@ const RenderCell: React.FC<{
 
     return (
         <>
-            <td className={`${isHighligh ? "highlight" : ""}`}>{renderTimes({ time })}</td>
-            <td className={`${Styles["bet-type"]} ${isHighligh ? "highlight" : ""}`}>
+            <td className={`${isHighligh ? "highlight" : ""}`} data-testid="bet-time">
+                {renderTimes({ time })}
+            </td>
+            <td className={`${Styles["bet-type"]} ${isHighligh ? "highlight" : ""}`} data-testid="bet-type">
                 <span>{stateRound === StateRound.ht ? translateMapping.firstHalf : translateMapping.fullTime}</span> <br></br>
                 <span>
                     {getLabelFollowChoice({ translateMapping, formatChoice })}
                     {liveLabel}
                 </span>
             </td>
-            <td className={`${Styles["bet-choice"]}  ${isHighligh ? "highlight" : ""}`}>
+            <td className={`${Styles["bet-choice"]}  ${isHighligh ? "highlight" : ""}`} data-testid="bet-choice">
                 {translateMapping[formatChoice]}@<span className={fontNumber}>{odds[choice]}</span>
             </td>
-            <td className={`${Styles["stake-refund"]} ${isHighligh ? "highlight" : ""}`}>
+            <td className={`${Styles["stake-refund"]} ${isHighligh ? "highlight" : ""}`} data-testid="bet-stake-refund">
                 <span className={`${Styles["stake"]} ${fontNumber}`}>{amount}</span>
                 <br></br>
                 {isShowRefundAmount && <span className={`${Styles["refund"]} ${fontNumber}`}>{amount}</span>}
@@ -62,7 +64,7 @@ const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
 const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) => {
     if (betLog) {
         const { bet, roundId } = betLog;
-        const { betLogDetails } = bet;
+        const { betLogDetails } = bet ?? [];
         const headerName = ["roundTime", "betType", "betChoice", "refund"];
 
         const clickOpenDetails = () => {
@@ -77,15 +79,15 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) => {
                     <div>
                         {t(`${gameName}:game_name`)} - {t("round")}: {roundId}
                     </div>
-                    <div onClick={() => clickOpenDetails()}>
+                    <div onClick={() => clickOpenDetails()} data-testid="info-results-details">
                         {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
                     </div>
                 </div>
-                <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`}>
+                <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`} data-testid="bet-history-details">
                     <table className="table text-center">
                         <thead>{renderHeaderRows({ headerName, t })}</thead>
                         <tbody>
-                            {betLogDetails.length > 0 &&
+                            {betLogDetails?.length > 0 &&
                                 betLogDetails.map((betLog: any, index: number) => {
                                     return (
                                         <tr key={index} className={bet.betwin > 0 ? "highlight" : ""}>
