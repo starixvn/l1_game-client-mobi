@@ -42,7 +42,7 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
                     {appSettings.offeredGames
                         .filter((game) => offerGames.includes(game))
                         .map((id) => (
-                            <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
+                            <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)} data-testid="dropdown-item">
                                 {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                             </div>
                         ))}

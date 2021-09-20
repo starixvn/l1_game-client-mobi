@@ -43,13 +43,11 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
                 return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 24:
                 return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} />;
-            case 35:
-                return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 36:
             case 37:
                 return <KenoMatchBetHistory key={selectedGameId} gameId={selectedGameId} closeModal={closeModal} />;
             default:
-                return null;
+                return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
         }
     };
 
@@ -57,7 +55,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={`w-100 ${Styles["popup-container"]}`}>
                 <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
+                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
