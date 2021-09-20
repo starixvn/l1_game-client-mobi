@@ -302,16 +302,16 @@ $time-run-progress-bar: 1s;
     }
 
     .main-content .team {           
-        // @for $i from 1 through 10 {
-        //     .number {
-        //         opacity: 0;
-        //     }
-        //     .number:nth-child(#{$i}) {                
-        //         animation: show-value 0.3s ease-in-out forwards;
-        //         //animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
-        //         animation-delay: calc(0.2s * #{$i - 1});
-        //     }
-        // }
+        @for $i from 1 through 10 {
+            .number {
+                opacity: 0;
+            }
+            .number:nth-child(#{$i}) {                
+                animation: show-value 0.25s ease-in-out forwards;
+                // animation-delay: calc(#{$time-open-ball} * #{$i - 1} + #{$time-run-progress-bar} * #{$i - 1});
+                // animation-delay: calc(0.05s * #{$i - 1});
+            }
+        }
     }
     .progress-bar-team {
         @for $i from 1 through 10 {
@@ -327,11 +327,11 @@ $time-run-progress-bar: 1s;
                         color: #fff;  
                         padding-left: .6rem;
                     }
-                    // &:before{
-                    //     counter-reset: blue-score var(--blue-score);
-                    //     content: counter(--blue-score);
-                    //     color: #000;
-                    // }
+                    &:before{
+                        counter-reset: blue-score var(--blue-score);
+                        content: counter(--blue-score);
+                        color: #000;
+                    }
                 }
     
                 .red-team {

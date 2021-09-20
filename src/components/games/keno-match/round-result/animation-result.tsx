@@ -16,7 +16,7 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
     useEffect(() => {
         let index = 0;
 
-        const timerId = setInterval(doAnimation, 300);
+        const timerId = setInterval(doAnimation, 250);
 
         function doAnimation() {
             if (index === halfTimeResult.blue.length) {
