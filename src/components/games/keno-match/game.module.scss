@@ -1,3 +1,9 @@
+[data-theme="light"] .md5-section {
+    --md5-bg-color: #DCE2F3;
+}
+[data-theme="dark"] .md5-section {
+    --md5-bg-color: #2F3956;
+}
 .game-container {
     // --game-container-background: #1a2430;
     --game-container-border: #5a789a;
@@ -64,11 +70,12 @@
 }
 
 .md5-section {
-    background-color: #DCE2F3;
+    background-color: var(--md5-bg-color);
     font-size: 1.2rem;
     padding: .2rem .4rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between;    
+    cursor: pointer !important;
     .text {
         &:before{
             content: 'MD5:';            
@@ -80,6 +87,7 @@
         width: 1.8rem;
         height: 1.8rem;
         position: relative;
+        cursor: pointer;
         .copy-icon {
             width: 1rem;
             height: 1.2rem;

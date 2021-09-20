@@ -131,14 +131,12 @@ export const HalfRoundAnimationResult = ({
     const totalRedScoreStyle = {
             "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
             "--red-score": redTeamProps.total,
-            "--total-score": totalPoint,
-            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
+            "--total-score": totalPoint,            
         } as React.CSSProperties,
         totalBlueScoreStyle = {
             "--blue-score-prev": blueTeamProps.total - result.blue[result.blue.length - 1],
             "--blue-score": blueTeamProps.total,
             "--total-score": totalPoint,
-            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties;
 
     const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
@@ -167,7 +165,7 @@ export const HalfRoundAnimationResult = ({
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}></div>
                     <div className={Styles["sperate"]}>
                         <div className={Styles["total-score-match"]}>
-                            {t("sum")} <div className={Styles["score-match"]}>{totalPoint}</div>
+                            <span className={Styles["text"]}>{t("sum")}</span><div className={Styles["score-match"]}>{totalPoint}</div>
                         </div>
                     </div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}></div>

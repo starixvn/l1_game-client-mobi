@@ -177,7 +177,7 @@
         @for $i from 1 through 10 {
             .progress-bar.open-ball-#{$i} {            
                 .blue-team {
-                    --from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
+                    //--from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar 0.25s linear forwards;
@@ -189,7 +189,7 @@
                 }
     
                 .red-team {
-                    --from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
+                    //--from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar 0.25s linear forwards;
