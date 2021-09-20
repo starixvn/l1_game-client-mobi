@@ -1,6 +1,6 @@
 import React from "react";
 
-import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer from "../../../dashboard/history/bet-history";
 import { BetLogs } from "./bet-history";
 import Card from "../../../shared/card";
 import Styles from "./bet-history.module.scss";
