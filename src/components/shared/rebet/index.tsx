@@ -10,7 +10,16 @@ import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 
-const Rebet: React.FC<Props> = (props) => {
+const buildMessage = (notice, apiError, t, gameName) => ({
+    gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
+    roundId: notice?.gameRoundId || apiError?.gameRoundId,
+    message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
+    errorCode: notice?.errorCode || apiError?.errorCode,
+    minBet: notice?.minBet || apiError?.minBet,
+    maxBet: notice?.maxBet || apiError?.maxBet,
+});
+
+const Rebet: React.FC<Props> = (props: Props) => {
     const { onCloseModal } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -31,14 +40,7 @@ const Rebet: React.FC<Props> = (props) => {
             if (betTrack[betChoice]) {
                 betTrack[betChoice] = {
                     state: endBet > 0 ? BetState.Success : BetState.Error,
-                    messages: {
-                        gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
-                        roundId: notice?.gameRoundId || apiError?.gameRoundId,
-                        message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
-                        errorCode: notice?.errorCode || apiError?.errorCode,
-                        minBet: notice?.minBet || apiError?.minBet,
-                        maxBet: notice?.maxBet || apiError?.maxBet,
-                    },
+                    messages: buildMessage(notice, apiError, t, gameName),
                     validAmount: endBet > 0 ? endBet : 0,
                 };
 
