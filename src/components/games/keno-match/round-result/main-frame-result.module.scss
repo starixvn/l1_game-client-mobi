@@ -114,15 +114,15 @@ $time-run-progress-bar: 1s;
         font: 500 1.6rem var(--font-number);
         padding-left: .2rem;
     }
-    .medal {
-        background: url("/static/images/medal.svg") center center no-repeat;
-        width: 1.7rem;
-        height: 2.2rem;
-        display: inline-block;
-        position: relative;
-        top: .3rem;
-        margin-right: .4rem;
-    }
+    // .medal {
+    //     background: url("/static/images/medal.svg") center center no-repeat;
+    //     width: 1.7rem;
+    //     height: 2.2rem;
+    //     display: inline-block;
+    //     position: relative;
+    //     top: .3rem;
+    //     margin-right: .4rem;
+    // }
 }
 .blue-team .team-name {
     color: #3B7BC6;
@@ -172,13 +172,13 @@ $time-run-progress-bar: 1s;
     .main-content {
         display: flex;
         justify-content: space-between;
-        padding: 1rem; 
+        padding: .4rem 1rem 1.4rem; 
         position: relative; 
     }
     .header {
         text-align: center;
-        font-weight: bold;
-        margin-top: 1rem;
+        font-weight: 500;
+        margin-top: .6rem;
     }
     .team {
         padding: 0;
@@ -212,12 +212,18 @@ $time-run-progress-bar: 1s;
             .triangle {
                 position: absolute;
                 width: 0;
-                border-left: 8px solid transparent;
-                border-right: 8px solid transparent;
-                border-bottom: 14px solid  #08BE58;
-                bottom: -2rem;
-                left: -.8rem;
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-bottom: 10px solid  #08BE58;
+                bottom: -1.2rem;
+                left: -.6rem;
                 margin-left: 50%;
+                &.blue {
+                    border-bottom-color: #2670C5;
+                }
+                &.red {
+                    border-bottom-color: #FF4352;
+                }
             }
             .sperate {
                 background-color: #2F2F2F;
@@ -362,8 +368,11 @@ $time-run-progress-bar: 1s;
     width: 100%;
     height: 15.2rem;
     background-color: #cecece;
-    z-index: 12;
+    z-index: 71;
     top: 0;
+    // animation: show-value .3s linear forwards;
+    // animation-delay: 0;
+    background: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
 }
 .half-round-settlement {
     z-index: 13;

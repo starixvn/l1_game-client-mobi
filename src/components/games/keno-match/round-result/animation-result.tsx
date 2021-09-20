@@ -140,7 +140,7 @@ export const HalfRoundAnimationResult = ({
         } as React.CSSProperties;
 
     const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
-        triangleClass = `${Styles["triangle"]} ${triangleWinningClass}`;
+        triangleClass = `${Styles["triangle"]} ${Styles[triangleWinningClass]}`;
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
