@@ -170,18 +170,19 @@ $time-run-progress-bar: 1s;
     display: block;
     height: auto;
     .main-content {
-        grid-template-columns: 1fr 7.2rem 1fr; 
+        display: flex;
+        justify-content: space-between;
         padding: 1rem; 
-        position: relative;     
+        position: relative; 
     }
     .header {
         text-align: center;
         font-weight: bold;
         margin-top: 1rem;
-        
     }
     .team {
         padding: 0;
+        width: 12rem;
         .team-name {
             display: none;
         }
@@ -199,11 +200,15 @@ $time-run-progress-bar: 1s;
             &-red {
                 color: #FF4352;
             }
+            .score {
+                font: 500 1.6rem var(--font-number);
+                padding-left: .4rem;
+            }
         }
         .progress-bar {
             position: relative;
             display: flex;
-            height: 3rem;
+            height: 1.4rem;
             .triangle {
                 position: absolute;
                 width: 0;
@@ -216,11 +221,26 @@ $time-run-progress-bar: 1s;
             }
             .sperate {
                 background-color: #2F2F2F;
-                height: 3.6rem;
+                height: 2.1rem;
                 position: absolute;
                 top: -.3rem;
                 margin-left: 50%;
                 width: .1rem;
+                .total-score-match {
+                    position: absolute;
+                    top: -4.5rem;
+                    color: #5E5E5E;
+                    width: 6rem;
+                    text-align: center;
+                    margin-left: 50%;
+                    left: - 3rem;
+                    .score-match {
+                        font: 500 2.4rem var(--font-number);
+                        color: #2C2F3E;
+                        position: relative;
+                        top: -.8rem;
+                    }
+                }
             }
             .blue-team {
                 width: 50%;

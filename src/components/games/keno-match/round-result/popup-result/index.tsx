@@ -143,22 +143,24 @@ export const HalfRoundResultPopup = ({ result, active, className, headerText, ga
             </div>
             <div className={Styles["progress-bar-team"]}>
                 <div className={Styles["title"]}>
-                    <span className={Styles["title-blue"]}>{t("blue")}</span>
-                    <span className={Styles["title-red"]}>{t("red")}</span>
+                    <div className={Styles["title-blue"]}>
+                        <span className={Styles["text"]}>{t("blue")}:</span>
+                        <span className={Styles["score"]}>{blueTeamProps.total}</span>
+                    </div>
+                    <div className={Styles["title-red"]}>
+                        <span className={Styles["text"]}>{t("red")}:</span>
+                        <span className={Styles["score"]}>{redTeamProps.total}</span>
+                    </div>
                 </div>
                 <div className={`${Styles["progress-bar"]} ${Styles[progressBarStyle]}`}>
                     <div className={triangleClass} style={totalBlueScoreStyle}></div>
-                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}>
-                        <span className={Styles["blue-score"]}>{blueTeamProps.total}</span>
-                    </div>
+                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}></div>
                     <div className={Styles["sperate"]}>
                         <div className={Styles["total-score-match"]}>
                             {t("sum")} <div className={Styles["score-match"]}>{totalPoint}</div>
                         </div>
                     </div>
-                    <div className={Styles["red-team"]} style={totalRedScoreStyle}>
-                        <span className={Styles["red-score"]}>{redTeamProps.total}</span>
-                    </div>
+                    <div className={Styles["red-team"]} style={totalRedScoreStyle}></div>
                 </div>
             </div>                   
         </div>
