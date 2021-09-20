@@ -76,8 +76,8 @@ describe("HalfRoundResult", () => {
         const component = screen.getByTestId("half-round-result-component");
         expect(component).toHaveClass("result custom-class");
 
-        expect(document.getElementsByClassName("blue")).toHaveLength(1);
-        expect(document.getElementsByClassName("red")).toHaveLength(1);
+        // expect(document.getElementsByClassName("blue")).toHaveLength(1);
+        // expect(document.getElementsByClassName("red")).toHaveLength(1);
         expect(document.getElementsByClassName("main-content")).toHaveLength(1);
         expect(document.getElementsByClassName("middle-column")).toHaveLength(1);
 
