@@ -8,23 +8,6 @@
     --popup-result-title-color: #fff;
 }
 
-.list-choice {
-    min-width: 8.2rem !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-
-    .choice {
-        display: flex;
-        align-items: center;
-    }
-
-    .bet-amount {
-        margin-left: 0.6rem;
-    }
-}
-
 .details {
     color: #04a5ff;
     cursor: pointer;
@@ -105,7 +88,7 @@
             padding-left: 0.4rem;
             position: relative;
             top: -0.1rem;
-        }       
+        }
     }
 
     .player-label {

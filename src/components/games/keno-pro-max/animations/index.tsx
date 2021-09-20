@@ -88,18 +88,16 @@ class AnimationComponent extends React.PureComponent<
 
     componentDidMount() {
         if (this.state.playResultAnimation) {
-            const elem = this;
-
             this.animationInterval = setInterval(() => {
-                if (elem.state.currentIndex === elem.state.result.length) {
+                if (this.state.currentIndex === this.state.result.length) {
                     clearInterval(this.animationInterval);
                     return;
                 }
 
-                const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
-                elem.setState({
-                    currentTotal: elem.state.currentTotal + elem.state.result[numberIndex],
-                    currentIndex: elem.state.currentIndex + 1,
+                const numberIndex = this.state.shuffle[this.state.currentIndex] - 1;
+                this.setState({
+                    currentTotal: this.state.currentTotal + this.state.result[numberIndex],
+                    currentIndex: this.state.currentIndex + 1,
                 });
             }, 100);
         } else if (this.animationInterval) {

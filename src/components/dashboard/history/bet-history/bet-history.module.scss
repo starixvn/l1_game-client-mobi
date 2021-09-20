@@ -38,6 +38,16 @@
     .bet-amount {
         margin-left: 0.6rem;
     }
+
+    &.baccarat,
+    &.vipbaccarat {
+        min-width: 8.2rem;
+    }
+
+    &.dragontiger,
+    &.threecards {
+        min-width: 5rem;
+    }
 }
 
 .stake,

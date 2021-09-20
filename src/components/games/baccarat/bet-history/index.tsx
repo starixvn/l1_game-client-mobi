@@ -1,14 +1,14 @@
 import { TFunction } from "next-i18next";
 import React from "react";
 
-import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer from "../../../dashboard/history/bet-history";
 import ResultDetailContainer from "../../../dashboard/history/bet-history/result-detail";
 import { BetLogs } from "./bet-history";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { generateSettlementInfo } from "../animations";
 import { GetPlayerCardsResult, GetBankerCardsResult, GetTranslateChoiceMapping } from "../baccarat-helper";
 import { GameResourceKeys } from "../../../../common/resources";
-import { CardOrder, Odd } from "../baccarat";
+import { CardOrder } from "../baccarat";
 import Card from "../../../shared/card";
 import Styles from "./bet-history.module.scss";
 
@@ -90,31 +90,6 @@ const generateScore = (cards: CardOrder[]) => {
     }, 0);
 };
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
-    if (bet.settlementResult) {
-        const keysChoices = Object.keys(bet.settlementResult);
-        const odds = bet.odds ? bet.odds : mainOdds;
-        return (
-            <div className={Styles["list-choice"]}>
-                {keysChoices &&
-                    keysChoices.map((name, index) => {
-                        const classHighLight = bet.settlementResult[name] ? "font-weight-medium" : "";
-                        if (bet[name] > 0) {
-                            return (
-                                <div key={index} className={classHighLight}>
-                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
-                                </div>
-                            );
-                        }
-                        return "";
-                    })}
-            </div>
-        );
-    }
-
-    return <></>;
-};
-
 const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
     return (
         <BetHistoryContainer
@@ -123,7 +98,6 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameI
             renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) =>
                 renderResult(bet, roundId, setIsShowResultDetail, setBetLog, t)
             }
-            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
                 renderResultDetail(resultDetail, t, closeModal, gameName)
             }

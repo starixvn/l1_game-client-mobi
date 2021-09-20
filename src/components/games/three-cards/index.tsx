@@ -139,7 +139,12 @@ class ThreeCards extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
         const { result, settlementResult } = this.state;
         const resultUniqueSuit = result.map((card) => card.suit).filter((value, index, self) => self.indexOf(value) === index);
         const suitsLength = `suit-length-${resultUniqueSuit.length}`;
-
+        const getSrcSetImg = (suit: number) => {
+            const source1X = `/static/images/three-cards/${SuitKeys[suit]}.png 1x`;
+            const source2X = `/static/images/three-cards/${SuitKeys[suit]}@2x.png 2x`;
+            const source3X = `/static/images/three-cards/${SuitKeys[suit]}@3x.png 3x`;
+            return `${source1X}, ${source2X}, ${source3X}`;
+        };
         return (
             <div className={Styles["result-container"]}>
                 <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-black"]}>
@@ -148,16 +153,9 @@ class ThreeCards extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
                 <div className={`${Styles["suits"]} ${Styles[suitsLength]}`}>
                     {SuitOrder.map((suit, index) => {
                         if (resultUniqueSuit.includes(suit)) {
-                            return (
-                                <img
-                                    key={index}
-                                    srcSet={`/static/images/three-cards/${SuitKeys[suit]}.png 1x, /static/images/three-cards/${SuitKeys[suit]}@2x.png 2x, /static/images/three-cards/${SuitKeys[suit]}@3x.png 3x`}
-                                    height={30}
-                                    width={30}
-                                    alt={SuitKeys[suit]}
-                                />
-                            );
+                            return <img key={index} srcSet={getSrcSetImg(suit)} height={30} width={30} alt={SuitKeys[suit]} />;
                         }
+                        return null;
                     })}
                 </div>
             </div>

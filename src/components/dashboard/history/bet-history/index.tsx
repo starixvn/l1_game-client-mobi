@@ -63,7 +63,7 @@ const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: s
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
         return (
-            <div className={Styles["list-choices"]}>
+            <div className={`${Styles["list-choices"]} ${Styles[gameName]}`}>
                 {keysChoices &&
                     keysChoices.map((name, index) => {
                         const classHighLight = bet.settlementResult[name] ? fontWeightClass : "";
