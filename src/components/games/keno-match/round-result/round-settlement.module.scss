@@ -1,0 +1,22 @@
+@import "../../../../assets/components/settlement-info";
+
+[data-theme="light"] .half-round-settlement {
+    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);;
+}
+
+[data-theme="dark"] .half-round-settlement {
+    --bg-color: linear-gradient(90deg, #32486D 0%, #6E2B30 100%);;
+}
+
+
+.half-round-settlement {
+    position: absolute;
+    width: 100%;
+    height: 15.2rem;
+    background-color: #cecece;
+    z-index: 72;
+    top: 0;
+    // animation: show-value .3s linear forwards;
+    // animation-delay: 0;
+    background: var(--bg-color);
+}

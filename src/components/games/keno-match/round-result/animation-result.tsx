@@ -5,7 +5,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./main-frame-result-props";
 import { calculateTotalPoint } from "../keno-match-helper";
 import { Tie } from ".";
-import Styles from "./main-frame-result.module.scss";
+import Styles from "./animation-result.module.scss";
 import { buildHalfMatchProps } from "../keno-match-helper";
 
 const AnimationResult = ({
@@ -132,11 +132,13 @@ export const HalfRoundAnimationResult = ({
             "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
             "--red-score": redTeamProps.total,
             "--total-score": totalPoint,
+            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties,
         totalBlueScoreStyle = {
             "--blue-score-prev": blueTeamProps.total - result.blue[result.blue.length - 1],
             "--blue-score": blueTeamProps.total,
             "--total-score": totalPoint,
+            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties;
 
     const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
