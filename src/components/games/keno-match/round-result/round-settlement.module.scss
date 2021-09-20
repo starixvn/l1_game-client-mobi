@@ -1,11 +1,11 @@
 @import "../../../../assets/components/settlement-info";
 
 [data-theme="light"] .half-round-settlement {
-    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);;
+    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
 }
 
 [data-theme="dark"] .half-round-settlement {
-    --bg-color: linear-gradient(90deg, #32486D 0%, #6E2B30 100%);;
+    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
 }
 
 

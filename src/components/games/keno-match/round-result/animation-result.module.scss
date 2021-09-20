@@ -1,3 +1,15 @@
+[data-theme="light"] .popup-result {
+    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
+    --text-total-color: #5E5E5E;
+    --sperate-bg-color: #2f2f2f;
+}
+
+[data-theme="dark"] .popup-result {
+    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
+    --text-total-color: #fff;
+    --sperate-bg-color: #fff;
+}
+
 .open-result{
     background: unset;
     border: none;
@@ -69,7 +81,7 @@
                 }
             }
             .sperate {
-                background-color: #2F2F2F;
+                background-color: var(--sperate-bg-color);
                 height: 2.1rem;
                 position: absolute;
                 top: -.3rem;
@@ -77,15 +89,16 @@
                 width: .1rem;
                 .total-score-match {
                     position: absolute;
-                    top: -4.5rem;
-                    color: #5E5E5E;
+                    top: -4.5rem;                    
                     width: 6rem;
                     text-align: center;
                     margin-left: 50%;
                     left: - 3rem;
+                    .text {
+                        color: var(--text-total-color);
+                    }
                     .score-match {
                         font: 500 2.4rem var(--font-number);
-                        color: #2C2F3E;
                         position: relative;
                         top: -.8rem;
                     }
@@ -206,7 +219,7 @@
     top: 0;
     // animation: show-value .3s linear forwards;
     // animation-delay: 0;
-    background: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
+    background: var(--bg-color);
 }
 
 @keyframes show-value {
