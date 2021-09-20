@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-import MainFrameResultProps, { HalfRoundAnimationResultProps, TeamWithAnimationProps } from "./main-frame-result-props";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./main-frame-result-props";
 import { calculateTotalPoint } from "../keno-match-helper";
 import { Tie } from ".";
 import Styles from "./main-frame-result.module.scss";
 import { buildHalfMatchProps } from "../keno-match-helper";
 
-const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) => {
+const AnimationResult = ({
+    halfTimeResult,
+    fullTimeResult,
+    isActiveLiveFullTime,
+    gameName,
+    playResultAnimation
+}: AnimationResultProps) => {
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -15,8 +22,7 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
 
     useEffect(() => {
         let index = 0;
-
-        const timerId = setInterval(doAnimation, 250);
+        let timerId = null;
 
         function doAnimation() {
             if (index === halfTimeResult.blue.length) {
@@ -67,27 +73,45 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
             index++;
         }
 
+        if (playResultAnimation) {
+            timerId = setInterval(doAnimation, 250);
+        } else {
+            if (isActiveLiveFullTime) {
+                setResultProps({
+                    ...{
+                        result: fullTimeResult,
+                        active: isActiveLiveFullTime,
+                        gameName,
+                    },
+                    ...buildHalfMatchProps(true),
+                });
+            } else {
+                setResultProps({
+                    ...{
+                        result: halfTimeResult,
+                        active: !isActiveLiveFullTime,
+                        gameName,
+                    },
+                    ...buildHalfMatchProps(false),
+                });
+            }
+        }
         return () => {
             clearInterval(timerId);
         };
-    }, [halfTimeResult, fullTimeResult]);
+    }, [halfTimeResult, fullTimeResult, playResultAnimation]);
 
     return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundAnimationResult {...resultProps} />}</div>;
 };
 
-export const TeamWithAnimation = ({ result }: { result: number[] }) => {
-    return (
-        <div className={`${Styles.team}`} data-testid="team-component">
-            <div className={Styles.row} data-testid="team-result-row-component">
-                {result.map((number: number, index: number) => (
-                    <Tie key={index} number={number} />
-                ))}
-            </div>
-        </div>
-    );
-};
-
-export const HalfRoundAnimationResult = ({ result, active, className, headerText, gameName, progressBarStyle }: HalfRoundAnimationResultProps) => {
+export const HalfRoundAnimationResult = ({
+    result,
+    active,
+    className,
+    headerText,
+    gameName,
+    progressBarStyle,
+}: HalfRoundAnimationResultProps) => {
     const classNames = `${Styles.result} ${className} ${active ? Styles.active : ""}`,
         { t } = useTranslation(gameName),
         blueTeamProps: TeamWithAnimationProps = {
@@ -100,7 +124,7 @@ export const HalfRoundAnimationResult = ({ result, active, className, headerText
             result: result.red,
             teamName: t("red"),
             gameName,
-            total: calculateTotalPoint(result.red)
+            total: calculateTotalPoint(result.red),
         },
         totalPoint = blueTeamProps.total + redTeamProps.total;
 
@@ -146,7 +170,19 @@ export const HalfRoundAnimationResult = ({ result, active, className, headerText
                     </div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}></div>
                 </div>
-            </div>                   
+            </div>
+        </div>
+    );
+};
+
+export const TeamWithAnimation = ({ result }: { result: number[] }) => {
+    return (
+        <div className={`${Styles.team}`} data-testid="team-component">
+            <div className={Styles.row} data-testid="team-result-row-component">
+                {result.map((number: number, index: number) => (
+                    <Tie key={index} number={number} />
+                ))}
+            </div>
         </div>
     );
 };

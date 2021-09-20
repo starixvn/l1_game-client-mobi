@@ -15,8 +15,9 @@ import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
 import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import MainFrameResult from "./round-result";
-import PopupResult from "./round-result/animation-result";
+import AnimationResult from "./round-result/animation-result";
 import { ScoreboardRule } from "./scoreboard-round-history";
+import HalfRoundSettlement from "./round-result/half-round-settlement";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
@@ -29,7 +30,6 @@ import {
     SettlementResult,
     TimeMatch,
 } from "./type";
-import HalfRoundSettlement from "./round-result/half-round-settlement";
 
 export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     protected showResultInfoH1Timeout: NodeJS.Timeout;
@@ -100,6 +100,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 liveOdds,
                 halfTimeResultPopup,
                 fullTimeResultPopup,
+                playResultAnimation
             } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
 
@@ -112,7 +113,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
 
-        const isShowPopup =
+        const isAnimationResult =
             kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult;
 
@@ -134,14 +135,15 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
                 <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
 
-                {isShowPopup && (
-                    <PopupResult
+                {isAnimationResult && (
+                    <AnimationResult
                         {...{
                             halfTimeResult: halfTimeResultPopup,
                             fullTimeResult: fullTimeResultPopup,
                             isActiveLiveFullTime,
                             settlementResult,
                             gameName: this.props.gameName.toLocaleLowerCase(),
+                            playResultAnimation
                         }}
                     />
                 )}
@@ -283,7 +285,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const newGameState = this.determineGameState(remainingTime);
 
         const gameState = this.state.gameState as KenoMatchGameState;
-        console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         if (gameState !== newGameState) {
             const newState = {
@@ -298,25 +299,19 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
 
-        console.log(`--------------`);
-        console.log(`${remainingTime}s`);
         switch (true) {
             case remainingTime > durations.showFullTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowFullTimeResult;
-            case remainingTime > durations.highLightFullTime:
-                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
             case remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameStateEnum.HighLightFullTime;
+                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
             case remainingTime > durations.halfTimeLockingBet:
                 return KenoMatchGameStateEnum.HalfTimePlacingBet;
             case remainingTime > durations.showHalfTimeResult:
                 return KenoMatchGameStateEnum.HalfTimeLockingBet;
             case remainingTime > durations.showHalfTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowHalfTimeResult;
-            case remainingTime > durations.highLightFirstHalf:
-                return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
             case remainingTime > durations.beforeStartFullTimePlacingBet:
-                return KenoMatchGameStateEnum.HighLightFirstHalf;
+                return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
             case remainingTime > durations.fullTimePlacingBets:
                 return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;
             case remainingTime > durations.fullTimeLockingBet:

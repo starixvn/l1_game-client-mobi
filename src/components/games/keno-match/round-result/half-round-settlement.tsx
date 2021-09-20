@@ -1,15 +1,9 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { SettlementResult } from "../type";
+import { HalfRoundSettlementProps } from "./main-frame-result-props";
 import Styles from "./main-frame-result.module.scss";
 import { buildHalfMatchProps } from "../keno-match-helper";
-
-interface HalfRoundSettlementProps {
-    settlementResult: SettlementResult;
-    gameName: string;
-    isActiveLiveFullTime: boolean;
-}
 
 const HalfRoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: HalfRoundSettlementProps) => {
     const { t } = useTranslation(gameName),
