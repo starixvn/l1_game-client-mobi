@@ -30,7 +30,7 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
     useEffect(() => {
         let index = 0;
 
-        const timerId = setInterval(doAnimation, 500);
+        const timerId = setInterval(doAnimation, 300);
 
         function doAnimation() {
             if (index === halfTimeResult.blue.length) {
@@ -80,8 +80,6 @@ const PopupResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gam
 
             index++;
         }
-
-        
 
         return () => {
             clearInterval(timerId);

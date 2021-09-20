@@ -116,25 +116,39 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult;
 
+        const isShowSettlement =
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
+
+            const isShowOverlay = kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
+
         const gameName = this.props.gameName.toLocaleLowerCase();
         return (
             <div>
-                {(kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
-                    kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet) && <div className="overlay-mask"></div>}
+                {isShowOverlay && <div className="overlay-mask"></div>}
 
-                <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
+                {!isShowPopup && !isShowSettlement && (
+                    <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
+                )}
 
-                <PopupResult
-                    {...{
-                        halfTimeResult: halfTimeResultPopup,
-                        fullTimeResult: fullTimeResultPopup,
-                        isActiveLiveFullTime,
-                        settlementResult,
-                        gameName: this.props.gameName.toLocaleLowerCase(),
-                    }}
-                />
-
-                <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName, settlementResult }} />
+                {isShowPopup && (
+                    <PopupResult
+                        {...{
+                            halfTimeResult: halfTimeResultPopup,
+                            fullTimeResult: fullTimeResultPopup,
+                            isActiveLiveFullTime,
+                            settlementResult,
+                            gameName: this.props.gameName.toLocaleLowerCase(),
+                        }}
+                    />
+                )}
+                
+                {isShowSettlement && <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName, settlementResult }} />}
 
                 {this.props.supportMD5 && (
                     <div className={Styles["md5-section"]}>
@@ -269,7 +283,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }
 
         const newGameState = this.determineGameState(remainingTime);
+
         const gameState = this.state.gameState as KenoMatchGameState;
+        console.log(`${KenoMatchGameStateEnum[newGameState]}`);
 
         if (gameState !== newGameState) {
             const newState = {
@@ -284,6 +300,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     determineGameState(remainingTime: number) {
         const durations = this.props.durations as KenoMatchGameDurations;
 
+        console.log(`--------------`);
+        console.log(`${remainingTime}s`);
         switch (true) {
             case remainingTime > durations.showFullTimeSettlementResult:
                 return KenoMatchGameStateEnum.ShowFullTimeResult;
