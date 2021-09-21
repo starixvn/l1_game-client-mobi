@@ -141,7 +141,7 @@ export const HalfRoundAnimationResult = ({
             "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties;
 
-    const triangleWinningClass = redTeamProps.total > blueTeamProps.total ? "red" : "blue",
+    const triangleWinningClass = (redTeamProps.total === blueTeamProps.total) ? "draw" :(redTeamProps.total > blueTeamProps.total ? "red" : "blue"),
         triangleClass = `${Styles["triangle"]} ${Styles[triangleWinningClass]}`;
 
     return (
