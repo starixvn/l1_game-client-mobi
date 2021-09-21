@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./main-frame-result-props";
-import { calculateTotalPoint } from "../keno-match-helper";
-import { Tie } from ".";
+import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./type";
+import { calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
+import { Tie } from "../main-frame-result";
 import Styles from "./animation-result.module.scss";
-import { buildHalfMatchProps } from "../keno-match-helper";
 
 const AnimationResult = ({
     halfTimeResult,

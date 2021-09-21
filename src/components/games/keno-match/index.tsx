@@ -14,10 +14,10 @@ import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
 import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
-import MainFrameResult from "./round-result";
-import AnimationResult from "./round-result/animation-result";
+import MainFrameResult from "./round-result/main-frame-result/index";
+import AnimationResult from "./round-result/animation-result/index";
 import { ScoreboardRule } from "./scoreboard-round-history";
-import HalfRoundSettlement from "./round-result/half-round-settlement";
+import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,

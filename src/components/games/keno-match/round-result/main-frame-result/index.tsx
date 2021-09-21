@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
-import { resetValue, calculateTotalPoint, buildHalfMatchProps } from "../keno-match-helper";
+import { resetValue, calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
 import Styles from "./main-frame-result.module.scss";
 import MainFrameResultProps, {TeamProps, HalfRoundResultProps } from "./main-frame-result-props";
 

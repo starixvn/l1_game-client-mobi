@@ -1,26 +1,5 @@
-import { Result } from "../type";
-import { SettlementResult } from "../type";
-
-export interface HalfRoundResultProps {
-    result: Result;
-    headerText: string;
-    className: string;
-    active: boolean;
-    gameName: string;
-}
-
-export interface TeamProps {
-    result: number[];
-    teamName: string;
-    className: string;
-}
-
-export default interface MainFrameResultProps {
-    halfTimeResult: Result;
-    fullTimeResult: Result;
-    isActiveLiveFullTime: boolean;
-    gameName: string;
-}
+import { SettlementResult } from "../../type";
+import MainFrameResultProps, {HalfRoundResultProps} from "../main-frame-result/main-frame-result-props";
 
 export interface AnimationResultProps extends MainFrameResultProps{
     playResultAnimation: boolean;

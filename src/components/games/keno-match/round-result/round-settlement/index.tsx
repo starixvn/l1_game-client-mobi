@@ -1,11 +1,17 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 
-import { HalfRoundSettlementProps } from "./main-frame-result-props";
+import { buildHalfMatchProps } from "../../keno-match-helper";
+import { SettlementResult } from "../../type";
 import Styles from "./round-settlement.module.scss";
-import { buildHalfMatchProps } from "../keno-match-helper";
 
-const HalfRoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: HalfRoundSettlementProps) => {
+export interface HalfRoundSettlementProps {
+    settlementResult: SettlementResult;
+    gameName: string;
+    isActiveLiveFullTime: boolean;
+}
+
+const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: HalfRoundSettlementProps) => {
     const { t } = useTranslation(gameName),
     props = {
         settlementResult,
@@ -45,4 +51,4 @@ const HalfRoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime 
     );
 };
 
-export default HalfRoundSettlement;
+export default RoundSettlement;
