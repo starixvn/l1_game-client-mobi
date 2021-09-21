@@ -13,6 +13,8 @@ const AnimationResult = ({
     gameName,
     playResultAnimation
 }: AnimationResultProps) => {
+    const fakeBlueValues = [1,2,3,4,5,6,7,8,9,10];
+    const fakeRedValues = [5,6,7,8,9,10,11,12,13,14];
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -34,8 +36,8 @@ const AnimationResult = ({
 
             if (isActiveLiveFullTime) {
                 setFullTimeResultAnimation((prev) => {
-                    prev.blue.push(fullTimeResult.blue[index]);
-                    prev.red.push(fullTimeResult.red[index]);
+                    prev.blue.push(fakeBlueValues[index]);
+                    prev.red.push(fakeRedValues[index]);
 
                     return prev;
                 });
@@ -51,8 +53,8 @@ const AnimationResult = ({
                 });
             } else {
                 setHalfTimeResultAnimation((prev) => {
-                    prev.blue.push(halfTimeResult.blue[index]);
-                    prev.red.push(halfTimeResult.red[index]);
+                    prev.blue.push(fakeBlueValues[index]);
+                    prev.red.push(fakeRedValues[index]);
 
                     return prev;
                 });
@@ -71,29 +73,31 @@ const AnimationResult = ({
             index++;
         }
 
-        if (playResultAnimation) {
-            timerId = setInterval(doAnimation, 250);
-        } else {
-            if (isActiveLiveFullTime) {
-                setResultProps({
-                    ...{
-                        result: fullTimeResult,
-                        active: isActiveLiveFullTime,
-                        gameName,
-                    },
-                    ...buildHalfMatchProps(true),
-                });
-            } else {
-                setResultProps({
-                    ...{
-                        result: halfTimeResult,
-                        active: !isActiveLiveFullTime,
-                        gameName,
-                    },
-                    ...buildHalfMatchProps(false),
-                });
-            }
-        }
+        timerId = setInterval(doAnimation, 250);
+        // if (playResultAnimation) {
+        //     timerId = setInterval(doAnimation, 250);
+        // } else {
+        //     if (isActiveLiveFullTime) {
+        //         setResultProps({
+        //             ...{
+        //                 result: fullTimeResult,
+        //                 active: isActiveLiveFullTime,
+        //                 gameName,
+        //             },
+        //             ...buildHalfMatchProps(true),
+        //         });
+        //     } else {
+        //         setResultProps({
+        //             ...{
+        //                 result: halfTimeResult,
+        //                 active: !isActiveLiveFullTime,
+        //                 gameName,
+        //             },
+        //             ...buildHalfMatchProps(false),
+        //         });
+        //     }
+        // }
+
         return () => {
             clearInterval(timerId);
         };

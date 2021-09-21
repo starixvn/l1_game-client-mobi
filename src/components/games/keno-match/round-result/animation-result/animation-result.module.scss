@@ -129,7 +129,8 @@
                 opacity: 0;
             }
             .number:nth-child(#{$i}) {                
-                animation: show-value 0.25s ease-in-out forwards;
+                animation: show-value 0.15s ease-in-out forwards;
+                animation-delay: calc(0.05s * #{$i - 1});
             }
         }
     }
@@ -141,13 +142,15 @@
                     --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
                     animation: run-bar 0.25s linear forwards;
+                    animation-delay: calc(0.05s * $i);  
                 }
     
                 .red-team {
                     --from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
-                    animation: run-bar 0.25s linear forwards;
+                    animation: run-bar 0.15s linear forwards;
+                    animation-delay: calc(0.05s * $i);  
                     text-align: right;
                 }
                 .triangle {
@@ -200,6 +203,5 @@
     }
     to {
         width: var(--to-width);
-    }
-    
+    }    
 }
