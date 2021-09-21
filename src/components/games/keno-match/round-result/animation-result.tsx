@@ -99,7 +99,7 @@ const AnimationResult = ({
         return () => {
             clearInterval(timerId);
         };
-    }, [halfTimeResult, fullTimeResult, playResultAnimation]);
+    }, [halfTimeResult, fullTimeResult]);
 
     return <div className={Styles["popup-result"]}>{resultProps !== null && <HalfRoundAnimationResult {...resultProps} />}</div>;
 };
