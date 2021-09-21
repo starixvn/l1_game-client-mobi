@@ -129,8 +129,8 @@
                 opacity: 0;
             }
             .number:nth-child(#{$i}) {                
-                animation: show-value 0.15s ease-in-out forwards;
-                animation-delay: calc(0.05s * #{$i - 1});
+                animation: show-value 0.2s ease-in-out forwards;
+                animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
             }
         }
     }
@@ -141,16 +141,16 @@
                     --from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
-                    animation: run-bar 0.25s linear forwards;
-                    animation-delay: calc(0.05s * $i);  
+                    animation: run-bar 0.2s linear forwards;
+                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;  
                 }
     
                 .red-team {
                     --from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width:  var(--to-width);
-                    animation: run-bar 0.15s linear forwards;
-                    animation-delay: calc(0.05s * $i);  
+                    animation: run-bar 0.2s linear forwards;
+                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;  
                     text-align: right;
                 }
                 .triangle {
