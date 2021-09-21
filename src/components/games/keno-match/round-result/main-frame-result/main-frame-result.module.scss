@@ -60,7 +60,6 @@ $time-run-progress-bar: 1s;
 }
 
 .number {
-    opacity: 0;
     background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
     width: 2rem;
     height: 2rem;
@@ -123,20 +122,26 @@ $time-run-progress-bar: 1s;
     // background: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
 }
 
-@for $i from 0 through 9 {
-    .number:nth-child(#{$i}) {
-        animation: show-value 0.1s ease-in-out forwards;
-        animation-delay: calc(0.1s * #{$i});
-    }
-}
-
-@keyframes show-value {
-    from {
+.has-animation {
+    .number {
         opacity: 0;
-        transform: scale3d(0, 0, 0);
     }
-    to {
-        opacity: 1;
-        transform: scale3d(1, 1, 1);
+
+    @for $i from 0 through 9 {
+        .number:nth-child(#{$i + 1}) {
+            animation: show-value 0.1s ease-in-out forwards;
+            animation-delay: calc(0.1s * #{$i});
+        }
+    }
+
+    @keyframes show-value {
+        from {
+            opacity: 0;
+            transform: scale3d(0, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
     }
 }

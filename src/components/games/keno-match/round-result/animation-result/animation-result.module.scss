@@ -122,26 +122,15 @@
         }
     }
 
-    .main-content .team {
-        @for $i from 1 through 10 {
-            .number {
-                opacity: 0;
-            }
-            .number:nth-child(#{$i}) {
-                animation: show-value 0.2s ease-in-out forwards;
-                animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
-            }
-        }
-    }
     .progress-bar-team {
-        @for $i from 1 through 10 {
-            .progress-bar.open-ball-#{$i} {
+        @for $i from 0 through 9 {
+            .progress-bar.open-ball-#{$i + 1} {
                 .blue-team {
                     --from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
                     width: var(--to-width);
                     animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
+                    animation-delay: calc(0.1s * #{$i});
                 }
 
                 .red-team {
@@ -149,7 +138,7 @@
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
                     width: var(--to-width);
                     animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
+                    animation-delay: calc(0.1s * #{$i});
                     text-align: right;
                 }
                 .triangle {
@@ -179,17 +168,17 @@
     from {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
-      }
-    
-      50% {
+    }
+
+    50% {
         -webkit-transform: scale3d(1.5, 1.5, 1.5);
         transform: scale3d(1.5, 1.5, 1.5);
-      }
-    
-      to {
+    }
+
+    to {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
-      }
+    }
 }
 
 @keyframes show-result {
