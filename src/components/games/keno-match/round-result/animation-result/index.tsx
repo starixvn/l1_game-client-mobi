@@ -71,11 +71,12 @@ const AnimationResult = ({
             }
 
             index++;
-            clearInterval(timerId);
-            timerId = setInterval(doAnimation, 200 + (200 *(index-1)));
         }
 
-        timerId = setInterval(doAnimation, 200);
+        setTimeout(() => {
+            timerId = setInterval(doAnimation, 200);
+        }, 200);
+     
         // if (playResultAnimation) {
         //     timerId = setInterval(doAnimation, 250);
         // } else {

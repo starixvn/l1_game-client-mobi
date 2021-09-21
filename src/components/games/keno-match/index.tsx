@@ -135,7 +135,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
                 <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
 
-                {(
+                {isAnimationResult && (
                     <AnimationResult
                         {...{
                             halfTimeResult: halfTimeResultPopup,
