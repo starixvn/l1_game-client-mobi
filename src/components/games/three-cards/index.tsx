@@ -9,7 +9,7 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { ThreeCardsResult, ThreeCardsResultCollapse } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
-import { GetScoreboardDotDetailsOfSuits, ScoreboardRule } from "./scoreboard-round-history";
+import { GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
 import { Result, SettlementResult } from "./three-cards";
 import { Choices, SuitKeys, SuitOrder, TabsValue } from "./three-cards-helper";
@@ -94,9 +94,10 @@ class ThreeCards extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
             return (
                 <ScoreboardDragon
                     roundHistory={roundHistory}
-                    getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                    conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                    translateDotTextMapping={translateDotTextMapping}
+                    dotDetails={{
+                        translateDotTextMapping: translateDotTextMapping,
+                        choice: ["red", "black"],
+                    }}
                 />
             );
         }

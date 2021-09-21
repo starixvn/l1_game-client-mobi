@@ -24,11 +24,4 @@ export const GetScoreboardDotDetails: React.FC<{
     );
 };
 
-export const ConditionChangeDot = ({settlementResult}) => {
-    let value = 0;
-    if (settlementResult.even) {
-        value = 1;
-    }
-    return value;
-};
 export default GetScoreboardDotDetails;

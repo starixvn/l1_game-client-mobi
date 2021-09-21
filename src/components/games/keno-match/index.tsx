@@ -13,10 +13,9 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
-import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
+import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping, ChoiceForTabActive } from "./keno-match-helper";
 import MainFrameResult from "./round-result/main-frame-result/index";
 import AnimationResult from "./round-result/animation-result/index";
-import { ScoreboardRule } from "./scoreboard-round-history";
 import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
@@ -100,7 +99,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 liveOdds,
                 halfTimeResultPopup,
                 fullTimeResultPopup,
-                playResultAnimation
+                playResultAnimation,
             } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
 
@@ -121,7 +120,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
 
-            const isShowOverlay = kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
+        const isShowOverlay =
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
             kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
@@ -143,11 +143,11 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                             isActiveLiveFullTime,
                             settlementResult,
                             gameName: this.props.gameName.toLocaleLowerCase(),
-                            playResultAnimation
+                            playResultAnimation,
                         }}
                     />
                 )}
-                
+
                 {isShowSettlement && <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName, settlementResult }} />}
 
                 {this.props.supportMD5 && (
@@ -231,9 +231,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return (
             <ScoreboardDragon
                 roundHistory={dataFollowTabActive.roundHistory}
-                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ChoiceForTabActive[activeScoreboardTab]?.choice,
+                }}
                 isShowBlink={dataFollowTabActive.isShowBlink}
             />
         );

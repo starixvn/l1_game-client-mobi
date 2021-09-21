@@ -13,7 +13,6 @@ import { Choices, StatisticRuleEntries } from "./big-small-helper";
 import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
-import GetScoreboardDotDetails from "./scoreboard-round-history";
 
 class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
@@ -89,8 +88,10 @@ class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
         return (
             <ScoreboardDragon
                 roundHistory={this.state.roundHistory}
-                getDotDetails={GetScoreboardDotDetails}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ["big", "small"],
+                }}
             />
         );
     }

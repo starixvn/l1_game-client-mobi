@@ -9,9 +9,8 @@ import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import { BaccaratResult, BaccaratResultCollapse, generateSettlementInfo } from "./animations";
 import { Result, SettlementResult } from "./baccarat";
-import { Choices, GetTranslateChoiceMapping, StatisticRuleMapping } from "./baccarat-helper";
+import { Choices, GetTranslateChoiceMapping, StatisticRuleMapping, ChoiceForTabActive } from "./baccarat-helper";
 import BaccaratBetOptions from "./bet-options";
-import { ScoreboardRule } from "./scoreboard-round-history";
 
 class Baccarat extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
@@ -89,9 +88,10 @@ class Baccarat extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ChoiceForTabActive[activeScoreboardTab].choice,
+                }}
             />
         );
     }

@@ -17,14 +17,17 @@ const BauCuaIconMapper = {
 const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie", "minisedie", "specialsedie", "threecards"];
 
 const getIconClassName = (gameName: string, choice: string) => {
-    switch (gameName.toLocaleLowerCase()) {
+    const gameNameLower = gameName.toLocaleLowerCase();
+    switch (gameNameLower) {
         case "baucua":
             return `${styles.dice} ${BauCuaIconMapper[choice]}`;
         case "kenopromax":
-            return styles[`dot-${choice}-kenopromax`];
+        case "kenomatch1":
+        case "kenomatch2":
         case "baccarat":
         case "vipbaccarat":
-            return styles[`dot-${choice}-baccarat`];
+            const choiceName = `dot-${choice}`;
+            return `${styles[choiceName]} ${styles[gameNameLower]}`;
         default:
             return styles[`dot-${choice}`];
     }

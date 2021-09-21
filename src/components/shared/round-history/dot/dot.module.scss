@@ -78,6 +78,15 @@
     &:before {
         background: var(--dot-even-background);
     }
+    &.kenopromax {
+        @extend %dot;
+        background: var(--bigSmall-dot-big-border);
+        box-shadow: var(--bigSmall-dot-big-shadow);
+
+        &:before {
+            background: var(--bigSmall-dot-big-background);
+        }
+    }
 }
 
 .dot-odd {
@@ -88,6 +97,16 @@
 
     &:before {
         background: var(--dot-odd-background);
+    }
+
+    &.kenopromax {
+        @extend %dot;
+        background: var(--bigSmall-dot-small-border);
+        box-shadow: var(--bigSmall-dot-small-shadow);
+
+        &:before {
+            background: var(--bigSmall-dot-small-background);
+        }
     }
 }
 
@@ -120,6 +139,19 @@
     &:before {
         background: var(--dragonTiger-dot-tie-background);
     }
+
+    &.baccarat,
+    &.vipbaccarat,
+    &.keno-match1,
+    &.keno-match2 {
+        @extend %dot;
+        background: var(--baccarat-dot-tie-border);
+        box-shadow: var(--baccarat-dot-tie-shadow);
+
+        &:before {
+            background: var(--baccarat-dot-tie-background);
+        }
+    }
 }
 
 // big-small
@@ -145,14 +177,7 @@
 }
 
 // baccarat
-.dot-big-baccarat {
-    @extend .dot-big;
-}
-.dot-small-baccarat {
-    @extend .dot-small;
-}
-.dot-banker,
-.dot-banker-baccarat {
+.dot-banker {
     @extend %dot;
     background: var(--baccarat-dot-banker-border);
     box-shadow: var(--baccarat-dot-banker-shadow);
@@ -162,8 +187,7 @@
     }
 }
 
-.dot-player,
-.dot-player-baccarat {
+.dot-player {
     @extend %dot;
     background: var(--baccarat-dot-player-border);
     box-shadow: var(--baccarat-dot-player-shadow);
@@ -173,43 +197,7 @@
     }
 }
 
-.dot-tie-baccarat {
-    @extend %dot;
-    background: var(--baccarat-dot-tie-border);
-    box-shadow: var(--baccarat-dot-tie-shadow);
-
-    &:before {
-        background: var(--baccarat-dot-tie-background);
-    }
-}
-
 // keno
-.dot-big-kenopromax {
-    @extend .dot-big;
-}
-.dot-small-kenopromax {
-    @extend .dot-small;
-}
-.dot-even-kenopromax {
-    @extend %dot;
-    background: var(--bigSmall-dot-big-border);
-    box-shadow: var(--bigSmall-dot-big-shadow);
-
-    &:before {
-        background: var(--bigSmall-dot-big-background);
-    }
-}
-
-.dot-odd-kenopromax {
-    @extend %dot;
-    background: var(--bigSmall-dot-small-border);
-    box-shadow: var(--bigSmall-dot-small-shadow);
-
-    &:before {
-        background: var(--bigSmall-dot-small-background);
-    }
-}
-
 %icon-keno-promax {
     content: "";
     display: inline-block;
@@ -307,9 +295,6 @@
 }
 
 // keno match
-.dot-tie-keno-match {
-    @extend .dot-tie-baccarat;
-}
 .dot-blue {
     @extend .dot-big;
 }

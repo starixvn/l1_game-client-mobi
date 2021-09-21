@@ -10,7 +10,7 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { OpenThePlate, SeDieResultCollapse, ShakeThePlate } from "./animations";
 import SeDieBetOptions from "./bet-options";
 import { RenderRoundDetail, RenderSeDieDot } from "./round-history";
-import GetScoreboardDotDetails, { ConditionChangeDot } from "./scoreboard-round-history";
+import GetScoreboardDotDetails from "./scoreboard-round-history";
 import Styles from "./se-die.module.scss";
 import { Result, SettlementResult } from "./sedie";
 import SeDiceStatistic from "./statistic";
@@ -62,7 +62,13 @@ export class SeDie extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<R
     renderBoard() {
         const { roundHistory } = this.state;
         return (
-            <ScoreboardDragon roundHistory={roundHistory} getDotDetails={GetScoreboardDotDetails} conditionChangeDot={ConditionChangeDot} />
+            <ScoreboardDragon
+                roundHistory={roundHistory}
+                dotDetails={{
+                    getDotDetails: GetScoreboardDotDetails,
+                    choice: ["even", "odd"],
+                }}
+            />
         );
     }
 

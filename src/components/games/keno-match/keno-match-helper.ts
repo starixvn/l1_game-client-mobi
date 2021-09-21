@@ -241,3 +241,26 @@ export const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
         headerText: isActiveLiveFullTime ? "fullTime" : "firstHalf",
     };
 };
+
+
+export const ChoiceForTabActive = [
+    {
+        choice: ["red", "blue", "tie"],
+    },
+    {
+        choice: ["over", "under"],
+    },
+    {
+        choice: ["even", "odd"],
+    },
+    {
+        choice: ["red", "blue", "tie"],
+    },
+    {
+        choice: ["over", "under"],
+    },
+    {
+        choice: ["even", "odd"],
+    },
+];
+

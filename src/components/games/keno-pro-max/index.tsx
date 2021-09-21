@@ -10,8 +10,7 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
 import KenoProMaxBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./keno-pro-max";
-import { Choices, StatisticRuleMapping } from "./keno-pro-max-helper";
-import { ScoreboardRule } from "./scoreboard-round-history";
+import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
 
 class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
@@ -95,9 +94,10 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ChoiceForTabActive[activeScoreboardTab]?.choice,
+                }}
             />
         );
     }

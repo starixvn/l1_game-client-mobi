@@ -116,7 +116,7 @@ export const Games: React.FC<Props> = ({
             updateUserStakeLevel,
             socketGateway: socketGatewayRef.current,
             socketGatewayState: socketState,
-            retryConnectSocket: connectSocket
+            retryConnectSocket: connectSocket,
         };
 
         switch (gameId) {

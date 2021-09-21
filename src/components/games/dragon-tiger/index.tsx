@@ -13,7 +13,6 @@ import { Result, SettlementResult } from "./dragon-tiger";
 import { Choices, StatisticRuleEntries } from "./dragon-tiger-helper";
 import Styles from "./dragon-tiger.module.scss";
 import { RenderDragonTigerDot, RenderRoundDetail } from "./round-history";
-import GetScoreboardDotDetails from "./scoreboard-round-history";
 
 class DragonTiger extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
@@ -86,8 +85,10 @@ class DragonTiger extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Re
         return (
             <ScoreboardDragon
                 roundHistory={this.state.roundHistory}
-                getDotDetails={GetScoreboardDotDetails}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ["dragon", "tiger", "tie"],
+                }}
             />
         );
     }
