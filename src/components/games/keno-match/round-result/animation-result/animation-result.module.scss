@@ -1,6 +1,6 @@
 [data-theme="light"] .popup-result {
-    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
-    --text-total-color: #5E5E5E;
+    --bg-color: linear-gradient(90deg, #d0e5ff 0%, #fff 47%, #fff 53%, #fed9d9 100%);
+    --text-total-color: #5e5e5e;
     --sperate-bg-color: #2f2f2f;
 }
 
@@ -10,7 +10,7 @@
     --sperate-bg-color: #fff;
 }
 
-.open-result{
+.open-result {
     background: unset;
     border: none;
     display: block;
@@ -18,13 +18,13 @@
     .main-content {
         display: flex;
         justify-content: space-between;
-        padding: .4rem 1rem 1.4rem; 
-        position: relative; 
+        padding: 0.4rem 1rem 1.4rem;
+        position: relative;
         .row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             grid-template-rows: repeat(2, 2rem);
-            grid-row-gap:.3rem;
+            grid-row-gap: 0.3rem;
             .number {
                 justify-self: center;
             }
@@ -33,7 +33,7 @@
     .header {
         text-align: center;
         font-weight: 500;
-        margin-top: .6rem;
+        margin-top: 0.6rem;
     }
     .team {
         padding: 0;
@@ -43,21 +43,21 @@
         }
     }
     .progress-bar-team {
-        padding: 0 1.6rem;        
+        padding: 0 1.6rem;
         .title {
             display: flex;
             justify-content: space-between;
             font-size: 1.6rem;
             font-weight: 700;
             &-blue {
-                color: #3B7BC6;
+                color: #3b7bc6;
             }
             &-red {
-                color: #FF4352;
+                color: #ff4352;
             }
             .score {
                 font: 500 1.6rem var(--font-number);
-                padding-left: .4rem;
+                padding-left: 0.4rem;
             }
         }
         .progress-bar {
@@ -71,64 +71,63 @@
                 border-right: 6px solid transparent;
                 border-bottom: 10px solid;
                 bottom: -1.2rem;
-                left: -.6rem;
+                left: -0.6rem;
                 margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
                 &.blue {
-                    border-bottom-color: #2670C5;
+                    border-bottom-color: #2670c5;
                 }
                 &.red {
-                    border-bottom-color: #FF4352;
+                    border-bottom-color: #ff4352;
                 }
                 &.draw {
-                    border-bottom-color: #08BE58;
+                    border-bottom-color: #08be58;
                 }
             }
             .sperate {
                 background-color: var(--sperate-bg-color);
                 height: 2.1rem;
                 position: absolute;
-                top: -.3rem;
-                margin-left: calc(50% - .1rem);
-                width: .1rem;
+                top: -0.3rem;
+                margin-left: calc(50% - 0.1rem);
+                width: 0.1rem;
                 .total-score-match {
                     position: absolute;
-                    top: -4.5rem;                    
+                    top: -4.5rem;
                     width: 6rem;
                     text-align: center;
                     margin-left: 50%;
-                    left: - 3rem;
+                    left: -3rem;
                     .text {
                         color: var(--text-total-color);
                     }
                     .score-match {
                         font: 500 2.4rem var(--font-number);
                         position: relative;
-                        top: -.8rem;
+                        top: -0.8rem;
                     }
                 }
             }
             .blue-team {
                 width: calc(var(--blue-score) / var(--total-score) * 100%);
-                background: linear-gradient(to left, #4B8AD3 0%, #256DC1 100%);
-                border-top-left-radius: .3rem;
-                border-bottom-left-radius: .3rem;
+                background: linear-gradient(to left, #4b8ad3 0%, #256dc1 100%);
+                border-top-left-radius: 0.3rem;
+                border-bottom-left-radius: 0.3rem;
             }
             .red-team {
                 width: calc(var(--red-score) / var(--total-score) * 100%);
-                background: linear-gradient(to left, #DC4B56 0%, #F56769 100%);
-                border-top-right-radius: .3rem;
-                border-bottom-right-radius: .3rem;
+                background: linear-gradient(to left, #dc4b56 0%, #f56769 100%);
+                border-top-right-radius: 0.3rem;
+                border-bottom-right-radius: 0.3rem;
             }
         }
     }
 
-
-    .main-content .team {           
+    .main-content .team {
         @for $i from 1 through 10 {
             .number {
                 opacity: 0;
             }
-            .number:nth-child(#{$i}) {                
+            .number:nth-child(#{$i}) {
                 animation: show-value 0.2s ease-in-out forwards;
                 animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
             }
@@ -136,21 +135,21 @@
     }
     .progress-bar-team {
         @for $i from 1 through 10 {
-            .progress-bar.open-ball-#{$i} {            
+            .progress-bar.open-ball-#{$i} {
                 .blue-team {
                     --from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
-                    width:  var(--to-width);
+                    width: var(--to-width);
                     animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;  
+                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
                 }
-    
+
                 .red-team {
                     --from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
                     --to-width: calc(var(--red-score) / var(--total-score) * 100%);
-                    width:  var(--to-width);
+                    width: var(--to-width);
                     animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;  
+                    animation-delay: calc(0.2s * #{$i - 1}) + 0.2s;
                     text-align: right;
                 }
                 .triangle {
@@ -158,12 +157,11 @@
                 }
             }
         }
-       
-        
     }
 }
 
-.popup-result, .half-round-settlement {
+.popup-result,
+.half-round-settlement {
     --height-from: 0;
     --height-to: 15.3rem;
     position: absolute;
@@ -172,7 +170,7 @@
     background-color: #cecece;
     z-index: 71;
     top: 0;
-    animation: show-result .2s linear forwards;
+    animation: show-result 0.2s linear forwards;
     animation-delay: 0;
     background: var(--bg-color);
 }
@@ -200,14 +198,14 @@
     }
     to {
         height: var(--height-to);
-    }    
+    }
 }
 
-@keyframes run-bar{
+@keyframes run-bar {
     from {
         width: var(--from-width);
     }
     to {
         width: var(--to-width);
-    }    
+    }
 }
