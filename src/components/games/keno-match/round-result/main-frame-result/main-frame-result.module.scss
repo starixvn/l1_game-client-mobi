@@ -62,11 +62,10 @@ $time-run-progress-bar: 1s;
     font-size: 1.1rem;
     text-align: center;
     position: relative;
-    padding-top: 0.8rem;
     justify-self: center;
     .score-wrapper {
         position: relative;
-        bottom: -.2rem;
+        bottom: -.8rem;
         width: 6.4rem;
         height: 4rem;
         background: var(--middle-column-background-color);
@@ -104,7 +103,6 @@ $time-run-progress-bar: 1s;
 .main-content {
     display: grid;
     grid-template-columns: 15rem 1fr 15rem;
-    // background: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
 }
 
 .has-animation {

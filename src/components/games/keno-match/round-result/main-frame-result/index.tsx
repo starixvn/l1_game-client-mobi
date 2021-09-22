@@ -56,7 +56,7 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
                 <div className={Styles["middle-column"]}>
                     <div className={Styles["header"]}>{t(headerText)}</div>
                     <div className={Styles["score-wrapper"]}>
-                        {t("total")} <div className={Styles["score"]}>{totalPoint}</div>
+                        {t("sum")} <div className={Styles["score"]}>{totalPoint}</div>
                     </div>
                 </div>
                 <Team {...redTeamProps} />

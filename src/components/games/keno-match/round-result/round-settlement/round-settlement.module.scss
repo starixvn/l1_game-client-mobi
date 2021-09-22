@@ -23,23 +23,29 @@
     height: 13rem;
     z-index: 72;
     top: 0;
-    animation: fadeIn .2s linear forwards;
+    animation: fadeIn 0.2s ease-in forwards;
     animation-delay: 0;
     background-image: var(--bg-img);
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
     .header {
+        opacity: 0;
         font-weight: 500;
+        animation: run-text .3s linear forwards;
+        animation-delay: 0.2s;
     }
 }
 
 .result-wrapper {
+    opacity: 0;
     border-radius: 1rem;
     padding: .4rem 0 .8rem;
     width: 19.6rem;
     margin: 0 auto;
     text-align: center;
+    animation: fadeIn .3s linear forwards;
+    animation-delay: .8s;
     &.blue {
         background-color: #CDE9FC;
         border: 1px solid #67A4EB;
@@ -85,3 +91,35 @@
       opacity: 1;
     }
 }  
+
+@keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+} 
+
+@keyframes run-text {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20rem, 0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate3d(0, -12rem, 0);
+    }
+
+    70% {
+        opacity: 0.6;
+        transform: translate3d(0, -5rem, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
