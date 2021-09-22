@@ -160,7 +160,7 @@ export const TeamWithAnimation = ({ result }: { result: number[] }) => {
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
-                    <BallsNumbers key={index} number={number} />
+                    <BallsNumbers key={index} number={number} isAnimation={true}/>
                 ))}
             </div>
         </div>
