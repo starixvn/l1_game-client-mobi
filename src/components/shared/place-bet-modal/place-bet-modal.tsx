@@ -33,7 +33,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     useEffect(() => {
         const popupStyle = isMobileOnly
             ? adjustPopupPositionMobile(props.betOptionElement)
-            : adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement);
+            : adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
         setPositionStyle(popupStyle.position);
         setAlignArrowStyle(popupStyle.alignArrowStyle);
         setArrowStyle(popupStyle.arrowStyle);
