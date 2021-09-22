@@ -149,7 +149,6 @@ export const HalfRoundAnimationResult = ({
                             <span className={Styles["text"]}>{t("sum")}</span><div className={Styles["score-match"]}>{totalPoint}</div>
                         </div>
                     </div>
-                    {/* <div className={Styles["red-team"]} style={totalRedScoreStyle}></div> */}
                 </div>
             </div>
         </div>
