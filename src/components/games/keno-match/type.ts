@@ -102,6 +102,7 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];
     isShowBlinkFH: boolean;
     isShowBlinkFT: boolean;
+    isJoiningAtMiddleShowInlineResult: boolean;
 }
 
 export interface TimerProps {

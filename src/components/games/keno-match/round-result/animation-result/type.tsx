@@ -1,9 +1,5 @@
 import { SettlementResult } from "../../type";
-import MainFrameResultProps, {HalfRoundResultProps} from "../main-frame-result/type";
-
-export interface AnimationResultProps extends MainFrameResultProps{
-    playResultAnimation: boolean;
-}
+import { HalfRoundResultProps } from "../main-frame-result/type";
 
 export interface HalfRoundAnimationResultProps extends HalfRoundResultProps {
     settlementResult: SettlementResult;

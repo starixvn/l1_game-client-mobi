@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
 
-import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./type";
+import { HalfRoundAnimationResultProps, TeamWithAnimationProps } from "./type";
+import MainFrameResultProps from "../main-frame-result/type"
 import { calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
 import BallsNumbers from "../../../../shared/balls-numbers";
 import Styles from "./animation-result.module.scss";
 
-const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName, playResultAnimation }: AnimationResultProps) => {
-    const fakeBlueValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    const fakeRedValues = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+const AnimationResult = ({
+    halfTimeResult,
+    fullTimeResult,
+    isActiveLiveFullTime,
+    gameName
+}: MainFrameResultProps) => {
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -30,8 +34,8 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
 
             if (isActiveLiveFullTime) {
                 setFullTimeResultAnimation((prev) => {
-                    prev.blue.push(fakeBlueValues[index]);
-                    prev.red.push(fakeRedValues[index]);
+                    prev.blue.push(fullTimeResult.blue[index]);
+                    prev.red.push(fullTimeResult.red[index]);
 
                     return prev;
                 });
@@ -47,8 +51,8 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
                 });
             } else {
                 setHalfTimeResultAnimation((prev) => {
-                    prev.blue.push(fakeBlueValues[index]);
-                    prev.red.push(fakeRedValues[index]);
+                    prev.blue.push(halfTimeResult.blue[index]);
+                    prev.red.push(halfTimeResult.red[index]);
 
                     return prev;
                 });
@@ -70,30 +74,6 @@ const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime,
         setTimeout(() => {
             timerId = setInterval(doAnimation, 200);
         }, 200);
-
-        // if (playResultAnimation) {
-        //     timerId = setInterval(doAnimation, 250);
-        // } else {
-        //     if (isActiveLiveFullTime) {
-        //         setResultProps({
-        //             ...{
-        //                 result: fullTimeResult,
-        //                 active: isActiveLiveFullTime,
-        //                 gameName,
-        //             },
-        //             ...buildHalfMatchProps(true),
-        //         });
-        //     } else {
-        //         setResultProps({
-        //             ...{
-        //                 result: halfTimeResult,
-        //                 active: !isActiveLiveFullTime,
-        //                 gameName,
-        //             },
-        //             ...buildHalfMatchProps(false),
-        //         });
-        //     }
-        // }
 
         return () => {
             clearInterval(timerId);
@@ -130,7 +110,7 @@ export const HalfRoundAnimationResult = ({
     const totalRedScoreStyle = {
             "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
             "--red-score": redTeamProps.total,
-            "--total-score": totalPoint,
+            "--total-score": totalPoint,   
             "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties,
         totalBlueScoreStyle = {
@@ -140,8 +120,7 @@ export const HalfRoundAnimationResult = ({
             "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties;
 
-    const triangleWinningClass =
-            redTeamProps.total === blueTeamProps.total ? "draw" : redTeamProps.total > blueTeamProps.total ? "red" : "blue",
+    const triangleWinningClass = (redTeamProps.total === blueTeamProps.total) ? "draw" :(redTeamProps.total > blueTeamProps.total ? "red" : "blue"),
         triangleClass = `${Styles["triangle"]} ${Styles[triangleWinningClass]}`;
 
     return (
@@ -167,8 +146,7 @@ export const HalfRoundAnimationResult = ({
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}></div>
                     <div className={Styles["sperate"]}>
                         <div className={Styles["total-score-match"]}>
-                            <span className={Styles["text"]}>{t("sum")}</span>
-                            <div className={Styles["score-match"]}>{totalPoint}</div>
+                            <span className={Styles["text"]}>{t("sum")}</span><div className={Styles["score-match"]}>{totalPoint}</div>
                         </div>
                     </div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}></div>
