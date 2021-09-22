@@ -6,7 +6,12 @@ import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { adjustPopupPosition, adjustPopupPositionDidUpdate } from "./place-bet-modal-helper";
+import {
+    adjustPopupPosition,
+    adjustPopupPositionDidUpdate,
+    adjustPopupPositionMobile,
+    adjustPopupPositionDidUpdateMobile,
+} from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
 
@@ -20,15 +25,19 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const [positionStyle, setPositionStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState("");
     const [alignArrowStyle, setAlignArrowStyle] = useState("");
+    const [arrowStyleLeft, setArrowStyleLeft] = useState("");
 
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
 
     useEffect(() => {
-        const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
+        const popupStyle = isMobileOnly
+            ? adjustPopupPositionMobile(props.betOptionElement)
+            : adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement);
         setPositionStyle(popupStyle.position);
         setAlignArrowStyle(popupStyle.alignArrowStyle);
         setArrowStyle(popupStyle.arrowStyle);
+        setArrowStyleLeft(popupStyle.arrowStyleLeft);
     }, []);
 
     useEffect(() => {
@@ -40,12 +49,9 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         window.addEventListener("mousedown", handleClickOutside);
 
-        const adjustedBetFormCss = adjustPopupPositionDidUpdate(
-            props.gameBaseContainerRef,
-            wrapperRef,
-            props.betOptionElement,
-            props.betChoiceElement
-        );
+        const adjustedBetFormCss = isMobileOnly
+            ? adjustPopupPositionDidUpdateMobile(wrapperRef, props.betOptionElement)
+            : adjustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.betOptionElement, props.betChoiceElement);
 
         if (adjustedBetFormCss.isAdjust) {
             setPositionStyle(adjustedBetFormCss.styles.position);
@@ -112,7 +118,10 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     </div>
                 </div>
             </div>
-            {!isMobileOnly && <div className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}></div>}
+            <div
+                className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}
+                style={{ left: arrowStyleLeft }}
+            ></div>
         </div>
     );
 };
