@@ -209,8 +209,15 @@
 
 // Iphone X or newer
 .ios-device {
-    padding-bottom: calc(0.7em + env(safe-area-inset-bottom));
     .settings-container {
         height: 6.9rem;
+    }
+
+    .footer {
+        height: 5.4rem;
+
+        .one-click-bet-turn-on {
+            top: -1.4rem;
+        }
     }
 }
