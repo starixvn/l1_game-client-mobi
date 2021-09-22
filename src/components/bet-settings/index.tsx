@@ -1,4 +1,3 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
 import { isIOS, isMobileOnly } from "react-device-detect";
 
@@ -14,11 +13,10 @@ type Props = {
 };
 
 const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
-    const { t } = useTranslation("common");
     var deviceClass = "";
 
-    if (isMobileOnly) {
-        deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
+    if (isIOS) {
+        deviceClass = Styles["ios-device"];
     }
 
     return (
@@ -39,19 +37,6 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                     </div>
                 </div>
             </div>
-
-            {isMobileOnly && (
-                <div className={Styles["footer"]}>
-                    {enabledQuickBet && (
-                        <div className={Styles["one-click-bet-turn-on"]}>
-                            <span className={Styles["left"]}></span>
-                            <span className={Styles["content"]}>{t("common:oneClickBetOn")}</span>
-                            <span className={Styles["right"]}></span>
-                        </div>
-                    )}
-                    <span className={Styles["copyright"]}>Powered by Saba.club</span>
-                </div>
-            )}
         </div>
     );
 };
