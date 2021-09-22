@@ -1,6 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
-import { isIOS, isMobileOnly } from "react-device-detect";
+import { browserVersion, isIOS, isMobileOnly } from "react-device-detect";
 import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
 
@@ -185,6 +185,15 @@ export const Games: React.FC<Props> = ({
         window.scrollTo(0, 0);
     }, []);
 
+    let deviceCssClass = "";
+    if (isMobileOnly) {
+        if (isIOS) {
+            deviceCssClass = browserVersion === "15" ? `${styles["ios-device"]} ${styles["ios-15"]}` : styles["ios-device"];
+        } else {
+            deviceCssClass = styles["android-device"];
+        }
+    }
+
     return (
         <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
             <SystemContextProvider
@@ -197,9 +206,7 @@ export const Games: React.FC<Props> = ({
                     selectCategoryPage={selectCategoryPage}
                     selectedCategory={selectedCategory}
                 />
-                <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                    {renderListGames()}
-                </div>
+                <div className={`${styles["game-list"]} ${deviceCssClass}`}>{renderListGames()}</div>
             </SystemContextProvider>
         </div>
     );
