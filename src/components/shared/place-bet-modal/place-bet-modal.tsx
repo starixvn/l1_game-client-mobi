@@ -25,12 +25,10 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const subTitle = `#${roundId}`;
 
     useEffect(() => {
-        if (!isMobileOnly) {
-            const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
-            setPositionStyle(popupStyle.position);
-            setAlignArrowStyle(popupStyle.alignArrowStyle);
-            setArrowStyle(popupStyle.arrowStyle);
-        }
+        const popupStyle = adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
+        setPositionStyle(popupStyle.position);
+        setAlignArrowStyle(popupStyle.alignArrowStyle);
+        setArrowStyle(popupStyle.arrowStyle);
     }, []);
 
     useEffect(() => {
@@ -42,18 +40,16 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         window.addEventListener("mousedown", handleClickOutside);
 
-        if (!isMobileOnly) {
-            const adjustedBetFormCss = adjustPopupPositionDidUpdate(
-                props.gameBaseContainerRef,
-                wrapperRef,
-                props.betOptionElement,
-                props.betChoiceElement
-            );
+        const adjustedBetFormCss = adjustPopupPositionDidUpdate(
+            props.gameBaseContainerRef,
+            wrapperRef,
+            props.betOptionElement,
+            props.betChoiceElement
+        );
 
-            if (adjustedBetFormCss.isAdjust) {
-                setPositionStyle(adjustedBetFormCss.styles.position);
-                setArrowStyle(adjustedBetFormCss.styles.arrowStyle);
-            }
+        if (adjustedBetFormCss.isAdjust) {
+            setPositionStyle(adjustedBetFormCss.styles.position);
+            setArrowStyle(adjustedBetFormCss.styles.arrowStyle);
         }
 
         return () => {
