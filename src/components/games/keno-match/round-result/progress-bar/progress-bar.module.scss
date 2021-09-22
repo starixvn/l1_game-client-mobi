@@ -1,0 +1,88 @@
+[data-theme="light"] .progress-bar-team {
+    --bg-color: linear-gradient(90deg, #d0e5ff 0%, #fff 47%, #fff 53%, #fed9d9 100%);
+    --text-total-color: #5e5e5e;
+    --sperate-bg-color: #2f2f2f;
+}
+
+[data-theme="dark"] .progress-bar-team {
+    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
+    --text-total-color: #fff;
+    --sperate-bg-color: #fff;
+}
+
+.progress-bar-team {
+    padding: 0 1.6rem;
+    .title {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.6rem;
+        font-weight: 700;
+        &-blue {
+            color: #3b7bc6;
+        }
+        &-red {
+            color: #ff4352;
+        }
+        .score {
+            font: 500 1.6rem var(--font-number);
+            padding-left: 0.4rem;
+        }
+    }
+    .progress-bar {
+        position: relative;
+        display: flex;
+        height: 1rem;
+        background: linear-gradient(to left, #dc4b56 0%, #f56769 100%);
+        border-radius: 0.3rem;
+        .triangle {
+            position: absolute;
+            width: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 6px solid;
+            bottom: -0.6rem;
+            left: -0.4rem;
+            margin-left: var(--width);
+            &.blue {
+                border-bottom-color: #2670c5;
+            }
+            &.red {
+                border-bottom-color: #ff4352;
+            }
+            &.draw {
+                border-bottom-color: #08be58;
+            }
+        }
+        .sperate {
+            background-color: var(--sperate-bg-color);
+            height: 1.5rem;
+            position: absolute;
+            top: -0.2rem;
+            margin-left: calc(50% - 0.1rem);
+            width: 0.1rem;
+            .total-score-match {
+                position: absolute;
+                top: -4.5rem;
+                width: 6rem;
+                text-align: center;
+                margin-left: 50%;
+                left: -3rem;
+                .text {
+                    color: var(--text-total-color);
+                }
+                .score-match {
+                    font: 500 2.4rem var(--font-number);
+                    position: relative;
+                    top: -0.8rem;
+                }
+            }
+        }
+        .blue-team {
+            width: var(--width);
+            background: linear-gradient(to left, #4b8ad3 0%, #256dc1 100%);
+            border-top-left-radius: 0.3rem;
+            border-bottom-left-radius: 0.3rem;
+            transition: "width 1s ease-in-out";
+        }
+    }
+}

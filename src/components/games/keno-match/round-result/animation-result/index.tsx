@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
 import { useTranslation } from "next-i18next";
+import React, { useEffect, useState } from "react";
 
-import { HalfRoundAnimationResultProps, TeamWithAnimationProps } from "./type";
-import MainFrameResultProps from "../main-frame-result/type"
-import { calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
 import BallsNumbers from "../../../../shared/balls-numbers";
+import { buildHalfMatchProps, calculateTotalPoint } from "../../keno-match-helper";
+import MainFrameResultProps from "../main-frame-result/type";
+import ProgressBar from "../progress-bar";
 import Styles from "./animation-result.module.scss";
+import { HalfRoundAnimationResultProps, TeamWithAnimationProps } from "./type";
 
-const AnimationResult = ({
-    halfTimeResult,
-    fullTimeResult,
-    isActiveLiveFullTime,
-    gameName
-}: MainFrameResultProps) => {
+const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) => {
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -104,24 +100,7 @@ export const HalfRoundAnimationResult = ({
             teamName: t("red"),
             gameName,
             total: calculateTotalPoint(result.red),
-        },
-        totalPoint = blueTeamProps.total + redTeamProps.total;
-
-    const totalRedScoreStyle = {
-            "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
-            "--red-score": redTeamProps.total,
-            "--total-score": totalPoint,   
-            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
-        } as React.CSSProperties,
-        totalBlueScoreStyle = {
-            "--blue-score-prev": blueTeamProps.total - result.blue[result.blue.length - 1],
-            "--blue-score": blueTeamProps.total,
-            "--total-score": totalPoint,
-            "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
-        } as React.CSSProperties;
-
-    const triangleWinningClass = (redTeamProps.total === blueTeamProps.total) ? "draw" :(redTeamProps.total > blueTeamProps.total ? "red" : "blue"),
-        triangleClass = `${Styles["triangle"]} ${Styles[triangleWinningClass]}`;
+        };
 
     return (
         <div className={`${classNames} ${Styles["open-result"]}`}>
@@ -130,27 +109,7 @@ export const HalfRoundAnimationResult = ({
                 <TeamWithAnimation result={blueTeamProps.result} />
                 <TeamWithAnimation result={redTeamProps.result} />
             </div>
-            <div className={Styles["progress-bar-team"]}>
-                <div className={Styles["title"]}>
-                    <div className={Styles["title-blue"]}>
-                        <span className={Styles["text"]}>{t("blue")}:</span>
-                        <span className={Styles["score"]}>{blueTeamProps.total}</span>
-                    </div>
-                    <div className={Styles["title-red"]}>
-                        <span className={Styles["text"]}>{t("red")}:</span>
-                        <span className={Styles["score"]}>{redTeamProps.total}</span>
-                    </div>
-                </div>
-                <div className={`${Styles["progress-bar"]} ${Styles[progressBarStyle]}`}>
-                    <div className={triangleClass} style={totalBlueScoreStyle}></div>
-                    <div className={Styles["blue-team"]} style={totalBlueScoreStyle}></div>
-                    <div className={Styles["sperate"]}>
-                        <div className={Styles["total-score-match"]}>
-                            <span className={Styles["text"]}>{t("sum")}</span><div className={Styles["score-match"]}>{totalPoint}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <ProgressBar totalBlue={blueTeamProps.total} totalRed={redTeamProps.total} />
         </div>
     );
 };

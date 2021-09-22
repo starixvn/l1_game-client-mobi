@@ -42,98 +42,6 @@
             display: none;
         }
     }
-    .progress-bar-team {
-        padding: 0 1.6rem;
-        .title {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.6rem;
-            font-weight: 700;
-            &-blue {
-                color: #3b7bc6;
-            }
-            &-red {
-                color: #ff4352;
-            }
-            .score {
-                font: 500 1.6rem var(--font-number);
-                padding-left: 0.4rem;
-            }
-        }
-        .progress-bar {
-            position: relative;
-            display: flex;
-            height: 1rem;
-            background: linear-gradient(to left, #dc4b56 0%, #f56769 100%);
-            border-radius: .3rem;
-            .triangle {
-                position: absolute;
-                width: 0;
-                border-left: 4px solid transparent;
-                border-right: 4px solid transparent;
-                border-bottom: 6px solid;
-                bottom: -.6rem;
-                left: -0.4rem;
-                margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
-                &.blue {
-                    border-bottom-color: #2670c5;
-                }
-                &.red {
-                    border-bottom-color: #ff4352;
-                }
-                &.draw {
-                    border-bottom-color: #08be58;
-                }
-            }
-            .sperate {
-                background-color: var(--sperate-bg-color);
-                height: 1.5rem;
-                position: absolute;
-                top: -0.2rem;
-                margin-left: calc(50% - 0.1rem);
-                width: 0.1rem;
-                .total-score-match {
-                    position: absolute;
-                    top: -4.5rem;
-                    width: 6rem;
-                    text-align: center;
-                    margin-left: 50%;
-                    left: -3rem;
-                    .text {
-                        color: var(--text-total-color);
-                    }
-                    .score-match {
-                        font: 500 2.4rem var(--font-number);
-                        position: relative;
-                        top: -0.8rem;
-                    }
-                }
-            }
-            .blue-team {
-                width: calc(var(--blue-score) / var(--total-score) * 100%);
-                background: linear-gradient(to left, #4b8ad3 0%, #256dc1 100%);
-                border-top-left-radius: 0.3rem;
-                border-bottom-left-radius: 0.3rem;
-            }
-        }
-    }
-
-    .progress-bar-team {
-        @for $i from 0 through 9 {
-            .progress-bar.open-ball-#{$i + 1} {
-                .blue-team {
-                    --from-width: calc(var(--blue-score-prev) / var(--total-score-prev) * 100%);
-                    --to-width: calc(var(--blue-score) / var(--total-score) * 100%);
-                    width: var(--to-width);
-                    animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.1s * #{$i});
-                }
-                .triangle {
-                    margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
-                }
-            }
-        }
-    }
 }
 
 .popup-result,
@@ -146,7 +54,7 @@
     background-color: #cecece;
     z-index: 71;
     top: 0;
-    animation-name: fadeIn, fadeOut;    
+    animation-name: fadeIn, fadeOut;
     animation-duration: 0.2s, 0.2s;
     animation-delay: 0s, 3.8s;
     animation-fill-mode: forwards, forwards;
@@ -156,29 +64,20 @@
 
 @keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
-  
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-} 
+}
 
 @keyframes fadeOut {
     from {
         opacity: 1;
-      }
-    
-      to {
-        opacity: 0;
-      }
-} 
-
-@keyframes run-bar {
-    from {
-        width: var(--from-width);
     }
+
     to {
-        width: var(--to-width);
+        opacity: 0;
     }
 }
