@@ -13,43 +13,35 @@ export interface HalfRoundSettlementProps {
 
 const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: HalfRoundSettlementProps) => {
     const { t } = useTranslation(gameName),
-    props = {
-        settlementResult,
-        ...buildHalfMatchProps(isActiveLiveFullTime),
-    };
+        props = {
+            settlementResult,
+            ...buildHalfMatchProps(isActiveLiveFullTime),
+        };
 
     if (settlementResult === undefined) {
         return <></>;
     }
 
+    const winningTeamName = settlementResult["blue"] ? "blue" : "red";
     return (
         <div className={`${Styles["half-round-settlement"]}`}>
             <div className={Styles["header"]}>{t(props.headerText)}</div>
-            <div className={Styles["result-wrapper"]}>
+            <div className={`${Styles["result-wrapper"]} ${winningTeamName}`}>
                 <div className={Styles["result-info"]}>
-                    {Object.keys(settlementResult).map((keyName, index) => {
-                        if (settlementResult[keyName] && ["blue", "red"].includes(keyName)) {
-                            return (
-                                <div key={index} className={Styles[`result-info-${keyName}`]}>
-                                    {t(keyName)}
-                                </div>
-                            );
-                        }
-                    })}
+                    <div className={Styles[`result-info-${winningTeamName}`]}>{t(winningTeamName)}</div>
                 </div>
                 <div className={Styles["result-info"]}>
-                    {Object.keys(settlementResult).map((keyName, index) => {
-                        if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-                            return (
+                    {["odd", "even", "over", "under"].map((keyName, index) => {
+                        return (
+                            settlementResult[keyName] && (
                                 <div key={index} className={Styles["result-info-red"]}>
                                     {t(keyName)}
                                 </div>
-                            );
-                        }
+                            )
+                        );
                     })}
                 </div>
             </div>
-            
         </div>
     );
 };
