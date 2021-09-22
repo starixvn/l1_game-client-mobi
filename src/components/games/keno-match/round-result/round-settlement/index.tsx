@@ -25,28 +25,31 @@ const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: H
     return (
         <div className={`${Styles["half-round-settlement"]}`}>
             <div className={Styles["header"]}>{t(props.headerText)}</div>
-            <div className={Styles["result-info"]}>
-                {Object.keys(settlementResult).map((keyName, index) => {
-                    if (settlementResult[keyName] && ["blue", "red"].includes(keyName)) {
-                        return (
-                            <div key={index} className={Styles[`result-info-${keyName}`]}>
-                                {t(keyName)}
-                            </div>
-                        );
-                    }
-                })}
+            <div className={Styles["result-wrapper"]}>
+                <div className={Styles["result-info"]}>
+                    {Object.keys(settlementResult).map((keyName, index) => {
+                        if (settlementResult[keyName] && ["blue", "red"].includes(keyName)) {
+                            return (
+                                <div key={index} className={Styles[`result-info-${keyName}`]}>
+                                    {t(keyName)}
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
+                <div className={Styles["result-info"]}>
+                    {Object.keys(settlementResult).map((keyName, index) => {
+                        if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
+                            return (
+                                <div key={index} className={Styles["result-info-red"]}>
+                                    {t(keyName)}
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
             </div>
-            <div className={Styles["result-info"]}>
-                {Object.keys(settlementResult).map((keyName, index) => {
-                    if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-                        return (
-                            <div key={index} className={Styles["result-info-red"]}>
-                                {t(keyName)}
-                            </div>
-                        );
-                    }
-                })}
-            </div>
+            
         </div>
     );
 };
