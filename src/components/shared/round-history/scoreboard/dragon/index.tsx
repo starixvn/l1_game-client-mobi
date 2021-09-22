@@ -123,7 +123,7 @@ const addDotNext = (rowMax: {}, row: number, col: number, nextCol: number, getDo
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     const { roundHistory, dotDetails } = props;
-    const { translateDotTextMapping } = dotDetails;
+    const translateDotTextMapping = props?.dotDetails ?? {};
     const getDotDetails = dotDetails?.getDotDetails ?? getScoreboardDotDetails;
     const conditionChangeDotDetails = dotDetails?.conditionChangeDot ?? conditionChangeDotDefault;
 
