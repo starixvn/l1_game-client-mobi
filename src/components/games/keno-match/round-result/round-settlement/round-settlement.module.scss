@@ -23,8 +23,11 @@
     height: 13rem;
     z-index: 72;
     top: 0;
-    animation: fadeIn 0.2s ease-in forwards;
-    animation-delay: 0;
+    animation-name: fadeIn, fadeOut;    
+    animation-duration: 0.2s, 0.3s;
+    animation-delay: 0s, 3.7s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: linear, linear;
     background-image: var(--bg-img);
     background-repeat: no-repeat;
     background-size: cover;
