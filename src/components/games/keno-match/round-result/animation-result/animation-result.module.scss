@@ -64,6 +64,8 @@
             position: relative;
             display: flex;
             height: 1rem;
+            background: linear-gradient(to left, #dc4b56 0%, #f56769 100%);
+            border-radius: .3rem;
             .triangle {
                 position: absolute;
                 width: 0;
@@ -113,12 +115,6 @@
                 border-top-left-radius: 0.3rem;
                 border-bottom-left-radius: 0.3rem;
             }
-            .red-team {
-                width: calc(var(--red-score) / var(--total-score) * 100%);
-                background: linear-gradient(to left, #dc4b56 0%, #f56769 100%);
-                border-top-right-radius: 0.3rem;
-                border-bottom-right-radius: 0.3rem;
-            }
         }
     }
 
@@ -131,15 +127,6 @@
                     width: var(--to-width);
                     animation: run-bar 0.2s linear forwards;
                     animation-delay: calc(0.1s * #{$i});
-                }
-
-                .red-team {
-                    --from-width: calc(var(--red-score-prev) / var(--total-score-prev) * 100%);
-                    --to-width: calc(var(--red-score) / var(--total-score) * 100%);
-                    width: var(--to-width);
-                    animation: run-bar 0.2s linear forwards;
-                    animation-delay: calc(0.1s * #{$i});
-                    text-align: right;
                 }
                 .triangle {
                     margin-left: calc(var(--blue-score) / var(--total-score) * 100%);
