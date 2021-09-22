@@ -59,22 +59,6 @@ $time-run-progress-bar: 1s;
     text-align: center;
 }
 
-.number {
-    background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    font: 500 1.2rem var(--font-number);
-    color: #2c2f3e;
-    line-height: 2rem;
-    text-align: center;
-    &.bet-history {
-        height: 2.2rem;
-        width: 2.2rem;
-        line-height: 2.2rem;
-    }
-}
-
 .middle-column {
     font-size: 1.1rem;
     text-align: center;

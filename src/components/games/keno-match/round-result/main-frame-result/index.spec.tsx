@@ -2,32 +2,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import { HalfRoundResult, Tie } from "./";
+import { HalfRoundResult } from "./";
 
-describe("Tie", () => {
-    test("should be have `number` class", () => {
-        render(<Tie number={5} />);
-        expect(screen.getByTestId("tie-component")).toHaveClass("number");
-    });
-
-    test.each`
-        result | expectedInnerHtml
-        ${5}   | ${"5"}
-        ${-1}  | ${""}
-    `("should render inner html correctly", ({ result, expectedInnerHtml }) => {
-        render(<Tie number={result} />);
-
-        expect(screen.getByTestId("tie-component").innerHTML).toEqual(expectedInnerHtml);
-    });
-});
-
-test("Tie should be render correctly", () => {
-    render(<Tie number={5} />);
-    const component = screen.getByTestId("tie-component");
-
-    expect(component.innerHTML).toEqual("5");
-    expect(component).toHaveClass("number");
-});
 
 // test("TeamResultRow should be render correctly", () => {
 //     render(<TeamResultRow result={[5, 6, 7, 8, 9]} />);

@@ -3,7 +3,7 @@ import React from "react";
 
 import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../../common/resources";
-import { Tie } from "../../round-result/main-frame-result/index";
+import BallsNumbers from "../../../../shared/balls-numbers";
 import { calculateTotalPoint, GetTranslateMapping } from "../../keno-match-helper";
 import { StateRound } from "../index";
 import Styles from "../bet-history.module.scss";
@@ -15,7 +15,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-blue"]}>
                 <div className={Styles["score-row"]}>
                     {blue.map((number: number, index: number) => (
-                        <Tie key={index} number={number} isBetHistory={true} />
+                        <BallsNumbers key={index} number={number} isBetHistory={true} />
                     ))}
                 </div>
                 <div className={Styles["blue-label"]}>
@@ -28,7 +28,7 @@ const renderScoreRounds = ({ result, stateRound, translateMapping }) => {
             <div className={Styles["container-red"]}>
                 <div className={Styles["score-row"]}>
                     {red.map((number: number, index: number) => (
-                        <Tie key={index} number={number} isBetHistory={true} />
+                        <BallsNumbers key={index} number={number} isBetHistory={true} />
                     ))}
                 </div>
                 <div className={Styles["red-label"]}>

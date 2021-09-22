@@ -3,18 +3,12 @@ import { useTranslation } from "next-i18next";
 
 import { HalfRoundAnimationResultProps, TeamWithAnimationProps, AnimationResultProps } from "./type";
 import { calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
-import { Tie } from "../main-frame-result";
+import BallsNumbers from "../../../../shared/balls-numbers";
 import Styles from "./animation-result.module.scss";
 
-const AnimationResult = ({
-    halfTimeResult,
-    fullTimeResult,
-    isActiveLiveFullTime,
-    gameName,
-    playResultAnimation
-}: AnimationResultProps) => {
-    const fakeBlueValues = [1,2,3,4,5,6,7,8,9,10];
-    const fakeRedValues = [5,6,7,8,9,10,11,12,13,14];
+const AnimationResult = ({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName, playResultAnimation }: AnimationResultProps) => {
+    const fakeBlueValues = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const fakeRedValues = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
     const emptyResult = { blue: [], red: [] };
     const [resultProps, setResultProps] = useState(null);
     const [fullTimeResultAnimation, setFullTimeResultAnimation] = useState(emptyResult);
@@ -76,7 +70,7 @@ const AnimationResult = ({
         setTimeout(() => {
             timerId = setInterval(doAnimation, 200);
         }, 200);
-     
+
         // if (playResultAnimation) {
         //     timerId = setInterval(doAnimation, 250);
         // } else {
@@ -136,7 +130,7 @@ export const HalfRoundAnimationResult = ({
     const totalRedScoreStyle = {
             "--red-score-prev": redTeamProps.total - result.red[result.red.length - 1],
             "--red-score": redTeamProps.total,
-            "--total-score": totalPoint,   
+            "--total-score": totalPoint,
             "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties,
         totalBlueScoreStyle = {
@@ -146,7 +140,8 @@ export const HalfRoundAnimationResult = ({
             "--total-score-prev": totalPoint - result.red[result.red.length - 1] - result.blue[result.blue.length - 1],
         } as React.CSSProperties;
 
-    const triangleWinningClass = (redTeamProps.total === blueTeamProps.total) ? "draw" :(redTeamProps.total > blueTeamProps.total ? "red" : "blue"),
+    const triangleWinningClass =
+            redTeamProps.total === blueTeamProps.total ? "draw" : redTeamProps.total > blueTeamProps.total ? "red" : "blue",
         triangleClass = `${Styles["triangle"]} ${Styles[triangleWinningClass]}`;
 
     return (
@@ -172,7 +167,8 @@ export const HalfRoundAnimationResult = ({
                     <div className={Styles["blue-team"]} style={totalBlueScoreStyle}></div>
                     <div className={Styles["sperate"]}>
                         <div className={Styles["total-score-match"]}>
-                            <span className={Styles["text"]}>{t("sum")}</span><div className={Styles["score-match"]}>{totalPoint}</div>
+                            <span className={Styles["text"]}>{t("sum")}</span>
+                            <div className={Styles["score-match"]}>{totalPoint}</div>
                         </div>
                     </div>
                     <div className={Styles["red-team"]} style={totalRedScoreStyle}></div>
@@ -187,7 +183,7 @@ export const TeamWithAnimation = ({ result }: { result: number[] }) => {
         <div className={`${Styles.team}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
-                    <Tie key={index} number={number} />
+                    <BallsNumbers key={index} number={number} />
                 ))}
             </div>
         </div>

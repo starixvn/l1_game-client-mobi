@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "next-i18next";
 import { resetValue, calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
+import BallsNumbers from "../../../../shared/balls-numbers";
 import Styles from "./main-frame-result.module.scss";
-import MainFrameResultProps, {TeamProps, HalfRoundResultProps } from "./type";
+import MainFrameResultProps, { TeamProps, HalfRoundResultProps } from "./type";
 
 export default function MainFrameResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) {
     return (
@@ -39,12 +40,12 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
         blueTeamProps: TeamProps = {
             result: result.blue,
             teamName: t("blue"),
-            className: "blue-team"
+            className: "blue-team",
         },
         redTeamProps: TeamProps = {
             result: result.red,
             teamName: t("red"),
-            className: "red-team"
+            className: "red-team",
         },
         totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
 
@@ -69,7 +70,7 @@ export function Team({ result, teamName, className }: TeamProps) {
         <div className={`${Styles.team} ${Styles[className]}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
-                    <Tie key={index} number={number} />
+                    <BallsNumbers key={index} number={number !== resetValue ? number : ""} />
                 ))}
             </div>
             <div className={Styles["team-name"]}>
@@ -77,14 +78,6 @@ export function Team({ result, teamName, className }: TeamProps) {
                 <span className={Styles["name"]}>{teamName}:</span>
                 <span className={Styles["score"]}>{calculateTotalPoint(result)}</span>
             </div>
-        </div>
-    );
-}
-
-export function Tie({ number, isBetHistory = false }: { number: number; isBetHistory?: boolean }) {
-    return (
-        <div className={`${Styles["number"]} ${isBetHistory ? Styles["bet-history"] : ""}`} data-testid="tie-component">
-            {number !== resetValue ? number : ""}
         </div>
     );
 }
