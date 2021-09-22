@@ -1,11 +1,17 @@
 @import "../../../../../assets/components/settlement-info";
 
 [data-theme="light"] .half-round-settlement {
-    --bg-color: linear-gradient(90deg, #D0E5FF 0%, #fff 47%, #fff 53%, #FED9D9 100%);
+    --bg-img: url("/static/images/kenomatch/settlebg-kenomatch-light.png");
+    background-image: image-set(url("/static/images/kenomatch/settlebg-kenomatch-light.png") 1x,
+    url("/static/images/kenomatch/settlebg-kenomatch-light-2x.png") 2x,
+    url("/static/images/kenomatch/settlebg-kenomatch-light-3x.png") 3x);
 }
 
 [data-theme="dark"] .half-round-settlement {
-    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
+    --bg-img: url("/static/images/kenomatch/settlebg-kenomatch-dark.png");
+    background-image: image-set(url("/static/images/kenomatch/settlebg-kenomatch-dark.png") 1x,
+    url("/static/images/kenomatch/settlebg-kenomatch-dark-2x.png") 2x,
+    url("/static/images/kenomatch/settlebg-kenomatch-dark-3x.png") 3x);
 }
 
 
@@ -15,19 +21,21 @@
     position: absolute;
     width: 100%;
     height: 15.2rem;
-    background-color: #cecece;
     z-index: 72;
     top: 0;
-    animation: show-result .2s linear forwards;
+    animation: fadeIn .2s linear forwards;
     animation-delay: 0;
-    background: var(--bg-color);
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-@keyframes show-result {
+@keyframes fadeIn {
     from {
-        height: var(--height-from);
+      opacity: 0;
     }
+  
     to {
-        height: var(--height-to);
-    }    
-}
+      opacity: 1;
+    }
+}  
