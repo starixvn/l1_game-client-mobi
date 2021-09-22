@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
+import { isIOS, isMobileOnly } from "react-device-detect";
 
 import Styles from "./bet-setting.module.scss";
 import { ChipSlider } from "./chip-slider";

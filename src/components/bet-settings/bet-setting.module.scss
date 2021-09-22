@@ -209,17 +209,16 @@
 
 // Iphone X or newer
 .ios-device {
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
-        .settings-container {
-            height: 6.9rem;
-        }
+    padding-bottom: calc(0.5em + env(safe-area-inset-bottom));
+    .settings-container {
+        height: 6.9rem;
+    }
 
-        .footer {
-            height: 5.4rem;
+    .footer {
+        height: 3.4rem;
 
-            .one-click-bet-turn-on {
-                top: -1.4rem;
-            }
+        .one-click-bet-turn-on {
+            top: -0.9rem;
         }
     }
 }
