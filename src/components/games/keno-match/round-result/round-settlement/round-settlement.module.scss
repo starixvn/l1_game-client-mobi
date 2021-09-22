@@ -28,6 +28,52 @@
     background-image: var(--bg-img);
     background-repeat: no-repeat;
     background-size: cover;
+    text-align: center;
+    .header {
+        font-weight: 500;
+    }
+}
+
+.result-wrapper {
+    border-radius: 1rem;
+    padding: .4rem 0 .8rem;
+    width: 19.6rem;
+    margin: 0 auto;
+    text-align: center;
+    &.blue {
+        background-color: #CDE9FC;
+        border: 1px solid #67A4EB;
+        .winning-name {
+            color: #2E73C3;
+        }
+    }
+    &.red {
+        background-color: #FFE2E2;
+        border: 1px solid #FF5664;
+        .winning-name {
+            color: #FF4352;
+        }
+    }
+    .winning-name {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .sum-label {
+        font-size: 1.2rem;
+        color: #5E5E5E;
+    }
+    .result-info {
+        grid-gap: .6rem;
+
+        [class*="result-info-"] {
+            min-width: 6rem;
+            height: 2.6rem;
+            font-size: 1.4rem;
+            padding: 0 1.4rem;
+            line-height: 2.6rem;
+        }
+    }
+    
 }
 
 @keyframes fadeIn {

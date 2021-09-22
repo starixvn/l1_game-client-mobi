@@ -26,10 +26,9 @@ const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: H
     return (
         <div className={`${Styles["half-round-settlement"]}`}>
             <div className={Styles["header"]}>{t(props.headerText)}</div>
-            <div className={`${Styles["result-wrapper"]} ${winningTeamName}`}>
-                <div className={Styles["result-info"]}>
-                    <div className={Styles[`result-info-${winningTeamName}`]}>{t(winningTeamName)}</div>
-                </div>
+            <div className={`${Styles["result-wrapper"]} ${Styles[winningTeamName]}`}>
+                <div className={Styles["winning-name"]}>{t(winningTeamName)}</div>
+                <div className={Styles["sum-label"]}>{t("sum")}</div>
                 <div className={Styles["result-info"]}>
                     {["odd", "even", "over", "under"].map((keyName, index) => {
                         return (
