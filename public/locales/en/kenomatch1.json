@@ -53,5 +53,7 @@
     "FullTimeEvenOdd": "Full Time Even/Odd",
     "FullTimeTeamBlueTeamRedLive": "Full Time Team Blue/Team Red (Live)",
     "FullTimeOverUnderLive": "Full Time Over/Under (Live)",
-    "FullTimeEvenOddLive": "Full Time Even/Odd (Live)"
+    "FullTimeEvenOddLive": "Full Time Even/Odd (Live)",
+    "blueWin": "Team Blue win",
+    "redWin": "Team Red win"
 }

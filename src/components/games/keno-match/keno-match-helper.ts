@@ -196,6 +196,9 @@ export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
         live: t(`${gameName}:live`),
         sum: t(`${gameName}:sum`),
         total: t(`${gameName}:total`),
+        blueWin: t(`${gameName}:blueWin`),
+        redWin: t(`${gameName}:redWin`),
+        tie: t(`${gameName}:tie`),
     };
 };
 
