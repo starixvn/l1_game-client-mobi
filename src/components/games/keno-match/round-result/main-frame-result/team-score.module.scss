@@ -9,11 +9,33 @@
         padding-left: 0.2rem;
     }
 
+    .map-winning {
+        width: 1.2rem;
+        height: 1.2rem;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        margin-right: 0.3rem;
+        top: 0.1rem;
+        &:before {
+            content: url("/static/images/check.svg");
+            position: absolute;
+            left: 0.25rem;
+            top: -0.3rem;
+        }
+    }
+
     &.blue {
         color: #3b7bc6;
+        .map-winning {
+            background-color: #3b7bc6;
+        }
     }
 
     &.red {
         color: #ff4352;
+        .map-winning {
+            background-color: #ff4352;
+        }
     }
 }

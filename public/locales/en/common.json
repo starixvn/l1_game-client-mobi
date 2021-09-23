@@ -74,5 +74,6 @@
     "oneClickHintMsg": "<strong>1-Click Bet</strong> is a quick bet feature that allows you to place bet directly with a single click or simply touch your preferred betting options, and no further confirmation steps follow.",
     "oneClickTitle": "1-Click Bet",
     "oneClickBetOn": "1-Click Bet enabled",
-    "messageConfirmQuickBet": "A quick bet feature that allows you to place bet directly with a single click or a touch on your preferred betting options. Do you want to enable this feature?"
+    "messageConfirmQuickBet": "A quick bet feature that allows you to place bet directly with a single click or a touch on your preferred betting options. Do you want to enable this feature?",
+    "sum": "Sum"
 }

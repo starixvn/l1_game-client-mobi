@@ -1,8 +1,5 @@
 // import '@testing-library/jest-dom';
-import { render, screen } from "@testing-library/react";
 import React from "react";
-
-import { HalfRoundResult } from "./";
 
 // test("TeamResultRow should be render correctly", () => {
 //     render(<TeamResultRow result={[5, 6, 7, 8, 9]} />);
@@ -31,53 +28,53 @@ import { HalfRoundResult } from "./";
 //     expect(scoreElements[0].innerHTML).toEqual("55");
 // });
 
-const buildProps = (active: boolean) => {
-    return {
-        result: {
-            blue: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            red: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        },
-        active,
-        className: "custom-class",
-        headerText: "header red",
-        gameName: "keno match",
-    };
-};
+// const buildProps = (active: boolean) => {
+//     return {
+//         result: {
+//             blue: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+//             red: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+//         },
+//         active,
+//         className: "custom-class",
+//         headerText: "header red",
+//         gameName: "keno match",
+//     };
+// };
 
-describe("HalfRoundResult", () => {
-    test("should be render correctly", () => {
-        render(<HalfRoundResult {...buildProps(true)} />);
+// describe("HalfRoundResult", () => {
+//     test("should be render correctly", () => {
+//         render(<HalfRoundResult {...buildProps(true)} />);
 
-        const component = screen.getByTestId("half-round-result-component");
-        expect(component).toHaveClass("result custom-class");
+//         const component = screen.getByTestId("half-round-result-component");
+//         expect(component).toHaveClass("result custom-class");
 
-        // expect(document.getElementsByClassName("blue")).toHaveLength(1);
-        // expect(document.getElementsByClassName("red")).toHaveLength(1);
-        expect(document.getElementsByClassName("main-content")).toHaveLength(1);
-        expect(document.getElementsByClassName("middle-column")).toHaveLength(1);
+//         // expect(document.getElementsByClassName("blue")).toHaveLength(1);
+//         // expect(document.getElementsByClassName("red")).toHaveLength(1);
+//         expect(document.getElementsByClassName("main-content")).toHaveLength(1);
+//         expect(document.getElementsByClassName("middle-column")).toHaveLength(1);
 
-        const headerElements = document.getElementsByClassName("name");
-        expect(headerElements).toHaveLength(2);
-        expect(headerElements[1].innerHTML).toEqual("red:");
+//         const headerElements = document.getElementsByClassName("name");
+//         expect(headerElements).toHaveLength(2);
+//         expect(headerElements[1].innerHTML).toEqual("red:");
 
-        const totalWrapperElements = document.getElementsByClassName("score-wrapper");
-        expect(totalWrapperElements).toHaveLength(1);
-        // expect(totalWrapperElements[0].innerHTML).toEqual('total <div class="score">110</div>');
+//         const totalWrapperElements = document.getElementsByClassName("score-wrapper");
+//         expect(totalWrapperElements).toHaveLength(1);
+//         // expect(totalWrapperElements[0].innerHTML).toEqual('total <div class="score">110</div>');
 
-        const totalElements = document.getElementsByClassName("score");
-        expect(totalElements).toHaveLength(3);
-        expect(totalElements[1].innerHTML).toEqual("110");
+//         const totalElements = document.getElementsByClassName("score");
+//         expect(totalElements).toHaveLength(3);
+//         expect(totalElements[1].innerHTML).toEqual("110");
 
-        expect(screen.getAllByTestId("team-component")).toHaveLength(2);
-    });
+//         expect(screen.getAllByTestId("team-component")).toHaveLength(2);
+//     });
 
-    test.each`
-        active   | expectedResult
-        ${true}  | ${1}
-        ${false} | ${0}
-    `("should render active classname correctly", ({ active, expectedResult }) => {
-        render(<HalfRoundResult {...buildProps(active)} />);
+//     test.each`
+//         active   | expectedResult
+//         ${true}  | ${1}
+//         ${false} | ${0}
+//     `("should render active classname correctly", ({ active, expectedResult }) => {
+//         render(<HalfRoundResult {...buildProps(active)} />);
 
-        expect(document.getElementsByClassName("active")).toHaveLength(expectedResult);
-    });
-});
+//         expect(document.getElementsByClassName("active")).toHaveLength(expectedResult);
+//     });
+// });

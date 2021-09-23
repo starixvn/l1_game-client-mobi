@@ -2,10 +2,7 @@ import { Result } from "../../type";
 
 export interface HalfRoundResultProps {
     result: Result;
-    headerText: string;
-    className: string;
-    active: boolean;
-    gameName: string;
+    isFirstHalf: boolean;
 }
 
 export interface TeamProps {
@@ -17,6 +14,4 @@ export interface TeamProps {
 export default interface MainFrameResultProps {
     halfTimeResult: Result;
     fullTimeResult: Result;
-    isActiveLiveFullTime: boolean;
-    gameName: string;
 }
