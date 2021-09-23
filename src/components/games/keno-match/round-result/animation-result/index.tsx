@@ -35,7 +35,7 @@ export const AnimationResult = ({ result, isFirstHalf }: Props) => {
         return () => {
             clearInterval(interval);
         };
-    }, [result]);
+    });
 
     return (
         <div className={Styles["popup-result"]}>

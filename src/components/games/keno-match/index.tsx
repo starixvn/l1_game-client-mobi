@@ -45,8 +45,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 liveOdds: null,
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
-                halfTimeResultPopup: defaultResult,
-                fullTimeResultPopup: defaultResult,
                 isActiveLiveFullTime: false,
                 isShowBlinkFH: false,
                 isShowBlinkFT: false,
@@ -98,8 +96,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isActiveLiveFullTime,
                 showWinningAnimation,
                 liveOdds,
-                halfTimeResultPopup,
-                fullTimeResultPopup,
                 isJoiningAtMiddleShowInlineResult,
             } = this.state,
             kenoMatchGameState = gameState as KenoMatchGameState;
@@ -139,10 +135,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />
 
                 {isShowInlineResult && (
-                    <AnimationResult
-                        isFirstHalf={!isActiveLiveFullTime}
-                        result={isActiveLiveFullTime ? fullTimeResultPopup : halfTimeResultPopup}
-                    />
+                    <AnimationResult isFirstHalf={!isActiveLiveFullTime} result={isActiveLiveFullTime ? fullTimeResult : halfTimeResult} />
                 )}
 
                 {isShowSettlement && <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName, settlementResult }} />}
@@ -282,8 +275,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({
                 halfTimeResult: defaultResult,
                 fullTimeResult: defaultResult,
-                halfTimeResultPopup: defaultResult,
-                fullTimeResultPopup: defaultResult,
             });
         }
 
@@ -342,7 +333,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     getStateByNextGameState(nextGameState: KenoMatchGameStateEnum): any {
-        const { roundId, displayPopup, notice, fullTimeResultPopup, halfTimeResultPopup, settlementResultPopup } = this.state;
+        const { roundId, displayPopup, notice } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet || nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet) {
@@ -384,16 +375,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 condition: nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
                 state: {
                     isActiveLiveFullTime: false,
-                },
-            },
-            {
-                condition:
-                    nextGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult ||
-                    nextGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
-                state: {
-                    halfTimeResult: halfTimeResultPopup,
-                    fullTimeResult: fullTimeResultPopup,
-                    settlementResult: settlementResultPopup,
                 },
             },
             {
@@ -498,8 +479,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         this.storeOwnBet(roundId);
         this.setState({
-            halfTimeResultPopup: firstHalfResult.result,
-            settlementResultPopup: firstHalfResult.settlementResult,
+            halfTimeResult: firstHalfResult.result,
+            settlementResult: firstHalfResult.settlementResult,
             resultKey: firstHalfResult.resultKey,
             showResultKey: true,
             playResultAnimation: true,
@@ -547,8 +528,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
 
         this.setState({
-            fullTimeResultPopup: finish.result,
-            settlementResultPopup: finish.settlementResult,
+            fullTimeResult: finish.result,
+            settlementResult: finish.settlementResult,
             liveOdds: null,
             resultKey: finish.resultKey,
             showResultKey: true,
