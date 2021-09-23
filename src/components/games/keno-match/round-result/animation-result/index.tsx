@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useState } from "react";
 
-import BallsNumbers from "../../../../shared/balls-numbers";
+import TeamResult from "../../../../keno/team-result";
 import { buildHalfMatchProps, calculateTotalPoint } from "../../keno-match-helper";
 import MainFrameResultProps from "../main-frame-result/type";
 import ProgressBar from "../progress-bar";
@@ -106,22 +106,10 @@ export const HalfRoundAnimationResult = ({
         <div className={`${classNames} ${Styles["open-result"]}`}>
             <div className={Styles["header"]}>{t(headerText)}</div>
             <div className={Styles["main-content"]}>
-                <TeamWithAnimation result={blueTeamProps.result} />
-                <TeamWithAnimation result={redTeamProps.result} />
+                <TeamResult result={blueTeamProps.result} hasAnimation />
+                <TeamResult result={redTeamProps.result} hasAnimation />
             </div>
             <ProgressBar totalBlue={blueTeamProps.total} totalRed={redTeamProps.total} />
-        </div>
-    );
-};
-
-export const TeamWithAnimation = ({ result }: { result: number[] }) => {
-    return (
-        <div className={`${Styles.team}`} data-testid="team-component">
-            <div className={Styles.row} data-testid="team-result-row-component">
-                {result.map((number: number, index: number) => (
-                    <BallsNumbers key={index} number={number} isAnimation={true}/>
-                ))}
-            </div>
         </div>
     );
 };

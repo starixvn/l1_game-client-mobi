@@ -1,9 +1,12 @@
-import React from "react";
 import { useTranslation } from "next-i18next";
-import { resetValue, calculateTotalPoint, buildHalfMatchProps } from "../../keno-match-helper";
+import React from "react";
+
+import TeamResult from "../../../../keno/team-result";
 import BallsNumbers from "../../../../shared/balls-numbers";
+import { buildHalfMatchProps, calculateTotalPoint, resetValue } from "../../keno-match-helper";
 import Styles from "./main-frame-result.module.scss";
-import MainFrameResultProps, { TeamProps, HalfRoundResultProps } from "./type";
+import TeamScore from "./team-score";
+import MainFrameResultProps, { HalfRoundResultProps, TeamProps } from "./type";
 
 export default function MainFrameResult({ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }: MainFrameResultProps) {
     return (
@@ -46,20 +49,25 @@ export function HalfRoundResult({ result, active, className, headerText, gameNam
             result: result.red,
             teamName: t("red"),
             className: "red-team",
-        },
-        totalPoint = calculateTotalPoint(result.blue) + calculateTotalPoint(result.red);
+        };
+    const blueScore = calculateTotalPoint(result.blue);
+    const redScore = calculateTotalPoint(result.red);
 
     return (
         <div className={classNames} data-testid="half-round-result-component">
             <div className={Styles["main-content"]}>
-                <Team {...blueTeamProps} />
+                <TeamResult result={result.blue} />
+                <TeamScore teamName="blue" score={blueScore} />
+                {/* <Team {...blueTeamProps} /> */}
                 <div className={Styles["middle-column"]}>
                     <div className={Styles["header"]}>{t(headerText)}</div>
                     <div className={Styles["score-wrapper"]}>
-                        {t("sum")} <div className={Styles["score"]}>{totalPoint}</div>
+                        {t("sum")} <div className={Styles["score"]}>{blueScore + redScore}</div>
                     </div>
                 </div>
-                <Team {...redTeamProps} />
+                <TeamResult result={result.red} />
+                <TeamScore teamName="red" score={redScore} />
+                {/* <Team {...redTeamProps} /> */}
             </div>
         </div>
     );

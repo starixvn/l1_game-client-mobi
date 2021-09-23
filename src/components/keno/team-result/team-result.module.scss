@@ -1,0 +1,12 @@
+.team {
+    padding: 0;
+    width: 12rem;
+
+    .row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 2rem);
+        grid-row-gap: 0.2rem;
+        text-align: center;
+    }
+}
