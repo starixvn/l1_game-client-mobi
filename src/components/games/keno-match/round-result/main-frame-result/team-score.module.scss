@@ -3,7 +3,8 @@
     font-size: 1.2rem;
     font-weight: 600;
     height: 1.9rem;
-    line-height: 1.9rem;
+    position: relative;
+    top: -.1rem;
     .score {
         font: 500 1.6rem var(--font-number);
         padding-left: 0.2rem;
