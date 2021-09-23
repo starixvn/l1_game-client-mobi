@@ -249,5 +249,39 @@
             "fullTimeDuration": 18,
             "resultAnimation": 4
         }
+    },
+    "40" : {
+        "id":40,
+        "gameName": "KenoPower1",
+        "socketInfo": {
+            "namespace": "kenopower1",
+            "path": "kenopower"
+        },
+        "supportMD5": false,
+        "durations" : {
+            "wholeRound": 50,
+            "placingBets": 42,
+            "lockingBet": 5,
+            "showResult": 8,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "41" : {
+        "id":41,
+        "gameName": "KenoPower2",
+        "socketInfo": {
+            "namespace": "kenopower2",
+            "path": "kenopower"
+        },
+        "supportMD5": true,
+        "durations" : {
+            "wholeRound": 54,
+            "placingBets": 42,
+            "lockingBet": 5,
+            "showResult": 12,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
     }
 }

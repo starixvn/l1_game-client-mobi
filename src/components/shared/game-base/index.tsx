@@ -146,13 +146,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { session } = this.context;
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
-
         const socket = io(socketUri, {
-            forceNew: true,
             transports: ["websocket"],
             upgrade: false,
             path: `${proxy.path}/${socketInfo.path}/socket.io`,
         });
+
         socket.on("connect", () => {
             socket.emit("signin", session);
         });
@@ -394,6 +393,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleGamePlay(remainingTime: number) {
         const newGameState = this.determineGameState(remainingTime);
+
         if (this.state.gameState !== newGameState && !this.isConnectFailed) {
             const newState = {
                 gameState: newGameState,

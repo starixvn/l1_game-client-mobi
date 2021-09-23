@@ -1,0 +1,20 @@
+{
+    "game_name": "Keno Power MD5",
+    "blue": "Team Blue",
+    "red": "Team Red",
+    "sum": "Sum",
+    "big": "Big",
+    "small": "Small",
+    "even": "Even",
+    "odd": "Odd",
+    "tie": "Tie",
+    "blueBig": "Big",
+    "blueSmall": "Small",
+    "redBig": "Big",
+    "redSmall": "Small",
+    "blueRedTabs": "B/R",
+    "bigSmallTabs": "B/S",
+    "oddEvenTabs": "O/E",
+    "blueBigSmallTabs": "B-B/S",
+    "redBigSmallTabs": "R-B/S"
+}

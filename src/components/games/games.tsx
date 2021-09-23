@@ -25,6 +25,7 @@ import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
+import KenoPower from "./keno-power";
 import { Props } from "./type";
 
 let gamesOrder = [];
@@ -144,6 +145,9 @@ export const Games: React.FC<Props> = ({
             case 36:
             case 37:
                 return <KenoMatch key={`game-${gameId}`} {...(gameProps as any)} />;
+            case 40:
+            case 41:
+                return <KenoPower key={`game-${gameId}`} {...(gameProps as any)}></KenoPower>;
             default:
                 return null;
         }
