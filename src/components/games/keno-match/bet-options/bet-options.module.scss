@@ -11,13 +11,13 @@
 }
 
 [data-theme="light"] .layout-kenomatch1,
-.layout-kenomatch2 {
+[data-theme="light"] .layout-kenomatch2 {
     --text-color: #2C2F3E;
     --total-color-bg: #D7DEF8;
 }
 
 [data-theme="dark"] .layout-kenomatch1,
-.layout-kenomatch2 {
+[data-theme="dark"] .layout-kenomatch2 {
     --text-color: #fff;
     --total-color-bg: #6B7075;
 }
