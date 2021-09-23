@@ -45,7 +45,7 @@ function MiddleColum({ totalScore, isFirstHalf }) {
         <div className={Styles["middle-column"]}>
             <div className={Styles["header"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</div>
             <div className={Styles["score-wrapper"]}>
-                {t("total")} <div className={Styles["score"]}>{totalScore}</div>
+                {t("sum")} <div className={Styles["score"]}>{totalScore}</div>
             </div>
         </div>
     );
