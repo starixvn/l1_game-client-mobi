@@ -46,6 +46,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
+        top: -0.3rem;
+    }
 
     @media (min-width: 768px) {
         top: auto;
@@ -208,15 +211,17 @@
 
 // Iphone X or newer
 .ios-device {
-    .settings-container {
-        height: 6.9rem;
-    }
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
+        .settings-container {
+            height: 6.9rem;
+        }
 
-    .footer {
-        height: 5.4rem;
+        .footer {
+            height: 5.4rem;
 
-        .one-click-bet-turn-on {
-            top: -1.4rem;
+            .one-click-bet-turn-on {
+                top: -1.4rem;
+            }
         }
     }
 }

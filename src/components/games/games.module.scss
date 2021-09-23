@@ -62,7 +62,9 @@
     }
 
     &.ios-device {
-        margin-bottom: 13rem;
+        @media (min-device-width: 375px) and (min-device-height: 668px) {
+            margin-bottom: 13rem;
+        }
 
         &.ios-15 {
             margin-bottom: 7.5rem;
