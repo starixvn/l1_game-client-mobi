@@ -6,12 +6,7 @@ import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import {
-    adjustPopupPosition,
-    adjustPopupPositionDidUpdate,
-    adjustPopupPositionMobile,
-    adjustPopupPositionDidUpdateMobile,
-} from "./place-bet-modal-helper";
+import { adjustPopupPosition, adjustPopupPositionDidUpdate } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
 
@@ -31,9 +26,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const subTitle = `#${roundId}`;
 
     useEffect(() => {
-        const popupStyle = isMobileOnly
-            ? adjustPopupPositionMobile(props.betOptionElement)
-            : adjustPopupPosition(props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
+        const popupStyle = adjustPopupPosition(isMobileOnly, props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
         setPositionStyle(popupStyle.position);
         setAlignArrowStyle(popupStyle.alignArrowStyle);
         setArrowStyle(popupStyle.arrowStyle);
@@ -49,9 +42,13 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         window.addEventListener("mousedown", handleClickOutside);
 
-        const adjustedBetFormCss = isMobileOnly
-            ? adjustPopupPositionDidUpdateMobile(wrapperRef, props.betOptionElement)
-            : adjustPopupPositionDidUpdate(props.gameBaseContainerRef, wrapperRef, props.betOptionElement, props.betChoiceElement);
+        const adjustedBetFormCss = adjustPopupPositionDidUpdate(
+            isMobileOnly,
+            props.gameBaseContainerRef,
+            wrapperRef,
+            props.betOptionElement,
+            props.betChoiceElement
+        );
 
         if (adjustedBetFormCss.isAdjust) {
             setPositionStyle(adjustedBetFormCss.styles.position);
