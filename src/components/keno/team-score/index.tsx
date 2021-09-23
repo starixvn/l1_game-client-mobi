@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { useGameContext } from "../../../../../contexts/game-context/game-context";
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./team-score.module.scss";
 
 type Props = {

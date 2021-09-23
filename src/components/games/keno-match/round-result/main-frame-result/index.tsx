@@ -5,7 +5,7 @@ import { useGameContext } from "../../../../../contexts/game-context/game-contex
 import TeamResult from "../../../../keno/team-result";
 import { calculateTotalPoint } from "../../keno-match-helper";
 import Styles from "./main-frame-result.module.scss";
-import TeamScore from "./team-score";
+import TeamScore from "../../../../keno/team-score";
 import MainFrameResultProps, { HalfRoundResultProps } from "./type";
 
 export default function MainFrameResult({ halfTimeResult, fullTimeResult }: MainFrameResultProps) {
