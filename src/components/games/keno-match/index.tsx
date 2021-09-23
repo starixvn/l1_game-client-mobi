@@ -13,9 +13,9 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
-import { Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping, ChoiceForTabActive } from "./keno-match-helper";
-import MainFrameResult from "./round-result/main-frame-result/index";
-import AnimationResult from "./round-result/animation-result/index";
+import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
+import AnimationResult from "./round-result/animation-result";
+import MainFrameResult from "./round-result/main-frame-result";
 import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
@@ -136,17 +136,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 {isShowInlineResult && <div className="overlay-mask-white"></div>}
                 {isShowOverlay && <div className="overlay-mask"></div>}
 
-                <MainFrameResult {...{ halfTimeResult, fullTimeResult, isActiveLiveFullTime, gameName }} />
+                <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />
 
                 {isShowInlineResult && (
                     <AnimationResult
-                        {...{
-                            halfTimeResult: halfTimeResultPopup,
-                            fullTimeResult: fullTimeResultPopup,
-                            isActiveLiveFullTime,
-                            settlementResult,
-                            gameName: this.props.gameName.toLocaleLowerCase(),
-                        }}
+                        isFirstHalf={!isActiveLiveFullTime}
+                        result={isActiveLiveFullTime ? fullTimeResultPopup : halfTimeResultPopup}
                     />
                 )}
 

@@ -3,7 +3,7 @@ import { TFunction } from "next-i18next";
 const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
 export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
 
-export const resetValue = -1;
+export const resetValue = 0;
 const buildDefaultResult = () => {
     let index = 10;
     const emptyResult = [];
@@ -69,12 +69,12 @@ export const KenoMatchConfigs = {
                 {
                     name: "fhBlue",
                     displayedName: "blue",
-                    bettypeName:"FirstHalfTeamBlueTeamRed"
+                    bettypeName: "FirstHalfTeamBlueTeamRed",
                 },
                 {
                     name: "fhRed",
                     displayedName: "red",
-                    bettypeName:"FirstHalfTeamBlueTeamRed"
+                    bettypeName: "FirstHalfTeamBlueTeamRed",
                 },
                 {
                     name: "total",
@@ -83,22 +83,22 @@ export const KenoMatchConfigs = {
                 {
                     name: "fhOver",
                     displayedName: "over",
-                    bettypeName:"FirstHalfOverUnder"
+                    bettypeName: "FirstHalfOverUnder",
                 },
                 {
                     name: "fhUnder",
                     displayedName: "under",
-                    bettypeName:"FirstHalfOverUnder"
+                    bettypeName: "FirstHalfOverUnder",
                 },
                 {
                     name: "fhEven",
                     displayedName: "even",
-                    bettypeName:"FirstHalfEvenOdd"
+                    bettypeName: "FirstHalfEvenOdd",
                 },
                 {
                     name: "fhOdd",
                     displayedName: "odd",
-                    bettypeName:"FirstHalfEvenOdd"
+                    bettypeName: "FirstHalfEvenOdd",
                 },
             ],
         },
@@ -108,36 +108,36 @@ export const KenoMatchConfigs = {
                 {
                     name: "ftBlue",
                     displayedName: "blue",
-                    bettypeName:"FullTimeTeamBlueTeamRed"
+                    bettypeName: "FullTimeTeamBlueTeamRed",
                 },
                 {
                     name: "ftRed",
                     displayedName: "red",
-                    bettypeName:"FullTimeTeamBlueTeamRed"
+                    bettypeName: "FullTimeTeamBlueTeamRed",
                 },
                 {
                     name: "total",
-                    displayedName: "total"
+                    displayedName: "total",
                 },
                 {
                     name: "ftOver",
                     displayedName: "over",
-                    bettypeName:"FullTimeOverUnderRed"
+                    bettypeName: "FullTimeOverUnderRed",
                 },
                 {
                     name: "ftUnder",
                     displayedName: "under",
-                    bettypeName:"FullTimeOverUnderRed"
+                    bettypeName: "FullTimeOverUnderRed",
                 },
                 {
                     name: "ftEven",
                     displayedName: "even",
-                    bettypeName:"FullTimeEvenOdd"
+                    bettypeName: "FullTimeEvenOdd",
                 },
                 {
                     name: "ftOdd",
                     displayedName: "odd",
-                    bettypeName:"FullTimeEvenOdd"
+                    bettypeName: "FullTimeEvenOdd",
                 },
             ],
         },
@@ -147,12 +147,12 @@ export const KenoMatchConfigs = {
                 {
                     name: "liveFTBlue",
                     displayedName: "blue",
-                    bettypeName:"FullTimeTeamBlueTeamRedLive"
+                    bettypeName: "FullTimeTeamBlueTeamRedLive",
                 },
                 {
                     name: "liveFTRed",
                     displayedName: "red",
-                    bettypeName:"FullTimeTeamBlueTeamRedLive"
+                    bettypeName: "FullTimeTeamBlueTeamRedLive",
                 },
                 {
                     name: "total",
@@ -161,22 +161,22 @@ export const KenoMatchConfigs = {
                 {
                     name: "liveFTOver",
                     displayedName: "over",
-                    bettypeName:"FullTimeOverUnderLive"
+                    bettypeName: "FullTimeOverUnderLive",
                 },
                 {
                     name: "liveFTUnder",
                     displayedName: "under",
-                    bettypeName:"FullTimeOverUnderLive"
+                    bettypeName: "FullTimeOverUnderLive",
                 },
                 {
                     name: "liveFTEven",
                     displayedName: "even",
-                    bettypeName:"FullTimeEvenOddLive"
+                    bettypeName: "FullTimeEvenOddLive",
                 },
                 {
                     name: "liveFTOdd",
                     displayedName: "odd",
-                    bettypeName:"FullTimeEvenOddLive"
+                    bettypeName: "FullTimeEvenOddLive",
                 },
             ],
         },
@@ -245,7 +245,6 @@ export const buildHalfMatchProps = (isActiveLiveFullTime: boolean) => {
     };
 };
 
-
 export const ChoiceForTabActive = [
     {
         choice: ["red", "blue", "tie"],
@@ -266,4 +265,3 @@ export const ChoiceForTabActive = [
         choice: ["even", "odd"],
     },
 ];
-

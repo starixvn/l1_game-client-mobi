@@ -10,7 +10,7 @@ type Props = {
 export default function BallNumber({ value, hasAnimation }: Props) {
     return (
         <div className={`${Styles["number"]} ${hasAnimation ? Styles["has-animation"] : ""}`} data-testid="balls-numbers">
-            {value}
+            {value || ""}
         </div>
     );
 }
