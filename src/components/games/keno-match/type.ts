@@ -8,13 +8,11 @@ export enum KenoMatchGameStateEnum {
     HalfTimePlacingBet,
     ResetResult,
     HalfTimeLockingBet,
-    ShowHalfTimeResult,
-    ShowHalfTimeSettlementResult,
     BeforeStartFullTimePlacingBet,
     FullTimePlacingBet,
     FullTimeLockingBet,
-    ShowFullTimeResult,
-    ShowFullTimeSettlementResult,
+    ShowResult,
+    ShowSettlementResult,
 }
 
 export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;

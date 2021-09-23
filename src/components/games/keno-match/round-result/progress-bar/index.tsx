@@ -16,7 +16,7 @@ export default function ProgressBar({ totalBlue, totalRed }: Props) {
     const [triangleClass, setTriangleClass] = useState<string>("draw");
 
     useEffect(() => {
-        const percent = Math.floor((totalBlue * 100) / (totalBlue + totalRed));
+        const percent = parseFloat(((totalBlue * 100) / (totalBlue + totalRed)).toFixed(2));
         if (percent > 50) {
             setTriangleClass("blue");
         } else if (percent < 50) {

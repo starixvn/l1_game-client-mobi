@@ -7,6 +7,7 @@ import { RoundKenoMatchBase } from "../../../types";
 import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
 import GameHeader from "../../shared/game-header";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -85,20 +86,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderBetOptions() {
-        const {
-                md5,
-                resultKey,
-                showResultKey,
-                halfTimeResult,
-                fullTimeResult,
-                gameState,
-                settlementResult,
-                isActiveLiveFullTime,
-                showWinningAnimation,
-                liveOdds,
-                isJoiningAtMiddleShowInlineResult,
-            } = this.state,
-            kenoMatchGameState = gameState as KenoMatchGameState;
+        const { md5, resultKey, showResultKey, gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } =
+            this.state;
+        const kenoMatchGameState = gameState as KenoMatchGameState;
 
         const betOptionsProps = {
             liveOdds,
@@ -109,36 +99,17 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
         const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
 
-        const isShowInlineResult =
-            isJoiningAtMiddleShowInlineResult &&
-            (kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-                kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult);
-
-        const isShowSettlement =
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
-
         const isShowOverlay =
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
             kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowResult ||
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult;
 
-        const gameName = this.props.gameName.toLocaleLowerCase();
         return (
             <div>
-                {isShowInlineResult && <div className="overlay-mask-white"></div>}
-                {isShowOverlay && <div className="overlay-mask"></div>}
+                {isShowOverlay && <OverlayMaskWhite />}
 
-                <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />
-
-                {isShowInlineResult && (
-                    <AnimationResult isFirstHalf={!isActiveLiveFullTime} result={isActiveLiveFullTime ? fullTimeResult : halfTimeResult} />
-                )}
-
-                {isShowSettlement && <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName, settlementResult }} />}
+                {this.renderResultSection()}
 
                 {this.props.supportMD5 && (
                     <div className={Styles["md5-section"]}>
@@ -151,6 +122,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
+    }
+
+    renderResultSection() {
+        const { gameName } = this.props;
+        const { gameState, isActiveLiveFullTime, fullTimeResult, halfTimeResult, settlementResult } = this.state;
+        const kenoMatchGameState = gameState as KenoMatchGameState;
+
+        if (kenoMatchGameState === KenoMatchGameStateEnum.ShowResult) {
+            return <AnimationResult isFirstHalf={!isActiveLiveFullTime} result={isActiveLiveFullTime ? fullTimeResult : halfTimeResult} />;
+        }
+
+        if (kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult) {
+            return <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName: gameName.toLowerCase(), settlementResult }} />;
+        }
+
+        return <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />;
     }
 
     renderRoundHistory() {
@@ -297,17 +284,17 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         switch (true) {
             case remainingTime > durations.showFullTimeSettlementResult:
-                return KenoMatchGameStateEnum.ShowFullTimeResult;
+                return KenoMatchGameStateEnum.ShowResult;
             case remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameStateEnum.ShowFullTimeSettlementResult;
+                return KenoMatchGameStateEnum.ShowSettlementResult;
             case remainingTime > durations.halfTimeLockingBet:
                 return KenoMatchGameStateEnum.HalfTimePlacingBet;
             case remainingTime > durations.showHalfTimeResult:
                 return KenoMatchGameStateEnum.HalfTimeLockingBet;
             case remainingTime > durations.showHalfTimeSettlementResult:
-                return KenoMatchGameStateEnum.ShowHalfTimeResult;
+                return KenoMatchGameStateEnum.ShowResult;
             case remainingTime > durations.beforeStartFullTimePlacingBet:
-                return KenoMatchGameStateEnum.ShowHalfTimeSettlementResult;
+                return KenoMatchGameStateEnum.ShowSettlementResult;
             case remainingTime > durations.fullTimePlacingBets:
                 return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;
             case remainingTime > durations.fullTimeLockingBet:
@@ -422,10 +409,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const { gameState } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
         const roundIdCurrent =
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowHalfTimeSettlementResult
+            kenoMatchGameState === KenoMatchGameStateEnum.ShowResult || kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult
                 ? roundId - 1
                 : roundId;
         const rounds: SeparateRoundHistoryProps = this.separateRoundHistory({ roundHistory, firstHalfResult, roundIdCurrent });
@@ -470,40 +454,28 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     handleFinishHalfTime({ firstHalfResult }) {
-        const { roundHistoryFH, roundId, gameState } = this.state;
-        const kenoMatchGameState = gameState as KenoMatchGameState;
+        const { roundHistoryFH, roundId } = this.state;
         const roundHistoryFHClone =
             roundHistoryFH[0]?.roundId !== roundId
                 ? this.handleRoundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
                 : roundHistoryFH;
 
         this.storeOwnBet(roundId);
-        this.setState({
+        const newState = {
+            gameState: KenoMatchGameStateEnum.ShowResult,
             halfTimeResult: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
             resultKey: firstHalfResult.resultKey,
             showResultKey: true,
             playResultAnimation: true,
-        });
+        };
+        this.setState(newState as any);
 
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false, showResultInfo: true });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
-
-        if (
-            kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowFullTimeSettlementResult
-        ) {
-            this.setState({
-                halfTimeResult: firstHalfResult.result,
-                resultKey: firstHalfResult.resultKey,
-                showResultKey: true,
-            });
-        }
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
@@ -526,15 +498,17 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.clearRetryInterval();
         roundHistoryFTClone.unshift(finish);
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
-
-        this.setState({
+        const newState = {
+            gameState: KenoMatchGameStateEnum.ShowResult,
             fullTimeResult: finish.result,
             settlementResult: finish.settlementResult,
             liveOdds: null,
             resultKey: finish.resultKey,
             showResultKey: true,
             playResultAnimation: true,
-        });
+        };
+
+        this.setState(newState as any);
 
         const animationDuration = this.getFinishAnimationDuration();
 
@@ -607,8 +581,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         const gameHeaderProps = {
             isShowCollapse: [
-                KenoMatchGameStateEnum.ShowHalfTimeSettlementResult,
-                KenoMatchGameStateEnum.ShowFullTimeSettlementResult,
+                KenoMatchGameStateEnum.ShowSettlementResult,
                 KenoMatchGameStateEnum.BeforeStartRound,
                 KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
             ].includes(kenoGameState as KenoMatchGameStateEnum),
