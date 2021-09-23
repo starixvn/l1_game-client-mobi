@@ -17,18 +17,18 @@ $time-run-progress-bar: 1s;
     --term-border-color: #406389;
 }
 
-.main-result {
-    width: 100%;
-    position: relative;
+// .main-result {
+//     width: 100%;
+//     position: relative;
 
-    .field {
-        width: 100%;
-        position: relative;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-        justify-content: space-between;
-    }
-}
+//     .field {
+//         width: 100%;
+//         position: relative;
+//         -webkit-box-pack: justify;
+//         -ms-flex-pack: justify;
+//         justify-content: space-between;
+//     }
+// }
 
 .hidden {
     display: none;

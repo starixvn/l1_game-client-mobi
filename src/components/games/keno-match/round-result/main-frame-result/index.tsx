@@ -11,10 +11,8 @@ import MainFrameResultProps, { HalfRoundResultProps } from "./type";
 export default function MainFrameResult({ halfTimeResult, fullTimeResult }: MainFrameResultProps) {
     return (
         <div className={Styles["main-result"]}>
-            <div className={Styles.field}>
-                <HalfRoundResult result={halfTimeResult} isFirstHalf={true} />
-                <HalfRoundResult result={fullTimeResult} isFirstHalf={false} />
-            </div>
+            <HalfRoundResult result={halfTimeResult} isFirstHalf={true} />
+            <HalfRoundResult result={fullTimeResult} isFirstHalf={false} />
         </div>
     );
 }
@@ -26,11 +24,16 @@ export function HalfRoundResult({ result, isFirstHalf }: HalfRoundResultProps) {
     return (
         <div className={Styles.result} data-testid="half-round-result-component">
             <div className={Styles["main-content"]}>
-                <TeamResult result={result.blue} />
-                <TeamScore teamName="blue" score={blueScore} />
+                <div className={Styles["team"]}>
+                    <TeamResult result={result.blue} />
+                    <TeamScore teamName="blue" score={blueScore} />
+                </div>
                 <MiddleColum totalScore={blueScore + redScore} isFirstHalf={isFirstHalf} />
-                <TeamResult result={result.red} />
-                <TeamScore teamName="red" score={redScore} />
+                <div className={Styles["team"]}>
+                    <TeamResult result={result.red} />
+                    <TeamScore teamName="red" score={redScore} />
+                </div>
+                
             </div>
         </div>
     );
