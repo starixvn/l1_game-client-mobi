@@ -6,7 +6,7 @@ import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { BetFormCss, adjustPopupPosition } from "./place-bet-modal-helper";
+import { adjustPopupPosition, adjustPopupPositionDidUpdate } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
 
@@ -17,13 +17,20 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoice, odd } = props.betChoiceInfo;
 
-    const [betFormCss, setBetFormCss] = useState<BetFormCss>(null);
+    const [positionStyle, setPositionStyle] = useState(null);
+    const [arrowStyle, setArrowStyle] = useState("");
+    const [alignArrowStyle, setAlignArrowStyle] = useState("");
+    const [arrowStyleLeft, setArrowStyleLeft] = useState("");
 
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
 
     useEffect(() => {
-        setBetFormCss(adjustPopupPosition(isMobileOnly, props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement));
+        const popupStyle = adjustPopupPosition(isMobileOnly, props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
+        setPositionStyle(popupStyle.position);
+        setAlignArrowStyle(popupStyle.alignArrowStyle);
+        setArrowStyle(popupStyle.arrowStyle);
+        setArrowStyleLeft(popupStyle.arrowStyleLeft);
     }, []);
 
     useEffect(() => {
@@ -35,10 +42,23 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
 
         window.addEventListener("mousedown", handleClickOutside);
 
+        const adjustedBetFormCss = adjustPopupPositionDidUpdate(
+            isMobileOnly,
+            props.gameBaseContainerRef,
+            wrapperRef,
+            props.betOptionElement,
+            props.betChoiceElement
+        );
+
+        if (adjustedBetFormCss.isAdjust) {
+            setPositionStyle(adjustedBetFormCss.styles.position);
+            setArrowStyle(adjustedBetFormCss.styles.arrowStyle);
+        }
+
         return () => {
             window.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [wrapperRef, betFormCss]);
+    }, [wrapperRef]);
 
     const closeModal = () => {
         props.removeBetChoiceFocus();
@@ -57,7 +77,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     };
 
     return (
-        <div style={betFormCss?.position} ref={wrapperRef} className={Styles["modal-placebetform"]}>
+        <div style={positionStyle} ref={wrapperRef} className={Styles["modal-placebetform"]}>
             <div className={Styles["popup-closed-icon"]} id="bet-form-closed" onClick={() => closeModal()}>
                 <span className={`icon-close {Styles["icon-close"]}`}></span>
             </div>
@@ -96,8 +116,8 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 </div>
             </div>
             <div
-                className={`${Styles["modal-arrow"]} ${Styles[betFormCss?.arrowStyle]} ${Styles[betFormCss?.alignArrowStyle]}`}
-                style={{ left: betFormCss?.arrowStyleLeft }}
+                className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}
+                style={{ left: arrowStyleLeft }}
             ></div>
         </div>
     );
