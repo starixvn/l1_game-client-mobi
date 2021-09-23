@@ -26,14 +26,13 @@ export function HalfRoundResult({ result, isFirstHalf }: HalfRoundResultProps) {
             <div className={Styles["main-content"]}>
                 <div className={Styles["team"]}>
                     <TeamResult result={result.blue} />
-                    <TeamScore teamName="blue" score={blueScore} />
+                    <TeamScore teamName="blue" score={blueScore} isWin={blueScore > redScore} />
                 </div>
                 <MiddleColum totalScore={blueScore + redScore} isFirstHalf={isFirstHalf} />
                 <div className={Styles["team"]}>
                     <TeamResult result={result.red} />
-                    <TeamScore teamName="red" score={redScore} />
+                    <TeamScore teamName="red" score={redScore} isWin={redScore > blueScore} />
                 </div>
-                
             </div>
         </div>
     );

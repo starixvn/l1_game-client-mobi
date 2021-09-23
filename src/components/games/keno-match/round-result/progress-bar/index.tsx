@@ -8,6 +8,7 @@ type Props = {
     totalBlue: number;
     totalRed: number;
 };
+
 export default function ProgressBar({ totalBlue, totalRed }: Props) {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
