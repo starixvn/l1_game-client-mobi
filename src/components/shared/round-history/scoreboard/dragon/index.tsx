@@ -34,10 +34,11 @@ const getScoreboardDotDetails: React.FC<{
     settlementResult: any;
     choices: [];
 }> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult, choices }) => {
+    const choiceName = GetNameFromChoice({ settlementResult, choices });
     return (
         <RoundDotGrid
-            key={`${roundId}_${gameSetting.id}`}
-            choice={GetNameFromChoice({ settlementResult, choices })}
+            key={`${roundId}_${gameSetting.id}_${choiceName}`}
+            choice={choiceName}
             value={GetChoiceValueFromTranslate({ settlementResult, choices, translateDotTextMapping })}
             col={col}
             row={row}
@@ -142,7 +143,7 @@ const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
                 )}
             </div>
         );
-    }, [roundHistory, props?.isShowBlink ?? isShowBlink, dotDetails]);
+    }, [roundHistory, props?.isShowBlink ?? isShowBlink, dotDetails?.choice]);
 };
 
 export default ScoreboardDragon;

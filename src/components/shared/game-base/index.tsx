@@ -766,6 +766,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return Math.max(...options.map((option) => this.winStreakCollector[option]?.streak ?? 0));
     };
 
+    getOptionalWinStreakByOptions({ option }) {
+        return "";
+    }
+
     notifyWinStreakByLatestSettlementResult(settlementResult) {
         const { notifyWinStreak, gameName } = this.props;
         const mainOptions = this.getMainOptions();
@@ -782,6 +786,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         gameName: gameName,
                         choice: option,
                         streak: winStreak.streak,
+                        optional: this.getOptionalWinStreakByOptions({ option }),
                     });
                 }
             } else {

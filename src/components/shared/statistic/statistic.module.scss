@@ -155,11 +155,15 @@
 }
 
 .over,
-.even {
+.even,
+.blueBig,
+.redBig {
     @extend .big;
 }
 
 .under,
-.odd {
+.odd,
+.blueSmall,
+.redSmall {
     @extend .small;
 }

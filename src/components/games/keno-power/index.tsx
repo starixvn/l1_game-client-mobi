@@ -10,8 +10,7 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import { KenoPowerResult, KenoPowerResultCollapse } from "./animations";
 import KenoPowerOptions from "./bet-options";
 import { Result, SettlementResult } from "./keno-power";
-import { Choices, StatisticRuleMapping } from "./keno-power-helper";
-import { ScoreboardRule } from "./scoreboard-round-history";
+import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-power-helper";
 
 class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GameBaseProps) {
@@ -30,20 +29,34 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
     }
 
     getMainOptions(): string[] {
-        return ["big", "small", "odd", "even"];
+        return ["blue", "red", "big", "small", "odd", "even", "blueBig", "blueSmall", "redBig", "redSmall"];
+    }
+
+    getOptionalWinStreakByOptions({ option }) {
+        let text = "";
+        if (["blueBig", "blueSmall"].includes(option)) {
+            return (text = this.getGameTranslate("blue"));
+        }
+
+        if (["redBig", "redSmall"].includes(option)) {
+            return (text = this.getGameTranslate("blue"));
+        }
+        return text;
     }
 
     getFakeSettlementResult() {
         return {
             big: true,
-            earth: false,
-            even: true,
-            fire: false,
-            gold: false,
-            odd: false,
+            blue: false,
+            tie: false,
+            blueBig: true,
+            blueSmall: false,
+            even: false,
+            odd: true,
+            red: true,
+            redBig: true,
+            redSmall: false,
             small: false,
-            water: true,
-            wood: false,
         };
     }
 
@@ -60,6 +73,10 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
 
     renderRoundHistory() {
         const sourceTabsValue = {
+            blueRed: {
+                tabName: this.getGameTranslate("blueRedTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red"] }),
+            },
             bigSmall: {
                 tabName: this.getGameTranslate("bigSmallTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["big", "small"] }),
@@ -67,6 +84,14 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
             oddEven: {
                 tabName: this.getGameTranslate("evenOddTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["odd", "even"] }),
+            },
+            blueBigSmall: {
+                tabName: this.getGameTranslate("blueBigSmallTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["blueBig", "blueSmall"] }),
+            },
+            redBigSmall: {
+                tabName: this.getGameTranslate("redBigSmallTabs"),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["redBig", "redSmall"] }),
             },
         };
 
@@ -92,12 +117,27 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
     renderBoard() {
         const { roundHistory, activeScoreboardTab } = this.state;
         const translateDotTextMapping = {
+            [Choices.blue]: this.getGameTranslate("blueTextDot"),
+            [Choices.red]: this.getGameTranslate("redTextDot"),
+            [Choices.tie]: this.getGameTranslate("tieTextDot"),
             [Choices.big]: this.getGameTranslate("bigTextDot"),
             [Choices.small]: this.getGameTranslate("smallTextDot"),
             [Choices.odd]: this.getGameTranslate("oddTextDot"),
             [Choices.even]: this.getGameTranslate("evenTextDot"),
+            [Choices.blueBig]: this.getGameTranslate("blueBigTextDot"),
+            [Choices.blueSmall]: this.getGameTranslate("blueSmallTextDot"),
+            [Choices.redBig]: this.getGameTranslate("redBigTextDot"),
+            [Choices.redSmall]: this.getGameTranslate("redSmallTextDot"),
         };
-        return <></>;
+        return (
+            <ScoreboardDragon
+                roundHistory={roundHistory}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ChoiceForTabActive[activeScoreboardTab]?.choice,
+                }}
+            />
+        );
     }
 
     get isShowStartRoundAnimation() {

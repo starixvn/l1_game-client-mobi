@@ -1,8 +1,10 @@
 import { TFunction } from "next-i18next";
+import { StatisticRuleEntriesEvenOdd, StatisticRuleEntriesBlueRed } from "../../keno/keno.helper";
 
 export const Choices = {
     blue: "blue",
     red: "red",
+    tie: "tie",
     big: "big",
     small: "small",
     odd: "odd",
@@ -27,14 +29,29 @@ const StatisticRuleEntriesBigSmall = Object.entries({
         100 - (countResult[Choices.big] ? Math.round((countResult[Choices.big] * 100) / total) : 0),
 });
 
-const StatisticRuleEntriesOddEven = Object.entries({
-    [Choices.even]: (countResult: object, total: number) =>
-        countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0,
+const StatisticRuleEntriesBlueBigSmall = Object.entries({
+    [Choices.blueBig]: (countResult: object, total: number) =>
+        countResult[Choices.blueBig] ? Math.round((countResult[Choices.blueBig] * 100) / total) : 0,
 
-    [Choices.odd]: (countResult: object, total: number) =>
-        100 - (countResult[Choices.even] ? Math.round((countResult[Choices.even] * 100) / total) : 0),
+    [Choices.blueSmall]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.blueBig] ? Math.round((countResult[Choices.blueBig] * 100) / total) : 0),
 });
-export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven];
+
+const StatisticRuleEntriesRedBigSmall = Object.entries({
+    [Choices.redBig]: (countResult: object, total: number) =>
+        countResult[Choices.redBig] ? Math.round((countResult[Choices.redBig] * 100) / total) : 0,
+
+    [Choices.redSmall]: (countResult: object, total: number) =>
+        100 - (countResult[Choices.redBig] ? Math.round((countResult[Choices.redBig] * 100) / total) : 0),
+});
+
+export const StatisticRuleMapping = [
+    StatisticRuleEntriesBlueRed,
+    StatisticRuleEntriesBigSmall,
+    StatisticRuleEntriesEvenOdd,
+    StatisticRuleEntriesBlueBigSmall,
+    StatisticRuleEntriesRedBigSmall,
+];
 
 export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
     return {
@@ -43,3 +60,21 @@ export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
         even: t(settleResult.even ? "kenopower:even" : "kenopower:odd"),
     };
 };
+
+export const ChoiceForTabActive = [
+    {
+        choice: ["red", "blue", "tie"],
+    },
+    {
+        choice: ["big", "small"],
+    },
+    {
+        choice: ["even", "odd"],
+    },
+    {
+        choice: ["blueBig", "blueSmall"],
+    },
+    {
+        choice: ["redBig", "redSmall"],
+    },
+];

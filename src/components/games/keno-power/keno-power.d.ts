@@ -1,24 +1,34 @@
 export type SettlementResult = {
+    blue: boolean;
+    red: boolean;
+    tie: boolean;
     big: boolean;
-    earth: boolean;
-    even: boolean;
-    fire: boolean;
-    gold: boolean;
-    odd: boolean;
     small: boolean;
-    water: boolean;
-    wood: boolean;
+    odd: boolean;
+    even: boolean;
+    blueBig: boolean;
+    blueSmall: boolean;
+    redBig: boolean;
+    redSmall: boolean;
 };
 
 export type Result = number[];
 export type Odd = {
+    banker: number;
+    bankerBig: number;
+    bankerSmall: number;
     big: number;
-    earth: number;
+    blue: number;
     even: number;
-    fire: number;
-    gold: number;
+    green: number;
+    indigo: number;
     odd: number;
+    orange: number;
+    player: number;
+    playerBig: number;
+    playerSmall: number;
+    red: number;
     small: number;
-    water: number;
-    wood: number;
+    viloet: number;
+    yellow: number;
 };

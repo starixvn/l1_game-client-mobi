@@ -23,5 +23,16 @@
     "sumBigSmall": "Sum Big/Small",
     "sumEvenOdd": "Sum Even/Odd",
     "teamBlueBigSmall": "Team Blue Big/Small",
-    "teamRedBigSma": "Team Red Big/Small"
+    "teamRedBigSmall": "Team Red Big/Small",
+    "blueTextDot": "B",
+    "redTextDot": "R",
+    "tieTextDot": "/",
+    "bigTextDot": "B",
+    "smallTextDot": "S",
+    "evenTextDot": "E",
+    "oddTextDot": "O",
+    "blueBigTextDot": "B",
+    "blueSmallTextDot": "S",
+    "redBigTextDot": "B",
+    "redSmallTextDot": "S"
 }

@@ -23,5 +23,16 @@
     "sumBigSmall": "Tổng Tài/Xiu",
     "sumEvenOdd": "Tổng Chẵn/Lẻ",
     "teamBlueBigSmall": "Đội Xanh Tài/Xỉu",
-    "teamRedBigSma": "Đội Đỏ Tài/Xỉu"
+    "teamRedBigSmall": "Đội Đỏ Tài/Xỉu",
+    "blueTextDot": "X",
+    "redTextDot": "Đ",
+    "tieTextDot": "/",
+    "bigTextDot": "T",
+    "smallTextDot": "X",
+    "evenTextDot": "C",
+    "oddTextDot": "L",
+    "blueBigTextDot": "T",
+    "blueSmallTextDot": "X",
+    "redBigTextDot": "T",
+    "redSmallTextDot": "X"
 }
