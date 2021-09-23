@@ -62,7 +62,7 @@ const drawDragonTailHistory = <R, S>(
     const rowMax = {};
     let colMax = 0;
     const result = roundHistory.reduceRight((resultRound, round, index) => {
-        const value = conditionChangeDot({ round: round, settlementResult: round?.settlementResult, choices: listChoiceChangeDotDetails });
+        const value = conditionChangeDot({ settlementResult: round?.settlementResult, choices: listChoiceChangeDotDetails });
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
 
@@ -93,7 +93,6 @@ const drawDragonTailHistory = <R, S>(
             translateDotTextMapping: translateDotTextMapping,
             gameSetting: gameSetting,
             settlementResult: round?.settlementResult,
-            round: round,
             choices: listChoiceChangeDotDetails,
         });
 
@@ -123,7 +122,7 @@ const addDotNext = (rowMax: {}, row: number, col: number, nextCol: number, getDo
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
     const { roundHistory, dotDetails } = props;
-    const translateDotTextMapping = props?.dotDetails ?? {};
+    const translateDotTextMapping = dotDetails?.translateDotTextMapping ?? {};
     const getDotDetails = dotDetails?.getDotDetails ?? getScoreboardDotDetails;
     const conditionChangeDotDetails = dotDetails?.conditionChangeDot ?? conditionChangeDotDefault;
 
