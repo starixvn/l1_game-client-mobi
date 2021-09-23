@@ -4,7 +4,7 @@ import Styles from "./ball-number.module.scss";
 
 type Props = {
     value: number;
-    hasAnimation: boolean;
+    hasAnimation?: boolean;
 };
 
 export default function BallNumber({ value, hasAnimation }: Props) {

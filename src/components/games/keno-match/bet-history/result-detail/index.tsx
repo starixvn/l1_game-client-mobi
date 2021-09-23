@@ -3,9 +3,9 @@ import React from "react";
 
 import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../../common/resources";
-import BallsNumbers from "../../../../shared/balls-numbers";
 import { calculateTotalPoint, GetTranslateMapping } from "../../keno-match-helper";
 import { StateRound } from "../index";
+import TeamResult from "../../../../keno/team-result";
 import Styles from "../bet-history.module.scss";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total }) => {
@@ -15,9 +15,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
                 <div className={Styles["score-row"]}>
-                    {blue.map((number: number, index: number) => (
-                        <BallsNumbers key={index} number={number} isBetHistory={true} />
-                    ))}
+                    <TeamResult result={blue} isTicketHistory={true} />
                 </div>
                 <div className={Styles["blue-label"]}>
                     {!isTeamRedWin && renderIconTeamWin({ settlementResult, isTeamRedWin })}
@@ -36,9 +34,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
 
             <div className={Styles["container-red"]}>
                 <div className={Styles["score-row"]}>
-                    {red.map((number: number, index: number) => (
-                        <BallsNumbers key={index} number={number} isBetHistory={true} />
-                    ))}
+                    <TeamResult result={red} isTicketHistory={true} />
                 </div>
                 <div className={Styles["red-label"]}>
                     {isTeamRedWin && renderIconTeamWin({ settlementResult, isTeamRedWin })}

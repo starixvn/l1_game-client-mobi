@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import BallsNumbers from "./";
+import BallNumber from ".";
 describe("BallsNumbers", () => {
     test("should be have `number` class", () => {
-        render(<BallsNumbers number={5} />);
+        render(<BallNumber value={5} />);
         expect(screen.getByTestId("balls-numbers")).toHaveClass("number");
     });
 
@@ -14,14 +14,14 @@ describe("BallsNumbers", () => {
         ${-1}  | ${"-1"}
         ${""}  | ${""}
     `("should render inner html correctly", ({ result, expectedInnerHtml }) => {
-        render(<BallsNumbers number={result} />);
+        render(<BallNumber value={result} />);
 
         expect(screen.getByTestId("balls-numbers").innerHTML).toEqual(expectedInnerHtml);
     });
 });
 
 test("BallsNumbers should be render correctly", () => {
-    render(<BallsNumbers number={5} />);
+    render(<BallNumber value={5} />);
     const component = screen.getByTestId("balls-numbers");
 
     expect(component.innerHTML).toEqual("5");
