@@ -74,7 +74,7 @@ export function Team({ result, teamName, className }: TeamProps) {
                 ))}
             </div>
             <div className={Styles["team-name"]}>
-                <span className={Styles["medal"]}></span>
+                <span className={Styles["map-winning"]}></span>
                 <span className={Styles["name"]}>{teamName}:</span>
                 <span className={Styles["score"]}>{calculateTotalPoint(result)}</span>
             </div>
