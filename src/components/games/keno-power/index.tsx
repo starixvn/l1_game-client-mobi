@@ -97,14 +97,7 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
             [Choices.odd]: this.getGameTranslate("oddTextDot"),
             [Choices.even]: this.getGameTranslate("evenTextDot"),
         };
-        return (
-            <ScoreboardDragon
-                roundHistory={roundHistory}
-                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                translateDotTextMapping={translateDotTextMapping}
-            />
-        );
+        return <></>;
     }
 
     get isShowStartRoundAnimation() {
