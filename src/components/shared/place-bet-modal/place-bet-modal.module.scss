@@ -22,7 +22,7 @@
     box-shadow: var(--popup-bet-form-shadow);
     border-radius: 0.5rem 0.5rem 0 0;
     color: var(--popup-color);
-    z-index: var(--popup-index);
+    z-index: var(--popup-index-phone);
 
     @media (min-width: 768px) {
         position: absolute;
@@ -33,6 +33,7 @@
         padding-left: 1rem;
         padding-right: 1rem;
         border-radius: 0.5rem;
+        z-index: var(--popup-index);
     }
 
     .popup-header {
