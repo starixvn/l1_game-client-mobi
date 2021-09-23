@@ -14,7 +14,14 @@
     "redSmall": "Small",
     "blueRedTabs": "B/R",
     "bigSmallTabs": "B/S",
-    "oddEvenTabs": "O/E",
+    "evenOddTabs": "E/O",
     "blueBigSmallTabs": "B-B/S",
-    "redBigSmallTabs": "R-B/S"
+    "redBigSmallTabs": "R-B/S",
+    "teamBlueWin": "Team Blue win",
+    "teamRedWin": "Team Red win",
+    "teamBlueRed": "Team Blue/Team Red",
+    "sumBigSmall": "Sum Big/Small",
+    "sumEvenOdd": "Sum Even/Odd",
+    "teamBlueBigSmall": "Team Blue Big/Small",
+    "teamRedBigSma": "Team Red Big/Small"
 }
