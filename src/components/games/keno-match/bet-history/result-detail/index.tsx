@@ -6,19 +6,18 @@ import { GameResourceKeys } from "../../../../../common/resources";
 import { calculateTotalPoint, GetTranslateMapping } from "../../keno-match-helper";
 import { StateRound } from "../index";
 import TeamResult from "../../../../keno/team-result";
+import TeamScore from "../../../../keno/team-score";
 import Styles from "../bet-history.module.scss";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total }) => {
     const { blue, red } = result;
-    const isTeamRedWin = settlementResult?.red ? true : false;
+    const blueScore = calculateTotalPoint(blue);
+    const redScore = calculateTotalPoint(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
-                <TeamResult result={blue} isTicketHistory={true} />
-                <div className={Styles["blue-label"]}>
-                    {!isTeamRedWin && renderIconTeamWin({ settlementResult, isTeamRedWin })}
-                    {translateMapping.blue}:<span className={Styles["score"]}>{calculateTotalPoint(result.blue)}</span>
-                </div>
+                <TeamResult result={blue} customClassName={"ticket-history"} />
+                <TeamScore teamName="blue" score={blueScore} isWin={blueScore > redScore} customClassName={"ticket-history"} />
             </div>
             <div>
                 <div className={Styles["round-name"]}>
@@ -31,11 +30,8 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
             </div>
 
             <div className={Styles["container-red"]}>
-                <TeamResult result={red} isTicketHistory={true} />
-                <div className={Styles["red-label"]}>
-                    {isTeamRedWin && renderIconTeamWin({ settlementResult, isTeamRedWin })}
-                    {translateMapping.red}: <span className={Styles["score"]}>{calculateTotalPoint(result.red)}</span>
-                </div>
+                <TeamResult result={red} customClassName={"ticket-history"} />
+                <TeamScore teamName="red" score={redScore} isWin={redScore > blueScore} customClassName={"ticket-history"} />
             </div>
 
             <div className={Styles["winning-info"]}>
@@ -45,33 +41,6 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
             </div>
         </div>
     );
-};
-
-const renderIconTeamWin = ({ settlementResult, isTeamRedWin = false }) => {
-    const renderIcons = () => {
-        return isTeamRedWin ? (
-            <span className={Styles["icon-win-blue"]}>
-                <img
-                    src={`/static/images/kenomatch/icon-check-red.svg`}
-                    className={Styles["icon-check-red"]}
-                    alt="icon-check-red"
-                    width={12}
-                    height={12}
-                />
-            </span>
-        ) : (
-            <span className={Styles["icon-win-red"]}>
-                <img
-                    src={`/static/images/kenomatch/icon-check-blue.svg`}
-                    className={Styles["icon-check-blue"]}
-                    alt="icon-check-blue"
-                    width={12}
-                    height={12}
-                />
-            </span>
-        );
-    };
-    return <>{!settlementResult?.tie && renderIcons()}</>;
 };
 
 const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {

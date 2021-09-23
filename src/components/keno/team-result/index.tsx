@@ -6,12 +6,12 @@ import Styles from "./team-result.module.scss";
 type Props = {
     result: number[];
     hasAnimation?: boolean;
-    isTicketHistory?: boolean;
+    customClassName?: string;
 };
 
-export default function TeamResult({ result, hasAnimation = false, isTicketHistory = false }: Props) {
+export default function TeamResult({ result, hasAnimation = false, customClassName }: Props) {
     return (
-        <div className={`${Styles.team} ${isTicketHistory ? Styles["ticket-history"] : ""}`} data-testid="team-component">
+        <div className={`${Styles.team} ${customClassName ? Styles[customClassName] : ""}`} data-testid="team-component">
             <div className={Styles.row} data-testid="team-result-row-component">
                 {result.map((number: number, index: number) => (
                     <BallNumber key={index} value={number} hasAnimation={hasAnimation} />
