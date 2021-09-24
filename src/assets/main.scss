@@ -43,6 +43,7 @@ html {
     --footer-index: 300;
     --popup-result-index: 260;
     --popup-index: 301;
+    --popup-index-phone: 9999;
     --notice-index: 200;
     --popup-guide-history-index: 300;
     --amount-index: 91;
@@ -289,6 +290,7 @@ body {
     font: 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
+    height: 100vh;
 }
 
 .no-scroll {
