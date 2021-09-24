@@ -44,8 +44,8 @@ export const ContainerToolTip: React.FC<Props> = ({ isOpen, onClose, children })
     }, [innerTooltipRef.current]);
 
     return (
-        <div className={`tooltip mini-round-history ${isOpen ? "show" : ""}`} ref={tooltipRef}>
-            <div ref={innerTooltipRef} className="tooltip-inner">
+        <div className={`tooltip mini-round-history ${isOpen ? "show" : ""}`} ref={tooltipRef} data-testid="tooltip">
+            <div ref={innerTooltipRef} className="tooltip-inner" data-testid="tooltip-inner">
                 {children}
             </div>
             <div className="arrow down"></div>
