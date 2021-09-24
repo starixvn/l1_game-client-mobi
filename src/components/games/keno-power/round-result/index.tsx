@@ -19,14 +19,14 @@ export const RoundResult: React.FC<{ result: Result; md5: string }> = ({ result,
         <>
             <div className={styles["blue-team"]}>
                 <TeamResult result={result.blue} />
-                <TeamScore teamName={t("blue")} score={totalPointBlue} isWin={totalPointBlue > totalPointRed} />
+                <TeamScore teamName={t("blue")} score={totalPointBlue} isWin={totalPointBlue > totalPointRed} customClassName={"blue"} />
             </div>
             <div className={styles["score-wrapper"]}>
                 {t("total")} <div className={styles["score"]}>{totalPointBlue + totalPointRed}</div>
             </div>
             <div className={styles["red-team"]}>
                 <TeamResult result={result.red} />
-                <TeamScore teamName={t("red")} score={totalPointRed} isWin={totalPointBlue < totalPointRed} />
+                <TeamScore teamName={t("red")} score={totalPointRed} isWin={totalPointBlue < totalPointRed} customClassName={"red"} />
             </div>
             {gameSetting.supportMD5 && (
                 <div className={styles["md5-section"]}>

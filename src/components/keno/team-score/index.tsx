@@ -10,7 +10,7 @@ type Props = {
 
 export default function TeamScore({ teamName, score, isWin, customClassName }: Props) {
     return (
-        <div className={`${Styles["team-score"]} ${Styles[teamName]} ${customClassName ? Styles[customClassName] : ""}`}>
+        <div className={`${Styles["team-score"]} ${customClassName ? Styles[customClassName] : ""}`}>
             {isWin && <span className={Styles["map-winning"]}></span>}
             <span className={Styles["name"]}>{teamName}:</span>
             <span className={Styles["score"]}>{score}</span>
