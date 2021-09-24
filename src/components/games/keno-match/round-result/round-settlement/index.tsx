@@ -2,21 +2,18 @@ import React from "react";
 import { useTranslation } from "next-i18next";
 
 import { buildHalfMatchProps } from "../../keno-match-helper";
-import { SettlementResult } from "../../type";
+import { Props } from "./type";
 import Styles from "./round-settlement.module.scss";
 
-export interface HalfRoundSettlementProps {
-    settlementResult: SettlementResult;
-    gameName: string;
-    isActiveLiveFullTime: boolean;
-}
+const KenoMatchMD5Name = "kenomatch2";
 
-const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: HalfRoundSettlementProps) => {
+const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: Props) => {
     const { t } = useTranslation(gameName),
         props = {
             settlementResult,
             ...buildHalfMatchProps(isActiveLiveFullTime),
         };
+    const isKenoMatchMD5 = gameName === KenoMatchMD5Name;
 
     if (settlementResult === undefined) {
         return <></>;
@@ -24,7 +21,7 @@ const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: H
 
     const winningTeamName = settlementResult["blue"] ? "blue" : "red";
     return (
-        <div className={`${Styles["half-round-settlement"]}`}>
+        <div className={`${Styles["half-round-settlement"]} ${isKenoMatchMD5 ? Styles["keno-match-md5"] : ""}`}>
             <div className={Styles["header"]}>{t(props.headerText)}</div>
             <div className={`${Styles["result-wrapper"]} ${Styles[winningTeamName]}`}>
                 <div className={Styles["winning-name"]}>{t(winningTeamName)}</div>

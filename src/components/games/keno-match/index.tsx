@@ -17,7 +17,7 @@ import Styles from "./game.module.scss";
 import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import HalfRoundSettlement from "./round-result/round-settlement";
+import RoundSettlement from "./round-result/round-settlement";
 import ProgressBar from "./round-result/progress-bar";
 import { calculateTotalPoint } from "./keno-match-helper";
 import {
@@ -143,7 +143,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }
 
         if (kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult) {
-            return <HalfRoundSettlement {...{ isActiveLiveFullTime, gameName: gameName.toLowerCase(), settlementResult }} />;
+            return <RoundSettlement {...{ isActiveLiveFullTime, gameName: gameName.toLowerCase(), settlementResult }} />;
         }
 
         return <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />;
