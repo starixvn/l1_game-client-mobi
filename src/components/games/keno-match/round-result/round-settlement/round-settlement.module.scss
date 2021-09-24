@@ -27,6 +27,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
+    &.keno-match-md5 {
+        animation-delay: 0s, 7.7s;
+    }
     .header {
         opacity: 0;
         font-weight: 500;

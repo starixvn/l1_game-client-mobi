@@ -22,6 +22,11 @@ $time-run-progress-bar: 1s;
     display: none;
 }
 
+.main-result {
+    animation: fadeIn .3s linear forwards;
+    animation-delay: 0;
+}
+
 .result {
     position: relative;
     border-bottom: 1px solid var(--term-border-color);
@@ -72,4 +77,14 @@ $time-run-progress-bar: 1s;
     display: grid;
     grid-template-columns: 12rem 1fr 12rem;
     padding: 0.3rem 0.8rem 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
