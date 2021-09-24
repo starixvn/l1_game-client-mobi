@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import TeamResult from "../../../keno/team-result";
-import TeamScore from "../../keno-match/round-result/main-frame-result/team-score";
+import TeamScore from "../../../keno/team-score";
 import { Result } from "../keno-power";
 import styles from "./round-result.module.scss";
 
