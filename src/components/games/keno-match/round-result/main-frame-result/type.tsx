@@ -1,3 +1,4 @@
+import { TFunction } from "next-i18next";
 import { Result } from "../../type";
 
 export interface HalfRoundResultProps {

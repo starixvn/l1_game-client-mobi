@@ -4,20 +4,22 @@ import React from "react";
 import { useGameContext } from "../../../../../contexts/game-context/game-context";
 import TeamResult from "../../../../keno/team-result";
 import { calculateTotalPoint } from "../../keno-match-helper";
-import Styles from "./main-frame-result.module.scss";
 import TeamScore from "../../../../keno/team-score";
 import MainFrameResultProps, { HalfRoundResultProps } from "./type";
+import Styles from "./main-frame-result.module.scss";
 
 export default function MainFrameResult({ halfTimeResult, fullTimeResult }: MainFrameResultProps) {
     return (
         <div className={Styles["main-result"]}>
-            <HalfRoundResult result={halfTimeResult} isFirstHalf={true} />
+            <HalfRoundResult result={halfTimeResult} isFirstHalf={true}  />
             <HalfRoundResult result={fullTimeResult} isFirstHalf={false} />
         </div>
     );
 }
 
 export function HalfRoundResult({ result, isFirstHalf }: HalfRoundResultProps) {
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const blueScore = calculateTotalPoint(result.blue);
     const redScore = calculateTotalPoint(result.red);
 
@@ -26,12 +28,12 @@ export function HalfRoundResult({ result, isFirstHalf }: HalfRoundResultProps) {
             <div className={Styles["main-content"]}>
                 <div className={Styles["team"]}>
                     <TeamResult result={result.blue} />
-                    <TeamScore teamName="blue" score={blueScore} isWin={blueScore > redScore} />
+                    <TeamScore teamName={t("blue")} score={blueScore} isWin={blueScore > redScore} />
                 </div>
                 <MiddleColum totalScore={blueScore + redScore} isFirstHalf={isFirstHalf} />
                 <div className={Styles["team"]}>
                     <TeamResult result={result.red} />
-                    <TeamScore teamName="red" score={redScore} isWin={redScore > blueScore} />
+                    <TeamScore teamName={t("red")} score={redScore} isWin={redScore > blueScore} />
                 </div>
             </div>
         </div>

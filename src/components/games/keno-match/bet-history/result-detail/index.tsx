@@ -17,7 +17,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
                 <TeamResult result={blue} customClassName={"ticket-history"} />
-                <TeamScore teamName="blue" score={blueScore} isWin={blueScore > redScore} customClassName={"ticket-history"} />
+                <TeamScore teamName={translateMapping.blue} score={blueScore} isWin={blueScore > redScore} customClassName={"ticket-history"} />
             </div>
             <div>
                 <div className={Styles["round-name"]}>
@@ -31,7 +31,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
 
             <div className={Styles["container-red"]}>
                 <TeamResult result={red} customClassName={"ticket-history"} />
-                <TeamScore teamName="red" score={redScore} isWin={redScore > blueScore} customClassName={"ticket-history"} />
+                <TeamScore teamName={translateMapping.red}  score={redScore} isWin={redScore > blueScore} customClassName={"ticket-history"} />
             </div>
 
             <div className={Styles["winning-info"]}>
