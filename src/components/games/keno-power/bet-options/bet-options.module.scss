@@ -29,7 +29,35 @@
     grid-row: 2/3;
 }
 
+.choice-blue {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
 
+.choice-red {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
+
+.choice-blueBig {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
+
+.choice-blueSmall {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
+
+.choice-redBig {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
+
+.choice-redSmall {
+    grid-column: 1/8;
+    grid-row: 1/2;
+}
 
 .bet-choice-name {
     font-size: 1.5rem;
