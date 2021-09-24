@@ -36,7 +36,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
 
             <div className={Styles["winning-info"]}>
                 {renderTextWinningForTeam({ settlementResult, translateMapping })}
-                <div> {translateMapping.sum}</div>
+                <div className={Styles["sum"]}> {translateMapping.sum}</div>
                 <div className={Styles["result-info"]}>{renderWinningInfo({ settlementResult, translateMapping })}</div>
             </div>
         </div>

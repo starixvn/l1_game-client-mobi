@@ -86,7 +86,7 @@
         position: relative;
         top: 1.2rem;
         .total {
-            font: 600 2rem var(--font-number);
+            font: 500 2rem var(--font-number);
         }
     }
     .red-label,
@@ -114,6 +114,7 @@
     position: relative;    
     text-align: center;
     margin-top: .7rem;
+    padding-top: .5rem;
     &:before{
         content: '';
         background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #C9C9C9 54.48%, rgba(222, 222, 222, 0) 100.12%);
@@ -121,30 +122,23 @@
         width: 100%;
         position: absolute;
         left: 0;
+        top: 0;
     }
-    .blue {
+    .sum {
+        font-size: 1.2rem;
+        height: 1.2rem;
+    }
+    .team-win {
         font-size: 1.8rem;
+        font-weight: bold;
+        &.blue {
+            color: #2E73C3;
+        }
+        &.red {
+            color: #FF4352;
+        }
     }
-    // .total-section {
-    //     position: relative;
-    //     text-align: center;
-    //     padding-top: 0.4rem;
-    //     font-weight: 500;
-    //     &:before {
-    //         content: "";
-    //         height: 0.1rem;
-    //         left: -2.4rem;
-    //         position: absolute;
-    //         background: linear-gradient(90deg, #ffffff 0.31%, #929292 51.35%, #ffffff 100%);
-    //         width: 4.7rem;
-    //         top: 2.6rem;
-    //         transform: rotate(90deg);
-    //     }
-    //     .total {
-    //         font: 500 1.8rem var(--font-number);
-    //         color: #cd000e;
-    //     }
-    // }
+    
     .result-info {
         justify-content: center;
         display: flex;
