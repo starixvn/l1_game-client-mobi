@@ -59,9 +59,11 @@ const KenoPowerOptions: React.FunctionComponent<Props> = (props) => {
             {RenderBetOptionsGroup(MainChoices, gameState, settlementResult, isShowWinningEffect)}
             <div className={Styles["sum-choice-area"]}>{t("sum")}</div>
             {RenderBetOptionsGroup(SumChoices, gameState, settlementResult, isShowWinningEffect)}
-            <div className={Styles["team-choice-area"]}>
-                <span>{t("blue")}</span>
-                <span>{t("red")}</span>
+            <div className={Styles["team-choice-area-blue"]}>
+                {t("blue")}
+            </div>
+            <div className={Styles["team-choice-area-red"]}>
+                {t("red")}
             </div>
             {RenderBetOptionsGroup(TeamChoices, gameState, settlementResult, isShowWinningEffect)}
         </div>
