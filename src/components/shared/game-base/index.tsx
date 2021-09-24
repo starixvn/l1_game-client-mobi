@@ -111,6 +111,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.renderSettlementInfo = this.renderSettlementInfo.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.setActiveScoreboardTab = this.setActiveScoreboardTab.bind(this);
+        this.copyToClipboard = this.copyToClipboard.bind(this);
     }
 
     componentDidMount() {
@@ -203,6 +204,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("apiError", this.handleApiError.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
         this.messageTransmitter.register("errorCode", this.handleError.bind(this));
+        this.messageTransmitter.register("md5", this.handleMD5.bind(this));
     }
 
     handleError = ({ errorCode }) => {
@@ -510,6 +512,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             default:
                 return 0;
         }
+    }
+
+    copyToClipboard(event: any) {
+        event.preventDefault();
+
+        const { md5, resultKey, showResultKey } = this.state;
+        navigator.clipboard.writeText(showResultKey ? resultKey : md5);
+    }
+
+    handleMD5({ md5 }) {
+        this.setState({
+            md5: md5,
+            showResultKey: false,
+        });
     }
 
     handleRoundHistory({ roundHistory, roundId }) {
@@ -868,6 +884,22 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return null;
     }
 
+    renderMD5() {
+        const { md5, resultKey, showResultKey } = this.state;
+        const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
+        if (!this.props.supportMD5) {
+            return <></>;
+        }
+        return (
+            <div className={Styles["md5-section"]}>
+                <span className={Styles["text"]}>{md5Text}</span>
+                <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
+                    <img src={`/static/images/copy.svg`} className={Styles["copy-icon"]} alt="copy"></img>
+                </div>
+            </div>
+        );
+    }
+
     get isInRoundState() {
         const { gameState } = this.state;
         return gameState === GameState.InRound ? true : false;
@@ -930,7 +962,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {this.renderGameHeader()}
                     {viewMode !== ViewMode.collapse && (
                         <>
-                        {this.renderResultSection() && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            {this.renderResultSection() && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            {this.renderMD5()}
                             <BetContainer gameState={gameState} isInRound={this.isInRoundState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
                                     {this.renderBetOptions()}

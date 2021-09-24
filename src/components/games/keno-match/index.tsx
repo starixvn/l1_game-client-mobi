@@ -56,8 +56,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isJoiningAtMiddleShowInlineResult: false,
             },
         };
-
-        this.copyToClipboard = this.copyToClipboard.bind(this);
     }
 
     onDestroy() {
@@ -89,16 +87,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         );
     }
 
-    copyToClipboard(event: any) {
-        event.preventDefault();
-
-        const { md5, resultKey, showResultKey } = this.state;
-        navigator.clipboard.writeText(showResultKey ? resultKey : md5);
-    }
 
     renderBetOptions() {
-        const { md5, resultKey, showResultKey, gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } =
-            this.state;
+        const { gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
 
         const betOptionsProps = {
@@ -108,7 +99,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             isShowWinningEffect: showWinningAnimation,
             isActiveLiveFullTime: isActiveLiveFullTime,
         };
-        const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
 
         const isShowOverlay =
             kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
@@ -119,15 +109,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return (
             <div>
                 {isShowOverlay && <OverlayMaskWhite />}
-
-                {this.props.supportMD5 && (
-                    <div className={Styles["md5-section"]}>
-                        <span className={Styles["text"]}>{md5Text}</span>
-                        <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
-                            <img src={`/static/images/copy.svg`} className={Styles["copy-icon"]} alt="copy"></img>
-                        </div>
-                    </div>
-                )}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -251,7 +232,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         super.registerMessageHandler();
         this.messageTransmitter.register("firstHalfResult", this.handleFinishHalfTime.bind(this));
         this.messageTransmitter.register("liveOdds", this.handleLiveOdds.bind(this));
-        this.messageTransmitter.register("md5", this.handleMD5.bind(this));
     }
 
     handleRemainingTime({ remainingTime }) {
@@ -459,13 +439,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         return rounds;
     };
-
-    handleMD5({ md5 }) {
-        this.setState({
-            md5: md5,
-            showResultKey: false,
-        });
-    }
 
     handleFinishHalfTime({ firstHalfResult }) {
         const { roundHistoryFH, roundId } = this.state;

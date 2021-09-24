@@ -92,6 +92,9 @@ export interface GameBaseState<Result, SettlementResult> {
     activeScoreboardTab?: number;
     isShowBettype?: boolean;
     bettypeName?: string;
+    md5?: string;
+    resultKey?: string;
+    showResultKey?: boolean;
 }
 
 export interface Notice {

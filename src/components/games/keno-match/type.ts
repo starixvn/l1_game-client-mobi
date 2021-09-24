@@ -90,9 +90,6 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     settlementResult?: SettlementResult;
     isActiveLiveFullTime: boolean;
     liveOdds: any;
-    md5?: string;
-    resultKey?: string;
-    showResultKey?: boolean;
     firstHalfResult?: HalfRoundResult;
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
     roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];

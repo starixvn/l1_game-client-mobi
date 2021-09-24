@@ -2,6 +2,7 @@
     "1": {
         "id": 1,
         "gameName": "taixiu",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "taixiu",
             "path": "bigsmall"
@@ -19,6 +20,7 @@
     "2": {
         "id": 2,
         "gameName": "XocXoc",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "xocxoc",
             "path": "sedie"
@@ -35,6 +37,7 @@
     "3": {
         "id": 3,
         "gameName": "BauCua",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "baucua",
             "path": "fishprawncrab"
@@ -51,6 +54,7 @@
     "4": {
         "id": 4,
         "gameName": "TXTurbo",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "txturbo",
             "path": "turbobigsmall"
@@ -68,6 +72,7 @@
     "7": {
         "id": 7,
         "gameName": "DragonTiger",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "dragontiger",
             "path": "dragontiger"
@@ -84,6 +89,7 @@
     "8": {
         "id": 8,
         "gameName": "KenoProMax",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "kenopromax",
             "path": "kenopromax"
@@ -100,6 +106,7 @@
     "9": {
         "id": 9,
         "gameName": "MiniSeDie",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "minisedie",
             "path": "minisedie"
@@ -116,6 +123,7 @@
     "10": {
         "id": 10,
         "gameName": "Baccarat",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "baccarat",
             "path": "baccarat"
@@ -132,6 +140,7 @@
     "22": {
         "id": 22,
         "gameName": "VipSeDie",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "vipsedie",
             "path": "vsedie"
@@ -148,6 +157,7 @@
     "24": {
         "id": 24,
         "gameName": "SpecialSeDie",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "specialsedie",
             "path": "specialsedie"
@@ -165,6 +175,7 @@
     "27": {
         "id": 27,
         "gameName": "VipBaccarat",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "vipbaccarat",
             "path": "vipbaccarat"
@@ -181,6 +192,7 @@
     "35": {
         "id": 35,
         "gameName": "ThreeCards",
+        "supportMD5": false,
         "socketInfo": {
             "namespace": "threecards",
             "path": "threecards"
