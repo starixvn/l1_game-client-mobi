@@ -110,7 +110,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return (
             <div>
                 {isShowOverlay && <OverlayMaskWhite />}
-                {this.renderResultSection()}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -135,7 +134,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (isShowSettlementResult) {
             return <HalfRoundSettlement {...{ isActiveLiveFullTime: isFirstHalf, gameName: gameName.toLowerCase(), settlementResult }} />;
         }
-
         return <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />;
     }
 

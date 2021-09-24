@@ -31,10 +31,10 @@ import OverlayMaskWhite from "../overlay-mask-white";
 import PlaceBetModal from "../place-bet-modal/place-bet-modal";
 import Rebet from "../rebet";
 import ResultDetail from "../result-detail";
+import SectionResultContainer from "../section-result-container";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
-import SectionResultContainer from "../section-result-container";
 import {
     Boundary,
     GameBaseProps,
@@ -891,7 +891,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (!this.props.supportMD5) {
             return <></>;
         }
-        
+
         return (
             <div className={Styles["md5-section"]}>
                 <span className={Styles["text"]}>{md5Text}</span>
@@ -964,7 +964,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {this.renderGameHeader()}
                     {viewMode !== ViewMode.collapse && (
                         <>
-                            {this.renderResultSection() && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            {this.renderResultSection && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
                             {this.renderMD5()}
                             <BetContainer gameState={gameState} isInRound={this.isInRoundState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
