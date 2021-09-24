@@ -12,7 +12,7 @@ interface KenoMatchBetOptionsProps {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
-    isActiveLiveFullTime: boolean;
+    isFirstHalf: boolean;
     liveOdds: any;
 }
 
@@ -21,7 +21,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     gameState,
     settlementResult,
     isShowWinningEffect,
-    isActiveLiveFullTime,
+    isFirstHalf,
 }) => {
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
@@ -30,11 +30,11 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
 
     const halfMatchConfigs = [
         {
-            isActive: isActiveLiveFullTime ? liveOdds !== null : true,
-            config: isActiveLiveFullTime ? KenoMatchConfigs.choices.liveFullTime : KenoMatchConfigs.choices.firstHalf,
+            isActive: !isFirstHalf ? liveOdds !== null : true,
+            config: isFirstHalf ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
         },
         {
-            isActive: !isActiveLiveFullTime,
+            isActive: isFirstHalf,
             config: KenoMatchConfigs.choices.fullTime,
         },
     ];

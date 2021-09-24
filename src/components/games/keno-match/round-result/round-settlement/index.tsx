@@ -7,11 +7,11 @@ import Styles from "./round-settlement.module.scss";
 
 const KenoMatchMD5Name = "kenomatch2";
 
-const RoundSettlement = ({ gameName, settlementResult, isActiveLiveFullTime }: Props) => {
+const RoundSettlement = ({ gameName, settlementResult, isFirstHalf }: Props) => {
     const { t } = useTranslation(gameName),
         props = {
             settlementResult,
-            ...buildHalfMatchProps(isActiveLiveFullTime),
+            ...buildHalfMatchProps(isFirstHalf),
         };
     const isKenoMatchMD5 = gameName === KenoMatchMD5Name;
 
