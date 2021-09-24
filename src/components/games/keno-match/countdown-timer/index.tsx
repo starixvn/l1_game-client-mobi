@@ -20,15 +20,16 @@ type Props = {
 
 const KenoCountdownTimer: React.FC<Props> = ({ isFistHalf }) => {
     const { gameState, remainingTime, gameSetting } = useGameContext();
-    const { halfTimePlacingBets, showHalfTimeResult, fullTimePlacingBets } = gameSetting.durations as KenoMatchGameDurations;
+    const { halfTimePlacingBets, showHalfTimeResult, fullTimePlacingBets, showFullTimeResult } = gameSetting.durations as KenoMatchGameDurations;
     const duration = isFistHalf ? halfTimePlacingBets - showHalfTimeResult : fullTimePlacingBets;
+    const timeResult = isFistHalf ? showHalfTimeResult : showFullTimeResult;
 
     switch (gameState) {
         case GameState.InRound:
             return (
                 <GameStatusAndTimer
                     duration={duration}
-                    initialRemainingTime={remainingTime - showHalfTimeResult}
+                    initialRemainingTime={remainingTime - timeResult}
                     lockingBet={false}
                     isStarBetting={true}
                 />
@@ -38,7 +39,7 @@ const KenoCountdownTimer: React.FC<Props> = ({ isFistHalf }) => {
             return (
                 <GameStatusAndTimer
                     duration={duration}
-                    initialRemainingTime={remainingTime - showHalfTimeResult}
+                    initialRemainingTime={remainingTime - timeResult}
                     lockingBet={true}
                     isStarBetting={false}
                 />
