@@ -16,14 +16,17 @@ export const RoundResult: React.FC<{ result: Result; md5: string }> = ({ result,
     const copyMD5ToClipboard = () => navigator.clipboard.writeText(md5);
 
     return (
-        <>
+        <div className={styles["main-result"]}>
             <div className={styles["blue-team"]}>
                 <TeamResult result={result.blue} />
                 <TeamScore teamName={t("blue")} score={totalPointBlue} isWin={totalPointBlue > totalPointRed} customClassName={"blue"} />
             </div>
-            <div className={styles["score-wrapper"]}>
-                {t("total")} <div className={styles["score"]}>{totalPointBlue + totalPointRed}</div>
+            <div className={styles["middle-column"]}>
+                <div className={styles["score-wrapper"]}>
+                    {t("sum")} <div className={styles["score"]}>{totalPointBlue + totalPointRed}</div>
+                </div>
             </div>
+            
             <div className={styles["red-team"]}>
                 <TeamResult result={result.red} />
                 <TeamScore teamName={t("red")} score={totalPointRed} isWin={totalPointBlue < totalPointRed} customClassName={"red"} />
@@ -36,6 +39,6 @@ export const RoundResult: React.FC<{ result: Result; md5: string }> = ({ result,
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
