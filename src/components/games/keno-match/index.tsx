@@ -18,6 +18,8 @@ import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, Stati
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
 import HalfRoundSettlement from "./round-result/round-settlement";
+import ProgressBar from "./round-result/progress-bar";
+import { calculateTotalPoint } from "./keno-match-helper";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameDurations,
@@ -226,7 +228,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderResultCollapse() {
-        return <></>;
+        const {halfTimeResult, fullTimeResult, isActiveLiveFullTime} = this.state,
+        result = isActiveLiveFullTime ? fullTimeResult : halfTimeResult,
+        totalBlue = calculateTotalPoint(result.blue),
+        totalRed = calculateTotalPoint(result.red);
+
+        return <ProgressBar {...{totalBlue, totalRed}}/>;
     }
 
     renderSettlementInfo() {
