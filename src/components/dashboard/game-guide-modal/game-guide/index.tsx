@@ -3,10 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import Loader from "../../../shared/loader";
 import appSettings from "../../../../common/app-settings";
 import { UserStakeLevel } from "../../../shared/game-base/type";
-import Styles from "./game-guide.module.scss";
 import { gameVipIds, LanguageLocaleMapper } from "../../../../common/constants";
 import { useTheme } from "next-themes";
 import { useTranslation } from "next-i18next";
+import { isMobileOnly, isIOS, browserVersion } from "react-device-detect";
+
+import Styles from "./game-guide.module.scss";
 
 type Props = {
     gameId: number;
@@ -26,15 +28,15 @@ const GameGuides: React.FC<Props> = (props) => {
     const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
     const srcPath = `${guideUrl}/?gId=${gameId}&lang=${language}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
 
-    useEffect(() => {
-        function handleResize() {
-            if (wrapperRef.current) {
-                setHeightGuide(wrapperRef.current.clientHeight);
-                setWidthGuide(wrapperRef.current.clientWidth);
-            }
+    function handleResize() {
+        if (wrapperRef?.current) {
+            setHeightGuide(wrapperRef.current.clientHeight);
+            setWidthGuide(wrapperRef.current.clientWidth);
         }
-
-        window.addEventListener("resize", handleResize);
+    }
+    useEffect(() => {
+        const isIOSBrowserVersion15 = isMobileOnly && isIOS && browserVersion === "15";
+        !isIOSBrowserVersion15 && window.addEventListener("resize", handleResize);
         handleResize();
 
         return () => {
@@ -45,6 +47,7 @@ const GameGuides: React.FC<Props> = (props) => {
     useEffect(() => {
         const hideSpinner = () => {
             setIsLoading(false);
+            handleResize();
         };
 
         if (heightGuide > 0 && widthGuide > 0) {
