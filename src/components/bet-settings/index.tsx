@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
+import { browserVersion, isIOS, isMobileOnly } from "react-device-detect";
 
 import Styles from "./bet-setting.module.scss";
 import { ChipSlider } from "./chip-slider";
@@ -17,9 +17,11 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
     const { t } = useTranslation("common");
     var deviceClass = "";
 
-    if (isMobileOnly) {
-        deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
+    if (isIOS) {
+        deviceClass = Styles["ios-device"];
     }
+
+    const isShowFooter = isIOS && browserVersion !== "15";
 
     return (
         <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
@@ -39,8 +41,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                     </div>
                 </div>
             </div>
-
-            {isMobileOnly && (
+            {isShowFooter && (
                 <div className={Styles["footer"]}>
                     {enabledQuickBet && (
                         <div className={Styles["one-click-bet-turn-on"]}>
