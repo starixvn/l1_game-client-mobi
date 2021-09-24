@@ -217,13 +217,13 @@
         "durations": {
             "wholeRound": 62,
             "showFullTimeSettlementResult": 58,
-            
+
             "halfTimePlacingBets": 54,
             "resetResult": 35,
             "halfTimeLockingBet": 32,
             "showHalfTimeResult": 27,
             "showHalfTimeSettlementResult": 23,
-           
+
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
             "fullTimeLockingBet": 4,
@@ -231,7 +231,7 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "resultAnimation": 4,
+            "resultAnimation": 8,
             "settlementWinning": 6
         }
     },
@@ -260,19 +260,19 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "resultAnimation": 4,
+            "resultAnimation": 8,
             "settlementWinning": 6
         }
     },
-    "40" : {
-        "id":40,
+    "40": {
+        "id": 40,
         "gameName": "KenoPower1",
         "socketInfo": {
             "namespace": "kenopower1",
             "path": "kenopower"
         },
         "supportMD5": false,
-        "durations" : {
+        "durations": {
             "wholeRound": 50,
             "placingBets": 42,
             "lockingBet": 5,
@@ -281,15 +281,15 @@
             "beforeStartRound": 0
         }
     },
-    "41" : {
-        "id":41,
+    "41": {
+        "id": 41,
         "gameName": "KenoPower2",
         "socketInfo": {
             "namespace": "kenopower2",
             "path": "kenopower"
         },
         "supportMD5": true,
-        "durations" : {
+        "durations": {
             "wholeRound": 54,
             "placingBets": 42,
             "lockingBet": 5,
