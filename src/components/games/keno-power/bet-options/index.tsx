@@ -55,7 +55,7 @@ const KenoPowerOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     return (
-        <div className={`${Styles["layout-keno-pro-max"]}`}>
+        <div className={`${Styles["layout-keno-power"]}`}>
             {RenderBetOptionsGroup(MainChoices, gameState, settlementResult, isShowWinningEffect)}
             <div className={Styles["sum-choice-area"]}>{t("sum")}</div>
             {RenderBetOptionsGroup(SumChoices, gameState, settlementResult, isShowWinningEffect)}
