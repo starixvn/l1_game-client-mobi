@@ -80,6 +80,15 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return ["blue", "red", "over", "under", "odd", "even"];
     }
 
+    get isInRoundState() {
+        const { gameState } = this.state;
+        const kenoMatchGameState = gameState as KenoMatchGameState;
+        return (
+            kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.HalfTimePlacingBet
+        );
+    }
+
     copyToClipboard(event: any) {
         event.preventDefault();
 
@@ -110,8 +119,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return (
             <div>
                 {isShowOverlay && <OverlayMaskWhite />}
-
-                {this.renderResultSection()}
 
                 {this.props.supportMD5 && (
                     <div className={Styles["md5-section"]}>

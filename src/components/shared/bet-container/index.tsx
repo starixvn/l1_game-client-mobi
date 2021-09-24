@@ -18,7 +18,7 @@ const BetContainer: React.FC<Props> = (props) => {
     }, [betValue]);
 
     useEffect(() => {
-        if (props.gameState === GameState.InRound) {
+        if (props.isInRound) {
             setCustomStyle({ cursor: `url(${cursorImage}), auto` });
         } else {
             setCustomStyle({ cursor: "not-allowed" });

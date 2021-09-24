@@ -34,6 +34,7 @@ import ResultDetail from "../result-detail";
 import Styles from "./game-base.module.scss";
 import MessageTransmitter from "./message-transmitter";
 import { MessageTransmitterType } from "./message-transmitter/type";
+import SectionResultContainer from "../section-result-container";
 import {
     Boundary,
     GameBaseProps,
@@ -863,6 +864,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return <GameHeader {...gameHeaderProps} />;
     }
 
+    renderResultSection() {
+        return null;
+    }
+
+    get isInRoundState() {
+        const { gameState } = this.state;
+        return gameState === GameState.InRound ? true : false;
+    }
+
     renderGame() {
         const { durations } = this.props;
 
@@ -920,7 +930,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {this.renderGameHeader()}
                     {viewMode !== ViewMode.collapse && (
                         <>
-                            <BetContainer gameState={gameState}>
+                        {this.renderResultSection() && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            <BetContainer gameState={gameState} isInRound={this.isInRoundState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
                                     {this.renderBetOptions()}
                                 </div>
