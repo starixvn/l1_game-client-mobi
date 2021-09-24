@@ -60,3 +60,66 @@
 .bet-options-kenopower2 {
     height: auto;
 }
+
+.md5-section {
+    background-color: var(--md5-bg-color);
+    font-size: 1.2rem;
+    padding: .2rem .4rem;
+    display: flex;
+    justify-content: space-between;    
+    cursor: pointer !important;
+    .text {
+        animation: fadeIn .3s linear forwards;
+        animation-delay: 0;
+    }
+    .copy-box {
+        width: 1.8rem;
+        height: 1.8rem;
+        position: relative;
+        cursor: pointer;
+        .copy-icon {
+            width: 1rem;
+            height: 1.2rem;
+            position: relative;
+            z-index: 2;
+            left: .4rem;
+            top: -.1rem;
+        }
+
+        &:before {
+            content: '';
+            background: linear-gradient(180deg, #F19F0A 0%, #B77406 100%);
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border-radius: 5px;
+        }
+        &:after {
+            content: '';
+            background: linear-gradient(180deg, #FFC964 0%, #EE9505 100%);
+            position: absolute;
+            top: .1rem;
+            right: .1rem;
+            left: .1rem;
+            bottom: .1rem;
+            border-radius: 5px;
+        }
+    }
+    
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+

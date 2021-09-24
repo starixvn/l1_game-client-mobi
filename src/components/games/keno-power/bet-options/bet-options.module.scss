@@ -18,8 +18,11 @@
     height: 1.6rem;
 }
 
-.choice-big,
-.choice-blueBig {
+.sum-choice-area, .team-choice-area-red, .team-choice-area-blue {
+    font-size: 1.2rem;
+    text-align: center;
+}
+
     grid-column: 1/2;
 }
 
@@ -43,30 +46,34 @@
     height: 8rem;
 }
 
-.bet-choice-name {
-    font-size: 1.5rem;
-    font-weight: 500;
-}
-
 %main-choice {
-    font-size: 2.2rem;
-    font-weight: bold;
+    font-size: 1.6rem;
 }
 
-.even,
-.big {
+.bet-choice-name {
+    font-weight: 700;
+}
+
+.choice-even,
+.choice-big,
+.choice-blue,
+.choice-blueSmall,
+.choice-blueBig {
     @extend %main-choice;
     color: #3b7bc6;
 }
 
-.odd,
-.small {
+.choice-odd,
+.choice-small,
+.choice-red,
+.choice-redBig,
+.choice-redSmall {
     @extend %main-choice;
     color: #ff4352;
 }
 
-.sum-choice-area,
-.team-choice-area-blue,
+.choice-blue, .choice-red {
+    font-size: 1.8rem;
 .team-choice-area-red {
     cursor: auto !important;
 }
