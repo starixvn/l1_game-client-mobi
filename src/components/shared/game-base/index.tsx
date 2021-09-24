@@ -225,7 +225,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
-    handleStatus = ({ status }) => {
+    protected handleStatus = ({ status }) => {
         const { win, bet } = status;
         if (win) {
             this.betWin = bet;

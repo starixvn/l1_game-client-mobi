@@ -543,6 +543,17 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }, this.winningAnimationWaitingTimeInSecond);
     }
 
+    handleStatus = ({ status }) => {
+        const { win, bet } = status;
+        const durations = this.props.durations as KenoMatchGameDurations;
+
+        if (win) {
+            setTimeout(() => {
+                this.betWin = bet;
+            }, durations.settlementWinning);     
+        }
+    };
+
     initWinStreakCollector() {
         const mainOptions = this.getMainOptions();
         const getWinningStreakByTimeMatch = () => {

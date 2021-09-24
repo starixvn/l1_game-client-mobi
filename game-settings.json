@@ -219,7 +219,8 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "resultAnimation": 4
+            "resultAnimation": 4,
+            "settlementWinning": 6
         }
     },
     "37": {
@@ -247,7 +248,8 @@
 
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
-            "resultAnimation": 4
+            "resultAnimation": 4,
+            "settlementWinning": 6
         }
     },
     "40" : {

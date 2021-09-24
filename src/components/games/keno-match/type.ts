@@ -72,6 +72,7 @@ export interface KenoMatchGameDurations extends GameDurations {
     halfTimeDuration: number;
     fullTimeDuration: number;
     resetResult: number;
+    settlementWinning: number;
 }
 
 export interface KenoMatchGameSetting extends GameSettings {
