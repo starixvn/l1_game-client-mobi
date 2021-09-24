@@ -87,7 +87,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         );
     }
 
-
     renderBetOptions() {
         const { gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
@@ -452,17 +451,28 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             gameState: KenoMatchGameStateEnum.ShowResult,
             halfTimeResult: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
-            resultKey: firstHalfResult.resultKey,
-            showResultKey: true,
             playResultAnimation: true,
         };
-        this.setState(newState as any);
 
+        this.setState(newState as any);
+        this.setTimeOutMD5ResultKey(firstHalfResult.resultKey);
+      
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false, showResultInfo: true });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
+    }
+
+    setTimeOutMD5ResultKey (md5ResultKey: string) 
+    {
+        setTimeout(() => {
+            this.setState({  
+                md5ResultKey,
+                showMD5ResultKey: true
+            })
+        }, this.props.durations.resultAnimation * 1000);
+
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
@@ -490,12 +500,11 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             fullTimeResult: finish.result,
             settlementResult: finish.settlementResult,
             liveOdds: null,
-            resultKey: finish.resultKey,
-            showResultKey: true,
             playResultAnimation: true,
         };
 
         this.setState(newState as any);
+        this.setTimeOutMD5ResultKey(finish.resultKey);
 
         const animationDuration = this.getFinishAnimationDuration();
 
@@ -523,7 +532,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (win) {
             setTimeout(() => {
                 this.betWin = bet;
-            }, durations.settlementWinning);     
+            }, durations.settlementWinning * 1000);     
         }
     };
 

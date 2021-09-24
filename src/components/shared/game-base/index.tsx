@@ -517,14 +517,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     copyToClipboard(event: any) {
         event.preventDefault();
 
-        const { md5, resultKey, showResultKey } = this.state;
-        navigator.clipboard.writeText(showResultKey ? resultKey : md5);
+        const { md5, md5ResultKey, showMD5ResultKey } = this.state;
+        navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
     }
 
     handleMD5({ md5 }) {
         this.setState({
-            md5: md5,
-            showResultKey: false,
+            md5,
+            showMD5ResultKey: false,
         });
     }
 
@@ -885,11 +885,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderMD5() {
-        const { md5, resultKey, showResultKey } = this.state;
-        const md5Text = showResultKey ? `Key: ${resultKey}` : `MD5: ${md5}`;
+        const { md5, md5ResultKey, showMD5ResultKey } = this.state;
+        const md5Text = showMD5ResultKey ? `Key: ${md5ResultKey}` : `MD5: ${md5}`;
+
         if (!this.props.supportMD5) {
             return <></>;
         }
+        
         return (
             <div className={Styles["md5-section"]}>
                 <span className={Styles["text"]}>{md5Text}</span>

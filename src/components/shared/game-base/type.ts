@@ -93,8 +93,8 @@ export interface GameBaseState<Result, SettlementResult> {
     isShowBettype?: boolean;
     bettypeName?: string;
     md5?: string;
-    resultKey?: string;
-    showResultKey?: boolean;
+    md5ResultKey?: string;
+    showMD5ResultKey?: boolean;
 }
 
 export interface Notice {
