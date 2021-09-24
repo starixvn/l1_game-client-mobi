@@ -1,22 +1,24 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
+import TeamResult from "../../keno/team-result";
 import GameBase from "../../shared/game-base";
 
 import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { KenoPowerResult, KenoPowerResultCollapse } from "./animations";
+import TeamScore from "../keno-match/round-result/main-frame-result/team-score";
 import KenoPowerOptions from "./bet-options";
-import { Result, SettlementResult } from "./keno-power";
+import { KenoPowerGameState, Result, SettlementResult } from "./keno-power";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-power-helper";
+import { RoundResult } from "./round-result";
 
-class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
+class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     constructor(props: GameBaseProps) {
         super(props);
 
-        this.state = { ...this.defaultState };
+        this.state = { ...this.defaultState, result: { red: Array<number>(20), blue: Array<number>(20) }, md5: "" };
     }
 
     retryConnect = () => {
@@ -61,13 +63,16 @@ class KenoPower extends GameBase<GameBaseProps, GameBaseState<Result, Settlement
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
+        const { gameState, settlementResult, result, showWinningAnimation, md5 } = this.state;
         return (
-            <KenoPowerOptions
-                gameState={gameState}
-                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
-                isShowWinningEffect={showWinningAnimation}
-            />
+            <>
+                <RoundResult result={result} md5={md5} />
+                <KenoPowerOptions
+                    gameState={gameState}
+                    settlementResult={settlementResult ?? this.getFakeSettlementResult()}
+                    isShowWinningEffect={showWinningAnimation}
+                />
+            </>
         );
     }
 

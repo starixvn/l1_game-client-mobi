@@ -1,3 +1,9 @@
+import { GameBaseState } from "../../shared/game-base/type";
+
+export interface KenoPowerGameState extends GameBaseState<Result, SettlementResult> {
+    md5: string;
+}
+
 export type SettlementResult = {
     blue: boolean;
     red: boolean;
@@ -12,23 +18,20 @@ export type SettlementResult = {
     redSmall: boolean;
 };
 
-export type Result = number[];
+export type Result = {
+    red: number[];
+    blue: number[];
+};
+
 export type Odd = {
-    banker: number;
-    bankerBig: number;
-    bankerSmall: number;
-    big: number;
     blue: number;
-    even: number;
-    green: number;
-    indigo: number;
-    odd: number;
-    orange: number;
-    player: number;
-    playerBig: number;
-    playerSmall: number;
     red: number;
+    big: number;
     small: number;
-    viloet: number;
-    yellow: number;
+    even: number;
+    odd: number;
+    blueBig: number;
+    blueSmall: number;
+    redBig: number;
+    redSmall: number;
 };
