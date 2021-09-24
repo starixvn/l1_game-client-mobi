@@ -28,7 +28,7 @@ export default function ProgressBar({ totalBlue, totalRed }: Props) {
         setWidth(percent);
     }, [totalBlue, totalRed]);
 
-    console.log(width);
+   
     const inlineStyles = {
         "--width": `${width}%`,
     } as React.CSSProperties;

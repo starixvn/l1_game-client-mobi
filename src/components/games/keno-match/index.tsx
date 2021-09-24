@@ -215,12 +215,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderResultCollapse() {
-        const {halfTimeResult, fullTimeResult, isActiveLiveFullTime} = this.state,
-        result = isActiveLiveFullTime ? fullTimeResult : halfTimeResult,
-        totalBlue = calculateTotalPoint(result.blue),
-        totalRed = calculateTotalPoint(result.red);
+        const { halfTimeResult, fullTimeResult, isActiveLiveFullTime } = this.state,
+            result = isActiveLiveFullTime ? fullTimeResult : halfTimeResult,
+            totalBlue = calculateTotalPoint(result?.blue ?? []),
+            totalRed = calculateTotalPoint(result?.red ?? []);
 
-        return <ProgressBar {...{totalBlue, totalRed}}/>;
+        return <ProgressBar {...{ totalBlue, totalRed }} />;
     }
 
     renderSettlementInfo() {
@@ -456,7 +456,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         this.setState(newState as any);
         this.setTimeOutMD5ResultKey(firstHalfResult.resultKey);
-      
+
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false, showResultInfo: true });
@@ -464,15 +464,13 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }, animationDuration);
     }
 
-    setTimeOutMD5ResultKey (md5ResultKey: string) 
-    {
+    setTimeOutMD5ResultKey(md5ResultKey: string) {
         setTimeout(() => {
-            this.setState({  
+            this.setState({
                 md5ResultKey,
-                showMD5ResultKey: true
-            })
+                showMD5ResultKey: true,
+            });
         }, this.props.durations.resultAnimation * 1000);
-
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
@@ -532,7 +530,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (win) {
             setTimeout(() => {
                 this.betWin = bet;
-            }, durations.settlementWinning * 1000);     
+            }, durations.settlementWinning * 1000);
         }
     };
 
