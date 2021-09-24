@@ -100,8 +100,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
 
         const isShowOverlay =
-            kenoMatchGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.HalfTimeLockingBet ||
+            kenoMatchGameState === KenoMatchGameStateEnum.LockingBet ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowResult ||
             kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult;
 
@@ -303,9 +302,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     getTimeCounter(remainingTime: number, gameState: KenoMatchGameState) {
         switch (gameState) {
             case KenoMatchGameStateEnum.HalfTimePlacingBet:
-            case KenoMatchGameStateEnum.HalfTimeLockingBet:
             case KenoMatchGameStateEnum.FullTimePlacingBet:
-            case KenoMatchGameStateEnum.FullTimeLockingBet:
+            case KenoMatchGameStateEnum.LockingBet:
                 return remainingTime;
             default:
                 return 0;
@@ -343,6 +341,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 condition: nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
                 state: {
                     roundId: roundId + 1,
+                    isActiveLiveFullTime: false,
                 },
             },
             {
@@ -352,30 +351,11 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 },
             },
             {
-                condition: nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
-                state: {
-                    isActiveLiveFullTime: false,
-                },
-            },
-            {
-                condition:
-                    nextGameState === KenoMatchGameStateEnum.FullTimeLockingBet ||
-                    nextGameState === KenoMatchGameStateEnum.HalfTimeLockingBet,
-                state: {
-                    displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
-                    notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
-                },
-            },
-            {
-                condition: nextGameState === KenoMatchGameStateEnum.HalfTimeLockingBet,
+                condition: nextGameState === KenoMatchGameStateEnum.LockingBet,
                 state: {
                     isShowBlinkFH: true,
-                },
-            },
-            {
-                condition: nextGameState === KenoMatchGameStateEnum.FullTimeLockingBet,
-                state: {
-                    isShowBlinkFT: true,
+                    displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
+                    notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
                 },
             },
         ];

@@ -40,7 +40,7 @@ const KenoCountdownTimer: React.FC = () => {
                 />
             );
 
-        case KenoMatchGameStateEnum.HalfTimeLockingBet:
+        case KenoMatchGameStateEnum.LockingBet:
             return (
                 <GameStatusAndTimer
                     duration={halfTimeDuration}
@@ -50,15 +50,15 @@ const KenoCountdownTimer: React.FC = () => {
                 />
             );
 
-        case KenoMatchGameStateEnum.FullTimeLockingBet:
-            return (
-                <GameStatusAndTimer
-                    duration={fullTimeDuration}
-                    initialRemainingTime={remainingTime - showFullTimeResult}
-                    lockingBet={true}
-                    isStarBetting={false}
-                />
-            );
+        // case KenoMatchGameStateEnum.FullTimeLockingBet:
+        //     return (
+        //         <GameStatusAndTimer
+        //             duration={fullTimeDuration}
+        //             initialRemainingTime={remainingTime - showFullTimeResult}
+        //             lockingBet={true}
+        //             isStarBetting={false}
+        //         />
+        //     );
 
         case KenoMatchGameStateEnum.ShowResult:
             return <Loader />;

@@ -7,10 +7,9 @@ export enum KenoMatchGameStateEnum {
     Disabled,
     HalfTimePlacingBet,
     ResetResult,
-    HalfTimeLockingBet,
     BeforeStartFullTimePlacingBet,
     FullTimePlacingBet,
-    FullTimeLockingBet,
+    LockingBet,
     ShowResult,
     ShowSettlementResult,
 }

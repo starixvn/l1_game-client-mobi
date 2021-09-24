@@ -36,8 +36,7 @@ describe("KenoMatchBetOption", () => {
         ${KenoMatchGameStateEnum.ShowSettlementResult} | ${1}
         ${KenoMatchGameStateEnum.FullTimePlacingBet}   | ${1}
         ${KenoMatchGameStateEnum.HalfTimePlacingBet}   | ${1}
-        ${KenoMatchGameStateEnum.HalfTimeLockingBet}   | ${0}
-        ${KenoMatchGameStateEnum.FullTimeLockingBet}   | ${0}
+        ${KenoMatchGameStateEnum.LockingBet}           | ${0}
     `("should render active classname correctly", ({ gameState, expectedResult }) => {
         const betOptionProps = {
             choice: "fhBlue",
