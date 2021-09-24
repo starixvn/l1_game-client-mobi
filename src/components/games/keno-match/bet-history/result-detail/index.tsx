@@ -3,7 +3,7 @@ import React from "react";
 
 import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../../common/resources";
-import { calculateTotalPoint, GetTranslateMapping } from "../../keno-match-helper";
+import { calculateTotalPoint, GetTranslateMapping, Choices } from "../../keno-match-helper";
 import { StateRound } from "../index";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
@@ -44,8 +44,9 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
 };
 
 const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
+    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
     return (
-        <div>
+        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
             {settlementResult?.tie ? translateMapping.tie : settlementResult?.blue ? translateMapping.blueWin : translateMapping.redWin}
         </div>
     );
