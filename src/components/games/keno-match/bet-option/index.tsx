@@ -29,10 +29,7 @@ const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
 
     useEffect(() => {
         const actionByGameState = {
-            [KenoMatchGameStateEnum.ShowFullTimeSettlementResult]: () => {
-                updateHighlightType(HighlightType.Background);
-            },
-            [KenoMatchGameStateEnum.ShowHalfTimeSettlementResult]: () => {
+            [KenoMatchGameStateEnum.ShowSettlementResult]: () => {
                 updateHighlightType(HighlightType.Background);
             },
             [KenoMatchGameStateEnum.FullTimePlacingBet]: () => {
