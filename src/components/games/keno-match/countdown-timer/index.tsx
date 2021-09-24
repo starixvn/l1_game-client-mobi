@@ -1,9 +1,10 @@
 import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
-import Loader from "../../../shared/loader";
 import Styles from "../../../shared/countdown-timer/countdown-timer.module.scss";
-import { KenoMatchGameState, KenoMatchGameStateEnum, KenoMatchGameDurations, TimerProps } from "../type";
+import Loader from "../../../shared/loader";
+import { KenoMatchGameDurations, KenoMatchGameState, KenoMatchGameStateEnum, TimerProps } from "../type";
 
 interface GameStatusWithTimerProps {
     duration: number;
@@ -59,8 +60,7 @@ const KenoCountdownTimer: React.FC = () => {
                 />
             );
 
-        case KenoMatchGameStateEnum.ShowHalfTimeResult:
-        case KenoMatchGameStateEnum.ShowFullTimeResult:
+        case KenoMatchGameStateEnum.ShowResult:
             return <Loader />;
         default:
             return <GameStatusAndShowResult />;

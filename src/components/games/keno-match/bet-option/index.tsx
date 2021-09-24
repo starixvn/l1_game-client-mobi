@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { GameState } from "../../../shared/game-base/type";
-import { HighlightType } from "../../../shared/bet-option/types";
+
 import BetOption from "../../../shared/bet-option";
-import { KenoMatchGameStateEnum, KenoMatchGameState } from "../type";
+import { HighlightType } from "../../../shared/bet-option/types";
+import { GameState } from "../../../shared/game-base/type";
+import { KenoMatchGameState, KenoMatchGameStateEnum } from "../type";
 
 interface KenoMatchBetOptionProps {
     choice: string;
@@ -12,7 +13,7 @@ interface KenoMatchBetOptionProps {
     isDisplayOdd?: boolean;
     gameState: GameState;
     isShowWinningEffect: boolean;
-    bettypeName: string
+    bettypeName: string;
 }
 
 const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
@@ -59,8 +60,7 @@ const KenoMatchBetOption: React.FunctionComponent<KenoMatchBetOptionProps> = ({
         isHighlightTypeCustom: true,
         highlightTypeCustom: highlightType,
         isShowBettype: true,
-        bettypeName
-
+        bettypeName,
     };
 
     return <BetOption {...betOptionProps}>{children}</BetOption>;

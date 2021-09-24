@@ -1,5 +1,6 @@
 import { render } from "@testing-library/react";
 import React from "react";
+
 import { KenoMatchGameStateEnum } from "../type";
 import KenoMatchBetOption from "./";
 
@@ -31,13 +32,12 @@ describe("KenoMatchBetOption", () => {
     });
 
     test.each`
-        gameState                                              | expectedResult
-        ${KenoMatchGameStateEnum.ShowFullTimeSettlementResult} | ${1}
-        ${KenoMatchGameStateEnum.ShowHalfTimeSettlementResult} | ${1}
-        ${KenoMatchGameStateEnum.FullTimePlacingBet}           | ${1}
-        ${KenoMatchGameStateEnum.HalfTimePlacingBet}           | ${1}
-        ${KenoMatchGameStateEnum.HalfTimeLockingBet}           | ${0}
-        ${KenoMatchGameStateEnum.FullTimeLockingBet}           | ${0}
+        gameState                                      | expectedResult
+        ${KenoMatchGameStateEnum.ShowSettlementResult} | ${1}
+        ${KenoMatchGameStateEnum.FullTimePlacingBet}   | ${1}
+        ${KenoMatchGameStateEnum.HalfTimePlacingBet}   | ${1}
+        ${KenoMatchGameStateEnum.HalfTimeLockingBet}   | ${0}
+        ${KenoMatchGameStateEnum.FullTimeLockingBet}   | ${0}
     `("should render active classname correctly", ({ gameState, expectedResult }) => {
         const betOptionProps = {
             choice: "fhBlue",
