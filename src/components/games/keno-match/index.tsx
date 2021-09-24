@@ -14,15 +14,20 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
-import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
+import {
+    calculateTotalPoint,
+    ChoiceForTabActive,
+    Choices,
+    defaultResult,
+    FakeSettlementResult,
+    StatisticRuleMapping,
+} from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import RoundSettlement from "./round-result/round-settlement";
 import ProgressBar from "./round-result/progress-bar";
-import { calculateTotalPoint } from "./keno-match-helper";
+import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
-    KenoMatchGameDurations,
     KenoMatchGameState,
     KenoMatchGameStateEnum,
     KenoMatchProps,
@@ -54,6 +59,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 roundHistoryFH: [],
                 roundHistoryFT: [],
                 isJoiningAtMiddleShowInlineResult: false,
+                isFirstHalf: false,
+                isShowSettlementResult: false,
             },
         };
     }
@@ -89,7 +96,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     renderBetOptions() {
         const { gameState, settlementResult, isActiveLiveFullTime, showWinningAnimation, liveOdds } = this.state;
-        const kenoMatchGameState = gameState as KenoMatchGameState;
 
         const betOptionsProps = {
             liveOdds,
@@ -99,14 +105,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             isActiveLiveFullTime: isActiveLiveFullTime,
         };
 
-        const isShowOverlay =
-            kenoMatchGameState === KenoMatchGameStateEnum.LockingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowResult ||
-            kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult;
+        const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
 
         return (
             <div>
                 {isShowOverlay && <OverlayMaskWhite />}
+                {this.renderResultSection()}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -114,15 +118,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     renderResultSection() {
         const { gameName } = this.props;
-        const { gameState, isActiveLiveFullTime, fullTimeResult, halfTimeResult, settlementResult } = this.state;
-        const kenoMatchGameState = gameState as KenoMatchGameState;
+        const {
+            isFirstHalf,
+            isActiveLiveFullTime,
+            fullTimeResult,
+            halfTimeResult,
+            settlementResult,
+            isShowSettlementResult,
+            showResultInfo,
+        } = this.state;
 
-        if (kenoMatchGameState === KenoMatchGameStateEnum.ShowResult) {
-            return <AnimationResult isFirstHalf={!isActiveLiveFullTime} result={isActiveLiveFullTime ? fullTimeResult : halfTimeResult} />;
+        if (showResultInfo) {
+            return <AnimationResult isFirstHalf={isFirstHalf} result={isActiveLiveFullTime ? fullTimeResult : halfTimeResult} />;
         }
 
-        if (kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult) {
-            return <RoundSettlement {...{ isActiveLiveFullTime, gameName: gameName.toLowerCase(), settlementResult }} />;
+        if (isShowSettlementResult) {
+            return <HalfRoundSettlement {...{ isActiveLiveFullTime: isFirstHalf, gameName: gameName.toLowerCase(), settlementResult }} />;
         }
 
         return <MainFrameResult {...{ halfTimeResult, fullTimeResult }} />;
@@ -234,7 +245,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
-        const durations = this.props.durations as KenoMatchGameDurations;
+        const durations = this.props.durations;
 
         if (gameState === GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
@@ -248,7 +259,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     handleGamePlay(remainingTime: number) {
-        const durations = this.props.durations as KenoMatchGameDurations;
+        const durations = this.props.durations;
 
         if (remainingTime === durations.resetResult) {
             this.setState({
@@ -257,9 +268,33 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             });
         }
 
+        if (remainingTime === durations.halfTimePlacingBets) {
+            this.setState({ roundId: this.state.roundId + 1 });
+        }
+
+        if (durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.fullTimePlacingBets) {
+            !this.state.isFirstHalf && this.setState({ isFirstHalf: true });
+        } else {
+            this.state.isFirstHalf && this.setState({ isFirstHalf: false });
+        }
+
+        if (
+            (durations.showFullTimeResult >= remainingTime && remainingTime < durations.showFullTimeSettlementResult) ||
+            (durations.showHalfTimeResult >= remainingTime && remainingTime < durations.showHalfTimeSettlementResult)
+        ) {
+            !this.state.showResultInfo && this.setState({ showResultInfo: true });
+        }
+
+        if (
+            (durations.showFullTimeSettlementResult >= remainingTime && remainingTime < durations.halfTimePlacingBets) ||
+            (durations.showHalfTimeSettlementResult >= remainingTime && remainingTime < durations.fullTimePlacingBets)
+        ) {
+            !this.state.isShowSettlementResult && this.setState({ isShowSettlementResult: true, showResultInfo: false });
+        }
+
         const newGameState = this.determineGameState(remainingTime);
 
-        const gameState = this.state.gameState as KenoMatchGameState;
+        const gameState = this.state.gameState;
 
         if (gameState !== newGameState) {
             const newState = {
@@ -267,65 +302,44 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 ...this.getStateByNextGameState(newGameState),
             };
 
-            this.setState(newState as any);
+            this.setState(newState);
         }
     }
 
     determineGameState(remainingTime: number) {
-        const durations = this.props.durations as KenoMatchGameDurations;
+        const durations = this.props.durations;
 
         switch (true) {
-            case remainingTime > durations.showFullTimeSettlementResult:
-                return KenoMatchGameStateEnum.ShowResult;
-            case remainingTime > durations.halfTimePlacingBets:
-                return KenoMatchGameStateEnum.ShowSettlementResult;
-            case remainingTime > durations.halfTimeLockingBet:
-                return KenoMatchGameStateEnum.HalfTimePlacingBet;
-            case remainingTime > durations.showHalfTimeResult:
-                return KenoMatchGameStateEnum.HalfTimeLockingBet;
-            case remainingTime > durations.showHalfTimeSettlementResult:
-                return KenoMatchGameStateEnum.ShowResult;
-            case remainingTime > durations.beforeStartFullTimePlacingBet:
-                return KenoMatchGameStateEnum.ShowSettlementResult;
-            case remainingTime > durations.fullTimePlacingBets:
-                return KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet;
-            case remainingTime > durations.fullTimeLockingBet:
-                return KenoMatchGameStateEnum.FullTimePlacingBet;
-            case remainingTime >= durations.showFullTimeResult:
-                return KenoMatchGameStateEnum.FullTimeLockingBet;
+            case (durations.wholeRound >= remainingTime && remainingTime > durations.halfTimePlacingBets) ||
+                (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.fullTimePlacingBets):
+                return GameState.DisplayResult;
+            case (durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.halfTimeLockingBet) ||
+                (durations.fullTimePlacingBets >= remainingTime && remainingTime > durations.fullTimeLockingBet):
+                return GameState.InRound;
+            case (durations.halfTimeLockingBet >= remainingTime && remainingTime > durations.showHalfTimeResult) ||
+                (durations.fullTimeLockingBet >= remainingTime && remainingTime >= 0):
+                return GameState.LockingBet;
 
             default:
-                return KenoMatchGameStateEnum.None;
+                return GameState.None;
         }
     }
 
-    getTimeCounter(remainingTime: number, gameState: KenoMatchGameState) {
-        switch (gameState) {
-            case KenoMatchGameStateEnum.HalfTimePlacingBet:
-            case KenoMatchGameStateEnum.FullTimePlacingBet:
-            case KenoMatchGameStateEnum.LockingBet:
-                return remainingTime;
-            default:
-                return 0;
-        }
-    }
-
-    getStateByNextGameState(nextGameState: KenoMatchGameStateEnum): any {
-        const { roundId, displayPopup, notice } = this.state;
+    getStateByNextGameState(nextGameState): any {
+        const { displayPopup, notice, removeBetChoiceFocus } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
-        if (nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet || nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet) {
+        if (nextGameState === GameState.InRound) {
             this.betWin = 0;
+        }
+
+        if (nextGameState === GameState.LockingBet) {
+            removeBetChoiceFocus && removeBetChoiceFocus();
         }
 
         const newStateDetector = [
             {
-                condition: [
-                    KenoMatchGameStateEnum.BeforeStartRound,
-                    KenoMatchGameStateEnum.HalfTimePlacingBet,
-                    KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
-                    KenoMatchGameStateEnum.FullTimePlacingBet,
-                ].includes(nextGameState),
+                condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState),
                 state: {
                     ownBets: {},
                     totalBets: {},
@@ -334,24 +348,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                     isShowBlinkFT: false,
                     playResultAnimation: false,
                     showResultInfo: false,
+                    isShowSettlementResult: false,
                     betPercentage: {},
                 },
             },
             {
-                condition: nextGameState === KenoMatchGameStateEnum.HalfTimePlacingBet,
-                state: {
-                    roundId: roundId + 1,
-                    isActiveLiveFullTime: false,
-                },
-            },
-            {
-                condition: nextGameState === KenoMatchGameStateEnum.FullTimePlacingBet,
-                state: {
-                    isActiveLiveFullTime: true,
-                },
-            },
-            {
-                condition: nextGameState === KenoMatchGameStateEnum.LockingBet,
+                condition: GameState.LockingBet,
                 state: {
                     isShowBlinkFH: true,
                     displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
@@ -428,7 +430,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         this.storeOwnBet(roundId);
         const newState = {
-            gameState: KenoMatchGameStateEnum.ShowResult,
             halfTimeResult: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
             playResultAnimation: true,
@@ -474,7 +475,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         roundHistoryFTClone.unshift(finish);
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
         const newState = {
-            gameState: KenoMatchGameStateEnum.ShowResult,
             fullTimeResult: finish.result,
             settlementResult: finish.settlementResult,
             liveOdds: null,
@@ -505,7 +505,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleStatus = ({ status }) => {
         const { win, bet } = status;
-        const durations = this.props.durations as KenoMatchGameDurations;
+        const durations = this.props.durations;
 
         if (win) {
             setTimeout(() => {
@@ -561,7 +561,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderGameHeader() {
-        const { gameState } = this.state,
+        const { gameState, isFirstHalf } = this.state,
             kenoGameState = gameState as KenoMatchGameState;
 
         const gameHeaderProps = {
@@ -571,7 +571,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
             ].includes(kenoGameState as KenoMatchGameStateEnum),
             isUpdateDisableRebet: kenoGameState !== KenoMatchGameStateEnum.HalfTimePlacingBet,
-            countdownTimerComponent: <KenoCountdownTimer />,
+            countdownTimerComponent: <KenoCountdownTimer isFistHalf={isFirstHalf} />,
         };
 
         return <GameHeader {...gameHeaderProps} />;

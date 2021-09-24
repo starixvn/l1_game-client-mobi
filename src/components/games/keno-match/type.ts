@@ -80,6 +80,7 @@ export interface KenoMatchGameSetting extends GameSettings {
 
 export interface KenoMatchProps extends GameBaseProps {
     GameSetting: KenoMatchGameSetting;
+    durations: KenoMatchGameDurations;
 }
 
 export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBaseState<Result, SettlementResult> {
@@ -95,6 +96,8 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     isShowBlinkFH: boolean;
     isShowBlinkFT: boolean;
     isJoiningAtMiddleShowInlineResult: boolean;
+    isFirstHalf: boolean;
+    isShowSettlementResult: boolean;
 }
 
 export interface TimerProps {

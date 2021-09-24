@@ -3,8 +3,9 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "../../../shared/countdown-timer/countdown-timer.module.scss";
+import { GameState } from "../../../shared/game-base/type";
 import Loader from "../../../shared/loader";
-import { KenoMatchGameDurations, KenoMatchGameState, KenoMatchGameStateEnum, TimerProps } from "../type";
+import { KenoMatchGameDurations, TimerProps } from "../type";
 
 interface GameStatusWithTimerProps {
     duration: number;
@@ -13,54 +14,37 @@ interface GameStatusWithTimerProps {
     isStarBetting: boolean;
 }
 
-const KenoCountdownTimer: React.FC = () => {
-    const { gameState, remainingTime, gameSetting } = useGameContext(),
-        durationSetting = gameSetting.durations as KenoMatchGameDurations,
-        { halfTimeDuration, showHalfTimeResult, fullTimeDuration, showFullTimeResult } = durationSetting,
-        kenoMatchGameState = gameState as KenoMatchGameState;
+type Props = {
+    isFistHalf: boolean;
+};
 
-    switch (kenoMatchGameState) {
-        case KenoMatchGameStateEnum.HalfTimePlacingBet:
+const KenoCountdownTimer: React.FC<Props> = ({ isFistHalf }) => {
+    const { gameState, remainingTime, gameSetting } = useGameContext();
+    const { halfTimePlacingBets, showHalfTimeResult, fullTimePlacingBets } = gameSetting.durations as KenoMatchGameDurations;
+    const duration = isFistHalf ? halfTimePlacingBets - showHalfTimeResult : fullTimePlacingBets;
+
+    switch (gameState) {
+        case GameState.InRound:
             return (
                 <GameStatusAndTimer
-                    duration={halfTimeDuration}
+                    duration={duration}
                     initialRemainingTime={remainingTime - showHalfTimeResult}
                     lockingBet={false}
                     isStarBetting={true}
                 />
             );
 
-        case KenoMatchGameStateEnum.FullTimePlacingBet:
+        case GameState.LockingBet:
             return (
                 <GameStatusAndTimer
-                    duration={fullTimeDuration}
-                    initialRemainingTime={remainingTime - showFullTimeResult}
-                    lockingBet={false}
-                    isStarBetting={true}
-                />
-            );
-
-        case KenoMatchGameStateEnum.LockingBet:
-            return (
-                <GameStatusAndTimer
-                    duration={halfTimeDuration}
+                    duration={duration}
                     initialRemainingTime={remainingTime - showHalfTimeResult}
                     lockingBet={true}
                     isStarBetting={false}
                 />
             );
 
-        // case KenoMatchGameStateEnum.FullTimeLockingBet:
-        //     return (
-        //         <GameStatusAndTimer
-        //             duration={fullTimeDuration}
-        //             initialRemainingTime={remainingTime - showFullTimeResult}
-        //             lockingBet={true}
-        //             isStarBetting={false}
-        //         />
-        //     );
-
-        case KenoMatchGameStateEnum.ShowResult:
+        case GameState.DisplayResult:
             return <Loader />;
         default:
             return <GameStatusAndShowResult />;
