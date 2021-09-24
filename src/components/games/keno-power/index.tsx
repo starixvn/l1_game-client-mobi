@@ -61,11 +61,15 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         };
     }
 
+    renderResultSection() {
+        const { result, md5 } = this.state;
+        return <RoundResult result={result} md5={md5} />;
+    }
+
     renderBetOptions() {
-        const { gameState, settlementResult, result, showWinningAnimation, md5 } = this.state;
+        const { gameState, settlementResult, showWinningAnimation } = this.state;
         return (
             <>
-                <RoundResult result={result} md5={md5} />
                 <KenoPowerOptions
                     gameState={gameState}
                     settlementResult={settlementResult ?? this.getFakeSettlementResult()}
