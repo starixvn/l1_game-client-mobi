@@ -16,6 +16,13 @@
     --mini-round-history-background: #203040;
 }
 
+[data-theme="light"] .md5-section {
+    --md5-bg-color: #DCE2F3;
+}
+[data-theme="dark"] .md5-section {
+    --md5-bg-color: #2F3956;
+}
+
 .bet-options {
     position: relative;
     height: 23.1rem;
