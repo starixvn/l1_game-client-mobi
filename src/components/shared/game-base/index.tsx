@@ -93,7 +93,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betOptionElement: null,
         betChoiceElement: null,
         activeScoreboardTab: 0,
-        md5: ''
+        md5: "",
+        md5ResultKey: "",
     };
 
     constructor(props: P) {
@@ -888,10 +889,32 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
+    getStringInBetween(wholeString: string, start: string, end: string) {
+        let indexOfStart = wholeString.indexOf(start);
+        indexOfStart = indexOfStart + start.length;
+
+        const newString = wholeString.slice(indexOfStart);
+        const indexOfEnd = newString.indexOf(end);
+
+        return newString.slice(0, indexOfEnd);
+    }
+
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
-        const md5Text = showMD5ResultKey ? `Key: ${md5ResultKey}` : `MD5: ${md5}`;
-        const md5ClassName = showMD5ResultKey ? "md5-result" : "md5-key";
+        let md5Text = <div>MD5: {md5}</div>,
+            md5ClassName = "md5-key";
+
+        if (showMD5ResultKey) {
+            const key = md5ResultKey.split("]")[1];
+            const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
+            md5Text = (
+                <div>
+                    Key: [<span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>]
+                    <span>{key}</span>
+                </div>
+            );
+            md5ClassName = "md5-result";
+        }
 
         if (!this.props.supportMD5) {
             return <></>;

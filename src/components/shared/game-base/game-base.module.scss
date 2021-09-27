@@ -75,6 +75,15 @@
     display: flex;
     justify-content: space-between;    
     cursor: pointer !important;
+    
+    .blue {
+        color: #2E73C3;
+    }
+    
+    .red {
+        color: #FF4352;
+    } 
+
     .text {
         animation: fadeIn .3s linear forwards;
         animation-delay: 0;
@@ -114,10 +123,7 @@
             border-radius: 5px;
         }
     }
-    
 }
-
-
 
 @keyframes fadeIn {
     from {
