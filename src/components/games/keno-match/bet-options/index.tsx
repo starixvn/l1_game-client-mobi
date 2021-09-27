@@ -1,12 +1,12 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { GameState } from "../../../shared/game-base/type";
-import { SettlementResult } from "../type";
-import { KenoMatchConfigs } from "../keno-match-helper";
-import Styles from "./bet-options.module.scss";
-import { choicesMapper } from "../keno-match-helper";
 import KenoMatchBetOption from "../bet-option";
+import { choicesMapper, KenoMatchConfigs } from "../keno-match-helper";
+import { SettlementResult } from "../type";
+import Styles from "./bet-options.module.scss";
 
 interface KenoMatchBetOptionsProps {
     settlementResult: SettlementResult;
@@ -51,7 +51,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                             {halfMatchConfig.isActive && (
                                 <div className={Styles["title-right"]}>
                                     <span>{t("betInvite")}</span>
-                                   {!isFirstHalf && <img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]} />}
+                                    {!isFirstHalf && <img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]} />}
                                 </div>
                             )}
                         </div>
