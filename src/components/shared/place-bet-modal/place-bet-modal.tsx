@@ -16,7 +16,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const { betValue } = useSystemContext();
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const {betChoiceInfo} = props,
-     { betChoice, odd } = betChoiceInfo;
+     { betChoice, odd, gameName } = betChoiceInfo;
 
     const [positionStyle, setPositionStyle] = useState(null);
     const [arrowStyle, setArrowStyle] = useState("");
@@ -94,7 +94,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     !title ? Styles["has-empty-title"] : ""
                 }`}
             >
-                <div className={Styles["place-bet-container"]}>
+                <div className={`${Styles["place-bet-container"]} ${Styles[gameName.toLocaleLowerCase()]}`}>
                     <div className={`w-100 ${Styles["general-info"]}`}>
                         <div className={Styles["left"]}>
                             {betChoiceInfo.isShowBettype &&  <span className="font-weight-bold" style={{display: "inline-block"}}>{t(betChoiceInfo.bettypeName)}</span>}
