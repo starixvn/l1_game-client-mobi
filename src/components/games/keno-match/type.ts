@@ -42,10 +42,10 @@ export type Odd = {
 
 export interface HalfRoundResult {
     md5?: string;
-    result: Result;
-    resultKey: string;
+    result?: Result;
+    resultKey?: string;
     sum?: number;
-    settlementResult: SettlementResult;
+    settlementResult?: SettlementResult;
     time?: string;
     totalBlue?: number;
     totalRed?: number;

@@ -370,12 +370,12 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                     !isShowBetLogDetails && <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
                 )}
 
-                {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+                {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
 
                 {isShowBetLogDetails && (
                     <BetHistoryDetailsContainer
                         renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
-                        renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
+                        renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
                         isShowResultDetail={isShowResultDetail}
                         closeModalBetDetails={closeModalBetLogDetails}
                         closeModalBetHistory={closeModal}

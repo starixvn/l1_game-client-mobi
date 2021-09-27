@@ -149,14 +149,14 @@ export type GameGuide = {
 };
 
 export interface BetLogsBase<Result, SettlementResult, Odd> {
-    betLogDetails: [];
-    betwin: number;
-    freeBet: boolean;
-    name: string;
-    phien: number;
-    result: Result;
-    settlementResult: SettlementResult;
-    time: string;
+    betLogDetails?: [];
+    betwin?: number;
+    freeBet?: boolean;
+    name?: string;
+    phien?: number;
+    result?: Result;
+    settlementResult?: SettlementResult;
+    time?: string;
     odds?: Odd;
 }
 

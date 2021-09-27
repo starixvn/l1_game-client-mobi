@@ -1,10 +1,6 @@
-import { TFunction } from "next-i18next";
 import React from "react";
 
-import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
-import { GameResourceKeys } from "../../../../../common/resources";
 import { Choices } from "../../keno-match-helper";
-import { GetTranslateMapping } from "../../../../keno/keno.helper";
 import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import { StateRound } from "../bet-history-hepler";
 import TeamResult from "../../../../keno/team-result";
@@ -19,26 +15,26 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
                 <TeamResult result={blue} customClassName={"ticket-history"} />
-                <TeamScore teamName={translateMapping.blue} score={blueScore} isWin={blueScore > redScore} customClassName={"blue"} />
+                <TeamScore teamName={translateMapping?.blue} score={blueScore} isWin={blueScore > redScore} customClassName={"blue"} />
             </div>
             <div>
                 <div className={Styles["round-name"]}>
-                    {stateRound === StateRound.ft ? translateMapping.fullTime : translateMapping.firstHalf}
+                    {stateRound === StateRound.ft ? translateMapping?.fullTime : translateMapping.firstHalf}
                 </div>
                 <div className={Styles["total-match-section"]}>
-                    {translateMapping.sum}
+                    {translateMapping?.sum}
                     <div className={Styles["total"]}>{total}</div>
                 </div>
             </div>
 
             <div className={Styles["container-red"]}>
                 <TeamResult result={red} customClassName={"ticket-history"} />
-                <TeamScore teamName={translateMapping.red} score={redScore} isWin={redScore > blueScore} customClassName={"red"} />
+                <TeamScore teamName={translateMapping?.red} score={redScore} isWin={redScore > blueScore} customClassName={"red"} />
             </div>
 
             <div className={Styles["winning-info"]}>
                 {renderTextWinningForTeam({ settlementResult, translateMapping })}
-                <div className={Styles["sum"]}> {translateMapping.sum}</div>
+                <div className={Styles["sum"]}> {translateMapping?.sum}</div>
                 <div className={Styles["result-info"]}>{renderWinningInfo({ settlementResult, translateMapping })}</div>
             </div>
         </div>
@@ -48,7 +44,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
 const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
     const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
     return (
-        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
+        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`} data-testid="text-winning-info">
             {settlementResult?.tie ? translateMapping.tie : settlementResult?.blue ? translateMapping.blueWin : translateMapping.redWin}
         </div>
     );
@@ -68,33 +64,26 @@ const renderWinningInfo = ({ settlementResult, translateMapping }) => {
     });
 };
 
-const ResultDetail = (resultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
-    if (resultDetail) {
-        const { bet, roundId } = resultDetail;
-        const { firstHalf, fullTime } = bet;
-        const translateMapping = GetTranslateMapping(t, gameName);
-        return (
-            <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
-                <div className={Styles["result-details"]} data-testid="result-details">
-                    {renderScoreRounds({
-                        result: firstHalf?.result,
-                        stateRound: StateRound.ht,
-                        translateMapping,
-                        total: firstHalf?.sum,
-                        settlementResult: firstHalf?.settlementResult,
-                    })}
-                    {renderScoreRounds({
-                        result: fullTime?.result,
-                        stateRound: StateRound.ft,
-                        translateMapping,
-                        total: fullTime?.sum,
-                        settlementResult: fullTime?.settlementResult,
-                    })}
-                </div>
-            </ResultDetailContainer>
-        );
-    }
-    return <></>;
+const RenderScoreDetailKenoMatch = ({ bet, translateMapping }) => {
+    const { firstHalf, fullTime } = bet;
+    return (
+        <>
+            {renderScoreRounds({
+                result: firstHalf?.result,
+                stateRound: StateRound.ht,
+                translateMapping,
+                total: firstHalf?.sum,
+                settlementResult: firstHalf?.settlementResult,
+            })}
+            {renderScoreRounds({
+                result: fullTime?.result,
+                stateRound: StateRound.ft,
+                translateMapping,
+                total: fullTime?.sum,
+                settlementResult: fullTime?.settlementResult,
+            })}
+        </>
+    );
 };
 
-export default ResultDetail;
+export default RenderScoreDetailKenoMatch;

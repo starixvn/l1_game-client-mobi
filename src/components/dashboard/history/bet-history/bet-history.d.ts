@@ -20,7 +20,13 @@ export type PropsBetContainer = {
         t?: TFunction
     ) => JSX.Element;
     renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
-    renderResultDetail?: (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => JSX.Element;
+    renderResultDetail?: (
+        resultDetail: ResultDetail,
+        t: TFunction,
+        closeModal: () => void,
+        gameName: string,
+        gameId?: number
+    ) => JSX.Element;
     closeModal?: () => void;
     renderBetLogsDetails?: Function;
     nameHeaderOnTable?: string[];
