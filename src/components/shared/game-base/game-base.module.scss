@@ -85,8 +85,15 @@
     } 
 
     .text {
-        animation: fadeIn .3s linear forwards;
-        animation-delay: 0;
+       
+        &.md5-key {
+            animation: fadeIn .3s linear forwards;
+            animation-delay: 0;
+        }
+         &.md5-result {
+            animation: shakeX .3s linear forwards;
+            animation-delay: 0;
+        }
     }
     .copy-box {
         width: 1.8rem;
@@ -125,14 +132,40 @@
     }
 }
 
+@keyframes shakeX {
+    from,
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      -webkit-transform: translate3d(-10px, 0, 0);
+      transform: translate3d(-10px, 0, 0);
+    }
+  
+    20%,
+    40%,
+    60%,
+    80% {
+      -webkit-transform: translate3d(10px, 0, 0);
+      transform: translate3d(10px, 0, 0);
+    }
+}
+
 @keyframes fadeIn {
-    from {
+    from{
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
+
+
 
 
