@@ -51,7 +51,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                             {halfMatchConfig.isActive && (
                                 <div className={Styles["title-right"]}>
                                     <span>{t("betInvite")}</span>
-                                    <img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]} />
+                                   {!isFirstHalf && <img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]} />}
                                 </div>
                             )}
                         </div>
