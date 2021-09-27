@@ -1,16 +1,15 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import TeamResult from "../../keno/team-result";
-import GameBase from "../../shared/game-base";
 
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import GameBase from "../../shared/game-base";
+import { GameBaseProps, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoPowerOptions from "./bet-options";
-import { KenoPowerGameState, Result, SettlementResult } from "./keno-power";
-import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-power-helper";
+import { KenoPowerGameState } from "./keno-power";
+import { ChoiceForTabActive, Choices, StatisticRuleMapping } from "./keno-power-helper";
 import { RoundResult } from "./round-result";
 
 class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
@@ -18,6 +17,10 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         super(props);
 
         this.state = { ...this.defaultState, result: { red: Array<number>(20), blue: Array<number>(20) }, md5: "" };
+    }
+
+    get isShowInlineResult() {
+        return true;
     }
 
     retryConnect = () => {

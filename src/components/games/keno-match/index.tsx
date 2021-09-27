@@ -8,6 +8,7 @@ import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
 import GameHeader from "../../shared/game-header";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
+import ProgressBar from "../../shared/progress-bar";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -112,6 +113,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
+    }
+
+    get isShowInlineResult() {
+        return true;
     }
 
     renderResultSection() {
@@ -538,8 +543,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderGameHeader() {
-        const { gameState, isFirstHalf } = this.state,
-            kenoGameState = gameState as KenoMatchGameState;
+        const { gameState, isFirstHalf } = this.state;
 
         const gameHeaderProps = {
             isShowCollapse: [GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState),

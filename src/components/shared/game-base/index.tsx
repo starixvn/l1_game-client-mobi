@@ -866,10 +866,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return <GameHeader {...gameHeaderProps} />;
     }
 
+    get isShowInlineResult() {
+        return false;
+    }
+
     renderResultSection() {
         return null;
     }
-    
+
     copyToClipboard(event: any) {
         event.preventDefault();
 
@@ -879,7 +883,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleMD5({ md5 }) {
         this.setState({
-            md5
+            md5,
         });
     }
 
@@ -964,7 +968,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {this.renderGameHeader()}
                     {viewMode !== ViewMode.collapse && (
                         <>
-                            {this.renderResultSection && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            {this.isShowInlineResult && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
                             {this.renderMD5()}
                             <BetContainer gameState={gameState} isInRound={this.isInRoundState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
