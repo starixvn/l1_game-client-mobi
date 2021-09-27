@@ -1,12 +1,11 @@
 import React from "react";
 
-import { renderHeaderRows, renderTimes } from "../../../../dashboard/history/bet-history";
+import { renderTimes } from "../../../../dashboard/history/bet-history";
 import { BetLogs, BetDetailProps } from "./../bet-history";
-import { GetTranslateMapping } from "../../keno-match-helper";
-import { detectStateRound, StateRound } from "../index";
+import { detectStateRound, StateRound } from "../bet-history-hepler";
 import Styles from "../bet-history.module.scss";
 
-const RenderCell: React.FC<{
+const RenderCellKenoPower: React.FC<{
     betDetail: BetDetailProps;
     bet: BetLogs;
     translateMapping;
@@ -61,51 +60,4 @@ const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
     return labelChoice;
 };
 
-const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail }) => {
-    if (betLog) {
-        const { bet, roundId } = betLog;
-        const { betLogDetails } = bet ?? [];
-        const headerName = ["roundTime", "betType", "betChoice", "refund"];
-
-        const clickOpenDetails = () => {
-            setIsShowResultDetail(true);
-        };
-
-        const translateMapping = GetTranslateMapping(t, gameName);
-
-        return (
-            <>
-                <div className={Styles["top-title"]}>
-                    <div>
-                        {t(`${gameName}:game_name`)} - {t("round")}: {roundId}
-                    </div>
-                    <div onClick={() => clickOpenDetails()} data-testid="info-results-details">
-                        {t("result")}:<span className={Styles["details"]}>{t("details")}</span>
-                    </div>
-                </div>
-                <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`} data-testid="bet-history-details">
-                    <table className="table text-center">
-                        <thead>{renderHeaderRows({ headerName, t })}</thead>
-                        <tbody>
-                            {betLogDetails?.length > 0 &&
-                                betLogDetails.map((betLog: any, index: number) => {
-                                    return (
-                                        <tr key={index} className={bet.betwin > 0 ? "highlight" : ""}>
-                                            {RenderCell({
-                                                betDetail: betLog,
-                                                bet: bet,
-                                                translateMapping: translateMapping,
-                                            })}
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
-                    </table>
-                </div>
-            </>
-        );
-    }
-    return <></>;
-};
-
-export default BetLogsDetails;
+export default RenderCellKenoPower;

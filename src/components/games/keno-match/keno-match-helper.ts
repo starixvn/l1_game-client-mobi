@@ -1,9 +1,6 @@
 import { TFunction } from "next-i18next";
 import { StatisticRuleEntriesEvenOdd, StatisticRuleEntriesBlueRed } from "../../keno/keno.helper";
 
-const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
-export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
-
 export const resetValue = 0;
 const buildDefaultResult = () => {
     let index = 10;
@@ -183,26 +180,6 @@ export const KenoMatchConfigs = {
         },
     },
 };
-
-export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
-    return {
-        firstHalf: t(`${gameName}:firstHalf`),
-        fullTime: t(`${gameName}:fullTime`),
-        blue: t(`${gameName}:blue`),
-        red: t(`${gameName}:red`),
-        over: t(`${gameName}:over`),
-        under: t(`${gameName}:under`),
-        odd: t(`${gameName}:odd`),
-        even: t(`${gameName}:even`),
-        live: t(`${gameName}:live`),
-        sum: t(`${gameName}:sum`),
-        total: t(`${gameName}:total`),
-        blueWin: t(`${gameName}:blueWin`),
-        redWin: t(`${gameName}:redWin`),
-        tie: t(`${gameName}:tie`),
-    };
-};
-
 export const StatisticRuleEntriesOverUnder = Object.entries({
     [Choices.over]: (countResult: object, total: number) =>
         countResult[Choices.over] ? Math.round((countResult[Choices.over] * 100) / total) : 0,

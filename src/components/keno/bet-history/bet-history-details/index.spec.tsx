@@ -4,6 +4,7 @@ import { useTranslation } from "next-i18next";
 import BetLogsDetails from "./";
 
 describe("KenoMatch BetHistory", () => {
+    const gameId = 36;
     describe("Users have  bet, should render data on bet-history ", () => {
         // Arrange
         const gameName = "kenomatch1";
@@ -43,7 +44,7 @@ describe("KenoMatch BetHistory", () => {
         const resultDetail = { bet: { firstHalf, fullTime, betLogDetails, odds }, roundId: 23230 };
 
         const { t } = useTranslation(["bethistory", gameName]);
-        const resource = { betLog: resultDetail, gameName, t, setIsShowResultDetail: jest.fn };
+        const resource = { betLog: resultDetail, gameName, t, setIsShowResultDetail: jest.fn, gameId };
 
         test("should render correctly", () => {
             // Act
@@ -89,7 +90,7 @@ describe("KenoMatch BetHistory", () => {
         const gameName = "kenomatch1";
 
         const { t } = useTranslation(["bethistory", gameName]);
-        const resource = { betLog: [], gameName, t, setIsShowResultDetail: jest.fn };
+        const resource = { betLog: [], gameName, t, setIsShowResultDetail: jest.fn, gameId };
 
         test("should render correctly", () => {
             // Act
@@ -107,7 +108,7 @@ describe("KenoMatch BetHistory", () => {
         const gameName = "";
 
         const { t } = useTranslation(["bethistory", gameName]);
-        const resource = { betLog: null, gameName, t, setIsShowResultDetail: jest.fn };
+        const resource = { betLog: null, gameName, t, setIsShowResultDetail: jest.fn, gameId };
 
         test("should render correctly", () => {
             // Act

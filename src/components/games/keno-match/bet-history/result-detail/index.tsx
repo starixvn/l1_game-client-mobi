@@ -3,8 +3,10 @@ import React from "react";
 
 import ResultDetailContainer from "../../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../../common/resources";
-import { calculateTotalPoint, GetTranslateMapping, Choices } from "../../keno-match-helper";
-import { StateRound } from "../index";
+import { Choices } from "../../keno-match-helper";
+import { GetTranslateMapping } from "../../../../keno/keno.helper";
+import { calculateTotalPoint } from "../../../../keno/keno.helper";
+import { StateRound } from "../bet-history-hepler";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
 import Styles from "../bet-history.module.scss";

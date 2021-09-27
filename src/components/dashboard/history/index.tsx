@@ -6,7 +6,7 @@ import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
 import FishPrawnCrabBetHistory from "../../games/fish-prawn-crab/bet-history";
-import KenoMatchBetHistory from "../../games/keno-match/bet-history";
+import KenoBetHistory from "../../keno/bet-history";
 import KenoProMaxBetHistory from "../../games/keno-pro-max/bet-history";
 import SeDieBetHistory from "../../games/se-die/bet-history";
 import SeDieSpecialBetHistory from "../../games/special-sedie/bet-history";
@@ -45,7 +45,9 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
                 return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 36:
             case 37:
-                return <KenoMatchBetHistory key={selectedGameId} gameId={selectedGameId} closeModal={closeModal} />;
+            case 40:
+            case 41:
+                return <KenoBetHistory key={selectedGameId} gameId={selectedGameId} closeModal={closeModal} />;
             default:
                 return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
         }

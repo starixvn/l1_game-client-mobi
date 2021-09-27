@@ -15,14 +15,8 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
-import {
-    calculateTotalPoint,
-    ChoiceForTabActive,
-    Choices,
-    defaultResult,
-    FakeSettlementResult,
-    StatisticRuleMapping,
-} from "./keno-match-helper";
+import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
+import { calculateTotalPoint } from "../../keno/keno.helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
 import HalfRoundSettlement from "./round-result/round-settlement";

@@ -1,62 +1,10 @@
-@import "../../../../assets/components/settlement-info";
-[data-theme="light"] .result-detail {
-    --popup-result-title-color: #2c2f3e;
-}
+@import "../../../keno/bet-history/bet-history.module";
 
-[data-theme="dark"] .result-detail {
-    --popup-result-title-color: #fff;
-}
-
-.details {
-    cursor: pointer;
-    color: #04a5ff;
-    padding-left: 0.4rem;
-}
-
-.bet-logs-table {
-    overflow-y: auto;
-    thead th {
-        z-index: 250 !important;
-    }
-
-    .bet-type,
-    .bet-choice {
-        text-align: left;
-    }
-
-    .stake-refund {
-        text-align: right;
-    }
-
-    .refund {
-        color: red;
-    }
-}
-
-.result-details {
-    .score-row {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        grid-gap: 0.4rem 0.4rem;
-    }
-    .blue-label {
-        color: #3b7bc6;
-    }
-    .red-label {
-        color: #ff4352;
-    }
-}
-
-.top-title {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.6rem 0;
-}
 .overwidth {
     width: calc(100% + 2rem);
     margin: 0 -1rem;
 }
+
 .container-round {
     display: grid;
     grid-template-columns: 12rem 7.8rem 12rem;
@@ -75,14 +23,14 @@
     .round-name {
         text-align: center;
         font-size: 1.2rem;
-        font-weight: bold; 
+        font-weight: bold;
         position: relative;
-        top: -.4rem;   
+        top: -0.4rem;
     }
     .total-match-section {
         text-align: center;
-        font-size: 1.2rem;        
-        line-height: .7rem;
+        font-size: 1.2rem;
+        line-height: 0.7rem;
         position: relative;
         top: 1.2rem;
         .total {
@@ -109,16 +57,17 @@
     color: #5e5e5e;
     font-weight: 500;
 }
+
 .winning-info {
     grid-column: 1/4;
-    position: relative;    
+    position: relative;
     text-align: center;
-    margin-top: .7rem;
-    padding-top: .5rem;
-    &:before{
-        content: '';
-        background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #C9C9C9 54.48%, rgba(222, 222, 222, 0) 100.12%);
-        height: .1rem;
+    margin-top: 0.7rem;
+    padding-top: 0.5rem;
+    &:before {
+        content: "";
+        background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
+        height: 0.1rem;
         width: 100%;
         position: absolute;
         left: 0;
@@ -132,13 +81,13 @@
         font-size: 1.8rem;
         font-weight: bold;
         &.blue {
-            color: #2E73C3;
+            color: #2e73c3;
         }
         &.red {
-            color: #FF4352;
+            color: #ff4352;
         }
     }
-    
+
     .result-info {
         justify-content: center;
         display: flex;

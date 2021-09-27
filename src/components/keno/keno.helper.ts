@@ -1,3 +1,6 @@
+import { TFunction } from "next-i18next";
+
+export const KenoMatchId = [36, 37];
 const Choices = {
     blue: "blue",
     red: "red",
@@ -24,3 +27,35 @@ export const StatisticRuleEntriesBlueRed = Object.entries({
         (countResult[Choices.blue] ? Math.round((countResult[Choices.blue] * 100) / total) : 0) -
         (countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0),
 });
+
+export const resetValue = 0;
+const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
+export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
+
+export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
+    return {
+        firstHalf: t(`${gameName}:firstHalf`),
+        fullTime: t(`${gameName}:fullTime`),
+        blue: t(`${gameName}:blue`),
+        red: t(`${gameName}:red`),
+        over: t(`${gameName}:over`),
+        under: t(`${gameName}:under`),
+        odd: t(`${gameName}:odd`),
+        even: t(`${gameName}:even`),
+        live: t(`${gameName}:live`),
+        sum: t(`${gameName}:sum`),
+        total: t(`${gameName}:total`),
+        blueWin: t(`${gameName}:blueWin`),
+        redWin: t(`${gameName}:redWin`),
+        tie: t(`${gameName}:tie`),
+        big: t(`${gameName}:big`),
+        small: t(`${gameName}:small`),
+        teamBlueRed: t(`${gameName}:teamBlueRed`),
+        sumBigSmall: t(`${gameName}:sumBigSmall`),
+        sumEvenOdd: t(`${gameName}:sumEvenOdd`),
+        teamRedBigSmall: t(`${gameName}:teamRedBigSmall`),
+        teamBlueBigSmall: t(`${gameName}:teamBlueBigSmall`),
+        teamBlueWin: t(`${gameName}:teamBlueWin`),
+        teamRedWin: t(`${gameName}:teamRedWin`),
+    };
+};

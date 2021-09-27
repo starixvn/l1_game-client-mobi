@@ -12,3 +12,9 @@ export interface BetLogs extends BetLogsBase<Result, SettlementResult, Odd> {
     water: number;
     wood: number;
 }
+
+export interface BetDetailProps {
+    amount: number;
+    time: string;
+    choice: string;
+}

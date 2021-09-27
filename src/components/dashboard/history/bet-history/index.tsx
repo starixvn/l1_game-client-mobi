@@ -374,7 +374,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
 
                 {isShowBetLogDetails && (
                     <BetHistoryDetailsContainer
-                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail })}
+                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
                         renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName)}
                         isShowResultDetail={isShowResultDetail}
                         closeModalBetDetails={closeModalBetLogDetails}

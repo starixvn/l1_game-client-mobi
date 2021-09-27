@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../../contexts/game-context/game-context";
 import TeamResult from "../../../../keno/team-result";
-import { calculateTotalPoint } from "../../keno-match-helper";
+import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import TeamScore from "../../../../keno/team-score";
 import MainFrameResultProps, { HalfRoundResultProps } from "./type";
 import Styles from "./main-frame-result.module.scss";
