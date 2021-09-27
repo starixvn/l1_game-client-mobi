@@ -1,3 +1,4 @@
+@import "../../../../../assets/components/result-label-collapse-mode";
 [data-theme="light"] .popup-result {
     --bg-color: linear-gradient(90deg, #d0e5ff 0%, #fff 47%, #fff 53%, #fed9d9 100%);
     --text-total-color: #5e5e5e;
@@ -54,6 +55,14 @@
     animation-fill-mode: forwards, forwards;
     animation-timing-function: linear, linear;
     background: var(--bg-color);
+}
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes fadeIn {
