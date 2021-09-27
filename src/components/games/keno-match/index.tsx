@@ -404,20 +404,20 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 : roundHistoryFH;
 
         this.storeOwnBet(roundId);
-        const newState = {
+
+        this.setState({
+            showResultInfo: true,
             halfTimeResult: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
             playResultAnimation: true,
             md5ResultKey: firstHalfResult.resultKey,
-        };
+        });
 
-        this.setState(newState as any);
-
-        const animationDuration = this.getFinishAnimationDuration();
+        const { durations } = this.props;
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
-        }, animationDuration);
+        }, durations.showHalfTimeResult - durations.showHalfTimeSettlementResult);
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
