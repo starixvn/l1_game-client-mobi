@@ -292,6 +292,10 @@ body {
     overscroll-behavior: contain;
 }
 
+.no-scroll-html {
+    overflow: hidden !important;
+}
+
 .no-scroll {
     overflow: hidden !important;
 
