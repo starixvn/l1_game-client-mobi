@@ -901,17 +901,17 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
-        let md5Text = <div>MD5: {md5}</div>,
+        let md5Text = <>MD5: {md5}</>,
             md5ClassName = "md5-key";
 
         if (showMD5ResultKey) {
             const key = md5ResultKey.split("]")[1];
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
-                <div>
+                <>
                     Key: [<span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>]
                     <span>{key}</span>
-                </div>
+                </>
             );
             md5ClassName = "md5-result";
         }
