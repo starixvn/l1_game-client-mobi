@@ -19,10 +19,12 @@ export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }:
     const [index, setIndex] = useState<number>(0);
     const [totalBlue, setTotalBlue] = useState<number>(0);
     const [totalRed, setTotalRed] = useState<number>(0);
+    const [showWinningTeam, setShowWinningTeam] = useState<boolean>(false);
 
     useEffect(() => {
         const interval = setInterval(() => {
             if (index === result.blue.length) {
+                setShowWinningTeam(true);
                 clearInterval(interval);
                 return;
             }
@@ -44,12 +46,12 @@ export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }:
         <div className={Styles["result-collapse-mode"]}>
             <div className={Styles["result-container"]}>
                 <div className={Styles["progress-extra"]}>
-                    <div className={Styles["score-red"]}>665</div>
-                    <div className={Styles["score-blue"]}>528</div>
+                    <div className={Styles["score-red"]}>{totalRed}</div>
+                    <div className={Styles["score-blue"]}>{totalBlue}</div>
                 </div>                
                 {progressBar}
             </div>
-            <div className={Styles["result-label"]}>{t(winningTeam)}</div>
+          {  showWinningTeam && <div className={Styles["result-label"]}>{t(winningTeam)}</div> }
         </div>
     ) : (
         <div className={Styles["popup-result"]}>

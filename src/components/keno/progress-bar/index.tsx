@@ -19,8 +19,11 @@ interface ProgressBarFullModeProps {
     t: any;
 }
 
-interface ProgressBarCollapseModeProps extends ProgressBarFullModeProps {
+interface ProgressBarCollapseModeProps {
     isFirstHalf: boolean;
+    winningTeam: string;
+    inlineStyles: React.CSSProperties;
+    t: any;
 }
 
 export default function ProgressBar({ totalBlue, totalRed, isShowCollapse, isFirstHalf }: Props) {
@@ -80,7 +83,7 @@ const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles, t
     );
 };
 
-const ProgressBarCollapseMode = ({totalBlue, totalRed, isFirstHalf, winningTeam, inlineStyles, t }: ProgressBarCollapseModeProps) => {
+const ProgressBarCollapseMode = ({isFirstHalf, winningTeam, inlineStyles, t }: ProgressBarCollapseModeProps) => {
     return (
         <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
         <div className={`${Styles["progress-bar"]}`}>

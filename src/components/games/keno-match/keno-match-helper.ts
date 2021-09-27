@@ -140,7 +140,7 @@ export const KenoMatchConfigs = {
             ],
         },
         liveFullTime: {
-            name: "live",
+            name: "fullTime",
             config: [
                 {
                     name: "liveFTBlue",
