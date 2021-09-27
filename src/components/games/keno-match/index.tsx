@@ -24,7 +24,7 @@ import {
 } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import ProgressBar from "./round-result/progress-bar";
+import ProgressBar from "../../shared/progress-bar";
 import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
