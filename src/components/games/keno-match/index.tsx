@@ -79,15 +79,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return ["blue", "red", "over", "under", "odd", "even"];
     }
 
-    get isInRoundState() {
-        const { gameState } = this.state;
-        const kenoMatchGameState = gameState as KenoMatchGameState;
-        return (
-            kenoMatchGameState === KenoMatchGameStateEnum.FullTimePlacingBet ||
-            kenoMatchGameState === KenoMatchGameStateEnum.HalfTimePlacingBet
-        );
-    }
-
     renderBetOptions() {
         const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds } = this.state;
 

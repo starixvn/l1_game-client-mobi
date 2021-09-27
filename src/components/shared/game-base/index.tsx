@@ -906,11 +906,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
-    get isInRoundState() {
-        const { gameState } = this.state;
-        return gameState === GameState.InRound ? true : false;
-    }
-
     renderGame() {
         const { durations } = this.props;
 
@@ -970,7 +965,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         <>
                             {this.isShowInlineResult && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
                             {this.renderMD5()}
-                            <BetContainer gameState={gameState} isInRound={this.isInRoundState}>
+                            <BetContainer gameState={gameState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
                                     {this.renderBetOptions()}
                                 </div>
