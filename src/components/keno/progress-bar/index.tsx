@@ -82,7 +82,7 @@ const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles, t
 
 const ProgressBarCollapseMode = ({totalBlue, totalRed, isFirstHalf, winningTeam, inlineStyles, t }: ProgressBarCollapseModeProps) => {
     return (
-        <div className={Styles["progress-bar-team"]}>
+        <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
         <div className={`${Styles["progress-bar"]}`}>
             <div className={`${Styles["triangle"]} ${Styles[winningTeam]}`} style={inlineStyles}></div>
             <div className={Styles["blue-team"]} style={inlineStyles}></div>
