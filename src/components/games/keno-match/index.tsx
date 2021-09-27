@@ -250,6 +250,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
 
+        console.log(`remainingTime: ${remainingTime}, showMD5ResultKey: ${this.state.showMD5ResultKey}`);
+
         if (remainingTime === durations.resetResult) {
             this.setState({
                 halfTimeResult: defaultResult,
@@ -269,10 +271,13 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.showHalfTimeSettlementResult),
         });
 
+        const isShowSettlementResult =
+            (durations.showFullTimeSettlementResult >= remainingTime && remainingTime > durations.halfTimePlacingBets) ||
+            (durations.showHalfTimeSettlementResult >= remainingTime && remainingTime > durations.fullTimePlacingBets);
+
         this.setState({
-            isShowSettlementResult:
-                (durations.showFullTimeSettlementResult >= remainingTime && remainingTime > durations.halfTimePlacingBets) ||
-                (durations.showHalfTimeSettlementResult >= remainingTime && remainingTime > durations.fullTimePlacingBets),
+            isShowSettlementResult,
+            showMD5ResultKey: isShowSettlementResult,
         });
 
         const newGameState = this.determineGameState(remainingTime);
@@ -333,6 +338,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                     showResultInfo: false,
                     isShowSettlementResult: false,
                     betPercentage: {},
+                    showMD5ResultKey: false,
                 },
             },
             {
@@ -416,26 +422,16 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             halfTimeResult: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
             playResultAnimation: true,
+            md5ResultKey: firstHalfResult.resultKey,
         };
 
         this.setState(newState as any);
-        this.setTimeOutMD5ResultKey(firstHalfResult.resultKey);
 
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, animationDuration);
-    }
-
-    setTimeOutMD5ResultKey(md5ResultKey: string) {
-        setTimeout(() => {
-            this.setState({
-                md5ResultKey,
-                showMD5ResultKey: true,
-                md5ClassName: "md5-result"
-            });
-        }, this.props.durations.resultAnimation * 1000);
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
@@ -463,10 +459,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             settlementResult: finish.settlementResult,
             liveOdds: null,
             playResultAnimation: true,
+            md5ResultKey: finish.resultKey,
         };
 
         this.setState(newState as any);
-        this.setTimeOutMD5ResultKey(finish.resultKey);
 
         const animationDuration = this.getFinishAnimationDuration();
 

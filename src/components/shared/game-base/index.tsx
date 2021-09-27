@@ -879,15 +879,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleMD5({ md5 }) {
         this.setState({
-            md5,
-            showMD5ResultKey: false,
-            md5ClassName: "md5-key"
+            md5
         });
     }
 
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
         const md5Text = showMD5ResultKey ? `Key: ${md5ResultKey}` : `MD5: ${md5}`;
+        const md5ClassName = showMD5ResultKey ? "md5-result" : "md5-key";
 
         if (!this.props.supportMD5) {
             return <></>;
@@ -895,7 +894,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         return (
             <div className={Styles["md5-section"]}>
-                <span className={Styles["text"]}>{md5Text}</span>
+                <span className={`${Styles["text"]} ${md5ClassName}`}>{md5Text}</span>
                 <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
                     <img src={`/static/images/copy.svg`} className={Styles["copy-icon"]} alt="copy"></img>
                 </div>
