@@ -36,6 +36,10 @@
         z-index: var(--popup-index);
     }
 
+    &.kenomatch1, &.kenomatch2{
+        font-weight: bold;
+    }
+
     .popup-header {
         display: flex;
         flex-direction: column;
