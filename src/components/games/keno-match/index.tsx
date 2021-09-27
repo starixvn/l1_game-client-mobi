@@ -443,7 +443,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const newState = {
             fullTimeResult: finish.result,
             settlementResult: finish.settlementResult,
-            liveOdds: null,
             playResultAnimation: true,
             md5ResultKey: finish.resultKey,
         };

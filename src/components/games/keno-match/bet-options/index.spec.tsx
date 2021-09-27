@@ -80,7 +80,7 @@ const liveOdds = {
         gameState: KenoMatchGameStateEnum.HalfTimePlacingBet as number,
         settlementResult: FakeSettlementResult,
         isShowWinningEffect: true,
-        isActiveLiveFullTime: true,
+        isFirstHalf: true,
     };
     
 describe("KenoMatchBetOptions", () => {
