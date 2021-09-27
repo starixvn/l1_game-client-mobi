@@ -12,6 +12,32 @@
 
 .progress-bar-team {
     padding: 0 1.6rem;
+    &.progress-bar-collapse {
+        width: calc(100% - 8rem - 1.2rem);
+        padding: 0;        
+        margin-left: 1.2rem; 
+        .progress-bar {
+            height: 2rem;
+            border-radius: 0.5rem;           
+            position: relative;
+            top: .3rem;
+            .sperate {
+                height: 2.8rem;
+                top: -0.35rem;
+                margin-left: calc(50% - 0.2rem);
+                .total-score-match {
+                    top: -1.9rem;
+                    width: 8rem;
+                    text-align: center;
+                    left: -4rem;
+                    font-weight: 700;
+                    .text {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
     .title {
         display: flex;
         justify-content: space-between;

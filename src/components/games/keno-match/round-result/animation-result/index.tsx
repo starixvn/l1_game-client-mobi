@@ -43,7 +43,10 @@ export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }:
     return isShowCollapse ? (
         <div className={Styles["result-collapse-mode"]}>
             <div className={Styles["result-container"]}>
-                
+                <div className={Styles["progress-extra"]}>
+                    <div className={Styles["score-red"]}>665</div>
+                    <div className={Styles["score-blue"]}>528</div>
+                </div>                
                 {progressBar}
             </div>
             <div className={Styles["result-label"]}>{t(winningTeam)}</div>
