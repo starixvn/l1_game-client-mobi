@@ -37,7 +37,27 @@
     }
 
     &.kenomatch1, &.kenomatch2{
-        font-weight: bold;
+        width: 32.8rem;
+        font-size: 1.6rem;
+        .general-info {
+            font-size: 1.6rem;
+            .left {                
+                color: #2C2F3E;
+            }
+            .font-weight-bold {
+                font-size: 1.3rem;       
+                display: block;    
+                font-weight: normal;
+                &.choice {
+                    display: inline-block;
+                    font-weight: 700;
+                    font-size: 1.6rem;
+                }     
+            }
+            .info {
+                font-weight: 600;
+            }
+        }
     }
 
     .popup-header {
@@ -140,6 +160,12 @@
         margin-bottom: 0.5rem;
         font-size: 2rem;
         text-transform: capitalize;
+        .font-weight-bold, .info {
+            display: inline-block;
+        }
+        .font-weight-bold {
+            font-weight: 700;
+        }
     }
 
     .confirm-text {
