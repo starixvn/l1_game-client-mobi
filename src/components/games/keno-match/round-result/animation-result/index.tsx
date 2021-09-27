@@ -10,14 +10,15 @@ import Styles from "./animation-result.module.scss";
 type Props = {
     result: Result;
     isFirstHalf: boolean;
+    isShowCollapse?: boolean;
 };
 
-export const AnimationResult = ({ result, isFirstHalf }: Props) => {
+export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }: Props) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const [index, setIndex] = useState<number>(0);
-    const [blueScore, setBlueScore] = useState<number>(0);
-    const [redScore, setRedScore] = useState<number>(0);
+    const [totalBlue, setTotalBlue] = useState<number>(0);
+    const [totalRed, setTotalRed] = useState<number>(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -26,8 +27,8 @@ export const AnimationResult = ({ result, isFirstHalf }: Props) => {
                 return;
             }
 
-            setBlueScore(blueScore + result.blue[index]);
-            setRedScore(redScore + result.red[index]);
+            setTotalBlue(totalBlue + result.blue[index]);
+            setTotalRed(totalRed + result.red[index]);
 
             setIndex(index + 1);
         }, 100);
@@ -36,8 +37,18 @@ export const AnimationResult = ({ result, isFirstHalf }: Props) => {
             clearInterval(interval);
         };
     });
+    const progressBar = <ProgressBar {...{ totalBlue, totalRed, isFirstHalf, isShowCollapse }} />;
+    const winningTeam = totalBlue > totalRed ? "blue" : "red";
 
-    return (
+    return isShowCollapse ? (
+        <div className={Styles["result-collapse-mode"]}>
+            <div className={Styles["result-container"]}>
+                <div className={Styles["result-container"]}></div>
+                {progressBar}
+            </div>
+            <div className={Styles["result-label"]}>{t(winningTeam)}</div>
+        </div>
+    ) : (
         <div className={Styles["popup-result"]}>
             <div className={`${Styles.result} ${Styles["open-result"]}`}>
                 <div className={Styles["header"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</div>
@@ -45,7 +56,7 @@ export const AnimationResult = ({ result, isFirstHalf }: Props) => {
                     <TeamResult result={result.blue} hasAnimation />
                     <TeamResult result={result.red} hasAnimation />
                 </div>
-                <ProgressBar totalBlue={blueScore} totalRed={redScore} />
+                {progressBar}
             </div>
         </div>
     );

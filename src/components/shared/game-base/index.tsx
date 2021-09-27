@@ -93,6 +93,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betOptionElement: null,
         betChoiceElement: null,
         activeScoreboardTab: 0,
+        md5: ''
     };
 
     constructor(props: P) {

@@ -8,7 +8,6 @@ import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
 import GameHeader from "../../shared/game-header";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
-import ProgressBar from "../../shared/progress-bar";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -16,11 +15,9 @@ import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
 import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
-import { calculateTotalPoint } from "../../keno/keno.helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
 import HalfRoundSettlement from "./round-result/round-settlement";
-import ProgressBarCollapse from "../../shared/progress-bar/progress-bar-collapse";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameState,
@@ -109,7 +106,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const { isFirstHalf, fullTimeResult, halfTimeResult, settlementResult, isShowSettlementResult, showResultInfo } = this.state;
 
         if (showResultInfo) {
-            return <AnimationResult isFirstHalf={isFirstHalf} result={isFirstHalf ? halfTimeResult : fullTimeResult} />;
+            const result = isFirstHalf ? halfTimeResult : fullTimeResult;
+            const animationResultProps = { isFirstHalf, result };
+            return <AnimationResult {...animationResultProps} />;
         }
 
         if (isShowSettlementResult) {
@@ -206,10 +205,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     renderResultCollapse() {
         const { halfTimeResult, fullTimeResult, isFirstHalf } = this.state,
             result = isFirstHalf ? halfTimeResult : fullTimeResult,
-            totalBlue = calculateTotalPoint(result?.blue ?? []),
-            totalRed = calculateTotalPoint(result?.red ?? []);
+            animationResultProps = { isFirstHalf, result, isShowCollapse: true };
 
-        return <ProgressBarCollapse {...{ totalBlue, totalRed, isFirstHalf}} />;
+        return <AnimationResult {...animationResultProps} />;
     }
 
     renderSettlementInfo() {
