@@ -514,20 +514,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     }
 
-    copyToClipboard(event: any) {
-        event.preventDefault();
-
-        const { md5, md5ResultKey, showMD5ResultKey } = this.state;
-        navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
-    }
-
-    handleMD5({ md5 }) {
-        this.setState({
-            md5,
-            showMD5ResultKey: false,
-        });
-    }
-
     handleRoundHistory({ roundHistory, roundId }) {
         const { gameState } = this.state;
 
@@ -882,6 +868,21 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderResultSection() {
         return null;
+    }
+    
+    copyToClipboard(event: any) {
+        event.preventDefault();
+
+        const { md5, md5ResultKey, showMD5ResultKey } = this.state;
+        navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
+    }
+
+    handleMD5({ md5 }) {
+        this.setState({
+            md5,
+            showMD5ResultKey: false,
+            md5ClassName: "md5-key"
+        });
     }
 
     renderMD5() {

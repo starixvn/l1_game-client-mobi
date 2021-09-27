@@ -31,11 +31,11 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
-            config: isFirstHalf ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
+            values: isFirstHalf ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
         },
         {
             isActive: isFirstHalf,
-            config: KenoMatchConfigs.choices.fullTime,
+            values: KenoMatchConfigs.choices.fullTime,
         },
     ];
 
@@ -47,7 +47,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                 return (
                     <div key={parentIndex}>
                         <div className={Styles["title-wrapper"]}>
-                            <div className={Styles["title-left"]}>{t(`${halfMatchConfig.config.name}`)}</div>
+                            <div className={Styles["title-left"]}>{t(`${halfMatchConfig.values.name}`)}</div>
                             {halfMatchConfig.isActive && (
                                 <div className={Styles["title-right"]}>
                                     <span>{t("betInvite")}</span>
@@ -56,7 +56,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                             )}
                         </div>
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
-                            {halfMatchConfig.config.config.map((choice, index) => {
+                            {halfMatchConfig.values.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
                                     isHighlight = settlementResult[choiceName];
 

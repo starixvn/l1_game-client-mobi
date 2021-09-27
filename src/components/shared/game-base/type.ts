@@ -95,6 +95,7 @@ export interface GameBaseState<Result, SettlementResult> {
     md5?: string;
     md5ResultKey?: string;
     showMD5ResultKey?: boolean;
+    md5ClassName?: string;
 }
 
 export interface Notice {

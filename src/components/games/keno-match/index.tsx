@@ -433,6 +433,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({
                 md5ResultKey,
                 showMD5ResultKey: true,
+                md5ClassName: "md5-result"
             });
         }, this.props.durations.resultAnimation * 1000);
     }
