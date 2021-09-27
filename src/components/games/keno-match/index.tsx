@@ -24,8 +24,8 @@ import {
 } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import ProgressBar from "../../shared/progress-bar";
 import HalfRoundSettlement from "./round-result/round-settlement";
+import ProgressBarCollapse from "../../shared/progress-bar/progress-bar-collapse";
 import {
     KenoMatchGameBaseState,
     KenoMatchGameState,
@@ -219,7 +219,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             totalBlue = calculateTotalPoint(result?.blue ?? []),
             totalRed = calculateTotalPoint(result?.red ?? []);
 
-        return <ProgressBar {...{ totalBlue, totalRed }} />;
+        return <ProgressBarCollapse {...{ totalBlue, totalRed, isFirstHalf}} />;
     }
 
     renderSettlementInfo() {
@@ -249,8 +249,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
-
-        console.log(`remainingTime: ${remainingTime}, showMD5ResultKey: ${this.state.showMD5ResultKey}`);
 
         if (remainingTime === durations.resetResult) {
             this.setState({
@@ -544,12 +542,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             kenoGameState = gameState as KenoMatchGameState;
 
         const gameHeaderProps = {
-            isShowCollapse: [
-                KenoMatchGameStateEnum.ShowSettlementResult,
-                KenoMatchGameStateEnum.BeforeStartRound,
-                KenoMatchGameStateEnum.BeforeStartFullTimePlacingBet,
-            ].includes(kenoGameState as KenoMatchGameStateEnum),
-            isUpdateDisableRebet: kenoGameState !== KenoMatchGameStateEnum.HalfTimePlacingBet,
+            isShowCollapse: [GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState),
+            isUpdateDisableRebet: gameState !== GameState.InRound,
             countdownTimerComponent: <KenoCountdownTimer isFistHalf={isFirstHalf} />,
         };
 
