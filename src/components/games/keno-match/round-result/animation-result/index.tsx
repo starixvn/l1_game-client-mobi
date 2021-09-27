@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useGameContext } from "../../../../../contexts/game-context/game-context";
 import TeamResult from "../../../../keno/team-result";
 import { Result } from "../../type";
-import ProgressBar from "../../../../shared/progress-bar";
+import ProgressBar from "../../../../keno/progress-bar";
 import Styles from "./animation-result.module.scss";
 
 type Props = {
