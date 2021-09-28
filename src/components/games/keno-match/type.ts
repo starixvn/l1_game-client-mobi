@@ -99,6 +99,7 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     isJoiningAtMiddleShowInlineResult: boolean;
     isFirstHalf: boolean;
     isShowSettlementResult: boolean;
+    beforeStartFulltime: boolean;
 }
 
 export interface TimerProps {

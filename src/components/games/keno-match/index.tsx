@@ -54,7 +54,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isJoiningAtMiddleShowInlineResult: false,
                 isFirstHalf: false,
                 isShowSettlementResult: false,
-                isShowInlineResult: false
+                isShowInlineResult: false,
+                beforeStartFulltime: false
             },
         };
     }
@@ -80,14 +81,15 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds } = this.state;
+        const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds, beforeStartFulltime } = this.state;
 
         const betOptionsProps = {
             liveOdds,
             gameState,
             settlementResult: settlementResult ?? FakeSettlementResult,
             isShowWinningEffect: showWinningAnimation,
-            isFirstHalf
+            isFirstHalf,
+            beforeStartFulltime
         };
 
         const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
@@ -264,6 +266,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({ roundId: this.state.roundId + 1 });
         }
 
+        this.setState({beforeStartFulltime: remainingTime === durations.beforeStartFullTimePlacingBet});
+
         this.setState({ isFirstHalf: durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.fullTimePlacingBets });
 
         this.setState({
@@ -289,7 +293,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         });
 
         const newGameState = this.determineGameState(remainingTime);
-
+       
         const gameState = this.state.gameState;
 
         if (gameState !== newGameState) {
@@ -310,7 +314,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.fullTimePlacingBets):
                 return GameState.DisplayResult;
             case (durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.halfTimeLockingBet) ||
-                (durations.beforeStartFullTimePlacingBet >= remainingTime && remainingTime > durations.fullTimeLockingBet):
+                (durations.fullTimePlacingBets >= remainingTime && remainingTime > durations.fullTimeLockingBet):
                 return GameState.InRound;
             case (durations.halfTimeLockingBet >= remainingTime && remainingTime > durations.showHalfTimeResult) ||
                 (durations.fullTimeLockingBet >= remainingTime && remainingTime >= 0):

@@ -81,6 +81,7 @@ const liveOdds = {
         settlementResult: FakeSettlementResult,
         isShowWinningEffect: true,
         isFirstHalf: true,
+        beforeStartFulltime: false
     };
     
 describe("KenoMatchBetOptions", () => {

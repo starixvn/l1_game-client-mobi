@@ -14,6 +14,7 @@ interface KenoMatchBetOptionsProps {
     isShowWinningEffect: boolean;
     isFirstHalf: boolean;
     liveOdds: any;
+    beforeStartFulltime: boolean;
 }
 
 const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = ({
@@ -21,7 +22,8 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     gameState,
     settlementResult,
     isShowWinningEffect,
-    isFirstHalf
+    isFirstHalf,
+    beforeStartFulltime
 }) => {
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
@@ -45,9 +47,10 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
         <>
             {halfMatchConfigs.map((halfMatchConfig, parentIndex) => {
                 const isFTLive = parentIndex === 0 && !isFirstHalf;
-                const ftLiveClass =  isFTLive? "live-bet-option has-animation" : "";
+                const ftLiveClass =  isFTLive? "live-bet-option" : "first-half-option";
+
                 return (
-                    <div key={parentIndex} className={`${Styles[ftLiveClass]}`}>
+                    <div key={parentIndex} className={`${Styles[ftLiveClass]} ${beforeStartFulltime? "" : "has-animation"}`}>
                         <div className={Styles["title-wrapper"]}>
                             <div className={Styles["title-left"]}>{t(`${halfMatchConfig.values.name}`)}</div>
                             {halfMatchConfig.isActive && (
