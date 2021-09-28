@@ -70,9 +70,11 @@ export const FavoriteSetting: React.FC<{
     useEffect(() => {
         clearTimeout(closeModalTimeOut);
         isMobileOnly && document.body.classList.add("no-scroll");
+        isMobileOnly && document.documentElement.classList.add("no-scroll-html");
 
         return () => {
             isMobileOnly && document.body.classList.remove("no-scroll");
+            isMobileOnly && document.documentElement.classList.remove("no-scroll-html");
         };
     }, []);
 

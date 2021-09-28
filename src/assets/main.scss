@@ -290,7 +290,10 @@ body {
     font: 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
-    height: 100vh;
+}
+
+.no-scroll-html {
+    overflow: hidden !important;
 }
 
 .no-scroll {
