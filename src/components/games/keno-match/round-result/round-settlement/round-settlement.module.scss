@@ -20,7 +20,7 @@
     height: 13rem;
     animation-name: fadeIn, fadeOut;    
     animation-duration: 0.2s, 0.3s;
-    animation-delay: 0s, 3.7s;
+    animation-delay: 0s, 4s;
     animation-fill-mode: forwards, forwards;
     animation-timing-function: linear, linear;
     background-image: var(--bg-img);
@@ -28,7 +28,10 @@
     background-size: cover;
     text-align: center;
     &.keno-match-md5 {
-        animation-delay: 0s, 7.7s;
+        animation-delay: 0s, 8s;
+    }
+    &.first-half-settlement {
+        animation-duration: 0.2s, 1s;
     }
     .header {
         opacity: 0;
