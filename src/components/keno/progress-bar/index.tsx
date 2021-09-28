@@ -50,10 +50,6 @@ export default function ProgressBar({ result, isShowCollapse, isFirstHalf, onFin
 
         interval = setInterval(() => {
             if (index === result.blue.length) {
-                percent > 50 && setWinningTeam("blue");
-                percent < 50 && setWinningTeam("red");
-                percent === 50 && setWinningTeam("draw");
-
                 onFinishHandle && onFinishHandle();
                 clearInterval(interval);
             } else {
@@ -61,10 +57,12 @@ export default function ProgressBar({ result, isShowCollapse, isFirstHalf, onFin
                 currentTotalRed += result.red[index];
                 setTotalBlue(currentTotalBlue);
                 setTotalRed(currentTotalRed);
-
                 percent = parseFloat(((currentTotalBlue * 100) / (currentTotalBlue + currentTotalRed)).toFixed(2));
-                setWidth(percent);
 
+                setWidth(percent);
+                percent > 50 && setWinningTeam("blue");
+                percent < 50 && setWinningTeam("red");
+                percent === 50 && setWinningTeam("draw");
                 index++;
             }
         }, 100);
