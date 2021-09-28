@@ -58,7 +58,7 @@ export const adjustPopupPositionDesktop = (gameBaseContainerRef: any, betOptionE
         halfArrowWidth = 8;
 
     let alignArrowStyle = "left";
-    let popupStyle: BetFormPositionCss = {
+    const popupStyle: BetFormPositionCss = {
         top: `${betOptionRect.bottom - gameContainerRect.top}px`,
         bottom: "none",
         left: `${betChoiceRect.width / 2 - arrowPadding + gameContainerMarginLeft + popupPadding + halfArrowWidth}px`,
@@ -112,11 +112,11 @@ export const adjustPopupPositionDidUpdate = (
                 ? gameContainerRect.bottom - betOptionRect.top
                 : betOptionRect.bottom + 15;
 
-        let styles = adjustPopupPosition(isMobileOnly, gameBaseContainerRef, betOptionElement, betChoiceElement);
+        const styles = adjustPopupPosition(isMobileOnly, gameBaseContainerRef, betOptionElement, betChoiceElement);
         styles.position.bottom = `${bottom}px`;
         styles.position.top = "none";
         styles.arrowStyle = "down";
-        
+
         return {
             isAdjust: true,
             styles,

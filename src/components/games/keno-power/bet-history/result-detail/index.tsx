@@ -18,7 +18,9 @@ const renderScoreRounds = ({ result, settlementResult, translateMapping }) => {
             </div>
             <div>
                 <div className={Styles["round-name"]}></div>
-                <div className={Styles["total-match-section"]}>{translateMapping?.sum}</div>
+                <div className={Styles["total-match-section"]}>
+                    {translateMapping?.sum} <div className={Styles["total"]}>{blueScore + redScore}</div>
+                </div>
             </div>
 
             <div className={Styles["container-red"]}>
@@ -29,7 +31,26 @@ const renderScoreRounds = ({ result, settlementResult, translateMapping }) => {
             <div className={Styles["winning-info"]}>
                 {renderTextWinningForTeam({ settlementResult, translateMapping })}
                 <div className={Styles["sum"]}> {translateMapping?.sum}</div>
-                <div className={Styles["result-info"]}>{renderWinningInfo({ settlementResult, translateMapping })}</div>
+                <div className={Styles["result-info"]}>
+                    {renderTeamWinningInfo({
+                        settlementResult,
+                        translateMapping,
+                        choices: ["odd", "even", "big", "small"],
+                        choiceForClassBlue: ["even", "big"],
+                    })}
+                </div>
+                <div>
+                    <span className={Styles["text-blue"]}> {translateMapping.blue}</span>
+                    <span className={Styles["text-red"]}> {translateMapping.red}</span>
+                </div>
+                <div className={Styles["result-info"]}>
+                    {renderTeamWinningInfo({
+                        settlementResult,
+                        translateMapping,
+                        choices: ["blueBig", "blueSmall", "redBig", "redSmall"],
+                        choiceForClassBlue: ["blueBig", "blueSmall"],
+                    })}
+                </div>
             </div>
         </div>
     );
@@ -39,13 +60,27 @@ const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
     const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
     return (
         <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
-            {settlementResult?.tie ? translateMapping.tie : settlementResult?.blue ? translateMapping.blueWin : translateMapping.redWin}
+            {settlementResult?.tie
+                ? translateMapping.tie
+                : settlementResult?.blue
+                ? translateMapping.teamBlueWin
+                : translateMapping.teamRedWin}
         </div>
     );
 };
 
-const renderWinningInfo = ({ settlementResult, translateMapping }) => {
-    return "";
+const renderTeamWinningInfo = ({ settlementResult, translateMapping, choices, choiceForClassBlue }) => {
+    return Object.keys(settlementResult).map((keyName, index) => {
+        if (settlementResult[keyName] && choices.includes(keyName)) {
+            const classFollowKey = choiceForClassBlue.includes(keyName) ? "result-info-blue" : "result-info-red";
+            return (
+                <div key={index} className={`${Styles[classFollowKey]}`} data-testid="team-winning-info">
+                    {translateMapping[keyName]}
+                </div>
+            );
+        }
+        return "";
+    });
 };
 
 const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {

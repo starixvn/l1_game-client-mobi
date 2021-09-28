@@ -57,5 +57,9 @@ export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
         teamBlueBigSmall: t(`${gameName}:teamBlueBigSmall`),
         teamBlueWin: t(`${gameName}:teamBlueWin`),
         teamRedWin: t(`${gameName}:teamRedWin`),
+        blueBig: t(`${gameName}:blueBig`),
+        blueSmall: t(`${gameName}:blueSmall`),
+        redBig: t(`${gameName}:redBig`),
+        redSmall: t(`${gameName}:redSmall`),
     };
 };

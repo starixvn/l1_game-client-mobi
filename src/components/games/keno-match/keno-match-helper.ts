@@ -1,4 +1,3 @@
-import { TFunction } from "next-i18next";
 import { StatisticRuleEntriesEvenOdd, StatisticRuleEntriesBlueRed } from "../../keno/keno.helper";
 
 export const resetValue = 0;
