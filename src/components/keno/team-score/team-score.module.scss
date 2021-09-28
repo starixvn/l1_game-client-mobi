@@ -1,3 +1,12 @@
+[data-theme="light"] .team-score  {
+    --blue-team-color: #3B7BC6
+    ;
+}
+
+[data-theme="dark"] .team-score {
+    --blue-team-color: #5EA8FF;
+}
+
 .team-score {
     text-align: center;
     font-size: 1.2rem;
@@ -27,9 +36,9 @@
     }
 
     &.blue {
-        color: #3b7bc6;
+        color: var(--blue-team-color);
         .map-winning {
-            background-color: #3b7bc6;
+            background-color: var(--blue-team-color);
         }
     }
 
