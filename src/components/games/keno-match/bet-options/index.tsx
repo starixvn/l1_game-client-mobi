@@ -46,7 +46,6 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
             {halfMatchConfigs.map((halfMatchConfig, parentIndex) => {
                 const isFTLive = parentIndex === 0 && !isFirstHalf;
                 const ftLiveClass =  isFTLive? "live-bet-option has-animation" : "";
-                const oddFTLiveClass =  isFTLive? "odd-full-time-live" : "";
                 return (
                     <div key={parentIndex} className={`${Styles[ftLiveClass]}`}>
                         <div className={Styles["title-wrapper"]}>
@@ -79,7 +78,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                         {t("total")}
                                     </div>
                                 ) : (
-                                    <div key={index} className={`${Styles[`choice-${choice.displayedName}`]} ${odd !== undefined ? "" : Styles["disabled"]} ${Styles[oddFTLiveClass]}`}>
+                                    <div key={index} className={`${Styles[`choice-${choice.displayedName}`]} ${odd !== undefined ? "" : Styles["disabled"]}`}>
                                         <KenoMatchBetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}
