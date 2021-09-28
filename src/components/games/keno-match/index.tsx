@@ -241,7 +241,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
-        const {halfTimeResultInline, fullTimeResultInline} = this.state;
+        const {halfTimeResultInline, fullTimeResultInline, fullTimeResult, roundHistory} = this.state;
         if (remainingTime === durations.resetResult) {
             this.setState({
                 halfTimeResult: defaultResult,
@@ -370,7 +370,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
-        const { gameState } = this.state;
+        const { gameState, remainingTime } = this.state;
         const kenoMatchGameState = gameState as KenoMatchGameState;
         const roundIdCurrent =
             kenoMatchGameState === KenoMatchGameStateEnum.ShowResult || kenoMatchGameState === KenoMatchGameStateEnum.ShowSettlementResult
@@ -386,6 +386,15 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         };
 
         this.setState(sourceState);
+
+        const durations = this.props.durations;
+        if(durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult )
+        {
+            this.setState({
+                halfTimeResult: roundHistory[0].firstHalf.result,
+                fullTimeResult: roundHistory[0].fullTime.result
+            });
+        }
     }
 
     separateRoundHistory = ({ roundHistory, firstHalfResult, roundIdCurrent }) => {
@@ -411,7 +420,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     };
 
     handleFinishHalfTime({ firstHalfResult }) {
-        const { roundHistoryFH, roundId } = this.state;
+        const { roundHistoryFH, roundId, showResultInfo } = this.state;
         const roundHistoryFHClone =
             roundHistoryFH[0]?.roundId !== roundId
                 ? this.handleRoundHistoryFH({ firstHalfResult, roundHistoryFH, roundId })
@@ -420,12 +429,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.storeOwnBet(roundId);
 
         this.setState({
-            showResultInfo: true,
             halfTimeResultInline: firstHalfResult.result,
             settlementResult: firstHalfResult.settlementResult,
             playResultAnimation: true,
             md5ResultKey: firstHalfResult.resultKey,
         });
+
+        if(showResultInfo){
+            this.setState({
+                halfTimeResultInline: firstHalfResult.result,
+            });
+        }
+        else{
+            this.setState({
+                halfTimeResult: firstHalfResult.result,
+            });
+        }
 
         const { durations } = this.props;
         this.showResultInfoH1Timeout = setTimeout(() => {

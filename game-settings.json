@@ -226,7 +226,7 @@
 
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
-            "fullTimeLockingBet": 4,
+            "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
             "halfTimeDuration": 27,
@@ -255,7 +255,7 @@
 
             "beforeStartFullTimePlacingBet": 19,
             "fullTimePlacingBets": 18,
-            "fullTimeLockingBet": 4,
+            "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
             "halfTimeDuration": 27,
