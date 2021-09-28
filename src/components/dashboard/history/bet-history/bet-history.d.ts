@@ -12,14 +12,8 @@ export type BetHistoryItem = {
 export type PropsBetContainer = {
     gameId: number;
     isRefund: boolean;
-    renderResult?: (
-        bet: BetLogs,
-        roundId: number,
-        setIsShowResultDetail?: Function,
-        setResultDetail?: Function,
-        t?: TFunction
-    ) => JSX.Element;
-    renderBet?: (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
+    renderResult?: (bet: any, roundId: number, setIsShowResultDetail?: Function, setBetLog?: Function, t?: TFunction) => JSX.Element;
+    renderBet?: (bet: any, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
     renderResultDetail?: (
         resultDetail: ResultDetail,
         t: TFunction,
@@ -33,7 +27,7 @@ export type PropsBetContainer = {
 };
 
 export type ResultDetail = {
-    bet: BetLogs;
+    bet: any;
     roundId: number;
 };
 
@@ -50,11 +44,4 @@ export type BetLogs = {
     odds?: object;
     amount?: number;
     totalAmount?: number;
-};
-
-export type PropsResultDetail = {
-    roundId: number;
-    children: React.ReactNode;
-    closeModal: () => void;
-    gameName: string;
 };
