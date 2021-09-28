@@ -33,7 +33,7 @@ let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
-    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
+    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && appSettings.offeredGames.includes(gameId));
     const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
 
     gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
