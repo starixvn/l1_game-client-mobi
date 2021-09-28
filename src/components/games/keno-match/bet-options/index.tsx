@@ -50,7 +50,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                 const ftLiveClass =  isFTLive? "live-bet-option" : "first-half-option";
 
                 return (
-                    <div key={parentIndex} className={`${Styles[ftLiveClass]} ${beforeStartFulltime? "" : "has-animation"}`}>
+                    <div key={parentIndex} className={`${Styles[ftLiveClass]} ${beforeStartFulltime? Styles["has-animation"] : ""}`}>
                         <div className={Styles["title-wrapper"]}>
                             <div className={Styles["title-left"]}>{t(`${halfMatchConfig.values.name}`)}</div>
                             {halfMatchConfig.isActive && (
