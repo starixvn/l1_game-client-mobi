@@ -60,9 +60,10 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                 const choiceName = choicesMapper[choice.name],
                                     isHighlight = settlementResult[choiceName];
 
+                                const odd = getOddsByChoice(choice.name);
                                 const betOptionProps = {
                                     choice: choice.name,
-                                    odd: getOddsByChoice(choice.name),
+                                    odd,
                                     isDisplayOdd: true,
                                     isHighlight,
                                     gameState,
@@ -75,7 +76,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                         {t("total")}
                                     </div>
                                 ) : (
-                                    <div key={index} className={Styles[`choice-${choice.displayedName}`]}>
+                                    <div key={index} className={`${Styles[`choice-${choice.displayedName}`]} ${odd !== undefined ? "" : Styles["disabled"]}`}>
                                         <KenoMatchBetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}

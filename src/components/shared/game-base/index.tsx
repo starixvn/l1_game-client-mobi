@@ -904,7 +904,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         let md5Text = <div><strong>MD5:</strong> {md5}</div>,
             md5ClassName = "md5-key";
 
-        if (showMD5ResultKey) {
+        if (showMD5ResultKey && md5ResultKey !== '') {
             const key = md5ResultKey.split("]")[1];
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
