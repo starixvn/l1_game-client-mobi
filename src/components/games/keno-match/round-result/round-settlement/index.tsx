@@ -22,7 +22,7 @@ const RoundSettlement = ({ gameName, settlementResult, isFirstHalf }: Props) => 
     const winningTeamName = settlementResult["blue"] ? "blue" : "red";
     const md5Class = isKenoMatchMD5 ? Styles["keno-match-md5"] : "";
     const halfSettlementClass = isFirstHalf ? Styles["first-half-settlement"] : Styles["full-time-settlement"];
-    const settlementClasses = `${halfSettlementClass} ${ Styles["half-round-settlement"]} ${md5Class}`;
+    const settlementClasses = `${ Styles["half-round-settlement"]} ${md5Class} ${halfSettlementClass} `;
 
     return (
         <div className={settlementClasses}>
