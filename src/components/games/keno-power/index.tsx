@@ -65,8 +65,8 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     renderResultSection() {
-        const { result, md5 } = this.state;
-        return <RoundResult result={result} md5={md5} />;
+        const { result, gameState } = this.state;
+        return <RoundResult result={result} gameState={gameState} />;
     }
 
     renderBetOptions() {
@@ -164,7 +164,8 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     renderResultCollapse() {
-        return <></>;
+        const { result, gameState } = this.state;
+        return <RoundResult result={result} gameState={gameState} isCollapse={true} />;
     }
 
     renderSettlementInfo() {

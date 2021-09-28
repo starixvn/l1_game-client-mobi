@@ -10,17 +10,40 @@
     --sperate-bg-color: #fff;
 }
 
+.progress-extra {
+    width: calc(100% - 9rem - 1.2rem);
+    padding: 0;
+    margin-left: 1.2rem;
+    position: absolute;
+    height: 2rem;
+    top: 0.3rem;
+
+    .score-red,
+    .score-blue {
+        position: absolute;
+        font: 500 1.6rem var(--font-number);
+        z-index: 15;
+        color: #fff;
+    }
+    .score-red {
+        left: 0.4rem;
+    }
+    .score-blue {
+        right: 0.4rem;
+    }
+}
+
 .progress-bar-team {
     padding: 0 1.6rem;
     &.progress-bar-collapse {
         width: calc(100% - 9rem - 1.2rem);
-        padding: 0;        
-        margin-left: 1.2rem; 
+        padding: 0;
+        margin-left: 1.2rem;
         .progress-bar {
             height: 2rem;
-            border-radius: 0.5rem;           
+            border-radius: 0.5rem;
             position: relative;
-            top: .3rem;
+            top: 0.3rem;
             .sperate {
                 height: 2.8rem;
                 top: -0.35rem;

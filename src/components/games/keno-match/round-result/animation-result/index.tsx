@@ -1,7 +1,8 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
 import { useGameContext } from "../../../../../contexts/game-context/game-context";
+import { sumArray } from "../../../../../helpers/number-helper";
+import { CollapseModeResult } from "../../../../keno/collapse-mode-result";
 import ProgressBar from "../../../../keno/progress-bar";
 import TeamResult from "../../../../keno/team-result";
 import { Result } from "../../type";
@@ -16,43 +17,15 @@ type Props = {
 export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }: Props) => {
     const { gameSetting, playResultAnimation } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const [index, setIndex] = useState<number>(0);
-    const [totalBlue, setTotalBlue] = useState<number>(0);
-    const [totalRed, setTotalRed] = useState<number>(0);
-    const [showWinningTeam, setShowWinningTeam] = useState<boolean>(false);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            if (index === result.blue.length) {
-                setShowWinningTeam(true);
-                clearInterval(interval);
-                return;
-            }
-
-            setTotalBlue(totalBlue + result.blue[index]);
-            setTotalRed(totalRed + result.red[index]);
-
-            setIndex(index + 1);
-        }, 100);
-
-        return () => {
-            clearInterval(interval);
-        };
-    });
-    const progressBar = <ProgressBar {...{ totalBlue, totalRed, isFirstHalf, isShowCollapse }} />;
-    const winningTeam = totalBlue > totalRed ? "blue" : "red";
+    const [winningTeam, setWinningTeam] = useState<string>("");
+    const totalBlue = sumArray(result.blue);
+    const totalRed = sumArray(result.red);
+    const detectWinningTeam = () => {
+        setWinningTeam(totalBlue > totalRed ? "blue" : "red");
+    };
 
     return isShowCollapse ? (
-        <div className={Styles["result-collapse-mode"]}>
-            <div className={Styles["result-container"]}>
-                <div className={Styles["progress-extra"]}>
-                    <div className={Styles["score-red"]}>{totalRed}</div>
-                    <div className={Styles["score-blue"]}>{totalBlue}</div>
-                </div>
-                {progressBar}
-            </div>
-          {  showWinningTeam && <div className={Styles["result-label"]}>{t(winningTeam)}</div> }
-        </div>
+        <CollapseModeResult result={result} winningTeam={winningTeam} onProgressBarAnimationFinish={detectWinningTeam} />
     ) : (
         <div className={Styles["popup-result"]}>
             <div className={`${Styles.result} ${Styles["open-result"]}`}>
@@ -61,7 +34,7 @@ export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }:
                     <TeamResult result={result.blue} hasAnimation={playResultAnimation} />
                     <TeamResult result={result.red} hasAnimation={playResultAnimation} />
                 </div>
-                {progressBar}
+                <ProgressBar {...{ result, isFirstHalf, onFinishHandle: detectWinningTeam }} />
             </div>
         </div>
     );

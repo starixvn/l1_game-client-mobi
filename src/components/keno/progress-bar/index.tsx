@@ -5,10 +5,14 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./progress-bar.module.scss";
 
 interface Props {
-    totalBlue: number;
-    totalRed: number;
-    isShowCollapse: boolean;
-    isFirstHalf: boolean;
+    result: {
+        blue: number[];
+        red: number[];
+    };
+    isShowCollapse?: boolean;
+    isFirstHalf?: boolean;
+    onFinishHandle?: Function;
+    isShowProgressBarTitle?: boolean;
 }
 
 interface ProgressBarFullModeProps {
@@ -20,37 +24,62 @@ interface ProgressBarFullModeProps {
 }
 
 interface ProgressBarCollapseModeProps {
+    totalBlue: number;
+    totalRed: number;
     isFirstHalf: boolean;
     winningTeam: string;
     inlineStyles: React.CSSProperties;
     t: any;
+    isShowProgressBarTitle?: boolean;
 }
 
-export default function ProgressBar({ totalBlue, totalRed, isShowCollapse, isFirstHalf }: Props) {
+export default function ProgressBar({ result, isShowCollapse, isFirstHalf, onFinishHandle, isShowProgressBarTitle }: Props) {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const [width, setWidth] = useState<number>(50);
     const [winningTeam, setWinningTeam] = useState<string>("draw");
+    const [totalBlue, setTotalBlue] = useState<number>(0);
+    const [totalRed, setTotalRed] = useState<number>(0);
+    let interval: NodeJS.Timer = null;
+    let percent = 50;
 
     useEffect(() => {
-        const percent = parseFloat(((totalBlue * 100) / (totalBlue + totalRed)).toFixed(2));
-        if (percent > 50) {
-            setWinningTeam("blue");
-        } else if (percent < 50) {
-            setWinningTeam("red");
-        } else {
-            setWinningTeam("draw");
-        }
+        let index = 0;
+        let currentTotalRed = 0;
+        let currentTotalBlue = 0;
 
-        setWidth(percent);
-    }, [totalBlue, totalRed]);
+        interval = setInterval(() => {
+            if (index === result.blue.length) {
+                percent > 50 && setWinningTeam("blue");
+                percent < 50 && setWinningTeam("red");
+                percent === 50 && setWinningTeam("draw");
+
+                onFinishHandle && onFinishHandle();
+                clearInterval(interval);
+            } else {
+                currentTotalBlue += result.blue[index];
+                currentTotalRed += result.red[index];
+                setTotalBlue(currentTotalBlue);
+                setTotalRed(currentTotalRed);
+
+                percent = parseFloat(((currentTotalBlue * 100) / (currentTotalBlue + currentTotalRed)).toFixed(2));
+                setWidth(percent);
+
+                index++;
+            }
+        }, 100);
+
+        return () => {
+            interval && clearInterval(interval);
+        };
+    }, []);
 
     const inlineStyles = {
         "--width": `${width}%`,
     } as React.CSSProperties;
 
     return isShowCollapse ? (
-        <ProgressBarCollapseMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t, isFirstHalf }} />
+        <ProgressBarCollapseMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t, isFirstHalf, isShowProgressBarTitle }} />
     ) : (
         <ProgressBarFullMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t }} />
     );
@@ -83,18 +112,32 @@ const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles, t
     );
 };
 
-const ProgressBarCollapseMode = ({isFirstHalf, winningTeam, inlineStyles, t }: ProgressBarCollapseModeProps) => {
+const ProgressBarCollapseMode = ({
+    totalBlue,
+    totalRed,
+    isFirstHalf,
+    winningTeam,
+    inlineStyles,
+    t,
+    isShowProgressBarTitle,
+}: ProgressBarCollapseModeProps) => {
     return (
-        <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
-        <div className={`${Styles["progress-bar"]}`}>
-            <div className={`${Styles["triangle"]} ${Styles[winningTeam]}`} style={inlineStyles}></div>
-            <div className={Styles["blue-team"]} style={inlineStyles}></div>
-            <div className={Styles["sperate"]}>
-                <div className={Styles["total-score-match"]}>
-                    <span className={Styles["text"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</span>
+        <>
+            <div className={Styles["progress-extra"]}>
+                <div className={Styles["score-blue"]}>{totalBlue}</div>
+                <div className={Styles["score-red"]}>{totalRed}</div>
+            </div>
+            <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
+                <div className={`${Styles["progress-bar"]}`}>
+                    <div className={`${Styles["triangle"]} ${Styles[winningTeam]}`} style={inlineStyles}></div>
+                    <div className={Styles["blue-team"]} style={inlineStyles}></div>
+                    <div className={Styles["sperate"]}>
+                        <div className={Styles["total-score-match"]}>
+                            {isShowProgressBarTitle && <span className={Styles["text"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</span>}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </>
     );
 };

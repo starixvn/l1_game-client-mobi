@@ -1,0 +1,12 @@
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .result-container {
+        width: 100%;
+        position: relative;
+    }
+}
