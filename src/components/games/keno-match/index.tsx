@@ -402,7 +402,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         const durations = this.props.durations;
         const joinInFirstHalf = durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult;
-        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets;
+        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets || remainingTime === 0 ;
 
         if (joinInFirstHalf || joinInAfterFinishFulltime) {
             this.setState({
