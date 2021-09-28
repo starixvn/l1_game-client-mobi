@@ -35,18 +35,7 @@
     --green-color: #36d000;
     --font-small-size: 1.8rem;
     --font-medium-size: 2.2rem;
-    &.disabled {
-        cursor: not-allowed !important;
-        &:before {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-            background: rgba(197, 197, 197, 0.6);
-            content: "";
-            z-index: 12;
-        }
-    }
+    
 }
 
 .bet-choice-name {
@@ -101,6 +90,20 @@
 .choice-even {
     grid-column: 3/4;
     color: var(--light-red-color);
+}
+
+[class*="choice"].disabled {
+    cursor: not-allowed !important;        
+    position: relative;
+    &:before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background: rgba(221, 221, 221, 0.6);
+        content: "";
+        z-index: 12;
+    }    
 }
 
 .title-wrapper {
