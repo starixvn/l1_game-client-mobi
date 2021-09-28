@@ -128,17 +128,15 @@
         .live-icon {
             position: relative;
             top: -0.2rem;
-            left: 0.4rem;
-            animation: flash 0.6s linear 0.4s 3 forwards;
+            left: 0.4rem;            
         }
     }
 }
-.full-time-live {
-    font-size: 1.6rem;
+.has-animation.live-bet-option {
     animation: slideInUp 0.4s;
-    // .odd {
-    //     animation: pulse 0.3s ease-in-out 0.7s forwards;
-    // }
+    .live-icon {
+        animation: flash 0.6s linear 0.4s 3 forwards;
+    }
 }
 
 @keyframes flash {
