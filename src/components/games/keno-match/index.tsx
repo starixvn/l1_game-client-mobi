@@ -55,6 +55,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isFirstHalf: false,
                 isShowSettlementResult: false,
                 isShowInlineResult: false,
+                beforeStartFullTime: false
             },
         };
     }
@@ -80,7 +81,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds } = this.state;
+        const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds, beforeStartFullTime } = this.state;
 
         const betOptionsProps = {
             liveOdds,
@@ -88,6 +89,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             settlementResult: settlementResult ?? FakeSettlementResult,
             isShowWinningEffect: showWinningAnimation,
             isFirstHalf,
+            beforeStartFullTime
         };
 
         const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
@@ -260,6 +262,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             });
         }
 
+        this.setState({ beforeStartFullTime:  remainingTime === durations.beforeStartFullTimePlacingBet});
+
         if (remainingTime === durations.halfTimePlacingBets) {
             this.setState({ roundId: this.state.roundId + 1 });
         }
@@ -398,7 +402,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         const durations = this.props.durations;
         const joinInFirstHalf = durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult;
-        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets || remainingTime === 0;
+        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets;
 
         if (joinInFirstHalf || joinInAfterFinishFulltime) {
             this.setState({
