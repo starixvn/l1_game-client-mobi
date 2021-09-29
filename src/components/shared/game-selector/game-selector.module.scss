@@ -32,6 +32,10 @@
     display: block;
     width: 100%;
     top: 3.2rem !important;
+    @media (min-device-width: 768px) {
+        overflow: auto;
+        max-height: calc(100vh - 13rem);
+    }
 }
 
 .dropdown-item {
