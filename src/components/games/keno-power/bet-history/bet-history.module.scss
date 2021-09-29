@@ -1,1 +1,40 @@
 @import "../../../keno/bet-history/bet-history.module";
+
+.winning-info {
+    grid-column: 1/4;
+    position: relative;
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.5rem;
+    &:before {
+        content: "";
+        background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
+        height: 0.1rem;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .sum {
+        font-size: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .team-win {
+        font-size: 1.8rem;
+        font-weight: bold;
+        &.blue {
+            color: #2e73c3;
+        }
+        &.red {
+            color: #ff4352;
+        }
+    }
+
+    .result-info {
+        justify-content: center;
+        display: flex;
+        grid-gap: 0.6rem;
+        align-items: center;
+    }
+}
