@@ -1,8 +1,11 @@
 import { Result } from "../../type";
 
-export interface HalfRoundResultProps {
-    result: Result;
+export interface HalfRoundResultProps{
     isFirstHalf: boolean;
+    isShowScore: boolean;
+    totalBlue: number;
+    totalRed: number;
+    result: Result;
 }
 
 export interface TeamProps {
@@ -14,4 +17,6 @@ export interface TeamProps {
 export default interface MainFrameResultProps {
     halfTimeResult: Result;
     fullTimeResult: Result;
+    isShowH1Score: boolean;
+    isShowFTScore: boolean;
 }

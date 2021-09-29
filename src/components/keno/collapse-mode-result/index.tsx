@@ -13,9 +13,21 @@ interface Props {
     onProgressBarAnimationFinish?: Function;
     winningTeam: string;
     isShowTitle?: boolean;
+    hasAnimation: boolean;
+    totalBlueH1: number;
+    totalRedH1: number;
 }
 
-export const CollapseModeResult: React.FC<Props> = ({ result, isFirstHalf, onProgressBarAnimationFinish, winningTeam, isShowTitle }) => {
+export const CollapseModeResult: React.FC<Props> = ({
+    result,
+    isFirstHalf,
+    onProgressBarAnimationFinish,
+    winningTeam,
+    isShowTitle,
+    hasAnimation,
+    totalBlueH1,
+    totalRedH1,
+}) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -24,11 +36,16 @@ export const CollapseModeResult: React.FC<Props> = ({ result, isFirstHalf, onPro
             <div className={styles["result-container"]}>
                 {
                     <ProgressBar
-                        result={result}
-                        onFinishHandle={onProgressBarAnimationFinish}
-                        isShowCollapse={true}
-                        isShowProgressBarTitle={isShowTitle}
-                        isFirstHalf={isFirstHalf}
+                        {...{
+                            result,
+                            onFinishHandle: onProgressBarAnimationFinish,
+                            isShowCollapse: true,
+                            isShowProgressBarTitle: isShowTitle,
+                            isFirstHalf,
+                            hasAnimation,
+                            totalBlueH1,
+                            totalRedH1,
+                        }}
                     />
                 }
             </div>

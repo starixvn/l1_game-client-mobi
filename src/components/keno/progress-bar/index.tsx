@@ -3,16 +3,20 @@ import { useTranslation } from "react-i18next";
 
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./progress-bar.module.scss";
+import { sumArray } from "../../../helpers/number-helper";
 
 interface Props {
     result: {
         blue: number[];
         red: number[];
     };
+    totalBlueH1?: number;
+    totalRedH1?: number;
     isShowCollapse?: boolean;
     isFirstHalf?: boolean;
     onFinishHandle?: Function;
     isShowProgressBarTitle?: boolean;
+    hasAnimation: boolean;
 }
 
 interface ProgressBarFullModeProps {
@@ -33,7 +37,16 @@ interface ProgressBarCollapseModeProps {
     isShowProgressBarTitle?: boolean;
 }
 
-export default function ProgressBar({ result, isShowCollapse, isFirstHalf, onFinishHandle, isShowProgressBarTitle }: Props) {
+export default function ProgressBar({
+    result,
+    isShowCollapse,
+    isFirstHalf,
+    onFinishHandle,
+    isShowProgressBarTitle,
+    hasAnimation,
+    totalBlueH1 = 0,
+    totalRedH1 = 0,
+}: Props) {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const [width, setWidth] = useState<number>(50);
@@ -44,33 +57,43 @@ export default function ProgressBar({ result, isShowCollapse, isFirstHalf, onFin
     let percent = 50;
 
     useEffect(() => {
-        let index = 0;
-        let currentTotalRed = 0;
-        let currentTotalBlue = 0;
+        let currentTotalRed = totalRedH1;
+        let currentTotalBlue = totalBlueH1;
 
-        interval = setInterval(() => {
-            if (index === result.blue.length) {
-                onFinishHandle && onFinishHandle();
-                clearInterval(interval);
-            } else {
-                currentTotalBlue += result.blue[index];
-                currentTotalRed += result.red[index];
-                setTotalBlue(currentTotalBlue);
-                setTotalRed(currentTotalRed);
-                percent = parseFloat(((currentTotalBlue * 100) / (currentTotalBlue + currentTotalRed)).toFixed(2));
+        function drawProgressBar() {
+            setTotalBlue(currentTotalBlue);
+            setTotalRed(currentTotalRed);
+            percent = parseFloat(((currentTotalBlue * 100) / (currentTotalBlue + currentTotalRed)).toFixed(2));
 
-                setWidth(percent);
-                percent > 50 && setWinningTeam("blue");
-                percent < 50 && setWinningTeam("red");
-                percent === 50 && setWinningTeam("draw");
-                index++;
-            }
-        }, 100);
+            setWidth(percent);
+            percent > 50 && setWinningTeam("blue");
+            percent < 50 && setWinningTeam("red");
+            percent === 50 && setWinningTeam("draw");
+        }
+
+        if (hasAnimation) {
+            let index = 0;
+            interval = setInterval(() => {
+                if (index === result.blue.length) {
+                    onFinishHandle && onFinishHandle();
+                    clearInterval(interval);
+                } else {
+                    currentTotalBlue += result.blue[index];
+                    currentTotalRed += result.red[index];
+                    drawProgressBar();
+                    index++;
+                }
+            }, 100);
+        } else {
+            currentTotalRed += sumArray(result.red);
+            currentTotalBlue += sumArray(result.blue);
+            drawProgressBar();
+        }
 
         return () => {
             interval && clearInterval(interval);
         };
-    }, []);
+    }, [result]);
 
     const inlineStyles = {
         "--width": `${width}%`,
