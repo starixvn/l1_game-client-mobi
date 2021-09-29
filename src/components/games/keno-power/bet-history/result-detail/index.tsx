@@ -4,9 +4,24 @@ import { Choices } from "../../keno-power-helper";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
 import { calculateTotalPoint } from "../../../../keno/keno.helper";
+import { renderTeamWinningInfo } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
 
-const renderScoreRounds = ({ result, settlementResult, translateMapping }) => {
+const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
+    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
+    return (
+        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
+            {settlementResult?.tie
+                ? translateMapping.tie
+                : settlementResult?.blue
+                ? translateMapping.teamBlueWin
+                : translateMapping.teamRedWin}
+        </div>
+    );
+};
+
+const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
+    const { result, settlementResult } = bet;
     const { blue, red } = result;
     const blueScore = calculateTotalPoint(blue);
     const redScore = calculateTotalPoint(red);
@@ -53,46 +68,6 @@ const renderScoreRounds = ({ result, settlementResult, translateMapping }) => {
                 </div>
             </div>
         </div>
-    );
-};
-
-const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
-    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
-    return (
-        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
-            {settlementResult?.tie
-                ? translateMapping.tie
-                : settlementResult?.blue
-                ? translateMapping.teamBlueWin
-                : translateMapping.teamRedWin}
-        </div>
-    );
-};
-
-const renderTeamWinningInfo = ({ settlementResult, translateMapping, choices, choiceForClassBlue }) => {
-    return Object.keys(settlementResult).map((keyName, index) => {
-        if (settlementResult[keyName] && choices.includes(keyName)) {
-            const classFollowKey = choiceForClassBlue.includes(keyName) ? "result-info-blue" : "result-info-red";
-            return (
-                <div key={index} className={`${Styles[classFollowKey]}`} data-testid="team-winning-info">
-                    {translateMapping[keyName]}
-                </div>
-            );
-        }
-        return "";
-    });
-};
-
-const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
-    const { result, settlementResult } = bet;
-    return (
-        <>
-            {renderScoreRounds({
-                result: result,
-                translateMapping,
-                settlementResult: settlementResult,
-            })}
-        </>
     );
 };
 

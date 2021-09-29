@@ -5,6 +5,7 @@ import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import { StateRound } from "../bet-history-hepler";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
+import { renderTeamWinningInfo } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total }) => {
@@ -35,7 +36,14 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
             <div className={Styles["winning-info"]}>
                 {renderTextWinningForTeam({ settlementResult, translateMapping })}
                 <div className={Styles["sum"]}> {translateMapping?.sum}</div>
-                <div className={Styles["result-info"]}>{renderWinningInfo({ settlementResult, translateMapping })}</div>
+                <div className={Styles["result-info"]}>
+                    {renderTeamWinningInfo({
+                        settlementResult,
+                        translateMapping,
+                        choices: ["odd", "even", "over", "under"],
+                        choiceForClassBlue: ["odd", "even"],
+                    })}
+                </div>
             </div>
         </div>
     );
@@ -48,20 +56,6 @@ const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
             {settlementResult?.tie ? translateMapping.tie : settlementResult?.blue ? translateMapping.blueWin : translateMapping.redWin}
         </div>
     );
-};
-
-const renderWinningInfo = ({ settlementResult, translateMapping }) => {
-    return Object.keys(settlementResult).map((keyName, index) => {
-        if (settlementResult[keyName] && ["odd", "even", "over", "under"].includes(keyName)) {
-            const classFollowKey = ["odd", "even"].includes(keyName) ? "result-info-red" : "result-info-blue";
-            return (
-                <div key={index} className={`${Styles[classFollowKey]}`} data-testid="winning-info">
-                    {translateMapping[keyName]}
-                </div>
-            );
-        }
-        return "";
-    });
 };
 
 const RenderScoreDetailKenoMatch = ({ bet, translateMapping }) => {

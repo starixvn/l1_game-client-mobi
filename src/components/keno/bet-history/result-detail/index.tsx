@@ -8,6 +8,20 @@ import RenderScoreDetailKenoMatch from "../../../games/keno-match/bet-history/re
 import RenderScoreDetailKenoPower from "../../../games/keno-power/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
 
+export const renderTeamWinningInfo = ({ settlementResult, translateMapping, choices, choiceForClassBlue }) => {
+    return Object.keys(settlementResult).map((keyName, index) => {
+        if (settlementResult[keyName] && choices.includes(keyName)) {
+            const classFollowKey = choiceForClassBlue.includes(keyName) ? "result-info-blue" : "result-info-red";
+            return (
+                <div key={index} className={`${Styles[classFollowKey]}`} data-testid="team-winning-info">
+                    {translateMapping[keyName]}
+                </div>
+            );
+        }
+        return "";
+    });
+};
+
 const ResultDetail = (resultDetail, t: TFunction, closeModal: () => void, gameName: string, gameId: number) => {
     if (resultDetail) {
         const renderScoreDetail = KenoMatchId.includes(gameId) ? RenderScoreDetailKenoMatch : RenderScoreDetailKenoPower;
