@@ -25,7 +25,7 @@ export const AnimationResult = ({ result, isFirstHalf, isShowCollapse = false }:
     };
 
     return isShowCollapse ? (
-        <CollapseModeResult result={result} winningTeam={winningTeam} onProgressBarAnimationFinish={detectWinningTeam} />
+        <CollapseModeResult result={result} winningTeam={winningTeam} onProgressBarAnimationFinish={detectWinningTeam} isShowTitle={true} />
     ) : (
         <div className={Styles["popup-result"]}>
             <div className={`${Styles.result} ${Styles["open-result"]}`}>
