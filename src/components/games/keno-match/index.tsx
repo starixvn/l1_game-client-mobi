@@ -340,7 +340,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         switch (true) {
             case (durations.wholeRound >= remainingTime && remainingTime > durations.halfTimePlacingBets) ||
-                (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.fullTimePlacingBets):
+                (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.beforeStartFullTimePlacingBet):
                 return GameState.DisplayResult;
             case (durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.halfTimeLockingBet) ||
                 (durations.fullTimePlacingBets >= remainingTime && remainingTime > durations.fullTimeLockingBet):
