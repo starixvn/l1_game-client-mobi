@@ -13,8 +13,6 @@ export type Props = {
     isDisplayOdd?: boolean;
     gameState: GameState;
     isShowWinningEffect: boolean;
-    isHighlightTypeCustom?: boolean;
-    highlightTypeCustom?: HighlightType;
     isShowBettype?: boolean;
     bettypeName?: string;
 };

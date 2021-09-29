@@ -3,10 +3,10 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { GameState } from "../../../shared/game-base/type";
-import KenoMatchBetOption from "../bet-option";
 import { choicesMapper, KenoMatchConfigs } from "../keno-match-helper";
 import { SettlementResult } from "../type";
 import Styles from "./bet-options.module.scss";
+import BetOption from "../../../shared/bet-option";
 
 interface KenoMatchBetOptionsProps {
     settlementResult: SettlementResult;
@@ -63,9 +63,10 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.values.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
-                                    isHighlight = settlementResult[choiceName];
+                                isHighlight = gameState !== GameState.LockingBet && settlementResult[choiceName];
 
                                 const odd = getOddsByChoice(choice.name);
+
                                 const betOptionProps = {
                                     choice: choice.name,
                                     odd,
@@ -73,6 +74,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     isHighlight,
                                     gameState,
                                     isShowWinningEffect,
+                                    isShowBettype: true,
                                     bettypeName: choice.bettypeName,
                                 };
 
@@ -82,11 +84,11 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     </div>
                                 ) : (
                                     <div key={index} className={`${Styles[`choice-${choice.displayedName}`]} ${odd !== undefined ? "" : Styles["disabled"]}`}>
-                                        <KenoMatchBetOption key={index} {...betOptionProps}>
+                                        <BetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}
                                             </div>
-                                        </KenoMatchBetOption>
+                                        </BetOption>
                                     </div>
                                 );
                             })}

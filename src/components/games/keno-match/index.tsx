@@ -94,11 +94,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             beforeStartFulltime
         };
 
-        const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
-
         return (
             <div>
-                {isShowOverlay && <OverlayMaskWhite />}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -498,6 +495,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false });
             this.notifyWinStreakByLatestSettlementResultTimeMatch(firstHalfResult.settlementResult, TimeMatch.FH);
         }, durations.showHalfTimeResult - durations.showHalfTimeSettlementResult);
+
+        this.showWinningAnimationTimeout = setTimeout(() => {
+            this.setState({
+                showWinningAnimation: true,
+            });
+        }, this.winningAnimationWaitingTimeInSecond);
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
