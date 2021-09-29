@@ -57,6 +57,40 @@
     background: var(--bg-color);
 }
 
+
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .result-container {
+        width: 100%;
+        position: relative;
+        .progress-extra {
+            width: calc(100% - 9rem - 1.2rem);
+            padding: 0;
+            margin-left: 1.2rem;
+            position: absolute;
+            height: 2rem;
+            top: .3rem;
+        }
+        .score-red, .score-blue {
+            position: absolute;
+            font: 500 1.6rem var(--font-number);
+            z-index: 15;
+            color: #fff;
+        }
+        .score-red {
+            left: .4rem;
+        }
+        .score-blue {
+            right: .4rem;
+        }
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

@@ -78,7 +78,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
 
                                 return choice.name.toLowerCase() === "total" ? (
                                     <div key={index} className={Styles["total-row"]}>
-                                        {t("total")}
+                                        {t("sum")}
                                     </div>
                                 ) : (
                                     <div key={index} className={`${Styles[`choice-${choice.displayedName}`]} ${odd !== undefined ? "" : Styles["disabled"]}`}>

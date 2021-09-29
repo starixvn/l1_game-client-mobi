@@ -52,7 +52,7 @@
 }
 
 .bet-choice-name {
-    --font-size: 1.8rem;
+    --font-size: 1.6rem;
     font-size: var(--font-size);
     font-weight: bold;
     text-align: center;
@@ -71,8 +71,7 @@
     grid-column: 1/3;
     color: var(--light-blue-color);
     .bet-choice-name {
-        --font-size: 2rem;
-        padding-top: 0.8rem;
+        --font-size: 1.8rem;
     }
 }
 
@@ -80,8 +79,7 @@
     grid-column: 3/5;
     color: var(--light-red-color);
     .bet-choice-name {
-        --font-size: 2rem;
-        padding-top: 0.8rem;
+        --font-size: 1.8rem;
     }
 }
 
