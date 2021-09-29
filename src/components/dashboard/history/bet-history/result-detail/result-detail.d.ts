@@ -3,4 +3,5 @@ export type Props = {
     children: React.ReactNode;
     closeModal: () => void;
     gameName: string;
+    customizeClass?: string;
 };

@@ -28,7 +28,12 @@ const ResultDetail = (resultDetail, t: TFunction, closeModal: () => void, gameNa
         const { bet, roundId } = resultDetail;
         const translateMapping = GetTranslateMapping(t, gameName);
         return (
-            <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
+            <ResultDetailContainer
+                roundId={roundId}
+                closeModal={closeModal}
+                gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}
+                customizeClass="keno"
+            >
                 <div className={Styles["result-details"]} data-testid="result-details">
                     {renderScoreDetail({ bet, translateMapping })}
                 </div>
