@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { sumArray } from "../../../../helpers/number-helper";
+import { CollapseModeResult } from "../../../keno/collapse-mode-result";
 import ProgressBar from "../../../keno/progress-bar";
 import TeamResult from "../../../keno/team-result";
 import TeamScore from "../../../keno/team-score";
@@ -50,14 +51,5 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
         </div>
     );
 
-    const renderCollapseModeResult = () => (
-        <div className={styles["result-collapse-mode"]}>
-            <div className={styles["result-container"]}>
-                {<ProgressBar result={result} onFinishHandle={displayWinningTeam} isShowCollapse={true} />}
-            </div>
-            {showWinningTeam && <div className={styles["result-label"]}>{t(winningTeam)}</div>}
-        </div>
-    );
-
-    return <>{isCollapse ? renderCollapseModeResult() : renderFullModeResult()}</>;
+    return <>{isCollapse ? <CollapseModeResult winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>;
 };

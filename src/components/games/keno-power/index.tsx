@@ -71,7 +71,7 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         const { settlementResult, showResultInfo } = this.state;
 
         if (showResultInfo) {
-            return <RoundSettlement {...{ gameName: gameName.toLowerCase(), settlementResult }} />;
+            return <></>;
         }
 
         return <RoundResult result={result} gameState={gameState} />;

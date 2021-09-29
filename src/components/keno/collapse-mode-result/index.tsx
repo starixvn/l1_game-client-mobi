@@ -4,7 +4,18 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import ProgressBar from "../progress-bar";
 import styles from "./collapse-mode-result.module.scss";
 
-export const CollapseModeResult = ({ result, onProgressBarAnimationFinish, winningTeam, isShowTitle }) => {
+interface Props {
+    result: {
+        blue: number[];
+        red: number[];
+    };
+    isFirstHalf?: boolean;
+    onProgressBarAnimationFinish?: Function;
+    winningTeam: string;
+    isShowTitle?: boolean;
+}
+
+export const CollapseModeResult: React.FC<Props> = ({ result, isFirstHalf, onProgressBarAnimationFinish, winningTeam, isShowTitle }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -17,6 +28,7 @@ export const CollapseModeResult = ({ result, onProgressBarAnimationFinish, winni
                         onFinishHandle={onProgressBarAnimationFinish}
                         isShowCollapse={true}
                         isShowProgressBarTitle={isShowTitle}
+                        isFirstHalf={isFirstHalf}
                     />
                 }
             </div>
