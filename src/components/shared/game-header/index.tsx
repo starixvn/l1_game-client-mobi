@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
+import { favoriteGameIdIgnore } from "../../game-category/constants";
 import { CommonResourceKeys } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
@@ -56,15 +57,20 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({ isShowCol
             >
                 <div className={Styles["header-left"]}>
                     <div className={Styles["header-overlay"]}></div>
-                    <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
-                        <span
-                            className={
-                                isFavorite
-                                    ? `icon-favorite ${Styles["icon-favorite"]}`
-                                    : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
-                            }
-                        ></span>
-                    </div>
+                    {!favoriteGameIdIgnore.includes(gameId) ? (
+                        <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
+                            <span
+                                className={
+                                    isFavorite
+                                        ? `icon-favorite ${Styles["icon-favorite"]}`
+                                        : `icon-favorite-normal ${Styles["icon-favorite-normal"]}`
+                                }
+                            ></span>
+                        </div>
+                    ) : (
+                        <div className={Styles["zone-none-favorite"]}></div>
+                    )}
+
                     <div className={Styles["title-roundID"]}>
                         <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                         <div key={roundId} className={Styles.round}>

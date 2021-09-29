@@ -65,12 +65,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3.6rem;
-    height: 100%;
-
-    @media (min-width: 1024px) and (max-width: 1278px) {
-        width: 2.6rem;
-    }
 
     &:hover {
         cursor: pointer;
@@ -84,6 +78,14 @@
     .icon-favorite:before {
         font-size: 1.6rem;
         color: var(--game-header-icon-favourite);
+    }
+}
+.favorite-btn,
+.zone-none-favorite {
+    width: 3.6rem;
+    height: 100%;
+    @media (min-width: 1024px) and (max-width: 1278px) {
+        width: 2.6rem;
     }
 }
 
