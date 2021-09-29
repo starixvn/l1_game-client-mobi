@@ -16,11 +16,9 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
     isCollapse,
 }) => {
     const { gameSetting } = useGameContext();
-    const [showWinningTeam, setShowWinningTeam] = useState(false);
     const totalBlue = sumArray(result.blue);
     const totalRed = sumArray(result.red);
     const winningTeam = totalBlue > totalRed ? "blue" : "red";
-    const displayWinningTeam = () => setShowWinningTeam(true);
 
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const isShowResult = gameState === GameState.DisplayResult;
@@ -47,9 +45,9 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
                 {!isShowResult && <TeamScore teamName={t("red")} score={totalRed} isWin={totalBlue < totalRed} customClassName={"red"} />}
             </div>
 
-            {isShowResult && <ProgressBar result={result} />}
+            {isShowResult && <ProgressBar result={result} hasAnimation={true} />}
         </div>
     );
 
-    return <>{isCollapse ? <CollapseModeResult winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>;
+    return <>{isCollapse ? <CollapseModeResult hasAnimation={true} winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>;
 };

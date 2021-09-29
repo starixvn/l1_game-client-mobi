@@ -14,8 +14,8 @@ interface Props {
     winningTeam: string;
     isShowTitle?: boolean;
     hasAnimation: boolean;
-    totalBlueH1: number;
-    totalRedH1: number;
+    totalBlueH1?: number;
+    totalRedH1?: number;
 }
 
 export const CollapseModeResult: React.FC<Props> = ({
