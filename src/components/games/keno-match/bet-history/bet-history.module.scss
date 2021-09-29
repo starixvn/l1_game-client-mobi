@@ -1,5 +1,18 @@
 @import "../../../keno/bet-history/bet-history.module";
 
+[data-theme="light"] .container-round {
+    --bg-line-gradient: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
+    --bg-line: #B9B9B9;
+    --team-blue-color: #3B7BC6;
+}
+
+[data-theme="dark"] .container-round {
+    --bg-line-gradient: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426D91 52.41%, rgba(66, 109, 145, 0) 100.14%);
+    --bg-line: #5086B4;
+    --team-blue-color: #5EA8FF;
+}
+
+
 .overwidth {
     width: calc(100% + 2rem);
     margin: 0 -1rem;
@@ -8,7 +21,7 @@
 .container-round {
     display: grid;
     grid-template-columns: 12rem 7.8rem 12rem;
-    padding: 0.8rem 0;
+    padding: 1rem 0 0.8rem;
     &:first-child {
         position: relative;
         &:before {
@@ -16,9 +29,12 @@
             content: "";
             position: absolute;
             height: 0.1rem;
-            background-color: #dedede;
-            bottom: 0.1rem;
+            background-color: var(--bg-line);
+            bottom: 0;
         }
+    }
+    &:last-child {
+        padding-bottom: 0;
     }
     .round-name {
         text-align: center;
@@ -66,12 +82,12 @@
     padding-top: 0.5rem;
     &:before {
         content: "";
-        background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
+        background: var(--bg-line-gradient);
         height: 0.1rem;
         width: 100%;
         position: absolute;
         left: 0;
-        top: 0;
+        top: -.1rem;
     }
     .sum {
         font-size: 1.2rem;
@@ -82,7 +98,7 @@
         font-size: 1.8rem;
         font-weight: bold;
         &.blue {
-            color: #2e73c3;
+            color: var(--team-blue-color);
         }
         &.red {
             color: #ff4352;
