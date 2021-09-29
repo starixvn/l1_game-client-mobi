@@ -1,15 +1,25 @@
 [data-theme="light"] .bet-settings {
-    --bet-settings-background: linear-gradient(180deg, #8494a7 0%, #42566d 9.69%, #4f5c6a 100%);
+    --bet-settings-background: linear-gradient(
+        180deg,
+        rgba(167, 173, 197, 0.7) 0%,
+        rgba(116, 126, 158, 0.7) 9.69%,
+        rgba(89, 98, 126, 0.7) 100%
+    );
 
     --ripple-background: rgba(196, 196, 196, 0.6);
-    --saba-copyright: #d1d1d1;
+    --footer-background: #4d5570;
 }
 
 [data-theme="dark"] .bet-settings {
-    --bet-settings-background: linear-gradient(180deg, #768a9e 0%, #3a4552 9.69%, #101923 100%);
+    --bet-settings-background: linear-gradient(
+        180deg,
+        rgba(116, 145, 174, 0.7) 0%,
+        rgba(86, 108, 131, 0.7) 9.69%,
+        rgba(57, 71, 88, 0.7) 100%
+    );
 
     --ripple-background: rgba(196, 196, 196, 0.5);
-    --saba-copyright: rgba(209, 209, 209, 0.6);
+    --footer-background: #2b3541;
 }
 
 .bet-settings {
@@ -161,50 +171,16 @@
 
 // Only phone
 .footer {
+    background-color: var(--footer-background);
     position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     height: 4.4rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
     text-align: center;
     font-size: 1.1rem;
     color: var(--saba-copyright);
-
-    .copyright {
-        position: absolute;
-        top: 0.6rem;
-        right: 1.2rem;
-    }
-
-    .one-click-bet-turn-on {
-        position: relative;
-        top: -1rem;
-        display: flex;
-        align-items: stretch;
-        height: 2.9rem;
-        z-index: 1;
-
-        .left {
-            width: 2rem;
-            margin-right: -0.1rem;
-            background: url(/static/images/footer-1-click-bet-background-left.png);
-        }
-
-        .content {
-            width: fit-content;
-            line-height: 3.4rem;
-            padding: 0 0.3rem;
-            background: url(/static/images/footer-1-click-bet-background.png);
-            color: #54ff26;
-        }
-
-        .right {
-            @extend .left;
-            margin-left: -0.1rem;
-            transform: scaleX(-1);
-        }
-    }
 }
 
 // Iphone X or newer
@@ -216,10 +192,6 @@
 
         .footer {
             height: 5.4rem;
-
-            .one-click-bet-turn-on {
-                top: -1.4rem;
-            }
         }
     }
 }
@@ -228,9 +200,5 @@
 .adroid-device {
     .footer {
         height: 3.4rem;
-
-        .one-click-bet-turn-on {
-            top: -0.4rem;
-        }
     }
 }

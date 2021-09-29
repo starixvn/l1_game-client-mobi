@@ -65,6 +65,15 @@
     @media (min-width: 1024px) {
         overflow: initial;
     }
+
+    &.mobile {
+
+        .category-text {
+            line-height: 2.8rem!important;
+        }
+
+        margin-bottom: 0.6rem;
+    }
 }
 
 .category-list {

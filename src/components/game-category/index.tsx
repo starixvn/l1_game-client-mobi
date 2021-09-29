@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
+import { isMobileOnly } from "react-device-detect";
 
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import styles from "./game-category.module.scss";
@@ -54,7 +55,7 @@ export const GameCategory: React.FC<{
     }, [wrapperRef?.current, selectedCategory]);
 
     return (
-        <div ref={wrapperRef} className={styles["category-container"]}>
+        <div ref={wrapperRef} className={`${styles["category-container"]} ${isMobileOnly ? styles["mobile"] : ""}`}>
             <ul className={styles["category-list"]}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li
@@ -64,7 +65,10 @@ export const GameCategory: React.FC<{
                         key={categoryKey}
                     >
                         <div className="d-flex">
-                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                            <div
+                                className={styles["category-text"]}
+                                onClick={() => selectCategoryPage(categoryKey, 1)}
+                            >
                                 {t(`category-${categoryKey}`)}
                             </div>
                             {categoryPage[categoryKey] > 1 && (

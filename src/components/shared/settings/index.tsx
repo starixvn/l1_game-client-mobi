@@ -22,6 +22,7 @@ export const Settings: React.FC<Props> = ({
     updateFavoriteGames,
     enabledQuickBet,
     updateEnabledQuickBet,
+    isShowQuickBet = false,
 }) => {
     const { theme } = useTheme();
     const { t } = useTranslation();
@@ -33,7 +34,7 @@ export const Settings: React.FC<Props> = ({
 
     return (
         <div className={styles["settings-container"]}>
-            {isMobileOnly && (
+            {isShowQuickBet && isMobileOnly && (
                 <div className={styles["setting-left"]}>
                     <QuickBetBtn
                         enabledQuickBet={enabledQuickBet}

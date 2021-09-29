@@ -1,19 +1,22 @@
-import { useTranslation } from "next-i18next";
 import React from "react";
+import { useTranslation } from "next-i18next";
 import { isMobileOnly, isIOS } from "react-device-detect";
 
-import Styles from "./bet-setting.module.scss";
+import { User } from "sc-user-service-client/dist/auth";
+import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
+import Styles from "./bet-setting.module.scss";
 
 type Props = {
     updateBetValue: (betValue: number) => void;
     enabledQuickBet: boolean;
     updateEnabledQuickBet: (value: boolean) => void;
     enabledSound: boolean;
+    user: User;
 };
 
-const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
+const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, user }) => {
     const { t } = useTranslation("common");
     var deviceClass = "";
 
@@ -42,14 +45,16 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
 
             {isMobileOnly && (
                 <div className={Styles["footer"]}>
-                    {enabledQuickBet && (
-                        <div className={Styles["one-click-bet-turn-on"]}>
-                            <span className={Styles["left"]}></span>
-                            <span className={Styles["content"]}>{t("common:oneClickBetOn")}</span>
-                            <span className={Styles["right"]}></span>
-                        </div>
-                    )}
-                    <span className={Styles["copyright"]}>Powered by Saba.club</span>
+                    <div className={Styles["user-info"]}>
+                        <UserInfo user={user} customizeClass={"footer"} />
+                    </div>
+                    <div className={Styles["phone-quick-bet"]}>
+                        <QuickBetBtn
+                            enabledQuickBet={enabledQuickBet}
+                            updateEnabledQuickBet={updateEnabledQuickBet}
+                            isHeaderSetting={false}
+                        />
+                    </div>
                 </div>
             )}
         </div>

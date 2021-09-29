@@ -1,0 +1,55 @@
+[data-theme="light"] .header {
+    --header-text-color: var(--text-color);
+    --header-balance-color: var(--primary-color);
+}
+
+[data-theme="dark"] .header {
+    --header-text-color: #cce2f8;
+    --header-balance-color: var(--primary-color);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
+
+    .avatar {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        border: 0.2rem solid #b5b5b5;
+    }
+
+    .info {
+        line-height: 1.8rem;
+        margin-right: 0.8rem;
+        font-weight: bold;
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .icon-user {
+        position: relative;
+        top: 18px;
+        left: -2px;
+        font-size: 3.9rem;
+    }
+    &.footer {
+    }
+}
+
+.user-name {
+    color: var(--header-text-color);
+}
+
+.balance {
+    color: var(--header-balance-color);
+    font: 500 1.8rem/2rem var(--font-number);
+}
+
+.icon-user {
+    position: relative;
+    top: 0.3rem;
+    line-height: 0;
+    font-size: 2rem;
+}

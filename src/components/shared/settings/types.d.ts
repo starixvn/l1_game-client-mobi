@@ -9,4 +9,5 @@ export interface Props {
     updateFavoriteGames: Function;
     enabledQuickBet?: boolean;
     updateEnabledQuickBet?: Function;
+    isShowQuickBet?: boolean;
 }

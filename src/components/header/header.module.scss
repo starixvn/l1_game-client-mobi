@@ -62,43 +62,9 @@
             cursor: pointer;
         }
     }
-}
-
-.user {
-    display: flex;
-    align-items: center;
-    margin-left: 1.5rem;
-
-    .avatar {
-        width: 4rem;
-        height: 4rem;
-        border-radius: 50%;
-        border: 0.2rem solid #b5b5b5;
+    &.mobile {
+        height: 3.8rem;
     }
-
-    .info {
-        line-height: 1.8rem;
-        margin-right: 0.8rem;
-        font-weight: bold;
-        text-align: right;
-        white-space: nowrap;
-    }
-
-    .icon-user {
-        position: relative;
-        top: 18px;
-        left: -2px;
-        font-size: 3.9rem;
-    }
-}
-
-.user-name {
-    color: var(--header-text-color);
-}
-
-.balance {
-    color: var(--header-balance-color);
-    font: 500 1.8rem/2rem var(--font-number);
 }
 
 .icon-user {
@@ -145,11 +111,5 @@
 }
 
 .settings-container {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    height: 4.5rem;
-    margin-top: 4.4rem;
-    z-index: var(--setting-index);
-    background-color: var(--settings-container-background);
+    margin-top: 3.8rem;
 }
