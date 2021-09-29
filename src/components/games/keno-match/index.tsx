@@ -268,7 +268,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         this.setState({beforeStartFulltime: remainingTime === durations.beforeStartFullTimePlacingBet});
 
-        this.setState({ isFirstHalf: durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.fullTimePlacingBets });
+        this.setState({ isFirstHalf: durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.beforeStartFullTimePlacingBet });
 
         this.setState({
             showResultInfo:
