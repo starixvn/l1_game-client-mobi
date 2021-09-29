@@ -31,7 +31,7 @@ describe("KenoMatch bet-history Result detail", () => {
             expect(getAllByTestId("score-round").length).toBe(2);
             expect(getAllByTestId("team-component").length).toBe(4);
             expect(getAllByTestId("team-result-row-component").length).toBe(4);
-            expect(getAllByTestId("winning-info").length).toBe(4);
+            expect(getAllByTestId("team-winning-info").length).toBe(4);
         });
     });
 
@@ -58,7 +58,7 @@ describe("KenoMatch bet-history Result detail", () => {
             );
 
             // Assert
-            expect(getAllByTestId("winning-info").length).toBe(4);
+            expect(getAllByTestId("team-winning-info").length).toBe(4);
             expect(getAllByTestId("text-winning-info").length).toBe(2);
         });
     });

@@ -46,7 +46,7 @@ describe("KenoMatch bet-history Result detail", () => {
             // Assert
             expect(getByTestId("result-details")).toBeInTheDocument();
             expect(getAllByTestId("score-round").length).toBe(2);
-            expect(getAllByTestId("winning-info").length).toBe(4);
+            expect(getAllByTestId("team-winning-info").length).toBe(4);
         });
     });
 
