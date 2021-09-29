@@ -1,21 +1,6 @@
 import { Round, RoundKenoMatchBase } from "../../../types";
 import { GameBaseProps, GameBaseState, GameDurations, GameSettings, GameState } from "../../shared/game-base/type";
 
-export enum KenoMatchGameStateEnum {
-    None = 20,
-    BeforeStartRound,
-    Disabled,
-    HalfTimePlacingBet,
-    ResetResult,
-    BeforeStartFullTimePlacingBet,
-    FullTimePlacingBet,
-    LockingBet,
-    ShowResult,
-    ShowSettlementResult,
-}
-
-export type KenoMatchGameState = KenoMatchGameStateEnum | GameState;
-
 export interface Result {
     blue: number[];
     red: number[];
