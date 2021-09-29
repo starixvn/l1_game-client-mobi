@@ -433,6 +433,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     playResultAnimation: false,
                     showResultInfo: false,
                     betPercentage: {},
+                    showMD5ResultKey: false,
                 },
             },
             {
@@ -551,6 +552,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation: true,
             result: finish.result,
             settlementResult: finish.settlementResult,
+            md5ResultKey: finish.resultKey,
         });
 
         const animationDuration = this.getFinishAnimationDuration();
@@ -901,10 +903,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
-        let md5Text = <div><strong>MD5:</strong> {md5}</div>,
+        let md5Text = (
+                <div>
+                    <strong>MD5:</strong> {md5}
+                </div>
+            ),
             md5ClassName = "md5-key";
 
-        if (showMD5ResultKey && md5ResultKey !== '') {
+        if (showMD5ResultKey && md5ResultKey !== "") {
             const key = md5ResultKey.split("]")[1];
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
