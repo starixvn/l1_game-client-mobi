@@ -30,7 +30,6 @@
             position: absolute;
             height: 0.1rem;
             background-color: var(--bg-line);
-            bottom: 0;
         }
     }
     &:last-child {
@@ -87,7 +86,7 @@
         width: 100%;
         position: absolute;
         left: 0;
-        top: -.1rem;
+        top: 0;
     }
     .sum {
         font-size: 1.2rem;
@@ -108,7 +107,6 @@
     .result-info {
         justify-content: center;
         display: flex;
-        grid-gap: 0.6rem;
         align-items: center;
     }
 }
