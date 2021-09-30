@@ -26,11 +26,21 @@
     box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
     color: var(--popup-color);
-    overflow-y: auto;
+    overflow: auto;
     z-index: var(--popup-result-index);
     padding: 1rem;
-    &.keno {
-        height: 38rem;
+
+    @media (min-device-width: 375px) and (max-device-height: 668px) {
+        &.keno {
+            width: calc(100vw - 1.6rem);
+            height: 30rem;
+        }
+    }
+    @media (min-device-width: 320px) and (max-device-height: 568px) {
+        &.keno {
+            width: calc(100vw - 1.6rem);
+            height: 25rem;
+        }
     }
 
     .game-name {
