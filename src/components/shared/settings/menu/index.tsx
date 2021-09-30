@@ -10,10 +10,10 @@ import Styles from "./menu.module.scss";
 const dropdownItemClassName = "dropdown-item";
 
 export const Menu: React.FC<{
-    handleToggleSound: Function;
-    enabledSound: boolean;
+    handleToggleNotification: Function;
+    enabledNotification: boolean;
     handleToggleGuideModal: Function;
-}> = ({ handleToggleSound, enabledSound, handleToggleGuideModal }) => {
+}> = ({ handleToggleNotification, enabledNotification, handleToggleGuideModal }) => {
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -68,16 +68,16 @@ export const Menu: React.FC<{
                         </div>
                     </div>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
-                        <div className={Styles["label"]}>{t("sound")}</div>
+                        <div className={Styles["label"]}>{t("winningStreakNotification")}</div>
                         <div className={Styles["toggle-button"]}>
                             <input
-                                id="toggle-sound"
+                                id="toggle-notification"
                                 className={Styles["toggle-checkbox"]}
                                 type={"checkbox"}
-                                onChange={() => handleToggleSound()}
-                                checked={enabledSound}
+                                onChange={() => handleToggleNotification()}
+                                checked={enabledNotification}
                             />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-sound"></label>
+                            <label className={Styles["toggle-btn"]} htmlFor="toggle-notification"></label>
                         </div>
                     </div>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`} onClick={openGuide}>

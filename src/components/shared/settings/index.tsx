@@ -28,7 +28,7 @@ export const Settings: React.FC<Props> = ({
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
-    const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
+    const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
 
@@ -45,18 +45,15 @@ export const Settings: React.FC<Props> = ({
             )}
             <div className={styles["setting-right"]}>
                 <div
-                    ref={toggleWinningStreakBtnRef}
-                    id="notification-settings"
+                    ref={toggleSoundBtnRef}
+                    id="sound-settings"
                     className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
-                    onClick={() => onToggleNotification()}
+                    onClick={() => onToggleSound()}
                 >
                     <span
-                        className={enabledNotification ? styles[`${"icon-notify-on-"}${theme}`] : styles[`${"icon-notify-off-"}${theme}`]}
+                        className={enabledSound ? styles[`${"icon-sound-on-"}${theme}`] : styles[`${"icon-sound-off-"}${theme}`]}
                     ></span>
-                    <Tooltip
-                        message={`${t("winningStreakNotification")}: ${enabledNotification ? t("on") : t("off")}`}
-                        hoverWrapper={toggleWinningStreakBtnRef}
-                    />
+                    <Tooltip message={`${t("sound")}: ${enabledSound ? t("on") : t("off")}`} hoverWrapper={toggleSoundBtnRef} />
                 </div>
 
                 <div
@@ -78,7 +75,12 @@ export const Settings: React.FC<Props> = ({
                     <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
                     <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                 </div>
-                <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
+
+                <Menu
+                    handleToggleNotification={onToggleNotification}
+                    enabledNotification={enabledNotification}
+                    handleToggleGuideModal={toggleGuideModal}
+                />
             </div>
             {showFavoriteSetting && (
                 <FavoriteSetting

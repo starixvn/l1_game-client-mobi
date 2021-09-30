@@ -52,22 +52,22 @@
     height: 19px;
 }
 
-.icon-notify-on-dark {
+.icon-sound-on-dark {
     @extend %icon-notify;
     background-position: -63px -29px;
 }
 
-.icon-notify-off-dark {
+.icon-sound-off-dark {
     @extend %icon-notify;
     background-position: -63px 0;
 }
 
-.icon-notify-off-light {
+.icon-sound-off-light {
     @extend %icon-notify;
     background-position: -95px 0;
 }
 
-.icon-notify-on-light {
+.icon-sound-on-light {
     @extend %icon-notify;
     background-position: -95px -30px;
 }
