@@ -8,7 +8,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 const RoundSettlementResult = ({ title, settlementResult, displayChoices, extendClass }: Props) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLocaleLowerCase());
-    const winningTeamName = settlementResult?.blue ? "blue" : "red";
+    const winningTeamName = settlementResult?.tie ? "tie" : settlementResult?.blue ? "teamBlueWin" : "teamRedWin";
     const md5Class = gameSetting.supportMD5 ? Styles["keno-match-md5"] : "";
     const settlementClasses = `${Styles["half-round-settlement"]} ${md5Class} ${Styles[extendClass]} `;
 

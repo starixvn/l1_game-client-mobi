@@ -117,5 +117,16 @@
     font-size: 1.4rem;
     padding: 0 1.4rem;
     line-height: 2.8rem;
-    margin: 0 .3rem;
+    margin: 0 0.3rem;
+}
+
+.team-win {
+    font-size: 1.8rem;
+    font-weight: bold;
+    &.blue {
+        color: var(--team-blue-color);
+    }
+    &.red {
+        color: #ff4352;
+    }
 }

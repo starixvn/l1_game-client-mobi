@@ -1,11 +1,10 @@
 import React from "react";
 
-import { Choices } from "../../keno-match-helper";
 import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import { StateRound } from "../bet-history-hepler";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
-import { renderTeamWinningInfo } from "../../../../keno/bet-history/result-detail";
+import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total }) => {
@@ -57,15 +56,6 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
                     })}
                 </div>
             </div>
-        </div>
-    );
-};
-
-const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
-    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
-    return (
-        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`} data-testid="text-winning-info">
-            {settlementResult?.tie ? translateMapping.tie : settlementResult?.blue ? translateMapping.blueWin : translateMapping.redWin}
         </div>
     );
 };

@@ -1,7 +1,7 @@
 import { TFunction } from "next-i18next";
 
 export const KenoMatchId = [36, 37];
-const Choices = {
+export const Choices = {
     blue: "blue",
     red: "red",
     tie: "tie",
@@ -45,8 +45,6 @@ export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
         live: t(`${gameName}:live`),
         sum: t(`${gameName}:sum`),
         total: t(`${gameName}:total`),
-        blueWin: t(`${gameName}:blueWin`),
-        redWin: t(`${gameName}:redWin`),
         tie: t(`${gameName}:tie`),
         big: t(`${gameName}:big`),
         small: t(`${gameName}:small`),

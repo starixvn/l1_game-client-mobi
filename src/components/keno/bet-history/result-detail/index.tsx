@@ -3,7 +3,7 @@ import React from "react";
 
 import ResultDetailContainer from "../../../dashboard/history/bet-history/result-detail";
 import { GameResourceKeys } from "../../../../common/resources";
-import { KenoMatchId, GetTranslateMapping } from "../../keno.helper";
+import { KenoMatchId, GetTranslateMapping, Choices } from "../../keno.helper";
 import RenderScoreDetailKenoMatch from "../../../games/keno-match/bet-history/result-detail";
 import RenderScoreDetailKenoPower from "../../../games/keno-power/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
@@ -20,6 +20,19 @@ export const renderTeamWinningInfo = ({ settlementResult, translateMapping, choi
         }
         return "";
     });
+};
+
+export const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
+    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
+    return (
+        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
+            {settlementResult?.tie
+                ? translateMapping.tie
+                : settlementResult?.blue
+                ? translateMapping.teamBlueWin
+                : translateMapping.teamRedWin}
+        </div>
+    );
 };
 
 const ResultDetail = (resultDetail, t: TFunction, closeModal: () => void, gameName: string, gameId: number) => {

@@ -1,24 +1,10 @@
 import React from "react";
 
-import { Choices } from "../../keno-power-helper";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
 import { calculateTotalPoint } from "../../../../keno/keno.helper";
-import { renderTeamWinningInfo } from "../../../../keno/bet-history/result-detail";
+import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
-
-const renderTextWinningForTeam = ({ settlementResult, translateMapping }) => {
-    const classFollowTeam = settlementResult?.tie ? Choices.tie : settlementResult?.blue ? Choices.blue : Choices.red;
-    return (
-        <div className={`${Styles["team-win"]} ${Styles[classFollowTeam]}`}>
-            {settlementResult?.tie
-                ? translateMapping.tie
-                : settlementResult?.blue
-                ? translateMapping.teamBlueWin
-                : translateMapping.teamRedWin}
-        </div>
-    );
-};
 
 const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
     const { result, settlementResult } = bet;
