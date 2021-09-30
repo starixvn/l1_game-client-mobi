@@ -25,7 +25,8 @@ const BetOption: React.FunctionComponent<Props> = ({
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
-    isShowBettype = false
+    isShowBettype = false,
+    isShowPoolStake = true,
 }) => {
     const { totalBets, ownBets } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
@@ -83,8 +84,10 @@ const BetOption: React.FunctionComponent<Props> = ({
                 {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
                 <div className={Styles["total-bet"]} ref={totalBetRef}>
-                    {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
+                    {isShowPoolStake &&
+                        (gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet))}
                 </div>
+
                 {children}
                 <div className={Styles["own-bet"]}>
                     <span key={ownBets?.[choice]} className="d-inline-block">

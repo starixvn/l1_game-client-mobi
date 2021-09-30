@@ -15,4 +15,5 @@ export type Props = {
     isShowWinningEffect: boolean;
     isShowBettype?: boolean;
     bettypeName?: string;
+    isShowPoolStake?: boolean;
 };

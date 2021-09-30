@@ -1,6 +1,5 @@
 import { render } from "@testing-library/react";
 import React from "react";
-import { KenoMatchGameStateEnum } from "../type";
 import KenoMatchBetOptions from "./";
 import { FakeSettlementResult } from "../keno-match-helper";
 import { GameState, ViewMode } from "../../../shared/game-base/type";
@@ -77,11 +76,12 @@ const liveOdds = {
     },
     betOptionsProps = {
         liveOdds,
-        gameState: KenoMatchGameStateEnum.HalfTimePlacingBet as number,
+        gameState: GameState.InRound,
         settlementResult: FakeSettlementResult,
         isShowWinningEffect: true,
         isFirstHalf: true,
-        beforeStartFulltime: false
+        beforeStartFulltime: false,
+        isShowPoolStake:true
     };
     
 describe("KenoMatchBetOptions", () => {

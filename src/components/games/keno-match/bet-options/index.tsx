@@ -76,6 +76,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     isShowWinningEffect,
                                     isShowBettype: true,
                                     bettypeName: choice.bettypeName,
+                                    isShowPoolStake: false
                                 };
 
                                 return choice.name.toLowerCase() === "total" ? (
