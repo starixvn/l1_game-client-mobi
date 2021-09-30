@@ -98,22 +98,27 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
             blueRed: {
                 tabName: this.getGameTranslate("blueRedTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red"] }),
+                tabHoverValue: this.getGameTranslate("teamBlueRed"),
             },
             bigSmall: {
                 tabName: this.getGameTranslate("bigSmallTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["big", "small"] }),
+                tabHoverValue: this.getGameTranslate("sumBigSmall"),
             },
             oddEven: {
                 tabName: this.getGameTranslate("evenOddTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["odd", "even"] }),
+                tabHoverValue: this.getGameTranslate("sumEvenOdd"),
             },
             blueBigSmall: {
                 tabName: this.getGameTranslate("blueBigSmallTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["blueBig", "blueSmall"] }),
+                tabHoverValue: this.getGameTranslate("teamBlueBigSmall"),
             },
             redBigSmall: {
                 tabName: this.getGameTranslate("redBigSmallTabs"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["redBig", "redSmall"] }),
+                tabHoverValue: this.getGameTranslate("teamRedBigSmall"),
             },
         };
 

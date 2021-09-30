@@ -140,26 +140,32 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             firstHalfBlueRed: {
                 tabName: this.getGameTranslate("firstHalfBlueRed"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red", "tie"], timeMatch: TimeMatch.FH }),
+                tabHoverValue: this.getGameTranslate("firstHalfBlueRedTabs"),
             },
             firstHalfOverUnder: {
                 tabName: this.getGameTranslate("firstHalfOverUnder"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["over", "under"], timeMatch: TimeMatch.FH }),
+                tabHoverValue: this.getGameTranslate("firstHalfOverUnderTabs"),
             },
             firstHalfEvenOdd: {
                 tabName: this.getGameTranslate("firstHalfEvenOdd"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["even", "odd"], timeMatch: TimeMatch.FH }),
+                tabHoverValue: this.getGameTranslate("firstHalfOddEvenTabs"),
             },
             fullTimeBlueRed: {
                 tabName: this.getGameTranslate("fullTimeBlueRed"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["blue", "red", "tie"], timeMatch: TimeMatch.FT }),
+                tabHoverValue: this.getGameTranslate("fullTimeBlueRedTabs"),
             },
             fullTimeOverUnder: {
                 tabName: this.getGameTranslate("fullTimeOverUnder"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["over", "under"], timeMatch: TimeMatch.FT }),
+                tabHoverValue: this.getGameTranslate("fullTimeOverUnderTabs"),
             },
             fullTimeEvenOdd: {
                 tabName: this.getGameTranslate("fullTimeEvenOdd"),
                 tabWinningStreak: this.getWinningStreakByOptions({ options: ["even", "odd"], timeMatch: TimeMatch.FT }),
+                tabHoverValue: this.getGameTranslate("fullTimeOddEvenTabs"),
             },
         };
         return (

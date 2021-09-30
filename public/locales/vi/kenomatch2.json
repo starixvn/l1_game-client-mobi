@@ -55,5 +55,11 @@
     "FullTimeOverUnderLive": "Toàn trận Tài/Xỉu (Live)",
     "FullTimeEvenOddLive": "Toàn trận Chẵn/Lẻ (Live)",
     "blueWin": "Đội Xanh thắng",
-    "redWin": "Đội Đỏ thắng"
+    "redWin": "Đội Đỏ thắng",
+    "firstHalfBlueRedTabs": "Hiệp 1 Đội Xanh/Đội Đỏ",
+    "fullTimeBlueRedTabs": "Toàn trận Đội Xanh/Đội Đỏ",
+    "firstHalfOverUnderTabs": "Hiệp 1 Tổng Tài/Xỉu",
+    "fullTimeOverUnderTabs": "Toàn trận Tổng Tài/Xỉu",
+    "firstHalfOddEvenTabs": "Hiệp 1 Tổng Chẵn/Lẻ",
+    "fullTimeOddEvenTabs": "Toàn trận Tổng Chẵn/Lẻ"
 }

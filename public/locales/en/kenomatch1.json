@@ -55,5 +55,11 @@
     "FullTimeOverUnderLive": "Full Time Over/Under (Live)",
     "FullTimeEvenOddLive": "Full Time Even/Odd (Live)",
     "blueWin": "Team Blue win",
-    "redWin": "Team Red win"
+    "redWin": "Team Red win",
+    "firstHalfBlueRedTabs": "First Half Team Blue/Team Red",
+    "fullTimeBlueRedTabs": "Full Time Team Blue/Team Red",
+    "firstHalfOverUnderTabs": "First Half Sum Over/Under",
+    "fullTimeOverUnderTabs": "Full Time Sum Over/Under",
+    "firstHalfOddEvenTabs": "First Half Sum Even/Odd",
+    "fullTimeOddEvenTabs": "Full Time Sum Even/Odd"
 }
