@@ -49,7 +49,6 @@ const Header: React.FC<Props> = (props) => {
                     </div>
                 </div>
             </header>
-            {isMobileOnly && <div className={Styles["settings-container"]}></div>}
         </>
     );
 };

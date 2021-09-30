@@ -64,6 +64,7 @@
     }
     &.mobile {
         height: 3.8rem;
+        position: initial;
     }
 }
 
@@ -108,8 +109,4 @@
 
 [data-theme="dark"] .settings-container {
     --settings-container-background: #283f56;
-}
-
-.settings-container {
-    margin-top: 3.8rem;
 }
