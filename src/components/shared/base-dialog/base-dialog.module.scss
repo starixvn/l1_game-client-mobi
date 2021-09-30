@@ -77,8 +77,7 @@
         box-shadow: none;
 
         &.isMobile {
-            top: 9rem;
-            bottom: auto !important;
+            bottom: 4.4rem;
         }
 
         @media (min-width: 1024px) {
