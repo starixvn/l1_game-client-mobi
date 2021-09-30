@@ -142,9 +142,10 @@
 
     &.baccarat,
     &.vipbaccarat,
-    &.keno-match1,
-    &.keno-match2 {
-        @extend %dot;
+    &.kenopower1,
+    &.kenopower2,
+    &.kenomatch1,
+    &.kenomatch2 {
         background: var(--baccarat-dot-tie-border);
         box-shadow: var(--baccarat-dot-tie-shadow);
 
