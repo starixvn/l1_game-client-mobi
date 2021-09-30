@@ -229,7 +229,7 @@
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
-            "showResult": 6,
+            "showResult": 8,
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
             "resultAnimation": 8,
@@ -259,7 +259,7 @@
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
-            "showResult": 6,
+            "showResult": 12,
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
             "resultAnimation": 8,

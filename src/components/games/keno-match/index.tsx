@@ -13,6 +13,7 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
@@ -91,8 +92,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             beforeStartFulltime,
         };
 
+        const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
         return (
             <div>
+                {isShowOverlay && <OverlayMaskWhite />}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
@@ -348,8 +351,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const durations = this.props.durations;
 
         switch (true) {
-            case (durations.wholeRound >= remainingTime && remainingTime > durations.halfTimePlacingBets) ||
-                (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.beforeStartFullTimePlacingBet):
+            case (durations.wholeRound >= remainingTime && remainingTime > durations.halfTimePlacingBets + 2) ||
+                (durations.showHalfTimeResult >= remainingTime && remainingTime > durations.beforeStartFullTimePlacingBet + 2):
                 return GameState.DisplayResult;
             case (durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.halfTimeLockingBet) ||
                 (durations.fullTimePlacingBets >= remainingTime && remainingTime > durations.fullTimeLockingBet):
