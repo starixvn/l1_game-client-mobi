@@ -14,6 +14,7 @@ import { ChoiceForTabActive, Choices, StatisticRuleMapping } from "./keno-power-
 import { RoundResult } from "./round-result";
 
 const DisplayChoices = ["big", "small", "odd", "even"];
+const DefaultResult = { blue: new Array(20).fill(0), red: new Array(20).fill(0) };
 
 class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     constructor(props: GameBaseProps) {
@@ -24,6 +25,14 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
 
     get isShowInlineResult() {
         return true;
+    }
+
+    get defaultResult() {
+        return DefaultResult;
+    }
+
+    get defaultSettlementResult() {
+        return {};
     }
 
     retryConnect = () => {

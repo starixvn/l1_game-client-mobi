@@ -240,6 +240,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return this.props.durations.showResult * 1000;
     }
 
+    get defaultResult() {
+        return null;
+    }
+
+    get defaultSettlementResult() {
+        return null;
+    }
+
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
         const message = GetLocalizedErrorMessage(apiError.errorCode, isPlaceBet);
@@ -410,7 +418,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     getStateByNextGameState(nextGameState: any): any {
-        const { roundId, displayPopup, notice, removeBetChoiceFocus } = this.state;
+        const { roundId, displayPopup, notice, removeBetChoiceFocus, result, settlementResult } = this.state;
         const { durations } = this.props;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
@@ -448,6 +456,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     isShowBlink: true,
                     displayPopup: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : displayPopup,
                     notice: [PopupType.Rebet, PopupType.PlaceBet].includes(displayPopup) ? null : notice,
+                    result: this.defaultResult ?? result,
+                    settlementResult: this.defaultSettlementResult ?? settlementResult,
                 },
             },
         ];

@@ -28,7 +28,13 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
             <div className={styles["blue-team"]}>
                 <TeamResult result={result.blue} hasAnimation={gameState === GameState.DisplayResult} />
                 {!isShowResult && (
-                    <TeamScore teamName={t("blue")} score={totalBlue} isWin={totalBlue > totalRed} customClassName={"blue"} />
+                    <TeamScore
+                        isShowScore={totalBlue !== 0}
+                        teamName={t("blue")}
+                        score={totalBlue}
+                        isWin={totalBlue > totalRed}
+                        customClassName={"blue"}
+                    />
                 )}
             </div>
 
@@ -42,7 +48,15 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
 
             <div className={styles["red-team"]}>
                 <TeamResult result={result.red} hasAnimation={gameState === GameState.DisplayResult} />
-                {!isShowResult && <TeamScore teamName={t("red")} score={totalRed} isWin={totalBlue < totalRed} customClassName={"red"} />}
+                {!isShowResult && (
+                    <TeamScore
+                        isShowScore={totalRed !== 0}
+                        teamName={t("red")}
+                        score={totalRed}
+                        isWin={totalBlue < totalRed}
+                        customClassName={"red"}
+                    />
+                )}
             </div>
 
             {isShowResult && <ProgressBar result={result} hasAnimation={true} />}
