@@ -219,7 +219,7 @@
             "showFullTimeSettlementResult": 58,
 
             "halfTimePlacingBets": 54,
-            "resetResult": 35,
+            "resetResult": 32,
             "halfTimeLockingBet": 32,
             "showHalfTimeResult": 27,
             "showHalfTimeSettlementResult": 23,
@@ -229,7 +229,7 @@
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
-            "showResult": 8,
+            "showResult": 6,
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
             "resultAnimation": 8,
@@ -249,7 +249,7 @@
             "showFullTimeSettlementResult": 66,
 
             "halfTimePlacingBets": 58,
-            "resetResult": 39,
+            "resetResult": 36,
             "halfTimeLockingBet": 36,
             "showHalfTimeResult": 31,
             "showHalfTimeSettlementResult": 27,
@@ -259,7 +259,7 @@
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
-            "showResult": 12,
+            "showResult": 6,
             "halfTimeDuration": 27,
             "fullTimeDuration": 18,
             "resultAnimation": 8,

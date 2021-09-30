@@ -43,7 +43,7 @@ export function HalfRoundResult({ result, isFirstHalf, totalBlue, totalRed, isSh
                     <TeamScore
                         teamName={t("blue")}
                         score={totalBlue}
-                        isWin={totalBlue > totalRed}
+                        isWin={isShowScore && totalBlue > totalRed}
                         customClassName={"blue"}
                         isShowScore={isShowScore}
                     />
@@ -58,7 +58,7 @@ export function HalfRoundResult({ result, isFirstHalf, totalBlue, totalRed, isSh
                     <TeamScore
                         teamName={t("red")}
                         score={totalRed}
-                        isWin={totalRed > totalBlue}
+                        isWin={isShowScore && totalRed > totalBlue}
                         customClassName={"red"}
                         isShowScore={isShowScore}
                     />
