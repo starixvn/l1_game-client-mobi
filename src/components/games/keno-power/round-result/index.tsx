@@ -49,5 +49,7 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
         </div>
     );
 
-    return <>{isCollapse ? <CollapseModeResult hasAnimation={true} winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>;
+    return (
+        <>{isCollapse ? <CollapseModeResult hasAnimation={true} winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>
+    );
 };

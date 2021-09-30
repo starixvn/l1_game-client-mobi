@@ -1,6 +1,7 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
+import RoundSettlementResult from "../../keno/settlement-result";
 
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameState } from "../../shared/game-base/type";
@@ -12,6 +13,8 @@ import KenoPowerOptions from "./bet-options";
 import { KenoPowerGameState } from "./keno-power";
 import { ChoiceForTabActive, Choices, StatisticRuleMapping } from "./keno-power-helper";
 import { RoundResult } from "./round-result";
+
+const DisplayChoices = ["big", "small", "odd", "even"];
 
 class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     constructor(props: GameBaseProps) {
@@ -67,12 +70,11 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
 
     renderResultSection() {
         const { result, gameState } = this.state;
-        const { gameName } = this.props;
         const { settlementResult, showResultInfo } = this.state;
 
         if (showResultInfo) {
             this.setState({ showMD5ResultKey: true });
-            return <></>;
+            return <RoundSettlementResult title={""} settlementResult={settlementResult} displayChoices={DisplayChoices} />;
         }
 
         return <RoundResult result={result} gameState={gameState} />;

@@ -937,7 +937,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGame() {
-        const { durations } = this.props;
+        const { durations, supportMD5 } = this.props;
 
         const {
             remainingTime,
@@ -964,6 +964,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             viewMode,
             playResultAnimation,
             isShowBlink,
+            supportMD5,
         };
 
         const gameActionsContext = {

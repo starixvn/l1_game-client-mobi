@@ -11,4 +11,5 @@ export type GameContextModel = {
     viewMode: ViewMode;
     playResultAnimation: boolean;
     isShowBlink: boolean;
+    supportMD5: boolean;
 };
