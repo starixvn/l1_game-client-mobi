@@ -1,8 +1,8 @@
 [data-theme="light"] .header {
-    --header-background: linear-gradient(180deg, #f9f9f9 0%, #dedede 100%);
+    --header-background: linear-gradient(180deg, #ffffff 50%, #dedede 100%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
-    --header-border-bottom: #dedede;
+    --header-border-bottom: #c5c5c5;
     --icon-menu-color: #6e809a;
     --slide-nav-background: #fff;
     --icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
@@ -11,10 +11,10 @@
 }
 
 [data-theme="dark"] .header {
-    --header-background: linear-gradient(180deg, #324a62 0%, #223a51 100%);
+    --header-background: linear-gradient(180deg, #395571 50%, #2e4965 100%);
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
-    --header-border-bottom: #28445f;
+    --header-border-bottom: #3f5c7b;
     --icon-menu-color: #fff;
     --slide-nav-background: #252b3b;
     --icon-menu-background-hover: radial-gradient(circle, rgba(20, 31, 47, 0) 0%, rgba(20, 31, 47, 1) 100%);
@@ -101,12 +101,4 @@
             opacity: 1;
         }
     }
-}
-
-[data-theme="light"] .settings-container {
-    --settings-container-background: #a9cee7;
-}
-
-[data-theme="dark"] .settings-container {
-    --settings-container-background: #283f56;
 }
