@@ -58,127 +58,164 @@ export const FakeSettlementResult = {
     even: false,
 };
 
-export const KenoMatchConfigs = {
-    choices: {
-        firstHalf: {
-            name: "firstHalf",
-            config: [
-                {
-                    name: "fhBlue",
-                    displayedName: "blue",
-                    bettypeName: "FirstHalfTeamBlueTeamRed",
-                },
-                {
-                    name: "fhRed",
-                    displayedName: "red",
-                    bettypeName: "FirstHalfTeamBlueTeamRed",
-                },
-                {
-                    name: "total",
-                    displayedName: "total",
-                },
-                {
-                    name: "fhOver",
-                    displayedName: "over",
-                    bettypeName: "FirstHalfOverUnder",
-                },
-                {
-                    name: "fhUnder",
-                    displayedName: "under",
-                    bettypeName: "FirstHalfOverUnder",
-                },
-                {
-                    name: "fhEven",
-                    displayedName: "even",
-                    bettypeName: "FirstHalfEvenOdd",
-                },
-                {
-                    name: "fhOdd",
-                    displayedName: "odd",
-                    bettypeName: "FirstHalfEvenOdd",
-                },
-            ],
-        },
-        fullTime: {
-            name: "fullTime",
-            config: [
-                {
-                    name: "ftBlue",
-                    displayedName: "blue",
-                    bettypeName: "FullTimeTeamBlueTeamRed",
-                },
-                {
-                    name: "ftRed",
-                    displayedName: "red",
-                    bettypeName: "FullTimeTeamBlueTeamRed",
-                },
-                {
-                    name: "total",
-                    displayedName: "total",
-                },
-                {
-                    name: "ftOver",
-                    displayedName: "over",
-                    bettypeName: "FullTimeOverUnderRed",
-                },
-                {
-                    name: "ftUnder",
-                    displayedName: "under",
-                    bettypeName: "FullTimeOverUnderRed",
-                },
-                {
-                    name: "ftEven",
-                    displayedName: "even",
-                    bettypeName: "FullTimeEvenOdd",
-                },
-                {
-                    name: "ftOdd",
-                    displayedName: "odd",
-                    bettypeName: "FullTimeEvenOdd",
-                },
-            ],
-        },
-        liveFullTime: {
-            name: "fullTime",
-            config: [
-                {
-                    name: "liveFTBlue",
-                    displayedName: "blue",
-                    bettypeName: "FullTimeTeamBlueTeamRedLive",
-                },
-                {
-                    name: "liveFTRed",
-                    displayedName: "red",
-                    bettypeName: "FullTimeTeamBlueTeamRedLive",
-                },
-                {
-                    name: "total",
-                    displayedName: "total",
-                },
-                {
-                    name: "liveFTOver",
-                    displayedName: "over",
-                    bettypeName: "FullTimeOverUnderLive",
-                },
-                {
-                    name: "liveFTUnder",
-                    displayedName: "under",
-                    bettypeName: "FullTimeOverUnderLive",
-                },
-                {
-                    name: "liveFTEven",
-                    displayedName: "even",
-                    bettypeName: "FullTimeEvenOddLive",
-                },
-                {
-                    name: "liveFTOdd",
-                    displayedName: "odd",
-                    bettypeName: "FullTimeEvenOddLive",
-                },
-            ],
-        },
-    },
+type ChoiceConfig = {
+    name: string;
+    displayedName: string;
+    bettypeName?: string;
+    isShowTooltip: boolean;
+    tooltipMessage?: string;
 };
+
+interface IKenoMatchConfig {
+    name: string;
+    config: ChoiceConfig[];
+}
+
+export const KenoMatchConfigs: IKenoMatchConfig[] = [
+    {
+        name: "firstHalf",
+        config: [
+            {
+                name: "fhBlue",
+                displayedName: "blue",
+                bettypeName: "FirstHalfTeamBlueTeamRed",
+                isShowTooltip: false,
+            },
+            {
+                name: "fhRed",
+                displayedName: "red",
+                bettypeName: "FirstHalfTeamBlueTeamRed",
+                isShowTooltip: false,
+            },
+            {
+                name: "total",
+                displayedName: "total",
+                isShowTooltip: false,
+            },
+            {
+                name: "fhOver",
+                displayedName: "over",
+                bettypeName: "FirstHalfOverUnder",
+                isShowTooltip: true,
+                tooltipMessage: "[811~1410]",
+            },
+            {
+                name: "fhUnder",
+                displayedName: "under",
+                bettypeName: "FirstHalfOverUnder",
+                isShowTooltip: true,
+                tooltipMessage: "[210~810]",
+            },
+            {
+                name: "fhEven",
+                displayedName: "even",
+                bettypeName: "FirstHalfEvenOdd",
+                isShowTooltip: false,
+            },
+            {
+                name: "fhOdd",
+                displayedName: "odd",
+                bettypeName: "FirstHalfEvenOdd",
+                isShowTooltip: false,
+            },
+        ],
+    },
+    {
+        name: "fullTime",
+        config: [
+            {
+                name: "ftBlue",
+                displayedName: "blue",
+                bettypeName: "FullTimeTeamBlueTeamRed",
+                isShowTooltip: false,
+            },
+            {
+                name: "ftRed",
+                displayedName: "red",
+                bettypeName: "FullTimeTeamBlueTeamRed",
+                isShowTooltip: false,
+            },
+            {
+                name: "total",
+                displayedName: "total",
+                isShowTooltip: false,
+            },
+            {
+                name: "ftOver",
+                displayedName: "over",
+                bettypeName: "FullTimeOverUnderRed",
+                isShowTooltip: true,
+                tooltipMessage: "[1621~2820]",
+            },
+            {
+                name: "ftUnder",
+                displayedName: "under",
+                bettypeName: "FullTimeOverUnderRed",
+                isShowTooltip: true,
+                tooltipMessage: "[420~1620]",
+            },
+            {
+                name: "ftEven",
+                displayedName: "even",
+                bettypeName: "FullTimeEvenOdd",
+                isShowTooltip: false,
+            },
+            {
+                name: "ftOdd",
+                displayedName: "odd",
+                bettypeName: "FullTimeEvenOdd",
+                isShowTooltip: false,
+            },
+        ],
+    },
+    {
+        name: "fullTime",
+        config: [
+            {
+                name: "liveFTBlue",
+                displayedName: "blue",
+                bettypeName: "FullTimeTeamBlueTeamRedLive",
+                isShowTooltip: false,
+            },
+            {
+                name: "liveFTRed",
+                displayedName: "red",
+                bettypeName: "FullTimeTeamBlueTeamRedLive",
+                isShowTooltip: false,
+            },
+            {
+                name: "total",
+                displayedName: "total",
+                isShowTooltip: false,
+            },
+            {
+                name: "liveFTOver",
+                displayedName: "over",
+                bettypeName: "FullTimeOverUnderLive",
+                isShowTooltip: false,
+            },
+            {
+                name: "liveFTUnder",
+                displayedName: "under",
+                bettypeName: "FullTimeOverUnderLive",
+                isShowTooltip: false,
+            },
+            {
+                name: "liveFTEven",
+                displayedName: "even",
+                bettypeName: "FullTimeEvenOddLive",
+                isShowTooltip: false,
+            },
+            {
+                name: "liveFTOdd",
+                displayedName: "odd",
+                bettypeName: "FullTimeEvenOddLive",
+                isShowTooltip: false,
+            },
+        ],
+    },
+];
+
 export const StatisticRuleEntriesOverUnder = Object.entries({
     [Choices.over]: (countResult: object, total: number) =>
         countResult[Choices.over] ? Math.round((countResult[Choices.over] * 100) / total) : 0,

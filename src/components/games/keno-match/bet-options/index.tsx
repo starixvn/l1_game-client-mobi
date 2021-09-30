@@ -33,11 +33,11 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
-            values: isFirstHalf ? KenoMatchConfigs.choices.firstHalf : KenoMatchConfigs.choices.liveFullTime,
+            values: isFirstHalf ? KenoMatchConfigs[0] :  KenoMatchConfigs[2] ,
         },
         {
             isActive: isFirstHalf,
-            values: KenoMatchConfigs.choices.fullTime,
+            values: KenoMatchConfigs[1],
         },
     ];
 
@@ -76,7 +76,9 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     isShowWinningEffect,
                                     isShowBettype: true,
                                     bettypeName: choice.bettypeName,
-                                    isShowPoolStake: false
+                                    isShowPoolStake: false,
+                                    isShowTooltip: choice.isShowTooltip,
+                                    tooltipMessage: choice.tooltipMessage
                                 };
 
                                 return choice.name.toLowerCase() === "total" ? (

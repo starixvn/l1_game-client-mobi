@@ -6,6 +6,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
+import { Tooltip } from "../tooltip";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
 
@@ -22,11 +23,13 @@ const BetOption: React.FunctionComponent<Props> = ({
     odd,
     children,
     bettypeName,
+    tooltipMessage,
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
     isShowBettype = false,
     isShowPoolStake = true,
+    isShowTooltip = false,
 }) => {
     const { totalBets, ownBets } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
@@ -95,6 +98,7 @@ const BetOption: React.FunctionComponent<Props> = ({
                     </span>
                 </div>
             </div>
+            {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} /> } 
         </div>
     );
 };
