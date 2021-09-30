@@ -47,7 +47,7 @@ export const Settings: React.FC<Props> = ({
                 <div
                     ref={toggleSoundBtnRef}
                     id="sound-settings"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => onToggleSound()}
                 >
                     <span
@@ -59,7 +59,7 @@ export const Settings: React.FC<Props> = ({
                 <div
                     ref={toggleHistoryBtnRef}
                     id="ticket-history"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => toggleHistoryModal()}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
@@ -68,7 +68,7 @@ export const Settings: React.FC<Props> = ({
 
                 <div
                     id="favorite-setting"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
                     ref={favoriteToggleBtnRef}
                 >

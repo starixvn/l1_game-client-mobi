@@ -1,9 +1,11 @@
-[data-theme="light"] .header {
+[data-theme="light"] .header,
+[data-theme="light"] .footer  {
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
 }
 
-[data-theme="dark"] .header {
+[data-theme="dark"] .header,
+[data-theme="light"] .footer  {
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
 }
@@ -35,6 +37,24 @@
         font-size: 3.9rem;
     }
     &.footer {
+        margin-left: .8rem;
+        flex-direction: row-reverse;
+        .avatar {
+            border: .15rem solid #FFBF1C;
+            height: 3.4rem;
+            width: 3.435rem;
+        }
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: normal;
+            color: #fff;
+        }
+        .info {
+            margin-left: .8rem;
+            text-align: left;            
+            line-height: 1.3rem;
+            margin-top: .2rem;
+        }
     }
 }
 

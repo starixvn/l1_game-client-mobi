@@ -42,7 +42,7 @@ export const Menu: React.FC<{
         <div className={Styles["game-menu"]} ref={wrapperRef}>
             <div
                 ref={toggleBtnRef}
-                className={`header-button ${Styles["menu-toggle-btn"]}`}
+                className={`${Styles["menu-toggle-btn"]}`}
                 onClick={() => {
                     setDropdownOpen(!dropdownOpen);
                 }}
