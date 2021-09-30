@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import { useTranslation } from "next-i18next";
 
-import RenderCellKenoPower from "./";
+import RenderRowKenoPower from "./";
 import { GetTranslateMapping } from "../../../../keno/keno.helper";
 
 describe("KenoMatch Info Bet History Detail", () => {
@@ -44,7 +44,7 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("should render correctly", () => {
             // Act
-            const { getByTestId, getAllByTestId } = render(RenderCellKenoPower({ ...resource }), {
+            const { getByTestId, getAllByTestId } = render(RenderRowKenoPower({ ...resource }), {
                 container: document.body.appendChild(tableRow),
             });
 
@@ -58,7 +58,7 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("should render class highlight", () => {
             // Act
-            render(RenderCellKenoPower({ ...resource }), {
+            render(RenderRowKenoPower({ ...resource }), {
                 container: document.body.appendChild(tableRow),
             });
 
@@ -68,7 +68,7 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("show refer refund amount", () => {
             // Act
-            render(RenderCellKenoPower({ ...resource }), {
+            render(RenderRowKenoPower({ ...resource }), {
                 container: document.body.appendChild(tableRow),
             });
 

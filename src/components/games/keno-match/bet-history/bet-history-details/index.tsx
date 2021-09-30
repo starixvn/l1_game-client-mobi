@@ -5,7 +5,7 @@ import { BetLogs, BetDetailProps } from "./../bet-history";
 import { detectStateRound, StateRound } from "../bet-history-hepler";
 import Styles from "../bet-history.module.scss";
 
-const RenderCellKenoMatch: React.FC<{
+const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;
     bet: BetLogs;
     translateMapping;
@@ -60,4 +60,4 @@ const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
     return labelChoice;
 };
 
-export default RenderCellKenoMatch;
+export default RenderRowKenoMatch;

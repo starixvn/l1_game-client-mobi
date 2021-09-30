@@ -1,28 +1,12 @@
 import { render } from "@testing-library/react";
-import React from "react";
 import { useTranslation } from "next-i18next";
 
 import ResultDetail from "./";
-import { GameContextProvider } from "../../../../contexts/game-context/game-context";
-import appSettings from "../../../../common/app-settings";
 
 describe("KenoMatch bet-history Result detail", () => {
     const gameId = 36;
     describe("Users have  bet, should render data on bet-history ", () => {
         // Arrange
-        const { gameSettings } = appSettings;
-        const gameContext = {
-            gameSetting: gameSettings[gameId],
-            totalBets: {},
-            ownBets: {},
-            roundId: 1,
-            remainingTime: 1,
-            gameConfigs: null,
-            gameState: 0,
-            viewMode: 0,
-            isShowBlink: false,
-            playResultAnimation: true,
-        };
         const gameName = "kenomatch1";
         const firstHalf = {
             result: { blue: [14, 32, 34, 35, 41, 60, 66, 68, 72, 80], red: [3, 7, 22, 27, 43, 44, 56, 63, 64, 66] },
@@ -39,9 +23,7 @@ describe("KenoMatch bet-history Result detail", () => {
 
         test("should render correctly", () => {
             // Act
-            const { getByTestId, getAllByTestId } = render(
-                <GameContextProvider value={gameContext}>{ResultDetail(resultDetail, t, null, gameName, gameId)}</GameContextProvider>
-            );
+            const { getByTestId, getAllByTestId } = render(ResultDetail(resultDetail, t, null, gameName, gameId));
 
             // Assert
             expect(getByTestId("result-details")).toBeInTheDocument();
@@ -70,21 +52,7 @@ describe("KenoPower bet-history Result detail", () => {
     const gameId = 40;
     describe("Users have  bet, should render data on bet-history ", () => {
         // Arrange
-        const { gameSettings } = appSettings;
-        const gameContext = {
-            gameSetting: gameSettings[gameId],
-            totalBets: {},
-            ownBets: {},
-            roundId: 1,
-            remainingTime: 1,
-            gameConfigs: null,
-            gameState: 0,
-            viewMode: 0,
-            isShowBlink: false,
-            playResultAnimation: true,
-        };
         const gameName = "kenopower1";
-
         const resultDetail = {
             bet: {
                 result: {
@@ -111,14 +79,12 @@ describe("KenoPower bet-history Result detail", () => {
 
         test("should render correctly", () => {
             // Act
-            const { getByTestId, getAllByTestId } = render(
-                <GameContextProvider value={gameContext}>{ResultDetail(resultDetail, t, null, gameName, gameId)}</GameContextProvider>
-            );
+            const { getByTestId, getAllByTestId } = render(ResultDetail(resultDetail, t, null, gameName, gameId));
 
             // Assert
             expect(getByTestId("result-details")).toBeInTheDocument();
             expect(getAllByTestId("score-round").length).toBe(1);
-            // expect(getAllByTestId("winning-info").length).toBe(4);
+            expect(getAllByTestId("team-winning-info").length).toBe(4);
         });
     });
 });

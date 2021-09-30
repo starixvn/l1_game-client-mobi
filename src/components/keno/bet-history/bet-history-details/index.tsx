@@ -1,8 +1,8 @@
 import React from "react";
 
 import { renderHeaderRows } from "../../../dashboard/history/bet-history";
-import RenderCellKenoMatch from "../../../games/keno-match/bet-history/bet-history-details";
-import RenderCellKenoPower from "../../../games/keno-power/bet-history/bet-history-details";
+import RenderRowKenoMatch from "../../../games/keno-match/bet-history/bet-history-details";
+import RenderRowKenoPower from "../../../games/keno-power/bet-history/bet-history-details";
 import { KenoMatchId, GetTranslateMapping } from "../../keno.helper";
 import Styles from "../bet-history.module.scss";
 
@@ -11,7 +11,7 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) 
         const { bet, roundId } = betLog;
         const { betLogDetails } = bet ?? [];
         const headerName = ["roundTime", "betType", "betChoice", "refund"];
-        const renderCell = KenoMatchId.includes(gameId) ? RenderCellKenoMatch : RenderCellKenoPower;
+        const renderRow = KenoMatchId.includes(gameId) ? RenderRowKenoMatch : RenderRowKenoPower;
 
         const clickOpenDetails = () => {
             setIsShowResultDetail(true);
@@ -37,7 +37,7 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) 
                                 betLogDetails.map((betLog: any, index: number) => {
                                     return (
                                         <tr key={index} className={bet.betwin > 0 ? "highlight" : ""}>
-                                            {renderCell({
+                                            {renderRow({
                                                 betDetail: betLog,
                                                 bet: bet,
                                                 translateMapping: translateMapping,

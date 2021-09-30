@@ -4,7 +4,7 @@ import { renderTimes } from "../../../../dashboard/history/bet-history";
 import { BetLogs, BetDetailProps } from "./../bet-history";
 import Styles from "../bet-history.module.scss";
 
-const RenderCellKenoMatch: React.FC<{
+const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;
     bet: BetLogs;
     translateMapping;
@@ -59,4 +59,4 @@ const getLabelFollowChoice = ({ translateMapping, choice }) => {
     return labelChoice;
 };
 
-export default RenderCellKenoMatch;
+export default RenderRowKenoMatch;
