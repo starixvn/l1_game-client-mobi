@@ -52,7 +52,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
                     {renderTeamWinningInfo({
                         settlementResult,
                         translateMapping,
-                        choices: ["odd", "even", "over", "under"],
+                        choices: ["over", "under", "odd", "even"],
                         choiceForClassBlue: ["odd", "even"],
                     })}
                 </div>

@@ -31,7 +31,7 @@ const RoundSettlement = ({ gameName, settlementResult, isFirstHalf }: Props) => 
                 <div className={Styles["winning-name"]}>{t(winningTeamName)}</div>
                 <div className={Styles["sum-label"]}>{t("sum")}</div>
                 <div className={Styles["result-info"]}>
-                    {["odd", "even", "over", "under"].map((keyName, index) => {
+                    {["over", "under", "odd", "even"].map((keyName, index) => {
                         return (
                             settlementResult[keyName] && (
                                 <div key={index} className={Styles["result-info-red"]}>
