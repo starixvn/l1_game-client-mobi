@@ -29,15 +29,3 @@ describe("KenoMatch BetHistory", () => {
         expect(getByTestId("bet-history-loading")).toBeInTheDocument();
     });
 });
-
-// describe("Check render correct state round on game", () => {
-//     test.each`
-//         choice      | expectedResult
-//         ${"ht"}     | ${0}
-//         ${"ft"}     | ${1}
-//         ${"liveFT"} | ${2}
-//         ${"tt"}     | ${0}
-//     `("should render state correctly", ({ choice, expectedResult }) => {
-//         expect(detectStateRound(choice)).toBe(expectedResult);
-//     });
-// });

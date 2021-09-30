@@ -1,10 +1,11 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { useTranslation } from "next-i18next";
 
 import RenderCellKenoPower from "./";
 import { GetTranslateMapping } from "../../../../keno/keno.helper";
 
 describe("KenoMatch Info Bet History Detail", () => {
+    const tableRow = document.createElement("tr");
     describe("Users have  bet, should render data on bet-history ", () => {
         // Arrange
         const gameName = "kenomatch1";
@@ -43,7 +44,9 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("should render correctly", () => {
             // Act
-            const { getByTestId, getAllByTestId } = render(RenderCellKenoPower({ ...resource }));
+            const { getByTestId, getAllByTestId } = render(RenderCellKenoPower({ ...resource }), {
+                container: document.body.appendChild(tableRow),
+            });
 
             // Assert
 
@@ -55,7 +58,9 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("should render class highlight", () => {
             // Act
-            render(RenderCellKenoPower({ ...resource }));
+            render(RenderCellKenoPower({ ...resource }), {
+                container: document.body.appendChild(tableRow),
+            });
 
             // Assert
             expect(document.querySelector(".highlight")).toBeTruthy();
@@ -63,7 +68,9 @@ describe("KenoMatch Info Bet History Detail", () => {
 
         test("show refer refund amount", () => {
             // Act
-            render(RenderCellKenoPower({ ...resource }));
+            render(RenderCellKenoPower({ ...resource }), {
+                container: document.body.appendChild(tableRow),
+            });
 
             // Assert
             expect(document.querySelector(".refund")).toBeTruthy();
