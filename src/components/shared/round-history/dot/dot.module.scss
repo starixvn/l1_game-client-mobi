@@ -133,24 +133,18 @@
 
 .dot-tie {
     @extend %dot;
-    background: var(--dragonTiger-dot-tie-border);
-    box-shadow: var(--dragonTiger-dot-tie-shadow);
+    background: var(--baccarat-dot-tie-border);
+    box-shadow: var(--baccarat-dot-tie-shadow);
 
     &:before {
-        background: var(--dragonTiger-dot-tie-background);
+        background: var(--baccarat-dot-tie-background);
     }
-
-    &.baccarat,
-    &.vipbaccarat,
-    &.kenopower1,
-    &.kenopower2,
-    &.kenomatch1,
-    &.kenomatch2 {
-        background: var(--baccarat-dot-tie-border);
-        box-shadow: var(--baccarat-dot-tie-shadow);
+    &.dragontiger {
+        background: var(--dragonTiger-dot-tie-border);
+        box-shadow: var(--dragonTiger-dot-tie-shadow);
 
         &:before {
-            background: var(--baccarat-dot-tie-background);
+            background: var(--dragonTiger-dot-tie-background);
         }
     }
 }

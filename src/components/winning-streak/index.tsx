@@ -22,10 +22,6 @@ const getIconClassName = (gameName: string, choice: string) => {
         case "baucua":
             return `${styles.dice} ${BauCuaIconMapper[choice]}`;
         case "kenopromax":
-        case "kenomatch1":
-        case "kenomatch2":
-        case "baccarat":
-        case "vipbaccarat":
             const choiceName = `dot-${choice}`;
             return `${styles[choiceName]} ${styles[gameNameLower]}`;
         default:
