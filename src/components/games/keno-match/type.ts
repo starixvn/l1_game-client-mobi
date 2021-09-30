@@ -6,7 +6,7 @@ export interface Result {
     red: number[];
 }
 
-export interface SettlementResult {
+export type SettlementResult = {
     blue: boolean;
     red: boolean;
     tie: boolean;
@@ -14,7 +14,7 @@ export interface SettlementResult {
     under: boolean;
     odd: boolean;
     even: boolean;
-}
+};
 
 export type Odd = {
     blue: number;

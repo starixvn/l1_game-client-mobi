@@ -8,7 +8,6 @@ import { GameBaseProps, GameState } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import RoundSettlement from "../keno-match/round-result/round-settlement";
 import KenoPowerOptions from "./bet-options";
 import { KenoPowerGameState } from "./keno-power";
 import { ChoiceForTabActive, Choices, StatisticRuleMapping } from "./keno-power-helper";

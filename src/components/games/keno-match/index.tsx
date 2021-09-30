@@ -4,6 +4,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import { RoundKenoMatchBase } from "../../../types";
+import RoundSettlementResult from "../../keno/settlement-result";
 import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
 import GameHeader from "../../shared/game-header";
@@ -17,7 +18,6 @@ import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import HalfRoundSettlement from "./round-result/round-settlement";
 import {
     KenoMatchGameBaseState,
     KenoMatchProps,
@@ -132,7 +132,14 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         }
 
         if (isShowSettlementResult) {
-            return <HalfRoundSettlement {...{ isFirstHalf, gameName: gameName.toLowerCase(), settlementResult }} />;
+            return (
+                <RoundSettlementResult
+                    title={isFirstHalf ? "firstHalf" : "fullTime"}
+                    extendClass={isFirstHalf ? "half-time" : "full-time"}
+                    settlementResult={settlementResult}
+                    displayChoices={["odd", "even", "over", "under"]}
+                />
+            );
         }
 
         return <MainFrameResult {...{ halfTimeResult, fullTimeResult, isShowH1Score, isShowFTScore }} />;
