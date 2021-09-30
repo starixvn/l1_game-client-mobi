@@ -925,7 +925,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
                 <>
-                    Key: [<span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>]
+                    <strong>Key</strong>: [<span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>]
                     <span>{key}</span>
                 </>
             );
