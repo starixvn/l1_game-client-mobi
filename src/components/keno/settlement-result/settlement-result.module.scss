@@ -67,6 +67,13 @@
             color: #ff4352;
         }
     }
+    &.tie {
+        background-color: #f3ffe9;
+        border: 1px solid #63ed33;
+        .winning-name {
+            color: #27b636;
+        }
+    }
     .winning-name {
         font-size: 2rem;
         font-weight: bold;
