@@ -49,15 +49,15 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     getOptionalWinStreakByOptions({ option }) {
-        let text = "";
         if (["blueBig", "blueSmall"].includes(option)) {
-            return (text = this.getGameTranslate("blue"));
+            return this.getGameTranslate("blue");
         }
 
         if (["redBig", "redSmall"].includes(option)) {
-            return (text = this.getGameTranslate("blue"));
+            return this.getGameTranslate("red");
         }
-        return text;
+
+        return null;
     }
 
     getFakeSettlementResult() {
