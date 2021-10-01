@@ -22,7 +22,7 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
     const isShowResult = gameState === GameState.DisplayResult;
 
     const renderFullModeResult = () => (
-        <div className={styles["main-result"]}>
+        <div className={`${styles["main-result"]} ${isShowResult ? styles["result-animation"] : ""} `}>
             <div className={styles["blue-team"]}>
                 <TeamResult result={result.blue} hasAnimation={gameState === GameState.DisplayResult} />
                 {!isShowResult && (
