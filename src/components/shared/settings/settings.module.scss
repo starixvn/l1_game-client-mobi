@@ -51,25 +51,26 @@
     width: 18px;
     height: 19px;
 }
-
+%icon-sound {
+    background-image: url("/static/images/header/sound.svg");
+    width: 2rem;
+    height: 1.659rem;
+    display: inline-block;
+}
 .icon-sound-on-dark {
-    @extend %icon-notify;
-    background-position: -63px -29px;
+    @extend %icon-sound; 
 }
 
 .icon-sound-off-dark {
-    @extend %icon-notify;
-    background-position: -63px 0;
+    @extend %icon-sound; 
 }
 
 .icon-sound-off-light {
-    @extend %icon-notify;
-    background-position: -95px 0;
+    @extend %icon-sound; 
 }
 
 .icon-sound-on-light {
-    @extend %icon-notify;
-    background-position: -95px -30px;
+    @extend %icon-sound; 
 }
 
 %icon-menu {
@@ -89,19 +90,18 @@
 }
 
 %icon-ticket-history {
-    @extend %icon;
-    width: 2.1rem;
-    height: 1.9rem;
+    background-image: url("/static/images/header/history.svg");
+    display: inline-block;
+    width: 2rem;
+    height: 1.8rem;
 }
 
 .icon-ticket-history-light {
     @extend %icon-ticket-history;
-    background-position: 0 -19px;
 }
 
 .icon-ticket-history-dark {
     @extend %icon-ticket-history;
-    background-position: -29px -19px;
 }
 
 .icon-favorite:before {
