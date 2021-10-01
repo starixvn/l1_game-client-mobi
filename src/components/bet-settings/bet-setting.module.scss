@@ -8,6 +8,7 @@
 
     --ripple-background: rgba(196, 196, 196, 0.6);
     --footer-background: #4d5570;
+    --line-footer: linear-gradient(90deg, rgba(93, 105, 120, 0.9) 0%, rgba(255, 255, 255, 0.9) 51.87%, rgba(93, 105, 120, 0.9) 100%);
 }
 
 [data-theme="dark"] .bet-settings {
@@ -20,6 +21,7 @@
 
     --ripple-background: rgba(196, 196, 196, 0.5);
     --footer-background: #2b3541;
+    --line-footer: linear-gradient(90deg, rgba(55, 71, 91, 0.9) 0%, rgba(134, 168, 209, 0.9) 51.87%, rgba(55, 71, 91, 0.9) 100%) ;
 }
 
 .bet-settings {
@@ -187,7 +189,7 @@
         content: "";
         height: .1rem;
         width: 100%;
-        background:  linear-gradient(90deg, rgba(93, 105, 120, 0.9) 0%, rgba(255, 255, 255, 0.9) 51.87%, rgba(93, 105, 120, 0.9) 100%);
+        background:  var(--line-footer);
     }
 }
 
