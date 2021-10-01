@@ -5,7 +5,7 @@
 }
 
 [data-theme="dark"] .header,
-[data-theme="light"] .footer  {
+[data-theme="dark"] .footer  {
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
 }

@@ -1,22 +1,28 @@
 [data-theme="light"] .settings-container {
     --icon-favorite-color: #945f08;
+    --icon-color: #F2A61C;
+    --icon-favorite: url("/static/images/header/favorite-light.svg") no-repeat;
 }
 
 [data-theme="dark"] .settings-container {
     --icon-favorite-color: #d3e8ff;
+    --icon-color: #D4E9FF;
+    --icon-favorite: url("/static/images/header/favorite-dark.svg") no-repeat;
 }
 
 .settings-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0 0.5rem;
+    width: 100%;    
+    @media(min-width: 768px) {
+        padding: 0 0.5rem;
+    }
 }
 
 .setting-right {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 3rem);
     grid-gap: 0.6rem;
     align-items: center;
 }
@@ -38,8 +44,10 @@
 }
 
 .setting-button {
-    width: 4rem;
     position: relative;
+    @media(max-width: 767px) {
+        justify-self: flex-end;
+    } 
 
     &:hover {
         cursor: pointer;
@@ -52,60 +60,54 @@
     height: 19px;
 }
 %icon-sound {
-    background-image: url("/static/images/header/sound.svg");
-    width: 2rem;
-    height: 1.659rem;
+    width: 3.6rem;
+    height: 3.2rem;
     display: inline-block;
 }
 .icon-sound-on-dark {
     @extend %icon-sound; 
+    background: url("/static/images/header/sound-on-dark.svg") no-repeat;
 }
 
 .icon-sound-off-dark {
     @extend %icon-sound; 
+    background: url("/static/images/header/sound-off-dark.svg") no-repeat;
 }
 
 .icon-sound-off-light {
     @extend %icon-sound; 
+    background: url("/static/images/header/sound-off-light.svg") no-repeat;
 }
 
 .icon-sound-on-light {
     @extend %icon-sound; 
+    background: url("/static/images/header/sound-on-light.svg") no-repeat;
 }
 
-%icon-menu {
-    @extend %icon;
-    width: 1.3rem;
-    height: 1.3rem;
-}
 
-.icon-menu-light {
-    @extend %icon-menu;
-    background-position: -1px 0;
-}
 
-.icon-menu-dark {
-    @extend %icon-menu;
-    background-position: -31px 0;
-}
-
-%icon-ticket-history {
-    background-image: url("/static/images/header/history.svg");
+%icon-ticket-history {    
     display: inline-block;
-    width: 2rem;
-    height: 1.8rem;
+    width: 3.2rem;
+    height: 3.2rem;
 }
 
 .icon-ticket-history-light {
     @extend %icon-ticket-history;
+    background: url("/static/images/header/history-light.svg") no-repeat;
 }
 
 .icon-ticket-history-dark {
     @extend %icon-ticket-history;
+    background: url("/static/images/header/history-dark.svg") no-repeat;
 }
 
-.icon-favorite:before {
-    font-size: 1.6rem;
-    color: var(--icon-favorite-color);
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+.icon-favorite {
+    background: var(--icon-favorite);
+    display: inline-block;
+    width: 3.2rem;
+    height: 3.2rem;
+    &:before {
+        content: none;
+    }
 }
