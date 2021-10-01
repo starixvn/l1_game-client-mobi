@@ -19,7 +19,7 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
     const totalRed = sumArray(result.red);
 
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const isShowResult = gameState === GameState.DisplayResult;
+    const isShowResult = true;
 
     const renderFullModeResult = () => (
         <div className={`${styles["main-result"]} ${isShowResult ? styles["result-animation"] : ""} `}>

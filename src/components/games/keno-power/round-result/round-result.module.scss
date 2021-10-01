@@ -11,20 +11,21 @@
     --result-team-bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
     --term-border-color: #406389;
 }
-
-.main-result {
-    display: grid;
-    grid-template-columns: 12rem 1fr 12rem;
-    padding: 0.3rem 0.8rem 0;
+.main-result{
     height: 12.9rem;
     background: var(--result-team-bg-color);
+    &.result-animation {
+        .main-content  {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    
 }
-
 .main-content {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.4rem 1rem 1rem;
-    position: relative;
+    display: grid;
+    grid-template-columns: 12rem 1fr 12rem;
+    padding: 0.3rem 0.8rem 0;    
     .row {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
