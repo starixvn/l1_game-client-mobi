@@ -7,10 +7,10 @@ import TeamScore from "../../../../keno/team-score";
 import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
 
-const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total }) => {
+const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total, isFullTime, resultFH }) => {
     const { blue, red } = result;
-    const blueScore = calculateTotalPoint(blue);
-    const redScore = calculateTotalPoint(red);
+    const blueScore = isFullTime ? calculateTotalPoint(blue) + calculateTotalPoint(resultFH?.blue ?? []) : calculateTotalPoint(blue);
+    const redScore = isFullTime ? calculateTotalPoint(red) + calculateTotalPoint(resultFH?.red ?? []) : calculateTotalPoint(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
@@ -70,6 +70,8 @@ const RenderScoreDetailKenoMatch = ({ bet, translateMapping }) => {
                 translateMapping,
                 total: firstHalf?.sum,
                 settlementResult: firstHalf?.settlementResult,
+                isFullTime: false,
+                resultFH: {},
             })}
             {renderScoreRounds({
                 result: fullTime?.result,
@@ -77,6 +79,8 @@ const RenderScoreDetailKenoMatch = ({ bet, translateMapping }) => {
                 translateMapping,
                 total: fullTime?.sum,
                 settlementResult: fullTime?.settlementResult,
+                isFullTime: true,
+                resultFH: firstHalf?.result,
             })}
         </>
     );
