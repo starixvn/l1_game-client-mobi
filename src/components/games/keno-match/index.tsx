@@ -106,7 +106,6 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderResultSection() {
-        const { gameName } = this.props;
         const {
             isFirstHalf,
             fullTimeResult,

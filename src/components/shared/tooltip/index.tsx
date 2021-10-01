@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { isDesktop } from "react-device-detect";
 import Styles from "./tooltip.module.scss";
 
 export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRefObject<HTMLDivElement> }> = ({ message, hoverWrapper }) => {
     const [showTooltip, setShowTooltip] = useState(false);
+    const [customStyle, setCustomStyle] = useState<React.CSSProperties>(null);
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const handleClick = () => {
@@ -18,13 +20,16 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
     }, []);
 
     useEffect(() => {
-        const handleMouseIn = () => {
-            setShowTooltip(true);
-        };
+        if (wrapperRef.current) {
+            const wrapperLeftPosition = wrapperRef.current.getBoundingClientRect().left;
+            wrapperLeftPosition < -60 && setCustomStyle({ left: -60, right: "auto" });
+        }
+    }, [wrapperRef]);
 
-        const handleMouseOut = () => {
-            setShowTooltip(false);
-        };
+    useEffect(() => {
+        const handleMouseIn = () => setShowTooltip(true);
+
+        const handleMouseOut = () => setShowTooltip(false);
 
         isDesktop && hoverWrapper.current.addEventListener("mouseover", handleMouseIn);
         isDesktop && hoverWrapper.current.addEventListener("mouseout", handleMouseOut);
@@ -39,10 +44,10 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
 
     return (
         <div className={`tooltip info ${showTooltip ? "show" : ""} ${Styles["tooltip-buttons"]} ${showTooltip ? Styles["show"] : ""}`}>
-            <div className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
+            <div ref={wrapperRef} style={customStyle} className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
                 {message}
-                <span className={`arrow up ${Styles["arrow"]}`}></span>
             </div>
+            <span className={`arrow up ${Styles["arrow"]}`}></span>
         </div>
     );
 };
