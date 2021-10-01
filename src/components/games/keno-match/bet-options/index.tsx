@@ -3,10 +3,10 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { GameState } from "../../../shared/game-base/type";
-import { choicesMapper, KenoMatchConfigs } from "../keno-match-helper";
 import { SettlementResult } from "../type";
 import Styles from "./bet-options.module.scss";
 import BetOption from "../../../shared/bet-option";
+import { choicesMapper, KenoMatchConfigs } from "./choice-config";
 
 interface KenoMatchBetOptionsProps {
     settlementResult: SettlementResult;
