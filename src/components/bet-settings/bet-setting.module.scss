@@ -194,6 +194,17 @@
 }
 
 // Iphone X or newer
+.ios-device {
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
+        .settings-container {
+            height: 6.9rem;
+        }
+
+        .footer {
+            height: 5.4rem;
+        }
+    }
+}
 
 // Android
 .adroid-device {
