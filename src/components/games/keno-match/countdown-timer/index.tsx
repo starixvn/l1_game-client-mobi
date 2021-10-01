@@ -55,7 +55,7 @@ const KenoCountdownTimer: React.FC<Props> = ({ isFistHalf }) => {
     }
 };
 
-function GameStatusAndShowResult() {
+export function GameStatusAndShowResult() {
     const { t } = useTranslation("common");
     return (
         <>
@@ -67,7 +67,7 @@ function GameStatusAndShowResult() {
     );
 }
 
-const GameStatusAndTimer = ({ duration, initialRemainingTime, lockingBet, isStarBetting }: GameStatusWithTimerProps) => {
+export const GameStatusAndTimer = ({ duration, initialRemainingTime, lockingBet, isStarBetting }: GameStatusWithTimerProps) => {
     const { t } = useTranslation("common");
     const content = isStarBetting ? (
         <div className={Styles["start-betting"]}>{t("startBetting")}</div>
@@ -85,7 +85,7 @@ const GameStatusAndTimer = ({ duration, initialRemainingTime, lockingBet, isStar
     );
 };
 
-const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps) => {
+export const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps) => {
     const timerProps = {
         isPlaying: true,
         size: 30,
@@ -105,7 +105,7 @@ const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps) => {
     );
 };
 
-const GameStatus: React.FC = ({ children }) => {
+export const GameStatus: React.FC = ({ children }) => {
     return <div className={Styles["game-status"]}>{children}</div>;
 };
 

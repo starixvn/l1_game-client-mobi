@@ -2,99 +2,98 @@ import { render } from "@testing-library/react";
 import React from "react";
 import KenoMatchBetOptions from "./";
 import { FakeSettlementResult } from "../keno-match-helper";
-import { GameState, ViewMode } from "../../../shared/game-base/type";
+import { GameState } from "../../../shared/game-base/type";
 import { GameContextProvider } from "../../../../contexts/game-context/game-context";
-
-const gameSetting = {
-    id: 36,
-    gameName: "KenoMatch1",
-    socketInfo: {
-        namespace: "kenomatch1",
-        path: "kenomatch",
-    },
-    durations: {
-        wholeRound: 62,
-        placingBets: 50,
-        lockingBet: 5,
-        showResult: 8,
-        resultAnimation: 3,
-        beforeStartRound: 0,
-        balancingBet: 3,
-    },
-};
-
-const gameContext = {
-    gameSetting: gameSetting,
-    totalBets: {},
-    ownBets: {},
-    roundId: 1,
-    remainingTime: 1,
-    gameConfigs: {
-        minbet: 1,
-        maxbet: 2000,
-        choices_maxbet: {
-            fhBlue: 2000,
-            fhRed: 2000,
-            fhOver: 2000,
-            fhUnder: 2000,
-            fhOdd: 2000,
-            fhEven: 2000,
-            ftBlue: 2000,
-            ftRed: 2000,
-            ftOver: 2000,
-            ftUnder: 2000,
-            ftOdd: 2000,
-            ftEven: 2000,
-        },
-        odds: {
-            fhBlue: 1.96,
-            fhRed: 1.96,
-            fhOver: 1.96,
-            fhUnder: 1.96,
-            fhOdd: 1.96,
-            fhEven: 1.96,
-            ftBlue: 1.96,
-            ftRed: 1.96,
-            ftOver: 1.96,
-            ftUnder: 1.96,
-            ftOdd: 1.96,
-            ftEven: 1.96,
-        },
-        enableFreeBet: false,
-    },
-    gameState: GameState.DisplayResult,
-    viewMode: ViewMode.full,
-    isShowBlink: false,
-    playResultAnimation: true,
-};
+import buildGameContext from "../__test__/test-helper";
 
 const liveOdds = {
-        liveFTBlue: 2.54,
-        liveFTRed: 1.66,
-        liveFTOver: 1.37,
-        liveFTUnder: 3.7,
-    },
-    betOptionsProps = {
+    liveFTBlue: 2.54,
+    liveFTRed: 1.66,
+    liveFTOver: 1.37,
+    liveFTUnder: 3.7,
+};
+
+function buildBetOptionsProps(isFirstHalf: boolean, beforeStartFulltime = false, isLockingBet = false) {
+    return {
         liveOdds,
-        gameState: GameState.InRound,
+        gameState: isLockingBet ? GameState.LockingBet : GameState.InRound,
         settlementResult: FakeSettlementResult,
         isShowWinningEffect: true,
-        isFirstHalf: true,
-        beforeStartFulltime: false,
-        isShowPoolStake:true
+        isFirstHalf,
+        beforeStartFulltime,
+        isShowPoolStake: true,
     };
-    
+}
+
 describe("KenoMatchBetOptions", () => {
-    test("should render correctly", () => {
+    test.each`
+        isFirstHalf | beforeStartFulltime | expectedLiveBetOptionResult | expectedHasAnimationResult
+        ${true}     | ${true}             | ${0}                        | ${0}
+        ${true}     | ${false}            | ${0}                        | ${0}
+        ${false}    | ${false}            | ${1}                        | ${0}
+        ${false}    | ${true}             | ${1}                        | ${1}
+    `(
+        "should render has-animation and live-bet-option correctly",
+        ({ isFirstHalf, beforeStartFulltime, expectedLiveBetOptionResult, expectedHasAnimationResult }) => {
+            render(
+                <GameContextProvider value={buildGameContext() as any}>
+                    <KenoMatchBetOptions {...buildBetOptionsProps(isFirstHalf, beforeStartFulltime)} />
+                </GameContextProvider>
+            );
+
+            expect(document.getElementsByClassName("live-bet-option").length).toEqual(expectedLiveBetOptionResult);
+            expect(document.getElementsByClassName("has-animation").length).toEqual(expectedHasAnimationResult);
+        }
+    );
+
+    test.each`
+        isFirstHalf
+        ${true}
+        ${true}
+        ${false}
+        ${false}
+    `("always render in match", ({ isFirstHalf }) => {
         render(
-            <GameContextProvider value={gameContext as any}>
-                <KenoMatchBetOptions {...betOptionsProps} />
+            <GameContextProvider value={buildGameContext() as any}>
+                <KenoMatchBetOptions {...buildBetOptionsProps(isFirstHalf, false)} />
             </GameContextProvider>
         );
 
         expect(document.querySelector(".title-wrapper")).toBeTruthy();
         expect(document.querySelector(".title-left")).toBeTruthy();
         expect(document.querySelector(".layout-kenomatch1")).toBeTruthy();
-        expect(document.querySelector(".bet-choice-name")).toBeTruthy();
+
+        expect(document.getElementsByClassName("total-row").length).toEqual(2);
+        expect(document.querySelectorAll('div[class^="choice-"]').length).toEqual(12);
+        expect(document.getElementsByClassName("bet-choice-name").length).toEqual(12);
+    });
+
+    test.each`
+        isFirstHalf | expectedDisabledContainer | expectedDisabledChoice
+        ${true}     | ${0}                      | ${0}
+        ${false}    | ${1}                      | ${2}
+    `("render disabled correctly", ({ isFirstHalf, expectedDisabledContainer, expectedDisabledChoice }) => {
+        render(
+            <GameContextProvider value={buildGameContext() as any}>
+                <KenoMatchBetOptions {...buildBetOptionsProps(isFirstHalf, false)} />
+            </GameContextProvider>
+        );
+
+        expect(document.getElementsByClassName("layout-kenomatch1 disabled").length).toEqual(expectedDisabledContainer);
+        expect(document.querySelectorAll('div[class^="choice-"].disabled').length).toEqual(expectedDisabledChoice);
+    });
+
+    test.each`
+        isLockingBet | expectedHighlightWinning
+        ${true}      | ${false}
+        ${false}     | ${true}
+    `("render highlight wining correctly", ({ isLockingBet, expectedHighlightWinning }) => {
+        render(
+            <GameContextProvider value={buildGameContext() as any}>
+                <KenoMatchBetOptions {...buildBetOptionsProps(true, false, isLockingBet)} />
+            </GameContextProvider>
+        );
+
+        expect(document.getElementsByClassName("highlight-winning").length > 0).toEqual(expectedHighlightWinning);
     });
 });
