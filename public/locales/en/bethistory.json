@@ -5,6 +5,7 @@
     "choice": "Choice",
     "stake": "Stake",
     "refund": "Refund",
+    "onlyRefund": "Refund",
     "win": "Win",
     "noBetHistory": "No data available.",
     "details": "Details",

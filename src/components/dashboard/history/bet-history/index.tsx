@@ -58,6 +58,15 @@ const renderStakeRefund = (bet: BetLogs) => {
     return <></>;
 };
 
+const renderRefund = (bet: BetLogs) => {
+    const refund = bet?.refund > 0 ? numberWithCommas(bet.refund) : 0;
+    return (
+        <>
+            <div className={Styles["only-refund"]}>{refund}</div>
+        </>
+    );
+};
+
 const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
@@ -140,7 +149,6 @@ const renderCellOnTable: React.FC<{
         setIsShowBetLogDetails(true);
         setBetLog({ bet: betHistoryItem, roundId: phien, t });
     };
-
     return (
         <>
             {headerName.map((name, index) => {
@@ -166,6 +174,12 @@ const renderCellOnTable: React.FC<{
                     case "refund":
                         return renderDataOnCell(
                             <div className={`${Styles["stake"]} ${fontNumber}`}>{renderStakeRefund(betHistoryItem)}</div>,
+                            isHighligh,
+                            index
+                        );
+                    case "onlyRefund":
+                        return renderDataOnCell(
+                            <div className={`${Styles["stake"]} ${fontNumber}`}>{renderRefund(betHistoryItem)}</div>,
                             isHighligh,
                             index
                         );
@@ -212,6 +226,8 @@ export const renderHeaderRows = ({ headerName, t }) => {
                                 {t("stake")} <br></br> {t("refund")}
                             </th>
                         );
+                    case "onlyRefund":
+                        return <th key={index}>{t("onlyRefund")}</th>;
                     case "totalStake":
                         return <th key={index}>{t("totalStake")}</th>;
                     case "betType":

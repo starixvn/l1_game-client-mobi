@@ -1,7 +1,7 @@
 import React from "react";
 
 import { calculateTotalPoint } from "../../../../keno/keno.helper";
-import { StateRound } from "../bet-history-hepler";
+import { StateRound } from "../bet-history-helper";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
 import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";

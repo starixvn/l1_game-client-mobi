@@ -1,9 +1,9 @@
 import React from "react";
 
 import { renderTimes } from "../../../../dashboard/history/bet-history";
+import { RenderCell, renderRefund } from "../../../../keno/bet-history/bet-history-details";
 import { BetLogs, BetDetailProps } from "./../bet-history";
-import { detectStateRound, StateRound } from "../bet-history-hepler";
-import Styles from "../bet-history.module.scss";
+import { detectStateRound, StateRound } from "../bet-history-helper";
 
 const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;
@@ -16,30 +16,28 @@ const RenderRowKenoMatch: React.FC<{
     const formatChoice = stateRound === StateRound.live ? choice.slice(6).toLowerCase() : choice.slice(2).toLowerCase();
     const settlementResult = stateRound === StateRound.live ? fullTime.settlementResult : firstHalf.settlementResult;
     const isHighligh = settlementResult[formatChoice] ? true : false;
-    const isShowRefundAmount = settlementResult["tie"] ? true : false;
+    const isShowRefundAmount = settlementResult["tie"] && ["fhBlue", "fhRed", "liveFTRed", "liveFTBlue"].includes(choice) ? true : false;
     const liveLabel = stateRound === StateRound.live ? `(${translateMapping["live"]})` : "";
-    const fontNumber = "font-number";
 
     return (
         <>
-            <td className={`${isHighligh ? "highlight" : ""}`} data-testid="bet-time">
+            <RenderCell isHighligh={isHighligh} name={"bet-time"}>
                 {renderTimes({ time })}
-            </td>
-            <td className={`${Styles["bet-type"]} ${isHighligh ? "highlight" : ""}`} data-testid="bet-type">
+            </RenderCell>
+
+            <RenderCell isHighligh={isHighligh} name={"bet-type"}>
                 <span>{stateRound === StateRound.ht ? translateMapping.firstHalf : translateMapping.fullTime}</span> <br></br>
                 <span>
                     {getLabelFollowChoice({ translateMapping, formatChoice })}
                     {liveLabel}
                 </span>
-            </td>
-            <td className={`${Styles["bet-choice"]}  ${isHighligh ? "highlight" : ""}`} data-testid="bet-choice">
-                {translateMapping[formatChoice]}@<span className={fontNumber}>{odds[choice]}</span>
-            </td>
-            <td className={`${Styles["stake-refund"]} ${isHighligh ? "highlight" : ""}`} data-testid="bet-stake-refund">
-                <span className={`${Styles["stake"]} ${fontNumber}`}>{amount}</span>
-                <br></br>
-                {isShowRefundAmount && <span className={`${Styles["refund"]} ${fontNumber}`}>{amount}</span>}
-            </td>
+            </RenderCell>
+            <RenderCell isHighligh={isHighligh} name={"bet-choice"}>
+                {translateMapping[formatChoice]}@<span className="font-number">{odds[choice]}</span>
+            </RenderCell>
+            <RenderCell isHighligh={isHighligh} name={"stake-refund"}>
+                {renderRefund({ amount, isShowRefundAmount })}
+            </RenderCell>
         </>
     );
 };

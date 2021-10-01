@@ -1,5 +1,17 @@
 @import "../../../keno/bet-history/bet-history.module";
 
+.bet-type {
+    text-align: left;
+}
+
+.bet-choice {
+    text-align: left;
+}
+
+.stake-refund {
+    text-align: right;
+}
+
 .winning-info {
     grid-column: 1/4;
     position: relative;

@@ -61,7 +61,6 @@ describe("KenoMatch bet-history Result detail", () => {
 
             // Assert
             expect(getAllByTestId("team-winning-info").length).toBe(4);
-            expect(getAllByTestId("text-winning-info").length).toBe(2);
             expect(document.querySelector(".tie")).toBeTruthy();
         });
     });

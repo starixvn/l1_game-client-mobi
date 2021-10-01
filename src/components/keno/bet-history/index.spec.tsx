@@ -13,7 +13,7 @@ describe("KenoMatch BetHistory", () => {
             renderResultDetail: null,
             closeModal: null,
             renderBetLogsDetail: null,
-            nameHeaderOnTable: ["roundTime", "round", "totalStake", "win"],
+            nameHeaderOnTable: ["roundTime", "round", "totalStake", "onlyRefund", "win"],
         };
         const session = { isAuthenticated: true, username: "roger.le", language: "en-US", ss: "test123" };
         const authContextValue = { session: session, setBalance: null };

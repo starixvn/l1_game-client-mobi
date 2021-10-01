@@ -12,7 +12,7 @@ const KenoBetHistory: React.FunctionComponent<{ gameId: number; closeModal: () =
             renderResultDetail={ResultDetail}
             closeModal={closeModal}
             renderBetLogsDetails={BetLogsDetails}
-            nameHeaderOnTable={["roundTime", "round", "totalStake", "win"]}
+            nameHeaderOnTable={["roundTime", "round", "totalStake", "onlyRefund", "win"]}
         ></BetHistoryContainer>
     );
 };

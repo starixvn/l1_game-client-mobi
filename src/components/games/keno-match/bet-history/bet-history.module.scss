@@ -2,16 +2,15 @@
 
 [data-theme="light"] .container-round {
     --bg-line-gradient: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
-    --bg-line: #B9B9B9;
-    --team-blue-color: #3B7BC6;
+    --bg-line: #b9b9b9;
+    --team-blue-color: #3b7bc6;
 }
 
 [data-theme="dark"] .container-round {
-    --bg-line-gradient: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426D91 52.41%, rgba(66, 109, 145, 0) 100.14%);
-    --bg-line: #5086B4;
-    --team-blue-color: #5EA8FF;
+    --bg-line-gradient: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426d91 52.41%, rgba(66, 109, 145, 0) 100.14%);
+    --bg-line: #5086b4;
+    --team-blue-color: #5ea8ff;
 }
-
 
 .overwidth {
     width: calc(100% + 2rem);

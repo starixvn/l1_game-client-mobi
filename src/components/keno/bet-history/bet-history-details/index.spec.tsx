@@ -56,7 +56,7 @@ describe("KenoMatch bet-history bet logs detail", () => {
             expect(getAllByTestId("bet-time").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-type").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-choice").length).toBeGreaterThan(0);
-            expect(getAllByTestId("bet-stake-refund").length).toBeGreaterThan(0);
+            expect(getAllByTestId("stake-refund").length).toBeGreaterThan(0);
         });
 
         test("should render class highlight", () => {
@@ -65,14 +65,6 @@ describe("KenoMatch bet-history bet logs detail", () => {
 
             // Assert
             expect(document.querySelector(".highlight")).toBeTruthy();
-        });
-
-        test("show refer refund amount", () => {
-            // Act
-            render(BetLogsDetails({ ...resource }));
-
-            // Assert
-            expect(document.querySelector(".refund")).toBeTruthy();
         });
 
         test("click show result details", () => {
@@ -100,7 +92,7 @@ describe("KenoMatch bet-history bet logs detail", () => {
             expect(document.querySelector(".bet-time")).toBeNull();
             expect(document.querySelector(".bet-type")).toBeNull();
             expect(document.querySelector(".bet-choice")).toBeNull();
-            expect(document.querySelector(".bet-stake-refund")).toBeNull();
+            expect(document.querySelector(".stake-refund")).toBeNull();
         });
     });
     describe("Without render component BetLogsDetails ", () => {
@@ -183,7 +175,7 @@ describe("KenoPower bet-history bet logs detail", () => {
             expect(getAllByTestId("bet-time").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-type").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-choice").length).toBeGreaterThan(0);
-            expect(getAllByTestId("bet-stake-refund").length).toBeGreaterThan(0);
+            expect(getAllByTestId("stake-refund").length).toBeGreaterThan(0);
         });
     });
 });

@@ -27,10 +27,22 @@
     .stake-refund {
         text-align: right;
     }
+}
 
-    .refund {
-        color: red;
-    }
+.bet-type {
+    text-align: left;
+}
+
+.bet-choice {
+    text-align: left;
+}
+
+.stake-refund {
+    text-align: right;
+}
+
+.refund {
+    color: red;
 }
 
 .result-details {
@@ -53,10 +65,12 @@
     justify-content: space-between;
     padding: 0.6rem 0;
 }
+
 .overwidth {
     width: calc(100% + 2rem);
     margin: 0 -1rem;
 }
+
 .container-round {
     display: grid;
     grid-template-columns: 12rem 7.8rem 12rem;

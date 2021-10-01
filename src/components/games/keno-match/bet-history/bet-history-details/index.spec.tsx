@@ -53,7 +53,7 @@ describe("KenoMatch Info Bet History Detail", () => {
             expect(getAllByTestId("bet-time").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-type").length).toBeGreaterThan(0);
             expect(getAllByTestId("bet-choice").length).toBeGreaterThan(0);
-            expect(getAllByTestId("bet-stake-refund").length).toBeGreaterThan(0);
+            expect(getAllByTestId("stake-refund").length).toBeGreaterThan(0);
         });
 
         test("should render class highlight", () => {
@@ -64,16 +64,6 @@ describe("KenoMatch Info Bet History Detail", () => {
 
             // Assert
             expect(document.querySelector(".highlight")).toBeTruthy();
-        });
-
-        test("show refer refund amount", () => {
-            // Act
-            render(RenderRowKenoPower({ ...resource }), {
-                container: document.body.appendChild(tableRow),
-            });
-
-            // Assert
-            expect(document.querySelector(".refund")).toBeTruthy();
         });
     });
 });

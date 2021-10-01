@@ -6,6 +6,26 @@ import RenderRowKenoPower from "../../../games/keno-power/bet-history/bet-histor
 import { KenoMatchId, GetTranslateMapping } from "../../keno.helper";
 import Styles from "../bet-history.module.scss";
 
+export const RenderCell: React.FC<{ isHighligh: boolean; name: string }> = ({ isHighligh, name, children }) => {
+    const classHighligh = isHighligh ? "highlight" : "";
+    return (
+        <td className={`${Styles[name]} ${classHighligh}`} data-testid={name}>
+            {children}
+        </td>
+    );
+};
+
+export const renderRefund: React.FC<{ amount: number; isShowRefundAmount: boolean }> = ({ amount, isShowRefundAmount }) => {
+    const fontNumber = "font-number";
+    return (
+        <>
+            <span className={`${Styles["stake"]} ${fontNumber}`}>{amount}</span>
+            <br></br>
+            {isShowRefundAmount && <span className={`${Styles["refund"]} ${fontNumber}`}>{amount}</span>}
+        </>
+    );
+};
+
 const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) => {
     if (betLog) {
         const { bet, roundId } = betLog;
