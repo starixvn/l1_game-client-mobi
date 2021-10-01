@@ -78,8 +78,12 @@
     &:before {
         background: var(--dot-even-background);
     }
-    &.kenopromax {
-        @extend %dot;
+    &.kenopromax,
+    &.kenomatch1,
+    &.kenomatch2,
+    &.kenopower1,
+    &.kenopower2 {
+        color: #fff;
         background: var(--bigSmall-dot-big-border);
         box-shadow: var(--bigSmall-dot-big-shadow);
 
@@ -99,8 +103,12 @@
         background: var(--dot-odd-background);
     }
 
-    &.kenopromax {
-        @extend %dot;
+    &.kenopromax,
+    &.kenomatch1,
+    &.kenomatch2,
+    &.kenopower1,
+    &.kenopower2 {
+        color: #fff;
         background: var(--bigSmall-dot-small-border);
         box-shadow: var(--bigSmall-dot-small-shadow);
 
@@ -150,7 +158,6 @@
 }
 
 // big-small
-
 .dot-big {
     @extend %dot;
     background: var(--bigSmall-dot-big-border);
