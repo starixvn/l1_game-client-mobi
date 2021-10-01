@@ -1,3 +1,5 @@
+@import "../../../assets/components/result-label-collapse-mode";
+
 [data-theme="light"] .progress-bar-team {
     --bg-color: linear-gradient(90deg, #d0e5ff 0%, #fff 47%, #fff 53%, #fed9d9 100%);
     --text-total-color: #5e5e5e;
@@ -133,5 +135,18 @@
             border-bottom-left-radius: 0.3rem;
             transition: "width 1s ease-in-out";
         }
+    }
+}
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .result-container {
+        width: 100%;
+        position: relative;
     }
 }

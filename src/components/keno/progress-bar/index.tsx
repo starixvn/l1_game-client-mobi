@@ -14,7 +14,6 @@ interface Props {
     totalRedH1?: number;
     isShowCollapse?: boolean;
     isFirstHalf?: boolean;
-    onFinishHandle?: Function;
     isShowProgressBarTitle?: boolean;
     hasAnimation: boolean;
 }
@@ -35,13 +34,13 @@ interface ProgressBarCollapseModeProps {
     inlineStyles: React.CSSProperties;
     t: any;
     isShowProgressBarTitle?: boolean;
+    showWinningTeam: boolean;
 }
 
 export default function ProgressBar({
     result,
     isShowCollapse,
     isFirstHalf,
-    onFinishHandle,
     isShowProgressBarTitle,
     hasAnimation,
     totalBlueH1 = 0,
@@ -51,6 +50,7 @@ export default function ProgressBar({
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const [width, setWidth] = useState<number>(50);
     const [winningTeam, setWinningTeam] = useState<string>("draw");
+    const [showWinningTeam, setShowWinningTeam] = useState(false);
     const [totalBlue, setTotalBlue] = useState<number>(0);
     const [totalRed, setTotalRed] = useState<number>(0);
     let interval: NodeJS.Timer = null;
@@ -75,7 +75,7 @@ export default function ProgressBar({
             let index = 0;
             interval = setInterval(() => {
                 if (index === result.blue.length) {
-                    onFinishHandle && onFinishHandle();
+                    setShowWinningTeam(true);
                     clearInterval(interval);
                 } else {
                     currentTotalBlue += result.blue[index];
@@ -100,7 +100,9 @@ export default function ProgressBar({
     } as React.CSSProperties;
 
     return isShowCollapse ? (
-        <ProgressBarCollapseMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t, isFirstHalf, isShowProgressBarTitle }} />
+        <ProgressBarCollapseMode
+            {...{ totalBlue, totalRed, winningTeam, inlineStyles, t, isFirstHalf, isShowProgressBarTitle, showWinningTeam }}
+        />
     ) : (
         <ProgressBarFullMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t }} />
     );
@@ -144,20 +146,27 @@ const ProgressBarCollapseMode = ({
 }: ProgressBarCollapseModeProps) => {
     return (
         <>
-            <div className={Styles["progress-extra"]}>
-                <div className={Styles["score-blue"]}>{totalBlue}</div>
-                <div className={Styles["score-red"]}>{totalRed}</div>
-            </div>
-            <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
-                <div className={`${Styles["progress-bar"]}`}>
-                    <div className={`${Styles["triangle"]} ${Styles[winningTeam]}`} style={inlineStyles}></div>
-                    <div className={Styles["blue-team"]} style={inlineStyles}></div>
-                    <div className={Styles["sperate"]}>
-                        <div className={Styles["total-score-match"]}>
-                            {isShowProgressBarTitle && <span className={Styles["text"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</span>}
+            <div className={Styles["result-collapse-mode"]}>
+                <div className={Styles["result-container"]}>
+                    <div className={Styles["progress-extra"]}>
+                        <div className={Styles["score-blue"]}>{totalBlue}</div>
+                        <div className={Styles["score-red"]}>{totalRed}</div>
+                    </div>
+                    <div className={`${Styles["progress-bar-team"]} ${Styles["progress-bar-collapse"]}`}>
+                        <div className={`${Styles["progress-bar"]}`}>
+                            <div className={`${Styles["triangle"]} ${Styles[winningTeam]}`} style={inlineStyles}></div>
+                            <div className={Styles["blue-team"]} style={inlineStyles}></div>
+                            <div className={Styles["sperate"]}>
+                                <div className={Styles["total-score-match"]}>
+                                    {isShowProgressBarTitle && (
+                                        <span className={Styles["text"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</span>
+                                    )}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {winningTeam && <div className={Styles["result-label"]}>{t(winningTeam)}</div>}
             </div>
         </>
     );

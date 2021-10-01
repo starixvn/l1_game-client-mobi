@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { sumArray } from "../../../../helpers/number-helper";
-import { CollapseModeResult } from "../../../keno/collapse-mode-result";
 import ProgressBar from "../../../keno/progress-bar";
 import TeamResult from "../../../keno/team-result";
 import TeamScore from "../../../keno/team-score";
@@ -63,7 +62,5 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
         </div>
     );
 
-    return (
-        <>{isCollapse ? <CollapseModeResult hasAnimation={true} winningTeam={winningTeam} result={result} /> : renderFullModeResult()}</>
-    );
+    return <>{isCollapse ? <ProgressBar result={result} hasAnimation={true} isShowCollapse={true} /> : renderFullModeResult()}</>;
 };
