@@ -1,10 +1,13 @@
-[data-theme="light"] .team-score  {
-    --blue-team-color: #3B7BC6
-    ;
+[data-theme="light"] .team-score {
+    --blue-team-color: #3b7bc6;
 }
 
 [data-theme="dark"] .team-score {
-    --blue-team-color: #5EA8FF;
+    --blue-team-color: #5ea8ff;
+}
+
+.kenopower {
+    background-color: #ff4352;
 }
 
 .team-score {
@@ -13,7 +16,7 @@
     font-weight: 600;
     height: 1.9rem;
     position: relative;
-    top: -.1rem;
+    top: -0.1rem;
     .score {
         font: 500 1.6rem var(--font-number);
         padding-left: 0.2rem;
