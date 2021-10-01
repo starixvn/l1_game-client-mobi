@@ -68,6 +68,7 @@
             top: -0.4rem;
         }
     }
+    
     transition: all -0.1s ease-in;
 
     &.selected {
@@ -153,6 +154,13 @@
                 url("/static/images/chips/active/chip-active-quick-bet@2x.png") 2x,
                 url("/static/images/chips/active/chip-active-quick-bet@3x.png") 3x
             );
+        }
+    }
+
+    @media (min-device-width: 375px) and (min-device-height: 668px){
+        --ratio: 1.1;
+        &.selected {
+            --ratio: 1.25;
         }
     }
 
