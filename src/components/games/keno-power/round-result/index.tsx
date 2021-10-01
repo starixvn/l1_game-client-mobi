@@ -23,38 +23,40 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
 
     const renderFullModeResult = () => (
         <div className={`${styles["main-result"]} ${isShowResult ? styles["result-animation"] : ""} `}>
-            <div className={styles["blue-team"]}>
-                <TeamResult result={result.blue} hasAnimation={gameState === GameState.DisplayResult} />
-                {!isShowResult && (
-                    <TeamScore
-                        isShowScore={totalBlue !== 0}
-                        teamName={t("blue")}
-                        score={totalBlue}
-                        isWin={totalBlue > totalRed}
-                        customClassName={"blue"}
-                    />
-                )}
-            </div>
-
-            {!isShowResult && (
-                <div className={styles["middle-column"]}>
-                    <div className={styles["score-wrapper"]}>
-                        {t("sum")} <div className={styles["score"]}>{totalBlue + totalRed}</div>
-                    </div>
+            <div className={styles["main-content"]}>
+                <div className={styles["blue-team"]}>
+                    <TeamResult result={result.blue} hasAnimation={gameState === GameState.DisplayResult} />
+                    {!isShowResult && (
+                        <TeamScore
+                            isShowScore={totalBlue !== 0}
+                            teamName={t("blue")}
+                            score={totalBlue}
+                            isWin={totalBlue > totalRed}
+                            customClassName={"blue"}
+                        />
+                    )}
                 </div>
-            )}
 
-            <div className={styles["red-team"]}>
-                <TeamResult result={result.red} hasAnimation={gameState === GameState.DisplayResult} />
                 {!isShowResult && (
-                    <TeamScore
-                        isShowScore={totalRed !== 0}
-                        teamName={t("red")}
-                        score={totalRed}
-                        isWin={totalBlue < totalRed}
-                        customClassName={"red"}
-                    />
+                    <div className={styles["middle-column"]}>
+                        <div className={styles["score-wrapper"]}>
+                            {t("sum")} <div className={styles["score"]}>{totalBlue + totalRed}</div>
+                        </div>
+                    </div>
                 )}
+
+                <div className={styles["red-team"]}>
+                    <TeamResult result={result.red} hasAnimation={gameState === GameState.DisplayResult} />
+                    {!isShowResult && (
+                        <TeamScore
+                            isShowScore={totalRed !== 0}
+                            teamName={t("red")}
+                            score={totalRed}
+                            isWin={totalBlue < totalRed}
+                            customClassName={"red"}
+                        />
+                    )}
+                </div>
             </div>
 
             {isShowResult && <ProgressBar result={result} hasAnimation={true} />}

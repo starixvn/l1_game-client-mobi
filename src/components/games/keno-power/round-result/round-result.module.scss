@@ -20,6 +20,22 @@
     background: var(--result-team-bg-color);
 }
 
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 1rem 1rem;
+    position: relative;
+    .row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, 2rem);
+        grid-row-gap: 0.3rem;
+        .number {
+            justify-self: center;
+        }
+    }
+}
+
 .middle-column {
     font-size: 1.1rem;
     text-align: center;
