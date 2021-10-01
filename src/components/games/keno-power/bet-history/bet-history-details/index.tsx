@@ -3,7 +3,6 @@ import React from "react";
 import { renderTimes } from "../../../../dashboard/history/bet-history";
 import { renderRefund, RenderCell } from "../../../../keno/bet-history/bet-history-details";
 import { BetLogs, BetDetailProps } from "./../bet-history";
-import Styles from "../bet-history.module.scss";
 
 const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;

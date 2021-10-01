@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { sumArray } from "../../../../helpers/number-helper";
@@ -17,7 +17,6 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
     const { gameSetting } = useGameContext();
     const totalBlue = sumArray(result.blue);
     const totalRed = sumArray(result.red);
-    const winningTeam = totalBlue > totalRed ? "blue" : "red";
 
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const isShowResult = gameState === GameState.DisplayResult;
