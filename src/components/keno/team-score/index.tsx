@@ -12,7 +12,7 @@ type Props = {
 
 export default function TeamScore({ teamName, score, isWin, isShowScore, customClassName }: Props) {
     const { gameSetting } = useGameContext();
-    const gameGroupClassName = gameSetting.gameName.toLocaleLowerCase().replace(/[0-9]/g, "");
+    const gameGroupClassName = gameSetting?.gameName.toLocaleLowerCase().replace(/[0-9]/g, "");
 
     return (
         <div className={`${Styles["team-score"]} ${customClassName ? Styles[customClassName] : ""} ${Styles[gameGroupClassName]}`}>
