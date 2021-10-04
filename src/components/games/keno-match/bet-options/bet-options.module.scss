@@ -90,7 +90,7 @@
 
 .choice-under {
     grid-column: 2/3;
-    color: var(--light-blue-color);
+    color: var(--light-red-color);
 }
 
 .choice-odd {
@@ -100,7 +100,7 @@
 
 .choice-even {
     grid-column: 3/4;
-    color: var(--light-red-color);
+    color: var(--light-blue-color);
 }
 
 [class*="choice"].disabled {

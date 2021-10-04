@@ -74,7 +74,8 @@ export interface KenoMatchGameBaseState<Result, SettlementResult> extends GameBa
     fullTimeResult?: Result;
     halfTimeResultInline?: Result;
     fullTimeResultInline?: Result;
-    settlementResult?: SettlementResult;
+    firstHalfSettlementResult?: SettlementResult;
+    fullTimeSettlementResult?: SettlementResult;
     liveOdds: any;
     firstHalfResult?: HalfRoundResult;
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];

@@ -81,8 +81,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, isFirstHalf, showWinningAnimation, liveOdds, beforeStartFulltime } = this.state;
+        const { gameState, firstHalfSettlementResult, fullTimeSettlementResult,  isFirstHalf, showWinningAnimation, liveOdds, beforeStartFulltime } = this.state;
+        const settlementResult = isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult;
 
+        console.log(settlementResult, null, 2);
         const betOptionsProps = {
             liveOdds,
             gameState,
@@ -112,7 +114,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             halfTimeResult,
             fullTimeResultInline,
             halfTimeResultInline,
-            settlementResult,
+            firstHalfSettlementResult, 
+            fullTimeSettlementResult,
             isShowSettlementResult,
             showResultInfo,
             isShowH1Score,
@@ -120,6 +123,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             isJoiningAtMiddleShowInlineResult,
         } = this.state;
 
+        const settlementResult = isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult;
+        
         if (showResultInfo) {
             const animationResultProps = {
                 isFirstHalf,
@@ -452,7 +457,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 fullTimeResult: roundHistory[0].fullTime.result,
                 halfTimeResultInline: roundHistory[0].firstHalf.result,
                 fullTimeResultInline: roundHistory[0].fullTime.result,
-                settlementResult: joinInFirstHalf ? roundHistory[0].firstHalf.settlementResult : roundHistory[0].fullTime.settlementResult,
+                firstHalfSettlementResult: roundHistory[0].firstHalf.settlementResult,
+                fullTimeSettlementResult: roundHistory[0].fullTime.settlementResult,
                 md5: joinInFirstHalf ? roundHistory[0].firstHalf.md5 : roundHistory[0].fullTime.md5,
                 md5ResultKey: joinInFirstHalf ? roundHistory[0].firstHalf.resultKey : roundHistory[0].fullTime.resultKey,
                 isShowH1Score: true,
@@ -497,7 +503,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.storeOwnBet(roundId);
         const stateFinishHalfTime = {
             halfTimeResultInline: firstHalfResult.result,
-            settlementResult: firstHalfResult.settlementResult,
+            firstHalfSettlementResult: firstHalfResult.settlementResult,
             playResultAnimation: true,
             md5ResultKey: firstHalfResult.resultKey,
         };
@@ -542,7 +548,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         roundHistoryFTClone.length > 100 && roundHistoryFTClone.pop();
         const newState = {
             fullTimeResultInline: finish.result,
-            settlementResult: finish.settlementResult,
+            fullTimeSettlementResult: finish.settlementResult,
             playResultAnimation: true,
             md5ResultKey: finish.resultKey,
         };
