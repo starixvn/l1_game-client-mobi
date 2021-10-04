@@ -20,7 +20,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         let deviceClass = "";
 
         if (isMobileOnly) {
-            deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
+            deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
         }
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>

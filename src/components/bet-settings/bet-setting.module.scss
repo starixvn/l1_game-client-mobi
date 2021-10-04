@@ -1,5 +1,10 @@
 [data-theme="light"] .bet-settings {
-    --bet-settings-background: linear-gradient(180deg, rgba(141, 159, 177, 0.9) 0%, rgba(120, 133, 147, 0.9) 9.69%, rgba(111, 122, 135, 0.9) 100%);
+    --bet-settings-background: linear-gradient(
+        180deg,
+        rgba(141, 159, 177, 0.9) 0%,
+        rgba(120, 133, 147, 0.9) 9.69%,
+        rgba(111, 122, 135, 0.9) 100%
+    );
 
     --ripple-background: rgba(196, 196, 196, 0.6);
     --footer-background: #4d5570;
@@ -7,11 +12,16 @@
 }
 
 [data-theme="dark"] .bet-settings {
-    --bet-settings-background: linear-gradient(180deg, rgba(141, 159, 177, 0.9) 0%, rgba(120, 133, 147, 0.9) 9.69%, rgba(111, 122, 135, 0.9) 100%);
+    --bet-settings-background: linear-gradient(
+        180deg,
+        rgba(141, 159, 177, 0.9) 0%,
+        rgba(120, 133, 147, 0.9) 9.69%,
+        rgba(111, 122, 135, 0.9) 100%
+    );
 
     --ripple-background: rgba(196, 196, 196, 0.5);
     --footer-background: #2b3541;
-    --line-footer: linear-gradient(90deg, rgba(55, 71, 91, 0.9) 0%, rgba(134, 168, 209, 0.9) 51.87%, rgba(55, 71, 91, 0.9) 100%) ;
+    --line-footer: linear-gradient(90deg, rgba(55, 71, 91, 0.9) 0%, rgba(134, 168, 209, 0.9) 51.87%, rgba(55, 71, 91, 0.9) 100%);
 }
 
 .bet-settings {
@@ -172,13 +182,13 @@
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
     text-align: center;
     color: var(--saba-copyright);
-    &:before{
-        top: -.1rem;
+    &:before {
+        top: -0.1rem;
         position: absolute;
         content: "";
-        height: .1rem;
+        height: 0.1rem;
         width: 100%;
-        background:  var(--line-footer);
+        background: var(--line-footer);
     }
 }
 
@@ -196,7 +206,7 @@
 }
 
 // Android
-.adroid-device {
+.android-device {
     .settings-container {
         height: 5.4rem;
     }

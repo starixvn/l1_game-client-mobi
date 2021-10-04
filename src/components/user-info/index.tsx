@@ -1,12 +1,18 @@
 import React from "react";
+import { isMobileOnly, isIOS } from "react-device-detect";
 
 import { User } from "sc-user-service-client/dist/auth";
 import { numberWithCommas } from "../../helpers/number-helper";
 import Styles from "./user-info.module.scss";
 
 export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ user, customizeClass }) => {
+    let deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
+    }
+
     return (
-        <div className={`${Styles["user"]} ${customizeClass ? Styles[customizeClass] : ""}`}>
+        <div className={`${Styles["user"]} ${customizeClass ? Styles[customizeClass] : ""} ${deviceClass}`}>
             <div className={Styles["info"]}>
                 <div className={Styles["user-name"]}>{user.name}</div>
                 <div key={user.red} className={`${Styles.balance}`}>
