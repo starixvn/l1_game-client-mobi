@@ -15,7 +15,7 @@
         opacity: 0;
     }
 
-    @for $i from 0 through 9 {
+    @for $i from 0 through 19 {
         &.number:nth-child(#{$i + 1}) {
             animation: show-value 0.1s ease-in-out forwards;
             animation-delay: calc(0.1s * #{$i});
