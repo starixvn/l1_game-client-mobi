@@ -83,6 +83,10 @@
         position: absolute;
         top: .8rem;
         right: 0.8rem;
+        
+        @media (min-device-width: 375px) and (min-device-height: 668px) {
+            top: 1.4rem;
+        }
 
         @media (min-width: 768px) {
             right: 2.6rem;
@@ -149,6 +153,9 @@
             bottom: -1.5rem;
             border-color: #fff1b2 transparent transparent transparent;
             top: unset;
+        }
+        @media (min-device-width: 375px) and (min-device-height: 668px) {
+            bottom: 4.1rem;
         }
     }
 

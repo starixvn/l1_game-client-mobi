@@ -1,13 +1,13 @@
 [data-theme="light"] .settings-container {
     --icon-favorite-color: #945f08;
     --icon-color: #F2A61C;
-    --icon-favorite: url("/static/images/header/favorite-light.svg") no-repeat;
+    --position-icon-favorite: -73px -82px;
 }
 
 [data-theme="dark"] .settings-container {
     --icon-favorite-color: #d3e8ff;
     --icon-color: #D4E9FF;
-    --icon-favorite: url("/static/images/header/favorite-dark.svg") no-repeat;
+    --position-icon-favorite: -74px -56px;
 }
 
 .settings-container {
@@ -25,6 +25,7 @@
     grid-template-columns: repeat(4, 3rem);
     grid-gap: 0.6rem;
     align-items: center;
+    margin-top: .5rem;
 }
 
 %icon {
@@ -56,57 +57,47 @@
 
 %icon-notify {
     @extend %icon;
-    width: 18px;
-    height: 19px;
+    width: 2.4rem;
+    height: 2rem;
 }
-%icon-sound {
-    width: 3.6rem;
-    height: 3.2rem;
-    display: inline-block;
-}
+
+
 .icon-sound-on-dark {
-    @extend %icon-sound; 
-    background: url("/static/images/header/sound-on-dark.svg") no-repeat;
+    @extend %icon-notify;
+   background-position: 0 -58px;
 }
 
 .icon-sound-off-dark {
-    @extend %icon-sound; 
-    background: url("/static/images/header/sound-off-dark.svg") no-repeat;
+    @extend %icon-notify;
+    background-position: -147px -36px;
 }
 
 .icon-sound-off-light {
-    @extend %icon-sound; 
-    background: url("/static/images/header/sound-off-light.svg") no-repeat;
+    @extend %icon-notify;
+   background-position: -147px -84px;
 }
 
 .icon-sound-on-light {
-    @extend %icon-sound; 
-    background: url("/static/images/header/sound-on-light.svg") no-repeat;
+    @extend %icon-notify;
+    background-position: 0 -84px;
 }
 
-
-
-%icon-ticket-history {    
-    display: inline-block;
-    width: 3.2rem;
-    height: 3.2rem;
-}
 
 .icon-ticket-history-light {
-    @extend %icon-ticket-history;
-    background: url("/static/images/header/history-light.svg") no-repeat;
+    @extend %icon-notify;
+    background-position: -36px -84px;
 }
 
 .icon-ticket-history-dark {
-    @extend %icon-ticket-history;
-    background: url("/static/images/header/history-dark.svg") no-repeat;
+    @extend %icon-notify;
+    background-position: -36px -58px;
 }
 
 .icon-favorite {
-    background: var(--icon-favorite);
-    display: inline-block;
-    width: 3.2rem;
-    height: 3.2rem;
+    @extend %icon-notify;
+    background-position: var(--position-icon-favorite);
+    position: relative;
+    top: -1px;
     &:before {
         content: none;
     }
