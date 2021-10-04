@@ -3,15 +3,10 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
-import { GetChoiceTranslate } from "../keno-pro-max-helper";
+import { GetChoiceTranslate, getTotalPoint, getLabelFromFiveElements } from "../keno-pro-max-helper";
 import BallNumber from "../../../keno/ball-number";
 import Styles from "./keno-pro-max-animations.module.scss";
 import { GameState } from "../../../shared/game-base/type";
-
-const elements = ["gold", "wood", "water", "fire", "earth"];
-const getTotalPoint = (result) => {
-    return result ? result.reduce((a, b) => a + b, 0) : 0;
-};
 
 export const generateResult = (result: Result, isAnimation: boolean) => {
     return result.map((number: number, index: number) => (
@@ -21,7 +16,9 @@ export const generateResult = (result: Result, isAnimation: boolean) => {
 
 const AnimationComponent = ({ settlementResult, playResultAnimation, result, textTranSlate, gameState }) => {
     const total = getTotalPoint(result);
-    const element = settlementResult && elements.filter((e) => settlementResult[e])[0];
+    const isBig = settlementResult?.big ? true : false;
+    const isEven = settlementResult?.even ? true : false;
+    const element = getLabelFromFiveElements(settlementResult);
 
     return (
         <div className={`${Styles["animation-container"]}`}>
@@ -35,11 +32,11 @@ const AnimationComponent = ({ settlementResult, playResultAnimation, result, tex
                 </div>
                 {gameState !== GameState.LockingBet && (
                     <div className={Styles["winning-info"]}>
-                        <div className={Styles[`result-info-${settlementResult?.big ? "blue" : "red"}`]}>
-                            {settlementResult?.big ? textTranSlate.big : textTranSlate.small}
+                        <div className={Styles[`result-info-${isBig ? "blue" : "red"}`]}>
+                            {isBig ? textTranSlate.big : textTranSlate.small}
                         </div>
-                        <div className={Styles[`result-info-${settlementResult?.even ? "blue" : "red"}`]}>
-                            {settlementResult?.even ? textTranSlate.even : textTranSlate.odd}
+                        <div className={Styles[`result-info-${isEven ? "blue" : "red"}`]}>
+                            {isEven ? textTranSlate.even : textTranSlate.odd}
                         </div>
                         <div className={Styles["result-info-grey"]}>{textTranSlate[element]}</div>
                     </div>

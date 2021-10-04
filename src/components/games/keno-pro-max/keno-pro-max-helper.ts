@@ -1,4 +1,6 @@
 import { TFunction } from "next-i18next";
+import { Result, SettlementResult } from "./keno-pro-max";
+
 export const Choices = {
     big: "big",
     small: "small",
@@ -10,6 +12,7 @@ export const Choices = {
     fire: "fire",
     earth: "earth",
 };
+const elements = ["gold", "wood", "water", "fire", "earth"];
 
 const StatisticRuleEntriesBigSmall = Object.entries({
     [Choices.big]: (countResult: object, total: number) =>
@@ -49,9 +52,9 @@ export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRule
 export const GetChoiceTranslate = (t: TFunction) => {
     return {
         total: t("total"),
-        big: t( "big"),
-        small: t( "small"),
-        even: t( "even"),
+        big: t("big"),
+        small: t("small"),
+        even: t("even"),
         odd: t("odd"),
         gold: t("gold"),
         wood: t("wood"),
@@ -72,3 +75,11 @@ export const ChoiceForTabActive = [
         choice: ["gold", "wood", "water", "fire", "earth"],
     },
 ];
+
+export const getTotalPoint = (result: Result) => {
+    return result ? result.reduce((a, b) => a + b, 0) : 0;
+};
+
+export const getLabelFromFiveElements = (settlementResult: SettlementResult) => {
+    return settlementResult ? elements.filter((e) => settlementResult[e])[0] : "";
+};
