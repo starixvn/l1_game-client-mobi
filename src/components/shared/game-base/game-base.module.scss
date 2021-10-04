@@ -17,10 +17,10 @@
 }
 
 [data-theme="light"] .md5-section {
-    --md5-bg-color: #DCE2F3;
+    --md5-bg-color: #dce2f3;
 }
 [data-theme="dark"] .md5-section {
-    --md5-bg-color: #2F3956;
+    --md5-bg-color: #2f3956;
 }
 
 .bet-options {
@@ -30,6 +30,13 @@
     padding-top: 0.1rem;
     background-color: var(--border-color);
     border-bottom: 1px solid var(--border-color);
+    &.bet-options-kenopromax,
+    &.bet-options-kenomatch1,
+    &.bet-options-kenomatch2,
+    &.bet-options-kenopower1,
+    &.bet-options-kenopower2 {
+        height: auto;
+    }
 }
 
 .mini-round-history {
@@ -61,37 +68,29 @@
     }
 }
 
-.bet-options-kenomatch1,
-.bet-options-kenomatch2,
-.bet-options-kenopower1,
-.bet-options-kenopower2 {
-    height: auto;
-}
-
 .md5-section {
     background-color: var(--md5-bg-color);
     font-size: 1.2rem;
-    padding: .2rem .4rem;
+    padding: 0.2rem 0.4rem;
     display: flex;
-    justify-content: space-between;    
+    justify-content: space-between;
     cursor: pointer !important;
-    
+
     .blue {
-        color: #2E73C3;
+        color: #2e73c3;
     }
-    
+
     .red {
-        color: #FF4352;
-    } 
+        color: #ff4352;
+    }
 
     .text {
-       
         &.md5-key {
-            animation: fadeIn .3s linear forwards;
+            animation: fadeIn 0.3s linear forwards;
             animation-delay: 0;
         }
-         &.md5-result {
-            animation: shakeX .3s linear forwards;
+        &.md5-result {
+            animation: shakeX 0.3s linear forwards;
             animation-delay: 0;
         }
     }
@@ -105,13 +104,13 @@
             height: 1.2rem;
             position: relative;
             z-index: 2;
-            left: .4rem;
-            top: -.1rem;
+            left: 0.4rem;
+            top: -0.1rem;
         }
 
         &:before {
-            content: '';
-            background: linear-gradient(180deg, #F19F0A 0%, #B77406 100%);
+            content: "";
+            background: linear-gradient(180deg, #f19f0a 0%, #b77406 100%);
             position: absolute;
             top: 0;
             right: 0;
@@ -120,13 +119,13 @@
             border-radius: 5px;
         }
         &:after {
-            content: '';
-            background: linear-gradient(180deg, #FFC964 0%, #EE9505 100%);
+            content: "";
+            background: linear-gradient(180deg, #ffc964 0%, #ee9505 100%);
             position: absolute;
-            top: .1rem;
-            right: .1rem;
-            left: .1rem;
-            bottom: .1rem;
+            top: 0.1rem;
+            right: 0.1rem;
+            left: 0.1rem;
+            bottom: 0.1rem;
             border-radius: 5px;
         }
     }
@@ -135,37 +134,33 @@
 @keyframes shakeX {
     from,
     to {
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
     }
-  
+
     10%,
     30%,
     50%,
     70%,
     90% {
-      -webkit-transform: translate3d(-10px, 0, 0);
-      transform: translate3d(-10px, 0, 0);
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
     }
-  
+
     20%,
     40%,
     60%,
     80% {
-      -webkit-transform: translate3d(10px, 0, 0);
-      transform: translate3d(10px, 0, 0);
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
     }
 }
 
 @keyframes fadeIn {
-    from{
+    from {
         opacity: 0;
     }
     to {
         opacity: 1;
     }
 }
-
-
-
-

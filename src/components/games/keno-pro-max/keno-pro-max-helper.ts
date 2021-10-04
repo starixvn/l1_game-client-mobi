@@ -51,16 +51,16 @@ export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRule
 
 export const GetChoiceTranslate = (t: TFunction) => {
     return {
-        total: t("total"),
-        big: t("big"),
-        small: t("small"),
-        even: t("even"),
-        odd: t("odd"),
-        gold: t("gold"),
-        wood: t("wood"),
-        water: t("water"),
-        fire: t("fire"),
-        earth: t("earth"),
+        total: t("kenopromax:total"),
+        big: t("kenopromax:big"),
+        small: t("kenopromax:small"),
+        even: t("kenopromax:even"),
+        odd: t("kenopromax:odd"),
+        gold: t("kenopromax:gold"),
+        wood: t("kenopromax:wood"),
+        water: t("kenopromax:water"),
+        fire: t("kenopromax:fire"),
+        earth: t("kenopromax:earth"),
     };
 };
 
