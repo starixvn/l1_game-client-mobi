@@ -13,7 +13,7 @@ import { KenoPowerGameState } from "./keno-power";
 import { ChoiceForTabActive, Choices, StatisticRuleMapping } from "./keno-power-helper";
 import { RoundResult } from "./round-result";
 
-const DisplayChoices = ["big", "small", "odd", "even"];
+const DisplayChoices = ["big", "small", "odd", "even", "blueBig", "blueSmall", "redBig", "redSmall"];
 const DefaultResult = { blue: new Array(20).fill(0), red: new Array(20).fill(0) };
 
 class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {

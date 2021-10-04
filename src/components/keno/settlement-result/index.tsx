@@ -5,6 +5,18 @@ import { Props } from "./type";
 import Styles from "./settlement-result.module.scss";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 
+const renderTeamLabelByChoice = (choice: string, t: Function) => {
+    if (choice.startsWith("red")) {
+        return <div className={Styles["team-label"]}>{t("red")}</div>;
+    }
+
+    if (choice.startsWith("blue")) {
+        return <div className={Styles["team-label"]}>{t("blue")}</div>;
+    }
+
+    return null;
+};
+
 const RoundSettlementResult = ({ title, settlementResult, displayChoices, extendClass }: Props) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLocaleLowerCase());
@@ -26,9 +38,12 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
                     {displayChoices.map((keyName, index) => {
                         return (
                             settlementResult[keyName] && (
-                                <div key={index} className={Styles["result-info-red"]}>
-                                    {t(keyName)}
-                                </div>
+                                <>
+                                    {renderTeamLabelByChoice(keyName, t)}
+                                    <div key={index} className={Styles["result-info-red"]}>
+                                        {t(keyName)}
+                                    </div>
+                                </>
                             )
                         );
                     })}
