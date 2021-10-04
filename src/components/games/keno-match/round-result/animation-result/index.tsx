@@ -52,7 +52,7 @@ export const AnimationResult = ({
             }}
         />
     ) : (
-        <div className={Styles["popup-result"]}>
+        <div className={Styles["animation-result"]}>
             <div className={`${Styles.result} ${Styles["open-result"]}`}>
                 <div className={Styles["header"]}>{t(isFirstHalf ? "firstHalf" : "fullTime")}</div>
                 <div className={Styles["main-content"]}>

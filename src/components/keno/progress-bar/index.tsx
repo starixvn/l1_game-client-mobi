@@ -23,7 +23,6 @@ interface ProgressBarFullModeProps {
     totalRed: number;
     winningTeam: string;
     inlineStyles: React.CSSProperties;
-    t: any;
 }
 
 interface ProgressBarCollapseModeProps {
@@ -32,7 +31,6 @@ interface ProgressBarCollapseModeProps {
     isFirstHalf: boolean;
     winningTeam: string;
     inlineStyles: React.CSSProperties;
-    t: any;
     isShowProgressBarTitle?: boolean;
     showWinningTeam: boolean;
 }
@@ -101,14 +99,16 @@ export default function ProgressBar({
 
     return isShowCollapse ? (
         <ProgressBarCollapseMode
-            {...{ totalBlue, totalRed, winningTeam, inlineStyles, t, isFirstHalf, isShowProgressBarTitle, showWinningTeam }}
+            {...{ totalBlue, totalRed, winningTeam, inlineStyles, isFirstHalf, isShowProgressBarTitle, showWinningTeam }}
         />
     ) : (
         <ProgressBarFullMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t }} />
     );
 }
 
-const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles, t }: ProgressBarFullModeProps) => {
+const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles }: ProgressBarFullModeProps) => {
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <div className={Styles["progress-bar-team"]}>
             <div className={Styles["title"]}>
@@ -141,9 +141,10 @@ const ProgressBarCollapseMode = ({
     isFirstHalf,
     winningTeam,
     inlineStyles,
-    t,
     isShowProgressBarTitle,
 }: ProgressBarCollapseModeProps) => {
+    const { gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
         <>
             <div className={Styles["result-collapse-mode"]}>
