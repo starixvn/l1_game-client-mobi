@@ -28,7 +28,7 @@ function Home() {
         const signIn = async () => {
             const userSession = await getUserSession(token as string);
 
-            if (!userSession || !userSession.isAuthenticated) {
+            if (!userSession) {
                 router.push("timeout");
                 return;
             }
@@ -38,6 +38,8 @@ function Home() {
                 setTimeout(() => {
                     setIsUm(true);
                 }, 500);
+
+                return;
             }
 
             if (userSession.isAuthenticated) {
@@ -46,6 +48,8 @@ function Home() {
                 setLoading(false);
 
                 window.history.pushState(null, "", location.href.split("?")[0]);
+            } else {
+                router.push("timeout");
             }
         };
 
