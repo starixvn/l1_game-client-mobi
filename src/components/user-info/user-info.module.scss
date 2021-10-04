@@ -39,6 +39,12 @@
     &.footer {
         margin-left: .8rem;
         flex-direction: row-reverse;
+        &.ios-device {
+            @media (min-device-width: 375px) and (min-device-height: 668px) {
+                position: relative;
+                top: -.3rem;
+            }
+        }
         .avatar {
             border: .15rem solid #FFBF1C;
             height: 3.4rem;
