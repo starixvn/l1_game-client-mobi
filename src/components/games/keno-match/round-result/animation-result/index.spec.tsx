@@ -2,30 +2,12 @@ import { render } from "@testing-library/react";
 import React from "react";
 import { GameContextProvider } from "../../../../../contexts/game-context/game-context";
 import AnimationResult from "./";
-import buildGameContext from "../../__test__/test-helper";
-
-const buildDefaultResult = () => {
-    let index = 10;
-    const emptyResult = [];
-    while (index > 0) {
-        emptyResult.push(index);
-        index--;
-    }
-
-    return emptyResult;
-};
+import buildGameContext, { buildDefaultResult } from "../../__test__/test-helper";
 
 const buildAnimationResultProps = (isFirstHalf = true, isShowCollapse = false, playResultAnimation = true) => {
-    const blueTeam = buildDefaultResult();
-    const redTeam = buildDefaultResult();
-    const fakeResult = {
-        blue: blueTeam,
-        red: redTeam,
-    };
-
     return {
-        halfTimeResultInline: fakeResult,
-        fullTimeResultInline: fakeResult,
+        halfTimeResultInline: buildDefaultResult(),
+        fullTimeResultInline: buildDefaultResult(),
         isFirstHalf,
         playResultAnimation,
         isShowCollapse,
@@ -33,7 +15,7 @@ const buildAnimationResultProps = (isFirstHalf = true, isShowCollapse = false, p
 };
 
 describe("AnimationResult", () => {
-    test("should be render correctly", () => {
+    test("should be render correctly in fullmode case", () => {
         render(
             <GameContextProvider value={buildGameContext() as any}>
                 <AnimationResult {...buildAnimationResultProps()} />
@@ -47,6 +29,15 @@ describe("AnimationResult", () => {
         expect(document.querySelector(".main-content")).toBeTruthy();
     });
 
+    test("should be render correctly in collapse case", () => {
+        render(
+            <GameContextProvider value={buildGameContext() as any}>
+                <AnimationResult {...buildAnimationResultProps(true, true)} />
+            </GameContextProvider>
+        );
+
+        expect(document.querySelector(".animation-result")).toBeFalsy();
+    });
     test.each`
         isFirstHalf | expectedHeaderText
         ${true}     | ${"firstHalf"}

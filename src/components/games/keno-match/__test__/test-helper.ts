@@ -78,4 +78,24 @@ const buildGameContext = (gameState = GameState.InRound) => {
     };
 };
 
+const buildDefaultTeamResult = () => {
+    let index = 10;
+    const emptyResult = [];
+    while (index > 0) {
+        emptyResult.push(index);
+        index--;
+    }
+
+    return emptyResult;
+};
+
+export const buildDefaultResult= () => {
+    const blueTeam = buildDefaultTeamResult();
+    const redTeam = buildDefaultTeamResult();
+    return {
+        blue: blueTeam,
+        red: redTeam,
+    };
+};
+
 export default buildGameContext;

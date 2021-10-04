@@ -8,20 +8,27 @@ import MainFrameResultProps, { HalfRoundResultProps } from "./type";
 import Styles from "./main-frame-result.module.scss";
 import { sumArray } from "../../../../../helpers/number-helper";
 
-export default function MainFrameResult({
-    halfTimeResult,
-    fullTimeResult,
-    isShowH1Score,
-    isShowFTScore,
-}: MainFrameResultProps) {
+export default function MainFrameResult({ halfTimeResult, fullTimeResult, isShowH1Score, isShowFTScore }: MainFrameResultProps) {
     const totalBlueH1 = sumArray(halfTimeResult.blue);
     const totalRedH1 = sumArray(halfTimeResult.red);
 
     const totalBlueFT = totalBlueH1 + sumArray(fullTimeResult.blue);
     const totalRedFT = totalRedH1 + sumArray(fullTimeResult.red);
 
-    const firstHalfProps = {result : halfTimeResult, isShowScore: isShowH1Score, isFirstHalf: true, totalBlue: totalBlueH1, totalRed: totalRedH1},
-    fullTimeProps = {result : fullTimeResult, isShowScore: isShowFTScore, isFirstHalf: false, totalBlue: totalBlueFT, totalRed: totalRedFT};
+    const firstHalfProps = {
+            result: halfTimeResult,
+            isShowScore: isShowH1Score,
+            isFirstHalf: true,
+            totalBlue: totalBlueH1,
+            totalRed: totalRedH1,
+        },
+        fullTimeProps = {
+            result: fullTimeResult,
+            isShowScore: isShowFTScore,
+            isFirstHalf: false,
+            totalBlue: totalBlueFT,
+            totalRed: totalRedFT,
+        };
 
     return (
         <div className={Styles["main-result"]}>
@@ -31,7 +38,7 @@ export default function MainFrameResult({
     );
 }
 
-export function HalfRoundResult({ result, isFirstHalf, totalBlue, totalRed, isShowScore }: HalfRoundResultProps) {
+export const HalfRoundResult = ({ result, isFirstHalf, totalBlue, totalRed, isShowScore }: HalfRoundResultProps) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
@@ -66,9 +73,9 @@ export function HalfRoundResult({ result, isFirstHalf, totalBlue, totalRed, isSh
             </div>
         </div>
     );
-}
+};
 
-function MiddleColum({ totalScore, headerText, isShowScore }) {
+export const MiddleColum = ({ totalScore, headerText, isShowScore }) => {
     const { gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     return (
@@ -79,4 +86,4 @@ function MiddleColum({ totalScore, headerText, isShowScore }) {
             </div>
         </div>
     );
-}
+};
