@@ -46,12 +46,18 @@ const StatisticRuleEntriesFiveElements = Object.entries({
 
 export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven, StatisticRuleEntriesFiveElements];
 
-export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
+export const GetChoiceTranslate = (t: TFunction) => {
     return {
-        total: t("kenopromax:total"),
-        big: t(settleResult.big ? "kenopromax:big" : "kenopromax:small"),
-        even: t(settleResult.even ? "kenopromax:even" : "kenopromax:odd"),
-        element: t(`kenopromax:${settleResult.element}`),
+        total: t("total"),
+        big: t( "big"),
+        small: t( "small"),
+        even: t( "even"),
+        odd: t("odd"),
+        gold: t("gold"),
+        wood: t("wood"),
+        water: t("water"),
+        fire: t("fire"),
+        earth: t("earth"),
     };
 };
 

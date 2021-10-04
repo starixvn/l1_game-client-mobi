@@ -5,9 +5,8 @@
 $number-count: 20;
 
 .animation-container {
-    background: #ffd693;
-    width: 22rem;
-    border-radius: 2rem;
+    height: 12.7rem;
+    background: linear-gradient(90deg, #dde6ff 0%, #ffffff 50.41%, #e1e9ff 100%);
     transition: height 0.2s ease;
 
     &.animation-container-collapse {
@@ -20,19 +19,13 @@ $number-count: 20;
     .result {
         position: relative;
         z-index: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 2rem;
-        background: linear-gradient(180deg, #ffffff 0%, #ffe9c3 3.96%, #ffd693 100%);
     }
 
     .number-container {
         position: relative;
         display: grid;
-        grid-template-columns: repeat(5, 2.4rem);
-        grid-template-rows: repeat(4, 2.4rem);
+        grid-template-columns: repeat(10, 2.4rem);
+        grid-template-rows: repeat(2, 2.4rem);
         grid-gap: 0.6rem 0.8rem;
         padding: 1.2rem 1.2rem 0;
     }
@@ -68,78 +61,69 @@ $number-count: 20;
     }
 
     .settle-info {
+        background: linear-gradient(180deg, #d5defb 0%, #b7c1e4 79.48%, #d1d8ee 100%);
         position: relative;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 0.5rem;
         align-items: center;
-        padding: 1rem;
-
-        &:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0.1rem;
-            background: linear-gradient(90deg, #ffdda4 0%, #ffa412 50.83%, #ffdb9f 100%);
-        }
-
-        .result-info {
-            padding: 0 0.5rem;
+        .winning-info {
+            grid-column: 1/4;
+            position: relative;
+            text-align: center;
+            margin-top: 0.7rem;
+            padding-top: 0.5rem;
         }
     }
 }
 
-.number {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
-    font: 600 1.2rem var(--font-number);
-    color: #2c2f3e;
-}
+// .number {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 50%;
+//     background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
+//     font: 600 1.2rem var(--font-number);
+//     color: #2c2f3e;
+// }
 
 .has-animation {
-    --time-show-num-animation: 0.1s;
+    // --time-show-num-animation: 0.1s;
 
-    .shown-number {
-        position: relative;
-        animation: show-num-animation var(--time-show-num-animation) ease-in forwards;
-    }
+    // .shown-number {
+    //     position: relative;
+    //     animation: show-num-animation var(--time-show-num-animation) ease-in forwards;
+    // }
 
-    .number-cover {
-        display: block;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 2;
-        animation: hide-number-cover-animation var(--time-show-num-animation) linear forwards;
-    }
+    // .number-cover {
+    //     display: block;
+    //     position: absolute;
+    //     left: 0;
+    //     right: 0;
+    //     top: 0;
+    //     bottom: 0;
+    //     z-index: 2;
+    //     animation: hide-number-cover-animation var(--time-show-num-animation) linear forwards;
+    // }
 
-    .number {
-        opacity: 0;
-    }
+    // .number {
+    //     opacity: 0;
+    // }
 
-    @for $i from 0 through 19 {
-        .animate-#{$i + 1} {
-            --time-delay: calc(var(--time-show-num-animation) * #{$i});
+    // @for $i from 0 through 19 {
+    //     .animate-#{$i + 1} {
+    //         --time-delay: calc(var(--time-show-num-animation) * #{$i});
 
-            .number-cover {
-                animation-delay: var(--time-delay);
-            }
+    //         .number-cover {
+    //             animation-delay: var(--time-delay);
+    //         }
 
-            .number {
-                @extend .shown-number;
-                animation-delay: var(--time-delay);
-            }
-        }
-    }
+    //         .number {
+    //             @extend .shown-number;
+    //             animation-delay: var(--time-delay);
+    //         }
+    //     }
+    // }
 
     .settle-info {
         margin-top: -5.5rem;

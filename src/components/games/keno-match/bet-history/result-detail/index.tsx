@@ -14,7 +14,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>
-                <TeamResult result={blue} customClassName={"ticket-history"} />
+                <TeamResult result={blue} customizeClassName={"ticket-history"} />
                 <TeamScore
                     isShowScore={true}
                     teamName={translateMapping?.blue}
@@ -34,7 +34,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
             </div>
 
             <div className={Styles["container-red"]}>
-                <TeamResult result={red} customClassName={"ticket-history"} />
+                <TeamResult result={red} customizeClassName={"ticket-history"} />
                 <TeamScore
                     isShowScore={true}
                     teamName={translateMapping?.red}

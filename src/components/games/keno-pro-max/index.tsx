@@ -12,11 +12,24 @@ import KenoProMaxBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
 
+const DefaultResult = Array(20).fill(0);
 class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    get isShowInlineResult() {
+        return true;
+    }
+
+    get defaultResult() {
+        return DefaultResult;
+    }
+
+    get defaultSettlementResult() {
+        return {};
     }
 
     getMainOptions(): string[] {
@@ -35,6 +48,11 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
             water: true,
             wood: false,
         };
+    }
+
+    renderResultSection() {
+        const { result, settlementResult, gameState} = this.state;
+        return <KenoProMaxResult result={result} settlementResult={settlementResult} gameState={gameState}/>;
     }
 
     renderBetOptions() {
@@ -107,14 +125,7 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResult() {
-        const { result, settlementResult } = this.state;
-
-        return (
-            <KenoProMaxResult
-                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
-                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
-            />
-        );
+        return <></>;
     }
 
     renderResultCollapse() {
