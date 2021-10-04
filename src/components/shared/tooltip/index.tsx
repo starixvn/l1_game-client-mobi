@@ -21,8 +21,8 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
 
     useEffect(() => {
         if (wrapperRef.current) {
-            const wrapperLeftPosition = wrapperRef.current.getBoundingClientRect().left;
-            wrapperLeftPosition < -60 && setCustomStyle({ left: -60, right: "auto" });
+            const wrapperLeftPosition = wrapperRef.current.getBoundingClientRect().x;
+            wrapperLeftPosition < 0 && setCustomStyle({ left: -60, right: "auto" });
         }
     }, [wrapperRef]);
 
