@@ -3,7 +3,7 @@
     grid-gap: 0.1rem;
     height: 100%;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 8rem 1.6rem 7.55rem 1.6rem 7.55rem;
+    grid-template-rows: 9.6rem 1.6rem 8.2rem 1.6rem 8.2rem;
 }
 .choice-blue,
 .team-choice-area-blue {
@@ -38,10 +38,10 @@
     grid-column: 3/4;
 }
 
-.choice-blue,
-.choice-red {
-    height: 8rem;
-}
+// .choice-blue,
+// .choice-red {
+//     height: 8rem;
+// }
 
 %main-choice {
     font-size: 1.6rem;
