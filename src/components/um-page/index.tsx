@@ -2,9 +2,10 @@ import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { UMInfo } from "sc-user-service-client/dist/settings";
-import { convertToGMT8, formatDate } from "../../helpers/time-helper";
+import { UMInfo } from "sc-user-service-client/dist/auth";
+
 import * as LocalStorageManager from "../../common/local-storage";
+import { convertToGMT8, formatDate } from "../../helpers/time-helper";
 
 export const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
     const router = useRouter();

@@ -4,8 +4,7 @@ import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-import { UMInfo } from "sc-user-service-client/dist/settings";
+import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
