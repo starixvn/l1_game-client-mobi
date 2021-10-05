@@ -1,4 +1,8 @@
 .section-result-container {
     position: relative;
     box-sizing: border-box;
+    height: 12.9rem;
+    &.kenopower1 {
+        height: 14.9rem;
+    }
 }
