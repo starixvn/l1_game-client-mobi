@@ -5,16 +5,16 @@ import { Props } from "./type";
 import Styles from "./settlement-result.module.scss";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 
-const renderTeamLabelByChoice = (choice: string, t: Function) => {
+const getGroupNameByChoice = (choice: string) => {
     if (choice.startsWith("red")) {
-        return <div className={Styles["team-label"]}>{t("red")}</div>;
+        return "red";
     }
 
     if (choice.startsWith("blue")) {
-        return <div className={Styles["team-label"]}>{t("blue")}</div>;
+        return "blue";
     }
 
-    return null;
+    return "";
 };
 
 const RoundSettlementResult = ({ title, settlementResult, displayChoices, extendClass }: Props) => {
@@ -36,13 +36,23 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
                 <div className={Styles["sum-label"]}>{t("sum")}</div>
                 <div className={Styles["result-info"]}>
                     {displayChoices.map((keyName, index) => {
+                        const group = getGroupNameByChoice(keyName);
+                        console.log(group);
                         return (
                             settlementResult[keyName] && (
                                 <>
-                                    {renderTeamLabelByChoice(keyName, t)}
-                                    <div key={index} className={Styles["result-info-red"]}>
-                                        {t(keyName)}
-                                    </div>
+                                    {group ? (
+                                        <div className={Styles["winning-team"]}>
+                                            <div className={Styles["team-label"]}>{t(group)} </div>
+                                            <div key={index} className={Styles[`result-info-red`]}>
+                                                {t(keyName)}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div key={index} className={Styles[`result-info-red`]}>
+                                            {t(keyName)}
+                                        </div>
+                                    )}
                                 </>
                             )
                         );
