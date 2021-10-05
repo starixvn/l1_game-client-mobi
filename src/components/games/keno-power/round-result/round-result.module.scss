@@ -18,6 +18,7 @@
         .main-content  {
             display: flex;
             justify-content: space-between;
+            height: auto;
         }
     }
     
@@ -25,7 +26,8 @@
 .main-content {
     display: grid;
     grid-template-columns: 12rem 1fr 12rem;
-    padding: 0.3rem 0.8rem 0;    
+    padding: 0.3rem 0.8rem 0;
+    height: 100%;    
     .row {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -42,9 +44,10 @@
     text-align: center;
     position: relative;
     justify-self: center;
+    width: 100%;
     .score-wrapper {
-        position: relative;
-        bottom: -8.5rem;
+        position: absolute;
+        bottom: 0;
         width: 6.4rem;
         height: 4rem;
         background: var(--middle-column-background-color);
@@ -53,6 +56,7 @@
         clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
+        margin-left: calc(50% - 3.2rem);
         .score {
             font: 500 2rem var(--font-number);
             line-height: 2rem;
