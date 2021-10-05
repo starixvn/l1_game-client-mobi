@@ -22,8 +22,7 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
     const gameName = gameSetting.gameName.toLocaleLowerCase();
     const { t } = useTranslation(gameName);
     const winningTeamName = settlementResult?.tie ? "tie" : settlementResult?.blue ? "teamBlueWin" : "teamRedWin";
-    const md5Class = gameSetting.supportMD5 ? Styles["keno-match-md5"] : "";
-    const settlementClasses = `${Styles["half-round-settlement"]} ${md5Class} ${Styles[extendClass]} ${gameName.replace(/[0-9]/g, "")}`;
+    const settlementClasses = `${Styles["half-round-settlement"]} ${Styles[extendClass]} ${gameName}`;
 
     if (settlementResult === undefined) {
         return <></>;
