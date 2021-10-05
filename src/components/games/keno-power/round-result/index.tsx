@@ -15,14 +15,15 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
     isCollapse,
 }) => {
     const { gameSetting } = useGameContext();
+    const gameName = gameSetting.gameName.toLowerCase();
     const totalBlue = sumArray(result.blue);
     const totalRed = sumArray(result.red);
 
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const { t } = useTranslation(gameName);
     const isShowResult = gameState === GameState.DisplayResult;
 
     const renderFullModeResult = () => (
-        <div className={`${styles["main-result"]} ${isShowResult ? styles["result-animation"] : ""} `}>
+        <div className={`${styles["main-result"]} ${isShowResult ? styles["result-animation"] : ""} ${styles[gameName]}`}>
             <div className={styles["main-content"]}>
                 <div className={styles["blue-team"]}>
                     <TeamResult result={result.blue} hasAnimation={gameState === GameState.DisplayResult} />
