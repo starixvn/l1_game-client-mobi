@@ -11,4 +11,5 @@ export type Props = {
     updateFavoriteGames: Function;
     favoriteGames: number[];
     queryGame: number;
+    userOfferGames: number[];
 };

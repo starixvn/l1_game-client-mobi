@@ -332,6 +332,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
+                        userOfferGames={authorizeInfo.user.offerGames}
                         queryGame={this.props.queryGame}
                     />
                     <BetSettings
