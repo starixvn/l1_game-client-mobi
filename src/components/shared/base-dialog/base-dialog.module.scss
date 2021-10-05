@@ -78,10 +78,12 @@
 
         &.isMobile {
             bottom: 4.4rem;
-            
-            @media (min-device-width: 375px) and (min-device-height: 668px) {
-                bottom: 5.4rem;
+            &.ios-device {
+                @media (min-device-width: 375px) and (min-device-height: 668px) {
+                    bottom: 5.4rem;
+                }
             }
+            
         }
 
         @media (min-width: 1024px) {
