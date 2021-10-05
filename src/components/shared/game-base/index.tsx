@@ -976,7 +976,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         };
 
         const animationDuration = this.getFinishAnimationDuration() / 1000;
-        const betOptionFollowGameName = `bet-options-${this.props.gameName.toLowerCase()}`;
+        const betOptionFollowGameName = `bet-options-${gameName.toLowerCase()}`;
         const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[betOptionFollowGameName]}`;
         return (
             <GameContextProvider value={gameContext}>
@@ -984,7 +984,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     {this.renderGameHeader()}
                     {viewMode !== ViewMode.collapse && (
                         <>
-                            {this.isShowInlineResult && <SectionResultContainer>{this.renderResultSection()}</SectionResultContainer>}
+                            {this.isShowInlineResult && (
+                                <SectionResultContainer gameName={gameName}>{this.renderResultSection()}</SectionResultContainer>
+                            )}
                             {this.renderMD5()}
                             <BetContainer gameState={gameState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
