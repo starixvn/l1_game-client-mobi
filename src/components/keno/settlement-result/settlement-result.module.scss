@@ -30,7 +30,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     text-align: center;
-    &.keno-match-2 {
+    &.kenopower2 {
         animation-delay: 0s, 8s;
     }
     &.first-half-settlement {
@@ -112,7 +112,8 @@
 .kenopower1, .kenopower2 {
     .result-wrapper {
         height: 12.6rem;
-        margin-top: .2rem;
+        position: relative;
+        top: .2rem;
     }
 }
 
