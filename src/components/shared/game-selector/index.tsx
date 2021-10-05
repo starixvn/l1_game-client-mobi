@@ -1,10 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
+import React, { useEffect, useRef, useState } from "react";
+
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import Styles from "./game-selector.module.scss";
 
-export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: number }> = ({ onChangeGame, selectedGame }) => {
+export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: number; offerGames: number[] }> = ({
+    onChangeGame,
+    selectedGame,
+    offerGames,
+}) => {
     const { t } = useTranslation();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isShowOptions, setIsShowOptions] = useState(false);
@@ -34,11 +39,13 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
             </div>
             {isShowOptions && (
                 <div className={Styles["dropdown-menu"]}>
-                    {appSettings.offeredGames.map((id) => (
-                        <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
-                            {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        </div>
-                    ))}
+                    {appSettings.offeredGames
+                        .filter((game) => offerGames.includes(game))
+                        .map((id) => (
+                            <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
+                                {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            </div>
+                        ))}
                 </div>
             )}
         </div>

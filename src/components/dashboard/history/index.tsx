@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import { useTranslation } from "next-i18next";
+import React, { useState } from "react";
 
 import appSettings from "../../../common/app-settings";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";
@@ -14,7 +14,7 @@ import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
 import Styles from "./history.module.scss";
 
-export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModal }) => {
+export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number[] }> = ({ onCloseModal, offerGames }) => {
     const { t } = useTranslation();
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
 
@@ -56,7 +56,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function }> = ({ onCloseModa
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
-                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} />
+                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
                 </div>
                 <div className={`w-100 ${Styles["history-content"]}`}>{renderHistory()}</div>
             </div>

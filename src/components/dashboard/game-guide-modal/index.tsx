@@ -1,12 +1,17 @@
+import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
+
 import appSettings from "../../../common/app-settings";
 import BaseDialog from "../../shared/base-dialog";
-import Styles from "./game-guide-modal.module.scss";
-import GameGuides from "./game-guide";
-import { useTranslation } from "next-i18next";
 import { GameSelector } from "../../shared/game-selector";
+import GameGuides from "./game-guide";
+import Styles from "./game-guide-modal.module.scss";
 
-export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel }> = ({ onCloseModal, userStakeLevel }) => {
+export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[] }> = ({
+    onCloseModal,
+    userStakeLevel,
+    offerGames,
+}) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
     const { t } = useTranslation();
 
@@ -21,7 +26,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel }
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
-                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} />
+                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
                 </div>
                 <div className={Styles["guide-content"]}>
                     {selectedGameId !== -1 && <GameGuides gameId={selectedGameId} userStakeLevel={userStakeLevel} />}

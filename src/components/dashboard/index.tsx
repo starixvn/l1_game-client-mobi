@@ -342,8 +342,14 @@ class Dashboard extends React.PureComponent<Props, State> {
                         enabledSound={enabledPlaySound}
                         user={authorizeInfo.user}
                     />
-                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
-                    {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
+                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={authorizeInfo.user.offerGames} />}
+                    {isShowGuide && (
+                        <GameGuideModal
+                            userStakeLevel={userStakeLevel}
+                            onCloseModal={this.toggleGuideModal}
+                            offerGames={authorizeInfo.user.offerGames}
+                        />
+                    )}
                     {isShowErrorModal && (
                         <div className={Styles["container-modal"]}>
                             <div className={Styles["bg-opacity"]}></div>
