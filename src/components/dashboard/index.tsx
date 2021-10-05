@@ -226,12 +226,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { router, setIsUm } = this.props;
 
         if (umInfo) {
-            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
-                time: umInfo.startTime,
-                start: umInfo.startTime,
-                end: umInfo.endTime,
-                finish: false,
-            });
+            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, umInfo);
             setTimeout(() => {
                 setIsUm(true);
             }, 500);

@@ -21,8 +21,8 @@ export const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
             const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
 
             if (umInfo) {
-                setStartTime(formatDate(convertToGMT8(new Date(umInfo.start)), template));
-                setEndTime(formatDate(convertToGMT8(new Date(umInfo.end)), template));
+                setStartTime(formatDate(convertToGMT8(new Date(umInfo.startTime)), template));
+                setEndTime(formatDate(convertToGMT8(new Date(umInfo.endTime)), template));
             }
 
             setIsLoading(false);
