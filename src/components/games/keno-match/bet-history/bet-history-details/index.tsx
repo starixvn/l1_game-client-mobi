@@ -5,6 +5,7 @@ import { RenderCell, renderRefund } from "../../../../keno/bet-history/bet-histo
 import { BetLogs, BetDetailProps } from "./../bet-history";
 import { detectStateRound, StateRound } from "../bet-history-helper";
 
+const choiceRefundAmount = ["fhBlue", "fhRed", "ftBlue", "ftRed", "liveFTRed", "liveFTBlue"];
 const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;
     bet: BetLogs;
@@ -16,7 +17,7 @@ const RenderRowKenoMatch: React.FC<{
     const formatChoice = stateRound === StateRound.live ? choice.slice(6).toLowerCase() : choice.slice(2).toLowerCase();
     const settlementResult = stateRound === StateRound.live ? fullTime.settlementResult : firstHalf.settlementResult;
     const isHighligh = settlementResult[formatChoice] ? true : false;
-    const isShowRefundAmount = settlementResult["tie"] && ["fhBlue", "fhRed", "liveFTRed", "liveFTBlue"].includes(choice) ? true : false;
+    const isShowRefundAmount = settlementResult["tie"] && choiceRefundAmount.includes(choice) ? true : false;
     const liveLabel = stateRound === StateRound.live ? `(${translateMapping["live"]})` : "";
 
     return (

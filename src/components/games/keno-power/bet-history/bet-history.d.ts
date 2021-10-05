@@ -2,15 +2,16 @@ import { Result, SettlementResult, Odd } from "..";
 import { BetLogsBase } from "../../../shared/game-base/type";
 
 export interface BetLogs extends BetLogsBase<Result, SettlementResult, Odd> {
+    blue: number;
+    red: number;
     big: number;
-    earth: number;
-    even: number;
-    fire: number;
-    gold: number;
-    odd: number;
     small: number;
-    water: number;
-    wood: number;
+    odd: number;
+    even: number;
+    blueBig: number;
+    blueSmall: number;
+    redBig: number;
+    redSmall: number;
 }
 
 export interface BetDetailProps {
