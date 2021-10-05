@@ -22,7 +22,7 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
     const gameName = gameSetting.gameName.toLocaleLowerCase();
     const { t } = useTranslation(gameName);
     const winningTeamName = settlementResult?.tie ? "tie" : settlementResult?.blue ? "teamBlueWin" : "teamRedWin";
-    const settlementClasses = `${Styles["half-round-settlement"]} ${Styles[extendClass]} ${gameName}`;
+    const settlementClasses = `${Styles["half-round-settlement"]} ${Styles[extendClass]} ${Styles[gameName]}`;
 
     if (settlementResult === undefined) {
         return <></>;
