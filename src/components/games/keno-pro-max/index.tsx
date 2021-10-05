@@ -7,7 +7,7 @@ import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/gam
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
+import { RoundResult, RoundResultCollapse } from "./round-result";
 import KenoProMaxBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
@@ -51,8 +51,8 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResultSection() {
-        const { result, settlementResult, gameState} = this.state;
-        return <KenoProMaxResult result={result} settlementResult={settlementResult} gameState={gameState}/>;
+        const { result, settlementResult, gameState } = this.state;
+        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} />;
     }
 
     renderBetOptions() {
@@ -125,15 +125,16 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResult() {
-        return <></>;
+        return <div className="overlay-mask"></div>;
     }
 
     renderResultCollapse() {
-        const { result, settlementResult } = this.state;
+        const { result, settlementResult, gameState } = this.state;
         return (
-            <KenoProMaxResultCollapse
+            <RoundResultCollapse
                 result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
+                gameState={gameState}
             />
         );
     }

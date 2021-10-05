@@ -4,17 +4,10 @@
 
 $number-count: 20;
 
-.animation-container {
+.round-result {
     height: 12.7rem;
     background: linear-gradient(90deg, #dde6ff 0%, #ffffff 50.41%, #e1e9ff 100%);
     transition: height 0.2s ease;
-
-    &.animation-container-collapse {
-        background-color: transparent;
-        .result {
-            background-color: transparent;
-        }
-    }
 
     .result {
         position: relative;

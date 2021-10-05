@@ -7,7 +7,7 @@ import { BetLogs } from "./bet-history";
 import { GetChoiceTranslate, getTotalPoint } from "../keno-pro-max-helper";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { GameResourceKeys } from "../../../../common/resources";
-import { generateResult, winningInfo, renderTotalPoint } from "../animations";
+import { generateResult, winningInfo, renderTotalPoint } from "../round-result";
 import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {

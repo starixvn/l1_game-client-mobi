@@ -14,14 +14,26 @@ type Props = {
     isShowWinningEffect: boolean;
 };
 
-const renderBetOptionByChoice = (
-    choice: string,
-    label: string,
-    odd: number,
-    gameState: GameState,
-    isHighLight: boolean,
-    isShowWinningEffect: boolean
-) => {
+const choiceWithoutTooltip = ["odd", "even"];
+const tooltipMessageFollowChoice = {
+    big: `[811~1410]`,
+    small: `[210~810]`,
+    gold: `[210~695]`,
+    wood: `[696~763]`,
+    water: `[764~855]`,
+    fire: `[856~923]`,
+    earth: `[924~1410]`,
+};
+
+const renderBetOptionByChoice: React.FC<{
+    choice: string;
+    label: string;
+    odd: number;
+    gameState: GameState;
+    isHighLight: boolean;
+    isShowWinningEffect: boolean;
+    tooltipMessage: string;
+}> = ({ choice, label, odd, gameState, isHighLight, isShowWinningEffect, tooltipMessage }) => {
     return (
         <BetOption
             choice={choice}
@@ -30,6 +42,8 @@ const renderBetOptionByChoice = (
             isHighlight={isHighLight}
             gameState={gameState}
             isShowWinningEffect={isShowWinningEffect}
+            isShowTooltip={!choiceWithoutTooltip.includes(choice)}
+            tooltipMessage={tooltipMessage}
         >
             <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
         </BetOption>
@@ -48,7 +62,15 @@ const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
                 const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
                 return (
                     <div key={index} className={Styles[`choice-${choice}`]}>
-                        {renderBetOptionByChoice(choice, t(choice), odds[choice], gameState, isHighLight, isShowWinningEffect)}
+                        {renderBetOptionByChoice({
+                            choice,
+                            label: t(choice),
+                            odd: odds[choice],
+                            gameState,
+                            isHighLight,
+                            isShowWinningEffect,
+                            tooltipMessage: tooltipMessageFollowChoice[choice],
+                        })}
                     </div>
                 );
             })}

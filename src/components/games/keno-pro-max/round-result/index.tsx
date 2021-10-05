@@ -6,7 +6,7 @@ import { Result, SettlementResult } from "../keno-pro-max";
 import { GetChoiceTranslate, getTotalPoint, getLabelFromFiveElements } from "../keno-pro-max-helper";
 import BallNumber from "../../../keno/ball-number";
 import { GameState } from "../../../shared/game-base/type";
-import Styles from "./keno-pro-max-animations.module.scss";
+import Styles from "./round-result.module.scss";
 
 export const generateResult = (result: Result, isAnimation: boolean) => {
     return result.map((number: number, index: number) => (
@@ -41,54 +41,42 @@ export const renderTotalPoint: React.FC<{ result: Result; textTranslate; customi
     );
 };
 
-const AnimationComponent = ({ settlementResult, playResultAnimation, result, textTranslate, gameState }) => {
+export const RoundResult: React.FC<{
+    result?: Result;
+    settlementResult: SettlementResult;
+    gameState: GameState;
+}> = ({ result, settlementResult, gameState }) => {
+    const { playResultAnimation, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const textTranslate = GetChoiceTranslate(t);
+    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
     return (
-        <div className={`${Styles["animation-container"]}`}>
+        <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result"]}>
                 <div className={Styles["number-container"]}>{result && generateResult(result, playResultAnimation)}</div>
             </div>
             <div className={Styles["settle-info"]}>
                 {renderTotalPoint({ result, textTranslate })}
-
                 {gameState !== GameState.LockingBet && winningInfo({ settlementResult, textTranslate })}
             </div>
         </div>
     );
 };
 
-export const KenoProMaxResult: React.FC<{ result?: Result; settlementResult: SettlementResult; gameState: GameState }> = ({
+export const RoundResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult; gameState: GameState }> = ({
     result,
     settlementResult,
     gameState,
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const textTranslate = GetChoiceTranslate(t);
-    return (
-        <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <AnimationComponent
-                settlementResult={settlementResult}
-                playResultAnimation={playResultAnimation}
-                result={result}
-                textTranslate={textTranslate}
-                gameState={gameState}
-            />
-        </div>
-    );
-};
-
-export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({
-    result,
-    settlementResult,
-}) => {
-    const { playResultAnimation, gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
+    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
 
     return (
-        <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={Styles["result-container-collapse"]}>{generateResult(result, playResultAnimation)}</div>
-            {!playResultAnimation && settlementResult && (
+        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation)}</div>
+            {!isAnimation && settlementResult && (
                 <div className={Styles["result-label"]}>
                     <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
                 </div>
