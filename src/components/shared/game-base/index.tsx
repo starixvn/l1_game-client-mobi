@@ -595,18 +595,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         LocalStorageManager.storeLocalStorageItem(reBetStorageKey, rebetStorage);
     }
 
-    openPlaceBetModal(
-        betChoice: string,
-        removeBetChoiceFocus: Function,
-        betOptionElement: HTMLElement,
-        betChoiceElement: HTMLElement
-    ) {
+    openPlaceBetModal(betChoice: string, removeBetChoiceFocus: Function, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) {
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,
             removeBetChoiceFocus,
             betOptionElement,
-            betChoiceElement
+            betChoiceElement,
         });
     }
 
@@ -676,14 +671,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderPlaceBet() {
-        const {
-            displayPopup,
-            selectedBetChoice,
-            roundId,
-            removeBetChoiceFocus,
-            betOptionElement,
-            betChoiceElement
-        } = this.state;
+        const { displayPopup, selectedBetChoice, roundId, removeBetChoiceFocus, betOptionElement, betChoiceElement } = this.state;
         const { gameName } = this.props;
 
         return (
@@ -699,7 +687,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     betChoice: selectedBetChoice,
                     gameName: gameName,
                     roundId: roundId,
-                    odd: this.getOddsByChoice(selectedBetChoice)
+                    odd: this.getOddsByChoice(selectedBetChoice),
                 }}
             />
         );
@@ -917,8 +905,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
                 <>
-                    <strong>Key</strong>: [<span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>]
-                    <span>{key}</span>
+                    <strong>Key</strong>: [<span className={Styles["blue"]}>{totalScores[0]}</span>;
+                    <span className={Styles["red"]}>{totalScores[1]}</span>]<span>{key}</span>
                 </>
             );
             md5ClassName = "md5-result";
@@ -939,7 +927,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderGame() {
-        const { durations, supportMD5 } = this.props;
+        const { durations, supportMD5, gameName } = this.props;
 
         const {
             remainingTime,
