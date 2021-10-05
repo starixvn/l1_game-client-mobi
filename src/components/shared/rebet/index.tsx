@@ -65,10 +65,14 @@ const Rebet: React.FC<Props> = (props: Props) => {
     }, []);
 
     const renderLastRoundBet = () => {
+        console.log(JSON.stringify(lastBetChoices, null, 2));
         return lastBetChoices
-            ? Object.keys(lastBetChoices).map(
-                  (betChoice) =>
-                      lastBetChoices[betChoice] > 0 && (
+            ? Object.keys(lastBetChoices).map((betChoice) => {
+                  if (lastBetChoices[betChoice] > 0) {
+                      const bettypeName = `bettype-${betChoice}`;
+                      const isShowBettype = t(bettypeName) !== bettypeName;
+
+                      return (
                           <div key={betChoice}>
                               <div
                                   className={`${Styles["bet-info"]} ${
@@ -76,6 +80,7 @@ const Rebet: React.FC<Props> = (props: Props) => {
                                   }`}
                               >
                                   <div className={Styles["bet-choice"]}>
+                                      {isShowBettype && <span className={Styles["choice"]}> {t(`bettype-${betChoice}`)}</span>}
                                       <span className={Styles["choice"]}>{t(betChoice)}</span>
                                       {`@1:${props.getOddsByChoice(betChoice)}`}
                                   </div>
@@ -100,8 +105,9 @@ const Rebet: React.FC<Props> = (props: Props) => {
                                   </div>
                               )}
                           </div>
-                      )
-              )
+                      );
+                  }
+              })
             : null;
     };
 

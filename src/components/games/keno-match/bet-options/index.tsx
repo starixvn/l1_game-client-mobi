@@ -75,8 +75,6 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     isHighlight,
                                     gameState,
                                     isShowWinningEffect,
-                                    isShowBettype: true,
-                                    bettypeName: choice.bettypeName,
                                     isShowPoolStake: false,
                                     isShowTooltip: choice.isShowTooltip,
                                     tooltipMessage: choice.tooltipMessage

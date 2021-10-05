@@ -77,6 +77,9 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         });
     };
 
+    const bettypeName = `bettype-${betChoiceInfo.betChoice}`;
+    const isShowBettype = t(bettypeName) !== bettypeName;
+
     return (
         <div style={positionStyle} ref={wrapperRef} className={`${Styles["modal-placebetform"]} ${Styles[gameName.toLocaleLowerCase()]}`}>
             <div className={Styles["popup-closed-icon"]} id="bet-form-closed" onClick={() => closeModal()}>
@@ -97,7 +100,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 <div className={Styles["place-bet-container"]}>
                     <div className={`w-100 ${Styles["general-info"]}`}>
                         <div className={Styles["left"]}>
-                            {betChoiceInfo.isShowBettype &&  <div className={Styles["font-weight-bold"]}> {t(betChoiceInfo.bettypeName)}</div>}
+                            {isShowBettype &&  <div className={Styles["font-weight-bold"]}> {t(`bettype-${betChoiceInfo.betChoice}`) }</div>}
                             <div className={`${Styles["font-weight-bold"]} ${Styles["choice"]}`}>{t(betChoice)}</div><div className={Styles["info"]}>@1:{odd}</div>
                         </div>
                         <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>

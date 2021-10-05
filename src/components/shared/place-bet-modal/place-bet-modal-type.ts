@@ -5,8 +5,6 @@ type BetChoiceInfo = {
     roundId: number;
     betChoice: string;
     odd: number;
-    isShowBettype?: boolean;
-    bettypeName?: string;
 };
 
 export type PlaceBetModalProps = {

@@ -83,8 +83,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     renderBetOptions() {
         const { gameState, firstHalfSettlementResult, fullTimeSettlementResult,  isFirstHalf, showWinningAnimation, liveOdds, beforeStartFulltime } = this.state;
         const settlementResult = isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult;
-
-        console.log(settlementResult, null, 2);
+        
         const betOptionsProps = {
             liveOdds,
             gameState,
@@ -124,7 +123,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         } = this.state;
 
         const settlementResult = isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult;
-        
+
         if (showResultInfo) {
             const animationResultProps = {
                 isFirstHalf,

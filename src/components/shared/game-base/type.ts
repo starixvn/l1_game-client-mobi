@@ -90,8 +90,6 @@ export interface GameBaseState<Result, SettlementResult> {
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
     activeScoreboardTab?: number;
-    isShowBettype?: boolean;
-    bettypeName?: string;
     md5?: string;
     md5ResultKey?: string;
     showMD5ResultKey?: boolean;

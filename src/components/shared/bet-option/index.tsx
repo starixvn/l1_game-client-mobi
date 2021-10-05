@@ -22,12 +22,10 @@ const BetOption: React.FunctionComponent<Props> = ({
     choice,
     odd,
     children,
-    bettypeName,
     tooltipMessage,
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
-    isShowBettype = false,
     isShowPoolStake = true,
     isShowTooltip = false,
 }) => {
@@ -69,7 +67,7 @@ const BetOption: React.FunctionComponent<Props> = ({
         } else {
             setIsFocusChoice(true);
             const betOptionElement = totalBetRef.current.nextElementSibling;
-            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current, isShowBettype, bettypeName);
+            openPlaceBetModal(choice, removeBetChoiceFocus, betOptionElement, betChoiceRef.current);
         }
     };
 

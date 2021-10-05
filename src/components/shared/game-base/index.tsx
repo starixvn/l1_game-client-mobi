@@ -599,18 +599,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         betChoice: string,
         removeBetChoiceFocus: Function,
         betOptionElement: HTMLElement,
-        betChoiceElement: HTMLElement,
-        isShowBettype = false,
-        bettypeName: string
+        betChoiceElement: HTMLElement
     ) {
         this.setState({
             displayPopup: PopupType.PlaceBet,
             selectedBetChoice: betChoice,
             removeBetChoiceFocus,
             betOptionElement,
-            betChoiceElement,
-            isShowBettype,
-            bettypeName,
+            betChoiceElement
         });
     }
 
@@ -686,9 +682,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             roundId,
             removeBetChoiceFocus,
             betOptionElement,
-            betChoiceElement,
-            isShowBettype,
-            bettypeName,
+            betChoiceElement
         } = this.state;
         const { gameName } = this.props;
 
@@ -705,9 +699,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     betChoice: selectedBetChoice,
                     gameName: gameName,
                     roundId: roundId,
-                    odd: this.getOddsByChoice(selectedBetChoice),
-                    isShowBettype,
-                    bettypeName,
+                    odd: this.getOddsByChoice(selectedBetChoice)
                 }}
             />
         );
