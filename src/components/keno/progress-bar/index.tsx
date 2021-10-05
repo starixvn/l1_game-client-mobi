@@ -108,9 +108,10 @@ export default function ProgressBar({
 
 const ProgressBarFullMode = ({ totalBlue, totalRed, winningTeam, inlineStyles }: ProgressBarFullModeProps) => {
     const { gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const gameName = gameSetting.gameName.toLowerCase();
+    const { t } = useTranslation(gameName);
     return (
-        <div className={Styles["progress-bar-team"]}>
+        <div className={`${Styles["progress-bar-team"]} ${Styles[gameName]}`}>
             <div className={Styles["title"]}>
                 <div className={Styles["title-blue"]}>
                     <span className={Styles["text"]}>{t("blue")}:</span>
