@@ -1,9 +1,9 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-
-import { UserInfo } from "../user-info";
 import { User } from "sc-user-service-client/dist/auth";
+
 import { Settings } from "../shared/settings";
+import { UserInfo } from "../user-info";
 import Styles from "./header.module.scss";
 
 type Props = {
@@ -16,6 +16,7 @@ type Props = {
     toggleGuideModal: Function;
     updateFavoriteGames: Function;
     favoriteGames: number[];
+    offerGames: number[];
     enabledQuickBet?: boolean;
     updateEnabledQuickBet?: Function;
 };
@@ -39,6 +40,7 @@ const Header: React.FC<Props> = (props) => {
                                     toggleHistoryModal={props.toggleHistoryModal}
                                     toggleGuideModal={props.toggleGuideModal}
                                     favoriteGames={props.favoriteGames}
+                                    offerGames={props.offerGames}
                                     updateFavoriteGames={props.updateFavoriteGames}
                                     enabledQuickBet={props.enabledQuickBet}
                                     updateEnabledQuickBet={props.updateEnabledQuickBet}

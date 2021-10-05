@@ -2,12 +2,13 @@ import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+
+import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import { FavoriteSetting } from "../../favorite-setting";
 import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
-import { Props } from "./types";
-import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import styles from "./settings.module.scss";
+import { Props } from "./types";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -19,6 +20,7 @@ export const Settings: React.FC<Props> = ({
     enabledSound,
     toggleGuideModal,
     favoriteGames,
+    offerGames,
     updateFavoriteGames,
     enabledQuickBet,
     updateEnabledQuickBet,
@@ -50,9 +52,7 @@ export const Settings: React.FC<Props> = ({
                     className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => onToggleSound()}
                 >
-                    <span
-                        className={enabledSound ? styles[`${"icon-sound-on-"}${theme}`] : styles[`${"icon-sound-off-"}${theme}`]}
-                    ></span>
+                    <span className={enabledSound ? styles[`${"icon-sound-on-"}${theme}`] : styles[`${"icon-sound-off-"}${theme}`]}></span>
                     <Tooltip message={`${t("sound")}: ${enabledSound ? t("on") : t("off")}`} hoverWrapper={toggleSoundBtnRef} />
                 </div>
 
@@ -85,6 +85,7 @@ export const Settings: React.FC<Props> = ({
             {showFavoriteSetting && (
                 <FavoriteSetting
                     currentFavoriteGames={favoriteGames}
+                    offerGames={offerGames}
                     onCloseModal={() => setShowFavoriteSetting(false)}
                     updateFavorite={updateFavoriteGames}
                     toggleBtnRef={favoriteToggleBtnRef}
