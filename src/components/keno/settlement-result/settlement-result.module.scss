@@ -86,15 +86,21 @@
     }
 
     .result-info {
-        [class*="result-info-"] {
-            min-width: 6rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(6rem, auto));   
+        .team-label {
+            grid-column: 1/3;
+        }    
+        .result-info-red, .result-info-blue{
             height: 2.6rem;
             font-size: 1.4rem;
             padding: 0 1.4rem;
             line-height: 2.6rem;
             margin: 0 0.3rem;
-        }
+            display: flex;
+        } 
     }
+   
 }
 
 @keyframes fadeIn {
