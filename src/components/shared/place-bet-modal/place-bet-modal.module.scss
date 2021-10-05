@@ -37,7 +37,10 @@
     }
 
     &.kenomatch1, &.kenomatch2, &.kenopower1, &.kenopower2{
-        width: 32.8rem;
+        @media (min-width: 768px) {
+            width: 32rem;
+        }
+     
         font-size: 1.6rem;
         .general-info {
             font-size: 1.6rem;
@@ -128,18 +131,6 @@
 
         &.up {
             top: 0;
-        }
-
-        &.left {
-            left: 4rem;
-        }
-
-        &.right {
-            right: 4rem;
-        }
-
-        &.center {
-            left: 50%;
         }
     }
 

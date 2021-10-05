@@ -6,33 +6,60 @@ import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
-import { adjustPopupPosition, adjustPopupPositionDidUpdate } from "./place-bet-modal-helper";
+import { adjustPopupPosition, BetFormCss } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
+
+const defaultCss: BetFormCss = {
+    position: {
+        top: "0px",
+    },
+    arrowStyle: "up"
+};
 
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { roundId, gameSetting } = useGameContext();
     const { betValue } = useSystemContext();
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
-    const {betChoiceInfo} = props,
-     { betChoice, odd, gameName } = betChoiceInfo;
+    const { betChoiceInfo } = props,
+        { betChoice, odd, gameName } = betChoiceInfo;
 
-    const [positionStyle, setPositionStyle] = useState(null);
-    const [arrowStyle, setArrowStyle] = useState("");
-    const [alignArrowStyle, setAlignArrowStyle] = useState("");
-    const [arrowStyleLeft, setArrowStyleLeft] = useState("");
+    const [betFormCss, setBetFormCss] = useState<BetFormCss>(defaultCss);
+    const [popupPositionUpdate, setPopupPositionUpdate] = useState(false);
 
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
+    const gameContainerRect = props.gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
+    betOptionRect = props.betOptionElement.getBoundingClientRect();
 
     useEffect(() => {
-        const popupStyle = adjustPopupPosition(isMobileOnly, props.gameBaseContainerRef, props.betOptionElement, props.betChoiceElement);
-        setPositionStyle(popupStyle.position);
-        setAlignArrowStyle(popupStyle.alignArrowStyle);
-        setArrowStyle(popupStyle.arrowStyle);
-        setArrowStyleLeft(popupStyle.arrowStyleLeft);
+        setBetFormCss({
+            position: {
+                top: `${isMobileOnly ? betOptionRect.bottom - gameContainerRect.top : betOptionRect.bottom - gameContainerRect.top}px`,
+            },
+            arrowStyle: "up",
+        });
+
+        setPopupPositionUpdate(true);
     }, []);
+
+    useEffect(() => {
+        if (popupPositionUpdate) {
+            setBetFormCss(
+                adjustPopupPosition(
+                    isMobileOnly,
+                    betFormCss,
+                    props.gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
+                    wrapperRef.current.getBoundingClientRect(),
+                    props.betOptionElement.getBoundingClientRect(),
+                    props.betChoiceElement.getBoundingClientRect()
+                )
+            );
+            setPopupPositionUpdate(false);
+        }
+    }, [popupPositionUpdate]);
+
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
@@ -42,19 +69,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
         };
 
         window.addEventListener("mousedown", handleClickOutside);
-
-        const adjustedBetFormCss = adjustPopupPositionDidUpdate(
-            isMobileOnly,
-            props.gameBaseContainerRef,
-            wrapperRef,
-            props.betOptionElement,
-            props.betChoiceElement
-        );
-
-        if (adjustedBetFormCss.isAdjust) {
-            setPositionStyle(adjustedBetFormCss.styles.position);
-            setArrowStyle(adjustedBetFormCss.styles.arrowStyle);
-        }
 
         return () => {
             window.removeEventListener("mousedown", handleClickOutside);
@@ -81,7 +95,11 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const isShowBettype = t(bettypeName) !== bettypeName;
 
     return (
-        <div style={positionStyle} ref={wrapperRef} className={`${Styles["modal-placebetform"]} ${Styles[gameName.toLocaleLowerCase()]}`}>
+        <div
+            style={{ ...betFormCss.position }}
+            ref={wrapperRef}
+            className={`${Styles["modal-placebetform"]} ${Styles[gameName.toLocaleLowerCase()]}`}
+        >
             <div className={Styles["popup-closed-icon"]} id="bet-form-closed" onClick={() => closeModal()}>
                 <span className={`icon-close {Styles["icon-close"]}`}></span>
             </div>
@@ -100,8 +118,9 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 <div className={Styles["place-bet-container"]}>
                     <div className={`w-100 ${Styles["general-info"]}`}>
                         <div className={Styles["left"]}>
-                            {isShowBettype &&  <div className={Styles["font-weight-bold"]}> {t(`bettype-${betChoiceInfo.betChoice}`) }</div>}
-                            <div className={`${Styles["font-weight-bold"]} ${Styles["choice"]}`}>{t(betChoice)}</div><div className={Styles["info"]}>@1:{odd}</div>
+                            {isShowBettype && <div className={Styles["font-weight-bold"]}> {t(`bettype-${betChoiceInfo.betChoice}`)}</div>}
+                            <div className={`${Styles["font-weight-bold"]} ${Styles["choice"]}`}>{t(betChoice)}</div>
+                            <div className={Styles["info"]}>@1:{odd}</div>
                         </div>
                         <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
                     </div>
@@ -120,10 +139,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                     </div>
                 </div>
             </div>
-            <div
-                className={`${Styles["modal-arrow"]} ${Styles[arrowStyle]} ${Styles[alignArrowStyle]}`}
-                style={{ left: arrowStyleLeft }}
-            ></div>
+            <div className={`${Styles["modal-arrow"]} ${Styles[betFormCss.arrowStyle]}`} style={{ left: betFormCss.arrowStyleLeft }}></div>
         </div>
     );
 };
