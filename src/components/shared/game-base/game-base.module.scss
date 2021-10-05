@@ -71,7 +71,7 @@
 .md5-section {
     background-color: var(--md5-bg-color);
     font-size: 1.2rem;
-    padding: 0.2rem 0.4rem;
+    padding: 0.2rem 0.4rem 0;
     display: flex;
     justify-content: space-between;
     cursor: pointer !important;
@@ -95,17 +95,17 @@
         }
     }
     .copy-box {
-        width: 1.8rem;
-        height: 1.8rem;
         position: relative;
         cursor: pointer;
-        .copy-icon {
-            width: 1rem;
-            height: 1.2rem;
+        width: 3.2rem;
+        height: 1.6rem;
+        .copy-text {
             position: relative;
             z-index: 2;
-            left: 0.4rem;
-            top: -0.1rem;
+            left: 0.45rem;
+            top: -0.2rem;
+            font-size: 1rem;
+            color: #fff;
         }
 
         &:before {

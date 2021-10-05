@@ -920,7 +920,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <div className={Styles["md5-section"]}>
                 <span className={`${Styles["text"]} ${Styles[md5ClassName]}`}>{md5Text}</span>
                 <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
-                    <img src={`/static/images/copy.svg`} className={Styles["copy-icon"]} alt="copy"></img>
+                    <span className={Styles["copy-text"]}>Copy</span> 
                 </div>
             </div>
         );
