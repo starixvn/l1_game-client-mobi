@@ -73,17 +73,20 @@ $number-count: 20;
     }
 
     .result-info {
-        min-width: 8rem;
+        min-width: 6rem;
         height: 2.6rem;
         margin: 0 0.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
         font-size: 1.4rem;
         font-weight: 500;
     }
 }
 
 .has-animation {
-    .settle-info {
-        animation: show-settle-info 0.5s 2.2s ease-out forwards;
+    .winning-info {
+        opacity: 0;
+        animation: show-settle-info 0.5s ease forwards;
     }
 }
 
