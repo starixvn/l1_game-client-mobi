@@ -51,8 +51,8 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResultSection() {
-        const { result, settlementResult, gameState } = this.state;
-        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} />;
+        const { result, settlementResult, gameState, showResultInfo } = this.state;
+        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} showResultInfo={showResultInfo} />;
     }
 
     renderBetOptions() {
