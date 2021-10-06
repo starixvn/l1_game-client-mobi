@@ -11,10 +11,14 @@
 .team-score {
     text-align: center;
     font-size: 1.2rem;
-    font-weight: 600;
-    height: 1.9rem;
+    font-weight: 600;    
     position: relative;
     top: -0.1rem;
+    padding: 0 0 .4rem;
+    &.kenomatch2 {
+        height: 1.9rem;
+        padding: 0;
+    }
     &.kenopower2 {
         top: 1.2rem;
     }

@@ -12,11 +12,11 @@
     --term-border-color: #406389;
 }
 .main-result{
-    height: 12.9rem;
+    height: 100%;
     background: var(--result-team-bg-color);
-    &.kenopower1 {
-        height: 14.9rem;
-    }
+    // &.kenopower1 {
+    //     height: 14.9rem;
+    // }
     &.result-animation {
         .main-content  {
             display: flex;

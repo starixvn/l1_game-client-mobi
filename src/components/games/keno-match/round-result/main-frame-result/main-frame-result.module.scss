@@ -25,6 +25,7 @@ $time-run-progress-bar: 1s;
 .main-result {
     animation: fadeIn .3s linear forwards;
     animation-delay: 0;
+    height: 100%;
 }
 
 .result {
@@ -55,9 +56,11 @@ $time-run-progress-bar: 1s;
     text-align: center;
     position: relative;
     justify-self: center;
+    width: 100%;
     .score-wrapper {
-        position: relative;
-        bottom: -0.6rem;
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 3.2rem);
         width: 6.4rem;
         height: 4rem;
         background: var(--middle-column-background-color);
