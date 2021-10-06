@@ -35,17 +35,19 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
-    const totalPointFT = isFirstHalf ? 0 : calculateTotalPoint(halfTimeResultInline?.blue) + calculateTotalPoint(halfTimeResultInline?.red);
+    const totalPointFT = isFirstHalf
+        ? 0
+        : calculateTotalPoint(halfTimeResultInline?.blue ?? []) + calculateTotalPoint(halfTimeResultInline?.red ?? []);
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
             values: isFirstHalf ? KenoMatchConfigs[0] : KenoMatchConfigs[2],
-            settlementResult: isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult
+            settlementResult: isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult,
         },
         {
             isActive: isFirstHalf,
             values: KenoMatchConfigs[1],
-            settlementResult: fullTimeSettlementResult
+            settlementResult: fullTimeSettlementResult,
         },
     ];
 
