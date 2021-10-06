@@ -15,7 +15,7 @@ const RenderRowKenoMatch: React.FC<{
     const { time, amount, choice } = betDetail;
     const stateRound = detectStateRound(choice);
     const formatChoice = stateRound === StateRound.live ? choice.slice(6).toLowerCase() : choice.slice(2).toLowerCase();
-    const settlementResult = stateRound === StateRound.live ? fullTime.settlementResult : firstHalf.settlementResult;
+    const settlementResult = stateRound === StateRound.ht ? firstHalf.settlementResult : fullTime.settlementResult;
     const isHighligh = settlementResult[formatChoice] ? true : false;
     const isShowRefundAmount = settlementResult["tie"] && choiceRefundAmount.includes(choice) ? true : false;
     const liveLabel = stateRound === StateRound.live ? `(${translateMapping["live"]})` : "";
