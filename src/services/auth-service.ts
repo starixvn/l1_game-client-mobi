@@ -25,6 +25,9 @@ export const verifySession = async (): Promise<SSOResponse> => {
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
 
     if (verifySessionResponse && verifySessionResponse.isSuccessful) {
+        userSession.isUM = verifySessionResponse.isUM;
+        userSession.umInfo = verifySessionResponse.umInfo;
+        storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
         return userSession;
     }
 

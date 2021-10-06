@@ -160,6 +160,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async componentDidMount() {
+        this.mainSocket = this.connectMainSocket();
         const authorizeInfo = (await authorize(this.props.session)) as AuthorizeResponse;
         this.updateAuthorizeInfo(authorizeInfo);
         this.updateUserBalance(authorizeInfo?.user?.red);
@@ -169,9 +170,12 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.handleRecheckInResponse(reCheckInResponse);
         }, 60 * 1000);
 
-        this.mainSocket = this.connectMainSocket();
         window.addEventListener("orientationchange", this.doOnOrientationChange);
         this.doOnOrientationChange();
+
+        if (authorizeInfo.authorized) {
+            this.onSocketConnect();
+        }
     }
 
     componentWillUnmount() {
@@ -188,7 +192,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "wss" : "ws"}://${proxy.uri + proxy.path}/main/websocket`;
         const socket = new WebSocket(socketUri);
-        socket.onopen = this.onSocketConnect;
         socket.onmessage = this.onSocketData;
 
         return socket;
@@ -226,6 +229,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { router, setIsUm } = this.props;
 
         if (umInfo) {
+            this.reCheckInInterval && clearInterval(this.reCheckInInterval);
             storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, umInfo);
             setTimeout(() => {
                 setIsUm(true);
@@ -258,6 +262,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         updateThemeSetting(session, authorizeInfo.user.settings.theme);
 
         this.updateAuthorizeInfo(authorizeInfo);
+        this.onSocketConnect();
     }
 
     winningStreakNotificationToggle() {
