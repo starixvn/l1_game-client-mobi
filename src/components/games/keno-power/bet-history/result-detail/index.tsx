@@ -52,7 +52,7 @@ const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
                         choiceForClassBlue: ["even", "big"],
                     })}
                 </div>
-                <div>
+                <div className={Styles["text-section"]}>
                     <span className={Styles["text-blue"]}> {translateMapping.blue}</span>
                     <span className={Styles["text-red"]}> {translateMapping.red}</span>
                 </div>

@@ -117,11 +117,6 @@
     }
 }
 
-.kenopower1, .kenopower2 {
-    .container-round:first-child::before {
-        content: none;
-    }
-}
 .round-label {
     @extend .overwidth;
     background-color: #dbdbdb;

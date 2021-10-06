@@ -15,8 +15,11 @@
     height: 1.9rem;
     position: relative;
     top: -0.1rem;
-    &.kenopower {
+    &.kenopower2 {
         top: 1.2rem;
+    }
+    &.kenopower1 {
+        top: 1.8rem;
     }
     .score {
         font: 500 1.6rem var(--font-number);

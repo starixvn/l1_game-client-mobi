@@ -12,6 +12,14 @@
     text-align: right;
 }
 
+.container-round:first-child::before {
+    content: none;
+}
+
+.container-round .total-match-section {
+    top: 7.5rem;
+}
+
 .winning-info {
     grid-column: 1/4;
     position: relative;
@@ -46,7 +54,18 @@
     .result-info {
         justify-content: center;
         display: flex;
-        grid-gap: 0.6rem;
         align-items: center;
     }
 }
+.text-section {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: .3rem;
+    .text-blue, .text-red {
+        font-size: 1.2rem;
+        line-height: 1.2rem;
+        min-width: 6rem;
+    }
+}
+
