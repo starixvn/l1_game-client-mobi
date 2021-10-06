@@ -51,8 +51,8 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
             };
 
             const handleMouseMove = (event: MouseEvent) => {
-                mousePosition.x = event.pageX;
-                mousePosition.y = event.pageY;
+                mousePosition.x = event.clientX;
+                mousePosition.y = event.clientY;
             };
 
             isDesktop && hoverWrapper.current.addEventListener("mouseenter", handleMouseIn);
