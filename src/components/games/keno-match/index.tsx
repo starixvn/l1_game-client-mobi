@@ -89,6 +89,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             showWinningAnimation,
             liveOdds,
             beforeStartFulltime,
+            halfTimeResultInline,
         } = this.state;
         const settlementResult = isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult;
 
@@ -99,6 +100,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             isShowWinningEffect: showWinningAnimation,
             isFirstHalf,
             beforeStartFulltime,
+            halfTimeResultInline,
         };
 
         const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);

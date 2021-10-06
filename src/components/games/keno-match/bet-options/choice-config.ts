@@ -55,7 +55,7 @@ export const KenoMatchConfigs: IKenoMatchConfig[] = [
             {
                 name: "fhOdd",
                 displayedName: "odd",
-                bettypeName:  "bettype-fhOdd",
+                bettypeName: "bettype-fhOdd",
                 isShowTooltip: false,
             },
         ],
@@ -132,13 +132,15 @@ export const KenoMatchConfigs: IKenoMatchConfig[] = [
                 name: "liveFTOver",
                 displayedName: "over",
                 bettypeName: "bettype-liveFTOver",
-                isShowTooltip: false,
+                isShowTooltip: true,
+                tooltipMessage: "[1621~2820]",
             },
             {
                 name: "liveFTUnder",
                 displayedName: "under",
                 bettypeName: "bettype-liveFTUnder",
-                isShowTooltip: false,
+                isShowTooltip: true,
+                tooltipMessage: "[420~1620]",
             },
             {
                 name: "liveFTEven",
