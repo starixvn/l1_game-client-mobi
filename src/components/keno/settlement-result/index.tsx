@@ -37,12 +37,11 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
                 <div className={Styles["result-info"]}>
                     {displayChoices.map((keyName, index) => {
                         const group = getGroupNameByChoice(keyName);
-                        console.log(group);
                         return (
                             settlementResult[keyName] && (
                                 <>
                                     {group ? (
-                                        <div className={Styles["winning-team"]}>
+                                        <div key={index} className={Styles["winning-team"]}>
                                             <div className={Styles["team-label"]}>{t(group)} </div>
                                             <div key={index} className={Styles[`result-info-red`]}>
                                                 {t(keyName)}

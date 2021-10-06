@@ -215,7 +215,7 @@
         },
         "supportMD5": false,
         "durations": {
-            "wholeRound": 63,
+            "wholeRound": 62,
             "showFullTimeSettlementResult": 58,
 
             "halfTimePlacingBets": 54,
@@ -245,7 +245,7 @@
         },
         "supportMD5": true,
         "durations": {
-            "wholeRound": 71,
+            "wholeRound": 70,
             "showFullTimeSettlementResult": 66,
 
             "halfTimePlacingBets": 58,

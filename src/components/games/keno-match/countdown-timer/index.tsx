@@ -24,7 +24,6 @@ const KenoCountdownTimer: React.FC<Props> = ({ isFistHalf }) => {
         gameSetting.durations as KenoMatchGameDurations;
     const duration = isFistHalf ? halfTimePlacingBets - showHalfTimeResult : fullTimePlacingBets;
     const timeResult = isFistHalf ? showHalfTimeResult : showFullTimeResult;
-
     switch (gameState) {
         case GameState.InRound:
             return (

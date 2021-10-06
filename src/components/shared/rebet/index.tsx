@@ -65,7 +65,6 @@ const Rebet: React.FC<Props> = (props: Props) => {
     }, []);
 
     const renderLastRoundBet = () => {
-        console.log(JSON.stringify(lastBetChoices, null, 2));
         return lastBetChoices
             ? Object.keys(lastBetChoices).map((betChoice) => {
                   if (lastBetChoices[betChoice] > 0) {
