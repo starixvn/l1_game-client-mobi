@@ -96,7 +96,7 @@ const BetOption: React.FunctionComponent<Props> = ({
                     </span>
                 </div>
             </div>
-            {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} /> } 
+            {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} isShowAtHoverPosition={true} />}
         </div>
     );
 };
