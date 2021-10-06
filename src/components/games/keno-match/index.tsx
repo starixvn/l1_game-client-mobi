@@ -398,7 +398,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     getStateByNextGameState(nextGameState): any {
-        const { displayPopup, notice, removeBetChoiceFocus, isFirstHalf } = this.state;
+        const { displayPopup, notice, removeBetChoiceFocus, isFirstHalf, ownBets } = this.state;
         const timeCounter = this.getTimeCounter(this.timeCounter, nextGameState);
 
         if (nextGameState === GameState.InRound) {
@@ -413,7 +413,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             {
                 condition: [GameState.BeforeStartRound, GameState.InRound].includes(nextGameState),
                 state: {
-                    ownBets: {},
+                    ownBets: isFirstHalf ? {} : ownBets,
                     totalBets: {},
                     showWinningAnimation: false,
                     isShowBlinkFH: false,
