@@ -2,15 +2,15 @@ import React from "react";
 
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
-import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
+import { sumArray } from "../../../../../helpers/number-helper";
 
 const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
     const { result, settlementResult } = bet;
     const { blue, red } = result;
-    const blueScore = calculateTotalPoint(blue);
-    const redScore = calculateTotalPoint(red);
+    const blueScore = sumArray(blue);
+    const redScore = sumArray(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>

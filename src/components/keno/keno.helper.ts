@@ -28,10 +28,6 @@ export const StatisticRuleEntriesBlueRed = Object.entries({
         (countResult[Choices.tie] ? Math.round((countResult[Choices.tie] * 100) / total) : 0),
 });
 
-export const resetValue = 0;
-const validateResetValue = (value: number) => (value !== resetValue ? value : 0);
-export const calculateTotalPoint = (results: number[]) => results.reduce((a, b) => validateResetValue(a) + validateResetValue(b), 0);
-
 export const GetTranslateMapping = (t: TFunction, gameName = "kenomatch1") => {
     return {
         firstHalf: t(`${gameName}:firstHalf`),

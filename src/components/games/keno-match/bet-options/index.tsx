@@ -4,10 +4,10 @@ import React from "react";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult, Result } from "../type";
-import { calculateTotalPoint } from "../../../keno/keno.helper";
 import Styles from "./bet-options.module.scss";
 import BetOption from "../../../shared/bet-option";
 import { choicesMapper, KenoMatchConfigs } from "./choice-config";
+import { sumArray } from "../../../../helpers/number-helper";
 
 interface KenoMatchBetOptionsProps {
     gameState: GameState;
@@ -37,7 +37,8 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const { odds } = gameConfigs;
     const totalPointFT = isFirstHalf
         ? 0
-        : calculateTotalPoint(halfTimeResultInline?.blue ?? []) + calculateTotalPoint(halfTimeResultInline?.red ?? []);
+        : sumArray(halfTimeResultInline?.blue ?? []) + sumArray(halfTimeResultInline?.red ?? []);
+        
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,

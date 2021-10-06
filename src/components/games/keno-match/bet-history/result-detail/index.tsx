@@ -1,16 +1,16 @@
 import React from "react";
 
-import { calculateTotalPoint } from "../../../../keno/keno.helper";
 import { StateRound } from "../bet-history-helper";
 import TeamResult from "../../../../keno/team-result";
 import TeamScore from "../../../../keno/team-score";
 import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
 import Styles from "../bet-history.module.scss";
+import { sumArray } from "../../../../../helpers/number-helper";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total, isFullTime, resultFH }) => {
     const { blue, red } = result;
-    const blueScore = isFullTime ? calculateTotalPoint(blue) + calculateTotalPoint(resultFH?.blue ?? []) : calculateTotalPoint(blue);
-    const redScore = isFullTime ? calculateTotalPoint(red) + calculateTotalPoint(resultFH?.red ?? []) : calculateTotalPoint(red);
+    const blueScore = isFullTime ? sumArray(blue) + sumArray(resultFH?.blue ?? []) : sumArray(blue);
+    const redScore = isFullTime ? sumArray(red) + sumArray(resultFH?.red ?? []) : sumArray(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
             <div className={Styles["container-blue"]}>

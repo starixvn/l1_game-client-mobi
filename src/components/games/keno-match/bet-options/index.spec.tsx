@@ -4,7 +4,7 @@ import KenoMatchBetOptions from "./";
 import { FakeSettlementResult } from "../keno-match-helper";
 import { GameState } from "../../../shared/game-base/type";
 import { GameContextProvider } from "../../../../contexts/game-context/game-context";
-import buildGameContext from "../__test__/test-helper";
+import buildGameContext, { buildDefaultResult } from "../__test__/test-helper";
 
 const liveOdds = {
     liveFTBlue: 2.54,
@@ -17,11 +17,12 @@ function buildBetOptionsProps(isFirstHalf: boolean, beforeStartFulltime = false,
     return {
         liveOdds,
         gameState: isLockingBet ? GameState.LockingBet : GameState.InRound,
-        settlementResult: FakeSettlementResult,
+        firstHalfSettlementResult: FakeSettlementResult,
+        fullTimeSettlementResult: FakeSettlementResult,
         isShowWinningEffect: true,
         isFirstHalf,
         beforeStartFulltime,
-        isShowPoolStake: true,
+        halfTimeResultInline: buildDefaultResult()
     };
 }
 
@@ -71,7 +72,7 @@ describe("KenoMatchBetOptions", () => {
     test.each`
         isFirstHalf | expectedDisabledContainer | expectedDisabledChoice
         ${true}     | ${0}                      | ${0}
-        ${false}    | ${1}                      | ${2}
+        ${false}    | ${1}                      | ${4}
     `("render disabled correctly", ({ isFirstHalf, expectedDisabledContainer, expectedDisabledChoice }) => {
         render(
             <GameContextProvider value={buildGameContext() as any}>
