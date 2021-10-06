@@ -80,24 +80,26 @@ const BetOption: React.FunctionComponent<Props> = ({
     } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`;
 
     return (
-        <div className={Styles.container} ref={betChoiceRef}>
-            <div className={betOptionClasses} onClick={onClickBet}>
-                {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
+        <>
+            <div className={Styles.container} ref={betChoiceRef}>
+                <div className={betOptionClasses} onClick={onClickBet}>
+                    {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
 
-                <div className={Styles["total-bet"]} ref={totalBetRef}>
-                    {isShowPoolStake &&
-                        (gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet))}
-                </div>
+                    <div className={Styles["total-bet"]} ref={totalBetRef}>
+                        {isShowPoolStake &&
+                            (gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet))}
+                    </div>
 
-                {children}
-                <div className={Styles["own-bet"]}>
-                    <span key={ownBets?.[choice]} className="d-inline-block">
-                        {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
-                    </span>
+                    {children}
+                    <div className={Styles["own-bet"]}>
+                        <span key={ownBets?.[choice]} className="d-inline-block">
+                            {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
+                        </span>
+                    </div>
                 </div>
             </div>
             {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} isShowAtHoverPosition={true} />}
-        </div>
+        </>
     );
 };
 

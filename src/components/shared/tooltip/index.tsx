@@ -23,30 +23,47 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
         useEffect(() => {
             if (wrapperRef.current) {
                 const wrapperLeftPosition = wrapperRef.current.getBoundingClientRect().x;
-                wrapperLeftPosition < 0 && setCustomStyle({ left: -60, right: "auto" });
+                !isShowAtHoverPosition && wrapperLeftPosition < 0 && setCustomStyle({ left: -60, right: "auto" });
             }
         }, [wrapperRef]);
 
         useEffect(() => {
-            const handleMouseIn = (event: MouseEvent) => {
-                isShowAtHoverPosition &&
-                    !showTooltip &&
-                    setCustomStyle({ position: "fixed", left: event.x - 20, top: event.y - 30, right: "auto" });
+            let timeOut: NodeJS.Timeout = null;
+            const mousePosition = {
+                x: 0,
+                y: 0,
+            };
+
+            const handleMouseIn = () => {
+                if (isShowAtHoverPosition && !showTooltip) {
+                    timeOut = setTimeout(() => {
+                        setCustomStyle({ position: "fixed", left: mousePosition.x + 20, top: mousePosition.y + 20, right: "auto" });
+                        console.log("mouse in");
+                    }, 500);
+                }
                 setShowTooltip(true);
             };
 
             const handleMouseOut = () => setShowTooltip(false);
+            const handleMouseMove = (event: MouseEvent) => {
+                mousePosition.x = event.clientX;
+                mousePosition.y = event.clientY;
+            };
 
             isDesktop && hoverWrapper.current.addEventListener("mouseover", handleMouseIn);
-            isDesktop && hoverWrapper.current.addEventListener("mouseout", handleMouseOut);
+            isDesktop && hoverWrapper.current.addEventListener("mouseleave", handleMouseOut);
+            isDesktop && isShowAtHoverPosition && document.addEventListener("mousemove", handleMouseMove);
 
             return () => {
                 if (hoverWrapper?.current && isDesktop) {
                     hoverWrapper.current.removeEventListener("mouseover", handleMouseIn);
-                    hoverWrapper.current.removeEventListener("mouseout", handleMouseOut);
+                    hoverWrapper.current.removeEventListener("mouseleave", handleMouseOut);
                 }
+
+                isDesktop && isShowAtHoverPosition && document.addEventListener("mousemove", handleMouseMove);
+                clearTimeout(timeOut);
             };
-        }, [hoverWrapper]);
+        }, [hoverWrapper, showTooltip]);
 
         return (
             <div className={`tooltip info ${showTooltip ? "show" : ""} ${Styles["tooltip-buttons"]} ${showTooltip ? Styles["show"] : ""}`}>
