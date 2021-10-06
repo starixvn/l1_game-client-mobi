@@ -129,12 +129,13 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResultCollapse() {
-        const { result, settlementResult, gameState } = this.state;
+        const { result, settlementResult, gameState, showResultInfo } = this.state;
         return (
             <RoundResultCollapse
                 result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}
+                showResultInfo={showResultInfo}
             />
         );
     }

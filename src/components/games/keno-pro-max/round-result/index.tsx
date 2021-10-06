@@ -14,17 +14,17 @@ export const generateResult = (result: Result, isAnimation: boolean) => {
     ));
 };
 
-export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTranslate; gameState: GameState }> = ({
+export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTranslate; customizeClass?: string }> = ({
     settlementResult,
     textTranslate,
-    gameState,
+    customizeClass,
 }) => {
     const isBig = settlementResult?.big ? true : false;
     const isEven = settlementResult?.even ? true : false;
     const element = getLabelFromFiveElements(settlementResult);
-    const classHide = gameState !== GameState.LockingBet ? Styles["winning-info-hide"] : "";
+
     return (
-        <div className={`${Styles["winning-info"]} ${classHide}`}>
+        <div className={`${Styles["winning-info"]} ${Styles[customizeClass]}`}>
             <div className={Styles[`result-info-${isBig ? "blue" : "red"}`]}>{isBig ? textTranslate.big : textTranslate.small}</div>
             <div className={Styles[`result-info-${isEven ? "blue" : "red"}`]}>{isEven ? textTranslate.even : textTranslate.odd}</div>
             <div className={Styles["result-info-grey"]}>{textTranslate[element]}</div>
@@ -41,8 +41,8 @@ export const RenderTotalPoint: React.FC<{ result: Result; textTranslate; customi
 }) => {
     const [total, setTotal] = useState<number>(0);
     useEffect(() => {
-        let currentTotal = 0;
         if (isAnimation) {
+            let currentTotal = 0;
             let index = 0;
             interval = setInterval(() => {
                 if (index === result.length) {
@@ -79,26 +79,26 @@ export const RoundResult: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const textTranslate = GetChoiceTranslate(t);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const classSettlement = showResultInfo ? Styles["settlement-info-show"] : Styles["settlement-info-hide"];
-
+    const classWinningInfoHide = gameState === GameState.LockingBet ? Styles["winning-info-hide"] : "winning-info-show";
     return (
-        <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""} ${classSettlement}`}>
+        <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result"]}>
                 <div className={Styles["number-container"]}>{result && generateResult(result, isAnimation)}</div>
             </div>
             <div className={Styles["settle-info"]}>
                 <RenderTotalPoint result={result} textTranslate={textTranslate} isAnimation={isAnimation} />
-                {winningInfo({ settlementResult, textTranslate, gameState })}
+                {winningInfo({ settlementResult, textTranslate, customizeClass: classWinningInfoHide })}
             </div>
         </div>
     );
 };
 
-export const RoundResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult; gameState: GameState }> = ({
-    result,
-    settlementResult,
-    gameState,
-}) => {
+export const RoundResultCollapse: React.FC<{
+    result: Result;
+    settlementResult: SettlementResult;
+    gameState: GameState;
+    showResultInfo: boolean;
+}> = ({ result, settlementResult, gameState, showResultInfo }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
@@ -107,7 +107,7 @@ export const RoundResultCollapse: React.FC<{ result: Result; settlementResult: S
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation)}</div>
-            {!isAnimation && settlementResult && (
+            {!isAnimation && showResultInfo && (
                 <div className={Styles["result-label"]}>
                     <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
                 </div>
