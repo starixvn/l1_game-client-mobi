@@ -1,10 +1,20 @@
 @import "../../../assets/components/settlement-info";
 [data-theme="light"] .result-detail {
     --popup-result-title-color: #2c2f3e;
+    --team-blue-color: #3B7BC6;
 }
 
 [data-theme="dark"] .result-detail {
     --popup-result-title-color: #fff;
+    --team-blue-color: #5EA8FF;
+}
+
+[data-theme="light"] .winning-info {
+    --team-blue-color: #3B7BC6;
+}
+
+[data-theme="dark"] .winning-info {
+    --team-blue-color: #5EA8FF;
 }
 
 .details {
