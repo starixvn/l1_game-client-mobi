@@ -1,11 +1,13 @@
 [data-theme="light"] .modal-placebetform {
     --numpad-background: #e6e6e6;
     --numpad-color: #505050;
+    --bettype-choice-color: #2C2F3E;
 }
 
 [data-theme="dark"] .modal-placebetform {
     --numpad-background: #5c6d7e;
     --numpad-color: #fff;
+    --bettype-choice-color: #fff;
 }
 
 .modal-placebetform {
@@ -43,15 +45,20 @@
      
         font-size: 1.6rem;
         .general-info {
-            font-size: 1.6rem;
+            font-size: 2rem;
+            height: 6rem;
             .font-weight-bold {
-                font-size: 1.3rem;       
+                font-size: 1.4rem;       
                 display: block;    
                 font-weight: normal;
+                color: var(--bettype-choice-color);
+                line-height: 1.8rem;
+                margin-top: .6rem;
                 &.choice {
                     display: inline-block;
                     font-weight: 700;
-                    font-size: 1.6rem;
+                    font-size: 2rem;
+                    color: var(--success-color);
                 }     
             }
             .info {
