@@ -1,13 +1,18 @@
 .number {
-    background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 2rem;
     height: 2rem;
+    background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #d7d7d7 78.96%, #c7c7c7 100%);
     border-radius: 50%;
     font: 500 1.2rem var(--font-number);
     color: #2c2f3e;
-    line-height: 2rem;
-    text-align: center;
-    justify-self: center;
+
+    &.keno-pro-max {
+        height: 2.4rem;
+        width: 2.4rem;
+    }
 }
 
 .has-animation {
