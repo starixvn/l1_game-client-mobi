@@ -33,8 +33,20 @@
     &.kenopower1 {
         height: 14.9rem;
     }
-    &.kenomatch2, &.kenopower2 {
+    &.kenomatch2,
+    &.kenopower2 {
         animation-delay: 0s, 8s;
+    }
+    &.kenomatch1 {
+        &.half-time {
+            animation-delay: 0s, 5s;
+        }
+    }
+    &.kenomatch2 {
+        animation-delay: 0s, 9s;
+        &.half-time {
+            animation-delay: 0s, 10s;
+        }
     }
     &.first-half-settlement {
         animation-duration: 0.2s, 1s;
@@ -90,33 +102,33 @@
 
     .result-info {
         display: grid;
-        grid-template-columns: repeat(2, minmax(6rem, auto));   
-          
+        grid-template-columns: repeat(2, minmax(6rem, auto));
+
         .winning-team {
             font-size: 1.3rem;
-            margin-top: .4rem;
+            margin-top: 0.4rem;
             .team-label {
                 line-height: 1.6rem;
             }
-
-        } 
-        .result-info-red, .result-info-blue{
+        }
+        .result-info-red,
+        .result-info-blue {
             height: 2.6rem;
             font-size: 1.4rem;
             padding: 0 1.4rem;
             line-height: 2.6rem;
             margin: 0 0.3rem;
             display: flex;
-        } 
+        }
     }
-   
 }
 
-.kenopower1, .kenopower2 {
+.kenopower1,
+.kenopower2 {
     .result-wrapper {
         height: 12.6rem;
         position: relative;
-        top: .2rem;
+        top: 0.2rem;
     }
 }
 .kenopower1 .result-wrapper {
