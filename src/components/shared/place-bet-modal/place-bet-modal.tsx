@@ -36,7 +36,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     useEffect(() => {
         setBetFormCss({
             position: {
-                top: `${isMobileOnly ? betOptionRect.bottom - gameContainerRect.top : betOptionRect.bottom - gameContainerRect.top}px`,
+                top: `${betOptionRect.bottom - gameContainerRect.top}px`,
             },
             arrowStyle: "up",
         });
@@ -50,9 +50,9 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                 adjustPopupPosition(
                     isMobileOnly,
                     betFormCss,
-                    props.gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
+                    gameContainerRect,
                     wrapperRef.current.getBoundingClientRect(),
-                    props.betOptionElement.getBoundingClientRect(),
+                    betOptionRect,
                     props.betChoiceElement.getBoundingClientRect()
                 )
             );
