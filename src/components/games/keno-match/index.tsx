@@ -88,7 +88,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const betOptionsProps = {
             liveOdds,
             gameState,
-            settlementResult: settlementResult ?? FakeSettlementResult,
+            firstHalfSettlementResult: firstHalfSettlementResult ?? FakeSettlementResult,
+            fullTimeSettlementResult: fullTimeSettlementResult ?? FakeSettlementResult,
             isShowWinningEffect: showWinningAnimation,
             isFirstHalf,
             beforeStartFulltime,

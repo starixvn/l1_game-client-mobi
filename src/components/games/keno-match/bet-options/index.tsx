@@ -10,20 +10,22 @@ import BetOption from "../../../shared/bet-option";
 import { choicesMapper, KenoMatchConfigs } from "./choice-config";
 
 interface KenoMatchBetOptionsProps {
-    settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
     isFirstHalf: boolean;
     liveOdds: any;
     beforeStartFulltime: boolean;
     halfTimeResultInline?: Result;
+    firstHalfSettlementResult?: SettlementResult;
+    fullTimeSettlementResult?: SettlementResult;
 }
 
 const choiceOverUnderLive = ["liveFTOver", "liveFTUnder"];
 const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = ({
     liveOdds,
     gameState,
-    settlementResult,
+    firstHalfSettlementResult,
+    fullTimeSettlementResult,
     isShowWinningEffect,
     isFirstHalf,
     beforeStartFulltime,
@@ -38,10 +40,12 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
             values: isFirstHalf ? KenoMatchConfigs[0] : KenoMatchConfigs[2],
+            settlementResult: isFirstHalf ? firstHalfSettlementResult : fullTimeSettlementResult
         },
         {
             isActive: isFirstHalf,
             values: KenoMatchConfigs[1],
+            settlementResult: fullTimeSettlementResult
         },
     ];
 
@@ -77,7 +81,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                         <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.values.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
-                                    isHighlight = gameState !== GameState.LockingBet && settlementResult[choiceName];
+                                    isHighlight = gameState !== GameState.LockingBet && halfMatchConfig.settlementResult[choiceName];
 
                                 const odd = getOddsByChoice(choice.name);
                                 const isOfferChoice = checkOfferChoice({ odd, choice: choice.name });
