@@ -20,7 +20,6 @@ interface KenoMatchBetOptionsProps {
     fullTimeSettlementResult?: SettlementResult;
 }
 
-const choiceOverUnderLive = ["liveFTOver", "liveFTUnder"];
 const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = ({
     liveOdds,
     gameState,
@@ -35,10 +34,8 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
-    const totalPointFT = isFirstHalf
-        ? 0
-        : sumArray(halfTimeResultInline?.blue ?? []) + sumArray(halfTimeResultInline?.red ?? []);
-        
+    const totalPointFT = isFirstHalf ? 0 : sumArray(halfTimeResultInline?.blue ?? []) + sumArray(halfTimeResultInline?.red ?? []);
+
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
@@ -53,15 +50,6 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     ];
 
     const getOddsByChoice = (choiceName: string) => liveOdds?.[choiceName] ?? odds[choiceName];
-    const isOfferOverUnderLive = (total: number) => {
-        return total >= 661 && total <= 980;
-    };
-    const checkOfferChoice = ({ odd, choice }) => {
-        if (odd === undefined || (choiceOverUnderLive.includes(choice) && !isOfferOverUnderLive(totalPointFT))) {
-            return false;
-        }
-        return true;
-    };
 
     return (
         <>
@@ -87,7 +75,6 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                     isHighlight = gameState !== GameState.LockingBet && halfMatchConfig.settlementResult[choiceName];
 
                                 const odd = getOddsByChoice(choice.name);
-                                const isOfferChoice = checkOfferChoice({ odd, choice: choice.name });
 
                                 const betOptionProps = {
                                     choice: choice.name,
@@ -108,7 +95,9 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                 ) : (
                                     <div
                                         key={index}
-                                        className={`${Styles[`choice-${choice.displayedName}`]} ${isOfferChoice ? "" : Styles["disabled"]}`}
+                                        className={`${Styles[`choice-${choice.displayedName}`]} ${
+                                            odd !== undefined ? "" : Styles["disabled"]
+                                        }`}
                                     >
                                         <BetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>

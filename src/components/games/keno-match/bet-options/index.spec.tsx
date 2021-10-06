@@ -22,7 +22,7 @@ function buildBetOptionsProps(isFirstHalf: boolean, beforeStartFulltime = false,
         isShowWinningEffect: true,
         isFirstHalf,
         beforeStartFulltime,
-        halfTimeResultInline: buildDefaultResult()
+        halfTimeResultInline: buildDefaultResult(),
     };
 }
 
@@ -72,7 +72,7 @@ describe("KenoMatchBetOptions", () => {
     test.each`
         isFirstHalf | expectedDisabledContainer | expectedDisabledChoice
         ${true}     | ${0}                      | ${0}
-        ${false}    | ${1}                      | ${4}
+        ${false}    | ${1}                      | ${2}
     `("render disabled correctly", ({ isFirstHalf, expectedDisabledContainer, expectedDisabledChoice }) => {
         render(
             <GameContextProvider value={buildGameContext() as any}>
