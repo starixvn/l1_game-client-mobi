@@ -6,14 +6,25 @@ import { HistoryModal } from ".";
 
 describe("HistoryModal", () => {
     // Arrange
-    const session = { isAuthenticated: true, username: "roger.le", language: "en-US", ss: "test123" };
-    const authContextValue = { session: session, setBalance: null };
+    const session = {
+        isAuthenticated: true,
+        username: "roger.le",
+        language: "en-US",
+        ss: "test123",
+        memberName: "",
+        isUM: false,
+        umInfo: { startTime: null, endTime: null },
+    };
+
+    const authContextValue = { session: session, setBalance: jest.fn };
+    // const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
+    const offerGames = [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35, 36, 37, 40, 41];
 
     test("should render correctly", () => {
         // Act
         const { getByTestId, getAllByTestId } = render(
             <AuthContextProvider value={authContextValue}>
-                <HistoryModal onCloseModal={jest.fn} />
+                <HistoryModal onCloseModal={jest.fn} offerGames={offerGames} />
             </AuthContextProvider>
         );
         fireEvent.click(getByTestId("icon-close"));
@@ -42,7 +53,7 @@ describe("HistoryModal", () => {
         // Act
         const { getByTestId, getAllByTestId } = render(
             <AuthContextProvider value={authContextValue}>
-                <HistoryModal onCloseModal={jest.fn} />
+                <HistoryModal onCloseModal={jest.fn} offerGames={offerGames} />
             </AuthContextProvider>
         );
         fireEvent.click(getByTestId("selected-item"));
