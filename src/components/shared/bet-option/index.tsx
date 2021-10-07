@@ -60,7 +60,7 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const onClickBet = (event: any) => {
         event.preventDefault();
-        const betChoiceRect = betChoiceRef.current.getBoundingClientRect();
+        const betChoiceRect = betChoiceRef.current.getBoundingClientRect(); 
 
         if (enabledQuickBet) {
             placeBet(choice, betValue, { x: event.clientX, y: event.clientY }, { left: betChoiceRect.left, right: betChoiceRect.right });
@@ -77,7 +77,7 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const betOptionClasses = `${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
         isHighlight && Styles[HighlightClassNameMapper[highlightType]]
-    } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`;
+    } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]} ${gameState !== GameState.InRound && Styles["disallowed"]}`;
 
     return (
         <>

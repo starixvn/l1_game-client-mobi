@@ -55,7 +55,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isShowInlineResult: false,
                 beforeStartFulltime: false,
                 isShowH1Score: false,
-                isShowFTScore: false,
+                isShowFTScore: false
             },
         };
     }
@@ -101,10 +101,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             beforeStartFulltime,
         };
 
-        const isShowOverlay = [GameState.LockingBet, GameState.DisplayResult].includes(gameState);
         return (
             <div>
-                {isShowOverlay && <OverlayMaskWhite />}
+                {!showWinningAnimation && <OverlayMaskWhite />}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
