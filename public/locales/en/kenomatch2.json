@@ -44,7 +44,6 @@
     "live": "Live",
     "sum": "Sum",
     "total": "Total",
-    "winStreakText": "FH/FT",
     "bettype-fhBlue": "First Half Team Blue/Team Red",
     "bettype-fhRed": "First Half Team Blue/Team Red",
     "bettype-fhOver": "First Half Over/Under",
@@ -70,5 +69,7 @@
     "firstHalfOverUnderTabs": "First Half Sum Over/Under",
     "fullTimeOverUnderTabs": "Full Time Sum Over/Under",
     "firstHalfOddEvenTabs": "First Half Sum Even/Odd",
-    "fullTimeOddEvenTabs": "Full Time Sum Even/Odd"
+    "fullTimeOddEvenTabs": "Full Time Sum Even/Odd",
+    "winStreakTextFH": "FH",
+    "winStreakTextFT": "FT"
 }
