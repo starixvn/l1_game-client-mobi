@@ -1,5 +1,6 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "next-i18next";
+
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { sumArray } from "../../../../helpers/number-helper";
 import ProgressBar from "../../../keno/progress-bar";

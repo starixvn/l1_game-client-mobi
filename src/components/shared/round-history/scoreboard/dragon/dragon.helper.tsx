@@ -14,11 +14,10 @@ export const GetNameFromChoice = ({ settlementResult, choices }) => {
 export const GetChoiceValueFromTranslate = ({ settlementResult, choices, translateDotTextMapping }) => {
     let name = "";
     if (settlementResult && choices) {
-        const isChoiceTie = choices.includes("tie");
+        if (choices.includes("tie") && settlementResult.tie) {
+            return translateDotTextMapping["tie"];
+        }
         choices.forEach((choice) => {
-            if (isChoiceTie && settlementResult.tie) {
-                return (name = translateDotTextMapping["tie"]);
-            }
             if (settlementResult[choice]) {
                 name = translateDotTextMapping[choice];
             }

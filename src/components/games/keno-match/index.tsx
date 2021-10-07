@@ -290,7 +290,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     handleUM({ um, um_message, remainingTime }) {
-        const { durations, i18n, id } = this.props;
+        const { durations, i18n } = this.props;
         if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
             this.isUMInFirstLoad = true;
         } else {
