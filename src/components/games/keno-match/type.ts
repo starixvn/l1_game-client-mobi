@@ -1,5 +1,5 @@
 import { Round, RoundKenoMatchBase } from "../../../types";
-import { GameBaseProps, GameBaseState, GameDurations, GameSettings, GameState } from "../../shared/game-base/type";
+import { GameBaseProps, GameBaseState, GameDurations, GameSettings } from "../../shared/game-base/type";
 
 export interface Result {
     blue: number[];

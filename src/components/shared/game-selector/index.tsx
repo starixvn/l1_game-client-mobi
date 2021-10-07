@@ -1,6 +1,5 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";

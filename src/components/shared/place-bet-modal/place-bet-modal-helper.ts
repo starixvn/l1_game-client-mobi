@@ -18,7 +18,7 @@ export const adjustPopupPosition = (
     betOptionRect: any,
     betChoiceRect: any
 ): BetFormCss => {
-    let betFormCss = calculateLeftPosition(isMobileOnly, orgBetFormCss, gameContainerRect, popupRect, betChoiceRect);
+    const betFormCss = calculateLeftPosition(isMobileOnly, orgBetFormCss, gameContainerRect, popupRect, betChoiceRect);
 
     if (window.innerHeight - betOptionRect.bottom > popupRect.height) {
         return betFormCss;
@@ -33,7 +33,7 @@ export const calculateBottomPosition = (
     popupRect: any,
     betOptionRect: any
 ): BetFormCss => {
-    let betFormCss = { ...orgBetFormCss };
+    const betFormCss = { ...orgBetFormCss };
 
     betFormCss.position.bottom = `${
         betOptionRect.top > popupRect.height ? gameContainerRect.bottom - betOptionRect.top : betOptionRect.bottom + 15
@@ -51,7 +51,7 @@ export const calculateLeftPosition = (
     popupRect: any,
     betChoiceRect: any
 ): BetFormCss => {
-    let betFormCss = { ...orgBetFormCss };
+    const betFormCss = { ...orgBetFormCss };
 
     if (isMobileOnly) {
         betFormCss.arrowStyleLeft = `${betChoiceRect.left + betChoiceRect.width / 2}px`;

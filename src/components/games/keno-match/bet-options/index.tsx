@@ -3,7 +3,7 @@ import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { GameState } from "../../../shared/game-base/type";
-import { SettlementResult, Result } from "../type";
+import { SettlementResult } from "../type";
 import Styles from "./bet-options.module.scss";
 import BetOption from "../../../shared/bet-option";
 import { choicesMapper, KenoMatchConfigs } from "./choice-config";
@@ -25,7 +25,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     fullTimeSettlementResult,
     isShowWinningEffect,
     isFirstHalf,
-    beforeStartFulltime
+    beforeStartFulltime,
 }) => {
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
