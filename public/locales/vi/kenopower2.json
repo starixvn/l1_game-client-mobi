@@ -36,5 +36,6 @@
     "redBigTextDot": "T",
     "redSmallTextDot": "X",
     "copyMD5Message": "Copy chuỗi MD5 thành công!",
-    "copyMD5KeyMessage": "Copy chuỗi Key thành công!"
+    "copyMD5KeyMessage": "Copy chuỗi Key thành công!",
+    "draw": "Hòa"
 }
