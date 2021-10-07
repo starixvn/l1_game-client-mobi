@@ -81,6 +81,15 @@ $number-count: 20;
             justify-content: center;
             position: relative;
             text-align: center;
+
+            &.show {
+                opacity: 0;
+                animation: show-winning-info-animation 0.5s 2s ease-out forwards;
+            }
+
+            &.hide {
+                animation: hide-winning-info-animation 0.3s ease-in forwards;
+            }
         }
     }
 
@@ -95,20 +104,23 @@ $number-count: 20;
     }
 }
 
-.has-animation {
-    .winning-info {
-        opacity: 0;
-        animation: show-settle-info 0.5s ease forwards;
-    }
-}
-
-@keyframes show-settle-info {
+@keyframes show-winning-info-animation {
     from {
         opacity: 0;
     }
 
     to {
         opacity: 1;
+    }
+}
+
+@keyframes hide-winning-info-animation {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
     }
 }
 

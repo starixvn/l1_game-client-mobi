@@ -81,7 +81,7 @@ export const RoundResult: React.FC<{
 
     return useMemo(() => {
         const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-        const classWinningInfoHide = gameState === GameState.LockingBet ? Styles["winning-info-hide"] : "winning-info-show";
+        const classWinningInfoHide = gameState === GameState.LockingBet ? "hide" : "show";
 
         return (
             <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
