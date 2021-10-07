@@ -205,43 +205,45 @@ const renderCellOnTable: React.FC<{
     );
 };
 
-export const renderHeaderRows = ({ headerName, t }) => {
-    return (
-        <tr>
-            {headerName.map((name: string, index: number) => {
-                switch (name) {
-                    case "roundTime":
-                        return <th key={index}>{t("roundTime")}</th>;
-                    case "round":
-                        return <th key={index}>{t("round")}</th>;
-                    case "result":
-                        return <th key={index}>{t("result")}</th>;
-                    case "choice":
-                        return <th key={index}>{t("choice")}</th>;
-                    case "stake":
-                        return <th key={index}>{t("stake")}</th>;
-                    case "refund":
-                        return (
-                            <th key={index}>
-                                {t("stake")} <br></br> {t("refund")}
-                            </th>
-                        );
-                    case "onlyRefund":
-                        return <th key={index}>{t("onlyRefund")}</th>;
-                    case "totalStake":
-                        return <th key={index}>{t("totalStake")}</th>;
-                    case "betType":
-                        return <th key={index}>{t("betType")}</th>;
-                    case "betChoice":
-                        return <th key={index}>{t("betChoice")}</th>;
-                    case "win":
-                        return <th key={index}>{t("win")}</th>;
-                    default:
-                        return <></>;
-                }
-            })}
-        </tr>
-    );
+export const RenderHeaderRows: React.FC<{ headerName: string[]; t: TFunction }> = ({ headerName, t }) => {
+    return useMemo(() => {
+        return (
+            <tr>
+                {headerName.map((name: string, index: number) => {
+                    switch (name) {
+                        case "roundTime":
+                            return <th key={index}>{t("roundTime")}</th>;
+                        case "round":
+                            return <th key={index}>{t("round")}</th>;
+                        case "result":
+                            return <th key={index}>{t("result")}</th>;
+                        case "choice":
+                            return <th key={index}>{t("choice")}</th>;
+                        case "stake":
+                            return <th key={index}>{t("stake")}</th>;
+                        case "refund":
+                            return (
+                                <th key={index}>
+                                    {t("stake")} <br></br> {t("refund")}
+                                </th>
+                            );
+                        case "onlyRefund":
+                            return <th key={index}>{t("onlyRefund")}</th>;
+                        case "totalStake":
+                            return <th key={index}>{t("totalStake")}</th>;
+                        case "betType":
+                            return <th key={index}>{t("betType")}</th>;
+                        case "betChoice":
+                            return <th key={index}>{t("betChoice")}</th>;
+                        case "win":
+                            return <th key={index}>{t("win")}</th>;
+                        default:
+                            return <></>;
+                    }
+                })}
+            </tr>
+        );
+    }, [headerName, t]);
 };
 
 const sendPostBetHistory = async ({
@@ -360,7 +362,9 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         data-testid="bet-history"
                     >
                         <table key={uuidv4()} className="table text-center">
-                            <thead>{renderHeaderRows({ headerName, t })}</thead>
+                            <thead>
+                                <RenderHeaderRows headerName={headerName} t={t} />
+                            </thead>
                             <tbody>
                                 {listBetHistory.map((bet: BetLogs) => {
                                     return (

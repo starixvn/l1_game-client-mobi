@@ -1,6 +1,6 @@
 import React from "react";
 
-import { renderHeaderRows } from "../../../dashboard/history/bet-history";
+import { RenderHeaderRows } from "../../../dashboard/history/bet-history";
 import RenderRowKenoMatch from "../../../games/keno-match/bet-history/bet-history-details";
 import RenderRowKenoPower from "../../../games/keno-power/bet-history/bet-history-details";
 import { KenoMatchId, GetTranslateMapping } from "../../keno.helper";
@@ -51,7 +51,9 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) 
                 </div>
                 <div className={`table-container react-infinite-table ${Styles["bet-logs-table"]}`} data-testid="bet-history-details">
                     <table className="table text-center">
-                        <thead>{renderHeaderRows({ headerName, t })}</thead>
+                        <thead>
+                            <RenderHeaderRows headerName={headerName} t={t} />
+                        </thead>
                         <tbody>
                             {betLogDetails?.length > 0 &&
                                 betLogDetails.map((betLog: any, index: number) => {
