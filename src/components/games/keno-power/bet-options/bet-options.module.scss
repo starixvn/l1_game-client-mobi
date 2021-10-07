@@ -22,20 +22,26 @@
     font-size: 1.2rem;
     text-align: center;
 }
-
+// .choice-big {
+//     grid-column: 1/2;
+// }
 .choice-small,
 .choice-blueSmall {
     grid-column: 2/3;
 }
 
-.choice-even,
+.choice-odd,
 .choice-redSmall {
     grid-column: 4/5;
 }
 
-.choice-odd,
+.choice-even,
 .choice-redBig {
     grid-column: 3/4;
+}
+
+.choice-even {    
+    grid-row: 3/4;
 }
 
 
@@ -50,7 +56,7 @@
 .choice-even,
 .choice-big,
 .choice-blue,
-.choice-blueSmall,
+.choice-redBig,
 .choice-blueBig {
     @extend %main-choice;
     color: #3b7bc6;
@@ -59,8 +65,8 @@
 .choice-odd,
 .choice-small,
 .choice-red,
-.choice-redBig,
-.choice-redSmall {
+.choice-redSmall,
+.choice-blueSmall {
     @extend %main-choice;
     color: #ff4352;
 }
