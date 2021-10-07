@@ -3,6 +3,7 @@ import { withRouter } from "next/router";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
+import { LanguageLocaleMapper } from "../../../common/constants";
 import { RoundKenoMatchBase } from "../../../types";
 import RoundSettlementResult from "../../keno/settlement-result";
 import GameBase from "../../shared/game-base";
@@ -55,7 +56,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 isShowInlineResult: false,
                 beforeStartFulltime: false,
                 isShowH1Score: false,
-                isShowFTScore: false
+                isShowFTScore: false,
             },
         };
     }
@@ -288,6 +289,26 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.messageTransmitter.register("liveOdds", this.handleLiveOdds.bind(this));
     }
 
+    handleUM({ um, um_message, remainingTime }) {
+        const { durations, i18n, id } = this.props;
+        if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
+            this.isUMInFirstLoad = true;
+        } else {
+            this.isUMInFirstLoad = false;
+        }
+
+        if (um && (this.timeCounter <= durations.halfTimePlacingBets || this.timeCounter <= durations.fullTimePlacingBets)) {
+            this.interval && clearInterval(this.interval);
+            this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
+            this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
+            this.setState({
+                gameState: GameState.Disabled,
+                disabledMessage: um_message[LanguageLocaleMapper[i18n.language]],
+                showResultInfo: false,
+            });
+        }
+    }
+
     handleRemainingTime({ remainingTime }) {
         const { gameState } = this.state;
         const durations = this.props.durations;
@@ -464,6 +485,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const { durations } = this.props;
         const roundIdCurrent = gameState === GameState.DisplayResult ? roundId - 1 : roundId;
         let stateJoinGame = {};
+        let stateShowResult = {};
         const joinInFirstHalf = durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult;
         const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets || remainingTime === 0;
         const isJoinFT = durations.fullTimePlacingBets >= remainingTime && remainingTime >= 0;
@@ -496,7 +518,14 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             };
         }
 
-        this.setState({ ...stateDefault, ...stateJoinGame });
+        if ([GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad) {
+            stateShowResult = {
+                playResultAnimation: false,
+                showResultInfo: true,
+            };
+        }
+
+        this.setState({ ...stateDefault, ...stateJoinGame, ...stateShowResult });
         this.setWinStreakByRoundHistory(rounds);
     }
 
