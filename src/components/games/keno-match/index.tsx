@@ -101,9 +101,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             beforeStartFulltime,
         };
 
+        const isShowOverlay = gameState === GameState.DisplayResult && !showWinningAnimation;
         return (
             <div>
-                {!showWinningAnimation && <OverlayMaskWhite />}
+                {isShowOverlay && <OverlayMaskWhite />}
                 <KenoMatchBetOptions {...betOptionsProps} />
             </div>
         );
