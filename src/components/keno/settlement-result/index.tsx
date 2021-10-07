@@ -17,6 +17,9 @@ const getGroupNameByChoice = (choice: string) => {
     return "";
 };
 
+const getResultColorByChoice = (choice: string) =>
+    ["big", "even", "over"].find((opt) => choice.toLocaleLowerCase().includes(opt)) ? "blue" : "red";
+
 const RoundSettlementResult = ({ title, settlementResult, displayChoices, extendClass }: Props) => {
     const { gameSetting } = useGameContext();
     const gameName = gameSetting.gameName.toLocaleLowerCase();
@@ -43,12 +46,12 @@ const RoundSettlementResult = ({ title, settlementResult, displayChoices, extend
                                     {group ? (
                                         <div key={index} className={Styles["winning-team"]}>
                                             <div className={Styles["team-label"]}>{t(group)} </div>
-                                            <div key={index} className={Styles[`result-info-red`]}>
+                                            <div key={index} className={Styles[`result-info-${getResultColorByChoice(keyName)}`]}>
                                                 {t(keyName)}
                                             </div>
                                         </div>
                                     ) : (
-                                        <div key={index} className={Styles[`result-info-red`]}>
+                                        <div key={index} className={Styles[`result-info-${getResultColorByChoice(keyName)}`]}>
                                             {t(keyName)}
                                         </div>
                                     )}
