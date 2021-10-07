@@ -34,5 +34,7 @@
     "blueBigTextDot": "B",
     "blueSmallTextDot": "S",
     "redBigTextDot": "B",
-    "redSmallTextDot": "S"
+    "redSmallTextDot": "S",
+    "copyMD5Message": "Copy MD5 string successfully!",
+    "copyMD5KeyMessage": "Copy Key string successfully!"
 }

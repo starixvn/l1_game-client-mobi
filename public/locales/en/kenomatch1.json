@@ -71,5 +71,7 @@
     "firstHalfOddEvenTabs": "First Half Sum Even/Odd",
     "fullTimeOddEvenTabs": "Full Time Sum Even/Odd",
     "winStreakTextFH": "FH",
-    "winStreakTextFT": "FT"
+    "winStreakTextFT": "FT",
+    "copyMD5Message": "Copy MD5 string successfully!",
+    "copyMD5KeyMessage": "Copy Key string successfully!"
 }

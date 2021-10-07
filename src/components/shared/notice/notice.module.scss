@@ -7,9 +7,16 @@
     padding-left: 3rem;
     padding-right: 3rem;
     border-radius: 1rem;
-    background: rgba(255, 180, 178, 0.95);
     box-shadow: 0 0 3.6rem rgba(0, 0, 0, 0.4);
     color: #2c2f3e;
+
+    &.warning{
+        background: rgba(255, 180, 178, 0.95);
+    }
+
+    &.inform{
+        background: rgb(225, 252, 215);
+    }
 
     .icon-close {
         position: absolute;

@@ -821,7 +821,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderNotice() {
-        const { gameName, message, roundId, duration, minBet, maxBet, errorCode } = this.state.notice;
+        const { gameName, message, roundId, duration, minBet, maxBet, errorCode, position, isWarning } = this.state.notice;
         return (
             <Notice
                 gameName={gameName}
@@ -832,6 +832,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 maxBet={maxBet}
                 errorCode={errorCode}
                 onClose={this.closeNotice}
+                position={position}
+                isWarning={isWarning}
             />
         );
     }
@@ -870,8 +872,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     copyToClipboard(event: any) {
         event.preventDefault();
-
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
+        const md5Message = this.props.t(
+            `${this.props.gameName.toLocaleLowerCase()}:${showMD5ResultKey ? "copyMD5KeyMessage" : "copyMD5Message"}`
+        );
+        this.setState({ notice: { message: md5Message, duration: 2, position: { top: "0px" }, isWarning: false } });
         navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
     }
 
@@ -920,7 +925,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <div className={Styles["md5-section"]}>
                 <span className={`${Styles["text"]} ${Styles[md5ClassName]}`}>{md5Text}</span>
                 <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
-                    <span className={Styles["copy-text"]}>Copy</span> 
+                    <span className={Styles["copy-text"]}>Copy</span>
                 </div>
             </div>
         );

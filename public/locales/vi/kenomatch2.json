@@ -71,5 +71,7 @@
     "firstHalfOddEvenTabs": "Hiệp 1 Tổng Chẵn/Lẻ",
     "fullTimeOddEvenTabs": "Toàn trận Tổng Chẵn/Lẻ",
     "winStreakTextFH": "H1",
-    "winStreakTextFT": "TT"
+    "winStreakTextFT": "TT",
+    "copyMD5Message": "Copy chuỗi MD5 thành công!",
+    "copyMD5KeyMessage": "Copy chuỗi Key thành công!"
 }

@@ -7,7 +7,6 @@ import { SettlementResult, Result } from "../type";
 import Styles from "./bet-options.module.scss";
 import BetOption from "../../../shared/bet-option";
 import { choicesMapper, KenoMatchConfigs } from "./choice-config";
-import { sumArray } from "../../../../helpers/number-helper";
 
 interface KenoMatchBetOptionsProps {
     gameState: GameState;

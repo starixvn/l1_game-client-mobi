@@ -103,6 +103,8 @@ export interface Notice {
     minBet?: number;
     maxBet?: number;
     errorCode?: string;
+    position? : any
+    isWarning?: boolean;
 }
 
 export interface APIError extends Notice {
