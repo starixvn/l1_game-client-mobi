@@ -8,9 +8,10 @@ import BallNumber from "../../../keno/ball-number";
 import { GameState } from "../../../shared/game-base/type";
 import Styles from "./round-result.module.scss";
 
-export const generateResult = (result: Result, isAnimation: boolean) => {
+export const generateResult = (result: Result, isAnimation: boolean, isCollapse = false) => {
+    const classCustomize = isCollapse ? "keno-pro-max-collapse" : "keno-pro-max";
     return result.map((number: number, index: number) => (
-        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={"keno-pro-max"} />
+        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classCustomize} />
     ));
 };
 
@@ -112,7 +113,7 @@ export const RoundResultCollapse: React.FC<{
 
         return (
             <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation)}</div>
+                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, true)}</div>
                 {!isAnimation && showResultInfo && (
                     <div className={Styles["result-label"]}>
                         <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
