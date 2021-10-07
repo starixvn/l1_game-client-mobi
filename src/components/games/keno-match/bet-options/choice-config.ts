@@ -109,7 +109,7 @@ export const KenoMatchConfigs: IKenoMatchConfig[] = [
         ],
     },
     {
-        name: "fullTime",
+        name: "fullTimeLive",
         config: [
             {
                 name: "liveFTBlue",
