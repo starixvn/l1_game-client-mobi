@@ -15,7 +15,6 @@ interface KenoMatchBetOptionsProps {
     isFirstHalf: boolean;
     liveOdds: any;
     beforeStartFulltime: boolean;
-    halfTimeResultInline?: Result;
     firstHalfSettlementResult?: SettlementResult;
     fullTimeSettlementResult?: SettlementResult;
 }
@@ -27,14 +26,12 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     fullTimeSettlementResult,
     isShowWinningEffect,
     isFirstHalf,
-    beforeStartFulltime,
-    halfTimeResultInline,
+    beforeStartFulltime
 }) => {
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
-    const totalPointFT = isFirstHalf ? 0 : sumArray(halfTimeResultInline?.blue ?? []) + sumArray(halfTimeResultInline?.red ?? []);
 
     const halfMatchConfigs = [
         {
