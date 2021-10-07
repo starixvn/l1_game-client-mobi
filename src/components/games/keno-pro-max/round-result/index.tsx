@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
@@ -78,19 +78,23 @@ export const RoundResult: React.FC<{
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const textTranslate = GetChoiceTranslate(t);
-    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const classWinningInfoHide = gameState === GameState.LockingBet ? Styles["winning-info-hide"] : "winning-info-show";
-    return (
-        <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={Styles["result"]}>
-                <div className={Styles["number-container"]}>{result && generateResult(result, isAnimation)}</div>
+
+    return useMemo(() => {
+        const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
+        const classWinningInfoHide = gameState === GameState.LockingBet ? Styles["winning-info-hide"] : "winning-info-show";
+
+        return (
+            <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
+                <div className={Styles["result"]}>
+                    <div className={Styles["number-container"]}>{result && generateResult(result, isAnimation)}</div>
+                </div>
+                <div className={`${Styles["settle-info"]} ${showResultInfo ? Styles["settle-info-show"] : ""}`}>
+                    <RenderTotalPoint result={result} textTranslate={textTranslate} isAnimation={isAnimation} />
+                    {winningInfo({ settlementResult, textTranslate, customizeClass: classWinningInfoHide })}
+                </div>
             </div>
-            <div className={Styles["settle-info"]}>
-                <RenderTotalPoint result={result} textTranslate={textTranslate} isAnimation={isAnimation} />
-                {winningInfo({ settlementResult, textTranslate, customizeClass: classWinningInfoHide })}
-            </div>
-        </div>
-    );
+        );
+    }, [result, settlementResult, gameState, showResultInfo, playResultAnimation]);
 };
 
 export const RoundResultCollapse: React.FC<{
@@ -102,16 +106,19 @@ export const RoundResultCollapse: React.FC<{
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
-    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
 
-    return (
-        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation)}</div>
-            {!isAnimation && showResultInfo && (
-                <div className={Styles["result-label"]}>
-                    <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
-                </div>
-            )}
-        </div>
-    );
+    return useMemo(() => {
+        const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
+
+        return (
+            <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
+                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation)}</div>
+                {!isAnimation && showResultInfo && (
+                    <div className={Styles["result-label"]}>
+                        <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
+                    </div>
+                )}
+            </div>
+        );
+    }, [result, settlementResult, gameState, showResultInfo, playResultAnimation]);
 };
