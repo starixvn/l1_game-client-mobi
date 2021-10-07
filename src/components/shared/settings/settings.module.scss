@@ -1,24 +1,31 @@
 [data-theme="light"] .settings-container {
     --icon-favorite-color: #945f08;
+    --icon-color: #F2A61C;
+    --position-icon-favorite: -73px -82px;
 }
 
 [data-theme="dark"] .settings-container {
     --icon-favorite-color: #d3e8ff;
+    --icon-color: #D4E9FF;
+    --position-icon-favorite: -74px -56px;
 }
 
 .settings-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    padding: 0 0.5rem;
+    width: 100%;    
+    @media(min-width: 768px) {
+        padding: 0 0.5rem;
+    }
 }
 
 .setting-right {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 3rem);
     grid-gap: 0.6rem;
     align-items: center;
+    margin-top: .5rem;
 }
 
 %icon {
@@ -38,8 +45,10 @@
 }
 
 .setting-button {
-    width: 4rem;
     position: relative;
+    @media(max-width: 767px) {
+        justify-self: flex-end;
+    } 
 
     &:hover {
         cursor: pointer;
@@ -48,64 +57,48 @@
 
 %icon-notify {
     @extend %icon;
-    width: 18px;
-    height: 19px;
+    width: 2.4rem;
+    height: 2rem;
 }
 
-.icon-notify-on-dark {
+
+.icon-sound-on-dark {
     @extend %icon-notify;
-    background-position: -63px -29px;
+   background-position: 0 -58px;
 }
 
-.icon-notify-off-dark {
+.icon-sound-off-dark {
     @extend %icon-notify;
-    background-position: -63px 0;
+    background-position: -147px -36px;
 }
 
-.icon-notify-off-light {
+.icon-sound-off-light {
     @extend %icon-notify;
-    background-position: -95px 0;
+   background-position: -147px -84px;
 }
 
-.icon-notify-on-light {
+.icon-sound-on-light {
     @extend %icon-notify;
-    background-position: -95px -30px;
+    background-position: 0 -84px;
 }
 
-%icon-menu {
-    @extend %icon;
-    width: 1.3rem;
-    height: 1.3rem;
-}
-
-.icon-menu-light {
-    @extend %icon-menu;
-    background-position: -1px 0;
-}
-
-.icon-menu-dark {
-    @extend %icon-menu;
-    background-position: -31px 0;
-}
-
-%icon-ticket-history {
-    @extend %icon;
-    width: 2.1rem;
-    height: 1.9rem;
-}
 
 .icon-ticket-history-light {
-    @extend %icon-ticket-history;
-    background-position: 0 -19px;
+    @extend %icon-notify;
+    background-position: -36px -84px;
 }
 
 .icon-ticket-history-dark {
-    @extend %icon-ticket-history;
-    background-position: -29px -19px;
+    @extend %icon-notify;
+    background-position: -36px -58px;
 }
 
-.icon-favorite:before {
-    font-size: 1.6rem;
-    color: var(--icon-favorite-color);
-    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+.icon-favorite {
+    @extend %icon-notify;
+    background-position: var(--position-icon-favorite);
+    position: relative;
+    top: -1px;
+    &:before {
+        content: none;
+    }
 }

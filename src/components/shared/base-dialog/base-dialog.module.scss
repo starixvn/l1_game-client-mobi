@@ -19,7 +19,7 @@
     }
 
     &.modal-full {
-        top: 8.9rem;
+        top: 3.8rem;
         bottom: 0;
         left: 0;
         right: 0;
@@ -77,8 +77,13 @@
         box-shadow: none;
 
         &.isMobile {
-            top: 9rem;
-            bottom: auto !important;
+            bottom: 4.4rem;
+            &.ios-device {
+                @media (min-device-width: 375px) and (min-device-height: 668px) {
+                    bottom: 5.4rem;
+                }
+            }
+            
         }
 
         @media (min-width: 1024px) {

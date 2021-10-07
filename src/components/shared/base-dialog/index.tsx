@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isIOS } from "react-device-detect";
 
 import Styles from "./base-dialog.module.scss";
 import { ModalType } from "./type";
@@ -28,6 +28,10 @@ const BaseDialog: React.FC<Props> = ({
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
+    let deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
+    }
 
     const getCustomStyle = () => {
         const browserHeight = window.innerHeight;
@@ -70,7 +74,7 @@ const BaseDialog: React.FC<Props> = ({
             <div
                 style={getCustomStyle()}
                 ref={wrapperRef}
-                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""}`}
+                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""} ${deviceClass}`}
             >
                 {children}
             </div>

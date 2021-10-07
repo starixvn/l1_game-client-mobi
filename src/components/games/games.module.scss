@@ -47,10 +47,6 @@
     background-color: transparent;
     align-content: flex-start;
 
-    &.android-device {
-        margin-bottom: 9.5rem;
-    }
-
     @media (min-width: 768px) {
         margin-top: 4.2rem;
         margin-bottom: 8rem;

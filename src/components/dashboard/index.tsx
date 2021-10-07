@@ -4,8 +4,7 @@ import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { AuthorizeResponse, ReCheckInResponse, SSOResponse } from "sc-user-service-client/dist/auth";
-import { UMInfo } from "sc-user-service-client/dist/settings";
+import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -161,6 +160,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async componentDidMount() {
+        this.mainSocket = this.connectMainSocket();
         const authorizeInfo = (await authorize(this.props.session)) as AuthorizeResponse;
         this.updateAuthorizeInfo(authorizeInfo);
         this.updateUserBalance(authorizeInfo?.user?.red);
@@ -170,9 +170,12 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.handleRecheckInResponse(reCheckInResponse);
         }, 60 * 1000);
 
-        this.mainSocket = this.connectMainSocket();
         window.addEventListener("orientationchange", this.doOnOrientationChange);
         this.doOnOrientationChange();
+
+        if (authorizeInfo.authorized) {
+            this.onSocketConnect();
+        }
     }
 
     componentWillUnmount() {
@@ -189,7 +192,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { proxy } = appSettings;
         const socketUri = `${proxy.ssl ? "wss" : "ws"}://${proxy.uri + proxy.path}/main/websocket`;
         const socket = new WebSocket(socketUri);
-        socket.onopen = this.onSocketConnect;
         socket.onmessage = this.onSocketData;
 
         return socket;
@@ -227,12 +229,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { router, setIsUm } = this.props;
 
         if (umInfo) {
-            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, {
-                time: umInfo.startTime,
-                start: umInfo.startTime,
-                end: umInfo.endTime,
-                finish: false,
-            });
+            this.reCheckInInterval && clearInterval(this.reCheckInInterval);
+            storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, umInfo);
             setTimeout(() => {
                 setIsUm(true);
             }, 500);
@@ -264,6 +262,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         updateThemeSetting(session, authorizeInfo.user.settings.theme);
 
         this.updateAuthorizeInfo(authorizeInfo);
+        this.onSocketConnect();
     }
 
     winningStreakNotificationToggle() {
@@ -324,6 +323,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
                         favoriteGames={favoriteGames}
+                        offerGames={authorizeInfo.user.offerGames}
                         updateFavoriteGames={this.updateFavoriteGames}
                         enabledQuickBet={enabledQuickBet}
                         updateEnabledQuickBet={this.setEnabledQuickBet}
@@ -338,6 +338,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
+                        userOfferGames={authorizeInfo.user.offerGames}
                         queryGame={this.props.queryGame}
                     />
                     <BetSettings
@@ -345,9 +346,16 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateEnabledQuickBet={this.setEnabledQuickBet}
                         updateBetValue={this.setBetValue}
                         enabledSound={enabledPlaySound}
+                        user={authorizeInfo.user}
                     />
-                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} />}
-                    {isShowGuide && <GameGuideModal userStakeLevel={userStakeLevel} onCloseModal={this.toggleGuideModal} />}
+                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={authorizeInfo.user.offerGames} />}
+                    {isShowGuide && (
+                        <GameGuideModal
+                            userStakeLevel={userStakeLevel}
+                            onCloseModal={this.toggleGuideModal}
+                            offerGames={authorizeInfo.user.offerGames}
+                        />
+                    )}
                     {isShowErrorModal && (
                         <div className={Styles["container-modal"]}>
                             <div className={Styles["bg-opacity"]}></div>

@@ -1,6 +1,6 @@
 import { Trans, useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isIOS } from "react-device-detect";
 
 import { useAuthContext } from "../../../contexts/auth";
 import { updateUserQuickBetSetting } from "../../../services/user-setting-service";
@@ -17,7 +17,10 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const tooltipRef = useRef<HTMLDivElement>(null);
-
+    let deviceClass = "";
+    if (isMobileOnly) {
+        deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
+    }
     const authContext = useAuthContext();
     const { t } = useTranslation();
 
@@ -65,7 +68,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     return (
-        <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]}`}>
+        <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]} ${deviceClass}`}>
             <div>
                 {!enabledQuickBet && <div className={Styles["ripple-animation"]}></div>}
                 <input

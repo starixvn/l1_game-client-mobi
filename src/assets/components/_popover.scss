@@ -15,14 +15,14 @@
 
     &.top:after {
         bottom: -1.6rem;
-        left: 1.6rem;
+        right: 1.6rem;
         border: 0.8rem solid;
         border-color: #fff1b2 transparent transparent transparent;
     }
 
     &.bottom:before {
         top: -1.5rem;
-        left: 1.6rem;
+        right: 1.6rem;
         border: 0.8rem solid;
         border-color: transparent transparent #fff1b2 transparent;
     }

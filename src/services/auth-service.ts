@@ -1,18 +1,11 @@
 import { SSOResponse } from "sc-user-service-client/dist/auth";
-import { UMInfo } from "sc-user-service-client/dist/settings";
+
 import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../common/local-storage";
 import { UserClientCommunication } from "./user-client-communication";
 
-const { settings: settingsService, auth: authService, userSettings: userSettingsService } = UserClientCommunication.getUserClientInstance();
+const { auth: authService, userSettings: userSettingsService } = UserClientCommunication.getUserClientInstance();
 
-export const checkUM = async () => {
-    const settings = await settingsService.getSettings();
-    storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, settings.umInfo);
-
-    return settings.isUM;
-};
-
-export const sso = async (token: string) => {
+export const sso = async (token: string): Promise<SSOResponse> => {
     const userSession = await authService.sso(token, 2);
 
     if (userSession && userSession.isAuthenticated) {
@@ -22,7 +15,7 @@ export const sso = async (token: string) => {
     return userSession;
 };
 
-export const verifySession = async () => {
+export const verifySession = async (): Promise<SSOResponse> => {
     const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
 
     if (!userSession) {
@@ -32,6 +25,9 @@ export const verifySession = async () => {
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
 
     if (verifySessionResponse && verifySessionResponse.isSuccessful) {
+        userSession.isUM = verifySessionResponse.isUM;
+        userSession.umInfo = verifySessionResponse.umInfo;
+        storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
         return userSession;
     }
 

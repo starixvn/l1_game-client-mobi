@@ -3,6 +3,9 @@
     display: flex;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
+    @media(max-width: 767px) {
+        justify-self: flex-end;
+    }    
 
     &:hover {
         cursor: pointer;
@@ -11,6 +14,9 @@
 
 .menu-toggle-btn {
     min-width: 4rem;
+    @media(max-width: 767px) {
+        text-align: right;
+    } 
 }
 
 .dropdown-menu {
@@ -25,6 +31,9 @@
 
 %icon-menu {
     display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    background-repeat: no-repeat;
     background-image: url("/static/images/setting-sprites.png?v=2");
     background-image: -webkit-image-set(
         url("/static/images/setting-sprites.png?v=2") 1x,
@@ -36,18 +45,18 @@
         url("/static/images/setting-sprites@2x.png?v=2") 2x,
         url("/static/images/setting-sprites@3x.png?v=2") 3x
     );
-    width: 1.3rem;
-    height: 1.3rem;
+    position: relative;
+    top: 2px;
 }
 
 .icon-menu-light {
     @extend %icon-menu;
-    background-position: -1px 0;
+    background-position: -106px -85px;
 }
 
 .icon-menu-dark {
     @extend %icon-menu;
-    background-position: -31px 0;
+    background-position: -102px -58px;
 }
 
 .toggle-button {

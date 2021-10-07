@@ -28,7 +28,7 @@ import { Props } from "./type";
 
 let gamesOrder = [];
 
-const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[]) => {
+const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
     const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
@@ -37,7 +37,7 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
     gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
     const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;
 
-    return gamesOrder.slice(startIndex, startIndex + GamesInOnePage);
+    return gamesOrder.filter((game) => userOfferGames.includes(game)).slice(startIndex, startIndex + GamesInOnePage);
 };
 
 const getCategoryByGameId = (gameId: number) => {
@@ -71,6 +71,7 @@ export const Games: React.FC<Props> = ({
     updateFavoriteGames,
     favoriteGames,
     queryGame,
+    userOfferGames,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -90,7 +91,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
-        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames);
+        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames, userOfferGames);
 
         return renderGames.length === 0 && selectedCategory === GameCategoryType.favorite ? (
             <FavoriteGuide />

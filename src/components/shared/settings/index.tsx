@@ -2,12 +2,13 @@ import { useTranslation } from "next-i18next";
 import { useTheme } from "next-themes";
 import React, { useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
+
+import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import { FavoriteSetting } from "../../favorite-setting";
 import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
-import { Props } from "./types";
-import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import styles from "./settings.module.scss";
+import { Props } from "./types";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -19,21 +20,23 @@ export const Settings: React.FC<Props> = ({
     enabledSound,
     toggleGuideModal,
     favoriteGames,
+    offerGames,
     updateFavoriteGames,
     enabledQuickBet,
     updateEnabledQuickBet,
+    isShowQuickBet = false,
 }) => {
     const { theme } = useTheme();
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
-    const toggleWinningStreakBtnRef = useRef<HTMLDivElement>(null);
+    const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
 
     return (
         <div className={styles["settings-container"]}>
-            {isMobileOnly && (
+            {isShowQuickBet && isMobileOnly && (
                 <div className={styles["setting-left"]}>
                     <QuickBetBtn
                         enabledQuickBet={enabledQuickBet}
@@ -44,24 +47,19 @@ export const Settings: React.FC<Props> = ({
             )}
             <div className={styles["setting-right"]}>
                 <div
-                    ref={toggleWinningStreakBtnRef}
-                    id="notification-settings"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
-                    onClick={() => onToggleNotification()}
+                    ref={toggleSoundBtnRef}
+                    id="sound-settings"
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    onClick={() => onToggleSound()}
                 >
-                    <span
-                        className={enabledNotification ? styles[`${"icon-notify-on-"}${theme}`] : styles[`${"icon-notify-off-"}${theme}`]}
-                    ></span>
-                    <Tooltip
-                        message={`${t("winningStreakNotification")}: ${enabledNotification ? t("on") : t("off")}`}
-                        hoverWrapper={toggleWinningStreakBtnRef}
-                    />
+                    <span className={enabledSound ? styles[`${"icon-sound-on-"}${theme}`] : styles[`${"icon-sound-off-"}${theme}`]}></span>
+                    <Tooltip message={`${t("sound")}: ${enabledSound ? t("on") : t("off")}`} hoverWrapper={toggleSoundBtnRef} />
                 </div>
 
                 <div
                     ref={toggleHistoryBtnRef}
                     id="ticket-history"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => toggleHistoryModal()}
                 >
                     <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
@@ -70,18 +68,24 @@ export const Settings: React.FC<Props> = ({
 
                 <div
                     id="favorite-setting"
-                    className={`header-button ${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
                     ref={favoriteToggleBtnRef}
                 >
                     <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
                     <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                 </div>
-                <Menu handleToggleSound={onToggleSound} enabledSound={enabledSound} handleToggleGuideModal={toggleGuideModal} />
+
+                <Menu
+                    handleToggleNotification={onToggleNotification}
+                    enabledNotification={enabledNotification}
+                    handleToggleGuideModal={toggleGuideModal}
+                />
             </div>
             {showFavoriteSetting && (
                 <FavoriteSetting
                     currentFavoriteGames={favoriteGames}
+                    offerGames={offerGames}
                     onCloseModal={() => setShowFavoriteSetting(false)}
                     updateFavorite={updateFavoriteGames}
                     toggleBtnRef={favoriteToggleBtnRef}

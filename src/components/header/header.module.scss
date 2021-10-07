@@ -1,8 +1,8 @@
 [data-theme="light"] .header {
-    --header-background: linear-gradient(180deg, #f9f9f9 0%, #dedede 100%);
+    --header-background: linear-gradient(180deg, #ffffff 50%, #dedede 100%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
-    --header-border-bottom: #dedede;
+    --header-border-bottom: #b5b5b5;
     --icon-menu-color: #6e809a;
     --slide-nav-background: #fff;
     --icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
@@ -11,10 +11,10 @@
 }
 
 [data-theme="dark"] .header {
-    --header-background: linear-gradient(180deg, #324a62 0%, #223a51 100%);
+    --header-background: linear-gradient(180deg, #395571 50%, #2e4965 100%);
     --header-text-color: #cce2f8;
     --header-balance-color: var(--primary-color);
-    --header-border-bottom: #28445f;
+    --header-border-bottom: #3f5c7b;
     --icon-menu-color: #fff;
     --slide-nav-background: #252b3b;
     --icon-menu-background-hover: radial-gradient(circle, rgba(20, 31, 47, 0) 0%, rgba(20, 31, 47, 1) 100%);
@@ -31,12 +31,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
     z-index: var(--header-index);
-
-    @media (min-width: 768px) {
-        border-bottom: none;
-    }
 
     .header-right {
         display: flex;
@@ -62,43 +57,10 @@
             cursor: pointer;
         }
     }
-}
-
-.user {
-    display: flex;
-    align-items: center;
-    margin-left: 1.5rem;
-
-    .avatar {
-        width: 4rem;
-        height: 4rem;
-        border-radius: 50%;
-        border: 0.2rem solid #b5b5b5;
+    &.mobile {
+        height: 3.8rem;
+        position: initial;
     }
-
-    .info {
-        line-height: 1.8rem;
-        margin-right: 0.8rem;
-        font-weight: bold;
-        text-align: right;
-        white-space: nowrap;
-    }
-
-    .icon-user {
-        position: relative;
-        top: 18px;
-        left: -2px;
-        font-size: 3.9rem;
-    }
-}
-
-.user-name {
-    color: var(--header-text-color);
-}
-
-.balance {
-    color: var(--header-balance-color);
-    font: 500 1.8rem/2rem var(--font-number);
 }
 
 .icon-user {
@@ -134,22 +96,4 @@
             opacity: 1;
         }
     }
-}
-
-[data-theme="light"] .settings-container {
-    --settings-container-background: #a9cee7;
-}
-
-[data-theme="dark"] .settings-container {
-    --settings-container-background: #283f56;
-}
-
-.settings-container {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    height: 4.5rem;
-    margin-top: 4.4rem;
-    z-index: var(--setting-index);
-    background-color: var(--settings-container-background);
 }

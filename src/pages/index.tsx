@@ -2,14 +2,14 @@ import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
-import { SSOResponse } from "sc-user-service-client/dist/auth";
+import { SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
 
 import { languageMapper } from "../common/constants";
-import { getLocalStorageItem, localStorageKeys } from "../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
 import { UMPage } from "../components/um-page";
-import { checkUM, sso, verifySession } from "../services/auth-service";
+import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
 const getUserSession = (token: string) => (token ? sso(token) : verifySession());
@@ -26,13 +26,23 @@ function Home() {
 
     useEffect(() => {
         const signIn = async () => {
-            if (await checkUM()) {
-                setIsUm(true);
+            const userSession = await getUserSession(token as string);
+
+            if (!userSession) {
+                router.push("timeout");
                 return;
             }
 
-            const userSession = await getUserSession(token as string);
-            if (userSession && userSession.isAuthenticated) {
+            if (userSession.isUM) {
+                storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, userSession.umInfo);
+                setTimeout(() => {
+                    setIsUm(true);
+                }, 500);
+
+                return;
+            }
+
+            if (userSession.isAuthenticated) {
                 setSession(userSession);
                 Sentry.setUser(userSession);
                 setLoading(false);

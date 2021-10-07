@@ -2,7 +2,7 @@
 
 %icon {
     position: absolute;
-    top: calc(50% - 2.5rem);
+    top: calc(50% - 2.3rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -10,6 +10,9 @@
     width: 3rem;
     color: #fff;
     font-size: 2rem;
+    @media (min-width: 768px){
+        top: calc(50% - 2.5rem);
+    }
 
     &:hover:not(.disabled) {
         cursor: pointer;
@@ -36,7 +39,7 @@
 
 .icon-prev {
     @extend %icon;
-    left: -2rem;
+    left: -3rem;
     transform: rotate(-90deg);
 
     @media (min-width: 768px) {
@@ -46,7 +49,7 @@
 
 .icon-next {
     @extend %icon;
-    right: -2rem;
+    right: -3rem;
     transform: rotate(90deg);
 
     @media (min-width: 768px) {
@@ -55,15 +58,22 @@
 }
 
 .chip-container {
-    --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
-    --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
-
+    --chip-highlight-width: calc(4rem * var(--ratio) + 1.4rem);
+    --chip-highlight-height: calc(4.174rem * var(--ratio) + 1.4rem);
+    @media (min-width: 768px) {
+        --chip-highlight-width: calc(4.6rem * var(--ratio) + 1.4rem);
+        --chip-highlight-height: calc(4.8rem * var(--ratio) + 1.4rem);
+        .selected {
+            --ratio: 1.2;
+            top: -0.4rem;
+        }
+    }
+    
     transition: all -0.1s ease-in;
 
     &.selected {
-        --ratio: 1.2;
+        --ratio: 1.1;
         transition: all -0.1s ease-out;
-        top: -0.4rem;
 
         &:before {
             content: "";
@@ -144,6 +154,13 @@
                 url("/static/images/chips/active/chip-active-quick-bet@2x.png") 2x,
                 url("/static/images/chips/active/chip-active-quick-bet@3x.png") 3x
             );
+        }
+    }
+
+    @media (min-device-width: 375px) and (min-device-height: 668px){
+        --ratio: 1.1;
+        &.selected {
+            --ratio: 1.25;
         }
     }
 

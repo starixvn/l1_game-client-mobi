@@ -1,59 +1,63 @@
-import { useTranslation } from "next-i18next";
-import React from "react";
+import React, { useMemo } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 
-import Styles from "./bet-setting.module.scss";
+import { User } from "sc-user-service-client/dist/auth";
+import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
+import Styles from "./bet-setting.module.scss";
 
 type Props = {
     updateBetValue: (betValue: number) => void;
     enabledQuickBet: boolean;
     updateEnabledQuickBet: (value: boolean) => void;
     enabledSound: boolean;
+    user: User;
 };
 
-const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound }) => {
-    const { t } = useTranslation("common");
-    var deviceClass = "";
+const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, user }) => {
+    return useMemo(() => {
+        let deviceClass = "";
 
-    if (isMobileOnly) {
-        deviceClass = isIOS ? Styles["ios-device"] : Styles["adroid-device"];
-    }
+        if (isMobileOnly) {
+            deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
+        }
+        return (
+            <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
+                <div className={Styles["settings-container"]}>
+                    <div className={`game-container ${Styles["container"]}`}>
+                        <div className={Styles["wrapper-chips"]}>
+                            {!isMobileOnly && (
+                                <QuickBetBtn
+                                    enabledQuickBet={enabledQuickBet}
+                                    updateEnabledQuickBet={updateEnabledQuickBet}
+                                    isHeaderSetting={false}
+                                />
+                            )}
+                            <div className={Styles["chips-container"]}>
+                                <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} enabledQuickBet={enabledQuickBet} />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    return (
-        <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
-            <div className={Styles["settings-container"]}>
-                <div className={`game-container ${Styles["container"]}`}>
-                    <div className={Styles["wrapper-chips"]}>
-                        {!isMobileOnly && (
+                {isMobileOnly && (
+                    <div className={Styles["footer"]}>
+                        <div className={Styles["user-info"]}>
+                            <UserInfo user={user} customizeClass={"footer"} />
+                        </div>
+                        <div className={Styles["phone-quick-bet"]}>
                             <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}
                                 isHeaderSetting={false}
                             />
-                        )}
-                        <div className={Styles["chips-container"]}>
-                            <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} enabledQuickBet={enabledQuickBet} />
                         </div>
                     </div>
-                </div>
+                )}
             </div>
-
-            {isMobileOnly && (
-                <div className={Styles["footer"]}>
-                    {enabledQuickBet && (
-                        <div className={Styles["one-click-bet-turn-on"]}>
-                            <span className={Styles["left"]}></span>
-                            <span className={Styles["content"]}>{t("common:oneClickBetOn")}</span>
-                            <span className={Styles["right"]}></span>
-                        </div>
-                    )}
-                    <span className={Styles["copyright"]}>Powered by Saba.club</span>
-                </div>
-            )}
-        </div>
-    );
+        );
+    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound]);
 };
 
-export default React.memo(BetSettings);
+export default BetSettings;

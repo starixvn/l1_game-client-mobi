@@ -1,12 +1,11 @@
 [data-theme="light"] .category-container {
-    --game-category-background: linear-gradient(180deg, #a9cee7 36.77%, #bedbe9 100%);
-    --game-category-border: #8db3cc;
+    --game-category-background: #dddede;
+    --game-category-border: #969696;
     --game-category-border-active-color: #ff8a01;
     --game-category-text-color: #28526d;
     --game-category-text-active-color: #ff8a01;
 
     @media (min-width: 768px) {
-        --game-category-background: linear-gradient(180deg, #cfecfa 0%, #dbeff9 100%);
         --game-category-border: #6d9cbb;
         --game-category-border-active-color: #ff8a01;
         --game-category-text-color: #28526d;
@@ -19,14 +18,13 @@
 }
 
 [data-theme="dark"] .category-container {
-    --game-category-background: linear-gradient(180deg, #283f56 0%, #1d344b 100%);
-    --game-category-border: #91a2b5;
-    --game-category-border-active-color: #ffab2b;
+    --game-category-background: #395777;
+    --game-category-border: #262d34;
+    --game-category-border-active-color: #ff8a01;
     --game-category-text-color: #fff;
-    --game-category-text-active-color: #ffab2b;
+    --game-category-text-active-color: #ff8a01;
 
     @media (min-width: 768px) {
-        --game-category-background: linear-gradient(180deg, #3b5a7b 36.77%, #3e658d 100%);
         --game-category-border: #8cb5e3;
         --game-category-border-active-color: #ffab2b;
         --game-category-text-color: #fff;
@@ -64,6 +62,14 @@
 
     @media (min-width: 1024px) {
         overflow: initial;
+    }
+
+    &.mobile {
+        .category-text {
+            line-height: 2.8rem !important;
+        }
+
+        margin-bottom: 0.6rem;
     }
 }
 
