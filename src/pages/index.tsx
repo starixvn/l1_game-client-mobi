@@ -8,7 +8,7 @@ import { languageMapper } from "../common/constants";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
-import { UMPage } from "../components/um-page";
+import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
