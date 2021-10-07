@@ -631,6 +631,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.setState({
                 showWinningAnimation: true,
             });
+            this.betWin > 0 && this.updateUserBalance();
         }, this.winningAnimationWaitingTimeInSecond);
     }
 
