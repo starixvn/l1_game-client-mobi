@@ -13,12 +13,12 @@
 }
 
 .progress-extra {
-    width: calc(100% - 9rem - 1.2rem);
+    width: calc(100% - 8.5rem - 3.2rem);
     padding: 0;
     margin-left: 1.2rem;
     position: absolute;
     height: 2rem;
-    top: 0.3rem;
+    top: 0.1rem;
 
     .score-red,
     .score-blue {
@@ -40,7 +40,7 @@
     position: relative;
     top: -.1rem;
     &.progress-bar-collapse {
-        width: calc(100% - 9rem - 1.2rem);
+        width: calc(100% - 8.5rem - 3.2rem);
         padding: 0;
         margin-left: 1.2rem;
         .progress-bar {
@@ -62,6 +62,10 @@
                         color: #fff;
                     }
                 }
+            }
+            .blue-team {
+                border-top-left-radius: .5rem;
+                border-bottom-left-radius: .5rem;
             }
         }
     }
@@ -150,5 +154,9 @@
     .result-container {
         width: 100%;
         position: relative;
+    }
+    .result-label {        
+        width: 8.5rem;
+        justify-content: center;
     }
 }
