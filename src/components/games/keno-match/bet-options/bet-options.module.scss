@@ -132,13 +132,13 @@
         font-weight: 700;
     }
     .title-left {
-        padding: 0 0.8rem;
+        padding: 0 0.6rem;
     }
     .title-right {
         clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
         text-align: right;
         background-color: var(--title-right-color);
-        padding: 0 0.8rem 0 0;
+        padding: 0 0.6rem 0 0;
         width: 15rem;
         .live-icon {
             position: relative;
