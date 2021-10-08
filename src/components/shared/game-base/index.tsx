@@ -821,7 +821,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderNotice() {
-        const { gameName, message, roundId, duration, minBet, maxBet, errorCode, position, isWarning } = this.state.notice;
+        const { gameName, message, roundId, duration, minBet, maxBet, errorCode, isWarning } = this.state.notice;
         return (
             <Notice
                 gameName={gameName}
@@ -832,7 +832,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 maxBet={maxBet}
                 errorCode={errorCode}
                 onClose={this.closeNotice}
-                position={position}
                 isWarning={isWarning}
             />
         );
@@ -876,7 +875,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const md5Message = this.props.t(
             `${this.props.gameName.toLocaleLowerCase()}:${showMD5ResultKey ? "copyMD5KeyMessage" : "copyMD5Message"}`
         );
-        this.setState({ notice: { message: md5Message, duration: 2, position: { top: "0px" }, isWarning: false } });
+        this.setState({ notice: { message: md5Message, duration: 2, isWarning: false } });
         navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
     }
 

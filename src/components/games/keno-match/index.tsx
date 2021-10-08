@@ -329,18 +329,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.setState({ isJoiningAtMiddleShowInlineResult });
     }
 
+    resetState(){
+        this.setState({
+            halfTimeResult: defaultResult,
+            fullTimeResult: defaultResult,
+            halfTimeResultInline: defaultResult,
+            fullTimeResultInline: defaultResult,
+            isShowH1Score: false,
+            isShowFTScore: false,
+        });
+    }
+
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
         const { halfTimeResultInline, fullTimeResultInline } = this.state;
         if (durations.resetResult === remainingTime) {
-            this.setState({
-                halfTimeResult: defaultResult,
-                fullTimeResult: defaultResult,
-                halfTimeResultInline: defaultResult,
-                fullTimeResultInline: defaultResult,
-                isShowH1Score: false,
-                isShowFTScore: false,
-            });
+          this.resetState();
         }
 
         if (remainingTime === durations.halfTimePlacingBets) {
