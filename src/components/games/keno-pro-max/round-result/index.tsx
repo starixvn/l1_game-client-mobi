@@ -8,10 +8,20 @@ import BallNumber from "../../../keno/ball-number";
 import { GameState } from "../../../shared/game-base/type";
 import Styles from "./round-result.module.scss";
 
-export const generateResult = (result: Result, isAnimation: boolean, isCollapse = false) => {
-    const classCustomize = isCollapse ? "keno-pro-max-collapse" : "keno-pro-max";
+export enum ResultClassState {
+    result,
+    collapse,
+    betHistory,
+}
+
+export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
+    const classResultMapping = {
+        [ResultClassState.result]: "keno-pro-max",
+        [ResultClassState.collapse]: "keno-pro-max-collapse",
+        [ResultClassState.betHistory]: "keno-pro-max-bet-history",
+    };
     return result.map((number: number, index: number) => (
-        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classCustomize} />
+        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classResultMapping[mode]} />
     ));
 };
 
@@ -87,7 +97,9 @@ export const RoundResult: React.FC<{
         return (
             <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
                 <div className={Styles["result"]}>
-                    <div className={Styles["number-container"]}>{result && generateResult(result, isAnimation)}</div>
+                    <div className={Styles["number-container"]}>
+                        {result && generateResult(result, isAnimation, ResultClassState.result)}
+                    </div>
                 </div>
                 <div className={`${Styles["settle-info"]} ${showResultInfo ? Styles["settle-info-show"] : ""}`}>
                     <RenderTotalPoint result={result} textTranslate={textTranslate} isAnimation={isAnimation} />
@@ -113,7 +125,7 @@ export const RoundResultCollapse: React.FC<{
 
         return (
             <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, true)}</div>
+                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
                 {!isAnimation && showResultInfo && (
                     <div className={Styles["result-label"]}>
                         <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}

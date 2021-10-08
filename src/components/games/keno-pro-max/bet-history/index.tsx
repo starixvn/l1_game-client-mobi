@@ -7,7 +7,7 @@ import { BetLogs } from "./bet-history";
 import { GetChoiceTranslate, getTotalPoint } from "../keno-pro-max-helper";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { GameResourceKeys } from "../../../../common/resources";
-import { generateResult, winningInfo, RenderTotalPoint } from "../round-result";
+import { generateResult, winningInfo, RenderTotalPoint, ResultClassState } from "../round-result";
 import Styles from "./bet-history.module.scss";
 
 const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
@@ -38,7 +38,7 @@ const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>
                     <div className={Styles["result"]}>
-                        <div className={Styles["number-container"]}>{generateResult(result, false)}</div>
+                        <div className={Styles["number-container"]}>{generateResult(result, false, ResultClassState.betHistory)}</div>
                         <div className={Styles["result-total-number"]}>
                             <RenderTotalPoint
                                 result={result}
