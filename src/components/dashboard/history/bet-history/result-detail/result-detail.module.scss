@@ -32,14 +32,12 @@
 
     @media (min-device-width: 375px) and (max-device-height: 668px) {
         &.keno {
-            width: calc(100vw - 1.6rem);
-            height: 30rem;
+            top: 8rem;
         }
     }
     @media (min-device-width: 320px) and (max-device-height: 568px) {
         &.keno {
-            width: calc(100vw - 1.6rem);
-            height: 25rem;
+           top: 6rem;
         }
     }
 
