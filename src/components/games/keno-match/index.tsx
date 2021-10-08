@@ -291,13 +291,18 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleUM({ um, um_message, remainingTime }) {
         const { durations, i18n } = this.props;
-        if (um && remainingTime && remainingTime + 1 === durations.wholeRound) {
+        if (um && remainingTime && remainingTime === durations.wholeRound) {
             this.isUMInFirstLoad = true;
         } else {
             this.isUMInFirstLoad = false;
         }
 
-        if (um && (this.timeCounter <= durations.halfTimePlacingBets || this.timeCounter <= durations.fullTimePlacingBets)) {
+        if (
+            um &&
+            (this.timeCounter <= durations.halfTimePlacingBets + 1 ||
+                this.timeCounter <= durations.fullTimePlacingBets + 1 ||
+                remainingTime === durations.wholeRound)
+        ) {
             this.interval && clearInterval(this.interval);
             this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
             this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -483,7 +488,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
         const { gameState, remainingTime } = this.state;
         const { durations } = this.props;
-        const roundIdCurrent = gameState === GameState.DisplayResult ? roundId - 1 : roundId;
+        const roundIdCurrent = gameState === GameState.DisplayResult || this.isUMInFirstLoad ? roundId - 1 : roundId;
         let stateJoinGame = {};
         let stateShowResult = {};
         const joinInFirstHalf = durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult;
@@ -603,6 +608,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleFinish({ finish }) {
         const { roundHistoryFT } = this.state;
+        const { durations } = this.props;
         const roundHistoryFTClone = [...roundHistoryFT];
         this.isProcessingBet = false;
         this.clearRetryInterval();
@@ -633,6 +639,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             });
             this.betWin > 0 && this.updateUserBalance();
         }, this.winningAnimationWaitingTimeInSecond);
+
+        this.runGame(durations.wholeRound);
     }
 
     handleStatus = ({ status }) => {
