@@ -45,7 +45,7 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     getMainOptions(): string[] {
-        return ["blue", "red", "big", "small", "odd", "even", "blueBig", "blueSmall", "redBig", "redSmall"];
+        return ["blue", "red", "tie", "big", "small", "odd", "even", "blueBig", "blueSmall", "redBig", "redSmall"];
     }
 
     getOptionalWinStreakByOptions({ option }) {

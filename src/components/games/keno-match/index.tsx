@@ -78,7 +78,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     };
 
     getMainOptions(): string[] {
-        return ["blue", "red", "over", "under", "odd", "even"];
+        return ["blue", "red", "tie", "over", "under", "odd", "even"];
     }
 
     renderBetOptions() {
