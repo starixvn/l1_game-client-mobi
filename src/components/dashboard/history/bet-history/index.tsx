@@ -179,7 +179,7 @@ const renderCellOnTable: React.FC<{
                         );
                     case "onlyRefund":
                         return renderDataOnCell(
-                            <div className={`${Styles["stake"]} ${fontNumber}`}>{renderRefund(betHistoryItem)}</div>,
+                            <div className={`${Styles["only-refund"]} ${fontNumber}`}>{renderRefund(betHistoryItem)}</div>,
                             isHighligh,
                             index
                         );
