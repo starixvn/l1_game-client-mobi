@@ -275,7 +275,7 @@
         },
         "supportMD5": false,
         "durations": {
-            "wholeRound": 50,
+            "wholeRound": 51,
             "placingBets": 42,
             "lockingBet": 5,
             "showResult": 8,
@@ -292,7 +292,7 @@
         },
         "supportMD5": true,
         "durations": {
-            "wholeRound": 54,
+            "wholeRound": 55,
             "placingBets": 42,
             "lockingBet": 5,
             "showResult": 12,
