@@ -39,28 +39,6 @@ $number-count: 20;
         grid-gap: 0.8rem 0.8rem;
     }
 
-    .result-total {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--settle-info-color);
-    }
-
-    .result-total-lbl {
-        line-height: 1.8rem;
-        margin-right: 1rem;
-        font-size: 1.6rem;
-        font-weight: 500;
-        &.bet-history {
-            font-size: 1.2rem;
-            font-weight: normal;
-        }
-    }
-
-    .result-total-number {
-        font: 500 2rem/1.2rem var(--font-number);
-    }
-
     .number-cover {
         display: none;
     }
@@ -78,9 +56,31 @@ $number-count: 20;
         display: grid;
         grid-template-columns: 13rem 1fr;
         align-items: center;
-        height: 4rem;       
+        height: 4rem;
     }
-   
+}
+
+.result-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--settle-info-color);
+    .result-total-lbl {
+        line-height: 1.8rem;
+        margin-right: 1rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+    &.bet-history {
+        .result-total-lbl {
+            font-size: 1.2rem;
+            font-weight: normal;
+        }
+    }
+
+    .result-total-number {
+        font: 500 2rem/1.2rem var(--font-number);
+    }
 }
 
 .winning-info {

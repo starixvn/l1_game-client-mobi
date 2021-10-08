@@ -73,8 +73,8 @@ export const RenderTotalPoint: React.FC<{ result: Result; textTranslate; customi
         };
     }, [result, isAnimation]);
     return (
-        <div className={Styles["result-total"]}>
-            <div className={`${Styles["result-total-lbl"]} ${Styles[customizeClass]}`}>{textTranslate.total} </div>
+        <div className={`${Styles["result-total"]} ${Styles[customizeClass]}`}>
+            <div className={Styles["result-total-lbl"]}>{textTranslate.total} </div>
             <div className={Styles["result-total-number"]}>{total}</div>
         </div>
     );
