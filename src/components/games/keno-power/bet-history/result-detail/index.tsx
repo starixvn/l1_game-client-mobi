@@ -1,10 +1,8 @@
 import React from "react";
 
-import TeamResult from "../../../../keno/team-result";
-import TeamScore from "../../../../keno/team-score";
-import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
-import Styles from "../bet-history.module.scss";
+import { TeamResultInfo, WinningInfo, renderTeamWinningInfo } from "../../../../keno/bet-history/result-detail";
 import { sumArray } from "../../../../../helpers/number-helper";
+import Styles from "../bet-history.module.scss";
 
 const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
     const { result, settlementResult } = bet;
@@ -13,16 +11,14 @@ const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
     const redScore = sumArray(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
-            <div className={Styles["container-blue"]}>
-                <TeamResult result={blue} customizeClassName={"ticket-history"} />
-                <TeamScore
-                    isShowScore={true}
-                    teamName={translateMapping?.blue}
-                    score={blueScore}
-                    isWin={blueScore > redScore}
-                    customClassName={"blue"}
-                />
-            </div>
+            <TeamResultInfo
+                result={blue}
+                translateMapping={translateMapping}
+                score={blueScore}
+                teamName={"blue"}
+                isWin={blueScore > redScore}
+            />
+
             <div>
                 <div className={Styles["round-name"]}></div>
                 <div className={Styles["total-match-section"]}>
@@ -30,28 +26,22 @@ const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
                 </div>
             </div>
 
-            <div className={Styles["container-red"]}>
-                <TeamResult result={red} customizeClassName={"ticket-history"} />
-                <TeamScore
-                    isShowScore={true}
-                    teamName={translateMapping?.red}
-                    score={redScore}
-                    isWin={redScore > blueScore}
-                    customClassName={"red"}
-                />
-            </div>
+            <TeamResultInfo
+                result={red}
+                translateMapping={translateMapping}
+                score={redScore}
+                teamName={"red"}
+                isWin={redScore > blueScore}
+            />
 
-            <div className={Styles["winning-info"]}>
-                {renderTextWinningForTeam({ settlementResult, translateMapping })}
-                <div className={Styles["sum"]}> {translateMapping?.sum}</div>
-                <div className={Styles["result-info"]}>
-                    {renderTeamWinningInfo({
-                        settlementResult,
-                        translateMapping,
-                        choices: ["big", "small", "odd", "even"],
-                        choiceForClassBlue: ["even", "big"],
-                    })}
-                </div>
+            <WinningInfo
+                settlementResult={settlementResult}
+                translateMapping={translateMapping}
+                choices={["big", "small", "odd", "even"]}
+                choiceClassExtend={["even", "big"]}
+            />
+
+            <div className={Styles["winning-info-color"]}>
                 <div className={Styles["text-section"]}>
                     <span className={Styles["text-blue"]}> {translateMapping.blue}</span>
                     <span className={Styles["text-red"]}> {translateMapping.red}</span>
@@ -61,7 +51,7 @@ const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
                         settlementResult,
                         translateMapping,
                         choices: ["blueBig", "blueSmall", "redBig", "redSmall"],
-                        choiceForClassBlue: ["blueBig", "redBig"],
+                        choiceClassExtend: ["blueBig", "redBig"],
                     })}
                 </div>
             </div>

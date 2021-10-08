@@ -1,20 +1,22 @@
 @import "../../../assets/components/settlement-info";
 [data-theme="light"] .result-detail {
     --popup-result-title-color: #2c2f3e;
-    --team-blue-color: #3B7BC6;
+    --team-blue-color: #3b7bc6;
 }
 
 [data-theme="dark"] .result-detail {
     --popup-result-title-color: #fff;
-    --team-blue-color: #5EA8FF;
+    --team-blue-color: #5ea8ff;
 }
 
 [data-theme="light"] .winning-info {
-    --team-blue-color: #3B7BC6;
+    --team-blue-color: #3b7bc6;
+    --bg-line-gradient: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
 }
 
 [data-theme="dark"] .winning-info {
-    --team-blue-color: #5EA8FF;
+    --team-blue-color: #5ea8ff;
+    --bg-line-gradient: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426d91 52.41%, rgba(66, 109, 145, 0) 100.14%);
 }
 
 .details {
@@ -156,5 +158,32 @@
     }
     &.tie {
         color: #27b636;
+    }
+}
+
+.winning-info {
+    grid-column: 1/4;
+    position: relative;
+    text-align: center;
+    margin-top: 0.7rem;
+    padding-top: 0.5rem;
+    &:before {
+        content: "";
+        background: var(--bg-line-gradient);
+        height: 0.1rem;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .sum {
+        font-size: 1.2rem;
+        height: 1.2rem;
+    }
+
+    .result-info {
+        justify-content: center;
+        display: flex;
+        align-items: center;
     }
 }

@@ -1,11 +1,9 @@
 import React from "react";
 
 import { StateRound } from "../bet-history-helper";
-import TeamResult from "../../../../keno/team-result";
-import TeamScore from "../../../../keno/team-score";
-import { renderTeamWinningInfo, renderTextWinningForTeam } from "../../../../keno/bet-history/result-detail";
-import Styles from "../bet-history.module.scss";
+import { TeamResultInfo, WinningInfo } from "../../../../keno/bet-history/result-detail";
 import { sumArray } from "../../../../../helpers/number-helper";
+import Styles from "../bet-history.module.scss";
 
 const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapping, total, isFullTime, resultFH }) => {
     const { blue, red } = result;
@@ -13,16 +11,14 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
     const redScore = isFullTime ? sumArray(red) + sumArray(resultFH?.red ?? []) : sumArray(red);
     return (
         <div className={Styles["container-round"]} data-testid="score-round">
-            <div className={Styles["container-blue"]}>
-                <TeamResult result={blue} customizeClassName={"ticket-history"} />
-                <TeamScore
-                    isShowScore={true}
-                    teamName={translateMapping?.blue}
-                    score={blueScore}
-                    isWin={blueScore > redScore}
-                    customClassName={"blue"}
-                />
-            </div>
+            <TeamResultInfo
+                result={blue}
+                translateMapping={translateMapping}
+                score={blueScore}
+                teamName={"blue"}
+                isWin={blueScore > redScore}
+            />
+
             <div>
                 <div className={Styles["round-name"]}>
                     {stateRound === StateRound.ft ? translateMapping?.fullTime : translateMapping.firstHalf}
@@ -32,30 +28,19 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
                     <div className={Styles["total"]}>{total}</div>
                 </div>
             </div>
-
-            <div className={Styles["container-red"]}>
-                <TeamResult result={red} customizeClassName={"ticket-history"} />
-                <TeamScore
-                    isShowScore={true}
-                    teamName={translateMapping?.red}
-                    score={redScore}
-                    isWin={redScore > blueScore}
-                    customClassName={"red"}
-                />
-            </div>
-
-            <div className={Styles["winning-info"]}>
-                {renderTextWinningForTeam({ settlementResult, translateMapping })}
-                <div className={Styles["sum"]}> {translateMapping?.sum}</div>
-                <div className={Styles["result-info"]}>
-                    {renderTeamWinningInfo({
-                        settlementResult,
-                        translateMapping,
-                        choices: ["over", "under", "odd", "even"],
-                        choiceForClassBlue: ["over", "even"],
-                    })}
-                </div>
-            </div>
+            <TeamResultInfo
+                result={red}
+                translateMapping={translateMapping}
+                score={redScore}
+                teamName={"red"}
+                isWin={redScore > blueScore}
+            />
+            <WinningInfo
+                settlementResult={settlementResult}
+                translateMapping={translateMapping}
+                choices={["over", "under", "odd", "even"]}
+                choiceClassExtend={["over", "even"]}
+            />
         </div>
     );
 };

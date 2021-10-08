@@ -1,20 +1,13 @@
 @import "../../../keno/bet-history/bet-history.module";
 
 [data-theme="light"] .container-round {
-    --bg-line-gradient: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #c9c9c9 54.48%, rgba(222, 222, 222, 0) 100.12%);
     --bg-line: #b9b9b9;
     --team-blue-color: #3b7bc6;
 }
 
 [data-theme="dark"] .container-round {
-    --bg-line-gradient: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426d91 52.41%, rgba(66, 109, 145, 0) 100.14%);
     --bg-line: #5086b4;
     --team-blue-color: #5ea8ff;
-}
-
-.overwidth {
-    width: calc(100% + 2rem);
-    margin: 0 -1rem;
 }
 
 .container-round {
@@ -50,62 +43,5 @@
         .total {
             font: 500 2rem var(--font-number);
         }
-    }
-    .red-label,
-    .blue-label {
-        position: relative;
-        top: 0.4rem;
-        font-size: 1.2rem;
-        font-weight: 700;
-        text-align: center;
-        .score {
-            font: 500 1.6rem var(--font-number);
-            padding-left: 0.2rem;
-        }
-    }
-}
-.round-label {
-    @extend .overwidth;
-    background-color: #dbdbdb;
-    text-align: center;
-    color: #5e5e5e;
-    font-weight: 500;
-}
-
-.winning-info {
-    grid-column: 1/4;
-    position: relative;
-    text-align: center;
-    margin-top: 0.7rem;
-    padding-top: 0.5rem;
-    &:before {
-        content: "";
-        background: var(--bg-line-gradient);
-        height: 0.1rem;
-        width: 100%;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
-    .sum {
-        font-size: 1.2rem;
-        height: 1.2rem;
-    }
-
-    .team-win {
-        font-size: 1.8rem;
-        font-weight: bold;
-        &.blue {
-            color: var(--team-blue-color);
-        }
-        &.red {
-            color: #ff4352;
-        }
-    }
-
-    .result-info {
-        justify-content: center;
-        display: flex;
-        align-items: center;
     }
 }
