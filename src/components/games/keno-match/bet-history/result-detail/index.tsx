@@ -52,7 +52,7 @@ const renderScoreRounds = ({ result, settlementResult, stateRound, translateMapp
                         settlementResult,
                         translateMapping,
                         choices: ["over", "under", "odd", "even"],
-                        choiceForClassBlue: ["odd", "even"],
+                        choiceForClassBlue: ["over", "even"],
                     })}
                 </div>
             </div>

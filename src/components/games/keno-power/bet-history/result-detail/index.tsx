@@ -61,7 +61,7 @@ const RenderScoreDetailKenoPower = ({ bet, translateMapping }) => {
                         settlementResult,
                         translateMapping,
                         choices: ["blueBig", "blueSmall", "redBig", "redSmall"],
-                        choiceForClassBlue: ["blueBig", "blueSmall"],
+                        choiceForClassBlue: ["blueBig", "redBig"],
                     })}
                 </div>
             </div>
