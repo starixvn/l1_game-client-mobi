@@ -114,24 +114,19 @@ export const RoundResultCollapse: React.FC<{
     result: Result;
     settlementResult: SettlementResult;
     gameState: GameState;
-    showResultInfo: boolean;
-}> = ({ result, settlementResult, gameState, showResultInfo }) => {
+}> = ({ result, settlementResult, gameState }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
-
-    return useMemo(() => {
-        const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-
-        return (
-            <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-                <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
-                {!isAnimation && showResultInfo && (
-                    <div className={Styles["result-label"]}>
-                        <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
-                    </div>
-                )}
-            </div>
-        );
-    }, [result, settlementResult, gameState, showResultInfo, playResultAnimation]);
+    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
+    return (
+        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
+            {!playResultAnimation && (
+                <div className={Styles["result-label"]}>
+                    <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
+                </div>
+            )}
+        </div>
+    );
 };
