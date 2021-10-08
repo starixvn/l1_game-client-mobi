@@ -30,14 +30,23 @@ export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTra
     textTranslate,
     customizeClass,
 }) => {
-    const isBig = settlementResult?.big ? true : false;
-    const isEven = settlementResult?.even ? true : false;
     const element = getLabelFromFiveElements(settlementResult);
+    const renderTextInfo = (choices: string[]) => {
+        return (
+            settlementResult &&
+            choices.map((choice) => {
+                if (settlementResult[choice]) {
+                    return textTranslate[choice];
+                }
+                return "";
+            })
+        );
+    };
 
     return (
         <div className={`${Styles["winning-info"]} ${Styles[customizeClass]}`}>
-            <div className={Styles[`result-info-${isBig ? "blue" : "red"}`]}>{isBig ? textTranslate.big : textTranslate.small}</div>
-            <div className={Styles[`result-info-${isEven ? "blue" : "red"}`]}>{isEven ? textTranslate.even : textTranslate.odd}</div>
+            <div className={Styles[`result-info-${settlementResult?.big ? "blue" : "red"}`]}>{renderTextInfo(["big", "small"])}</div>
+            <div className={Styles[`result-info-${settlementResult?.even ? "blue" : "red"}`]}>{renderTextInfo(["even", "odd"])}</div>
             <div className={Styles["result-info-grey"]}>{textTranslate[element]}</div>
         </div>
     );

@@ -533,8 +533,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({
             roundHistory: roundHistory,
             roundId: [GameState.DisplayResult, GameState.BalancingBet].includes(gameState) || this.isUMInFirstLoad ? roundId - 1 : roundId,
-            result: roundHistory[0]?.result,
-            settlementResult: roundHistory[0]?.settlementResult,
+            result: gameState === GameState.LockingBet ? this.defaultResult : roundHistory[0]?.result,
+            settlementResult: gameState === GameState.LockingBet ? this.defaultSettlementResult : roundHistory[0]?.settlementResult,
             playResultAnimation: [GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad ? false : true,
             showResultInfo: [GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad ? true : false,
         });
