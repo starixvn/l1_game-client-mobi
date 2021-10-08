@@ -37,5 +37,15 @@
     "redSmallTextDot": "X",
     "copyMD5Message": "Copy chuỗi MD5 thành công!",
     "copyMD5KeyMessage": "Copy chuỗi Key thành công!",
-    "draw": "Hòa"
+    "draw": "Hòa",
+    "bettype-blue": "Đội Xanh/ Đội Đỏ",
+    "bettype-red": "Đội Xanh/ Đội Đỏ",
+    "bettype-big": "Tổng Tài/Xỉu",
+    "bettype-small": "Tổng Tài/Xỉu",
+    "bettype-odd": "Tổng Chẵn/Lẻ",
+    "bettype-even": "Tổng Chẵn/Lẻ",
+    "bettype-blueBig": "Đội Xanh Tài/Xỉu",
+    "bettype-blueSmall": "Đội Xanh Tài/Xỉu",
+    "bettype-redBig": "Đội Đỏ Tài/Xỉu",
+    "bettype-redSmall": "Đội Đỏ Tài/Xỉu"
 }

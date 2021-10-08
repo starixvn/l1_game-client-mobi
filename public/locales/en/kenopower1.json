@@ -37,5 +37,15 @@
     "redSmallTextDot": "S",
     "copyMD5Message": "Copy MD5 string successfully!",
     "copyMD5KeyMessage": "Copy Key string successfully!",
-    "draw": "Draw"
+    "draw": "Draw",
+    "bettype-blue": "Team Blue/Team Red",
+    "bettype-red": "Team Blue/Team Red",
+    "bettype-big": "Sum Big/Small",
+    "bettype-small": "Sum Big/Small",
+    "bettype-odd": "Sum Even/Odd",
+    "bettype-even": "Sum Even/Odd",
+    "bettype-blueBig": "Team Blue Big/Small",
+    "bettype-blueSmall": "Team Blue Big/Small",
+    "bettype-redBig": "Team Red Big/Small",
+    "bettype-redSmall": "Team Red Big/Small"
 }
