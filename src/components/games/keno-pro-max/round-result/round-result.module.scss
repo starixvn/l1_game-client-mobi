@@ -74,23 +74,24 @@ $number-count: 20;
         display: grid;
         grid-template-columns: 13rem 1fr;
         align-items: center;
-        height: 4rem;
+        height: 4rem;       
+    }
+   
+}
 
-        .winning-info {
-            display: flex;
-            justify-content: center;
-            position: relative;
-            text-align: center;
+.winning-info {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    text-align: center;
 
-            &.show {
-                opacity: 0;
-                animation: show-winning-info-animation 0.5s 2s ease-out forwards;
-            }
+    &.show {
+        opacity: 0;
+        animation: show-winning-info-animation 0.5s 2s ease-out forwards;
+    }
 
-            &.hide {
-                animation: hide-winning-info-animation 0.3s ease-in forwards;
-            }
-        }
+    &.hide {
+        animation: hide-winning-info-animation 0.3s ease-in forwards;
     }
 
     .result-info {
@@ -137,7 +138,7 @@ $number-count: 20;
         display: grid;
         grid-template-columns: repeat(10, 2.2rem);
         grid-template-rows: repeat(2, 2.2rem);
-        grid-gap: 0.2rem;
+        grid-gap: 0.3rem;
     }
 
     .has-animation {

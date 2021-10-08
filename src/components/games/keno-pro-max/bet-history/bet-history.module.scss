@@ -1,10 +1,20 @@
 @import "../../../../assets/components/settlement-info";
 [data-theme="light"] .result-detail {
-    --popup-result-title-color: #2c2f3e;
+    --popup-result-title-color: #2c2f3e; 
+    .result-total-number {
+        &:after{
+            background: linear-gradient(270deg, rgba(222, 222, 222, 0) -0.14%, #C9C9C9 54.48%, rgba(222, 222, 222, 0) 100.12%);
+        }
+    }   
 }
 
 [data-theme="dark"] .result-detail {
-    --popup-result-title-color: #fff;
+    --popup-result-title-color: #fff;    
+    .result-total-number {
+        &:after{
+            background: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426d91 52.41%, rgba(66, 109, 145, 0) 100.14%);
+        }
+    }   
 }
 
 .list-choice {
@@ -41,24 +51,28 @@
     .number-container {
         position: relative;
         display: grid;
-        grid-template-columns: repeat(10, 3rem);
-        grid-template-rows: repeat(2, 3rem);
-        grid-gap: 0.8rem;
+        grid-template-columns: repeat(10, 2rem);
+        grid-template-rows: repeat(2, 2rem);
+        grid-gap: 0.5rem .7rem;
         justify-content: center;
-        padding: 0.8rem 0 1.2rem;
+        padding: 0.8rem 0 1rem;
     }
 
     .settle-info {
         position: relative;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-gap: 1rem;
-        align-items: center;
-        margin-top: 1rem;
+        margin-top: 1.2rem;
     }
 
     .result-total-number {
         font: 600 2rem/3rem var(--font-number);
         text-align: center;
+        position: relative;
+        &:after {
+            content: '';
+            height: .1rem;
+            width: 100%;
+            position: absolute;
+            left: 0;
+        }
     }
 }
