@@ -28,7 +28,7 @@
     overflow: auto;
     z-index: var(--popup-result-index);
     padding: 1rem;
-    @media(max-height: 600px) {
+    @media(max-height: 600px) and (min-width: 768px){
         &.keno {
             max-height: 39.5rem;
             top: 180px;
@@ -36,16 +36,18 @@
         }
     }
 
-    // @media (min-device-width: 375px) and (max-device-height: 668px) {
-    //     &.keno {
-    //         top: 8rem;
-    //     }
-    // }
-    // @media (min-device-width: 320px) and (max-device-height: 568px) {
-    //     &.keno {
-    //        top: 6rem;
-    //     }
-    // }
+    @media (min-device-width: 375px) and (max-device-height: 668px) {
+        &.keno {
+            top: 8rem;
+            transform: translate(-50%, 0);
+        }
+    }
+    @media (min-device-width: 320px) and (max-device-height: 568px) {
+        &.keno {
+           top: 6rem;
+           transform: translate(-50%, 0);
+        }
+    }
 
     .game-name {
         font-size: 1.4rem;
