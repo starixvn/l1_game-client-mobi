@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
@@ -38,11 +39,16 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
                 {t(`${appSettings.gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
             </div>
             {isShowOptions && (
-                <div className={Styles["dropdown-menu"]} data-testid="dropdown-menu">
+                <div className={`${Styles["dropdown-menu"]} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="dropdown-menu">
                     {appSettings.offeredGames
                         .filter((game) => offerGames.includes(game))
                         .map((id) => (
-                            <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)} data-testid="dropdown-item">
+                            <div
+                                className={Styles["dropdown-item"]}
+                                key={id}
+                                onClick={() => onSelectOption(id)}
+                                data-testid="dropdown-item"
+                            >
                                 {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                             </div>
                         ))}
