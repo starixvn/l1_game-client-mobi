@@ -28,19 +28,19 @@
 
     @media (min-width: 768px) {
         position: absolute;
-        padding-top: 8px;
         left: auto;
         right: auto;
         width: 25rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
         border-radius: 0.5rem;
+        padding: .8rem 1rem;
         z-index: var(--popup-index);
     }
 
     &.kenomatch1, &.kenomatch2, &.kenopower1, &.kenopower2{
+        height: 25rem;
         @media (min-width: 768px) {
             width: 32rem;
+            height: 24.6rem;
         }
      
         font-size: 1.6rem;
