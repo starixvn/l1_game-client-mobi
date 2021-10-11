@@ -125,7 +125,7 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderResult() {
-        return <div className="overlay-mask"></div>;
+        return <div></div>;
     }
 
     renderResultCollapse() {
