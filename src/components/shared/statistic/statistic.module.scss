@@ -52,7 +52,7 @@
     @media (max-width: 380px) {
         font-size: 1.4rem;
         position: relative;
-        top: -.1rem;
+        top: -0.1rem;
     }
 
     @media (max-width: 350px) {
@@ -82,10 +82,9 @@
 
 .tie {
     @extend %title;
-    color: var(--dragonTiger-tie-text-color);
-    &.baccarat,
-    &.vipbaccarat {
-        color: var(--baccarat-tie-statistic-text-color);
+    color: var(--baccarat-tie-statistic-text-color);
+    &.dragontiger {
+        color: var(--dragonTiger-tie-text-color);
     }
 }
 
