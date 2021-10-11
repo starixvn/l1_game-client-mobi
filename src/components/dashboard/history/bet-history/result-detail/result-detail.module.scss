@@ -17,9 +17,9 @@
 .popup-result-detail {
     min-width: 22.6rem;
     position: absolute;
-    top: 12rem;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, -50%);
     background: var(--popup-result-background);
     border: 1px solid var(--popup-result-border);
     box-shadow: 0px 10px 36px rgba(0, 0, 0, 0.5);
@@ -28,17 +28,24 @@
     overflow: auto;
     z-index: var(--popup-result-index);
     padding: 1rem;
+    @media(max-height: 600px) {
+        &.keno {
+            max-height: 39.5rem;
+            top: 180px;
+            bottom: -160px;
+        }
+    }
 
-    @media (min-device-width: 375px) and (max-device-height: 668px) {
-        &.keno {
-            top: 8rem;
-        }
-    }
-    @media (min-device-width: 320px) and (max-device-height: 568px) {
-        &.keno {
-           top: 6rem;
-        }
-    }
+    // @media (min-device-width: 375px) and (max-device-height: 668px) {
+    //     &.keno {
+    //         top: 8rem;
+    //     }
+    // }
+    // @media (min-device-width: 320px) and (max-device-height: 568px) {
+    //     &.keno {
+    //        top: 6rem;
+    //     }
+    // }
 
     .game-name {
         font-size: 1.4rem;
