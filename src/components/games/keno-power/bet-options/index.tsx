@@ -28,9 +28,11 @@ const renderBetOptionByChoice = (
         isHighlight,
         gameState,
         isShowWinningEffect,
-        isShowTooltip : choiceConfig.isShowTooltip,
-        tooltipMessage: choiceConfig.tooltipMessage
-    }
+        isShowTooltip: choiceConfig.isShowTooltip,
+        tooltipMessage: choiceConfig.tooltipMessage,
+        isShowPoolStake: false,
+    };
+
     return (
         <BetOption {...props}>
             <div className={`${Styles["bet-choice-name"]} ${Styles[props.choice]}`}>{label}</div>
@@ -44,11 +46,11 @@ const RenderBetOptionsGroup = (
     settlementResult: SettlementResult,
     isShowWinningEffect: boolean,
     odds,
-    t: TFunction,
+    t: TFunction
 ) =>
     choices.map((choice) => {
         const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice.name];
-        
+
         return (
             <div key={`choice-${choice}`} className={Styles[`choice-${choice.name}`]}>
                 {renderBetOptionByChoice(choice, t(choice.name), odds[choice.name], gameState, isHighLight, isShowWinningEffect)}
