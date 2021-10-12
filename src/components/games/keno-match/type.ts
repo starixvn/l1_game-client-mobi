@@ -59,12 +59,7 @@ export interface KenoMatchGameDurations extends GameDurations {
     settlementWinning: number;
 }
 
-export interface KenoMatchGameSetting extends GameSettings {
-    durations: KenoMatchGameDurations;
-}
-
 export interface KenoMatchProps extends GameBaseProps {
-    GameSetting: KenoMatchGameSetting;
     durations: KenoMatchGameDurations;
 }
 

@@ -3,13 +3,14 @@ jest.mock("next-i18next", () => ({
         return {
             t: (str) => str,
             i18n: {
+                t: (str) => str,
                 changeLanguage: () => new Promise(() => {}),
             },
         };
     },
-    withTranslation: () => (Component) => {
-        Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-        return Component;
+    withTranslation: () => (Componenti18n) => {
+        Componenti18n.defaultProps = { ...Componenti18n.defaultProps, t: () => "" };
+        return Componenti18n;
     },
 }));
 
@@ -281,3 +282,23 @@ jest.mock("next/config", () => () => ({
         guideUrl: "https://l1-guide.lumigame.com",
     },
 }));
+
+const localStorageMock = (() => {
+    let store = {};
+    return {
+        getItem: (key) => {
+            return store[key];
+        },
+        setItem: (key, value) => {
+            store[key] = value.toString();
+        },
+        clear: () => {
+            store = {};
+        },
+        removeItem: (key) => {
+            delete store[key];
+        },
+    };
+})();
+
+Object.defineProperty(window, "localStorage", { value: localStorageMock });

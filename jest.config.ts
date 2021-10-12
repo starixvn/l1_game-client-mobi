@@ -29,4 +29,5 @@ export default {
     coverageReporters: ["json", "lcov", "text", "text-summary"],
     transformIgnorePatterns: ["/node_modules/", "^.+\\.module\\.(css|sass|scss)$"],
     testResultsProcessor: "jest-sonar-reporter",
+    resetMocks: false,
 };

@@ -141,7 +141,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                     title={isFirstHalf ? "firstHalf" : "fullTime"}
                     extendClass={isFirstHalf ? "half-time" : "full-time"}
                     settlementResult={settlementResult}
-                    displayChoices={["odd", "even", "over", "under"]}
+                    displayChoices={["over", "under", "odd", "even"]}
                 />
             );
         }
