@@ -102,7 +102,7 @@ export default function ProgressBar({
             {...{ totalBlue, totalRed, winningTeam, inlineStyles, isFirstHalf, isShowProgressBarTitle, showWinningTeam }}
         />
     ) : (
-        <ProgressBarFullMode {...{ totalBlue, totalRed, winningTeam, inlineStyles, t }} />
+        <ProgressBarFullMode {...{ totalBlue, totalRed, winningTeam, inlineStyles }} />
     );
 }
 
