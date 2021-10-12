@@ -4,7 +4,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
 import { GameState } from "../../../shared/game-base/type";
 import { SettlementResult } from "../keno-power";
-import { MainChoices, SumChoices, TeamChoices } from "../keno-power-helper";
+import { MainChoices, SumChoices, TeamChoices, IChoiceConfig } from "../keno-power-helper";
 import Styles from "./bet-options.module.scss";
 
 type Props = {
@@ -14,41 +14,44 @@ type Props = {
 };
 
 const renderBetOptionByChoice = (
-    choice: string,
+    choiceConfig: IChoiceConfig,
     label: string,
     odd: number,
     gameState: GameState,
-    isHighLight: boolean,
+    isHighlight: boolean,
     isShowWinningEffect: boolean
 ) => {
+    const props = {
+        choice: choiceConfig.name,
+        odd,
+        isDisplayOdd: true,
+        isHighlight,
+        gameState,
+        isShowWinningEffect,
+        isShowTooltip : choiceConfig.isShowTooltip,
+        tooltipMessage: choiceConfig.tooltipMessage
+    }
     return (
-        <BetOption
-            choice={choice}
-            odd={odd}
-            isDisplayOdd={true}
-            isHighlight={isHighLight}
-            gameState={gameState}
-            isShowWinningEffect={isShowWinningEffect}
-        >
-            <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
+        <BetOption {...props}>
+            <div className={`${Styles["bet-choice-name"]} ${Styles[props.choice]}`}>{label}</div>
         </BetOption>
     );
 };
 
 const RenderBetOptionsGroup = (
-    choices: string[],
+    choices: IChoiceConfig[],
     gameState: GameState,
     settlementResult: SettlementResult,
     isShowWinningEffect: boolean,
     odds,
-    t: TFunction
+    t: TFunction,
 ) =>
     choices.map((choice) => {
-        const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice];
-
+        const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice.name];
+        
         return (
-            <div key={`choice-${choice}`} className={Styles[`choice-${choice}`]}>
-                {renderBetOptionByChoice(choice, t(choice), odds[choice], gameState, isHighLight, isShowWinningEffect)}
+            <div key={`choice-${choice}`} className={Styles[`choice-${choice.name}`]}>
+                {renderBetOptionByChoice(choice, t(choice.name), odds[choice.name], gameState, isHighLight, isShowWinningEffect)}
             </div>
         );
     });

@@ -15,11 +15,66 @@ export const Choices = {
     redSmall: "redSmall",
 };
 
-export const MainChoices = [Choices.blue, Choices.red];
+export interface IChoiceConfig {
+    name: string;
+    isShowTooltip: boolean;
+    tooltipMessage?: string;
+}
 
-export const SumChoices = [Choices.big, Choices.small, Choices.odd, Choices.even];
+export const MainChoices: IChoiceConfig[] = [
+    {
+        name: Choices.blue,
+        isShowTooltip: false,
+    },
+    {
+        name: Choices.red,
+        isShowTooltip: false,
+    },
+];
 
-export const TeamChoices = [Choices.blueBig, Choices.blueSmall, Choices.redBig, Choices.redSmall];
+export const SumChoices: IChoiceConfig[] = [
+    {
+        name: Choices.big,
+        isShowTooltip: true,
+        tooltipMessage: "[1621~2820]",
+    },
+    {
+        name: Choices.small,
+        isShowTooltip: true,
+        tooltipMessage: "[420~1620]",
+    },
+    {
+        name: Choices.odd,
+        isShowTooltip: false,
+    },
+    {
+        name: Choices.even,
+        isShowTooltip: false,
+    },
+];
+
+export const TeamChoices: IChoiceConfig[] = [
+    {
+        name: Choices.blueBig,
+        isShowTooltip: true,
+        tooltipMessage: "[811~1410]",
+    },
+    {
+        name: Choices.blueSmall,
+        isShowTooltip: true,
+        tooltipMessage: "[210~810]",
+    },
+    {
+        name: Choices.redBig,
+        isShowTooltip: true,
+        tooltipMessage: "[811~1410]",
+    },
+    {
+        name: Choices.redSmall,
+        isShowTooltip: true,
+        tooltipMessage: "[210~810]",
+    },
+];
 
 const StatisticRuleEntriesBigSmall = Object.entries({
     [Choices.big]: (countResult: object, total: number) =>
