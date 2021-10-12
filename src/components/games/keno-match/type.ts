@@ -100,8 +100,3 @@ export interface SeparateRoundHistoryProps {
     roundHistoryFH: RoundKenoMatchBase<Result, SettlementResult>[];
     roundHistoryFT: RoundKenoMatchBase<Result, SettlementResult>[];
 }
-
-export enum TimeMatch {
-    FH,
-    FT,
-}
