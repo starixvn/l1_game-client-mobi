@@ -5,6 +5,7 @@ import RoundSettlementResult from "../../keno/settlement-result";
 
 import GameBase from "../../shared/game-base";
 import { GameBaseProps, GameState } from "../../shared/game-base/type";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
@@ -21,6 +22,10 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         super(props);
 
         this.state = { ...this.defaultState, result: { red: Array<number>(20), blue: Array<number>(20) }, md5: "" };
+    }
+
+    get winningAnimationWaitingTimeInSecond() {
+        return this.getFinishAnimationDuration() + 1000;
     }
 
     get isShowInlineResult() {
@@ -62,15 +67,15 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
 
     getFakeSettlementResult() {
         return {
-            big: true,
+            big: false,
             blue: false,
             tie: false,
-            blueBig: true,
+            blueBig: false,
             blueSmall: false,
             even: false,
-            odd: true,
-            red: true,
-            redBig: true,
+            odd: false,
+            red: false,
+            redBig: false,
             redSmall: false,
             small: false,
         };
@@ -89,9 +94,11 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
+        const { gameState, settlementResult, showWinningAnimation, showResultInfo } = this.state;
+
         return (
             <>
+                {gameState === GameState.DisplayResult && !showResultInfo && <OverlayMaskWhite />}
                 <KenoPowerOptions
                     gameState={gameState}
                     settlementResult={settlementResult ?? this.getFakeSettlementResult()}

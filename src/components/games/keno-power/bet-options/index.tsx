@@ -52,7 +52,7 @@ const RenderBetOptionsGroup = (
         const isHighLight = gameState !== GameState.LockingBet && settlementResult[choice.name];
 
         return (
-            <div key={`choice-${choice}`} className={Styles[`choice-${choice.name}`]}>
+            <div key={`choice-${choice.name}`} className={Styles[`choice-${choice.name}`]}>
                 {renderBetOptionByChoice(choice, t(choice.name), odds[choice.name], gameState, isHighLight, isShowWinningEffect)}
             </div>
         );
