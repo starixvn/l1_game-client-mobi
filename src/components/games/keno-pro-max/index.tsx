@@ -9,6 +9,7 @@ import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import { RoundResult, RoundResultCollapse } from "./round-result";
 import KenoProMaxBetOptions from "./bet-options";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
 
@@ -56,13 +57,16 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
     }
 
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
+        const { gameState, settlementResult, showWinningAnimation, showResultInfo } = this.state;
         return (
-            <KenoProMaxBetOptions
-                gameState={gameState}
-                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
-                isShowWinningEffect={showWinningAnimation}
-            />
+            <>
+                {gameState === GameState.DisplayResult && !showResultInfo && <OverlayMaskWhite />}
+                <KenoProMaxBetOptions
+                    gameState={gameState}
+                    settlementResult={settlementResult ?? this.getFakeSettlementResult()}
+                    isShowWinningEffect={showWinningAnimation}
+                />
+            </>
         );
     }
 
