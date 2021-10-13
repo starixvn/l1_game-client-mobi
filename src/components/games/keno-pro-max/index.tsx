@@ -21,6 +21,10 @@ class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Res
         this.state = { ...this.defaultState };
     }
 
+    get winningAnimationWaitingTimeInSecond() {
+        return this.getFinishAnimationDuration() + 1000;
+    }
+
     get isShowInlineResult() {
         return true;
     }
