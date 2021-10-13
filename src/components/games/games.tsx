@@ -18,14 +18,14 @@ import Baccarat from "./baccarat";
 import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
-import KenoMatch from "./keno-match";
 import styles from "./games.module.scss";
+import KenoMatch from "./keno-match";
+import KenoPower from "./keno-power";
 import KenoProMax from "./keno-pro-max";
 import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
-import KenoPower from "./keno-power";
 import { Props } from "./type";
 
 let gamesOrder = [];
@@ -147,7 +147,7 @@ export const Games: React.FC<Props> = ({
                 return <KenoMatch key={`game-${gameId}`} {...(gameProps as any)} />;
             case 40:
             case 41:
-                return <KenoPower key={`game-${gameId}`} {...(gameProps as any)}></KenoPower>;
+                return <KenoPower key={`game-${gameId}`} {...gameProps}></KenoPower>;
             default:
                 return null;
         }
