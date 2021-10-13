@@ -21,7 +21,11 @@ export const renderRefund: React.FC<{ amount: number; isShowRefundAmount: boolea
         <>
             <span className={`${Styles["stake"]} ${fontNumber}`}>{amount}</span>
             <br></br>
-            {isShowRefundAmount && <span className={`${Styles["refund"]} ${fontNumber}`}>{amount}</span>}
+            {isShowRefundAmount && (
+                <span className={`${Styles["refund"]} ${fontNumber}`} data-testid="refund">
+                    {amount}
+                </span>
+            )}
         </>
     );
 };
