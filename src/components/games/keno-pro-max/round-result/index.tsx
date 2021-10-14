@@ -65,9 +65,7 @@ export const RenderTotalPoint: React.FC<{ result: Result; textTranslate; customi
             let currentTotal = 0;
             let index = 0;
             interval = setInterval(() => {
-                if (index === result.length) {
-                    clearInterval(interval);
-                } else {
+                if (index < result.length) {
                     currentTotal += result[index];
                     setTotal(currentTotal);
                     index++;

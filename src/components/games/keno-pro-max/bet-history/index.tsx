@@ -10,8 +10,8 @@ import { GameResourceKeys } from "../../../../common/resources";
 import { generateResult, winningInfo, RenderTotalPoint, ResultClassState } from "../round-result";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
-    if (bet.result) {
+export const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
+    if (bet?.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
             setBetLog({ bet: bet, roundId: roundId, t });
@@ -19,7 +19,7 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
         const totalPoint = getTotalPoint(bet.result);
 
         return (
-            <div className={Styles["detail"]} onClick={() => clickHandle()}>
+            <div className={Styles["detail"]} onClick={() => clickHandle()} data-testid="detail">
                 {totalPoint}
             </div>
         );
@@ -27,8 +27,8 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
-    if (resultDetail) {
+export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
+    if (resultDetail?.bet) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
@@ -61,12 +61,8 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) =>
-                renderResult(bet, roundId, setIsShowResultDetail, setBetLog, t)
-            }
-            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
-                renderResultDetail(resultDetail, t, closeModal, gameName)
-            }
+            renderResult={renderResult}
+            renderResultDetail={renderResultDetail}
         ></BetHistoryContainer>
     );
 };
