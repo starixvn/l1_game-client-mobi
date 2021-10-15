@@ -40,7 +40,11 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
                 if (isShowAtHoverPosition) {
                     clearTimeout(timeOut);
                     timeOut = setTimeout(() => {
-                        setCustomStyle({ position: "fixed", left: mousePosition.x + 20, top: mousePosition.y + 20, right: "auto" });
+                        const tooltipWidth = wrapperRef.current.getBoundingClientRect().width;
+                        const windowWidth = window.innerWidth;
+                        const moveLeft = windowWidth < mousePosition.x + tooltipWidth + 30 ? -tooltipWidth : 20;
+
+                        setCustomStyle({ position: "fixed", left: mousePosition.x + moveLeft, top: mousePosition.y + 20, right: "auto" });
                     }, 500);
                 }
             };
