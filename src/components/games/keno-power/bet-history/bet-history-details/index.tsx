@@ -1,6 +1,6 @@
 import React from "react";
 
-import { renderTimes } from "../../../../dashboard/history/bet-history";
+import { renderTimes } from "../../../../dashboard/history/bet-history/bet-row";
 import { renderRefund, RenderCell } from "../../../../keno/bet-history/bet-history-details";
 import { BetLogs, BetDetailProps } from "./../bet-history";
 
