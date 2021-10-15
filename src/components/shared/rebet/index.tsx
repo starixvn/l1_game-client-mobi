@@ -106,6 +106,7 @@ const Rebet: React.FC<Props> = (props: Props) => {
                           </div>
                       );
                   }
+                  return null;
               })
             : null;
     };

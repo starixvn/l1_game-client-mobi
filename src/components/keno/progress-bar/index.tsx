@@ -45,7 +45,6 @@ export default function ProgressBar({
     totalRedH1 = 0,
 }: Props) {
     const { gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const [width, setWidth] = useState<number>(50);
     const [winningTeam, setWinningTeam] = useState<string>("draw");
     const [showWinningTeam, setShowWinningTeam] = useState(false);

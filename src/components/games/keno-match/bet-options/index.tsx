@@ -31,7 +31,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
-
+    const classGameName = Styles[`layout-${gameName}`];
     const halfMatchConfigs = [
         {
             isActive: !isFirstHalf ? liveOdds !== null : true,
@@ -65,13 +65,13 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                 </div>
                             )}
                         </div>
-                        <div className={`${Styles[`layout-${gameName}`]} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
+                        <div className={`${classGameName} ${halfMatchConfig.isActive ? "" : Styles["disabled"]}`}>
                             {halfMatchConfig.values.config.map((choice, index) => {
                                 const choiceName = choicesMapper[choice.name],
                                     isHighlight = gameState !== GameState.LockingBet && halfMatchConfig.settlementResult[choiceName];
 
                                 const odd = getOddsByChoice(choice.name);
-
+                                const classFollowChoiceName = Styles[`choice-${choice.displayedName}`];
                                 const betOptionProps = {
                                     choice: choice.name,
                                     odd,
@@ -89,12 +89,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                                         {t("sum")}
                                     </div>
                                 ) : (
-                                    <div
-                                        key={index}
-                                        className={`${Styles[`choice-${choice.displayedName}`]} ${
-                                            odd !== undefined ? "" : Styles["disabled"]
-                                        }`}
-                                    >
+                                    <div key={index} className={`${classFollowChoiceName} ${odd !== undefined ? "" : Styles["disabled"]}`}>
                                         <BetOption key={index} {...betOptionProps}>
                                             <div className={`${Styles["bet-choice-name"]} ${Styles[choiceName]}`}>
                                                 {t(choice.displayedName)}
