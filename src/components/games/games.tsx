@@ -26,10 +26,10 @@ import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
+import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 
 let gamesOrder = [];
-
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
@@ -144,7 +144,7 @@ export const Games: React.FC<Props> = ({
                 return <ThreeCards key={`game-${gameId}`} {...gameProps} />;
             case 36:
             case 37:
-                return <KenoMatch key={`game-${gameId}`} {...(gameProps as any)} />;
+                return <KenoMatch key={`game-${gameId}`} {...(gameProps as KenoMatchProps)} />;
             case 40:
             case 41:
                 return <KenoPower key={`game-${gameId}`} {...gameProps}></KenoPower>;
