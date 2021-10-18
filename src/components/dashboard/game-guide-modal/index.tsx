@@ -1,7 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
-import appSettings from "../../../common/app-settings";
 import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
 import GameGuides from "./game-guide";
@@ -12,7 +11,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
     userStakeLevel,
     offerGames,
 }) => {
-    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(offerGames[0]);
     const { t } = useTranslation();
 
     const closeModal = () => {
