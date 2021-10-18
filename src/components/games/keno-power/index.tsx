@@ -62,6 +62,10 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
             return this.getGameTranslate("red");
         }
 
+        if (["big", "small", "odd", "even"].includes(option)) {
+            return this.getGameTranslate("sum");
+        }
+
         return null;
     }
 
