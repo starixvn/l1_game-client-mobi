@@ -57,8 +57,10 @@
 
     &.bet-setting {
         position: absolute;
-        top: 0.8rem;
-        right: 1.2rem;
+        &.ios-device, &.android-device {
+            top: 0.8rem;
+            right: 1.2rem;
+        }
         &.ios-device {
             @media (min-device-width: 375px) and (min-device-height: 668px) {
                 top: 1.1rem;
