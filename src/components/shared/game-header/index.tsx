@@ -58,7 +58,7 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({ isShowCol
                 <div className={Styles["header-left"]}>
                     <div className={Styles["header-overlay"]}></div>
                     {!favoriteGameIdIgnore.includes(gameId) ? (
-                        <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle}>
+                        <div className={Styles["favorite-btn"]} onClick={favoriteClickHandle} data-testid="favorite-btn">
                             <span
                                 className={
                                     isFavorite
@@ -113,7 +113,12 @@ const HeaderRight = ({ isUpdateDisableRebet }) => {
     return (
         <div className={Styles["header-right"]}>
             {viewMode !== ViewMode.collapse && (
-                <button className={Styles.rebet} disabled={disabledRebet || Object.keys(ownBets).length !== 0} onClick={rebetClickHandle}>
+                <button
+                    className={Styles.rebet}
+                    disabled={disabledRebet || Object.keys(ownBets).length !== 0}
+                    onClick={rebetClickHandle}
+                    data-testid="rebet-btn"
+                >
                     {t(CommonResourceKeys.REBET)}
                 </button>
             )}

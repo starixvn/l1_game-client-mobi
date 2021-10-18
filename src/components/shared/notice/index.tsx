@@ -45,7 +45,7 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
     const noticeType = Styles[isWarning ? "warning" : "inform"];
     return (
         <div ref={wrapperRef} className={`${Styles.notice} ${noticeType}`}>
-            <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></span>
+            <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="close-btn"></span>
             {children}
         </div>
     );
