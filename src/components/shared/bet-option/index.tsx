@@ -60,7 +60,7 @@ const BetOption: React.FunctionComponent<Props> = ({
 
     const onClickBet = (event: any) => {
         event.preventDefault();
-        const betChoiceRect = betChoiceRef.current.getBoundingClientRect(); 
+        const betChoiceRect = betChoiceRef.current.getBoundingClientRect();
 
         if (enabledQuickBet) {
             placeBet(choice, betValue, { x: event.clientX, y: event.clientY }, { left: betChoiceRect.left, right: betChoiceRect.right });
@@ -92,9 +92,11 @@ const BetOption: React.FunctionComponent<Props> = ({
 
                     {children}
                     <div className={Styles["own-bet"]}>
-                        <span key={ownBets?.[choice]} className="d-inline-block">
-                            {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
-                        </span>
+                        {ownBets?.[choice] ? (
+                            <span key={ownBets[choice]} className={`d-inline-block ${ownBets[choice]}`}>
+                                {numberWithCommas(ownBets[choice])}
+                            </span>
+                        ) : null}
                     </div>
                 </div>
             </div>
