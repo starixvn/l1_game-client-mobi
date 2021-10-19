@@ -14,7 +14,7 @@ const ThemeSelection = () => {
             <div className={Styles["theme-select-title"]}>{t("common:selectTheme")}</div>
             <div className={Styles["theme-list"]}>
                 <div className={Styles["theme"]}>
-                    <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)}>
+                    <div className={`${Styles["theme-light-icon"]}`} onClick={() => setTheme(Themes.light)} data-testid="btn-light">
                         <span className={Styles["line1"]}></span>
                         <span className={Styles["line2"]}></span>
                     </div>
@@ -26,6 +26,7 @@ const ThemeSelection = () => {
                             checked={theme === Themes.light}
                             onChange={() => setTheme(Themes.light)}
                             className={Styles["radio-button"]}
+                            data-testid="checked-light"
                         />
                         <label className={Styles["radio-label"]} htmlFor="theme-light">
                             {t("light")}
@@ -33,7 +34,7 @@ const ThemeSelection = () => {
                     </div>
                 </div>
                 <div className={Styles["theme"]}>
-                    <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)}>
+                    <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)} data-testid="btn-dark">
                         <span className={Styles["line1"]}></span>
                         <span className={Styles["line2"]}></span>
                     </div>
@@ -45,6 +46,7 @@ const ThemeSelection = () => {
                             checked={theme === Themes.dark}
                             onChange={() => setTheme(Themes.dark)}
                             className={Styles["radio-button"]}
+                            data-testid="checked-dark"
                         />
                         <label className={Styles["radio-label"]} htmlFor="theme-dark">
                             {t("dark")}
