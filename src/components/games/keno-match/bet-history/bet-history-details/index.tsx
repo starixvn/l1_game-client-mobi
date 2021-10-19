@@ -18,7 +18,7 @@ const RenderRowKenoMatch: React.FC<{
     const settlementResult = stateRound === StateRound.ht ? firstHalf.settlementResult : fullTime.settlementResult;
     const isHighligh = settlementResult[formatChoice] ? true : false;
     const isShowRefundAmount = settlementResult["tie"] && choiceRefundAmount.includes(choice) ? true : false;
-    const liveLabel = stateRound === StateRound.live ? `(${translateMapping["live"]})` : "";
+    const liveLabel = stateRound === StateRound.live ? ` (${translateMapping["live"]})` : "";
 
     return (
         <>

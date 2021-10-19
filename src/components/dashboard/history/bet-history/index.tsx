@@ -75,6 +75,7 @@ const sendPostBetHistory = async ({
     router,
     setListBetHistory,
     listBetHistory,
+    setIsShowMessageError,
 }) => {
     const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
         ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
@@ -99,6 +100,8 @@ const sendPostBetHistory = async ({
             clearSession();
             router.push("/timeout");
         }
+        setIsFirstLoad(false);
+        setIsShowMessageError(true);
     }
 };
 
@@ -140,6 +143,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
     const [betLog, setBetLog] = useState<ResultDetail>();
     const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
+    const [isShowMessageError, setIsShowMessageError] = useState<boolean>(false);
     const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
     const gameSetting = appSettings?.gameSettings[gameId];
     const gameName = gameSetting?.gameName.toLowerCase();
@@ -156,6 +160,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             router,
             listBetHistory,
             setListBetHistory,
+            setIsShowMessageError,
         });
     }, [page]);
 
@@ -206,8 +211,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </table>
                     </div>
                 ) : (
-                    !isShowBetLogDetails && <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
+                    !isShowBetLogDetails && !isShowMessageError && <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
                 )}
+
+                {isShowMessageError && t("apiConnectFailed")}
 
                 {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
 
@@ -223,7 +230,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 )}
             </>
         );
-    }, [isFirstLoad, listBetHistory, isShowResultDetail, isShowBetLogDetails]);
+    }, [isFirstLoad, listBetHistory, isShowResultDetail, isShowBetLogDetails, isShowMessageError]);
 };
 
 export default BetHistoryContainer;

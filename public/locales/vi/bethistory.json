@@ -12,5 +12,6 @@
     "totalStake": "Tổng Cược",
     "betType": "Loại Cược",
     "betChoice": "Lựa Chọn",
-    "betDetails": "Chi tiết cược"
+    "betDetails": "Chi tiết cược",
+    "apiConnectFailed": "Mất kết nối hoặc kết nối không ổn định. Vui lòng thử lại sau."
 }

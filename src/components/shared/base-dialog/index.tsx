@@ -47,11 +47,11 @@ const BaseDialog: React.FC<Props> = ({
 
     useEffect(() => {
         enableBackdrop && document.body.classList.add("no-scroll");
-        enableBackdrop && document.documentElement.classList.add("no-scroll-html");
+        isMobileOnly && enableBackdrop && document.documentElement.classList.add("no-scroll-html");
 
         return () => {
             enableBackdrop && document.body.classList.remove("no-scroll");
-            enableBackdrop && document.documentElement.classList.remove("no-scroll-html");
+            isMobileOnly && enableBackdrop && document.documentElement.classList.remove("no-scroll-html");
         };
     }, []);
 
