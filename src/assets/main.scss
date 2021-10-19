@@ -273,6 +273,7 @@ html {
 html {
     overscroll-behavior: none;
     -ms-overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 // To dock the footer
