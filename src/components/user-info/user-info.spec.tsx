@@ -1,7 +1,8 @@
 import "@testing-library/jest-dom";
 
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
+import * as rdd from "react-device-detect";
 
 import { UserInfo } from "./";
 
@@ -67,4 +68,31 @@ test("load user info", () => {
         // assert
         expect(getByTestId("icon-user")).toBeTruthy();
     });
+});
+
+test.each`
+    isMobile | isIOS    | className
+    ${true}  | ${true}  | ${".ios-device"}
+    ${true}  | ${false} | ${".android-device"}
+    ${false} | ${false} | ${".user"}
+`("should render class follow devices", ({ isMobile, isIOS, className }) => {
+    // Arrange
+    const user = {
+        UID: 1,
+        avatarId: 1,
+        currency: "USD",
+        name: "abc",
+        red: 2000,
+        settings: { theme: "light" },
+        isSignedInSM: true,
+        offerGames: [22, 2, 9, 1, 4, 8],
+    };
+    rdd.isIOS = isIOS;
+    rdd.isMobileOnly = isMobile;
+
+    // Act
+    render(<UserInfo user={user} />);
+
+    // Assert
+    expect(document.querySelector(className)).toBeTruthy();
 });
