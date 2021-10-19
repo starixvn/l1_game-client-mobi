@@ -527,9 +527,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (joinInFirstHalf || joinInAfterFinishFulltime) {
             stateJoinGame = {
                 halfTimeResult: roundHistory[0].firstHalf.result,
-                fullTimeResult: joinInFirstHalf ? roundHistory[0].fullTime.result : defaultResult,
+                fullTimeResult: roundHistory[0].fullTime.result,
                 halfTimeResultInline: roundHistory[0].firstHalf.result,
-                fullTimeResultInline: joinInFirstHalf ? roundHistory[0].fullTime.result : defaultResult,
+                fullTimeResultInline: roundHistory[0].fullTime.result,
                 firstHalfSettlementResult: roundHistory[0].firstHalf.settlementResult,
                 fullTimeSettlementResult: roundHistory[0].fullTime.settlementResult,
                 md5: joinInFirstHalf ? roundHistory[0].firstHalf.md5 : roundHistory[0].fullTime.md5,
@@ -563,12 +563,16 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         const stateFinishHalfTime = {
             halfTimeResultInline: firstHalfResult.result,
             firstHalfSettlementResult: firstHalfResult.settlementResult,
-            playResultAnimation: true,
+            playResultAnimation: !isJoinFT,
             md5ResultKey: firstHalfResult.resultKey,
         };
 
         if (durations.fullTimePlacingBets > remainingTime) {
             statePlaceBet = { halfTimeResult: firstHalfResult.result };
+        }
+
+        if (isJoinFT) {
+            statePlaceBet = { fullTimeResult: defaultResult, fullTimeResultInline: defaultResult };
         }
 
         this.setState({ ...stateFinishHalfTime, ...statePlaceBet });
@@ -583,11 +587,13 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
                 );
         }, animationDuration);
 
-        this.showWinningAnimationTimeout = setTimeout(() => {
-            this.setState({
-                showWinningAnimation: true,
-            });
-        }, this.winningAnimationWaitingTimeInSecond);
+        this.showWinningAnimationTimeout =
+            !isJoinFT &&
+            setTimeout(() => {
+                this.setState({
+                    showWinningAnimation: true,
+                });
+            }, this.winningAnimationWaitingTimeInSecond);
     }
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
