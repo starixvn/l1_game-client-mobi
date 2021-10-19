@@ -39,11 +39,11 @@ const getLabelFollowChoice = ({ translateMapping, choice }) => {
     }
 
     if (["big", "small"].includes(choice)) {
-        labelChoice = `${translateMapping["big"]}/${translateMapping["small"]}`;
+        labelChoice = `${translateMapping["sum"]} ${translateMapping["big"]}/${translateMapping["small"]}`;
     }
 
     if (["odd", "even"].includes(choice)) {
-        labelChoice = `${translateMapping["even"]}/${translateMapping["odd"]}`;
+        labelChoice = `${translateMapping["sum"]} ${translateMapping["even"]}/${translateMapping["odd"]}`;
     }
 
     if (["redBig", "redSmall"].includes(choice)) {
