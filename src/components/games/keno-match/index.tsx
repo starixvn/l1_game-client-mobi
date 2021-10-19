@@ -510,7 +510,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         let stateJoinGame = {};
         let stateShowResult = {};
         const joinInFirstHalf = durations.halfTimePlacingBets >= remainingTime && remainingTime > durations.resetResult;
-        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets;
+        const joinInAfterFinishFulltime = remainingTime > durations.halfTimePlacingBets || remainingTime === 0;
         const rounds: SeparateRoundHistoryProps = this.separateRoundHistory({
             roundHistory,
             firstHalfResult,
@@ -527,9 +527,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (joinInFirstHalf || joinInAfterFinishFulltime) {
             stateJoinGame = {
                 halfTimeResult: roundHistory[0].firstHalf.result,
-                fullTimeResult: roundHistory[0].fullTime.result,
+                fullTimeResult: joinInFirstHalf ? roundHistory[0].fullTime.result : defaultResult,
                 halfTimeResultInline: roundHistory[0].firstHalf.result,
-                fullTimeResultInline: roundHistory[0].fullTime.result,
+                fullTimeResultInline: joinInFirstHalf ? roundHistory[0].fullTime.result : defaultResult,
                 firstHalfSettlementResult: roundHistory[0].firstHalf.settlementResult,
                 fullTimeSettlementResult: roundHistory[0].fullTime.settlementResult,
                 md5: joinInFirstHalf ? roundHistory[0].firstHalf.md5 : roundHistory[0].fullTime.md5,
