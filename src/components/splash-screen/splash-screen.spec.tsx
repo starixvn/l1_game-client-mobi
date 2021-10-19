@@ -4,8 +4,6 @@ import React from "react";
 import SplashScreen from ".";
 import { locales } from "../../common/constants";
 
-// import '@testing-library/jest-dom';
-
 describe("Splash screen", () => {
     ["en", "vi"].forEach((locale) => {
         it("should render logo", () => {
@@ -19,5 +17,11 @@ describe("Splash screen", () => {
         const { getByAltText } = render(<SplashScreen locale={locales.vi} />);
 
         expect(getByAltText("Info")).toHaveClass("info");
+    });
+
+    it("render empty component", () => {
+        const { getByAltText } = render(<SplashScreen locale={undefined} />);
+
+        expect(document.querySelector(".page")).toBeNull();
     });
 });
