@@ -90,7 +90,6 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         const { settlementResult, showResultInfo } = this.state;
 
         if (showResultInfo) {
-            this.setState({ showMD5ResultKey: true });
             return <RoundSettlementResult title={""} settlementResult={settlementResult} displayChoices={DisplayChoices} />;
         }
 

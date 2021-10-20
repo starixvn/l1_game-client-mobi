@@ -568,7 +568,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const animationDuration = this.getFinishAnimationDuration();
 
         this.showResultInfoTimeout = setTimeout(() => {
-            this.setState({ showResultInfo: true, isShowBlink: false, roundHistory: roundHistoryClone, playResultAnimation: false });
+            this.setState({
+                showResultInfo: true,
+                isShowBlink: false,
+                roundHistory: roundHistoryClone,
+                playResultAnimation: false,
+                showMD5ResultKey: true,
+            });
             this.notifyWinStreakByLatestSettlementResult(finish.settlementResult);
         }, animationDuration);
 
@@ -700,7 +706,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     updateStatusShowResult = () => {
         if (this.state.gameState === GameState.DisplayResult) {
             this.setState({ playResultAnimation: false });
-            this.setState({ showResultInfo: true });
+            this.setState({ showResultInfo: true, showMD5ResultKey: true });
         }
     };
 
@@ -904,7 +910,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             ),
             md5ClassName = "md5-key";
 
-        if (showMD5ResultKey && md5ResultKey !== "") {
+        if (showMD5ResultKey && md5ResultKey) {
             const key = md5ResultKey.split("]")[1];
             const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
             md5Text = (
@@ -914,10 +920,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 </>
             );
             md5ClassName = "md5-result";
-        }
-
-        if (!this.props.supportMD5) {
-            return <></>;
         }
 
         return (
@@ -991,7 +993,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                             {this.isShowInlineResult && (
                                 <SectionResultContainer gameName={gameName}>{this.renderResultSection()}</SectionResultContainer>
                             )}
-                            {this.renderMD5()}
+                            {supportMD5 && this.renderMD5()}
                             <BetContainer gameState={gameState}>
                                 <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
                                     {this.renderBetOptions()}
