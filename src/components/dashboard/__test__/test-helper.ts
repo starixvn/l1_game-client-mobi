@@ -1,4 +1,4 @@
-const session = {
+export const session = {
     isAuthenticated: true,
     username: "roger.le",
     language: "en-US",
