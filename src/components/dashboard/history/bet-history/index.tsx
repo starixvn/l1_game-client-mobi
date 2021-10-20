@@ -184,9 +184,9 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 </div>
             );
         }
-        
+
         if (isShowMessageError) {
-            return t("apiConnectFailed");
+            return <>{t("apiConnectFailed")}</>;
         }
 
         if (isShowBetLogDetails) {
