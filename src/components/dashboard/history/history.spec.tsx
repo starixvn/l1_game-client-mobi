@@ -1,9 +1,11 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
+import axios from "axios";
 
 import { AuthContextProvider } from "../../../contexts/auth";
 import { HistoryModal } from ".";
 
+jest.mock("axios");
 describe("HistoryModal", () => {
     // Arrange
     const session = {
@@ -17,10 +19,9 @@ describe("HistoryModal", () => {
     };
 
     const authContextValue = { session: session, setBalance: jest.fn };
-    // const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
     const offerGames = [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35, 36, 37, 40, 41];
 
-    test("should render correctly", () => {
+    test("should render correctly", async () => {
         // Act
         const { getByTestId, getAllByTestId } = render(
             <AuthContextProvider value={authContextValue}>
@@ -30,7 +31,8 @@ describe("HistoryModal", () => {
         fireEvent.click(getByTestId("icon-close"));
 
         // Assert
-        expect(document.querySelector(".history-content")).toBeTruthy();
+
+        await waitFor(() => expect(document.querySelector(".history-content")).toBeTruthy());
     });
 
     test.each`
@@ -49,7 +51,7 @@ describe("HistoryModal", () => {
         ${11}       | ${"threecards:game_name"}
         ${12}       | ${"kenomatch1:game_name"}
         ${13}       | ${"kenomatch2:game_name"}
-    `("render each Component History when selected game selector", ({ optionOrder, expectedResult }) => {
+    `("render each Component History when selected game selector", async ({ optionOrder, expectedResult }) => {
         // Act
         const { getByTestId, getAllByTestId } = render(
             <AuthContextProvider value={authContextValue}>
@@ -61,6 +63,8 @@ describe("HistoryModal", () => {
         fireEvent.click(dropdownGameName[optionOrder]);
 
         // Assert
-        expect(getByTestId("selected-item")).toHaveTextContent(expectedResult);
+        await waitFor(() => {
+            expect(getByTestId("selected-item")).toHaveTextContent(expectedResult);
+        });
     });
 });

@@ -162,6 +162,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             setListBetHistory,
             setIsShowMessageError,
         });
+        return () => {
+            setIsFirstLoad(true);
+            setIsShowMessageError(false);
+        };
     }, [page]);
 
     return useMemo(() => {
@@ -173,13 +177,34 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             setIsShowBetLogDetails(false);
         };
 
+        if (isFirstLoad) {
+            return (
+                <div className={Styles["history-loading"]} data-testid="bet-history-loading">
+                    <Loader></Loader>
+                </div>
+            );
+        }
+        
+        if (isShowMessageError) {
+            return t("apiConnectFailed");
+        }
+
+        if (isShowBetLogDetails) {
+            return (
+                <BetHistoryDetailsContainer
+                    renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
+                    renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
+                    isShowResultDetail={isShowResultDetail}
+                    closeModalBetDetails={closeModalBetLogDetails}
+                    closeModalBetHistory={closeModal}
+                    translateText={{ betDetails: t("betDetails") }}
+                ></BetHistoryDetailsContainer>
+            );
+        }
+
         return (
             <>
-                {isFirstLoad ? (
-                    <div className={Styles["history-loading"]} data-testid="bet-history-loading">
-                        <Loader></Loader>
-                    </div>
-                ) : listBetHistory.length > 0 && !isShowBetLogDetails ? (
+                {listBetHistory.length > 0 ? (
                     <div
                         className="table-container react-infinite-table"
                         onScroll={(e) => handleScrollBetHistory({ event: e, page, setPage })}
@@ -211,23 +236,10 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                         </table>
                     </div>
                 ) : (
-                    !isShowBetLogDetails && !isShowMessageError && <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
+                    <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
                 )}
 
-                {isShowMessageError && t("apiConnectFailed")}
-
-                {!renderBetLogsDetails && isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
-
-                {isShowBetLogDetails && (
-                    <BetHistoryDetailsContainer
-                        renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
-                        renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
-                        isShowResultDetail={isShowResultDetail}
-                        closeModalBetDetails={closeModalBetLogDetails}
-                        closeModalBetHistory={closeModal}
-                        translateText={{ betDetails: t("betDetails") }}
-                    ></BetHistoryDetailsContainer>
-                )}
+                {isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
             </>
         );
     }, [isFirstLoad, listBetHistory, isShowResultDetail, isShowBetLogDetails, isShowMessageError]);
