@@ -9,17 +9,24 @@ import RoundSettlementResult from "../../keno/settlement-result";
 import GameBase from "../../shared/game-base";
 import { GameState, PopupType, WinStreakCollectorModel } from "../../shared/game-base/type";
 import GameHeader from "../../shared/game-header";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import KenoMatchBetOptions from "./bet-options";
 import KenoCountdownTimer from "./countdown-timer";
 import Styles from "./game.module.scss";
-import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { ChoiceForTabActive, Choices, defaultResult, FakeSettlementResult, StatisticRuleMapping } from "./keno-match-helper";
 import AnimationResult from "./round-result/animation-result";
 import MainFrameResult from "./round-result/main-frame-result";
-import { KenoMatchGameBaseState, KenoMatchProps, KenoMatchRound, Result, SeparateRoundHistoryProps, SettlementResult } from "./type";
+import {
+    KenoMatchGameBaseState,
+    KenoMatchProps,
+    KenoMatchRound,
+    Result,
+    SeparateRoundHistoryProps,
+    SettlementResult,
+} from "./type";
 
 export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<Result, SettlementResult>> {
     protected showResultInfoH1Timeout: NodeJS.Timeout;
@@ -313,6 +320,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         if (gameState === GameState.None || !this.isUMInFirstLoad) {
             this.runGame(remainingTime);
         }
+
+        this.isUMInFirstLoad = false;
 
         const isJoiningAtMiddleShowInlineResult =
             (durations.showHalfTimeResult > remainingTime && remainingTime > durations.beforeStartFullTimePlacingBet) ||
