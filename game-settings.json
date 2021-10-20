@@ -219,7 +219,6 @@
             "showFullTimeSettlementResult": 58,
 
             "halfTimePlacingBets": 54,
-            "resetResult": 32,
             "halfTimeLockingBet": 32,
             "showHalfTimeResult": 27,
             "showHalfTimeSettlementResult": 23,
@@ -245,11 +244,10 @@
         },
         "supportMD5": true,
         "durations": {
-            "wholeRound": 70,
+            "wholeRound": 71,
             "showFullTimeSettlementResult": 66,
 
             "halfTimePlacingBets": 58,
-            "resetResult": 36,
             "halfTimeLockingBet": 36,
             "showHalfTimeResult": 31,
             "showHalfTimeSettlementResult": 27,
