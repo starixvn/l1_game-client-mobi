@@ -22,7 +22,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={Styles["popup-container"]}>
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
+                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
