@@ -52,21 +52,17 @@
         right: 4rem;
     }
 
-    &.modal-favoritesetting {
+    &.modal-center {
         background: none;
         border: none;
         box-shadow: none;
         padding: 0;
         border-radius: 0;
+        position: initial !important;
 
         @media (min-device-width: 768px) {
             position: initial;
         }
-    }
-
-    &.modal-center {
-        @extend .modal-favoritesetting;
-        position: initial !important;
     }
 
     &.modal-message {
@@ -83,7 +79,6 @@
                     bottom: 5.4rem;
                 }
             }
-            
         }
 
         @media (min-width: 1024px) {

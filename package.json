@@ -19,6 +19,7 @@
         "next-i18next": "^8.5.5",
         "next-themes": "^0.0.14",
         "react": "^17.0.2",
+        "react-addons-test-utils": "^15.6.2",
         "react-countdown-circle-timer": "^2.5.1",
         "react-countup": "^4.3.3",
         "react-device-detect": "^1.17.0",

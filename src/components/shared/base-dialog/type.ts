@@ -3,6 +3,4 @@ export enum ModalType {
     Rebet,
     Message,
     Center,
-    PlaceBetForm,
-    FavoriteSetting,
 }
