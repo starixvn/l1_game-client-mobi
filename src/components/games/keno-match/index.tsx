@@ -521,15 +521,25 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             roundHistoryFT: rounds.roundHistoryFT,
         };
 
+        const {firstHalf, fullTime} = roundHistory[0];
+        if(isShowFTScore)
+        {
+            const halfTimeResult =  isShowH1Score ? firstHalf.result : defaultResult;
+            this.setState({
+                halfTimeResult,
+                halfTimeResultInline: halfTimeResult,
+            })
+        }
+
+        const fullTimeResult = isShowFTScore ? fullTime.result : defaultResult;
+
         stateJoinGame = {
-            halfTimeResult: isShowH1Score ? roundHistory[0].firstHalf.result : defaultResult,
-            halfTimeResultInline: isShowH1Score ? roundHistory[0].firstHalf.result : defaultResult,
-            fullTimeResult: isShowFTScore ? roundHistory[0].fullTime.result : defaultResult,
-            fullTimeResultInline: isShowFTScore ? roundHistory[0].fullTime.result : defaultResult,
-            firstHalfSettlementResult: roundHistory[0].firstHalf.settlementResult,
-            fullTimeSettlementResult: roundHistory[0].fullTime.settlementResult,
-            md5: isShowFTScore ? roundHistory[0].fullTime.md5 : roundHistory[0].firstHalf.md5,
-            md5ResultKey: isShowFTScore ? roundHistory[0].fullTime.resultKey : roundHistory[0].firstHalf.resultKey
+            fullTimeResult,
+            fullTimeResultInline: fullTimeResult,
+            firstHalfSettlementResult: firstHalf.settlementResult,
+            fullTimeSettlementResult: fullTime.settlementResult,
+            md5: isShowFTScore ? fullTime.md5 : firstHalf.md5,
+            md5ResultKey: isShowFTScore ? fullTime.resultKey : firstHalf.resultKey
         };
 
         if ([GameState.DisplayResult].includes(gameState) || this.isUMInFirstLoad) {
@@ -544,7 +554,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     }
 
     handleFinishHalfTime({ firstHalfResult }) {
-        const { roundHistoryFH, roundId, remainingTime } = this.state;
+        const { roundHistoryFH, roundId, remainingTime, isShowH1Score } = this.state;
         const { durations } = this.props;
         const roundHistoryFHClone =
             roundHistoryFH[0]?.roundId !== roundId
@@ -559,6 +569,13 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             playResultAnimation: !isJoinFT,
             md5ResultKey: firstHalfResult.resultKey,
         });
+
+        if(isShowH1Score)
+        {
+            this.setState({
+                halfTimeResult: firstHalfResult.result,
+            });
+        }
         const animationDuration = this.getFinishAnimationDuration();
         this.showResultInfoH1Timeout = setTimeout(() => {
             this.setState({ roundHistoryFH: roundHistoryFHClone, isShowBlinkFH: false, playResultAnimation: false });
