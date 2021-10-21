@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { isDesktop } from "react-device-detect";
+
 import Styles from "./tooltip.module.scss";
 
 export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRefObject<HTMLDivElement>; isShowAtHoverPosition?: boolean }> =
@@ -7,6 +8,7 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
         const [showTooltip, setShowTooltip] = useState(false);
         const [customStyle, setCustomStyle] = useState<React.CSSProperties>(null);
         const wrapperRef = useRef<HTMLDivElement>(null);
+        const classShow = showTooltip ? "show" : "";
 
         useEffect(() => {
             const handleClick = () => {
@@ -59,9 +61,11 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
                 mousePosition.y = event.clientY;
             };
 
-            isDesktop && hoverWrapper.current.addEventListener("mouseenter", handleMouseIn);
-            isDesktop && hoverWrapper.current.addEventListener("mouseleave", handleMouseOut);
-            isDesktop && isShowAtHoverPosition && document.addEventListener("mousemove", handleMouseMove);
+            if (isDesktop) {
+                hoverWrapper?.current?.addEventListener("mouseenter", handleMouseIn);
+                hoverWrapper?.current?.addEventListener("mouseleave", handleMouseOut);
+                isShowAtHoverPosition && document.addEventListener("mousemove", handleMouseMove);
+            }
 
             return () => {
                 if (hoverWrapper?.current && isDesktop) {
@@ -75,7 +79,7 @@ export const Tooltip: React.FC<{ message: string; hoverWrapper: React.MutableRef
         }, [hoverWrapper]);
 
         return (
-            <div className={`tooltip info ${showTooltip ? "show" : ""} ${Styles["tooltip-buttons"]} ${showTooltip ? Styles["show"] : ""}`}>
+            <div className={`tooltip info ${classShow} ${Styles["tooltip-buttons"]} ${Styles[classShow]}`}>
                 <div ref={wrapperRef} style={customStyle} className={`tooltip-inner ${Styles["tooltip-inner"]}`}>
                     {message}
                 </div>
