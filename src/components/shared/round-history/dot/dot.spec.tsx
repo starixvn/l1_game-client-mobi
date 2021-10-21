@@ -29,6 +29,5 @@ describe("Round Dot Grid", () => {
         expect(getByTestId("round-dot-grid")).toBeTruthy();
         expect(getByTestId("round-dot-grid")).toHaveTextContent("1");
         expect(getByTestId("round-dot-grid")).toHaveStyle(`grid-column-start: ${resource.col}; grid-row-start: ${resource.row};`);
-        // screen.debug();
     });
 });

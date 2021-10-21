@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React, { useRef } from "react";
 import { mocked } from "ts-jest/utils";
 import * as rdd from "react-device-detect";
