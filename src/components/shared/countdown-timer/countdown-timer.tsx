@@ -41,8 +41,7 @@ const CountdownTimer: React.FC = () => {
             );
         case GameState.None:
             return <Loader />;
-        case GameState.BeforeStartRound:
-            return <></>;
+
         default:
             return (
                 <>
