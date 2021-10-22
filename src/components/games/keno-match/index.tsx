@@ -336,13 +336,13 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
-        const { halfTimeResultInline, fullTimeResultInline } = this.state;
+        const { halfTimeResultInline, fullTimeResultInline, roundId } = this.state;
         if (remainingTime === durations.halfTimeLockingBet) {
             this.resetState();
         }
 
         if (remainingTime === durations.halfTimePlacingBets) {
-            this.setState({ roundId: this.state.roundId + 1 });
+            this.setState({ roundId: roundId + 1 });
         }
 
         this.setState({ beforeStartFulltime: remainingTime === durations.beforeStartFullTimePlacingBet });
@@ -499,8 +499,11 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
     };
 
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
-        const { gameState, isShowH1Score, isShowFTScore } = this.state;
-        const roundIdCurrent = gameState === GameState.DisplayResult || this.isUMInFirstLoad ? roundId - 1 : roundId;
+        const { gameState, isShowH1Score, isShowFTScore, isFirstHalf } = this.state;
+        const roundIdCurrent = (gameState === GameState.DisplayResult && !isFirstHalf)|| this.isUMInFirstLoad ? roundId - 1 : roundId;
+
+        console.log(roundIdCurrent);
+        
         let stateJoinGame = {};
         let stateShowResult = {};
         const rounds: SeparateRoundHistoryProps = this.separateRoundHistory({
@@ -592,7 +595,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleRoundHistoryFH = ({ firstHalfResult, roundHistoryFH, roundId }) => {
         const roundHistoryFHClone = [...roundHistoryFH];
-        roundHistoryFHClone.unshift({ ...firstHalfResult, roundId: roundId } as RoundKenoMatchBase<Result, SettlementResult>);
+        roundHistoryFHClone.unshift({ ...firstHalfResult, roundId } as RoundKenoMatchBase<Result, SettlementResult>);
         roundHistoryFHClone.length > 100 && roundHistoryFHClone.pop();
 
         return roundHistoryFHClone;
