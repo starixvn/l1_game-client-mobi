@@ -1,6 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
+import appSettings from "../../../common/app-settings";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
@@ -16,7 +17,7 @@ import Styles from "./history.module.scss";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number[] }> = ({ onCloseModal, offerGames }) => {
     const { t } = useTranslation();
-    const [selectedGameId, setSelectedGameId] = useState<number>(offerGames[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
     const closeModal = () => {
         onCloseModal();
     };
