@@ -29,7 +29,7 @@ const getCustomStyle = ({ betContainerPosition }) => {
 
     if (betContainerPosition != null) {
         return browserHeight / betContainerPosition > 2
-            ? { top: `${betContainerPosition}px`, left: `${browserHeight}px` }
+            ? { top: `${betContainerPosition}px` }
             : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
     }
 
