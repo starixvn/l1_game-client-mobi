@@ -14,7 +14,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
 }) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
     const { t } = useTranslation();
-
+    const gameConfigs = {};
     const closeModal = () => {
         onCloseModal();
     };
@@ -29,7 +29,9 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
                 </div>
                 <div className={Styles["guide-content"]}>
-                    {selectedGameId !== -1 && <GameGuides gameId={selectedGameId} userStakeLevel={userStakeLevel} />}
+                    {selectedGameId !== -1 && (
+                        <GameGuides gameId={selectedGameId} userStakeLevel={userStakeLevel} gameConfigs={gameConfigs} />
+                    )}
                 </div>
             </div>
         </BaseDialog>
