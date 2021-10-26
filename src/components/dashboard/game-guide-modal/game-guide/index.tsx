@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import Loader from "../../../shared/loader";
 import appSettings from "../../../../common/app-settings";
 import { UserStakeLevel } from "../../../shared/game-base/type";
-import { gameVipIds, LanguageLocaleMapper } from "../../../../common/constants";
+import { gameVipIds } from "../../../../common/constants";
 import { useTheme } from "next-themes";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly, isIOS, browserVersion } from "react-device-detect";
@@ -19,7 +19,6 @@ type Props = {
 const GameGuides: React.FC<Props> = (props) => {
     const { gameId, userStakeLevel, gameConfigs } = props;
     const { i18n } = useTranslation();
-    const language = LanguageLocaleMapper[i18n.language];
     const { theme } = useTheme();
     const { guideUrl } = appSettings;
     const wrapperRef = useRef<HTMLIFrameElement>();
@@ -28,7 +27,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
-    const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&lang=${language}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
+    const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
     const gameConfigsFake = {
         maxBetPerChoices: { even: 5000, odd: 5000, red2: 5000, red3: 5000, white3: 5000, red4: 500, white4: 500 },
         enableFreeBet: false,
@@ -36,12 +35,14 @@ const GameGuides: React.FC<Props> = (props) => {
         minBet: 10,
         odds: { even: 1.99, odd: 1.96, red2: 2.9, red3: 3.75, white3: 3.75, red4: 14.4, white4: 14.4 },
     };
-    function handleResize() {
+
+    const handleResize = () => {
         if (wrapperRef?.current) {
             setHeightGuide(wrapperRef.current.clientHeight);
             setWidthGuide(wrapperRef.current.clientWidth);
         }
-    }
+    };
+
     const hideSpinner = () => {
         setIsLoading(false);
         handleResize();
@@ -51,6 +52,7 @@ const GameGuides: React.FC<Props> = (props) => {
     useEffect(() => {
         const isIOSBrowserVersion15 = isMobileOnly && isIOS && browserVersion === "15";
         !isIOSBrowserVersion15 && window.addEventListener("resize", handleResize);
+
         handleResize();
 
         return () => {
