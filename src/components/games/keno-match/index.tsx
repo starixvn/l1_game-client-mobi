@@ -344,13 +344,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleGamePlay(remainingTime: number) {
         const durations = this.props.durations;
-        const { halfTimeResultInline, fullTimeResultInline, roundId, gameState } = this.state;
+        const { halfTimeResultInline, fullTimeResultInline, roundId, gameState, roundHistory } = this.state;
         if (remainingTime === durations.halfTimeLockingBet) {
             this.resetState();
         }
 
-        if (remainingTime === durations.halfTimePlacingBets && gameState !== GameState.Disabled) {
+        console.log(`------------------------`)
+        console.log(`remainingTime: ${remainingTime}`)
+        console.log(`roundId: ${roundId}`)
+        // if (([GameState.DisplayResult, GameState.Disabled].includes(gameState) && (!isFirstHalf || (fullTime ?? roundId - roundHistory[0].roundId === 1))) || this.isUMInFirstLoad) {
+        //     roundIdCurrent = roundId - 1;
+        // }
+
+        if (remainingTime === durations.halfTimePlacingBets && gameState !== GameState.Disabled && roundId - roundHistory[0].roundId === 0) {
             this.setState({ roundId: roundId + 1 });
+            
+        console.log(`roundId + 1: ${roundId + 1}`)
         }
 
         const isShowSettlementResult =
