@@ -349,7 +349,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.resetState();
         }
 
-        if (remainingTime === durations.halfTimePlacingBets) {
+        if (remainingTime === durations.halfTimePlacingBets && gameState !== GameState.Disabled) {
             this.setState({ roundId: roundId + 1 });
         }
 
@@ -495,7 +495,22 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
     handleRoundHistory({ roundHistory, roundId, firstHalfResult }) {
         const { gameState, isShowH1Score, isShowFTScore, isFirstHalf } = this.state;
-        const roundIdCurrent = (gameState === GameState.DisplayResult && !isFirstHalf) || this.isUMInFirstLoad ? roundId - 1 : roundId;
+        const { firstHalf, fullTime } = roundHistory[0];
+
+        let roundIdCurrent = roundId;
+
+        console.log(`roundId: ${roundId}`);
+        console.log(`gameState: ${GameState[gameState]}`);
+        console.log(`isFirstHalf: ${isFirstHalf}`);
+        console.log(`fullTime: ${fullTime}`);
+        console.log(`fullTime ?? roundId - roundHistory[0].roundId === 1: ${fullTime ?? roundId - roundHistory[0].roundId === 1}`);
+        console.log(`roundId - roundHistory[0].roundId = ${roundId - roundHistory[0].roundId }`);
+
+        if (([GameState.DisplayResult, GameState.Disabled].includes(gameState) && (!isFirstHalf || (fullTime ?? roundId - roundHistory[0].roundId === 1))) || this.isUMInFirstLoad) {
+            roundIdCurrent = roundId - 1;
+        }
+
+        console.log(`roundIdCurrent: ${roundIdCurrent}`);
 
         let stateJoinGame = {};
         let stateShowResult = {};
@@ -512,7 +527,7 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             roundHistoryFT: rounds.roundHistoryFT,
         };
 
-        const { firstHalf, fullTime } = roundHistory[0];
+
         if (isShowFTScore) {
             const halfTimeResult = isShowH1Score ? firstHalf.result : defaultResult;
             this.setState({
