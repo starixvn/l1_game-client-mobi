@@ -1,6 +1,6 @@
 import { GameState, ViewMode } from "../../../shared/game-base/type";
 
-const gameSetting = {
+export const gameSetting = {
     id: 8,
     gameName: "KenoProMax",
     supportMD5: false,
@@ -17,6 +17,8 @@ const gameSetting = {
         beforeStartRound: 0,
     },
 };
+
+const userStakeLevel = { minBet: 1, maxBet: 2000 };
 
 export const DefaultGameContext = {
     gameSetting: gameSetting,
@@ -57,6 +59,7 @@ export const DefaultGameContext = {
 };
 
 export const DefaultResult = [4, 6, 17, 24, 26, 39, 41, 44, 46, 47, 49, 58, 62, 64, 66, 69, 70, 76, 78, 79];
+
 export const DefaultSettlementResult = {
     big: true,
     earth: true,
@@ -69,7 +72,7 @@ export const DefaultSettlementResult = {
     wood: false,
 };
 
-const session = {
+export const session = {
     isAuthenticated: true,
     username: "roger.le",
     language: "en-US",
@@ -80,3 +83,31 @@ const session = {
 };
 
 export const AuthContextValueDefault = { session: session, setBalance: jest.fn };
+
+export const SystemContextValue = {
+    setFavorite: jest.fn,
+    favoriteGames: [],
+    enabledPlaySound: true,
+    gamesOrder: [8],
+    userStakeLevel: userStakeLevel,
+    enabledQuickBet: true,
+    betValue: 0,
+};
+
+export const kenoProps = {
+    id: 8,
+    gameName: "KenoProMax",
+    socketInfo: gameSetting.socketInfo,
+    durations: gameSetting.durations,
+    notifyWinStreak: () => {},
+    playPlaceBetSound: () => {},
+    viewMode: ViewMode.full,
+    setApiErrorMessage: () => {},
+    supportMD5: false,
+    userStakeLevel: userStakeLevel,
+    updateUserStakeLevel: () => {},
+    socketGateway: null,
+    socketGatewayState: 0,
+    retryConnectSocket: () => {},
+    them: "light",
+};
