@@ -349,17 +349,8 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
             this.resetState();
         }
 
-        console.log(`------------------------`)
-        console.log(`remainingTime: ${remainingTime}`)
-        console.log(`roundId: ${roundId}`)
-        // if (([GameState.DisplayResult, GameState.Disabled].includes(gameState) && (!isFirstHalf || (fullTime ?? roundId - roundHistory[0].roundId === 1))) || this.isUMInFirstLoad) {
-        //     roundIdCurrent = roundId - 1;
-        // }
-
-        if (remainingTime === durations.halfTimePlacingBets && gameState !== GameState.Disabled && roundId - roundHistory[0].roundId === 0) {
+        if (remainingTime === durations.halfTimePlacingBets && gameState !== GameState.Disabled) {
             this.setState({ roundId: roundId + 1 });
-            
-        console.log(`roundId + 1: ${roundId + 1}`)
         }
 
         const isShowSettlementResult =
@@ -508,18 +499,9 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
 
         let roundIdCurrent = roundId;
 
-        console.log(`roundId: ${roundId}`);
-        console.log(`gameState: ${GameState[gameState]}`);
-        console.log(`isFirstHalf: ${isFirstHalf}`);
-        console.log(`fullTime: ${fullTime}`);
-        console.log(`fullTime ?? roundId - roundHistory[0].roundId === 1: ${fullTime ?? roundId - roundHistory[0].roundId === 1}`);
-        console.log(`roundId - roundHistory[0].roundId = ${roundId - roundHistory[0].roundId }`);
-
         if (([GameState.DisplayResult, GameState.Disabled].includes(gameState) && (!isFirstHalf || (fullTime ?? roundId - roundHistory[0].roundId === 1))) || this.isUMInFirstLoad) {
             roundIdCurrent = roundId - 1;
         }
-
-        console.log(`roundIdCurrent: ${roundIdCurrent}`);
 
         let stateJoinGame = {};
         let stateShowResult = {};
