@@ -27,15 +27,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
-    const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&t=${theme}${minMaxBetParams}&v=${Date.now()}`;
-    const gameConfigsFake = {
-        maxBetPerChoices: { even: 5000, odd: 5000, red2: 5000, red3: 5000, white3: 5000, red4: 500, white4: 500 },
-        enableFreeBet: false,
-        maxBet: 5000,
-        minBet: 10,
-        odds: { even: 1.99, odd: 1.96, red2: 2.9, red3: 3.75, white3: 3.75, red4: 14.4, white4: 14.4 },
-    };
-
+    const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&t=${theme}${minMaxBetParams}&dy=0&v=${Date.now()}`;
     const handleResize = () => {
         if (wrapperRef?.current) {
             setHeightGuide(wrapperRef.current.clientHeight);
@@ -46,7 +38,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const hideSpinner = () => {
         setIsLoading(false);
         handleResize();
-        wrapperIframeRef.current.contentWindow.postMessage(JSON.stringify(gameConfigs ? gameConfigs : gameConfigsFake), guideUrl);
+        wrapperIframeRef.current.contentWindow.postMessage(JSON.stringify(gameConfigs), guideUrl);
     };
 
     useEffect(() => {

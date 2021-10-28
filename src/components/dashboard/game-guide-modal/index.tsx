@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import appSettings from "../../../common/app-settings";
 import BaseDialog from "../../shared/base-dialog";
@@ -7,17 +7,36 @@ import { GameSelector } from "../../shared/game-selector";
 import GameGuides from "./game-guide";
 import Styles from "./game-guide-modal.module.scss";
 
-export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[] }> = ({
+export type GameConfigs = {
+    maxBet: number;
+    minBet: number;
+    maxBetPerChoices: any;
+};
+
+export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[]; user: any }> = ({
     onCloseModal,
     userStakeLevel,
     offerGames,
+    user,
 }) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
+    const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
     const { t } = useTranslation();
-    const gameConfigs = {};
     const closeModal = () => {
         onCloseModal();
     };
+
+    useEffect(() => {
+        user.offerGames.forEach((game) => {
+            if (game.gameId === selectedGameId) {
+                setGameConfigs({
+                    maxBetPerChoices: game.maxBetPerChoices,
+                    maxBet: game.maxBet,
+                    minBet: game.minBet,
+                });
+            }
+        });
+    }, [selectedGameId]);
 
     return (
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>

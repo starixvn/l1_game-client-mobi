@@ -1,11 +1,11 @@
-import { Trans, WithTranslation, withTranslation } from "next-i18next";
-import { WithRouterProps } from "next/dist/client/with-router";
+import { Trans, withTranslation } from "next-i18next";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 
+import { Props, State } from "./type";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
@@ -19,38 +19,11 @@ import Header from "../header";
 import BaseDialog from "../shared/base-dialog";
 import { ModalType } from "../shared/base-dialog/type";
 import { UserStakeLevel } from "../shared/game-base/type";
-import Styles from "./dashboard.module.scss";
 import { GameGuideModal } from "./game-guide-modal";
 import { HistoryModal } from "./history";
 import Register from "./register";
 import Welcome from "./welcome";
-
-type Props = {
-    session: SSOResponse;
-    queryGame: number;
-    setIsUm: Function;
-} & WithRouterProps &
-    WithTranslation;
-
-type APIErrorProp = {
-    message: string;
-    errorCode: string;
-};
-
-type State = {
-    orientation: string;
-    enabledWinningStreakNotification: boolean;
-    enabledPlaySound: boolean;
-    userStakeLevel: UserStakeLevel;
-    authorizeInfo: AuthorizeResponse;
-    isShowErrorModal: boolean;
-    apiError: APIErrorProp;
-    isShowHistory: boolean;
-    isShowGuide: boolean;
-    favoriteGames: number[];
-    enabledQuickBet: boolean;
-    betValue: number;
-};
+import Styles from "./dashboard.module.scss";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -248,7 +221,6 @@ class Dashboard extends React.PureComponent<Props, State> {
     handleFirstLogin(theme: string) {
         const { session } = this.props;
         const authorizeInfo = { ...this.state.authorizeInfo };
-
         if (authorizeInfo && authorizeInfo.authorized) {
             updateSignInSMStatus(session);
             updateThemeSetting(session, theme);
@@ -317,6 +289,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
+        const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
         return (
             <AuthContextProvider value={authContextValue}>
                 <div className={Styles["dashboard"]}>
@@ -329,7 +302,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
                         favoriteGames={favoriteGames}
-                        offerGames={authorizeInfo.user.offerGames}
+                        offerGames={offerGames}
                         updateFavoriteGames={this.updateFavoriteGames}
                         enabledQuickBet={enabledQuickBet}
                         updateEnabledQuickBet={this.setEnabledQuickBet}
@@ -344,7 +317,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
-                        userOfferGames={authorizeInfo.user.offerGames}
+                        userOfferGames={offerGames}
                         queryGame={this.props.queryGame}
                     />
                     <BetSettings
@@ -354,12 +327,13 @@ class Dashboard extends React.PureComponent<Props, State> {
                         enabledSound={enabledPlaySound}
                         user={authorizeInfo.user}
                     />
-                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={authorizeInfo.user.offerGames} />}
+                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
                     {isShowGuide && (
                         <GameGuideModal
                             userStakeLevel={userStakeLevel}
                             onCloseModal={this.toggleGuideModal}
-                            offerGames={authorizeInfo.user.offerGames}
+                            offerGames={offerGames}
+                            user={authorizeInfo.user}
                         />
                     )}
                     {isShowErrorModal && (
