@@ -7,7 +7,8 @@ import Loader from "../loader";
 import styles from "./countdown-timer.module.scss";
 
 const CountdownTimer: React.FC = () => {
-    const { gameState } = useGameContext();
+    const { gameState, gameSetting } = useGameContext();
+    const gameName = gameSetting.gameName.toLocaleLowerCase();
     const { t } = useTranslation("common");
     switch (gameState) {
         case GameState.BeforeStartRound:
@@ -45,7 +46,7 @@ const CountdownTimer: React.FC = () => {
         default:
             return (
                 <>
-                    <div className="loader-show-result"></div>
+                    <div className={`loader-show-result ${styles[gameName]}`}></div>
                     <GameStatus>
                         <div className={styles["open-result"]}>{t("openResult")}</div>
                     </GameStatus>
