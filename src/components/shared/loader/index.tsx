@@ -1,7 +1,10 @@
 import React from "react";
 
+import { useGameContext } from "../../../contexts/game-context/game-context";
 import Styles from "./loader.module.scss";
 
 export default function Loader() {
-    return <div className={Styles["loader"]} data-testid="loader"></div>;
+    const { gameSetting } = useGameContext();
+    const gameName = gameSetting.gameName.toLocaleLowerCase();
+    return <div className={`${Styles["loader"]} ${Styles[gameName]}`} data-testid="loader"></div>;
 }
