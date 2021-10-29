@@ -56,6 +56,7 @@ const CountdownTimer: React.FC = () => {
 
 const Timer = () => {
     const ctx = useGameContext();
+    const gameName = ctx.gameSetting.gameName.toLocaleLowerCase();
     const { durations } = ctx.gameSetting;
 
     const timerProps = {
@@ -69,7 +70,7 @@ const Timer = () => {
     };
 
     return (
-        <div className={styles.timer}>
+        <div className={`${styles.timer} ${styles[gameName]}`}>
             <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF0505" : "#19A32F", 1]]}>
                 {({ remainingTime }) => {
                     if (remainingTime === 0) {
@@ -83,7 +84,9 @@ const Timer = () => {
 };
 
 const GameStatus: React.FC = ({ children }) => {
-    return <div className={styles["game-status"]}>{children}</div>;
+    const { gameSetting } = useGameContext();
+    const gameName = gameSetting.gameName.toLocaleLowerCase();
+    return <div className={`${styles["game-status"]} ${styles[gameName]}`}>{children}</div>;
 };
 
 export default CountdownTimer;

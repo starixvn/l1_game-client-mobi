@@ -5,6 +5,9 @@
     margin: 0.5rem 0;
     font-size: 1.6rem;
     font-family: var(--font-number);
+    &.kenopower1,  &.kenopower2{
+        display: initial;
+    }
 }
 
 .game-status {
@@ -26,5 +29,9 @@
     }
     .no-more-bets {
         color: #ff0707;
+    }
+
+    &.kenopower1,  &.kenopower2{
+        display: initial;
     }
 }
