@@ -5,6 +5,6 @@ import Styles from "./loader.module.scss";
 
 export default function Loader() {
     const { gameSetting } = useGameContext();
-    const gameName = gameSetting.gameName.toLocaleLowerCase();
+    const gameName = gameSetting?.gameName?.toLocaleLowerCase();
     return <div className={`${Styles["loader"]} ${Styles[gameName]}`} data-testid="loader"></div>;
 }
