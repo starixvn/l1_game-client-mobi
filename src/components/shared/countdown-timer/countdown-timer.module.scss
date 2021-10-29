@@ -7,7 +7,7 @@
     font-family: var(--font-number);
     &.kenopower2{
         @media(min-width: 760px) and (max-width: 810px) {
-            left: calc(50% - .5rem);
+            left: calc(50% - .8rem);
         }        
     }
 }
@@ -37,7 +37,7 @@
         @media(min-width: 760px) and (max-width: 810px) {
             width: 9.8rem;
             text-align: center;
-            left: calc(50% - 4rem);
+            left: calc(50% - 4.9rem);
             transform: unset;
         }    
     }
