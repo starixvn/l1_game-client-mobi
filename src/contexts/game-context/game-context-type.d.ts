@@ -12,4 +12,5 @@ export type GameContextModel = {
     playResultAnimation: boolean;
     isShowBlink: boolean;
     supportMD5: boolean;
+    rate: number;
 };

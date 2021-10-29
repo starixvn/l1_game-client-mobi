@@ -95,6 +95,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         activeScoreboardTab: 0,
         md5: "",
         md5ResultKey: "",
+        rate: 1,
     };
 
     constructor(props: P) {
@@ -355,8 +356,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.setState({ betPercentage });
     };
 
-    handleUserData({ user }) {
+    handleUserData({ user, gameConfigs }) {
         this.context.setBalance(user.red);
+        gameConfigs && this.setState({ rate: user.rate });
     }
 
     handleUM({ um, um_message, remainingTime }) {
@@ -948,6 +950,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             isShowBlink,
             displayPopup,
             activeScoreboardTab,
+            rate,
         } = this.state;
 
         const gameContext = {
@@ -962,6 +965,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation,
             isShowBlink,
             supportMD5,
+            rate,
         };
 
         const gameActionsContext = {

@@ -93,6 +93,7 @@ export interface GameBaseState<Result, SettlementResult> {
     md5?: string;
     md5ResultKey?: string;
     showMD5ResultKey?: boolean;
+    rate: number;
 }
 
 export interface Notice {
