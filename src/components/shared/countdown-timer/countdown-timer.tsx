@@ -46,7 +46,7 @@ const CountdownTimer: React.FC = () => {
         default:
             return (
                 <>
-                    <div className={`loader-show-result ${styles[gameName]}`}></div>
+                    <div className={`loader-show-result ${gameName}`}></div>
                     <GameStatus>
                         <div className={styles["open-result"]}>{t("openResult")}</div>
                     </GameStatus>
