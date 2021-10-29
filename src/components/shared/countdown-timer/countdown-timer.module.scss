@@ -5,8 +5,10 @@
     margin: 0.5rem 0;
     font-size: 1.6rem;
     font-family: var(--font-number);
-    &.kenopower1,  &.kenopower2{
-        display: initial;
+    &.kenopower2{
+        @media(min-width: 760px) and (max-width: 810px) {
+            left: calc(50% - .5rem);
+        }        
     }
 }
 
@@ -31,7 +33,12 @@
         color: #ff0707;
     }
 
-    &.kenopower1,  &.kenopower2{
-        display: initial;
+    &.kenopower2{
+        @media(min-width: 760px) and (max-width: 810px) {
+            width: 9.8rem;
+            text-align: center;
+            left: calc(50% - 4rem);
+            transform: unset;
+        }    
     }
 }
