@@ -70,7 +70,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected authService: Auth;
     private isConnectFailed = false;
 
-    private readonly defaultGameConfig = { odds: {}, minbet: 0, maxbet: 0, choices_maxbet: {}, enableFreeBet: false };
+    private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false };
     protected readonly defaultState = {
         signedIn: false,
         gameState: GameState.None,

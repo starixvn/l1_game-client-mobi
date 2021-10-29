@@ -27,9 +27,9 @@ export const DefaultGameContext = {
     roundId: 1,
     remainingTime: 1,
     gameConfigs: {
-        minbet: 1,
-        maxbet: 2000,
-        choices_maxbet: {
+        minBet: 1,
+        maxBet: 2000,
+        maxBetPerChoices: {
             big: 2000,
             earth: 500,
             even: 2000,

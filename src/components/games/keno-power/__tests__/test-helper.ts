@@ -25,9 +25,9 @@ export const DefaultGameContext = {
     roundId: 1,
     remainingTime: 1,
     gameConfigs: {
-        minbet: 1,
-        maxbet: 2000,
-        choices_maxbet: {
+        minBet: 1,
+        maxBet: 2000,
+        maxBetPerChoices: {
             blue: 2000,
             red: 2000,
             tie: 2000,

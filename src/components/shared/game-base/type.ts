@@ -6,9 +6,9 @@ import { Round, SocketState } from "../../../types";
 
 export interface GameConfigs {
     odds: { [key: string]: number };
-    minbet: number;
-    maxbet: number;
-    choices_maxbet: any;
+    minBet: number;
+    maxBet: number;
+    maxBetPerChoices: any;
     enableFreeBet: boolean;
 }
 
@@ -103,7 +103,7 @@ export interface Notice {
     minBet?: number;
     maxBet?: number;
     errorCode?: string;
-    position? : any
+    position?: any;
     isWarning?: boolean;
 }
 
