@@ -10,7 +10,7 @@ import { SystemContextProvider } from "../../contexts/system";
 import { SocketState } from "../../types";
 import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage, favoriteGameIdIgnore } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -93,7 +93,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
-        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames, userOfferGames);
+        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames.filter(game => !favoriteGameIdIgnore.includes(game)), userOfferGames);
 
         return renderGames.length === 0 && selectedCategory === GameCategoryType.favorite ? (
             <FavoriteGuide />

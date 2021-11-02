@@ -14,7 +14,7 @@ export const FavoriteSetting: React.FC<{
     onCloseModal: Function;
     toggleBtnRef: React.MutableRefObject<HTMLElement>;
 }> = ({ currentFavoriteGames, offerGames, onCloseModal, updateFavorite, toggleBtnRef }) => {
-    const [favoriteGames, setFavoriteGames] = useState([...currentFavoriteGames]);
+    const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames.filter(game => !favoriteGameIdIgnore.includes(game)));
     const unfavoriteGames = appSettings.offeredGames.filter((game) => !favoriteGames.includes(game) && !favoriteGameIdIgnore.includes(game));
     const [isOpenModalAnimation, setIsOpenModalAnimation] = useState(true);
     const { t } = useTranslation();
