@@ -1,21 +1,22 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState } from "../../shared/game-base/type";
+
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
+import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
+import ScoreboardTab from "../../shared/scoreboard-tab";
 import { ThreeCardsResult, ThreeCardsResultCollapse } from "./animations";
 import ThreeCardsBetOptions from "./bet-options";
-import { ScoreboardRule, GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
-import { Result, SettlementResult } from "./three-cards";
+import { GetScoreboardDotDetailsOfSuits } from "./scoreboard-round-history";
 import ThreeCardsStatistic, { StatisticRuleMapping } from "./statistic";
-import { Choices, TabsValue, SuitOrder, SuitKeys } from "./three-cards-helper";
+import { Result, SettlementResult } from "./three-cards";
+import { Choices, SuitKeys, SuitOrder, TabsValue } from "./three-cards-helper";
 import Styles from "./three-cards.module.scss";
-import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
-import ScoreboardTab from "../../shared/scoreboard-tab";
 
-class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+class ThreeCards extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
@@ -45,7 +46,7 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const sourceTabsValue = {
             redBlack: {
                 tabName: this.getGameTranslate("redBlackTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["red", "black"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["red", "black"] }),
             },
             suits: {
                 tabName: this.getGameTranslate("suitsTabs"),
@@ -93,9 +94,10 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
             return (
                 <ScoreboardDragon
                     roundHistory={roundHistory}
-                    getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                    conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                    translateDotTextMapping={translateDotTextMapping}
+                    dotDetails={{
+                        translateDotTextMapping: translateDotTextMapping,
+                        choice: ["red", "black"],
+                    }}
                 />
             );
         }
@@ -138,7 +140,12 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const { result, settlementResult } = this.state;
         const resultUniqueSuit = result.map((card) => card.suit).filter((value, index, self) => self.indexOf(value) === index);
         const suitsLength = `suit-length-${resultUniqueSuit.length}`;
-
+        const getSrcSetImg = (suit: number) => {
+            const source1X = `/static/images/three-cards/${SuitKeys[suit]}.png 1x`;
+            const source2X = `/static/images/three-cards/${SuitKeys[suit]}@2x.png 2x`;
+            const source3X = `/static/images/three-cards/${SuitKeys[suit]}@3x.png 3x`;
+            return `${source1X}, ${source2X}, ${source3X}`;
+        };
         return (
             <div className={Styles["result-container"]}>
                 <div className={settlementResult.red ? Styles["result-info-red"] : Styles["result-info-black"]}>
@@ -147,16 +154,9 @@ class ThreeCards extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
                 <div className={`${Styles["suits"]} ${Styles[suitsLength]}`}>
                     {SuitOrder.map((suit, index) => {
                         if (resultUniqueSuit.includes(suit)) {
-                            return (
-                                <img
-                                    key={index}
-                                    srcSet={`/static/images/three-cards/${SuitKeys[suit]}.png 1x, /static/images/three-cards/${SuitKeys[suit]}@2x.png 2x, /static/images/three-cards/${SuitKeys[suit]}@3x.png 3x`}
-                                    height={30}
-                                    width={30}
-                                    alt={SuitKeys[suit]}
-                                />
-                            );
+                            return <img key={index} srcSet={getSrcSetImg(suit)} height={30} width={30} alt={SuitKeys[suit]} />;
                         }
+                        return null;
                     })}
                 </div>
             </div>

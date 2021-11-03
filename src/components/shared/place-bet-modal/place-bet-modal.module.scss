@@ -1,11 +1,13 @@
 [data-theme="light"] .modal-placebetform {
     --numpad-background: #e6e6e6;
     --numpad-color: #505050;
+    --bettype-choice-color: #2C2F3E;
 }
 
 [data-theme="dark"] .modal-placebetform {
     --numpad-background: #5c6d7e;
     --numpad-color: #fff;
+    --bettype-choice-color: #fff;
 }
 
 .modal-placebetform {
@@ -26,14 +28,43 @@
 
     @media (min-width: 768px) {
         position: absolute;
-        padding-top: 8px;
         left: auto;
         right: auto;
         width: 25rem;
-        padding-left: 1rem;
-        padding-right: 1rem;
         border-radius: 0.5rem;
+        padding: .8rem 1rem;
         z-index: var(--popup-index);
+    }
+
+    &.kenomatch1, &.kenomatch2, &.kenopower1, &.kenopower2{
+        height: 25rem;
+        @media (min-width: 768px) {
+            width: 32rem;
+            height: 24.6rem;
+        }
+     
+        font-size: 1.6rem;
+        .general-info {
+            font-size: 2rem;
+            height: 6rem;
+            .font-weight-bold {
+                font-size: 1.4rem;       
+                display: block;    
+                font-weight: normal;
+                color: var(--bettype-choice-color);
+                line-height: 1.8rem;
+                margin-top: .6rem;
+                &.choice {
+                    display: inline-block;
+                    font-weight: 700;
+                    font-size: 2rem;
+                    color: var(--success-color);
+                }     
+            }
+            .info {
+                font-weight: 600;
+            }
+        }
     }
 
     .popup-header {
@@ -108,18 +139,6 @@
         &.up {
             top: 0;
         }
-
-        &.left {
-            left: 4rem;
-        }
-
-        &.right {
-            right: 4rem;
-        }
-
-        &.center {
-            left: 50%;
-        }
     }
 
     .general-info {
@@ -136,6 +155,12 @@
         margin-bottom: 0.5rem;
         font-size: 2rem;
         text-transform: capitalize;
+        .font-weight-bold, .info {
+            display: inline-block;
+        }
+        .font-weight-bold {
+            font-weight: 700;
+        }
     }
 
     .confirm-text {

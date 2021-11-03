@@ -1,24 +1,25 @@
 import React from "react";
 import { TFunction } from "next-i18next";
 
-import BetHistoryContainer, { ResultDetailContainer } from "../../../dashboard/history/bet-history";
+import BetHistoryContainer from "../../../dashboard/history/bet-history";
+import ResultDetailContainer from "../../../dashboard/history/bet-history/result-detail";
 import { BetLogs } from "./bet-history";
-import { GetChoiceTranslate } from "../keno-pro-max-helper";
+import { GetChoiceTranslate, getTotalPoint } from "../keno-pro-max-helper";
 import { ResultDetail } from "../../../dashboard/history/bet-history/bet-history";
 import { GameResourceKeys } from "../../../../common/resources";
-import { getSettleResult, generateResult } from "../animations";
+import { generateResult, winningInfo, RenderTotalPoint, ResultClassState } from "../round-result";
 import Styles from "./bet-history.module.scss";
 
-const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) => {
-    if (bet.result) {
+export const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setBetLog: Function, t: TFunction) => {
+    if (bet?.result) {
         const clickHandle = () => {
             setIsShowResultDetail(true);
-            setResultDetail({ bet: bet, roundId: roundId });
+            setBetLog({ bet: bet, roundId: roundId, t });
         };
-        const totalPoint = bet.result.reduce((a, b) => a + b, 0);
+        const totalPoint = getTotalPoint(bet.result);
 
         return (
-            <div className={Styles["detail"]} onClick={() => clickHandle()}>
+            <div className={Styles["detail"]} onClick={() => clickHandle()} data-testid="detail">
                 {totalPoint}
             </div>
         );
@@ -26,27 +27,28 @@ const renderResult = (bet: BetLogs, roundId: number, setIsShowResultDetail: Func
     return <></>;
 };
 
-const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
-    if (resultDetail) {
+export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) => {
+    if (resultDetail?.bet) {
         const { bet, roundId } = resultDetail;
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
-        const settleResult = getSettleResult(result, settlementResult);
-        const texts = GetChoiceTranslate(t, settleResult);
+        const textTranslate = GetChoiceTranslate(t);
+
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>
                     <div className={Styles["result"]}>
-                        <div className={Styles["number-container"]}>{generateResult(result, settleResult.shuffle, false)}</div>
-
-                        <div className={Styles["result-total-number"]}>{settleResult.total}</div>
+                        <div className={Styles["number-container"]}>{generateResult(result, false, ResultClassState.betHistory)}</div>
+                        <div className={Styles["result-total-number"]}>
+                            <RenderTotalPoint
+                                result={result}
+                                textTranslate={textTranslate}
+                                isAnimation={false}
+                                customizeClass={"bet-history"}
+                            />
+                        </div>
                     </div>
-
-                    <div className={Styles["settle-info"]}>
-                        <div className={Styles[`result-info-${settleResult.big ? "blue" : "red"}`]}>{texts.big}</div>
-                        <div className={Styles[`result-info-${settleResult.even ? "blue" : "red"}`]}>{texts.even}</div>
-                        <div className={Styles["result-info-grey"]}>{texts.element}</div>
-                    </div>
+                    <div className={Styles["settle-info"]}>{winningInfo({ settlementResult, textTranslate })}</div>
                 </div>
             </ResultDetailContainer>
         );
@@ -59,12 +61,8 @@ const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gam
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
-            renderResult={(bet: BetLogs, roundId: number, setIsShowResultDetail: Function, setResultDetail: Function, t: TFunction) =>
-                renderResult(bet, roundId, setIsShowResultDetail, setResultDetail, t)
-            }
-            renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
-                renderResultDetail(resultDetail, t, closeModal, gameName)
-            }
+            renderResult={renderResult}
+            renderResultDetail={renderResultDetail}
         ></BetHistoryContainer>
     );
 };

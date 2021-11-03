@@ -41,7 +41,6 @@ export const BaccaratConfigs = {
             name: "bankerPair",
             style: "bank-pair",
         },
-      
     ],
 };
 
@@ -99,3 +98,12 @@ export const GetTranslateChoiceMapping = (t: TFunction, gameName = "baccarat") =
         small: t(`${gameName}:small`),
     };
 };
+
+export const ChoiceForTabActive = [
+    {
+        choice: ["banker", "player", "tie"],
+    },
+    {
+        choice: ["big", "small"],
+    },
+];

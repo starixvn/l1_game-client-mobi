@@ -6,7 +6,8 @@ import { AuthorizeResponse, Response, SSOResponse } from "sc-user-service-client
 import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { randomInteger } from "../../../helpers/number-helper";
-import { createNickname, updateThemeSetting } from "../../../services/auth-service";
+import { createNickname } from "../../../services/auth-service";
+import { updateThemeSetting } from "../../../services/user-setting-service";
 import ProfilePicture from "../../profile-picture";
 import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
@@ -98,9 +99,9 @@ export default function Register({ session, handleStateLogin }: Props) {
                     <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
                 </TextBlock>
             </div>
-            <ProfilePicture avatarId={selectedAvatarId} isEditable={true} onClick={openAvatarGallery} />
+            <ProfilePicture avatarId={selectedAvatarId} isEditable={true} onClick={openAvatarGallery} data-testid="open-avatar-gallery" />
 
-            <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)}>
+            <form className={Styles["login-form"]} onSubmit={(event) => handleSubmit(event)} data-testid="btn-form-submit">
                 <label className={Styles["input-title"]}>{t("register:registerName")}</label>
 
                 <div className={Styles["user-box"]}>
@@ -110,8 +111,13 @@ export default function Register({ session, handleStateLogin }: Props) {
                             className={`form-control ${Styles["custom-form-control"]}`}
                             value={name}
                             onChange={(event) => onChangeUserName(event)}
+                            data-testid="input-username"
                         />
-                        <span className={`icon-close ${Styles["icon-cancel"]}`} onClick={() => clearUserName()}></span>
+                        <span
+                            className={`icon-close ${Styles["icon-cancel"]}`}
+                            onClick={() => clearUserName()}
+                            data-testid="btn-clear-username"
+                        ></span>
                     </div>
 
                     {!isValidUserName && (
@@ -138,6 +144,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                         className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
                         onClick={(event) => generateName(event)}
                         type="button"
+                        data-testid="btn-generate-username"
                     >
                         <span className="icon-refresh"></span>
                     </button>
@@ -182,13 +189,13 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
         <div className={Styles["gallery-wrapper"]}>
             <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={onClose}>
                 <h3 className={Styles["gallery-title"]}>{t("register:changeAvatar")}</h3>
-                <div className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></div>
+                <div className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="btn-close-gallery"></div>
                 <div className={Styles["container-avatars"]}>{loadAvatars()}</div>
                 <div className={Styles["list-actions"]}>
                     <button className="btn-grey" onClick={onClose} type="button">
                         {t("common:cancel")}
                     </button>
-                    <button className="btn-orange" onClick={submit} type="button">
+                    <button className="btn-orange" onClick={submit} type="button" data-testid="btn-submit-gallery">
                         {t("common:ok")}
                     </button>
                 </div>

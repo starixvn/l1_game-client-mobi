@@ -24,7 +24,7 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
     return (
         <>
-            <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`}>
+            <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
                         <a onClick={() => window.location.reload()} className={Styles["site-name"]}>

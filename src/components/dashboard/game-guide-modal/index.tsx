@@ -12,7 +12,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
     userStakeLevel,
     offerGames,
 }) => {
-    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
     const { t } = useTranslation();
 
     const closeModal = () => {
@@ -23,7 +23,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={Styles["popup-container"]}>
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal}></span>
+                <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
                     <span className={Styles["form-label"]}>Game</span>
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />

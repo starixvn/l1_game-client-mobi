@@ -51,6 +51,8 @@
 
     @media (max-width: 380px) {
         font-size: 1.4rem;
+        position: relative;
+        top: -0.1rem;
     }
 
     @media (max-width: 350px) {
@@ -80,10 +82,9 @@
 
 .tie {
     @extend %title;
-    color: var(--dragonTiger-tie-text-color);
-    &.baccarat,
-    &.vipbaccarat {
-        color: var(--baccarat-tie-statistic-text-color);
+    color: var(--baccarat-tie-statistic-text-color);
+    &.dragontiger {
+        color: var(--dragonTiger-tie-text-color);
     }
 }
 
@@ -134,4 +135,36 @@
 .earth {
     @extend %title;
     color: var(--keno-pro-earth-statistic-text-color);
+}
+
+.blue {
+    @extend %title;
+    color: var(--keno-match-blue-statistic-text-color);
+}
+
+.red {
+    @extend %title;
+    color: var(--keno-match-red-statistic-text-color);
+}
+
+.tie {
+    @extend %title;
+    &.kenomatch1,
+    &.kenomatch2 {
+        color: var(--keno-match-tie-statistic-text-color);
+    }
+}
+
+.over,
+.even,
+.blueBig,
+.redBig {
+    @extend .big;
+}
+
+.under,
+.odd,
+.blueSmall,
+.redSmall {
+    @extend .small;
 }

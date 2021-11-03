@@ -38,6 +38,14 @@ const SumScore = (number: number) => {
     return number + 1;
 };
 
+const handleScoreForChoice = ({ cardNumber, index, setScoreDragon, setScoreTiger }) => {
+    if (ResultChoiceMapping.dragon === index) {
+        setScoreDragon(SumScore(cardNumber));
+    } else {
+        setScoreTiger(SumScore(cardNumber));
+    }
+};
+
 export const DragonTigerResult: React.FC<Props> = (props) => {
     const { t } = useTranslation("dragontiger");
     const { viewMode, playResultAnimation } = useGameContext();
@@ -54,22 +62,14 @@ export const DragonTigerResult: React.FC<Props> = (props) => {
             result.forEach((cardValue, index) => {
                 const cardNumber = cardValue.card;
                 const timeout = setTimeout(() => {
-                    if (ResultChoiceMapping.dragon === index) {
-                        setScoreDragon(SumScore(cardNumber));
-                    } else {
-                        setScoreTiger(SumScore(cardNumber));
-                    }
+                    handleScoreForChoice({ cardNumber, index, setScoreDragon, setScoreTiger });
                 }, cardOpenedTimes[index]);
                 timeouts.push(timeout);
             });
         } else {
             result.forEach((cardValue, index) => {
                 const cardNumber = cardValue.card;
-                if (ResultChoiceMapping.dragon === index) {
-                    setScoreDragon(SumScore(cardNumber));
-                } else {
-                    setScoreTiger(SumScore(cardNumber));
-                }
+                handleScoreForChoice({ cardNumber, index, setScoreDragon, setScoreTiger });
             });
         }
 

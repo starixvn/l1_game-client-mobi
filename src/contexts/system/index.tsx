@@ -2,7 +2,7 @@ import React from "react";
 
 import { UserStakeLevel } from "../../components/shared/game-base/type";
 
-export const SystemContext = React.createContext<{
+type SystemContextType = {
     setFavorite: Function;
     favoriteGames: number[];
     enabledPlaySound: boolean;
@@ -10,7 +10,9 @@ export const SystemContext = React.createContext<{
     userStakeLevel: UserStakeLevel;
     betValue: number;
     enabledQuickBet: boolean;
-}>(null);
+};
+
+export const SystemContext = React.createContext<Partial<SystemContextType>>({});
 
 SystemContext.displayName = "SystemContext";
 

@@ -31,35 +31,45 @@ export const convertCardRankToIndex = (rank: string): number => {
     return dict[rank] ?? parseInt(rank);
 };
 
-const classFollowCondition = ({ viewMode, isSmall }) => {
+export const getClassFollowCondition = ({ viewMode, isSmall }) => {
+    let name = "";
     if (viewMode === ViewMode.collapse) {
-        return Styles["collapse"];
+        name = "collapse";
     }
 
     if (isSmall) {
-        return Styles["small"];
+        name = "small";
     }
 
-    return "";
+    return name;
 };
-
-const numberOnIOS = isIOS && isMobileOnly ? Styles["number-ios"] : "";
 
 const Card: React.FC<Props> = (props) => {
     const { result, isSmall, viewMode } = props;
     const customClassName = props.customClassName ?? "";
-    const conditionRenderCardMini = viewMode === ViewMode.collapse || isSmall ? true : false;
-    const srcPathCard = conditionRenderCardMini ? "/static/images/cards/mini/" : "/static/images/cards/";
+    const isDisplayMiniCard = viewMode === ViewMode.collapse || isSmall ? true : false;
+    const srcPathCard = isDisplayMiniCard ? "/static/images/cards/mini/" : "/static/images/cards/";
+
+    const getClassOnIOS = () => {
+        return isIOS && isMobileOnly ? "number-ios" : "";
+    };
+
+    const getClassCard10 = () => {
+        return +convertRank(result.card) === 10 ? "card-number-10" : "";
+    };
+
     const getCardsDefault = () => {
         const nameCard = `${convertRank(result.card)}-${suffixNameMapping[result.type]}.svg`;
         return <img src={`${srcPathCard}${nameCard}#v1`} className={Styles["card-suite"]} height={119} width={86} alt="suite" />;
     };
-    const formatCard10 = +convertRank(result.card) === 10 ? Styles["card-number-10"] : "";
-
     const getCardMini = () => {
         return (
             <>
-                <div className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${formatCard10} ${numberOnIOS}`}>
+                <div
+                    className={`${Styles[colorNumberSuffix[result.type]]} ${Styles["card-number"]} ${Styles[getClassCard10()]} ${
+                        Styles[getClassOnIOS()]
+                    }`}
+                >
                     {convertRank(result.card)}
                 </div>
                 <img
@@ -74,9 +84,11 @@ const Card: React.FC<Props> = (props) => {
     };
 
     return (
-        <div className={`${Styles[customClassName]} ${Styles["card"]} ${classFollowCondition({ viewMode, isSmall })}`}>
+        <div className={`${Styles[customClassName]} ${Styles["card"]} ${Styles[getClassFollowCondition({ viewMode, isSmall })]}`}>
             <div className={Styles["card-shadow"]}></div>
-            <div className={Styles["result"]}>{conditionRenderCardMini ? getCardMini() : getCardsDefault()}</div>
+            <div className={Styles["result"]} data-testid="result-card">
+                {isDisplayMiniCard ? getCardMini() : getCardsDefault()}
+            </div>
         </div>
     );
 };

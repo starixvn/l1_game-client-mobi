@@ -6,6 +6,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
+import { Tooltip } from "../tooltip";
 import Styles from "./bet-option.module.scss";
 import { HighlightType, Props } from "./types";
 
@@ -21,9 +22,12 @@ const BetOption: React.FunctionComponent<Props> = ({
     choice,
     odd,
     children,
+    tooltipMessage,
     isHighlight = false,
     isDisplayOdd = true,
     isShowWinningEffect = false,
+    isShowPoolStake = true,
+    isShowTooltip = false,
 }) => {
     const { totalBets, ownBets } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
@@ -49,6 +53,7 @@ const BetOption: React.FunctionComponent<Props> = ({
         };
 
         actionByGameState[gameState] && actionByGameState[gameState]();
+
         setTotalBet(totalBets[choice]);
         update(totalBet);
     }, [gameState, totalBets?.[choice]]);
@@ -70,27 +75,33 @@ const BetOption: React.FunctionComponent<Props> = ({
         setIsFocusChoice(false);
     };
 
-    return (
-        <div className={Styles.container} ref={betChoiceRef}>
-            <div
-                className={`${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
-                    isHighlight && Styles[HighlightClassNameMapper[highlightType]]
-                } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]}`}
-                onClick={onClickBet}
-            >
-                {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
+    const betOptionClasses = `${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
+        isHighlight && Styles[HighlightClassNameMapper[highlightType]]
+    } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]} ${gameState !== GameState.InRound && Styles["disallowed"]}`;
 
-                <div className={Styles["total-bet"]} ref={totalBetRef}>
-                    {gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet)}
-                </div>
-                {children}
-                <div className={Styles["own-bet"]}>
-                    <span key={ownBets?.[choice]} className="d-inline-block">
-                        {ownBets?.[choice] && numberWithCommas(ownBets?.[choice])}
-                    </span>
+    return (
+        <>
+            <div className={Styles.container} ref={betChoiceRef}>
+                <div className={betOptionClasses} onClick={onClickBet}>
+                    {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
+
+                    <div className={Styles["total-bet"]} ref={totalBetRef}>
+                        {isShowPoolStake &&
+                            (gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet))}
+                    </div>
+
+                    {children}
+                    <div className={Styles["own-bet"]}>
+                        {ownBets?.[choice] ? (
+                            <span key={ownBets[choice]} className={`d-inline-block ${ownBets[choice]}`}>
+                                {numberWithCommas(ownBets[choice])}
+                            </span>
+                        ) : null}
+                    </div>
                 </div>
             </div>
-        </div>
+            {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} isShowAtHoverPosition={true} />}
+        </>
     );
 };
 

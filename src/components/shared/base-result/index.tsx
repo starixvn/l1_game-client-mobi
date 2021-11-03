@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-const HidingAnimationTimeInSecond = 0.5;
+export const HidingAnimationTimeInSecond = 0.5;
 
-export const BaseResult: React.FC<{ showResultTimeInSecond: number }> = ({ children, showResultTimeInSecond }) => {
+const BaseResult: React.FC<{ showResultTimeInSecond: number }> = ({ children, showResultTimeInSecond }) => {
     const [isHidingResult, setHidingResult] = useState(false);
 
     useEffect(() => {
@@ -17,3 +17,5 @@ export const BaseResult: React.FC<{ showResultTimeInSecond: number }> = ({ child
 
     return <div className={isHidingResult ? "hide-result-animation" : ""}>{children}</div>;
 };
+
+export default BaseResult;

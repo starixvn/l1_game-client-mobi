@@ -8,7 +8,7 @@ import { languageMapper } from "../common/constants";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
-import { UMPage } from "../components/um-page";
+import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
@@ -104,6 +104,10 @@ export const getStaticProps = async ({ locale }) => {
                 "threecards",
                 "minisedie",
                 "specialsedie",
+                "kenomatch1",
+                "kenomatch2",
+                "kenopower1",
+                "kenopower2",
                 "um",
             ])),
         },

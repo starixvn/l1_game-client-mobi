@@ -2,22 +2,39 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import GameBase from "../../shared/game-base";
-import { GameBaseProps, GameBaseState, GameState } from "../../shared/game-base/type";
+import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
+import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
-import { KenoProMaxResult, KenoProMaxResultCollapse } from "./animations";
-import KenoProMaxBetOptions from "./bet-options";
-import { Result, SettlementResult } from "./keno-pro-max";
-import { Choices, StatisticRuleMapping } from "./keno-pro-max-helper";
-import { StatisticFollowPercent } from "../../shared/statistic";
-import { ScoreboardRule } from "./scoreboard-round-history";
 import ScoreboardTab from "../../shared/scoreboard-tab";
+import { StatisticFollowPercent } from "../../shared/statistic";
+import { RoundResult, RoundResultCollapse } from "./round-result";
+import KenoProMaxBetOptions from "./bet-options";
+import OverlayMaskWhite from "../../shared/overlay-mask-white";
+import { Result, SettlementResult } from "./keno-pro-max";
+import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
 
-class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, SettlementResult>> {
-    constructor(props: GameBaseProps) {
+const DefaultResult = Array(20).fill(0);
+export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
+    constructor(props: GatewayGameBaseProps) {
         super(props);
 
         this.state = { ...this.defaultState };
+    }
+
+    get winningAnimationWaitingTimeInSecond() {
+        return this.getFinishAnimationDuration() + 1000;
+    }
+
+    get isShowInlineResult() {
+        return true;
+    }
+
+    get defaultResult() {
+        return DefaultResult;
+    }
+
+    get defaultSettlementResult() {
+        return {};
     }
 
     getMainOptions(): string[] {
@@ -38,14 +55,22 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         };
     }
 
+    renderResultSection() {
+        const { result, settlementResult, gameState, showResultInfo } = this.state;
+        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} showResultInfo={showResultInfo} />;
+    }
+
     renderBetOptions() {
-        const { gameState, settlementResult, showWinningAnimation } = this.state;
+        const { gameState, settlementResult, showWinningAnimation, showResultInfo } = this.state;
         return (
-            <KenoProMaxBetOptions
-                gameState={gameState}
-                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
-                isShowWinningEffect={showWinningAnimation}
-            />
+            <>
+                {gameState === GameState.DisplayResult && !showResultInfo && <OverlayMaskWhite />}
+                <KenoProMaxBetOptions
+                    gameState={gameState}
+                    settlementResult={settlementResult ?? this.getFakeSettlementResult()}
+                    isShowWinningEffect={showWinningAnimation}
+                />
+            </>
         );
     }
 
@@ -53,11 +78,11 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         const sourceTabsValue = {
             bigSmall: {
                 tabName: this.getGameTranslate("bigSmallTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["big", "small"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["big", "small"] }),
             },
             oddEven: {
                 tabName: this.getGameTranslate("evenOddTabs"),
-                tabWinningStreak: this.getWinningStreakByOptions(["odd", "even"]),
+                tabWinningStreak: this.getWinningStreakByOptions({ options: ["odd", "even"] }),
             },
             fiveElement: {
                 tabName: this.getGameTranslate("fiveElementsTabs"),
@@ -95,9 +120,10 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
         return (
             <ScoreboardDragon
                 roundHistory={roundHistory}
-                getDotDetails={ScoreboardRule[activeScoreboardTab]?.GetScoreboardDotDetails}
-                conditionChangeDot={ScoreboardRule[activeScoreboardTab]?.conditionChangeDot}
-                translateDotTextMapping={translateDotTextMapping}
+                dotDetails={{
+                    translateDotTextMapping: translateDotTextMapping,
+                    choice: ChoiceForTabActive[activeScoreboardTab]?.choice,
+                }}
             />
         );
     }
@@ -107,22 +133,16 @@ class KenoProMax extends GameBase<GameBaseProps, GameBaseState<Result, Settlemen
     }
 
     renderResult() {
-        const { result, settlementResult } = this.state;
-
-        return (
-            <KenoProMaxResult
-                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
-                settlementResult={settlementResult ?? this.getFakeSettlementResult()}
-            />
-        );
+        return <div></div>;
     }
 
     renderResultCollapse() {
-        const { result, settlementResult } = this.state;
+        const { result, settlementResult, gameState } = this.state;
         return (
-            <KenoProMaxResultCollapse
+            <RoundResultCollapse
                 result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
+                gameState={gameState}
             />
         );
     }

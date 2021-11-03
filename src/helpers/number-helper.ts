@@ -6,6 +6,6 @@ const randomInteger = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const isNumber = (char: string) => /^-?[\d.]+(?:e-?\d+)?$/.test(char);
+const sumArray = (numbers: number[]) => numbers.reduce((number, sum) => number + sum, 0);
 
-export { numberWithCommas, randomInteger, isNumber };
+export { numberWithCommas, randomInteger, sumArray };

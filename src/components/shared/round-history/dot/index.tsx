@@ -7,22 +7,28 @@ type Props = {
     value?: number | string | object;
     highlight?: boolean;
     size?: string;
+    gameName?: string;
 };
 
 export const RoundDot: React.FunctionComponent<Props> = ({ choice = "even", value, highlight = false, size = "" }) => {
     const classDotName = `dot-${choice}`;
-    return <div className={`${Styles[classDotName]} ${highlight ? "highlight-current-result" : ""} ${Styles[size]}`}>{value}</div>;
+    return (
+        <div className={`${Styles[classDotName]} ${highlight ? "highlight-current-result" : ""} ${Styles[size]}`} data-testid="round-dot">
+            {value}
+        </div>
+    );
 };
 
-export const RoundDotGrid: React.FunctionComponent<Props> = ({ choice = "even", value, col, row }) => {
+export const RoundDotGrid: React.FunctionComponent<Props> = ({ choice = "even", value, col, row, gameName }) => {
     const classDotName = `dot-${choice}`;
     return (
         <div
-            className={Styles[classDotName]}
+            className={`${Styles[classDotName]} ${gameName ? Styles[gameName] : ""}`}
             style={{
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),
             }}
+            data-testid="round-dot-grid"
         >
             {value}
         </div>

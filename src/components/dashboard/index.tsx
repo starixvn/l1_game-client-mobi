@@ -11,7 +11,8 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
-import { authorize, reCheckIn, updateSignInSMStatus, updateThemeSetting } from "../../services/auth-service";
+import { authorize, reCheckIn } from "../../services/auth-service";
+import { updateSignInSMStatus, updateThemeSetting } from "../../services/user-setting-service";
 import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
@@ -127,9 +128,10 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     doOnOrientationChange() {
-        switch (window.orientation) {
-            case -90:
-            case 90:
+        const orientation = (screen.orientation || {}).type;
+        switch (orientation) {
+            case "landscape-primary":
+            case "landscape-secondary":
                 this.setState({ orientation: "landscape" });
                 break;
             default:

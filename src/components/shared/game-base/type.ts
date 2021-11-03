@@ -35,6 +35,12 @@ export interface GameSettings {
     durations: GameDurations;
 }
 
+export type GatewayGameBaseProps = {
+    socketGateway: Socket;
+    socketGatewayState: SocketState;
+    retryConnectSocket: () => void;
+} & GameBaseProps;
+
 export type GameBaseProps = {
     id: number;
     gameName: string;
@@ -44,14 +50,12 @@ export type GameBaseProps = {
     playPlaceBetSound: Function;
     viewMode: ViewMode;
     setApiErrorMessage: Function;
-    theme: string;
+    supportMD5?: boolean;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
-    socketGateway: Socket;
-    socketGatewayState: SocketState;
-    retryConnectSocket: () => void;
 } & WithTranslation &
     WithRouterProps;
+
 export interface GameBaseState<Result, SettlementResult> {
     signedIn: boolean;
     gameState: GameState;
@@ -86,6 +90,9 @@ export interface GameBaseState<Result, SettlementResult> {
     betOptionElement?: HTMLElement;
     betChoiceElement?: HTMLElement;
     activeScoreboardTab?: number;
+    md5?: string;
+    md5ResultKey?: string;
+    showMD5ResultKey?: boolean;
 }
 
 export interface Notice {
@@ -96,6 +103,8 @@ export interface Notice {
     minBet?: number;
     maxBet?: number;
     errorCode?: string;
+    position? : any
+    isWarning?: boolean;
 }
 
 export interface APIError extends Notice {
@@ -140,14 +149,14 @@ export type GameGuide = {
 };
 
 export interface BetLogsBase<Result, SettlementResult, Odd> {
-    betLogDetails: [];
-    betwin: number;
-    freeBet: boolean;
-    name: string;
-    phien: number;
-    result: Result;
-    settlementResult: SettlementResult;
-    time: string;
+    betLogDetails?: [];
+    betwin?: number;
+    freeBet?: boolean;
+    name?: string;
+    phien?: number;
+    result?: Result;
+    settlementResult?: SettlementResult;
+    time?: string;
     odds?: Odd;
 }
 

@@ -19,6 +19,7 @@ export const ScoreboardItemNext = ({ col, row }: Props) => {
                 gridColumnStart: col.toString(),
                 gridRowStart: row.toString(),
             }}
+            data-testid="scoreboard-dot-next"
         ></div>
     );
 };

@@ -38,7 +38,7 @@
             width: 2.4rem;
             transition: left 100ms ease-in;
             background: url("/static/images/icon-quick-bet.svg?v=1625225065074") no-repeat center;
-            @media(min-width: 768px){
+            @media (min-width: 768px) {
                 height: 3.2rem;
                 width: 3.2rem;
             }
@@ -55,11 +55,12 @@
         }
     }
 
-
     &.bet-setting {
         position: absolute;
-        top: .8rem;
-        right: 1.2rem;
+        &.ios-device, &.android-device {
+            top: 0.8rem;
+            right: 1.2rem;
+        }
         &.ios-device {
             @media (min-device-width: 375px) and (min-device-height: 668px) {
                 top: 1.1rem;
@@ -70,11 +71,16 @@
                     bottom: 4rem;
                 }
             }
-        }        
+        }
 
         @media (min-width: 768px) {
             right: 2.6rem;
             top: 2.4rem;
+        }
+
+        @media (max-width: 767.99px) {
+            right: 2.6rem;
+            top: 3.4rem;
         }
 
         .toggle-btn {
@@ -92,7 +98,7 @@
 
         .toggle-checkbox:checked + .toggle-btn > .quick-bet-icon {
             left: 1.2rem;
-            @media(min-width: 768px) {
+            @media (min-width: 768px) {
                 left: 2rem;
             }
         }
@@ -102,7 +108,7 @@
             line-height: 0;
             font-size: 1.2rem;
             color: #fff;
-            @media (min-width: 768px){
+            @media (min-width: 768px) {
                 margin-top: 1.6rem;
             }
         }
@@ -124,26 +130,19 @@
 
 .hint-one-click-bet {
     bottom: 5.5rem;
-    left: -0.6rem;
-    width: 34rem;
+    right: 0.5rem;
+    width: 40rem;
     z-index: 1;
 
     &.isMobile {
         bottom: 3.6rem;
-        left: unset;
-        right: -.6rem;
+        right: -0.6rem;
         width: calc(100vw - 1rem);
-        &:before{
+        &:before {
             bottom: -1.5rem;
             border-color: #fff1b2 transparent transparent transparent;
             top: unset;
         }
-    }
-
-    @media (min-width: 768px) {
-        left: unset;
-        right: 0.5rem;
-        width: 40rem;
     }
 
     .action {

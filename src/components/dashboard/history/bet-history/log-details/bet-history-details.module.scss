@@ -1,0 +1,38 @@
+.bet-log-details {
+    margin-top: 1rem;
+    height: calc(100% - 9rem);
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+
+    @media (min-width: 768px) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.bet-log-details {
+    position: relative;
+    .back {
+        position: absolute;
+        left: 1rem;
+        top: -1.6rem;
+    }
+    .icon-close {
+        position: absolute;
+        top: -1rem;
+        right: 1.6rem;
+        z-index: 10;
+    }
+    .arrow-left {
+        width: 2.4rem;
+        height: 2.4rem;
+        display: inline-block;
+        cursor: pointer;
+    }
+    .details {
+        font-weight: 500;
+        font-size: 1.6rem;
+        color: #2c2f3e;
+        text-align: center;
+    }
+}

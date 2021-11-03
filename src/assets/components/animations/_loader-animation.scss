@@ -6,6 +6,11 @@
     height: 3rem;
     border: 0 solid transparent;
     border-radius: 50%;
+    &.kenopower2{
+        @media(min-width: 760px) and (max-width: 810px) {
+            left: calc(50% - 1.2rem);
+        }        
+    }
 
     &:before,
     &:after {

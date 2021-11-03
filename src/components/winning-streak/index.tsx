@@ -17,14 +17,17 @@ const BauCuaIconMapper = {
 const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie", "minisedie", "specialsedie", "threecards"];
 
 const getIconClassName = (gameName: string, choice: string) => {
-    switch (gameName.toLocaleLowerCase()) {
+    const gameNameLower = gameName.toLocaleLowerCase();
+    switch (gameNameLower) {
         case "baucua":
             return `${styles.dice} ${BauCuaIconMapper[choice]}`;
         case "kenopromax":
-            return styles[`dot-${choice}-kenopromax`];
-        case "baccarat":
-        case "vipbaccarat":
-            return styles[`dot-${choice}-baccarat`];
+        case "kenomatch1":
+        case "kenomatch2":
+        case "kenopower1":
+        case "kenopower2":
+            const choiceName = `dot-${choice}`;
+            return `${styles[choiceName]} ${styles[gameNameLower]}`;
         default:
             return styles[`dot-${choice}`];
     }
@@ -62,10 +65,11 @@ export const WinningStreak = forwardRef((props, ref) => {
 
     return (
         <div className={styles["winning-streak-container"]}>
-            {Object.values(winningStreakQueue).map(({ gameName, choice, streak, key }) => {
+            {Object.values(winningStreakQueue).map(({ gameName, choice, streak, key, optional }) => {
                 return (
                     <div key={key} className={styles["streak-notification"]}>
                         <div className={styles["game-name"]}>{t(`${gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}</div>
+                        {optional && <span className={styles["optional"]}>{optional}</span>}
                         <span className={`${styles["option-icon"]} ${getIconClassName(gameName, choice)}`}>
                             {getTextOnIconChoice(gameName, choice, t)}
                         </span>

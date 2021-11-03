@@ -1,0 +1,164 @@
+@import "../../../../assets/components/result-label-collapse-mode";
+@import "../../../../assets/components/animations/common";
+@import "../../../../assets/components/settlement-info";
+
+[data-theme="light"] .round-result {
+    --round-result-background: linear-gradient(90deg, #dde6ff 0%, #ffffff 50.41%, #e1e9ff 100%);
+    --settle-info-background: linear-gradient(180deg, #d5defb 0%, #b7c1e4 79.48%, #d1d8ee 100%);
+    --settle-info-color: #000;
+}
+
+[data-theme="dark"] .round-result {
+    --round-result-background: linear-gradient(90.71deg, #243950 0.66%, #33496d 50.73%, #253a52 99.16%);
+    --settle-info-background: linear-gradient(180deg, #4b6e96 0%, #274e77 79.48%, #445f7c 100%);
+    --settle-info-color: #fff;
+}
+
+$number-count: 20;
+
+.round-result {
+    display: grid;
+    grid-template-rows: 1fr 4rem;
+    height: 100%;
+    background: var(--round-result-background);
+    transition: height 0.2s ease;
+
+    .result {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .number-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(10, 2.4rem);
+        grid-template-rows: repeat(2, 2.4rem);
+        grid-gap: 0.8rem 0.8rem;
+    }
+
+    .number-cover {
+        display: none;
+    }
+
+    .number-animate {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .settle-info {
+        background: var(--settle-info-background);
+        position: relative;
+        display: grid;
+        grid-template-columns: 13rem 1fr;
+        align-items: center;
+        height: 4rem;
+    }
+}
+
+.result-total {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--settle-info-color);
+    .result-total-lbl {
+        line-height: 1.8rem;
+        margin-right: 1rem;
+        font-size: 1.6rem;
+        font-weight: 500;
+    }
+    &.bet-history {
+        display: block;
+        text-align: center;
+        padding-bottom: 1rem;
+        .result-total-lbl {
+            font-size: 1.2rem;
+            margin-right: 0;
+            margin-bottom: .2rem;
+        }
+    }
+
+    .result-total-number {
+        font: 500 2rem/1.2rem var(--font-number);
+    }
+}
+
+.winning-info {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+
+    &.show {
+        opacity: 0;
+        animation: show-winning-info-animation 0.5s 2s ease-out forwards;
+    }
+
+    &.hide {
+        animation: hide-winning-info-animation 0.3s ease-in forwards;
+    }
+
+    .result-info {
+        min-width: 6rem;
+        height: 2.6rem;
+        margin: 0 0.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 1.4rem;
+        font-weight: 500;
+    }
+}
+
+@keyframes show-winning-info-animation {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes hide-winning-info-animation {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.result-collapse-mode {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    .result-container-collapse {
+        position: absolute;
+        left: 1rem;
+        display: grid;
+        grid-template-columns: repeat(10, 2.2rem);
+        grid-template-rows: repeat(2, 2.2rem);
+        grid-gap: 0.3rem;
+    }
+
+    .has-animation {
+        --time-show-num-animation: 0.3s;
+    }
+
+    .number {
+        font-size: 1.4rem;
+    }
+
+    .total-point {
+        margin-right: 0.3rem;
+        font-family: var(--font-number);
+    }
+}

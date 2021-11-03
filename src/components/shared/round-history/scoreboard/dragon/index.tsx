@@ -1,16 +1,18 @@
 import React, { useMemo } from "react";
+
 import { ScoreboardItemNext } from "../../dot-next";
-import { Round } from "../../../../../types";
 import { Props } from "./types";
 import { v4 as uuidV4 } from "uuid";
 import { useGameContext } from "../../../../../contexts/game-context/game-context";
-import Styles from "../round-history.module.scss";
 import { GameBaseProps } from "../../../game-base/type";
+import { RoundDotGrid } from "../../../round-history/dot";
+import { GetNameFromChoice, GetChoiceValueFromTranslate } from "./dragon.helper";
+import Styles from "../round-history.module.scss";
 
 const rowTotal = 7;
-const conditionChangeDotDefault = (settlementResult: any) => {
+const conditionChangeDotDefault = ({ settlementResult, choices }) => {
     let value = 0;
-    Object.keys(settlementResult).forEach((name, index) => {
+    choices.forEach((name, index) => {
         if (settlementResult[name]) {
             value = index;
         }
@@ -23,13 +25,36 @@ const getDotNextDetails = (col: number, row: number) => {
     return <ScoreboardItemNext key={uuidV4()} col={col} row={row}></ScoreboardItemNext>;
 };
 
+const getScoreboardDotDetails: React.FC<{
+    col: number;
+    row: number;
+    roundId: number;
+    translateDotTextMapping: object;
+    gameSetting: GameBaseProps;
+    settlementResult: any;
+    choices: [];
+}> = ({ col, row, roundId, translateDotTextMapping, gameSetting, settlementResult, choices }) => {
+    const choiceName = GetNameFromChoice({ settlementResult, choices });
+    return (
+        <RoundDotGrid
+            key={`${roundId}_${gameSetting.id}_${choiceName}`}
+            choice={choiceName}
+            value={GetChoiceValueFromTranslate({ settlementResult, choices, translateDotTextMapping })}
+            col={col}
+            row={row}
+            gameName={gameSetting.gameName.toLowerCase()}
+        ></RoundDotGrid>
+    );
+};
+
 const drawDragonTailHistory = <R, S>(
-    roundHistory: Round<R, S>[],
+    roundHistory: any[],
     isShowBlink: boolean,
     getDotDetails: Function,
-    conditionChangeDot?: (settlementResult: any) => void,
+    conditionChangeDot: Function,
     translateDotTextMapping?: object,
-    gameSetting?: GameBaseProps
+    gameSetting?: GameBaseProps,
+    listChoiceChangeDotDetails?: string[]
 ) => {
     let col = 1,
         row = 1;
@@ -37,8 +62,8 @@ const drawDragonTailHistory = <R, S>(
     let previousResult = undefined;
     const rowMax = {};
     let colMax = 0;
-    const result = roundHistory.reduceRight((resultRound, round: Round<R, S>, index) => {
-        const value = conditionChangeDot(round.settlementResult);
+    const result = roundHistory.reduceRight((resultRound, round, index) => {
+        const value = conditionChangeDot({ settlementResult: round?.settlementResult, choices: listChoiceChangeDotDetails });
         if (value === previousResult) {
             const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
 
@@ -62,13 +87,14 @@ const drawDragonTailHistory = <R, S>(
         }
         previousResult = value;
         resultRound[index] = getDotDetails({
-            result: round.result,
+            result: round?.result,
             col: col,
             row: row,
-            roundId: round.roundId,
+            roundId: round?.roundId,
             translateDotTextMapping: translateDotTextMapping,
             gameSetting: gameSetting,
-            settlementResult: round.settlementResult,
+            settlementResult: round?.settlementResult,
+            choices: listChoiceChangeDotDetails,
         });
 
         return resultRound;
@@ -77,6 +103,7 @@ const drawDragonTailHistory = <R, S>(
     isShowBlink && result.push(addDotNext(rowMax, row, col, nextCol, getDotNextDetails));
     return result;
 };
+
 const addDotNext = (rowMax: {}, row: number, col: number, nextCol: number, getDotNextDetails: Function) => {
     const max = rowMax.hasOwnProperty(col) ? rowMax[col] : rowTotal;
     if (row < max - 1) {
@@ -95,20 +122,28 @@ const addDotNext = (rowMax: {}, row: number, col: number, nextCol: number, getDo
 };
 
 const ScoreboardDragon = <R, S>(props: Props<R, S>) => {
-    const { roundHistory, getDotDetails, translateDotTextMapping } = props;
-    let { conditionChangeDot } = props;
-    if (!conditionChangeDot) {
-        conditionChangeDot = conditionChangeDotDefault;
-    }
-    const { isShowBlink, gameSetting } = useGameContext();
+    const { roundHistory, dotDetails } = props;
+    const translateDotTextMapping = dotDetails?.translateDotTextMapping ?? {};
+    const getDotDetails = dotDetails?.getDotDetails ?? getScoreboardDotDetails;
+    const conditionChangeDotDetails = dotDetails?.conditionChangeDot ?? conditionChangeDotDefault;
 
+    const { isShowBlink, gameSetting } = useGameContext();
+    const isShowDotBlink = props?.isShowBlink ?? isShowBlink;
     return useMemo(() => {
         return (
             <div className={Styles["score-board-dragon-container"]}>
-                {drawDragonTailHistory(roundHistory, isShowBlink, getDotDetails, conditionChangeDot, translateDotTextMapping, gameSetting)}
+                {drawDragonTailHistory(
+                    roundHistory,
+                    isShowDotBlink,
+                    getDotDetails,
+                    conditionChangeDotDetails,
+                    translateDotTextMapping,
+                    gameSetting,
+                    dotDetails?.choice
+                )}
             </div>
         );
-    }, [roundHistory, isShowBlink, getDotDetails, conditionChangeDot]);
+    }, [roundHistory, props?.isShowBlink ?? isShowBlink, dotDetails?.choice]);
 };
 
 export default ScoreboardDragon;

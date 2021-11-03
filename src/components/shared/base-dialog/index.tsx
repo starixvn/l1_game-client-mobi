@@ -17,6 +17,25 @@ type Props = {
     toggleBtnRef?: React.MutableRefObject<HTMLElement>;
 };
 
+const getClassFollowDevice = () => {
+    if (isMobileOnly) {
+        return isIOS ? Styles["ios-device"] : Styles["android-device"];
+    }
+    return "";
+};
+
+const getCustomStyle = ({ betContainerPosition }) => {
+    const browserHeight = window.innerHeight;
+
+    if (betContainerPosition != null) {
+        return browserHeight / betContainerPosition > 2
+            ? { top: `${betContainerPosition}px` }
+            : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
+    }
+
+    return {};
+};
+
 const BaseDialog: React.FC<Props> = ({
     children,
     onCloseModal = null,
@@ -28,30 +47,18 @@ const BaseDialog: React.FC<Props> = ({
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
-    let deviceClass = "";
-    if (isMobileOnly) {
-        deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
-    }
-
-    const getCustomStyle = () => {
-        const browserHeight = window.innerHeight;
-
-        if (betContainerPosition != null) {
-            return browserHeight / betContainerPosition > 2
-                ? { top: `${betContainerPosition}px` }
-                : { bottom: `${browserHeight - betContainerPosition + HeaderHeightInPixel}px`, top: "auto" };
-        }
-
-        return {};
-    };
 
     useEffect(() => {
-        enableBackdrop && document.body.classList.add("no-scroll");
-        enableBackdrop && document.documentElement.classList.add("no-scroll-html");
+        if (enableBackdrop) {
+            document.body.classList.add("no-scroll");
+            isMobileOnly && document.documentElement.classList.add("no-scroll-html");
+        }
 
         return () => {
-            enableBackdrop && document.body.classList.remove("no-scroll");
-            enableBackdrop && document.documentElement.classList.remove("no-scroll-html");
+            if (enableBackdrop) {
+                document.body.classList.remove("no-scroll");
+                isMobileOnly && document.documentElement.classList.remove("no-scroll-html");
+            }
         };
     }, []);
 
@@ -72,9 +79,9 @@ const BaseDialog: React.FC<Props> = ({
         <>
             {enableBackdrop && !isMobileOnly && <div className={`overlay-mask ${Styles["overlay"]}`}></div>}
             <div
-                style={getCustomStyle()}
+                style={getCustomStyle({ betContainerPosition })}
                 ref={wrapperRef}
-                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""} ${deviceClass}`}
+                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""} ${getClassFollowDevice()}`}
             >
                 {children}
             </div>

@@ -1,0 +1,183 @@
+@import "../../../assets/components/settlement-info";
+
+[data-theme="light"] .half-round-settlement {
+    --bg-img: url("/static/images/kenomatch/settlebg-kenomatch-light.png");
+    background-image: image-set(
+        url("/static/images/kenomatch/settlebg-kenomatch-light.png") 1x,
+        url("/static/images/kenomatch/settlebg-kenomatch-light-2x.png") 2x,
+        url("/static/images/kenomatch/settlebg-kenomatch-light-3x.png") 3x
+    );
+}
+
+[data-theme="dark"] .half-round-settlement {
+    --bg-img: url("/static/images/kenomatch/settlebg-kenomatch-dark.png");
+    background-image: image-set(
+        url("/static/images/kenomatch/settlebg-kenomatch-dark.png") 1x,
+        url("/static/images/kenomatch/settlebg-kenomatch-dark-2x.png") 2x,
+        url("/static/images/kenomatch/settlebg-kenomatch-dark-3x.png") 3x
+    );
+}
+
+.half-round-settlement {
+    width: 100%;
+    height: 100%;
+    animation-name: fadeIn, fadeOut;
+    animation-duration: 0.2s, 0.3s;
+    animation-delay: 0s, 4s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: linear, linear;
+    background-image: var(--bg-img);
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    &.kenomatch2,
+    &.kenopower2 {
+        animation-delay: 0s, 8s;
+    }
+    &.kenomatch1 {
+        &.half-time {
+            animation-delay: 0s, 5s;
+        }
+    }
+    &.kenomatch2 {
+        animation-delay: 0s, 9s;
+        &.half-time {
+            animation-delay: 0s, 10s;
+        }
+    }
+    &.first-half-settlement {
+        animation-duration: 0.2s, 1s;
+    }
+    .header {
+        opacity: 0;
+        font-weight: 500;
+        animation: run-text 0.3s linear forwards;
+        animation-delay: 0.2s;
+    }
+    &.kenomatch1 {
+        .header{
+            padding-top: .6rem;
+        }
+        .result-wrapper  {
+            margin-top: .6rem;
+        }
+    }
+}
+
+.result-wrapper {
+    opacity: 0;
+    border-radius: 1rem;
+    padding: 0 0 0.8rem;
+    width: 19.6rem;
+    margin: 0 auto;
+    text-align: center;
+    animation: fadeIn 0.3s linear forwards;
+    animation-delay: 0.8s;
+    &.teamBlueWin {
+        background-color: #cde9fc;
+        border: 1px solid #67a4eb;
+        .winning-name {
+            color: #2e73c3;
+        }
+    }
+    &.teamRedWin {
+        background-color: #ffe2e2;
+        border: 1px solid #ff5664;
+        .winning-name {
+            color: #ff4352;
+        }
+    }
+    &.tie {
+        background-color: #f3ffe9;
+        border: 1px solid #63ed33;
+        .winning-name {
+            color: #27b636;
+        }
+    }
+    .winning-name {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    .sum-label,
+    .team-label {
+        font-size: 1.2rem;
+        color: #5e5e5e;
+    }
+
+    .result-info {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(6rem, auto));
+
+        .winning-team {
+            font-size: 1.3rem;
+            margin-top: 0.4rem;
+            .team-label {
+                line-height: 1.6rem;
+            }
+        }
+        .result-info-red,
+        .result-info-blue {
+            height: 2.6rem;
+            font-size: 1.4rem;
+            padding: 0 1.4rem;
+            line-height: 2.6rem;
+            margin: 0 0.3rem;
+            display: flex;
+        }
+    }
+}
+
+.kenopower1,
+.kenopower2 {
+    .result-wrapper {
+        height: 12.6rem;
+        position: relative;
+        top: 0.2rem;
+    }
+}
+.kenopower1 .result-wrapper {
+    top: 1.2rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes run-text {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20rem, 0);
+    }
+
+    50% {
+        opacity: 0.3;
+        transform: translate3d(0, -12rem, 0);
+    }
+
+    70% {
+        opacity: 0.6;
+        transform: translate3d(0, -5rem, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}

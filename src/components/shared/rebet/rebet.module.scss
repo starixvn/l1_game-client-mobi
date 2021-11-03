@@ -1,11 +1,9 @@
 [data-theme="light"] .bet-info {
-    --success-text-color: #2c2f3e;
-    --error-text-color: #2c2f3e;
+    --bettype-choice-color: #2C2F3E;
 }
 
 [data-theme="dark"] .bet-info {
-    --success-text-color: var(--success-color);
-    --error-text-color: var(--error-color);
+    --bettype-choice-color: #fff;
 }
 
 .header {
@@ -38,12 +36,12 @@
     padding: 0 1rem;
     border-left-color: var(--success-color);
     background-color: var(--success-background);
-    color: var(--success-text-color);
+    color: var(--success-color);
 
     &.error {
         border-left-color: var(--error-color);
         background-color: var(--error-background);
-        color: var(--error-text-color);
+        color: var(--error-color);
     }
 
     .icon {
@@ -56,6 +54,13 @@
 
     .choice {
         font-weight: 500;
+    }
+    .choice-bettype {
+        display: block;
+        font-size: 1.3rem;
+        margin-top: .4rem;
+        line-height: 1rem;
+        color: var(--bettype-choice-color);
     }
 }
 

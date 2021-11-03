@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
@@ -33,16 +34,21 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
     }, [wrapperRef]);
 
     return (
-        <div className={Styles["selector-container"]} ref={wrapperRef}>
-            <div className={Styles["selected-item"]} onClick={() => setIsShowOptions(!isShowOptions)}>
+        <div className={Styles["selector-container"]} ref={wrapperRef} data-testid="game-selector">
+            <div data-testid="selected-item" className={Styles["selected-item"]} onClick={() => setIsShowOptions(!isShowOptions)}>
                 {t(`${appSettings.gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
             </div>
             {isShowOptions && (
-                <div className={Styles["dropdown-menu"]}>
+                <div className={`${Styles["dropdown-menu"]} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="dropdown-menu">
                     {appSettings.offeredGames
                         .filter((game) => offerGames.includes(game))
                         .map((id) => (
-                            <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)}>
+                            <div
+                                className={Styles["dropdown-item"]}
+                                key={id}
+                                onClick={() => onSelectOption(id)}
+                                data-testid="dropdown-item"
+                            >
                                 {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                             </div>
                         ))}
@@ -51,3 +57,5 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
         </div>
     );
 };
+
+export default GameSelector;

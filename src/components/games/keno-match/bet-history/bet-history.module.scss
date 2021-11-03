@@ -1,0 +1,47 @@
+@import "../../../keno/bet-history/bet-history.module";
+
+[data-theme="light"] .container-round {
+    --bg-line: #b9b9b9;
+    --team-blue-color: #3b7bc6;
+}
+
+[data-theme="dark"] .container-round {
+    --bg-line: #5086b4;
+    --team-blue-color: #5ea8ff;
+}
+
+.container-round {
+    display: grid;
+    grid-template-columns: 12rem 7.8rem 12rem;
+    padding: 1rem 0 0.8rem;
+    &:first-child {
+        position: relative;
+        &:before {
+            @extend .overwidth;
+            content: "";
+            position: absolute;
+            height: 0.1rem;
+            background-color: var(--bg-line);
+        }
+    }
+    &:last-child {
+        padding-bottom: 0;
+    }
+    .round-name {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        position: relative;
+        top: -0.4rem;
+    }
+    .total-match-section {
+        text-align: center;
+        font-size: 1.2rem;
+        line-height: 0.7rem;
+        position: relative;
+        top: 1.2rem;
+        .total {
+            font: 500 2rem var(--font-number);
+        }
+    }
+}

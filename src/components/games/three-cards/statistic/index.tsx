@@ -40,18 +40,17 @@ const RedBlackStatistics = ({ roundHistory, statisticRuleEntries, t }) => {
 
 const SuitStatistics = ({ roundHistory }) => {
     const statisticResult = countResult(roundHistory);
-
+    const getSrcSetImg = (choice: string) => {
+        const source1X = `/static/images/three-cards/${Choices[choice]}.png 1x`;
+        const source2X = `/static/images/three-cards/${Choices[choice]}@2x.png 2x`;
+        const source3X = `/static/images/three-cards/${Choices[choice]}@3x.png 3x`;
+        return `${source1X}, ${source2X}, ${source3X}`;
+    };
     return (
         <>
             {ChoiceSuitOrder.map((choice) => (
                 <StatisticItem key={choice} value={`${statisticResult[choice] ?? 0}`}>
-                    <img
-                        srcSet={`/static/images/three-cards/${Choices[choice]}.png 1x, /static/images/three-cards/${Choices[choice]}@2x.png 2x, /static/images/three-cards/${Choices[choice]}@3x.png 3x`}
-                        className={Styles["card-suite"]}
-                        alt="suite"
-                        width="18"
-                        height="18"
-                    ></img>
+                    <img srcSet={getSrcSetImg(choice)} className={Styles["card-suite"]} alt="suite" width="18" height="18"></img>
                 </StatisticItem>
             ))}
         </>

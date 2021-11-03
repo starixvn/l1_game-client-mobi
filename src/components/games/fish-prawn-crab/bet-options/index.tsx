@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { OddNames, ResultBet } from "..";
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
-import { GameConfigs, GameSettings, GameState } from "../../../shared/game-base/type";
+import { GameConfigs, GameState } from "../../../shared/game-base/type";
 import { Result, SettlementResult } from "./../fish-prawn-crab";
 import Styles from "./bet-options.module.scss";
 
@@ -61,7 +61,6 @@ const renderBetOptionByChoice = (
     countsAppearDice: object,
     isShowWinningEffect: boolean,
     gameConfigs: GameConfigs,
-    gameSetting: GameSettings,
     isShowCountOfDice: boolean
 ) => {
     const { odds } = gameConfigs;
@@ -132,7 +131,6 @@ const FishPrawnCrabBetOptions: React.FunctionComponent<Props> = (props) => {
                         countsAppearDice,
                         isShowWinningEffect,
                         gameConfigs,
-                        gameSetting,
                         isShowCountOfDice
                     )}
                 </div>

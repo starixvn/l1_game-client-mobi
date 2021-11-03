@@ -10,7 +10,7 @@ import { SystemContextProvider } from "../../contexts/system";
 import { SocketState } from "../../types";
 import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "../game-category/constants";
+import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage, favoriteGameIdIgnore } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -19,19 +19,21 @@ import BigSmall from "./big-small";
 import DragonTiger from "./dragon-tiger/";
 import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
+import KenoMatch from "./keno-match";
+import KenoPower from "./keno-power";
 import KenoProMax from "./keno-pro-max";
 import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
+import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 
 let gamesOrder = [];
-
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
-    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId));
+    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && appSettings.offeredGames.includes(gameId));
     const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
 
     gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
@@ -91,7 +93,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
-        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames, userOfferGames);
+        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames.filter(game => !favoriteGameIdIgnore.includes(game)), userOfferGames);
 
         return renderGames.length === 0 && selectedCategory === GameCategoryType.favorite ? (
             <FavoriteGuide />
@@ -117,6 +119,7 @@ export const Games: React.FC<Props> = ({
             socketGatewayState: socketState,
             retryConnectSocket: connectSocket,
         };
+
         switch (gameId) {
             case 2:
             case 22:
@@ -139,6 +142,12 @@ export const Games: React.FC<Props> = ({
                 return <BigSmall key={`game-${gameId}`} {...gameProps} />;
             case 35:
                 return <ThreeCards key={`game-${gameId}`} {...gameProps} />;
+            case 36:
+            case 37:
+                return <KenoMatch key={`game-${gameId}`} {...(gameProps as KenoMatchProps)} />;
+            case 40:
+            case 41:
+                return <KenoPower key={`game-${gameId}`} {...gameProps}></KenoPower>;
             default:
                 return null;
         }

@@ -10,7 +10,16 @@ import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { numberWithCommas } from "../../../helpers/number-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 
-const Rebet: React.FC<Props> = (props) => {
+const buildMessage = (notice, apiError, t, gameName) => ({
+    gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
+    roundId: notice?.gameRoundId || apiError?.gameRoundId,
+    message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
+    errorCode: notice?.errorCode || apiError?.errorCode,
+    minBet: notice?.minBet || apiError?.minBet,
+    maxBet: notice?.maxBet || apiError?.maxBet,
+});
+
+const Rebet: React.FC<Props> = (props: Props) => {
     const { onCloseModal } = props;
     const rebetStorageKey = localStorageKeys.rebet;
     const rebetStorage = getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
@@ -31,14 +40,7 @@ const Rebet: React.FC<Props> = (props) => {
             if (betTrack[betChoice]) {
                 betTrack[betChoice] = {
                     state: endBet > 0 ? BetState.Success : BetState.Error,
-                    messages: {
-                        gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
-                        roundId: notice?.gameRoundId || apiError?.gameRoundId,
-                        message: GetLocalizedErrorMessage(notice?.errorCode || apiError?.errorCode),
-                        errorCode: notice?.errorCode || apiError?.errorCode,
-                        minBet: notice?.minBet || apiError?.minBet,
-                        maxBet: notice?.maxBet || apiError?.maxBet,
-                    },
+                    messages: buildMessage(notice, apiError, t, gameName),
                     validAmount: endBet > 0 ? endBet : 0,
                 };
 
@@ -64,9 +66,12 @@ const Rebet: React.FC<Props> = (props) => {
 
     const renderLastRoundBet = () => {
         return lastBetChoices
-            ? Object.keys(lastBetChoices).map(
-                  (betChoice) =>
-                      lastBetChoices[betChoice] > 0 && (
+            ? Object.keys(lastBetChoices).map((betChoice) => {
+                  if (lastBetChoices[betChoice] > 0) {
+                      const bettypeName = `bettype-${betChoice}`;
+                      const isShowBettype = t(bettypeName) !== bettypeName;
+
+                      return (
                           <div key={betChoice}>
                               <div
                                   className={`${Styles["bet-info"]} ${
@@ -74,6 +79,7 @@ const Rebet: React.FC<Props> = (props) => {
                                   }`}
                               >
                                   <div className={Styles["bet-choice"]}>
+                                      {isShowBettype && <span className={Styles["choice-bettype"]}> {t(bettypeName)}</span>}
                                       <span className={Styles["choice"]}>{t(betChoice)}</span>
                                       {`@1:${props.getOddsByChoice(betChoice)}`}
                                   </div>
@@ -98,8 +104,10 @@ const Rebet: React.FC<Props> = (props) => {
                                   </div>
                               )}
                           </div>
-                      )
-              )
+                      );
+                  }
+                  return null;
+              })
             : null;
     };
 

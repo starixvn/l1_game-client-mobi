@@ -48,14 +48,6 @@ export const authorize = async (userSession: SSOResponse) => {
     return authService.authorize(userSession.ss, userSession.username);
 };
 
-export const updateThemeSetting = async (userSession: SSOResponse, theme) => {
-    return userSettingsService.updateUserThemeSetting(userSession.ss, userSession.username, theme);
-};
-
-export const updateSignInSMStatus = async (userSession: SSOResponse) => {
-    return userSettingsService.updateSignInSMStatus(userSession.ss, userSession.username);
-};
-
 export const getBalance = async (userSession: SSOResponse) => {
     return authService.getBalance(userSession.ss, userSession.username);
 };

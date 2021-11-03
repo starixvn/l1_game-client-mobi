@@ -47,15 +47,26 @@
 
     .winning-streak {
         position: absolute;
-        top: -0.3rem;
-        right: -1.4rem;
+        top: -0.5rem;
+        right: -1rem;
         line-height: 1.4rem;
         padding: 0 0.4rem;
-        border: 0.1rem solid #ffb022;
-        border-radius: 0.3rem;
-        background: #ffc969;
+        border: 0.1rem solid #FFB022;
+        border-radius: 50%;
+        background: #FFDA99;
         font-weight: 500;
-        font-size: 1.2rem;
-        color: #744800;
+        font-size: 1rem;
+        color: #2C2F3E;
     }
+}
+
+.keno-match {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    font-size: 1.3rem;
+    .tabs-child {
+        margin: 0;
+    }
+    
 }

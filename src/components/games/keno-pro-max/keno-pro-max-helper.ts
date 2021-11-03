@@ -1,5 +1,6 @@
 import { TFunction } from "next-i18next";
-import { SettlementResult } from "./keno-pro-max";
+import { Result, SettlementResult } from "./keno-pro-max";
+
 export const Choices = {
     big: "big",
     small: "small",
@@ -11,7 +12,7 @@ export const Choices = {
     fire: "fire",
     earth: "earth",
 };
-const ChoicesFiveElement = ["gold", "wood", "water", "fire", "earth"];
+const elements = ["gold", "wood", "water", "fire", "earth"];
 
 const StatisticRuleEntriesBigSmall = Object.entries({
     [Choices.big]: (countResult: object, total: number) =>
@@ -48,31 +49,37 @@ const StatisticRuleEntriesFiveElements = Object.entries({
 
 export const StatisticRuleMapping = [StatisticRuleEntriesBigSmall, StatisticRuleEntriesOddEven, StatisticRuleEntriesFiveElements];
 
-export const ConditionChangeDotOfFiveElements = (settlementResult: SettlementResult) => {
-    let valueInit = 0;
-    ChoicesFiveElement.forEach((choice, index) => {
-        if (settlementResult[choice]) {
-            valueInit = index;
-        }
-    });
-    return valueInit;
-};
-
-export const GetNameFromChoice = (settlementResult: SettlementResult) => {
-    let choiceValue = Choices.gold;
-    ChoicesFiveElement.forEach((choice) => {
-        if (settlementResult[choice]) {
-            choiceValue = choice;
-        }
-    });
-    return choiceValue;
-};
-
-export const GetChoiceTranslate = (t: TFunction, settleResult: any) => {
+export const GetChoiceTranslate = (t: TFunction) => {
     return {
         total: t("kenopromax:total"),
-        big: t(settleResult.big ? "kenopromax:big" : "kenopromax:small"),
-        even: t(settleResult.even ? "kenopromax:even" : "kenopromax:odd"),
-        element: t(`kenopromax:${settleResult.element}`),
+        big: t("kenopromax:big"),
+        small: t("kenopromax:small"),
+        even: t("kenopromax:even"),
+        odd: t("kenopromax:odd"),
+        gold: t("kenopromax:gold"),
+        wood: t("kenopromax:wood"),
+        water: t("kenopromax:water"),
+        fire: t("kenopromax:fire"),
+        earth: t("kenopromax:earth"),
     };
+};
+
+export const ChoiceForTabActive = [
+    {
+        choice: ["big", "small"],
+    },
+    {
+        choice: ["odd", "even"],
+    },
+    {
+        choice: ["gold", "wood", "water", "fire", "earth"],
+    },
+];
+
+export const getTotalPoint = (result: Result) => {
+    return result ? result.reduce((a, b) => a + b, 0) : 0;
+};
+
+export const getLabelFromFiveElements = (settlementResult: SettlementResult) => {
+    return settlementResult ? elements.filter((e) => settlementResult[e])[0] : "";
 };

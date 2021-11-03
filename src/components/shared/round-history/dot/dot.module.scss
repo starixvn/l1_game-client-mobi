@@ -78,6 +78,19 @@
     &:before {
         background: var(--dot-even-background);
     }
+    &.kenopromax,
+    &.kenomatch1,
+    &.kenomatch2,
+    &.kenopower1,
+    &.kenopower2 {
+        color: #fff;
+        background: var(--bigSmall-dot-big-border);
+        box-shadow: var(--bigSmall-dot-big-shadow);
+
+        &:before {
+            background: var(--bigSmall-dot-big-background);
+        }
+    }
 }
 
 .dot-odd {
@@ -88,6 +101,20 @@
 
     &:before {
         background: var(--dot-odd-background);
+    }
+
+    &.kenopromax,
+    &.kenomatch1,
+    &.kenomatch2,
+    &.kenopower1,
+    &.kenopower2 {
+        color: #fff;
+        background: var(--bigSmall-dot-small-border);
+        box-shadow: var(--bigSmall-dot-small-shadow);
+
+        &:before {
+            background: var(--bigSmall-dot-small-background);
+        }
     }
 }
 
@@ -114,16 +141,23 @@
 
 .dot-tie {
     @extend %dot;
-    background: var(--dragonTiger-dot-tie-border);
-    box-shadow: var(--dragonTiger-dot-tie-shadow);
+    background: var(--baccarat-dot-tie-border);
+    box-shadow: var(--baccarat-dot-tie-shadow);
 
     &:before {
-        background: var(--dragonTiger-dot-tie-background);
+        background: var(--baccarat-dot-tie-background);
+    }
+    &.dragontiger {
+        background: var(--dragonTiger-dot-tie-border);
+        box-shadow: var(--dragonTiger-dot-tie-shadow);
+
+        &:before {
+            background: var(--dragonTiger-dot-tie-background);
+        }
     }
 }
 
 // big-small
-
 .dot-big {
     @extend %dot;
     background: var(--bigSmall-dot-big-border);
@@ -145,14 +179,7 @@
 }
 
 // baccarat
-.dot-big-baccarat {
-    @extend .dot-big;
-}
-.dot-small-baccarat {
-    @extend .dot-small;
-}
-.dot-banker,
-.dot-banker-baccarat {
+.dot-banker {
     @extend %dot;
     background: var(--baccarat-dot-banker-border);
     box-shadow: var(--baccarat-dot-banker-shadow);
@@ -162,8 +189,7 @@
     }
 }
 
-.dot-player,
-.dot-player-baccarat {
+.dot-player {
     @extend %dot;
     background: var(--baccarat-dot-player-border);
     box-shadow: var(--baccarat-dot-player-shadow);
@@ -173,43 +199,7 @@
     }
 }
 
-.dot-tie-baccarat {
-    @extend %dot;
-    background: var(--baccarat-dot-tie-border);
-    box-shadow: var(--baccarat-dot-tie-shadow);
-
-    &:before {
-        background: var(--baccarat-dot-tie-background);
-    }
-}
-
-// keno
-.dot-big-kenopromax {
-    @extend .dot-big;
-}
-.dot-small-kenopromax {
-    @extend .dot-small;
-}
-.dot-even-kenopromax {
-    @extend %dot;
-    background: var(--bigSmall-dot-big-border);
-    box-shadow: var(--bigSmall-dot-big-shadow);
-
-    &:before {
-        background: var(--bigSmall-dot-big-background);
-    }
-}
-
-.dot-odd-kenopromax {
-    @extend %dot;
-    background: var(--bigSmall-dot-small-border);
-    box-shadow: var(--bigSmall-dot-small-shadow);
-
-    &:before {
-        background: var(--bigSmall-dot-small-background);
-    }
-}
-
+// keno pro max
 %icon-keno-promax {
     content: "";
     display: inline-block;
@@ -304,6 +294,29 @@
     &:before {
         background: var(--threeCards-dot-black-background);
     }
+}
+
+// keno match
+.dot-blue {
+    @extend .dot-big;
+}
+
+.dot-over {
+    @extend .dot-big;
+}
+
+.dot-under {
+    @extend .dot-small;
+}
+
+// keno power
+.dot-blueBig,
+.dot-redBig {
+    @extend .dot-big;
+}
+.dot-blueSmall,
+.dot-redSmall {
+    @extend .dot-small;
 }
 
 // animations

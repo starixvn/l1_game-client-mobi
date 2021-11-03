@@ -1,7 +1,7 @@
 @import "../../../assets/components/dropdown";
 
 .selector-container {
-    position: relative;
+    //position: relative;
     display: table-cell;
 }
 
@@ -13,6 +13,7 @@
     border-radius: 5px;
     background: var(--select-background-color);
     color: var(--select-color);
+    position: relative;
 
     @media (min-width: 768px) {
         display: inline-block;
@@ -30,8 +31,22 @@
 }
 .dropdown-menu {
     display: block;
-    width: 100%;
-    top: 3.2rem !important;
+    width: calc(100% - 2rem - 5.2rem);
+    top: 6.5rem !important;
+    overflow: auto;
+    bottom: 0;
+    @media(min-width: 768px) {
+        width: 34.3rem;
+    }
+    // @media (min-device-width: 768px) {
+    //     max-height: calc(100vh - 14rem);
+    // }
+    // @media (min-device-width: 768px) and (min-height: 768px) {
+    //     max-height: 51.8rem;
+    // }
+    // &.mobile {
+    //     max-height: calc(100vh - 24.4rem);
+    // }
 }
 
 .dropdown-item {

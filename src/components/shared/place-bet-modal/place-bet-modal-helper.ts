@@ -1,129 +1,82 @@
-interface BetFormPositionCss {
+interface PositionCss {
     top: string;
     bottom?: string;
-    right?: string;
     left?: string;
 }
 
-interface BetFormCss {
-    position: BetFormPositionCss;
+export interface BetFormCss {
+    position: PositionCss;
     arrowStyle: string;
-    alignArrowStyle: string;
     arrowStyleLeft?: string;
-}
-
-interface AdjustedBetFormCss {
-    styles?: BetFormCss;
-    isAdjust: boolean;
 }
 
 export const adjustPopupPosition = (
     isMobileOnly: boolean,
-    gameBaseContainerRef: any,
-    betOptionElement: HTMLElement,
-    betChoiceElement: HTMLElement
+    orgBetFormCss: BetFormCss,
+    gameContainerRect: any,
+    popupRect: any,
+    betOptionRect: any,
+    betChoiceRect: any
 ): BetFormCss => {
-    return isMobileOnly
-        ? adjustPopupPositionMobile(gameBaseContainerRef, betOptionElement)
-        : adjustPopupPositionDesktop(gameBaseContainerRef, betOptionElement, betChoiceElement);
+    const betFormCss = calculateLeftPosition(isMobileOnly, orgBetFormCss, gameContainerRect, popupRect, betChoiceRect);
+
+    if (window.innerHeight - betOptionRect.bottom > popupRect.height) {
+        return betFormCss;
+    }
+
+    return calculateBottomPosition(betFormCss, gameContainerRect, popupRect, betOptionRect);
 };
 
-export const adjustPopupPositionMobile = (gameBaseContainerRef: any, betOptionElement: HTMLElement): BetFormCss => {
-    const betOptionRect = betOptionElement.getBoundingClientRect(),
-        gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
+export const calculateBottomPosition = (
+    orgBetFormCss: BetFormCss,
+    gameContainerRect: any,
+    popupRect: any,
+    betOptionRect: any
+): BetFormCss => {
+    const betFormCss = { ...orgBetFormCss };
 
-    return {
-        position: {
-            top: `${betOptionRect.bottom - gameContainerRect.top}px`,
-        },
-        arrowStyle: "up",
-        alignArrowStyle: "left",
-        arrowStyleLeft: `${betOptionRect.left + betOptionRect.width / 2}px`,
-    };
+    betFormCss.position.bottom = `${
+        betOptionRect.top > popupRect.height ? gameContainerRect.bottom - betOptionRect.top : betOptionRect.bottom + 15
+    }px`;
+    betFormCss.position.top = "auto";
+    betFormCss.arrowStyle = "down";
+
+    return betFormCss;
 };
 
-export const adjustPopupPositionDesktop = (gameBaseContainerRef: any, betOptionElement: HTMLElement, betChoiceElement: HTMLElement) => {
-    const betContainerRect = gameBaseContainerRef.current.parentElement.getBoundingClientRect(),
-        gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-        betChoiceRect = betChoiceElement.getBoundingClientRect(),
-        betOptionRect = betOptionElement.getBoundingClientRect(),
-        rightGap = Math.round(betChoiceRect.right - betContainerRect.right),
-        isAlignRight = rightGap > -5 && rightGap < 5,
-        leftGap = Math.round(betContainerRect.left - betChoiceRect.left),
-        isAlignLeft = leftGap > -5 && leftGap < 5;
+export const calculateLeftPosition = (
+    isMobileOnly: boolean,
+    orgBetFormCss: BetFormCss,
+    gameContainerRect: any,
+    popupRect: any,
+    betChoiceRect: any
+): BetFormCss => {
+    const betFormCss = { ...orgBetFormCss };
 
-    const gameContainerMarginLeft = 6,
-        popupPadding = 16,
-        arrowPadding = 64,
+    if (isMobileOnly) {
+        betFormCss.arrowStyleLeft = `${betChoiceRect.left + betChoiceRect.width / 2}px`;
+        return betFormCss;
+    }
+
+    const rightGap = Math.round(betChoiceRect.right - gameContainerRect.right);
+    const leftGap = Math.round(gameContainerRect.left - betChoiceRect.left);
+    const isAlignRight = rightGap > -5 && rightGap < 5;
+    const isAlignLeft = leftGap > -5 && leftGap < 5;
+    const right = 20,
         halfArrowWidth = 8;
 
-    let alignArrowStyle = "left";
-    let popupStyle: BetFormPositionCss = {
-        top: `${betOptionRect.bottom - gameContainerRect.top}px`,
-        bottom: "none",
-        left: `${betChoiceRect.width / 2 - arrowPadding + gameContainerMarginLeft + popupPadding + halfArrowWidth}px`,
-        right: "none",
-    };
+    let left = 20;
 
     if (isAlignRight) {
-        popupStyle.right = `${betChoiceRect.width / 2 - arrowPadding + popupPadding + halfArrowWidth}px`;
-        popupStyle.left = "none";
-        alignArrowStyle = "right";
+        left = gameContainerRect.width - popupRect.width - right;
     }
 
-    const quarterPopupWidth = 100,
-        extendLeft = quarterPopupWidth + gameContainerMarginLeft + popupPadding + halfArrowWidth;
-
-    if (!isAlignRight && !isAlignLeft) {
-        popupStyle.right = "none";
-        popupStyle.left = `${
-            gameContainerRect.width - (gameContainerRect.right - betChoiceRect.left) + betChoiceRect.width / 2 - extendLeft
-        }px`;
-        alignArrowStyle = "center";
+    if ((!isAlignRight && !isAlignLeft) || (isAlignRight && isAlignLeft)) {
+        left = (gameContainerRect.width - popupRect.width) / 2;
     }
 
-    if (isAlignRight && isAlignLeft) {
-        popupStyle.right = "none";
-        popupStyle.left = `${gameContainerRect.width / 2 - extendLeft}px`;
-        alignArrowStyle = "center";
-    }
+    betFormCss.position.left = `${left}px`;
+    betFormCss.arrowStyleLeft = `${betChoiceRect.right - betChoiceRect.width / 2 - gameContainerRect.left - left - halfArrowWidth}px`;
 
-    return {
-        position: popupStyle,
-        arrowStyle: "up",
-        alignArrowStyle,
-    };
-};
-
-export const adjustPopupPositionDidUpdate = (
-    isMobileOnly: boolean,
-    gameBaseContainerRef: any,
-    wrapperRef: any,
-    betOptionElement: HTMLElement,
-    betChoiceElement: HTMLElement
-): AdjustedBetFormCss => {
-    const popupRef = wrapperRef.current,
-        betOptionRect = betOptionElement.getBoundingClientRect();
-
-    if (window.innerHeight - betOptionRect.bottom < popupRef.getBoundingClientRect().height) {
-        const gameContainerRect = gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect();
-        const bottom =
-            betOptionRect.top > popupRef.getBoundingClientRect().height
-                ? gameContainerRect.bottom - betOptionRect.top
-                : betOptionRect.bottom + 15;
-
-        let styles = adjustPopupPosition(isMobileOnly, gameBaseContainerRef, betOptionElement, betChoiceElement);
-        styles.position.bottom = `${bottom}px`;
-        styles.position.top = "none";
-        styles.arrowStyle = "down";
-        
-        return {
-            isAdjust: true,
-            styles,
-        };
-    }
-
-    return {
-        isAdjust: false,
-    };
+    return betFormCss;
 };

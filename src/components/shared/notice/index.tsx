@@ -11,13 +11,15 @@ interface Props {
     minBet?: number;
     maxBet?: number;
     errorCode?: string;
+    isWarning?: boolean;
 }
 
-const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean }> = ({
+const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean; isWarning: boolean }> = ({
     children,
     onClose,
     duration,
     isOpen = true,
+    isWarning = true,
 }) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -40,15 +42,26 @@ const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boo
         };
     }, [wrapperRef]);
 
+    const noticeType = Styles[isWarning ? "warning" : "inform"];
     return (
-        <div ref={wrapperRef} className={Styles.notice}>
-            <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose}></span>
+        <div ref={wrapperRef} className={`${Styles.notice} ${noticeType}`}>
+            <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="close-btn"></span>
             {children}
         </div>
     );
 };
 
-export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet = 0, maxBet = 0, gameName, roundId = 0, errorCode }) => {
+export const Notice: React.FC<Props> = ({
+    message,
+    onClose,
+    duration = 3,
+    minBet = 0,
+    maxBet = 0,
+    gameName,
+    roundId = 0,
+    errorCode,
+    isWarning = true,
+}) => {
     const opt = {
         gameName: gameName,
         roundId: roundId,
@@ -58,7 +71,7 @@ export const Notice: React.FC<Props> = ({ message, onClose, duration = 3, minBet
     };
     const { t } = useTranslation();
     return (
-        <BaseNotice onClose={onClose} duration={duration}>
+        <BaseNotice {...{ onClose, duration, isWarning }}>
             <Trans t={t}>{t(message, opt)}</Trans>
         </BaseNotice>
     );

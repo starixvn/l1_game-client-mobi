@@ -84,7 +84,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     }, [wrapperRef?.current?.children[0], activeScoreboardTab]);
 
     return (
-        <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd}>
+        <div ref={wrapperRef} className={Styles["board"]} onTouchEnd={handleTouchEnd} data-testid="board">
             {props.children}
         </div>
     );

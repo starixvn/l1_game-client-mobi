@@ -5,6 +5,11 @@
     margin: 0.5rem 0;
     font-size: 1.6rem;
     font-family: var(--font-number);
+    &.kenopower2{
+        @media(min-width: 760px) and (max-width: 810px) {
+            left: calc(50% - .8rem);
+        }        
+    }
 }
 
 .game-status {
@@ -26,5 +31,14 @@
     }
     .no-more-bets {
         color: #ff0707;
+    }
+
+    &.kenopower2{
+        @media(min-width: 760px) and (max-width: 810px) {
+            width: 9.8rem;
+            text-align: center;
+            left: calc(50% - 4.9rem);
+            transform: unset;
+        }    
     }
 }

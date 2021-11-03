@@ -19,7 +19,7 @@ const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName, gameSt
     }, [gameState]);
 
     return (
-        <div className={Styles["dot-wrapper"]} onClick={toggleTooltip}>
+        <div className={Styles["dot-wrapper"]} onClick={toggleTooltip} data-testid="dot-wrapper">
             <div id={targetName}>{children}</div>
             {isOpenTooltip && (
                 <ContainerToolTip isOpen={true} onClose={toggleTooltip}>

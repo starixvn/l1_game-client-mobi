@@ -1,220 +1,171 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation, TFunction } from "next-i18next";
 import { useRouter } from "next/router";
-
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+
+import RenderCellOnTable, { renderBetBase } from "./bet-row";
 import appSettings from "../../../../common/app-settings";
 import { useAuthContext } from "../../../../contexts/auth";
-import { numberWithCommas } from "../../../../helpers/number-helper";
-import { formatDate } from "../../../../helpers/time-helper";
 import { clearSession } from "../../../../services/auth-service";
-import { BetLogs, PropsBetContainer, PropsResultDetail, ResultDetail } from "./bet-history";
-import BaseDialog from "../../../shared/base-dialog";
-import { ModalType } from "../../../shared/base-dialog/type";
+import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
 import Loader from "../../../shared/loader";
-import { v4 as uuidv4 } from "uuid";
+import { GamesIdKenoMatch, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
+import BetHistoryDetailsContainer from "./log-details";
 import Styles from "./bet-history.module.scss";
 
-const fontWeightClass = "font-weight-medium";
-const NUMBER_ROWS_DISPLAY = 16;
-const infiniteLoadBeginEdgeOffset = 100;
-
-export const ResultDetailContainer: React.FC<PropsResultDetail> = (props) => {
-    const { children, roundId, closeModal, gameName } = props;
-    return (
-        <BaseDialog type={ModalType.Center} isOpen={true} onCloseModal={closeModal}>
-            <div key={roundId} className={Styles["popup-result-detail"]}>
-                <div className={Styles["game-name"]}>{gameName}</div>
-                <span className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></span>
-                <div className={Styles["roundId"]}>#{roundId}</div>
-                {children}
-            </div>
-        </BaseDialog>
-    );
-};
-
+let totalPage = 0;
+let isFetchingHistory = false;
 export const FormatNumber: React.FC = ({ children }) => {
     return <span className={`font-number nowrap ${Styles["number-text"]}`}>{children}</span>;
 };
 
-const renderStake = (bet: BetLogs, freeBet: boolean) => {
-    if (bet.settlementResult) {
-        const keysChoices = Object.keys(bet.settlementResult);
+export const RenderHeaderRows: React.FC<{ headerName: string[]; t: TFunction }> = ({ headerName, t }) => {
+    return useMemo(() => {
         return (
-            <>
-                {keysChoices.map((name, index) => {
-                    if (bet[name] > 0) {
-                        return (
-                            <div key={index} className={bet.settlementResult[name] ? fontWeightClass : ""}>
-                                {freeBet ? 0 : numberWithCommas(bet[name])}
-                            </div>
-                        );
-                    }
-                    return null;
-                })}
-            </>
-        );
-    }
-
-    return <></>;
-};
-
-const renderStakeRefund = (bet: BetLogs) => {
-    if (bet.settlementResult) {
-        return (
-            <>
-                <div className={bet.betwin > 0 ? fontWeightClass : ""}>{numberWithCommas(bet.amount)}</div>
-                <div className={bet.refund > 0 ? Styles["refund"] : ""}>{numberWithCommas(bet.refund)}</div>
-            </>
-        );
-    }
-
-    return <></>;
-};
-
-const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
-    if (bet.settlementResult) {
-        const keysChoices = Object.keys(bet.settlementResult);
-        const odds = bet.odds ? bet.odds : mainOdds;
-        return (
-            <div className={Styles["list-choices"]}>
-                {keysChoices &&
-                    keysChoices.map((name, index) => {
-                        const classHighLight = bet.settlementResult[name] ? fontWeightClass : "";
-                        if (bet[name] > 0) {
+            <tr>
+                {headerName.map((name: string, index: number) => {
+                    switch (name) {
+                        case "roundTime":
+                            return RenderRow(index, t("roundTime"));
+                        case "round":
+                            return RenderRow(index, t("round"));
+                        case "result":
+                            return RenderRow(index, t("result"));
+                        case "choice":
+                            return RenderRow(index, t("choice"));
+                        case "stake":
+                            return RenderRow(index, t("stake"));
+                        case "refund":
                             return (
-                                <div key={index} className={classHighLight}>
-                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
-                                </div>
+                                <th key={index}>
+                                    {t("stake")} <br></br> {t("refund")}
+                                </th>
                             );
-                        }
-                        return "";
-                    })}
-            </div>
+                        case "onlyRefund":
+                            return RenderRow(index, t("onlyRefund"));
+                        case "totalStake":
+                            return RenderRow(index, t("totalStake"));
+                        case "betType":
+                            return RenderRow(index, t("betType"));
+                        case "betChoice":
+                            return RenderRow(index, t("betChoice"));
+                        case "win":
+                            return RenderRow(index, t("win"));
+                        default:
+                            return <></>;
+                    }
+                })}
+            </tr>
         );
+    }, [headerName, t]);
+};
+
+export const RenderRow = (index: number, name: string) => {
+    return <th key={index}>{name}</th>;
+};
+
+const sendPostBetHistory = async ({
+    gameId,
+    gameSetting,
+    proxy,
+    session,
+    page,
+    setIsFirstLoad,
+    router,
+    setListBetHistory,
+    listBetHistory,
+    setIsShowMessageError,
+}) => {
+    const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
+        ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
+        : `${gameSetting?.socketInfo?.path}/api/history`;
+    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
+    isFetchingHistory = true;
+    try {
+        const resp = await axios.post(historyAPI, {
+            session: session.ss,
+            page: page,
+            pageSize: NUMBER_ROWS_DISPLAY,
+            username: session.username,
+        });
+        const bets = resp.data.history;
+        fetchBetHistory({ betHistory: bets, setListBetHistory, listBetHistory });
+        setIsFirstLoad(false);
+        if (page === 1) {
+            totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
+        }
+    } catch (err) {
+        if (err?.response?.status === 401) {
+            clearSession();
+            router.push("/timeout");
+        }
+        setIsFirstLoad(false);
+        setIsShowMessageError(true);
+    }
+};
+
+const fetchBetHistory = ({ betHistory, setListBetHistory, listBetHistory }) => {
+    if (betHistory && betHistory.betLogs.length > 0) {
+        const data = betHistory.betLogs;
+        setListBetHistory([...listBetHistory, ...data]);
+
+        isFetchingHistory = false;
+    }
+};
+
+const getHeaderName = ({ nameHeaderOnTable, isRefund }) => {
+    const headerNameDefault = ["roundTime", "round", "result", "choice", isRefund ? "refund" : "stake", "win"];
+    return nameHeaderOnTable ? nameHeaderOnTable : headerNameDefault;
+};
+
+const handleScrollBetHistory = ({ event, page, setPage }) => {
+    if (Math.ceil(event.target.offsetHeight + event.target.scrollTop) > event.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
+        return;
     }
 
-    return <></>;
+    if (page + 1 <= totalPage && !isFetchingHistory) {
+        setPage(page + 1);
+    }
 };
 
-const renderRound = ({ phien, freeBet }) => {
-    return (
-        <>
-            <FormatNumber>{phien}</FormatNumber>
-            {freeBet && (
-                <div>
-                    <img src={`/static/images/L2-cash/scoin.png`} className={Styles["scoin"]} alt="scoin" />
-                </div>
-            )}
-        </>
-    );
-};
-
-const renderDataOnCell = (data: any, isHighligh: boolean) => {
-    return <td className={`${isHighligh ? "highlight" : ""}`}>{data}</td>;
-};
-
-const RenderCell: React.FC<{
-    betHistoryItem: BetLogs;
-    isRefund: boolean;
-    renderResult: (
-        rowData: BetLogs,
-        roundId?: number,
-        setIsShowResultDetail?: Function,
-        setResultDetail?: Function,
-        t?: TFunction
-    ) => JSX.Element;
-    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {};
-    t: TFunction;
-    setIsShowResultDetail: Function;
-    setResultDetail: Function;
-    gameName: string;
-}> = ({ betHistoryItem, renderResult, renderBet, isRefund, setIsShowResultDetail, setResultDetail, t, gameName }) => {
-    const { time, phien, betwin, freeBet } = betHistoryItem;
-    const odds = betHistoryItem.odds;
-    const isHighligh = betwin > 0 ? true : false;
-    const fontNumber = "font-number";
-    const classBetWin = `font-weight-medium ${Styles["bet-win"]} ${fontNumber}`;
-    return (
-        <>
-            {renderDataOnCell(
-                <FormatNumber>
-                    <div className="time">{time && formatDate(new Date(time), "hh:mm:ss")}</div>
-                    <div className="date">{time && formatDate(new Date(time), "dd/MM/yy")}</div>
-                </FormatNumber>,
-                isHighligh
-            )}
-            {renderDataOnCell(renderRound({ phien, freeBet }), isHighligh)}
-            {renderDataOnCell(renderResult(betHistoryItem, phien, setIsShowResultDetail, setResultDetail, t), isHighligh)}
-            {renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName), isHighligh)}
-            {renderDataOnCell(
-                <div className={`${Styles["stake"]} ${fontNumber}`}>
-                    {isRefund ? renderStakeRefund(betHistoryItem) : renderStake(betHistoryItem, freeBet)}
-                </div>,
-                isHighligh
-            )}
-            {renderDataOnCell(<div className={classBetWin}> {betwin && numberWithCommas(betwin)}</div>, isHighligh)}
-        </>
-    );
-};
-
-let totalPage = 0;
-let isFetchingData = false;
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, gameId, renderResultDetail } = props;
+    const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal } = props;
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
     }
     const router = useRouter();
     const { session } = useAuthContext();
-    const gameSetting = appSettings.gameSettings[gameId];
-    const gameName = gameSetting.gameName.toLowerCase();
-    const { t } = useTranslation(["bethistory", gameName]);
-
     const [listBetHistory, setListBetHistory] = useState<object[]>([]);
     const [page, setPage] = useState<number>(1);
     const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
     const [isShowResultDetail, setIsShowResultDetail] = useState<boolean>(false);
-    const [resultDetail, setResultDetail] = useState<ResultDetail>();
+    const [betLog, setBetLog] = useState<ResultDetail>();
+    const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
+    const [isShowMessageError, setIsShowMessageError] = useState<boolean>(false);
+    const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
+    const gameSetting = appSettings?.gameSettings[gameId];
+    const gameName = gameSetting?.gameName.toLowerCase();
+    const { t } = useTranslation(["bethistory", gameName]);
 
     useEffect(() => {
-        const { proxy } = appSettings;
-        const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${gameSetting.socketInfo.path}/api/history`;
-
-        const sendPostBetHistory = async () => {
-            isFetchingData = true;
-            try {
-                const resp = await axios.post(historyAPI, {
-                    session: session.ss,
-                    page: page,
-                    pageSize: NUMBER_ROWS_DISPLAY,
-                    username: session.username,
-                });
-                const bets = resp.data.history;
-                fetchBetHistory(bets);
-                setIsFirstLoad(false);
-                if (page === 1) {
-                    totalPage = Math.ceil(bets.total / NUMBER_ROWS_DISPLAY);
-                }
-            } catch (err) {
-                if (err?.response?.status === 401) {
-                    clearSession();
-                    router.push("/timeout");
-                }
-            }
+        sendPostBetHistory({
+            gameId,
+            gameSetting,
+            proxy: appSettings?.proxy,
+            session,
+            page,
+            setIsFirstLoad,
+            router,
+            listBetHistory,
+            setListBetHistory,
+            setIsShowMessageError,
+        });
+        return () => {
+            setIsFirstLoad(true);
+            setIsShowMessageError(false);
         };
-
-        const fetchBetHistory = (betHistory) => {
-            if (betHistory && betHistory.betLogs.length > 0) {
-                const data = betHistory.betLogs;
-                setListBetHistory([...listBetHistory, ...data]);
-
-                isFetchingData = false;
-            }
-        };
-
-        sendPostBetHistory();
     }, [page]);
 
     return useMemo(() => {
@@ -222,73 +173,76 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             setIsShowResultDetail(false);
         };
 
-        const renderHeaderRows = () => {
+        const closeModalBetLogDetails = () => {
+            setIsShowBetLogDetails(false);
+        };
+
+        if (isFirstLoad) {
             return (
-                <tr>
-                    <th>{t("roundTime")}</th>
-                    <th>{t("round")}</th>
-                    <th>{t("result")}</th>
-                    <th>{t("choice")}</th>
-                    {isRefund ? (
-                        <th>
-                            {t("stake")} <br></br> {t("refund")}
-                        </th>
-                    ) : (
-                        <th>{t("stake")}</th>
-                    )}
-                    <th>{t("win")}</th>
-                </tr>
+                <div className={Styles["history-loading"]} data-testid="bet-history-loading">
+                    <Loader></Loader>
+                </div>
             );
-        };
+        }
 
-        const handleScroll = (e) => {
-            if (Math.ceil(e.target.offsetHeight + e.target.scrollTop) > e.target.scrollHeight - infiniteLoadBeginEdgeOffset) {
-                return;
-            }
+        if (isShowMessageError) {
+            return <>{t("apiConnectFailed")}</>;
+        }
 
-            if (page + 1 <= totalPage && !isFetchingData) {
-                setPage(page + 1);
-            }
-        };
+        if (isShowBetLogDetails) {
+            return (
+                <BetHistoryDetailsContainer
+                    renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
+                    renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
+                    isShowResultDetail={isShowResultDetail}
+                    closeModalBetDetails={closeModalBetLogDetails}
+                    closeModalBetHistory={closeModal}
+                    translateText={{ betDetails: t("betDetails") }}
+                ></BetHistoryDetailsContainer>
+            );
+        }
 
         return (
             <>
-                {isFirstLoad ? (
-                    <div className={Styles["history-loading"]}>
-                        <Loader></Loader>
-                    </div>
-                ) : listBetHistory.length > 0 ? (
-                    <div className="table-container react-infinite-table" onScroll={(e) => handleScroll(e)}>
+                {listBetHistory.length > 0 ? (
+                    <div
+                        className="table-container react-infinite-table"
+                        onScroll={(e) => handleScrollBetHistory({ event: e, page, setPage })}
+                        data-testid="bet-history"
+                    >
                         <table key={uuidv4()} className="table text-center">
-                            <thead>{renderHeaderRows()}</thead>
+                            <thead>
+                                <RenderHeaderRows headerName={headerName} t={t} />
+                            </thead>
                             <tbody>
-                                {listBetHistory.length > 0 &&
-                                    listBetHistory.map((bet: BetLogs) => {
-                                        return (
-                                            <tr key={bet.phien} className={bet.betwin > 0 ? "highlight" : ""}>
-                                                {RenderCell({
-                                                    betHistoryItem: bet,
-                                                    isRefund: isRefund,
-                                                    renderResult: renderResult,
-                                                    renderBet: renderBet,
-                                                    t: t,
-                                                    setIsShowResultDetail: setIsShowResultDetail,
-                                                    setResultDetail: setResultDetail,
-                                                    gameName: gameName,
-                                                })}
-                                            </tr>
-                                        );
-                                    })}
+                                {listBetHistory.map((bet: BetLogs) => {
+                                    return (
+                                        <tr key={bet.phien} className={bet.betwin > 0 ? "highlight" : ""}>
+                                            {RenderCellOnTable({
+                                                betHistoryItem: bet,
+                                                renderResult: renderResult,
+                                                renderBet: renderBet,
+                                                setIsShowResultDetail: setIsShowResultDetail,
+                                                setIsShowBetLogDetails: setIsShowBetLogDetails,
+                                                setBetLog: setBetLog,
+                                                gameName: gameName,
+                                                t: t,
+                                                headerName: headerName,
+                                            })}
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
                 ) : (
-                    t("noBetHistory")
+                    <span data-testid="bet-history-no-data">{t("noBetHistory")}</span>
                 )}
-                {isShowResultDetail && renderResultDetail(resultDetail, t, closeModalResultDetail, gameName)}
+
+                {isShowResultDetail && renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
             </>
         );
-    }, [isFirstLoad, listBetHistory, isShowResultDetail]);
+    }, [isFirstLoad, listBetHistory, isShowResultDetail, isShowBetLogDetails, isShowMessageError]);
 };
 
 export default BetHistoryContainer;

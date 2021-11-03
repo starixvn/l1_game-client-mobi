@@ -38,7 +38,7 @@ const StatisticItem: React.FC<Props> = (props) => {
 };
 
 export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
-    const { statisticRuleEntries, roundHistory } = props;
+    const { statisticRuleEntries, roundHistory, activeScoreboardTab } = props;
     const { gameSetting } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
     const { t } = useTranslation(gameName);
@@ -55,7 +55,7 @@ export const StatisticFollowPercent: React.FC<PropsFollowPercent> = (props) => {
                 ))}
             </>
         );
-    }, [roundHistory, statisticRuleEntries]);
+    }, [roundHistory, statisticRuleEntries, activeScoreboardTab]);
 };
 
 export default StatisticItem;

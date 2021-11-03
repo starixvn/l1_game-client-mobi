@@ -7,7 +7,7 @@ import { UMInfo } from "sc-user-service-client/dist/auth";
 import * as LocalStorageManager from "../../common/local-storage";
 import { convertToGMT8, formatDate } from "../../helpers/time-helper";
 
-export const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
+const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
     const router = useRouter();
     const { t } = useTranslation(["um", "messages"]);
     const [startTime, setStartTime] = useState<string>(null);
@@ -43,3 +43,5 @@ export const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
         </div>
     );
 };
+
+export default UMPage;

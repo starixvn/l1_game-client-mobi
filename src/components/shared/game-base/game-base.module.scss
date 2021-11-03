@@ -16,6 +16,13 @@
     --mini-round-history-background: #203040;
 }
 
+[data-theme="light"] .md5-section {
+    --md5-bg-color: #dce2f3;
+}
+[data-theme="dark"] .md5-section {
+    --md5-bg-color: #2f3956;
+}
+
 .bet-options {
     position: relative;
     height: 23.1rem;
@@ -23,6 +30,13 @@
     padding-top: 0.1rem;
     background-color: var(--border-color);
     border-bottom: 1px solid var(--border-color);
+    &.bet-options-kenopromax,
+    &.bet-options-kenomatch1,
+    &.bet-options-kenomatch2,
+    &.bet-options-kenopower1,
+    &.bet-options-kenopower2 {
+        height: auto;
+    }
 }
 
 .mini-round-history {
@@ -51,5 +65,102 @@
 
     @media print, screen and (min-width: 992px) {
         font-size: 1.4rem;
+    }
+}
+
+.md5-section {
+    background-color: var(--md5-bg-color);
+    font-size: 1.2rem;
+    padding: 0.2rem 0.6rem 0;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer !important;
+
+    .blue {
+        color: #2e73c3;
+    }
+
+    .red {
+        color: #ff4352;
+    }
+
+    .text {
+        &.md5-key {
+            animation: fadeIn 0.3s linear forwards;
+            animation-delay: 0;
+        }
+        &.md5-result {
+            animation: shakeX 0.3s linear forwards;
+            animation-delay: 0;
+        }
+    }
+    .copy-box {
+        position: relative;
+        cursor: pointer;
+        width: 3.2rem;
+        height: 1.6rem;
+        .copy-text {
+            position: relative;
+            z-index: 2;
+            left: 0.45rem;
+            top: -0.2rem;
+            font-size: 1rem;
+            color: #fff;
+        }
+
+        &:before {
+            content: "";
+            background: linear-gradient(180deg, #f19f0a 0%, #b77406 100%);
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            border-radius: 5px;
+        }
+        &:after {
+            content: "";
+            background: linear-gradient(180deg, #ffc964 0%, #ee9505 100%);
+            position: absolute;
+            top: 0.1rem;
+            right: 0.1rem;
+            left: 0.1rem;
+            bottom: 0.1rem;
+            border-radius: 5px;
+        }
+    }
+}
+
+@keyframes shakeX {
+    from,
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

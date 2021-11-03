@@ -1,0 +1,112 @@
+@import "../../../../../assets/components/result-label-collapse-mode";
+[data-theme="light"] .animation-result {
+    --bg-color: linear-gradient(90deg, #d0e5ff 0%, #fff 47%, #fff 53%, #fed9d9 100%);
+    --text-total-color: #5e5e5e;
+    --sperate-bg-color: #2f2f2f;
+}
+
+[data-theme="dark"] .animation-result {
+    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
+    --text-total-color: #fff;
+    --sperate-bg-color: #fff;
+}
+
+.open-result {
+    background: unset;
+    border: none;
+    display: block;
+    height: 100%;
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.4rem 1rem 1rem;
+        position: relative;
+        .row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(2, 2rem);
+            grid-row-gap: 0.3rem;
+            .number {
+                justify-self: center;
+            }
+        }
+    }
+    .header {
+        text-align: center;
+        font-weight: 500;
+    }
+    .team {
+        padding: 0;
+        width: 12rem;
+        .team-name {
+            display: none;
+        }
+    }
+}
+
+.animation-result,
+.half-round-settlement {
+    width: 100%;
+    height: 100%;
+    background-color: #cecece;
+    animation-name: fadeIn, fadeOut;
+    animation-duration: 0.2s, 0.2s;
+    animation-delay: 0s, 4s;
+    animation-fill-mode: forwards, forwards;
+    animation-timing-function: linear, linear;
+    background: var(--bg-color);
+}
+
+
+
+.result-collapse-mode {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .result-container {
+        width: 100%;
+        position: relative;
+        .progress-extra {
+            width: calc(100% - 9rem - 1.2rem);
+            padding: 0;
+            margin-left: 1.2rem;
+            position: absolute;
+            height: 2rem;
+            top: .3rem;
+        }
+        .score-red, .score-blue {
+            position: absolute;
+            font: 500 1.6rem var(--font-number);
+            z-index: 15;
+            color: #fff;
+        }
+        .score-red {
+            left: .4rem;
+        }
+        .score-blue {
+            right: .4rem;
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
