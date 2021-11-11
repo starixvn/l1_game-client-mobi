@@ -15,7 +15,7 @@ const HighlightClassNameMapper = {
     [HighlightType.None]: "",
 };
 
-const convertStakeToString = (amount: number, rate: number) => (amount ? numberWithCommas(amount / rate) : "");
+const convertStakeToString = (amount: number, rate: number) => (amount ? numberWithCommas(amount / rate, 1) : "");
 
 const BetOption: React.FunctionComponent<Props> = ({
     gameState,
@@ -34,7 +34,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
-    const { countUp, update } = useCountUp({ start: 0, end: 0 });
+    const { countUp, update } = useCountUp({ start: 0, end: 0, decimals: 1 });
     const betChoiceRef = useRef<HTMLDivElement>(null);
     const totalBetRef = useRef<HTMLDivElement>(null);
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
