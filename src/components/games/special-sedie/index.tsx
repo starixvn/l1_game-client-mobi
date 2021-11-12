@@ -14,8 +14,9 @@ class SpecialSeDie extends SeDie {
         super.handleFinish({ finish });
 
         const { totalBets } = this.state;
-        const balancedBetAmount = Math.min(...Object.values(totalBets));
-        Object.keys(totalBets).forEach((choice) => {
+        const totalBetValues = Object.values(totalBets);
+        const balancedBetAmount = Math.min(...[totalBetValues[0] ?? 0, totalBetValues[1] ?? 0]);
+        this.Choices.forEach((choice) => {
             totalBets[choice] = balancedBetAmount;
         });
         this.setState({ totalBets });
