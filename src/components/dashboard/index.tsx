@@ -80,7 +80,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.onSocketConnect = this.onSocketConnect.bind(this);
         this.onSocketData = this.onSocketData.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
-        this.doOnOrientationChange = this.doOnOrientationChange.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
@@ -127,20 +126,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowErrorModal: true, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
     }
 
-    doOnOrientationChange() {
-        const orientation = (screen.orientation || {}).type;
-        console.log(orientation, "orientation");
-        switch (orientation) {
-            case "landscape-primary":
-            case "landscape-secondary":
-                this.setState({ orientation: "landscape" });
-                break;
-            default:
-                this.setState({ orientation: "portrait" });
-                break;
-        }
-    }
-
     signOut() {
         this.props.router.push("/timeout");
     }
@@ -173,8 +158,16 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.handleRecheckInResponse(reCheckInResponse);
         }, 60 * 1000);
 
-        window.addEventListener("orientationchange", this.doOnOrientationChange);
-        this.doOnOrientationChange();
+        const mediaQueryList = window.matchMedia("(orientation: portrait)");
+        const handleOrientation = (e) => {
+            if (e.matches) {
+                this.setState({ orientation: "portrait" });
+            } else {
+                this.setState({ orientation: "landscape" });
+            }
+        };
+
+        mediaQueryList.addEventListener("change", handleOrientation);
 
         if (authorizeInfo.authorized) {
             this.onSocketConnect();
@@ -184,7 +177,6 @@ class Dashboard extends React.PureComponent<Props, State> {
     componentWillUnmount() {
         this.mainSocket.close();
         clearInterval(this.reCheckInInterval);
-        window.removeEventListener("orientationchange", this.doOnOrientationChange);
     }
 
     sendMessage(data: any) {
