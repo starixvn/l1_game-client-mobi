@@ -129,6 +129,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     doOnOrientationChange() {
         const orientation = (screen.orientation || {}).type;
+        console.log(orientation, "orientation");
         switch (orientation) {
             case "landscape-primary":
             case "landscape-secondary":
