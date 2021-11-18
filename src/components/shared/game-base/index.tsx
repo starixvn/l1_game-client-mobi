@@ -24,6 +24,7 @@ import BaseResult from "../base-result";
 import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
+import { ConnectFailedReasonKey } from "../error-message/type";
 import GameHeader from "../game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
@@ -33,8 +34,8 @@ import Rebet from "../rebet";
 import ResultDetail from "../result-detail";
 import SectionResultContainer from "../section-result-container";
 import Styles from "./game-base.module.scss";
-import MessageTransmitter from "./message-transmitter";
-import { MessageTransmitterType } from "./message-transmitter/type";
+import MessageTransmitter from "../../../helpers/message-transmitter";
+import { MessageTransmitterType } from "../../../helpers/message-transmitter/type";
 import {
     Boundary,
     GameBaseProps,
@@ -48,7 +49,7 @@ import {
 } from "./type";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
-let isUpdateUserStakeLevel = false;
+
 abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, any>> extends React.PureComponent<P, S> {
     private readonly animationTime = 3000;
     private readonly gameBaseContainerRef = React.createRef<HTMLDivElement>();
@@ -62,13 +63,13 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected betPosition: Position;
     protected betOptionBoundary: Boundary;
     protected socket: Socket;
-
     protected interval: NodeJS.Timeout;
     protected timeCounter: number;
     protected reBetStorageKey: string;
     protected messageTransmitter: MessageTransmitterType;
     protected authService: Auth;
     private isConnectFailed = false;
+    private playPermissionListener: string;
 
     private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false };
     protected readonly defaultState = {
@@ -96,6 +97,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         md5: "",
         md5ResultKey: "",
         rate: 1,
+        disconnectReason: "",
     };
 
     constructor(props: P) {
@@ -131,6 +133,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onDestroy() {
         this.setState({ gameState: GameState.None });
+        this.props.unsubscribeGlobalMessageEvent(this.playPermissionListener);
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -138,9 +141,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onStart() {
+        const { registerGlobalMessageEvent } = this.props;
+
         this.isConnectFailed = false;
         this.isProcessingBet = false;
         this.initWinStreakCollector();
+        this.playPermissionListener = registerGlobalMessageEvent("notPermittedToPlay", this.handleRestrictPermission.bind(this));
 
         this.socket = this.initSocket();
         this.socket && this.socket.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
@@ -164,21 +170,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             this.setState({ signedIn: true });
             this.socket.emit("inGame");
         });
-
         socket.on("connect_error", this.onConnectFailed.bind(this));
-        socket.on("message", this.onMessageUserStakeLevel.bind(this));
         socket.on("disconnect", () => {
-            this.setState({ gameState: GameState.None });
+            this.setState({ gameState: GameState.None, disconnectReason: ConnectFailedReasonKey.lostConnection });
         });
 
         return socket;
-    }
-
-    onMessageUserStakeLevel({ userStakeLevel }) {
-        if (!isUpdateUserStakeLevel) {
-            this.props.updateUserStakeLevel(userStakeLevel);
-            isUpdateUserStakeLevel = true;
-        }
     }
 
     onVisibilityChange = () => {
@@ -188,7 +185,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     onConnectFailed() {
         this.onDestroy();
-        this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
+        this.setState({ gameState: GameState.ConnectFailed, signedIn: false, disconnectReason: ConnectFailedReasonKey.lostConnection });
     }
 
     registerMessageHandler() {
@@ -213,7 +210,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleError = ({ errorCode }) => {
         if (errorCode === "SB0010") {
             this.isConnectFailed = true;
-            this.setState({ gameState: GameState.ConnectFailed, signedIn: false });
+            this.setState({
+                gameState: GameState.ConnectFailed,
+                signedIn: false,
+                disconnectReason: ConnectFailedReasonKey.lostConnection,
+            });
         }
     };
 
@@ -359,6 +360,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleUserData({ user, gameConfigs }) {
         this.context.setBalance(user.red);
         gameConfigs && this.setState({ rate: user.rate });
+    }
+
+    handleRestrictPermission({ notPermittedToPlay, gameId }) {
+        if (notPermittedToPlay && gameId === this.props.id) {
+            this.onDestroy();
+            this.setState({
+                gameState: GameState.ConnectFailed,
+                disconnectReason: ConnectFailedReasonKey.restrictPlayPermission,
+            });
+        }
     }
 
     handleUM({ um, um_message, remainingTime }) {
@@ -1049,7 +1060,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     render() {
-        const { signedIn, gameState, disabledMessage, viewMode } = this.state;
+        const { signedIn, gameState, disabledMessage, viewMode, disconnectReason } = this.state;
         return (
             <GameContainer>
                 {signedIn ? this.renderGame() : <GameLoading />}
@@ -1057,7 +1068,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 {gameState === GameState.ConnectFailed && (
                     <ConnectFailedMessage
                         gameName={this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                        retryConnect={this.retryConnect.bind(this)}
+                        onSubmit={
+                            ConnectFailedReasonKey.restrictPlayPermission === disconnectReason
+                                ? () => window.location.reload()
+                                : this.retryConnect.bind(this)
+                        }
+                        reason={disconnectReason}
                     />
                 )}
             </GameContainer>

@@ -97,5 +97,6 @@
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! The game is under maintenance.",
     "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Network error.({{errorCode}})",
     "gameMaxBet": "Max bet for this game is {{maxBet}}.",
-    "gameMinBet": "Min bet for this game is {{minBet}}."
+    "gameMinBet": "Min bet for this game is {{minBet}}.",
+    "notPermittedToPlay": "<strong>{{gameName}}</strong><br>Your account is no longer allowed to play this game. Please try other game."
 }

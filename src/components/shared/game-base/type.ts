@@ -53,6 +53,8 @@ export type GameBaseProps = {
     supportMD5?: boolean;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
+    registerGlobalMessageEvent: Function;
+    unsubscribeGlobalMessageEvent: Function;
 } & WithTranslation &
     WithRouterProps;
 
@@ -94,6 +96,7 @@ export interface GameBaseState<Result, SettlementResult> {
     md5ResultKey?: string;
     showMD5ResultKey?: boolean;
     rate: number;
+    disconnectReason?: string;
 }
 
 export interface Notice {
