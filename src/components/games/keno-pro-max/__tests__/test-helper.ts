@@ -110,4 +110,6 @@ export const kenoProps = {
     socketGatewayState: 0,
     retryConnectSocket: () => {},
     them: "light",
+    unsubscribeGlobalMessageEvent: () => {},
+    registerGlobalMessageEvent: () => {}
 };

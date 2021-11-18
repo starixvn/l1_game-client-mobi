@@ -46,6 +46,8 @@ const buildProps = () => {
         i18n: i18n,
         tReady: true,
         router: null,
+        registerGlobalMessageEvent: () => {},
+        unsubscribeGlobalMessageEvent: () => {},
     } as KenoMatchProps;
 };
 

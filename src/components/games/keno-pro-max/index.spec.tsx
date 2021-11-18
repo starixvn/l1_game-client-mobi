@@ -59,6 +59,7 @@ describe("KenoMatch", () => {
                     betOptionElement: null,
                     betChoiceElement: null,
                     activeScoreboardTab: 0,
+                    rate: 1,
                 };
             }
         }
@@ -113,6 +114,7 @@ describe("KenoMatch", () => {
                     betOptionElement: null,
                     betChoiceElement: null,
                     activeScoreboardTab: 0,
+                    rate: 1,
                 };
             }
         }
