@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import Styles from "./round-history.module.scss";
 
@@ -7,12 +7,12 @@ type Props = {
     activeScoreboardTab: number;
 };
 
-let isScrollEndRight = true;
 let activeTabCurrent = 0;
 
 const ScoreboardRoundHistory = (props: Props) => {
     const { activeScoreboardTab } = props;
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const [isScrollEndRight, setIsScrollEndRight] = useState(true);
     let scrollLeftWidth = 0;
 
     const handleTouchEnd = (e) => {
@@ -20,7 +20,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     };
 
     const updateScrollEndRight = (e) => {
-        isScrollEndRight = e.target.scrollLeft === scrollLeftWidth;
+        setIsScrollEndRight(e.target.scrollLeft === scrollLeftWidth);
     };
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const ScoreboardRoundHistory = (props: Props) => {
     useEffect(() => {
         if (activeTabCurrent !== activeScoreboardTab) {
             activeTabCurrent = activeScoreboardTab;
-            isScrollEndRight = true;
+            setIsScrollEndRight(true);
         }
     }, [activeScoreboardTab]);
 
