@@ -4,7 +4,7 @@ import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -149,7 +149,16 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     async componentDidMount() {
         this.mainSocket = this.connectMainSocket();
-        const authorizeInfo = (await authorize(this.props.session)) as AuthorizeResponse;
+        const authorizeResponse = await authorize(this.props.session);
+        const errorResponse = authorizeResponse as Response;
+
+        if (errorResponse && errorResponse.errorCode == "SB0002") {
+            this.props.router.push("/timeout");
+            return;
+        }
+
+        const authorizeInfo = authorizeResponse as AuthorizeResponse;
+
         this.updateAuthorizeInfo(authorizeInfo);
         this.updateUserBalance(authorizeInfo?.user?.red);
 
