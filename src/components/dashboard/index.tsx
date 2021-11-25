@@ -133,6 +133,19 @@ class Dashboard extends React.PureComponent<Props, State> {
         const authorizeInfo = authorizeResponse as AuthorizeResponse;
 
         this.updateAuthorizeInfo(authorizeInfo);
+
+        if (!authorizeInfo?.user?.offerGames || authorizeInfo?.user?.offerGames.length === 0) {
+            this.setState({
+                apiError: {
+                    message: "messages:noGameOffer",
+                    errorCode: "",
+                },
+                isShowErrorModal: true,
+            });
+
+            return;
+        }
+
         this.updateUserBalance(authorizeInfo?.user?.red);
 
         this.reCheckInInterval = setInterval(async () => {
