@@ -24,14 +24,14 @@ export const verifySession = async (): Promise<SSOResponse> => {
 
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
 
-    if (verifySessionResponse && verifySessionResponse.isSuccessful) {
+    if(verifySessionResponse) {
         userSession.isUM = verifySessionResponse.isUM;
         userSession.umInfo = verifySessionResponse.umInfo;
-        storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
-        return userSession;
+
+        verifySessionResponse.isSuccessful && storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession)
     }
 
-    return null;
+    return verifySessionResponse.isSuccessful || userSession.isUM ? userSession : null;
 };
 
 export const clearSession = () => removeLocalStorageItem(localStorageKeys.session);
