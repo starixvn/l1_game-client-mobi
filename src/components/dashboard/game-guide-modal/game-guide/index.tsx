@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import Loader from "../../../shared/loader";
 import appSettings from "../../../../common/app-settings";
 import { UserStakeLevel } from "../../../shared/game-base/type";
-import { gameVipIds } from "../../../../common/constants";
 import { useTheme } from "next-themes";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly, isIOS, browserVersion } from "react-device-detect";
@@ -26,7 +25,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
-    const minMaxBetParams = gameVipIds.includes(gameId) ? `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}` : "";
+    const minMaxBetParams = `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}`;
     const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&t=${theme}${minMaxBetParams}&dy=0&v=${Date.now()}`;
     const handleResize = () => {
         if (wrapperRef?.current) {
