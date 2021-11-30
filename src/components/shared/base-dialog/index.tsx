@@ -12,9 +12,9 @@ type Props = {
     children?: React.ReactNode;
     type?: ModalType;
     betContainerPosition?: number;
-    isCloseOutside?: boolean;
     enableBackdrop?: boolean;
     toggleBtnRef?: React.MutableRefObject<HTMLElement>;
+    isBlockUI?: boolean;
 };
 
 const getClassFollowDevice = () => {
@@ -44,6 +44,7 @@ const BaseDialog: React.FC<Props> = ({
     betContainerPosition,
     enableBackdrop,
     toggleBtnRef,
+    isBlockUI,
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -68,10 +69,10 @@ const BaseDialog: React.FC<Props> = ({
                 onCloseModal && onCloseModal();
             }
         };
-
-        document.addEventListener("mousedown", handleClickOutside);
+        console.log(isBlockUI);
+        !isBlockUI && document.addEventListener("mousedown", handleClickOutside);
         return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
+            !isBlockUI && document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef]);
 

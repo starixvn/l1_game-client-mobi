@@ -46,6 +46,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowGuide: false,
             enabledQuickBet: false,
             betValue: 1,
+            isBlockUI: false,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -96,7 +97,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handleShowApiErrorMessage(errorCode: string) {
-        this.setState({ isShowErrorModal: true, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
+        this.setState({ isShowErrorModal: true, isBlockUI: false, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
     }
 
     signOut() {
@@ -141,6 +142,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                     errorCode: "",
                 },
                 isShowErrorModal: true,
+                isBlockUI: true,
             });
 
             return;
@@ -204,7 +206,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         if (data.apiError) {
-            this.setState({ isShowErrorModal: true, apiError: data.apiError.errorCode });
+            this.setState({ isShowErrorModal: true, isBlockUI: false, apiError: data.apiError.errorCode });
         }
 
         if (data.userStakeLevel) {
@@ -300,6 +302,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             authorizeInfo,
             enabledQuickBet,
             betValue,
+            isBlockUI,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -351,11 +354,16 @@ class Dashboard extends React.PureComponent<Props, State> {
                     )}
                     {isShowErrorModal && (
                         <div className={Styles["container-modal"]}>
-                            <div className={Styles["bg-opacity"]}></div>
-                            <BaseDialog type={ModalType.Center} isOpen={isShowErrorModal} onCloseModal={this.closeDialog}>
-                                <div className="modal-center">
+                            <div className={`${Styles["bg-opacity"]} ${isBlockUI ? Styles["block-ui-backdrop"] : ""}`}></div>
+                            <BaseDialog
+                                type={ModalType.Center}
+                                isOpen={isShowErrorModal}
+                                onCloseModal={this.closeDialog}
+                                isBlockUI={isBlockUI}
+                            >
+                                <div className={`modal-center ${isBlockUI ? Styles["block-ui-message"] : ""}`}>
                                     <div className={`icon-warning modal-icon-warning`}></div>
-                                    <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>
+                                    {!isBlockUI && <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>}
 
                                     <Trans t={this.props.t}>
                                         {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}

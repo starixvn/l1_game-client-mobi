@@ -22,5 +22,13 @@
         display: block;
         position: absolute;
         z-index: 100;
+
+        &.block-ui-backdrop {
+            z-index: var(--global-api-error-index);
+        }
+    }
+
+    .block-ui-message {
+        z-index: calc(var(--global-api-error-index) + 1);
     }
 }

@@ -28,6 +28,7 @@ export type State = {
     favoriteGames: number[];
     enabledQuickBet: boolean;
     betValue: number;
+    isBlockUI: boolean;
 };
 
 export type GameOffer = {
