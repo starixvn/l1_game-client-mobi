@@ -563,6 +563,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             result: finish.result,
             settlementResult: finish.settlementResult,
             md5ResultKey: finish.resultKey,
+            roundId: finish.roundId,
         });
 
         const animationDuration = this.getFinishAnimationDuration();
