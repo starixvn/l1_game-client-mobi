@@ -176,7 +176,9 @@ class Dashboard extends React.PureComponent<Props, State> {
             }
         };
 
-        mediaQueryList.addEventListener("change", handleOrientation);
+        mediaQueryList?.addEventListener
+            ? mediaQueryList.addEventListener("change", handleOrientation)
+            : mediaQueryList.addListener(handleOrientation);
 
         if (authorizeInfo.authorized) {
             this.onSocketConnect();
