@@ -135,7 +135,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         this.updateAuthorizeInfo(authorizeInfo);
 
-        if (!authorizeInfo?.user?.offerGames || authorizeInfo?.user?.offerGames.length === 0) {
+        if (authorizeInfo?.user?.offerGames && authorizeInfo?.user?.offerGames.length === 0) {
             this.setState({
                 apiError: {
                     message: "messages:noGameOffer",
