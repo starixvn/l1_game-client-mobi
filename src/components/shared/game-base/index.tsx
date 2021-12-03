@@ -5,7 +5,7 @@ import { io, Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 
 import appSettings from "../../../common/app-settings";
-import { gameVipIds, LanguageLocaleMapper } from "../../../common/constants";
+import { LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
 import { AuthContext } from "../../../contexts/auth";
@@ -227,8 +227,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleUserStakeLevel({ userStakeLevel }) {
         this.props.updateUserStakeLevel(userStakeLevel);
-        gameVipIds.includes(this.props.id) &&
-            this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
+
+        this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
     }
 
     protected handleStatus = ({ status }) => {
