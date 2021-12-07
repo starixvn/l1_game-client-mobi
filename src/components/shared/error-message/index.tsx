@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./error-message.module.scss";
-import { Props } from "./type";
+import { ConnectFailedReasonKey, Props } from "./type";
 
 export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     useEffect(() => {
@@ -26,18 +26,22 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     );
 };
 
-export const ConnectFailedMessage: React.FC<{ gameName: string; retryConnect: () => void }> = ({ gameName, retryConnect }) => {
+export const ConnectFailedMessage: React.FC<{ gameName: string; onSubmit: () => void; reason: string }> = ({
+    gameName,
+    onSubmit,
+    reason,
+}) => {
     const { t } = useTranslation("messages");
     return (
         <BaseDialog type={ModalType.Center} isOpen={true}>
             <div className={Styles["error-message-container"]}>
                 <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
                 <div className={Styles.message}>
-                    <Trans t={t}>{t("lostGameConnection", { gameName: gameName })}</Trans>
+                    <Trans t={t}>{t(reason, { gameName: gameName })}</Trans>
                 </div>
                 <div className={Styles["list-action"]}>
-                    <button onClick={() => retryConnect()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
-                        {t("common:socketReconnect")}
+                    <button onClick={() => onSubmit()} className={`btn-orange w-100 ${Styles["reconnect"]}`}>
+                        {reason === ConnectFailedReasonKey.lostConnection ? t("common:socketReconnect") : "Ok"}
                     </button>
                 </div>
             </div>

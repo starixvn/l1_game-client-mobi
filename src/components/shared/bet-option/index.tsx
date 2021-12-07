@@ -15,7 +15,7 @@ const HighlightClassNameMapper = {
     [HighlightType.None]: "",
 };
 
-const convertStakeToString = (amount: number) => (amount ? numberWithCommas(amount) : "");
+const convertStakeToString = (amount: number, rate: number) => (amount ? numberWithCommas(amount / rate, 1) : "");
 
 const BetOption: React.FunctionComponent<Props> = ({
     gameState,
@@ -29,12 +29,12 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowPoolStake = true,
     isShowTooltip = false,
 }) => {
-    const { totalBets, ownBets } = useGameContext();
+    const { totalBets, ownBets, rate } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
-    const { countUp, update } = useCountUp({ start: 0, end: 0 });
+    const { countUp, update } = useCountUp({ start: 0, end: 0, decimals: 1 });
     const betChoiceRef = useRef<HTMLDivElement>(null);
     const totalBetRef = useRef<HTMLDivElement>(null);
     const [isFocusChoice, setIsFocusChoice] = useState<boolean>(false);
@@ -87,7 +87,9 @@ const BetOption: React.FunctionComponent<Props> = ({
 
                     <div className={Styles["total-bet"]} ref={totalBetRef}>
                         {isShowPoolStake &&
-                            (gameState === GameState.BalancingBet ? convertStakeToString(+countUp) : convertStakeToString(totalBet))}
+                            (gameState === GameState.BalancingBet
+                                ? convertStakeToString(+countUp, rate)
+                                : convertStakeToString(totalBet, rate))}
                     </div>
 
                     {children}

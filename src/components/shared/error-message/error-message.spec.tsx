@@ -6,7 +6,7 @@ import { ErrorMessage, ConnectFailedMessage } from ".";
 describe("ErrorMessage", () => {
     test("renders ErrorMessage component", () => {
         // Arrange
-        const resource = { message: "test", closeModal: jest.fn };
+        const resource = { message: "test", closeModal: jest.fn, onSubmit: jest.fn };
         // Act
         render(<ErrorMessage {...resource} />);
         fireEvent.click(document.querySelector(".icon-close"));
@@ -20,7 +20,7 @@ describe("ErrorMessage", () => {
 describe("ConnectFailedMessage", () => {
     test("renders ConnectFailedMessage component", () => {
         // Arrange
-        const resource = { gameName: "keno", retryConnect: jest.fn };
+        const resource = { gameName: "keno", retryConnect: jest.fn, reason: "", onSubmit: jest.fn };
         // Act
         render(<ConnectFailedMessage {...resource} />);
         fireEvent.click(document.querySelector(".reconnect"));

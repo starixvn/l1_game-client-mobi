@@ -8,7 +8,7 @@ import { KenoMatchGameDurations, KenoMatchProps } from "./type";
 import { i18n } from "next-i18next";
 import { AuthContextProvider } from "../../../contexts/auth";
 // import MockedSocket from "socket.io-mock";
-import { Server } from 'mock-socket';
+import { Server } from "mock-socket";
 
 const buildProps = () => {
     const durations = {
@@ -46,6 +46,8 @@ const buildProps = () => {
         i18n: i18n,
         tReady: true,
         router: null,
+        registerGlobalMessageEvent: () => {},
+        unsubscribeGlobalMessageEvent: () => {},
     } as KenoMatchProps;
 };
 
@@ -63,8 +65,8 @@ describe("KenoMatch", () => {
 
         // let socket = new MockedSocket();
 
-        const fakeURL = 'ws://localhost/user/kenomatch1';
-  const socket = new Server(fakeURL);
+        const fakeURL = "ws://localhost/user/kenomatch1";
+        const socket = new Server(fakeURL);
 
         // socket.on('message', function (message) {
         //     expect(message).toEqual('Hello World!');
@@ -82,16 +84,16 @@ describe("KenoMatch", () => {
 
         socket.emit("sid", "_T0-BAarTfhUqr_LAA0B");
 
-        socket.emit("message", {"userStakeLevel":{"minBet":1,"maxBet":3000}});
+        socket.emit("message", { userStakeLevel: { minBet: 1, maxBet: 3000 } });
 
         socket.emit("signin", session);
 
         socket.emit("KenoMatch1", {
             roundId: 61669,
             gameConfigs: {
-                minbet: 1,
-                maxbet: 2000,
-                choices_maxbet: {
+                minBet: 1,
+                maxBet: 2000,
+                maxBetPerChoices: {
                     fhBlue: 2000,
                     fhRed: 2000,
                     fhOver: 2000,

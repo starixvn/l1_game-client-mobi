@@ -6,9 +6,9 @@ import { Round, SocketState } from "../../../types";
 
 export interface GameConfigs {
     odds: { [key: string]: number };
-    minbet: number;
-    maxbet: number;
-    choices_maxbet: any;
+    minBet: number;
+    maxBet: number;
+    maxBetPerChoices: any;
     enableFreeBet: boolean;
 }
 
@@ -53,6 +53,8 @@ export type GameBaseProps = {
     supportMD5?: boolean;
     userStakeLevel: UserStakeLevel;
     updateUserStakeLevel: Function;
+    registerGlobalMessageEvent: Function;
+    unsubscribeGlobalMessageEvent: Function;
 } & WithTranslation &
     WithRouterProps;
 
@@ -93,6 +95,8 @@ export interface GameBaseState<Result, SettlementResult> {
     md5?: string;
     md5ResultKey?: string;
     showMD5ResultKey?: boolean;
+    rate: number;
+    disconnectReason?: string;
 }
 
 export interface Notice {
@@ -103,7 +107,7 @@ export interface Notice {
     minBet?: number;
     maxBet?: number;
     errorCode?: string;
-    position? : any
+    position?: any;
     isWarning?: boolean;
 }
 

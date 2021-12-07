@@ -1,8 +1,8 @@
 {
-    "socketGatewayUri": "https://l1-gw.lumigame.com",
+    "socketGatewayUri": "https://l1-gw1.lumigame.com",
     "proxy": {
         "ssl": false,
-        "uri": "haproxy.lumigame.com:7000",
+        "uri": "haproxy.lumigame.com:7001",
         "path": ""
     },
     "sentry": {

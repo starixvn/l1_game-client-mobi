@@ -28,6 +28,7 @@ import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
 import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
+import messageTransmitter from "../../helpers/message-transmitter";
 
 let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
@@ -62,6 +63,16 @@ const getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
     return newFavoriteList;
 };
 
+const GlobalMessageTransmitter = messageTransmitter();
+
+const registerGlobalMessageEvent = (messageKey: string, handler: Function) => {
+    GlobalMessageTransmitter.register(messageKey, handler);
+};
+
+const unsubscribeGlobalMessageEvent = (listenerId: string) => {
+    GlobalMessageTransmitter.unsubscribe(listenerId);
+};
+
 export const Games: React.FC<Props> = ({
     enabledQuickBet,
     betValue,
@@ -93,7 +104,12 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
-        const renderGames = getRenderGames(selectedCategory, selectedPage, favoriteGames.filter(game => !favoriteGameIdIgnore.includes(game)), userOfferGames);
+        const renderGames = getRenderGames(
+            selectedCategory,
+            selectedPage,
+            favoriteGames.filter((game) => !favoriteGameIdIgnore.includes(game)),
+            userOfferGames
+        );
 
         return renderGames.length === 0 && selectedCategory === GameCategoryType.favorite ? (
             <FavoriteGuide />
@@ -118,6 +134,8 @@ export const Games: React.FC<Props> = ({
             socketGateway: socketGatewayRef.current,
             socketGatewayState: socketState,
             retryConnectSocket: connectSocket,
+            registerGlobalMessageEvent: registerGlobalMessageEvent,
+            unsubscribeGlobalMessageEvent: unsubscribeGlobalMessageEvent,
         };
 
         switch (gameId) {
@@ -170,6 +188,10 @@ export const Games: React.FC<Props> = ({
         socket.on("disconnect", (reason) => {
             setSocketState(SocketState.Disconnected);
             console.log(reason);
+        });
+
+        socket.on("message", (message) => {
+            GlobalMessageTransmitter.broadcast(message);
         });
 
         socketGatewayRef.current = socket;

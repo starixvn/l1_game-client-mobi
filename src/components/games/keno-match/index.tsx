@@ -70,6 +70,12 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         this.onStart();
     };
 
+    onStart() {
+        super.onStart();
+
+        this.socket && this.socket.off("message").on("message", this.handleRestrictPermission.bind(this));
+    }
+
     getMainOptions(): string[] {
         return ["blue", "red", "tie", "over", "under", "odd", "even"];
     }

@@ -39,9 +39,9 @@ const buildGameContext = (gameState = GameState.InRound) => {
         roundId: 1,
         remainingTime: 1,
         gameConfigs: {
-            minbet: 1,
-            maxbet: 2000,
-            choices_maxbet: {
+            minBet: 1,
+            maxBet: 2000,
+            maxBetPerChoices: {
                 fhBlue: 2000,
                 fhRed: 2000,
                 fhOver: 2000,
@@ -89,7 +89,7 @@ const buildDefaultTeamResult = () => {
     return emptyResult;
 };
 
-export const buildDefaultResult= () => {
+export const buildDefaultResult = () => {
     const blueTeam = buildDefaultTeamResult();
     const redTeam = buildDefaultTeamResult();
     return {
