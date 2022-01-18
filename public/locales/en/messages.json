@@ -99,5 +99,6 @@
     "gameMaxBet": "Max bet for this game is {{maxBet}}.",
     "gameMinBet": "Min bet for this game is {{minBet}}.",
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>Your account is no longer allowed to play this game. Please try other game.",
-    "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you."
+    "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you.",
+    "disallowHedgeBet": "Can bet on either %{betChoice1} or %{betChoice2}."
 }

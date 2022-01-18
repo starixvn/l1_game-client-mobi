@@ -292,6 +292,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             }, 10000);
         } else {
             const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;
+
             displayPopup !== PopupType.Rebet &&
                 this.setState({
                     notice: {
@@ -302,6 +303,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         maxBet: notice?.maxBet,
                         errorCode: notice.errorCode,
                         roundId: notice?.gameRoundId,
+                        betChoice1: notice?.hedgeBetGroup ? this.getGameTranslate(notice.hedgeBetGroup[0]) : "",
+                        betChoice2: notice?.hedgeBetGroup ? this.getGameTranslate(notice.hedgeBetGroup[1]) : "",
                     },
                 });
         }
@@ -841,7 +844,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderNotice() {
-        const { gameName, message, roundId, duration, minBet, maxBet, errorCode, isWarning } = this.state.notice;
+        const { gameName, message, roundId, duration, minBet, maxBet, errorCode, isWarning, betChoice1, betChoice2 } = this.state.notice;
         return (
             <Notice
                 gameName={gameName}
@@ -853,6 +856,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 errorCode={errorCode}
                 onClose={this.closeNotice}
                 isWarning={isWarning}
+                betChoice1={betChoice1}
+                betChoice2={betChoice2}
             />
         );
     }
