@@ -303,8 +303,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                         maxBet: notice?.maxBet,
                         errorCode: notice.errorCode,
                         roundId: notice?.gameRoundId,
-                        betChoice1: notice?.hedgeBetGroup ? this.getGameTranslate(notice.hedgeBetGroup[0]) : "",
-                        betChoice2: notice?.hedgeBetGroup ? this.getGameTranslate(notice.hedgeBetGroup[1]) : "",
+                        betChoice1: notice?.hedgeBetGroup ? this.getChoiceNameOnHedgeBetMessage(notice.hedgeBetGroup[0]) : "",
+                        betChoice2: notice?.hedgeBetGroup ? this.getChoiceNameOnHedgeBetMessage(notice.hedgeBetGroup[1]) : "",
                     },
                 });
         }
@@ -742,6 +742,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     abstract getMainOptions(): string[];
 
     abstract renderSettlementInfo(): JSX.Element;
+
+    getChoiceNameOnHedgeBetMessage(choiceKey) {
+        return this.getGameTranslate(choiceKey);
+    }
 
     getGameTranslate(key: string) {
         const { t, gameName } = this.props;
