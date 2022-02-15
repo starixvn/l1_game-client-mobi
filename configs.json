@@ -1,13 +1,13 @@
 {
-    "socketGatewayUri": "https://l1-gw1.lumigame.com",
+    "socketGatewayUri": "https://l1-gw.lumigame.com",
     "proxy": {
-        "ssl": false,
-        "uri": "haproxy.lumigame.com:7001",
+        "ssl": true,
+        "uri": "l1-proxy.lumigame.com",
         "path": ""
     },
     "sentry": {
         "dsn": "https://c8f93631be824a14b9f114f53e3a2bfc@sentry.lumigame.com/3",
-        "environment": "LOCAL_1"
+        "environment": "DEV"
     },
     "offeredGames": [22, 2, 9, 1, 4, 24, 3, 7, 27, 10, 35, 8, 40, 41, 36, 37],
     "enableSourceMap": true,

@@ -1,9 +1,11 @@
+import axios from "axios";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
 
+import appSettings from "../common/app-settings";
 import { languageMapper } from "../common/constants";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
@@ -14,6 +16,13 @@ import * as Sentry from "../utils/sentry";
 
 const getUserSession = (token: string) => (token ? sso(token) : verifySession());
 
+declare global {
+    export interface Window {
+        authData: SSOResponse;
+        openGameId: string;
+    }
+}
+
 function Home() {
     const router = useRouter();
     const [isUM, setIsUm] = useState(false);
@@ -21,12 +30,24 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [language, setLanguage] = useState<string>(null);
 
-    const { token, lang, gameId } = router.query;
+    const { token, redirectToken, lang, gameId } = router.query;
     const { i18n } = useTranslation();
 
     useEffect(() => {
         const signIn = async () => {
-            const userSession = await getUserSession(token as string);
+            let userSession;
+            if (redirectToken) {
+                const { proxy } = appSettings;
+                const userServiceUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/user`;
+                userSession = (
+                    await axios.get(`${userServiceUri}/auth/redirect/2`, {
+                        headers: { Authorization: "Bearer ".concat(redirectToken as string) },
+                    })
+                ).data;
+                console.log(userSession);
+            } else {
+                userSession = await getUserSession(token as string);
+            }
 
             if (!userSession) {
                 router.push("timeout");
