@@ -75,5 +75,19 @@
     "winStreakTextFH": "H1",
     "winStreakTextFT": "TT",
     "copyMD5Message": "Copy chuỗi MD5 thành công!",
-    "copyMD5KeyMessage": "Copy chuỗi Key thành công!"
+    "copyMD5KeyMessage": "Copy chuỗi Key thành công!",
+    "fullText-fhBlue": "Hiệp 1 Đội Xanh",
+    "fullText-fhRed": "Hiệp 1 Đội Đỏ",
+    "fullText-fhOver": "Hiệp 1 Tài",
+    "fullText-fhUnder": "Hiệp 1 Xỉu",
+    "fullText-fhOdd": "Hiệp 1 Lẻ",
+    "fullText-fhEven": "Hiệp 1 Chẵn",
+    "fullText-ftBlue": "Toàn trận Đội Xanh",
+    "fullText-ftRed": "Toàn trận Đội Đỏ",
+    "fullText-ftOver": "Toàn trận Tài",
+    "fullText-ftUnder": "Toàn trận Xỉu",
+    "fullText-ftEven": "Toàn trận Chẵn",
+    "fullText-ftOdd": "Toàn trận Lẻ",
+    "fullText-liveFTEven": "Toàn trận Chẵn (Live)",
+    "fullText-liveFTOdd": "Toàn trận Lẻ (Live)"
 }

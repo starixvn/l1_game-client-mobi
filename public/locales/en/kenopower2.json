@@ -47,5 +47,15 @@
     "bettype-blueBig": "Team Blue Big/Small",
     "bettype-blueSmall": "Team Blue Big/Small",
     "bettype-redBig": "Team Red Big/Small",
-    "bettype-redSmall": "Team Red Big/Small"
+    "bettype-redSmall": "Team Red Big/Small",
+    "fullText-blue": "Team Blue",
+    "fullText-red": "Team Red",
+    "fullText-big": "Sum Big",
+    "fullText-small": "Sum Small",
+    "fullText-odd": "Sum Odd",
+    "fullText-even": "Sum Even",
+    "fullText-blueBig": "Team Blue Big",
+    "fullText-blueSmall": "Team Blue Small",
+    "fullText-redBig": "Team Red Big",
+    "fullText-redSmall": "Team Red Small"
 }

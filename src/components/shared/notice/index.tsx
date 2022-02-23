@@ -12,6 +12,8 @@ interface Props {
     maxBet?: number;
     errorCode?: string;
     isWarning?: boolean;
+    betChoice1?: string;
+    betChoice2?: string;
 }
 
 const BaseNotice: React.FC<{ onClose: () => void; duration: number; isOpen?: boolean; isWarning: boolean }> = ({
@@ -59,17 +61,22 @@ export const Notice: React.FC<Props> = ({
     maxBet = 0,
     gameName,
     roundId = 0,
+    betChoice1,
+    betChoice2,
     errorCode,
     isWarning = true,
 }) => {
+    const { t } = useTranslation();
     const opt = {
         gameName: gameName,
         roundId: roundId,
         minBet: numberWithCommas(+minBet),
         maxBet: numberWithCommas(+maxBet),
         errorCode: errorCode,
+        betChoice1,
+        betChoice2,
     };
-    const { t } = useTranslation();
+
     return (
         <BaseNotice {...{ onClose, duration, isWarning }}>
             <Trans t={t}>{t(message, opt)}</Trans>

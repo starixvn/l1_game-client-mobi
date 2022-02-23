@@ -109,6 +109,8 @@ export interface Notice {
     errorCode?: string;
     position?: any;
     isWarning?: boolean;
+    betChoice1?: string;
+    betChoice2?: string;
 }
 
 export interface APIError extends Notice {

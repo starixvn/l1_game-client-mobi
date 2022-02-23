@@ -714,6 +714,10 @@ export class KenoMatch extends GameBase<KenoMatchProps, KenoMatchGameBaseState<R
         return Math.max(...options.map((option) => winStreakCollector[option]?.streak ?? 0));
     };
 
+    getChoiceNameOnHedgeBetMessage(choiceKey: any): string {
+        return this.getGameTranslate(`fullText-${choiceKey}`);
+    }
+
     notifyWinStreakByLatestSettlementResultTimeMatch(
         settlementResult: SettlementResult,
         winStreakCollector: WinStreakCollectorModel,

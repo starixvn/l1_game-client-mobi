@@ -75,5 +75,19 @@
     "winStreakTextFH": "FH",
     "winStreakTextFT": "FT",
     "copyMD5Message": "Copy MD5 string successfully!",
-    "copyMD5KeyMessage": "Copy Key string successfully!"
+    "copyMD5KeyMessage": "Copy Key string successfully!",
+    "fullText-fhBlue": "First Half Team Blue",
+    "fullText-fhRed": "First Half Team Red",
+    "fullText-fhOver": "First Half Over",
+    "fullText-fhUnder": "First Half Under",
+    "fullText-fhOdd": "First Half Odd",
+    "fullText-fhEven": "First Half Even",
+    "fullText-ftBlue": "Full Time Team Blue",
+    "fullText-ftRed": "Full Time Team Red",
+    "fullText-ftOver": "Full Time Over",
+    "fullText-ftUnder": "Full Time Under",
+    "fullText-ftEven": "Full Time Even",
+    "fullText-ftOdd": "Full Time Odd",
+    "fullText-liveFTEven": "Full Time Even (Live)",
+    "fullText-liveFTOdd": "Full Time Odd (Live)"
 }

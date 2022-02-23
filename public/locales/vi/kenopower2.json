@@ -47,5 +47,15 @@
     "bettype-blueBig": "Đội Xanh Tài/Xỉu",
     "bettype-blueSmall": "Đội Xanh Tài/Xỉu",
     "bettype-redBig": "Đội Đỏ Tài/Xỉu",
-    "bettype-redSmall": "Đội Đỏ Tài/Xỉu"
+    "bettype-redSmall": "Đội Đỏ Tài/Xỉu",
+    "fullText-blue": "Đội Xanh",
+    "fullText-red": "Đội Đỏ",
+    "fullText-big": "Tổng Tài",
+    "fullText-small": "Tổng Xỉu",
+    "fullText-odd": "Tổng Lẻ",
+    "fullText-even": "Tổng Chẵn",
+    "fullText-blueBig": "Đội Xanh Tài",
+    "fullText-blueSmall": "Đội Xanh Xỉu",
+    "fullText-redBig": "Đội Đỏ Tài",
+    "fullText-redSmall": "Đội Đỏ Xỉu"
 }

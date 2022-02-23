@@ -155,6 +155,10 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
         );
     }
 
+    getChoiceNameOnHedgeBetMessage(choiceKey: any): string {
+        return this.getGameTranslate(`fullText-${choiceKey}`);
+    }
+
     renderStatistic() {
         return (
             <StatisticFollowPercent
