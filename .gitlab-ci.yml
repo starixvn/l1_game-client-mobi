@@ -1,4 +1,23 @@
+stages:
+    - test
+    - post-test
+    - transform-config
+    - build
+    - post-build
+    - deploy
+    - post-deploy
+    - renovate
+
 include:
     - project: "ci/repos-ci/pentagon_l1_game_client_mobi"
       ref: master
       file: "gitlab-ci.yml"
+
+renovate:
+    stage: renovate
+    script:
+        - echo "$CI_PROJECT_PATH"
+        - echo "$RENOVATE_TOKEN"
+        - renovate --token $RENOVATE_TOKEN --platform gitlab --endpoint https://git3.nexdev.net/api/v4 $CI_PROJECT_PATH
+    rules:
+        - when: manual
