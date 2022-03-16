@@ -914,14 +914,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
-    getStringInBetween(wholeString: string, start: string, end: string) {
-        let indexOfStart = wholeString.indexOf(start);
-        indexOfStart = indexOfStart + start.length;
+    renderRawValueMD5() {
+        const { md5ResultKey } = this.state;
+        const arrayResult = md5ResultKey.split("_");
+        const totalScores = arrayResult[0].slice(1, arrayResult[0].length - 1).split(";");
 
-        const newString = wholeString.slice(indexOfStart);
-        const indexOfEnd = newString.indexOf(end);
-
-        return newString.slice(0, indexOfEnd);
+        return (
+            <>
+                <strong>Key</strong>
+                {`: {`}
+                <span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>
+                {`}_`}
+                <span>{arrayResult[1]}</span>
+            </>
+        );
     }
 
     renderMD5() {
@@ -934,14 +940,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             md5ClassName = "md5-key";
 
         if (showMD5ResultKey && md5ResultKey) {
-            const key = md5ResultKey.split("]")[1];
-            const totalScores = this.getStringInBetween(md5ResultKey, "[", "]").split(";");
-            md5Text = (
-                <>
-                    <strong>Key</strong>: [<span className={Styles["blue"]}>{totalScores[0]}</span>;
-                    <span className={Styles["red"]}>{totalScores[1]}</span>]<span>{key}</span>
-                </>
-            );
+            md5Text = this.renderRawValueMD5();
             md5ClassName = "md5-result";
         }
 
