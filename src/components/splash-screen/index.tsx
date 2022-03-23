@@ -6,7 +6,13 @@ import Styles from "./splash-screen.module.scss";
 export default function SplashScreen({ locale }) {
     return locale ? (
         <div className={`${Styles.page}`}>
-            <img src={`/static/images/splash-screen/${locale}/logo.svg`} className={Styles["logo"]} width="274" height="96" alt="Logo" />
+            <img
+                src={`/static/images/splash-screen/${locale}/logo.svg?v=1`}
+                className={Styles["logo"]}
+                width="274"
+                height="96"
+                alt="Logo"
+            />
             {locale === locales.vi && (
                 <img
                     src={`/static/images/splash-screen/${locale}/info.svg`}
