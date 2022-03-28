@@ -11,9 +11,9 @@
             "wholeRound": 62,
             "placingBets": 50,
             "lockingBet": 5,
-            "showResult": 8,
-            "resultAnimation": 3,
-            "beforeStartRound": 0,
+            "showResult": 6,
+            "resultAnimation": 2,
+            "beforeStartRound": 2,
             "balancingBet": 3
         }
     },
@@ -60,12 +60,12 @@
             "path": "turbobigsmall"
         },
         "durations": {
-            "wholeRound": 37,
+            "wholeRound": 38,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 4,
+            "showResult": 3,
             "resultAnimation": 2,
-            "beforeStartRound": 0,
+            "beforeStartRound": 2,
             "balancingBet": 2
         }
     },
