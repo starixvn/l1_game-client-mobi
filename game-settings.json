@@ -215,22 +215,22 @@
         },
         "supportMD5": false,
         "durations": {
-            "wholeRound": 63,
-            "showFullTimeSettlementResult": 58,
+            "wholeRound": 78,
+            "showFullTimeSettlementResult": 73,
 
-            "halfTimePlacingBets": 54,
-            "halfTimeLockingBet": 32,
-            "showHalfTimeResult": 27,
-            "showHalfTimeSettlementResult": 23,
+            "halfTimePlacingBets": 69,
+            "halfTimeLockingBet": 39,
+            "showHalfTimeResult": 34,
+            "showHalfTimeSettlementResult": 30,
 
-            "beforeStartFullTimePlacingBet": 19,
-            "fullTimePlacingBets": 18,
+            "beforeStartFullTimePlacingBet": 26,
+            "fullTimePlacingBets": 25,
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
             "showResult": 6,
-            "halfTimeDuration": 27,
-            "fullTimeDuration": 18,
+            "halfTimeDuration": 35,
+            "fullTimeDuration": 25,
             "resultAnimation": 8,
             "settlementWinning": 6
         }
@@ -244,22 +244,22 @@
         },
         "supportMD5": true,
         "durations": {
-            "wholeRound": 71,
-            "showFullTimeSettlementResult": 66,
+            "wholeRound": 86,
+            "showFullTimeSettlementResult": 81,
 
-            "halfTimePlacingBets": 58,
-            "halfTimeLockingBet": 36,
-            "showHalfTimeResult": 31,
-            "showHalfTimeSettlementResult": 27,
+            "halfTimePlacingBets": 73,
+            "halfTimeLockingBet": 43,
+            "showHalfTimeResult": 38,
+            "showHalfTimeSettlementResult": 34,
 
-            "beforeStartFullTimePlacingBet": 19,
-            "fullTimePlacingBets": 18,
+            "beforeStartFullTimePlacingBet": 26,
+            "fullTimePlacingBets": 25,
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
 
             "showResult": 6,
-            "halfTimeDuration": 27,
-            "fullTimeDuration": 18,
+            "halfTimeDuration": 35,
+            "fullTimeDuration": 25,
             "resultAnimation": 8,
             "settlementWinning": 6
         }
