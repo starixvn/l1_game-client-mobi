@@ -9,7 +9,7 @@ describe("Notice", () => {
     const errorCode = 1000;
     const opt = {
         message: "notice",
-        gameName: "taixiu",
+        gameName: "BigSmall",
         roundId: 1,
         minBet: 0,
         maxBet: 2000,

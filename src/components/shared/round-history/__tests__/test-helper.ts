@@ -8,10 +8,10 @@ export const roundHistory = [
 
 const gameSetting = {
     id: 1,
-    gameName: "taixiu",
+    gameName: "BigSmall",
     supportMD5: false,
     socketInfo: {
-        namespace: "taixiu",
+        namespace: "bigsmall",
         path: "bigsmall",
     },
     durations: {

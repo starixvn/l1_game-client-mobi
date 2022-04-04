@@ -14,7 +14,7 @@ const BauCuaIconMapper = {
     rooster: "icon-ga",
 };
 
-const GamesHaveNoTextOnIcon = ["baucua", "xocxoc", "vipsedie", "minisedie", "specialsedie", "threecards"];
+const GamesHaveNoTextOnIcon = ["baucua", "sedie", "vipsedie", "minisedie", "specialsedie", "threecards"];
 
 const getIconClassName = (gameName: string, choice: string) => {
     const gameNameLower = gameName.toLocaleLowerCase();

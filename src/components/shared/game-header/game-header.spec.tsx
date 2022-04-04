@@ -15,9 +15,9 @@ describe("GameHeader", () => {
     const countdownTimerComponent = null;
     const gameSetting = {
         id: 1,
-        gameName: "taixiu",
+        gameName: "BigSmall",
         socketInfo: {
-            namespace: "taixiu",
+            namespace: "bigsmall",
             path: "bigsmall",
         },
         durations: {

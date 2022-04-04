@@ -51,7 +51,7 @@ export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
 
 export const SeDieResultCollapse: React.FC<{ result: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { playResultAnimation } = useGameContext();
-    const { t } = useTranslation("xocxoc");
+    const { t } = useTranslation("sedie");
     return (
         <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container"]}>

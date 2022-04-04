@@ -57,9 +57,9 @@ jest.mock("next/config", () => () => ({
         gameSettings: {
             1: {
                 id: 1,
-                gameName: "taixiu",
+                gameName: "BigSmall",
                 socketInfo: {
-                    namespace: "taixiu",
+                    namespace: "bigsmall",
                     path: "bigsmall",
                 },
                 durations: {
@@ -74,9 +74,9 @@ jest.mock("next/config", () => () => ({
             },
             2: {
                 id: 2,
-                gameName: "XocXoc",
+                gameName: "SeDie",
                 socketInfo: {
-                    namespace: "xocxoc",
+                    namespace: "sedie",
                     path: "sedie",
                 },
                 durations: {

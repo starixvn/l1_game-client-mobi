@@ -1,10 +1,9 @@
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import React from "react";
-import axios from "axios";
 
+import { HistoryModal } from ".";
 import { AuthContextProvider } from "../../../contexts/auth";
 import { authContextValue, offerGames } from "../__test__/test-helper";
-import { HistoryModal } from ".";
 
 jest.mock("axios");
 describe("HistoryModal", () => {
@@ -25,9 +24,9 @@ describe("HistoryModal", () => {
     test.each`
         optionOrder | expectedResult
         ${0}        | ${"vipsedie:game_name"}
-        ${1}        | ${"xocxoc:game_name"}
+        ${1}        | ${"sedie:game_name"}
         ${2}        | ${"minisedie:game_name"}
-        ${3}        | ${"taixiu:game_name"}
+        ${3}        | ${"bigsmall:game_name"}
         ${4}        | ${"txturbo:game_name"}
         ${5}        | ${"kenopromax:game_name"}
         ${6}        | ${"specialsedie:game_name"}
