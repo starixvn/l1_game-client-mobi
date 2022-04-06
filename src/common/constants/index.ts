@@ -45,4 +45,4 @@ export const Themes = {
 };
 
 export const sabaMobileName = "Saba.mobi";
-export const sabaClubName = "Saba.club";
+export const sabaClubName = "Saba.games";
