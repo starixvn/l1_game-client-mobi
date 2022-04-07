@@ -10,7 +10,6 @@ import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import { Choices, StatisticRuleEntries } from "./big-small-helper";
-//import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 
