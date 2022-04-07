@@ -34,7 +34,7 @@ const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
     }
     return (
         <div className="error-page">
-            <img alt="UM" src={`/static/images/um-${theme}.svg`} className="error-background" />
+            <img alt="UM" src={`/static/images/um-${theme}.svg?v=2`} className="error-background" />
             <p className="um-title">
                 {t("messages:sysMaintenance")} <br /> {t("um:umTitleFirst")}
             </p>
