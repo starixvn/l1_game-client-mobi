@@ -1,6 +1,9 @@
+import axios from "axios";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { User } from "sc-user-service-client/dist/auth";
+import { SSOResponse, User } from "sc-user-service-client/dist/auth";
+import appSettings from "../../common/app-settings";
+import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
@@ -22,6 +25,22 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
+    const redirectToSC = async () => {
+        const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
+
+        if (userSession) {
+            const { proxy } = appSettings;
+            const userServiceUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/user`;
+            const request = {
+                session: userSession.ss,
+                system: 1,
+            };
+
+            const { redirect_token, url } = (await axios.post(`${userServiceUri}/auth/redirectToken`, request)).data;
+            window.location.href = `${url}?redirectToken=${redirect_token}`;
+        }
+    };
+
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
@@ -29,6 +48,9 @@ const Header: React.FC<Props> = (props) => {
                     <div className={Styles["header-container"]}>
                         <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
                             Saba.mobi
+                        </a>
+                        <a onClick={() => redirectToSC()} className={Styles["site-name"]}>
+                            Saba Club
                         </a>
                         <div className={Styles["header-right"]}>
                             {

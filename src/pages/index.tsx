@@ -41,10 +41,13 @@ function Home() {
                 const userServiceUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/user`;
                 userSession = (
                     await axios.get(`${userServiceUri}/auth/redirect/2`, {
-                        headers: { Authorization: "Bearer ".concat(redirectToken as string) },
+                        headers: { Authorization: `Bearer ${redirectToken}` },
                     })
                 ).data;
-                console.log(userSession);
+
+                if (userSession && userSession.isAuthenticated) {
+                    storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
+                }
             } else {
                 userSession = await getUserSession(token as string);
             }

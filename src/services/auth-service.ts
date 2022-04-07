@@ -24,11 +24,11 @@ export const verifySession = async (): Promise<SSOResponse> => {
 
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
 
-    if(verifySessionResponse) {
+    if (verifySessionResponse) {
         userSession.isUM = verifySessionResponse.isUM;
         userSession.umInfo = verifySessionResponse.umInfo;
 
-        verifySessionResponse.isSuccessful && storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession)
+        verifySessionResponse.isSuccessful && storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
     }
 
     return verifySessionResponse.isSuccessful || userSession.isUM ? userSession : null;
