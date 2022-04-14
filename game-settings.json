@@ -60,13 +60,13 @@
             "path": "turbobigsmall"
         },
         "durations": {
-            "wholeRound": 38,
+            "wholeRound": 39,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 3,
+            "showResult": 5,
             "resultAnimation": 2,
             "beforeStartRound": 2,
-            "balancingBet": 2
+            "balancingBet": 1
         }
     },
     "7": {
