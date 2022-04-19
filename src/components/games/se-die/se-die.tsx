@@ -1,7 +1,6 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-
 import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
 import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";

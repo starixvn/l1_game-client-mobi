@@ -11,10 +11,10 @@ import Styles from "./bet-options.module.scss";
 
 const ChoiceSeDieIconMapper = {
     red4: [true, true, true, true],
-    red2: [false, false, true, true],
+    red2: [true, true, false, false],
     white4: [false, false, false, false],
-    red3: [false, true, true, true],
-    white3: [false, false, false, true],
+    red3: [true, true, true, false],
+    white3: [true, false, false, false],
 };
 
 type Props = {

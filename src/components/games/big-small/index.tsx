@@ -1,16 +1,15 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-
+import { OpenThePlate, BigSmallResultCollapse, ShakeThePlate } from "./animations";
 import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
-import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
+import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import BigSmallBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./big-small";
 import { Choices, StatisticRuleEntries } from "./big-small-helper";
-import BigSmallResult, { BigSmallResultCollapse } from "./big-small-result";
 import Styles from "./big-small.module.scss";
 import { RenderBigSmallDot, RenderRoundDetail } from "./round-history";
 
@@ -72,8 +71,8 @@ class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
     }
 
     renderResult() {
-        const { result, roundId } = this.state;
-        return <BigSmallResult result={result} roundId={roundId}></BigSmallResult>;
+        const { result } = this.state;
+        return <OpenThePlate result={result}></OpenThePlate>;
     }
 
     renderResultCollapse() {
@@ -97,13 +96,22 @@ class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
         );
     }
 
-    get winningAnimationWaitingTimeInSecond() {
-        const { id, durations } = this.props;
-        const duration = id === 4 ? durations.resultAnimation + durations.balancingBet : durations.showResult + durations.balancingBet;
 
-        return duration * 1000;
+    get isShowStartRoundAnimation() {
+        return this.state.gameState === GameState.BeforeStartRound;
     }
-
+    
+    renderStartRoundAnimation() {
+        const { durations } = this.props;
+        const { roundId } = this.state;
+        return (
+            <ShakeThePlate
+                key={roundId}
+                playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound}
+                roundId={roundId}
+            />
+        );
+    }
     renderSettlementInfo() {
         const { result, settlementResult } = this.state;
         const { t, gameName } = this.props;
