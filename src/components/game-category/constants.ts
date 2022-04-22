@@ -11,9 +11,9 @@ export const GameCategoryConfig = {
 export enum GameCategoryType {
     hot,
     favorite,
+    keno,
     sedie,
     dice,
-    keno,
     card,
 }
 
