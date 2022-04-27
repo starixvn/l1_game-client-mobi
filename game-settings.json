@@ -36,10 +36,10 @@
     },
     "3": {
         "id": 3,
-        "gameName": "BauCua",
+        "gameName": "FishPrawnCrab",
         "supportMD5": false,
         "socketInfo": {
-            "namespace": "baucua",
+            "namespace": "fishprawncrab",
             "path": "fishprawncrab"
         },
         "durations": {

@@ -90,9 +90,9 @@ jest.mock("next/config", () => () => ({
             },
             3: {
                 id: 3,
-                gameName: "BauCua",
+                gameName: "FishPrawnCrab",
                 socketInfo: {
-                    namespace: "baucua",
+                    namespace: "fishprawncrab",
                     path: "fishprawncrab",
                 },
                 durations: {
