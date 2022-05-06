@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result } from "./../fish-prawn-crab";
@@ -23,6 +23,7 @@ const generateResult = (result: Result) => {
         })
     );
 };
+
 const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
 
@@ -44,6 +45,27 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
         </div>
     );
 };
+export const FishPrawnCrabShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
+   useMemo(
+    () => (
+        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
+            <div className="overlay-mask-no-bg">
+                <div className={`${Styles["animation-container"]}`}>
+                    <div
+                        className={`${Styles["shake-the-plate"]} ${
+                            playAnimation ? Styles["has-animation"] : Styles["move-up-no-animation"]
+                        }`}
+                    >
+                        <div className={Styles["plate"]}></div>                        
+                        <div className={Styles["bowl"]}></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ),
+    [roundId]
+   );    
+
 
 export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();

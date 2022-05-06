@@ -3,11 +3,12 @@ import { withRouter } from "next/router";
 import React from "react";
 
 import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
-import { GameBaseState, GatewayGameBaseProps } from "../../shared/game-base/type";
+import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
+import { ShakeThePlate } from "../big-small/animations";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
-import FishPrawnCrabResult, { FishPrawnCrabResultCollapse } from "./fish-prawn-crab-result";
+import FishPrawnCrabResult, { FishPrawnCrabResultCollapse, FishPrawnCrabShakeThePlate } from "./fish-prawn-crab-result";
 import Styles from "./fish-prawn-crab.module.scss";
 import OddComponent from "./odd";
 import GetScoreboardDotDetails from "./scoreboard-round-history";
@@ -96,6 +97,22 @@ class FishPrawnCrab extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<
                 getDotDetails={GetScoreboardDotDetails}
             ></ScoreboardBasic>
         );
+    }
+
+    get isShowStartRoundAnimation() {
+        return this.state.gameState === GameState.BeforeStartRound;
+    }
+
+    renderStartRoundAnimation() {
+        const { durations } = this.props;
+        const { roundId } = this.state;
+        return(
+            <FishPrawnCrabShakeThePlate
+                key={roundId}
+                playAnimation={this.timeCounter >=durations.placingBets + durations.beforeStartRound}
+                roundId={roundId}
+                />
+        )
     }
 
     renderSettlementInfo() {
