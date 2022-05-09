@@ -3,8 +3,7 @@ import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { AuthorizeResponse, ReCheckInResponse, SSOResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
-
+import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
@@ -24,11 +23,14 @@ import { HistoryModal } from "./history";
 import Register from "./register";
 import Welcome from "./welcome";
 import Styles from "./dashboard.module.scss";
+import { io, Socket } from "socket.io-client";
+import MsgpackParser from "socket.io-msgpack-parser";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
-    private mainSocket: WebSocket = null;
+    private notificationSocket: Socket = null;
     private reCheckInInterval: NodeJS.Timeout;
+    private isKickOut: boolean = false;
 
     constructor(props: Props) {
         super(props);
@@ -51,15 +53,14 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
         this.handleRegister = this.handleRegister.bind(this);
-        this.onSocketConnect = this.onSocketConnect.bind(this);
-        this.onSocketData = this.onSocketData.bind(this);
+        this.registerMainSocketEvent = this.registerMainSocketEvent.bind(this);
         this.handleKickedOut = this.handleKickedOut.bind(this);
         this.winningStreakNotificationToggle = this.winningStreakNotificationToggle.bind(this);
         this.playSoundToggle = this.playSoundToggle.bind(this);
         this.closeDialog = this.closeDialog.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
-        this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
+        this.handleReload = this.handleReload.bind(this);
         this.updateAuthorizeInfo = this.updateAuthorizeInfo.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
@@ -68,6 +69,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
         this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
         this.setBetValue = this.setBetValue.bind(this);
+        this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -97,7 +99,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
-    handleShowApiErrorMessage(errorCode: string) {
+    handleShowApiErrorMessage(errorCode: string, isDisableAccount: boolean = false) {
+        if (isDisableAccount || errorCode === "1001" || errorCode === "1002") {
+            this.isKickOut = true;
+            setTimeout(() => {
+                this.signOut();
+            }, 10000);
+        }
+
         this.setState({ isShowErrorModal: true, isBlockUI: false, apiError: { errorCode, message: GetLocalizedErrorMessage(errorCode) } });
     }
 
@@ -123,12 +132,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.signOut();
         } else {
             if (response.apiError) {
-                response.isDisableAccount &&
-                    setTimeout(() => {
-                        this.signOut();
-                    }, 10000);
-
-                this.handleShowApiErrorMessage(response.apiError.errorCode);
+                this.handleShowApiErrorMessage(response.apiError.errorCode, response.isDisableAccount);
             } else {
                 this.updateUserBalance(response.balance);
             }
@@ -136,8 +140,9 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async componentDidMount() {
-        this.mainSocket = this.connectMainSocket();
-        const authorizeResponse = await authorize(this.props.session);
+        const { session } = this.props;
+        const authorizeResponse = await authorize(session);
+
         const errorResponse = authorizeResponse as Response;
 
         if (errorResponse && errorResponse.errorCode == "SB0002") {
@@ -170,53 +175,54 @@ class Dashboard extends React.PureComponent<Props, State> {
             : mediaQueryList.addListener(handleOrientation);
 
         if (authorizeInfo.authorized) {
-            this.onSocketConnect();
+            this.connectNotificationSocket();
         }
     }
 
     componentWillUnmount() {
-        this.mainSocket.close();
+        this.notificationSocket.close();
         clearInterval(this.reCheckInInterval);
     }
 
     sendMessage(data: any) {
-        this.mainSocket.readyState === 1 && this.mainSocket.send(JSON.stringify(data));
+        this.notificationSocket.emit(JSON.stringify(data));
     }
 
-    connectMainSocket() {
-        const { proxy } = appSettings;
-        const socketUri = `${proxy.ssl ? "wss" : "ws"}://${proxy.uri + proxy.path}/main/websocket`;
-        const socket = new WebSocket(socketUri);
-        socket.onmessage = this.onSocketData;
-
-        return socket;
-    }
-
-    onSocketConnect() {
+    connectNotificationSocket() {
+        const { proxy, enableMsgpackParser } = appSettings;
         const { session } = this.props;
-        const authentication = { username: session.username, data: session };
-        setTimeout(() => {
-            this.sendMessage({ authentication });
-        }, 500);
+        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/`;
+        const socketOption = {
+            forceNew: false,
+            transports: ["websocket"],
+            upgrade: false,
+            auth: {
+                ss: session.ss,
+                username: session.username,
+            },
+            path: `${proxy.path}/notification/socket.io`,
+            parser: enableMsgpackParser ? MsgpackParser : undefined,
+        };
+
+        this.notificationSocket = io(socketUri, socketOption);
+
+        this.registerMainSocketEvent(this.notificationSocket);
     }
 
-    onSocketData(message: any) {
-        const data = JSON.parse(message.data);
-        if (data.kickedOut) {
-            this.handleKickedOut(data.kickedOut);
-        }
+    registerMainSocketEvent(mainSocket: Socket) {
+        mainSocket.on("auth", this.handleAuth);
+        mainSocket.on("kickedOut", this.handleKickedOut);
+        mainSocket.on("reload", this.handleReload);
+    }
 
-        if (data.apiError) {
-            this.setState({ isShowErrorModal: true, isBlockUI: false, apiError: data.apiError.errorCode });
-        }
-
-        if (data.userStakeLevel) {
-            this.handleUpdateUserStakeLevel(data.userStakeLevel);
+    handleAuth(authData) {
+        if (!authData.authorized) {
+            this.handleKickedOut(authData);
         }
     }
 
-    handleUpdateUserStakeLevel(userStakeLevel: UserStakeLevel) {
-        this.setState({ userStakeLevel: userStakeLevel });
+    handleReload() {
+        window.location.reload();
     }
 
     handleKickedOut(data: any) {
@@ -248,6 +254,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
+    handleUpdateUserStakeLevel(userStakeLevel: UserStakeLevel) {
+        this.setState({ userStakeLevel: userStakeLevel });
+    }
+
     handleRegister(authorizeInfo: AuthorizeResponse) {
         const { session } = this.props;
 
@@ -256,7 +266,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         updateThemeSetting(session, authorizeInfo.user.settings.theme);
 
         this.updateAuthorizeInfo(authorizeInfo);
-        this.onSocketConnect();
     }
 
     winningStreakNotificationToggle() {
@@ -281,6 +290,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     closeDialog() {
         this.setState({ isShowErrorModal: false });
+        this.isKickOut && this.signOut();
     }
 
     toggleHistoryModal() {
