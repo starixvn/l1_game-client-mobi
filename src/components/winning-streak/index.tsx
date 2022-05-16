@@ -5,7 +5,7 @@ import { GameResourceKeys } from "../../common/resources";
 import styles from "./winning-streak.module.scss";
 import { WinningStreakItem } from "./winning-streak.type";
 
-const BauCuaIconMapper = {
+const FishPrawnCrabIconMapper = {
     fish: "icon-ca",
     prawn: "icon-tom",
     crab: "icon-cua",
@@ -14,13 +14,13 @@ const BauCuaIconMapper = {
     rooster: "icon-ga",
 };
 
-const GamesHaveNoTextOnIcon = ["baucua", "sedie", "vipsedie", "minisedie", "specialsedie", "threecards"];
+const GamesHaveNoTextOnIcon = ["fishprawncrab", "sedie", "vipsedie", "minisedie", "specialsedie", "threecards"];
 
 const getIconClassName = (gameName: string, choice: string) => {
     const gameNameLower = gameName.toLocaleLowerCase();
     switch (gameNameLower) {
-        case "baucua":
-            return `${styles.dice} ${BauCuaIconMapper[choice]}`;
+        case "fishprawncrab":
+            return `${styles.dice} ${FishPrawnCrabIconMapper[choice]}`;
         case "kenopromax":
         case "kenomatch1":
         case "kenomatch2":

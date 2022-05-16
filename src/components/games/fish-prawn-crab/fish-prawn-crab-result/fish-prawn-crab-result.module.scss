@@ -32,13 +32,12 @@
 
     &.has-animation {
         opacity: 0;
-        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, move-up-result-animation;
+        animation-name: show-plate-animation, move-up-result-animation;
         animation-delay: 0s, var(--time-show-plate-animation),
-            calc(var(--time-show-plate-animation) + calc(var(--time-shake-plate-animation) / 2)), var(--time-delay-move-up-result);
-        animation-duration: var(--time-show-plate-animation), calc(var(--time-shake-plate-animation) / 2),
-            calc(var(--time-shake-plate-animation) / 2), 0.3s;
-        animation-fill-mode: forwards, forwards, forwards, forwards;
-        animation-timing-function: linear, linear, linear, linear;
+            var(--time-show-plate-animation), var(--time-delay-move-up-result);
+        animation-duration: var(--time-show-plate-animation), 0.3s;
+        animation-fill-mode: forwards, forwards;
+        animation-timing-function: linear, linear;
 
         .bowl {
             @extend .open-bowl-animation;
@@ -52,6 +51,37 @@
             opacity: 0;
         }
     }
+}
+
+.shake-the-plate { 
+    --move-up-distance: -4.5rem;
+    --result-scale: 1;
+
+    position: absolute;
+    top: calc(50% - 6.3rem);
+    left: calc(50% - 6.6rem);
+    height: 12.7rem;
+    width: 13.3rem;
+    border-radius: 50%;
+    box-shadow: 0px 0px 36px rgba(0, 0, 0, 0.3);
+    z-index: var(--result-animation-index);
+    transform: scale(var(--result-scale));
+
+    &.has-animation {
+        --time-show-shake-plate-animation: 0.1s;
+        --time-shake-plate-animation: 1s;
+        --time-hide-shake-plate-animation: 0.1s;
+        opacity: 0;
+        /*animation*/
+        animation-name: show-plate-animation, shake-plate-animation-copy, shake-plate-animation-sd, hide-shake-plate-animation;
+        animation-delay: 0s, var(--time-show-shake-plate-animation),
+            calc(var(--time-show-shake-plate-animation) + calc(var(--time-shake-plate-animation) / 2)),
+            calc(var(--time-show-shake-plate-animation) + var(--time-shake-plate-animation));
+        animation-duration: var(--time-show-shake-plate-animation), calc(var(--time-shake-plate-animation) / 2),
+            calc(var(--time-shake-plate-animation) / 2), var(--time-hide-shake-plate-animation);
+        animation-fill-mode: forwards, forwards, forwards, forwards;
+        animation-timing-function: linear, linear, linear, ease-out;      
+    }    
 }
 
 .plate {
@@ -139,5 +169,17 @@
 
     .dice3 {
         background-image: url("/static/images/fpc-dices-sprite-3.png");
+    }    
+}
+
+@keyframes hide-shake-plate-animation {
+    80% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
     }
 }

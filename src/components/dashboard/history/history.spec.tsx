@@ -30,7 +30,7 @@ describe("HistoryModal", () => {
         ${4}        | ${"txturbo:game_name"}
         ${5}        | ${"kenopromax:game_name"}
         ${6}        | ${"specialsedie:game_name"}
-        ${7}        | ${"baucua:game_name"}
+        ${7}        | ${"fishprawncrab:game_name"}
         ${8}        | ${"dragontiger:game_name"}
         ${9}        | ${"vipbaccarat:game_name"}
         ${10}       | ${"baccarat:game_name"}

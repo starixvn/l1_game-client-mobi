@@ -4,7 +4,7 @@ import { useGameContext } from "../../../../contexts/game-context/game-context";
 import Styles from "./odd.module.scss";
 
 const OddItem = ({ name, number }) => {
-    const { t } = useTranslation("baucua");
+    const { t } = useTranslation("fishprawncrab");
     return (
         <div className={Styles["odd-item"]}>
             <span className={Styles.type}>{t(name)}</span>
