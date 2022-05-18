@@ -391,6 +391,29 @@ class Dashboard extends React.PureComponent<Props, State> {
         return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
     }
 
+    renderGoogleAnalytic() {
+        if(appSettings.googleAnalyticId == null)
+        {
+            return <></>;
+        }
+
+        return (<>
+         <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                            window.dataLayer = window.dataLayer || [];
+                            function gtag(){dataLayer.push(arguments);}
+                            gtag('js', new Date());
+                            gtag('config', '${appSettings.googleAnalyticId}', {
+                            page_path: window.location.pathname,
+                            });
+                        `,
+                        }}
+                    />
+        </>);
+    }
+
     render() {
         const { orientation, authorizeInfo } = this.state;
 
@@ -401,19 +424,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         return authorizeInfo ? (
             <>
                 <Head>
-                    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MRWMQHR3Z9"></script>
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `
-                            window.dataLayer = window.dataLayer || [];
-                            function gtag(){dataLayer.push(arguments);}
-                            gtag('js', new Date());
-                            gtag('config', 'G-MRWMQHR3Z9', {
-                            page_path: window.location.pathname,
-                            });
-                        `,
-                        }}
-                    />
+                   {this.renderGoogleAnalytic()}
                 </Head>
                 {this.renderComponents(authorizeInfo)}
             </>
