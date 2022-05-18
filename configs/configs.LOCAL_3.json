@@ -11,5 +11,6 @@
     },
     "offeredGames": [22, 2, 9, 1, 4, 24, 3, 7, 27, 10, 35, 8, 40, 41, 36, 37],
     "enableSourceMap": true,
-    "guideUrl": "https://l1-guide-3.lumigame.com"
+    "guideUrl": "https://l1-guide-3.lumigame.com",
+    "enableMsgpackParser": false
 }
