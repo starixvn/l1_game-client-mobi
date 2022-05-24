@@ -19,6 +19,7 @@
     "errorOccurred": "Đã xảy ra lỗi. Vui lòng liên hệ với bộ phận CSKH để được hỗ trợ.({{errorCode}})",
     "errorOccurredFull": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Đã xảy ra lỗi. Vui lòng liên hệ với bộ phận CSKH để được hỗ trợ.({{errorCode}})",
     "sessionTimeout": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại.",
+    "sessionTimeoutWithErrorCode": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại. ({{errorCode}})",
     "playOnOtherDevice": "Bạn hoặc ai đó đang chơi [game] bằng tài khoản này.",
     "serverError": "Máy chủ gặp sự cố.",
     "invalidData": "Dữ liệu không hợp lệ.",

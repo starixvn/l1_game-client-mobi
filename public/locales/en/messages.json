@@ -19,6 +19,7 @@
     "errorOccurred": "An error has occurred, please contact CSD for details.({{errorCode}})",
     "errorOccurredFull": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> An error has occurred, please contact CSD for details.({{errorCode}})",
     "sessionTimeout": "Your session has timed out or you have not logged in yet. Please close the current windows and try to login again.",
+    "sessionTimeoutWithErrorCode": "Your session has timed out or you have not logged in yet. Please close the current windows and try to login again. ({{errorCode}})",
     "playOnOtherDevice": "Your account is being used to play [game] on another browser or device.",
     "serverError": "The server has encountered an error.",
     "invalidData": "Invalid Data.",

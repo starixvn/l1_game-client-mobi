@@ -19,4 +19,6 @@ export default interface AppSettings {
     offeredGames: number[];
     gameSettings: { [id: string]: GameBaseProps | KenoMatchProps };
     guideUrl: string;
+    googleAnalyticId: string;
+    enableMsgpackParser: boolean;
 }
