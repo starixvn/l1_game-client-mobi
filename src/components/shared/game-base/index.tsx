@@ -70,6 +70,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected authService: Auth;
     private isConnectFailed = false;
     private playPermissionListener: string;
+    private userStakeLevelListener: string;
 
     private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false };
     protected readonly defaultState = {
@@ -134,6 +135,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onDestroy() {
         this.setState({ gameState: GameState.None });
         this.props.unsubscribeGlobalMessageEvent(this.playPermissionListener);
+        this.props.unsubscribeGlobalMessageEvent(this.userStakeLevelListener);
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
@@ -147,6 +149,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.isProcessingBet = false;
         this.initWinStreakCollector();
         this.playPermissionListener = registerGlobalMessageEvent("notPermittedToPlay", this.handleRestrictPermission.bind(this));
+        this.userStakeLevelListener = registerGlobalMessageEvent("userStakeLevel", ({ userStakeLevel }) =>
+            this.props.updateUserStakeLevel(userStakeLevel)
+        );
 
         this.socket = this.initSocket();
         this.socket && this.socket.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
