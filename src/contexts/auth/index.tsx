@@ -4,7 +4,7 @@ import { SSOResponse } from "sc-user-service-client/dist/auth";
 type AuthContextModel = {
     session: SSOResponse;
     setBalance: (balance: number) => void;
-    handleShowApiErrorMessage: (errorCode: string, isDisableAccount: boolean) => void
+    signOut: () => void
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(null);

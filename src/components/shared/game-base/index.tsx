@@ -258,9 +258,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
         const errorCode = apiError.errorCode;
-        if( this.handleKickOut(errorCode.toString())){
-            return;
-        }
+        this.handleKickOut(errorCode.toString())
        
         const message = GetLocalizedErrorMessage(errorCode, isPlaceBet);
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
@@ -281,11 +279,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleKickOut(errorCode:string){
-        if(errorCode === "1001" || errorCode === "1002"){
-            this.context.handleShowApiErrorMessage(errorCode);
-            return true;
-        }
-        return false;
+        (errorCode === "1001" || errorCode === "1002") &&  setTimeout(() => {
+            this.context.signOut();
+        }, 10000);
     }
 
     handleBetFailed = ({ notice, kickedOut }) => {

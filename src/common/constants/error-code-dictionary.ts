@@ -91,7 +91,6 @@ const ErrorCodeDictionary = {
 
 export const CommonErrorCodeList = [
     "errorOccurred",
-    "sessionTimeout",
     "loginFailed",
     "accountClosed",
     "accountNotExist",

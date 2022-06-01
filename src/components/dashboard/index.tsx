@@ -70,6 +70,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
         this.setBetValue = this.setBetValue.bind(this);
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
+        this.signOut = this.signOut.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -315,7 +316,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue,
             isBlockUI,
         } = this.state;
-        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, handleShowApiErrorMessage:this.handleShowApiErrorMessage };
+        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut:this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
         return (
             <AuthContextProvider value={authContextValue}>
