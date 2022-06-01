@@ -257,7 +257,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
-        const message = GetLocalizedErrorMessage(apiError.errorCode, isPlaceBet);
+        const errorCode = apiError.errorCode;
+        if( this.handleKickOut(errorCode.toString())){
+            return;
+        }
+       
+        const message = GetLocalizedErrorMessage(errorCode, isPlaceBet);
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
 
         const { displayPopup } = this.state;
@@ -270,10 +275,18 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     duration: 3,
                     minBet: apiError?.minBet,
                     maxBet: apiError?.maxBet,
-                    errorCode: apiError.errorCode,
+                    errorCode: errorCode,
                 },
             });
     };
+
+    handleKickOut(errorCode:string){
+        if(errorCode === "1001" || errorCode === "1002"){
+            this.context.handleShowApiErrorMessage(errorCode);
+            return true;
+        }
+        return false;
+    }
 
     handleBetFailed = ({ notice, kickedOut }) => {
         const { displayPopup } = this.state;

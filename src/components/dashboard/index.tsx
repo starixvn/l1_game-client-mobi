@@ -315,7 +315,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue,
             isBlockUI,
         } = this.state;
-        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance };
+        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, handleShowApiErrorMessage:this.handleShowApiErrorMessage };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
         return (
             <AuthContextProvider value={authContextValue}>
