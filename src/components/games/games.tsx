@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { isIOS, isMobileOnly } from "react-device-detect";
 import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
-
+import MsgpackParser from "socket.io-msgpack-parser";
 import appSettings from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
@@ -178,7 +178,15 @@ export const Games: React.FC<Props> = ({
     };
 
     const connectSocket = () => {
-        const socket = io(appSettings.socketGatewayUri, { forceNew: true, transports: ["websocket"], upgrade: false });
+        const { socketGatewayUri, enableMsgpackParser } = appSettings;
+
+        const socket = io(socketGatewayUri, {
+            forceNew: true,
+            transports: ["websocket"],
+            upgrade: false,
+            parser: enableMsgpackParser ? MsgpackParser : undefined,
+        });
+
         socket.on("connect", () => {
             setSocketState(SocketState.Connected);
         });

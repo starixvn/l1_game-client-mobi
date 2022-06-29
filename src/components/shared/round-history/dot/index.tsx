@@ -10,10 +10,15 @@ type Props = {
     gameName?: string;
 };
 
-export const RoundDot: React.FunctionComponent<Props> = ({ choice = "even", value, highlight = false, size = "" }) => {
+export const RoundDot: React.FunctionComponent<Props> = ({ choice = "even", value, highlight = false, size = "", gameName }) => {
     const classDotName = `dot-${choice}`;
     return (
-        <div className={`${Styles[classDotName]} ${highlight ? "highlight-current-result" : ""} ${Styles[size]}`} data-testid="round-dot">
+        <div
+            className={`${Styles[classDotName]} ${highlight ? "highlight-current-result" : ""} ${Styles[size]}  ${
+                gameName ? Styles[gameName] : ""
+            }`}
+            data-testid="round-dot"
+        >
             {value}
         </div>
     );

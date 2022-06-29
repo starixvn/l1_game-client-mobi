@@ -41,6 +41,7 @@ export const RenderDragonTigerDot = (
         <RoundDot
             choice={round.settlementResult.tie ? Choices.tie : round.settlementResult.tiger ? Choices.tiger : Choices.dragon}
             highlight={!isShowBlink && index === numberOfItems - 1}
+            gameName="dragontiger"
         />
     );
 };

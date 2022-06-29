@@ -3,7 +3,7 @@ import { isMobileOnly } from "react-device-detect";
 import Auth from "sc-user-service-client/dist/auth";
 import { io, Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
-
+import MsgpackParser from "socket.io-msgpack-parser";
 import appSettings from "../../../common/app-settings";
 import { LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
@@ -160,12 +160,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected initSocket() {
         const { socketInfo } = this.props;
         const { session } = this.context;
-        const { proxy } = appSettings;
+        const { proxy, enableMsgpackParser } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
+        console.log(enableMsgpackParser);
         const socket = io(socketUri, {
             transports: ["websocket"],
             upgrade: false,
             path: `${proxy.path}/${socketInfo.path}/socket.io`,
+            parser: enableMsgpackParser ? MsgpackParser : undefined,
         });
 
         socket.on("connect", () => {
@@ -257,7 +259,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
-        const message = GetLocalizedErrorMessage(apiError.errorCode, isPlaceBet);
+        const errorCode = apiError.errorCode;
+        this.handleKickOut(errorCode.toString())
+       
+        const message = GetLocalizedErrorMessage(errorCode, isPlaceBet);
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
 
         const { displayPopup } = this.state;
@@ -270,10 +275,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     duration: 3,
                     minBet: apiError?.minBet,
                     maxBet: apiError?.maxBet,
-                    errorCode: apiError.errorCode,
+                    errorCode: errorCode,
                 },
             });
     };
+
+    handleKickOut(errorCode:string){
+        (errorCode === "1001" || errorCode === "1002") &&  setTimeout(() => {
+            this.context.signOut();
+        }, 10000);
+    }
 
     handleBetFailed = ({ notice, kickedOut }) => {
         const { displayPopup } = this.state;

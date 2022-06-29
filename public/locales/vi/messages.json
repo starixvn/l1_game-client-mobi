@@ -18,7 +18,7 @@
     "unavailableGame": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Trò chơi không khả dụng vào thời điểm này. Vui lòng liên hệ với bộ phận CSKH để biết chi tiết, cảm ơn bạn.({{errorCode}})",
     "errorOccurred": "Đã xảy ra lỗi. Vui lòng liên hệ với bộ phận CSKH để được hỗ trợ.({{errorCode}})",
     "errorOccurredFull": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Đã xảy ra lỗi. Vui lòng liên hệ với bộ phận CSKH để được hỗ trợ.({{errorCode}})",
-    "sessionTimeout": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại.",
+    "sessionTimeout": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại. ({{errorCode}})",
     "sessionTimeoutWithErrorCode": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại. ({{errorCode}})",
     "playOnOtherDevice": "Bạn hoặc ai đó đang chơi [game] bằng tài khoản này.",
     "serverError": "Máy chủ gặp sự cố.",
