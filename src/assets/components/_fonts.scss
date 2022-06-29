@@ -78,3 +78,20 @@
         /* Safari, Android, iOS */ url("/static/fonts/roboto/Roboto-Bold.svg#Roboto") format("svg"); /* Legacy iOS */
     font-display: swap;
 }
+
+
+/* sf-regular */
+@font-face {
+    font-family: "SanFranciscoDisplay";
+    src: url("/static/fonts/SF-Pro-Display-Regular.otf") format("opentype");
+    font-weight: 500;
+    font-display: swap;
+}
+
+/* sf-bold */
+@font-face {
+    font-family: "SanFranciscoDisplay";
+    src: url("/static/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+    font-weight: bold;
+    font-display: swap;
+}

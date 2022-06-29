@@ -25,7 +25,7 @@ export const RoundDot: React.FunctionComponent<Props> = ({ choice = "even", valu
 };
 
 export const RoundDotGrid: React.FunctionComponent<Props> = ({ choice = "even", value, col, row, gameName }) => {
-    const classDotName = `dot-${choice}`;
+    const classDotName = `dot-grid-${choice}`;
     return (
         <div
             className={`${Styles[classDotName]} ${gameName ? Styles[gameName] : ""}`}

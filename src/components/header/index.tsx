@@ -27,8 +27,8 @@ const Header: React.FC<Props> = (props) => {
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
-                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
-                            Saba.mobi
+                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>                            
+                            <img alt="UM" src={`/static/images/logo-sabamobi.svg?v=2`} className="header-logo" />
                         </a>
                         <div className={Styles["header-right"]}>
                             {

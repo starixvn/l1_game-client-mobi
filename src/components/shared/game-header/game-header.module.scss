@@ -1,22 +1,24 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #fdc458 5%, #fbad19 37.29%, #f8aa15 72.71%);
+    --game-header-background: linear-gradient(180deg, #7591C1 0%, #5978AA 100%);
+    --game-header-shadow: inset 0px 2px 4px #A5C7FF;
     --game-header-overlay-image: url(/static/images/game-header-overlay.png);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
     --game-header-icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
-    --game-header-game-name-color: #2c2f3e;
-    --game-header-round-id-color: #5a5a5a;
+    --game-header-game-name-color: #fff;
+    --game-header-round-id-color: #fff;
 
     --btn-rebet-background: transparent;
     --btn-rebet-color: #fff;
     --btn-rebet-background-hover: #fff;
     --btn-rebet-color-hover: #ff9a00;
-    --game-header-result-background: rgba(202, 141, 49, 0.7);
+    --game-header-result-background: rgba(52, 82, 146, 0.7);
 }
 
 [data-theme="dark"] .header {
     --game-header-background: linear-gradient(180deg, #7191b1 0%, #37506a 16.46%, #203044 100%);
+    --game-header-shadow: inset 0px 2px 4px #A5C7FF;
     --game-header-overlay-image: url(/static/images/dark-mode-game-header-overlay.png);
     --game-header-icon-favourite: #ffab2b;
     --game-header-icon-unfavourite: #7f91a4;
@@ -37,6 +39,7 @@
     display: flex;
     justify-content: space-between;
     background: var(--game-header-background);
+    box-shadow: var(--game-header-shadow);
     border-radius: 0.5rem 0.5rem 0 0;
     position: relative;
     height: 5.6rem;
@@ -110,9 +113,10 @@
 
     .title {
         line-height: 2rem;
-        font-weight: 500;
-        font-size: 1.8rem;
+        font-weight: bold;
+        font-size: 1.5rem;
         color: var(--game-header-game-name-color);
+        letter-spacing: 0.5px;
 
         @media (min-width: 1024px) and (max-width: 1278px) {
             font-size: 1.5rem;

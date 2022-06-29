@@ -19,7 +19,7 @@ const RoundDotWrapper = <R, S>({ children, renderRoundDetail, targetName, gameSt
     }, [gameState]);
 
     return (
-        <div className={Styles["dot-wrapper"]} onClick={toggleTooltip} data-testid="dot-wrapper">
+        <div className={`${Styles["dot-wrapper"]}`} onClick={toggleTooltip} data-testid="dot-wrapper">
             <div id={targetName}>{children}</div>
             {isOpenTooltip && (
                 <ContainerToolTip isOpen={true} onClose={toggleTooltip}>
@@ -39,7 +39,6 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
     return useMemo(() => {
         const numberOfItems = isShowBlink ? 19 : 20;
         const rounds = roundHistory.slice(0, numberOfItems).reverse();
-
         return (
             <div className={Styles["round-dot-wrapper"]}>
                 {rounds.map((round: Round<R, S>, index: number) => (

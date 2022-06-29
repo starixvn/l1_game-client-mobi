@@ -4,7 +4,7 @@
     .tooltip {
         overflow: hidden;
         white-space: nowrap;
-    }
+    }    
 
     .dot-wrapper {
         position: relative;
@@ -15,6 +15,12 @@
             margin-left: 0.2rem;
             margin-right: 0.2rem;
         }
+
+        &.shadow .dot {
+            box-shadow: var(--dot-odd-shadow);
+        }
+
+        
     }
 
     @media (min-width: 200px) and (max-width: 374px) {

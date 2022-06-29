@@ -76,3 +76,11 @@
         --font-size: 1.8rem;
     }
 }
+
+.highlight-winning {
+    background-color: var(--bet-option-background-highlight);
+    
+    .bet-choice-name {
+        color: #FF4352;
+    }
+}

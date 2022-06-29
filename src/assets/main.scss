@@ -17,9 +17,9 @@
 html {
     font-size: 10px !important;
 
-    --font-family: "Roboto", arial, sans-serif;
+    --font-family: "SanFranciscoDisplay", arial, sans-serif;
     --font-money: "BebasNeue", Arial, sans-serif;
-    --font-number: "BinanceFlex", Arial, sans-serif;
+    --font-number: "SanFranciscoDisplay", Arial, sans-serif;
     --primary-color: #ff9a00;
 
     // buttons
@@ -58,13 +58,13 @@ html {
     --global-api-error-index: 2000;
 
     // dots
-    --dot-even-background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 100%);
-    --dot-even-border: linear-gradient(180deg, #ececec 0%, #c5c5c5 100%);
-    --dot-even-text-color: #828282;
+    --dot-even-background: linear-gradient(180deg, #EEEEEE 0%, #E5E5E5 100%);
+    --dot-even-border: linear-gradient(180deg, #F7F7F7 0%, #DBDBDB 100%);
+    --dot-even-text-color: #323232;
     --dot-even-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 
-    --dot-odd-background: linear-gradient(180deg, #ff6e79 6.04%, #e73542 50.31%, #cc1a27 100%);
-    --dot-odd-border: linear-gradient(180deg, #ff8e95 6.04%, #a80915 100%);
+    --dot-odd-background: linear-gradient(180deg, rgba(250,55,68,1) 6.04%, rgba(205,13,27,1) 100%);;
+    --dot-odd-border: linear-gradient(180deg, rgba(255,86,97,1) 0%, rgba(190,28,40,1) 100%);
     --dot-odd-text-color: #fff;
     --dot-odd-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
 
@@ -73,7 +73,7 @@ html {
     --bigSmall-dot-big-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     --bigSmall-big-text-color: #3b7bc6;
 
-    --bigSmall-dot-small-background: linear-gradient(180deg, #ff6e79 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --bigSmall-dot-small-background: linear-gradient(180deg, rgba(250,55,68,1) 6.04%, rgba(205,13,27,1) 100%);
     --bigSmall-dot-small-border: linear-gradient(180deg, #ff8e95 6.04%, #a80915 100%);
     --bigSmall-dot-small-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     --bigSmall-small-text-color: #de4b56;
@@ -83,7 +83,7 @@ html {
     --dragonTiger-dot-dragon-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     --dragonTiger-dragon-text-color: #ff9a00;
 
-    --dragonTiger-dot-tiger-background: linear-gradient(180deg, #ff6e79 6.04%, #e73542 50.31%, #cc1a27 100%);
+    --dragonTiger-dot-tiger-background: linear-gradient(180deg, #FA3744 6.04%, #CD0D1B 100%);;
     --dragonTiger-dot-tiger-border: linear-gradient(180deg, #ff8e95 6.04%, #a80915 100%);
     --dragonTiger-dot-tiger-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     --dragonTiger-tiger-text-color: #ff3434;
@@ -163,7 +163,7 @@ html {
     --page-background-image: url("/static/images/themes/background-theme-light.jpg");
     --text-color: #2c2f3e;
 
-    --border-color: #dce2f3;
+    --border-color: #C5CBDB;
 
     --opacity-background: rgba(12, 12, 12, 0.36);
     --opacity-background-grey: rgba(221, 221, 221, 0.6);

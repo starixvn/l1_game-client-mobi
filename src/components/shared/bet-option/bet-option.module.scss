@@ -3,7 +3,7 @@
     --bet-option-background-hover: #fff1b2;
     --bet-option-background-highlight: #fff5e3;
     --bet-option-border: #dce2f3;
-    --bet-option-own-bet-color: #ff9a00;
+    --bet-option-own-bet-color: #33AA33;
     --bet-option-total-bet-color: #2c2f3e;
     --bet-option-odds-color: #707070;
 
@@ -78,12 +78,12 @@
         top: 0.2rem;
         color: var(--bet-option-odds-color);
         text-align: left;
-        font-size: 1.2rem;
-        letter-spacing: -.1rem;
+        font-size: 1.2rem;        
         @media (min-width: 1136px) {
             letter-spacing: unset;
         }
     }
+    
 
     .total-bet,
     .own-bet {
@@ -102,17 +102,40 @@
     }
 
     .own-bet {
-        bottom: -0.3rem;
-        font-size: 1.8rem;
-        font-weight: 500;
-        color: var(--bet-option-own-bet-color);
+        bottom: 0.3rem;
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #fff;
+        
+    }
+
+    .own-bet span {
+        background-color: var(--bet-option-own-bet-color);
+        padding: 0.2rem 0.5rem;
+        border-radius: 10px;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+
+        &::before {
+            content: "";
+            display: inline-block;
+            width: 1.6rem;
+            height: 1.6rem;
+            margin-right: 0.4rem;
+            background: url("/static/images/coin.svg") no-repeat center;
+            background-size: contain;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .bet-choice-name {
+        color: #FF4352;
     }
 
     &.highlight-winning {
-        background-color: var(--bet-option-background-highlight);
+        background-color: var(--bet-option-background-highlight);  
     }
 
-    &.disabled{
+    &.disabled {
         background-color: gray
     }
 

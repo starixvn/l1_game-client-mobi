@@ -1,20 +1,21 @@
 [data-theme="light"] .category-container {
-    --game-category-background: #dddede;
+    --game-category-background: #F1F1F5;
     --game-category-border: #969696;
-    --game-category-border-active-color: #ff8a01;
-    --game-category-text-color: #28526d;
-    --game-category-text-active-color: #ff8a01;
+    --game-category-border-active-color: #5574A7;
+    --game-category-text-color: #545454;
+    --game-category-text-active-color: #5574A7;
 
     @media (min-width: 768px) {
         --game-category-border: #6d9cbb;
-        --game-category-border-active-color: #ff8a01;
+        --game-category-border-active-color: #5574A7;
         --game-category-text-color: #28526d;
-        --game-category-text-active-color: #ff8a01;
+        --game-category-text-active-color: #5574A7;
     }
 
-    --paging-item-hover-background: linear-gradient(180deg, #ffffff 0%, #c8c9c9 100%);
-    --paging-item-border: #748e9e;
-    --paging-item-text-color: #28526d;
+    //--paging-item-hover-background: linear-gradient(180deg, #ffffff 0%, #c8c9c9 100%);
+    --paging-item-hover-background: #6582B1;
+    --paging-item-border: #5574AE;
+    --paging-item-text-color: #5574AE;
 }
 
 [data-theme="dark"] .category-container {
@@ -37,7 +38,7 @@
 }
 
 .category-container {
-    border-bottom: 0.1rem solid var(--game-category-border);
+    //border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);
     overflow-x: auto;
     overflow-y: hidden;
@@ -113,6 +114,7 @@
             font-size: 1.4rem;
             color: var(--game-category-text-color);
             white-space: nowrap;
+            font-weight: bold;
 
             @media (min-width: 768px) {
                 padding-left: 1rem;
@@ -130,17 +132,18 @@
         &.selected {
             .category-text {
                 position: relative;
-                font-weight: 500;
+                font-weight: 700;
                 color: var(--game-category-text-active-color);
 
                 &:after {
                     content: "";
                     position: absolute;
-                    bottom: -0.3rem;
-                    left: calc(50% - 1.3rem);
-                    width: 2.6rem;
-                    height: 0.5rem;
-                    border-radius: 2rem;
+                    bottom: 0;
+                    left: calc(50% - 1.8rem);
+                    width: 3.6rem;
+                    height: 0.4rem;
+                    transform: skewX(-30deg);
+                    //border-radius: 2rem;
                     background-color: var(--game-category-border-active-color);
                 }
             }
@@ -167,6 +170,7 @@
         &.selected {
             cursor: pointer;
             background: var(--paging-item-hover-background);
+            color: #fff;
         }
     }
 }

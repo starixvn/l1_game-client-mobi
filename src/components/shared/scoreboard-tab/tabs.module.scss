@@ -1,7 +1,7 @@
 [data-theme="light"] .tabs-container {
     --tabs-type-color: #929292;
     --tabs-active-type-color: #2c2f3e;
-    --tabs-arrow-icon: #2c2f3e;
+    --tabs-arrow-icon: #fff;
 }
 
 [data-theme="dark"] .tabs-container {
@@ -24,7 +24,7 @@
 
     .type {
         margin-right: 0.5rem;
-        color: var(--tabs-type-color);
+        //color: var(--tabs-type-color);
 
         &.tabs-active {
             color: var(--tabs-active-type-color);
@@ -51,12 +51,12 @@
         right: -1rem;
         line-height: 1.4rem;
         padding: 0 0.4rem;
-        border: 0.1rem solid #FFB022;
-        border-radius: 50%;
-        background: #FFDA99;
+        //border: 0.1rem solid #FFB022;
+        border-radius: 3px;
+        background: #B53F39;
         font-weight: 500;
         font-size: 1rem;
-        color: #2C2F3E;
+        color: #fff;
     }
 }
 

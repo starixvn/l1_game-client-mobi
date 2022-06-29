@@ -31,6 +31,7 @@
         height: 2rem;
         width: 2rem;
         margin: 0 0.2rem;
+        box-shadow: var(--dot-odd-shadow);
     }
 
     &.super-large {
@@ -71,12 +72,12 @@
 // sedie
 .dot-even {
     @extend %dot;
-    background: var(--dot-even-border);
-    box-shadow: var(--dot-even-shadow);
+    background: linear-gradient(180deg, #ECECEC 0%, #C5C5C5 100%);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     color: var(--dot-even-text-color);
 
     &:before {
-        background: var(--dot-even-background);
+        background: linear-gradient(180deg, #FFFFFF 0%, #E7E7E7 100%);
     }
     &.kenopromax,
     &.kenomatch1,
@@ -95,12 +96,12 @@
 
 .dot-odd {
     @extend %dot;
-    background: var(--dot-odd-border);
-    box-shadow: var(--dot-odd-shadow);
+    background: linear-gradient(180deg, #FF8E95 6.04%, #A80915 100%);
+    //box-shadow: var(--dot-odd-shadow);
     color: var(--dot-odd-text-color);
 
     &:before {
-        background: var(--dot-odd-background);
+        background: linear-gradient(180deg, #FF6E79 6.04%, #E73542 50.31%, #CC1A27 100%);
     }
 
     &.kenopromax,
@@ -179,20 +180,20 @@
 }
 
 // baccarat
-.dot-banker {
+.dot-grid-banker {
     @extend %dot;
     background: var(--baccarat-dot-banker-border);
-    box-shadow: var(--baccarat-dot-banker-shadow);
+    //box-shadow: var(--baccarat-dot-banker-shadow);
 
     &:before {
         background: var(--baccarat-dot-banker-background);
     }
 }
 
-.dot-player {
+.dot-grid-player {
     @extend %dot;
     background: var(--baccarat-dot-player-border);
-    box-shadow: var(--baccarat-dot-player-shadow);
+    //box-shadow: var(--baccarat-dot-player-shadow);
 
     &:before {
         background: var(--baccarat-dot-player-background);
@@ -209,10 +210,10 @@
     background-size: 1.2rem 1.2rem;
 }
 
-.dot-gold {
+.dot-grid-gold {
     @extend %dot;
     background: var(--keno-pro-dot-gold-border);
-    box-shadow: var(--keno-pro-dot-gold-shadow);
+    //box-shadow: var(--keno-pro-dot-gold-shadow);
     &:before {
         background: var(--keno-pro-dot-gold-background);
     }
@@ -223,10 +224,10 @@
     }
 }
 
-.dot-wood {
+.dot-grid-wood {
     @extend %dot;
     background: var(--keno-pro-dot-wood-border);
-    box-shadow: var(--keno-pro-dot-wood-shadow);
+    //box-shadow: var(--keno-pro-dot-wood-shadow);
     &:before {
         background: var(--keno-pro-dot-wood-background);
     }
@@ -235,10 +236,10 @@
         background-image: url(/static/images/keno-promax/icon-wood.svg);
     }
 }
-.dot-water {
+.dot-grid-water {
     @extend %dot;
     background: var(--keno-pro-dot-water-border);
-    box-shadow: var(--keno-pro-dot-water-shadow);
+    //box-shadow: var(--keno-pro-dot-water-shadow);
     &:before {
         background: var(--keno-pro-dot-water-background);
     }
@@ -247,10 +248,10 @@
         background-image: url(/static/images/keno-promax/icon-water.svg);
     }
 }
-.dot-fire {
+.dot-grid-fire {
     @extend %dot;
     background: var(--keno-pro-dot-fire-border);
-    box-shadow: var(--keno-pro-dot-fire-shadow);
+    //box-shadow: var(--keno-pro-dot-fire-shadow);
     &:before {
         background: var(--keno-pro-dot-fire-background);
     }
@@ -260,10 +261,10 @@
     }
 }
 
-.dot-earth {
+.dot-grid-earth {
     @extend %dot;
     background: var(--keno-pro-dot-earth-border);
-    box-shadow: var(--keno-pro-dot-earth-shadow);
+    //box-shadow: var(--keno-pro-dot-earth-shadow);
     &:before {
         background: var(--keno-pro-dot-earth-background);
     }
@@ -274,10 +275,10 @@
 }
 
 // three-cards
-.dot-red {
+.dot-grid-red {
     @extend %dot;
     background: var(--threeCards-dot-red-border);
-    box-shadow: var(--threeCards-dot-red-shadow);
+    //box-shadow: var(--threeCards-dot-red-shadow);
     color: var(--threeCards-dot-red-text-color);
 
     &:before {
@@ -285,10 +286,10 @@
     }
 }
 
-.dot-black {
+.dot-grid-black {
     @extend %dot;
     background: var(--threeCards-dot-black-border);
-    box-shadow: var(--threeCards-dot-black-shadow);
+    //box-shadow: var(--threeCards-dot-black-shadow);
     color: var(--threeCards-black-text-color);
 
     &:before {
@@ -297,26 +298,26 @@
 }
 
 // keno match
-.dot-blue {
-    @extend .dot-big;
+.dot-grid-blue {
+    @extend .dot-grid-big;
 }
 
-.dot-over {
-    @extend .dot-big;
+.dot-grid-over {
+    @extend .dot-grid-big;
 }
 
-.dot-under {
-    @extend .dot-small;
+.dot-grid-under {
+    @extend .dot-grid-small;
 }
 
 // keno power
-.dot-blueBig,
-.dot-redBig {
-    @extend .dot-big;
+.dot-grid-blueBig,
+.dot-grid-redBig {
+    @extend .dot-grid-big;
 }
-.dot-blueSmall,
-.dot-redSmall {
-    @extend .dot-small;
+.dot-grid-blueSmall,
+.dot-grid-redSmall {
+    @extend .dot-grid-small;
 }
 
 // animations
@@ -336,5 +337,72 @@
     }
     100% {
         transform: scale(0.85);
+    }
+}
+
+// dot in grid scoreboard
+.dot-grid-even {
+    @extend %dot;
+    background: var(--dot-even-border);    
+    color: var(--dot-even-text-color);
+}
+
+.dot-grid-odd {
+    @extend %dot;
+    background: var(--dot-odd-border);    
+    color: var(--dot-odd-text-color);
+}
+
+.dot-grid-small {
+    @extend %dot;
+    background: linear-gradient(180deg, #FF5661 0%, #BE1C28 100%);
+    
+    
+
+    &:before {
+        background: linear-gradient(180deg, #FA3744 6.04%, #CD0D1B 100%);
+    }
+}
+
+.dot-grid-big {
+    @extend %dot;
+    background: linear-gradient(180deg, #569CE9 -6.58%, #1F5E9F 100%);
+
+    &:before {
+        background: linear-gradient(180deg, #4C91E2 0%, #306CA6 100%);
+    }
+}
+
+.dot-grid-dragon {
+    @extend %dot;
+    background: var(--dragonTiger-dot-dragon-border);    
+
+    &:before {
+        background: var(--dragonTiger-dot-dragon-background);
+    }
+}
+
+.dot-grid-tiger {
+    @extend %dot;
+    background: var(--dragonTiger-dot-tiger-border);    
+
+    &:before {
+        background: var(--dragonTiger-dot-tiger-background);
+    }
+}
+
+.dot-grid-tie {
+    @extend %dot;
+    background: var(--baccarat-dot-tie-border);   
+
+    &:before {
+        background: var(--baccarat-dot-tie-background);
+    }
+    &.dragontiger {
+        background: var(--dragonTiger-dot-tie-border);       
+
+        &:before {
+            background: var(--dragonTiger-dot-tie-background);
+        }
     }
 }
