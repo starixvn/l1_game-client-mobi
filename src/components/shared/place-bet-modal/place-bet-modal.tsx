@@ -133,7 +133,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                         <button onClick={closeModal} className={`btn-grey ${Styles["custom-button"]}`} disabled={betValue <= 0}>
                             {t("common:cancel")}
                         </button>
-                        <button onClick={submitBet} className={`btn-orange ${Styles["custom-button"]}`} disabled={betValue <= 0}>
+                        <button onClick={submitBet} className={`btn-blue ${Styles["custom-button"]}`} disabled={betValue <= 0}>
                             {t("common:confirm")}
                         </button>
                     </div>

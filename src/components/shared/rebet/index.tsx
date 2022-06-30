@@ -145,13 +145,13 @@ const Rebet: React.FC<Props> = (props: Props) => {
                         <button onClick={handleCloseModal} className={`btn-grey ${Styles["custom-button"]}`}>
                             {t("common:cancel")}
                         </button>
-                        <button onClick={handleSubmit} className={`btn-orange ${Styles["custom-button"]}`}>
+                        <button onClick={handleSubmit} className={`btn-blue ${Styles["custom-button"]}`}>
                             {t("common:confirm")}
                         </button>
                     </div>
                 )}
                 {isSubmit && (
-                    <button onClick={handleCloseModal} className="btn-orange w-100">
+                    <button onClick={handleCloseModal} className="btn-blue w-100">
                         {t("common:close")}
                     </button>
                 )}

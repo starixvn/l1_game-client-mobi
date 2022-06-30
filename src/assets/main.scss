@@ -31,8 +31,12 @@ html {
     --btn-orange-background-hover: #e5a030;
     --btn-orange-color: #fff;
 
-    --btn-grey-background: #d2d2d2;
-    --btn-grey-background-hover: #b8b8b8;
+    --btn-blue-background: linear-gradient(176.7deg, #82A1D4 2.64%, #5474A7 96.87%);
+    --btn-blue-background-hover: linear-gradient(176.7deg, #82A1D4 2.64%, #3a5c93 96.87%);
+    --btn-blue-color: #fff;
+
+    --btn-grey-background: linear-gradient(180deg, #E0E0E0 0%, #B8B8B8 100%);;
+    --btn-grey-background-hover: linear-gradient(180deg, #E0E0E0 0%, #aaaaaa 100%);
     --btn-grey-color: #2c2f3e;
 
     // z-index

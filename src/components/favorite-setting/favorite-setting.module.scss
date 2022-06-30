@@ -2,25 +2,27 @@
     --favorite-setting-background: #fff;
     --favorite-setting-border: #bfbfbf;
 
-    --btn-favorite-background: linear-gradient(180deg, #ffc65c 0%, #ffae2b 100%);
-    --btn-favorite-border: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
+    --btn-favorite-background: linear-gradient(180deg, #91B1E7 0%, #4C6B9F 100%);
+    --btn-favorite-border: linear-gradient(180deg, #4D72AF 0%, #37527E 100%);
     --btn-favorite-shadow-inner: inset 0 0.2rem 0.3rem #fff;
-    --btn-favorite-background-hover: linear-gradient(180deg, #d78600 0%, #fbae21 100%);
-    --btn-un-favorite-border: #b26f00;
+    --btn-favorite-background-hover: linear-gradient(180deg, #91B1E7 0%, #3a5585 100%);
+   
+    --btn-un-favorite-border: #385481;
 
     --icon-favorite: #fff;
-    --icon-un-favorite: #b06e00;
+    --icon-un-favorite: #385481;
 
-    --game-favorite-background: #ffc966; //linear-gradient(180deg, #ffe5b7 0%, #ffc966 100%);
-    --game-favorite-border: linear-gradient(180deg, #ffce75 0%, #ffb52e 100%);
+    --game-favorite-background: linear-gradient(180deg, #7F9DCF 0%, #5E7CAE 100%);
+    --game-favorite-border: linear-gradient(180deg, #6A8CC1 0%, #3E639F 100%);
 
-    --game-un-favorite-background: linear-gradient(180deg, #fff5e5 0%, #ffeccd 100%);
-    --game-un-favorite-border: linear-gradient(180deg, #ffe8c3 0%, #ffdda9 100%);
-
+    --game-un-favorite-background: linear-gradient(180deg, #E5F2FF 0%, #CDE7FF 100%);
+    --game-un-favorite-border: linear-gradient(180deg, #C3E2FF 0%, #9DCFFD 100%);   
+    
+    
     --icon-move-color: #fff;
-    --icon-move-hover-color: #935e08;
+    --icon-move-hover-color: #314970;
 
-    --game-text-color: #2c2f3e;
+    --game-text-color: #fff;
     --seperate-line-color: #c9c9c9;
 }
 
@@ -199,7 +201,7 @@
         content: "";
         z-index: -1;
         background: var(--btn-favorite-background);
-        box-shadow: var(--btn-favorite-shadow-inner);
+        //box-shadow: var(--btn-favorite-shadow-inner);
     }
 
     .icon-favorite:before {
@@ -271,7 +273,7 @@
     }
 
     .favorite-btn {
-        @include btn-unfavorite;
+        @include btn-unfavorite;        
 
         @media (hover: hover) {
             &:hover {
@@ -354,14 +356,20 @@
 .game-name {
     color: var(--game-text-color);
     font-size: 1.4rem;
-    font-weight: 500;
+    font-weight: 700;   
+}
+
+.game-name-un-favorite {    
+    font-size: 1.4rem;
+    font-weight: 700;   
+    color: #2C2F3E;    
 }
 
 .title {
     line-height: 4rem;
     text-align: center;
     font-size: 1.5rem;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .actions {

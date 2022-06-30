@@ -6,7 +6,7 @@
     }
 
     --ripple-background: rgba(196, 196, 196, 0.6);
-    --footer-background: #4d5570;
+    --footer-background: linear-gradient(180deg, #2C4A7A 0%, #26426E 100%);
     --line-footer: linear-gradient(90deg, rgba(93, 105, 120, 0.9) 0%, rgba(255, 255, 255, 0.9) 51.87%, rgba(93, 105, 120, 0.9) 100%);
 }
 
@@ -170,13 +170,14 @@
 
 // Only phone
 .footer {
-    background-color: var(--footer-background);
+    background: var(--footer-background);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 4.4rem;
     border-top: 0.1rem solid rgba(149, 151, 153, 0.3);
+    box-shadow: inset 0px -4px 4px rgba(6, 6, 6, 0.25);
     color: var(--saba-copyright);
     &:before {
         top: -0.1rem;

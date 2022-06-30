@@ -30,7 +30,7 @@ const ConfirmMessage: React.FC<Props> = ({ closeModal, confirmQuickBet }) => {
                     <button className={`${Styles["btn-grey"]} ${Styles["btn"]}`} onClick={handleClose}>
                         {t("cancel")}
                     </button>
-                    <button className={`${Styles["btn-orange"]} ${Styles["btn"]}`} onClick={handleConfirm}>
+                    <button className={`${Styles["btn-blue"]} ${Styles["btn"]}`} onClick={handleConfirm}>
                         {t("turnOn")}
                     </button>
                 </div>

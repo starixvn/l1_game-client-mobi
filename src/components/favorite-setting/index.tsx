@@ -143,7 +143,7 @@ export const FavoriteSetting: React.FC<{
                                     <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
                                         <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
                                     </div>
-                                    <span className={Styles["game-name"]}>
+                                    <span className={Styles["game-name-un-favorite"]}>
                                         {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                                     </span>
                                 </li>
@@ -156,7 +156,7 @@ export const FavoriteSetting: React.FC<{
                 <button className={`btn-grey`} onClick={onClickReset}>
                     {t("reset")}
                 </button>
-                <button className={`btn-orange`} onClick={onSubmit}>
+                <button className={`btn-blue`} onClick={onSubmit}>
                     {t("save")}
                 </button>
             </div>

@@ -106,7 +106,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                         <button className={`btn-grey ${Styles["btn"]}`} onClick={closeHintTooltip}>
                             {t("common:dismiss")}
                         </button>
-                        <button className={`btn-orange ${Styles["btn"]}`} onClick={handleTurnOn}>
+                        <button className={`btn-blue ${Styles["btn"]}`} onClick={handleTurnOn}>
                             {t("common:turnOn")}
                         </button>
                     </div>

@@ -97,7 +97,7 @@
 .dot-odd {
     @extend %dot;
     background: linear-gradient(180deg, #FF8E95 6.04%, #A80915 100%);
-    //box-shadow: var(--dot-odd-shadow);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5);
     color: var(--dot-odd-text-color);
 
     &:before {
