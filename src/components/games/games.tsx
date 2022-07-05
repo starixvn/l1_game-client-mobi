@@ -26,7 +26,7 @@ import MiniSeDie from "./mini-sedie";
 import SeDie from "./se-die/se-die";
 import SpecialSeDie from "./special-sedie";
 import ThreeCards from "./three-cards";
-import MiniKeno from "./mega-keno";
+import MiniKeno from "./mini-keno";
 import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
@@ -167,7 +167,12 @@ export const Games: React.FC<Props> = ({
             case 40:
             case 41:
                 return <KenoPower key={`game-${gameId}`} {...gameProps}></KenoPower>;
+            case 14:
+            case 15:
             case 16:
+            case 17:
+            case 18:
+            case 19:
             case 52:
             case 53:
                 return <MiniKeno key={`game-${gameId}`} {...gameProps}></MiniKeno>;

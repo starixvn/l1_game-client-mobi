@@ -26,6 +26,14 @@ const getIconClassName = (gameName: string, choice: string) => {
         case "kenomatch2":
         case "kenopower1":
         case "kenopower2":
+        case "kenomini":
+        case "kenomini2":
+        case "megakeno":
+        case "megakeno2":
+        case "kenoeast":
+        case "kenowest":
+        case "kenosouth":
+        case "kenonorth":
             const choiceName = `dot-${choice}`;
             return `${styles[choiceName]} ${styles[gameNameLower]}`;
         default:
