@@ -6,11 +6,13 @@ export const GameCategoryConfig = {
     dice: [1, 4, 3],
     keno: [8, 40, 41, 36, 37],
     card: [7, 10, 27, 35],
+    megakeno: [16, 52, 53],
 };
 
 export enum GameCategoryType {
     hot,
     favorite,
+    megakeno,
     keno,
     sedie,
     dice,

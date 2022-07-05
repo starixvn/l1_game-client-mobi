@@ -162,6 +162,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { session } = this.context;
         const { proxy, enableMsgpackParser } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
+        //const socketUri = `http://127.0.0.1:5019/user/${socketInfo.namespace}`;
         console.log(enableMsgpackParser);
         const socket = io(socketUri, {
             transports: ["websocket"],
@@ -261,7 +262,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
         const errorCode = apiError.errorCode;
         this.handleKickOut(errorCode.toString())
-       
+
         const message = GetLocalizedErrorMessage(errorCode, isPlaceBet);
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
 
@@ -280,8 +281,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             });
     };
 
-    handleKickOut(errorCode:string){
-        (errorCode === "1001" || errorCode === "1002") &&  setTimeout(() => {
+    handleKickOut(errorCode: string) {
+        (errorCode === "1001" || errorCode === "1002") && setTimeout(() => {
             this.context.signOut();
         }, 10000);
     }
@@ -949,10 +950,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
         let md5Text = (
-                <div>
-                    <strong>MD5:</strong> {md5}
-                </div>
-            ),
+            <div>
+                <strong>MD5:</strong> {md5}
+            </div>
+        ),
             md5ClassName = "md5-key";
 
         if (showMD5ResultKey && md5ResultKey) {

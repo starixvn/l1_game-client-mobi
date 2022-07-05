@@ -217,17 +217,14 @@
         "durations": {
             "wholeRound": 78,
             "showFullTimeSettlementResult": 73,
-
             "halfTimePlacingBets": 69,
             "halfTimeLockingBet": 39,
             "showHalfTimeResult": 34,
             "showHalfTimeSettlementResult": 30,
-
             "beforeStartFullTimePlacingBet": 26,
             "fullTimePlacingBets": 25,
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
-
             "showResult": 6,
             "halfTimeDuration": 35,
             "fullTimeDuration": 25,
@@ -246,17 +243,14 @@
         "durations": {
             "wholeRound": 86,
             "showFullTimeSettlementResult": 81,
-
             "halfTimePlacingBets": 73,
             "halfTimeLockingBet": 43,
             "showHalfTimeResult": 38,
             "showHalfTimeSettlementResult": 34,
-
             "beforeStartFullTimePlacingBet": 26,
             "fullTimePlacingBets": 25,
             "fullTimeLockingBet": 5,
             "showFullTimeResult": 0,
-
             "showResult": 6,
             "halfTimeDuration": 35,
             "fullTimeDuration": 25,
@@ -294,6 +288,57 @@
             "placingBets": 42,
             "lockingBet": 5,
             "showResult": 12,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "52": {
+        "id": 52,
+        "gameName": "megakeno",
+        "supportMD5": false,
+        "socketInfo": {
+            "namespace": "megakeno",
+            "path": "minikeno"
+        },
+        "durations": {
+            "wholeRound": 45,
+            "placingBets": 35,
+            "lockingBet": 5,
+            "showResult": 9,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "53": {
+        "id": 53,
+        "gameName": "MegaKeno2",
+        "supportMD5": false,
+        "socketInfo": {
+            "namespace": "megakeno2",
+            "path": "minikeno"
+        },
+        "durations": {
+            "wholeRound": 30,
+            "placingBets": 20,
+            "lockingBet": 5,
+            "showResult": 9,
+            "resultAnimation": 4,
+            "beforeStartRound": 0
+        }
+    },
+    "16": {
+        "id": 16,
+        "gameName": "kenoeast",
+        "supportMD5": false,
+        "socketInfo": {
+            "namespace": "kenoeast",
+            "path": "minikeno"
+        },
+        "durations": {
+            "wholeRound": 45,
+            "placingBets": 35,
+            "lockingBet": 5,
+            "showResult": 9,
             "resultAnimation": 4,
             "beforeStartRound": 0
         }

@@ -316,7 +316,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue,
             isBlockUI,
         } = this.state;
-        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut:this.signOut };
+        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
         return (
             <AuthContextProvider value={authContextValue}>
@@ -403,16 +403,15 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderGoogleAnalytic() {
-        if(appSettings.googleAnalyticId == null)
-        {
+        if (appSettings.googleAnalyticId == null) {
             return <></>;
         }
 
         return (<>
-         <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: `
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
                             window.dataLayer = window.dataLayer || [];
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
@@ -420,8 +419,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                             page_path: window.location.pathname,
                             });
                         `,
-                        }}
-                    />
+                }}
+            />
         </>);
     }
 
@@ -435,7 +434,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         return authorizeInfo ? (
             <>
                 <Head>
-                   {this.renderGoogleAnalytic()}
+                    {this.renderGoogleAnalytic()}
                 </Head>
                 {this.renderComponents(authorizeInfo)}
             </>
