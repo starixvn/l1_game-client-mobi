@@ -302,7 +302,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -319,7 +319,7 @@
         },
         "durations": {
             "wholeRound": 45,
-            "placingBets": 35,
+            "placingBets": 36,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -336,7 +336,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -353,7 +353,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -370,7 +370,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -387,7 +387,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -404,7 +404,7 @@
         },
         "durations": {
             "wholeRound": 45,
-            "placingBets": 35,
+            "placingBets": 36,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
@@ -421,7 +421,7 @@
         },
         "durations": {
             "wholeRound": 30,
-            "placingBets": 20,
+            "placingBets": 21,
             "lockingBet": 5,
             "showResult": 9,
             "resultAnimation": 4,
