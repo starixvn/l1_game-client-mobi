@@ -51,22 +51,7 @@ export const Menu: React.FC<{
                 <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
             </div>
             <div className="dropdown">
-                <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
-                    <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
-                        <div className={Styles["label"]}>{t("darkMode")}</div>
-                        <div className={Styles["toggle-button"]}>
-                            <input
-                                className={Styles["toggle-checkbox"]}
-                                id="toggle-themes"
-                                type={"checkbox"}
-                                onChange={() => {
-                                    theme === Themes.dark ? setTheme(Themes.light) : setTheme(Themes.dark);
-                                }}
-                                checked={theme === Themes.dark}
-                            />
-                            <label className={Styles["toggle-btn"]} htmlFor="toggle-themes"></label>
-                        </div>
-                    </div>
+                <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>                    
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
                         <div className={Styles["label"]}>{t("winningStreakNotification")}</div>
                         <div className={Styles["toggle-button"]}>

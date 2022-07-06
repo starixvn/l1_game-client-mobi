@@ -13,7 +13,6 @@ import BaseDialog from "../../shared/base-dialog";
 import { ModalType } from "../../shared/base-dialog/type";
 import FirstLoginContainer from "../container";
 import TextBlock from "../text-block";
-import ThemeSelection from "../theme-selection";
 import NameGenerator from "./name-generator";
 import Styles from "./register.module.scss";
 
@@ -155,7 +154,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                     {t("common:enterGameBtn")}
                 </button>
             </form>
-            <ThemeSelection />
+            
 
             {isOpenGalleryAvatar && (
                 <AvatarGallery selectedAvatarId={selectedAvatarId} onSelectAvatar={setSelectedAvatarId} onClose={closeAvatarGallery} />

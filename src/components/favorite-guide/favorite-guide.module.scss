@@ -1,11 +1,11 @@
 @import "../favorite-setting/favorite-setting.module.scss";
 
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #fdc458 5%, #fbad19 37.29%, #f8aa15 72.71%);
+    --game-header-background: linear-gradient(180deg, #7F9DCF 0%, #5E7CAE 100%);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
-    --game-header-game-name-color: #2c2f3e;
-    --game-header-round-id-color: #5a5a5a;
+    --game-header-game-name-color: #fff;
+    --game-header-round-id-color: #fff;
     --color-arrow-hint: #2c2f3e;
     --game-header-overlay-image: url(/static/images/game-header-overlay.png);
     --game-header-border: linear-gradient(180deg, #FFB93A 0%, #FFB640 100%);
@@ -23,9 +23,9 @@
 }
 
 [data-theme="light"] .favorite-wrapper {
-    --btn-favorite-single: linear-gradient(180deg, #ffd586 0%, #ffaa20 100%);
-    --btn-favorite-single-border: #a0a0a0;
-    --btn-favorite-color: #945f08;
+    --btn-favorite-single: linear-gradient(180deg, #91B1E7 0%, #4C6B9F 100%);
+    --btn-favorite-single-border: linear-gradient(180deg, #4D72AF 0%, #37527E 100%);
+    --btn-favorite-color: #fff;
     --btn-box-shadow: none;
     --hint-arrow-color: #0e0e0e;
 }
@@ -91,6 +91,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        color: #fff
     }
 
     .title {
@@ -130,7 +131,7 @@
     }
 
     .header-overlay, .header-overlay-img {
-        background: rgba(36, 36, 36, 0.5);
+        //background: rgba(36, 36, 36, 0.5);
         position: absolute;
         left: .1rem;
         top: .2rem;

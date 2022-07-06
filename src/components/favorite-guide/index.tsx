@@ -56,7 +56,7 @@ export const FavoriteGuide: React.FC = () => {
                                 <div className={Styles[favoriteBtnClass]}>
                                     <span className={`icon-favorite-normal ${Styles[favoriteIconClass]}`}></span>
                                 </div>
-                                <span className={Styles["game-name"]}>
+                                <span className={Styles["game-name-un-favorite"]}>
                                     {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                                 </span>
                             </li>

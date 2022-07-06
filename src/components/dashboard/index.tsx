@@ -390,13 +390,9 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderComponents(authorizeInfo: AuthorizeResponse) {
-        const { authorized, user } = authorizeInfo;
-        if (authorized) {
-            return user.isSignedInSM ? (
-                this.renderDashBoard()
-            ) : (
-                <Welcome userInfo={this.state.authorizeInfo.user} handleFirstLoginSM={this.handleFirstLogin} />
-            );
+        const { authorized } = authorizeInfo;
+        if (authorized) {            
+            return this.renderDashBoard()
         }
 
         return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
