@@ -4,10 +4,6 @@
     --accepted-bet-color: #464646;
 }
 
-[data-theme="dark"] .accepted-bet {
-    --accepted-bet-color: #8ba9c8;
-}
-
 .accepted-bet {
     @extend %fade-out-up;
     left: 0;

@@ -11,31 +11,12 @@
     --game-header-border: linear-gradient(180deg, #FFB93A 0%, #FFB640 100%);
 }
 
-[data-theme="dark"] .header {
-    --game-header-background: linear-gradient(180deg, #7191b1 0%, #37506a 16.46%, #203044 100%);
-    --game-header-icon-favourite: #ffab2b;
-    --game-header-icon-unfavourite: #7f91a4;
-    --game-header-game-name-color: #ffab2b;
-    --game-header-round-id-color: #7f91a4;
-    --color-arrow-hint: #fff;
-    --game-header-overlay-image: url(/static/images/dark-mode-game-header-overlay.png);
-    --game-header-border: linear-gradient(180deg, #7FA1C4 0%, #2F4761 100%);
-}
-
 [data-theme="light"] .favorite-wrapper {
     --btn-favorite-single: linear-gradient(180deg, #91B1E7 0%, #4C6B9F 100%);
     --btn-favorite-single-border: linear-gradient(180deg, #4D72AF 0%, #37527E 100%);
     --btn-favorite-color: #fff;
     --btn-box-shadow: none;
     --hint-arrow-color: #0e0e0e;
-}
-
-[data-theme="dark"] .favorite-wrapper {
-    --btn-favorite-single: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
-    --btn-favorite-single-border: #183047;
-    --btn-favorite-color: #d3e8ff;
-    --btn-box-shadow: inset 0px 2px 5px #d0e6ff;
-    --hint-arrow-color: #fff;
 }
 
 .container {

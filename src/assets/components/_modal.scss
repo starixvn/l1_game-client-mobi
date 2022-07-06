@@ -4,12 +4,6 @@
     --error-message-container-color: #2c2f3e;
 }
 
-[data-theme="dark"] .modal {
-    --error-message-container-background: #203040;
-    --error-message-container-border: #2c3e50;
-    --error-message-container-color: #fff;
-}
-
 .modal {
     position: absolute;
     text-align: center;

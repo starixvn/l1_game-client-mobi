@@ -8,15 +8,6 @@
     }   
 }
 
-[data-theme="dark"] .result-detail {
-    --popup-result-title-color: #fff;    
-    .result-total-number {
-        &:after{
-            background: linear-gradient(90deg, rgba(66, 109, 145, 0) -0.12%, #426d91 52.41%, rgba(66, 109, 145, 0) 100.14%);
-        }
-    }   
-}
-
 .list-choice {
     min-width: 5rem !important;
     display: flex;

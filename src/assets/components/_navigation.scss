@@ -5,13 +5,6 @@
     --slide-nav-line-background: #dce2f3;
 }
 
-[data-theme="dark"] .navigation {
-    --slide-nav-background: #203040;
-    --icon-close: #fff;
-    --slide-nav-header-background: #2c4055;
-    --slide-nav-line-background: #4b5a6c;
-}
-
 .navigation {
     background-color: var(--slide-nav-background);
     box-shadow: 0 0.4rem 2rem rgba(0, 0, 0, 0.3);

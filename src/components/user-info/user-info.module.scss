@@ -4,12 +4,6 @@
     --header-balance-color: #fff;
 }
 
-[data-theme="dark"] .header,
-[data-theme="dark"] .footer  {
-    --header-text-color: #cce2f8;
-    --header-balance-color: var(--primary-color);
-}
-
 .user {
     display: flex;
     align-items: center;

@@ -10,18 +10,6 @@
     --winning-effect-animation-name: blink-animation;
 }
 
-[data-theme="dark"] .container {
-    --bet-option-background: #1a2430;
-    --bet-option-background-hover: #163c61;
-    --bet-option-background-highlight: #24384d;
-    --bet-option-border: #dce2f3;
-    --bet-option-own-bet-color: #ff9a00;
-    --bet-option-total-bet-color: #f0f8ff;
-    --bet-option-odds-color: #b5bbc0;
-
-    --winning-effect-animation-name: blink-animation-dark-theme;
-}
-
 .container {
     position: relative;
     height: 100%;

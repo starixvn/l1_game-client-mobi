@@ -8,12 +8,6 @@
     --settle-info-color: #000;
 }
 
-[data-theme="dark"] .round-result {
-    --round-result-background: linear-gradient(90.71deg, #243950 0.66%, #33496d 50.73%, #253a52 99.16%);
-    --settle-info-background: linear-gradient(180deg, #4b6e96 0%, #274e77 79.48%, #445f7c 100%);
-    --settle-info-color: #fff;
-}
-
 $number-count: 20;
 
 .round-result {

@@ -3,11 +3,6 @@
     --prev-round-color: #666;
 }
 
-[data-theme="dark"] .highlight-result-label {
-    --prev-round-background: url("/static/images/fpc-result-prev-dark.png");
-    --prev-round-color: #fff;
-}
-
 .layout-FPC {
     display: grid;
     height: 100%;

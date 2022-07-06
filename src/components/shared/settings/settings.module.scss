@@ -4,12 +4,6 @@
     --position-icon-favorite: -73px -82px;
 }
 
-[data-theme="dark"] .settings-container {
-    --icon-favorite-color: #d3e8ff;
-    --icon-color: #D4E9FF;
-    --position-icon-favorite: -74px -56px;
-}
-
 .settings-container {
     display: flex;
     justify-content: space-between;

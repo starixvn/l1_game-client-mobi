@@ -3,11 +3,6 @@
     --tooltip-round-history-text-color: #2c2f3e;
 }
 
-[data-theme="dark"] .tooltip {
-    --tooltip-round-history-background: rgba(79, 112, 143, 0.8);
-    --tooltip-round-history-text-color: #fff;
-}
-
 .tooltip {
     position: relative;
     width: 0;

@@ -4,12 +4,6 @@
     --tabs-arrow-icon: #fff;
 }
 
-[data-theme="dark"] .tabs-container {
-    --tabs-type-color: #929292;
-    --tabs-active-type-color: #fff;
-    --tabs-arrow-icon: #fff;
-}
-
 .tabs-container {
     display: flex;
     justify-content: center;

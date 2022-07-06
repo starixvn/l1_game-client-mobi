@@ -3,24 +3,12 @@
     --mini-round-history-background: #fff;
 }
 
-[data-theme="dark"] .statistic {
-    --statistic-background: #1a2430;
-    --mini-round-history-background: #203040;
-}
-
 [data-theme="light"] .mini-round-history {
     --mini-round-history-background: #C5DBFE;
 }
 
-[data-theme="dark"] .mini-round-history {
-    --mini-round-history-background: #203040;
-}
-
 [data-theme="light"] .md5-section {
     --md5-bg-color: #dce2f3;
-}
-[data-theme="dark"] .md5-section {
-    --md5-bg-color: #2f3956;
 }
 
 .bet-options {

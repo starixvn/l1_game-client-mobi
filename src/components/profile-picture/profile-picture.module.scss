@@ -6,14 +6,6 @@
     }
 }
 
-[data-theme="dark"] {
-    .profile-picture {
-        --icon-edit-background: radial-gradient(50% 50% at 50% 50%, #26527e 0%, #2b4662 100%);
-        --icon-edit-border: #203040;
-        --icon-edit-color: #9ac6f2;
-    }
-}
-
 .profile-picture {
     position: relative;
     width: 9.4rem;

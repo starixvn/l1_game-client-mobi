@@ -7,15 +7,6 @@
     --fake-poiner-animation: fake-pointer-light-theme-animation;
 }
 
-[data-theme="dark"] .form-group {
-    --textbox-border-color: #435f7a;
-    --textbox-background-color: #1a2430;
-    --textbox-color: #fff;
-    --icon-cancel-backround: #7d8a98;
-    --icon-cancel-color: #1a2430;
-    --fake-poiner-animation: fake-pointer-dark-theme-animation;
-}
-
 .form-control {
     width: 100%;
     height: 4rem;

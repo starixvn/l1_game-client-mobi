@@ -3,11 +3,6 @@
     --game-container-border: #5674A4;
 }
 
-[data-theme="dark"] .game-container {
-    --game-container-background: #1a2430;
-    --game-container-border: #5a789a;
-}
-
 .game-container {
     position: relative;
     flex: 1 1 calc(100% - 0.8rem);

@@ -9,15 +9,6 @@
     );
 }
 
-[data-theme="dark"] .half-round-settlement {
-    --bg-img: url("/static/images/kenomatch/settlebg-kenomatch-dark.png");
-    background-image: image-set(
-        url("/static/images/kenomatch/settlebg-kenomatch-dark.png") 1x,
-        url("/static/images/kenomatch/settlebg-kenomatch-dark-2x.png") 2x,
-        url("/static/images/kenomatch/settlebg-kenomatch-dark-3x.png") 3x
-    );
-}
-
 .half-round-settlement {
     width: 100%;
     height: 100%;

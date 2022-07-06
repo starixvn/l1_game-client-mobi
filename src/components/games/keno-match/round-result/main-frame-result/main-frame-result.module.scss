@@ -10,14 +10,6 @@ $time-run-progress-bar: 1s;
     --term-border-color: #d1dbf8;
 }
 
-[data-theme="dark"] .main-result {
-    --header-middle-column-color: #fff;
-    --middle-column-background-color: linear-gradient(180deg, #7ea8d7 0%, #4e77a3 56.04%, #436c98 82.08%, #759ac0 100%);
-    --result-team-bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
-    --term-border-color: #406389;
-}
-
-
 .hidden {
     display: none;
 }

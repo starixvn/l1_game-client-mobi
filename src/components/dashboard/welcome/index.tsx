@@ -7,7 +7,6 @@ import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants"
 import ProfilePicture from "../../profile-picture";
 import FirstLoginContainer from "../container";
 import TextBlock from "../text-block";
-import ThemeSelection from "../theme-selection";
 import Styles from "./welcome.module.scss";
 
 type Props = {

@@ -124,17 +124,6 @@
     }
 }
 
-[data-theme="dark"] .header-button {
-    --header-button-background: linear-gradient(180deg, #c0e0ff 1.87%, #496c92 52.4%, #2b445f 100%);
-    --header-button-border1: #204e7d;
-    --header-button-border2: #183047;
-    --header-button-shadow-inner: inset 0 0.2rem 0.5rem #d0e6ff;
-    --header-button-background-hover: linear-gradient(180deg, #385675 0%, #4d7198 100%);
-    @media (min-width: 768px) {
-        --header-button-border1: #38536f;
-    }
-}
-
 .header-button {
     @extend %button-custom-3d;
     height: 3.4rem;
@@ -160,13 +149,6 @@
     --game-header-button-border: linear-gradient(180deg, #faa60c 0%, #a96800 100%);
     --game-header-button-shadow-inner: inset 0 0.2rem 0.3rem #fff;
     --game-header-button-background-hover: linear-gradient(180deg, #d78600 0%, #fbae21 100%);
-}
-
-[data-theme="dark"] .game-header-button {
-    --game-header-button-background: linear-gradient(180deg, #284059 1.87%, #243b54 100%);
-    --game-header-button-border: #081d34;
-    --game-header-button-shadow-inner: inset 0 0.2rem 0.3rem #49759f;
-    --game-header-button-background-hover: linear-gradient(180deg, #102031 0%, #243b54 100%);
 }
 
 .game-header-button {

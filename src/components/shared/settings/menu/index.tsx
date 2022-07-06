@@ -1,8 +1,6 @@
 import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
-import { Themes } from "../../../../common/constants";
-
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
 import { Tooltip } from "../../tooltip";
 import Styles from "./menu.module.scss";
@@ -18,7 +16,7 @@ export const Menu: React.FC<{
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const toggleBtnRef = useRef<HTMLDivElement>(null);
-    const { theme, setTheme } = useTheme();
+    const { theme } = useTheme();
 
     const openGuide = () => {
         handleToggleGuideModal();

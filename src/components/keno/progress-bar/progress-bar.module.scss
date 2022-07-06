@@ -6,12 +6,6 @@
     --sperate-bg-color: #2f2f2f;
 }
 
-[data-theme="dark"] .progress-bar-team {
-    --bg-color: linear-gradient(90deg, #1c2b74 0%, #33496d 50%, #4c3d53 67%, #712a2d 100%);
-    --text-total-color: #fff;
-    --sperate-bg-color: #fff;
-}
-
 .progress-extra {
     width: calc(100% - 8.5rem - 3.2rem);
     padding: 0;

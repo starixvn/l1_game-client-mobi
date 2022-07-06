@@ -26,31 +26,6 @@
     --seperate-line-color: #c9c9c9;
 }
 
-[data-theme="dark"] .favorite-setting {
-    --favorite-setting-background: #203040;
-    --favorite-setting-border: #426d91;
-
-    --btn-favorite-background: linear-gradient(180deg, #7fa1c4 0%, #2f4761 100%);
-    --btn-favorite-border: linear-gradient(180deg, #1e3a54 0%, #152f4b 100%);
-    --btn-favorite-shadow-inner: inset 0px 2px 3px #ffffff;
-    --btn-favorite-background-hover: linear-gradient(180deg, #102031 0%, #243b54 100%);
-    --btn-un-favorite-border: #83a6cb;
-
-    --icon-favorite: #ffc634;
-    --icon-un-favorite: #aacff5;
-
-    --game-favorite-background: linear-gradient(180deg, #537597 0%, #3c5979 100%);
-    --game-favorite-border: linear-gradient(180deg, #7caadc 0%, #466586 100%);
-    --game-un-favorite-background: linear-gradient(180deg, #2b4561 0%, #263e58 100%);
-    --game-un-favorite-border: linear-gradient(180deg, #0b1c2f 0%, #071522 100%);
-
-    --icon-move-color: #fff;
-    --icon-move-hover-color: #aacff5;
-
-    --game-text-color: #ffbb0b;
-    --seperate-line-color: #405e7e;
-}
-
 .favorite-setting {
     position: fixed;
     right: 0;

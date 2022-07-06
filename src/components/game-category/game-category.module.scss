@@ -18,25 +18,6 @@
     --paging-item-text-color: #5574AE;
 }
 
-[data-theme="dark"] .category-container {
-    --game-category-background: #395777;
-    --game-category-border: #262d34;
-    --game-category-border-active-color: #ff8a01;
-    --game-category-text-color: #fff;
-    --game-category-text-active-color: #ff8a01;
-
-    @media (min-width: 768px) {
-        --game-category-border: #8cb5e3;
-        --game-category-border-active-color: #ffab2b;
-        --game-category-text-color: #fff;
-        --game-category-text-active-color: #ff9a00;
-    }
-
-    --paging-item-hover-background: linear-gradient(180deg, #7791ab 0%, #345270 100%);
-    --paging-item-border: #072f57;
-    --paging-item-text-color: #fff;
-}
-
 .category-container {
     //border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);

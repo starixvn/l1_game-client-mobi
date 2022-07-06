@@ -5,11 +5,6 @@
     --team-blue-color: #3b7bc6;
 }
 
-[data-theme="dark"] .container-round {
-    --bg-line: #5086b4;
-    --team-blue-color: #5ea8ff;
-}
-
 .container-round {
     display: grid;
     grid-template-columns: 12rem 7.8rem 12rem;

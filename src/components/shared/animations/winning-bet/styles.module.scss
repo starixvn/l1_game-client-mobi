@@ -5,11 +5,6 @@
     --accepted-bet-border: #b82c00;
 }
 
-[data-theme="dark"] .winning-bet {
-    --accepted-bet-color: #ff9a00;
-    --accepted-bet-border: #db4848;
-}
-
 .winning-bet {
     --winning-bet-scale-animation: 1.1;
     @extend %fade-out-up;
