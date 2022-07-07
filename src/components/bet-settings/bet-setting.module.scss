@@ -47,6 +47,14 @@
     @media (min-device-width: 768px) {
         height: 8rem;
     }
+
+    &.open-animation {
+        animation: bottom-to-top 0.2s ease-in forwards;
+    }
+
+    &.close-animation {
+        animation: top-to-bottom 0.2s ease-in forwards;
+    }
 }
 
 .container {
@@ -204,6 +212,7 @@
 
     .chip-container {
         margin-top: 1px;
+        background-image: url(/static/images/chip-shadow.png);
     }
 }
 
@@ -232,5 +241,26 @@
 
     .footer {
         height: 4.4rem;
+    }
+}
+
+
+@keyframes bottom-to-top {
+    from {
+        transform: translate3d(0, 5rem, 0);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes top-to-bottom {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, 5rem, 0);
     }
 }

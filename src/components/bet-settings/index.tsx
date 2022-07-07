@@ -40,7 +40,7 @@ const BetSettings: React.FC<Props> = ({
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
                 {isShowSlidingChip && (
-                    <div className={Styles["settings-container"]}>
+                    <div className={`${Styles["settings-container"]} ${isShowSlidingChip ? Styles["open-animation"] : "close-animation"}`}>
                         <div className={`game-container ${Styles["container"]}`}>
                             <div className={Styles["wrapper-chips"]}>
                                 {!isMobileOnly && (
