@@ -7,7 +7,9 @@ import { GameBaseState, GameState, GameBaseProps } from "../../shared/game-base/
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { RoundResult, RoundResultCollapse } from "../keno-pro-max/round-result";
+import { RoundResultCollapse } from "../keno-pro-max/round-result";
+import { MegaKenoResult } from "../mega-keno/mega-keno-result";
+
 import KenoProMaxBetOptions from "../keno-pro-max/bet-options";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { Result, SettlementResult } from "../keno-pro-max/keno-pro-max";
@@ -25,10 +27,6 @@ export class MiniKeno extends GameBase<GameBaseProps, GameBaseState<Result, Sett
         return this.getFinishAnimationDuration() + 1000;
     }
 
-    get isShowInlineResult() {
-        return true;
-    }
-
     get defaultResult() {
         return DefaultResult;
     }
@@ -42,22 +40,25 @@ export class MiniKeno extends GameBase<GameBaseProps, GameBaseState<Result, Sett
     }
 
     getFakeSettlementResult() {
-        return {
-            big: true,
-            earth: false,
-            even: true,
-            fire: false,
-            gold: false,
-            odd: false,
-            small: false,
-            water: true,
-            wood: false,
-        };
+        const { roundHistory } = this.state;
+        return (
+            roundHistory?.[0]?.settlementResult ?? {
+                big: true,
+                earth: false,
+                even: true,
+                fire: false,
+                gold: false,
+                odd: false,
+                small: false,
+                water: true,
+                wood: false,
+            }
+        );
     }
 
-    renderResultSection() {
-        const { result, settlementResult, gameState, showResultInfo } = this.state;
-        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} showResultInfo={showResultInfo} />;
+    getFakeResult() {
+        const { roundHistory } = this.state;
+        return roundHistory?.[0]?.result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79];
     }
 
     renderBetOptions() {
@@ -133,14 +134,17 @@ export class MiniKeno extends GameBase<GameBaseProps, GameBaseState<Result, Sett
     }
 
     renderResult() {
-        return <div></div>;
+        const { result, settlementResult } = this.state;
+        return (
+            <MegaKenoResult result={result ?? this.getFakeResult()} settlementResult={settlementResult ?? this.getFakeSettlementResult()} />
+        );
     }
 
     renderResultCollapse() {
         const { result, settlementResult, gameState } = this.state;
         return (
             <RoundResultCollapse
-                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+                result={result ?? this.getFakeResult()}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}
             />

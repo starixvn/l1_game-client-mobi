@@ -39,30 +39,32 @@ const BetSettings: React.FC<Props> = ({
         }
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
-                {isShowSlidingChip && (
-                    <div className={`${Styles["settings-container"]} ${isShowSlidingChip ? Styles["open-animation"] : "close-animation"}`}>
-                        <div className={`game-container ${Styles["container"]}`}>
-                            <div className={Styles["wrapper-chips"]}>
-                                {!isMobileOnly && (
-                                    <QuickBetBtn
-                                        enabledQuickBet={enabledQuickBet}
-                                        updateEnabledQuickBet={updateEnabledQuickBet}
-                                        isHeaderSetting={false}
-                                    />
-                                )}
-                                <div className={Styles["chips-container"]}>
-                                    <ChipSlider
-                                        updateBetValue={updateBetValue}
-                                        enabledSound={enabledSound}
-                                        enabledQuickBet={enabledQuickBet}
-                                        toggleSlidingChip={toggleSlidingChip}
-                                        betValue={betValue}
-                                    />
-                                </div>
+                <div
+                    className={`${Styles["settings-container"]} ${
+                        isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
+                    }`}
+                >
+                    <div className={`game-container ${Styles["container"]}`}>
+                        <div className={Styles["wrapper-chips"]}>
+                            {!isMobileOnly && (
+                                <QuickBetBtn
+                                    enabledQuickBet={enabledQuickBet}
+                                    updateEnabledQuickBet={updateEnabledQuickBet}
+                                    isHeaderSetting={false}
+                                />
+                            )}
+                            <div className={Styles["chips-container"]}>
+                                <ChipSlider
+                                    updateBetValue={updateBetValue}
+                                    enabledSound={enabledSound}
+                                    enabledQuickBet={enabledQuickBet}
+                                    toggleSlidingChip={toggleSlidingChip}
+                                    betValue={betValue}
+                                />
                             </div>
                         </div>
                     </div>
-                )}
+                </div>
 
                 {isMobileOnly && (
                     <div className={Styles["footer"]}>

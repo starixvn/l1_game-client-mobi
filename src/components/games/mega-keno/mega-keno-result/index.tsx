@@ -9,7 +9,7 @@ import Styles from "./keno-pro-max-animations.module.scss";
 const elements = ["gold", "wood", "water", "fire", "earth"];
 export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
     let shuffle = [];
-    for (var i = 1; i <= 20; i++) {
+    for (var i = 1; i <= result.length; i++) {
         shuffle.push(i);
     }
 
@@ -27,7 +27,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
 export const generateResult = (result: Result, shuffle: number[], isAnimation = true) => {
     const rows = [];
     const maxNumInRow = 5;
-    const noRows = 20 / maxNumInRow;
+    const noRows = result.length / maxNumInRow;
     for (let i = 0; i < noRows; i++) {
         rows.push([]);
     }
@@ -116,10 +116,13 @@ class AnimationComponent extends React.PureComponent<
     }
 
     render() {
+        const rows = this.state.result.length / 5;
         return (
             <div className={`${Styles["animation-container"]}`}>
                 <div className={Styles["result"]}>
-                    <div className={Styles["number-container"]}>{generateResult(this.state.result, this.state.shuffle)}</div>
+                    <div className={`${Styles["number-container"]} ${Styles["rows-" + rows]}`}>
+                        {generateResult(this.state.result, this.state.shuffle)}
+                    </div>
 
                     <div className={Styles["result-total"]}>
                         <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
@@ -127,9 +130,13 @@ class AnimationComponent extends React.PureComponent<
                     </div>
                 </div>
                 <div className={Styles["settle-info"]}>
-                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>{this.state.texts.big}</div>
-                    <div className={Styles[`result-info-${this.state.even ? "blue" : "red"}`]}>{this.state.texts.even}</div>
-                    <div className={Styles["result-info-grey"]}>{this.state.texts.element}</div>
+                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>
+                        {this.state.big ? this.state.texts.big : this.state.texts.small}
+                    </div>
+                    <div className={Styles[`result-info-${this.state.even ? "blue" : "red"}`]}>
+                        {this.state.even ? this.state.texts.even : this.state.texts.odd}
+                    </div>
+                    <div className={Styles["result-info-grey"]}>{this.state.texts[this.state.element]}</div>
                 </div>
             </div>
         );

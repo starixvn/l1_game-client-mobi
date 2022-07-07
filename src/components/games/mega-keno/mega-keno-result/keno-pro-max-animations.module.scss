@@ -32,7 +32,6 @@ $number-count: 20;
         position: relative;
         display: grid;
         grid-template-columns: repeat(5, 3rem);
-        grid-template-rows: repeat(4, 3rem);
         grid-gap: 0.5rem;
         padding: 1.2rem;
 
@@ -44,6 +43,13 @@ $number-count: 20;
             bottom: 1.6rem;
             width: 0.2rem;
             background: linear-gradient(180deg, #ffe8c1 0%, #ffa412 50.83%, #ffd795 100%);
+        }
+
+        &.rows-4 {
+            grid-template-rows: repeat(4, 3rem);
+        }
+        &.rows-2 {
+            grid-template-rows: repeat(2, 3rem);
         }
     }
 
