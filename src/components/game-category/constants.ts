@@ -1,4 +1,4 @@
-export const GamesInOnePage = 6;
+export const GamesInOnePage = 20;
 
 export const GameCategoryConfig = {
     hot: [22, 2, 9, 1, 4, 24, 3, 7, 27, 10, 35],
@@ -11,12 +11,12 @@ export const GameCategoryConfig = {
 
 export enum GameCategoryType {
     hot,
-    favorite,
     megakeno,
     keno,
     sedie,
     dice,
     card,
+    favorite,
 }
 
 export const favoriteGameIdIgnore = [8, 36, 37, 40, 41];
