@@ -12,4 +12,5 @@ export type Props = {
     favoriteGames: number[];
     queryGame: number;
     userOfferGames: number[];
+    closeSlidingChip: () => void;
 };

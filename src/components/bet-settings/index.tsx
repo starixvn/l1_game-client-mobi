@@ -5,6 +5,7 @@ import { User } from "sc-user-service-client/dist/auth";
 import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
+import { ChipLabelMapper, ChipMapper, ChipValues } from "../../common/constants";
 import Styles from "./bet-setting.module.scss";
 
 type Props = {
@@ -13,9 +14,23 @@ type Props = {
     updateEnabledQuickBet: (value: boolean) => void;
     enabledSound: boolean;
     user: User;
+    toggleSlidingChip: () => void;
+    closeSlidingChip: () => void;
+    isShowSlidingChip: boolean;
+    betValue: number;
 };
 
-const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, user }) => {
+const BetSettings: React.FC<Props> = ({
+    updateBetValue,
+    enabledQuickBet,
+    updateEnabledQuickBet,
+    enabledSound,
+    user,
+    toggleSlidingChip,
+    closeSlidingChip,
+    isShowSlidingChip,
+    betValue,
+}) => {
     return useMemo(() => {
         let deviceClass = "";
 
@@ -24,29 +39,41 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
         }
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
-                <div className={Styles["settings-container"]}>
-                    <div className={`game-container ${Styles["container"]}`}>
-                        <div className={Styles["wrapper-chips"]}>
-                            {!isMobileOnly && (
-                                <QuickBetBtn
-                                    enabledQuickBet={enabledQuickBet}
-                                    updateEnabledQuickBet={updateEnabledQuickBet}
-                                    isHeaderSetting={false}
-                                />
-                            )}
-                            <div className={Styles["chips-container"]}>
-                                <ChipSlider updateBetValue={updateBetValue} enabledSound={enabledSound} enabledQuickBet={enabledQuickBet} />
+                {isShowSlidingChip && (
+                    <div className={Styles["settings-container"]}>
+                        <div className={`game-container ${Styles["container"]}`}>
+                            <div className={Styles["wrapper-chips"]}>
+                                {!isMobileOnly && (
+                                    <QuickBetBtn
+                                        enabledQuickBet={enabledQuickBet}
+                                        updateEnabledQuickBet={updateEnabledQuickBet}
+                                        isHeaderSetting={false}
+                                    />
+                                )}
+                                <div className={Styles["chips-container"]}>
+                                    <ChipSlider
+                                        updateBetValue={updateBetValue}
+                                        enabledSound={enabledSound}
+                                        enabledQuickBet={enabledQuickBet}
+                                        toggleSlidingChip={toggleSlidingChip}
+                                        betValue={betValue}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
 
                 {isMobileOnly && (
                     <div className={Styles["footer"]}>
-                        <div className={Styles["user-info"]}>
+                        <div className={Styles["user-info"]} onClick={closeSlidingChip}>
                             <UserInfo user={user} customizeClass={"footer"} />
                         </div>
-                        <div className={Styles["phone-quick-bet"]}>
+                        <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]} `} onClick={toggleSlidingChip}>
+                            <img src={`/static/images/chips/${ChipMapper[betValue]}.svg`} alt="Chip" className={Styles["chip"]} />
+                            <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>
+                        </div>
+                        <div className={Styles["phone-quick-bet"]} onClick={closeSlidingChip}>
                             <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}
@@ -57,7 +84,7 @@ const BetSettings: React.FC<Props> = ({ updateBetValue, enabledQuickBet, updateE
                 )}
             </div>
         );
-    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound]);
+    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue]);
 };
 
 export default BetSettings;

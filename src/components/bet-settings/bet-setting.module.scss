@@ -1,12 +1,23 @@
+@import "../../assets/components/chip";
+
 [data-theme="light"] .bet-settings {
-    --bet-settings-background: 
-    linear-gradient(180deg, rgba(167, 173, 197, 0.7) 0%, rgba(116, 126, 158, 0.7) 9.69%, rgba(89, 98, 126, 0.7) 100%);
-    @media(min-width: 768px){
-        --bet-settings-background: linear-gradient(180deg, rgba(141, 159, 177, 0.9) 0%, rgba(120, 133, 147, 0.9) 9.69%, rgba(111, 122, 135, 0.9) 100%);
+    --bet-settings-background: linear-gradient(
+        180deg,
+        rgba(167, 173, 197, 0.7) 0%,
+        rgba(116, 126, 158, 0.7) 9.69%,
+        rgba(89, 98, 126, 0.7) 100%
+    );
+    @media (min-width: 768px) {
+        --bet-settings-background: linear-gradient(
+            180deg,
+            rgba(141, 159, 177, 0.9) 0%,
+            rgba(120, 133, 147, 0.9) 9.69%,
+            rgba(111, 122, 135, 0.9) 100%
+        );
     }
 
     --ripple-background: rgba(196, 196, 196, 0.6);
-    --footer-background: linear-gradient(180deg, #2C4A7A 0%, #26426E 100%);
+    --footer-background: linear-gradient(180deg, #2c4a7a 0%, #26426e 100%);
     --line-footer: linear-gradient(90deg, rgba(93, 105, 120, 0.9) 0%, rgba(255, 255, 255, 0.9) 51.87%, rgba(93, 105, 120, 0.9) 100%);
 }
 
@@ -17,8 +28,6 @@
     position: fixed;
     left: 0;
     bottom: 0;
-   
-    
 
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -60,7 +69,7 @@
 }
 
 .wrapper-chips-phone {
-    color: #fff
+    color: #fff;
 }
 
 .chips-toggle {
@@ -188,10 +197,18 @@
         width: 100%;
         background: var(--line-footer);
     }
+
+    .user-info {
+        width: 0;
+    }
+
+    .chip-container {
+        margin-top: 1px;
+    }
 }
 
 .chip-toggle {
-    color: #fff
+    color: #fff;
 }
 
 // Iphone X or newer

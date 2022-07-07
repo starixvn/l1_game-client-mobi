@@ -86,6 +86,7 @@ export const Games: React.FC<Props> = ({
     favoriteGames,
     queryGame,
     userOfferGames,
+    closeSlidingChip,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -236,7 +237,7 @@ export const Games: React.FC<Props> = ({
     }, []);
 
     return (
-        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `}>
+        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : ""} `} onClick={closeSlidingChip}>
             <SystemContextProvider
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
             >

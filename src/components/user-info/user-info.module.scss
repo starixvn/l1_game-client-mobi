@@ -1,5 +1,5 @@
 [data-theme="light"] .header,
-[data-theme="light"] .footer  {
+[data-theme="light"] .footer {
     --header-text-color: var(--text-color);
     --header-balance-color: #fff;
 }
@@ -31,16 +31,18 @@
         font-size: 3.9rem;
     }
     &.footer {
-        margin-left: .8rem;
+        margin-left: 0.8rem;
         flex-direction: row-reverse;
+        width: fit-content;
+
         &.ios-device {
             @media (min-device-width: 375px) and (min-device-height: 668px) {
                 position: relative;
-                top: -.3rem;
+                top: -0.3rem;
             }
         }
         .avatar {
-            border: .15rem solid #fff;
+            border: 0.15rem solid #fff;
             height: 3.4rem;
             width: 3.435rem;
         }
@@ -51,10 +53,10 @@
             letter-spacing: 0.5px;
         }
         .info {
-            margin-left: .8rem;
-            text-align: left;            
+            margin-left: 0.8rem;
+            text-align: left;
             line-height: 1.3rem;
-            margin-top: .2rem;
+            margin-top: 0.2rem;
         }
     }
 }

@@ -49,6 +49,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             enabledQuickBet: false,
             betValue: 1,
             isBlockUI: false,
+            isShowSlidingChip: isMobileOnly ? false : true,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -71,6 +72,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setBetValue = this.setBetValue.bind(this);
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
         this.signOut = this.signOut.bind(this);
+        this.toggleSlidingChip = this.toggleSlidingChip.bind(this);
+        this.closeSlidingChip = this.closeSlidingChip.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -302,6 +305,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowGuide: !this.state.isShowGuide });
     }
 
+    toggleSlidingChip() {
+        isMobileOnly && this.setState({ isShowSlidingChip: !this.state.isShowSlidingChip });
+    }
+
+    closeSlidingChip() {
+        isMobileOnly && this.setState({ isShowSlidingChip: false });
+    }
+
     renderDashBoard() {
         const {
             enabledWinningStreakNotification,
@@ -315,6 +326,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             enabledQuickBet,
             betValue,
             isBlockUI,
+            isShowSlidingChip,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -347,6 +359,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         favoriteGames={favoriteGames}
                         userOfferGames={offerGames}
                         queryGame={this.props.queryGame}
+                        closeSlidingChip={this.closeSlidingChip}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}
@@ -354,6 +367,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateBetValue={this.setBetValue}
                         enabledSound={enabledPlaySound}
                         user={authorizeInfo.user}
+                        toggleSlidingChip={this.toggleSlidingChip}
+                        closeSlidingChip={this.closeSlidingChip}
+                        isShowSlidingChip={isShowSlidingChip}
+                        betValue={betValue}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
                     {isShowGuide && (
@@ -391,8 +408,8 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     renderComponents(authorizeInfo: AuthorizeResponse) {
         const { authorized } = authorizeInfo;
-        if (authorized) {            
-            return this.renderDashBoard()
+        if (authorized) {
+            return this.renderDashBoard();
         }
 
         return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
@@ -403,11 +420,12 @@ class Dashboard extends React.PureComponent<Props, State> {
             return <></>;
         }
 
-        return (<>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `
+        return (
+            <>
+                <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
                             window.dataLayer = window.dataLayer || [];
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
@@ -415,9 +433,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                             page_path: window.location.pathname,
                             });
                         `,
-                }}
-            />
-        </>);
+                    }}
+                />
+            </>
+        );
     }
 
     render() {
@@ -429,9 +448,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         return authorizeInfo ? (
             <>
-                <Head>
-                    {this.renderGoogleAnalytic()}
-                </Head>
+                <Head>{this.renderGoogleAnalytic()}</Head>
                 {this.renderComponents(authorizeInfo)}
             </>
         ) : (

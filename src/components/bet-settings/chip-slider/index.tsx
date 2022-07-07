@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { isMobileOnly } from "react-device-detect";
 import Slider from "react-slick";
 import useSound from "use-sound";
 import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
@@ -7,33 +8,37 @@ import Styles from "./chip-slider.module.scss";
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
-export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: boolean; enabledQuickBet: boolean }> = ({
-    updateBetValue,
-    enabledSound,
-    enabledQuickBet,
-}) => {
+export const ChipSlider: React.FC<{
+    updateBetValue: Function;
+    enabledSound: boolean;
+    enabledQuickBet: boolean;
+    toggleSlidingChip: Function;
+    betValue: number;
+}> = ({ updateBetValue, enabledSound, enabledQuickBet, toggleSlidingChip, betValue }) => {
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
-    const [selectedChip, setSelectedChip] = useState(1);
+    const [selectedChip, setSelectedChip] = useState(betValue);
     const [isSliding, setIsSliding] = useState(false);
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
 
     const onClickChip = (chipValue: number) => {
-        const chipIndex = ChipValues.indexOf(chipValue);
-        const currentSlideToShow = getCurrentSlidesToShow();
-        const currentSlide = sliderRef.innerSlider.state.currentSlide;
+        if (!isMobileOnly) {
+            const chipIndex = ChipValues.indexOf(chipValue);
+            const currentSlideToShow = getCurrentSlidesToShow();
+            const currentSlide = sliderRef.innerSlider.state.currentSlide;
 
-        if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
-            disableSelectChipWhenSliding();
-            isSwipe = false;
-            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
-        }
+            if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
+                disableSelectChipWhenSliding();
+                isSwipe = false;
+                sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
+            }
 
-        if (chipIndex - 1 <= currentSlide) {
-            disableSelectChipWhenSliding();
-            isSwipe = false;
-            sliderRef.slickGoTo(chipIndex - 1);
+            if (chipIndex - 1 <= currentSlide) {
+                disableSelectChipWhenSliding();
+                isSwipe = false;
+                sliderRef.slickGoTo(chipIndex - 1);
+            }
         }
 
         handleSelectChip(chipValue);
@@ -98,6 +103,11 @@ export const ChipSlider: React.FC<{ updateBetValue: Function; enabledSound: bool
     useEffect(() => {
         if (sliderRef) {
             updateArrowsByChipValue(selectedChip);
+            if (isMobileOnly) {
+                isSwipe = false;
+                const chipIndex = ChipValues.indexOf(selectedChip);
+                sliderRef.slickGoTo(chipIndex - 2);
+            }
         }
     }, []);
 
