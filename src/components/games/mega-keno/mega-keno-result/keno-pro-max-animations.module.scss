@@ -73,7 +73,7 @@ $number-count: 20;
     }
 
     .number-cover {
-        display: none;
+        //display: none;
     }
 
     .number-animate {
@@ -83,7 +83,7 @@ $number-count: 20;
         align-items: center;
     }
 
-    .settle-info {
+    .settle-info-2, .settle-info-4 {
         position: relative;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -112,15 +112,15 @@ $number-count: 20;
     border-radius: 50%;
     background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #c7c7c7 78.96%, #bababa 100%);
     font: 600 1.6rem var(--font-number);
-    color: #2c2f3e;
+    color: #2c2f3e;   
 }
 
 .has-animation {
-    --time-show-num-animation: 0.1s;
+    --time-show-num-animation: 0.8s;
 
     .shown-number {
-        position: relative;
-        animation: show-num-animation var(--time-show-num-animation) ease-in forwards;
+        position: relative;       
+        animation: spin var(--time-show-num-animation) ease-out forwards;
     }
 
     .number-cover {
@@ -138,9 +138,9 @@ $number-count: 20;
         opacity: 0;
     }
 
-    @for $i from 0 through 19 {
-        .animate-#{$i + 1} {
-            --time-delay: calc(var(--time-show-num-animation) * #{$i});
+    @for $i from 1 through 20 {
+        .animate-#{21 - $i} {
+            --time-delay: calc(var(--time-show-num-animation) * (#{$i}/3));
 
             .number-cover {
                 animation-delay: var(--time-delay);
@@ -153,50 +153,107 @@ $number-count: 20;
         }
     }
 
-    .settle-info {
+    @for $i from 1 through 10 {
+        .animate-10ball-#{11 - $i} {
+            --time-delay: calc(var(--time-show-num-animation) * (#{$i}/3));
+
+            .number-cover {
+                animation-delay: var(--time-delay);
+            }
+
+            .number {
+                @extend .shown-number;
+                animation-delay: var(--time-delay);
+            }
+        }
+    }
+
+    .settle-info-4 {        
         margin-top: -5.5rem;
-        animation: show-settle-info 0.5s 2.2s ease-out forwards;
+        animation: show-settle-info 0.5s 6s ease-out forwards;
+    }
+
+    .settle-info-2 {        
+        margin-top: -5.5rem;
+        animation: show-settle-info 0.5s 3.5s ease-out forwards;
     }
 }
 
 @keyframes hide-number-cover-animation {
     0% {
-        opacity: 1;
-    }
-
-    30% {
-        opacity: 1;
-    }
-
-    60% {
-        opacity: 0;
-    }
+        opacity: 1;        
+    }   
 
     100% {
-        opacity: 0;
+        opacity: 0;        
     }
 }
 
 @keyframes show-num-animation {
     0% {
         opacity: 0;
-    }
+        transform: rotate(-100deg);   
+        left: -9rem;     
+    }    
 
-    30% {
-        opacity: 0;
+    40% {
+        opacity: 0.9;
+        transform: rotate(-100deg);
+        left: -5rem;
     }
 
     60% {
-        opacity: 0.9;
+        opacity: 1;
+        transform: rotate(-50deg);
+        left: -3rem;
     }
 
     80% {
         opacity: 1;
+        transform: rotate(10deg);
+        left: 0.5rem;
     }
 
     100% {
         opacity: 1;
+        transform: rotate(0);
+        left: 0;
     }
+}
+
+@keyframes ball-drop {
+    0%   { 
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+     
+      78%   { 
+        transform: translateY(-10px) scale(1.1, 1);
+        opacity: 1;
+      }
+      85%   { 
+        transform: translateY(3px);
+        opacity: 1;
+      }
+    
+      100%   { 
+        transform: translateY(0);
+        opacity: 1;
+      }
+}
+
+@keyframes spin {
+    0% {
+        left:-10rem; 
+        transform: rotate(0deg);
+        opacity: 0;
+    }
+   
+    100% {
+        left:0; 
+        transform: rotate(360deg);
+        opacity: 1;
+    }    
 }
 
 @keyframes show-settle-info {

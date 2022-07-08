@@ -13,7 +13,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
         shuffle.push(i);
     }
 
-    shuffle = shuffle.sort((a, b) => 0.5 - Math.random());
+    //shuffle = shuffle.sort((a, b) => 0.5 - Math.random());
     const total = result.reduce((a, b) => a + b, 0);
 
     return {
@@ -41,13 +41,14 @@ export const generateResult = (result: Result, shuffle: number[], isAnimation = 
     return rows.map((row, ri) => {
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
-            const classAnimateNumber = `animate-${shuffle[index]}`;
+            const classAnimateNumber = noRows == 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
+            //debugger
             return (
                 <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
                     <div className={`${Styles["number"]}`}>{num}</div>
                     <div className={`${Styles["number-cover"]}`}></div>
                 </div>
-            );
+            );            
         });
     });
 };
@@ -98,10 +99,10 @@ class AnimationComponent extends React.PureComponent<
 
                 const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
                 elem.setState({
-                    currentTotal: elem.state.currentTotal + elem.state.result[numberIndex],
+                    currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
                     currentIndex: elem.state.currentIndex + 1,
                 });
-            }, 100);
+            }, 250);
         } else if (this.animationInterval) {
             clearInterval(this.animationInterval);
             this.setState({
@@ -129,7 +130,7 @@ class AnimationComponent extends React.PureComponent<
                         <div className={Styles["result-total-number"]}>{this.state.currentTotal}</div>
                     </div>
                 </div>
-                <div className={Styles["settle-info"]}>
+                <div className={`${Styles["settle-info-" + rows]}`}>
                     <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>
                         {this.state.big ? this.state.texts.big : this.state.texts.small}
                     </div>

@@ -301,10 +301,10 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 47,
+            "placingBets": 40,
             "lockingBet": 5,
-            "showResult": 9,
+            "showResult": 7,
             "resultAnimation": 4,
             "beforeStartRound": 0
         }
@@ -318,10 +318,10 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 45,
-            "placingBets": 36,
+            "wholeRound": 37,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
+            "showResult": 7,
             "resultAnimation": 4,
             "beforeStartRound": 0
         }
@@ -335,11 +335,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 40,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
@@ -352,11 +352,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 40,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
@@ -369,11 +369,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 40,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
@@ -386,11 +386,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 40,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
@@ -403,11 +403,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 45,
-            "placingBets": 36,
+            "wholeRound": 55,
+            "placingBets": 45,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
@@ -420,11 +420,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 30,
-            "placingBets": 21,
+            "wholeRound": 40,
+            "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     }
