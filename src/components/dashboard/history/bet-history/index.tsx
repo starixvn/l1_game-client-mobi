@@ -10,7 +10,7 @@ import { useAuthContext } from "../../../../contexts/auth";
 import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
 import Loader from "../../../shared/loader";
-import { GamesIdKenoMatch, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
+import { GamesIdKenoMatch, GamesIdMiniKeno, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
 import BetHistoryDetailsContainer from "./log-details";
 import Styles from "./bet-history.module.scss";
 
@@ -77,9 +77,10 @@ const sendPostBetHistory = async ({
     listBetHistory,
     setIsShowMessageError,
 }) => {
-    const pathUrlHistory = GamesIdKenoMatch.includes(gameId)
-        ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
-        : `${gameSetting?.socketInfo?.path}/api/history`;
+    const pathUrlHistory =
+        GamesIdKenoMatch.includes(gameId) || GamesIdMiniKeno.includes(gameId)
+            ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
+            : `${gameSetting?.socketInfo?.path}/api/history`;
     const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
     isFetchingHistory = true;
     try {

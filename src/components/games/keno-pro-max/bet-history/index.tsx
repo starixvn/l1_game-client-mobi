@@ -38,7 +38,9 @@ export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, clo
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>
                     <div className={Styles["result"]}>
-                        <div className={Styles["number-container"]}>{generateResult(result, false, ResultClassState.betHistory)}</div>
+                        <div className={`${Styles["number-container"]} ${Styles["number-rows-" + result.length / 10]}`}>
+                            {generateResult(result, false, ResultClassState.betHistory)}
+                        </div>
                         <div className={Styles["result-total-number"]}>
                             <RenderTotalPoint
                                 result={result}

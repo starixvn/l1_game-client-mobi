@@ -36,6 +36,14 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
             case 7:
                 return <DragonTigerBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 8:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 52:
+            case 53:
                 return <KenoProMaxBetHistory key={selectedGameId} gameId={selectedGameId} />;
             case 10:
             case 27:
