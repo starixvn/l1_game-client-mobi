@@ -97,7 +97,7 @@ export const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps
 
     return (
         <div className={Styles.timer}>
-            <CountdownCircleTimer {...timerProps} colors={[[lockingBet ? "#FF0505" : "#19A32F", 1]]}>
+            <CountdownCircleTimer {...timerProps} colors={[[lockingBet ? "#ff0707" : "#15e84b", 1]]}>
                 {({ remainingTime }) => (remainingTime === 0 ? 1 : remainingTime).toLocaleString("en-US", { minimumIntegerDigits: 2 })}
             </CountdownCircleTimer>
         </div>

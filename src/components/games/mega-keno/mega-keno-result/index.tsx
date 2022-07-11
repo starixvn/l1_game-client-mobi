@@ -12,8 +12,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
     for (var i = 1; i <= result.length; i++) {
         shuffle.push(i);
     }
-
-    //shuffle = shuffle.sort((a, b) => 0.5 - Math.random());
+    
     const total = result.reduce((a, b) => a + b, 0);
 
     return {
@@ -42,7 +41,7 @@ export const generateResult = (result: Result, shuffle: number[], isAnimation = 
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
             const classAnimateNumber = noRows == 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
-            //debugger
+            
             return (
                 <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
                     <div className={`${Styles["number"]}`}>{num}</div>
@@ -177,6 +176,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     const settleResult = getSettleResult(result, settlementResult);
 
     return (
+        
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container-collapse"]}>{generateResult(result, settleResult.shuffle)}</div>
             {!playResultAnimation && settlementResult && (

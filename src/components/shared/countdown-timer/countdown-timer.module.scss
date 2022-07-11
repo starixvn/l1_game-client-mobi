@@ -1,7 +1,7 @@
 .timer {
     position: absolute;
     left: calc(50% - 1.5rem);
-    top: 0;
+    top: 0.2rem;
     margin: 0.5rem 0;
     font-size: 1.6rem;
     font-family: var(--font-number);
@@ -16,7 +16,7 @@
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
-    bottom: 5px;
+    bottom: 0.3rem;
     font-size: 1.3rem;
     line-height: 1.5rem;
 

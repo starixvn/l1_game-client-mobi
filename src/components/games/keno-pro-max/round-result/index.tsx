@@ -126,9 +126,11 @@ export const RoundResultCollapse: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
+    const rows = result.length / 5;
+
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={Styles["result-container-collapse"]}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
+            <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
             {!playResultAnimation && (
                 <div className={Styles["result-label"]}>
                     <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}

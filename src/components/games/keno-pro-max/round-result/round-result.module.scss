@@ -138,9 +138,16 @@ $number-count: 20;
         position: absolute;
         left: 1rem;
         display: grid;
-        grid-template-columns: repeat(10, 2.2rem);
-        grid-template-rows: repeat(2, 2.2rem);
+        grid-template-columns: repeat(10, 2.2rem);        
         grid-gap: 0.3rem;
+    }
+
+    &.row-4 .result-container-collapse {
+        grid-template-rows: repeat(2, 2.2rem);
+    }
+
+    &.row-2 .result-container-collapse {
+        grid-template-rows: repeat(1, 2.2rem);
     }
 
     .has-animation {
