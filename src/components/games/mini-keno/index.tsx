@@ -24,6 +24,10 @@ export class MiniKeno extends KenoProMax {
         );
     }
 
+    get isShowInlineResult() {
+        return false;
+    }
+
     getFakeResult() {
         const { roundHistory } = this.state;
         return roundHistory?.[0]?.result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79];
