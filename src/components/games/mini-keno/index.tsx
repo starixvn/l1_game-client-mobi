@@ -3,7 +3,7 @@ import { withRouter } from "next/router";
 import React from "react";
 
 import { RoundResultCollapse } from "../keno-pro-max/round-result";
-import { MegaKenoResult } from "../mega-keno/mega-keno-result";
+import { MegaKenoResult } from "./mini-keno-result";
 import { KenoProMax } from "../keno-pro-max";
 
 export class MiniKeno extends KenoProMax {

@@ -1,9 +1,9 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { useGameContext } from "../../../../contexts/game-context/game-context";
-import { Result, SettlementResult } from "../../keno-pro-max/keno-pro-max";
-import { GetChoiceTranslate } from "../../keno-pro-max/keno-pro-max-helper";
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import { Result, SettlementResult } from "../keno-pro-max/keno-pro-max";
+import { GetChoiceTranslate } from "../keno-pro-max/keno-pro-max-helper";
 import Styles from "./keno-pro-max-animations.module.scss";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
@@ -12,7 +12,7 @@ export const getSettleResult = (result: Result, settlementResult: SettlementResu
     for (var i = 1; i <= result.length; i++) {
         shuffle.push(i);
     }
-    
+
     const total = result.reduce((a, b) => a + b, 0);
 
     return {
@@ -41,13 +41,13 @@ export const generateResult = (result: Result, shuffle: number[], isAnimation = 
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
             const classAnimateNumber = noRows == 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
-            
+
             return (
                 <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
                     <div className={`${Styles["number"]}`}>{num}</div>
                     <div className={`${Styles["number-cover"]}`}></div>
                 </div>
-            );            
+            );
         });
     });
 };
@@ -176,7 +176,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
     const settleResult = getSettleResult(result, settlementResult);
 
     return (
-        
+
         <div className={`${Styles["result-collapse-mode"]}  ${playResultAnimation ? Styles["has-animation"] : ""}`}>
             <div className={Styles["result-container-collapse"]}>{generateResult(result, settleResult.shuffle)}</div>
             {!playResultAnimation && settlementResult && (
