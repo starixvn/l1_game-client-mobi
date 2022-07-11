@@ -27,7 +27,13 @@
         36,
         37,
         52,
-        53
+        53,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
     ],
     "enableSourceMap": true,
     "guideUrl": "https://l1-guide-1.lumigame.com",
