@@ -32,27 +32,7 @@ const ThemeSelection = () => {
                             {t("light")}
                         </label>
                     </div>
-                </div>
-                <div className={Styles["theme"]}>
-                    <div className={Styles["theme-dark-icon"]} onClick={() => setTheme(Themes.dark)} data-testid="btn-dark">
-                        <span className={Styles["line1"]}></span>
-                        <span className={Styles["line2"]}></span>
-                    </div>
-                    <div>
-                        <input
-                            id="theme-dark"
-                            type="radio"
-                            name="theme"
-                            checked={theme === Themes.dark}
-                            onChange={() => setTheme(Themes.dark)}
-                            className={Styles["radio-button"]}
-                            data-testid="checked-dark"
-                        />
-                        <label className={Styles["radio-label"]} htmlFor="theme-dark">
-                            {t("dark")}
-                        </label>
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
     );

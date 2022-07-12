@@ -73,7 +73,6 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
         this.signOut = this.signOut.bind(this);
         this.toggleSlidingChip = this.toggleSlidingChip.bind(this);
-        this.closeSlidingChip = this.closeSlidingChip.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -307,11 +306,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     toggleSlidingChip() {
         isMobileOnly && this.setState({ isShowSlidingChip: !this.state.isShowSlidingChip });
-    }
-
-    closeSlidingChip() {
-        isMobileOnly && this.setState({ isShowSlidingChip: false });
-    }
+    }    
 
     renderDashBoard() {
         const {
@@ -359,7 +354,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                         favoriteGames={favoriteGames}
                         userOfferGames={offerGames}
                         queryGame={this.props.queryGame}
-                        closeSlidingChip={this.closeSlidingChip}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}
@@ -368,7 +362,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                         enabledSound={enabledPlaySound}
                         user={authorizeInfo.user}
                         toggleSlidingChip={this.toggleSlidingChip}
-                        closeSlidingChip={this.closeSlidingChip}
                         isShowSlidingChip={isShowSlidingChip}
                         betValue={betValue}
                     />

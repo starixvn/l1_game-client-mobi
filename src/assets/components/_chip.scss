@@ -36,6 +36,7 @@
         font-family: var(--font-money);
         font-size: var(--chip-value-font-size);
         color: #2c2f3e;
+        z-index: 1;
     }
     &.chip-9,
     &.chip-10,

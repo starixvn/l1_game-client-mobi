@@ -15,7 +15,6 @@ type Props = {
     enabledSound: boolean;
     user: User;
     toggleSlidingChip: () => void;
-    closeSlidingChip: () => void;
     isShowSlidingChip: boolean;
     betValue: number;
 };
@@ -27,7 +26,6 @@ const BetSettings: React.FC<Props> = ({
     enabledSound,
     user,
     toggleSlidingChip,
-    closeSlidingChip,
     isShowSlidingChip,
     betValue,
 }) => {
@@ -68,14 +66,17 @@ const BetSettings: React.FC<Props> = ({
 
                 {isMobileOnly && (
                     <div className={Styles["footer"]}>
-                        <div className={Styles["user-info"]} onClick={closeSlidingChip}>
+                        <div className={Styles["user-info"]}>
                             <UserInfo user={user} customizeClass={"footer"} />
                         </div>
-                        <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]} `} onClick={toggleSlidingChip}>
-                            <img src={`/static/images/chips/${ChipMapper[betValue]}.svg`} alt="Chip" className={Styles["chip"]} />
+                        <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]}`} onClick={toggleSlidingChip}>
+                            <div className={`${Styles["chip-toggle"]} ${isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]}`}>
+                                <img className={Styles["chip-default"]} src={`/static/images/chips/chip-1.svg`} alt="Chip" />
+                                <img className={Styles["chip-selected"]} src={`/static/images/chips/${ChipMapper[betValue]}.svg`} alt="Chip" />
+                            </div>                            
                             <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>
                         </div>
-                        <div className={Styles["phone-quick-bet"]} onClick={closeSlidingChip}>
+                        <div className={Styles["phone-quick-bet"]}>
                             <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}

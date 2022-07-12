@@ -212,12 +212,65 @@
 
     .chip-container {
         margin-top: 1px;
-        background-image: url(/static/images/chip-shadow.png);
+        //background-image: url(/static/images/chip-shadow.png);
+        --width-container: 6rem;
+        --height-container: 6rem;
+
+        &::before {          
+            position: absolute;
+            content: "";
+            background-image: url(/static/images/chip-shadow.png);
+            background-size: var(--width-container) var(--height-container);
+            width: var(--width-container);
+            height: var(--height-container);
+            left: 50%;
+            transform: translate(-50%, 0);            
+        }
     }
 }
 
+
+
 .chip-toggle {
-    color: #fff;
+    position: relative;
+    grid-area: 1/1;
+    width: 100%;
+    border-radius: 50%;
+    pointer-events: none;
+    width: var(--chip-width);
+    height: var(--chip-height);
+    
+
+    .chip-default, .chip-selected {
+        position: absolute;
+        width: 100%;
+    }      
+}
+
+.open-animation {
+    .chip-default {
+        display: block;
+        z-index: 2;
+    }
+
+    .chip-selected {
+        display: none;
+    }
+
+}
+
+.close-animation {
+    .chip-default {
+        display: none;
+    }
+
+    .chip-selected {
+        display: block;
+    }
+
+    .bet-setting .value {
+        z-index: 2;
+    }
 }
 
 // Iphone X or newer
