@@ -340,6 +340,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             displayPopup !== PopupType.Rebet && this.playAcceptedBetAnimation(endBet, this.betPosition);
             playPlaceBetSound();
             ownBets[betChoice] = ownBets[betChoice] ? ownBets[betChoice] + endBet : endBet;
+            this.setState({ ownBets: { ...ownBets } });
             this.updateUserBalance();
         }
     };
