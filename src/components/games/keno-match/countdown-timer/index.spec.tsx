@@ -30,8 +30,8 @@ describe("Timer", () => {
 
     test.each`
         lockingBet | expectedColor
-        ${true}    | ${"#FF0505"}
-        ${false}   | ${"#19A32F"}
+        ${true}    | ${"#ff0707"}
+        ${false}   | ${"#15e84b"}
     `("always render color correctly", ({ lockingBet, expectedColor }) => {
         render(<Timer {...buildTimerProps(lockingBet)} />);
         expect(document.querySelectorAll('div[aria-hidden="true"]')[0]).toHaveStyle(`color: ${expectedColor}`);

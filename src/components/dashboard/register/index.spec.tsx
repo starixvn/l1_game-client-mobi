@@ -21,7 +21,6 @@ describe("Register", () => {
         // Assert
         expect(document.querySelector(".page-bg")).toBeTruthy();
         expect(document.querySelector(".profile-picture")).toBeTruthy();
-        expect(document.querySelector(".theme-container")).toBeTruthy();
     });
 
     test("action generate username", async () => {

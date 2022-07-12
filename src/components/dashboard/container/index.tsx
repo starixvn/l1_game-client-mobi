@@ -1,12 +1,10 @@
-import { useTheme } from "next-themes";
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import Styles from "./container.module.scss";
-import { Themes } from "../../../common/constants/index";
 
 const FirstLoginContainer: React.FC = ({ children }) => {
-    const logoTheme = useTheme().theme === Themes.light ? "logo-custom-saba-orange" : "logo-custom-saba";
+    const logoTheme = "logo-custom-saba-orange";
 
     return (
         <div className={`${Styles["wrapper"]} ${isMobileOnly ? Styles["mobile"] : ""}`}>

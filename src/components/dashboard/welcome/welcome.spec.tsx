@@ -26,9 +26,6 @@ describe("Welcome", () => {
         // Assert
         expect(document.querySelector(".wrapper")).toBeTruthy();
         expect(document.querySelector(".welcome")).toBeTruthy();
-        expect(document.querySelector(".theme-container")).toBeTruthy();
         expect(document.querySelector(".btn-submit")).toBeTruthy();
-        expect(document.querySelector(".theme-light-icon")).toBeTruthy();
-        expect(document.querySelector(".theme-dark-icon")).toBeTruthy();
     });
 });

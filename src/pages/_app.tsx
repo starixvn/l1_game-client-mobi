@@ -7,7 +7,6 @@ import App, { AppProps } from "next/app";
 import Head from "next/head";
 
 import { Themes } from "../common/constants";
-import { buildLocalStorageKey } from "../common/local-storage";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -18,7 +17,7 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
         const { Component, pageProps, err } = this.props;
 
         return (
-            <ThemeProvider storageKey={buildLocalStorageKey("theme")} defaultTheme={Themes.light}>
+            <ThemeProvider defaultTheme={Themes.light}>
                 <Head>
                     <title>Saba Mobi</title>
                     <link rel="shortcut icon" href={`/favicon.ico?v=${process.env.buildVersion}`} />

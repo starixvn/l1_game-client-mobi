@@ -41,7 +41,6 @@ export const languageNameMapper = { en: "English", vi: "Tiếng Việt" };
 
 export const Themes = {
     light: "light",
-    dark: "dark",
 };
 
 export const sabaMobileName = "Saba.mobi";

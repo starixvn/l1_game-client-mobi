@@ -21,10 +21,10 @@ import { UserStakeLevel } from "../shared/game-base/type";
 import { GameGuideModal } from "./game-guide-modal";
 import { HistoryModal } from "./history";
 import Register from "./register";
-import Welcome from "./welcome";
 import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
+import { Themes } from "../../common/constants";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -244,14 +244,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
-    handleFirstLogin(theme: string) {
+    handleFirstLogin() {
         const { session } = this.props;
         const authorizeInfo = { ...this.state.authorizeInfo };
         if (authorizeInfo && authorizeInfo.authorized) {
             updateSignInSMStatus(session);
-            updateThemeSetting(session, theme);
+            updateThemeSetting(session);
 
-            authorizeInfo.user.settings = { theme };
+            authorizeInfo.user.settings = { theme: Themes.light };
             authorizeInfo.user.isSignedInSM = true;
 
             this.updateAuthorizeInfo(authorizeInfo);
@@ -267,7 +267,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         updateSignInSMStatus(session);
         authorizeInfo.user.isSignedInSM = true;
-        updateThemeSetting(session, authorizeInfo.user.settings.theme);
+        updateThemeSetting(session);
 
         this.updateAuthorizeInfo(authorizeInfo);
     }
