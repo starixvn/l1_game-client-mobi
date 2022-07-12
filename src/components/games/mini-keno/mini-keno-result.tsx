@@ -4,7 +4,7 @@ import React from "react";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max/keno-pro-max";
 import { GetChoiceTranslate } from "../keno-pro-max/keno-pro-max-helper";
-import Styles from "./keno-pro-max-animations.module.scss";
+import Styles from "./mini-keno-animations.module.scss";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
 export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
