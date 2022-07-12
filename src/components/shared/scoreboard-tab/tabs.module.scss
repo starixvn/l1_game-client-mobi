@@ -1,6 +1,6 @@
 [data-theme="light"] .tabs-container {
-    --tabs-type-color: #929292;
-    --tabs-active-type-color: #2c2f3e;
+    --tabs-type-color: #595959;
+    --tabs-active-type-color: #294573;
     --tabs-arrow-icon: #fff;
 }
 
@@ -18,7 +18,7 @@
 
     .type {
         margin-right: 0.5rem;
-        //color: var(--tabs-type-color);
+        color: var(--tabs-type-color);
 
         &.tabs-active {
             color: var(--tabs-active-type-color);

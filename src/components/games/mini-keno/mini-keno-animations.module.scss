@@ -5,7 +5,7 @@
 $number-count: 20;
 
 .animation-container {
-    background-color: #ffdea9;
+    background: #FFD693;
     width: 28.8rem;
     border-radius: 2rem;
     transition: height 0.2s ease;
@@ -24,8 +24,8 @@ $number-count: 20;
         grid-template-columns: 1fr 9rem;
         justify-content: center;
         align-items: center;
-        border-radius: 2rem;
-        background-color: #ffdea9;
+        border-radius: 2rem 2rem;
+        background: linear-gradient(180deg, #FFFFFF 0%, #FFE9C3 3.96%, #FFD693 100%);
     }
 
     .number-container {
@@ -69,7 +69,7 @@ $number-count: 20;
 
     .result-total-number {
         font: 600 3.2rem var(--font-number);
-        color: #cd000e;
+        color: #313131;
     }
 
     .number-cover {
