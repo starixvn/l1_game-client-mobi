@@ -71,7 +71,7 @@ const BetSettings: React.FC<Props> = ({
                         </div>
                         <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[betValue]]}`} onClick={toggleSlidingChip}>
                             <div className={`${Styles["chip-toggle"]} ${isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]}`}>
-                                <img className={Styles["chip-default"]} src={`/static/images/chips/chip-1.svg`} alt="Chip" />
+                                <img className={Styles["chip-default"]} src={`/static/images/chips/chip-close.svg`} alt="Chip" />
                                 <img className={Styles["chip-selected"]} src={`/static/images/chips/${ChipMapper[betValue]}.svg`} alt="Chip" />
                             </div>                            
                             <span className={Styles["value"]}>{ChipLabelMapper[betValue]}</span>

@@ -44,8 +44,8 @@ export const Menu: React.FC<{
                 onClick={() => {
                     setDropdownOpen(!dropdownOpen);
                 }}
-            >
-                <span className={Styles[`${"icon-menu-"}${theme}`]}></span>
+            >                
+                <span className={`icon-menu ${Styles["icon-menu"]}`}></span> 
                 <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
             </div>
             <div className="dropdown">

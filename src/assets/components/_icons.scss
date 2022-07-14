@@ -1,7 +1,7 @@
 [class^="icon-"],
 [class*=" icon-"] {
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: "SabaClub" !important;
+    font-family: "saba-club" !important;
     speak: never;
     font-style: normal;
     font-weight: normal;
@@ -14,161 +14,79 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-help:before {
-    content: "\e911";
-    color: #5e85c0;
-}
-
-.icon-delete:before {
-    content: "\e900";
-}
-
-.icon-dollar:before {
+.icon-history:before {
     content: "\e907";
-    color: #818181;
-}
-
-.icon-arrow-down:before {
-    display: flex;
-    align-items: center;
+    color: #fff;
+  }
+  .icon-menu:before {
     content: "\e90b";
-    color: #825000;
-    font-size: 0.8rem;
-}
-
-.icon-check:before {
-    content: "\e918";
-}
-
-.icon-moon:before {
-    content: "\e90b";
-    color: #f3f3f3;
-}
-
-.icon-edit:before {
+    color: #fff;
+  }
+  .icon-sound-off:before {
+    content: "\e911";
+    color: #fff;
+  }
+  .icon-sound-on:before {
+    content: "\e912";
+    color: #fff;
+  }
+  .icon-coin:before {
+    content: "\e903";
+    color: #f0f0f0;
+  }
+  .icon-arrow-left:before {
+    content: "\e900";
+    color: #fff;
+  }
+  .icon-edit:before {
     content: "\e90a";
     color: #9c9c9c;
-}
-
-.icon-refresh:before {
+  }
+  .icon-refresh:before {
     content: "\e909";
     color: #fff;
-}
-
-.icon-info:before {
+  }
+  .icon-info:before {
     content: "\e908";
     color: #359b5b;
-}
-
-.icon-cancel:before {
+  }
+  .icon-user:before {
+    content: "\e901";
+    color: #afafaf;
+  }
+  .icon-cancel:before {
     content: "\e914";
     color: #9298a4;
-}
-
-.icon-warning:before {
+  }
+  .icon-warning:before {
     content: "\e913";
     color: #ffb52a;
-}
-
-.icon-dragon:before {
-    content: "\e911";
-    color: #ff9a00;
-}
-
-.icon-tiger:before {
-    content: "\e912";
-    color: #de4b56;
-}
-
-.icon-error:before {
+  }
+  .icon-error:before {
     content: "\e90f";
     color: #f00;
-}
-
-.icon-success:before {
+  }
+  .icon-success:before {
     content: "\e910";
     color: #5bb379;
-}
-
-.icon-user-group:before {
+  }
+  .icon-user-group:before {
     content: "\e90e";
     color: #9e9e9e;
-}
-
-.icon-favorite-normal:before {
+  }
+  .icon-favorite-normal:before {
     content: "\e90d";
     color: #fff;
-}
-
-.icon-chip-symbol:before {
+  }
+  .icon-chip-symbol:before {
     content: "\e90c";
     color: #fff;
-}
-
-.icon-menu:before {
-    content: "\e900";
-    color: #9298a4;
-}
-.icon-user:before {
-    content: "\e901";
-    color: #b5b5b5;
-}
-.icon-close:before {
+  }
+  .icon-close:before {
     content: "\e902";
     color: #89898b;
-}
-.icon-favorite:before {
+  }
+  .icon-favorite:before {
     content: "\e904";
     color: #fff;
-}
-.icon-remove:before {
-    content: "\e907";
-}
-
-.icon-ca {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-ca.svg") no-repeat center;
-    background-size: contain;
-}
-
-.icon-tom {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-tom.svg") no-repeat center;
-    background-size: contain;
-}
-
-.icon-cua {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-cua.svg") no-repeat center;
-    background-size: contain;
-}
-
-.icon-nai {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-nai.svg") no-repeat center;
-    background-size: contain;
-}
-
-.icon-bau {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-bau.svg") no-repeat center;
-    background-size: contain;
-}
-
-.icon-ga {
-    display: inline-block;
-    width: 2.9rem;
-    height: 2.9rem;
-    background: url("/static/images/fpc-ga.svg") no-repeat center;
-    background-size: contain;
-}
+  }

@@ -52,7 +52,8 @@ export const Settings: React.FC<Props> = ({
                     className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => onToggleSound()}
                 >
-                    <span className={enabledSound ? styles[`${"icon-sound-on-"}${theme}`] : styles[`${"icon-sound-off-"}${theme}`]}></span>
+                    <span className={enabledSound ? `icon-sound-on ${styles["icon-sound-on"]}` : `icon-sound-off ${styles["icon-sound-off"]}`}></span>
+                    
                     <Tooltip message={`${t("sound")}: ${enabledSound ? t("on") : t("off")}`} hoverWrapper={toggleSoundBtnRef} />
                 </div>
 
@@ -62,7 +63,7 @@ export const Settings: React.FC<Props> = ({
                     className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => toggleHistoryModal()}
                 >
-                    <span className={styles[`${"icon-ticket-history-"}${theme}`]}></span>
+                    <span className={`icon-history ${styles["icon-history"]}`}></span>                    
                     <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                 </div>
 

@@ -49,6 +49,11 @@
     top: 2px;
 }
 
+.icon-menu::before {
+    color: #5875A5;
+    font-size: 1.7rem;
+}
+
 .icon-menu-light {
     @extend %icon-menu;
     background-position: -106px -85px;

@@ -49,6 +49,14 @@
     }
 }
 
+.icon-sound-on::before, 
+.icon-sound-off::before, 
+.icon-history::before,
+.icon-favorite::before {
+    color: #5875A5;
+    font-size: 1.7rem;
+}
+
 %icon-notify {
     @extend %icon;
     width: 2.4rem;
@@ -87,12 +95,12 @@
     background-position: -36px -58px;
 }
 
-.icon-favorite {
-    @extend %icon-notify;
-    background-position: var(--position-icon-favorite);
-    position: relative;
-    top: -1px;
-    &:before {
-        content: none;
-    }
-}
+// .icon-favorite {
+//     @extend %icon-notify;
+//     background-position: var(--position-icon-favorite);
+//     position: relative;
+//     top: -1px;
+//     &:before {
+//         content: none;
+//     }
+// }
