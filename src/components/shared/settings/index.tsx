@@ -1,5 +1,4 @@
 import { useTranslation } from "next-i18next";
-import { useTheme } from "next-themes";
 import React, { useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
@@ -25,8 +24,7 @@ export const Settings: React.FC<Props> = ({
     enabledQuickBet,
     updateEnabledQuickBet,
     isShowQuickBet = false,
-}) => {
-    const { theme } = useTheme();
+}) => {    
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
@@ -73,7 +71,7 @@ export const Settings: React.FC<Props> = ({
                     onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
                     ref={favoriteToggleBtnRef}
                 >
-                    <span className={`icon-favorite ${styles["icon-favorite"]}`}></span>
+                    <span className={`icon-favorite-normal ${styles["icon-favorite-normal"]}`}></span>
                     <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                 </div>
 

@@ -1,5 +1,6 @@
 [data-theme="light"] .header {
-    --header-background: linear-gradient(180deg, #ffffff 50%, #EAEAEA 100%);    
+    --header-background: #243D66;    
+    --header-background-mobi: linear-gradient(180deg, #ffffff 50%, #EAEAEA 100%);
     --header-text-color: var(--text-color);
     --header-balance-color: var(--primary-color);
     --header-border-bottom: #C5C5C5;
@@ -48,7 +49,20 @@
     &.mobile {
         height: 3.8rem;
         position: initial;
-    }
+        background: var(--header-background-mobi);
+
+        .icon-sound-on::before, 
+        .icon-sound-off::before, 
+        .icon-history::before,
+        .icon-favorite-normal::before {
+            
+            font-size: 1.7rem;
+        
+            
+                color: #5875A5;
+            
+        }
+    }    
 }
 
 .icon-user {

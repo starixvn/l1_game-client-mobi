@@ -77,6 +77,7 @@ class AnimationComponent extends React.PureComponent<
     }
 > {
     private animationInterval: NodeJS.Timer;
+    private animationTimeOut: NodeJS.Timer;
     constructor(props) {
         super(props);
         this.state = {
@@ -97,8 +98,12 @@ class AnimationComponent extends React.PureComponent<
                 }
 
                 const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
-                elem.setState({
+                this.animationTimeOut = setTimeout(()=>{
+                    elem.setState({
                     currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
+                    });
+                },700)
+                elem.setState({
                     currentIndex: elem.state.currentIndex + 1,
                 });
             }, 250);
@@ -113,6 +118,7 @@ class AnimationComponent extends React.PureComponent<
 
     componentWillUnmount() {
         this.animationInterval && clearInterval(this.animationInterval);
+        clearTimeout(this.animationTimeOut);
     }
 
     render() {
@@ -126,7 +132,7 @@ class AnimationComponent extends React.PureComponent<
 
                     <div className={Styles["result-total"]}>
                         <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
-                        <div className={Styles["result-total-number"]}>{this.state.currentTotal}</div>
+                        <div className={Styles["result-total-number"]}>{this.state.currentTotal === 0 ? "": this.state.currentTotal}</div>
                     </div>
                 </div>
                 <div className={`${Styles["settle-info-" + rows]}`}>

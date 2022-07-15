@@ -52,9 +52,18 @@
 .icon-sound-on::before, 
 .icon-sound-off::before, 
 .icon-history::before,
-.icon-favorite::before {
+.icon-favorite-normal::before {
     color: #5875A5;
     font-size: 1.7rem;
+}
+
+.desktop-style {
+    .icon-sound-on::before, 
+    .icon-sound-off::before, 
+    .icon-history::before,
+    .icon-favorite-normal::before {
+        color: #fff;  
+    }    
 }
 
 %icon-notify {

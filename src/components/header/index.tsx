@@ -22,13 +22,14 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    return (
+    const logo = isMobileOnly ? "logo-sabamobi" : "Logo-desktop";
+    return (        
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
                         <a onClick={() => window.location.reload()} className={Styles["site-name"]}>                            
-                            <img alt="UM" src={`/static/images/logo-sabamobi.svg?v=2`} className="header-logo" />
+                            <img className="header-logo" alt="UM" src={`/static/images/${logo}.svg?v=2`} />                            
                         </a>
                         <div className={Styles["header-right"]}>
                             {

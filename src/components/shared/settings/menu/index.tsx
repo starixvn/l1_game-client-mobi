@@ -1,8 +1,8 @@
-import { useTheme } from "next-themes";
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "next-i18next";
 import { CommonResourceKeys, ResourceTypes } from "../../../../common/resources";
 import { Tooltip } from "../../tooltip";
+import { isMobileOnly } from "react-device-detect";
 import Styles from "./menu.module.scss";
 
 const dropdownItemClassName = "dropdown-item";
@@ -15,8 +15,8 @@ export const Menu: React.FC<{
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const toggleBtnRef = useRef<HTMLDivElement>(null);
-    const { theme } = useTheme();
+    const toggleBtnRef = useRef<HTMLDivElement>(null);    
+    const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
 
     const openGuide = () => {
         handleToggleGuideModal();
@@ -37,7 +37,7 @@ export const Menu: React.FC<{
     }, [wrapperRef]);
 
     return (
-        <div className={Styles["game-menu"]} ref={wrapperRef}>
+        <div ref={wrapperRef} className={`${Styles["game-menu"]} ${Styles[specialClassByDevice]}`}>
             <div
                 ref={toggleBtnRef}
                 className={`${Styles["menu-toggle-btn"]}`}

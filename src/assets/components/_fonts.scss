@@ -79,6 +79,14 @@
     font-display: swap;
 }
 
+/* sf-light */
+@font-face {
+    font-family: "SanFranciscoDisplay";
+    src: url("/static/fonts/SF-Pro-Display-Light.otf") format("opentype");
+    font-weight: 400;
+    font-display: swap;
+}
+
 
 /* sf-regular */
 @font-face {
@@ -88,10 +96,10 @@
     font-display: swap;
 }
 
-/* sf-bold */
+/* sf-semi bold */
 @font-face {
     font-family: "SanFranciscoDisplay";
-    src: url("/static/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+    src: url("/static/fonts/SF-Pro-Display-Semibold.otf") format("opentype");
     font-weight: bold;
     font-display: swap;
 }

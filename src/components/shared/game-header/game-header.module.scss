@@ -89,11 +89,12 @@
         flex-direction: column;
         justify-content: center;        
         z-index: 1;        
+        margin-left: 1rem;
     }
 
     .title {
         line-height: 2rem;
-        font-weight: bold;
+        font-weight: 600;
         font-size: 1.5rem;
         color: var(--game-header-game-name-color);
         letter-spacing: 0.5px;
@@ -104,13 +105,14 @@
 
         @media (max-width: 575.99px) {
             font-size: 1.5rem;
-        }
+        }        
     }
 
     .round {
         color: var(--game-header-round-id-color);
         font-family: var(--font-number);
         font-size: 1.4rem;
+        font-weight: 400;
         width: auto;
         overflow: hidden;
         white-space: nowrap;
