@@ -72,7 +72,7 @@ const Timer = () => {
 
     return (
         <div className={`${styles.timer} ${styles[gameName]}`}>
-            <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF0707" : "#15E84B", 1]]}>
+            <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#BE2828" : "#15E84B", 1]]}>
                 {({ remainingTime }) => {
                     if (remainingTime === 0) {
                         return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });

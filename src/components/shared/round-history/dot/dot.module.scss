@@ -95,11 +95,14 @@
 
 .dot-grid-even {
     @extend %dot;
-    background: linear-gradient(180deg, #F7F7F7 0%, #DBDBDB 100%);    
+    background: linear-gradient(180deg, #F7F7F7 0%, #B5B5B5 100%);
+    
+        
     color: var(--dot-even-text-color);
+    font-weight: 500;
 
     &:before {
-        background: linear-gradient(180deg, #EEEEEE 0%, #E5E5E5 100%);
+        background: linear-gradient(180deg, #EEEEEE 0%, #CCCCCC 100%);
     }
 }
 
