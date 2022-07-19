@@ -68,16 +68,16 @@
         color: var(--game-header-icon-favourite);
     }
 }
-.favorite-btn,
-.zone-none-favorite {
-    width: 3rem;
-    height: 100%;
+.favorite-btn {
+    width: 3rem;    
     @media (min-width: 1024px) and (max-width: 1278px) {
         width: 2rem;
     }
 }
+
 .zone-none-favorite  {
-    width: 0;
+    width: 1rem;
+    height: 100%;
 }
 
 .header-left {
@@ -89,7 +89,6 @@
         flex-direction: column;
         justify-content: center;        
         z-index: 1;        
-        margin-left: 1rem;
     }
 
     .title {

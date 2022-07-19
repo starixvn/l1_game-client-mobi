@@ -54,12 +54,6 @@
     font-size: 1.7rem;
 }
 
-.desktop-style {
-    .icon-menu::before {
-        color: #fff;
-    }
-}
-
 .icon-menu-light {
     @extend %icon-menu;
     background-position: -106px -85px;
