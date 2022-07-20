@@ -12,6 +12,7 @@ type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
+    isShowPoolStake: boolean;
 };
 
 const choiceWithoutTooltip = ["odd", "even"];
@@ -32,8 +33,9 @@ const renderBetOptionByChoice: React.FC<{
     gameState: GameState;
     isHighLight: boolean;
     isShowWinningEffect: boolean;
+    isShowPoolStake: boolean;
     tooltipMessage: string;
-}> = ({ choice, label, odd, gameState, isHighLight, isShowWinningEffect, tooltipMessage }) => {
+}> = ({ choice, label, odd, gameState, isHighLight, isShowWinningEffect, isShowPoolStake, tooltipMessage }) => {
     return (
         <BetOption
             choice={choice}
@@ -44,6 +46,7 @@ const renderBetOptionByChoice: React.FC<{
             isShowWinningEffect={isShowWinningEffect}
             isShowTooltip={!choiceWithoutTooltip.includes(choice)}
             tooltipMessage={tooltipMessage}
+            isShowPoolStake={isShowPoolStake}
         >
             <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{label}</div>
         </BetOption>
@@ -51,7 +54,7 @@ const renderBetOptionByChoice: React.FC<{
 };
 
 const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect } = props;
+    const { gameState, settlementResult, isShowWinningEffect, isShowPoolStake } = props;
     const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
 
@@ -69,6 +72,7 @@ const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
                             gameState,
                             isHighLight,
                             isShowWinningEffect,
+                            isShowPoolStake,
                             tooltipMessage: tooltipMessageFollowChoice[choice],
                         })}
                     </div>

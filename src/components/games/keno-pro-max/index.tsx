@@ -25,6 +25,10 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
         return this.getFinishAnimationDuration() + 1000;
     }
 
+    get isShowPoolStake() {
+        return true;
+    }
+
     get isShowInlineResult() {
         return true;
     }
@@ -69,6 +73,7 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
                     gameState={gameState}
                     settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                     isShowWinningEffect={showWinningAnimation}
+                    isShowPoolStake={this.isShowPoolStake}
                 />
             </>
         );

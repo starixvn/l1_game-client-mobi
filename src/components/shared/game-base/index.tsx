@@ -1054,7 +1054,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                                 {this.state.notice && this.renderNotice()}
                                 {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
                                     <WinningBet amount={this.betWin} />
-                                )}                                
+                                )}
                             </BetContainer>
                             <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>
                                 {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}

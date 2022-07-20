@@ -28,6 +28,10 @@ export class MiniKeno extends KenoProMax {
         return false;
     }
 
+    get isShowPoolStake() {
+        return false;
+    }
+
     get winningAnimationWaitingTimeInSecond() {
         return this.props.durations.showResult * 1000;
     }
