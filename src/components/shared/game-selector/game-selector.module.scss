@@ -22,11 +22,12 @@
 
     &:after {
         position: absolute;
-        content: "\e90b";
+        content: "\e900";
         right: 0.6rem;
-        font-family: "SabaClub" !important;
+        font-family: "saba-club" !important;
         font-size: 0.8rem;
         color: var(--select-dropdown-icon-color);
+        transform: rotate(-90deg);
     }
 }
 .dropdown-menu {
