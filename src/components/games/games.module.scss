@@ -23,7 +23,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 0.4rem;
-    margin-bottom: 10.5rem;
+    margin-bottom: 5.5rem;
     background-color: transparent;
     align-content: flex-start;
 
@@ -37,11 +37,27 @@
         margin-right: -0.3rem;
     }
 
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
-        &.ios-device {
-            margin-bottom: 13rem;
+     @media (min-device-width: 375px) and (min-device-height: 668px) {
+         &.ios-device {
+             margin-bottom: 6rem;
+         }
+     }
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.open-chips .game-list {
+        margin-bottom: 10.5rem;
+
+        @media (min-device-width: 375px) and (min-device-height: 668px) {
+            &.ios-device {
+                margin-bottom: 13rem;
+            }
         }
-    }
 }
 
 .game-container {

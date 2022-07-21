@@ -354,6 +354,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         favoriteGames={favoriteGames}
                         userOfferGames={offerGames}
                         queryGame={this.props.queryGame}
+                        isShowSlidingChip={isShowSlidingChip}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}

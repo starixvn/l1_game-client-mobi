@@ -77,7 +77,8 @@ $number-count: 20;
     }
 
     .result-total-number {
-        font: 500 2rem/1.2rem var(--font-number);
+        font: 600 2rem/1.2rem var(--font-number);
+        color: #CD000E;
     }
 }
 
@@ -136,7 +137,7 @@ $number-count: 20;
 
     .result-container-collapse {
         position: absolute;
-        left: 1rem;
+        left: 2.5rem;
         display: grid;
         grid-template-columns: repeat(10, 2.2rem);        
         grid-gap: 0.3rem;

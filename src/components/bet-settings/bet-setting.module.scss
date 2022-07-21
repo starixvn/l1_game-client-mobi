@@ -42,19 +42,21 @@
     height: 5.4rem;
     background: var(--bet-settings-background);
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.3);
+    transform: translate3d(0, 6rem, 0);
+    transition: all 0.2s ease-in;
+    position: fixed;
+    bottom: 4.4rem;
 
     // For Ipad and Desktop
     @media (min-device-width: 768px) {
         height: 8rem;
+        position: relative;
+        bottom: 0;
     }
 
-    &.open-animation {
-        animation: bottom-to-top 0.2s ease-in forwards;
-    }
-
-    &.close-animation {
-        animation: top-to-bottom 0.2s ease-in forwards;
-    }
+    &.open-animation {        
+        transform: translate3d(0, 0, 0);
+    }    
 }
 
 .container {
@@ -284,6 +286,10 @@
     @media (min-device-width: 375px) and (min-device-height: 668px) {
         .settings-container {
             height: 6.9rem;
+
+            &.open-animation {        
+                transform: translate3d(0, -1rem, 0);
+            }
         }
 
         .footer {
