@@ -8,12 +8,22 @@ import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
 import { RoundResult, RoundResultCollapse } from "./round-result";
-import KenoProMaxBetOptions from "./bet-options";
+import KenoProMaxBetOptions, { TooltipMessageFollowChoiceProps } from "./bet-options";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
 
 const DefaultResult = Array(20).fill(0);
+export const DefaultTooltipMessageFollowChoiceProps = {
+    big: `[811~1410]`,
+    small: `[210~810]`,
+    gold: `[210~695]`,
+    wood: `[696~763]`,
+    water: `[764~855]`,
+    fire: `[856~923]`,
+    earth: `[924~1410]`,
+};
+
 export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Result, SettlementResult>> {
     constructor(props: GatewayGameBaseProps) {
         super(props);
@@ -39,6 +49,10 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
 
     get defaultSettlementResult() {
         return {};
+    }
+
+    get tooltipMessageFollowChoiceProps(): TooltipMessageFollowChoiceProps {
+        return DefaultTooltipMessageFollowChoiceProps;
     }
 
     getMainOptions(): string[] {
@@ -74,6 +88,7 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
                     settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                     isShowWinningEffect={showWinningAnimation}
                     isShowPoolStake={this.isShowPoolStake}
+                    tooltipMessageFollowChoiceProps={this.tooltipMessageFollowChoiceProps}
                 />
             </>
         );

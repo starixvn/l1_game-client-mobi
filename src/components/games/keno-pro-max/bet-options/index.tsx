@@ -8,23 +8,25 @@ import { SettlementResult } from "../keno-pro-max";
 import { Choices } from "../keno-pro-max-helper";
 import Styles from "./bet-options.module.scss";
 
+export type TooltipMessageFollowChoiceProps = {
+    big: string;
+    small: string;
+    gold: string;
+    wood: string;
+    water: string;
+    fire: string;
+    earth: string;
+};
+
 type Props = {
     settlementResult: SettlementResult;
     gameState: GameState;
     isShowWinningEffect: boolean;
     isShowPoolStake: boolean;
+    tooltipMessageFollowChoiceProps: TooltipMessageFollowChoiceProps;
 };
 
 const choiceWithoutTooltip = ["odd", "even"];
-const tooltipMessageFollowChoice = {
-    big: `[811~1410]`,
-    small: `[210~810]`,
-    gold: `[210~695]`,
-    wood: `[696~763]`,
-    water: `[764~855]`,
-    fire: `[856~923]`,
-    earth: `[924~1410]`,
-};
 
 const renderBetOptionByChoice: React.FC<{
     choice: string;
@@ -54,7 +56,7 @@ const renderBetOptionByChoice: React.FC<{
 };
 
 const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, isShowWinningEffect, isShowPoolStake } = props;
+    const { gameState, settlementResult, isShowWinningEffect, isShowPoolStake, tooltipMessageFollowChoiceProps } = props;
     const { gameConfigs, gameSetting } = useGameContext();
     const { odds } = gameConfigs;
 
@@ -73,7 +75,7 @@ const KenoProMaxBetOptions: React.FunctionComponent<Props> = (props) => {
                             isHighLight,
                             isShowWinningEffect,
                             isShowPoolStake,
-                            tooltipMessage: tooltipMessageFollowChoice[choice],
+                            tooltipMessage: tooltipMessageFollowChoiceProps[choice],
                         })}
                     </div>
                 );

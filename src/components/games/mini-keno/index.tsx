@@ -4,7 +4,18 @@ import React from "react";
 
 import { RoundResultCollapse } from "../keno-pro-max/round-result";
 import { MegaKenoResult } from "./mini-keno-result";
-import { KenoProMax } from "../keno-pro-max";
+import { KenoProMax, DefaultTooltipMessageFollowChoiceProps } from "../keno-pro-max";
+import { TooltipMessageFollowChoiceProps } from "../keno-pro-max/bet-options";
+
+const KenoMiniTooltipMessageFollowChoiceProps = {
+    big: `[206~355]`,
+    small: `[55~205]`,
+    gold: `[55~163]`,
+    wood: `[164~187]`,
+    water: `[188~222]`,
+    fire: `[223~246]`,
+    earth: `[247~355]`,
+};
 
 export class MiniKeno extends KenoProMax {
     getFakeSettlementResult() {
@@ -34,6 +45,15 @@ export class MiniKeno extends KenoProMax {
 
     get winningAnimationWaitingTimeInSecond() {
         return this.props.durations.showResult * 1000;
+    }
+
+    get tooltipMessageFollowChoiceProps(): TooltipMessageFollowChoiceProps {
+        return this.isKenoMini() ? KenoMiniTooltipMessageFollowChoiceProps : DefaultTooltipMessageFollowChoiceProps;
+    }
+
+    isKenoMini(): boolean {
+        const { id } = this.props;
+        return id === 14 || id === 15;
     }
 
     getFakeResult() {
