@@ -124,19 +124,17 @@
     }
 }
 
-.hint-one-click-bet {
-    bottom: 5.5rem;
+.hint-one-click-bet {    
     right: 0.5rem;
     width: 40rem;    
-    z-index: 1;    
-    animation-name: bottomFadeIn;
-    animation-duration: 1s;
-    animation-delay: 2s;
+    z-index: 1; 
+    bottom: 5.5rem;       
 
     &.isMobile {
         bottom: 3.6rem;
         right: -0.6rem;
         width: calc(100vw - 1rem);
+
         &:before {
             bottom: -1.5rem;
             border-color: #fff1b2 transparent transparent transparent;
@@ -159,15 +157,27 @@
         @media (min-width: 768px) {
             min-width: 15.2rem;
         }
-    }
+    }    
 }
 
 @keyframes bottomFadeIn {
     0% {        
-        bottom: 0rem;       
+        bottom: 0rem;  
+        opacity: 0;     
     }
 
     100% {        
-        bottom: 5.5rem;              
+        bottom: 5.5rem;        
+        opacity: 1;      
+    }   
+}
+
+@keyframes blinkBackground {
+    0% {        
+        background: #ffe881;     
+    }
+
+    100% {        
+        background: #fff1b2;      
     }   
 }
