@@ -104,6 +104,26 @@
     &:before {
         background: linear-gradient(180deg, #EEEEEE 0%, #CCCCCC 100%);
     }
+    &.kenopromax,
+    &.kenomatch1,
+    &.kenomatch2,
+    &.kenopower1,
+    &.kenopower2,
+    &.megakeno,
+    &.megakeno2,
+    &.kenomini,
+    &.kenomini2,
+    &.kenosouth,
+    &.kenoeast,
+    &.kenowest,
+    &.kenonorth {
+        color: #fff;
+        background: linear-gradient(180deg, #569CE9 -6.58%, #1F5E9F 100%);
+
+        &:before {
+            background: linear-gradient(180deg, #4C91E2 0%, #306CA6 100%);
+        }
+    }
 }
 
 .dot-odd {
@@ -138,7 +158,7 @@
 
     &:before {
         background: linear-gradient(180deg, rgba(250,55,68,1) 6.04%, rgba(205,13,27,1) 100%);
-    }
+    }    
 }
 
 // dragon-tiger
