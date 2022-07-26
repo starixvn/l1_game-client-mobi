@@ -95,7 +95,7 @@ export const Games: React.FC<Props> = ({
     const [selectedPage, setSelectedPage] = useState(+urlHashtag[1] + 1 || 1);
     const winningStreakRef = useRef(null);
     const { theme } = useTheme();
-    history.pushState(null, "", `#${getCategoryHashTag(queryCategory, selectedPage)}`);
+    location.hash = `#${getCategoryHashTag(queryCategory, selectedPage)}`;
     const socketGatewayRef = useRef<Socket>(null);
     const [socketState, setSocketState] = useState<SocketState>(SocketState.None);
 
