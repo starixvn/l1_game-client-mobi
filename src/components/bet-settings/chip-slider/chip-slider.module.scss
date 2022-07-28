@@ -10,7 +10,7 @@
     width: 3rem;
     color: #fff;
     font-size: 2rem;
-    @media (min-width: 768px){
+    @media (min-width: 768px) {
         top: calc(50% - 2.5rem);
     }
 
@@ -68,7 +68,7 @@
             top: -0.4rem;
         }
     }
-    
+
     transition: all -0.1s ease-in;
 
     &.selected {
@@ -118,7 +118,7 @@
         outline: none;
     }
 
-    @media (hover: hover) {
+    @media (hover: hover) and (pointer: fine) {
         &:hover {
             cursor: pointer;
             &:before {
@@ -157,7 +157,7 @@
         }
     }
 
-    @media (min-device-width: 375px) and (min-device-height: 668px){
+    @media (min-device-width: 375px) and (min-device-height: 668px) {
         --ratio: 1.1;
         &.selected {
             --ratio: 1.25;

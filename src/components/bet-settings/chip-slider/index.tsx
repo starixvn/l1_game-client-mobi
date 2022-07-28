@@ -102,6 +102,9 @@ export const ChipSlider: React.FC<{
 
     useEffect(() => {
         if (sliderRef) {
+            isSwipe = false;
+            const chipIndex = ChipValues.indexOf(selectedChip);
+            sliderRef.slickGoTo(chipIndex);
             updateArrowsByChipValue(selectedChip);
         }
     }, []);
