@@ -1,13 +1,13 @@
 {
-    "socketGatewayUri": "https://l1gwuat.sgamesuat.com",
+    "socketGatewayUri": "https://l1gwsit.sgamesuat.com",
     "proxy": {
         "ssl": true,
         "uri": "l1uatproxy.sgamesuat.com",
-        "path": "/uat"
+        "path": "/sit"
     },
     "sentry": {
         "dsn": "https://936d6f9d99064ccdab5bece39bc3bc07@scsentry.sgamesuat.com/258",
-        "environment": "UAT"
+        "environment": "SIT"
     },
     "offeredGames": [
         22,
@@ -36,7 +36,8 @@
         19
     ],
     "enableSourceMap": false,
-    "guideUrl": "https://l1guidesuat.sgamesuat.com",
+    "guideUrl": "https://l1guidessit.sgamesuat.com",
     "googleAnalyticId": "G-X1Q507KDPB",
-    "enableMsgpackParser": true
+    "enableMsgpackParser": true,
+    "system": "L1"
 }

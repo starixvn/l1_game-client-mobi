@@ -21,4 +21,5 @@ export default interface AppSettings {
     guideUrl: string;
     googleAnalyticId: string;
     enableMsgpackParser: boolean;
+    system: string;
 }

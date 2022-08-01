@@ -1,0 +1,34 @@
+{
+    "socketGatewayUri": "https://l2-gw1.lumigame.com",
+    "proxy": {
+        "ssl": true,
+        "uri": "l2-proxy1.lumigame.com",
+        "path": ""
+    },
+    "sentry": {
+        "dsn": "https://234faaab51664e48a2e75c1964a42ca0@sentry.lumigame.com/32",
+        "environment": "LOCAL_1"
+    },
+    "offeredGames": [
+        22,
+        2,
+        9,
+        1,
+        4,
+        24,
+        3,
+        7,
+        27,
+        10,
+        35,
+        8,
+        40,
+        41,
+        36,
+        37
+    ],
+    "enableSourceMap": true,
+    "enableMsgpackParser": false,
+    "guideUrl": "https://l2-guide-1.lumigame.com",
+    "system": "L2"
+}

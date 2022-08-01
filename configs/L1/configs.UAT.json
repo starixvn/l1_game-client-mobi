@@ -1,13 +1,13 @@
 {
-    "socketGatewayUri": "https://gw.sabagame.com",
+    "socketGatewayUri": "https://l1gwuat.sgamesuat.com",
     "proxy": {
         "ssl": true,
-        "uri": "proxy.sabagame.com",
-        "path": ""
+        "uri": "l1uatproxy.sgamesuat.com",
+        "path": "/uat"
     },
     "sentry": {
-        "dsn": "https://65f2ba49d2e04240b998eb783efc9315@sentry.sabagame.com/156",
-        "environment": "PROD"
+        "dsn": "https://936d6f9d99064ccdab5bece39bc3bc07@scsentry.sgamesuat.com/258",
+        "environment": "UAT"
     },
     "offeredGames": [
         22,
@@ -36,7 +36,8 @@
         19
     ],
     "enableSourceMap": false,
-    "guideUrl": "https://guides.sabagame.com",
+    "guideUrl": "https://l1guidesuat.sgamesuat.com",
     "googleAnalyticId": "G-X1Q507KDPB",
-    "enableMsgpackParser": true
+    "enableMsgpackParser": true,
+    "system": "L1"
 }
