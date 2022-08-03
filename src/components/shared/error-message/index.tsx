@@ -40,7 +40,7 @@ export const ConnectFailedMessage: React.FC<{ gameName: string; onSubmit: () => 
                     <Trans t={t}>{t(reason, { gameName: gameName })}</Trans>
                 </div>
                 <div className={Styles["list-action"]}>
-                    <button onClick={() => onSubmit()} className={`btn-blue w-100 ${Styles["reconnect"]}`}>
+                    <button onClick={() => onSubmit()} className={`btn-red w-100 ${Styles["reconnect"]}`}>
                         {reason === ConnectFailedReasonKey.lostConnection ? t("common:socketReconnect") : "Ok"}
                     </button>
                 </div>

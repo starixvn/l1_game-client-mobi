@@ -156,7 +156,7 @@ export const FavoriteSetting: React.FC<{
                 <button className={`btn-grey`} onClick={onClickReset}>
                     {t("reset")}
                 </button>
-                <button className={`btn-blue`} onClick={onSubmit}>
+                <button className={`btn-red`} onClick={onSubmit}>
                     {t("save")}
                 </button>
             </div>

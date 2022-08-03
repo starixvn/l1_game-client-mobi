@@ -2,25 +2,25 @@
     --favorite-setting-background: #fff;
     --favorite-setting-border: #bfbfbf;
 
-    --btn-favorite-background: linear-gradient(180deg, #91B1E7 0%, #4C6B9F 100%);
-    --btn-favorite-border: linear-gradient(180deg, #4D72AF 0%, #37527E 100%);
+    --btn-favorite-background: linear-gradient(180deg, #5382CB 0%, #254C8B 100%);
+    --btn-favorite-border: #1C3661;
     --btn-favorite-shadow-inner: inset 0 0.2rem 0.3rem #fff;
     --btn-favorite-background-hover: linear-gradient(180deg, #91B1E7 0%, #3a5585 100%);
    
-    --btn-un-favorite-border: #385481;
+    --btn-un-favorite-border: #1C3661;
 
-    --icon-favorite: #fff;
-    --icon-un-favorite: #385481;
+    --icon-favorite: #FFCC33;
+    --icon-un-favorite: #1C3661;
 
-    --game-favorite-background: linear-gradient(180deg, #7F9DCF 0%, #5E7CAE 100%);
-    --game-favorite-border: linear-gradient(180deg, #6A8CC1 0%, #3E639F 100%);
+    --game-favorite-background: linear-gradient(180deg, #4B6FA7 0%, #2D4976 100%);
+    --game-favorite-border: linear-gradient(180deg, #3D5C8C 0%, #1B3154 100%);
 
-    --game-un-favorite-background: linear-gradient(180deg, #E5F2FF 0%, #CDE7FF 100%);
-    --game-un-favorite-border: linear-gradient(180deg, #C3E2FF 0%, #9DCFFD 100%);   
+    --game-un-favorite-background: linear-gradient(180deg, #FAFAFA 0%, #CDE7FF 100%, #CDE7FF 100%);
+    --game-un-favorite-border: linear-gradient(180deg, #C3E2FF 0%, #9DCFFD 100%);  
     
     
     --icon-move-color: #fff;
-    --icon-move-hover-color: #314970;
+    --icon-move-hover-color: #1C3661;
 
     --game-text-color: #fff;
     --seperate-line-color: #c9c9c9;
@@ -32,66 +32,66 @@
     top: 8.9rem;
     bottom: 0;
     width: 27rem;
-    overflow: auto;
-    padding: 0 1rem 1rem;
-    border-radius: 0.5rem 0 0 0;
+    overflow: auto;    
+    border-radius: 0.5rem;
     border: 0.1rem solid var(--favorite-setting-border);
     box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.25);
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
     transform: scale(1);
 
-    @media (min-device-width: 768px) {
+    @media (min-device-width: 768px) {       
         position: absolute;
         right: 17.8rem;
         top: 4.1rem;
+        overflow: initial;   
         bottom: auto;
-        max-height: calc(100vh - 13rem);
-        border-radius: 0 0 0 0.5rem;
     }
 
-    @media (min-device-width: 768px) and (min-height: 768px) {
+     @media (min-device-width: 768px) and (min-height: 768px) {
         max-height: 70rem;
+     }
+
+    .main-content {        
+        max-height: 64rem;
+        overflow: auto;
+        padding: 0 1rem 6rem 1rem;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+        }
     }
 
-    &.mobile {
+    .actions {
         position: fixed;
-        top: 3.8rem;
         bottom: 0;
-        margin-right: 0.5rem;
-        border-radius: 0.5rem;
+        z-index: 99;
+        background: var(--favorite-setting-background);  
+        padding: 1rem;      
+        width: 100%;
+    }
+
+    &.mobile {        
+        top: 3.8rem;       
+        margin-right: 0.5rem;       
         overflow: hidden;
         padding-bottom: 0;
         padding: 0;
 
         .main-content {
             padding: 0 1rem 0 1rem;
-            max-height: calc(100% - 10rem);
-            overflow: auto;
-
-            &::-webkit-scrollbar {
-                width: 4px;
-            }
-
-            &::-webkit-scrollbar-thumb {
-                border-radius: 4px;
-                background-color: rgba(0, 0, 0, 0.4);
-                -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
-            }
-
-            &::-webkit-scrollbar-track {
-                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
-            }
-        }
-
-        .actions {
-            position: fixed;
-            bottom: 0;
-            z-index: 99;
-            background: var(--favorite-setting-background);
-            padding: 1rem;
-            width: 100%;
-        }
+            max-height: calc(100% - 10rem);            
+        }        
     }
 
     &.open-animation {

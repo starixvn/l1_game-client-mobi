@@ -144,7 +144,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                 </div>
                 {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 
-                <button className={`${Styles["btn-blue"]} ${Styles["btn-submit"]}`} type="submit">
+                <button className={`${Styles["btn-red"]} ${Styles["btn-submit"]}`} type="submit">
                     {t("common:enterGameBtn")}
                 </button>
             </form>
@@ -187,7 +187,7 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
                     <button className="btn-grey" onClick={onClose} type="button">
                         {t("common:cancel")}
                     </button>
-                    <button className="btn-blue" onClick={submit} type="button" data-testid="btn-submit-gallery">
+                    <button className="btn-red" onClick={submit} type="button" data-testid="btn-submit-gallery">
                         {t("common:ok")}
                     </button>
                 </div>

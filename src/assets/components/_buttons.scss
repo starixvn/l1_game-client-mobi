@@ -75,6 +75,20 @@
     }
 }
 
+.btn-red {
+    @extend %btn;
+    background: var(--btn-red-background);
+    color: var(--btn-orange-color);
+
+    &:hover:enabled {
+        background: var(--btn-red-background-hover);
+    }
+
+    &:active {
+        background-color: var(--btn-red-background-hover);
+    }
+}
+
 .btn-grey {
     @extend %btn;
     background: var(--btn-grey-background);

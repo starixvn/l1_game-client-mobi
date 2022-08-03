@@ -1,8 +1,8 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #7591C1 0%, #5978AA 100%);
+    --game-header-background: linear-gradient(180deg, #5075AF 0%, #2D4976 100%);
     --game-header-shadow: inset 0px 2px 4px #A5C7FF;
     --game-header-overlay-image: url(/static/images/game-header-overlay.png);
-    --game-header-icon-favourite: #fff;
+    --game-header-icon-favourite: #FFCC33;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
     --game-header-icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
@@ -13,7 +13,7 @@
     --btn-rebet-color: #fff;
     --btn-rebet-background-hover: #fff;
     --btn-rebet-color-hover: #ff9a00;
-    --game-header-result-background: rgba(52, 82, 146, 0.7);
+    --game-header-result-background: rgba(45, 73, 118, 0.6);
 }
 
 .header {
@@ -69,10 +69,7 @@
     }
 }
 .favorite-btn {
-    width: 3rem;    
-    @media (min-width: 1024px) and (max-width: 1278px) {
-        width: 2rem;
-    }
+    width: 3rem;        
 }
 
 .zone-none-favorite  {

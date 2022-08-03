@@ -22,7 +22,7 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const logo = isMobileOnly ? "logo-sabamobi" : "Logo-desktop";
+    const logo = "Logo-desktop";
     return (        
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">

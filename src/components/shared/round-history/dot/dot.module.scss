@@ -78,11 +78,20 @@
     &:before {
         background: var(--dot-even-background);
     }
+          
     &.kenopromax,
     &.kenomatch1,
     &.kenomatch2,
     &.kenopower1,
-    &.kenopower2 {
+    &.kenopower2,
+    &.megakeno,
+    &.megakeno2,
+    &.kenomini,
+    &.kenomini2,
+    &.kenosouth,
+    &.kenoeast,
+    &.kenowest,
+    &.kenonorth {
         color: #fff;
         background: var(--bigSmall-dot-big-border);
         box-shadow: var(--bigSmall-dot-big-shadow);
@@ -149,6 +158,8 @@
             background: var(--bigSmall-dot-small-background);
         }
     }
+
+
 }
 
 .dot-grid-odd {

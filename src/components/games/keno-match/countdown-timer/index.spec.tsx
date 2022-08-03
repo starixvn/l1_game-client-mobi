@@ -30,7 +30,7 @@ describe("Timer", () => {
 
     test.each`
         lockingBet | expectedColor
-        ${true}    | ${"#BE2828"}
+        ${true}    | ${"#FF7B7B"}
         ${false}   | ${"#15e84b"}
     `("always render color correctly", ({ lockingBet, expectedColor }) => {
         render(<Timer {...buildTimerProps(lockingBet)} />);
