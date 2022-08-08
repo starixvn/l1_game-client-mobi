@@ -179,7 +179,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = getSettleResult(result, settlementResult);
+    const settleResult = getSettleResult(result, settlementResult);    
 
     return (
 

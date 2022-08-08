@@ -14,10 +14,21 @@ export enum ResultClassState {
     betHistory,
 }
 
-export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
+export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {    
     const classResultMapping = {
         [ResultClassState.result]: "keno-pro-max",
         [ResultClassState.collapse]: "keno-pro-max-collapse",
+        [ResultClassState.betHistory]: "keno-pro-max-bet-history",
+    };
+    return result.map((number: number, index: number) => (
+        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classResultMapping[mode]} />
+    ));
+};
+
+export const generateResultMegaKeno = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
+    const classResultMapping = {
+        [ResultClassState.result]: "keno-pro-max",
+        [ResultClassState.collapse]: "mega-keno-collapse",
         [ResultClassState.betHistory]: "keno-pro-max-bet-history",
     };
     return result.map((number: number, index: number) => (
@@ -126,11 +137,34 @@ export const RoundResultCollapse: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;
+    const rows = result.length / 5;   
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
             <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
+            {!playResultAnimation && (
+                <div className={Styles["result-label"]}>
+                    <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export const MegaKenoRoundResultCollapse: React.FC<{
+    result: Result;
+    settlementResult: SettlementResult;
+    gameState: GameState;
+}> = ({ result, settlementResult, gameState }) => {
+    const { playResultAnimation, gameSetting } = useGameContext();
+    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const total = getTotalPoint(result);
+    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
+    const rows = result.length / 5;   
+
+    return (
+        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>{generateResultMegaKeno(result, isAnimation, ResultClassState.collapse)}</div>
             {!playResultAnimation && (
                 <div className={Styles["result-label"]}>
                     <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}

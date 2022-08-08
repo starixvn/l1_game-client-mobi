@@ -283,7 +283,7 @@
 
 // Iphone X or newer
 .ios-device {
-    @media (min-device-width: 375px) and (min-device-height: 668px) {
+    @media (min-device-width: 375px) and (min-device-height: 667px) {
         .settings-container {
             height: 6.9rem;
 
@@ -302,6 +302,10 @@
 .android-device {
     .settings-container {
         height: 6.9rem;
+
+        &.open-animation {        
+            transform: translate3d(0, -1rem, 0);
+        }
     }
 
     .container {
@@ -309,7 +313,7 @@
     }
 
     .footer {
-        height: 4.9rem;
+        height: 5.4rem;
     }
 }
 

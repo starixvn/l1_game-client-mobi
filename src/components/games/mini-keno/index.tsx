@@ -2,7 +2,7 @@ import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
 
-import { RoundResultCollapse } from "../keno-pro-max/round-result";
+import { MegaKenoRoundResultCollapse, RoundResultCollapse } from "../keno-pro-max/round-result";
 import { MegaKenoResult } from "./mini-keno-result";
 import { KenoProMax, DefaultTooltipMessageFollowChoiceProps } from "../keno-pro-max";
 import { TooltipMessageFollowChoiceProps } from "../keno-pro-max/bet-options";
@@ -71,7 +71,7 @@ export class MiniKeno extends KenoProMax {
     renderResultCollapse() {
         const { result, settlementResult, gameState } = this.state;
         return (
-            <RoundResultCollapse
+            <MegaKenoRoundResultCollapse
                 result={result ?? this.getFakeResult()}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}

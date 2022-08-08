@@ -17,7 +17,37 @@
         height: 2.2rem;
         width: 2.2rem;
     }
+
+    &.mega-keno-collapse {
+        height: 2.2rem;
+        width: 2.2rem;
+    }
 }
+
+.mega-keno-collapse.has-animation {
+    &.number {
+        opacity: 0;
+    }
+
+    @for $i from 1 through 20 {
+        &.number:nth-child(#{21 - $i}) {
+            animation: show-value 0.1s ease-in-out forwards;
+            animation-delay: calc(0.1s * #{$i});
+        }
+    }
+
+    @keyframes show-value {
+        from {
+            opacity: 0;
+            transform: scale3d(0, 0, 0);
+        }
+        to {
+            opacity: 1;
+            transform: scale3d(1, 1, 1);
+        }
+    }
+} 
+
 
 .has-animation {
     &.number {

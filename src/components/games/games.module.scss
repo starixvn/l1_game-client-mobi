@@ -23,7 +23,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     margin-top: 0.4rem;
-    margin-bottom: 5.5rem;
+    margin-bottom: 8.5rem;
     background-color: transparent;
     align-content: flex-start;
 
@@ -37,11 +37,19 @@
         margin-right: -0.3rem;
     }
 
-     @media (min-device-width: 375px) and (min-device-height: 668px) {
-         &.ios-device {
-             margin-bottom: 6rem;
-         }
-     }
+    &.android-device {
+        margin-bottom: 6rem;
+    }
+    
+    &.ios-device {
+        margin-bottom: 5.5rem;
+    }
+
+    @media (min-device-width: 375px) and (min-device-height: 667px) {
+        &.ios-device {
+            margin-bottom: 5.8rem;
+        }         
+    }     
 }
 
 .container {
@@ -50,14 +58,16 @@
     margin: 0 auto;
 }
 
-.open-chips .game-list {
-        margin-bottom: 9rem;
+.open-chips .game-list {   
+    &.android-device, &.ios-device {
+        margin-bottom: 13rem;
+    }    
 
-        @media (min-device-width: 375px) and (min-device-height: 668px) {
-            &.ios-device {
-                margin-bottom: 13rem;
-            }
+    @media (min-device-width: 375px) and (min-device-height: 667px) {
+        &.ios-device {
+            margin-bottom: 13rem;
         }
+    }
 }
 
 .game-container {
