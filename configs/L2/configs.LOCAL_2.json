@@ -25,7 +25,15 @@
         40,
         41,
         36,
-        37
+        37,
+        52,
+        53,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
     ],
     "enableSourceMap": true,
     "enableMsgpackParser": true,
