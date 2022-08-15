@@ -6,8 +6,7 @@ import { ThemeProvider } from "next-themes";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
 
-import { Themes } from "../common/constants";
-import appSettings from "../../src/common/app-settings";
+import { buildVersion, systemName, Themes } from "../common/constants";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -31,8 +30,8 @@ const AppTilte = () => {
 
     return (
         <Head>
-            <title>{t(`system-name-${appSettings.system.toLocaleLowerCase()}`)}</title>
-            <link rel="shortcut icon" href={`/favicon.ico?v=${process.env.buildVersion}`} />
+            <title>{t(`system-name-${systemName}`)}</title>
+            <link rel="shortcut icon" href={`/favicon-${systemName}.ico?v=${buildVersion}`} />
         </Head>
     );
 };

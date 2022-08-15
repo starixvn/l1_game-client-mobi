@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import { ChipMapper } from "../../../common/constants";
+import { buildVersion, ChipMapper, systemName } from "../../../common/constants";
 import { useSystemContext } from "../../../contexts/system";
 import { GameState } from "../game-base/type";
 import OverlayMaskWhite from "../overlay-mask-white";
@@ -14,7 +13,7 @@ const BetContainer: React.FC<Props> = (props) => {
     const [cursorImage, setCursorImage] = useState<string>("");
 
     useEffect(() => {
-        setCursorImage(`"/static/images/small-chips/small_${ChipMapper[betValue]}.png?v=762021"`);
+        setCursorImage(`"/static/images/small-chips/${systemName}/small_${ChipMapper[systemName][betValue]}.png?v=${buildVersion}"`);
     }, [betValue]);
 
     useEffect(() => {

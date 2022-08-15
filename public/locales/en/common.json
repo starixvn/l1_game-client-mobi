@@ -20,7 +20,6 @@
     "socketReconnect": "Reconnect",
     "light": "Light",
     "dark": "Dark",
-    "welcomeMsg": "Welcome <strong>{{userName}}</strong> to <strong>{{sabaMobileName}}</strong>",
     "selectTheme": "Select a theme layout",
     "enterGameBtn": "Play Now",
     "dismiss": "Dismiss",

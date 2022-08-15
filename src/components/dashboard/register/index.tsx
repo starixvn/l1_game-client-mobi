@@ -2,7 +2,7 @@ import { Trans, useTranslation } from "next-i18next";
 import React, { useState } from "react";
 import { AuthorizeResponse, Response, SSOResponse } from "sc-user-service-client/dist/auth";
 
-import { sabaClubName, sabaMobileName, Themes } from "../../../common/constants";
+import { sabaClubName, sabaMobileName, vGamingName, vGamingMobileName, Themes, systemName, isL1System } from "../../../common/constants";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { randomInteger } from "../../../helpers/number-helper";
 import { createNickname } from "../../../services/auth-service";
@@ -79,17 +79,18 @@ export default function Register({ session, handleStateLogin }: Props) {
         setIsOpenGalleryAvatar(false);
     };
 
+
     return (
         <FirstLoginContainer>
             <div className={Styles["wrapper-welcome"]}>
                 <TextBlock>
-                    <Trans t={t}>{t("register:registerTitle1", { sabaMobileName: sabaMobileName })}</Trans>
+                    <Trans t={t}>{t(`register:registerTitle1-${systemName}`, isL1System() ? { sabaMobileName: sabaMobileName } : { vGamingMobileName: vGamingMobileName })}</Trans>
                 </TextBlock>
                 <TextBlock>
-                    <Trans t={t}>{t("register:registerTitle2", { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName })}</Trans>
+                    <Trans t={t}>{t(`register:registerTitle2-${systemName}`, isL1System() ? { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName } : { vGamingMobileName: vGamingMobileName, vGamingName: vGamingName })}</Trans>
                 </TextBlock>
                 <TextBlock>
-                    <Trans t={t}>{t("register:registerTitle3", { sabaClubName: sabaClubName })}</Trans>
+                    <Trans t={t}>{t(`register:registerTitle3-${systemName}`, isL1System() ? { sabaClubName: sabaClubName } : { vGamingName: vGamingName })}</Trans>
                 </TextBlock>
             </div>
             <ProfilePicture avatarId={selectedAvatarId} isEditable={true} onClick={openAvatarGallery} data-testid="open-avatar-gallery" />

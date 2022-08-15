@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 import Slider from "react-slick";
 import useSound from "use-sound";
-import { ChipLabelMapper, ChipMapper, ChipValues } from "../../../common/constants";
+import { ChipLabelMapper, ChipMapper, ChipValuesBySystem as ChipValues, systemName } from "../../../common/constants";
 import Styles from "./chip-slider.module.scss";
 
 const SlidingTimeInMillisecond = 100;
@@ -164,19 +164,18 @@ export const ChipSlider: React.FC<{
                 {ChipValues.map((value) => (
                     <div
                         key={value}
-                        className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${
-                            enabledQuickBet ? Styles["enabled-quick-bet"] : ""
-                        } ${Styles[ChipMapper[value]]}`}
+                        className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${enabledQuickBet ? Styles["enabled-quick-bet"] : ""
+                            } ${Styles[ChipMapper[systemName][value]]}`}
                         onClick={() => onClickChip(value)}
                     >
                         <img
-                            src={`/static/images/chips/${ChipMapper[value]}.svg`}
+                            src={`/static/images/chips/${systemName}/${ChipMapper[systemName][value]}.svg`}
                             className={`img-fluid ${Styles["chip"]}`}
                             width="60"
                             height="62"
                             alt="Chip"
                         />
-                        <span className={Styles["value"]}>{ChipLabelMapper[value]}</span>
+                        <span className={Styles["value"]}>{ChipLabelMapper[systemName][value]}</span>
                     </div>
                 ))}
             </Slider>

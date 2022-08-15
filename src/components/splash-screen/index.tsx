@@ -1,19 +1,18 @@
 import React from "react";
-
-import { locales } from "../../common/constants";
+import { buildVersion, isL1System, locales, systemName } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
 export default function SplashScreen({ locale }) {
     return locale ? (
         <div className={`${Styles.page}`}>
             <img
-                src={`/static/images/splash-screen/${locale}/logo.svg?v=3`}
+                src={`/static/images/splash-screen/${locale}/logo-${systemName}.svg?${buildVersion}`}
                 className={Styles["logo"]}
                 width="274"
                 height="96"
                 alt="Logo"
             />
-            {locale === locales.vi && (
+            {locale === locales.vi && isL1System() && (
                 <img
                     src={`/static/images/splash-screen/${locale}/info.svg`}
                     className={Styles["info"]}

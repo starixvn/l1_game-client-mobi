@@ -24,7 +24,7 @@ import Register from "./register";
 import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
-import { Themes } from "../../common/constants";
+import { isL1System, systemName, Themes } from "../../common/constants";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -47,7 +47,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory: false,
             isShowGuide: false,
             enabledQuickBet: false,
-            betValue: 1,
+            betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
         };
@@ -306,7 +306,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     toggleSlidingChip() {
         isMobileOnly && this.setState({ isShowSlidingChip: !this.state.isShowSlidingChip });
-    }    
+    }
 
     renderDashBoard() {
         const {

@@ -1,5 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
+import { buildVersion } from "../../../../common/constants";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import BetOption from "../../../shared/bet-option";
@@ -35,7 +36,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                 isShowWinningEffect={isShowWinningEffect}
             >
                 <div className={Styles["icon-group"]}>
-                    <img src={`/static/images/dragon.svg?v=762021`} className="img-fluid" width="78" height="79" alt="dragon" />
+                    <img src={`/static/images/dragon.svg?v=${buildVersion}`} className="img-fluid" width="78" height="79" alt="dragon" />
                     <div className={Styles["text-dragon"]}>{t(Choices.dragon)}</div>
                 </div>
             </BetOption>
@@ -47,7 +48,7 @@ const DragonTigerBetOptions: React.FunctionComponent<Props> = (props) => {
                 isShowWinningEffect={isShowWinningEffect}
             >
                 <div className={Styles["icon-group"]}>
-                    <img src={`/static/images/tiger.svg?v=762021`} className="img-fluid" width="65" height="84" alt="dragon" />
+                    <img src={`/static/images/tiger.svg?v=${buildVersion}`} className="img-fluid" width="65" height="84" alt="dragon" />
                     <div className={Styles["text-tiger"]}>{t(Choices.tiger)}</div>
                 </div>
             </BetOption>

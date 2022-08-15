@@ -1,6 +1,7 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
+import { buildVersion, isL1System, vGamingMobileName } from "../../common/constants";
 
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
@@ -23,13 +24,15 @@ type Props = {
 
 const Header: React.FC<Props> = (props) => {
     const logo = "Logo-desktop";
-    return (        
+    return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
-                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>                            
-                            <img className="header-logo" alt="UM" src={`/static/images/${logo}.svg?v=4`} />                            
+                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
+                            {
+                                isL1System() ? <img className="header-logo" alt="UM" src={`/static/images/${logo}.svg?v=${buildVersion}`} /> : vGamingMobileName
+                            }
                         </a>
                         <div className={Styles["header-right"]}>
                             {
