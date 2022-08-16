@@ -50,8 +50,8 @@ export const GameCategory: React.FC<{
 
     useEffect(() => {
         if (wrapperRef?.current) {
-            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100;
-        }
+            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;            
+        }        
     }, [wrapperRef?.current, selectedCategory]);
 
     return (
