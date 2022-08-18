@@ -134,14 +134,16 @@ export default function Register({ session, handleStateLogin }: Props) {
                         </div>
                     )}
 
-                    <button
-                        className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
-                        onClick={(event) => generateName(event)}
-                        type="button"
-                        data-testid="btn-generate-username"
-                    >
-                        <span className="icon-refresh"></span>
-                    </button>
+                    <div>
+                        <button
+                            className={`${Styles["btn-green"]} ${Styles["btn-refresh"]}`}
+                            onClick={(event) => generateName(event)}
+                            type="button"
+                            data-testid="btn-generate-username"
+                        >
+                            <span className="icon-refresh"></span>
+                        </button>
+                    </div>
                 </div>
                 {!isValidUserName && <label className={Styles["message-error"]}>{nameInValid}</label>}
 

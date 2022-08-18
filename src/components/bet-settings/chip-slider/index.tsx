@@ -165,7 +165,7 @@ export const ChipSlider: React.FC<{
                     <div
                         key={value}
                         className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${enabledQuickBet ? Styles["enabled-quick-bet"] : ""
-                            } ${Styles[ChipMapper[systemName][value]]}`}
+                            } ${Styles[ChipMapper[systemName][value]]} ${Styles[systemName]}`}
                         onClick={() => onClickChip(value)}
                     >
                         <img
