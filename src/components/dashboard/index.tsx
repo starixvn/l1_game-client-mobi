@@ -25,6 +25,7 @@ import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
 import { isL1System, Themes } from "../../common/constants";
+import { AnnouncementModal } from "./announcement";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -46,6 +47,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             apiError: null,
             isShowHistory: false,
             isShowGuide: false,
+            isShowAnnouncement: false,
             enabledQuickBet: false,
             betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
@@ -74,6 +76,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.signOut = this.signOut.bind(this);
         this.toggleSlidingChip = this.toggleSlidingChip.bind(this);
         this.handleOrientation = this.handleOrientation.bind(this);
+        this.toggleAnnouncementModal = this.toggleAnnouncementModal.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -305,6 +308,10 @@ class Dashboard extends React.PureComponent<Props, State> {
     toggleSlidingChip() {
         isMobileOnly && this.setState({ isShowSlidingChip: !this.state.isShowSlidingChip });
     }
+    
+    toggleAnnouncementModal() {
+        this.setState({isShowAnnouncement: !this.state.isShowAnnouncement});
+    }
 
     renderDashBoard() {
         const {
@@ -313,6 +320,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowErrorModal,
             isShowHistory,
             isShowGuide,
+            isShowAnnouncement,
             userStakeLevel,
             favoriteGames,
             authorizeInfo,
@@ -334,6 +342,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         onToggleSound={this.playSoundToggle}
                         toggleHistoryModal={this.toggleHistoryModal}
                         toggleGuideModal={this.toggleGuideModal}
+                        toggleAnnouncementModal={this.toggleAnnouncementModal}
                         favoriteGames={favoriteGames}
                         offerGames={offerGames}
                         updateFavoriteGames={this.updateFavoriteGames}
@@ -362,9 +371,11 @@ class Dashboard extends React.PureComponent<Props, State> {
                         user={authorizeInfo.user}
                         toggleSlidingChip={this.toggleSlidingChip}
                         isShowSlidingChip={isShowSlidingChip}
+                        toggleAnnouncementModal={this.toggleAnnouncementModal}
                         betValue={betValue}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
+                    {isShowAnnouncement && <AnnouncementModal onCloseModal={this.toggleAnnouncementModal} />}
                     {isShowGuide && (
                         <GameGuideModal
                             userStakeLevel={userStakeLevel}

@@ -230,9 +230,13 @@
             transform: translate(-50%, 0);            
         }
     }
+
+    .promotion {
+        position: absolute;
+        right: 7.6rem;
+        top: 0.5rem;
+    }
 }
-
-
 
 .chip-toggle {
     position: relative;
@@ -279,6 +283,12 @@
     .bet-setting .value {
         z-index: 2;
     }
+}
+
+.promotion {
+    position: absolute;
+    right: 2.6rem;
+    top: -6rem;
 }
 
 // Iphone X or newer

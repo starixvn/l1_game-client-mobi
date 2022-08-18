@@ -5,6 +5,7 @@ export interface Props {
     onToggleNotification: Function;
     toggleGuideModal: Function;
     toggleHistoryModal: Function;
+    toggleAnnouncementModal: Function;
     favoriteGames: number[];
     offerGames: number[];
     updateFavoriteGames: Function;

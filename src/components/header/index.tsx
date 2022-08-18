@@ -16,6 +16,7 @@ type Props = {
     onToggleNotification: Function;
     toggleHistoryModal: Function;
     toggleGuideModal: Function;
+    toggleAnnouncementModal: Function;
     updateFavoriteGames: Function;
     favoriteGames: number[];
     offerGames: number[];
@@ -52,6 +53,7 @@ const Header: React.FC<Props> = (props) => {
                                     onToggleNotification={props.onToggleNotification}
                                     toggleHistoryModal={props.toggleHistoryModal}
                                     toggleGuideModal={props.toggleGuideModal}
+                                    toggleAnnouncementModal={props.toggleAnnouncementModal}
                                     favoriteGames={props.favoriteGames}
                                     offerGames={props.offerGames}
                                     updateFavoriteGames={props.updateFavoriteGames}

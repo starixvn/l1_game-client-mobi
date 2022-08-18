@@ -17,6 +17,7 @@ export const Settings: React.FC<Props> = ({
     enabledNotification,
     onToggleNotification,
     toggleHistoryModal,
+    toggleAnnouncementModal,
     onToggleSound,
     enabledSound,
     toggleGuideModal,
@@ -30,6 +31,7 @@ export const Settings: React.FC<Props> = ({
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
     const toggleHistoryBtnRef = useRef<HTMLDivElement>(null);
+    const toggleAnnouncementBtnRef = useRef<HTMLDivElement>(null);
     const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
@@ -46,6 +48,16 @@ export const Settings: React.FC<Props> = ({
                 </div>
             )}
             <div className={styles["setting-right"]}>
+                <div
+                    ref={toggleAnnouncementBtnRef}                    
+                    className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                    onClick={() => toggleAnnouncementModal()}
+                >
+                    <span className={`icon-noti ${styles["icon-noti"]}`}>
+                        <span className={styles["count-label"]}>1</span>
+                    </span>                    
+                    <Tooltip message={t("popupAnnouncement")} hoverWrapper={toggleAnnouncementBtnRef} />
+                </div>
                 <div
                     ref={toggleSoundBtnRef}
                     id="sound-settings"

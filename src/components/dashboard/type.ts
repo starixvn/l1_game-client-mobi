@@ -24,6 +24,7 @@ export type State = {
     isShowErrorModal: boolean;
     apiError: APIErrorProp;
     isShowHistory: boolean;
+    isShowAnnouncement: boolean;
     isShowGuide: boolean;
     favoriteGames: number[];
     enabledQuickBet: boolean;

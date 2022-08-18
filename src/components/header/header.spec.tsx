@@ -11,6 +11,7 @@ describe("Header", () => {
         onToggleSound: () => {},
         onToggleNotification: () => {},
         toggleHistoryModal: () => {},
+        toggleAnnouncementModal: () => {},
         toggleGuideModal: () => {},
         updateFavoriteGames: () => {},
         favoriteGames: [],
