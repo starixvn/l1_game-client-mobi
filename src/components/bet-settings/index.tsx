@@ -16,8 +16,9 @@ type Props = {
     user: User;
     toggleSlidingChip: () => void;
     isShowSlidingChip: boolean;
-    toggleAnnouncementModal:() => void;
+    toggleAnnouncementModal: () => void;
     betValue: number;
+    isShowBoostedOdds: boolean;
 };
 
 const BetSettings: React.FC<Props> = ({
@@ -30,10 +31,10 @@ const BetSettings: React.FC<Props> = ({
     isShowSlidingChip,
     toggleAnnouncementModal,
     betValue,
+    isShowBoostedOdds,
 }) => {
     return useMemo(() => {
         let deviceClass = "";
-
         if (isMobileOnly) {
             deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
         }
@@ -46,16 +47,19 @@ const BetSettings: React.FC<Props> = ({
                     <div className={`game-container ${Styles["container"]}`}>
                         <div className={Styles["wrapper-chips"]}>
                             {!isMobileOnly && (
-                            <>
-                                <QuickBetBtn
-                                    enabledQuickBet={enabledQuickBet}
-                                    updateEnabledQuickBet={updateEnabledQuickBet}
-                                    isHeaderSetting={false}
-                                />
-                                <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
-                                    <img className={Styles["promo-img"]} src={`/static/images/promotion.png`} alt="promotion" />
-                                </div>
-                            </>
+                                <>
+                                    <QuickBetBtn
+                                        enabledQuickBet={enabledQuickBet}
+                                        updateEnabledQuickBet={updateEnabledQuickBet}
+                                        isHeaderSetting={false}
+                                    />
+
+                                    {isShowBoostedOdds && (
+                                        <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
+                                            <img className={Styles["promo-img"]} src={`/static/images/promotion.png`} alt="promotion" />
+                                        </div>
+                                    )}
+                                </>
                             )}
                             <div className={Styles["chips-container"]}>
                                 <ChipSlider
@@ -76,15 +80,25 @@ const BetSettings: React.FC<Props> = ({
                             <UserInfo user={user} customizeClass={"footer"} />
                         </div>
                         <div className={`${Styles["chip-container"]} ${Styles[ChipMapper[systemName][betValue]]}`} onClick={toggleSlidingChip}>
-                            <div className={`${Styles["chip-toggle"]} ${isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]}`}>
+                            <div
+                                className={`${Styles["chip-toggle"]} ${
+                                    isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
+                                }`}
+                            >
                                 <img className={Styles["chip-default"]} src={`/static/images/chips/chip-close.svg`} alt="Chip" />
                                 <img className={Styles["chip-selected"]} src={`/static/images/chips/${systemName}/${ChipMapper[systemName][betValue]}.svg`} alt="Chip" />
+                                    className={Styles["chip-selected"]}
+                                    src={`/static/images/chips/${ChipMapper[betValue]}.svg`}
+                                    alt="Chip"
+                                />
                             </div>
                             <span className={Styles["value"]}>{ChipLabelMapper[systemName][betValue]}</span>
                         </div>
-                        <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
-                            <img className={Styles["promo-img"]} src={`/static/images/promotion.png`} alt="promotion" />
-                        </div>
+                        {isShowBoostedOdds && (
+                            <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
+                                <img className={Styles["promo-img"]} src={`/static/images/promotion.png`} alt="promotion" />
+                            </div>
+                        )}
                         <div className={Styles["phone-quick-bet"]}>
                             <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
@@ -96,7 +110,7 @@ const BetSettings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue]);
+    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isShowBoostedOdds]);
 };
 
 export default BetSettings;

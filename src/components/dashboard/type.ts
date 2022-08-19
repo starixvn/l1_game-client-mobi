@@ -31,6 +31,8 @@ export type State = {
     betValue: number;
     isBlockUI: boolean;
     isShowSlidingChip: boolean;
+    isShowBoostedOdds: boolean,
+    promotionNotifications: [],
 };
 
 export type GameOffer = {

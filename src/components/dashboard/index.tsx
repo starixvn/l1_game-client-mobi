@@ -52,6 +52,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
+            isShowBoostedOdds: false,
+            promotionNotifications: [],
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -77,6 +79,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleSlidingChip = this.toggleSlidingChip.bind(this);
         this.handleOrientation = this.handleOrientation.bind(this);
         this.toggleAnnouncementModal = this.toggleAnnouncementModal.bind(this);
+        this.handlePromotions = this.handlePromotions.bind(this);
+        this.handlePromotionNotifications = this.handlePromotionNotifications.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -209,7 +213,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         };
 
         this.notificationSocket = io(socketUri, socketOption);
-
+        this.notificationSocket && this.notificationSocket.emit("promotionNotifications");
         this.registerMainSocketEvent(this.notificationSocket);
     }
 
@@ -217,6 +221,24 @@ class Dashboard extends React.PureComponent<Props, State> {
         mainSocket.on("auth", this.handleAuth);
         mainSocket.on("kickedOut", this.handleKickedOut);
         mainSocket.on("reload", this.handleReload);
+        mainSocket.on("promotions", this.handlePromotions);
+        mainSocket.on("promotionNotifications", this.handlePromotionNotifications);
+    }
+
+    handlePromotions(data) {
+        const { isShowBoostedOdds } = this.state;
+        if (data.length > 0 && !isShowBoostedOdds) {
+            this.setState({ isShowBoostedOdds: true });
+            setTimeout(() => {
+                this.setState({ isShowBoostedOdds: false });
+            }, 300000);
+        }
+    }
+
+    handlePromotionNotifications(data) {
+        if (data.length > 0) {
+            this.setState({ promotionNotifications: data });
+        }
     }
 
     handleAuth(authData) {
@@ -308,9 +330,9 @@ class Dashboard extends React.PureComponent<Props, State> {
     toggleSlidingChip() {
         isMobileOnly && this.setState({ isShowSlidingChip: !this.state.isShowSlidingChip });
     }
-    
+
     toggleAnnouncementModal() {
-        this.setState({isShowAnnouncement: !this.state.isShowAnnouncement});
+        this.setState({ isShowAnnouncement: !this.state.isShowAnnouncement });
     }
 
     renderDashBoard() {
@@ -328,6 +350,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue,
             isBlockUI,
             isShowSlidingChip,
+            isShowBoostedOdds,
+            promotionNotifications,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -348,6 +372,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                         enabledQuickBet={enabledQuickBet}
                         updateEnabledQuickBet={this.setEnabledQuickBet}
+                        promotionNotifications={promotionNotifications}
                     />
                     <Games
                         enabledQuickBet={enabledQuickBet}
@@ -373,9 +398,12 @@ class Dashboard extends React.PureComponent<Props, State> {
                         isShowSlidingChip={isShowSlidingChip}
                         toggleAnnouncementModal={this.toggleAnnouncementModal}
                         betValue={betValue}
+                        isShowBoostedOdds={isShowBoostedOdds}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
-                    {isShowAnnouncement && <AnnouncementModal onCloseModal={this.toggleAnnouncementModal} />}
+                    {isShowAnnouncement && (
+                        <AnnouncementModal onCloseModal={this.toggleAnnouncementModal} promotionNotifications={promotionNotifications} />
+                    )}
                     {isShowGuide && (
                         <GameGuideModal
                             userStakeLevel={userStakeLevel}

@@ -22,6 +22,8 @@ type Props = {
     offerGames: number[];
     enabledQuickBet?: boolean;
     updateEnabledQuickBet?: Function;
+    isShowBoostedOdds: boolean;
+    promotionNotifications: [];
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -59,6 +61,7 @@ const Header: React.FC<Props> = (props) => {
                                     updateFavoriteGames={props.updateFavoriteGames}
                                     enabledQuickBet={props.enabledQuickBet}
                                     updateEnabledQuickBet={props.updateEnabledQuickBet}
+                                    promotionNotifications={props.promotionNotifications}
                                 />
                             }
                             {!isMobileOnly && <UserInfo user={props.user} />}

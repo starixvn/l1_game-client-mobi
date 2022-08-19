@@ -3,11 +3,14 @@ import React from "react";
 import BaseDialog from "../../shared/base-dialog";
 import Styles from "./history.module.scss";
 
-export const AnnouncementModal: React.FC<{ onCloseModal: Function;  }> = ({ onCloseModal }) => {
-    const { t } = useTranslation();   
+export const AnnouncementModal: React.FC<{ onCloseModal: Function; promotionNotifications }> = ({
+    onCloseModal,
+    promotionNotifications,
+}) => {
+    const { t } = useTranslation();
     const closeModal = () => {
         onCloseModal();
-    };    
+    };
 
     return (
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
@@ -16,13 +19,9 @@ export const AnnouncementModal: React.FC<{ onCloseModal: Function;  }> = ({ onCl
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={`w-100 ${Styles["history-content"]}`}>
                     <ul>
-                        <li>
-                            Promotion
-                        </li>
+                        <li>Promotion</li>
 
-                        <li>
-                            Promotion
-                        </li>
+                        <li>Promotion</li>
                     </ul>
                 </div>
             </div>

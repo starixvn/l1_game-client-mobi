@@ -27,6 +27,7 @@ export const Settings: React.FC<Props> = ({
     enabledQuickBet,
     updateEnabledQuickBet,
     isShowQuickBet = false,
+    promotionNotifications,
 }) => {
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
@@ -49,13 +50,13 @@ export const Settings: React.FC<Props> = ({
             )}
             <div className={styles["setting-right"]}>
                 <div
-                    ref={toggleAnnouncementBtnRef}                    
+                    ref={toggleAnnouncementBtnRef}
                     className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
                     onClick={() => toggleAnnouncementModal()}
                 >
                     <span className={`icon-noti ${styles["icon-noti"]}`}>
-                        <span className={styles["count-label"]}>1</span>
-                    </span>                    
+                        <span className={styles["count-label"]}>{promotionNotifications?.length}</span>
+                    </span>
                     <Tooltip message={t("popupAnnouncement")} hoverWrapper={toggleAnnouncementBtnRef} />
                 </div>
                 <div
