@@ -28,6 +28,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowWinningEffect = false,
     isShowPoolStake = true,
     isShowTooltip = false,
+    isBoostedOdds = false,
 }) => {
     const { totalBets, ownBets, rate } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
@@ -79,11 +80,12 @@ const BetOption: React.FunctionComponent<Props> = ({
         isHighlight && Styles[HighlightClassNameMapper[highlightType]]
     } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]} ${gameState !== GameState.InRound && Styles["disallowed"]}`;
 
+    const oddsClass = isBoostedOdds ? `${Styles["boosted-odd"]}` : `${Styles["odd"]}`;
     return (
         <>
             <div className={Styles.container} ref={betChoiceRef}>
                 <div className={betOptionClasses} onClick={onClickBet}>
-                    {isDisplayOdd && <div className={Styles.odd}>{odd ? `1:${odd}` : ""}</div>}
+                    {isDisplayOdd && <div className={oddsClass}>{odd ? `1:${odd}` : ""}</div>}
 
                     <div className={Styles["total-bet"]} ref={totalBetRef}>
                         {isShowPoolStake &&

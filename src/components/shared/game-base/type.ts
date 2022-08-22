@@ -10,6 +10,7 @@ export interface GameConfigs {
     maxBet: number;
     maxBetPerChoices: any;
     enableFreeBet: boolean;
+    boostedChoices: string[];
 }
 
 export enum GameState {

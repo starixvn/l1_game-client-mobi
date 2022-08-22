@@ -2,7 +2,7 @@ import { GameState } from "../game-base/type";
 
 export enum HighlightType {
     None,
-    Background
+    Background,
 }
 
 export type Props = {
@@ -14,6 +14,7 @@ export type Props = {
     gameState: GameState;
     isShowWinningEffect: boolean;
     isShowPoolStake?: boolean;
-    isShowTooltip?: boolean,
+    isShowTooltip?: boolean;
     tooltipMessage?: string;
+    isBoostedOdds?: boolean;
 };

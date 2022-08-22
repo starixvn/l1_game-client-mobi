@@ -72,7 +72,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private playPermissionListener: string;
     private userStakeLevelListener: string;
 
-    private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false };
+    private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false, boostedChoices: [] };
     protected readonly defaultState = {
         signedIn: false,
         gameState: GameState.None,
@@ -212,6 +212,25 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("md5", this.handleMD5.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
         this.messageTransmitter.register("resultHash", this.handleResultHash.bind(this));
+        this.messageTransmitter.register("odds", this.handleOdds.bind(this));
+    }
+
+    handleOdds({ odds }) {
+        const { values, boostedChoices } = odds;
+        const { gameConfigs } = this.state;
+        const { minBet, maxBet, maxBetPerChoices, enableFreeBet } = gameConfigs;
+        const newGameConfigs = {
+            odds: values,
+            minBet: minBet,
+            maxBet: maxBet,
+            maxBetPerChoices: maxBetPerChoices,
+            enableFreeBet: enableFreeBet,
+            boostedChoices: boostedChoices,
+        };
+
+        this.setState({
+            gameConfigs: { ...newGameConfigs },
+        });
     }
 
     handleError = ({ errorCode }) => {

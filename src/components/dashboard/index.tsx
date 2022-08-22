@@ -228,10 +228,11 @@ class Dashboard extends React.PureComponent<Props, State> {
     handlePromotions(data) {
         const { isShowBoostedOdds } = this.state;
         if (data.length > 0 && !isShowBoostedOdds) {
+            console.log('show boosted odds')
             this.setState({ isShowBoostedOdds: true });
             setTimeout(() => {
                 this.setState({ isShowBoostedOdds: false });
-            }, 300000);
+            }, 120000);
         }
     }
 

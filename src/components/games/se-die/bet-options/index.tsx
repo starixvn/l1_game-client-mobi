@@ -27,7 +27,7 @@ type Props = {
 const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const { choices, gameState, settlementResult, isShowWinningEffect } = props;
     const { gameConfigs, gameSetting } = useGameContext();
-    const { odds } = gameConfigs;
+    const { odds, boostedChoices } = gameConfigs;
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
 
     const renderDots = (dots: boolean[]) =>
@@ -53,6 +53,7 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
                         isHighlight={settlementResult[choice]}
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
+                        isBoostedOdds={boostedChoices?.includes(choice)}
                     >
                         {MainChoice.includes(choice) ? renderLabel(choice) : renderIcons(choice)}
                     </BetOption>
