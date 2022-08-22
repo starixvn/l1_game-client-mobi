@@ -2,7 +2,7 @@ import { Trans, withTranslation } from "next-i18next";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isMobile } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import appSettings from "../../common/app-settings";
@@ -24,7 +24,7 @@ import Register from "./register";
 import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
-import { isL1System, systemName, Themes } from "../../common/constants";
+import { isL1System, Themes } from "../../common/constants";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -73,6 +73,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handleUpdateUserStakeLevel = this.handleUpdateUserStakeLevel.bind(this);
         this.signOut = this.signOut.bind(this);
         this.toggleSlidingChip = this.toggleSlidingChip.bind(this);
+        this.handleOrientation = this.handleOrientation.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -142,6 +143,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
+    handleOrientation() {
+        setTimeout(() => {
+            this.setState({ orientation: window.innerHeight < window.innerWidth ? orientationType.landscape : orientationType.portrait });
+        }, 200)
+    }
+
     async componentDidMount() {
         const { session } = this.props;
         const authorizeResponse = await authorize(session);
@@ -164,18 +171,9 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.handleRecheckInResponse(reCheckInResponse);
         }, 60 * 1000);
 
-        const mediaQueryList = window.matchMedia("(orientation: portrait)");
-        const handleOrientation = (e) => {
-            if (e.matches) {
-                this.setState({ orientation: "portrait" });
-            } else {
-                this.setState({ orientation: "landscape" });
-            }
-        };
-
-        mediaQueryList?.addEventListener
-            ? mediaQueryList.addEventListener("change", handleOrientation)
-            : mediaQueryList.addListener(handleOrientation);
+        if (isMobile) {
+            window.addEventListener("orientationchange", this.handleOrientation, false);
+        }
 
         if (authorizeInfo.authorized) {
             this.connectNotificationSocket();
