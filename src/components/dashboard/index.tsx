@@ -373,6 +373,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                         enabledQuickBet={enabledQuickBet}
                         updateEnabledQuickBet={this.setEnabledQuickBet}
+                        isShowBoostedOdds={isShowBoostedOdds}
                         promotionNotifications={promotionNotifications}
                     />
                     <Games

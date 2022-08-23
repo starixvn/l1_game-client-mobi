@@ -1,7 +1,7 @@
 {
     "popupTitleGuide": "Hướng dẫn",
     "popupTitleHistory": "Lịch sử",
-    "popupAnnouncement": "Promotion",
+    "popupAnnouncement": "Hot Ưu Đãi",
     "rebet": "Cược lại",
     "startNewRound": "Bắt đầu phiên mới",
     "cancel": "Hủy",
@@ -83,5 +83,12 @@
     "md5Result": "Kết Quả",
     "category-kenolottery": "Keno Lottery",
     "copyMD5Key": "Copy Chuỗi MD5 thành công!",
-    "copyMD5Result": "Copy Kết Quả thành công!"
+    "copyMD5Result": "Copy Kết Quả thành công!",
+    "promotion": "Hot Ưu Đãi",
+    "terms": "Điều Khoản Khuyến Mãi",
+    "joinGame": "Vào Game",
+    "termsPromotion-1": "Tất cả người chơi của hệ thống đều đủ điều kiện tham gia các chương trình khuyến mãi và có cơ hội giành được những giải thưởng hấp dẫn.",
+    "termsPromotion-2": "Tiền thắng được tính toán dựa theo quy định của chương trình khuyến mãi và bảng trả thưởng. ",
+    "termsPromotion-3": "Chương trình khuyến mãi chỉ được áp dụng trong một khoảng thời gian nhất định do Nhà cái quy định. Khi chương trình khuyến mãi kết thúc, luật chơi và bảng trả thưởng sẽ được điều chỉnh trở về như bình thường.",
+    "no-promo": "Hiện tại chúng tôi chưa có chưa có chương trình khuyến mãi, vui lòng quay lại sau."
 }

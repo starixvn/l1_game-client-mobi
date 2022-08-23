@@ -18,7 +18,7 @@ type Props = {
     isShowSlidingChip: boolean;
     toggleAnnouncementModal: () => void;
     betValue: number;
-    isShowBoostedOdds: boolean;
+    isShowBoostedOdds: boolean;    
 };
 
 const BetSettings: React.FC<Props> = ({
@@ -31,7 +31,7 @@ const BetSettings: React.FC<Props> = ({
     isShowSlidingChip,
     toggleAnnouncementModal,
     betValue,
-    isShowBoostedOdds,
+    isShowBoostedOdds,    
 }) => {
     return useMemo(() => {
         let deviceClass = "";
