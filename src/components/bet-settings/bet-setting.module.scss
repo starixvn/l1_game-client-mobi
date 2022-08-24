@@ -289,6 +289,31 @@
     position: absolute;
     right: 2.6rem;
     top: -6rem;
+    animation-name: show-promotion-animation, hide-promotion-animation;
+    animation-duration: 0.1s, 0.5s;
+    animation-delay: 0s, 3.5s;
+    animation-fill-mode: forwards, forwards;
+
+    @keyframes show-promotion-animation {
+        0% {
+            transform: translateY(-10rem);
+        }
+    
+        100% {
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes hide-promotion-animation {
+        0% {
+            opacity: 1;
+        }
+    
+        100% {
+            opacity: 0;
+            transform: translateY(-12rem);
+        }
+    }
 }
 
 // Iphone X or newer
