@@ -232,7 +232,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.setState({ isShowBoostedOdds: true });
             setTimeout(() => {
                 this.setState({ isShowBoostedOdds: false });
-            }, 120000);
+            }, 60000);
         }
     }
 

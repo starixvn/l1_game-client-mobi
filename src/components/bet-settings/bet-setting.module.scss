@@ -234,7 +234,7 @@
     .promotion {
         position: absolute;
         right: 7.6rem;
-        top: 0.5rem;
+        top: -0.5rem;
     }
 }
 
@@ -287,31 +287,52 @@
 
 .promotion {
     position: absolute;
-    right: 2.6rem;
-    top: -6rem;
+    right: 1rem;
+    top: -9rem;
     animation-name: show-promotion-animation, hide-promotion-animation;
     animation-duration: 0.1s, 0.5s;
-    animation-delay: 0s, 3.5s;
+    animation-delay: 0s, 10s;
     animation-fill-mode: forwards, forwards;
+
+    .promo-light {
+        position: absolute;    
+        z-index: -1;    
+        animation: rotate 2.5s infinite linear;
+    }
 
     @keyframes show-promotion-animation {
         0% {
-            transform: translateY(-10rem);
+            opacity: 0;
+            transform: scale(0);
         }
     
         100% {
-            transform: translateY(0);
+            opacity: 1;
+            transform: scale(1);
         }
     }
     
     @keyframes hide-promotion-animation {
         0% {
             opacity: 1;
+            transform: scale(1);
         }
     
         100% {
             opacity: 0;
-            transform: translateY(-12rem);
+            transform: scale(0);
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg) scale(1);
+        } 
+        50% {
+            transform: rotate(180deg) scale(1.3);
+        }
+        100% {
+            transform: rotate(360deg) scale(1);
         }
     }
 }
