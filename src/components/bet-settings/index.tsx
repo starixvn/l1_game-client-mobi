@@ -57,12 +57,12 @@ const BetSettings: React.FC<Props> = ({
                                         enabledQuickBet={enabledQuickBet}
                                         updateEnabledQuickBet={updateEnabledQuickBet}
                                         isHeaderSetting={false}
-                                    />                                  
+                                    />                                                                    
 
                                     {isShowBoostedOdds && (
                                         <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
-                                            <img className={Styles["promo-light"]} src={`/static/images/promotion-light.svg?v=1`} alt="promotion" />
-                                            <img className={Styles["promo-img"]} src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`} alt="promotion" />
+                                            <img className={Styles["promo-light"]} src={`/static/images/promotion-light.svg?v=1`} width="97" alt="promotion" />
+                                            <img className={Styles["promo-img"]} src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`} width="97" alt="promotion" />
                                         </div>
                                     )}
                                 </>

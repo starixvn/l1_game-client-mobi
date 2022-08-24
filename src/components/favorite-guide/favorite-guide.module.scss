@@ -31,8 +31,7 @@
         box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
         padding: 1.4rem 12.8rem 12rem;
         .icon-favorite:before {
-            color: var(--icon-favorite-game-guide);
-            font-weight: bold;
+            color: var(--icon-favorite-game-guide);            
         }
     }
 }
@@ -152,12 +151,12 @@
     height: 100%;
 
     .icon-favorite-normal:before {
-        font-size: 1.7rem;
+        font-size: 3.2rem;
         color: var(--game-header-icon-unfavourite);
     }
 
     .icon-favorite:before {
-        font-size: 1.7rem;
+        font-size: 3.2rem;
         color: var(--game-header-icon-favourite);
     }
 }

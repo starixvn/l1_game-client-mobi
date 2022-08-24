@@ -49,16 +49,17 @@
     top: 2px;
 }
 
-.icon-menu::before {
+.icon-menu {
     color: #fff;
-    font-size: 1.7rem;
+    font-size: 3.2rem;
+    line-height: 3.2rem;
 }
 
-.desktop-style {
-    .icon-menu::before {
-        color: #fff;
-    }
-}
+// .desktop-style {
+//     .icon-menu::before {
+//         color: #fff;
+//     }
+// }
 
 .icon-menu-light {
     @extend %icon-menu;

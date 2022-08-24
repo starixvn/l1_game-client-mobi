@@ -25,9 +25,10 @@
 .count-label {
     display: block;
     position: absolute;
-    top: -0.9rem;
-    right: -1.3rem;
+    top: 0;
+    right: -0.4rem;
     padding: 0.2rem 0.5rem;
+    line-height: 1.1rem;
     border-radius: 0.3rem;
     background: #E8382F;
     font-family: "SanFranciscoDisplay";
@@ -36,7 +37,7 @@
     color: #fff;
 
     @media screen and (min-width: 768px) {
-        right: 0.2rem;
+        right: -0.8rem;
     }
 }
 
@@ -66,23 +67,24 @@
         cursor: pointer;
     }
 }
-
-.icon-sound-on::before, 
-.icon-sound-off::before, 
-.icon-history::before,
-.icon-favorite-normal::before {
+.icon-noti,
+.icon-sound-on, 
+.icon-sound-off, 
+.icon-history,
+.icon-favorite-normal {
     color: #fff;
-    font-size: 1.7rem;
+    font-size: 3.2rem;
+    line-height: 3.2rem;
 }
 
-.desktop-style {
-    .icon-sound-on::before, 
-    .icon-sound-off::before, 
-    .icon-history::before,
-    .icon-favorite-normal::before {
-        color: #fff;  
-    }    
-}
+// .desktop-style {
+//     .icon-sound-on::before, 
+//     .icon-sound-off::before, 
+//     .icon-history::before,
+//     .icon-favorite-normal::before {
+//         color: #fff;  
+//     }    
+// }
 
 %icon-notify {
     @extend %icon;

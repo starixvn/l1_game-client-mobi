@@ -5,11 +5,10 @@ import Styles from "../announcement.module.scss";
 
 const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive }) => {
     console.log(title, content, isActive);
-    const { t } = useTranslation();
-    const { i18n } = useTranslation();
+    const { t } = useTranslation();   
     return (
         <>
-            <img src={`/static/images/icon-badge.svg`} className={Styles[`img-fluid`]} height="46" width="36" alt="Promotion" />
+            <img src={`/static/images/promotion-badge.svg`} className={Styles[`img-fluid`]} height="46" width="36" alt="Promotion" />
             <div className={Styles["content"]}>
                 <span className={Styles["title"]}>{title}</span>
                 <p className={Styles["text"]}>{content}</p>

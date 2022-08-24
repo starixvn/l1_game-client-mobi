@@ -233,8 +233,8 @@
 
     .promotion {
         position: absolute;
-        right: 7.6rem;
-        top: -0.5rem;
+        right: 8.6rem;
+        top: 0.5rem;
     }
 }
 
@@ -288,7 +288,7 @@
 .promotion {
     position: absolute;
     right: 1rem;
-    top: -9rem;
+    top: -7rem;
     animation-name: show-promotion-animation, hide-promotion-animation;
     animation-duration: 0.1s, 0.5s;
     animation-delay: 0s, 10s;
@@ -297,6 +297,7 @@
     .promo-light {
         position: absolute;    
         z-index: -1;    
+        top: -2rem;
         animation: rotate 2.5s infinite linear;
     }
 
