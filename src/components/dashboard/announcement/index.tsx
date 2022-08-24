@@ -26,7 +26,8 @@ export const AnnouncementModal: React.FC<{ onCloseModal: Function; promotionNoti
                             <input type="radio" name="css-tabs" id="promotion" defaultChecked className={Styles["tab-switch"]} />
                             <label htmlFor="promotion" className={Styles["tab-label"]}>
                                 {t("promotion")}
-                                <span className={Styles["count"]}>{promotionNotifications?.length}</span>
+                                {promotionNotifications.length > 0 ? (<span className={Styles["count"]}>{promotionNotifications?.length}</span>) : ""}
+                                
                             </label>
                             <div className={Styles["tab-content"]}>                                
                                 {promotionNotifications.length > 0 ? (
@@ -43,7 +44,7 @@ export const AnnouncementModal: React.FC<{ onCloseModal: Function; promotionNoti
                                     </ul>
                                     
                                 ) : (
-                                    <div className="text-center margin-top-10">{t("no-promo")}</div>
+                                    <div className={Styles["no-promo"]}>{t("no-promo")}</div>
                                 )}
                                 
                             </div>

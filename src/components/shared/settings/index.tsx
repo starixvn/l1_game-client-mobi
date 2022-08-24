@@ -55,7 +55,7 @@ export const Settings: React.FC<Props> = ({
                     onClick={() => toggleAnnouncementModal()}
                 >
                     <span className={`icon-noti ${styles["icon-noti"]}`}>
-                        <span className={styles["count-label"]}>{promotionNotifications?.length}</span>
+                        {promotionNotifications.length > 0 ? (<span className={styles["count-label"]}>{promotionNotifications?.length}</span>) : ""}                        
                     </span>
                     <Tooltip message={t("popupAnnouncement")} hoverWrapper={toggleAnnouncementBtnRef} />
                 </div>
