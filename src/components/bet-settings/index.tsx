@@ -99,10 +99,7 @@ const BetSettings: React.FC<Props> = ({
                                 />
                             </div>
                             <span className={Styles["value"]}>{ChipLabelMapper[systemName][betValue]}</span>
-                        </div>
-                        <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>                                
-                        
-                            </div>
+                        </div>                        
                         {isShowBoostedOdds && (
                             <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>                                
                                 <img className={Styles["promo-light"]} src={`/static/images/promotion-light.svg?v=1`} width="74" alt="promotion" />

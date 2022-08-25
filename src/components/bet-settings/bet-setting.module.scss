@@ -233,9 +233,11 @@
 
     .promotion {
         position: absolute;
-        right: 8.6rem;
-        top: 0.5rem;
-    }
+        right: 8rem;
+        top: unset;
+        width: 7.4rem;
+        height: 4.9rem;
+    }    
 }
 
 .chip-toggle {
@@ -288,7 +290,9 @@
 .promotion {
     position: absolute;
     right: 1rem;
-    top: -7rem;
+    top: -6rem;
+    width: 9.7rem;
+    height: 7.5rem;
     animation-name: show-promotion-animation, hide-promotion-animation;
     animation-duration: 0.1s, 0.5s;
     animation-delay: 0s, 10s;
@@ -299,6 +303,10 @@
         z-index: -1;    
         top: -2rem;
         animation: rotate 2.5s infinite linear;
+    }
+
+    .promo-img {
+        position: absolute;
     }
 
     @keyframes show-promotion-animation {
