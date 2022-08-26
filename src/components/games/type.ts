@@ -11,6 +11,8 @@ export type Props = {
     updateFavoriteGames: Function;
     favoriteGames: number[];
     queryGame: number;
-    userOfferGames: number[];    
+    userOfferGames: number[];
     isShowSlidingChip: boolean;
+    updateQueryGames: (gameId: number, isJoinGame: boolean) => void;
+    isJoinGame: boolean;
 };

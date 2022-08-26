@@ -20,7 +20,8 @@ type Props = {
     isShowSlidingChip: boolean;
     toggleAnnouncementModal: () => void;
     betValue: number;
-    isShowBoostedOdds: boolean;    
+    isShowBoostedOdds: boolean;
+    isNewPromotion: boolean;
 };
 
 const BetSettings: React.FC<Props> = ({
@@ -33,16 +34,17 @@ const BetSettings: React.FC<Props> = ({
     isShowSlidingChip,
     toggleAnnouncementModal,
     betValue,
-    isShowBoostedOdds,    
+    isShowBoostedOdds,
+    isNewPromotion,
 }) => {
     const { i18n } = useTranslation();
-    
+
     return useMemo(() => {
         let deviceClass = "";
         if (isMobileOnly) {
             deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
         }
-        
+
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
                 <div
@@ -57,12 +59,22 @@ const BetSettings: React.FC<Props> = ({
                                         enabledQuickBet={enabledQuickBet}
                                         updateEnabledQuickBet={updateEnabledQuickBet}
                                         isHeaderSetting={false}
-                                    />                                                                    
+                                    />
 
-                                    {isShowBoostedOdds && (
+                                    {(isShowBoostedOdds || isNewPromotion) && (
                                         <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
-                                            <img className={Styles["promo-light"]} src={`/static/images/promotion-light.svg?v=1`} width="97" alt="promotion" />
-                                            <img className={Styles["promo-img"]} src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`} width="97" alt="promotion" />
+                                            <img
+                                                className={Styles["promo-light"]}
+                                                src={`/static/images/promotion-light.svg?v=1`}
+                                                width="97"
+                                                alt="promotion"
+                                            />
+                                            <img
+                                                className={Styles["promo-img"]}
+                                                src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`}
+                                                width="97"
+                                                alt="promotion"
+                                            />
                                         </div>
                                     )}
                                 </>
@@ -99,11 +111,21 @@ const BetSettings: React.FC<Props> = ({
                                 />
                             </div>
                             <span className={Styles["value"]}>{ChipLabelMapper[systemName][betValue]}</span>
-                        </div>                        
-                        {isShowBoostedOdds && (
-                            <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>                                
-                                <img className={Styles["promo-light"]} src={`/static/images/promotion-light.svg?v=1`} width="74" alt="promotion" />
-                                <img className={Styles["promo-img"]} src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`} width="74" alt="promotion" />
+                        </div>
+                        {(isShowBoostedOdds || isNewPromotion) && (
+                            <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
+                                <img
+                                    className={Styles["promo-light"]}
+                                    src={`/static/images/promotion-light.svg?v=1`}
+                                    width="74"
+                                    alt="promotion"
+                                />
+                                <img
+                                    className={Styles["promo-img"]}
+                                    src={`/static/images/promotion_${LanguageLocaleMapper[i18n.language]}.svg?v=3`}
+                                    width="74"
+                                    alt="promotion"
+                                />
                             </div>
                         )}
                         <div className={Styles["phone-quick-bet"]}>
@@ -117,7 +139,17 @@ const BetSettings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isShowBoostedOdds]);
+    }, [
+        user?.red,
+        updateBetValue,
+        enabledQuickBet,
+        updateEnabledQuickBet,
+        enabledSound,
+        isShowSlidingChip,
+        betValue,
+        isShowBoostedOdds,
+        isNewPromotion,
+    ]);
 };
 
 export default BetSettings;

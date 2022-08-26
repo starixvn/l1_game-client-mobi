@@ -53,7 +53,11 @@ class Dashboard extends React.PureComponent<Props, State> {
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
             isShowBoostedOdds: false,
+            isNewPromotion: false,
             promotionNotifications: [],
+            promotions: [{ gameId: 0, _id: "id", endDateTime: "", isDaily: false, odds: {}, startDateTime: "", status: ",", time: "" }],
+            queryGame: this.props.queryGame,
+            isJoinGame: false,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -81,6 +85,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleAnnouncementModal = this.toggleAnnouncementModal.bind(this);
         this.handlePromotions = this.handlePromotions.bind(this);
         this.handlePromotionNotifications = this.handlePromotionNotifications.bind(this);
+        this.updateQueryGame = this.updateQueryGame.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -226,13 +231,35 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        const { isShowBoostedOdds } = this.state;
-        if (data.length > 0 && !isShowBoostedOdds) {
-            console.log('show boosted odds')
-            this.setState({ isShowBoostedOdds: true });
-            setTimeout(() => {
-                this.setState({ isShowBoostedOdds: false });
-            }, 60000);
+        const { promotions } = this.state;
+        if (data.length > 0) {
+            let haveNewPromotion = data.length > promotions.length;
+            if (!haveNewPromotion) {
+                const filterNewPromotion = data.filter(
+                    (newPromotion) =>
+                        !promotions.some(
+                            (currentPromotion) =>
+                                newPromotion._id === currentPromotion._id &&
+                                newPromotion.startDateTime === currentPromotion.startDateTime &&
+                                currentPromotion.endDateTime === currentPromotion.endDateTime
+                        )
+                );
+                haveNewPromotion = filterNewPromotion.length > 0;
+            }
+            this.setState({ isNewPromotion: haveNewPromotion, promotions: data });
+            if (haveNewPromotion) {
+                setTimeout(() => {
+                    this.setState({ isNewPromotion: false });
+                }, 15000);
+
+                setTimeout(() => {
+                    this.setState({ isShowBoostedOdds: true });
+                }, 120000);
+            } else {
+                setTimeout(() => {
+                    this.setState({ isShowBoostedOdds: false });
+                }, 15000);
+            }
         }
     }
 
@@ -336,6 +363,11 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowAnnouncement: !this.state.isShowAnnouncement });
     }
 
+    updateQueryGame(gameId: number, isJoinGame: boolean) {
+        const queryGame = isJoinGame ? gameId : this.props.queryGame;
+        this.setState({ queryGame: queryGame, isJoinGame: isJoinGame });
+    }
+
     renderDashBoard() {
         const {
             enabledWinningStreakNotification,
@@ -353,6 +385,9 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowSlidingChip,
             isShowBoostedOdds,
             promotionNotifications,
+            isNewPromotion,
+            queryGame,
+            isJoinGame,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -387,8 +422,10 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateFavoriteGames={this.updateFavoriteGames}
                         favoriteGames={favoriteGames}
                         userOfferGames={offerGames}
-                        queryGame={this.props.queryGame}
+                        queryGame={queryGame}
                         isShowSlidingChip={isShowSlidingChip}
+                        updateQueryGames={this.updateQueryGame}
+                        isJoinGame={isJoinGame}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}
@@ -401,10 +438,15 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleAnnouncementModal={this.toggleAnnouncementModal}
                         betValue={betValue}
                         isShowBoostedOdds={isShowBoostedOdds}
+                        isNewPromotion={isNewPromotion}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
                     {isShowAnnouncement && (
-                        <AnnouncementModal onCloseModal={this.toggleAnnouncementModal} promotionNotifications={promotionNotifications} />
+                        <AnnouncementModal
+                            onCloseModal={this.toggleAnnouncementModal}
+                            promotionNotifications={promotionNotifications}
+                            updateQueryGame={this.updateQueryGame}
+                        />
                     )}
                     {isShowGuide && (
                         <GameGuideModal

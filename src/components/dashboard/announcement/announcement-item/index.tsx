@@ -1,19 +1,24 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { useTranslation } from "next-i18next";
 import { Props } from "./types";
 import Styles from "../announcement.module.scss";
 
-const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive }) => {
-    console.log(title, content, isActive);
-    const { t } = useTranslation();   
+const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive, gameId, onCloseAnnouncement, updateQueryGame }) => {
+    const { t } = useTranslation();
+    const onClickJoinGame = () => {
+        console.log("onclick");
+
+        onCloseAnnouncement();
+        updateQueryGame(gameId, true);
+    };
     return (
         <>
             <img src={`/static/images/promotion-badge.svg`} className={Styles[`img-fluid`]} height="46" width="36" alt="Promotion" />
-            <div className={Styles["content"]}>
+            <div className={Styles["content"]} onClick={onClickJoinGame}>
                 <span className={Styles["title"]}>{title}</span>
                 <p className={Styles["text"]}>{content}</p>
                 <div className={Styles["bottom"]}>
-                    <button className={`btn-red ${Styles["btn"]}`} disabled={isActive}>
+                    <button className={`btn-red ${Styles["btn"]}`} disabled={!isActive}>
                         {t("joinGame")}
                     </button>
                 </div>
