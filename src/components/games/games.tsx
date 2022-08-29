@@ -60,6 +60,14 @@ const getDefaultCategory = () => {
     return appSettings.appType === AppTypes.mobile ? "hot" : "megakeno";
 };
 
+const getCategoryByQueryGameId = (gameId: number) => {
+    return (
+        GameCategoryKeys.find(
+            (category) => category !== "hot" && GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)
+        ) ?? "hot"
+    );
+};
+
 const getCategoryHashTag = (category: string, pageIndex: number) => {
     return pageIndex > 1 ? `${category}_${pageIndex - 1}` : category;
 };
@@ -99,10 +107,12 @@ export const Games: React.FC<Props> = ({
     queryGame,
     userOfferGames,
     isShowSlidingChip,
+    isJoinGame,
+    updateQueryGames,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
-    const queryCategory = urlHashtag[0] || getCategoryByGameId(queryGame);
+    const queryCategory = isJoinGame ? getCategoryByQueryGameId(queryGame) : urlHashtag[0] || getCategoryByGameId(queryGame);
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType[queryCategory]);
     const [selectedPage, setSelectedPage] = useState(+urlHashtag[1] + 1 || 1);
     const winningStreakRef = useRef(null);
@@ -118,6 +128,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
+        () => selectCategoryPage(queryCategory, 1);
         const renderGames = getRenderGames(
             selectedCategory,
             selectedPage,
@@ -195,6 +206,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const selectCategoryPage = (category: string, pageIndex: number) => {
+        updateQueryGames(NaN, false);
         setSelectedCategory(GameCategoryType[category]);
         setSelectedPage(pageIndex);
         history.pushState(null, "", `#${getCategoryHashTag(category, pageIndex)}`);
@@ -247,6 +259,10 @@ export const Games: React.FC<Props> = ({
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        selectCategoryPage(queryCategory, 1);
+    }, [queryGame]);
 
     return (
         <div
