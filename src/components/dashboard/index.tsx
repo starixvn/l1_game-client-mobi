@@ -188,9 +188,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             window.addEventListener("orientationchange", this.handleOrientation, false);
         }
 
-        if (authorizeInfo.authorized) {
-            this.connectNotificationSocket();
-        }
+        this.connectNotificationSocket();
     }
 
     componentWillUnmount() {
