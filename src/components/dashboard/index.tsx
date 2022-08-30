@@ -32,6 +32,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     private notificationSocket: Socket = null;
     private reCheckInInterval: NodeJS.Timeout;
     private isKickOut: boolean = false;
+    private showPromotion: NodeJS.Timeout;
 
     constructor(props: Props) {
         super(props);
@@ -231,7 +232,6 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        let timeOut: NodeJS.Timeout = null;
         const { promotions, isShowBoostedOdds } = this.state;
         if (data.length > 0) {
             let haveNewPromotion = data.length > promotions.length;
@@ -251,9 +251,8 @@ class Dashboard extends React.PureComponent<Props, State> {
             if (haveNewPromotion || isShowBoostedOdds) {
                 this.setState({ isNewPromotion: true });
                 console.log("haveNewPromotion isShowBoostedOdds time", haveNewPromotion, isShowBoostedOdds, new Date());
-                clearTimeout(timeOut);
-
-                timeOut = setTimeout(() => {
+                clearTimeout(this.showPromotion);
+                this.showPromotion = setTimeout(() => {
                     this.setState({ isShowBoostedOdds: true });
                     console.log("setTimeout time", new Date());
                 }, 120000);
