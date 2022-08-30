@@ -52,7 +52,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
-            isShowBoostedOdds: false,
+            isShowBoostedOdds: true,
             isNewPromotion: false,
             promotionNotifications: [],
             promotions: [{ gameId: 0, _id: "id", endDateTime: "", isDaily: false, odds: {}, startDateTime: "", status: ",", time: "" }],
@@ -231,7 +231,8 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        const { promotions } = this.state;
+        let timeOut: NodeJS.Timeout = null;
+        const { promotions, isShowBoostedOdds } = this.state;
         if (data.length > 0) {
             let haveNewPromotion = data.length > promotions.length;
             if (!haveNewPromotion) {
@@ -246,20 +247,21 @@ class Dashboard extends React.PureComponent<Props, State> {
                 );
                 haveNewPromotion = filterNewPromotion.length > 0;
             }
-            this.setState({ isNewPromotion: haveNewPromotion, promotions: data });
-            if (haveNewPromotion) {
-                setTimeout(() => {
-                    this.setState({ isNewPromotion: false });
-                }, 15000);
 
-                setTimeout(() => {
+            if (haveNewPromotion || isShowBoostedOdds) {
+                this.setState({ isNewPromotion: true });
+                console.log("haveNewPromotion isShowBoostedOdds time", haveNewPromotion, isShowBoostedOdds, new Date());
+                clearTimeout(timeOut);
+
+                timeOut = setTimeout(() => {
                     this.setState({ isShowBoostedOdds: true });
+                    console.log("setTimeout time", new Date());
                 }, 120000);
-            } else {
-                setTimeout(() => {
-                    this.setState({ isShowBoostedOdds: false });
-                }, 15000);
             }
+            setTimeout(() => {
+                this.setState({ isNewPromotion: false });
+            }, 10000);
+            this.setState({ promotions: data, isShowBoostedOdds: false });
         }
     }
 
@@ -437,7 +439,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                         isShowSlidingChip={isShowSlidingChip}
                         toggleAnnouncementModal={this.toggleAnnouncementModal}
                         betValue={betValue}
-                        isShowBoostedOdds={isShowBoostedOdds}
                         isNewPromotion={isNewPromotion}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}

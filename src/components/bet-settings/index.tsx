@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 import { useTranslation } from "next-i18next";
 
@@ -20,7 +20,6 @@ type Props = {
     isShowSlidingChip: boolean;
     toggleAnnouncementModal: () => void;
     betValue: number;
-    isShowBoostedOdds: boolean;
     isNewPromotion: boolean;
 };
 
@@ -34,7 +33,6 @@ const BetSettings: React.FC<Props> = ({
     isShowSlidingChip,
     toggleAnnouncementModal,
     betValue,
-    isShowBoostedOdds,
     isNewPromotion,
 }) => {
     const { i18n } = useTranslation();
@@ -44,7 +42,7 @@ const BetSettings: React.FC<Props> = ({
         if (isMobileOnly) {
             deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
         }
-
+        console.log("isNewPromotion", isNewPromotion);
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
                 <div
@@ -61,7 +59,7 @@ const BetSettings: React.FC<Props> = ({
                                         isHeaderSetting={false}
                                     />
 
-                                    {(isShowBoostedOdds || isNewPromotion) && (
+                                    {isNewPromotion && (
                                         <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
                                             <img
                                                 className={Styles["promo-light"]}
@@ -112,7 +110,7 @@ const BetSettings: React.FC<Props> = ({
                             </div>
                             <span className={Styles["value"]}>{ChipLabelMapper[systemName][betValue]}</span>
                         </div>
-                        {(isShowBoostedOdds || isNewPromotion) && (
+                        {isNewPromotion && (
                             <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
                                 <img
                                     className={Styles["promo-light"]}
@@ -139,17 +137,7 @@ const BetSettings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [
-        user?.red,
-        updateBetValue,
-        enabledQuickBet,
-        updateEnabledQuickBet,
-        enabledSound,
-        isShowSlidingChip,
-        betValue,
-        isShowBoostedOdds,
-        isNewPromotion,
-    ]);
+    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isNewPromotion]);
 };
 
 export default BetSettings;
