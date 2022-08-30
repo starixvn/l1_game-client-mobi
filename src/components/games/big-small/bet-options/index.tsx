@@ -32,7 +32,7 @@ const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
                         isHighlight={settlementResult[choice]}
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
-                        isBoostedOdds={boostedChoices.includes(choice)}
+                        isBoostedOdds={boostedChoices?.includes(choice)}
                     >
                         <div className={Styles[choice]}>
                             {t(choice)}

@@ -15,6 +15,7 @@ describe("Header", () => {
         toggleGuideModal: () => {},
         updateFavoriteGames: () => {},
         favoriteGames: [],
+        promotionNotifications: [],
     };
     test("renders Header component", () => {
         const { getByTestId } = render(<Header {...props} />);

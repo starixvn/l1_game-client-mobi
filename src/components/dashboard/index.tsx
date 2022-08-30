@@ -263,8 +263,9 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotionNotifications(data) {
-        if (data.length > 0) {
-            this.setState({ promotionNotifications: data });
+        this.setState({ promotionNotifications: data });
+        if (data.length < 1) {
+            this.setState({ isShowAnnouncement: false });
         }
     }
 

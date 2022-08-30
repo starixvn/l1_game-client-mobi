@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from "next-i18next";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { LanguageLocaleMapper } from "../../../common/constants";
 import BaseDialog from "../../shared/base-dialog";
 import AnnouncementItem from "./announcement-item";
@@ -35,7 +35,7 @@ export const AnnouncementModal: React.FC<{
                                     )}
                                 </label>
                                 <div className={Styles["tab-content"]}>
-                                    {promotionNotifications.length > 0 ? (
+                                    {promotionNotifications.length > 0 && (
                                         <ul className={Styles["list-item"]}>
                                             {promotionNotifications.map((promotionNotification, index) => (
                                                 <li key={index} className={`${Styles["item-content"]} -${index}`}>
@@ -50,8 +50,6 @@ export const AnnouncementModal: React.FC<{
                                                 </li>
                                             ))}
                                         </ul>
-                                    ) : (
-                                        <div className={Styles["no-promo"]}>{t("no-promo")}</div>
                                     )}
                                 </div>
                             </div>
