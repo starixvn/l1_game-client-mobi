@@ -128,7 +128,6 @@ export const Games: React.FC<Props> = ({
     };
 
     const renderListGames = () => {
-        () => selectCategoryPage(queryCategory, 1);
         const renderGames = getRenderGames(
             selectedCategory,
             selectedPage,

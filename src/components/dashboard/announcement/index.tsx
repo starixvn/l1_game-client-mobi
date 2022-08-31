@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from "next-i18next";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { LanguageLocaleMapper } from "../../../common/constants";
 import BaseDialog from "../../shared/base-dialog";
 import AnnouncementItem from "./announcement-item";

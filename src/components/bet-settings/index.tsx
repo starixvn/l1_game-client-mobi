@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 import { useTranslation } from "next-i18next";
-
 import { User } from "sc-user-service-client/dist/auth";
 import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
 import { QuickBetBtn } from "./quick-bet-btn";
-import { ChipLabelMapper, ChipMapper, systemName } from "../../common/constants";
-import { LanguageLocaleMapper } from "../../common/constants";
+import { ChipLabelMapper, ChipMapper, systemName, LanguageLocaleMapper } from "../../common/constants";
 import Styles from "./bet-setting.module.scss";
 
 type Props = {

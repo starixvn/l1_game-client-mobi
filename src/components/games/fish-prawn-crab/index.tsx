@@ -5,7 +5,6 @@ import React from "react";
 import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
 import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ScoreboardBasic from "../../shared/round-history/scoreboard/basic";
-import { ShakeThePlate } from "../big-small/animations";
 import FishPrawnCrabBetOptions from "./bet-options";
 import { Result, SettlementResult } from "./fish-prawn-crab";
 import FishPrawnCrabResult, { FishPrawnCrabResultCollapse, FishPrawnCrabShakeThePlate } from "./fish-prawn-crab-result";

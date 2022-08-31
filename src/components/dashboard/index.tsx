@@ -33,6 +33,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     private reCheckInInterval: NodeJS.Timeout;
     private isKickOut: boolean = false;
     private showPromotion: NodeJS.Timeout;
+    private delayTimeShowPromotion = 120000;
 
     constructor(props: Props) {
         super(props);
@@ -240,7 +241,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             (currentPromotion) =>
                                 newPromotion._id === currentPromotion._id &&
                                 newPromotion.startDateTime === currentPromotion.startDateTime &&
-                                currentPromotion.endDateTime === currentPromotion.endDateTime
+                                newPromotion.endDateTime === currentPromotion.endDateTime
                         )
                 );
                 haveNewPromotion = filterNewPromotion.length > 0;
@@ -253,7 +254,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 this.showPromotion = setTimeout(() => {
                     this.setState({ isShowBoostedOdds: true });
                     console.log("setTimeout time", new Date());
-                }, 120000);
+                }, this.delayTimeShowPromotion);
             }
             setTimeout(() => {
                 this.setState({ isNewPromotion: false });
