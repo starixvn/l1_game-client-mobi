@@ -10,6 +10,7 @@ const classResult = {
     dice2: "result-2",
     dice3: "result-3",
 };
+const hasAnimationStyle = "has-animation";
 const generateResult = (result: Result) => {
     return (
         result &&
@@ -33,7 +34,7 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
                 <div className={`${Styles["animation-container"]}`}>
                     <div
                         className={`${Styles["result-set"]} ${
-                            playResultAnimation ? Styles["has-animation"] : Styles["move-up-no-animation"]
+                            playResultAnimation ? Styles[hasAnimationStyle] : Styles["move-up-no-animation"]
                         }`}
                     >
                         <div className={Styles["plate"]}></div>
@@ -46,31 +47,30 @@ const FishPrawnCrabResult: React.FC<{ result?: Result }> = ({ result }) => {
     );
 };
 export const FishPrawnCrabShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
-   useMemo(
-    () => (
-        <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
-            <div className="overlay-mask-no-bg">
-                <div className={`${Styles["animation-container"]}`}>
-                    <div
-                        className={`${Styles["shake-the-plate"]} ${
-                            playAnimation ? Styles["has-animation"] : Styles["move-up-no-animation"]
-                        }`}
-                    >
-                        <div className={Styles["plate"]}></div>                        
-                        <div className={Styles["bowl"]}></div>
+    useMemo(
+        () => (
+            <div className={`${Styles["container"]} ${Styles["normal-mode"]}`}>
+                <div className="overlay-mask-no-bg">
+                    <div className={`${Styles["animation-container"]}`}>
+                        <div
+                            className={`${Styles["shake-the-plate"]} ${
+                                playAnimation ? Styles[hasAnimationStyle] : Styles["move-up-no-animation"]
+                            }`}
+                        >
+                            <div className={Styles["plate"]}></div>
+                            <div className={Styles["bowl"]}></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    ),
-    [roundId]
-   );    
-
+        ),
+        [roundId]
+    );
 
 export const FishPrawnCrabResultCollapse: React.FC<{ result?: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
     return (
-        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation && Styles["has-animation"]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${playResultAnimation && Styles[hasAnimationStyle]}`}>
             {result &&
                 Object.keys(result).map((dice, index) => {
                     const src = `/static/images/${nameDices[result[dice]]}.png`;

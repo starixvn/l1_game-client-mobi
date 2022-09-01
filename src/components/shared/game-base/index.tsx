@@ -16,7 +16,6 @@ import { getBalance } from "../../../services/auth-service";
 import CountdownTimer from "../../shared//countdown-timer/countdown-timer";
 import GameContainer from "../../shared/game-container";
 import ScoreboardRoundHistory from "../../shared/round-history/scoreboard";
-import AcceptBet from "../animations/accept-bet";
 import WinningBet from "../animations/winning-bet";
 import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";

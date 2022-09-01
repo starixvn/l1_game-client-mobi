@@ -31,9 +31,9 @@ const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
     private notificationSocket: Socket = null;
     private reCheckInInterval: NodeJS.Timeout;
-    private isKickOut: boolean = false;
+    private isKickOut = false;
     private showPromotion: NodeJS.Timeout;
-    private delayTimeShowPromotion = 120000;
+    private readonly delayTimeShowPromotion = 120000;
 
     constructor(props: Props) {
         super(props);
@@ -117,7 +117,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
-    handleShowApiErrorMessage(errorCode: string, isDisableAccount: boolean = false) {
+    handleShowApiErrorMessage(errorCode: string, isDisableAccount = false) {
         if (isDisableAccount || errorCode === "1001" || errorCode === "1002") {
             this.isKickOut = true;
             setTimeout(() => {
@@ -169,7 +169,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         const errorResponse = authorizeResponse as Response;
 
-        if (errorResponse && errorResponse.errorCode == "SB0002") {
+        if (errorResponse && errorResponse.errorCode === "SB0002") {
             this.props.router.push("/timeout");
             return;
         }
