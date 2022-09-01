@@ -86,6 +86,10 @@
     &.dragontiger {
         color: var(--dragonTiger-tie-text-color);
     }
+    &.kenomatch1,
+    &.kenomatch2 {
+        color: var(--keno-match-tie-statistic-text-color);
+    }
 }
 
 .banker {
@@ -145,14 +149,6 @@
 .red {
     @extend %title;
     color: var(--keno-match-red-statistic-text-color);
-}
-
-.tie {
-    @extend %title;
-    &.kenomatch1,
-    &.kenomatch2 {
-        color: var(--keno-match-tie-statistic-text-color);
-    }
 }
 
 .over,

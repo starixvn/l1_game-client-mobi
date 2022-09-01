@@ -1,7 +1,7 @@
 @import "../favorite-setting/favorite-setting.module.scss";
 
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #7F9DCF 0%, #5E7CAE 100%);
+    --game-header-background: linear-gradient(180deg, #5075AF 0%, #2D4976 100%);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-game-name-color: #fff;
@@ -64,38 +64,10 @@
     padding: 1rem;
 }
 
-.header-left {
-    display: flex;
-    justify-content: space-between;
-
-    .title-roundID {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: #fff
-    }
-
-    .title {
-        line-height: 2rem;
-        font-weight: 500;
-        font-size: 1.8rem;
-        color: var(--game-header-game-name-color);
-
-        @media (min-width: 1024px) and (max-width: 1278px) {
-            font-size: 1.6rem;
-        }
-
-        @media (max-width: 575.99px) {
-            font-size: 1.6rem;
-        }
-    }
-}
-
 .header {
     display: flex;
     justify-content: space-between;
     background: var(--game-header-background);
-    border-radius: 0.5rem 0.5rem 0 0;
     position: relative;
     width: 32rem;
     height: 5.6rem;
@@ -163,12 +135,13 @@
 
 .header-left {
     display: flex;
-    justify-content: space-between;
-
+    justify-content: space-between;   
+    
     .title-roundID {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        color: #fff
     }
 
     .title {

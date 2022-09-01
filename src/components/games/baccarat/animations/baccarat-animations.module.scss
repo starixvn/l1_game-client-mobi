@@ -18,8 +18,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
 .animation-container {
     position: absolute;
     top: 0.3rem;
-    width: 100%;
-    display: flex;
+    width: 100%;  
     pointer-events: none;
     display: grid;
     --gap-player-banker: 2rem;
@@ -117,8 +116,7 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
             --height-score: 2.2rem;
             --font-size-score: 1.4rem;
             --bottom-score: 0;
-            position: absolute;
-            bottom: 0;
+            position: absolute;           
             width: var(--width-score);
             height: var(--height-score);
             border-top-left-radius: 10px;
@@ -441,6 +439,8 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         &.card-5, &.card-6 {
             &.has-animation .animation-container {
                 .player {
+                    --move-left-from-player: 2.6rem;
+                    --move-left-to-player: 0;
                     animation-delay:  $time-delay-zoom-in-card-animation + math.div($time-open-card-animation * 4, 6) + 
                     $time-delay-open-card-4 + $time-show-score-animation * 2
                     + $time-blink-score-animation * 4 + 0.2s;
@@ -516,14 +516,6 @@ $time-delay-zoom-in-card-animation: 0.1s + $time-zoom-in-card-animation;
         }
     }
     
-}
-
-.result-collapse-mode.open-cards.card-6.has-animation .animation-container,
-.result-collapse-mode.open-cards.card-5.has-animation .animation-container {
-    .player {
-        --move-left-from-player: 2.6rem;
-        --move-left-to-player: 0;
-    }
 }
 
 .result-collapse-mode .move-up-no-animation {

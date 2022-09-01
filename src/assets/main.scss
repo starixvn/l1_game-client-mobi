@@ -16,6 +16,9 @@
 
 html {
     font-size: 10px !important;
+    overscroll-behavior: none;
+    -ms-overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
 
     --font-family: "SanFranciscoDisplay", arial, sans-serif;
     --font-money: "BebasNeue", Arial, sans-serif;
@@ -218,12 +221,6 @@ html {
     --container-color-bg: #fff;
     --container-border-color: #cbcbcb;
     --icon-favorite-game-guide: #2c2f3e;
-}
-
-html {
-    overscroll-behavior: none;
-    -ms-overscroll-behavior: none;
-    -webkit-tap-highlight-color: transparent;
 }
 
 // To dock the footer

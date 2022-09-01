@@ -49,6 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 3rem; 
 
     &:hover {
         cursor: pointer;
@@ -67,9 +68,6 @@
         font-size: 3.2rem;
         color: var(--game-header-icon-favourite);
     }
-}
-.favorite-btn {
-    width: 3rem;        
 }
 
 .zone-none-favorite  {
