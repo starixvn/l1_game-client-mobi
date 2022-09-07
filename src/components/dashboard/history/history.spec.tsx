@@ -6,6 +6,12 @@ import { AuthContextProvider } from "../../../contexts/auth";
 import { authContextValue, offerGames } from "../__test__/test-helper";
 
 jest.mock("axios");
+jest.mock("../../../common/constants", () => ({
+    systemName: () => {
+        "l1";
+    },
+    isL1System: () => {},
+}));
 describe("HistoryModal", () => {
     test("should render correctly", async () => {
         // Act

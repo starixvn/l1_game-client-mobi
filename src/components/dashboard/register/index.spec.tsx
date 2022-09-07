@@ -13,6 +13,11 @@ const setup = () => {
     };
 };
 
+jest.mock("../../../common/constants", () => ({
+    systemName: "l1",
+    isL1System: () => {},
+}));
+
 describe("Register", () => {
     test("should render correctly", async () => {
         // Act

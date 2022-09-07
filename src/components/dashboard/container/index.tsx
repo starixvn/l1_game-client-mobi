@@ -11,7 +11,11 @@ const FirstLoginContainer: React.FC = ({ children }) => {
             <div className={Styles["page-bg"]}>
                 <div className={Styles["page-container"]}>
                     <div className={Styles["logo"]}>
-                        <img src={`/static/images/${logoTheme}.svg?v=${buildVersion}`} className={`img-fluid ${isL1System() ? "" : Styles["logo-customize"]}`} alt="logo" />
+                        <img
+                            src={`/static/images/${logoTheme}.svg?v=${buildVersion}`}
+                            className={`img-fluid ${isL1System() ? "" : Styles["logo-customize"]}`}
+                            alt="logo"
+                        />
                     </div>
                     {children}
                 </div>

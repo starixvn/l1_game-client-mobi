@@ -3,7 +3,10 @@ import React from "react";
 import * as rdd from "react-device-detect";
 
 import FirstLoginContainer from ".";
-
+jest.mock("../../../common/constants", () => ({
+    systemName: "l1",
+    isL1System: () => {},
+}));
 describe("FirstLoginContainer", () => {
     test.each`
         isMobile | className

@@ -9,6 +9,20 @@ import { AuthContextProvider } from "../../../contexts/auth";
 import { KenoProMax } from "./index";
 import { DefaultGameContext, AuthContextValueDefault, SystemContextValue, kenoProps } from "./__tests__/test-helper";
 
+jest.mock("../../../common/constants", () => ({
+    systemName: "l1",
+    isL1System: () => {},
+    ChipMapper: {
+        l1: {
+            "1": "chip-1",
+            "5": "chip-2",
+        },
+        l2: {
+            "10": "chip-1",
+        },
+    },
+}));
+
 const roundHistory = [
     {
         result: [4, 11, 13, 19, 21, 24, 26, 28, 38, 49, 53, 58, 60, 63, 65, 70, 71, 73, 74, 80],
