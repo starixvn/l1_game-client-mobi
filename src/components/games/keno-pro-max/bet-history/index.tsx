@@ -70,12 +70,12 @@ export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, clo
         const result: any = bet?.result;
         const settlementResult: any = bet?.settlementResult;
         const textTranslate = GetChoiceTranslate(t);
-
+        const resultLength = result.length / 10;
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>
                     <div className={Styles["result"]}>
-                        <div className={`${Styles["number-container"]} ${Styles[`number-rows- ${result.length / 10}`]}`}>
+                        <div className={`${Styles["number-container"]} ${Styles["number-rows-" + resultLength]}`}>
                             {generateResultCollapse(result, false, ResultClassState.betHistory)}
                         </div>
                         <div className={Styles["result-total-number"]}>

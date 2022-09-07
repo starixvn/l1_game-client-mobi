@@ -1,7 +1,7 @@
 import { withTranslation } from "next-i18next";
 import { withRouter } from "next/router";
 import React from "react";
-import { OpenThePlate, BigSmallResultCollapse, ShakeThePlate } from "./animations";
+import { BigSmallOpenThePlate, BigSmallResultCollapse, BigSmallShakeThePlate } from "./animations";
 import GatewayGameBase from "../../shared/game-base/gateway-gamebase";
 import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/game-base/type";
 import ChainRoundHistory from "../../shared/round-history/chain";
@@ -72,7 +72,7 @@ class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
 
     renderResult() {
         const { result } = this.state;
-        return <OpenThePlate result={result}></OpenThePlate>;
+        return <BigSmallOpenThePlate result={result}></BigSmallOpenThePlate>;
     }
 
     renderResultCollapse() {
@@ -105,7 +105,7 @@ class BigSmall extends GatewayGameBase<GatewayGameBaseProps, GameBaseState<Resul
         const { durations } = this.props;
         const { roundId } = this.state;
         return (
-            <ShakeThePlate
+            <BigSmallShakeThePlate
                 key={roundId}
                 playAnimation={this.timeCounter >= durations.placingBets + durations.beforeStartRound}
                 roundId={roundId}

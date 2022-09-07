@@ -165,6 +165,7 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
                 result={result ?? this.getFakeResult()}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}
+                isMega={false}
             />
         );
     }

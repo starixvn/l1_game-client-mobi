@@ -249,11 +249,9 @@ class Dashboard extends React.PureComponent<Props, State> {
 
             if (haveNewPromotion || isShowBoostedOdds) {
                 this.setState({ isNewPromotion: true });
-                console.log("haveNewPromotion isShowBoostedOdds time", haveNewPromotion, isShowBoostedOdds, new Date());
                 clearTimeout(this.showPromotion);
                 this.showPromotion = setTimeout(() => {
                     this.setState({ isShowBoostedOdds: true });
-                    console.log("setTimeout time", new Date());
                 }, this.delayTimeShowPromotion);
             }
             setTimeout(() => {

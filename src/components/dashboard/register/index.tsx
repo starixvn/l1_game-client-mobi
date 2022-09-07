@@ -81,7 +81,6 @@ export default function Register({ session, handleStateLogin }: Props) {
     };
     const highlightSystemClass = Styles[`highlight-system-${appSettings.appType}`];
 
-
     return (
         <FirstLoginContainer>
             <div className={`${Styles["wrapper-welcome"]} ${highlightSystemClass}`}>

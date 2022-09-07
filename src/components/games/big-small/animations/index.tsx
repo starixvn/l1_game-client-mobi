@@ -8,16 +8,16 @@ import Styles from "./big-small-animations.module.scss";
 const Plate: React.FC = ({ children }) => {
     return (
         <div className={`${Styles["animation-container"]}`}>
-            <div className={Styles["result-sedie-set"]}>
-                <div className={Styles["result-sedie-plate"]}></div>
+            <div className={Styles["result-bigsmall-set"]}>
+                <div className={Styles["result-bigsmall-plate"]}></div>
                 {children}
-                <div className={Styles["result-sedie-bowl"]}></div>
+                <div className={Styles["result-bigsmall-bowl"]}></div>
             </div>
         </div>
     );
 };
 
-export const ShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
+export const BigSmallShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number }> = ({ playAnimation = false, roundId }) =>
     useMemo(
         () => (
             <div className={playAnimation ? Styles["shake-the-plate"] : ""}>
@@ -29,7 +29,7 @@ export const ShakeThePlate: React.FC<{ playAnimation?: boolean; roundId: number 
         [roundId]
     );
 
-export const OpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
+export const BigSmallOpenThePlate: React.FC<{ result: Result }> = ({ result }) => {
     const { playResultAnimation } = useGameContext();
     return (
         <div className={`${Styles["open-the-plate"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
