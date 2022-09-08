@@ -10,7 +10,9 @@ export const countSettlementResult = (roundHistory: Round<any, any>[]) => {
     return roundHistory.reduce((result, { settlementResult }) => {
         for (const [choice, win] of Object.entries(settlementResult)) {
             if (win) {
-                result[choice] = result[choice] ? (result[choice] += 1) : 1;
+                if (result[choice]) {
+                    result[choice] = result[choice] + 1;
+                } else result[choice] = 1;
             }
         }
         return result;
