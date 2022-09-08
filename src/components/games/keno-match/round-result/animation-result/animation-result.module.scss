@@ -42,13 +42,13 @@
 .half-round-settlement {
     width: 100%;
     height: 100%;
-    background-color: #cecece;
     animation-name: fadeIn, fadeOut;
     animation-duration: 0.2s, 0.2s;
     animation-delay: 0s, 4s;
     animation-fill-mode: forwards, forwards;
     animation-timing-function: linear, linear;
     background: var(--bg-color);
+    background-color: #cecece;
 }
 
 

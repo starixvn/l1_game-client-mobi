@@ -12,7 +12,9 @@ export const countSettlementResult = (roundHistory: Round<any, any>[]) => {
             if (win) {
                 if (result[choice]) {
                     result[choice] = result[choice] + 1;
-                } else result[choice] = 1;
+                } else {
+                    result[choice] = 1;
+                }
             }
         }
         return result;

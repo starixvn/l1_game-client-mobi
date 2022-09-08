@@ -16,7 +16,6 @@
     color: var(--accepted-bet-color);
     letter-spacing: -0.1rem;
     -webkit-text-stroke: 1px var(--accepted-bet-border);
-    text-stroke: 1px var(--accepted-bet-border);
 
     @media (min-width: 768px) {
         --winning-bet-scale-animation: 1.2;

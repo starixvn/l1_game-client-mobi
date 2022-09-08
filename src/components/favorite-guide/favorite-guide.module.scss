@@ -208,11 +208,11 @@
         color: var(--color-arrow-hint);
         .direction {
             mask: url("/static/images/right-arrow-curved.svg") no-repeat center;
-            background-size: 6.4rem 5.5rem;
             width: 6.4rem;
             height: 5.5rem;
             display: block;
             background: var(--hint-arrow-color);
+            background-size: 6.4rem 5.5rem;
         }
         &.top {
             top: -2rem;
