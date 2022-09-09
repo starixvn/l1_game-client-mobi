@@ -87,14 +87,13 @@
         border: 1px solid;
         height: 1.8rem;
         line-height: 1.8rem; 
-        animation: var(--start-boosted-odds-animation) 2s forwards;
+        animation: var(--start-boosted-odds-animation) 2s forwards infinite;       
         transition: all 0.3s ease;
 
         @media (min-width: 1136px) {
             letter-spacing: unset;
         }
-    }
-    
+    }  
 
     .total-bet,
     .own-bet {
@@ -205,19 +204,12 @@
     }
 }
 
-
 @keyframes start-boosted-odds {
-    0%,
-    12%,
-    37%,
-    62%,
-    87% {
+    0%, 100% {
         box-shadow: none;
     }
 
-    25%,
-    50%,
-    75% {
+    50% {
         box-shadow: 0 0 5px #C01357, 0 0 8px #FF8DBA inset;   
     }
 }
