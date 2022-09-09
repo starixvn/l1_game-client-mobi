@@ -39,5 +39,6 @@
     "enableMsgpackParser": true,
     "guideUrl": "https://guides.v-gaming.net",
     "googleAnalyticId": "G-60EQDEC0YR",
-    "system": "L2"
+    "system": "L2",
+    "appType": 2
 }

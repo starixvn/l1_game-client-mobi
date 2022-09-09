@@ -38,5 +38,6 @@
     "enableSourceMap": true,
     "guideUrl": "http://localhost:3001",
     "enableMsgpackParser": false,
-    "system": "L1"
+    "system": "L1",
+    "appType": 4
 }

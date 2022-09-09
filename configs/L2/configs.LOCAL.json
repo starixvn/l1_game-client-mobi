@@ -38,5 +38,6 @@
     "enableSourceMap": true,
     "enableMsgpackParser": false,
     "guideUrl": "https://l2-guide.lumigame.com",
-    "system": "L2"
+    "system": "L2",
+    "appType": 2
 }

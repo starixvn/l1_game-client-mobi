@@ -39,5 +39,6 @@
     "guideUrl": "https://l1guidessit.sgamesuat.com",
     "googleAnalyticId": "G-X1Q507KDPB",
     "enableMsgpackParser": true,
-    "system": "L1"
+    "system": "L1",
+    "appType": 2
 }

@@ -90,3 +90,7 @@ export const vGamingMobileName = "Vgaming Mobi";
 export const vGamingName = "Vgaming";
 
 export const buildVersion = process.env.buildVersion;
+export const AppTypes = {
+    mobile: 2,
+    megaKeno: 4,
+};
