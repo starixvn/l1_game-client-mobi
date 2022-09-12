@@ -260,7 +260,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     handleApiError = ({ apiError }) => {
         const isPlaceBet = apiError.isPlaceBetFailed ? apiError.isPlaceBetFailed : false;
         const errorCode = apiError.errorCode;
-        this.handleKickOut(errorCode.toString())
+        this.handleKickOut(errorCode.toString());
 
         const message = GetLocalizedErrorMessage(errorCode, isPlaceBet);
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
@@ -281,9 +281,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     };
 
     handleKickOut(errorCode: string) {
-        (errorCode === "1001" || errorCode === "1002") && setTimeout(() => {
-            this.context.signOut();
-        }, 10000);
+        (errorCode === "1001" || errorCode === "1002") &&
+            setTimeout(() => {
+                this.context.signOut();
+            }, 10000);
     }
 
     handleBetFailed = ({ notice, kickedOut }) => {
@@ -950,10 +951,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
         let md5Text = (
-            <div>
-                <strong>MD5:</strong> {md5}
-            </div>
-        ),
+                <div>
+                    <strong>MD5:</strong> {md5}
+                </div>
+            ),
             md5ClassName = "md5-key";
 
         if (showMD5ResultKey && md5ResultKey) {

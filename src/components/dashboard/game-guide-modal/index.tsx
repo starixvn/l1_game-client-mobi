@@ -38,8 +38,6 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
         });
     }, [selectedGameId]);
 
-    console.log("GameGuideModal", gameConfigs);
-
     return (
         <BaseDialog onCloseModal={closeModal} enableBackdrop={true}>
             <div className={Styles["popup-container"]}>

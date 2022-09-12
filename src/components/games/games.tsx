@@ -30,11 +30,14 @@ import MiniKeno from "./mini-keno";
 import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
+import { AppTypes } from "../../common/constants";
 
 let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
-        selectedCategory !== GameCategoryType.favorite ? GameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
+        selectedCategory !== GameCategoryType.favorite
+            ? GameCategoryConfig[appSettings.appType][GameCategoryType[selectedCategory]]
+            : favoriteGames;
     const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && appSettings.offeredGames.includes(gameId));
     const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
 
@@ -45,7 +48,16 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
 };
 
 const getCategoryByGameId = (gameId: number) => {
-    return GameCategoryKeys.find((category) => GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)) ?? "hot";
+    return (
+        GameCategoryKeys.find(
+            (category) =>
+                GameCategoryConfig[appSettings.appType][category] && GameCategoryConfig[appSettings.appType][category].includes(gameId)
+        ) ?? getDefaultCategory()
+    );
+};
+
+const getDefaultCategory = () => {
+    return appSettings.appType === AppTypes.mobile ? "hot" : "megakeno";
 };
 
 const getCategoryHashTag = (category: string, pageIndex: number) => {
@@ -237,8 +249,11 @@ export const Games: React.FC<Props> = ({
     }, []);
 
     return (
-        <div className={`game-container ${!isMobileOnly ? "game-wrapper" : "game-wapper-mobile"} ${isShowSlidingChip ? styles["open-chips"] : styles["close-chips"]
-            }`}>
+        <div
+            className={`game-container ${!isMobileOnly ? "game-wrapper" : "game-wapper-mobile"} ${
+                isShowSlidingChip ? styles["open-chips"] : styles["close-chips"]
+            }`}
+        >
             <SystemContextProvider
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
             >

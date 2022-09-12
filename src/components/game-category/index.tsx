@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
 
+import appSettings from "../../common/app-settings";
+
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import styles from "./game-category.module.scss";
 
@@ -41,7 +43,7 @@ export const GameCategory: React.FC<{
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
-        const categoryLength = category !== "favorite" ? GameCategoryConfig[category].length : favoriteGames.length;
+        const categoryLength = category !== "favorite" ? GameCategoryConfig[appSettings.appType][category].length : favoriteGames.length;
 
         result[category] = Math.ceil(categoryLength / GamesInOnePage);
 
@@ -50,8 +52,8 @@ export const GameCategory: React.FC<{
 
     useEffect(() => {
         if (wrapperRef?.current) {
-            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;            
-        }        
+            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;
+        }
     }, [wrapperRef?.current, selectedCategory]);
 
     return (
@@ -65,10 +67,7 @@ export const GameCategory: React.FC<{
                         key={categoryKey}
                     >
                         <div className="d-flex">
-                            <div
-                                className={styles["category-text"]}
-                                onClick={() => selectCategoryPage(categoryKey, 1)}
-                            >
+                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
                                 {t(`category-${categoryKey}`)}
                             </div>
                             {categoryPage[categoryKey] > 1 && (

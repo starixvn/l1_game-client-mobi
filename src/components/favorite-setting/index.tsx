@@ -4,7 +4,7 @@ import { isMobileOnly } from "react-device-detect";
 
 import appSettings from "../../common/app-settings";
 import { CommonResourceKeys, GameResourceKeys } from "../../common/resources";
-import {favoriteGameIdIgnore} from "../game-category/constants"
+import { favoriteGameIdIgnore } from "../game-category/constants";
 import Styles from "./favorite-setting.module.scss";
 
 export const FavoriteSetting: React.FC<{
@@ -14,8 +14,10 @@ export const FavoriteSetting: React.FC<{
     onCloseModal: Function;
     toggleBtnRef: React.MutableRefObject<HTMLElement>;
 }> = ({ currentFavoriteGames, offerGames, onCloseModal, updateFavorite, toggleBtnRef }) => {
-    const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames.filter(game => !favoriteGameIdIgnore.includes(game)));
-    const unfavoriteGames = appSettings.offeredGames.filter((game) => !favoriteGames.includes(game) && !favoriteGameIdIgnore.includes(game));
+    const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames.filter((game) => !favoriteGameIdIgnore.includes(game)));
+    const unfavoriteGames = appSettings.offeredGames.filter(
+        (game) => !favoriteGames.includes(game) && !favoriteGameIdIgnore.includes(game)
+    );
     const [isOpenModalAnimation, setIsOpenModalAnimation] = useState(true);
     const { t } = useTranslation();
     const { gameSettings } = appSettings;
