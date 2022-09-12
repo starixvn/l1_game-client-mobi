@@ -33,7 +33,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     private reCheckInInterval: NodeJS.Timeout;
     private isKickOut = false;
     private showPromotion: NodeJS.Timeout;
-    private readonly delayTimeShowPromotion = 120000;
+    private readonly delayTimeShowPromotion = 60000;
 
     constructor(props: Props) {
         super(props);
@@ -57,7 +57,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowBoostedOdds: true,
             isNewPromotion: false,
             promotionNotifications: [],
-            promotions: [{ gameId: 0, _id: "id", endDateTime: "", isDaily: false, odds: {}, startDateTime: "", status: ",", time: "" }],
+            promotions: [],
             queryGame: this.props.queryGame,
             isJoinGame: false,
         };
@@ -232,33 +232,31 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handlePromotions(data) {
         const { promotions, isShowBoostedOdds } = this.state;
-        if (data.length > 0) {
-            let haveNewPromotion = data.length > promotions.length;
-            if (!haveNewPromotion) {
-                const filterNewPromotion = data.filter(
-                    (newPromotion) =>
-                        !promotions.some(
-                            (currentPromotion) =>
-                                newPromotion._id === currentPromotion._id &&
-                                newPromotion.startDateTime === currentPromotion.startDateTime &&
-                                newPromotion.endDateTime === currentPromotion.endDateTime
-                        )
-                );
-                haveNewPromotion = filterNewPromotion.length > 0;
-            }
-
-            if (haveNewPromotion || isShowBoostedOdds) {
-                this.setState({ isNewPromotion: true });
-                clearTimeout(this.showPromotion);
-                this.showPromotion = setTimeout(() => {
-                    this.setState({ isShowBoostedOdds: true });
-                }, this.delayTimeShowPromotion);
-            }
-            setTimeout(() => {
-                this.setState({ isNewPromotion: false });
-            }, 10000);
-            this.setState({ promotions: data, isShowBoostedOdds: false });
+        let haveNewPromotion = data.length > promotions.length;
+        if (!haveNewPromotion) {
+            const filterNewPromotion = data.filter(
+                (newPromotion) =>
+                    !promotions.some(
+                        (currentPromotion) =>
+                            newPromotion._id === currentPromotion._id &&
+                            newPromotion.startDateTime === currentPromotion.startDateTime &&
+                            newPromotion.endDateTime === currentPromotion.endDateTime
+                    )
+            );
+            haveNewPromotion = filterNewPromotion.length > 0;
         }
+
+        if (haveNewPromotion || isShowBoostedOdds) {
+            this.setState({ isNewPromotion: true });
+            clearTimeout(this.showPromotion);
+            this.showPromotion = setTimeout(() => {
+                this.setState({ isShowBoostedOdds: true });
+            }, this.delayTimeShowPromotion);
+        }
+        setTimeout(() => {
+            this.setState({ isNewPromotion: false });
+        }, 10000);
+        this.setState({ promotions: data, isShowBoostedOdds: false });
     }
 
     handlePromotionNotifications(data) {
@@ -351,7 +349,10 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     toggleGuideModal() {
-        this.setState({ isShowGuide: !this.state.isShowGuide });
+        this.notificationSocket && this.notificationSocket.emit("promotions");
+        setTimeout(() => {
+            this.setState({ isShowGuide: !this.state.isShowGuide });
+        }, 100);
     }
 
     toggleSlidingChip() {
@@ -387,6 +388,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isNewPromotion,
             queryGame,
             isJoinGame,
+            promotions,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -452,6 +454,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             onCloseModal={this.toggleGuideModal}
                             offerGames={offerGames}
                             user={authorizeInfo.user}
+                            promotions={promotions}
                         />
                     )}
                     {isShowErrorModal && (

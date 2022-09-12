@@ -13,20 +13,23 @@ export type GameConfigs = {
     maxBetPerChoices: any;
 };
 
-export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[]; user: any }> = ({
+export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[]; user: any; promotions: any }> = ({
     onCloseModal,
     userStakeLevel,
     offerGames,
     user,
+    promotions,
 }) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
+    const [isTimeRangePromotion, setIsTimeRangePromotion] = useState<boolean>(false);
     const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
     const { t } = useTranslation();
     const closeModal = () => {
         onCloseModal();
     };
-
     useEffect(() => {
+        const promotion = promotions.filter((promotion) => promotion.gameId === selectedGameId);
+        setIsTimeRangePromotion(promotion.length > 0);
         user.offerGames.forEach((game) => {
             if (game.gameId === selectedGameId) {
                 setGameConfigs({
@@ -49,7 +52,12 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
                 </div>
                 <div className={Styles["guide-content"]}>
                     {selectedGameId !== -1 && (
-                        <GameGuides gameId={selectedGameId} userStakeLevel={userStakeLevel} gameConfigs={gameConfigs} />
+                        <GameGuides
+                            gameId={selectedGameId}
+                            userStakeLevel={userStakeLevel}
+                            gameConfigs={gameConfigs}
+                            isTimeRangePromotion={isTimeRangePromotion}
+                        />
                     )}
                 </div>
             </div>

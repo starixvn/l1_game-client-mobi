@@ -14,9 +14,10 @@ type Props = {
     gameId: number;
     userStakeLevel: UserStakeLevel;
     gameConfigs: any;
+    isTimeRangePromotion: boolean;
 };
 const GameGuides: React.FC<Props> = (props) => {
-    const { gameId, userStakeLevel, gameConfigs } = props;
+    const { gameId, userStakeLevel, gameConfigs, isTimeRangePromotion } = props;
     const { i18n } = useTranslation();
     const { theme } = useTheme();
     const { guideUrl } = appSettings;
@@ -26,7 +27,9 @@ const GameGuides: React.FC<Props> = (props) => {
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const minMaxBetParams = `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}`;
-    const srcPath = `${guideUrl}/${i18n.language}/?gId=${gameId}&t=${theme}${minMaxBetParams}&dy=0&v=${Date.now()}`;
+    const srcPath = `${guideUrl}/${
+        i18n.language
+    }/?gId=${gameId}&t=${theme}${minMaxBetParams}&p=${isTimeRangePromotion}&dy=0&v=${Date.now()}`;
     const handleResize = () => {
         if (wrapperRef?.current) {
             setHeightGuide(wrapperRef.current.clientHeight);

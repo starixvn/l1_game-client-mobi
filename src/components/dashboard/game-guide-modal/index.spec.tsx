@@ -21,7 +21,7 @@ describe("GameGuideModal", () => {
         // Act
         const { getByTestId } = render(
             <AuthContextProvider value={authContextValue}>
-                <GameGuideModal onCloseModal={jest.fn} offerGames={offerGames} userStakeLevel={null} user={user} />
+                <GameGuideModal onCloseModal={jest.fn} offerGames={offerGames} userStakeLevel={null} user={user} promotions={[]} />
             </AuthContextProvider>
         );
         fireEvent.click(getByTestId("icon-close"));
