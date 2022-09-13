@@ -27,7 +27,7 @@ export enum GameCategoryType {
     favorite,
 }
 
-export const favoriteGameIdIgnore = [8, 36, 37, 40, 41];
+export const favoriteGameIdIgnore = [];
 
 export const GameCategoryKeys: string[] = Object.keys(GameCategoryType)
     .map((key) => GameCategoryType[key])
