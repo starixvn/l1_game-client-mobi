@@ -9,7 +9,20 @@
         "dsn": "https://c8f93631be824a14b9f114f53e3a2bfc@sentry.lumigame.com/3",
         "environment": "LOCAL_3"
     },
-    "offeredGames": [14, 15, 16, 17, 18, 19, 52, 53, 40, 41, 36, 37],
+    "offeredGames": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        52,
+        53,
+        40,
+        41,
+        36,
+        37
+    ],
     "enableSourceMap": true,
     "guideUrl": "https://l1-guide-3.lumigame.com",
     "enableMsgpackParser": false,

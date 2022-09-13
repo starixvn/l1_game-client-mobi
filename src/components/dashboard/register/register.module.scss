@@ -9,6 +9,14 @@
 
 .wrapper-welcome {
     margin-top: 0.7rem;
+
+    &.highlight-system-4{
+       div:first-child{ 
+        strong:first-child{
+            color: blue;
+        }
+    }
+    }
 }
 
 .login-form {
