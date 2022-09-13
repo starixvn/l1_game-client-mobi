@@ -51,3 +51,7 @@ export const authorize = async (userSession: SSOResponse) => {
 export const getBalance = async (userSession: SSOResponse) => {
     return authService.getBalance(userSession.ss, userSession.username);
 };
+
+export const getSettingGames = async (userSession: SSOResponse) => {
+    return authService.getSettingGames(userSession.ss, userSession.username);
+};

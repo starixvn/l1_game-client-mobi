@@ -10,7 +10,7 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
-import { authorize, reCheckIn } from "../../services/auth-service";
+import { authorize, getSettingGames, reCheckIn } from "../../services/auth-service";
 import { updateSignInSMStatus, updateThemeSetting } from "../../services/user-setting-service";
 import BetSettings from "../bet-settings";
 import Games from "../games/games";
@@ -60,6 +60,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             promotions: [],
             queryGame: this.props.queryGame,
             isJoinGame: false,
+            settingGames: [],
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -348,8 +349,15 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowHistory: !this.state.isShowHistory });
     }
 
-    toggleGuideModal() {
-        this.notificationSocket && this.notificationSocket.emit("promotions");
+    async toggleGuideModal() {
+        const { session } = this.props;
+        const { isShowGuide } = this.state;
+        if (!isShowGuide) {
+            const betSettings = await getSettingGames(session);
+            this.setState({ settingGames: betSettings.settingGames });
+            this.notificationSocket && this.notificationSocket.emit("promotions");
+        }
+
         setTimeout(() => {
             this.setState({ isShowGuide: !this.state.isShowGuide });
         }, 100);
@@ -389,6 +397,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             queryGame,
             isJoinGame,
             promotions,
+            settingGames,
         } = this.state;
         const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
@@ -453,8 +462,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                             userStakeLevel={userStakeLevel}
                             onCloseModal={this.toggleGuideModal}
                             offerGames={offerGames}
-                            user={authorizeInfo.user}
                             promotions={promotions}
+                            settingGames={settingGames}
                         />
                     )}
                     {isShowErrorModal && (

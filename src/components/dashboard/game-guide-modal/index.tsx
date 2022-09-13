@@ -13,15 +13,15 @@ export type GameConfigs = {
     maxBetPerChoices: any;
 };
 
-export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; offerGames: number[]; user: any; promotions: any }> = ({
-    onCloseModal,
-    userStakeLevel,
-    offerGames,
-    user,
-    promotions,
-}) => {
+export const GameGuideModal: React.FC<{
+    onCloseModal: Function;
+    userStakeLevel;
+    offerGames: number[];
+    promotions: any;
+    settingGames: any;
+}> = ({ onCloseModal, userStakeLevel, offerGames, promotions, settingGames }) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
-    const [isTimeRangePromotion, setIsTimeRangePromotion] = useState<boolean>(false);
+    const [isInPromotionTime, setIsInPromotionTime] = useState<boolean>(false);
     const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
     const { t } = useTranslation();
     const closeModal = () => {
@@ -29,8 +29,8 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
     };
     useEffect(() => {
         const promotion = promotions.filter((promotion) => promotion.gameId === selectedGameId);
-        setIsTimeRangePromotion(promotion.length > 0);
-        user.offerGames.forEach((game) => {
+        setIsInPromotionTime(promotion.length > 0);
+        settingGames.forEach((game) => {
             if (game.gameId === selectedGameId) {
                 setGameConfigs({
                     maxBetPerChoices: game.maxBetPerChoices,
@@ -56,7 +56,7 @@ export const GameGuideModal: React.FC<{ onCloseModal: Function; userStakeLevel; 
                             gameId={selectedGameId}
                             userStakeLevel={userStakeLevel}
                             gameConfigs={gameConfigs}
-                            isTimeRangePromotion={isTimeRangePromotion}
+                            isInPromotionTime={isInPromotionTime}
                         />
                     )}
                 </div>
