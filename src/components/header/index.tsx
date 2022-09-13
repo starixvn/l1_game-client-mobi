@@ -1,7 +1,8 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
-import { buildVersion, isL1System, vGamingMobileName } from "../../common/constants";
+import appSettings from "../../common/app-settings";
+import { AppTypes, buildVersion, isL1System } from "../../common/constants";
 
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
@@ -23,14 +24,24 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-    const logo = isL1System() ? "saba" : "vgaming";
+    const getLogoName = () => {
+        if (appSettings.appType === AppTypes.megaKeno) {
+            return "mega-keno";
+        }
+
+        return isL1System() ? "saba" : "vgaming";
+    };
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
                         <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
-                            <img className="header-logo" alt="UM" src={`/static/images/logo-desktop-${logo}.svg?v=${buildVersion}`} />
+                            <img
+                                className="header-logo"
+                                alt="UM"
+                                src={`/static/images/logo-desktop-${getLogoName()}.svg?v=${buildVersion}`}
+                            />
                         </a>
                         <div className={Styles["header-right"]}>
                             {
