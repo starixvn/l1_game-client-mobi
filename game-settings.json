@@ -213,7 +213,7 @@
             "namespace": "kenomatch1",
             "path": "kenomatch"
         },
-        "supportMD5": false,
+        "supportMD5": true,
         "durations": {
             "wholeRound": 78,
             "showFullTimeSettlementResult": 73,
@@ -265,7 +265,7 @@
             "namespace": "kenopower1",
             "path": "kenopower"
         },
-        "supportMD5": false,
+        "supportMD5": true,
         "durations": {
             "wholeRound": 51,
             "placingBets": 42,
@@ -295,7 +295,7 @@
     "14": {
         "id": 14,
         "gameName": "KenoMini",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenomini",
             "path": "minikeno"
@@ -312,7 +312,7 @@
     "15": {
         "id": 15,
         "gameName": "KenoMini2",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenomini2",
             "path": "minikeno"
@@ -329,7 +329,7 @@
     "16": {
         "id": 16,
         "gameName": "KenoEast",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenoeast",
             "path": "minikeno"
@@ -346,7 +346,7 @@
     "17": {
         "id": 17,
         "gameName": "KenoWest",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenowest",
             "path": "minikeno"
@@ -363,7 +363,7 @@
     "18": {
         "id": 18,
         "gameName": "KenoSouth",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenosouth",
             "path": "minikeno"
@@ -380,7 +380,7 @@
     "19": {
         "id": 19,
         "gameName": "KenoNorth",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "kenonorth",
             "path": "minikeno"
@@ -397,7 +397,7 @@
     "52": {
         "id": 52,
         "gameName": "MegaKeno",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "megakeno",
             "path": "minikeno"
@@ -414,7 +414,7 @@
     "53": {
         "id": 53,
         "gameName": "MegaKeno2",
-        "supportMD5": false,
+        "supportMD5": true,
         "socketInfo": {
             "namespace": "megakeno2",
             "path": "minikeno"

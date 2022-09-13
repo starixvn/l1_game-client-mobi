@@ -18,6 +18,16 @@ const KenoMiniTooltipMessageFollowChoiceProps = {
 };
 
 export class MiniKeno extends KenoProMax {
+    renderRawValueMD5() {
+        const { md5ResultKey } = this.state;
+
+        return (
+            <>
+                <strong>{this.props.t("common:md5Result")}: </strong>
+                <span>{md5ResultKey}</span>
+            </>
+        );
+    }
     getFakeSettlementResult() {
         const { roundHistory } = this.state;
         return (

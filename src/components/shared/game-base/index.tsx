@@ -212,6 +212,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.messageTransmitter.register("errorCode", this.handleError.bind(this));
         this.messageTransmitter.register("md5", this.handleMD5.bind(this));
         this.messageTransmitter.register("userStakeLevel", this.handleUserStakeLevel.bind(this));
+        this.messageTransmitter.register("resultHash", this.handleResultHash.bind(this));
     }
 
     handleError = ({ errorCode }) => {
@@ -596,9 +597,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             playResultAnimation: true,
             result: finish.result,
             settlementResult: finish.settlementResult,
-            md5ResultKey: finish.resultKey,
             roundId: finish.roundId,
         });
+        finish.resultKey && this.setState({ md5ResultKey: finish.resultKey });
 
         const animationDuration = this.getFinishAnimationDuration();
 
@@ -932,6 +933,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
     }
 
+    handleResultHash({ resultHash }) {
+        const { hashValue, rawValue } = resultHash;
+        hashValue && this.setState({ md5: hashValue });
+        rawValue && this.setState({ md5ResultKey: rawValue });
+    }
+
     renderRawValueMD5() {
         const { md5ResultKey } = this.state;
         const arrayResult = md5ResultKey.split("_");
@@ -939,7 +946,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         return (
             <>
-                <strong>Key</strong>
+                <strong>{this.props.t("common:md5Result")}</strong>
                 {`: {`}
                 <span className={Styles["blue"]}>{totalScores[0]}</span>;<span className={Styles["red"]}>{totalScores[1]}</span>
                 {`}_`}
@@ -950,14 +957,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     renderMD5() {
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
+
         let md5Text = (
                 <div>
-                    <strong>MD5:</strong> {md5}
+                    <strong>{this.props.t("common:md5Key")}:</strong> {md5}
                 </div>
             ),
             md5ClassName = "md5-key";
-
-        if (showMD5ResultKey && md5ResultKey) {
+        if ((showMD5ResultKey || !md5) && md5ResultKey) {
             md5Text = this.renderRawValueMD5();
             md5ClassName = "md5-result";
         }
