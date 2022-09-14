@@ -6,6 +6,9 @@ import Styles from "../announcement.module.scss";
 const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive, gameId, onCloseAnnouncement, updateQueryGame }) => {
     const { t } = useTranslation();
     const onClickJoinGame = () => {
+        if (!isActive) {
+            return;
+        }
         onCloseAnnouncement();
         updateQueryGame(gameId, true);
     };
