@@ -5,8 +5,8 @@ import { UserClientCommunication } from "./user-client-communication";
 
 const { auth: authService, userSettings: userSettingsService } = UserClientCommunication.getUserClientInstance();
 
-export const sso = async (token: string): Promise<SSOResponse> => {
-    const userSession = await authService.sso(token, 2);
+export const sso = async (token: string, appType: number): Promise<SSOResponse> => {
+    const userSession = await authService.sso(token, appType);
 
     if (userSession && userSession.isAuthenticated) {
         storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
@@ -24,11 +24,11 @@ export const verifySession = async (): Promise<SSOResponse> => {
 
     const verifySessionResponse = await authService.verifySession(userSession?.ss, userSession?.username);
 
-    if(verifySessionResponse) {
+    if (verifySessionResponse) {
         userSession.isUM = verifySessionResponse.isUM;
         userSession.umInfo = verifySessionResponse.umInfo;
 
-        verifySessionResponse.isSuccessful && storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession)
+        verifySessionResponse.isSuccessful && storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
     }
 
     return verifySessionResponse.isSuccessful || userSession.isUM ? userSession : null;

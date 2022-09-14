@@ -3,6 +3,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
+import appSettings from "../common/app-settings";
 
 import { languageMapper } from "../common/constants";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
@@ -12,7 +13,7 @@ import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
-const getUserSession = (token: string) => (token ? sso(token) : verifySession());
+const getUserSession = (token: string) => (token ? sso(token, appSettings.appType) : verifySession());
 
 function Home() {
     const router = useRouter();
