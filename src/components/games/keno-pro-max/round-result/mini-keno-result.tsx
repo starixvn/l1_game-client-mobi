@@ -1,9 +1,9 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import { useGameContext } from "../../../contexts/game-context/game-context";
-import { Result, SettlementResult } from "../keno-pro-max/keno-pro-max";
-import { GetChoiceTranslate } from "../keno-pro-max/keno-pro-max-helper";
+import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { Result, SettlementResult } from "../keno-pro-max";
+import { GetChoiceTranslate } from "../keno-pro-max-helper";
 import Styles from "./mini-keno-animations.module.scss";
 
 const elements = ["gold", "wood", "water", "fire", "earth"];
@@ -98,11 +98,11 @@ class AnimationComponent extends React.PureComponent<
                 }
 
                 const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
-                this.animationTimeOut = setTimeout(()=>{
+                this.animationTimeOut = setTimeout(() => {
                     elem.setState({
-                    currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
+                        currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
                     });
-                },700)
+                }, 700)
                 elem.setState({
                     currentIndex: elem.state.currentIndex + 1,
                 });
@@ -132,7 +132,7 @@ class AnimationComponent extends React.PureComponent<
 
                     <div className={Styles["result-total"]}>
                         <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
-                        <div className={Styles["result-total-number"]}>{this.state.currentTotal === 0 ? "": this.state.currentTotal}</div>
+                        <div className={Styles["result-total-number"]}>{this.state.currentTotal === 0 ? "" : this.state.currentTotal}</div>
                     </div>
                 </div>
                 <div className={`${Styles["settle-info-" + rows]}`}>
@@ -179,7 +179,7 @@ export const KenoProMaxResultCollapse: React.FC<{ result: Result; settlementResu
 }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const settleResult = getSettleResult(result, settlementResult);    
+    const settleResult = getSettleResult(result, settlementResult);
 
     return (
 

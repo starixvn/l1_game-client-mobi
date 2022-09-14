@@ -14,7 +14,7 @@ export enum ResultClassState {
     betHistory,
 }
 
-export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {    
+export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
     const classResultMapping = {
         [ResultClassState.result]: "keno-pro-max",
         [ResultClassState.collapse]: "keno-pro-max-collapse",
@@ -137,7 +137,7 @@ export const RoundResultCollapse: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;   
+    const rows = result.length / 5;
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
@@ -160,7 +160,7 @@ export const MegaKenoRoundResultCollapse: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;   
+    const rows = result.length / 5;
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>

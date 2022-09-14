@@ -7,11 +7,12 @@ import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/gam
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { RoundResult, RoundResultCollapse } from "./round-result";
+import { MegaKenoRoundResultCollapse, RoundResult, RoundResultCollapse } from "./round-result";
 import KenoProMaxBetOptions, { TooltipMessageFollowChoiceProps } from "./bet-options";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
+import { MegaKenoResult } from "./round-result/mini-keno-result";
 
 const DefaultResult = Array(20).fill(0);
 export const DefaultTooltipMessageFollowChoiceProps = {
@@ -40,7 +41,7 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
     }
 
     get isShowInlineResult() {
-        return true;
+        return false;
     }
 
     get defaultResult() {
@@ -152,15 +153,23 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
         return this.state.gameState === GameState.BeforeStartRound;
     }
 
+    getFakeResult() {
+        const { roundHistory } = this.state;
+        return roundHistory?.[0]?.result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79];
+    }
+
     renderResult() {
-        return <div></div>;
+        const { result, settlementResult } = this.state;
+        return (
+            <MegaKenoResult result={result ?? this.getFakeResult()} settlementResult={settlementResult ?? this.getFakeSettlementResult()} />
+        );
     }
 
     renderResultCollapse() {
         const { result, settlementResult, gameState } = this.state;
         return (
-            <RoundResultCollapse
-                result={result ?? [7, 9, 11, 15, 20, 22, 28, 30, 32, 34, 37, 47, 49, 53, 64, 67, 68, 70, 78, 79]}
+            <MegaKenoRoundResultCollapse
+                result={result ?? this.getFakeResult()}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}
             />
