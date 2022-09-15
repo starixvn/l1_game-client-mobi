@@ -79,10 +79,10 @@ export const session = {
     ss: "test123",
     memberName: "",
     isUM: false,
-    umInfo: { startTime: null, endTime: null },
+    umInfo: { startTime: new Date("2022-09-16"), endTime: new Date("2022-09-19") },
 };
 
-export const AuthContextValueDefault = { session: session, setBalance: jest.fn };
+export const AuthContextValueDefault = { session: session, setBalance: jest.fn, signOut: jest.fn };
 
 export const SystemContextValue = {
     setFavorite: jest.fn,
@@ -111,5 +111,5 @@ export const kenoProps = {
     retryConnectSocket: () => {},
     them: "light",
     unsubscribeGlobalMessageEvent: () => {},
-    registerGlobalMessageEvent: () => {}
+    registerGlobalMessageEvent: () => {},
 };

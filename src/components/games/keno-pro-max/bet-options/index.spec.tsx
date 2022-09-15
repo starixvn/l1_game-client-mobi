@@ -22,7 +22,7 @@ describe("KenoProMaxBetOptions tests", () => {
                 <KenoProMaxBetOptions
                     settlementResult={DefaultSettlementResult}
                     gameState={GameState.InRound}
-                    isShowWinningEffect={false}   
+                    isShowWinningEffect={false}
                     isShowPoolStake={false}
                     tooltipMessageFollowChoiceProps={TooltipMessageFollowChoiceProps}
                 />

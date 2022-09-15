@@ -70,7 +70,7 @@ $number-count: 20;
     .result-total-number {
         font: 600 3.2rem var(--font-number);
         color: #CD000E;
-    }    
+    }
 
     .number-animate {
         position: relative;
@@ -108,14 +108,14 @@ $number-count: 20;
     border-radius: 50%;
     background: radial-gradient(50% 50% at 50% 50%, #fcfcfc 0%, #c7c7c7 78.96%, #bababa 100%);
     font: 600 1.6rem var(--font-number);
-    color: #2c2f3e;   
+    color: #2c2f3e;
 }
 
 .has-animation {
     --time-show-num-animation: 0.8s;
 
     .shown-number {
-        position: relative;       
+        position: relative;
         animation: spin var(--time-show-num-animation) ease-out forwards;
     }
 
@@ -164,12 +164,12 @@ $number-count: 20;
         }
     }
 
-    .settle-info-4 {        
+    .settle-info-4 {
         margin-top: -5.5rem;
         animation: show-settle-info 0.5s 6s ease-out forwards;
     }
 
-    .settle-info-2 {        
+    .settle-info-2 {
         margin-top: -5.5rem;
         animation: show-settle-info 0.5s 3.5s ease-out forwards;
     }

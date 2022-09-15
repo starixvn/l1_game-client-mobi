@@ -7,14 +7,13 @@ import { GameBaseState, GameState, GatewayGameBaseProps } from "../../shared/gam
 import ScoreboardDragon from "../../shared/round-history/scoreboard/dragon";
 import ScoreboardTab from "../../shared/scoreboard-tab";
 import { StatisticFollowPercent } from "../../shared/statistic";
-import { MegaKenoRoundResultCollapse, RoundResult, RoundResultCollapse } from "./round-result";
 import KenoProMaxBetOptions, { TooltipMessageFollowChoiceProps } from "./bet-options";
 import OverlayMaskWhite from "../../shared/overlay-mask-white";
 import { Result, SettlementResult } from "./keno-pro-max";
 import { Choices, StatisticRuleMapping, ChoiceForTabActive } from "./keno-pro-max-helper";
-import { MegaKenoResult } from "./round-result/mini-keno-result";
+import { KenoProMaxRoundResult } from "./round-result";
+import { KenoProMaxRoundResultCollapse } from "./round-result/round-result-collapse";
 
-const DefaultResult = Array(20).fill(0);
 export const DefaultTooltipMessageFollowChoiceProps = {
     big: `[811~1410]`,
     small: `[210~810]`,
@@ -33,19 +32,15 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
     }
 
     get winningAnimationWaitingTimeInSecond() {
-        return this.getFinishAnimationDuration() + 1000;
+        return this.props.durations.showResult * 1000;
     }
 
     get isShowPoolStake() {
         return true;
     }
 
-    get isShowInlineResult() {
-        return false;
-    }
-
     get defaultResult() {
-        return DefaultResult;
+        return Array(20).fill(0);
     }
 
     get defaultSettlementResult() {
@@ -61,22 +56,20 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
     }
 
     getFakeSettlementResult() {
-        return {
-            big: true,
-            earth: false,
-            even: true,
-            fire: false,
-            gold: false,
-            odd: false,
-            small: false,
-            water: true,
-            wood: false,
-        };
-    }
-
-    renderResultSection() {
-        const { result, settlementResult, gameState, showResultInfo } = this.state;
-        return <RoundResult result={result} settlementResult={settlementResult} gameState={gameState} showResultInfo={showResultInfo} />;
+        const { roundHistory } = this.state;
+        return (
+            roundHistory?.[0]?.settlementResult ?? {
+                big: true,
+                earth: false,
+                even: true,
+                fire: false,
+                gold: false,
+                odd: false,
+                small: false,
+                water: true,
+                wood: false,
+            }
+        );
     }
 
     renderBetOptions() {
@@ -161,14 +154,14 @@ export class KenoProMax extends GatewayGameBase<GatewayGameBaseProps, GameBaseSt
     renderResult() {
         const { result, settlementResult } = this.state;
         return (
-            <MegaKenoResult result={result ?? this.getFakeResult()} settlementResult={settlementResult ?? this.getFakeSettlementResult()} />
+            <KenoProMaxRoundResult result={result ?? this.getFakeResult()} settlementResult={settlementResult ?? this.getFakeSettlementResult()} />
         );
     }
 
     renderResultCollapse() {
         const { result, settlementResult, gameState } = this.state;
         return (
-            <MegaKenoRoundResultCollapse
+            <KenoProMaxRoundResultCollapse
                 result={result ?? this.getFakeResult()}
                 settlementResult={settlementResult ?? this.getFakeSettlementResult()}
                 gameState={gameState}

@@ -1,12 +1,10 @@
 import { useTranslation } from "next-i18next";
-import React, { useEffect, useState, useMemo } from "react";
+import React from "react";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
 import { Result, SettlementResult } from "../keno-pro-max";
-import { GetChoiceTranslate, getTotalPoint, getLabelFromFiveElements } from "../keno-pro-max-helper";
-import BallNumber from "../../../keno/ball-number";
-import { GameState } from "../../../shared/game-base/type";
-import Styles from "./round-result.module.scss";
+import { GetChoiceTranslate, getLabelFromFiveElements } from "../keno-pro-max-helper";
+import Styles from "./keno-promax-animations.module.scss";
 
 export enum ResultClassState {
     result,
@@ -14,27 +12,7 @@ export enum ResultClassState {
     betHistory,
 }
 
-export const generateResult = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
-    const classResultMapping = {
-        [ResultClassState.result]: "keno-pro-max",
-        [ResultClassState.collapse]: "keno-pro-max-collapse",
-        [ResultClassState.betHistory]: "keno-pro-max-bet-history",
-    };
-    return result.map((number: number, index: number) => (
-        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classResultMapping[mode]} />
-    ));
-};
-
-export const generateResultMegaKeno = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
-    const classResultMapping = {
-        [ResultClassState.result]: "keno-pro-max",
-        [ResultClassState.collapse]: "mega-keno-collapse",
-        [ResultClassState.betHistory]: "keno-pro-max-bet-history",
-    };
-    return result.map((number: number, index: number) => (
-        <BallNumber key={index} value={number} hasAnimation={isAnimation} classCustomize={classResultMapping[mode]} />
-    ));
-};
+const elements = ["gold", "wood", "water", "fire", "earth"];
 
 export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTranslate; customizeClass?: string }> = ({
     settlementResult,
@@ -63,113 +41,169 @@ export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTra
     );
 };
 
-let interval: NodeJS.Timer = null;
-export const RenderTotalPoint: React.FC<{ result: Result; textTranslate; customizeClass?: string; isAnimation?: boolean }> = ({
-    result,
-    textTranslate,
-    customizeClass,
-    isAnimation,
-}) => {
-    const [total, setTotal] = useState<number>(0);
-    useEffect(() => {
-        if (isAnimation) {
-            let currentTotal = 0;
-            let index = 0;
-            interval = setInterval(() => {
-                if (index < result.length) {
-                    currentTotal += result[index];
-                    setTotal(currentTotal);
-                    index++;
-                }
-            }, 100);
-        } else {
-            result && setTotal(getTotalPoint(result));
-        }
+export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
+    let shuffle = [];
+    for (let i = 1; i <= result.length; i++) {
+        shuffle.push(i);
+    }
 
-        return () => {
-            interval && clearInterval(interval);
-        };
-    }, [result, isAnimation]);
-    return (
-        <div className={`${Styles["result-total"]} ${Styles[customizeClass]}`}>
-            <div className={Styles["result-total-lbl"]}>{textTranslate.total} </div>
-            <div className={Styles["result-total-number"]}>{total}</div>
-        </div>
-    );
+    const total = result.reduce((a, b) => a + b, 0);
+
+    return {
+        total,
+        shuffle,
+        big: settlementResult?.big,
+        even: settlementResult?.even,
+        element: elements.filter((e) => settlementResult[e])[0],
+    };
 };
 
-export const RoundResult: React.FC<{
-    result?: Result;
-    settlementResult: SettlementResult;
-    gameState: GameState;
-    showResultInfo: boolean;
-}> = ({ result, settlementResult, gameState, showResultInfo }) => {
-    const { playResultAnimation, gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const textTranslate = GetChoiceTranslate(t);
+export const generateResult = (result: Result, shuffle: number[], isAnimation = true) => {
+    const rows = [];
+    const maxNumInRow = 5;
+    const noRows = result.length / maxNumInRow;
+    for (let i = 0; i < noRows; i++) {
+        rows.push([]);
+    }
 
-    return useMemo(() => {
-        const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-        const classWinningInfoHide = gameState === GameState.LockingBet ? "hide" : gameState !== GameState.InRound ? "show" : "";
+    rows.forEach((row, index) => {
+        for (let i = 0; i < maxNumInRow; i++) {
+            row.push(result[i + index * maxNumInRow]);
+        }
+    });
 
+    return rows.map((row, ri) => {
+        return row.map((num, ni) => {
+            const index = ri * maxNumInRow + ni;
+            const classAnimateNumber = noRows == 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
+
+            return (
+                <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
+                    <div className={`${Styles["number"]}`}>{num}</div>
+                    <div className={`${Styles["number-cover"]}`}></div>
+                </div>
+            );
+        });
+    });
+};
+
+class AnimationComponent extends React.PureComponent<
+    {
+        result?: Result;
+        big?: boolean;
+        even?: boolean;
+        element?: string;
+        playResultAnimation?: boolean;
+        shuffle: number[];
+        settleTotal: number;
+        texts: any;
+    },
+    {
+        result?: Result;
+        big?: boolean;
+        even?: boolean;
+        element?: string;
+        playResultAnimation?: boolean;
+        shuffle: number[];
+        settleTotal: number;
+        texts: any;
+        currentTotal: number;
+        currentIndex: number;
+    }
+> {
+    private animationInterval: NodeJS.Timer;
+    private animationTimeOut: NodeJS.Timer;
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentTotal: props.playResultAnimation ? 0 : props.settleTotal,
+            currentIndex: 0,
+            ...props,
+        };
+    }
+
+    componentDidMount() {
+        if (this.state.playResultAnimation) {
+            const elem = this;
+
+            this.animationInterval = setInterval(() => {
+                if (elem.state.currentIndex === elem.state.result.length) {
+                    clearInterval(this.animationInterval);
+                    return;
+                }
+
+                const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
+                this.animationTimeOut = setTimeout(() => {
+                    elem.setState({
+                        currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
+                    });
+                }, 700)
+                elem.setState({
+                    currentIndex: elem.state.currentIndex + 1,
+                });
+            }, 250);
+        } else if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+            this.setState({
+                currentTotal: this.state.settleTotal,
+                currentIndex: 0,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        this.animationInterval && clearInterval(this.animationInterval);
+        clearTimeout(this.animationTimeOut);
+    }
+
+    render() {
+        const rows = this.state.result.length / 5;
         return (
-            <div className={`${Styles["round-result"]} ${isAnimation ? Styles["has-animation"] : ""}`}>
+            <div className={`${Styles["animation-container"]}`}>
                 <div className={Styles["result"]}>
-                    <div className={Styles["number-container"]}>
-                        {result && generateResult(result, isAnimation, ResultClassState.result)}
+                    <div className={`${Styles["number-container"]} ${Styles["rows-" + rows]}`}>
+                        {generateResult(this.state.result, this.state.shuffle)}
+                    </div>
+
+                    <div className={Styles["result-total"]}>
+                        <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
+                        <div className={Styles["result-total-number"]}>{this.state.currentTotal === 0 ? "" : this.state.currentTotal}</div>
                     </div>
                 </div>
-                <div className={`${Styles["settle-info"]} ${showResultInfo ? Styles["settle-info-show"] : ""}`}>
-                    <RenderTotalPoint result={result} textTranslate={textTranslate} isAnimation={isAnimation} />
-                    {winningInfo({ settlementResult, textTranslate, customizeClass: classWinningInfoHide })}
+                <div className={`${Styles["settle-info-" + rows]}`}>
+                    <div className={Styles[`result-info-${this.state.big ? "blue" : "red"}`]}>
+                        {this.state.big ? this.state.texts.big : this.state.texts.small}
+                    </div>
+                    <div className={Styles[`result-info-${this.state.even ? "blue" : "red"}`]}>
+                        {this.state.even ? this.state.texts.even : this.state.texts.odd}
+                    </div>
+                    <div className={Styles["result-info-grey"]}>{this.state.texts[this.state.element]}</div>
                 </div>
             </div>
         );
-    }, [result, settlementResult, gameState, showResultInfo, playResultAnimation]);
-};
+    }
+}
 
-export const RoundResultCollapse: React.FC<{
-    result: Result;
-    settlementResult: SettlementResult;
-    gameState: GameState;
-}> = ({ result, settlementResult, gameState }) => {
+export const KenoProMaxRoundResult: React.FC<{ result?: Result; settlementResult: SettlementResult }> = ({ result, settlementResult }) => {
     const { playResultAnimation, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const total = getTotalPoint(result);
-    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;
+    const settleResult = getSettleResult(result, settlementResult);
+    const texts = GetChoiceTranslate(t);
 
     return (
-        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>{generateResult(result, isAnimation, ResultClassState.collapse)}</div>
-            {!playResultAnimation && (
-                <div className={Styles["result-label"]}>
-                    <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
-                </div>
-            )}
-        </div>
-    );
-};
-
-export const MegaKenoRoundResultCollapse: React.FC<{
-    result: Result;
-    settlementResult: SettlementResult;
-    gameState: GameState;
-}> = ({ result, settlementResult, gameState }) => {
-    const { playResultAnimation, gameSetting } = useGameContext();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
-    const total = getTotalPoint(result);
-    const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;
-
-    return (
-        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>{generateResultMegaKeno(result, isAnimation, ResultClassState.collapse)}</div>
-            {!playResultAnimation && (
-                <div className={Styles["result-label"]}>
-                    <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
-                </div>
-            )}
+        <div className={`${playResultAnimation ? Styles["has-animation"] : ""}`}>
+            <div className="overlay-mask">
+                <AnimationComponent
+                    big={settlementResult.big}
+                    even={settlementResult.even}
+                    element={settleResult.element}
+                    playResultAnimation={playResultAnimation}
+                    result={result}
+                    shuffle={settleResult.shuffle}
+                    settleTotal={settleResult.total}
+                    texts={texts}
+                />
+            </div>
         </div>
     );
 };

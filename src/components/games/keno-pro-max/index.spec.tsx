@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 
 import { SystemContextProvider } from "../../../contexts/system";
-import { GameState } from "../../shared/game-base/type";
+import { GameState, Notice, PopupType } from "../../shared/game-base/type";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
 import { ViewMode } from "../../shared/game-base/type";
 import { AuthContextProvider } from "../../../contexts/auth";
@@ -27,13 +27,14 @@ const roundHistory = [
     },
 ];
 
-describe("KenoMatch", () => {
+describe("KenoProMax", () => {
     beforeEach(() => {
         jest.useFakeTimers();
     });
+
     test("should be render correctly with mode view full", () => {
         // Arrange
-        class MockKenoMatch extends KenoProMax {
+        class MockKenoProMax extends KenoProMax {
             constructor(props: any) {
                 super(props);
 
@@ -46,7 +47,7 @@ describe("KenoMatch", () => {
                     roundId: 1,
                     ownBets: {},
                     totalBets: {},
-                    displayPopup: null,
+                    displayPopup: PopupType.Error,
                     betPercentage: {},
                     viewMode: ViewMode.full,
                     showResultInfo: true,
@@ -54,10 +55,10 @@ describe("KenoMatch", () => {
                     showWinningAnimation: false,
                     playResultAnimation: false,
                     isShowBlink: false,
-                    notice: null,
-                    removeBetChoiceFocus: null,
-                    betOptionElement: null,
-                    betChoiceElement: null,
+                    notice: {} as Notice,
+                    removeBetChoiceFocus: () => { },
+                    betOptionElement: document.createElement("p"),
+                    betChoiceElement: document.createElement("p"),
                     activeScoreboardTab: 0,
                     rate: 1,
                 };
@@ -69,7 +70,7 @@ describe("KenoMatch", () => {
             <AuthContextProvider value={AuthContextValueDefault}>
                 <SystemContextProvider value={SystemContextValue}>
                     <GameContextProvider value={DefaultGameContext as any}>
-                        <MockKenoMatch {...(kenoProps as any)} />
+                        <MockKenoProMax {...(kenoProps as any)} />
                     </GameContextProvider>
                 </SystemContextProvider>
             </AuthContextProvider>
@@ -80,15 +81,15 @@ describe("KenoMatch", () => {
         expect(document.querySelector(".header-left")).toBeTruthy();
         expect(document.querySelector(".layout-keno-pro-max")).toBeTruthy();
         expect(document.querySelector(".tabs-container")).toBeTruthy();
-        expect(document.querySelector(".round-result")).toBeTruthy();
+        expect(document.querySelector(".animation-container")).toBeTruthy();
         expect(document.querySelector(".mini-round-history")).toBeTruthy();
         expect(document.querySelector(".statistic")).toBeTruthy();
         expect(document.querySelector(".score-board-dragon-container")).toBeTruthy();
     });
 
-    test("should be render correctly with mode view full", () => {
+    test("should be render correctly with mode collapse view", () => {
         //Arrange
-        class MockKenoMatch extends KenoProMax {
+        class MockKenoProMax extends KenoProMax {
             constructor(props: any) {
                 super(props);
 
@@ -101,7 +102,7 @@ describe("KenoMatch", () => {
                     roundId: 1,
                     ownBets: {},
                     totalBets: {},
-                    displayPopup: null,
+                    displayPopup: PopupType.Error,
                     betPercentage: {},
                     viewMode: ViewMode.collapse,
                     showResultInfo: true,
@@ -109,10 +110,10 @@ describe("KenoMatch", () => {
                     showWinningAnimation: false,
                     playResultAnimation: false,
                     isShowBlink: false,
-                    notice: null,
-                    removeBetChoiceFocus: null,
-                    betOptionElement: null,
-                    betChoiceElement: null,
+                    notice: {} as Notice,
+                    removeBetChoiceFocus: () => { },
+                    betOptionElement: document.createElement("p"),
+                    betChoiceElement: document.createElement("p"),
                     activeScoreboardTab: 0,
                     rate: 1,
                 };
@@ -123,7 +124,7 @@ describe("KenoMatch", () => {
             <AuthContextProvider value={AuthContextValueDefault}>
                 <SystemContextProvider value={SystemContextValue}>
                     <GameContextProvider value={DefaultGameContext as any}>
-                        <MockKenoMatch {...(kenoProps as any)} />
+                        <MockKenoProMax {...(kenoProps as any)} />
                     </GameContextProvider>
                 </SystemContextProvider>
             </AuthContextProvider>
@@ -131,6 +132,6 @@ describe("KenoMatch", () => {
 
         // Assert
         expect(document.querySelector(".header-result")).toBeTruthy();
-        expect(document.querySelector(".keno-pro-max-collapse")).toBeTruthy();
+        expect(document.querySelector(".result-collapse-mode")).toBeTruthy();
     });
 });

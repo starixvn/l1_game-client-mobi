@@ -1,14 +1,15 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import { GameContextProvider } from "../../../contexts/game-context/game-context";
-import buildGameContext, { buildDefaultResult } from "./__test__/test-helper";
+import buildGameContext from "./__test__/test-helper";
 import KenoMatch from "./";
-import { GameBaseProps, ViewMode } from "../../shared/game-base/type";
+import { ViewMode } from "../../shared/game-base/type";
 import { KenoMatchGameDurations, KenoMatchProps } from "./type";
 import { i18n } from "next-i18next";
 import { AuthContextProvider } from "../../../contexts/auth";
-// import MockedSocket from "socket.io-mock";
 import { Server } from "mock-socket";
+import { NextRouter } from "next/router";
+import { AuthContextValueDefault, session } from "../keno-pro-max/__tests__/test-helper";
 
 const buildProps = () => {
     const durations = {
@@ -35,34 +36,24 @@ const buildProps = () => {
             path: "kenomatch",
         },
         durations,
-        notifyWinStreak: () => {},
-        playPlaceBetSound: () => {},
+        notifyWinStreak: () => { },
+        playPlaceBetSound: () => { },
         viewMode: ViewMode.full,
-        setApiErrorMessage: () => {},
+        setApiErrorMessage: () => { },
         supportMD5: true,
         userStakeLevel: { minBet: 1, maxBet: 100 },
-        updateUserStakeLevel: () => {},
+        updateUserStakeLevel: () => { },
+        registerGlobalMessageEvent: () => { },
+        unsubscribeGlobalMessageEvent: () => { },
         t: (str) => str,
         i18n: i18n,
         tReady: true,
-        router: null,
-        registerGlobalMessageEvent: () => {},
-        unsubscribeGlobalMessageEvent: () => {},
+        router: {} as NextRouter,
     } as KenoMatchProps;
 };
 
 describe("KenoMatch", () => {
     test("should be render correctly", () => {
-        const session = {
-            isAuthenticated: true,
-            username: "username",
-            language: "en-US",
-            ss: "ss",
-            memberName: "memberName",
-            isUM: false,
-            umInfo: { startTime: null, endTime: null },
-        };
-
         // let socket = new MockedSocket();
 
         const fakeURL = "ws://localhost/user/kenomatch1";
@@ -150,10 +141,8 @@ describe("KenoMatch", () => {
             md5: "59d3d19feb485934af94ec92b32d5ffa",
         });
 
-        const authContextValue = { session: session, setBalance: jest.fn };
-
         render(
-            <AuthContextProvider value={authContextValue}>
+            <AuthContextProvider value={AuthContextValueDefault}>
                 <GameContextProvider value={buildGameContext() as any}>
                     <KenoMatch {...buildProps()} />
                 </GameContextProvider>

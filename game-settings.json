@@ -98,8 +98,8 @@
             "wholeRound": 40,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 9,
-            "resultAnimation": 4,
+            "showResult": 10,
+            "resultAnimation": 7,
             "beforeStartRound": 0
         }
     },
