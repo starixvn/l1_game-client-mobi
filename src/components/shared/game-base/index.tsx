@@ -920,9 +920,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     copyToClipboard(event: any) {
         event.preventDefault();
         const { md5, md5ResultKey, showMD5ResultKey } = this.state;
-        const md5Message = this.props.t(
-            `${this.props.gameName.toLocaleLowerCase()}:${showMD5ResultKey ? "copyMD5KeyMessage" : "copyMD5Message"}`
-        );
+        const md5Message = this.props.t(`common:${showMD5ResultKey ? "copyMD5Result" : "copyMD5Key"}`);
         this.setState({ notice: { message: md5Message, duration: 2, isWarning: false } });
         navigator.clipboard.writeText(showMD5ResultKey ? md5ResultKey : md5);
     }

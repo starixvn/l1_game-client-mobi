@@ -80,5 +80,7 @@
     "systemName": "Saba Mobi",
     "md5Key": "Chuỗi MD5",
     "md5Result": "Kết Quả",
-    "category-kenolottery": "Keno Lottery"
+    "category-kenolottery": "Keno Lottery",
+    "copyMD5Key": "Copy Chuỗi MD5 thành công!",
+    "copyMD5Result": "Copy Kết Quả thành công!"
 }

@@ -81,5 +81,7 @@
     "systemName": "Saba Mobi",
     "md5Key": "MD5 Key",
     "md5Result": "Result",
-    "category-kenolottery": "Keno Lottery"
+    "category-kenolottery": "Keno Lottery",
+    "copyMD5Key": "Copy MD5 Key successfully!",
+    "copyMD5Result": "Copy Result successfully!"
 }
