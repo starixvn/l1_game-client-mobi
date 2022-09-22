@@ -55,6 +55,8 @@ const CountdownTimer: React.FC = () => {
     }
 };
 
+type Rotation = "clockwise" | "counterclockwise";
+
 const Timer = () => {
     const ctx = useGameContext();
     const gameName = ctx.gameSetting.gameName.toLocaleLowerCase();
@@ -68,6 +70,7 @@ const Timer = () => {
         trailStrokeWidth: 1,
         initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? durations.placingBets : ctx.remainingTime,
         duration: durations.placingBets,
+        rotation: "counterclockwise" as Rotation
     };
 
     return (
