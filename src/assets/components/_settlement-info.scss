@@ -1,3 +1,4 @@
+
 .result-container {
     display: grid;
     grid-template-columns: 1fr 0.2rem 1fr;
@@ -49,3 +50,23 @@
     @extend .result-info;
     background: linear-gradient(180deg, #6ba6ec 0%, #3b7bc6 49.27%, #1a66bf 100%);
 }
+
+.result-total {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+}
+
+.result-total-lbl {
+    line-height: 1.8rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #5e5e5e;
+    &:after{
+        content: "";
+    }
+}
+
+

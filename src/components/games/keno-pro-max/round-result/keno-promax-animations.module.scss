@@ -53,25 +53,6 @@ $number-count: 20;
         }
     }
 
-    .result-total {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .result-total-lbl {
-        line-height: 1.8rem;
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: #5e5e5e;
-    }
-
-    .result-total-number {
-        font: 600 3.2rem var(--font-number);
-        color: #CD000E;
-    }
-
     .number-animate {
         position: relative;
         display: flex;
@@ -289,5 +270,66 @@ $number-count: 20;
     .total-point {
         margin-right: 0.3rem;
         font-family: var(--font-number);
+    }
+}
+
+.round-result {
+    display: grid;
+    grid-template-rows: 1fr 4rem;
+    height: 100%;
+    background: var(--round-result-background);
+    transition: height 0.2s ease;
+
+    .result {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .number-container {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(10, 2.4rem);
+        grid-template-rows: repeat(2, 2.4rem);
+        grid-gap: 0.8rem 0.8rem;
+    }
+
+    .number-cover {
+        display: none;
+    }
+
+    .number-animate {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .settle-info {
+        background: var(--settle-info-background);
+        position: relative;
+        display: grid;
+        grid-template-columns: 13rem 1fr;
+        align-items: center;
+        height: 4rem;
+    }
+}
+
+.winning-info {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    text-align: center;
+
+    .result-info {
+        min-width: 6rem;
+        height: 2.6rem;
+        margin: 0 0.3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 1.4rem;
+        font-weight: 500;
     }
 }

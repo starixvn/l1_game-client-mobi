@@ -137,7 +137,7 @@ class AnimationComponent extends React.PureComponent<
                     elem.setState({
                         currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
                     });
-                }, 700)
+                }, 700);
                 elem.setState({
                     currentIndex: elem.state.currentIndex + 1,
                 });
