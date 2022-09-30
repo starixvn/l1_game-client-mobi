@@ -121,7 +121,7 @@ const getHeaderName = ({ nameHeaderOnTable, isRefund }) => {
 };
 
 const handleScrollBetHistory = ({ event, page, setPage }) => {
-    if (Math.ceil(event.target.offsetHeight + event.target.scrollTop) > event.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
+    if (Math.ceil(event.target.offsetHeight + event.target.scrollTop) < event.target.scrollHeight - InfiniteLoadBeginEdgeOffset) {
         return;
     }
 
