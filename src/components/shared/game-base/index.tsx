@@ -384,13 +384,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         gameConfigs && this.setState({ rate: user.rate });
     }
 
-    handleRestrictPermission({ notPermittedToPlay, gameId }) {
+    handleRestrictPermission({ notPermittedToPlay, gameId, userStakeLevel }) {
         if (notPermittedToPlay && gameId === this.props.id) {
             this.onDestroy();
             this.setState({
                 gameState: GameState.ConnectFailed,
                 disconnectReason: ConnectFailedReasonKey.restrictPlayPermission,
             });
+        }
+        if (userStakeLevel) {
+            this.props.updateUserStakeLevel(userStakeLevel);
         }
     }
 
