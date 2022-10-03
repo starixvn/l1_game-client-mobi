@@ -69,7 +69,7 @@ export const Settings: React.FC<Props> = ({
                     <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                 </div>
 
-                {appSettings.appType != AppTypes.megaKeno && (
+                {appSettings.appType !== AppTypes.megaKeno && (
                     <div
                         id="favorite-setting"
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
