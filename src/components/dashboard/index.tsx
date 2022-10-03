@@ -146,7 +146,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     handleOrientation() {
         setTimeout(() => {
             this.setState({ orientation: window.innerHeight < window.innerWidth ? orientationType.landscape : orientationType.portrait });
-        }, 200)
+        }, 200);
     }
 
     async componentDidMount() {
@@ -181,7 +181,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     componentWillUnmount() {
-        this.notificationSocket.close();
+        this.notificationSocket?.close();
         clearInterval(this.reCheckInInterval);
     }
 
