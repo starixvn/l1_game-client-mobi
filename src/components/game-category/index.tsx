@@ -6,6 +6,7 @@ import appSettings from "../../common/app-settings";
 
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import styles from "./game-category.module.scss";
+import { AppTypes } from "../../common/constants";
 
 const renderPagingCategory = (
     category: string,
@@ -50,6 +51,8 @@ export const GameCategory: React.FC<{
         return result;
     }, {});
 
+    const appTypeClass = appSettings.appType === AppTypes.mobile ? "SM" : "MK";
+
     useEffect(() => {
         if (wrapperRef?.current) {
             wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;
@@ -58,7 +61,7 @@ export const GameCategory: React.FC<{
 
     return (
         <div ref={wrapperRef} className={`${styles["category-container"]} ${isMobileOnly ? styles["mobile"] : ""}`}>
-            <ul className={styles["category-list"]}>
+            <ul className={`${styles["category-list"]} ${styles[appTypeClass]}`}>
                 {GameCategoryKeys.map((categoryKey) => (
                     <li
                         className={`${styles["category-item"]} 
