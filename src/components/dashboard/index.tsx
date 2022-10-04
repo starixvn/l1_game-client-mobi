@@ -61,6 +61,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             queryGame: this.props.queryGame,
             isJoinGame: false,
             settingGames: [],
+            offerGames: [],
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -107,7 +108,13 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
         this.checkOfferedGame(authorizeInfo);
+        this.updateOfferGames(authorizeInfo);
         this.setState({ authorizeInfo, enabledQuickBet: authorizeInfo?.user?.settings?.quickBet });
+    }
+
+    updateOfferGames(authorizeInfo: AuthorizeResponse) {
+        const offerGames: number[] = authorizeInfo?.user?.offerGames?.map((game: any) => game?.gameId);
+        this.setState({ offerGames: offerGames });
     }
 
     updateUserBalance(balance: number) {
@@ -232,10 +239,11 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        const { promotions, isShowBoostedOdds } = this.state;
-        let haveNewPromotion = data.length > promotions.length;
+        const { promotions, isShowBoostedOdds, offerGames } = this.state;
+        const offerGamePromotions = data.filter((promotion) => offerGames?.includes(promotion.gameId));
+        let haveNewPromotion = offerGamePromotions.length > promotions.length;
         if (!haveNewPromotion) {
-            const filterNewPromotion = data.filter(
+            const filterNewPromotion = offerGamePromotions.filter(
                 (newPromotion) =>
                     !promotions.some(
                         (currentPromotion) =>
@@ -257,12 +265,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         setTimeout(() => {
             this.setState({ isNewPromotion: false });
         }, 10000);
-        this.setState({ promotions: data, isShowBoostedOdds: false });
+        this.setState({ promotions: offerGamePromotions, isShowBoostedOdds: false });
     }
 
     handlePromotionNotifications(data) {
-        this.setState({ promotionNotifications: data });
-        if (data.length < 1) {
+        const { offerGames } = this.state;
+        const newPromotionNotifications = data.filter((promotionNotification) => offerGames?.includes(promotionNotification.gameId));
+        this.setState({ promotionNotifications: newPromotionNotifications });
+        if (newPromotionNotifications.length < 1) {
             this.setState({ isShowAnnouncement: false });
         }
     }
