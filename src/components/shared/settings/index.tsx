@@ -119,5 +119,5 @@ export const Settings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [promotionNotifications]);
+    }, [promotionNotifications, showFavoriteSetting, enabledSound, enabledNotification]);
 };
