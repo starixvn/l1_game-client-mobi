@@ -6,6 +6,7 @@ import { GameState } from "../game-base/type";
 import Loader from "../loader";
 import styles from "./countdown-timer.module.scss";
 
+export type Rotation = "clockwise" | "counterclockwise";
 const CountdownTimer: React.FC = () => {
     const { gameState, gameSetting } = useGameContext();
     const gameName = gameSetting.gameName.toLocaleLowerCase();
@@ -55,8 +56,6 @@ const CountdownTimer: React.FC = () => {
     }
 };
 
-type Rotation = "clockwise" | "counterclockwise";
-
 const Timer = () => {
     const ctx = useGameContext();
     const gameName = ctx.gameSetting.gameName.toLocaleLowerCase();
@@ -70,7 +69,7 @@ const Timer = () => {
         trailStrokeWidth: 1,
         initialRemainingTime: ctx.gameState === GameState.BeforeStartRound ? durations.placingBets : ctx.remainingTime,
         duration: durations.placingBets,
-        rotation: "counterclockwise" as Rotation
+        rotation: "counterclockwise" as Rotation,
     };
 
     return (

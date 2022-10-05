@@ -2,6 +2,7 @@ import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 import { useGameContext } from "../../../../contexts/game-context/game-context";
+import { Rotation } from "../../../shared/countdown-timer/countdown-timer";
 import Styles from "../../../shared/countdown-timer/countdown-timer.module.scss";
 import { GameState } from "../../../shared/game-base/type";
 import Loader from "../../../shared/loader";
@@ -93,6 +94,7 @@ export const Timer = ({ duration, initialRemainingTime, lockingBet }: TimerProps
         trailStrokeWidth: 1,
         initialRemainingTime,
         duration,
+        rotation: "counterclockwise" as Rotation,
     };
 
     return (
