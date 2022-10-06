@@ -35,6 +35,14 @@ export default abstract class GatewayGameBase<P extends GatewayGameBaseProps, S 
                     break;
             }
         }
+        if (this.props.viewMode !== prevProps.viewMode) {
+            this.setState({ viewMode: this.props.viewMode });
+        }
+        if (!this.props.isJoinedGame) {
+            this.setState({ viewMode: this.props.viewMode }, () => {
+                this.props.finishJoinGame();
+            });
+        }
     }
 
     protected sendBetMessage(betChoice: string, amount: number) {

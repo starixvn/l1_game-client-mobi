@@ -56,6 +56,8 @@ export type GameBaseProps = {
     updateUserStakeLevel: Function;
     registerGlobalMessageEvent: Function;
     unsubscribeGlobalMessageEvent: Function;
+    finishJoinGame: Function;
+    isJoinedGame: boolean;
 } & WithTranslation &
     WithRouterProps;
 

@@ -121,6 +121,7 @@ export const Games: React.FC<Props> = ({
     location.hash = `#${getCategoryHashTag(queryCategory, selectedPage)}`;
     const socketGatewayRef = useRef<Socket>(null);
     const [socketState, setSocketState] = useState<SocketState>(SocketState.None);
+    const [isJoinedGame, setIsJoinedGame] = useState(false);
 
     const setFavorite = (gameId: number, isFavorite: boolean) => {
         const newFavoriteList = getUpdatedFavoriteList(gameId, isFavorite);
@@ -165,6 +166,8 @@ export const Games: React.FC<Props> = ({
             retryConnectSocket: connectSocket,
             registerGlobalMessageEvent: registerGlobalMessageEvent,
             unsubscribeGlobalMessageEvent: unsubscribeGlobalMessageEvent,
+            finishJoinGame: () => setIsJoinedGame(true),
+            isJoinedGame: isJoinedGame,
         };
 
         switch (gameId) {
@@ -243,6 +246,10 @@ export const Games: React.FC<Props> = ({
 
         socketGatewayRef.current = socket;
     };
+
+    useEffect(() => {
+        setIsJoinedGame(false);
+    }, [openGameId, isJoinGame]);
 
     useEffect(() => {
         const onVisibilityChange = () => {
