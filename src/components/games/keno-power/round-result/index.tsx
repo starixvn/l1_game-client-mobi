@@ -10,10 +10,11 @@ import { GameState } from "../../../shared/game-base/type";
 import { Result } from "../keno-power";
 import styles from "./round-result.module.scss";
 
-export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCollapse?: boolean }> = ({
+export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCollapse?: boolean; playResultAnimation?: boolean }> = ({
     result,
     gameState,
     isCollapse,
+    playResultAnimation,
 }) => {
     const { gameSetting } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
@@ -61,7 +62,7 @@ export const RoundResult: React.FC<{ result: Result; gameState: GameState; isCol
                 </div>
             </div>
 
-            {isShowResult && <ProgressBar result={result} hasAnimation={true} />}
+            {isShowResult && playResultAnimation && <ProgressBar result={result} hasAnimation={true} />}
         </div>
     );
 

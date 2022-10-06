@@ -25,7 +25,7 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
     }
 
     get winningAnimationWaitingTimeInSecond() {
-        return this.getFinishAnimationDuration() + 1000;
+        return this.getFinishAnimationDuration();
     }
 
     get isShowInlineResult() {
@@ -93,13 +93,14 @@ class KenoPower extends GameBase<GameBaseProps, KenoPowerGameState> {
 
     renderResultSection() {
         const { result, gameState } = this.state;
-        const { settlementResult, showResultInfo } = this.state;
+        const { settlementResult, showResultInfo, playResultAnimation } = this.state;
+        console.log(showResultInfo, "showResultInfo");
 
         if (showResultInfo) {
             return <RoundSettlementResult title={""} settlementResult={settlementResult} displayChoices={DisplayChoices} />;
         }
 
-        return <RoundResult result={result} gameState={gameState} />;
+        return <RoundResult result={result} gameState={gameState} playResultAnimation={playResultAnimation} />;
     }
 
     renderBetOptions() {
