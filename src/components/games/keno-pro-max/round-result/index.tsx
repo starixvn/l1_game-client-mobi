@@ -165,7 +165,7 @@ class AnimationComponent extends React.PureComponent<
                         {generateResult(this.state.result, this.state.shuffle)}
                     </div>
 
-                    <div className={Styles["result-total"]}>
+                    <div className={`${Styles["pro-max"]} ${Styles["result-total"]}`}>
                         <div className={Styles["result-total-lbl"]}>{this.state.texts.total} </div>
                         <div className={Styles["result-total-number"]}>{this.state.currentTotal === 0 ? "" : this.state.currentTotal}</div>
                     </div>

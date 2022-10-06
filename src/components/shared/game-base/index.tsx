@@ -162,7 +162,6 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { session } = this.context;
         const { proxy, enableMsgpackParser } = appSettings;
         const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
-        console.log(enableMsgpackParser);
         const socket = io(socketUri, {
             transports: ["websocket"],
             upgrade: false,

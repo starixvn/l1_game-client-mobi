@@ -53,6 +53,27 @@ $number-count: 20;
         }
     }
 
+    .pro-max{
+        &.result-total {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .result-total-lbl {
+            line-height: 1.8rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #5e5e5e;
+        }
+    
+        .result-total-number {
+            font: 600 3.2rem var(--font-number);
+            color: #CD000E;
+        }
+    }
+
     .number-animate {
         position: relative;
         display: flex;
