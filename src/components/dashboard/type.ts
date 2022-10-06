@@ -39,6 +39,7 @@ export type State = {
     isJoinGame: boolean;
     settingGames: number[];
     offerGames: number[];
+    openGameId: number;
 };
 
 export type Promotion = {

@@ -4,5 +4,5 @@ export type Props = {
     isActive: boolean;
     gameId: number;
     onCloseAnnouncement: Function;
-    updateQueryGame: Function;
+    openGame: Function;
 };

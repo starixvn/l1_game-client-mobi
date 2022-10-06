@@ -8,8 +8,8 @@ import Styles from "./announcement.module.scss";
 export const AnnouncementModal: React.FC<{
     onCloseModal: Function;
     promotionNotifications;
-    updateQueryGame: (gameId: number, isJoinGame: boolean) => void;
-}> = ({ onCloseModal, promotionNotifications, updateQueryGame }) => {
+    openGame: (gameId: number) => void;
+}> = ({ onCloseModal, promotionNotifications, openGame }) => {
     const { t } = useTranslation();
     const closeModal = () => {
         onCloseModal();
@@ -44,7 +44,7 @@ export const AnnouncementModal: React.FC<{
                                                         content={promotionNotification.messages[LanguageLocaleMapper[i18n.language]]}
                                                         isActive={promotionNotification.isActive}
                                                         gameId={promotionNotification.gameId}
-                                                        updateQueryGame={updateQueryGame}
+                                                        openGame={openGame}
                                                         onCloseAnnouncement={closeModal}
                                                     ></AnnouncementItem>
                                                 </li>

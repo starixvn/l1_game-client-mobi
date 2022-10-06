@@ -70,7 +70,7 @@ export const GameCategory: React.FC<{
                         key={categoryKey}
                     >
                         <div className="d-flex">
-                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1)}>
+                            <div className={styles["category-text"]} onClick={() => selectCategoryPage(categoryKey, 1, true)}>
                                 {t(`category-${categoryKey}`)}
                             </div>
                             {categoryPage[categoryKey] > 1 && (

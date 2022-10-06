@@ -63,6 +63,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isJoinGame: false,
             settingGames: [],
             offerGames: [],
+            openGameId: null,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -91,6 +92,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handlePromotions = this.handlePromotions.bind(this);
         this.handlePromotionNotifications = this.handlePromotionNotifications.bind(this);
         this.updateQueryGame = this.updateQueryGame.bind(this);
+        this.openGame = this.openGame.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -382,9 +384,14 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowAnnouncement: !this.state.isShowAnnouncement });
     }
 
-    updateQueryGame(gameId: number, isJoinGame: boolean) {
+    updateQueryGame(gameId: number, isJoinGame: boolean, isClearOpenGame: boolean = false) {
         const queryGame = isJoinGame ? gameId : this.props.queryGame;
-        this.setState({ queryGame: queryGame, isJoinGame: isJoinGame });
+        const openGameId = isClearOpenGame ? null : this.state.openGameId;
+        this.setState({ queryGame: queryGame, isJoinGame: isJoinGame, openGameId: openGameId });
+    }
+
+    openGame(gameId: number) {
+        this.setState({ queryGame: gameId, isJoinGame: true, openGameId: gameId });
     }
 
     renderDashBoard() {
@@ -409,8 +416,13 @@ class Dashboard extends React.PureComponent<Props, State> {
             isJoinGame,
             promotions,
             settingGames,
+            openGameId,
         } = this.state;
-        const authContextValue = { session: this.props.session, setBalance: this.updateUserBalance, signOut: this.signOut };
+        const authContextValue = {
+            session: this.props.session,
+            setBalance: this.updateUserBalance,
+            signOut: this.signOut,
+        };
         const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
         return (
             <AuthContextProvider value={authContextValue}>
@@ -447,6 +459,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         isShowSlidingChip={isShowSlidingChip}
                         updateQueryGames={this.updateQueryGame}
                         isJoinGame={isJoinGame}
+                        openGameId={openGameId}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}
@@ -465,7 +478,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         <AnnouncementModal
                             onCloseModal={this.toggleAnnouncementModal}
                             promotionNotifications={promotionNotifications}
-                            updateQueryGame={this.updateQueryGame}
+                            openGame={this.openGame}
                         />
                     )}
                     {isShowGuide && (

@@ -13,6 +13,7 @@ export type Props = {
     queryGame: number;
     userOfferGames: number[];
     isShowSlidingChip: boolean;
-    updateQueryGames: (gameId: number, isJoinGame: boolean) => void;
+    updateQueryGames: (gameId: number, isJoinGame: boolean, isClearOpenGameId: boolean) => void;
     isJoinGame: boolean;
+    openGameId: number;
 };

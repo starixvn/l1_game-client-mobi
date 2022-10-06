@@ -40,7 +40,6 @@ const BetSettings: React.FC<Props> = ({
         if (isMobileOnly) {
             deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
         }
-        console.log("isNewPromotion", isNewPromotion);
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
                 <div

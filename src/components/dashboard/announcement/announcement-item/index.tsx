@@ -3,14 +3,14 @@ import { useTranslation } from "next-i18next";
 import { Props } from "./types";
 import Styles from "../announcement.module.scss";
 
-const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive, gameId, onCloseAnnouncement, updateQueryGame }) => {
+const AnnouncementItem: React.FunctionComponent<Props> = ({ title, content, isActive, gameId, onCloseAnnouncement, openGame }) => {
     const { t } = useTranslation();
     const onClickJoinGame = () => {
         if (!isActive) {
             return;
         }
         onCloseAnnouncement();
-        updateQueryGame(gameId, true);
+        openGame(gameId);
     };
     return (
         <>

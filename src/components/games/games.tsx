@@ -109,6 +109,7 @@ export const Games: React.FC<Props> = ({
     isShowSlidingChip,
     isJoinGame,
     updateQueryGames,
+    openGameId,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -144,7 +145,11 @@ export const Games: React.FC<Props> = ({
 
     const getGameComponentById = (gameId: number, index: number) => {
         const { gameSettings } = appSettings;
-        const viewMode = isMobileOnly && index !== 0 ? ViewMode.collapse : ViewMode.full;
+        let viewMode = isMobileOnly && index !== 0 ? ViewMode.collapse : ViewMode.full;
+        if (openGameId && isMobileOnly) {
+            viewMode = gameId === openGameId ? ViewMode.full : ViewMode.collapse;
+        }
+
         const gameProps = {
             ...gameSettings[gameId],
             viewMode,
@@ -204,8 +209,8 @@ export const Games: React.FC<Props> = ({
         }
     };
 
-    const selectCategoryPage = (category: string, pageIndex: number) => {
-        updateQueryGames(NaN, false);
+    const selectCategoryPage = (category: string, pageIndex: number, isClearOpenGame: boolean = false) => {
+        updateQueryGames(NaN, false, isClearOpenGame);
         setSelectedCategory(GameCategoryType[category]);
         setSelectedPage(pageIndex);
         history.pushState(null, "", `#${getCategoryHashTag(category, pageIndex)}`);
