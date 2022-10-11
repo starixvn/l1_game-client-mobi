@@ -8,6 +8,10 @@ jest.mock("../../common/constants", () => ({
         "l1";
     },
     isL1System: () => {},
+    AppTypes: {
+        mobile: 2,
+        megaKeno: 4,
+    },
 }));
 
 describe("Header", () => {
@@ -23,6 +27,8 @@ describe("Header", () => {
         updateFavoriteGames: () => {},
         favoriteGames: [],
         promotionNotifications: [],
+        offerGames: [],
+        isShowBoostedOdds: false,
     };
     test("renders Header component", () => {
         const { getByTestId } = render(<Header {...props} />);

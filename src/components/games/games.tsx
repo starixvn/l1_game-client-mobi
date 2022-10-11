@@ -212,7 +212,7 @@ export const Games: React.FC<Props> = ({
         }
     };
 
-    const selectCategoryPage = (category: string, pageIndex: number, isClearOpenGame: boolean = false) => {
+    const selectCategoryPage = (category: string, pageIndex: number, isClearOpenGame = false) => {
         updateQueryGames(NaN, false, isClearOpenGame);
         setSelectedCategory(GameCategoryType[category]);
         setSelectedPage(pageIndex);

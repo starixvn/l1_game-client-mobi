@@ -85,13 +85,30 @@ export default function Register({ session, handleStateLogin }: Props) {
         <FirstLoginContainer>
             <div className={`${Styles["wrapper-welcome"]} ${highlightSystemClass}`}>
                 <TextBlock>
-                    <Trans t={t}>{t(`register:registerTitle1-${systemName}-apptype${appSettings.appType}`, isL1System() ? { sabaMobileName: sabaMobileName } : { vGamingMobileName: vGamingMobileName })}</Trans>
+                    <Trans t={t}>
+                        {t(
+                            `register:registerTitle1-${systemName}-apptype${appSettings.appType}`,
+                            isL1System() ? { sabaMobileName: sabaMobileName } : { vGamingMobileName: vGamingMobileName }
+                        )}
+                    </Trans>
                 </TextBlock>
                 <TextBlock>
-                    <Trans t={t}>{t(`register:registerTitle2-${systemName}-apptype${appSettings.appType}`, isL1System() ? { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName } : { vGamingMobileName: vGamingMobileName, vGamingName: vGamingName })}</Trans>
+                    <Trans t={t}>
+                        {t(
+                            `register:registerTitle2-${systemName}-apptype${appSettings.appType}`,
+                            isL1System()
+                                ? { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName }
+                                : { vGamingMobileName: vGamingMobileName, vGamingName: vGamingName }
+                        )}
+                    </Trans>
                 </TextBlock>
                 <TextBlock>
-                    <Trans t={t}>{t(`register:registerTitle3-${systemName}-apptype${appSettings.appType}`, isL1System() ? { sabaClubName: sabaClubName } : { vGamingName: vGamingName })}</Trans>
+                    <Trans t={t}>
+                        {t(
+                            `register:registerTitle3-${systemName}-apptype${appSettings.appType}`,
+                            isL1System() ? { sabaClubName: sabaClubName } : { vGamingName: vGamingName }
+                        )}
+                    </Trans>
                 </TextBlock>
             </div>
             <ProfilePicture avatarId={selectedAvatarId} isEditable={true} onClick={openAvatarGallery} data-testid="open-avatar-gallery" />
@@ -153,12 +170,10 @@ export default function Register({ session, handleStateLogin }: Props) {
                 </button>
             </form>
 
-            {
-                isOpenGalleryAvatar && (
-                    <AvatarGallery selectedAvatarId={selectedAvatarId} onSelectAvatar={setSelectedAvatarId} onClose={closeAvatarGallery} />
-                )
-            }
-        </FirstLoginContainer >
+            {isOpenGalleryAvatar && (
+                <AvatarGallery selectedAvatarId={selectedAvatarId} onSelectAvatar={setSelectedAvatarId} onClose={closeAvatarGallery} />
+            )}
+        </FirstLoginContainer>
     );
 }
 

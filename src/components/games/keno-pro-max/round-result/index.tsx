@@ -42,7 +42,7 @@ export const winningInfo: React.FC<{ settlementResult: SettlementResult; textTra
 };
 
 export const getSettleResult = (result: Result, settlementResult: SettlementResult) => {
-    let shuffle = [];
+    const shuffle = [];
     for (let i = 1; i <= result.length; i++) {
         shuffle.push(i);
     }
@@ -75,7 +75,7 @@ export const generateResult = (result: Result, shuffle: number[], isAnimation = 
     return rows.map((row, ri) => {
         return row.map((num, ni) => {
             const index = ri * maxNumInRow + ni;
-            const classAnimateNumber = noRows == 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
+            const classAnimateNumber = noRows === 4 ? `animate-${shuffle[index]}` : `animate-10ball-${shuffle[index]}`;
 
             return (
                 <div key={index} className={`${Styles["number-animate"]} ${isAnimation && Styles[classAnimateNumber]}`}>
@@ -124,22 +124,21 @@ class AnimationComponent extends React.PureComponent<
 
     componentDidMount() {
         if (this.state.playResultAnimation) {
-            const elem = this;
 
             this.animationInterval = setInterval(() => {
-                if (elem.state.currentIndex === elem.state.result.length) {
+                if (this.state.currentIndex === this.state.result.length) {
                     clearInterval(this.animationInterval);
                     return;
                 }
 
-                const numberIndex = elem.state.shuffle[elem.state.currentIndex] - 1;
+                const numberIndex = this.state.shuffle[this.state.currentIndex] - 1;
                 this.animationTimeOut = setTimeout(() => {
-                    elem.setState({
-                        currentTotal: elem.state.currentTotal + elem.state.result[elem.state.result.length - numberIndex - 1],
+                    this.setState({
+                        currentTotal: this.state.currentTotal + this.state.result[this.state.result.length - numberIndex - 1],
                     });
                 }, 700);
-                elem.setState({
-                    currentIndex: elem.state.currentIndex + 1,
+                this.setState({
+                    currentIndex: this.state.currentIndex + 1,
                 });
             }, 250);
         } else if (this.animationInterval) {

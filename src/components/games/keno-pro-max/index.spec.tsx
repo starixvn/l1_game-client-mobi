@@ -21,6 +21,10 @@ jest.mock("../../../common/constants", () => ({
             "10": "chip-1",
         },
     },
+    AppTypes: {
+        mobile: 2,
+        megaKeno: 4,
+    },
 }));
 
 const roundHistory = [
@@ -70,7 +74,7 @@ describe("KenoProMax", () => {
                     playResultAnimation: false,
                     isShowBlink: false,
                     notice: {} as Notice,
-                    removeBetChoiceFocus: () => { },
+                    removeBetChoiceFocus: () => {},
                     betOptionElement: document.createElement("p"),
                     betChoiceElement: document.createElement("p"),
                     activeScoreboardTab: 0,
@@ -125,7 +129,7 @@ describe("KenoProMax", () => {
                     playResultAnimation: false,
                     isShowBlink: false,
                     notice: {} as Notice,
-                    removeBetChoiceFocus: () => { },
+                    removeBetChoiceFocus: () => {},
                     betOptionElement: document.createElement("p"),
                     betChoiceElement: document.createElement("p"),
                     activeScoreboardTab: 0,

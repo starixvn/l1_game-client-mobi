@@ -11,6 +11,10 @@ jest.mock("../../../common/constants", () => ({
         "l1";
     },
     isL1System: () => {},
+    AppTypes: {
+        mobile: 2,
+        megaKeno: 4,
+    },
 }));
 describe("HistoryModal", () => {
     test("should render correctly", async () => {

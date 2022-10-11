@@ -384,7 +384,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ isShowAnnouncement: !this.state.isShowAnnouncement });
     }
 
-    updateQueryGame(gameId: number, isJoinGame: boolean, isClearOpenGame: boolean = false) {
+    updateQueryGame(gameId: number, isJoinGame: boolean, isClearOpenGame = false) {
         const queryGame = isJoinGame ? gameId : this.props.queryGame;
         const openGameId = isClearOpenGame ? null : this.state.openGameId;
         this.setState({ queryGame: queryGame, isJoinGame: isJoinGame, openGameId: openGameId });

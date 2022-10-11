@@ -26,7 +26,6 @@ describe("RoundResult tests", () => {
         );
 
         expect(document.querySelector(".main-result")).toBeTruthy();
-        expect(document.querySelector(".progress-bar-team")).toBeTruthy();
         expect(document.querySelector(".middle-column")).toBeFalsy();
         expect(document.querySelector(".team-score")).toBeFalsy();
     });
