@@ -243,7 +243,10 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handlePromotions(data) {
         const { promotions, isShowBoostedOdds, offerGames } = this.state;
-        const offerGamePromotions = data.filter((promotion) => offerGames?.includes(promotion.gameId));
+        const offerGamePromotions = data.filter(
+            (promotion) => offerGames?.includes(promotion.gameId) && appSettings.offeredGames.includes(promotion.gameId)
+        );
+
         let haveNewPromotion = offerGamePromotions.length > promotions.length;
         if (!haveNewPromotion) {
             const filterNewPromotion = offerGamePromotions.filter(
@@ -273,7 +276,10 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handlePromotionNotifications(data) {
         const { offerGames } = this.state;
-        const newPromotionNotifications = data.filter((promotionNotification) => offerGames?.includes(promotionNotification.gameId));
+        const newPromotionNotifications = data.filter(
+            (promotionNotification) =>
+                offerGames?.includes(promotionNotification.gameId) && appSettings.offeredGames.includes(promotionNotification.gameId)
+        );
         this.setState({ promotionNotifications: newPromotionNotifications });
         if (newPromotionNotifications.length < 1) {
             this.setState({ isShowAnnouncement: false });
