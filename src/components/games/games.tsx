@@ -63,8 +63,11 @@ const getDefaultCategory = () => {
 const getCategoryByQueryGameId = (gameId: number) => {
     return (
         GameCategoryKeys.find(
-            (category) => category !== "hot" && GameCategoryConfig[category] && GameCategoryConfig[category].includes(gameId)
-        ) ?? "hot"
+            (category) =>
+                category !== "hot" &&
+                GameCategoryConfig[appSettings.appType][category] &&
+                GameCategoryConfig[appSettings.appType][category].includes(gameId)
+        ) ?? getDefaultCategory()
     );
 };
 
