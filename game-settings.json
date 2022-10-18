@@ -301,11 +301,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 48,
+            "wholeRound": 52,
             "placingBets": 40,
             "lockingBet": 5,
-            "showResult": 7,
-            "resultAnimation": 4,
+            "showResult": 8,
+            "resultAnimation": 5,
             "beforeStartRound": 0
         }
     },
@@ -318,11 +318,11 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 38,
+            "wholeRound": 42,
             "placingBets": 30,
             "lockingBet": 5,
-            "showResult": 7,
-            "resultAnimation": 4,
+            "showResult": 8,
+            "resultAnimation": 5,
             "beforeStartRound": 0
         }
     },
@@ -335,7 +335,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 41,
+            "wholeRound": 44,
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 10,
@@ -352,7 +352,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 41,
+            "wholeRound": 44,
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 10,
@@ -369,7 +369,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 41,
+            "wholeRound": 44,
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 10,
@@ -386,7 +386,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 41,
+            "wholeRound": 44,
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 10,
@@ -403,7 +403,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 56,
+            "wholeRound": 59,
             "placingBets": 45,
             "lockingBet": 5,
             "showResult": 10,
@@ -420,7 +420,7 @@
             "path": "minikeno"
         },
         "durations": {
-            "wholeRound": 41,
+            "wholeRound": 44,
             "placingBets": 30,
             "lockingBet": 5,
             "showResult": 10,

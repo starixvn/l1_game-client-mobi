@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useCountUp } from "react-countup";
-
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
@@ -30,7 +29,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowTooltip = false,
     isBoostedOdds = false,
 }) => {
-    const { totalBets, ownBets, rate } = useGameContext();
+    const { totalBets, ownBets, rate, gameSetting } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
     const { enabledQuickBet, betValue } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
@@ -76,9 +75,11 @@ const BetOption: React.FunctionComponent<Props> = ({
         setIsFocusChoice(false);
     };
 
-    const betOptionClasses = `${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} ${
-        isHighlight && Styles[HighlightClassNameMapper[highlightType]]
-    } ${isHighlight && isShowWinningEffect && Styles["winning-effect"]} ${gameState !== GameState.InRound && Styles["disallowed"]}`;
+    const betOptionClasses = `${Styles["bet-option"]} ${isFocusChoice ? Styles["focus"] : ""} 
+        ${isHighlight && Styles[HighlightClassNameMapper[highlightType]]} 
+        ${isHighlight && isShowWinningEffect && Styles["winning-effect"]} 
+        ${gameState !== GameState.InRound && Styles["disallowed"]}
+        ${Styles[gameSetting.gameName.toLocaleLowerCase()]}`;
 
     const oddsClass = isBoostedOdds ? `${Styles["boosted-odd"]}` : `${Styles["odd"]}`;
     return (

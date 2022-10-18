@@ -153,6 +153,17 @@
 
     &.winning-effect {
         animation: var(--winning-effect-animation-name) 1s forwards;
+
+        &.megakeno,
+        &.megakeno2,
+        &.kenowest,
+        &.kenosount,
+        &.kenonorth,
+        &.kenomini2,
+        &.kenomini,
+        &.kenoeast {
+            animation-iteration-count: infinite;
+        }
     }
 
     &.disallowed {
