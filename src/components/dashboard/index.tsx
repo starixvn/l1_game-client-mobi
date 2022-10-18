@@ -55,7 +55,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
-            isShowBoostedOdds: true,
+            isShowBoostedOdds: false,
             isNewPromotion: false,
             promotionNotifications: [],
             promotions: [],
