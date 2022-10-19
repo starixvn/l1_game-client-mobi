@@ -15,7 +15,7 @@ export default function messageTransmitter() {
     const unsubscribe = (listenerId: string) => {
         const listenerIndex = listeners.findIndex((listener) => listener.listenerId === listenerId);
 
-        listeners.splice(listenerIndex, 1);
+        listenerIndex >= 0 && listeners.splice(listenerIndex, 1);
     };
 
     const clearAllListener = () => (listeners = []);

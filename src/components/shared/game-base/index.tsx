@@ -70,6 +70,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     private isConnectFailed = false;
     private playPermissionListener: string;
     private userStakeLevelListener: string;
+    private disconnectTimeout: NodeJS.Timeout;
 
     private readonly defaultGameConfig = { odds: {}, minBet: 0, maxBet: 0, maxBetPerChoices: {}, enableFreeBet: false, boostedChoices: [] };
     protected readonly defaultState = {
@@ -132,13 +133,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     onDestroy() {
-        this.setState({ gameState: GameState.None });
+        this.setState({ gameState: GameState.None, signedIn: false });
         this.props.unsubscribeGlobalMessageEvent(this.playPermissionListener);
         this.props.unsubscribeGlobalMessageEvent(this.userStakeLevelListener);
         this.interval && clearInterval(this.interval);
         this.showResultInfoTimeout && clearTimeout(this.showResultInfoTimeout);
         this.showWinningAnimationTimeout && clearTimeout(this.showWinningAnimationTimeout);
         this.clearRetryInterval();
+        this.clearDisconnectTimeout();
     }
 
     onStart() {
@@ -151,7 +153,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.userStakeLevelListener = registerGlobalMessageEvent("userStakeLevel", ({ userStakeLevel }) =>
             this.props.updateUserStakeLevel(userStakeLevel)
         );
-
+        this.clearDisconnectTimeout();
         this.socket = this.initSocket();
         this.socket && this.socket.off(this.props.gameName).on(this.props.gameName, this.messageTransmitter.broadcast.bind(this));
     }
@@ -169,9 +171,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         });
 
         socket.on("connect", () => {
-            socket.emit("signin", session);
+            this.clearDisconnectTimeout();
+            document.visibilityState !== "hidden" && socket.emit("signin", session);
         });
         socket.on("signedIn", () => {
+            this.clearDisconnectTimeout();
             this.setState({ signedIn: true });
             this.socket.emit("inGame");
         });
@@ -233,18 +237,22 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleError = ({ errorCode }) => {
-        if (errorCode === "SB0010") {
-            this.isConnectFailed = true;
-            this.setState({
-                gameState: GameState.ConnectFailed,
-                signedIn: false,
-                disconnectReason: ConnectFailedReasonKey.lostConnection,
-            });
+        if (errorCode === "SB0010" && document.visibilityState !== "hidden") {
+            const time = this.state.signedIn ? 1000 : 5000;
+            this.disconnectTimeout = setTimeout(() => {
+                this.isConnectFailed = true;
+                this.setState({
+                    gameState: GameState.ConnectFailed,
+                    signedIn: false,
+                    disconnectReason: ConnectFailedReasonKey.lostConnection,
+                });
+            }, time);
         }
     };
 
     protected handleSignedIn({ signedIn }) {
         if (signedIn) {
+            this.clearDisconnectTimeout();
             this.setState({ signedIn: true });
             this.socket.emit("inGame", this.props.gameName);
         }
@@ -697,6 +705,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     clearRetryInterval() {
         this.retryInterval && clearInterval(this.retryInterval);
+    }
+
+    clearDisconnectTimeout() {
+        this.disconnectTimeout && clearTimeout(this.disconnectTimeout);
     }
 
     openPopup(popupType: PopupType) {

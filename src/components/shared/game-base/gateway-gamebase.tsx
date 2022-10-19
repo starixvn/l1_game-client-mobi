@@ -13,7 +13,7 @@ export default abstract class GatewayGameBase<P extends GatewayGameBaseProps, S 
         super.onStart();
         const { gameName } = this.props;
         const { session } = this.context;
-        this.socket && this.socket.emit("signIn", { gameName, session });
+        document.visibilityState !== "hidden" && this.socket && this.socket.emit("signIn", { gameName, session });
     }
 
     onDestroy() {
