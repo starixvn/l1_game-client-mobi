@@ -2,7 +2,7 @@ import React from "react";
 import { isMobileOnly, isIOS } from "react-device-detect";
 
 import { User } from "sc-user-service-client/dist/auth";
-import { numberWithCommas } from "../../helpers/number-helper";
+import { numberRoundDownWithCommas } from "../../helpers/number-helper";
 import Styles from "./user-info.module.scss";
 
 export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ user, customizeClass }) => {
@@ -18,7 +18,7 @@ export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ us
                     {user.name}
                 </div>
                 <div key={user.red} className={`${Styles.balance}`} data-testid="balance">
-                    {numberWithCommas(user.red ? user.red : 0)} {user.currency}
+                    {numberRoundDownWithCommas(user.red ? user.red : 0)} {user.currency}
                 </div>
             </div>
             <div className={Styles["avatar"]}>

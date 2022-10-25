@@ -1,3 +1,9 @@
+const numberRoundDownWithCommas = (number: number, toFixed = 2) => {
+    const result = Math.floor(number * Math.pow(10, toFixed)) / Math.pow(10, toFixed);
+
+    return numberWithCommas(result, toFixed);
+};
+
 const numberWithCommas = (number: number, toFixed = 2) => {
     return number.toLocaleString("en-US", { maximumFractionDigits: toFixed });
 };
@@ -8,4 +14,4 @@ const randomInteger = (min: number, max: number) => {
 
 const sumArray = (numbers: number[]) => numbers.reduce((number, sum) => number + sum, 0);
 
-export { numberWithCommas, randomInteger, sumArray };
+export { numberRoundDownWithCommas, numberWithCommas, randomInteger, sumArray };
