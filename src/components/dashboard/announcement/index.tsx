@@ -1,5 +1,5 @@
 import { Trans, useTranslation } from "next-i18next";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { LanguageLocaleMapper } from "../../../common/constants";
 import BaseDialog from "../../shared/base-dialog";
 import AnnouncementItem from "./announcement-item";
@@ -14,6 +14,7 @@ export const AnnouncementModal: React.FC<{
     const closeModal = () => {
         onCloseModal();
     };
+    const [isShowPromotion, setIsShowPromotion] = useState<boolean>(true);
     const { i18n } = useTranslation();
 
     return useMemo(() => {
@@ -24,7 +25,7 @@ export const AnnouncementModal: React.FC<{
                     <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                     <div className={Styles["wrapper"]}>
                         <div className={Styles["tabs"]}>
-                            <div className={Styles["tab"]}>
+                            <div className={Styles["tab"]} onClick={() => setIsShowPromotion(true)}>
                                 <input type="radio" name="css-tabs" id="promotion" defaultChecked className={Styles["tab-switch"]} />
                                 <label htmlFor="promotion" className={Styles["tab-label"]}>
                                     {t("promotion")}
@@ -34,48 +35,52 @@ export const AnnouncementModal: React.FC<{
                                         ""
                                     )}
                                 </label>
-                                <div className={Styles["tab-content"]}>
-                                    {promotionNotifications.length > 0 && (
-                                        <ul className={Styles["list-item"]}>
-                                            {promotionNotifications.map((promotionNotification, index) => (
-                                                <li key={index} className={`${Styles["item-content"]} -${index}`}>
-                                                    <AnnouncementItem
-                                                        title={promotionNotification.title[LanguageLocaleMapper[i18n.language]]}
-                                                        content={promotionNotification.messages[LanguageLocaleMapper[i18n.language]]}
-                                                        isActive={promotionNotification.isActive}
-                                                        gameId={promotionNotification.gameId}
-                                                        openGame={openGame}
-                                                        onCloseAnnouncement={closeModal}
-                                                    ></AnnouncementItem>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
-                                </div>
                             </div>
-                            <div className={Styles["tab"]}>
+                            <div className={Styles["tab"]} onClick={() => setIsShowPromotion(false)}>
                                 <input type="radio" name="css-tabs" id="terms" className={Styles["tab-switch"]} />
                                 <label htmlFor="terms" className={Styles["tab-label"]}>
                                     {t("terms")}
                                 </label>
-                                <div className={Styles["tab-content"]}>
-                                    <ul className={Styles["list-terms"]}>
-                                        <li>
-                                            <Trans t={t}>{t("common:termsPromotion-1")}</Trans>
-                                        </li>
-                                        <li>
-                                            <Trans t={t}>{t("common:termsPromotion-2")}</Trans>
-                                        </li>
-                                        <li>
-                                            <Trans t={t}>{t("common:termsPromotion-3")}</Trans>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
+
+                    {isShowPromotion ? (
+                        <div className={Styles["tab-content"]}>
+                            {promotionNotifications.length > 0 && (
+                                <ul className={Styles["list-item"]}>
+                                    {promotionNotifications.map((promotionNotification, index) => (
+                                        <li key={index} className={`${Styles["item-content"]} -${index}`}>
+                                            <AnnouncementItem
+                                                title={promotionNotification.title[LanguageLocaleMapper[i18n.language]]}
+                                                content={promotionNotification.messages[LanguageLocaleMapper[i18n.language]]}
+                                                isActive={promotionNotification.isActive}
+                                                gameId={promotionNotification.gameId}
+                                                openGame={openGame}
+                                                onCloseAnnouncement={closeModal}
+                                            ></AnnouncementItem>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+                    ) : (
+                        <div className={Styles["tab-content"]}>
+                            <ul className={Styles["list-terms"]}>
+                                <li>
+                                    <Trans t={t}>{t("common:termsPromotion-1")}</Trans>
+                                </li>
+                                <li>
+                                    <Trans t={t}>{t("common:termsPromotion-2")}</Trans>
+                                </li>
+                                <li>
+                                    <Trans t={t}>{t("common:termsPromotion-3")}</Trans>
+                                </li>
+                            </ul>
+                        </div>
+                    )}
                 </div>
             </BaseDialog>
         );
-    }, [promotionNotifications]);
+    }, [promotionNotifications, isShowPromotion]);
 };

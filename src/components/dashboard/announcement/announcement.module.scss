@@ -95,16 +95,16 @@ $tab-active: rgba(254, 107, 21, 1);
 
 .tab-content {  
   position: absolute;
-  //z-index: 1;
-  top: 3.3rem;
-  max-height: 64rem;
+  top: 8.3rem;
   overflow: auto;
   left: 0;
-  display: none;
+  bottom: 0;
+  right: 0;
   transition: all 0.35s;
   border-top: 1px solid #DFDFDF;
   width: 100%;
 }
+
 
 .is-Mobile {
   max-height: calc(100% - 10rem);
