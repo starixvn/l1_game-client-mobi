@@ -34,7 +34,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     private isKickOut = false;
     private showPromotion: NodeJS.Timeout;
     private readonly minutesToMillisecond = 60000;
-    private readonly delayTimeShowPromotion = 1 * this.minutesToMillisecond;
+    private readonly delayTimeShowPromotion = 15 * this.minutesToMillisecond;
 
     constructor(props: Props) {
         super(props);
