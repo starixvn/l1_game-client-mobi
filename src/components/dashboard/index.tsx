@@ -62,7 +62,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             queryGame: this.props.queryGame,
             isJoinGame: false,
             settingGames: [],
-            offerGames: [],
             openGameId: null,
         };
 
@@ -111,13 +110,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
         this.checkOfferedGame(authorizeInfo);
-        this.updateOfferGames(authorizeInfo);
         this.setState({ authorizeInfo, enabledQuickBet: authorizeInfo?.user?.settings?.quickBet });
-    }
-
-    updateOfferGames(authorizeInfo: AuthorizeResponse) {
-        const offerGames: number[] = authorizeInfo?.user?.offerGames?.map((game: any) => game?.gameId);
-        this.setState({ offerGames: offerGames });
     }
 
     updateUserBalance(balance: number) {
@@ -201,6 +194,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
 
         this.connectNotificationSocket();
+        await this.updateBetSettingGames();
     }
 
     componentWillUnmount() {
@@ -242,7 +236,8 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        const { promotions, isShowBoostedOdds, offerGames } = this.state;
+        const { promotions, isShowBoostedOdds, settingGames } = this.state;
+        const offerGames = settingGames?.map((game: any) => game?.gameId);
         const offerGamePromotions = data.filter(
             (promotion) => offerGames?.includes(promotion.gameId) && appSettings.offeredGames.includes(promotion.gameId)
         );
@@ -274,8 +269,9 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ promotions: offerGamePromotions, isShowBoostedOdds: false });
     }
 
-    handlePromotionNotifications(data) {
-        const { offerGames } = this.state;
+    async handlePromotionNotifications(data) {
+        const { settingGames } = this.state;
+        const offerGames = settingGames?.map((game: any) => game?.gameId);
         const newPromotionNotifications = data.filter(
             (promotionNotification) =>
                 offerGames?.includes(promotionNotification.gameId) && appSettings.offeredGames.includes(promotionNotification.gameId)
@@ -369,17 +365,21 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async toggleGuideModal() {
-        const { session } = this.props;
         const { isShowGuide } = this.state;
         if (!isShowGuide) {
-            const betSettings = await getSettingGames(session);
-            this.setState({ settingGames: betSettings.settingGames });
+            await this.updateBetSettingGames();
             this.notificationSocket && this.notificationSocket.emit("promotions");
         }
 
         setTimeout(() => {
             this.setState({ isShowGuide: !this.state.isShowGuide });
         }, 100);
+    }
+
+    async updateBetSettingGames() {
+        const { session } = this.props;
+        const betSettings = await getSettingGames(session);
+        this.setState({ settingGames: betSettings.settingGames });
     }
 
     toggleSlidingChip() {

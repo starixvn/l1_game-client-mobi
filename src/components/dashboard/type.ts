@@ -38,7 +38,6 @@ export type State = {
     queryGame: number;
     isJoinGame: boolean;
     settingGames: number[];
-    offerGames: number[];
     openGameId: number;
 };
 
