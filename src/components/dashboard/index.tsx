@@ -249,8 +249,8 @@ class Dashboard extends React.PureComponent<Props, State> {
                     !promotions.some(
                         (currentPromotion) =>
                             newPromotion._id === currentPromotion._id &&
-                            newPromotion.startDateTime === currentPromotion.startDateTime &&
-                            newPromotion.endDateTime === currentPromotion.endDateTime
+                            new Date(newPromotion.startDateTime).getTime() === new Date(currentPromotion.startDateTime).getTime() &&
+                            new Date(newPromotion.endDateTime).getTime() === new Date(currentPromotion.endDateTime).getTime()
                     )
             );
             haveNewPromotion = filterNewPromotion.length > 0;
