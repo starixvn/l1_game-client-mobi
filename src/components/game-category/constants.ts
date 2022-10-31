@@ -11,8 +11,6 @@ export const GameCategoryConfig = {
         dice: [1, 4, 3],
         card: [7, 10, 27, 35],
         kenolottery: [8],
-        megakeno: [52, 53, 14, 15, 16, 17, 18, 19],
-        keno: [40, 41, 36, 37],
         favorite: [],
     },
     [AppTypes.megaKeno]: {
@@ -23,16 +21,16 @@ export const GameCategoryConfig = {
 
 export enum GameCategoryType {
     hot,
+    megakeno,
+    keno,
     sedie,
     dice,
     card,
-    megakeno,
-    keno,
     kenolottery,
     favorite,
 }
 
-export const favoriteGameIdIgnore = [40, 41, 36, 37];
+export const favoriteGameIdIgnore = [];
 
 export const GameCategoryKeys: string[] = Object.keys(GameCategoryType)
     .map((key) => GameCategoryType[key])
