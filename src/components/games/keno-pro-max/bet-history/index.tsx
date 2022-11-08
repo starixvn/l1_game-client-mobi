@@ -71,6 +71,7 @@ export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, clo
         const settlementResult: any = bet?.settlementResult;
         const textTranslate = GetChoiceTranslate(t);
         const resultLength = result.length / 10;
+        
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>

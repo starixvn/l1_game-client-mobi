@@ -6,8 +6,8 @@ export const GamesInOnePage = 20;
 
 export const GameCategoryConfig = {
     [AppTypes.mobile]: {
-        hot: [22, 2, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
-        sedie: [22, 2, 9, 24],
+        hot: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
+        sedie: [2, 22, 9, 24],
         dice: [1, 4, 3],
         card: [7, 10, 27, 35],
         kenolottery: [8],

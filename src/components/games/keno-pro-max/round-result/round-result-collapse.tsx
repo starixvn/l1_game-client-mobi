@@ -9,7 +9,7 @@ import { Result, SettlementResult } from "../keno-pro-max";
 import { getTotalPoint } from "../keno-pro-max-helper";
 import Styles from "./keno-promax-animations.module.scss";
 
-export const generateResultCollapse = (result: Result, isAnimation: boolean, mode: ResultClassState) => {
+export const generateResultCollapse = (result: Result, isAnimation: boolean, mode: ResultClassState) => {    
     const classResultMapping = {
         [ResultClassState.result]: "keno-pro-max",
         [ResultClassState.collapse]: "mega-keno-collapse",
@@ -30,11 +30,11 @@ export const KenoProMaxRoundResultCollapse: React.FC<{
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
-    const rows = result.length / 5;
+    const rows = result.length / 5;      
 
     return (
         <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["result-container-collapse"]} ${Styles["rows-" + rows]}`}>
+            <div className={`${Styles["result-container-collapse"]} ${isAnimation ? Styles["has-animation"] : ""} ${Styles["rows-" + rows]}`}>
                 {generateResultCollapse(result, isAnimation, ResultClassState.collapse)}
             </div>
             {!playResultAnimation && (

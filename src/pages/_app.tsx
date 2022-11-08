@@ -41,8 +41,8 @@ const getBrowserTitle = (systemName) => {
     const browserTitle = {
         "system-name-l1": "Saba Mobi",
         "system-name-l2": "Vgaming Mobi",
-        "system-name-l1-mega": "Mega Keno",
-        "system-name-l2-mega": "Mega Keno",
+        "system-name-l1-mega": "SABA Mega Keno",
+        "system-name-l2-mega": "SABA Mega Keno",
     };
     return browserTitle[systemName];
 };

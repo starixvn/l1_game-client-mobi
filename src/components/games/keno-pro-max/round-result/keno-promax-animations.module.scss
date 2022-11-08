@@ -267,21 +267,38 @@ $number-count: 20;
 .result-collapse-mode {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
+    padding: 0.5rem;
     width: 100%;
 
     .result-container-collapse {
         position: absolute;
-        left: 1rem;
-        display: grid;
-        grid-template-columns: repeat(10, 2.2rem);
-        grid-template-rows: repeat(2, 2.2rem);
-        grid-gap: 0.2rem;
+        right: 8.2rem;
+        display: grid;        
+        grid-gap: 0.2rem;        
+    } 
+
+    .result-container-collapse.rows-4 {
+        grid-template-columns: repeat(10, 1.8rem);
+        grid-template-rows: repeat(2, 1.8rem);
+    }
+
+    .result-container-collapse.rows-2 {
+        grid-template-columns: repeat(10, 1.8rem);
+    }  
+    
+
+    .result-container-collapse.rows-4.has-animation {
+        animation: slide-left 7s linear forwards;
+    }
+
+    .result-container-collapse.rows-2.has-animation {
+        animation: slide-left 4s linear forwards;
     }
 
     .has-animation {
-        --time-show-num-animation: 0.3s;
+        --time-show-num-animation: 0.3s;      
     }
 
     .number {
@@ -292,6 +309,18 @@ $number-count: 20;
         margin-right: 0.3rem;
         font-family: var(--font-number);
     }
+}
+
+.result-label {
+    position: static;
+    right: 0;   
+    padding: 0;
+    width: 7.4rem;
+    justify-content: center;
+}
+
+.result-animation {
+    //width: 100%;
 }
 
 .round-result {
@@ -352,5 +381,19 @@ $number-count: 20;
         padding-right: 1rem;
         font-size: 1.4rem;
         font-weight: 500;
+    }
+}
+
+@keyframes slide-left {
+    0% {
+        right: 0.5rem
+    }
+
+    95% {
+        right: 0.5rem
+    }
+
+    100% {
+        right: 8.2rem
     }
 }
