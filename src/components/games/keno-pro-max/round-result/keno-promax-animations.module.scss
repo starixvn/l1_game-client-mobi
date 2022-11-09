@@ -274,7 +274,7 @@ $number-count: 20;
 
     .result-container-collapse {
         position: absolute;
-        right: 8.2rem;
+        right: 8.6rem;
         display: grid;        
         grid-gap: 0.2rem;        
     } 
@@ -290,11 +290,11 @@ $number-count: 20;
     
 
     .result-container-collapse.rows-4.has-animation {
-        animation: slide-left 7s linear forwards;
+        animation: slide-left-20ball 6s linear forwards;
     }
 
     .result-container-collapse.rows-2.has-animation {
-        animation: slide-left 4s linear forwards;
+        animation: slide-left-10ball 4s linear forwards;
     }
 
     .has-animation {
@@ -312,11 +312,22 @@ $number-count: 20;
 }
 
 .result-label {
-    position: static;
-    right: 0;   
+    position: absolute;
+    right: 0.5rem;   
     padding: 0;
     width: 7.4rem;
-    justify-content: center;
+    justify-content: center;      
+    //opacity: 1; 
+}
+
+.has-animation.result-label.rows-4 {   
+    right: -8rem;
+    animation: show-result-label 0.5s 6s linear forwards;
+}
+
+.has-animation.result-label.rows-2 {    
+    right: -8rem; 
+    animation: show-result-label 0.5s 3.5s linear forwards;
 }
 
 .round-result {
@@ -380,7 +391,7 @@ $number-count: 20;
     }
 }
 
-@keyframes slide-left {
+@keyframes slide-left-20ball {
     0% {
         right: 0.5rem
     }
@@ -390,6 +401,32 @@ $number-count: 20;
     }
 
     100% {
-        right: 8.2rem
+        right: 8.6rem
+    }
+}
+
+@keyframes slide-left-10ball {
+    0% {
+        right: 0.5rem
+    }
+
+    90% {
+        right: 0.5rem
+    }
+
+    100% {
+        right: 8.6rem
+    }
+}
+
+@keyframes show-result-label {
+    from {      
+        //opacity: 0;  
+        right: -8rem;
+    }
+
+    to {       
+        //opacity: 1;
+        right: 0.5rem;
     }
 }

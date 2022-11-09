@@ -18,23 +18,34 @@
         width: 1.8rem;
     }
 
-    &.mega-keno-collapse {
+    &.mega-keno-collapse_10, &.mega-keno-collapse_20 {
         height: 1.8rem;
         width: 1.8rem;
     }
 }
 
-.mega-keno-collapse.has-animation {
-    &.number {
-        opacity: 0;
-    }
-
-    @for $i from 1 through 20 {
-        &.number:nth-child(#{21 - $i}) {
-            animation: show-value 0.1s ease-in-out forwards;
-            animation-delay: calc(0.1s * #{$i});
+.mega-keno-collapse_10.has-animation {
+    @for $i from 1 through 10 {
+        &.number:nth-child(#{11 - $i}) {
+            animation: show-value 0.25s ease-in-out forwards;
+            animation-delay: calc(0.25s * #{$i});
         }
     }
+}
+
+.mega-keno-collapse_20.has-animation {
+    @for $i from 1 through 20 {
+        &.number:nth-child(#{21 - $i}) {
+            animation: show-value 0.25s ease-in-out forwards;
+            animation-delay: calc(0.25s * #{$i});
+        }
+    }
+}
+
+.mega-keno-collapse_10.has-animation, .mega-keno-collapse_20.has-animation {
+    &.number {
+        opacity: 0;
+    }       
 
     @keyframes show-value {
         from {
