@@ -31,6 +31,7 @@ import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
 import { AppTypes } from "../../common/constants";
+import { HideToolbarGuide } from "../hide-toolbar-guide";
 
 let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
@@ -288,6 +289,7 @@ export const Games: React.FC<Props> = ({
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
+                {/* {isMobileOnly && isIOS && (<HideToolbarGuide></HideToolbarGuide>)}                 */}
                 <GameCategory
                     favoriteGames={favoriteGames}
                     selectedPage={selectedPage}

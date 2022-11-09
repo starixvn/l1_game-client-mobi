@@ -13,7 +13,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     enabledQuickBet,
     updateEnabledQuickBet,
     isHeaderSetting,
-}) => {
+}) => {    
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const tooltipRef = useRef<HTMLDivElement>(null);

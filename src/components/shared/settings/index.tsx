@@ -36,7 +36,7 @@ export const Settings: React.FC<Props> = ({
     const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
-
+    
     return useMemo(() => {
         return (
             <div className={styles["settings-container"]}>

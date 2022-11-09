@@ -29,8 +29,9 @@ type Props = {
 const Header: React.FC<Props> = (props) => {
     const getLogoName = () => {
         if (appSettings.appType === AppTypes.megaKeno) {
-            return "mega-keno";
+            return isL1System() ? "saba-mega-keno" : "mega-keno";
         }
+        
 
         return isL1System() ? "saba" : "vgaming";
     };
