@@ -32,14 +32,15 @@ export const KenoProMaxRoundResultCollapse: React.FC<{
     const total = getTotalPoint(result);
     const isAnimation = gameState === GameState.DisplayResult && playResultAnimation;
     const rows = result.length / 5;   
+    const animClass = isAnimation ? "has-animation" : "";
 
     return (
-        <div className={`${Styles["result-collapse-mode"]}  ${isAnimation ? Styles["has-animation"] : ""}`}>
-            <div className={`${Styles["result-container-collapse"]} ${isAnimation ? Styles["has-animation"] : ""} ${Styles["rows-" + rows]}`}>
+        <div className={`${Styles["result-collapse-mode"]} ${Styles[animClass]}`}>
+            <div className={`${Styles["result-container-collapse"]} ${Styles[animClass]} ${Styles["rows-" + rows]}`}>
                 {generateResultCollapse(result, isAnimation, ResultClassState.collapse)}
             </div>           
 
-            <div className={`${Styles["result-label"]} ${isAnimation ? Styles["has-animation"] : ""} ${Styles["rows-" + rows]}`}>
+            <div className={`${Styles["result-label"]} ${Styles[animClass]} ${Styles["rows-" + rows]}`}>
                 <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
             </div>
         </div>

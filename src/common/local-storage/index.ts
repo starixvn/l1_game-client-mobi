@@ -9,6 +9,7 @@ export const localStorageKeys = {
     winningStreakNotification: buildLocalStorageKey("winning-streak-notification"),
     playSound: buildLocalStorageKey("play-sound"),
     buildVersion: buildLocalStorageKey("build-version"),
+    hideToolbarGuide: buildLocalStorageKey("hideToolbarGuide"),
 };
 
 export function removeLocalStorageItem(key: string) {

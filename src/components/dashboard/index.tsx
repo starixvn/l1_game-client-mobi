@@ -2,7 +2,7 @@ import { Trans, withTranslation } from "next-i18next";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
-import { isMobileOnly, isMobile } from "react-device-detect";
+import { isMobileOnly, isMobile, isIOS } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import appSettings from "../../common/app-settings";
@@ -26,6 +26,7 @@ import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
 import { isL1System, Themes } from "../../common/constants";
 import { AnnouncementModal } from "./announcement";
+import { HideToolbarGuide } from "../hide-toolbar-guide";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -516,6 +517,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
+                    {isMobileOnly && isIOS && (<HideToolbarGuide></HideToolbarGuide>)}    
                 </div>
             </AuthContextProvider>
         );
