@@ -26,15 +26,16 @@ type Props = {
     promotionNotifications: [];
 };
 
-const Header: React.FC<Props> = (props) => {
-    const getLogoName = () => {
-        if (appSettings.appType === AppTypes.megaKeno) {
-            return isL1System() ? "saba-mega-keno" : "mega-keno";
-        }
-        
+export const getLogoName = () => {
+    if (appSettings.appType === AppTypes.megaKeno) {
+        return isL1System() ? "saba-mega-keno" : "mega-keno";
+    }
+    
 
-        return isL1System() ? "saba" : "vgaming";
-    };
+    return isL1System() ? "saba" : "vgaming";
+};
+
+const Header: React.FC<Props> = (props) => {    
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">

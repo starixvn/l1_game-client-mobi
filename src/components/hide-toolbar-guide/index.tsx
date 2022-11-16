@@ -4,6 +4,7 @@ import { buildVersion, LanguageLocaleMapper } from "../../common/constants";
 import { i18n, useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { getLogoName } from "../header";
 
 export const HideToolbarGuide: React.FC<{}> = () => {
     const { t } = useTranslation();
@@ -33,7 +34,7 @@ export const HideToolbarGuide: React.FC<{}> = () => {
                 isMobileOnly && document.documentElement.classList.remove("no-scroll-html");
             }
         };
-    }, [isShowGuide]);
+    }, [isShowGuide]);    
 
     const handleTurnOffGuide = () => {
         setIsShowGuide(false);           
@@ -78,7 +79,7 @@ export const HideToolbarGuide: React.FC<{}> = () => {
                     className={Styles["UI-game-image"]}
                     alt="iphone"
                     width={227}
-                    src={`/static/images/hide-toolbar-guide/UI-game.png?v=${buildVersion}`}
+                    src={`/static/images/hide-toolbar-guide/UI-game-${getLogoName()}_${LanguageLocaleMapper[i18n.language]}.png?v=${buildVersion}`}
                 />
                 <div className={Styles["dropdown-settings"]}>
                     <img
