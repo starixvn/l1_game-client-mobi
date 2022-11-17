@@ -24,6 +24,7 @@ type Props = {
     updateEnabledQuickBet?: Function;
     isShowBoostedOdds: boolean;
     promotionNotifications: [];
+    isShowToolbarGuide: boolean
 };
 
 export const getLogoName = () => {
@@ -65,6 +66,7 @@ const Header: React.FC<Props> = (props) => {
                                     updateEnabledQuickBet={props.updateEnabledQuickBet}
                                     isShowBoostedOdds={props.isShowBoostedOdds}
                                     promotionNotifications={props.promotionNotifications}
+                                    isShowToolbarGuide={props.isShowToolbarGuide}
                                 />
                             }
                             {!isMobileOnly && <UserInfo user={props.user} />}

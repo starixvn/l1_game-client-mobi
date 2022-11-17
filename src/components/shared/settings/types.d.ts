@@ -13,5 +13,6 @@ export interface Props {
     updateEnabledQuickBet?: Function;
     isShowQuickBet?: boolean;
     isShowBoostedOdds: boolean;
-    promotionNotifications: []
+    promotionNotifications: [];
+    isShowToolbarGuide: boolean;
 }

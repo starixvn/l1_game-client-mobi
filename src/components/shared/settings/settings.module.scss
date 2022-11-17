@@ -20,6 +20,10 @@
     grid-gap: 1rem;
     align-items: center;
     margin-top: .5rem;
+
+    &.saba-mega-keno, &.mega-keno {
+        grid-template-columns: repeat(4, 3rem);
+    }
 }
 
 .count-label {

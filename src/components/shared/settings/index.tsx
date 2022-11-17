@@ -6,6 +6,7 @@ import appSettings from "../../../common/app-settings";
 import { AppTypes } from "../../../common/constants";
 import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import { FavoriteSetting } from "../../favorite-setting";
+import { getLogoName } from "../../header";
 import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
@@ -28,6 +29,7 @@ export const Settings: React.FC<Props> = ({
     updateEnabledQuickBet,
     isShowQuickBet = false,
     promotionNotifications,
+    isShowToolbarGuide
 }) => {
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
@@ -46,11 +48,12 @@ export const Settings: React.FC<Props> = ({
                             enabledQuickBet={enabledQuickBet}
                             updateEnabledQuickBet={(enabled) => updateEnabledQuickBet(enabled)}
                             isHeaderSetting={true}
+                            isShowToolbarGuide={isShowToolbarGuide}
                         />
                     </div>
                 )}
 
-                <div className={styles["setting-right"]}>
+                <div className={`${styles["setting-right"]} ${styles[getLogoName()]}`}>
                     <div
                         ref={toggleAnnouncementBtnRef}
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}

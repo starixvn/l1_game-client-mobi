@@ -2,7 +2,7 @@ import { Trans, withTranslation } from "next-i18next";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
-import { isMobileOnly, isMobile, isIOS } from "react-device-detect";
+import { isMobileOnly, isMobile, isSafari } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import appSettings from "../../common/app-settings";
@@ -26,7 +26,7 @@ import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
 import { isL1System, Themes } from "../../common/constants";
 import { AnnouncementModal } from "./announcement";
-import { HideToolbarGuide } from "../hide-toolbar-guide";
+import { ToolbarGuide } from "../hide-toolbar-guide";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -64,6 +64,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isJoinGame: false,
             settingGames: [],
             openGameId: null,
+            isShowToolbarGuide: getLocalStorageItem(localStorageKeys.toolbarGuide) ?? true,
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -93,6 +94,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.handlePromotionNotifications = this.handlePromotionNotifications.bind(this);
         this.updateQueryGame = this.updateQueryGame.bind(this);
         this.openGame = this.openGame.bind(this);
+        this.closeToolbarGuide = this.closeToolbarGuide.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -401,6 +403,10 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ queryGame: gameId, isJoinGame: true, openGameId: gameId });
     }
 
+    closeToolbarGuide() {
+        this.setState({ isShowToolbarGuide: false});
+    }    
+
     renderDashBoard() {
         const {
             enabledWinningStreakNotification,
@@ -424,6 +430,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             promotions,
             settingGames,
             openGameId,
+            isShowToolbarGuide
         } = this.state;
         const authContextValue = {
             session: this.props.session,
@@ -450,6 +457,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateEnabledQuickBet={this.setEnabledQuickBet}
                         isShowBoostedOdds={isShowBoostedOdds}
                         promotionNotifications={promotionNotifications}
+                        isShowToolbarGuide={isShowToolbarGuide}
                     />
                     <Games
                         enabledQuickBet={enabledQuickBet}
@@ -479,6 +487,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         toggleAnnouncementModal={this.toggleAnnouncementModal}
                         betValue={betValue}
                         isNewPromotion={isNewPromotion}
+                        isShowToolbarGuide={isShowToolbarGuide}
                     />
                     {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
                     {isShowAnnouncement && (
@@ -517,7 +526,12 @@ class Dashboard extends React.PureComponent<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
-                    {isMobileOnly && isIOS && (<HideToolbarGuide></HideToolbarGuide>)}    
+                    {isMobileOnly && isSafari && (<ToolbarGuide 
+                            isShowToolbarGuide={isShowToolbarGuide}
+                            onCloseGuide={this.closeToolbarGuide}
+                        >                        
+                        </ToolbarGuide>
+                    )}    
                 </div>
             </AuthContextProvider>
         );

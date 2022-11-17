@@ -3,12 +3,11 @@ import Styles from "./hide-toolbar-guide.module.scss";
 import { buildVersion, LanguageLocaleMapper } from "../../common/constants";
 import { i18n, useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
+import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import { getLogoName } from "../header";
 
-export const HideToolbarGuide: React.FC<{}> = () => {
-    const { t } = useTranslation();
-    const [isShowGuide, setIsShowGuide] = useState(getLocalStorageItem(localStorageKeys.hideToolbarGuide) ?? true);
+export const ToolbarGuide: React.FC<{isShowToolbarGuide: boolean, onCloseGuide:Function}> = ({isShowToolbarGuide, onCloseGuide}) => {
+    const { t } = useTranslation();    
     const [isAnimClass, setIsAnimClass] = useState(true);  
     const animIntervalTime = 6;    
 
@@ -23,33 +22,33 @@ export const HideToolbarGuide: React.FC<{}> = () => {
     }, [isAnimClass]);
 
     useEffect(() => {    
-        if (isShowGuide) {
+        if (isShowToolbarGuide) {
             document.body.classList.add("no-scroll");
             isMobileOnly && document.documentElement.classList.add("no-scroll-html");
         }
 
         return () => {
-            if (isShowGuide) {
+            if (isShowToolbarGuide) {
                 document.body.classList.remove("no-scroll");
                 isMobileOnly && document.documentElement.classList.remove("no-scroll-html");
             }
         };
-    }, [isShowGuide]);    
+    }, [isShowToolbarGuide]);    
 
     const handleTurnOffGuide = () => {
-        setIsShowGuide(false);           
-        storeLocalStorageItem(localStorageKeys.hideToolbarGuide, false)
+        onCloseGuide();             
+        storeLocalStorageItem(localStorageKeys.toolbarGuide, false)
     };
 
     const closeGuide = () => {
-        setIsShowGuide(false);      
+        onCloseGuide()    
     };
 
     const animClass = isAnimClass ? "has-anim" : "";
     
     return useMemo(() => {            
         return (
-            isShowGuide && (<div className={`${Styles["hide-guide-container"]} ${Styles[animClass]}`}>
+            isShowToolbarGuide && (<div className={`${Styles["hide-guide-container"]} ${Styles[animClass]}`}>
             <div className={Styles["intro"]}>
                 <div className={Styles["text-white"]}>{t("common:guide-intro-1")}</div>
                 <div className={Styles["text-orange"]}>{t("common:guide-intro-2")}</div>
@@ -102,5 +101,5 @@ export const HideToolbarGuide: React.FC<{}> = () => {
             </div>
         </div>)            
         );
-    },[isShowGuide, isAnimClass]
+    },[isShowToolbarGuide, isAnimClass]
 )};

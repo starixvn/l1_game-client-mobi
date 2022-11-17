@@ -19,6 +19,7 @@ type Props = {
     toggleAnnouncementModal: () => void;
     betValue: number;
     isNewPromotion: boolean;
+    isShowToolbarGuide: boolean;
 };
 
 const BetSettings: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const BetSettings: React.FC<Props> = ({
     toggleAnnouncementModal,
     betValue,
     isNewPromotion,
+    isShowToolbarGuide
 }) => {
     const { i18n } = useTranslation();
 
@@ -55,6 +57,7 @@ const BetSettings: React.FC<Props> = ({
                                         enabledQuickBet={enabledQuickBet}
                                         updateEnabledQuickBet={updateEnabledQuickBet}
                                         isHeaderSetting={false}
+                                        isShowToolbarGuide={isShowToolbarGuide}
                                     />
 
                                     {isNewPromotion && (
@@ -132,13 +135,14 @@ const BetSettings: React.FC<Props> = ({
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}
                                 isHeaderSetting={false}
+                                isShowToolbarGuide={isShowToolbarGuide}
                             />
                         </div>
                     </div>
                 )}
             </div>
         );
-    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isNewPromotion]);
+    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isNewPromotion, isShowToolbarGuide]);
 };
 
 export default BetSettings;

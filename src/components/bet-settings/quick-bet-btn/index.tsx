@@ -9,10 +9,11 @@ import { ModalType } from "../../shared/base-dialog/type";
 import ConfirmMessage from "../confirm-message";
 import Styles from "./quick-bet-btn.module.scss";
 
-export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; isHeaderSetting: boolean }> = ({
+export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; isHeaderSetting: boolean, isShowToolbarGuide:boolean}> = ({
     enabledQuickBet,
     updateEnabledQuickBet,
     isHeaderSetting,
+    isShowToolbarGuide
 }) => {    
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
@@ -36,7 +37,10 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     useEffect(() => {
-        function handleClickOutside(event) {
+        function handleClickOutside(event) {           
+            if (isShowToolbarGuide) { 
+                return;
+            }
             if (isShowTooltip && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
                 setIsShowTooltip(false);
             }
@@ -46,7 +50,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [tooltipRef]);
+    }, [tooltipRef,isShowToolbarGuide]);
 
     const onClickQuickBet = () => {
         if (!enabledQuickBet) {
