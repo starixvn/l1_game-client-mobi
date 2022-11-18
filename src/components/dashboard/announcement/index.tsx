@@ -76,6 +76,12 @@ export const AnnouncementModal: React.FC<{
                                 <li>
                                     <Trans t={t}>{t("common:termsPromotion-3")}</Trans>
                                 </li>
+                                <li>
+                                    <Trans t={t}>{t("common:termsPromotion-4")}</Trans>
+                                </li>
+                                <li>
+                                    <Trans t={t}>{t("common:termsPromotion-5")}</Trans>
+                                </li>
                             </ul>
                         </div>
                     )}
