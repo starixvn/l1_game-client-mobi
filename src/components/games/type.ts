@@ -16,4 +16,5 @@ export type Props = {
     updateQueryGames: (gameId: number, isJoinGame: boolean, isClearOpenGameId: boolean) => void;
     isJoinGame: boolean;
     openGameId: number;
+    fractionalOddsFormat: boolean;
 };

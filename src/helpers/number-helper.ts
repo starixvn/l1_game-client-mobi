@@ -14,4 +14,8 @@ const randomInteger = (min: number, max: number) => {
 
 const sumArray = (numbers: number[]) => numbers.reduce((number, sum) => number + sum, 0);
 
-export { numberRoundDownWithCommas, numberWithCommas, randomInteger, sumArray };
+const formatOdds = (value: number | string | undefined, isFractionalFormat: boolean | undefined) => {
+    return isFractionalFormat ? `${numberWithCommas(+value - 1, 2)}:1` : `1:${value}`;
+};
+
+export { numberRoundDownWithCommas, numberWithCommas, randomInteger, sumArray, formatOdds };

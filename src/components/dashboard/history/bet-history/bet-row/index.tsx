@@ -6,9 +6,16 @@ import { formatDate } from "../../../../../helpers/time-helper";
 import { BetLogs } from "../bet-history";
 import { FormatNumber } from "../index";
 import Styles from "../bet-history.module.scss";
+import { useSystemContext } from "../../../../../contexts/system";
 
 const fontWeightClass = "font-weight-medium";
-export const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string) => {
+export const renderBetBase = (
+    bet: BetLogs,
+    t: TFunction,
+    mainOdds: object,
+    gameName: string,
+    fractionalOddsFormat: boolean | undefined
+) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -20,7 +27,10 @@ export const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, game
                         if (bet[name] > 0) {
                             return (
                                 <div key={index} className={classHighLight}>
-                                    {t(`${gameName}:${name}`)}@<FormatNumber>{odds[name] ? `${odds[name]}` : ""}</FormatNumber>
+                                    {t(`${gameName}:${name}`)}@
+                                    <FormatNumber>
+                                        {fractionalOddsFormat && odds[name] ? numberWithCommas(+odds[name] - 1) : odds?.[name] || ""}
+                                    </FormatNumber>
                                 </div>
                             );
                         }
@@ -116,7 +126,7 @@ const RenderCellOnTable: React.FC<{
         setBetLog?: Function,
         t?: TFunction
     ) => JSX.Element;
-    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string) => {};
+    renderBet: (rowData: BetLogs, t: TFunction, odds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => {};
     t: TFunction;
     setIsShowResultDetail: Function;
     gameName: string;
@@ -129,6 +139,7 @@ const RenderCellOnTable: React.FC<{
     const isHighligh = betwin > 0 ? true : false;
     const fontNumber = "font-number";
     const classBetWin = `font-weight-medium ${Styles["bet-win"]} ${fontNumber}`;
+    const { fractionalOddsFormat } = useSystemContext();
 
     const onClickTotalAmount = () => {
         setIsShowBetLogDetails(true);
@@ -149,7 +160,7 @@ const RenderCellOnTable: React.FC<{
                             index
                         );
                     case "choice":
-                        return renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName), isHighligh, index);
+                        return renderDataOnCell(renderBet(betHistoryItem, t, odds, gameName, fractionalOddsFormat), isHighligh, index);
                     case "stake":
                         return renderDataOnCell(
                             <div className={`${Styles["stake"]} ${fontNumber}`}>{renderStake(betHistoryItem, freeBet)}</div>,

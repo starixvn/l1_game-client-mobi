@@ -6958,10 +6958,10 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
-sc-user-service-client@1.4.0:
-  version "1.4.0"
-  resolved "http://npm.lumigame.com/sc-user-service-client/-/sc-user-service-client-1.4.0.tgz#ad747bf385db5b3f5668dd04a6d74bd2adf89386"
-  integrity sha512-IVbL+FT53IQzHBbOPPLkLJqdWdt87rSOMlny2DizYi4929CdfOj8udhJl8EZbllo6HBky+ctRrJlRQkycemlOw==
+sc-user-service-client@1.4.1-beta.0:
+  version "1.4.1-beta.0"
+  resolved "http://npm.lumigame.com/sc-user-service-client/-/sc-user-service-client-1.4.1-beta.0.tgz#c806cbc32b8943965f56ad5a0d4d55b259532c2a"
+  integrity sha512-Hb6yP5UwASdifZCRTS0tRzQg1/OW6cxiIiFnsGYMCTCHKXWjQJ8GzVtA9+HJcytFdsrHZhKORYAytTKcMEKxYw==
   dependencies:
     axios "^0.21.1"
 

@@ -3,7 +3,7 @@ import { useCountUp } from "react-countup";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
-import { numberWithCommas } from "../../../helpers/number-helper";
+import { formatOdds, numberWithCommas } from "../../../helpers/number-helper";
 import { GameState } from "../game-base/type";
 import { Tooltip } from "../tooltip";
 import Styles from "./bet-option.module.scss";
@@ -31,7 +31,7 @@ const BetOption: React.FunctionComponent<Props> = ({
 }) => {
     const { totalBets, ownBets, rate, gameSetting } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
-    const { enabledQuickBet, betValue } = useSystemContext();
+    const { enabledQuickBet, betValue, fractionalOddsFormat } = useSystemContext();
     const [highlightType, updateHighlightType] = useState<HighlightType>(HighlightType.None);
     const [totalBet, setTotalBet] = useState<number>(totalBets?.[choice] ?? 0);
     const { countUp, update } = useCountUp({ start: 0, end: 0, decimals: 1 });
@@ -82,11 +82,12 @@ const BetOption: React.FunctionComponent<Props> = ({
         ${Styles[gameSetting.gameName.toLocaleLowerCase()]}`;
 
     const oddsClass = isBoostedOdds ? `${Styles["boosted-odd"]}` : `${Styles["odd"]}`;
+    const oddsValue = formatOdds(odd, fractionalOddsFormat);
     return (
         <>
             <div className={Styles.container} ref={betChoiceRef}>
                 <div className={betOptionClasses} onClick={onClickBet}>
-                    {isDisplayOdd && <div className={oddsClass}>{odd ? `1:${odd}` : ""}</div>}
+                    {isDisplayOdd && <div className={oddsClass}>{odd ? oddsValue : ""}</div>}
 
                     <div className={Styles["total-bet"]} ref={totalBetRef}>
                         {isShowPoolStake &&

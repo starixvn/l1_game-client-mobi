@@ -7,6 +7,8 @@ import { Odd } from "../fish-prawn-crab";
 import { OddNames, ResultBet } from "../index";
 import { ChoiceIconHistory } from "../choice-icon";
 import Styles from "./bet-history.module.scss";
+import { numberWithCommas } from "../../../../helpers/number-helper";
+import { useSystemContext } from "../../../../contexts/system";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
@@ -22,7 +24,7 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
+const renderOdd = (choice: string, countsAppearDice: object, odds: Odd, fractionalOddsFormat: boolean | undefined) => {
     let classCount = `${odds[OddNames.single]}`;
     Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
@@ -38,10 +40,10 @@ const renderOdd = (choice: string, countsAppearDice: object, odds: Odd) => {
         }
     });
 
-    return classCount;
+    return fractionalOddsFormat ? numberWithCommas(+classCount - 1) : classCount;
 };
 
-const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string, fractionalOddsFormat: boolean | undefined) => {
     if (bet.settlementResult && bet.result) {
         const keysChoices = bet.settlementResult ? Object.keys(bet.settlementResult) : [];
         const odds = bet.odds ? bet.odds : mainOdds;
@@ -56,7 +58,8 @@ const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) 
                     if (bet[choice] > 0) {
                         return (
                             <div key={index} className={classHighLight}>
-                                {t(`${gameName}:${choice}`)}@<FormatNumber>{renderOdd(choice, countsAppearDice, odds)}</FormatNumber>
+                                {t(`${gameName}:${choice}`)}@
+                                <FormatNumber>{renderOdd(choice, countsAppearDice, odds, fractionalOddsFormat)}</FormatNumber>
                             </div>
                         );
                     }
@@ -70,12 +73,15 @@ const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) 
 };
 
 const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
+    const { fractionalOddsFormat } = useSystemContext();
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) =>
+                renderBet(bet, t, mainOdds, gameName, fractionalOddsFormat)
+            }
         ></BetHistoryContainer>
     );
 };

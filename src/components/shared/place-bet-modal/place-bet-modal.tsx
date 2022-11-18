@@ -5,7 +5,7 @@ import { isMobileOnly } from "react-device-detect";
 import { GameResourceKeys } from "../../../common/resources";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { useSystemContext } from "../../../contexts/system";
-import { numberWithCommas } from "../../../helpers/number-helper";
+import { formatOdds, numberWithCommas } from "../../../helpers/number-helper";
 import { adjustPopupPosition, BetFormCss } from "./place-bet-modal-helper";
 import { PlaceBetModalProps } from "./place-bet-modal-type";
 import Styles from "./place-bet-modal.module.scss";
@@ -14,13 +14,13 @@ const defaultCss: BetFormCss = {
     position: {
         top: "0px",
     },
-    arrowStyle: "up"
+    arrowStyle: "up",
 };
 
 const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const { roundId, gameSetting } = useGameContext();
-    const { betValue } = useSystemContext();
+    const { betValue, fractionalOddsFormat } = useSystemContext();
     const { t } = useTranslation([gameSetting.gameName.toLocaleLowerCase(), "common"]);
     const { betChoiceInfo } = props,
         { betChoice, odd, gameName } = betChoiceInfo;
@@ -31,7 +31,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
     const title = t(GameResourceKeys.GAME_NAME);
     const subTitle = `#${roundId}`;
     const gameContainerRect = props.gameBaseContainerRef.current.parentElement.parentElement.getBoundingClientRect(),
-    betOptionRect = props.betOptionElement.getBoundingClientRect();
+        betOptionRect = props.betOptionElement.getBoundingClientRect();
 
     useEffect(() => {
         setBetFormCss({
@@ -59,7 +59,6 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
             setPopupPositionUpdate(false);
         }
     }, [popupPositionUpdate]);
-
 
     useEffect(() => {
         const handleClickOutside = (event: any) => {
@@ -120,7 +119,7 @@ const PlaceBetModal: React.FC<PlaceBetModalProps> = (props) => {
                         <div className={Styles["left"]}>
                             {isShowBettype && <div className={Styles["font-weight-bold"]}> {t(bettypeName)}</div>}
                             <div className={`${Styles["font-weight-bold"]} ${Styles["choice"]}`}>{t(betChoice)}</div>
-                            <div className={Styles["info"]}>@1:{odd}</div>
+                            <div className={Styles["info"]}>@{formatOdds(odd, fractionalOddsFormat)}</div>
                         </div>
                         <span className={Styles["highlight"]}>{numberWithCommas(betValue)}</span>
                     </div>

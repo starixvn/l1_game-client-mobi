@@ -19,7 +19,8 @@ export const GameGuideModal: React.FC<{
     offerGames: number[];
     promotions: any;
     settingGames: any;
-}> = ({ onCloseModal, userStakeLevel, offerGames, promotions, settingGames }) => {
+    fractionalOddsFormat: boolean;
+}> = ({ onCloseModal, userStakeLevel, offerGames, promotions, settingGames, fractionalOddsFormat }) => {
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
     const [isInPromotionTime, setIsInPromotionTime] = useState<boolean>(false);
     const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
@@ -57,6 +58,7 @@ export const GameGuideModal: React.FC<{
                             userStakeLevel={userStakeLevel}
                             gameConfigs={gameConfigs}
                             isInPromotionTime={isInPromotionTime}
+                            fractionalOddsFormat={fractionalOddsFormat}
                         />
                     )}
                 </div>

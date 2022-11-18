@@ -475,6 +475,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         updateQueryGames={this.updateQueryGame}
                         isJoinGame={isJoinGame}
                         openGameId={openGameId}
+                        fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
                     />
                     <BetSettings
                         enabledQuickBet={enabledQuickBet}
@@ -504,6 +505,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             offerGames={offerGames}
                             promotions={promotions}
                             settingGames={settingGames}
+                            fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
                         />
                     )}
                     {isShowErrorModal && (

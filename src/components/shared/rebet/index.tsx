@@ -7,8 +7,9 @@ import { BetState, BetTrackModel, Props } from "./type";
 import { useGameActionContext } from "../../../contexts/game-actions-context";
 import { useTranslation, Trans } from "next-i18next";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
-import { numberWithCommas } from "../../../helpers/number-helper";
+import { formatOdds, numberWithCommas } from "../../../helpers/number-helper";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
+import { useSystemContext } from "../../../contexts/system";
 
 const buildMessage = (notice, apiError, t, gameName) => ({
     gameName: t(`${gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`),
@@ -26,6 +27,7 @@ const Rebet: React.FC<Props> = (props: Props) => {
     const rebetInfo = rebetStorage[props.gameId];
     const lastBetChoices = rebetInfo.betInfo;
     const { roundId, gameSetting } = useGameContext();
+    const { fractionalOddsFormat } = useSystemContext();
     const gameActionContext = useGameActionContext();
     const { gameName } = gameSetting;
 
@@ -81,7 +83,7 @@ const Rebet: React.FC<Props> = (props: Props) => {
                                   <div className={Styles["bet-choice"]}>
                                       {isShowBettype && <span className={Styles["choice-bettype"]}> {t(bettypeName)}</span>}
                                       <span className={Styles["choice"]}>{t(betChoice)}</span>
-                                      {`@1:${props.getOddsByChoice(betChoice)}`}
+                                      {formatOdds(props.getOddsByChoice(betChoice), fractionalOddsFormat)}
                                   </div>
                                   <div className="d-flex align-items-center">
                                       <div className={Styles["bet-amount"]}>{numberWithCommas(lastBetChoices[betChoice])}</div>

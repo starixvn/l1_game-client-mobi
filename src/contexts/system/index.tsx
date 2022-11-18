@@ -10,6 +10,7 @@ type SystemContextType = {
     userStakeLevel: UserStakeLevel;
     betValue: number;
     enabledQuickBet: boolean;
+    fractionalOddsFormat: boolean;
 };
 
 export const SystemContext = React.createContext<Partial<SystemContextType>>({});

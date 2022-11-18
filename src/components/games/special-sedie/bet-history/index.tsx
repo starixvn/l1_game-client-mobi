@@ -5,15 +5,19 @@ import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/be
 import { renderResult } from "../../se-die/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../../se-die/sedie";
+import { useSystemContext } from "../../../../contexts/system";
+import { numberWithCommas } from "../../../../helpers/number-helper";
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string) => {
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => {
     if (bet.settlementResult) {
         const odds = bet.odds ? bet.odds : mainOdds;
 
         return (
             <div className={`text-left ${bet.settlementResult[bet.choice] ? "font-weight-medium" : ""}`}>
                 {t(`${gameName}:${bet.choice}`)}
-                <FormatNumber>{odds ? `@${odds[bet?.choice]}` : ""}</FormatNumber>
+                <FormatNumber>
+                    {odds ? `@${fractionalOddsFormat ? numberWithCommas(+odds[bet?.choice] - 1) : odds[bet?.choice]}` : ""}
+                </FormatNumber>
             </div>
         );
     }
@@ -22,12 +26,15 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string
 };
 
 const SeDieSpecialBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
+    const { fractionalOddsFormat } = useSystemContext();
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={true}
             renderResult={(bet: BetLogs) => renderResult(bet)}
-            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) => renderBet(bet, t, mainOdds, gameName)}
+            renderBet={(bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string) =>
+                renderBet(bet, t, mainOdds, gameName, fractionalOddsFormat)
+            }
         ></BetHistoryContainer>
     );
 };

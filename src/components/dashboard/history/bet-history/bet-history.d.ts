@@ -13,7 +13,7 @@ export type PropsBetContainer = {
     gameId: number;
     isRefund: boolean;
     renderResult?: (bet: any, roundId: number, setIsShowResultDetail?: Function, setBetLog?: Function, t?: TFunction) => JSX.Element;
-    renderBet?: (bet: any, t: TFunction, mainOdds: object, gameName: string) => JSX.Element;
+    renderBet?: (bet: any, t: TFunction, mainOdds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => JSX.Element;
     renderResultDetail?: (
         resultDetail: ResultDetail,
         t: TFunction,

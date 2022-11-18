@@ -113,6 +113,7 @@ export const Games: React.FC<Props> = ({
     isJoinGame,
     updateQueryGames,
     openGameId,
+    fractionalOddsFormat,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -277,7 +278,16 @@ export const Games: React.FC<Props> = ({
             }`}
         >
             <SystemContextProvider
-                value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
+                value={{
+                    setFavorite,
+                    favoriteGames,
+                    enabledPlaySound,
+                    gamesOrder,
+                    userStakeLevel,
+                    enabledQuickBet,
+                    betValue,
+                    fractionalOddsFormat,
+                }}
             >
                 {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <GameCategory
