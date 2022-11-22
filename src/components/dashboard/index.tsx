@@ -404,8 +404,8 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     closeToolbarGuide() {
-        this.setState({ isShowToolbarGuide: false});
-    }    
+        this.setState({ isShowToolbarGuide: false });
+    }
 
     renderDashBoard() {
         const {
@@ -430,14 +430,14 @@ class Dashboard extends React.PureComponent<Props, State> {
             promotions,
             settingGames,
             openGameId,
-            isShowToolbarGuide
+            isShowToolbarGuide,
         } = this.state;
         const authContextValue = {
             session: this.props.session,
             setBalance: this.updateUserBalance,
             signOut: this.signOut,
         };
-        const offerGames: number[] = authorizeInfo.user.offerGames.map((game: any) => game?.gameId);
+        const offerGames: number[] = authorizeInfo?.user?.offerGames?.map((game: any) => game?.gameId) ?? [];
         return (
             <AuthContextProvider value={authContextValue}>
                 <div className={Styles["dashboard"]}>
@@ -526,12 +526,9 @@ class Dashboard extends React.PureComponent<Props, State> {
                             </BaseDialog>
                         </div>
                     )}
-                    {isMobileOnly && isSafari && (<ToolbarGuide 
-                            isShowToolbarGuide={isShowToolbarGuide}
-                            onCloseGuide={this.closeToolbarGuide}
-                        >                        
-                        </ToolbarGuide>
-                    )}    
+                    {isMobileOnly && isSafari && (
+                        <ToolbarGuide isShowToolbarGuide={isShowToolbarGuide} onCloseGuide={this.closeToolbarGuide}></ToolbarGuide>
+                    )}
                 </div>
             </AuthContextProvider>
         );

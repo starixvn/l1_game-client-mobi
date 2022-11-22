@@ -728,13 +728,15 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     renderReBet() {
-        const betContainerRef = this.gameBaseContainerRef;
-        const domRect = betContainerRef.current.getBoundingClientRect();
-        const betContainerPosition = domRect.y;
+        const getBetContainerPosition = () => {
+            const betContainerRef = this.gameBaseContainerRef;
+            const domRect = betContainerRef.current?.getBoundingClientRect();
+            return domRect?.y ?? 0;
+        };
 
         return (
             <BaseDialog
-                betContainerPosition={isMobileOnly ? betContainerPosition : null}
+                betContainerPosition={isMobileOnly ? getBetContainerPosition() : null}
                 type={ModalType.Rebet}
                 isOpen={this.state.displayPopup === PopupType.Rebet}
                 onCloseModal={this.closePopup}
