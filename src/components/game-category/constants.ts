@@ -11,6 +11,8 @@ export const GameCategoryConfig = {
         dice: [1, 4, 3],
         card: [7, 10, 27, 35],
         kenolottery: [8],
+        megakeno: [52, 53, 14, 15, 16, 17, 18, 19],
+        keno: [40, 41, 36, 37],
         favorite: [],
     },
     [AppTypes.megaKeno]: {
@@ -30,8 +32,27 @@ export enum GameCategoryType {
     favorite,
 }
 
-export const favoriteGameIdIgnore = [];
+const SystemGameCategory = {
+    ["L1"]: [
+        GameCategoryType.hot,
+        GameCategoryType.sedie,
+        GameCategoryType.dice,
+        GameCategoryType.card,
+        GameCategoryType.kenolottery,
+        GameCategoryType.favorite,
+    ],
+    ["L2"]: [
+        GameCategoryType.hot,
+        GameCategoryType.megakeno,
+        GameCategoryType.keno,
+        GameCategoryType.sedie,
+        GameCategoryType.dice,
+        GameCategoryType.card,
+        GameCategoryType.kenolottery,
+        GameCategoryType.favorite,
+    ],
+};
 
-export const GameCategoryKeys: string[] = Object.keys(GameCategoryType)
-    .map((key) => GameCategoryType[key])
-    .filter((value) => typeof value === "string" && Object.keys(GameCategoryConfig[appSettings.appType]).includes(value));
+export const favoriteGameIdIgnore = [40, 41, 36, 37];
+
+export const GameCategoryKeys: string[] = SystemGameCategory[appSettings.system].map((value) => GameCategoryType[value]);
