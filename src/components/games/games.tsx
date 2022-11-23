@@ -255,18 +255,10 @@ export const Games: React.FC<Props> = ({
     }, [openGameId, isJoinGame]);
 
     useEffect(() => {
-        const onVisibilityChange = () => {
-            if (document.visibilityState === "visible" && socketGatewayRef.current && !socketGatewayRef.current.connected) {
-                connectSocket();
-            }
-        };
-
         connectSocket();
-        document.addEventListener("visibilitychange", onVisibilityChange);
 
         return () => {
             socketGatewayRef.current.close();
-            document.removeEventListener("visibilitychange", onVisibilityChange);
         };
     }, []);
 
@@ -287,7 +279,7 @@ export const Games: React.FC<Props> = ({
             <SystemContextProvider
                 value={{ setFavorite, favoriteGames, enabledPlaySound, gamesOrder, userStakeLevel, enabledQuickBet, betValue }}
             >
-                {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}                            
+                {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
                 <GameCategory
                     favoriteGames={favoriteGames}
                     selectedPage={selectedPage}
