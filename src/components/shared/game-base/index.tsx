@@ -727,6 +727,16 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         );
     }
 
+    checkRenderRebet() {
+        const { roundId } = this.state;
+        const gameId = this.props.id;
+        const rebetStorageKey = LocalStorageManager.localStorageKeys.rebet;
+        const rebetStorage = LocalStorageManager.getLocalStorageItem<RebetStorageModel>(rebetStorageKey) || {};
+        const rebetInfo = rebetStorage[gameId];
+
+        return rebetInfo?.betInfo !== undefined && rebetInfo?.roundId + 1 === roundId ? true : false;
+    }
+
     renderReBet() {
         const getBetContainerPosition = () => {
             const betContainerRef = this.gameBaseContainerRef;
@@ -886,7 +896,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     renderPopup(popupType: PopupType) {
         switch (popupType) {
             case PopupType.Rebet:
-                return this.renderReBet();
+                return this.checkRenderRebet() && this.renderReBet();
             case PopupType.Error:
                 return this.renderErrorMessage();
             case PopupType.PlaceBet:

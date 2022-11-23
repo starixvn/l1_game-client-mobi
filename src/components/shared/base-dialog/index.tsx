@@ -69,7 +69,6 @@ const BaseDialog: React.FC<Props> = ({
                 onCloseModal && onCloseModal();
             }
         };
-        console.log(isBlockUI);
         !isBlockUI && document.addEventListener("mousedown", handleClickOutside);
         return () => {
             !isBlockUI && document.removeEventListener("mousedown", handleClickOutside);
