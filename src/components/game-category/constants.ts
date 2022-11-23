@@ -42,12 +42,12 @@ const SystemGameCategory = {
         GameCategoryType.favorite,
     ],
     ["L2"]: [
-        GameCategoryType.hot,       
+        GameCategoryType.hot,
         GameCategoryType.sedie,
         GameCategoryType.dice,
         GameCategoryType.card,
         GameCategoryType.megakeno,
-        GameCategoryType.keno,        
+        GameCategoryType.keno,
         GameCategoryType.kenolottery,
         GameCategoryType.favorite,
     ],
@@ -55,4 +55,6 @@ const SystemGameCategory = {
 
 export const favoriteGameIdIgnore = [40, 41, 36, 37];
 
-export const GameCategoryKeys: string[] = SystemGameCategory[appSettings.system].map((value) => GameCategoryType[value]);
+export const GameCategoryKeys: string[] = SystemGameCategory[appSettings.system]
+    .map((value) => GameCategoryType[value])
+    .filter((category) => Object.keys(GameCategoryConfig[appSettings.appType]).includes(category));
