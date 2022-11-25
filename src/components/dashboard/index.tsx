@@ -490,7 +490,13 @@ class Dashboard extends React.PureComponent<Props, State> {
                         isNewPromotion={isNewPromotion}
                         isShowToolbarGuide={isShowToolbarGuide}
                     />
-                    {isShowHistory && <HistoryModal onCloseModal={this.toggleHistoryModal} offerGames={offerGames} />}
+                    {isShowHistory && (
+                        <HistoryModal
+                            onCloseModal={this.toggleHistoryModal}
+                            offerGames={offerGames}
+                            fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                        />
+                    )}
                     {isShowAnnouncement && (
                         <AnnouncementModal
                             onCloseModal={this.toggleAnnouncementModal}

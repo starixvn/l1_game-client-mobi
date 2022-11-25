@@ -34,8 +34,10 @@ const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: strin
     return <></>;
 };
 
-const BigSmallBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { fractionalOddsFormat } = useSystemContext();
+const BigSmallBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
     return (
         <BetHistoryContainer
             gameId={gameId}

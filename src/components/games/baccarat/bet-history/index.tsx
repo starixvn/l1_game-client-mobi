@@ -90,7 +90,10 @@ const generateScore = (cards: CardOrder[]) => {
     }, 0);
 };
 
-const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
+const BaccaratBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
     return (
         <BetHistoryContainer
             gameId={gameId}
@@ -101,6 +104,7 @@ const BaccaratBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameI
             renderResultDetail={(resultDetail: ResultDetail, t: TFunction, closeModal: () => void, gameName: string) =>
                 renderResultDetail(resultDetail, t, closeModal, gameName)
             }
+            fractionalOddsFormat={fractionalOddsFormat}
         ></BetHistoryContainer>
     );
 };

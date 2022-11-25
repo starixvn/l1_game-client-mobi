@@ -15,7 +15,11 @@ import BaseDialog from "../../shared/base-dialog";
 import GameSelector from "../../shared/game-selector";
 import Styles from "./history.module.scss";
 
-export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number[] }> = ({ onCloseModal, offerGames }) => {
+export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number[]; fractionalOddsFormat: boolean | undefined }> = ({
+    onCloseModal,
+    offerGames,
+    fractionalOddsFormat,
+}) => {
     const { t } = useTranslation();
     const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
     const closeModal = () => {
@@ -26,15 +30,15 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
         switch (selectedGameId) {
             case 1:
             case 4:
-                return <BigSmallBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <BigSmallBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 2:
             case 9:
             case 22:
-                return <SeDieBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <SeDieBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 3:
-                return <FishPrawnCrabBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <FishPrawnCrabBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 7:
-                return <DragonTigerBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <DragonTigerBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 8:
             case 14:
             case 15:
@@ -44,19 +48,19 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
             case 19:
             case 52:
             case 53:
-                return <KenoProMaxBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <KenoProMaxBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 10:
             case 27:
-                return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <BaccaratBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 24:
-                return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <SeDieSpecialBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
             case 36:
             case 37:
             case 40:
             case 41:
                 return <KenoBetHistory key={selectedGameId} gameId={selectedGameId} closeModal={closeModal} />;
             default:
-                return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} />;
+                return <ThreeCardsBetHistory key={selectedGameId} gameId={selectedGameId} fractionalOddsFormat={fractionalOddsFormat} />;
         }
     };
 

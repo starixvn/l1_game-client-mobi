@@ -6,7 +6,6 @@ import { formatDate } from "../../../../../helpers/time-helper";
 import { BetLogs } from "../bet-history";
 import { FormatNumber } from "../index";
 import Styles from "../bet-history.module.scss";
-import { useSystemContext } from "../../../../../contexts/system";
 
 const fontWeightClass = "font-weight-medium";
 export const renderBetBase = (
@@ -133,13 +132,24 @@ const RenderCellOnTable: React.FC<{
     setIsShowBetLogDetails: Function;
     setBetLog: Function;
     headerName: string[];
-}> = ({ betHistoryItem, renderResult, renderBet, setIsShowResultDetail, t, gameName, setIsShowBetLogDetails, setBetLog, headerName }) => {
+    fractionalOddsFormat: boolean | undefined;
+}> = ({
+    betHistoryItem,
+    renderResult,
+    renderBet,
+    setIsShowResultDetail,
+    t,
+    gameName,
+    setIsShowBetLogDetails,
+    setBetLog,
+    headerName,
+    fractionalOddsFormat,
+}) => {
     const { time, phien, betwin, freeBet, totalAmount } = betHistoryItem;
     const odds = betHistoryItem.odds;
     const isHighligh = betwin > 0 ? true : false;
     const fontNumber = "font-number";
     const classBetWin = `font-weight-medium ${Styles["bet-win"]} ${fontNumber}`;
-    const { fractionalOddsFormat } = useSystemContext();
 
     const onClickTotalAmount = () => {
         setIsShowBetLogDetails(true);

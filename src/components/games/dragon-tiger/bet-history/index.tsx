@@ -17,8 +17,18 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const DragonTigerBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    return <BetHistoryContainer gameId={gameId} isRefund={false} renderResult={(bet: BetLogs) => renderResult(bet)}></BetHistoryContainer>;
+const DragonTigerBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
+    return (
+        <BetHistoryContainer
+            gameId={gameId}
+            isRefund={false}
+            renderResult={(bet: BetLogs) => renderResult(bet)}
+            fractionalOddsFormat={fractionalOddsFormat}
+        ></BetHistoryContainer>
+    );
 };
 
 export default DragonTigerBetHistory;

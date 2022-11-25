@@ -24,6 +24,7 @@ export type PropsBetContainer = {
     closeModal?: () => void;
     renderBetLogsDetails?: Function;
     nameHeaderOnTable?: string[];
+    fractionalOddsFormat?: boolean | undefined;
 };
 
 export type ResultDetail = {

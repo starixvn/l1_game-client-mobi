@@ -5,7 +5,6 @@ import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/be
 import { renderResult } from "../../se-die/bet-history";
 import { BetLogs } from "./bet-history";
 import { Odd } from "../../se-die/sedie";
-import { useSystemContext } from "../../../../contexts/system";
 import { numberWithCommas } from "../../../../helpers/number-helper";
 
 const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => {
@@ -25,8 +24,10 @@ const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string
     return <></>;
 };
 
-const SeDieSpecialBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { fractionalOddsFormat } = useSystemContext();
+const SeDieSpecialBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
     return (
         <BetHistoryContainer
             gameId={gameId}

@@ -131,7 +131,7 @@ const handleScrollBetHistory = ({ event, page, setPage }) => {
 };
 
 const BetHistoryContainer = (props: PropsBetContainer) => {
-    const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal } = props;
+    const { renderResult, isRefund, gameId, renderResultDetail, renderBetLogsDetails, closeModal, fractionalOddsFormat } = props;
     let { renderBet } = props;
     if (!props.renderBet) {
         renderBet = renderBetBase;
@@ -202,7 +202,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 ></BetHistoryDetailsContainer>
             );
         }
-
+        
         return (
             <>
                 {listBetHistory.length > 0 ? (
@@ -229,6 +229,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                                                 gameName: gameName,
                                                 t: t,
                                                 headerName: headerName,
+                                                fractionalOddsFormat: fractionalOddsFormat,
                                             })}
                                         </tr>
                                     );

@@ -71,7 +71,7 @@ export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, clo
         const settlementResult: any = bet?.settlementResult;
         const textTranslate = GetChoiceTranslate(t);
         const resultLength = result.length / 10;
-        
+
         return (
             <ResultDetailContainer roundId={roundId} closeModal={closeModal} gameName={t(`${gameName}:${GameResourceKeys.GAME_NAME}`)}>
                 <div className={Styles["result-detail"]}>
@@ -96,13 +96,17 @@ export const renderResultDetail = (resultDetail: ResultDetail, t: TFunction, clo
     return <></>;
 };
 
-const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
+const KenoProMaxBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
     return (
         <BetHistoryContainer
             gameId={gameId}
             isRefund={false}
             renderResult={renderResult}
             renderResultDetail={renderResultDetail}
+            fractionalOddsFormat={fractionalOddsFormat}
         ></BetHistoryContainer>
     );
 };

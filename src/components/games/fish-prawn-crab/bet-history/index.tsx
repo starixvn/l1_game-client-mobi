@@ -72,8 +72,10 @@ const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string, 
     return <></>;
 };
 
-const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number }> = ({ gameId }) => {
-    const { fractionalOddsFormat } = useSystemContext();
+const FishPrawnCrabBetHistory: React.FunctionComponent<{ gameId: number; fractionalOddsFormat: boolean | undefined }> = ({
+    gameId,
+    fractionalOddsFormat,
+}) => {
     return (
         <BetHistoryContainer
             gameId={gameId}
