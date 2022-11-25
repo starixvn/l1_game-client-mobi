@@ -1,4 +1,5 @@
 import React from "react";
+import { numberWithCommas } from "../../../../../helpers/number-helper";
 
 import { renderTimes } from "../../../../dashboard/history/bet-history/bet-row";
 import { renderRefund, RenderCell } from "../../../../keno/bet-history/bet-history-details";
@@ -8,7 +9,8 @@ const RenderRowKenoMatch: React.FC<{
     betDetail: BetDetailProps;
     bet: BetLogs;
     translateMapping;
-}> = ({ betDetail, bet, translateMapping }) => {
+    fractionalOddsFormat: boolean | undefined;
+}> = ({ betDetail, bet, translateMapping, fractionalOddsFormat }) => {
     const { odds, settlementResult } = bet;
     const { time, amount, choice } = betDetail;
     const isHighligh = settlementResult[choice] ? true : false;
@@ -23,7 +25,10 @@ const RenderRowKenoMatch: React.FC<{
                 <span>{getLabelFollowChoice({ translateMapping, choice })}</span>
             </RenderCell>
             <RenderCell isHighligh={isHighligh} name={"bet-choice"}>
-                {translateMapping[choice]}@<span className="font-number">{odds[choice]}</span>
+                {translateMapping[choice]}@
+                <span className="font-number">
+                    {fractionalOddsFormat && odds[choice] ? numberWithCommas(+odds[choice] - 1) : odds?.[choice] || ""}
+                </span>
             </RenderCell>
             <RenderCell isHighligh={isHighligh} name={"stake-refund"}>
                 {renderRefund({ amount, isShowRefundAmount })}

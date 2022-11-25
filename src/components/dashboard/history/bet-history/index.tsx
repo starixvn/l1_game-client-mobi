@@ -193,7 +193,14 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         if (isShowBetLogDetails) {
             return (
                 <BetHistoryDetailsContainer
-                    renderBetLogsDetails={renderBetLogsDetails({ betLog, gameName, t, setIsShowResultDetail, gameId })}
+                    renderBetLogsDetails={renderBetLogsDetails({
+                        betLog,
+                        gameName,
+                        t,
+                        setIsShowResultDetail,
+                        gameId,
+                        fractionalOddsFormat,
+                    })}
                     renderResultDetail={renderResultDetail(betLog, t, closeModalResultDetail, gameName, gameId)}
                     isShowResultDetail={isShowResultDetail}
                     closeModalBetDetails={closeModalBetLogDetails}
@@ -202,7 +209,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
                 ></BetHistoryDetailsContainer>
             );
         }
-        
+
         return (
             <>
                 {listBetHistory.length > 0 ? (

@@ -30,7 +30,7 @@ export const renderRefund: React.FC<{ amount: number; isShowRefundAmount: boolea
     );
 };
 
-const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) => {
+const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId, fractionalOddsFormat }) => {
     if (betLog) {
         const { bet, roundId } = betLog;
         const { betLogDetails } = bet ?? [];
@@ -67,6 +67,7 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId }) 
                                                 betDetail: betLog,
                                                 bet: bet,
                                                 translateMapping: translateMapping,
+                                                fractionalOddsFormat: fractionalOddsFormat,
                                             })}
                                         </tr>
                                     );
