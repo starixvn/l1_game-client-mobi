@@ -1,0 +1,20 @@
+{
+    "game_name": "Mega Keno",
+    "big": "Big",
+    "small": "Small",
+    "even": "Even",
+    "odd": "Odd",
+    "earth": "Earth",
+    "fire": "Fire",
+    "gold": "Gold",
+    "water": "Water",
+    "wood": "Wood",
+    "bigTextDot": "B",
+    "smallTextDot": "S",
+    "evenTextDot": "E",
+    "oddTextDot": "O",
+    "total": "Total",
+    "fiveElementsTabs": "5 Elements",
+    "bigSmallTabs": "Big/Small",
+    "evenOddTabs": "Even/Odd"
+}
