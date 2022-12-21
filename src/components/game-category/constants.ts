@@ -4,6 +4,10 @@ import appSettings from "../../common/app-settings";
 
 export const GamesInOnePage = 20;
 
+export const isMegaKenoLobby = (appType: number) => {
+    return appType === 4;
+};
+
 export const GameCategoryConfig = {
     [AppTypes.mobile]: {
         hot: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
@@ -38,6 +42,8 @@ const SystemGameCategory = {
         GameCategoryType.sedie,
         GameCategoryType.dice,
         GameCategoryType.card,
+        isMegaKenoLobby(appSettings.appType) && GameCategoryType.megakeno,
+        isMegaKenoLobby(appSettings.appType) && GameCategoryType.keno,
         GameCategoryType.kenolottery,
         GameCategoryType.favorite,
     ],
