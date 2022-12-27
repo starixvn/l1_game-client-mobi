@@ -17,6 +17,7 @@ test("load user info", () => {
         settings: { theme: "light" },
         isSignedInSM: true,
         offerGames: [22, 2, 9, 1, 4, 8],
+        isDisplayPlayerCurrency: true,
     };
 
     // act
@@ -27,7 +28,7 @@ test("load user info", () => {
 });
 
 [null, undefined].forEach((red) => {
-    test(`when red of user is ${red}, should 0 as default`, () => {
+    test(`when red of user is ${red}, should 0 with player currency`, () => {
         // arrange
         const user = {
             UID: 1,
@@ -38,6 +39,7 @@ test("load user info", () => {
             settings: { theme: "light" },
             isSignedInSM: true,
             offerGames: [22, 2, 9, 1, 4, 8],
+            isDisplayPlayerCurrency: true,
         };
 
         // act
@@ -45,6 +47,27 @@ test("load user info", () => {
 
         // assert
         expect(getByTestId("balance")).toHaveTextContent("0 USD");
+    });
+
+    test(`don't show player currency, should 0 as default`, () => {
+        // arrange
+        const user = {
+            UID: 1,
+            avatarId: 1,
+            currency: "USD",
+            name: "abc",
+            red,
+            settings: { theme: "light" },
+            isSignedInSM: true,
+            offerGames: [22, 2, 9, 1, 4, 8],
+            isDisplayPlayerCurrency: false,
+        };
+
+        // act
+        const { getByTestId } = render(<UserInfo user={user} />);
+
+        // assert
+        expect(getByTestId("balance")).toHaveTextContent("0");
     });
 });
 
@@ -60,6 +83,7 @@ test("load user info", () => {
             settings: { theme: "light" },
             isSignedInSM: true,
             offerGames: [22, 2, 9, 1, 4, 8],
+            isDisplayPlayerCurrency: true,
         };
 
         // act

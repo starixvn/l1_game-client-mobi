@@ -7,8 +7,13 @@ import Styles from "./user-info.module.scss";
 
 export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ user, customizeClass }) => {
     let deviceClass = "";
+    let currencyUser = "";
     if (isMobileOnly) {
         deviceClass = isIOS ? Styles["ios-device"] : Styles["android-device"];
+    }
+
+    if (user.isDisplayPlayerCurrency) {
+        currencyUser = user.currency;
     }
 
     return (
@@ -18,7 +23,7 @@ export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ us
                     {user.name}
                 </div>
                 <div key={user.red} className={`${Styles.balance}`} data-testid="balance">
-                    {numberRoundDownWithCommas(user.red ? user.red : 0)} {user.currency}
+                    {numberRoundDownWithCommas(user.red ? user.red : 0)} {currencyUser}
                 </div>
             </div>
             <div className={Styles["avatar"]}>

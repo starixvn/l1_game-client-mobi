@@ -5,7 +5,6 @@ import BetHistoryContainer, { FormatNumber } from "../../../dashboard/history/be
 import { BetLogs } from "./bet-history";
 import Styles from "./bet-history.module.scss";
 import { numberWithCommas } from "../../../../helpers/number-helper";
-import { useSystemContext } from "../../../../contexts/system";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result && bet.settlementResult) {

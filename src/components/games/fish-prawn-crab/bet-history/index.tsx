@@ -8,7 +8,6 @@ import { OddNames, ResultBet } from "../index";
 import { ChoiceIconHistory } from "../choice-icon";
 import Styles from "./bet-history.module.scss";
 import { numberWithCommas } from "../../../../helpers/number-helper";
-import { useSystemContext } from "../../../../contexts/system";
 
 const renderResult = (bet: BetLogs) => {
     if (bet.result) {
