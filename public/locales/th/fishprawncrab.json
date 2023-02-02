@@ -1,13 +1,13 @@
 {
-    "game_name": "Fish Prawn Crab",
-    "round": "Round",
-    "single": "Single",
-    "double": "Double",
-    "triple": "Triple",
-    "stag": "Stag",
-    "gourd": "Gourd",
-    "rooster": "Rooster",
-    "fish": "Fish",
-    "crab": "Crab",
-    "prawn": "Prawn"
+    "game_name": "น้ำเต้าปูปลา",
+    "round": "รอบ",
+    "single": "เดี่ยว",
+    "double": "สองเท่า",
+    "triple": "สามเท่า",
+    "stag": "กวาง",
+    "gourd": "น้ำเต้า",
+    "rooster": "ไก่ชน",
+    "fish": "ปลา",
+    "crab": "ปู",
+    "prawn": "กุ้ง"
 }

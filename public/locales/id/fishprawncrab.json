@@ -1,13 +1,13 @@
 {
-    "game_name": "Fish Prawn Crab",
-    "round": "Round",
+    "game_name": "Ikan Udang Kepiting",
+    "round": "Babak",
     "single": "Single",
-    "double": "Double",
-    "triple": "Triple",
-    "stag": "Stag",
-    "gourd": "Gourd",
-    "rooster": "Rooster",
-    "fish": "Fish",
-    "crab": "Crab",
-    "prawn": "Prawn"
+    "double": "Dobel",
+    "triple": "Tripel",
+    "stag": "RUSA JANTAN",
+    "gourd": "KUNDUR",
+    "rooster": "AYAM JANTAN",
+    "fish": "IKAN",
+    "crab": "KEPITING",
+    "prawn": "UDANG"
 }
