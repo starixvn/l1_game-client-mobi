@@ -1,11 +1,11 @@
 {
-    "game_name": "Dragon Tiger",
+    "game_name": "Naga Macan",
     "tiger": "Tiger",
     "dragon": "Dragon",
-    "tie": "Tie",
-    "tigerWin": "Tiger win",
-    "dragonWin": "Dragon win",
-    "tigerTextDot":"T",
-    "dragonTextDot":"D",
-    "tieTextDot":"/"
+    "tie": "Seri",
+    "tigerWin": "TIGER MENANG",
+    "dragonWin": "DRAGON MENANG",
+    "tigerTextDot": "T",
+    "dragonTextDot": "D",
+    "tieTextDot": "/"
 }
