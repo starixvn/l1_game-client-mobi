@@ -1,6 +1,4 @@
 {
-    "loginFailed": "Incorrect login name or password",
-    "accountLocked": "Account has been closed. Please contact your upline for details, thank you.",
     "accountNotExist": "An error has occurred. Please contact CSD for details, thank you.({{errorCode}})",
     "ipRestricted": "Your IP address is restricted.({{errorCode}})",
     "accountBlacklisted": "Account has been closed. Please contact CSD for details.({{errorCode}})",
@@ -89,16 +87,12 @@
     "disabledGame": "Game is under maintenance, please come back in 10 minutes.",
     "errorOccurredPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! An error has occurred, please contact CSD for details.({{errorCode}})",
     "sessionTimeoutPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Your session has timed out or you have not logged in yet. Please close the current windows and try to login again.",
-    "loginFailedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Incorrect login name or password.",
-    "accountLockedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Account has been closed. Please contact your upline for details, thank you.",
     "accountNotExistPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! An error has occurred. Please contact CSD for details, thank you.({{errorCode}})",
     "ipRestrictedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Your IP address is restricted.({{errorCode}})",
     "accountBlacklistedPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Account has been closed. Please contact CSD for details.({{errorCode}})",
     "userNotFoundPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! User was not found.({{errorCode}})",
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! The game is under maintenance.",
     "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> Failed to place bet! Network error.({{errorCode}})",
-    "gameMaxBet": "Max bet for this game is {{maxBet}}.",
-    "gameMinBet": "Min bet for this game is {{minBet}}.",
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>Your account is no longer allowed to play this game. Please try other game.",
     "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you.",
     "disallowHedgeBet": "Can bet on either {{betChoice1}} or {{betChoice2}}."
