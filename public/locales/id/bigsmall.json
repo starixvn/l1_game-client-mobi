@@ -1,8 +1,8 @@
 {
-    "game_name": "Big Small",
-    "round": "Round",
-    "big": "Big",
-    "small": "Small",
-    "bigTextDot":"B",
-    "smallTextDot":"S"
+    "game_name": "Besar Kecil",
+    "round": "Babak",
+    "big": "Besar",
+    "small": "Kecil",
+    "bigTextDot": "B",
+    "smallTextDot": "S"
 }

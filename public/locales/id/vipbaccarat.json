@@ -1,10 +1,10 @@
 {
-    "game_name": "VIP Baccarat",
+    "game_name": "VIP Bakarat",
     "banker": "Banker",
     "player": "Player",
-    "big": "Big",
-    "small": "Small",
-    "tie": "Tie",
+    "big": "Besar",
+    "small": "Kecil",
+    "tie": "Seri",
     "bankerPair": "Banker Pair",
     "playerPair": "Player Pair",
     "bankerTextDot": "B",
@@ -12,8 +12,8 @@
     "tieTextDot": "/",
     "bigTextDot": "B",
     "smallTextDot": "S",
-    "bankerWin": "Bank Win",
-    "playerWin": "Player Win",
+    "bankerWin": "Banker Menang",
+    "playerWin": "Player Menang",
     "playerBankerTabs": "Player/Banker",
-    "bigSmallTabs": "Big/Small"
+    "bigSmallTabs": "Besar/Kecil"
 }

@@ -1,7 +1,7 @@
 {
-    "game_name": "Turbo Big Small",
-    "big": "Big",
-    "small": "Small",
-    "bigTextDot":"B",
-    "smallTextDot":"S"
+    "game_name": "極速大小",
+    "big": "大",
+    "small": "小",
+    "bigTextDot": "B",
+    "smallTextDot": "S"
 }

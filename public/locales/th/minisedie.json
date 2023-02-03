@@ -1,12 +1,12 @@
 {
-    "game_name": "Mini Se Die",
-    "odd": "Odd",
-    "even": "Even",
-    "red1": "1 Red",
-    "red3": "3 Red",
-    "red4": "4 Red",
-    "white3": "1 Red",
-    "white4": "4 White",
-    "submit": "Submit",
-    "ok": "OK"
+    "game_name": "มินิ Se Die",
+    "odd": "คี่",
+    "even": "คู่",
+    "red1": "1 แดง",
+    "red3": "3 แดง",
+    "red4": "4 แดง",
+    "white3": "1 แดง",
+    "white4": "4 ขาว",
+    "submit": "ตกลง",
+    "ok": "โอเค"
 }
