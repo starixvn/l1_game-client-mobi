@@ -67,21 +67,11 @@ export const AnnouncementModal: React.FC<{
                     ) : (
                         <div className={Styles["tab-content"]}>
                             <ul className={Styles["list-terms"]}>
-                                <li>
-                                    <Trans t={t}>{t("common:termsPromotion-1")}</Trans>
-                                </li>
-                                <li>
-                                    <Trans t={t}>{t("common:termsPromotion-2")}</Trans>
-                                </li>
-                                <li>
-                                    <Trans t={t}>{t("common:termsPromotion-3")}</Trans>
-                                </li>
-                                <li>
-                                    <Trans t={t}>{t("common:termsPromotion-4")}</Trans>
-                                </li>
-                                <li>
-                                    <Trans t={t}>{t("common:termsPromotion-5")}</Trans>
-                                </li>
+                                {[1, 2, 3, 4, 5].map((value, index) => (
+                                    <li key={index}>
+                                        <Trans t={t}>{t(`common:termsPromotion-${value}`)}</Trans>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     )}

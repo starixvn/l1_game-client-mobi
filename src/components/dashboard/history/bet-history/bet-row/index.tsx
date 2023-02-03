@@ -8,16 +8,9 @@ import { FormatNumber } from "../index";
 import Styles from "../bet-history.module.scss";
 
 const fontWeightClass = "font-weight-medium";
-export const renderBetBase = (
-    bet: BetLogs,
-    t: TFunction,
-    mainOdds: object,
-    gameName: string,
-    fractionalOddsFormat: boolean | undefined
-) => {
+export const renderBetBase = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string, fractionalOddsFormat = false) => {
     if (bet.settlementResult) {
         const keysChoices = Object.keys(bet.settlementResult);
-        const odds = bet.odds ? bet.odds : mainOdds;
         return (
             <div className={`${Styles["list-choices"]} ${Styles[gameName]}`}>
                 {keysChoices &&
@@ -27,9 +20,7 @@ export const renderBetBase = (
                             return (
                                 <div key={index} className={classHighLight}>
                                     {t(`${gameName}:${name}`)}@
-                                    <FormatNumber>
-                                        {fractionalOddsFormat && odds[name] ? numberWithCommas(+odds[name] - 1) : odds?.[name] || ""}
-                                    </FormatNumber>
+                                    <FormatNumber>{getBetOdds(bet, mainOdds, name, fractionalOddsFormat)}</FormatNumber>
                                 </div>
                             );
                         }
@@ -40,6 +31,12 @@ export const renderBetBase = (
     }
 
     return <></>;
+};
+
+const getBetOdds = (bet: BetLogs, mainOdds: object, name: string, fractionalOddsFormat = false) => {
+    const odds = bet.odds ? bet.odds : mainOdds;
+
+    return fractionalOddsFormat && odds[name] ? numberWithCommas(+odds[name] - 1) : odds?.[name] || "";
 };
 
 const renderStake = (bet: BetLogs, freeBet: boolean) => {

@@ -7,7 +7,7 @@ import { BetLogs } from "./bet-history";
 import { Odd } from "../../se-die/sedie";
 import { numberWithCommas } from "../../../../helpers/number-helper";
 
-const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => {
+const renderBet = (bet: BetLogs, t: Function, mainOdds: object, gameName: string, fractionalOddsFormat = false) => {
     if (bet.settlementResult) {
         const odds = bet.odds ? bet.odds : mainOdds;
 

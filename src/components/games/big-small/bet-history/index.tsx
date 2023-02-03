@@ -19,7 +19,7 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string, fractionalOddsFormat: boolean | undefined) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: object, gameName: string, fractionalOddsFormat = false) => {
     if (bet.settlementResult) {
         const odds = bet.odds ? bet.odds : mainOdds;
         return (

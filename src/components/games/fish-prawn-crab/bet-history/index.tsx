@@ -23,7 +23,7 @@ const renderResult = (bet: BetLogs) => {
     return <></>;
 };
 
-const renderOdd = (choice: string, countsAppearDice: object, odds: Odd, fractionalOddsFormat: boolean | undefined) => {
+const renderOdd = (choice: string, countsAppearDice: object, odds: Odd, fractionalOddsFormat = false) => {
     let classCount = `${odds[OddNames.single]}`;
     Object.keys(countsAppearDice).forEach((number) => {
         if (+ResultBet[choice] === +number) {
@@ -42,7 +42,7 @@ const renderOdd = (choice: string, countsAppearDice: object, odds: Odd, fraction
     return fractionalOddsFormat ? numberWithCommas(+classCount - 1) : classCount;
 };
 
-const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string, fractionalOddsFormat: boolean | undefined) => {
+const renderBet = (bet: BetLogs, t: TFunction, mainOdds: Odd, gameName: string, fractionalOddsFormat = false) => {
     if (bet.settlementResult && bet.result) {
         const keysChoices = bet.settlementResult ? Object.keys(bet.settlementResult) : [];
         const odds = bet.odds ? bet.odds : mainOdds;

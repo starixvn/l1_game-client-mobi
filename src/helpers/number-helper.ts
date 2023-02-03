@@ -14,7 +14,7 @@ const randomInteger = (min: number, max: number) => {
 
 const sumArray = (numbers: number[]) => numbers.reduce((number, sum) => number + sum, 0);
 
-const formatOdds = (value: number | string | undefined, isFractionalFormat: boolean | undefined) => {
+const formatOdds = (value: number | string | undefined, isFractionalFormat = false) => {
     return isFractionalFormat ? `${numberWithCommas(+value - 1, 2)}:1` : `1:${value}`;
 };
 
