@@ -1,6 +1,6 @@
 {
     "popupTitleGuide": "遊戲指南",
-    "popupTitleHistory": "投註記錄",
+    "popupTitleHistory": "投注歷史",
     "popupAnnouncement": "促銷",
     "rebet": "重新下注",
     "startNewRound": "開始新一輪",
@@ -59,6 +59,7 @@
     "category-card": "紙牌遊戲",
     "category-sedie": "色碟",
     "category-megakeno": "Mega Keno",
+    "menu": "菜單",
     "menu-favorite-setting": "最喜歡的遊戲",
     "favorite-setting-guideline-1": "您還沒有任何喜歡的遊戲。",
     "favorite-setting-guideline-2": "讓我們使用“最喜歡的遊戲”功能來創建您最常玩的遊戲的集合。",
@@ -91,5 +92,8 @@
     "guide-intro-1": "為一個",
     "guide-intro-2": "全屏體驗",
     "guide-intro-3": "輕敲",
-    "guide-intro-4": "Hide Toolbar"
+    "guide-intro-4": "隱藏工具欄",
+    "game": "遊戲",
+    "sessionTimeout-1": "您的會話已超時或您尚未登錄。",
+    "sessionTimeout-2": "請關閉當前窗口並再次嘗試登錄。"
 }

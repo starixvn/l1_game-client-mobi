@@ -1,6 +1,6 @@
 {
     "popupTitleGuide": "Panduan Permainan",
-    "popupTitleHistory": "Riwayat Tiket",
+    "popupTitleHistory": "Sejarah Taruhan",
     "popupAnnouncement": "Promosi",
     "rebet": "Bertaruh Ulang",
     "startNewRound": "Mulai Putaran Baru",
@@ -59,6 +59,7 @@
     "category-card": "Permainan Kartu",
     "category-sedie": "Se Die",
     "category-megakeno": "Mega Keno",
+    "menu": "Menu",
     "menu-favorite-setting": "Permainan Favorit",
     "favorite-setting-guideline-1": "Anda belum memiliki permainan favorit.",
     "favorite-setting-guideline-2": "Mari gunakan fitur \"Permainan Favorit\" untuk membuat koleksi permainan yang paling sering dimainkan.",
@@ -91,5 +92,8 @@
     "guide-intro-1": "Untuk sebuah",
     "guide-intro-2": "Pengalaman layar penuh",
     "guide-intro-3": "ketuk",
-    "guide-intro-4": "Hide Toolbar"
+    "guide-intro-4": "Sembunyikan Baris Toolbar",
+    "game": "Permainan",
+    "sessionTimeout-1": "Sesi Anda telah habis atau Anda belum masuk.",
+    "sessionTimeout-2": "Harap tutup jendela saat ini dan coba masuk lagi."
 }

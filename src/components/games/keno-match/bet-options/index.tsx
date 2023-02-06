@@ -7,6 +7,7 @@ import { SettlementResult } from "../type";
 import Styles from "./bet-options.module.scss";
 import BetOption from "../../../shared/bet-option";
 import { choicesMapper, KenoMatchConfigs } from "./choice-config";
+import { LanguageLocaleMapper } from "../../../../common/constants";
 
 interface KenoMatchBetOptionsProps {
     gameState: GameState;
@@ -29,7 +30,7 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
 }) => {
     const { gameSetting, gameConfigs } = useGameContext();
     const gameName = gameSetting.gameName.toLowerCase();
-    const { t } = useTranslation(gameSetting.gameName.toLowerCase());
+    const { t, i18n } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds } = gameConfigs;
     const classGameName = Styles[`layout-${gameName}`];
     const halfMatchConfigs = [
@@ -61,7 +62,12 @@ const KenoMatchBetOptions: React.FunctionComponent<KenoMatchBetOptionsProps> = (
                             {halfMatchConfig.isActive && (
                                 <div className={Styles["title-right"]}>
                                     <span>{t("betInvite")}</span>
-                                    {!isFirstHalf && <img src={`/static/images/live_icon.svg`} className={Styles["live-icon"]} />}
+                                    {!isFirstHalf && (
+                                        <img
+                                            src={`/static/images/live_icon_${LanguageLocaleMapper[i18n.language]}.svg`}
+                                            className={Styles["live-icon"]}
+                                        />
+                                    )}
                                 </div>
                             )}
                         </div>

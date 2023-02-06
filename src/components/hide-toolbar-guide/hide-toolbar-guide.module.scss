@@ -3,80 +3,80 @@
     background: url("/static/images/hide-toolbar-guide/guideline-icon.svg") no-repeat center;
 }
 
-.icon-cellular {    
+.icon-cellular {
     @extend %icon;
     width: 1.4rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -4.8rem 0;
 }
 
-.icon-wifi {    
+.icon-wifi {
     @extend %icon;
     width: 1.4rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: 0.1rem 0;
 }
 
-.icon-battery {    
+.icon-battery {
     @extend %icon;
     width: 2rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -2.6rem 0;
 }
 
-.icon-aa {    
+.icon-aa {
     @extend %icon;
     width: 1.6rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -15.5rem 0;
 }
 
-.icon-refresh {    
+.icon-refresh {
     @extend %icon;
     width: 1.2rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -10.8rem 0;
 }
 
 .icon-reader {
     @extend %icon;
     width: 1.3rem;
-    height: 2rem;  
+    height: 2rem;
     background-position: -9.3rem 0;
 }
 
 .icon-expand {
     @extend %icon;
     width: 1.1rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -8rem 0;
 }
 
 .icon-desktop {
     @extend %icon;
     width: 1.5rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -6.3rem 0;
 }
 
 .icon-settings {
     @extend %icon;
     width: 1.7rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -12.2rem 0;
 }
 
 .icon-privacy {
     @extend %icon;
     width: 1.2rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -14.1rem 0;
 }
 
 .icon-address-bar {
     @extend %icon;
     width: 1.2rem;
-    height: 1.7rem;  
+    height: 1.7rem;
     background-position: -1.4rem 0;
 }
 
@@ -95,8 +95,8 @@
     margin: 0.5rem auto;
     height: 3rem;
     line-height: 3rem;
-    opacity: 1;   
-    
+    opacity: 1;
+
     &::before {
         display: block;
         content: "";
@@ -109,14 +109,14 @@
     }
 }
 
-.hide-guide-container {    
+.hide-guide-container {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
     background-color: rgba($color: #000000, $alpha: 0.9);
-    z-index: 1800;    
+    z-index: 1800;
 }
 
 .intro {
@@ -129,14 +129,14 @@
     position: absolute;
     width: 22.7rem;
     height: 6rem;
-    background: black;    
+    background: black;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, black 70%);
     bottom: 0.5rem;
 }
 
 .button-action {
     display: grid;
-    width: 18rem;
+    width: 21rem;
     margin: 0 auto;
     grid-gap: 1rem;
     margin-top: 1.7rem;
@@ -164,7 +164,7 @@
     padding-top: 1rem;
 }
 
-.top-phone {  
+.top-phone {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -175,7 +175,7 @@
     .phone-time {
         color: #fff;
         font-size: 1.2rem;
-    }    
+    }
 
     .top-phone-icon > span {
         margin-left: 0.5rem;
@@ -183,7 +183,7 @@
 
     .pulsating-circle {
         top: 4.5rem;
-        left: 2.3rem;        
+        left: 2.3rem;
     }
 }
 
@@ -193,24 +193,24 @@
     margin: 0 0.7rem 0.7rem;
     padding: 0 0.8rem;
     background-color: rgba(38, 38, 36, 1);
-    border-radius: 0.5rem;         
+    border-radius: 0.5rem;
 
     .text {
         color: transparent;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);        
-    }   
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+    }
 }
 
 .dropdown-settings {
-   position: absolute;
-   top: 5.5rem;
-   left: 1rem;
-   opacity: 0; 
+    position: absolute;
+    top: 5.5rem;
+    left: 1rem;
+    opacity: 0;
 
-   .pulsating-circle {
+    .pulsating-circle {
         left: 50%;
-        top: 8rem;        
-   }
+        top: 8rem;
+    }
 }
 
 .popup {
@@ -223,18 +223,18 @@
     display: block;
     width: 20rem;
     height: 3.1rem;
-    border: 1px solid #fff;   
+    border: 1px solid #fff;
     opacity: 0;
 }
 
 .pulsating-circle {
-    position: absolute;    
+    position: absolute;
     transform: translateX(-50%) translateY(-50%);
     width: 1.8rem;
     height: 1.8rem;
-    
+
     &:before {
-        content: '';
+        content: "";
         position: relative;
         display: block;
         width: 2.6rem;
@@ -245,20 +245,19 @@
         border-radius: 45px;
         border: 1px solid rgba(255, 255, 255, 0.8);
         opacity: 0;
-       
     }
-    
+
     &:after {
-        content: '';
+        content: "";
         position: absolute;
-        left: 0; 
+        left: 0;
         top: 0;
         display: block;
         width: 100%;
-        height: 100%;       
+        height: 100%;
         border-radius: 50%;
         background-color: rgba(255, 255, 255, 0.8);
-        opacity: 0;       
+        opacity: 0;
     }
 }
 
@@ -266,80 +265,79 @@
     .text-orange {
         animation: blink 1.5s ease-in forwards;
     }
-	
-	.top-phone {  
-		.pulsating-circle {	
-			&::before {
-				animation: pulse-ring 2s ease-in 1s forwards;
-			}
 
-			&::after {
-				animation: pulse-dot 2s ease-in 1s forwards;
-			}
-		}
-	}
-	
-	.toolbar {
-		animation: change-height 0.3s 4.5s  ease-in  forwards;
-		
-		.text {			
-			animation: change-font-size 0.3s 4.5s  ease-in  forwards;
-		}
+    .top-phone {
+        .pulsating-circle {
+            &::before {
+                animation: pulse-ring 2s ease-in 1s forwards;
+            }
 
-		.icon-aa, .icon-refresh {
-			animation: hide-text 0.3s 4.5s  ease-in  forwards;
-		}
-	}
-	
-	.dropdown-settings {
-		animation: show 1.5s ease-in 3s forwards;
-		
-		.pulsating-circle {			
+            &::after {
+                animation: pulse-dot 2s ease-in 1s forwards;
+            }
+        }
+    }
 
-			&::before {
-				animation: pulse-ring 2s ease-in 2.5s forwards;
-			}
+    .toolbar {
+        animation: change-height 0.3s 4.5s ease-in forwards;
 
-			&::after {
-				animation: pulse-dot 2s ease-in 2.5s forwards;
-			}
-	   }
-	}
-	
-	.border-highlight {
-		animation: border 2s ease-in 3.5s forwards;
-	}
+        .text {
+            animation: change-font-size 0.3s 4.5s ease-in forwards;
+        }
+
+        .icon-aa,
+        .icon-refresh {
+            animation: hide-text 0.3s 4.5s ease-in forwards;
+        }
+    }
+
+    .dropdown-settings {
+        animation: show 1.5s ease-in 3s forwards;
+
+        .pulsating-circle {
+            &::before {
+                animation: pulse-ring 2s ease-in 2.5s forwards;
+            }
+
+            &::after {
+                animation: pulse-dot 2s ease-in 2.5s forwards;
+            }
+        }
+    }
+
+    .border-highlight {
+        animation: border 2s ease-in 3.5s forwards;
+    }
 }
 
-@keyframes pulse-ring {    
-    0% {       
+@keyframes pulse-ring {
+    0% {
         opacity: 0;
     }
-    30% {       
+    30% {
         opacity: 0;
         transform: scale(1);
     }
 
-    50% {        
+    50% {
         opacity: 0;
         transform: scale(1.05);
     }
 
-    70% {        
-        opacity: 1;      
-        transform: scale(1.1);  
+    70% {
+        opacity: 1;
+        transform: scale(1.1);
     }
 
-    90% {        
-        opacity: 1;   
+    90% {
+        opacity: 1;
         opacity: 0.5;
-        transform: scale(1.15);     
+        transform: scale(1.15);
     }
-
 
     100% {
         opacity: 0;
-        transform: scale(1.2);        
+        transform: scale(1.2);
     }
 }
 
@@ -353,14 +351,13 @@
         opacity: 1;
     }
 
-    50% {        
+    50% {
         opacity: 0;
     }
 
-    70% {        
+    70% {
         opacity: 1;
     }
-
 
     100% {
         opacity: 0;
@@ -368,7 +365,7 @@
 }
 
 @keyframes border {
-    0% {        
+    0% {
         opacity: 0;
     }
     30% {
@@ -389,7 +386,7 @@
 
 @keyframes show {
     0% {
-       opacity: 0;
+        opacity: 0;
     }
 
     1% {
@@ -404,10 +401,9 @@
 }
 
 @keyframes hide-text {
-    0% {        
+    0% {
         opacity: 1;
     }
-
 
     100% {
         opacity: 0;
@@ -415,11 +411,10 @@
 }
 
 @keyframes change-height {
-    0% {        
+    0% {
         height: 2rem;
         background-color: rgba(38, 38, 36, 1);
     }
-
 
     100% {
         height: 1rem;
@@ -428,22 +423,25 @@
 }
 
 @keyframes change-font-size {
-    0% {        
+    0% {
         font-size: 1.4rem;
     }
-
 
     100% {
         font-size: 0.8rem;
     }
 }
 
-
 @keyframes blink {
-    0%, 33%, 66%, 100% {        
+    0%,
+    33%,
+    66%,
+    100% {
         background: rgba(95, 95, 95, 0.4);
     }
-    16.5%, 50%, 83% {
+    16.5%,
+    50%,
+    83% {
         background: rgba(95, 95, 95, 0.05);
-    }    
+    }
 }

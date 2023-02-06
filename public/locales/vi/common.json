@@ -58,6 +58,7 @@
     "category-card": "Game bài",
     "category-sedie": "Xóc Đĩa",
     "category-megakeno": "Mega Keno",
+    "menu": "Menu",
     "menu-favorite-setting": "Game yêu thích",
     "favorite-setting-guideline-1": "Bạn hiện chưa thêm game vào mục yêu thích.",
     "favorite-setting-guideline-2": "Hãy tạo cho riêng mình bộ sưu tập những game thường chơi bằng tính năng \"Game yêu thích\".",
@@ -90,5 +91,8 @@
     "guide-intro-1": "Để trải nghiệm",
     "guide-intro-2": "Toàn màn hình",
     "guide-intro-3": "chọn",
-    "guide-intro-4": "Ẩn thanh công cụ"
+    "guide-intro-4": "Ẩn thanh công cụ",
+    "game": "Game",
+    "sessionTimeout-1": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập.",
+    "sessionTimeout-2": "Vui lòng đóng cửa sổ game và thử đăng nhập lại."
 }

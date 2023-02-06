@@ -315,7 +315,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     handleBetFailed = ({ notice, kickedOut }) => {
         const { displayPopup } = this.state;
-
+        const { i18n } = this.props;
         displayPopup !== PopupType.Rebet && this.setState({ notice: null });
         const gameName = this.props.t(`${this.props.gameName.toLowerCase()}:${GameResourceKeys.GAME_NAME}`);
         if (kickedOut?.isDisabledAccount) {
@@ -331,7 +331,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
             const { router } = this.props;
             setTimeout(() => {
-                router.push("/timeout");
+                router.push("/timeout", "/timeout", {locale: i18n.language});
             }, 10000);
         } else {
             const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;

@@ -1,20 +1,20 @@
 @import "../favorite-setting/favorite-setting.module.scss";
 
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #5075AF 0%, #2D4976 100%);
+    --game-header-background: linear-gradient(180deg, #5075af 0%, #2d4976 100%);
     --game-header-icon-favourite: #fff;
     --game-header-icon-unfavourite: #fff;
     --game-header-game-name-color: #fff;
     --game-header-round-id-color: #fff;
     --color-arrow-hint: #2c2f3e;
     --game-header-overlay-image: url(/static/images/game-header-overlay.png?v=1);
-    --game-header-border: linear-gradient(180deg, #FFB93A 0%, #FFB640 100%);
+    --game-header-border: linear-gradient(180deg, #ffb93a 0%, #ffb640 100%);
 }
 
 [data-theme="light"] .favorite-wrapper {
-    --btn-favorite-single: linear-gradient(180deg, #5382CB 0%, #254C8B 100%);
-    --btn-favorite-single-border: #1C3661;
-    --btn-favorite-color: #FFCC33;
+    --btn-favorite-single: linear-gradient(180deg, #5382cb 0%, #254c8b 100%);
+    --btn-favorite-single-border: #1c3661;
+    --btn-favorite-color: #ffcc33;
     --btn-box-shadow: none;
     --hint-arrow-color: #0e0e0e;
 }
@@ -31,7 +31,7 @@
         box-shadow: 0 0 2rem rgba(0, 0, 0, 0.3);
         padding: 1.4rem 12.8rem 12rem;
         .icon-favorite:before {
-            color: var(--icon-favorite-game-guide);            
+            color: var(--icon-favorite-game-guide);
         }
     }
 }
@@ -83,13 +83,14 @@
         color: #fff;
     }
 
-    .header-overlay, .header-overlay-img {
+    .header-overlay,
+    .header-overlay-img {
         //background: rgba(36, 36, 36, 0.5);
         position: absolute;
-        left: .1rem;
-        top: .2rem;
+        left: 0.1rem;
+        top: 0.2rem;
         z-index: 10;
-        right: .1rem;
+        right: 0.1rem;
         bottom: 0rem;
         border-radius: 4px;
     }
@@ -107,10 +108,10 @@
     }
 }
 
-.game-favortite-paragraph .icon-favorite:before{
+.game-favortite-paragraph .icon-favorite:before {
     font-size: 1.8rem;
     position: relative;
-    top: .3rem;
+    top: 0.3rem;
 }
 
 .favorite-btn {
@@ -135,13 +136,13 @@
 
 .header-left {
     display: flex;
-    justify-content: space-between;   
-    
+    justify-content: space-between;
+
     .title-roundID {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        color: #fff
+        color: #fff;
     }
 
     .title {
@@ -215,9 +216,9 @@
             background-size: 6.4rem 5.5rem;
         }
         &.top {
-            top: -2rem;
+            top: -4rem;
             right: 0;
-            left: unset;
+            left: 4rem;
             .direction {
                 transform: rotate(140deg);
                 position: absolute;
@@ -226,6 +227,7 @@
             .text {
                 position: relative;
                 top: -4px;
+                text-align: end;
             }
         }
     }

@@ -9,12 +9,12 @@ import { ModalType } from "../../shared/base-dialog/type";
 import ConfirmMessage from "../confirm-message";
 import Styles from "./quick-bet-btn.module.scss";
 
-export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuickBet: Function; isHeaderSetting: boolean, isShowToolbarGuide:boolean}> = ({
-    enabledQuickBet,
-    updateEnabledQuickBet,
-    isHeaderSetting,
-    isShowToolbarGuide
-}) => {    
+export const QuickBetBtn: React.FC<{
+    enabledQuickBet: boolean;
+    updateEnabledQuickBet: Function;
+    isHeaderSetting: boolean;
+    isShowToolbarGuide: boolean;
+}> = ({ enabledQuickBet, updateEnabledQuickBet, isHeaderSetting, isShowToolbarGuide }) => {
     const [isShowModalConfirm, setIsShowPopup] = useState(false);
     const [isShowTooltip, setIsShowTooltip] = useState(true);
     const tooltipRef = useRef<HTMLDivElement>(null);
@@ -37,8 +37,8 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     useEffect(() => {
-        function handleClickOutside(event) {           
-            if (isShowToolbarGuide) { 
+        function handleClickOutside(event) {
+            if (isShowToolbarGuide) {
                 return;
             }
             if (isShowTooltip && tooltipRef && tooltipRef.current && !tooltipRef.current.contains(event.target)) {
@@ -50,7 +50,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [tooltipRef,isShowToolbarGuide]);
+    }, [tooltipRef, isShowToolbarGuide]);
 
     const onClickQuickBet = () => {
         if (!enabledQuickBet) {
@@ -72,7 +72,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
     };
 
     const toolTipPositionClass = isMobileOnly ? `bottom ${Styles["isMobile"]}` : "top",
-    toolTipClass = `popover-custom ${toolTipPositionClass} ${Styles["hint-one-click-bet"]} `;
+        toolTipClass = `popover-custom ${toolTipPositionClass} ${Styles["hint-one-click-bet"]} `;
 
     return (
         <div className={`${Styles["toggle"]} ${isHeaderSetting ? Styles["header-setting"] : Styles["bet-setting"]} ${deviceClass}`}>
@@ -90,7 +90,7 @@ export const QuickBetBtn: React.FC<{ enabledQuickBet: boolean; updateEnabledQuic
                     <div className={Styles["quick-bet-icon"]}></div>
                 </label>
                 <div className={Styles["one-click-bet"]} onClick={onClickQuickBet}>
-                    1-Click Bet
+                    {t("common:oneClickTitle")}
                 </div>
             </div>
             {isShowModalConfirm && !!enabledQuickBet === false && (

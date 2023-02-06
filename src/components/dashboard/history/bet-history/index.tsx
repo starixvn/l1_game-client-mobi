@@ -13,6 +13,7 @@ import Loader from "../../../shared/loader";
 import { GamesIdKenoMatch, GamesIdMiniKeno, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
 import BetHistoryDetailsContainer from "./log-details";
 import Styles from "./bet-history.module.scss";
+import { i18n } from "../../../../../next-i18next.config";
 
 let totalPage = 0;
 let isFetchingHistory = false;
@@ -76,6 +77,7 @@ const sendPostBetHistory = async ({
     setListBetHistory,
     listBetHistory,
     setIsShowMessageError,
+    language
 }) => {
     const pathUrlHistory =
         GamesIdKenoMatch.includes(gameId) || GamesIdMiniKeno.includes(gameId)
@@ -83,6 +85,7 @@ const sendPostBetHistory = async ({
             : `${gameSetting?.socketInfo?.path}/api/history`;
     const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
     isFetchingHistory = true;
+
     try {
         const resp = await axios.post(historyAPI, {
             session: session.ss,
@@ -99,7 +102,7 @@ const sendPostBetHistory = async ({
     } catch (err) {
         if (err?.response?.status === 401) {
             clearSession();
-            router.push("/timeout");
+            router.push("/timeout", "/timeout", {locale: language});
         }
         setIsFirstLoad(false);
         setIsShowMessageError(true);
@@ -148,7 +151,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
     const gameSetting = appSettings?.gameSettings[gameId];
     const gameName = gameSetting?.gameName.toLowerCase();
-    const { t } = useTranslation(["bethistory", gameName]);
+    const { t, i18n } = useTranslation(["bethistory", gameName]);
 
     useEffect(() => {
         sendPostBetHistory({
@@ -162,6 +165,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             listBetHistory,
             setListBetHistory,
             setIsShowMessageError,
+            language: i18n.language
         });
         return () => {
             setIsFirstLoad(true);

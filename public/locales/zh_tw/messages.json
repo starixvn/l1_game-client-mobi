@@ -29,7 +29,7 @@
     "sessionExpired": "您的會話已過期，請重新登錄。",
     "nickNameDistance": "暱稱的長度必須在 3 到 14 個字符之間。",
     "nickNameCharacter": "暱稱不能包含空格、特殊字符和非英文字符。",
-    "nickDifferentUserName": "Nickname must be different from your username.",
+    "nickDifferentUserName": "暱稱必須與您的用戶名不同。",
     "existNickName": "暱稱已被佔用，請嘗試另一個。",
     "placeBetFailed": "<strong>{{gameName}} 遊戲 (#{{roundId}})</strong><br> 下注失敗！({{errorCode}})",
     "endGameFailed": "<strong>{{gameName}} 遊戲 (#{{roundId}})</strong><br> 發生了錯誤，請聯繫 CSD 了解詳情。({{errorCode}})",
@@ -94,6 +94,6 @@
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> 下注失敗！遊戲正在維護中。",
     "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> 下注失敗！網絡錯誤。({{errorCode}})",
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>您的帳戶不再允許玩此遊戲。請嘗試其他遊戲。",
-    "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you.",
-    "disallowHedgeBet": "Can bet on either {{betChoice1}} or {{betChoice2}}."
+    "noGameOffer": "此遊戲門戶不支持您的帳戶。請聯繫您的上線，謝謝。",
+    "disallowHedgeBet": "可以下注在 {{betChoice1}} 或 {{betChoice2}}。"
 }

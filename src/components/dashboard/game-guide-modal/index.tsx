@@ -48,7 +48,7 @@ export const GameGuideModal: React.FC<{
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
-                    <span className={Styles["form-label"]}>Game</span>
+                    <span className={Styles["form-label"]}>{t("common:game")}</span>
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
                 </div>
                 <div className={Styles["guide-content"]}>

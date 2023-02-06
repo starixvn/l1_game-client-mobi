@@ -77,7 +77,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
                 <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
-                    <span className={Styles["form-label"]}>Game</span>
+                    <span className={Styles["form-label"]}>{t("common:game")}</span>
                     <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
                 </div>
                 <div className={`w-100 ${Styles["history-content"]}`}>{renderHistory()}</div>

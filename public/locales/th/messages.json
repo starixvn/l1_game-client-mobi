@@ -29,7 +29,7 @@
     "sessionExpired": "เซสชั่นของคุณหมดอายุ โปรดเข้าสู่ระบบอีกครั้ง",
     "nickNameDistance": "ชื่อเล่นต้องมีความยาวระหว่าง 3 ถึง 14 ตัวอักษร",
     "nickNameCharacter": "ชื่อเล่นต้องไม่มีการเว้นวรรค อักขระพิเศษ และตัวอักษรที่ไม่ใช่ภาษาอังกฤษ",
-    "nickDifferentUserName": "Nickname must be different from your username.",
+    "nickDifferentUserName": "ชื่อเล่นจะต้องไม่เหมือนกับชื่อผู้ใช้ของคุณ",
     "existNickName": "ชื่อเล่นถูกใช้ไปแล้ว โปรดลองชื่ออื่น",
     "placeBetFailed": "<strong>เกม {{gameName}} (#{{roundId}})</strong><br> ล้มเหลวในการวางเดิมพัน!({{errorCode}})",
     "endGameFailed": "<strong>เกม {{gameName}} (#{{roundId}})</strong><br> เกิดข้อผิดพลาด. โปรดติดต่อแอดมินเพื่อขอรายละเอียดเพิ่มเติม({{errorCode}})",
@@ -94,6 +94,6 @@
     "sysMaintenancePlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> การวางเดิมพันล้มเหลว! เกมอยู่ระหว่างการบำรุงรักษา ",
     "networkErrorPlaceBet": "<strong>Game {{gameName}} (#{{roundId}})</strong><br> การวางเดิมพันล้มเหลว! เกิดข้อผิดพลาดของเครือข่าย({{errorCode}})",
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>บัญชีของคุณไม่ได้รับอนุญาตให้เล่นเกมนี้อีกต่อไป โปรดลองเกมอื่น",
-    "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you.",
-    "disallowHedgeBet": "Can bet on either {{betChoice1}} or {{betChoice2}}."
+    "noGameOffer": "บัญชีของคุณไม่ได้รับสามารถเข้าร่วมเกมนี้ได้ โปรดติดต่อเจ้าหน้าที่ ขอบคุณค่ะ",
+    "disallowHedgeBet": "สามารถเดิมพันได้ทั้ง {{betChoice1}} หรือ {{betChoice2}}"
 }

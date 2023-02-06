@@ -15,7 +15,7 @@ export const Menu: React.FC<{
     const { t } = useTranslation([ResourceTypes.COMMON]);
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
-    const toggleBtnRef = useRef<HTMLDivElement>(null);    
+    const toggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
 
     const openGuide = () => {
@@ -44,12 +44,12 @@ export const Menu: React.FC<{
                 onClick={() => {
                     setDropdownOpen(!dropdownOpen);
                 }}
-            >                
-                <span className={`icon-menu ${Styles["icon-menu"]}`}></span> 
-                <Tooltip message="Menu" hoverWrapper={toggleBtnRef}></Tooltip>
+            >
+                <span className={`icon-menu ${Styles["icon-menu"]}`}></span>
+                <Tooltip message={t("menu")} hoverWrapper={toggleBtnRef}></Tooltip>
             </div>
             <div className="dropdown">
-                <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>                    
+                <div className={`dropdown-menu right ${Styles["dropdown-menu"]} ${dropdownOpen ? "show" : ""}`}>
                     <div className={`${dropdownItemClassName} ${Styles[dropdownItemClassName]}`}>
                         <div className={Styles["label"]}>{t("winningStreakNotification")}</div>
                         <div className={Styles["toggle-button"]}>

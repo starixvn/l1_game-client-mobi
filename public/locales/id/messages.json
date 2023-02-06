@@ -29,7 +29,7 @@
     "sessionExpired": "Sesi Anda telah kedaluwarsa, silakan masuk lagi.",
     "nickNameDistance": "Nama panggilan harus antara 3 dan 14 karakter.",
     "nickNameCharacter": "Nama panggilan tidak boleh berisi spasi, karakter khusus, dan karakter non-Inggris.",
-    "nickDifferentUserName": "Nickname must be different from your username.",
+    "nickDifferentUserName": "Nama panggilan harus berbeda dengan nama pengguna Anda.",
     "existNickName": "Nama panggilan sudah digunakan, silakan coba yang lain.",
     "placeBetFailed": "<strong>Permainan {{gameName}} (#{{roundId}})</strong><br> Gagal memasang taruhan!({{errorCode}})",
     "endGameFailed": "<strong>Permainan {{gameName}} (#{{roundId}})</strong><br> Terjadi kesalahan, hubungi CSD untuk lebih lanjut.({{errorCode}})",
@@ -94,6 +94,6 @@
     "sysMaintenancePlaceBet": "<strong>Permainan {{gameName}} (#{{roundId}})</strong><br> Gagal memasang taruhan! Permainan sedang dalam pemeliharaan.",
     "networkErrorPlaceBet": "<strong>Permainan {{gameName}} (#{{roundId}})</strong><br> Gagal memasang taruhan! Kesalahan jaringan.({{errorCode}})",
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>Akun Anda tidak lagi diizinkan untuk memainkan game ini. Silakan coba game lain.",
-    "noGameOffer": "Your account is not supported on this game portal. Please contact your upline, thank you.",
-    "disallowHedgeBet": "Can bet on either {{betChoice1}} or {{betChoice2}}."
+    "noGameOffer": "Akun Anda tidak didukung di portal game ini. Silahkan hubungi upline anda, terima kasih.",
+    "disallowHedgeBet": "Dapat bertaruh pada {{betChoice1}} atau {{betChoice2}}."
 }
