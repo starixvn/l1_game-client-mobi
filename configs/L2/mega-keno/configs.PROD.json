@@ -1,8 +1,8 @@
 {
-    "socketGatewayUri": "https://gw.v-gaming.net",
+    "socketGatewayUri": "https://gw.vgaming.win",
     "proxy": {
         "ssl": true,
-        "uri": "proxy.v-gaming.net",
+        "uri": "proxy.vgaming.win",
         "path": ""
     },
     "sentry": {
@@ -25,7 +25,7 @@
     ],
     "enableSourceMap": false,
     "enableMsgpackParser": true,
-    "guideUrl": "https://guides.v-gaming.net",
+    "guideUrl": "https://guides.vgaming.win",
     "googleAnalyticId": "G-76K0309WX6",
     "system": "L2",
     "appType": 4
