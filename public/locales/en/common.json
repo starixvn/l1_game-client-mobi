@@ -95,5 +95,6 @@
     "guide-intro-4": "Hide Toolbar",
     "game": "Game",
     "sessionTimeout-1": "Your session has timed out or you have not logged in yet.",
-    "sessionTimeout-2": "Please close the current windows and try to login again."
+    "sessionTimeout-2": "Please close the current windows and try to login again.",
+    "copy": "Copy"
 }

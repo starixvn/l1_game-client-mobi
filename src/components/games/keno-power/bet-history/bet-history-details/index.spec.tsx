@@ -73,7 +73,7 @@ describe("KenoMatch Info Bet History Detail", () => {
             betDetail                                                               | expectedResult                         | refund
             ${{ amount: 100, choice: "blue", time: "2021-10-12T03:16:09.104Z" }}    | ${`${gameName}:blue/${gameName}:red`}  | ${100}
             ${{ amount: 100, choice: "big", time: "2021-10-12T03:16:09.104Z" }}     | ${`${gameName}:big/${gameName}:small`} | ${0}
-            ${{ amount: 100, choice: "odd", time: "2021-10-12T03:16:09.104Z" }}     | ${`${gameName}:even/${gameName}:odd`}  | ${0}
+            ${{ amount: 100, choice: "odd", time: "2021-10-12T03:16:09.104Z" }}     | ${`${gameName}:odd/${gameName}:even`}  | ${0}
             ${{ amount: 100, choice: "redBig", time: "2021-10-12T03:16:09.104Z" }}  | ${`${gameName}:teamRedBigSmall`}       | ${0}
             ${{ amount: 100, choice: "blueBig", time: "2021-10-12T03:16:09.104Z" }} | ${`${gameName}:teamBlueBigSmall`}      | ${0}
         `("render disabled correctly", ({ betDetail, expectedResult, refund }) => {

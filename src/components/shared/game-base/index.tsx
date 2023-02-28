@@ -1015,7 +1015,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             <div className={Styles["md5-section"]}>
                 <span className={`${Styles["text"]} ${Styles[md5ClassName]}`}>{md5Text}</span>
                 <div className={Styles["copy-box"]} onClick={this.copyToClipboard}>
-                    <span className={Styles["copy-text"]}>Copy</span>
+                    <span className={Styles["copy-text"]}>{this.props.t("common:copy")}</span>
                 </div>
             </div>
         );

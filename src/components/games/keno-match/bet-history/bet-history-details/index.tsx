@@ -59,7 +59,7 @@ const getLabelFollowChoice = ({ translateMapping, formatChoice }) => {
     }
 
     if (["odd", "even"].includes(formatChoice)) {
-        labelChoice = `${translateMapping["even"]}/${translateMapping["odd"]}`;
+        labelChoice = `${translateMapping["odd"]}/${translateMapping["even"]}`;
     }
     return labelChoice;
 };

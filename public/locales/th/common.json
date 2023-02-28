@@ -77,7 +77,7 @@
     "systemName": "Saba Mobi",
     "md5Key": "คีย์ MD5",
     "promotion": "โปรโมชั่น",
-    "md5Result": "ผล",
+    "md5Result": "ผลลัพธ์",
     "category-kenolottery": "หวยคีโน",
     "copyMD5Key": "คัดลอกคีย์ MD5 สำเร็จ!",
     "copyMD5Result": "คัดลอกผลลัพธ์สำเร็จ!",
@@ -95,5 +95,6 @@
     "guide-intro-4": "ซ่อนแถบเครื่องมือ",
     "game": "เกม",
     "sessionTimeout-1": "เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ กรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
-    "sessionTimeout-2": ""
+    "sessionTimeout-2": "",
+    "copy": "คัดลอก"
 }

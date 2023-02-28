@@ -82,7 +82,7 @@ const Rebet: React.FC<Props> = (props: Props) => {
                               >
                                   <div className={Styles["bet-choice"]}>
                                       {isShowBettype && <span className={Styles["choice-bettype"]}> {t(bettypeName)}</span>}
-                                      <span className={Styles["choice"]}>{t(betChoice)}</span>
+                                      <span className={Styles["choice"]}>{t(betChoice)}</span>@
                                       {formatOdds(props.getOddsByChoice(betChoice), fractionalOddsFormat)}
                                   </div>
                                   <div className="d-flex align-items-center">
