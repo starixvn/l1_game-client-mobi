@@ -13,7 +13,6 @@ import Loader from "../../../shared/loader";
 import { GamesIdKenoMatch, GamesIdMiniKeno, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
 import BetHistoryDetailsContainer from "./log-details";
 import Styles from "./bet-history.module.scss";
-import { i18n } from "../../../../../next-i18next.config";
 
 let totalPage = 0;
 let isFetchingHistory = false;
