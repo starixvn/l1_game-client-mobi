@@ -27,7 +27,7 @@ export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ us
                 </div>
             </div>
             <div className={Styles["avatar"]}>
-                {user.avatarId > 0 && user.avatarId < 41 ? (
+                {user.avatarId > 0 && user.avatarId < 88 ? (
                     <img src={`/static/images/avatar/${user.avatarId}.png`} className="img-fluid" height="40" width="40" alt="Avatar" />
                 ) : (
                     <span className={`icon-user ${Styles["icon-user"]}`} data-testid="icon-user"></span>

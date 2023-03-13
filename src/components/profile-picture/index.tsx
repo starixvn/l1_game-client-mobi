@@ -13,7 +13,7 @@ const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick
 
     return (
         <div className={Styles["profile-picture"]} onClick={handleClick} data-testid="profile-picture">
-            {avatarId > 0 && avatarId < 41 ? (
+            {avatarId > 0 && avatarId < 88 ? (
                 <img
                     src={`/static/images/avatar/${avatarId}.png`}
                     className={`img-fluid ${Styles["avatar"]}`}

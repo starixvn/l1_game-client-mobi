@@ -71,7 +71,7 @@ test("load user info", () => {
     });
 });
 
-[0, 41].forEach((avatarId) => {
+[0, 88].forEach((avatarId) => {
     test("when avatarId invalid, should render default avatar", () => {
         // arrange
         const user = {

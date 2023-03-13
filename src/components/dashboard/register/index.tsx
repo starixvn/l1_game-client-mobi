@@ -21,7 +21,7 @@ type Props = {
     handleStateLogin: (authorizeInfo: AuthorizeResponse) => void;
 };
 
-const maxAvatarId = 40;
+const maxAvatarId = 88;
 export default function Register({ session, handleStateLogin }: Props) {
     const { t } = useTranslation(["register", "common", "messages"]);
 
