@@ -75,7 +75,7 @@ const GameGuides: React.FC<Props> = (props) => {
                 onLoad={() =>
                     setTimeout(() => {
                         hideSpinner();
-                    }, 500)
+                    }, 300)
                 }
             />
         </div>
