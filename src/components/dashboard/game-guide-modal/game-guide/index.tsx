@@ -72,7 +72,11 @@ const GameGuides: React.FC<Props> = (props) => {
                 height={heightGuide}
                 width={widthGuide}
                 scrolling="auto"
-                onLoad={hideSpinner}
+                onLoad={() =>
+                    setTimeout(() => {
+                        hideSpinner();
+                    }, 500)
+                }
             />
         </div>
     );
