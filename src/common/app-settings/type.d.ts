@@ -3,7 +3,7 @@ import { KenoMatchProps } from "../../components/games/keno-match/type";
 
 interface ProxySetting {
     ssl: string;
-    uri: string;
+    subDomain: string;
     path: string;
 }
 
@@ -13,12 +13,13 @@ interface SentryOptions {
 }
 
 export default interface AppSettings {
-    socketGatewayUri: string;
+    serverDomainMapper: Array<string>;
+    subSocketGatewayDomain: string;
     proxy: ProxySetting;
     sentry: SentryOptions;
     offeredGames: number[];
     gameSettings: { [id: string]: GameBaseProps | KenoMatchProps };
-    guideUrl: string;
+    subGuideDomain: string;
     googleAnalyticId: string;
     enableMsgpackParser: boolean;
     system: string;

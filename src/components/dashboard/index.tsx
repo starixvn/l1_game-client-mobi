@@ -27,6 +27,7 @@ import MsgpackParser from "socket.io-msgpack-parser";
 import { isL1System, Themes } from "../../common/constants";
 import { AnnouncementModal } from "./announcement";
 import { ToolbarGuide } from "../hide-toolbar-guide";
+import { buildUrl } from "../../helpers/url-helper";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -136,7 +137,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     signOut() {
-        this.props.router.push("/timeout", "/timeout", {locale: this.props.i18n.language});
+        this.props.router.push("/timeout", "/timeout", { locale: this.props.i18n.language });
     }
 
     checkOfferedGame(authorizeInfo) {
@@ -177,7 +178,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const errorResponse = authorizeResponse as Response;
 
         if (errorResponse && errorResponse.errorCode === "SB0002") {
-            this.props. router.push("/timeout", "/timeout", {locale: i18n.language});
+            this.props.router.push("/timeout", "/timeout", { locale: i18n.language });
             return;
         }
 
@@ -212,7 +213,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     connectNotificationSocket() {
         const { proxy, enableMsgpackParser } = appSettings;
         const { session } = this.props;
-        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/`;
+        const socketUri = buildUrl();
         const socketOption = {
             forceNew: false,
             transports: ["websocket"],
@@ -306,7 +307,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                 setIsUm(true);
             }, 500);
         } else {
-            router.push("/timeout", "/timeout", {locale: this.props.i18n.language});
+            router.push("/timeout", "/timeout", { locale: this.props.i18n.language });
         }
     }
 

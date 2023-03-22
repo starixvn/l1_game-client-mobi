@@ -46,6 +46,7 @@ import {
     ViewMode,
     WinStreakCollectorModel,
 } from "./type";
+import { buildServerUrl } from "../../../helpers/url-helper";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 
@@ -162,14 +163,14 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const { socketInfo } = this.props;
         const { session } = this.context;
         const { proxy, enableMsgpackParser } = appSettings;
-        const socketUri = `${proxy.ssl ? "https" : "http"}://${proxy.uri}/user/${socketInfo.namespace}`;
+        const socketUri = buildServerUrl(socketInfo.namespace);
         const socket = io(socketUri, {
             transports: ["websocket"],
             upgrade: false,
             path: `${proxy.path}/${socketInfo.path}/socket.io`,
             parser: enableMsgpackParser ? MsgpackParser : undefined,
         });
-
+        
         socket.on("connect", () => {
             this.clearDisconnectTimeout();
             document.visibilityState !== "hidden" && socket.emit("signin", session);
@@ -331,7 +332,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
             const { router } = this.props;
             setTimeout(() => {
-                router.push("/timeout", "/timeout", {locale: i18n.language});
+                router.push("/timeout", "/timeout", { locale: i18n.language });
             }, 10000);
         } else {
             const isPlaceBet = notice.isPlaceBetFailed ? notice.isPlaceBetFailed : false;

@@ -31,6 +31,7 @@ import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
 import { AppTypes } from "../../common/constants";
+import { buildSocketGatewayUrl } from "../../helpers/url-helper";
 
 let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
@@ -224,9 +225,9 @@ export const Games: React.FC<Props> = ({
     };
 
     const connectSocket = () => {
-        const { socketGatewayUri, enableMsgpackParser } = appSettings;
-
-        const socket = io(socketGatewayUri, {
+        const { enableMsgpackParser } = appSettings;
+        const socketGatewayUrl = buildSocketGatewayUrl();
+        const socket = io(socketGatewayUrl, {
             forceNew: true,
             transports: ["websocket"],
             upgrade: false,

@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
 import Loader from "../../../shared/loader";
-import appSettings from "../../../../common/app-settings";
 import { UserStakeLevel } from "../../../shared/game-base/type";
 import { useTheme } from "next-themes";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly, isIOS, browserVersion } from "react-device-detect";
-
 import Styles from "./game-guide.module.scss";
+import { buildGameGuideUrl } from "../../../../helpers/url-helper";
 
 type Props = {
     gameId: number;
@@ -21,7 +19,6 @@ const GameGuides: React.FC<Props> = (props) => {
     const { gameId, userStakeLevel, gameConfigs, isInPromotionTime, fractionalOddsFormat } = props;
     const { i18n } = useTranslation();
     const { theme } = useTheme();
-    const { guideUrl } = appSettings;
     const wrapperRef = useRef<HTMLIFrameElement>();
     const wrapperIframeRef = useRef<HTMLIFrameElement>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -29,6 +26,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const [widthGuide, setWidthGuide] = useState<number>(0);
     const minMaxBetParams = `&minBet=${userStakeLevel?.minBet}&maxBet=${userStakeLevel?.maxBet}`;
     const oddsFormatParams = `&fof=${fractionalOddsFormat}`;
+    const guideUrl = buildGameGuideUrl();
     const srcPath = `${guideUrl}/${
         i18n.language
     }/?gId=${gameId}&t=${theme}${minMaxBetParams}&p=${isInPromotionTime}&dy=0&v=${Date.now()}${oddsFormatParams}`;
@@ -42,7 +40,7 @@ const GameGuides: React.FC<Props> = (props) => {
     const hideSpinner = () => {
         setIsLoading(false);
         handleResize();
-        wrapperIframeRef.current.contentWindow.postMessage(JSON.stringify(gameConfigs), guideUrl);
+        wrapperIframeRef.current.contentWindow.postMessage(JSON.stringify(gameConfigs), "*");
     };
 
     useEffect(() => {

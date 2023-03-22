@@ -13,6 +13,7 @@ import Loader from "../../../shared/loader";
 import { GamesIdKenoMatch, GamesIdMiniKeno, NUMBER_ROWS_DISPLAY, InfiniteLoadBeginEdgeOffset } from "./constants";
 import BetHistoryDetailsContainer from "./log-details";
 import Styles from "./bet-history.module.scss";
+import { buildUrlWithPath } from "../../../../helpers/url-helper";
 
 let totalPage = 0;
 let isFetchingHistory = false;
@@ -76,13 +77,13 @@ const sendPostBetHistory = async ({
     setListBetHistory,
     listBetHistory,
     setIsShowMessageError,
-    language
+    language,
 }) => {
     const pathUrlHistory =
         GamesIdKenoMatch.includes(gameId) || GamesIdMiniKeno.includes(gameId)
             ? `${gameSetting?.socketInfo?.path}/api/${gameSetting?.socketInfo?.namespace}/history`
             : `${gameSetting?.socketInfo?.path}/api/history`;
-    const historyAPI = `${proxy.ssl ? "https" : "http"}://${proxy.uri + proxy.path}/${pathUrlHistory}`;
+    const historyAPI = buildUrlWithPath(`${proxy.path}/${pathUrlHistory}`);
     isFetchingHistory = true;
 
     try {
@@ -101,7 +102,7 @@ const sendPostBetHistory = async ({
     } catch (err) {
         if (err?.response?.status === 401) {
             clearSession();
-            router.push("/timeout", "/timeout", {locale: language});
+            router.push("/timeout", "/timeout", { locale: language });
         }
         setIsFirstLoad(false);
         setIsShowMessageError(true);
@@ -164,7 +165,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
             listBetHistory,
             setListBetHistory,
             setIsShowMessageError,
-            language: i18n.language
+            language: i18n.language,
         });
         return () => {
             setIsFirstLoad(true);

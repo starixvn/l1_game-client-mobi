@@ -1,8 +1,8 @@
 {
-    "socketGatewayUri": "https://l1-gw.lumigame.com",
+    "subSocketGatewayDomain": "l1-gw",
     "proxy": {
         "ssl": true,
-        "uri": "l1-proxy.lumigame.com",
+        "subDomain": "l1-proxy",
         "path": ""
     },
     "sentry": {
@@ -11,7 +11,7 @@
     },
     "offeredGames": [52, 53, 14, 15, 16, 17, 18, 19, 40, 41, 36, 37],
     "enableSourceMap": true,
-    "guideUrl": "https://l1-guide.lumigame.com",
+    "subGuideDomain": "l1-guide",
     "enableMsgpackParser": false,
     "system": "L1",
     "appType": 4
