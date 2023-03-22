@@ -1,4 +1,4 @@
-FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS builder
+FROM hub.lumigame.com/base/node:14.16-alpine AS builder
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
@@ -8,7 +8,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 RUN yarn build
 
-FROM registry.nexdev.net:5050/docker/node:14.16-alpine AS runner
+FROM hub.lumigame.com/base/node:14.16-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 
