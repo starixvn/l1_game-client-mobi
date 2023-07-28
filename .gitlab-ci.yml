@@ -1,16 +1,4 @@
 include:
-    - project: "ci/repos-ci/pentagon_l1_game_client_mobi"
-      ref: master
-      file: "gitlab-ci.yml"
-
-    - project: "ci/repos-ci/pentagon_l2_game_client_mobi"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
-
-    - project: "ci/repos-ci/pentagon_l1_game_client_mega_keno_mobi"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
-
-    - project: "ci/repos-ci/pentagon_l2_game_client_mega_keno_mobi"
-      ref: master
-      file: "gitlab-ci-mixing.yml"
+  - project: "ci/core-cicd"
+    ref: main
+    file: "luminet.gitlab-ci.yml"
