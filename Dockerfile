@@ -1,26 +1,16 @@
-FROM hub.lumigame.com/base/node:14.16-alpine AS builder
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-COPY . .
-RUN yarn build
-
-FROM hub.lumigame.com/base/node:14.16-alpine AS runner
+FROM hub.lumigame.com/base/node:16.19-alpine
 WORKDIR /app
 ENV NODE_ENV production
 
-COPY --from=builder /app/configs.json ./configs.json
-COPY --from=builder /app/game-settings.json ./game-settings.json
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next-i18next.config.js ./next-i18next.config.js
-COPY --from=builder /app/next.config.js ./next.config.js
-COPY --from=builder /app/configs/L1/configs.LOCAL_3.js ./public/c.js
+COPY configs.json ./configs.json
+COPY game-settings.json ./game-settings.json
+COPY public ./public
+COPY .next ./.next
+COPY node_modules ./node_modules
+COPY package.json ./package.json
+COPY next-i18next.config.js ./next-i18next.config.js
+COPY next.config.js ./next.config.js
+COPY configs/missing-configuration.js ./public/c.js
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
