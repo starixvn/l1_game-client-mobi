@@ -1,6 +1,6 @@
 import { AppTypes } from "../../common/constants";
 
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 
 export const GamesInOnePage = 20;
 
@@ -42,8 +42,8 @@ const SystemGameCategory = {
         GameCategoryType.sedie,
         GameCategoryType.dice,
         GameCategoryType.card,
-        isMegaKenoLobby(appSettings.appType) && GameCategoryType.megakeno,
-        isMegaKenoLobby(appSettings.appType) && GameCategoryType.keno,
+        isMegaKenoLobby(getAppSettings().appType) && GameCategoryType.megakeno,
+        isMegaKenoLobby(getAppSettings().appType) && GameCategoryType.keno,
         GameCategoryType.kenolottery,
         GameCategoryType.favorite,
     ],
@@ -61,6 +61,6 @@ const SystemGameCategory = {
 
 export const favoriteGameIdIgnore = [40, 41, 36, 37];
 
-export const GameCategoryKeys: string[] = SystemGameCategory[appSettings.system]
+export const GameCategoryKeys: string[] = SystemGameCategory[getAppSettings().system]
     .map((value) => GameCategoryType[value])
-    .filter((category) => Object.keys(GameCategoryConfig[appSettings.appType]).includes(category));
+    .filter((category) => Object.keys(GameCategoryConfig[getAppSettings().appType]).includes(category));

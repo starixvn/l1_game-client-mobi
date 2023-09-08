@@ -1,4 +1,4 @@
-import appSettings from "../app-settings";
+import { getAppSettings } from "../app-settings";
 
 export const localStorageKeys = {
     session: buildLocalStorageKey("auth-data"),
@@ -26,7 +26,7 @@ export function getLocalStorageItem<Type>(key: string): Type {
 
 export function buildLocalStorageKey(key: string) {
     if (typeof window !== "undefined" && window.location && window.location.hostname) {
-        return `${window.location.hostname}.${key}.${appSettings.appType}`;
+        return `${window.location.hostname}.${key}.${getAppSettings().appType}`;
     }
 
     return key;

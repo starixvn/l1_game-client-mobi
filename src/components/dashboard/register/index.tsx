@@ -13,7 +13,7 @@ import { ModalType } from "../../shared/base-dialog/type";
 import FirstLoginContainer from "../container";
 import TextBlock from "../text-block";
 import NameGenerator from "./name-generator";
-import appSettings from "../../../common/app-settings";
+import { getAppSettings } from "../../../common/app-settings";
 import Styles from "./register.module.scss";
 
 type Props = {
@@ -79,7 +79,7 @@ export default function Register({ session, handleStateLogin }: Props) {
     const closeAvatarGallery = () => {
         setIsOpenGalleryAvatar(false);
     };
-    const highlightSystemClass = Styles[`highlight-system-${appSettings.appType}`];
+    const highlightSystemClass = Styles[`highlight-system-${getAppSettings().appType}`];
 
     return (
         <FirstLoginContainer>
@@ -87,7 +87,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                 <TextBlock>
                     <Trans t={t}>
                         {t(
-                            `register:registerTitle1-${systemName}-apptype${appSettings.appType}`,
+                            `register:registerTitle1-${systemName}-apptype${getAppSettings().appType}`,
                             isL1System() ? { sabaMobileName: sabaMobileName } : { vGamingMobileName: vGamingMobileName }
                         )}
                     </Trans>
@@ -95,7 +95,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                 <TextBlock>
                     <Trans t={t}>
                         {t(
-                            `register:registerTitle2-${systemName}-apptype${appSettings.appType}`,
+                            `register:registerTitle2-${systemName}-apptype${getAppSettings().appType}`,
                             isL1System()
                                 ? { sabaMobileName: sabaMobileName, sabaClubName: sabaClubName }
                                 : { vGamingMobileName: vGamingMobileName, vGamingName: vGamingName }
@@ -105,7 +105,7 @@ export default function Register({ session, handleStateLogin }: Props) {
                 <TextBlock>
                     <Trans t={t}>
                         {t(
-                            `register:registerTitle3-${systemName}-apptype${appSettings.appType}`,
+                            `register:registerTitle3-${systemName}-apptype${getAppSettings().appType}`,
                             isL1System() ? { sabaClubName: sabaClubName } : { vGamingName: vGamingName }
                         )}
                     </Trans>

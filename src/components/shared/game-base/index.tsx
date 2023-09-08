@@ -4,7 +4,7 @@ import Auth from "sc-user-service-client/dist/auth";
 import { io, Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import MsgpackParser from "socket.io-msgpack-parser";
-import appSettings from "../../../common/app-settings";
+import { getAppSettings } from "../../../common/app-settings";
 import { LanguageLocaleMapper } from "../../../common/constants";
 import * as LocalStorageManager from "../../../common/local-storage";
 import { CommonResourceKeys, GameResourceKeys } from "../../../common/resources";
@@ -162,7 +162,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     protected initSocket() {
         const { socketInfo } = this.props;
         const { session } = this.context;
-        const { proxy, enableMsgpackParser } = appSettings;
+        const { proxy, enableMsgpackParser } = getAppSettings();
         const socketUri = buildServerUrl(socketInfo.namespace);
         const socket = io(socketUri, {
             transports: ["websocket"],

@@ -1,6 +1,6 @@
-import appSettings from "../app-settings";
+import { getAppSettings } from "../app-settings";
 
-export const systemName = appSettings.system.toLocaleLowerCase();
+export const systemName = getAppSettings().system.toLocaleLowerCase();
 
 export const isL1System = () => {
     return systemName === "l1";
@@ -71,7 +71,7 @@ export const ChipValuesBySystem = ChipValues[systemName];
 
 export const locales = { en: "en", vi: "vi", th: "th", id: "id", zh_cn: "zh_cn", zh_tw: "zh_tw" };
 
-export const languageMapper = { "en-US": "en", "vi-VN": "vi", "th-TH": "th", "id-ID": "id", "zh-CN": "zh_cn","zh-TW": "zh_tw"};
+export const languageMapper = { "en-US": "en", "vi-VN": "vi", "th-TH": "th", "id-ID": "id", "zh-CN": "zh_cn", "zh-TW": "zh_tw" };
 
 export const LanguageLocaleMapper = {
     en: "en-US",
@@ -79,7 +79,7 @@ export const LanguageLocaleMapper = {
     th: "th-TH",
     id: "id-ID",
     zh_cn: "zh-CN",
-    zh_tw: "zh-TW"
+    zh_tw: "zh-TW",
 };
 
 export const languageNameMapper = { en: "English", vi: "Tiếng Việt" };

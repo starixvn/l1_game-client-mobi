@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React from "react";
 
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 import { GameResourceKeys } from "../../common/resources";
 import Styles from "./favorite-guide.module.scss";
 
@@ -12,7 +12,7 @@ const favoriteIconClass = "icon-favorite";
 
 export const FavoriteGuide: React.FC = () => {
     const { t } = useTranslation();
-    const { gameSettings } = appSettings;
+    const { gameSettings } = getAppSettings();
 
     return (
         <div className={Styles["container"]}>

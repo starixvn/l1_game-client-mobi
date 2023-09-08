@@ -1,5 +1,5 @@
 import UserServiceClient from "sc-user-service-client";
-import appSettings from "../common/app-settings";
+import { getAppSettings } from "../common/app-settings";
 import { buildUrlWithPath } from "../helpers/url-helper";
 
 export class UserClientCommunication {
@@ -10,7 +10,7 @@ export class UserClientCommunication {
     }
 
     private static getUserServiceUrl(): string {
-        const { proxy } = appSettings;
+        const { proxy } = getAppSettings();
         const path = proxy.path === "" ? "/user" : `${proxy.path}/user`;
         return buildUrlWithPath(path);
     }

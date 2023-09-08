@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next";
 import React, { useState, useEffect } from "react";
 
-import appSettings from "../../../common/app-settings";
+import { getAppSettings } from "../../../common/app-settings";
 import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
 import GameGuides from "./game-guide";
@@ -21,7 +21,7 @@ export const GameGuideModal: React.FC<{
     settingGames: any;
     fractionalOddsFormat: boolean;
 }> = ({ onCloseModal, userStakeLevel, offerGames, promotions, settingGames, fractionalOddsFormat }) => {
-    const [selectedGameId, setSelectedGameId] = useState<number>(appSettings.offeredGames.filter((game) => offerGames.includes(game))[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(getAppSettings().offeredGames.filter((game) => offerGames.includes(game))[0]);
     const [isInPromotionTime, setIsInPromotionTime] = useState<boolean>(false);
     const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
     const { t } = useTranslation();

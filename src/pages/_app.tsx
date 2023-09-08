@@ -7,7 +7,7 @@ import App, { AppProps } from "next/app";
 import Head from "next/head";
 
 import { buildVersion, systemName, Themes } from "../common/constants";
-import appSettings from "../common/app-settings";
+import { getAppSettings } from "../common/app-settings";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -27,7 +27,7 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 }
 
 export const AppTilte = () => {
-    const isMegaKenoType = appSettings.appType === 4 ? "-mega" : "";
+    const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
     const title = getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`);
 
     return (

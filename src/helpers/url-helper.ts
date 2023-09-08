@@ -1,7 +1,7 @@
-import appSettings from "../common/app-settings";
+import { getAppSettings } from "../common/app-settings";
 
-export const buildUrl = (subDomain = appSettings.proxy?.subDomain, path = "/") => {
-    const { proxy } = appSettings;
+export const buildUrl = (subDomain = getAppSettings().proxy?.subDomain, path = "/") => {
+    const { proxy } = getAppSettings();
     const domain = getRootDomain();
     const subDomainText = `${subDomain}.`;
     return `${proxy.ssl ? "https" : "http"}://${subDomain === "" ? "" : subDomainText}${domain}${path}`;
@@ -10,7 +10,9 @@ export const buildUrl = (subDomain = appSettings.proxy?.subDomain, path = "/") =
 export const getRootDomain = () => {
     if (typeof window !== "undefined" && window.location && window.location.hostname) {
         const hostName = window.location.hostname;
-        return (!!appSettings.serverDomainMapper && appSettings.serverDomainMapper[hostName]) || extractDomainFromHostName(hostName);
+        return (
+            (!!getAppSettings().serverDomainMapper && getAppSettings().serverDomainMapper[hostName]) || extractDomainFromHostName(hostName)
+        );
     }
 
     return "";
@@ -22,11 +24,11 @@ export const extractDomainFromHostName = (hostName: string) => {
 };
 
 export const buildGameGuideUrl = () => {
-    return buildUrl(appSettings.subGuideDomain, "");
+    return buildUrl(getAppSettings().subGuideDomain, "");
 };
 
 export const buildSocketGatewayUrl = () => {
-    return buildUrl(appSettings.subSocketGatewayDomain, "");
+    return buildUrl(getAppSettings().subSocketGatewayDomain, "");
 };
 
 export const buildServerUrl = (path: string) => {
@@ -35,5 +37,5 @@ export const buildServerUrl = (path: string) => {
 };
 
 export const buildUrlWithPath = (path: string) => {
-    return buildUrl(appSettings.proxy?.subDomain, path);
+    return buildUrl(getAppSettings().proxy?.subDomain, path);
 };

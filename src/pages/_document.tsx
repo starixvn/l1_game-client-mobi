@@ -9,10 +9,13 @@ export default class extends Document {
     }
 
     render() {
+        const configFile ="./c.js?" + Date.now; 
+
         return (
             <Html>
                 <Head>
                     <meta name="apple-mobile-web-app-capable" content="yes" />
+                    <script type="text/javascript" src={configFile} ></script>
                 </Head>
                 <body>
                     <Main />

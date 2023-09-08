@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "next-i18next";
 import { isMobileOnly } from "react-device-detect";
 
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 
 import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
 import styles from "./game-category.module.scss";
@@ -44,14 +44,14 @@ export const GameCategory: React.FC<{
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     const categoryPage = GameCategoryKeys.reduce((result, category) => {
-        const categoryLength = category !== "favorite" ? GameCategoryConfig[appSettings.appType][category].length : favoriteGames.length;
+        const categoryLength = category !== "favorite" ? GameCategoryConfig[getAppSettings().appType][category].length : favoriteGames.length;
 
         result[category] = Math.ceil(categoryLength / GamesInOnePage);
 
         return result;
     }, {});
 
-    const appTypeClass = appSettings.appType === AppTypes.mobile ? "SM" : "MK";
+    const appTypeClass = getAppSettings().appType === AppTypes.mobile ? "SM" : "MK";
 
     useEffect(() => {
         if (wrapperRef?.current) {

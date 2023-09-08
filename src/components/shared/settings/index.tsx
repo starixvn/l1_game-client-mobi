@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import React, { useRef, useState, useMemo } from "react";
 import { isMobileOnly } from "react-device-detect";
 
-import appSettings from "../../../common/app-settings";
+import { getAppSettings } from "../../../common/app-settings";
 import { AppTypes } from "../../../common/constants";
 import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import { FavoriteSetting } from "../../favorite-setting";
@@ -92,7 +92,7 @@ export const Settings: React.FC<Props> = ({
                         <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                     </div>
 
-                {appSettings.appType !== AppTypes.megaKeno && (
+                {getAppSettings().appType !== AppTypes.megaKeno && (
                     <div
                         id="favorite-setting"
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}

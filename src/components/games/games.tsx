@@ -4,7 +4,7 @@ import { isIOS, isMobileOnly } from "react-device-detect";
 import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
 import MsgpackParser from "socket.io-msgpack-parser";
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SystemContextProvider } from "../../contexts/system";
 import { SocketState } from "../../types";
@@ -37,10 +37,10 @@ let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
     const tabGames =
         selectedCategory !== GameCategoryType.favorite
-            ? GameCategoryConfig[appSettings.appType][GameCategoryType[selectedCategory]]
+            ? GameCategoryConfig[getAppSettings().appType][GameCategoryType[selectedCategory]]
             : favoriteGames;
-    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && appSettings.offeredGames.includes(gameId));
-    const tabUnfavoriteGames = appSettings.offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
+    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && getAppSettings().offeredGames.includes(gameId));
+    const tabUnfavoriteGames = getAppSettings().offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
 
     gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
     const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;
@@ -52,13 +52,13 @@ const getCategoryByGameId = (gameId: number) => {
     return (
         GameCategoryKeys.find(
             (category) =>
-                GameCategoryConfig[appSettings.appType][category] && GameCategoryConfig[appSettings.appType][category].includes(gameId)
+                GameCategoryConfig[getAppSettings().appType][category] && GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
         ) ?? getDefaultCategory()
     );
 };
 
 const getDefaultCategory = () => {
-    return appSettings.appType === AppTypes.mobile ? "hot" : "megakeno";
+    return getAppSettings().appType === AppTypes.mobile ? "hot" : "megakeno";
 };
 
 const getCategoryByQueryGameId = (gameId: number) => {
@@ -66,8 +66,8 @@ const getCategoryByQueryGameId = (gameId: number) => {
         GameCategoryKeys.find(
             (category) =>
                 category !== "hot" &&
-                GameCategoryConfig[appSettings.appType][category] &&
-                GameCategoryConfig[appSettings.appType][category].includes(gameId)
+                GameCategoryConfig[getAppSettings().appType][category] &&
+                GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
         ) ?? getDefaultCategory()
     );
 };
@@ -150,7 +150,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const getGameComponentById = (gameId: number, index: number) => {
-        const { gameSettings } = appSettings;
+        const { gameSettings } = getAppSettings();
         let viewMode = isMobileOnly && index !== 0 ? ViewMode.collapse : ViewMode.full;
         if (openGameId && isMobileOnly) {
             viewMode = gameId === openGameId ? ViewMode.full : ViewMode.collapse;
@@ -225,7 +225,7 @@ export const Games: React.FC<Props> = ({
     };
 
     const connectSocket = () => {
-        const { enableMsgpackParser } = appSettings;
+        const { enableMsgpackParser } = getAppSettings();
         const socketGatewayUrl = buildSocketGatewayUrl();
         const socket = io(socketGatewayUrl, {
             forceNew: true,

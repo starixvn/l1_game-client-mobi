@@ -1,7 +1,7 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 import { AppTypes, buildVersion, isL1System } from "../../common/constants";
 
 import { Settings } from "../shared/settings";
@@ -28,7 +28,7 @@ type Props = {
 };
 
 export const getLogoName = () => {
-    if (appSettings.appType === AppTypes.megaKeno) {
+    if (getAppSettings().appType === AppTypes.megaKeno) {
         return isL1System() ? "saba-mega-keno" : "mega-keno";
     }
     

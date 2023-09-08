@@ -5,7 +5,7 @@ import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
 import RenderCellOnTable, { renderBetBase } from "./bet-row";
-import appSettings from "../../../../common/app-settings";
+import { getAppSettings } from "../../../../common/app-settings";
 import { useAuthContext } from "../../../../contexts/auth";
 import { clearSession } from "../../../../services/auth-service";
 import { BetLogs, PropsBetContainer, ResultDetail } from "./bet-history";
@@ -149,7 +149,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
     const [isShowBetLogDetails, setIsShowBetLogDetails] = useState<boolean>(false);
     const [isShowMessageError, setIsShowMessageError] = useState<boolean>(false);
     const headerName = getHeaderName({ nameHeaderOnTable: props.nameHeaderOnTable, isRefund });
-    const gameSetting = appSettings?.gameSettings[gameId];
+    const gameSetting = getAppSettings()?.gameSettings[gameId];
     const gameName = gameSetting?.gameName.toLowerCase();
     const { t, i18n } = useTranslation(["bethistory", gameName]);
 
@@ -157,7 +157,7 @@ const BetHistoryContainer = (props: PropsBetContainer) => {
         sendPostBetHistory({
             gameId,
             gameSetting,
-            proxy: appSettings?.proxy,
+            proxy: getAppSettings()?.proxy,
             session,
             page,
             setIsFirstLoad,

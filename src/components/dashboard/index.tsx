@@ -5,7 +5,7 @@ import React from "react";
 import { isMobileOnly, isMobile, isSafari } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
-import appSettings from "../../common/app-settings";
+import { getAppSettings } from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
@@ -211,7 +211,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     connectNotificationSocket() {
-        const { proxy, enableMsgpackParser } = appSettings;
+        const { proxy, enableMsgpackParser } = getAppSettings();
         const { session } = this.props;
         const socketUri = buildUrl();
         const socketOption = {
@@ -243,7 +243,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const { promotions, isShowBoostedOdds, settingGames } = this.state;
         const offerGames = settingGames?.map((game: any) => game?.gameId);
         const offerGamePromotions = data.filter(
-            (promotion) => offerGames?.includes(promotion.gameId) && appSettings.offeredGames.includes(promotion.gameId)
+            (promotion) => offerGames?.includes(promotion.gameId) && getAppSettings().offeredGames.includes(promotion.gameId)
         );
 
         let haveNewPromotion = offerGamePromotions.length > promotions.length;
@@ -278,7 +278,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const offerGames = settingGames?.map((game: any) => game?.gameId);
         const newPromotionNotifications = data.filter(
             (promotionNotification) =>
-                offerGames?.includes(promotionNotification.gameId) && appSettings.offeredGames.includes(promotionNotification.gameId)
+                offerGames?.includes(promotionNotification.gameId) && getAppSettings().offeredGames.includes(promotionNotification.gameId)
         );
         this.setState({ promotionNotifications: newPromotionNotifications });
         if (newPromotionNotifications.length < 1) {
@@ -553,20 +553,20 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     renderGoogleAnalytic() {
-        if (appSettings.googleAnalyticId == null) {
+        if (getAppSettings().googleAnalyticId == null) {
             return <></>;
         }
 
         return (
             <>
-                <script async src={`https://www.googletagmanager.com/gtag/js?id=${appSettings.googleAnalyticId}`}></script>
+                <script async src={`https://www.googletagmanager.com/gtag/js?id=${getAppSettings().googleAnalyticId}`}></script>
                 <script
                     dangerouslySetInnerHTML={{
                         __html: `
                             window.dataLayer = window.dataLayer || [];
                             function gtag(){dataLayer.push(arguments);}
                             gtag('js', new Date());
-                            gtag('config', '${appSettings.googleAnalyticId}', {
+                            gtag('config', '${getAppSettings().googleAnalyticId}', {
                             page_path: window.location.pathname,
                             });
                         `,

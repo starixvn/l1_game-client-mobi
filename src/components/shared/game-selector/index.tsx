@@ -2,7 +2,7 @@ import { useTranslation } from "next-i18next";
 import React, { useEffect, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
-import appSettings from "../../../common/app-settings";
+import { getAppSettings } from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import Styles from "./game-selector.module.scss";
 
@@ -36,11 +36,11 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
     return (
         <div className={Styles["selector-container"]} ref={wrapperRef} data-testid="game-selector">
             <div data-testid="selected-item" className={Styles["selected-item"]} onClick={() => setIsShowOptions(!isShowOptions)}>
-                {t(`${appSettings.gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                {t(`${getAppSettings().gameSettings[selectedGame].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
             </div>
             {isShowOptions && (
                 <div className={`${Styles["dropdown-menu"]} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="dropdown-menu">
-                    {appSettings.offeredGames
+                    {getAppSettings().offeredGames
                         .filter((game) => offerGames.includes(game))
                         .map((id) => (
                             <div
@@ -49,7 +49,7 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
                                 onClick={() => onSelectOption(id)}
                                 data-testid="dropdown-item"
                             >
-                                {t(`${appSettings.gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                {t(`${getAppSettings().gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                             </div>
                         ))}
                 </div>
