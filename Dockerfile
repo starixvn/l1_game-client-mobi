@@ -1,16 +1,24 @@
-FROM hub.lumigame.com/base/node:16.19-alpine
+FROM hub.lumigame.com/base/node:16.19-alpine AS builder
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+
+COPY sentry.client.config.js sentry.server.config.js tsconfig.json configs.json game-settings.json next-i18next.config.js next.config.js ./
+COPY configs ./configs
+COPY public ./public
+COPY configs/missing-configuration.js ./public/c.js
+COPY src ./src
+
+RUN yarn build
+
+FROM hub.lumigame.com/base/node:16.19-alpine AS runner
+
 WORKDIR /app
 ENV NODE_ENV production
 
-COPY configs.json ./configs.json
-COPY game-settings.json ./game-settings.json
-COPY public ./public
-COPY .next ./.next
-COPY node_modules ./node_modules
-COPY package.json ./package.json
-COPY next-i18next.config.js ./next-i18next.config.js
-COPY next.config.js ./next.config.js
-COPY configs/missing-configuration.js ./public/c.js
+COPY --from=builder /app/ ./
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
