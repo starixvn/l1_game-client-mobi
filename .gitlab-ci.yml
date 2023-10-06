@@ -1,4 +1,4 @@
 include:
   - project: "ci/core-cicd"
-    ref: docker-buildx
+    ref: main
     file: "luminet.gitlab-ci.yml"
