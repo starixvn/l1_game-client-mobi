@@ -3,12 +3,12 @@ WORKDIR /app
 
 ENV YARN_CACHE_FOLDER=/root/.yarn
 
+RUN --mount=type=cache,target=$YARN_CACHE_FOLDER \
+     yarn cache dir && yarn cache list
+
 COPY package.json yarn.lock ./
 RUN --mount=type=cache,target=$YARN_CACHE_FOLDER \
      yarn install --frozen-lockfile --verbose
-
-RUN --mount=type=cache,target=$YARN_CACHE_FOLDER \
-     yarn cache dir && yarn cache list
 
 COPY sentry.client.config.js sentry.server.config.js tsconfig.json configs.json game-settings.json next-i18next.config.js next.config.js ./
 COPY configs ./configs
