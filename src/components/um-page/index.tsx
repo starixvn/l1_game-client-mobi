@@ -17,7 +17,7 @@ const UMPage: React.FC<{ locale: string }> = ({ locale }) => {
 
     useEffect(() => {
         if (router.isReady) {
-            const template = locale === "vi" ? "hh:mm dd/MM/yyyy" : "hh:mm MM dd, yyyy";
+            const template = "hh:mm dd/MM/yyyy";
             const umInfo = LocalStorageManager.getLocalStorageItem<UMInfo>(LocalStorageManager.localStorageKeys.umInfo);
 
             if (umInfo) {
