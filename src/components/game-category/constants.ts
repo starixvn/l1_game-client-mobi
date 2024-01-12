@@ -10,14 +10,14 @@ export const isMegaKenoLobby = (appType: number) => {
 
 export const GameCategoryConfig = {
     [AppTypes.mobile]: {
-        hot: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
-        sedie: [2, 22, 9, 24],
-        dice: [1, 4, 3],
-        card: [7, 10, 27, 35],
-        kenolottery: [8],
-        megakeno: [52, 53, 14, 15, 16, 17, 18, 19],
-        keno: [40, 41, 36, 37],
-        favorite: [],
+        hot: [2],
+        // sedie: [2, 22, 9, 24],
+        // dice: [1, 4, 3],
+        // card: [7, 10, 27, 35],
+        // kenolottery: [8],
+        // megakeno: [52, 53, 14, 15, 16, 17, 18, 19],
+        // keno: [40, 41, 36, 37],
+        // favorite: [],
     },
     [AppTypes.megaKeno]: {
         megakeno: [52, 53, 14, 15, 16, 17, 18, 19],
