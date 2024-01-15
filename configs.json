@@ -9,8 +9,8 @@
         "path": ""
     },
     "sentry": {
-        "dsn": "https://234faaab51664e48a2e75c1964a42ca0@sentry.lumigame.com/32",
-        "environment": "LOCAL_1"
+        "dsn": "",
+        "environment": ""
     },
     "offeredGames": [],
     "enableSourceMap": true,

@@ -1,0 +1,75 @@
+.bet-choice-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.coin path {
+  fill: red;
+}
+
+.bet-choice {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  height: 94px;
+  position: relative;
+}
+
+.bet-choice::after {
+  content: "";
+  height: 94px;
+  background-size: cover;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+
+.right .bet-choice-info {
+  flex-direction: row-reverse;
+}
+
+.blue {
+  --color: #a3bdff;
+}
+
+.red {
+  --color: #ff9090;
+}
+
+.blue::after {
+  background: url(/images/next-ball/bg-blue.svg) no-repeat;
+}
+
+.red::after {
+  background: url(/images/next-ball/bg-red.svg) no-repeat;
+}
+
+.percent {
+  align-self: flex-end;
+}
+
+.right.blue::after,
+.right.red::after {
+  transform: scaleX(-1);
+}
+
+.stake {
+  color: var(--color);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.total-stakes,
+.players {
+  justify-content: flex-end;
+}
+
+.right .total-stakes,
+.right .players {
+  justify-content: flex-start;
+}

@@ -1,5 +1,23 @@
 import { getAppSettings } from "../app-settings";
 
+interface chip {
+    [key: number]: string;
+}
+
+export interface BetOptionData {
+    betChoice: string;
+    odds: number;
+    totalStakes?: number;
+    players?: number;
+    percent?: number;
+}
+
+export interface RoundResultData {
+    betChoiceShort: string;
+    color: string;
+    count: number;
+}
+
 export const systemName = getAppSettings().system.toLocaleLowerCase();
 
 export const isL1System = () => {

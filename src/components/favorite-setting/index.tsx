@@ -97,9 +97,8 @@ export const FavoriteSetting: React.FC<{
     return (
         <div
             ref={wrapperRef}
-            className={`${Styles["favorite-setting"]} ${
-                isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
-            } ${isMobileOnly ? Styles["mobile"] : ""}`}
+            className={`${Styles["favorite-setting"]} ${isMobileOnly && (isOpenModalAnimation ? Styles["open-animation"] : Styles["close-animation"])
+                } ${isMobileOnly ? Styles["mobile"] : ""}`}
         >
             <span className={Styles["close-btn"]} onClick={handleCloseModal}></span>
             <div className={Styles["title"]}>{t(CommonResourceKeys.FAVORITE_SETTING)}</div>

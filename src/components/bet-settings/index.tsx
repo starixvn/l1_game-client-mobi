@@ -45,9 +45,8 @@ const BetSettings: React.FC<Props> = ({
         return (
             <div className={`${Styles["bet-settings"]} ${deviceClass}`}>
                 <div
-                    className={`${Styles["settings-container"]} ${
-                        isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
-                    }`}
+                    className={`${Styles["settings-container"]} ${isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
+                        }`}
                 >
                     <div className={`game-container ${Styles["container"]}`}>
                         <div className={Styles["wrapper-chips"]}>
@@ -101,9 +100,8 @@ const BetSettings: React.FC<Props> = ({
                             onClick={toggleSlidingChip}
                         >
                             <div
-                                className={`${Styles["chip-toggle"]} ${
-                                    isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
-                                }`}
+                                className={`${Styles["chip-toggle"]} ${isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
+                                    }`}
                             >
                                 <img className={Styles["chip-default"]} src={`/static/images/chips/chip-close.svg`} alt="Chip" />
                                 <img

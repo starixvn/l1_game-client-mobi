@@ -11,6 +11,7 @@ import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
+import NewNumberGames from "../../dashboard/new-number-games/page";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -38,7 +39,7 @@ export const Settings: React.FC<Props> = ({
     const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
-    
+
     return useMemo(() => {
         return (
             <div className={styles["settings-container"]}>
@@ -91,8 +92,6 @@ export const Settings: React.FC<Props> = ({
                         <span className={`icon-history ${styles["icon-history"]}`}></span>
                         <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                     </div>
-
-                {getAppSettings().appType !== AppTypes.megaKeno && (
                     <div
                         id="favorite-setting"
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
@@ -102,7 +101,6 @@ export const Settings: React.FC<Props> = ({
                         <span className={`icon-favorite-normal ${styles["icon-favorite-normal"]}`}></span>
                         <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                     </div>
-                )}
 
                     <Menu
                         handleToggleNotification={onToggleNotification}
@@ -120,6 +118,7 @@ export const Settings: React.FC<Props> = ({
                         toggleBtnRef={favoriteToggleBtnRef}
                     />
                 )}
+                <NewNumberGames />
             </div>
         );
     }, [promotionNotifications, showFavoriteSetting, enabledSound, enabledNotification]);

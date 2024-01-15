@@ -18,11 +18,15 @@ import FishPrawnCrab from "./fish-prawn-crab";
 import styles from "./games.module.scss";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
-import { AppTypes } from "../../common/constants";
 import { buildSocketGatewayUrl } from "../../helpers/url-helper";
+import { AppTypes } from "../../common/constants";
+import NumberWar from "./numberWar/page";
 
 let gamesOrder = [];
 const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
+    if (selectedCategory === GameCategoryType.newNumberGames) {
+        return GameCategoryConfig[AppTypes.mobile].newNumberGames;
+    }
     const tabGames =
         selectedCategory !== GameCategoryType.favorite
             ? GameCategoryConfig[getAppSettings().appType][GameCategoryType[selectedCategory]]
@@ -46,7 +50,7 @@ const getCategoryByGameId = (gameId: number) => {
 };
 
 const getDefaultCategory = () => {
-    return getAppSettings().appType === AppTypes.mobile ? "hot" : "megakeno";
+    return "hot";
 };
 
 const getCategoryByQueryGameId = (gameId: number) => {
@@ -168,6 +172,8 @@ export const Games: React.FC<Props> = ({
             case 3:
                 return <FishPrawnCrab key={`game-${gameId}`} {...gameProps} />;
 
+            case 1111:
+                return <NumberWar />
             default:
                 return null;
         }

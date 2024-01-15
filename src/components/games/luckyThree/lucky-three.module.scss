@@ -1,0 +1,96 @@
+.betting-zone {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 358px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.even {
+  --color: #98cdff;
+  background: url(/images/lucky-three/bg-blue.svg) no-repeat;
+  width: 176px;
+  height: 102px;
+  background-size: contain;
+}
+
+.odd {
+  --color: #f9bcb9;
+  background: url(/images/lucky-three/bg-red.svg) no-repeat;
+  width: 176px;
+  height: 102px;
+  background-size: contain;
+}
+
+.stake {
+  color: var(--color);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.total-number {
+  font-size: 36px;
+  color: white;
+  font-weight: 500;
+}
+
+.bet-choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 5px;
+  width: 84px;
+  height: 104px;
+
+  &:after {
+    content: "";
+    background-image: var(--bg);
+    background-size: cover;
+    display: inline-block;
+    position: absolute;
+    width: 84px;
+    height: 104px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+  }
+}
+
+.sub-betting-zone {
+  display: flex;
+}
+
+.red3 {
+  --bg: url(/images/lucky-three/bg-left.svg);
+}
+
+.red2blue1,
+.red1blue2 {
+  --bg: url(/images/lucky-three/bg-center.svg);
+}
+
+.blue3 {
+  --bg: url(/images/lucky-three/bg-right.svg);
+}
+
+.sub-round {
+  display: grid;
+  grid-template-columns: 30px 130px 1fr;
+  align-items: center;
+}
+
+.sub-round-title {
+  font-size: 14px;
+  color: rgba($color: #ffffff, $alpha: 0.5);
+  text-align: center;
+}
+
+.bet-info {
+  font-size: 10px;
+  color: rgba($color: #ffffff, $alpha: 0.5);
+  margin-top: -12px;
+}
