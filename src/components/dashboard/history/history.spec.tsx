@@ -10,12 +10,27 @@ jest.mock("../../../common/constants", () => ({
     systemName: () => {
         "l1";
     },
-    isL1System: () => {},
+    isL1System: () => { },
     AppTypes: {
         mobile: 2,
         megaKeno: 4,
     },
 }));
+
+jest.mock('react-i18next', () => ({
+    // this mock makes sure any components using the translate HoC receive the t function as a prop
+    withTranslation: () => Component => {
+        Component.defaultProps = { ...Component.defaultProps, t: () => "" };
+        return Component;
+    },
+}));
+
+
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}))
+
+
 describe("HistoryModal", () => {
     test("should render correctly", async () => {
         // Act

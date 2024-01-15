@@ -6,6 +6,10 @@ import KenoProMaxBetHistory, { renderResult, renderResultDetail } from "./";
 import { AuthContextProvider } from "../../../../contexts/auth";
 import { DefaultGameContext, AuthContextValueDefault, DefaultResult, DefaultSettlementResult } from "../__tests__/test-helper";
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}))
+
 const gameName = "kenopromax";
 describe("KenoProMaxBetHistory BetHistory", () => {
     test("should render correctly", () => {

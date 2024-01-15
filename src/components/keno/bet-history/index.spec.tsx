@@ -5,6 +5,10 @@ import { authContextValue } from "../__tests__/test-helper";
 import KenoMatchBetHistory from "./";
 import { AuthContextProvider } from "../../../contexts/auth";
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}))
+
 describe("KenoMatch BetHistory", () => {
     test("should render correctly", () => {
         // Arrange

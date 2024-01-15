@@ -4,6 +4,10 @@ import { useTranslation } from "next-i18next";
 import RenderRowKenoPower from "./";
 import { GetTranslateMapping } from "../../../../keno/keno.helper";
 
+jest.mock('next/router', () => ({
+    useRouter: jest.fn(),
+}))
+
 describe("KenoMatch Info Bet History Detail", () => {
     const tableRow = document.createElement("tr");
     describe("Users have  bet, should render data on bet-history ", () => {
