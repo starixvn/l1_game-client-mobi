@@ -1,16 +1,15 @@
 import React from "react";
 
 import { RenderHeaderRows } from "../../../dashboard/history/bet-history";
-import RenderRowKenoMatch from "../../../games/keno-match/bet-history/bet-history-details";
 import RenderRowKenoPower from "../../../games/keno-power/bet-history/bet-history-details";
 import { KenoMatchId, GetTranslateMapping } from "../../keno.helper";
 import Styles from "../bet-history.module.scss";
 
-export const RenderCell: React.FC<{ isHighligh: boolean; name: string }> = ({ isHighligh, name, children }) => {
+export const RenderCell: React.FC<{ isHighligh: boolean; name: string }> = ({ isHighligh, name }) => {
     const classHighligh = isHighligh ? "highlight" : "";
     return (
         <td className={`${Styles[name]} ${classHighligh}`} data-testid={name}>
-            {children}
+
         </td>
     );
 };
@@ -35,7 +34,7 @@ const BetLogsDetails = ({ betLog, gameName, t, setIsShowResultDetail, gameId, fr
         const { bet, roundId } = betLog;
         const { betLogDetails } = bet ?? [];
         const headerName = ["roundTime", "betType", "betChoice", "refund"];
-        const renderRow = KenoMatchId.includes(gameId) ? RenderRowKenoMatch : RenderRowKenoPower;
+        const renderRow = RenderRowKenoPower;
 
         const clickOpenDetails = () => {
             setIsShowResultDetail(true);

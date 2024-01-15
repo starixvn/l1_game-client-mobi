@@ -1,5 +1,4 @@
 import { GameBaseProps } from "../../components/shared/game-base/type";
-import { KenoMatchProps } from "../../components/games/keno-match/type";
 
 interface ProxySetting {
     ssl: string;
@@ -18,7 +17,7 @@ export default interface AppSettings {
     proxy: ProxySetting;
     sentry: SentryOptions;
     offeredGames: number[];
-    gameSettings: { [id: string]: GameBaseProps | KenoMatchProps };
+    gameSettings: { [id: string]: GameBaseProps };
     subGuideDomain: string;
     googleAnalyticId: string;
     enableMsgpackParser: boolean;
