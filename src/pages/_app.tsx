@@ -27,23 +27,12 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 }
 
 export const AppTilte = () => {
-    const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
-    const title = getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`);
-
     return (
         <Head>
-            <title>{title}</title>
+            <title>New Number Game</title>
             <link rel="shortcut icon" href={`/favicon-${systemName}.ico?v=${buildVersion}`} />
         </Head>
     );
 };
-const getBrowserTitle = (systemName) => {
-    const browserTitle = {
-        "system-name-l1": "Saba Mobi",
-        "system-name-l2": "Vgaming Mobi",
-        "system-name-l1-mega": "SABA Mega Keno",
-        "system-name-l2-mega": "Mega Keno",
-    };
-    return browserTitle[systemName];
-};
+
 export default appWithTranslation(SabaMobiApp);
