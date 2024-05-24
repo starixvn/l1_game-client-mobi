@@ -98,3 +98,4 @@ export const AppTypes = {
     mobile: 2,
     megaKeno: 4,
 };
+export const maximumAvatarId = 172;

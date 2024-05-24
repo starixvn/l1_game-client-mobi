@@ -1,5 +1,6 @@
 import React from "react";
 
+import { maximumAvatarId } from "../../common/constants";
 import Styles from "./profile-picture.module.scss";
 
 const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick?: () => void }> = ({
@@ -13,7 +14,7 @@ const ProfilePicture: React.FC<{ avatarId: number; isEditable?: boolean; onClick
 
     return (
         <div className={Styles["profile-picture"]} onClick={handleClick} data-testid="profile-picture">
-            {avatarId > 0 && avatarId < 88 ? (
+            {avatarId > 0 && avatarId < maximumAvatarId ? (
                 <img
                     src={`/static/images/avatar/${avatarId}.png`}
                     className={`img-fluid ${Styles["avatar"]}`}

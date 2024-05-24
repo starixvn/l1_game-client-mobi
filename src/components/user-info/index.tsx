@@ -1,7 +1,8 @@
 import React from "react";
-import { isMobileOnly, isIOS } from "react-device-detect";
+import { isIOS, isMobileOnly } from "react-device-detect";
 
 import { User } from "sc-user-service-client/dist/auth";
+import { maximumAvatarId } from "../../common/constants";
 import { numberRoundDownWithCommas } from "../../helpers/number-helper";
 import Styles from "./user-info.module.scss";
 
@@ -27,7 +28,7 @@ export const UserInfo: React.FC<{ user: User; customizeClass?: string }> = ({ us
                 </div>
             </div>
             <div className={Styles["avatar"]}>
-                {user.avatarId > 0 && user.avatarId < 88 ? (
+                {user.avatarId > 0 && user.avatarId < maximumAvatarId ? (
                     <img src={`/static/images/avatar/${user.avatarId}.png`} className="img-fluid" height="40" width="40" alt="Avatar" />
                 ) : (
                     <span className={`icon-user ${Styles["icon-user"]}`} data-testid="icon-user"></span>

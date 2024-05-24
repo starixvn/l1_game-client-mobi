@@ -2,7 +2,17 @@ import { Trans, useTranslation } from "next-i18next";
 import React, { useState } from "react";
 import { AuthorizeResponse, Response, SSOResponse } from "sc-user-service-client/dist/auth";
 
-import { sabaClubName, sabaMobileName, vGamingName, vGamingMobileName, Themes, systemName, isL1System } from "../../../common/constants";
+import { getAppSettings } from "../../../common/app-settings";
+import {
+    Themes,
+    isL1System,
+    maximumAvatarId,
+    sabaClubName,
+    sabaMobileName,
+    systemName,
+    vGamingMobileName,
+    vGamingName,
+} from "../../../common/constants";
 import { GetLocalizedErrorMessage } from "../../../helpers/notice-helper";
 import { randomInteger } from "../../../helpers/number-helper";
 import { createNickname } from "../../../services/auth-service";
@@ -13,7 +23,6 @@ import { ModalType } from "../../shared/base-dialog/type";
 import FirstLoginContainer from "../container";
 import TextBlock from "../text-block";
 import NameGenerator from "./name-generator";
-import { getAppSettings } from "../../../common/app-settings";
 import Styles from "./register.module.scss";
 
 type Props = {
@@ -21,13 +30,12 @@ type Props = {
     handleStateLogin: (authorizeInfo: AuthorizeResponse) => void;
 };
 
-const maxAvatarId = 88;
 export default function Register({ session, handleStateLogin }: Props) {
     const { t } = useTranslation(["register", "common", "messages"]);
 
     const nameAuto = NameGenerator.generateName;
     const [name, updateNameState] = useState<string>(nameAuto);
-    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(randomInteger(1, maxAvatarId));
+    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(randomInteger(1, maximumAvatarId));
     const [isValidUserName, setIsValidUserName] = useState<boolean>(true);
     const [isOpenGalleryAvatar, setIsOpenGalleryAvatar] = useState<boolean>(false);
     const [nameInValid, setNameInValid] = useState<string>("");
@@ -187,7 +195,7 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
 
     const loadAvatars = () => {
         const _avatars = [];
-        for (let index = 1; index < maxAvatarId; index++) {
+        for (let index = 1; index < maximumAvatarId; index++) {
             _avatars.push(<Avatar key={index} id={index} isSelected={index === selectedId} onClick={() => setSelectedId(index)} />);
         }
         return _avatars;
