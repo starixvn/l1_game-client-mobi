@@ -30,6 +30,11 @@ type Props = {
     handleStateLogin: (authorizeInfo: AuthorizeResponse) => void;
 };
 
+enum OrderAvatarID {
+    "ascending" = "ascending",
+    "descending" = "descending",
+}
+
 export default function Register({ session, handleStateLogin }: Props) {
     const { t } = useTranslation(["register", "common", "messages"]);
 
@@ -193,12 +198,27 @@ const AvatarGallery: React.FC<{ selectedAvatarId: number; onSelectAvatar: (imgId
     const { t } = useTranslation(["register", "common"]);
     const [selectedId, setSelectedId] = useState<number>(selectedAvatarId);
 
-    const loadAvatars = () => {
-        const _avatars = [];
-        for (let index = 1; index < maximumAvatarId; index++) {
-            _avatars.push(<Avatar key={index} id={index} isSelected={index === selectedId} onClick={() => setSelectedId(index)} />);
+    const loadAvatars = (order = OrderAvatarID.descending) => {
+        const avatars = [];
+        let ids = [];
+
+        switch (order) {
+            case OrderAvatarID.ascending:
+                ids = Array.from({ length: maximumAvatarId - 1 }, (_, i) => i + 1);
+                break;
+            case OrderAvatarID.descending:
+                ids = Array.from({ length: maximumAvatarId - 1 }, (_, i) => maximumAvatarId - 1 - i);
+                break;
+            default:
+                console.error("Invalid order type specified");
+                return [];
         }
-        return _avatars;
+
+        ids.forEach((index) => {
+            avatars.push(<Avatar key={index} id={index} isSelected={index === selectedId} onClick={() => setSelectedId(index)} />);
+        });
+
+        return avatars;
     };
 
     const submit = () => {
