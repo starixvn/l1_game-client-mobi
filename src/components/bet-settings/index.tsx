@@ -4,7 +4,6 @@ import { useTranslation } from "next-i18next";
 import { User } from "sc-user-service-client/dist/auth";
 import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
-import { QuickBetBtn } from "./quick-bet-btn";
 import { ChipLabelMapper, ChipMapper, systemName, LanguageLocaleMapper } from "../../common/constants";
 import Styles from "./bet-setting.module.scss";
 
@@ -33,7 +32,7 @@ const BetSettings: React.FC<Props> = ({
     toggleAnnouncementModal,
     betValue,
     isNewPromotion,
-    isShowToolbarGuide
+    isShowToolbarGuide,
 }) => {
     const { i18n } = useTranslation();
 
@@ -53,12 +52,12 @@ const BetSettings: React.FC<Props> = ({
                         <div className={Styles["wrapper-chips"]}>
                             {!isMobileOnly && (
                                 <>
-                                    <QuickBetBtn
+                                    {/* <QuickBetBtn
                                         enabledQuickBet={enabledQuickBet}
                                         updateEnabledQuickBet={updateEnabledQuickBet}
                                         isHeaderSetting={false}
                                         isShowToolbarGuide={isShowToolbarGuide}
-                                    />
+                                    /> */}
 
                                     {isNewPromotion && (
                                         <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
@@ -131,18 +130,28 @@ const BetSettings: React.FC<Props> = ({
                             </div>
                         )}
                         <div className={Styles["phone-quick-bet"]}>
-                            <QuickBetBtn
+                            {/* <QuickBetBtn
                                 enabledQuickBet={enabledQuickBet}
                                 updateEnabledQuickBet={updateEnabledQuickBet}
                                 isHeaderSetting={false}
                                 isShowToolbarGuide={isShowToolbarGuide}
-                            />
+                            /> */}
                         </div>
                     </div>
                 )}
             </div>
         );
-    }, [user?.red, updateBetValue, enabledQuickBet, updateEnabledQuickBet, enabledSound, isShowSlidingChip, betValue, isNewPromotion, isShowToolbarGuide]);
+    }, [
+        user?.red,
+        updateBetValue,
+        enabledQuickBet,
+        updateEnabledQuickBet,
+        enabledSound,
+        isShowSlidingChip,
+        betValue,
+        isNewPromotion,
+        isShowToolbarGuide,
+    ]);
 };
 
 export default BetSettings;

@@ -53,7 +53,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowHistory: false,
             isShowGuide: false,
             isShowAnnouncement: false,
-            enabledQuickBet: false,
+            enabledQuickBet: true,
             betValue: isL1System() ? 1 : 10,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
@@ -114,7 +114,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
         this.checkOfferedGame(authorizeInfo);
-        this.setState({ authorizeInfo, enabledQuickBet: authorizeInfo?.user?.settings?.quickBet });
+        this.setState({ authorizeInfo });
     }
 
     updateUserBalance(balance: number) {

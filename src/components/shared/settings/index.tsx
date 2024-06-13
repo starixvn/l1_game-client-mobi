@@ -4,7 +4,6 @@ import { isMobileOnly } from "react-device-detect";
 
 import { getAppSettings } from "../../../common/app-settings";
 import { AppTypes } from "../../../common/constants";
-import { QuickBetBtn } from "../../bet-settings/quick-bet-btn";
 import { FavoriteSetting } from "../../favorite-setting";
 import { getLogoName } from "../../header";
 import { Tooltip } from "../tooltip";
@@ -29,7 +28,7 @@ export const Settings: React.FC<Props> = ({
     updateEnabledQuickBet,
     isShowQuickBet = false,
     promotionNotifications,
-    isShowToolbarGuide
+    isShowToolbarGuide,
 }) => {
     const { t } = useTranslation();
     const [showFavoriteSetting, setShowFavoriteSetting] = useState(false);
@@ -38,18 +37,18 @@ export const Settings: React.FC<Props> = ({
     const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
-    
+
     return useMemo(() => {
         return (
             <div className={styles["settings-container"]}>
                 {isShowQuickBet && isMobileOnly && (
                     <div className={styles["setting-left"]}>
-                        <QuickBetBtn
+                        {/* <QuickBetBtn
                             enabledQuickBet={enabledQuickBet}
                             updateEnabledQuickBet={(enabled) => updateEnabledQuickBet(enabled)}
                             isHeaderSetting={true}
                             isShowToolbarGuide={isShowToolbarGuide}
-                        />
+                        /> */}
                     </div>
                 )}
 
@@ -92,17 +91,17 @@ export const Settings: React.FC<Props> = ({
                         <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                     </div>
 
-                {getAppSettings().appType !== AppTypes.megaKeno && (
-                    <div
-                        id="favorite-setting"
-                        className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
-                        onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
-                        ref={favoriteToggleBtnRef}
-                    >
-                        <span className={`icon-favorite-normal ${styles["icon-favorite-normal"]}`}></span>
-                        <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
-                    </div>
-                )}
+                    {getAppSettings().appType !== AppTypes.megaKeno && (
+                        <div
+                            id="favorite-setting"
+                            className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
+                            onClick={() => setShowFavoriteSetting(!showFavoriteSetting)}
+                            ref={favoriteToggleBtnRef}
+                        >
+                            <span className={`icon-favorite-normal ${styles["icon-favorite-normal"]}`}></span>
+                            <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
+                        </div>
+                    )}
 
                     <Menu
                         handleToggleNotification={onToggleNotification}
