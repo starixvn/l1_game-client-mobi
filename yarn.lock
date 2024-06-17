@@ -1653,6 +1653,15 @@ axios@^0.21.1:
   dependencies:
     follow-redirects "^1.10.0"
 
+axios@^0.28.1:
+  version "0.28.1"
+  resolved "http://npm.lumigame.com/axios/-/axios-0.28.1.tgz#2a7bcd34a3837b71ee1a5ca3762214b86b703e70"
+  integrity sha512-iUcGA5a7p0mVb4Gm/sy+FSECNkPFT4y7wt6OM/CDpO/OnNCvSs3PoMG8ibrC9jRoGYU0gUK5pXVC4NPXq6lHRQ==
+  dependencies:
+    follow-redirects "^1.15.0"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "http://npm.lumigame.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -3880,6 +3889,11 @@ follow-redirects@^1.10.0:
   resolved "http://npm.lumigame.com/follow-redirects/-/follow-redirects-1.14.1.tgz#d9114ded0a1cfdd334e164e6662ad02bfd91ff43"
   integrity sha512-HWqDgT7ZEkqRzBvc2s64vSZ/hfOceEol3ac/7tKwzuvEyWx3/4UegXh5oBOIotkGsObyk3xznnSRVADBgWSQVg==
 
+follow-redirects@^1.15.0:
+  version "1.15.6"
+  resolved "http://npm.lumigame.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
+  integrity sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "http://npm.lumigame.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -3894,6 +3908,15 @@ form-data@^3.0.0:
   version "3.0.1"
   resolved "http://npm.lumigame.com/form-data/-/form-data-3.0.1.tgz#ebd53791b78356a99af9a300d4282c4d5eb9755f"
   integrity sha512-RHkBKtLWUVwd7SqRIvCZMEvAMoGUp0XU+seQiZejj0COz3RI3hWP4sCv3gZWWLjJTd7rGwcsF5eKZGii0r/hbg==
+  dependencies:
+    asynckit "^0.4.0"
+    combined-stream "^1.0.8"
+    mime-types "^2.1.12"
+
+form-data@^4.0.0:
+  version "4.0.0"
+  resolved "http://npm.lumigame.com/form-data/-/form-data-4.0.0.tgz#93919daeaf361ee529584b9b31664dc12c9fa452"
+  integrity sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==
   dependencies:
     asynckit "^0.4.0"
     combined-stream "^1.0.8"
@@ -7121,12 +7144,12 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
-sc-user-service-client@1.4.1:
-  version "1.4.1"
-  resolved "http://npm.lumigame.com/sc-user-service-client/-/sc-user-service-client-1.4.1.tgz#13fe016f34a125785371252051dab15fd55dae48"
-  integrity sha512-pttfNXKoVJjxs6jLt+m6BsXNfQee4FCioyhknhh/sVqUNlNjE44Nve6ejeO2kbuQwTmOCvwtOlLuH5bnqUVl1A==
+sc-user-service-client@1.6.2-beta.2:
+  version "1.6.2-beta.2"
+  resolved "http://npm.lumigame.com/sc-user-service-client/-/sc-user-service-client-1.6.2-beta.2.tgz#efe936bdc6cba53e0f036da253cf34eda429edaa"
+  integrity sha512-uPyad7zislQTGS+PxDcqeUY7cNzcQjrSpcbSXMyjxedAuBNtQFoKmP9CJduZIh02v0yxCfJPrEnMLbL41itmkQ==
   dependencies:
-    axios "^0.21.1"
+    axios "^0.28.1"
 
 scheduler@^0.20.2:
   version "0.20.2"

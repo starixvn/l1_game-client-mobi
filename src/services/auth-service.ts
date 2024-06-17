@@ -3,7 +3,7 @@ import { SSOResponse } from "sc-user-service-client/dist/auth";
 import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../common/local-storage";
 import { UserClientCommunication } from "./user-client-communication";
 
-const { auth: authService, userSettings: userSettingsService } = UserClientCommunication.getUserClientInstance();
+const authService = UserClientCommunication?.getUserClientInstance()?.auth;
 
 export const sso = async (token: string, appType: number): Promise<SSOResponse> => {
     const userSession = await authService.sso(token, appType);

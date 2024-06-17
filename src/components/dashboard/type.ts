@@ -2,6 +2,7 @@ import { WithTranslation } from "next-i18next";
 import { WithRouterProps } from "next/dist/client/with-router";
 import { AuthorizeResponse, SSOResponse } from "sc-user-service-client/dist/auth";
 import { UserStakeLevel } from "../shared/game-base/type";
+import { ChipInfo } from "sc-user-service-client/dist/setting";
 
 export type Props = {
     session: SSOResponse;
@@ -40,6 +41,7 @@ export type State = {
     settingGames: number[];
     openGameId: number;
     isShowToolbarGuide: boolean;
+    chipSettings: ChipSettings;
 };
 
 export type Promotion = {
@@ -59,4 +61,11 @@ export type GameOffer = {
     minBet: number;
     _id: string;
     maxBetPerChoices: any;
+};
+
+export type ChipSettings = {
+    minBet?: number;
+    maxBet?: number;
+    chips?: string[];
+    chipColors?: ChipInfo[];
 };

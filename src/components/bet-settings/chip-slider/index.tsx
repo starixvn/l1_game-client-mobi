@@ -1,44 +1,46 @@
-import React, { useEffect, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import React, { useEffect, useMemo, useState } from "react";
 import Slider from "react-slick";
 import useSound from "use-sound";
-import { ChipLabelMapper, ChipMapper, ChipValuesBySystem as ChipValues, systemName } from "../../../common/constants";
 import Styles from "./chip-slider.module.scss";
+import { Chip } from "./chip";
+import { useSystemContext } from "../../../contexts/system";
 
 const SlidingTimeInMillisecond = 100;
 let isSwipe = true;
 
 export const ChipSlider: React.FC<{
     updateBetValue: Function;
-    enabledSound: boolean;
-    enabledQuickBet: boolean;
-    toggleSlidingChip: Function;
-    betValue: number;
-}> = ({ updateBetValue, enabledSound, enabledQuickBet, toggleSlidingChip, betValue }) => {
+}> = ({ updateBetValue }) => {
+    const { betValue, userStakeLevel, chipSettings, enabledQuickBet, enabledPlaySound } = useSystemContext();
     const [enabledPrevBtn, setEnabledPrevBtn] = useState(false);
     const [enabledNextBtn, setEnabledNextBtn] = useState(true);
     const [selectedChip, setSelectedChip] = useState(betValue);
     const [isSliding, setIsSliding] = useState(false);
     let sliderRef = null;
     const [playSound] = useSound("./static/sounds/chip-click.mp3");
-
+    const chipValues = useMemo(() => {
+        if (userStakeLevel?.minBet && userStakeLevel?.maxBet && chipSettings?.chips) {
+            const maxBet = Math.min(userStakeLevel.maxBet, chipSettings.maxBet);
+            const minBet = Math.max(userStakeLevel.minBet, chipSettings.minBet);
+            return chipSettings.chips?.map((chip) => +chip).filter((value) => value >= minBet && value <= maxBet) || [];
+        }
+        return [];
+    }, [userStakeLevel, chipSettings]);
     const onClickChip = (chipValue: number) => {
-        if (!isMobileOnly) {
-            const chipIndex = ChipValues.indexOf(chipValue);
-            const currentSlideToShow = getCurrentSlidesToShow();
-            const currentSlide = sliderRef.innerSlider.state.currentSlide;
+        const chipIndex = chipValues.indexOf(chipValue);
+        const currentSlideToShow = getCurrentSlidesToShow();
+        const currentSlide = sliderRef.innerSlider.state.currentSlide;
 
-            if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
-                disableSelectChipWhenSliding();
-                isSwipe = false;
-                sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
-            }
+        if (chipIndex + 1 - currentSlideToShow >= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex + 2 - currentSlideToShow);
+        }
 
-            if (chipIndex - 1 <= currentSlide) {
-                disableSelectChipWhenSliding();
-                isSwipe = false;
-                sliderRef.slickGoTo(chipIndex - 1);
-            }
+        if (chipIndex - 1 <= currentSlide) {
+            disableSelectChipWhenSliding();
+            isSwipe = false;
+            sliderRef.slickGoTo(chipIndex - 1);
         }
 
         handleSelectChip(chipValue);
@@ -48,7 +50,7 @@ export const ChipSlider: React.FC<{
         setSelectedChip(chipValue);
         updateArrowsByChipValue(chipValue);
         updateBetValue(chipValue);
-        enabledSound && playSound();
+        enabledPlaySound && playSound();
     };
 
     const getCurrentSlidesToShow = () => {
@@ -60,10 +62,10 @@ export const ChipSlider: React.FC<{
     };
 
     const updateArrowsByChipValue = (chipValue: number) => {
-        const chipIndex = ChipValues.indexOf(chipValue);
+        const chipIndex = chipValues.indexOf(chipValue);
 
         chipIndex === 0 ? setEnabledPrevBtn(false) : setEnabledPrevBtn(true);
-        chipIndex === ChipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
+        chipIndex === chipValues.length - 1 ? setEnabledNextBtn(false) : setEnabledNextBtn(true);
     };
 
     const disableSelectChipWhenSliding = () => {
@@ -77,8 +79,8 @@ export const ChipSlider: React.FC<{
 
     const onClickNext = () => {
         if (enabledNextBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(selectedChip);
-            const newSelectedChip = ChipValues[chipIndex + 1];
+            const chipIndex = chipValues.indexOf(selectedChip);
+            const newSelectedChip = chipValues[chipIndex + 1];
             const currentSlideToShow = getCurrentSlidesToShow();
 
             isSwipe = false;
@@ -90,8 +92,8 @@ export const ChipSlider: React.FC<{
 
     const onClickPrev = () => {
         if (enabledPrevBtn && !isSliding) {
-            const chipIndex = ChipValues.indexOf(selectedChip);
-            const newSelectedChip = ChipValues[chipIndex - 1];
+            const chipIndex = chipValues.indexOf(selectedChip);
+            const newSelectedChip = chipValues[chipIndex - 1];
 
             isSwipe = false;
             sliderRef.slickGoTo(chipIndex - 2);
@@ -101,9 +103,15 @@ export const ChipSlider: React.FC<{
     };
 
     useEffect(() => {
+        const chip = chipValues.find((chip) => chip === selectedChip) || chipValues?.[0];
+        chip > 0 && onClickChip(chip);
+        chipValues && updateArrowsByChipValue(selectedChip);
+    }, [chipValues]);
+
+    useEffect(() => {
         if (sliderRef) {
             isSwipe = false;
-            const chipIndex = ChipValues.indexOf(selectedChip);
+            const chipIndex = chipValues.indexOf(selectedChip);
             sliderRef.slickGoTo(chipIndex);
             updateArrowsByChipValue(selectedChip);
         }
@@ -123,8 +131,8 @@ export const ChipSlider: React.FC<{
             if (isSwipe) {
                 const currentSlideToShow = getCurrentSlidesToShow();
 
-                oldIndex > newIndex && handleSelectChip(ChipValues[newIndex + currentSlideToShow - 1]);
-                oldIndex < newIndex && handleSelectChip(ChipValues[newIndex]);
+                oldIndex > newIndex && handleSelectChip(chipValues[newIndex + currentSlideToShow - 1]);
+                oldIndex < newIndex && handleSelectChip(chipValues[newIndex]);
             }
         },
         responsive: [
@@ -149,6 +157,10 @@ export const ChipSlider: React.FC<{
         ],
     };
 
+    const getChipSetting = (value) => {
+        return chipSettings.chipColors?.find((c) => c.value === value);
+    };
+
     return (
         <React.Fragment>
             <span
@@ -161,22 +173,15 @@ export const ChipSlider: React.FC<{
                 }}
                 {...SliderSetting}
             >
-                {ChipValues.map((value) => (
-                    <div
+                {chipValues.map((value) => (
+                    <Chip
                         key={value}
-                        className={`${Styles["chip-container"]} ${selectedChip === value ? Styles["selected"] : ""} ${enabledQuickBet ? Styles["enabled-quick-bet"] : ""
-                            } ${Styles[ChipMapper[systemName][value]]} ${Styles[systemName]}`}
-                        onClick={() => onClickChip(value)}
-                    >
-                        <img
-                            src={`/static/images/chips/${systemName}/${ChipMapper[systemName][value]}.svg`}
-                            className={`img-fluid ${Styles["chip"]}`}
-                            width="60"
-                            height="62"
-                            alt="Chip"
-                        />
-                        <span className={Styles["value"]}>{ChipLabelMapper[systemName][value]}</span>
-                    </div>
+                        value={value}
+                        text={getChipSetting(value)?.text}
+                        color={getChipSetting(value)?.color}
+                        selectedChip={selectedChip}
+                        onClickChip={onClickChip}
+                    />
                 ))}
             </Slider>
             <span

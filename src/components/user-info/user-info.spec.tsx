@@ -18,7 +18,7 @@ test("load user info", () => {
         isSignedInSM: true,
         offerGames: [22, 2, 9, 1, 4, 8],
         isDisplayPlayerCurrency: true,
-    };
+    } as any;
 
     // act
     const { getByTestId } = render(<UserInfo user={user} />);
@@ -40,7 +40,7 @@ test("load user info", () => {
             isSignedInSM: true,
             offerGames: [22, 2, 9, 1, 4, 8],
             isDisplayPlayerCurrency: true,
-        };
+        } as any;
 
         // act
         const { getByTestId } = render(<UserInfo user={user} />);
@@ -61,7 +61,7 @@ test("load user info", () => {
             isSignedInSM: true,
             offerGames: [22, 2, 9, 1, 4, 8],
             isDisplayPlayerCurrency: false,
-        };
+        } as any;
 
         // act
         const { getByTestId } = render(<UserInfo user={user} />);
@@ -71,7 +71,7 @@ test("load user info", () => {
     });
 });
 
-[0, 88].forEach((avatarId) => {
+[0, 173, 1000].forEach((avatarId) => {
     test("when avatarId invalid, should render default avatar", () => {
         // arrange
         const user = {
@@ -84,7 +84,7 @@ test("load user info", () => {
             isSignedInSM: true,
             offerGames: [22, 2, 9, 1, 4, 8],
             isDisplayPlayerCurrency: true,
-        };
+        } as any;
 
         // act
         const { getByTestId } = render(<UserInfo user={user} />);
@@ -110,8 +110,10 @@ test.each`
         settings: { theme: "light" },
         isSignedInSM: true,
         offerGames: [22, 2, 9, 1, 4, 8],
-    };
+    } as any;
+    // @ts-ignore
     rdd.isIOS = isIOS;
+    // @ts-ignore
     rdd.isMobileOnly = isMobile;
 
     // Act

@@ -1,17 +1,29 @@
-import UserServiceClient from "sc-user-service-client";
+import { IUserServiceClient } from "sc-user-service-client/dist";
 import { getAppSettings } from "../common/app-settings";
 import { buildUrlWithPath } from "../helpers/url-helper";
 
-export class UserClientCommunication {
-    private static readonly instance: UserServiceClient;
+let UserServiceClient;
 
-    public static getUserClientInstance() {
-        return this.instance ?? new UserServiceClient(this.getUserServiceUrl());
+if (typeof window !== "undefined") {
+    const { default: UserServiceClientModule } = require("sc-user-service-client");
+    UserServiceClient = UserServiceClientModule;
+}
+
+export class UserClientCommunication {
+    private static instance: IUserServiceClient | null = null;
+
+    public static getUserClientInstance(): IUserServiceClient | null {
+        if (!this.instance) {
+            this.instance = typeof window !== "undefined" ? new UserServiceClient(this.getUserServiceUrl()) : null;
+        }
+        return this.instance;
     }
 
     private static getUserServiceUrl(): string {
         const { proxy } = getAppSettings();
-        const path = proxy.path === "" ? "/user" : `${proxy.path}/user`;
+        const basePath = proxy.path || "";
+        const path = `${basePath}/user`;
         return buildUrlWithPath(path);
     }
 }
+export default UserClientCommunication;

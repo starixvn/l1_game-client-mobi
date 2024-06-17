@@ -9,7 +9,7 @@ window.envConfig = {
         dsn: "https://2d80f882863d4912a844f61036f9b833@scsentry.sgamesuat.com/264",
         environment: "SIT",
     },
-    offeredGames: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35, 52, 53, 14, 15, 16, 17, 18, 19, 40, 41, 36, 37],
+    offeredGames: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
     enableSourceMap: false,
     enableMsgpackParser: true,
     subGuideDomain: "l2guidessit",

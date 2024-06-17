@@ -16,12 +16,13 @@ const setup = () => {
 jest.mock("../../../common/constants", () => ({
     systemName: "l1",
     isL1System: () => {},
+    maximumAvatarId: 10,
 }));
 
 describe("Register", () => {
     test("should render correctly", async () => {
         // Act
-        render(<Register session={session} handleStateLogin={jest.fn} />);
+        render(<Register session={session as any} handleStateLogin={jest.fn} />);
 
         // Assert
         expect(document.querySelector(".page-bg")).toBeTruthy();
@@ -30,7 +31,7 @@ describe("Register", () => {
 
     test("action generate username", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.click(getByTestId("btn-generate-username"));
 
         // Assert
@@ -39,7 +40,7 @@ describe("Register", () => {
 
     test("action clear username", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.click(getByTestId("btn-clear-username"));
 
         // Assert
@@ -48,7 +49,7 @@ describe("Register", () => {
 
     test("should render component Avatar Gallery", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.change(getByTestId("input-username"));
         fireEvent.click(getByTestId("profile-picture"));
 
@@ -61,7 +62,7 @@ describe("Register", () => {
 
     test("selected one avatar gallery", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.click(getByTestId("profile-picture"));
         fireEvent.click(getByTestId("btn-submit-gallery"));
 
@@ -71,7 +72,7 @@ describe("Register", () => {
 
     test("action submit form register", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.click(getByTestId("btn-generate-username"));
         fireEvent.submit(getByTestId("btn-form-submit"));
         fireEvent.click(getByTestId("profile-picture"));
@@ -83,7 +84,7 @@ describe("Register", () => {
 
     test("allow input username on form", async () => {
         // Act
-        const { getByTestId } = render(<Register session={session} handleStateLogin={jest.fn} />);
+        const { getByTestId } = render(<Register session={session as any} handleStateLogin={jest.fn} />);
         fireEvent.change(getByTestId("input-username"), { target: { value: "test123" } });
 
         // Assert

@@ -4,38 +4,34 @@ import { useTranslation } from "next-i18next";
 import { User } from "sc-user-service-client/dist/auth";
 import { UserInfo } from "../user-info";
 import { ChipSlider } from "./chip-slider";
-import { ChipLabelMapper, ChipMapper, systemName, LanguageLocaleMapper } from "../../common/constants";
+import { LanguageLocaleMapper } from "../../common/constants";
 import Styles from "./bet-setting.module.scss";
+import { useSystemContext } from "../../contexts/system";
+import { ChipImage } from "./chip-slider/chip-image";
 
 type Props = {
     updateBetValue: (betValue: number) => void;
-    enabledQuickBet: boolean;
     updateEnabledQuickBet: (value: boolean) => void;
-    enabledSound: boolean;
     user: User;
     toggleSlidingChip: () => void;
     isShowSlidingChip: boolean;
     toggleAnnouncementModal: () => void;
-    betValue: number;
     isNewPromotion: boolean;
     isShowToolbarGuide: boolean;
 };
 
 const BetSettings: React.FC<Props> = ({
     updateBetValue,
-    enabledQuickBet,
     updateEnabledQuickBet,
-    enabledSound,
     user,
     toggleSlidingChip,
     isShowSlidingChip,
     toggleAnnouncementModal,
-    betValue,
     isNewPromotion,
     isShowToolbarGuide,
 }) => {
     const { i18n } = useTranslation();
-
+    const { chipSettings, betValue } = useSystemContext();
     return useMemo(() => {
         let deviceClass = "";
         if (isMobileOnly) {
@@ -78,13 +74,7 @@ const BetSettings: React.FC<Props> = ({
                                 </>
                             )}
                             <div className={Styles["chips-container"]}>
-                                <ChipSlider
-                                    updateBetValue={updateBetValue}
-                                    enabledSound={enabledSound}
-                                    enabledQuickBet={enabledQuickBet}
-                                    toggleSlidingChip={toggleSlidingChip}
-                                    betValue={betValue}
-                                />
+                                <ChipSlider updateBetValue={updateBetValue} />
                             </div>
                         </div>
                     </div>
@@ -95,23 +85,19 @@ const BetSettings: React.FC<Props> = ({
                         <div className={Styles["user-info"]}>
                             <UserInfo user={user} customizeClass={"footer"} />
                         </div>
-                        <div
-                            className={`${Styles["chip-container"]} ${Styles[ChipMapper[systemName][betValue]]}`}
-                            onClick={toggleSlidingChip}
-                        >
+                        <div className={`${Styles["chip-container"]} `} onClick={toggleSlidingChip}>
                             <div
                                 className={`${Styles["chip-toggle"]} ${
                                     isShowSlidingChip ? Styles["open-animation"] : Styles["close-animation"]
                                 }`}
                             >
                                 <img className={Styles["chip-default"]} src={`/static/images/chips/chip-close.svg`} alt="Chip" />
-                                <img
+                                <ChipImage
                                     className={Styles["chip-selected"]}
-                                    src={`/static/images/chips/${systemName}/${ChipMapper[systemName][betValue]}.svg`}
-                                    alt="Chip"
+                                    color={chipSettings?.chipColors?.find((c) => c.value === betValue)?.color}
                                 />
                             </div>
-                            <span className={Styles["value"]}>{ChipLabelMapper[systemName][betValue]}</span>
+                            <span className={Styles["value"]}>{chipSettings?.chipColors?.find((c) => c.value === betValue)?.text}</span>
                         </div>
                         {isNewPromotion && (
                             <div className={Styles["promotion"]} onClick={() => toggleAnnouncementModal()}>
@@ -141,17 +127,7 @@ const BetSettings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [
-        user?.red,
-        updateBetValue,
-        enabledQuickBet,
-        updateEnabledQuickBet,
-        enabledSound,
-        isShowSlidingChip,
-        betValue,
-        isNewPromotion,
-        isShowToolbarGuide,
-    ]);
+    }, [user?.red, updateBetValue, updateEnabledQuickBet, isShowSlidingChip, isNewPromotion, isShowToolbarGuide, betValue, chipSettings]);
 };
 
 export default BetSettings;

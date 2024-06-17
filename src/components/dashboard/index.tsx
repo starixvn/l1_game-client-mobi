@@ -11,7 +11,7 @@ import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
 import { authorize, getSettingGames, reCheckIn } from "../../services/auth-service";
-import { updateSignInSMStatus, updateThemeSetting } from "../../services/user-setting-service";
+import { updateSignInSMStatus, getChipSettings } from "../../services/user-setting-service";
 import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
@@ -24,10 +24,11 @@ import Register from "./register";
 import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
-import { isL1System, Themes } from "../../common/constants";
+import { Themes } from "../../common/constants";
 import { AnnouncementModal } from "./announcement";
 import { ToolbarGuide } from "../hide-toolbar-guide";
 import { buildUrl } from "../../helpers/url-helper";
+import { SystemContextProvider } from "../../contexts/system";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -54,7 +55,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isShowGuide: false,
             isShowAnnouncement: false,
             enabledQuickBet: true,
-            betValue: isL1System() ? 1 : 10,
+            betValue: 0,
             isBlockUI: false,
             isShowSlidingChip: isMobileOnly ? false : true,
             isShowBoostedOdds: false,
@@ -66,6 +67,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             settingGames: [],
             openGameId: null,
             isShowToolbarGuide: getLocalStorageItem(localStorageKeys.toolbarGuide) ?? true,
+            chipSettings: {},
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -79,10 +81,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.handleReload = this.handleReload.bind(this);
         this.updateAuthorizeInfo = this.updateAuthorizeInfo.bind(this);
+        this.updateChipsSettings = this.updateChipsSettings.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
         this.toggleHistoryModal = this.toggleHistoryModal.bind(this);
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
+        this.setFavorite = this.setFavorite.bind(this);
         this.updateFavoriteGames = this.updateFavoriteGames.bind(this);
         this.setEnabledQuickBet = this.setEnabledQuickBet.bind(this);
         this.setBetValue = this.setBetValue.bind(this);
@@ -105,9 +109,26 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
 
+    getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
+        const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
+        const newFavoriteList = [...favorites];
+        const gameIndex = newFavoriteList.indexOf(gameId);
+
+        gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
+
+        isFavorite && newFavoriteList.push(gameId);
+
+        return newFavoriteList;
+    };
+
+    setFavorite(gameId: number, isFavorite: boolean) {
+        const newFavoriteList = this.getUpdatedFavoriteList(gameId, isFavorite);
+        this.updateFavoriteGames(newFavoriteList);
+    }
+
     updateFavoriteGames(favoriteGames: number[]) {
         this.setState({
-            favoriteGames: favoriteGames,
+            favoriteGames,
         });
         storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
     }
@@ -171,6 +192,11 @@ class Dashboard extends React.PureComponent<Props, State> {
         }, 200);
     }
 
+    async updateChipsSettings() {
+        const setting = await getChipSettings(this.props.session, getAppSettings().offeredGames);
+        this.setState({ chipSettings: setting });
+    }
+
     async componentDidMount() {
         const { session, i18n } = this.props;
         const authorizeResponse = await authorize(session);
@@ -185,6 +211,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const authorizeInfo = authorizeResponse as AuthorizeResponse;
 
         this.updateAuthorizeInfo(authorizeInfo);
+        this.updateChipsSettings();
 
         this.updateUserBalance(authorizeInfo?.user?.red);
 
@@ -316,7 +343,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         const authorizeInfo = { ...this.state.authorizeInfo };
         if (authorizeInfo && authorizeInfo.authorized) {
             updateSignInSMStatus(session);
-            updateThemeSetting(session);
+            this.updateChipsSettings();
 
             authorizeInfo.user.settings = { theme: Themes.light };
             authorizeInfo.user.isSignedInSM = true;
@@ -334,7 +361,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         updateSignInSMStatus(session);
         authorizeInfo.user.isSignedInSM = true;
-        updateThemeSetting(session);
+        this.updateChipsSettings();
 
         this.updateAuthorizeInfo(authorizeInfo);
     }
@@ -432,6 +459,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             settingGames,
             openGameId,
             isShowToolbarGuide,
+            chipSettings,
         } = this.state;
         const authContextValue = {
             session: this.props.session,
@@ -441,104 +469,110 @@ class Dashboard extends React.PureComponent<Props, State> {
         const offerGames: number[] = authorizeInfo?.user?.offerGames?.map((game: any) => game?.gameId) ?? [];
         return (
             <AuthContextProvider value={authContextValue}>
-                <div className={Styles["dashboard"]}>
-                    <Header
-                        user={authorizeInfo.user}
-                        enabledNotification={enabledWinningStreakNotification}
-                        enabledSound={enabledPlaySound}
-                        onToggleNotification={this.winningStreakNotificationToggle}
-                        onToggleSound={this.playSoundToggle}
-                        toggleHistoryModal={this.toggleHistoryModal}
-                        toggleGuideModal={this.toggleGuideModal}
-                        toggleAnnouncementModal={this.toggleAnnouncementModal}
-                        favoriteGames={favoriteGames}
-                        offerGames={offerGames}
-                        updateFavoriteGames={this.updateFavoriteGames}
-                        enabledQuickBet={enabledQuickBet}
-                        updateEnabledQuickBet={this.setEnabledQuickBet}
-                        isShowBoostedOdds={isShowBoostedOdds}
-                        promotionNotifications={promotionNotifications}
-                        isShowToolbarGuide={isShowToolbarGuide}
-                    />
-                    <Games
-                        enabledQuickBet={enabledQuickBet}
-                        betValue={betValue}
-                        enabledWinningStreakNotification={enabledWinningStreakNotification}
-                        enabledPlaySound={enabledPlaySound}
-                        setApiErrorMessage={this.handleShowApiErrorMessage}
-                        userStakeLevel={userStakeLevel}
-                        updateUserStakeLevel={this.handleUpdateUserStakeLevel}
-                        updateFavoriteGames={this.updateFavoriteGames}
-                        favoriteGames={favoriteGames}
-                        userOfferGames={offerGames}
-                        queryGame={queryGame}
-                        isShowSlidingChip={isShowSlidingChip}
-                        updateQueryGames={this.updateQueryGame}
-                        isJoinGame={isJoinGame}
-                        openGameId={openGameId}
-                        fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
-                    />
-                    <BetSettings
-                        enabledQuickBet={enabledQuickBet}
-                        updateEnabledQuickBet={this.setEnabledQuickBet}
-                        updateBetValue={this.setBetValue}
-                        enabledSound={enabledPlaySound}
-                        user={authorizeInfo.user}
-                        toggleSlidingChip={this.toggleSlidingChip}
-                        isShowSlidingChip={isShowSlidingChip}
-                        toggleAnnouncementModal={this.toggleAnnouncementModal}
-                        betValue={betValue}
-                        isNewPromotion={isNewPromotion}
-                        isShowToolbarGuide={isShowToolbarGuide}
-                    />
-                    {isShowHistory && (
-                        <HistoryModal
-                            onCloseModal={this.toggleHistoryModal}
+                <SystemContextProvider
+                    value={{
+                        setFavorite: this.setFavorite,
+                        favoriteGames,
+                        enabledPlaySound,
+                        userStakeLevel,
+                        enabledQuickBet,
+                        betValue,
+                        fractionalOddsFormat: authorizeInfo.user?.fractionalOddsFormat,
+                        chipSettings,
+                    }}
+                >
+                    <div className={Styles["dashboard"]}>
+                        <Header
+                            user={authorizeInfo.user}
+                            enabledNotification={enabledWinningStreakNotification}
+                            enabledSound={enabledPlaySound}
+                            onToggleNotification={this.winningStreakNotificationToggle}
+                            onToggleSound={this.playSoundToggle}
+                            toggleHistoryModal={this.toggleHistoryModal}
+                            toggleGuideModal={this.toggleGuideModal}
+                            toggleAnnouncementModal={this.toggleAnnouncementModal}
+                            favoriteGames={favoriteGames}
                             offerGames={offerGames}
-                            fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
-                        />
-                    )}
-                    {isShowAnnouncement && (
-                        <AnnouncementModal
-                            onCloseModal={this.toggleAnnouncementModal}
+                            updateFavoriteGames={this.updateFavoriteGames}
+                            enabledQuickBet={enabledQuickBet}
+                            updateEnabledQuickBet={this.setEnabledQuickBet}
+                            isShowBoostedOdds={isShowBoostedOdds}
                             promotionNotifications={promotionNotifications}
-                            openGame={this.openGame}
+                            isShowToolbarGuide={isShowToolbarGuide}
                         />
-                    )}
-                    {isShowGuide && (
-                        <GameGuideModal
+                        <Games
+                            enabledWinningStreakNotification={enabledWinningStreakNotification}
+                            enabledPlaySound={enabledPlaySound}
+                            setApiErrorMessage={this.handleShowApiErrorMessage}
                             userStakeLevel={userStakeLevel}
-                            onCloseModal={this.toggleGuideModal}
-                            offerGames={offerGames}
-                            promotions={promotions}
-                            settingGames={settingGames}
-                            fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                            updateUserStakeLevel={this.handleUpdateUserStakeLevel}
+                            favoriteGames={favoriteGames}
+                            userOfferGames={offerGames}
+                            queryGame={queryGame}
+                            isShowSlidingChip={isShowSlidingChip}
+                            updateQueryGames={this.updateQueryGame}
+                            isJoinGame={isJoinGame}
+                            openGameId={openGameId}
                         />
-                    )}
-                    {isShowErrorModal && (
-                        <div className={Styles["container-modal"]}>
-                            <div className={`${Styles["bg-opacity"]} ${isBlockUI ? Styles["block-ui-backdrop"] : ""}`}></div>
-                            <BaseDialog
-                                type={ModalType.Center}
-                                isOpen={isShowErrorModal}
-                                onCloseModal={this.closeDialog}
-                                isBlockUI={isBlockUI}
-                            >
-                                <div className={`modal-center ${isBlockUI ? Styles["block-ui-message"] : ""}`}>
-                                    <div className={`icon-warning modal-icon-warning`}></div>
-                                    {!isBlockUI && <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>}
+                        <BetSettings
+                            updateEnabledQuickBet={this.setEnabledQuickBet}
+                            updateBetValue={this.setBetValue}
+                            user={authorizeInfo.user}
+                            toggleSlidingChip={this.toggleSlidingChip}
+                            isShowSlidingChip={isShowSlidingChip}
+                            toggleAnnouncementModal={this.toggleAnnouncementModal}
+                            isNewPromotion={isNewPromotion}
+                            isShowToolbarGuide={isShowToolbarGuide}
+                        />
+                        {isShowHistory && (
+                            <HistoryModal
+                                onCloseModal={this.toggleHistoryModal}
+                                offerGames={offerGames}
+                                fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                            />
+                        )}
+                        {isShowAnnouncement && (
+                            <AnnouncementModal
+                                onCloseModal={this.toggleAnnouncementModal}
+                                promotionNotifications={promotionNotifications}
+                                openGame={this.openGame}
+                            />
+                        )}
+                        {isShowGuide && (
+                            <GameGuideModal
+                                userStakeLevel={userStakeLevel}
+                                onCloseModal={this.toggleGuideModal}
+                                offerGames={offerGames}
+                                promotions={promotions}
+                                settingGames={settingGames}
+                                fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                            />
+                        )}
+                        {isShowErrorModal && (
+                            <div className={Styles["container-modal"]}>
+                                <div className={`${Styles["bg-opacity"]} ${isBlockUI ? Styles["block-ui-backdrop"] : ""}`}></div>
+                                <BaseDialog
+                                    type={ModalType.Center}
+                                    isOpen={isShowErrorModal}
+                                    onCloseModal={this.closeDialog}
+                                    isBlockUI={isBlockUI}
+                                >
+                                    <div className={`modal-center ${isBlockUI ? Styles["block-ui-message"] : ""}`}>
+                                        <div className={`icon-warning modal-icon-warning`}></div>
+                                        {!isBlockUI && <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>}
 
-                                    <Trans t={this.props.t}>
-                                        {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}
-                                    </Trans>
-                                </div>
-                            </BaseDialog>
-                        </div>
-                    )}
-                    {isMobileOnly && isSafari && (
-                        <ToolbarGuide isShowToolbarGuide={isShowToolbarGuide} onCloseGuide={this.closeToolbarGuide}></ToolbarGuide>
-                    )}
-                </div>
+                                        <Trans t={this.props.t}>
+                                            {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}
+                                        </Trans>
+                                    </div>
+                                </BaseDialog>
+                            </div>
+                        )}
+                        {isMobileOnly && isSafari && (
+                            <ToolbarGuide isShowToolbarGuide={isShowToolbarGuide} onCloseGuide={this.closeToolbarGuide}></ToolbarGuide>
+                        )}
+                    </div>
+                </SystemContextProvider>
             </AuthContextProvider>
         );
     }

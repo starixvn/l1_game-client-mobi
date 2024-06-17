@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { buildVersion, ChipMapper, systemName } from "../../../common/constants";
+import { buildVersion } from "../../../common/constants";
 import { useSystemContext } from "../../../contexts/system";
 import { GameState } from "../game-base/type";
 import OverlayMaskWhite from "../overlay-mask-white";
@@ -8,17 +8,21 @@ import Styles from "./bet-container.module.scss";
 
 const BetContainer: React.FC<Props> = (props) => {
     const systemContext = useSystemContext();
-    const { betValue } = systemContext;
+    const { betValue, chipSettings } = systemContext;
     const [customStyle, setCustomStyle] = useState<object>();
     const [cursorImage, setCursorImage] = useState<string>("");
 
     useEffect(() => {
-        setCursorImage(`"/static/images/small-chips/${systemName}/small_${ChipMapper[systemName][betValue]}.png?v=${buildVersion}"`);
-    }, [betValue]);
+        setCursorImage(
+            `"/static/images/chips/cursor/chip-${chipSettings?.chipColors
+                ?.find((c) => c.value === betValue)
+                ?.color.replace("#", "")}.png?v=${buildVersion}"`
+        );
+    }, [betValue, chipSettings]);
 
     useEffect(() => {
         if (props.gameState === GameState.InRound) {
-            setCustomStyle({ cursor: `url(${cursorImage}), auto` });
+            setCustomStyle({ cursor: `url(${cursorImage}), url(/static/images/chips/cursor/chip-default.png), auto` });
         } else {
             setCustomStyle({ cursor: "not-allowed" });
         }

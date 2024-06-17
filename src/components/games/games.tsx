@@ -6,7 +6,6 @@ import useSound from "use-sound";
 import MsgpackParser from "socket.io-msgpack-parser";
 import { getAppSettings } from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
-import { SystemContextProvider } from "../../contexts/system";
 import { SocketState } from "../../types";
 import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
@@ -40,7 +39,9 @@ const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number
             ? GameCategoryConfig[getAppSettings().appType][GameCategoryType[selectedCategory]]
             : favoriteGames;
     const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && getAppSettings().offeredGames.includes(gameId));
-    const tabUnfavoriteGames = getAppSettings().offeredGames.filter((gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId));
+    const tabUnfavoriteGames = getAppSettings().offeredGames.filter(
+        (gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId)
+    );
 
     gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
     const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;
@@ -52,7 +53,8 @@ const getCategoryByGameId = (gameId: number) => {
     return (
         GameCategoryKeys.find(
             (category) =>
-                GameCategoryConfig[getAppSettings().appType][category] && GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
+                GameCategoryConfig[getAppSettings().appType][category] &&
+                GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
         ) ?? getDefaultCategory()
     );
 };
@@ -99,14 +101,11 @@ const unsubscribeGlobalMessageEvent = (listenerId: string) => {
 };
 
 export const Games: React.FC<Props> = ({
-    enabledQuickBet,
-    betValue,
     enabledWinningStreakNotification,
     enabledPlaySound,
     setApiErrorMessage,
     userStakeLevel,
     updateUserStakeLevel,
-    updateFavoriteGames,
     favoriteGames,
     queryGame,
     userOfferGames,
@@ -114,7 +113,6 @@ export const Games: React.FC<Props> = ({
     isJoinGame,
     updateQueryGames,
     openGameId,
-    fractionalOddsFormat,
 }) => {
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
@@ -127,12 +125,6 @@ export const Games: React.FC<Props> = ({
     const socketGatewayRef = useRef<Socket>(null);
     const [socketState, setSocketState] = useState<SocketState>(SocketState.None);
     const [isJoinedGame, setIsJoinedGame] = useState(false);
-
-    const setFavorite = (gameId: number, isFavorite: boolean) => {
-        const newFavoriteList = getUpdatedFavoriteList(gameId, isFavorite);
-
-        updateFavoriteGames(newFavoriteList);
-    };
 
     const renderListGames = () => {
         const renderGames = getRenderGames(
@@ -278,29 +270,16 @@ export const Games: React.FC<Props> = ({
                 isShowSlidingChip ? styles["open-chips"] : styles["close-chips"]
             }`}
         >
-            <SystemContextProvider
-                value={{
-                    setFavorite,
-                    favoriteGames,
-                    enabledPlaySound,
-                    gamesOrder,
-                    userStakeLevel,
-                    enabledQuickBet,
-                    betValue,
-                    fractionalOddsFormat,
-                }}
-            >
-                {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-                <GameCategory
-                    favoriteGames={favoriteGames}
-                    selectedPage={selectedPage}
-                    selectCategoryPage={selectCategoryPage}
-                    selectedCategory={selectedCategory}
-                />
-                <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                    {renderListGames()}
-                </div>
-            </SystemContextProvider>
+            {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
+            <GameCategory
+                favoriteGames={favoriteGames}
+                selectedPage={selectedPage}
+                selectCategoryPage={selectCategoryPage}
+                selectedCategory={selectedCategory}
+            />
+            <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
+                {renderListGames()}
+            </div>
         </div>
     );
 };
