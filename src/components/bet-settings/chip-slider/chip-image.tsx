@@ -13,7 +13,7 @@ export const ChipImage: React.FC<{ color: string; className: string; width?: str
 
     return (
         <img
-            src={`/static/images/chips/chip-${color?.replace("#", "")}.svg?v=${buildVersion}`}
+            src={`/static/images/chips/chip-${color?.replace("#", "").toLowerCase()}.svg?v=${buildVersion}`}
             className={className}
             width={width}
             height={height}

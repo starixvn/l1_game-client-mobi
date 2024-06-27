@@ -16,7 +16,8 @@ const BetContainer: React.FC<Props> = (props) => {
         setCursorImage(
             `"/static/images/chips/cursor/chip-${chipSettings?.chipColors
                 ?.find((c) => c.value === betValue)
-                ?.color.replace("#", "")}.png?v=${buildVersion}"`
+                ?.color.replace("#", "")
+                .toLowerCase()}.png?v=${buildVersion}"`
         );
     }, [betValue, chipSettings]);
 
