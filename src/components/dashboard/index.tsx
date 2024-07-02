@@ -463,6 +463,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         } = this.state;
         const authContextValue = {
             session: this.props.session,
+            currencyGroup: authorizeInfo.user.currencyGroup,
             setBalance: this.updateUserBalance,
             signOut: this.signOut,
         };

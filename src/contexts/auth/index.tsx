@@ -3,8 +3,9 @@ import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 type AuthContextModel = {
     session: SSOResponse;
+    currencyGroup: string;
     setBalance: (balance: number) => void;
-    signOut: () => void
+    signOut: () => void;
 };
 
 export const AuthContext = React.createContext<AuthContextModel>(null);

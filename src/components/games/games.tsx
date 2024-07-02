@@ -5,11 +5,10 @@ import { io, Socket } from "socket.io-client";
 import useSound from "use-sound";
 import MsgpackParser from "socket.io-msgpack-parser";
 import { getAppSettings } from "../../common/app-settings";
-import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 import { SocketState } from "../../types";
 import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage, favoriteGameIdIgnore } from "../game-category/constants";
+import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig, favoriteGameIdIgnore } from "../game-category/constants";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -31,63 +30,48 @@ import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
 import { AppTypes } from "../../common/constants";
 import { buildSocketGatewayUrl } from "../../helpers/url-helper";
+import { useAuthContext } from "../../contexts/auth";
 
 let gamesOrder = [];
-const getRenderGames = (selectedCategory: GameCategoryType, selectedPage: number, favoriteGames: number[], userOfferGames: number[]) => {
-    const tabGames =
-        selectedCategory !== GameCategoryType.favorite
-            ? GameCategoryConfig[getAppSettings().appType][GameCategoryType[selectedCategory]]
-            : favoriteGames;
-    const tabFavoriteGames = favoriteGames.filter((gameId) => tabGames.includes(gameId) && getAppSettings().offeredGames.includes(gameId));
-    const tabUnfavoriteGames = getAppSettings().offeredGames.filter(
-        (gameId) => !favoriteGames.includes(gameId) && tabGames.includes(gameId)
+const getRenderGames = (
+    currencyGroup: string,
+    selectedCategory: GameCategoryType,
+    selectedPage: number,
+    favoriteGames: number[],
+    userOfferGames: number[]
+) => {
+    const gameCategoryConfig = GetGameCategoryConfig(currencyGroup);
+    const gamesInCategory =
+        selectedCategory !== GameCategoryType.favorite ? gameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
+    const favoriteGamesInCategory = favoriteGames.filter(
+        (gameId) => gamesInCategory.includes(gameId) && getAppSettings().offeredGames.includes(gameId)
+    );
+    const unfavoriteGamesInCategory = gamesInCategory.filter(
+        (gameId) => !favoriteGames.includes(gameId) && getAppSettings().offeredGames.includes(gameId)
     );
 
-    gamesOrder = tabFavoriteGames.concat(tabUnfavoriteGames);
+    gamesOrder = favoriteGamesInCategory.concat(unfavoriteGamesInCategory);
     const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;
 
     return gamesOrder.filter((game) => userOfferGames.includes(game)).slice(startIndex, startIndex + GamesInOnePage);
 };
 
-const getCategoryByGameId = (gameId: number) => {
-    return (
-        GameCategoryKeys.find(
-            (category) =>
-                GameCategoryConfig[getAppSettings().appType][category] &&
-                GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
-        ) ?? getDefaultCategory()
-    );
+const getCategoryByGameId = (gameId: number, currencyGroup: string) => {
+    const categories = GetGameCategoryConfig(currencyGroup);
+    return Object.keys(categories).find((category) => categories[category].includes(gameId)) ?? getDefaultCategory();
 };
 
 const getDefaultCategory = () => {
     return getAppSettings().appType === AppTypes.mobile ? "hot" : "megakeno";
 };
 
-const getCategoryByQueryGameId = (gameId: number) => {
-    return (
-        GameCategoryKeys.find(
-            (category) =>
-                category !== "hot" &&
-                GameCategoryConfig[getAppSettings().appType][category] &&
-                GameCategoryConfig[getAppSettings().appType][category].includes(gameId)
-        ) ?? getDefaultCategory()
-    );
+const getCategoryByQueryGameId = (gameId: number, currencyGroup: string) => {
+    const categories = GetGameCategoryConfig(currencyGroup);
+    return Object.keys(categories).find((category) => category !== "hot" && categories[category].includes(gameId)) ?? getDefaultCategory();
 };
 
 const getCategoryHashTag = (category: string, pageIndex: number) => {
     return pageIndex > 1 ? `${category}_${pageIndex - 1}` : category;
-};
-
-const getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
-    const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
-    const newFavoriteList = [...favorites];
-    const gameIndex = newFavoriteList.indexOf(gameId);
-
-    gameIndex >= 0 && newFavoriteList.splice(gameIndex, 1);
-
-    isFavorite && newFavoriteList.push(gameId);
-
-    return newFavoriteList;
 };
 
 const GlobalMessageTransmitter = messageTransmitter();
@@ -114,9 +98,12 @@ export const Games: React.FC<Props> = ({
     updateQueryGames,
     openGameId,
 }) => {
+    const { currencyGroup } = useAuthContext();
     const [playPlaceBetSound] = useSound("./static/sounds/place-bet.mp3");
     const urlHashtag = window.location.hash.replace("#", "").split("_");
-    const queryCategory = isJoinGame ? getCategoryByQueryGameId(queryGame) : urlHashtag[0] || getCategoryByGameId(queryGame);
+    const queryCategory = isJoinGame
+        ? getCategoryByQueryGameId(queryGame, currencyGroup)
+        : urlHashtag[0] || getCategoryByGameId(queryGame, currencyGroup);
     const [selectedCategory, setSelectedCategory] = useState<GameCategoryType>(GameCategoryType[queryCategory]);
     const [selectedPage, setSelectedPage] = useState(+urlHashtag[1] + 1 || 1);
     const winningStreakRef = useRef(null);
@@ -128,6 +115,7 @@ export const Games: React.FC<Props> = ({
 
     const renderListGames = () => {
         const renderGames = getRenderGames(
+            currencyGroup,
             selectedCategory,
             selectedPage,
             favoriteGames.filter((game) => !favoriteGameIdIgnore.includes(game)),

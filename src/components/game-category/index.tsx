@@ -4,9 +4,10 @@ import { isMobileOnly } from "react-device-detect";
 
 import { getAppSettings } from "../../common/app-settings";
 
-import { GameCategoryConfig, GameCategoryKeys, GameCategoryType, GamesInOnePage } from "./constants";
+import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig } from "./constants";
 import styles from "./game-category.module.scss";
 import { AppTypes } from "../../common/constants";
+import { useAuthContext } from "../../contexts/auth";
 
 const renderPagingCategory = (
     category: string,
@@ -42,9 +43,10 @@ export const GameCategory: React.FC<{
 }> = ({ selectedCategory, selectCategoryPage, favoriteGames, selectedPage }) => {
     const { t } = useTranslation();
     const wrapperRef = useRef<HTMLDivElement>(null);
-
-    const categoryPage = GameCategoryKeys.reduce((result, category) => {
-        const categoryLength = category !== "favorite" ? GameCategoryConfig[getAppSettings().appType][category].length : favoriteGames.length;
+    const { currencyGroup } = useAuthContext();
+    const gameCategoryConfigs = GetGameCategoryConfig(currencyGroup);
+    const categoryPage = Object.keys(gameCategoryConfigs).reduce((result, category) => {
+        const categoryLength = category !== "favorite" ? gameCategoryConfigs[category].length : favoriteGames.length;
 
         result[category] = Math.ceil(categoryLength / GamesInOnePage);
 
@@ -55,14 +57,15 @@ export const GameCategory: React.FC<{
 
     useEffect(() => {
         if (wrapperRef?.current) {
-            wrapperRef.current.scrollLeft = GameCategoryKeys.findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;
+            wrapperRef.current.scrollLeft =
+                Object.keys(gameCategoryConfigs).findIndex((cat) => cat === GameCategoryType[selectedCategory]) * 100 - 100;
         }
     }, [wrapperRef?.current, selectedCategory]);
 
     return (
         <div ref={wrapperRef} className={`${styles["category-container"]} ${isMobileOnly ? styles["mobile"] : ""}`}>
             <ul className={`${styles["category-list"]} ${styles[appTypeClass]}`}>
-                {GameCategoryKeys.map((categoryKey) => (
+                {Object.keys(gameCategoryConfigs).map((categoryKey) => (
                     <li
                         className={`${styles["category-item"]} 
                             ${selectedCategory === GameCategoryType[categoryKey] ? styles["selected"] : ""}
