@@ -162,7 +162,11 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     checkOfferedGame(authorizeInfo) {
-        if (authorizeInfo?.user?.offerGames && authorizeInfo?.user?.offerGames.length === 0) {
+        const offeredGames = getAppSettings().offeredGames;
+        if (
+            authorizeInfo?.user?.offerGames &&
+            authorizeInfo.user.offerGames.filter((game) => offeredGames.includes(game.gameId)).length === 0
+        ) {
             this.setState({
                 apiError: {
                     message: "messages:noGameOffer",
