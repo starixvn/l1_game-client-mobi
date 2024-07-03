@@ -46,7 +46,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
-            favoriteGames: getLocalStorageItem(localStorageKeys.favoriteGames) ?? [],
+            favoriteGames: [],
             userStakeLevel: { minBet: 0, maxBet: 0 },
             authorizeInfo: null,
             isShowErrorModal: false,
@@ -100,6 +100,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.updateQueryGame = this.updateQueryGame.bind(this);
         this.openGame = this.openGame.bind(this);
         this.closeToolbarGuide = this.closeToolbarGuide.bind(this);
+        this.getFavoriteGames = this.getFavoriteGames.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -110,7 +111,8 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     getUpdatedFavoriteList = (gameId: number, isFavorite: boolean) => {
-        const favorites = getLocalStorageItem<number[]>(localStorageKeys.favoriteGames) ?? [];
+        const { authorizeInfo } = this.state;
+        const favorites = getLocalStorageItem<number[]>(`${localStorageKeys.favoriteGames}-${authorizeInfo?.user?.UID}`) ?? [];
         const newFavoriteList = [...favorites];
         const gameIndex = newFavoriteList.indexOf(gameId);
 
@@ -130,7 +132,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({
             favoriteGames,
         });
-        storeLocalStorageItem(localStorageKeys.favoriteGames, favoriteGames);
+        const { authorizeInfo } = this.state;
+        storeLocalStorageItem(`${localStorageKeys.favoriteGames}-${authorizeInfo?.user?.UID}`, favoriteGames);
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
@@ -201,6 +204,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.setState({ chipSettings: setting });
     }
 
+    getFavoriteGames() {
+        const { authorizeInfo } = this.state;
+        const favoriteGames = getLocalStorageItem<number[]>(`${localStorageKeys.favoriteGames}-${authorizeInfo?.user?.UID}`) ?? [];
+        this.setState({ favoriteGames });
+    }
+
     async componentDidMount() {
         const { session, i18n } = this.props;
         const authorizeResponse = await authorize(session);
@@ -216,7 +225,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         this.updateAuthorizeInfo(authorizeInfo);
         this.updateChipsSettings();
-
+        this.getFavoriteGames();
         this.updateUserBalance(authorizeInfo?.user?.red);
 
         this.reCheckInInterval = setInterval(async () => {
