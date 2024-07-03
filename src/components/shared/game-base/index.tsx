@@ -170,7 +170,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
             path: `${proxy.path}/${socketInfo.path}/socket.io`,
             parser: enableMsgpackParser ? MsgpackParser : undefined,
         });
-        
+
         socket.on("connect", () => {
             this.clearDisconnectTimeout();
             document.visibilityState !== "hidden" && socket.emit("signin", session);
@@ -260,6 +260,10 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     }
 
     handleUserStakeLevel({ userStakeLevel }) {
+        const oldUserStakeLevel = this.props.userStakeLevel;
+        if (oldUserStakeLevel?.minBet === userStakeLevel?.minBet && oldUserStakeLevel?.maxBet === userStakeLevel?.maxBet) {
+            return;
+        }
         this.props.updateUserStakeLevel(userStakeLevel);
 
         this.setState({ notice: { message: this.props.t(`common:${CommonResourceKeys.USER_STAKE_LEVEL_UPDATE}`), duration: 2 } });
