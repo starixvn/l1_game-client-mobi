@@ -94,4 +94,10 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
     return OtherCurrencyGroupCategoryConfig;
 };
 
+export const GetOfferedGamesByCurrency = (currencyGroupName: string, offerGames: number[]) => {
+    return Object.values(GetGameCategoryConfig(currencyGroupName))
+        .flatMap((e) => e)
+        .filter((gameId, index, array) => array.indexOf(gameId) === index && offerGames.includes(gameId));
+};
+
 export const favoriteGameIdIgnore = [GameIds.KenoPower1, GameIds.KenoPower2, GameIds.KenoSoccer, GameIds.KenoSoccer2];
