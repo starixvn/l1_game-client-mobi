@@ -42,13 +42,15 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     constructor(props: Props) {
         super(props);
-
         this.state = {
             orientation: "",
             enabledWinningStreakNotification: getLocalStorageItem(localStorageKeys.winningStreakNotification) ?? true,
             enabledPlaySound: getLocalStorageItem(localStorageKeys.playSound) ?? false,
             favoriteGames: [],
-            userStakeLevel: { minBet: 0, maxBet: 0 },
+            userStakeLevel: {
+                minBet: getLocalStorageItem<UserStakeLevel>(localStorageKeys.userStakeLevel)?.minBet || 0,
+                maxBet: getLocalStorageItem<UserStakeLevel>(localStorageKeys.userStakeLevel)?.maxBet || 0,
+            },
             authorizeInfo: null,
             isShowErrorModal: false,
             apiError: null,
@@ -382,6 +384,7 @@ class Dashboard extends React.PureComponent<Props, State> {
 
     handleUpdateUserStakeLevel(userStakeLevel: UserStakeLevel) {
         this.setState({ userStakeLevel: userStakeLevel });
+        storeLocalStorageItem(localStorageKeys.userStakeLevel, userStakeLevel);
     }
 
     handleRegister(authorizeInfo: AuthorizeResponse) {

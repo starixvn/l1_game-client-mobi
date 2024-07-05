@@ -42,7 +42,6 @@ export const ChipSlider: React.FC<{
             isSwipe = false;
             sliderRef.slickGoTo(chipIndex - 1);
         }
-
         handleSelectChip(chipValue);
     };
 
@@ -105,7 +104,7 @@ export const ChipSlider: React.FC<{
     useEffect(() => {
         const chip = chipValues.find((chip) => chip === selectedChip) || chipValues?.[0];
         chip > 0 && onClickChip(chip);
-        chipValues && updateArrowsByChipValue(selectedChip);
+        chipValues.length > 0 && updateArrowsByChipValue(selectedChip);
     }, [chipValues]);
 
     useEffect(() => {
@@ -162,32 +161,38 @@ export const ChipSlider: React.FC<{
     };
 
     return (
-        <React.Fragment>
-            <span
-                className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
-                onClick={onClickPrev}
-            ></span>
-            <Slider
-                ref={(c) => {
-                    sliderRef = c;
-                }}
-                {...SliderSetting}
-            >
-                {chipValues.map((value) => (
-                    <Chip
-                        key={value}
-                        value={value}
-                        text={getChipSetting(value)?.text}
-                        color={getChipSetting(value)?.color}
-                        selectedChip={selectedChip}
-                        onClickChip={onClickChip}
-                    />
-                ))}
-            </Slider>
-            <span
-                className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${enabledQuickBet ? Styles["quick-bet"] : ""}`}
-                onClick={onClickNext}
-            ></span>
-        </React.Fragment>
+        chipValues.length > 0 && (
+            <React.Fragment>
+                <span
+                    className={`${Styles["icon-prev"]} ${!enabledPrevBtn && Styles["disabled"]} ${
+                        enabledQuickBet ? Styles["quick-bet"] : ""
+                    }`}
+                    onClick={onClickPrev}
+                ></span>
+                <Slider
+                    ref={(c) => {
+                        sliderRef = c;
+                    }}
+                    {...SliderSetting}
+                >
+                    {chipValues.map((value) => (
+                        <Chip
+                            key={value}
+                            value={value}
+                            text={getChipSetting(value)?.text}
+                            color={getChipSetting(value)?.color}
+                            selectedChip={selectedChip}
+                            onClickChip={onClickChip}
+                        />
+                    ))}
+                </Slider>
+                <span
+                    className={`${Styles["icon-next"]} ${!enabledNextBtn && Styles["disabled"]} ${
+                        enabledQuickBet ? Styles["quick-bet"] : ""
+                    }`}
+                    onClick={onClickNext}
+                ></span>
+            </React.Fragment>
+        )
     );
 };

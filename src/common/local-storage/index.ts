@@ -10,6 +10,7 @@ export const localStorageKeys = {
     playSound: buildLocalStorageKey("play-sound"),
     buildVersion: buildLocalStorageKey("build-version"),
     toolbarGuide: buildLocalStorageKey("toolbarGuide"),
+    userStakeLevel: buildLocalStorageKey("user-stake-level"),
 };
 
 export function removeLocalStorageItem(key: string) {

@@ -8,6 +8,7 @@ import Head from "next/head";
 
 import { buildVersion, systemName, Themes } from "../common/constants";
 import { getAppSettings } from "../common/app-settings";
+import { useEffect, useState } from "react";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -27,9 +28,11 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 }
 
 export const AppTilte = () => {
-    const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
-    const title = getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`);
-
+    const [title, setTitle] = useState("");
+    useEffect(() => {
+        const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
+        setTitle(getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`));
+    }, []);
     return (
         <Head>
             <title>{title}</title>
@@ -44,6 +47,6 @@ const getBrowserTitle = (systemName) => {
         "system-name-l1-mega": "SABA Mega Keno",
         "system-name-l2-mega": "Mega Keno",
     };
-    return browserTitle[systemName];
+    return browserTitle[systemName] || "";
 };
 export default appWithTranslation(SabaMobiApp);
