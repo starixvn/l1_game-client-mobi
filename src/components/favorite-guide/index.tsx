@@ -4,14 +4,20 @@ import React from "react";
 import { getAppSettings } from "../../common/app-settings";
 import { GameResourceKeys } from "../../common/resources";
 import Styles from "./favorite-guide.module.scss";
+import { GameIds } from "../../common/constants/gameIds";
+import { useAuthContext } from "../../contexts/auth";
+import { GetAllGameByCurrencyGroup } from "../../helpers/category-helper";
 
-const favoriteGames = [22, 1];
-const unfavoriteGames = [2, 3, 4];
+const favoriteGamesSample = [GameIds.VipSeDie, GameIds.BigSmall, GameIds.VipBaccarat, GameIds.DragonTiger];
 const favoriteBtnClass = "favorite-btn";
 const favoriteIconClass = "icon-favorite";
 
 export const FavoriteGuide: React.FC = () => {
     const { t } = useTranslation();
+    const { currencyGroup } = useAuthContext();
+    const offeredGameByCurrencyGroup = GetAllGameByCurrencyGroup(currencyGroup);
+    const favoriteGames = offeredGameByCurrencyGroup.filter((game) => favoriteGamesSample.includes(game)).slice(0, 2);
+    const unfavoriteGames = offeredGameByCurrencyGroup.filter((game) => !favoriteGames.includes(game)).slice(0, 3);
     const { gameSettings } = getAppSettings();
 
     return (

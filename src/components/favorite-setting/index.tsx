@@ -4,9 +4,8 @@ import { isMobileOnly } from "react-device-detect";
 
 import { getAppSettings } from "../../common/app-settings";
 import { CommonResourceKeys, GameResourceKeys } from "../../common/resources";
-import { GetOfferedGamesByCurrency, favoriteGameIdIgnore } from "../game-category/constants";
+import { favoriteGameIdIgnore } from "../../helpers/category-helper";
 import Styles from "./favorite-setting.module.scss";
-import { useAuthContext } from "../../contexts/auth";
 
 export const FavoriteSetting: React.FC<{
     currentFavoriteGames: number[];
@@ -15,17 +14,15 @@ export const FavoriteSetting: React.FC<{
     onCloseModal: Function;
     toggleBtnRef: React.MutableRefObject<HTMLElement>;
 }> = ({ currentFavoriteGames, offerGames, onCloseModal, updateFavorite, toggleBtnRef }) => {
-    const [favoriteGames, setFavoriteGames] = useState(currentFavoriteGames.filter((game) => !favoriteGameIdIgnore.includes(game)));
-    const unfavoriteGames = getAppSettings().offeredGames.filter(
-        (game) => !favoriteGames.includes(game) && !favoriteGameIdIgnore.includes(game)
+    const [favoriteGames, setFavoriteGames] = useState(
+        currentFavoriteGames.filter((game) => !favoriteGameIdIgnore.includes(game) && offerGames.includes(game))
     );
-    const { currencyGroup } = useAuthContext();
+    const unfavoriteGames = offerGames.filter((game) => !favoriteGames.includes(game) && !favoriteGameIdIgnore.includes(game));
     const [isOpenModalAnimation, setIsOpenModalAnimation] = useState(true);
     const { t } = useTranslation();
     const { gameSettings } = getAppSettings();
     const wrapperRef = useRef<HTMLDivElement>(null);
     let closeModalTimeOut: NodeJS.Timeout;
-    const offeredGames = GetOfferedGamesByCurrency(currencyGroup, offerGames);
 
     const addFavoriteGames = (gameId: number) => {
         favoriteGames.push(gameId);
@@ -109,50 +106,42 @@ export const FavoriteSetting: React.FC<{
             <div className={Styles["main-content"]}>
                 {favoriteGames.length > 0 && (
                     <ul className={Styles["favorite-games"]}>
-                        {favoriteGames
-                            .filter((game) => offeredGames.includes(game))
-                            .map((gameId, index) => (
-                                <li className={`${Styles["game"]}`} key={index}>
-                                    <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
-                                        <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
-                                    </div>
-                                    <span className={Styles["game-name"]}>
-                                        {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                                    </span>
-                                    <div className={Styles["group-btn-move"]}>
-                                        <button
-                                            className={Styles["btn-move"]}
-                                            disabled={index === 0}
-                                            onClick={() => onClickMove(index, true)}
-                                        >
-                                            <span className={Styles["icon-move-up"]}></span>
-                                        </button>
-                                        <button
-                                            className={Styles["btn-move"]}
-                                            disabled={index === favoriteGames.length - 1}
-                                            onClick={() => onClickMove(index, false)}
-                                        >
-                                            <span className={Styles["icon-move-down"]}></span>
-                                        </button>
-                                    </div>
-                                </li>
-                            ))}
+                        {favoriteGames.map((gameId, index) => (
+                            <li className={`${Styles["game"]}`} key={index}>
+                                <div className={Styles["favorite-btn"]} onClick={() => removeFavoriteGame(gameId)}>
+                                    <span className={`icon-favorite ${Styles["icon-favorite"]}`}></span>
+                                </div>
+                                <span className={Styles["game-name"]}>
+                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                </span>
+                                <div className={Styles["group-btn-move"]}>
+                                    <button className={Styles["btn-move"]} disabled={index === 0} onClick={() => onClickMove(index, true)}>
+                                        <span className={Styles["icon-move-up"]}></span>
+                                    </button>
+                                    <button
+                                        className={Styles["btn-move"]}
+                                        disabled={index === favoriteGames.length - 1}
+                                        onClick={() => onClickMove(index, false)}
+                                    >
+                                        <span className={Styles["icon-move-down"]}></span>
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
                 )}
                 {unfavoriteGames.length > 0 && (
                     <ul className={Styles["unfavorite-games"]}>
-                        {unfavoriteGames
-                            .filter((game) => offeredGames.includes(game))
-                            .map((gameId, index) => (
-                                <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
-                                    <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
-                                        <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
-                                    </div>
-                                    <span className={Styles["game-name-un-favorite"]}>
-                                        {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                                    </span>
-                                </li>
-                            ))}
+                        {unfavoriteGames.map((gameId, index) => (
+                            <li className={`${Styles["game"]} ${Styles["un-favorite"]}`} key={index}>
+                                <div className={Styles["favorite-btn"]} onClick={() => addFavoriteGames(gameId)}>
+                                    <span className={`icon-favorite-normal ${Styles["icon-favorite"]}`}></span>
+                                </div>
+                                <span className={Styles["game-name-un-favorite"]}>
+                                    {t(`${gameSettings[gameId].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                                </span>
+                            </li>
+                        ))}
                     </ul>
                 )}
             </div>

@@ -1,5 +1,5 @@
-import { getAppSettings } from "../../common/app-settings";
-import { GameIds } from "../../common/constants/gameIds";
+import { getAppSettings } from "../common/app-settings";
+import { GameIds } from "../common/constants/gameIds";
 
 export const GamesInOnePage = 20;
 
@@ -94,10 +94,14 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
     return OtherCurrencyGroupCategoryConfig;
 };
 
-export const GetOfferedGamesByCurrency = (currencyGroupName: string, offerGames: number[]) => {
+export const GetOfferedGames = (currencyGroupName: string, offerGames: number[]) => {
+    return GetAllGameByCurrencyGroup(currencyGroupName).filter((gameId) => offerGames.includes(gameId));
+};
+
+export const GetAllGameByCurrencyGroup = (currencyGroupName: string) => {
     return Object.values(GetGameCategoryConfig(currencyGroupName))
         .flatMap((e) => e)
-        .filter((gameId, index, array) => array.indexOf(gameId) === index && offerGames.includes(gameId));
+        .filter((gameId, index, array) => array.indexOf(gameId) === index);
 };
 
 export const favoriteGameIdIgnore = [GameIds.KenoPower1, GameIds.KenoPower2, GameIds.KenoSoccer, GameIds.KenoSoccer2];

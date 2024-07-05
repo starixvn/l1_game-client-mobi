@@ -12,6 +12,7 @@ type SystemContextType = {
     enabledQuickBet: boolean;
     fractionalOddsFormat: boolean;
     chipSettings: ChipSettings;
+    offeredGames: number[];
 };
 
 export const SystemContext = React.createContext<Partial<SystemContextType>>({});

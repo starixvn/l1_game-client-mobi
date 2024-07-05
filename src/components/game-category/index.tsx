@@ -4,7 +4,7 @@ import { isMobileOnly } from "react-device-detect";
 
 import { getAppSettings } from "../../common/app-settings";
 
-import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig } from "./constants";
+import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig } from "../../helpers/category-helper";
 import styles from "./game-category.module.scss";
 import { AppTypes } from "../../common/constants";
 import { useAuthContext } from "../../contexts/auth";

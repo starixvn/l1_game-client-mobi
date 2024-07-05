@@ -19,15 +19,14 @@ describe("Test UrlHelper", () => {
             dsn: "https://c8f93631be824a14b9f114f53e3a2bfc@sentry.lumigame.com/3",
             environment: "LOCAL_1",
         },
-        offeredGames: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
         subGuideDomain: "guides",
         enableMsgpackParser: false,
         system: "L1",
         appType: 2,
         googleAnalyticId: "G-X1Q507KDPB",
         serverDomainMapper: [""],
-        gameSettings: {}
-    })
+        gameSettings: {},
+    });
 
     describe("Test function getDomainFromHostName", () => {
         test.each`

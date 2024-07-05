@@ -53,7 +53,6 @@ jest.mock("next/config", () => () => ({
             uri: "localhost",
             path: "",
         },
-        offeredGames: [22, 2, 9, 1, 4, 8, 24, 3, 7, 27, 10, 35, 36, 37],
         gameSettings: {
             1: {
                 id: 1,

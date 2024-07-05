@@ -36,7 +36,8 @@
     top: 6.5rem !important;
     overflow: auto;
     bottom: 0;
-    @media(min-width: 768px) {
+    height: fit-content;
+    @media (min-width: 768px) {
         width: 34.3rem;
     }
     // @media (min-device-width: 768px) {

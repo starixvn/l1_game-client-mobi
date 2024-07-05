@@ -1,7 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useState } from "react";
 
-import { getAppSettings } from "../../../common/app-settings";
 import BaccaratBetHistory from "../../games/baccarat/bet-history";
 import BigSmallBetHistory from "../../games/big-small/bet-history";
 import DragonTigerBetHistory from "../../games/dragon-tiger/bet-history";
@@ -21,7 +20,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
     fractionalOddsFormat,
 }) => {
     const { t } = useTranslation();
-    const [selectedGameId, setSelectedGameId] = useState<number>(getAppSettings().offeredGames.filter((game) => offerGames.includes(game))[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(offerGames?.[0] || 0);
     const closeModal = () => {
         onCloseModal();
     };

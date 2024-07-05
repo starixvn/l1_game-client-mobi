@@ -29,6 +29,7 @@ import { AnnouncementModal } from "./announcement";
 import { ToolbarGuide } from "../hide-toolbar-guide";
 import { buildUrl } from "../../helpers/url-helper";
 import { SystemContextProvider } from "../../contexts/system";
+import { GetOfferedGames } from "../../helpers/category-helper";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -68,6 +69,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             openGameId: null,
             isShowToolbarGuide: getLocalStorageItem(localStorageKeys.toolbarGuide) ?? true,
             chipSettings: {},
+            offeredGames: [],
         };
 
         this.handleFirstLogin = this.handleFirstLogin.bind(this);
@@ -81,6 +83,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.toggleGuideModal = this.toggleGuideModal.bind(this);
         this.handleReload = this.handleReload.bind(this);
         this.updateAuthorizeInfo = this.updateAuthorizeInfo.bind(this);
+        this.getOfferedGames = this.getOfferedGames.bind(this);
         this.updateChipsSettings = this.updateChipsSettings.bind(this);
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.handleShowApiErrorMessage = this.handleShowApiErrorMessage.bind(this);
@@ -137,7 +140,6 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     updateAuthorizeInfo(authorizeInfo: AuthorizeResponse) {
-        this.checkOfferedGame(authorizeInfo);
         this.setState({ authorizeInfo });
     }
 
@@ -164,12 +166,8 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.props.router.push("/timeout", "/timeout", { locale: this.props.i18n.language });
     }
 
-    checkOfferedGame(authorizeInfo) {
-        const offeredGames = getAppSettings().offeredGames;
-        if (
-            authorizeInfo?.user?.offerGames &&
-            authorizeInfo.user.offerGames.filter((game) => offeredGames.includes(game.gameId)).length === 0
-        ) {
+    checkOfferedGame(offeredGames: number[]) {
+        if (offeredGames.length === 0) {
             this.setState({
                 apiError: {
                     message: "messages:noGameOffer",
@@ -200,14 +198,29 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async updateChipsSettings() {
-        const setting = await getChipSettings(this.props.session, getAppSettings().offeredGames);
-        this.setState({ chipSettings: setting });
+        const { offeredGames } = this.state;
+        if (offeredGames.length > 0) {
+            const setting = await getChipSettings(this.props.session, offeredGames);
+            this.setState({ chipSettings: setting });
+        }
     }
 
     getFavoriteGames() {
         const { authorizeInfo } = this.state;
         const favoriteGames = getLocalStorageItem<number[]>(`${localStorageKeys.favoriteGames}-${authorizeInfo?.user?.UID}`) ?? [];
         this.setState({ favoriteGames });
+    }
+
+    getOfferedGames(authorizeInfo: AuthorizeResponse) {
+        if (authorizeInfo?.user?.currencyGroup && authorizeInfo?.user?.offerGames) {
+            let offeredGames = [];
+            offeredGames = GetOfferedGames(
+                authorizeInfo.user.currencyGroup,
+                authorizeInfo.user.offerGames.map((game) => (game as any).gameId)
+            );
+            this.setState({ offeredGames });
+            this.checkOfferedGame(offeredGames);
+        }
     }
 
     async componentDidMount() {
@@ -223,8 +236,9 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         const authorizeInfo = authorizeResponse as AuthorizeResponse;
 
-        this.updateAuthorizeInfo(authorizeInfo);
+        this.getOfferedGames(authorizeInfo);
         this.updateChipsSettings();
+        this.updateAuthorizeInfo(authorizeInfo);
         this.getFavoriteGames();
         this.updateUserBalance(authorizeInfo?.user?.red);
 
@@ -280,10 +294,10 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     handlePromotions(data) {
-        const { promotions, isShowBoostedOdds, settingGames } = this.state;
+        const { promotions, isShowBoostedOdds, settingGames, offeredGames } = this.state;
         const offerGames = settingGames?.map((game: any) => game?.gameId);
         const offerGamePromotions = data.filter(
-            (promotion) => offerGames?.includes(promotion.gameId) && getAppSettings().offeredGames.includes(promotion.gameId)
+            (promotion) => offerGames?.includes(promotion.gameId) && offeredGames.includes(promotion.gameId)
         );
 
         let haveNewPromotion = offerGamePromotions.length > promotions.length;
@@ -314,11 +328,11 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     async handlePromotionNotifications(data) {
-        const { settingGames } = this.state;
+        const { settingGames, offeredGames } = this.state;
         const offerGames = settingGames?.map((game: any) => game?.gameId);
         const newPromotionNotifications = data.filter(
             (promotionNotification) =>
-                offerGames?.includes(promotionNotification.gameId) && getAppSettings().offeredGames.includes(promotionNotification.gameId)
+                offerGames?.includes(promotionNotification.gameId) && offeredGames.includes(promotionNotification.gameId)
         );
         this.setState({ promotionNotifications: newPromotionNotifications });
         if (newPromotionNotifications.length < 1) {
@@ -356,11 +370,12 @@ class Dashboard extends React.PureComponent<Props, State> {
         const authorizeInfo = { ...this.state.authorizeInfo };
         if (authorizeInfo && authorizeInfo.authorized) {
             updateSignInSMStatus(session);
-            this.updateChipsSettings();
 
             authorizeInfo.user.settings = { theme: Themes.light };
             authorizeInfo.user.isSignedInSM = true;
 
+            this.getOfferedGames(authorizeInfo);
+            this.updateChipsSettings();
             this.updateAuthorizeInfo(authorizeInfo);
         }
     }
@@ -374,8 +389,9 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         updateSignInSMStatus(session);
         authorizeInfo.user.isSignedInSM = true;
-        this.updateChipsSettings();
 
+        this.getOfferedGames(authorizeInfo);
+        this.updateChipsSettings();
         this.updateAuthorizeInfo(authorizeInfo);
     }
 
@@ -473,6 +489,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             openGameId,
             isShowToolbarGuide,
             chipSettings,
+            offeredGames,
         } = this.state;
         const authContextValue = {
             session: this.props.session,
@@ -480,7 +497,6 @@ class Dashboard extends React.PureComponent<Props, State> {
             setBalance: this.updateUserBalance,
             signOut: this.signOut,
         };
-        const offerGames: number[] = authorizeInfo?.user?.offerGames?.map((game: any) => game?.gameId) ?? [];
         return (
             <AuthContextProvider value={authContextValue}>
                 <SystemContextProvider
@@ -493,6 +509,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         betValue,
                         fractionalOddsFormat: authorizeInfo.user?.fractionalOddsFormat,
                         chipSettings,
+                        offeredGames,
                     }}
                 >
                     <div className={Styles["dashboard"]}>
@@ -506,7 +523,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             toggleGuideModal={this.toggleGuideModal}
                             toggleAnnouncementModal={this.toggleAnnouncementModal}
                             favoriteGames={favoriteGames}
-                            offerGames={offerGames}
+                            offerGames={offeredGames}
                             updateFavoriteGames={this.updateFavoriteGames}
                             enabledQuickBet={enabledQuickBet}
                             updateEnabledQuickBet={this.setEnabledQuickBet}
@@ -521,7 +538,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             userStakeLevel={userStakeLevel}
                             updateUserStakeLevel={this.handleUpdateUserStakeLevel}
                             favoriteGames={favoriteGames}
-                            userOfferGames={offerGames}
+                            userOfferGames={offeredGames}
                             queryGame={queryGame}
                             isShowSlidingChip={isShowSlidingChip}
                             updateQueryGames={this.updateQueryGame}
@@ -541,7 +558,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                         {isShowHistory && (
                             <HistoryModal
                                 onCloseModal={this.toggleHistoryModal}
-                                offerGames={offerGames}
+                                offerGames={offeredGames}
                                 fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
                             />
                         )}
@@ -556,7 +573,7 @@ class Dashboard extends React.PureComponent<Props, State> {
                             <GameGuideModal
                                 userStakeLevel={userStakeLevel}
                                 onCloseModal={this.toggleGuideModal}
-                                offerGames={offerGames}
+                                offerGames={offeredGames}
                                 promotions={promotions}
                                 settingGames={settingGames}
                                 fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}

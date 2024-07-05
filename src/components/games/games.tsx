@@ -8,7 +8,7 @@ import { getAppSettings } from "../../common/app-settings";
 import { SocketState } from "../../types";
 import { FavoriteGuide } from "../favorite-guide";
 import { GameCategory } from "../game-category";
-import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig, favoriteGameIdIgnore } from "../game-category/constants";
+import { GameCategoryType, GamesInOnePage, GetGameCategoryConfig, favoriteGameIdIgnore } from "../../helpers/category-helper";
 import { ViewMode } from "../shared/game-base/type";
 import { WinningStreak } from "../winning-streak";
 import { WinningStreakItem } from "../winning-streak/winning-streak.type";
@@ -43,12 +43,8 @@ const getRenderGames = (
     const gameCategoryConfig = GetGameCategoryConfig(currencyGroup);
     const gamesInCategory =
         selectedCategory !== GameCategoryType.favorite ? gameCategoryConfig[GameCategoryType[selectedCategory]] : favoriteGames;
-    const favoriteGamesInCategory = favoriteGames.filter(
-        (gameId) => gamesInCategory.includes(gameId) && getAppSettings().offeredGames.includes(gameId)
-    );
-    const unfavoriteGamesInCategory = gamesInCategory.filter(
-        (gameId) => !favoriteGames.includes(gameId) && getAppSettings().offeredGames.includes(gameId)
-    );
+    const favoriteGamesInCategory = favoriteGames.filter((gameId) => gamesInCategory.includes(gameId));
+    const unfavoriteGamesInCategory = gamesInCategory.filter((gameId) => !favoriteGames.includes(gameId));
 
     gamesOrder = favoriteGamesInCategory.concat(unfavoriteGamesInCategory);
     const startIndex = gamesOrder.length > (selectedPage - 1) * GamesInOnePage ? (selectedPage - 1) * GamesInOnePage : 0;

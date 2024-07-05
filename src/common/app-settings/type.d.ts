@@ -17,7 +17,6 @@ export default interface AppSettings {
     subSocketGatewayDomain: string;
     proxy: ProxySetting;
     sentry: SentryOptions;
-    offeredGames: number[];
     gameSettings: { [id: string]: GameBaseProps | KenoMatchProps };
     subGuideDomain: string;
     googleAnalyticId: string;

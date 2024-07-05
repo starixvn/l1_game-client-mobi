@@ -9,7 +9,6 @@ window.envConfig = {
         dsn: "https://936d6f9d99064ccdab5bece39bc3bc07@scsentry.sgamesuat.com/258",
         environment: "UAT",
     },
-    offeredGames: [52, 53, 14, 15, 16, 17, 18, 19, 40, 41, 36, 37],
     enableSourceMap: false,
     subGuideDomain: "l1guidesuat",
     googleAnalyticId: "G-F0WBQ2EZ5Q",

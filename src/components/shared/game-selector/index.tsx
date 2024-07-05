@@ -5,19 +5,15 @@ import { isMobileOnly } from "react-device-detect";
 import { getAppSettings } from "../../../common/app-settings";
 import { GameResourceKeys } from "../../../common/resources";
 import Styles from "./game-selector.module.scss";
-import { useAuthContext } from "../../../contexts/auth";
-import { GetOfferedGamesByCurrency } from "../../game-category/constants";
 
 export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: number; offerGames: number[] }> = ({
     onChangeGame,
     selectedGame,
     offerGames,
 }) => {
-    const { currencyGroup } = useAuthContext();
     const { t } = useTranslation();
     const wrapperRef = useRef<HTMLDivElement>(null);
     const [isShowOptions, setIsShowOptions] = useState(false);
-    const offeredGames = GetOfferedGamesByCurrency(currencyGroup, offerGames);
 
     const onSelectOption = (gameId: number) => {
         setIsShowOptions(false);
@@ -44,18 +40,11 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
             </div>
             {isShowOptions && (
                 <div className={`${Styles["dropdown-menu"]} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="dropdown-menu">
-                    {getAppSettings()
-                        .offeredGames.filter((game) => offeredGames.includes(game))
-                        .map((id) => (
-                            <div
-                                className={Styles["dropdown-item"]}
-                                key={id}
-                                onClick={() => onSelectOption(id)}
-                                data-testid="dropdown-item"
-                            >
-                                {t(`${getAppSettings().gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
-                            </div>
-                        ))}
+                    {offerGames.map((id) => (
+                        <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)} data-testid="dropdown-item">
+                            {t(`${getAppSettings().gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                        </div>
+                    ))}
                 </div>
             )}
         </div>

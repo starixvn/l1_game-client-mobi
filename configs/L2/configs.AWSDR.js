@@ -9,7 +9,6 @@ window.envConfig = {
         dsn: "https://2d80f882863d4912a844f61036f9b833@scsentry.sgamesuat.com/264",
         environment: "UAT",
     },
-    offeredGames: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
     enableSourceMap: false,
     enableMsgpackParser: true,
     subGuideDomain: "l2drguides",

@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
-import { favoriteGameIdIgnore } from "../../game-category/constants";
+import { favoriteGameIdIgnore } from "../../../helpers/category-helper";
 import { CommonResourceKeys } from "../../../common/resources";
 import { GameResourceKeys } from "../../../common/resources/game-resource-keys";
 import { useGameActionContext } from "../../../contexts/game-actions-context";

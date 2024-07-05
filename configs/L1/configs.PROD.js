@@ -9,7 +9,6 @@ window.envConfig = {
         dsn: "https://65f2ba49d2e04240b998eb783efc9315@sentry.sabagame.com/156",
         environment: "PROD",
     },
-    offeredGames: [2, 22, 9, 1, 4, 24, 8, 3, 7, 27, 10, 35],
     enableSourceMap: false,
     subGuideDomain: "guides",
     googleAnalyticId: "G-X1Q507KDPB",

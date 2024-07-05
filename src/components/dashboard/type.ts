@@ -42,6 +42,7 @@ export type State = {
     openGameId: number;
     isShowToolbarGuide: boolean;
     chipSettings: ChipSettings;
+    offeredGames: number[];
 };
 
 export type Promotion = {
