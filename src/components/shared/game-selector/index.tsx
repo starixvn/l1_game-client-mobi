@@ -42,7 +42,7 @@ export const GameSelector: React.FC<{ onChangeGame: Function; selectedGame: numb
                 <div className={`${Styles["dropdown-menu"]} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="dropdown-menu">
                     {offerGames.map((id) => (
                         <div className={Styles["dropdown-item"]} key={id} onClick={() => onSelectOption(id)} data-testid="dropdown-item">
-                            {t(`${getAppSettings().gameSettings[id].gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
+                            {t(`${getAppSettings()?.gameSettings[id]?.gameName.toLocaleLowerCase()}:${GameResourceKeys.GAME_NAME}`)}
                         </div>
                     ))}
                 </div>

@@ -1,105 +1,109 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Styles from "./hide-toolbar-guide.module.scss";
-import { buildVersion, LanguageLocaleMapper } from "../../common/constants";
-import { i18n, useTranslation } from "next-i18next";
-import { isMobileOnly } from "react-device-detect";
+import { buildVersion } from "../../common/constants";
+import { useTranslation } from "next-i18next";
+import { isMobileOnly, isSafari } from "react-device-detect";
 import { localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
-import { getLogoName } from "../header";
 
-export const ToolbarGuide: React.FC<{isShowToolbarGuide: boolean, onCloseGuide:Function}> = ({isShowToolbarGuide, onCloseGuide}) => {
-    const { t } = useTranslation();    
-    const [isAnimClass, setIsAnimClass] = useState(true);  
-    const animIntervalTime = 6;    
+const ToolbarIcon = ({ name }) => {
+    return <img src={`/static/images/hide-toolbar-guide/${name}.svg?v=${buildVersion}`} alt={name} />;
+};
 
-    useEffect(() => {       
-        const playAnimInterval = setInterval(() => {     
+export const ToolbarGuide: React.FC<{ isShowToolbarGuide: boolean; onCloseGuide: Function }> = ({ isShowToolbarGuide, onCloseGuide }) => {
+    const { t } = useTranslation();
+    const [isAnimClass, setIsAnimClass] = useState(true);
+
+    const animIntervalTime = 4;
+    const iconAA = <ToolbarIcon name="iconAA" />;
+    const iconFullScreen = <ToolbarIcon name="icon-fullscreen" />;
+    const iconPointer = <ToolbarIcon name="pointer" />;
+
+    useEffect(() => {
+        const playAnimInterval = setInterval(() => {
             isAnimClass ? setIsAnimClass(false) : setIsAnimClass(true);
-        }, animIntervalTime * 1000);        
+        }, animIntervalTime * 1000);
 
         return () => {
-            playAnimInterval && clearInterval(playAnimInterval)
+            playAnimInterval && clearInterval(playAnimInterval);
         };
     }, [isAnimClass]);
 
-    useEffect(() => {    
-        if (isShowToolbarGuide) {
+    useEffect(() => {
+        if (isShowToolbarGuide && isMobileOnly && isSafari) {
             document.body.classList.add("no-scroll");
-            isMobileOnly && document.documentElement.classList.add("no-scroll-html");
+            document.documentElement.classList.add("no-scroll-html");
         }
 
         return () => {
-            if (isShowToolbarGuide) {
+            if (isShowToolbarGuide && isMobileOnly && isSafari) {
                 document.body.classList.remove("no-scroll");
-                isMobileOnly && document.documentElement.classList.remove("no-scroll-html");
+                document.documentElement.classList.remove("no-scroll-html");
             }
         };
-    }, [isShowToolbarGuide]);    
+    }, [isShowToolbarGuide]);
 
     const handleTurnOffGuide = () => {
-        onCloseGuide();             
-        storeLocalStorageItem(localStorageKeys.toolbarGuide, false)
+        onCloseGuide();
+        storeLocalStorageItem(localStorageKeys.toolbarGuide, false);
     };
 
     const closeGuide = () => {
-        onCloseGuide()    
+        onCloseGuide();
     };
 
     const animClass = isAnimClass ? "has-anim" : "";
-    
-    return useMemo(() => {            
+
+    return useMemo(() => {
         return (
-            isShowToolbarGuide && (<div className={`${Styles["hide-guide-container"]} ${Styles[animClass]}`}>
-            <div className={Styles["intro"]}>
-                <div className={Styles["text-white"]}>{t("common:guide-intro-1")}</div>
-                <div className={Styles["text-orange"]}>{t("common:guide-intro-2")}</div>
-                <div className={Styles["text-white"]}>{t("common:guide-intro-3")} <strong>&#34;{t("common:guide-intro-4")}&#34;</strong></div>
-            </div>
-            <div className={Styles["anim-container"]}>
-                <img
-                className={Styles["iphone-background"]}
-                alt="iphone"
-                src={`/static/images/hide-toolbar-guide/ip_base.png?v=${buildVersion}`}
-                />
-                <div className={Styles["top-phone"]}>
-                    <span className={Styles["phone-time"]}>09:41</span>
-                    <div className={Styles["top-phone-icon"]}>
-                        <span className={Styles["icon-cellular"]}></span>
-                        <span className={Styles["icon-wifi"]}></span>
-                        <span className={Styles["icon-battery"]}></span>
+            isShowToolbarGuide &&
+            isMobileOnly &&
+            isSafari && (
+                <div className={`${Styles["toolbar-guide-container"]} ${Styles[animClass]}`}>
+                    <div className={Styles["toolbar-guide-content"]}>
+                        <div className={Styles["toolbar-guide-title"]}>{t("common:lobby_fullscreen")}</div>
+                        <div className={Styles["anim-container"]}>
+                            <div className="flex justify-center">
+                                <img
+                                    className={Styles["iphone-background"]}
+                                    alt="iphone"
+                                    src={`/static/images/hide-toolbar-guide/mockup-phone.svg?${buildVersion}`}
+                                />
+                            </div>
+                            <div className={`flex ${Styles["iphone-step"]}`}>
+                                <span className={Styles["step-number"]}>1</span>
+                                <p className={Styles["step-text"]}>
+                                    <span className={Styles["text-icon-aa"]}>
+                                        {t("common:fullscreen_guide_1").split("{icon}")[0]}
+                                        <span>{iconAA}</span>
+                                        {t("common:fullscreen_guide_1").split("{icon}")[1]}
+                                    </span>
+                                </p>
+                                <span className={Styles["step-number"]}>2</span>
+                                <p className={Styles["step-text"]}>{t("common:fullscreen_guide_2")}</p>
+                            </div>
+                            <div className={Styles["hide-toolbar"]}>
+                                <span>{t(`common:fullscreen_guide_3`)}</span>
+                                <span className={Styles["icon-fullscreen"]}>{iconFullScreen}</span>
+                            </div>
+                            <div className={Styles["toolbar-container"]}>
+                                <div className={Styles["toolbar"]}>
+                                    <span className={Styles["icon-aa"]}>{iconAA}</span>
+                                </div>
+                                <div className={Styles["bottom-gestures"]}></div>
+                            </div>
+                            <span className={Styles["icon-pointer"]}>{iconPointer}</span>
+                        </div>
+                        <div className={Styles["button-group"]}>
+                            <button className={`btn-grey ${Styles["btn"]}`} onClick={closeGuide}>
+                                {t("common:close")}
+                            </button>
+                            <button className={`btn-red ${Styles["btn"]}`} onClick={handleTurnOffGuide}>
+                                {t("common:do-not-show-again")}
+                            </button>
+                        </div>
                     </div>
-                    <div className={Styles["pulsating-circle"]}></div>
                 </div>
-                <div className={Styles["toolbar"]}>
-                    <span className={Styles["icon-aa"]}></span>
-                    <span className={Styles["text"]}>hide-toolbar.com</span>
-                    <span className={Styles["icon-refresh"]}></span>
-                </div>
-                <img
-                    className={Styles["UI-game-image"]}
-                    alt="iphone"
-                    width={227}
-                    src={`/static/images/hide-toolbar-guide/UI-game-${getLogoName()}_${LanguageLocaleMapper[i18n.language]}.png?v=${buildVersion}`}
-                />
-                <div className={Styles["dropdown-settings"]}>
-                    <img
-                        className={Styles["popup"]}
-                        alt="iphone"
-                        src={`/static/images/hide-toolbar-guide/popup_${LanguageLocaleMapper[i18n.language]}.png?v=${buildVersion}`}
-                    />
-                    <div className={Styles["border-highlight"]}></div>
-                    <div className={Styles["pulsating-circle"]}></div>
-                </div>   
-                <div className={Styles["mask-game-UI"]}></div>            
-            </div>
-             <div className={Styles["button-action"]}>
-                <button className={`btn-grey ${Styles["btn"]}`} onClick={closeGuide}>
-                    {t("common:close")}
-                </button>
-                <button className={`btn-red ${Styles["btn"]}`} onClick={handleTurnOffGuide}>
-                    {t("common:do-not-show-again")}
-                </button>
-            </div>
-        </div>)            
+            )
         );
-    },[isShowToolbarGuide, isAnimClass]
-)};
+    }, [isShowToolbarGuide, isAnimClass]);
+};

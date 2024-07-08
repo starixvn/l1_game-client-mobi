@@ -2,7 +2,7 @@ import { Trans, withTranslation } from "next-i18next";
 import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
-import { isMobileOnly, isMobile, isSafari } from "react-device-detect";
+import { isMobileOnly, isMobile } from "react-device-detect";
 import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import { getAppSettings } from "../../common/app-settings";
@@ -602,9 +602,6 @@ class Dashboard extends React.PureComponent<Props, State> {
                                 </BaseDialog>
                             </div>
                         )}
-                        {isMobileOnly && isSafari && (
-                            <ToolbarGuide isShowToolbarGuide={isShowToolbarGuide} onCloseGuide={this.closeToolbarGuide}></ToolbarGuide>
-                        )}
                     </div>
                 </SystemContextProvider>
             </AuthContextProvider>
@@ -645,7 +642,7 @@ class Dashboard extends React.PureComponent<Props, State> {
     }
 
     render() {
-        const { orientation, authorizeInfo } = this.state;
+        const { orientation, authorizeInfo, isShowToolbarGuide } = this.state;
 
         if (orientation === orientationType.landscape && isMobileOnly) {
             return <LandscapeMode />;
@@ -655,6 +652,9 @@ class Dashboard extends React.PureComponent<Props, State> {
             <>
                 <Head>{this.renderGoogleAnalytic()}</Head>
                 {this.renderComponents(authorizeInfo)}
+                {authorizeInfo.authorized && (
+                    <ToolbarGuide isShowToolbarGuide={isShowToolbarGuide} onCloseGuide={this.closeToolbarGuide}></ToolbarGuide>
+                )}
             </>
         ) : (
             <></>
