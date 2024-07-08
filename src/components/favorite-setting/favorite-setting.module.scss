@@ -2,25 +2,24 @@
     --favorite-setting-background: #fff;
     --favorite-setting-border: #bfbfbf;
 
-    --btn-favorite-background: linear-gradient(180deg, #5382CB 0%, #254C8B 100%);
-    --btn-favorite-border: #1C3661;
+    --btn-favorite-background: linear-gradient(180deg, #5382cb 0%, #254c8b 100%);
+    --btn-favorite-border: #1c3661;
     --btn-favorite-shadow-inner: inset 0 0.2rem 0.3rem #fff;
-    --btn-favorite-background-hover: linear-gradient(180deg, #91B1E7 0%, #3a5585 100%);
-   
-    --btn-un-favorite-border: #1C3661;
+    --btn-favorite-background-hover: linear-gradient(180deg, #91b1e7 0%, #3a5585 100%);
 
-    --icon-favorite: #FFCC33;
-    --icon-un-favorite: #1C3661;
+    --btn-un-favorite-border: #1c3661;
 
-    --game-favorite-background: linear-gradient(180deg, #4B6FA7 0%, #2D4976 100%);
-    --game-favorite-border: linear-gradient(180deg, #3D5C8C 0%, #1B3154 100%);
+    --icon-favorite: #ffcc33;
+    --icon-un-favorite: #1c3661;
 
-    --game-un-favorite-background: linear-gradient(180deg, #FAFAFA 0%, #CDE7FF 100%, #CDE7FF 100%);
-    --game-un-favorite-border: linear-gradient(180deg, #C3E2FF 0%, #9DCFFD 100%);  
-    
-    
+    --game-favorite-background: linear-gradient(180deg, #4b6fa7 0%, #2d4976 100%);
+    --game-favorite-border: linear-gradient(180deg, #3d5c8c 0%, #1b3154 100%);
+
+    --game-un-favorite-background: linear-gradient(180deg, #fafafa 0%, #cde7ff 100%, #cde7ff 100%);
+    --game-un-favorite-border: linear-gradient(180deg, #c3e2ff 0%, #9dcffd 100%);
+
     --icon-move-color: #fff;
-    --icon-move-hover-color: #1C3661;
+    --icon-move-hover-color: #1c3661;
 
     --game-text-color: #fff;
     --seperate-line-color: #c9c9c9;
@@ -32,30 +31,31 @@
     top: 8.9rem;
     bottom: 0;
     width: 27rem;
-    overflow: auto;    
+    overflow: auto;
     border-radius: 0.5rem;
     border: 0.1rem solid var(--favorite-setting-border);
     box-shadow: 0 0.2rem 3rem rgba(0, 0, 0, 0.25);
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
     transform: scale(1);
+    max-height: 90vh;
+    height: fit-content;
 
-    @media (min-device-width: 768px) {       
+    @media (min-device-width: 768px) {
         position: absolute;
         right: 17.8rem;
         top: 4.1rem;
-        overflow: initial;   
         bottom: auto;
     }
 
-     @media (min-device-width: 768px) and (min-height: 768px) {
+    @media (min-device-width: 768px) and (min-height: 768px) {
         max-height: 70rem;
-     }
+    }
 
-    .main-content {        
-        max-height: 64rem;
+    .main-content {
+        height: fit-content;
         overflow: auto;
-        padding: 0 1rem 6rem 1rem;
+        padding: 0 1rem;
 
         &::-webkit-scrollbar {
             width: 4px;
@@ -73,24 +73,21 @@
     }
 
     .actions {
-        position: fixed;
-        bottom: 0;
-        z-index: 99;
-        background: var(--favorite-setting-background);  
-        padding: 1rem;      
+        background: var(--favorite-setting-background);
+        padding: 1rem;
         width: 100%;
     }
 
-    &.mobile {        
-        top: 3.8rem;       
-        margin-right: 0.5rem;       
+    &.mobile {
+        top: 3.8rem;
+        margin-right: 0.5rem;
         overflow: hidden;
         padding: 0;
 
         .main-content {
-            padding: 0 1rem 0 1rem;
-            max-height: calc(100% - 10rem);            
-        }        
+            padding: 0 1rem;
+            height: fit-content;
+        }
     }
 
     &.open-animation {
@@ -247,7 +244,7 @@
     }
 
     .favorite-btn {
-        @include btn-unfavorite;        
+        @include btn-unfavorite;
 
         @media (hover: hover) {
             &:hover {
@@ -330,13 +327,13 @@
 .game-name {
     color: var(--game-text-color);
     font-size: 1.4rem;
-    font-weight: 700;   
+    font-weight: 700;
 }
 
-.game-name-un-favorite {    
+.game-name-un-favorite {
     font-size: 1.4rem;
-    font-weight: 700;   
-    color: #2C2F3E;    
+    font-weight: 700;
+    color: #2c2f3e;
 }
 
 .title {
