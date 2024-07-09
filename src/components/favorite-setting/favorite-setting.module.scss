@@ -38,13 +38,13 @@
     background-color: var(--favorite-setting-background);
     z-index: var(--header-index);
     transform: scale(1);
-    max-height: 90vh;
     height: fit-content;
 
     @media (min-device-width: 768px) {
         position: absolute;
         right: 17.8rem;
         top: 4.1rem;
+        overflow: initial;
         bottom: auto;
     }
 
@@ -53,9 +53,9 @@
     }
 
     .main-content {
-        height: fit-content;
+        max-height: calc(100vh - 8.4rem);
         overflow: auto;
-        padding: 0 1rem;
+        padding: 0 1rem 6rem 1rem;
 
         &::-webkit-scrollbar {
             width: 4px;
@@ -73,6 +73,9 @@
     }
 
     .actions {
+        position: fixed;
+        bottom: 0;
+        z-index: 99;
         background: var(--favorite-setting-background);
         padding: 1rem;
         width: 100%;
@@ -85,8 +88,7 @@
         padding: 0;
 
         .main-content {
-            padding: 0 1rem;
-            height: fit-content;
+            max-height: calc(100vh - 15.4rem);
         }
     }
 
