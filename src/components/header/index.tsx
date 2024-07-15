@@ -24,19 +24,18 @@ type Props = {
     updateEnabledQuickBet?: Function;
     isShowBoostedOdds: boolean;
     promotionNotifications: [];
-    isShowToolbarGuide: boolean
+    isShowToolbarGuide: boolean;
 };
 
 export const getLogoName = () => {
     if (getAppSettings().appType === AppTypes.megaKeno) {
-        return isL1System() ? "saba-mega-keno" : "mega-keno";
+        return isL1System() ? "saba-mega-keno" : "vgaming-keno";
     }
-    
 
     return isL1System() ? "saba" : "vgaming";
 };
 
-const Header: React.FC<Props> = (props) => {    
+const Header: React.FC<Props> = (props) => {
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">

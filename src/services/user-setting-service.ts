@@ -20,6 +20,6 @@ export const updateSignInSMStatus = async (userSession: SSOResponse) => {
 
 export const getChipSettings = async (userSession: SSOResponse, offeredGameIds: number[]) => {
     const gameSettings = await chipSettings?.getGameSettingsByCurrencyGroup(userSession.ss, userSession.username, offeredGameIds);
-    const chipColors = (await chipSettings?.getSettings(userSession.ss, userSession.username)).chips;
+    const chipColors = (await chipSettings?.getSettings(userSession.ss, userSession.username))?.chips;
     return { chipColors, ...gameSettings };
 };

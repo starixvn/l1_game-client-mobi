@@ -74,7 +74,7 @@ export const GameHeader: React.FunctionComponent<GameHeaderProps> = ({ isShowCol
                     <div className={Styles["title-roundID"]}>
                         <div className={Styles.title}>{t(GameResourceKeys.GAME_NAME)}</div>
                         <div key={roundId} className={Styles.round}>
-                            #{roundId}
+                            {roundId > 0 ? `#${roundId}` : ""}
                         </div>
                     </div>
                 </div>

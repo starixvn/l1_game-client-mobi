@@ -22,7 +22,7 @@ export const ChipSlider: React.FC<{
         if (userStakeLevel?.minBet && userStakeLevel?.maxBet && chipSettings?.chips) {
             const maxBet = Math.min(userStakeLevel.maxBet, chipSettings.maxBet);
             const minBet = Math.max(userStakeLevel.minBet, chipSettings.minBet);
-            return chipSettings.chips?.map((chip) => +chip).filter((value) => value >= minBet && value <= maxBet) || [];
+            return chipSettings?.chips?.map((chip) => +chip).filter((value) => value >= minBet && value <= maxBet) || [];
         }
         return [];
     }, [userStakeLevel, chipSettings]);
