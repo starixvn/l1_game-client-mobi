@@ -1,0 +1,23 @@
+@import "../history/history.module.scss";
+
+.main-content {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4rem;
+    bottom: 0;
+}
+
+.container-site {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    .site-iframe {
+        border: none;
+    }
+    overflow: hidden;
+}
+
+.loading {
+    text-align: center;
+}

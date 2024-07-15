@@ -14,4 +14,5 @@ window.envConfig = {
     subGuideDomain: "l2-guide",
     system: "L2",
     appType: 2,
+    subPromotionDomain: "l2-promotion",
 };

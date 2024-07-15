@@ -16,5 +16,6 @@
     "subGuideDomain": "l1-guide-1",
     "enableMsgpackParser": false,
     "system": "L1",
-    "appType": 2
+    "appType": 2,
+    "subPromotionDomain": "l2-promotion1"
 }

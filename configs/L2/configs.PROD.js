@@ -15,4 +15,5 @@ window.envConfig = {
     googleAnalyticId: "G-60EQDEC0YR",
     system: "L2",
     appType: 2,
+    subPromotionDomain: "promotion",
 };

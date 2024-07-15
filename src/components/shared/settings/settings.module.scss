@@ -1,6 +1,6 @@
 [data-theme="light"] .settings-container {
     --icon-favorite-color: #945f08;
-    --icon-color: #F2A61C;
+    --icon-color: #f2a61c;
     --position-icon-favorite: -73px -82px;
 }
 
@@ -8,20 +8,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;    
-    @media(min-width: 768px) {
+    width: 100%;
+    @media (min-width: 768px) {
         padding: 0 0.5rem;
     }
 }
 
 .setting-right {
-    display: grid;
-    grid-template-columns: repeat(5, 3rem);
-    grid-gap: 1rem;
+    display: flex;
+    gap: 1rem;
     align-items: center;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
 
-    &.saba-mega-keno, &.mega-keno {
+    &.saba-mega-keno,
+    &.mega-keno {
         grid-template-columns: repeat(4, 3rem);
     }
 }
@@ -34,7 +34,7 @@
     padding: 0.2rem 0.5rem;
     line-height: 1.1rem;
     border-radius: 0.3rem;
-    background: #E8382F;
+    background: #e8382f;
     font-family: "SanFranciscoDisplay", serif;
     font-size: 1.1rem;
     font-weight: 500;
@@ -43,6 +43,22 @@
     @media screen and (min-width: 768px) {
         right: -0.8rem;
     }
+}
+
+.hot-label {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 1.8rem;
+    padding: 0.2rem 0.5rem;
+    line-height: 1.1rem;
+    border-radius: 0.3rem;
+    background: #e8382f;
+    font-family: "SanFranciscoDisplay", serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #fff;
+    z-index: 2;
 }
 
 %icon {
@@ -63,17 +79,17 @@
 
 .setting-button {
     position: relative;
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         justify-self: flex-end;
-    } 
+    }
 
     &:hover {
         cursor: pointer;
     }
 }
 .icon-noti,
-.icon-sound-on, 
-.icon-sound-off, 
+.icon-sound-on,
+.icon-sound-off,
 .icon-history,
 .icon-favorite-normal {
     color: #fff;
@@ -82,12 +98,12 @@
 }
 
 // .desktop-style {
-//     .icon-sound-on::before, 
-//     .icon-sound-off::before, 
+//     .icon-sound-on::before,
+//     .icon-sound-off::before,
 //     .icon-history::before,
 //     .icon-favorite-normal::before {
-//         color: #fff;  
-//     }    
+//         color: #fff;
+//     }
 // }
 
 %icon-notify {
@@ -96,10 +112,9 @@
     height: 2rem;
 }
 
-
 .icon-sound-on-dark {
     @extend %icon-notify;
-   background-position: 0 -58px;
+    background-position: 0 -58px;
 }
 
 .icon-sound-off-dark {
@@ -109,14 +124,13 @@
 
 .icon-sound-off-light {
     @extend %icon-notify;
-   background-position: -147px -84px;
+    background-position: -147px -84px;
 }
 
 .icon-sound-on-light {
     @extend %icon-notify;
     background-position: 0 -84px;
 }
-
 
 .icon-ticket-history-light {
     @extend %icon-notify;

@@ -26,6 +26,7 @@ describe("Test UrlHelper", () => {
         googleAnalyticId: "G-X1Q507KDPB",
         serverDomainMapper: [""],
         gameSettings: {},
+        subPromotionDomain: "guides",
     });
 
     describe("Test function getDomainFromHostName", () => {

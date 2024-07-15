@@ -3,9 +3,9 @@
     display: flex;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
-    @media(max-width: 767px) {
+    @media (max-width: 767px) {
         justify-self: flex-end;
-    }    
+    }
 
     &:hover {
         cursor: pointer;
@@ -13,10 +13,10 @@
 }
 
 .menu-toggle-btn {
-    min-width: 4rem;
-    @media(max-width: 767px) {
+    // min-width: 4rem;
+    @media (max-width: 767px) {
         text-align: right;
-    } 
+    }
 }
 
 .dropdown-menu {

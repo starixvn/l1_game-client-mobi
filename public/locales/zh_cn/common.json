@@ -96,5 +96,6 @@
     "game": "游戏",
     "sessionTimeout-1": "您的会话已超时或您尚未登录。",
     "sessionTimeout-2": "请关闭当前窗口并再次尝试登录。",
-    "copy": "复制"
+    "copy": "复制",
+    "hot": "热"
 }

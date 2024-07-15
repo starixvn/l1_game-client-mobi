@@ -30,6 +30,8 @@ import { ToolbarGuide } from "../hide-toolbar-guide";
 import { buildUrl } from "../../helpers/url-helper";
 import { SystemContextProvider } from "../../contexts/system";
 import { GetOfferedGames } from "../../helpers/category-helper";
+import { PromotionTournament } from "./promotion-tournament";
+import { ModalContextProvider } from "../../contexts/modal-context";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -515,94 +517,97 @@ class Dashboard extends React.PureComponent<Props, State> {
                         offeredGames,
                     }}
                 >
-                    <div className={Styles["dashboard"]}>
-                        <Header
-                            user={authorizeInfo.user}
-                            enabledNotification={enabledWinningStreakNotification}
-                            enabledSound={enabledPlaySound}
-                            onToggleNotification={this.winningStreakNotificationToggle}
-                            onToggleSound={this.playSoundToggle}
-                            toggleHistoryModal={this.toggleHistoryModal}
-                            toggleGuideModal={this.toggleGuideModal}
-                            toggleAnnouncementModal={this.toggleAnnouncementModal}
-                            favoriteGames={favoriteGames}
-                            offerGames={offeredGames}
-                            updateFavoriteGames={this.updateFavoriteGames}
-                            enabledQuickBet={enabledQuickBet}
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
-                            isShowBoostedOdds={isShowBoostedOdds}
-                            promotionNotifications={promotionNotifications}
-                            isShowToolbarGuide={isShowToolbarGuide}
-                        />
-                        <Games
-                            enabledWinningStreakNotification={enabledWinningStreakNotification}
-                            enabledPlaySound={enabledPlaySound}
-                            setApiErrorMessage={this.handleShowApiErrorMessage}
-                            userStakeLevel={userStakeLevel}
-                            updateUserStakeLevel={this.handleUpdateUserStakeLevel}
-                            favoriteGames={favoriteGames}
-                            userOfferGames={offeredGames}
-                            queryGame={queryGame}
-                            isShowSlidingChip={isShowSlidingChip}
-                            updateQueryGames={this.updateQueryGame}
-                            isJoinGame={isJoinGame}
-                            openGameId={openGameId}
-                        />
-                        <BetSettings
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
-                            updateBetValue={this.setBetValue}
-                            user={authorizeInfo.user}
-                            toggleSlidingChip={this.toggleSlidingChip}
-                            isShowSlidingChip={isShowSlidingChip}
-                            toggleAnnouncementModal={this.toggleAnnouncementModal}
-                            isNewPromotion={isNewPromotion}
-                            isShowToolbarGuide={isShowToolbarGuide}
-                        />
-                        {isShowHistory && (
-                            <HistoryModal
-                                onCloseModal={this.toggleHistoryModal}
+                    <ModalContextProvider>
+                        <div className={Styles["dashboard"]}>
+                            <Header
+                                user={authorizeInfo.user}
+                                enabledNotification={enabledWinningStreakNotification}
+                                enabledSound={enabledPlaySound}
+                                onToggleNotification={this.winningStreakNotificationToggle}
+                                onToggleSound={this.playSoundToggle}
+                                toggleHistoryModal={this.toggleHistoryModal}
+                                toggleGuideModal={this.toggleGuideModal}
+                                toggleAnnouncementModal={this.toggleAnnouncementModal}
+                                favoriteGames={favoriteGames}
                                 offerGames={offeredGames}
-                                fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
-                            />
-                        )}
-                        {isShowAnnouncement && (
-                            <AnnouncementModal
-                                onCloseModal={this.toggleAnnouncementModal}
+                                updateFavoriteGames={this.updateFavoriteGames}
+                                enabledQuickBet={enabledQuickBet}
+                                updateEnabledQuickBet={this.setEnabledQuickBet}
+                                isShowBoostedOdds={isShowBoostedOdds}
                                 promotionNotifications={promotionNotifications}
-                                openGame={this.openGame}
+                                isShowToolbarGuide={isShowToolbarGuide}
                             />
-                        )}
-                        {isShowGuide && (
-                            <GameGuideModal
+                            <Games
+                                enabledWinningStreakNotification={enabledWinningStreakNotification}
+                                enabledPlaySound={enabledPlaySound}
+                                setApiErrorMessage={this.handleShowApiErrorMessage}
                                 userStakeLevel={userStakeLevel}
-                                onCloseModal={this.toggleGuideModal}
-                                offerGames={offeredGames}
-                                promotions={promotions}
-                                settingGames={settingGames}
-                                fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                                updateUserStakeLevel={this.handleUpdateUserStakeLevel}
+                                favoriteGames={favoriteGames}
+                                userOfferGames={offeredGames}
+                                queryGame={queryGame}
+                                isShowSlidingChip={isShowSlidingChip}
+                                updateQueryGames={this.updateQueryGame}
+                                isJoinGame={isJoinGame}
+                                openGameId={openGameId}
                             />
-                        )}
-                        {isShowErrorModal && (
-                            <div className={Styles["container-modal"]}>
-                                <div className={`${Styles["bg-opacity"]} ${isBlockUI ? Styles["block-ui-backdrop"] : ""}`}></div>
-                                <BaseDialog
-                                    type={ModalType.Center}
-                                    isOpen={isShowErrorModal}
-                                    onCloseModal={this.closeDialog}
-                                    isBlockUI={isBlockUI}
-                                >
-                                    <div className={`modal-center ${isBlockUI ? Styles["block-ui-message"] : ""}`}>
-                                        <div className={`icon-warning modal-icon-warning`}></div>
-                                        {!isBlockUI && <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>}
+                            <BetSettings
+                                updateEnabledQuickBet={this.setEnabledQuickBet}
+                                updateBetValue={this.setBetValue}
+                                user={authorizeInfo.user}
+                                toggleSlidingChip={this.toggleSlidingChip}
+                                isShowSlidingChip={isShowSlidingChip}
+                                toggleAnnouncementModal={this.toggleAnnouncementModal}
+                                isNewPromotion={isNewPromotion}
+                                isShowToolbarGuide={isShowToolbarGuide}
+                            />
+                            {isShowHistory && (
+                                <HistoryModal
+                                    onCloseModal={this.toggleHistoryModal}
+                                    offerGames={offeredGames}
+                                    fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                                />
+                            )}
+                            {isShowAnnouncement && (
+                                <AnnouncementModal
+                                    onCloseModal={this.toggleAnnouncementModal}
+                                    promotionNotifications={promotionNotifications}
+                                    openGame={this.openGame}
+                                />
+                            )}
+                            <PromotionTournament />
+                            {isShowGuide && (
+                                <GameGuideModal
+                                    userStakeLevel={userStakeLevel}
+                                    onCloseModal={this.toggleGuideModal}
+                                    offerGames={offeredGames}
+                                    promotions={promotions}
+                                    settingGames={settingGames}
+                                    fractionalOddsFormat={authorizeInfo.user?.fractionalOddsFormat}
+                                />
+                            )}
+                            {isShowErrorModal && (
+                                <div className={Styles["container-modal"]}>
+                                    <div className={`${Styles["bg-opacity"]} ${isBlockUI ? Styles["block-ui-backdrop"] : ""}`}></div>
+                                    <BaseDialog
+                                        type={ModalType.Center}
+                                        isOpen={isShowErrorModal}
+                                        onCloseModal={this.closeDialog}
+                                        isBlockUI={isBlockUI}
+                                    >
+                                        <div className={`modal-center ${isBlockUI ? Styles["block-ui-message"] : ""}`}>
+                                            <div className={`icon-warning modal-icon-warning`}></div>
+                                            {!isBlockUI && <div className={`icon-close modal-icon-close`} onClick={this.closeDialog}></div>}
 
-                                        <Trans t={this.props.t}>
-                                            {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}
-                                        </Trans>
-                                    </div>
-                                </BaseDialog>
-                            </div>
-                        )}
-                    </div>
+                                            <Trans t={this.props.t}>
+                                                {this.props.t(this.state.apiError?.message, { errorCode: this.state.apiError?.errorCode })}
+                                            </Trans>
+                                        </div>
+                                    </BaseDialog>
+                                </div>
+                            )}
+                        </div>
+                    </ModalContextProvider>
                 </SystemContextProvider>
             </AuthContextProvider>
         );

@@ -27,6 +27,14 @@ export const buildGameGuideUrl = () => {
     return buildUrl(getAppSettings().subGuideDomain, "");
 };
 
+export const buildPromotionSiteUrl = () => {
+    const subPromotionDomain = getAppSettings().subPromotionDomain;
+    if (subPromotionDomain) {
+        return buildUrl(getAppSettings().subPromotionDomain, "");
+    }
+    return buildUrlWithPath("/promotion");
+};
+
 export const buildSocketGatewayUrl = () => {
     return buildUrl(getAppSettings().subSocketGatewayDomain, "");
 };

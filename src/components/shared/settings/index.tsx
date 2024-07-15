@@ -10,6 +10,7 @@ import { Tooltip } from "../tooltip";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
+import { IconPromotionTournament } from "./icon-promotion-tournament";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -53,6 +54,7 @@ export const Settings: React.FC<Props> = ({
                 )}
 
                 <div className={`${styles["setting-right"]} ${styles[getLogoName()]}`}>
+                    <IconPromotionTournament />
                     <div
                         ref={toggleAnnouncementBtnRef}
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
