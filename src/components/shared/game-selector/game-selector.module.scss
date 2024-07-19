@@ -37,6 +37,8 @@
     overflow: auto;
     bottom: 0;
     height: fit-content;
+    max-height: 85%;
+
     @media (min-width: 768px) {
         width: 34.3rem;
     }
