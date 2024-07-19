@@ -7,6 +7,10 @@ export const isMegaKenoLobby = () => {
     return getAppSettings().appType === 4;
 };
 
+const isSabaSystem = () => {
+    return getAppSettings().system === "L1";
+};
+
 export enum GameCategoryType {
     hot,
     megakeno,
@@ -61,6 +65,7 @@ const GrUSDCategoryConfig = {
     [Categories.sedie]: [GameIds.SeDie, GameIds.VipSeDie, GameIds.MiniSeDie, GameIds.SpecialSeDie],
     [Categories.dice]: [GameIds.BigSmall, GameIds.BigSmallTurbo, GameIds.FishPrawnCrab],
     [Categories.card]: [GameIds.DragonTiger, GameIds.VipBaccarat, GameIds.Baccarat, GameIds.ThreeCards],
+    ...KenoCategoryConfig,
     [Categories.kenolottery]: [GameIds.KenoProMax],
     [Categories.favorite]: [],
 };
@@ -79,6 +84,7 @@ const OtherCurrencyGroupCategoryConfig = {
     ],
     [Categories.card]: [GameIds.Baccarat, GameIds.VipBaccarat, GameIds.DragonTiger, GameIds.ThreeCards],
     [Categories.dice]: [GameIds.FishPrawnCrab, GameIds.SeDie, GameIds.VipSeDie, GameIds.MiniSeDie],
+    ...KenoCategoryConfig,
     [Categories.kenolottery]: [GameIds.KenoProMax],
     [Categories.favorite]: [],
 };
@@ -87,11 +93,14 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
     if (isMegaKenoLobby()) {
         return KenoCategoryConfig;
     }
+
     const groups = ["Cash_INH", "GrUSD"];
-    if (groups.includes(currencyGroupName)) {
-        return GrUSDCategoryConfig;
+    let configs = groups.includes(currencyGroupName) ? GrUSDCategoryConfig : OtherCurrencyGroupCategoryConfig;
+    if (isSabaSystem()) {
+        delete configs[Categories.megakeno];
+        delete configs[Categories.keno];
     }
-    return OtherCurrencyGroupCategoryConfig;
+    return configs;
 };
 
 export const GetOfferedGames = (currencyGroupName: string, offerGames: number[]) => {
