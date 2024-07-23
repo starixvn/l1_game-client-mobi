@@ -7,8 +7,8 @@ export const isMegaKenoLobby = () => {
     return getAppSettings().appType === 4;
 };
 
-const isSabaSystem = () => {
-    return getAppSettings().system === "L1";
+const isIncludeMegaCategory = () => {
+    return !!getAppSettings().isIncludeMegaCategory;
 };
 
 export enum GameCategoryType {
@@ -96,7 +96,7 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
 
     const groups = ["Cash_INH", "GrUSD"];
     const configs = groups.includes(currencyGroupName) ? GrUSDCategoryConfig : OtherCurrencyGroupCategoryConfig;
-    if (isSabaSystem()) {
+    if (!isIncludeMegaCategory()) {
         delete configs[Categories.megakeno];
         delete configs[Categories.keno];
     }

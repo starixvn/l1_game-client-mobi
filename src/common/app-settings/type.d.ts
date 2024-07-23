@@ -24,4 +24,5 @@ export default interface AppSettings {
     system: string;
     appType: number;
     subPromotionDomain: string;
+    isIncludeMegaCategory: boolean?;
 }

@@ -16,4 +16,5 @@ window.envConfig = {
     system: "L2",
     appType: 2,
     subPromotionDomain: "l2uatpromotion",
+    isIncludeMegaCategory: false,
 };
