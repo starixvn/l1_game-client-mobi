@@ -33,25 +33,25 @@ export const BigSmallOpenThePlate: React.FC<{ result: Result }> = ({ result }) =
     const { playResultAnimation } = useGameContext();
     return (
         <div className={`${Styles["open-the-plate"]} ${playResultAnimation ? Styles["has-animation"] : ""}`}>
-        <div className="overlay-mask">                     
+            <div className="overlay-mask">
                 <Plate>
-                <div className={Styles["result-container"]}>
-                    {result &&
-                        Object.values(result).map((value, index) => (
-                            <div key={index} className={Styles[`result-${index + 1}`]}>
-                                <img
-                                    src={`/static/images/bigsmall-dice-${value}.png`}
-                                    className={Styles["dice"]}
-                                    width={30}
-                                    height={30}
-                                    alt="dice"
-                                />
-                            </div>
-                        ))}
-                </div>
+                    <div className={Styles["result-container"]}>
+                        {result &&
+                            Object.values(result).map((value, index) => (
+                                <div key={index} className={Styles[`result-${index + 1}`]}>
+                                    <img
+                                        src={`/static/images/bigsmall-dice-${value}.png`}
+                                        className={Styles["dice"]}
+                                        width={30}
+                                        height={30}
+                                        alt="dice"
+                                    />
+                                </div>
+                            ))}
+                    </div>
                 </Plate>
+            </div>
         </div>
-    </div>
     );
 };
 

@@ -17,12 +17,12 @@ type Props = {
 };
 
 const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
-    const { gameState, settlementResult, betPercentage, isShowWinningEffect } = props;
+    const { gameState, settlementResult, isShowWinningEffect } = props;
     const { gameConfigs, gameSetting } = useGameContext();
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds, boostedChoices } = gameConfigs;
     return (
-        <div className={`bet-options-container ${Styles["layout-BS"]}`}>
+        <div className={`bet-options-container `}>
             {Object.keys(Choices).map((choice, index) => {
                 return (
                     <BetOption
@@ -33,12 +33,8 @@ const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
                         isBoostedOdds={boostedChoices?.includes(choice)}
-                    >
-                        <div className={Styles[choice]}>
-                            {t(choice)}
-                            <UserBetStats value={betPercentage?.[choice]} />
-                        </div>
-                    </BetOption>
+                        displayName={t(choice)}
+                    />
                 );
             })}
         </div>

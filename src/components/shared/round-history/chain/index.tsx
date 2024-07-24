@@ -40,7 +40,8 @@ const ChainRoundHistory = <R, S>(props: Props<R, S>) => {
         const numberOfItems = isShowBlink ? 19 : 20;
         const rounds = roundHistory.slice(0, numberOfItems).reverse();
         return (
-            <div className={Styles["round-dot-wrapper"]}>
+            <div className={`${Styles["round-dot-wrapper"]}`}>
+                Previous Rounds:
                 {rounds.map((round: Round<R, S>, index: number) => (
                     <RoundDotWrapper
                         key={round.roundId}

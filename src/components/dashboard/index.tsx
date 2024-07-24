@@ -10,8 +10,8 @@ import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "..
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
-import { authorize, getSettingGames, reCheckIn } from "../../services/auth-service";
-import { updateSignInSMStatus, getChipSettings } from "../../services/user-setting-service";
+import { authorize, createNickname, getSettingGames, reCheckIn } from "../../services/auth-service";
+import { updateSignInSMStatus, getChipSettings, updateThemeSetting } from "../../services/user-setting-service";
 import BetSettings from "../bet-settings";
 import Games from "../games/games";
 import Header from "../header";
@@ -30,6 +30,8 @@ import { ToolbarGuide } from "../hide-toolbar-guide";
 import { buildUrl } from "../../helpers/url-helper";
 import { SystemContextProvider } from "../../contexts/system";
 import { GetOfferedGames } from "../../helpers/category-helper";
+import NameGenerator from "./register/name-generator";
+import { randomInteger } from "../../helpers/number-helper";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
 class Dashboard extends React.PureComponent<Props, State> {
@@ -106,6 +108,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.openGame = this.openGame.bind(this);
         this.closeToolbarGuide = this.closeToolbarGuide.bind(this);
         this.getFavoriteGames = this.getFavoriteGames.bind(this);
+        this.autoCreateNickname = this.autoCreateNickname.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -238,11 +241,15 @@ class Dashboard extends React.PureComponent<Props, State> {
 
         const authorizeInfo = authorizeResponse as AuthorizeResponse;
 
-        this.getOfferedGames(authorizeInfo);
-        this.updateChipsSettings();
-        this.updateAuthorizeInfo(authorizeInfo);
-        this.getFavoriteGames();
-        this.updateUserBalance(authorizeInfo?.user?.red);
+        if (!authorizeInfo.authorized) {
+            await this.autoCreateNickname();
+        } else {
+            this.getOfferedGames(authorizeInfo);
+            this.updateChipsSettings();
+            this.updateAuthorizeInfo(authorizeInfo);
+            this.getFavoriteGames();
+            this.updateUserBalance(authorizeInfo?.user?.red);
+        }
 
         this.reCheckInInterval = setInterval(async () => {
             const reCheckInResponse = await reCheckIn(this.props.session);
@@ -500,6 +507,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             setBalance: this.updateUserBalance,
             signOut: this.signOut,
         };
+        const { isTesting } = getAppSettings();
         return (
             <AuthContextProvider value={authContextValue}>
                 <SystemContextProvider
@@ -516,24 +524,26 @@ class Dashboard extends React.PureComponent<Props, State> {
                     }}
                 >
                     <div className={Styles["dashboard"]}>
-                        <Header
-                            user={authorizeInfo.user}
-                            enabledNotification={enabledWinningStreakNotification}
-                            enabledSound={enabledPlaySound}
-                            onToggleNotification={this.winningStreakNotificationToggle}
-                            onToggleSound={this.playSoundToggle}
-                            toggleHistoryModal={this.toggleHistoryModal}
-                            toggleGuideModal={this.toggleGuideModal}
-                            toggleAnnouncementModal={this.toggleAnnouncementModal}
-                            favoriteGames={favoriteGames}
-                            offerGames={offeredGames}
-                            updateFavoriteGames={this.updateFavoriteGames}
-                            enabledQuickBet={enabledQuickBet}
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
-                            isShowBoostedOdds={isShowBoostedOdds}
-                            promotionNotifications={promotionNotifications}
-                            isShowToolbarGuide={isShowToolbarGuide}
-                        />
+                        {!isTesting && (
+                            <Header
+                                user={authorizeInfo.user}
+                                enabledNotification={enabledWinningStreakNotification}
+                                enabledSound={enabledPlaySound}
+                                onToggleNotification={this.winningStreakNotificationToggle}
+                                onToggleSound={this.playSoundToggle}
+                                toggleHistoryModal={this.toggleHistoryModal}
+                                toggleGuideModal={this.toggleGuideModal}
+                                toggleAnnouncementModal={this.toggleAnnouncementModal}
+                                favoriteGames={favoriteGames}
+                                offerGames={offeredGames}
+                                updateFavoriteGames={this.updateFavoriteGames}
+                                enabledQuickBet={enabledQuickBet}
+                                updateEnabledQuickBet={this.setEnabledQuickBet}
+                                isShowBoostedOdds={isShowBoostedOdds}
+                                promotionNotifications={promotionNotifications}
+                                isShowToolbarGuide={isShowToolbarGuide}
+                            />
+                        )}
                         <Games
                             enabledWinningStreakNotification={enabledWinningStreakNotification}
                             enabledPlaySound={enabledPlaySound}
@@ -548,16 +558,18 @@ class Dashboard extends React.PureComponent<Props, State> {
                             isJoinGame={isJoinGame}
                             openGameId={openGameId}
                         />
-                        <BetSettings
-                            updateEnabledQuickBet={this.setEnabledQuickBet}
-                            updateBetValue={this.setBetValue}
-                            user={authorizeInfo.user}
-                            toggleSlidingChip={this.toggleSlidingChip}
-                            isShowSlidingChip={isShowSlidingChip}
-                            toggleAnnouncementModal={this.toggleAnnouncementModal}
-                            isNewPromotion={isNewPromotion}
-                            isShowToolbarGuide={isShowToolbarGuide}
-                        />
+                        {!isTesting && (
+                            <BetSettings
+                                updateEnabledQuickBet={this.setEnabledQuickBet}
+                                updateBetValue={this.setBetValue}
+                                user={authorizeInfo.user}
+                                toggleSlidingChip={this.toggleSlidingChip}
+                                isShowSlidingChip={isShowSlidingChip}
+                                toggleAnnouncementModal={this.toggleAnnouncementModal}
+                                isNewPromotion={isNewPromotion}
+                                isShowToolbarGuide={isShowToolbarGuide}
+                            />
+                        )}
                         {isShowHistory && (
                             <HistoryModal
                                 onCloseModal={this.toggleHistoryModal}
@@ -613,8 +625,19 @@ class Dashboard extends React.PureComponent<Props, State> {
         if (authorized) {
             return this.renderDashBoard();
         }
+        // return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
+    }
 
-        return <Register session={this.props.session} handleStateLogin={this.handleRegister} />;
+    async autoCreateNickname() {
+        const nickname = NameGenerator.generateName();
+        const maxAvatarId = 40;
+        const selectedAvatarId = randomInteger(1, maxAvatarId);
+        const authorizeResponse = (await createNickname(this.props.session, nickname, selectedAvatarId)) as AuthorizeResponse;
+        if (authorizeResponse?.authorized) {
+            updateThemeSetting(this.props.session);
+            Object.assign(authorizeResponse.user, { settings: { theme: Themes.light } });
+            this.handleRegister(authorizeResponse);
+        }
     }
 
     renderGoogleAnalytic() {

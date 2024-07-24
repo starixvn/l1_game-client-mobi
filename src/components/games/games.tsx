@@ -248,21 +248,24 @@ export const Games: React.FC<Props> = ({
         selectCategoryPage(queryCategory, 1);
     }, [queryGame]);
 
+    const { isTesting } = getAppSettings();
     return (
         <div
             className={`game-container ${!isMobileOnly ? "game-wrapper" : "game-wapper-mobile"} ${
                 isShowSlidingChip ? styles["open-chips"] : styles["close-chips"]
             }`}
         >
-            {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-            <GameCategory
-                favoriteGames={favoriteGames}
-                selectedPage={selectedPage}
-                selectCategoryPage={selectCategoryPage}
-                selectedCategory={selectedCategory}
-            />
+            {!isTesting && enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
+            {!isTesting && (
+                <GameCategory
+                    favoriteGames={favoriteGames}
+                    selectedPage={selectedPage}
+                    selectCategoryPage={selectCategoryPage}
+                    selectedCategory={selectedCategory}
+                />
+            )}
             <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                {renderListGames()}
+                {isTesting ? getGameComponentById(1, 0) : renderListGames()}
             </div>
         </div>
     );

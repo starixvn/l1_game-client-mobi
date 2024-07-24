@@ -92,7 +92,7 @@
         height: 80px;
         left: 28px;
         top: 28px;
-        
+
         .dice {
             width: 3rem;
             height: 3rem;
@@ -158,7 +158,8 @@
 }
 
 .result-collapse-mode {
-    grid-template-columns: repeat(3, 3.3rem);
+    display: flex;
+    // grid-template-columns: repeat(3, 3.3rem);
     grid-template-rows: 3.3rem;
 
     .result-item {
@@ -194,6 +195,7 @@
     }
 
     .result-label {
+        position: static;
         animation-delay: 0.2s;
     }
 

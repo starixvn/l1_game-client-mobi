@@ -24,6 +24,7 @@ import BetContainer from "../bet-container";
 import DisabledModal from "../disabled-modal";
 import { ConnectFailedMessage, ErrorMessage } from "../error-message";
 import { ConnectFailedReasonKey } from "../error-message/type";
+import { GameName } from "../game-header/game-header";
 import GameHeader from "../game-header";
 import GameLoading from "../game-loading";
 import { Notice } from "../notice";
@@ -47,6 +48,8 @@ import {
     WinStreakCollectorModel,
 } from "./type";
 import { buildServerUrl } from "../../../helpers/url-helper";
+import { RoundId } from "../round-id";
+import { ResultCollapse } from "../result-collapse";
 
 const { rebet: reBetStorageKey } = LocalStorageManager.localStorageKeys;
 
@@ -376,6 +379,19 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         }
     };
 
+    syncBalanceFromParent = (balance: number) => {
+        window.parent.postMessage(
+            {
+                from: "iframe",
+                name: "syncBalance",
+                data: {
+                    balance,
+                },
+            },
+            "*"
+        );
+    };
+
     playAcceptedBetAnimation(amount: number, betPosition?: Position) {
         const { acceptedBetQueue } = this.state;
         const key = uuidv4();
@@ -547,6 +563,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
         if (balanceResponse.isSuccessful) {
             this.context.setBalance(balanceResponse.balance);
+            this.syncBalanceFromParent(balanceResponse.balance);
         } else {
             this.props.setApiErrorMessage(balanceResponse.errorCode);
         }
@@ -682,18 +699,47 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
 
     placeBet(betChoice: string, amount: number, betPosition?: Position, betOptionBoundary?: Boundary) {
         const { displayPopup } = this.state;
-
         if (this.isProcessingBet && displayPopup !== PopupType.Rebet) {
             this.setState({ notice: { message: this.props.t("messages:betProcessing"), duration: 2 } });
         } else {
-            if (amount > 0) {
-                this.betPosition = betPosition;
-                this.betOptionBoundary = betOptionBoundary;
-                this.isProcessingBet = true;
-                this.setRetryInterval();
-                this.sendBetMessage(betChoice, amount);
-            }
+            // this.betPosition = betPosition;
+            // this.betOptionBoundary = betOptionBoundary;
+            // this.isProcessingBet = true;
+            this.setRetryInterval();
+            this.sendBetMessageToParent(betChoice, 1, betPosition);
+            // this.sendBetMessage(betChoice, amount);
         }
+    }
+
+    private sendBetMessageToParent(betChoice: string, amount: number, betPosition?: Position) {
+        const { selectedBetChoice, roundId } = this.state;
+        const { gameName } = this.props;
+
+        console.log({
+            amount,
+            choiceId: 1,
+            choiceName: betChoice,
+            position: { left: betPosition.x, top: betPosition.y },
+            gameName: gameName,
+            gameRoundId: roundId,
+            odds: this.getOddsByChoice(betChoice),
+        });
+        window.parent?.postMessage(
+            {
+                from: "iframe",
+                name: "placeBet",
+                data: {
+                    amount,
+                    choiceId: 1,
+                    choiceName: selectedBetChoice,
+                    position: { left: betPosition.x, top: betPosition.y },
+                    gameName: gameName,
+                    gameRoundId: roundId,
+                    odds: this.getOddsByChoice(selectedBetChoice),
+                },
+            },
+            "*"
+        );
     }
 
     protected sendBetMessage(betChoice: string, amount: number) {
@@ -946,16 +992,68 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         return "";
     }
 
-    renderGameHeader() {
+    renderGameHeader(isTesting: boolean) {
         const { gameState } = this.state;
-
         const gameHeaderProps = {
             isShowCollapse: [GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState),
             isUpdateDisableRebet: gameState !== GameState.InRound,
             countdownTimerComponent: <CountdownTimer key={gameState} />,
         };
-
+        if (isTesting) {
+            return (
+                <div className="row">
+                    <GameName />
+                </div>
+            );
+        }
         return <GameHeader {...gameHeaderProps} />;
+    }
+
+    renderGameInfos() {
+        const { gameState } = this.state;
+        const isShowResult = [GameState.DisplayResult, GameState.BeforeStartRound].includes(gameState);
+        return (
+            <div className="col game-match">
+                <div className="d-flex align-items-center h-100">
+                    <RoundId />
+                    <CountdownTimer key={gameState} />
+                    {isShowResult && <ResultCollapse />}
+                </div>
+            </div>
+        );
+    }
+
+    renderComponentsForTesting() {
+        const { gameName } = this.props;
+
+        const { gameState } = this.state;
+
+        const betOptionFollowGameName = `bet-options-${gameName.toLowerCase()}`;
+        const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[betOptionFollowGameName]}`;
+
+        return (
+            <>
+                <div className="row">
+                    <div className="col">{this.renderGameInfos()}</div>
+                    <div className="col-auto">
+                        <BetContainer gameState={gameState}>
+                            <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
+                                {this.renderBetOptions()}
+                            </div>
+                            {this.state.gameState === GameState.BalancingBet && <OverlayMaskWhite />}
+                            {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
+                                <WinningBet amount={this.betWin} />
+                            )}
+                        </BetContainer>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()} round-history`}>
+                        {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
+                    </div>
+                </div>
+            </>
+        );
     }
 
     get isShowInlineResult() {
@@ -1080,53 +1178,62 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         const animationDuration = this.getFinishAnimationDuration() / 1000;
         const betOptionFollowGameName = `bet-options-${gameName.toLowerCase()}`;
         const betOptionsContainerClasses = `${Styles["bet-options"]} ${Styles[betOptionFollowGameName]}`;
+
+        const { isTesting } = getAppSettings();
         return (
             <GameContextProvider value={gameContext}>
                 <GameActionsContextProvider value={gameActionsContext}>
-                    {this.renderGameHeader()}
-                    {viewMode !== ViewMode.collapse && (
+                    {this.renderGameHeader(isTesting)}
+                    {isTesting && this.renderComponentsForTesting()}
+                    {!isTesting && (
                         <>
-                            {this.isShowInlineResult && (
-                                <SectionResultContainer gameName={gameName}>{this.renderResultSection()}</SectionResultContainer>
-                            )}
-                            {supportMD5 && this.renderMD5()}
-                            <BetContainer gameState={gameState}>
-                                <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
-                                    {this.renderBetOptions()}
-                                </div>
-
-                                {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
-                                {this.state.gameState === GameState.DisplayResult && (
-                                    <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
-                                )}
-                                {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
-                                    <ResultDetail
-                                        renderSettlementInfo={this.renderSettlementInfo}
-                                        timeToShowInSecond={durations.showResult + (durations.balancingBet ?? 0) - animationDuration}
-                                    />
-                                )}
-                                {this.state.gameState === GameState.BalancingBet && <OverlayMaskWhite />}
-                                {this.state.notice && this.renderNotice()}
-                                {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
-                                    <WinningBet amount={this.betWin} />
-                                )}
-                            </BetContainer>
-                            <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>
-                                {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
-                            </div>
-                            {viewMode === ViewMode.full && (
+                            {viewMode !== ViewMode.collapse && (
                                 <>
-                                    <div className={`${Styles["statistic"]}`}>
-                                        {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
+                                    {this.isShowInlineResult && (
+                                        <SectionResultContainer gameName={gameName}>{this.renderResultSection()}</SectionResultContainer>
+                                    )}
+                                    {supportMD5 && this.renderMD5()}
+                                    <BetContainer gameState={gameState}>
+                                        <div ref={this.gameBaseContainerRef} className={betOptionsContainerClasses}>
+                                            {this.renderBetOptions()}
+                                        </div>
+
+                                        {this.isShowStartRoundAnimation && this.renderStartRoundAnimation()}
+                                        {this.state.gameState === GameState.DisplayResult && (
+                                            <BaseResult showResultTimeInSecond={durations.showResult}>{this.renderResult()}</BaseResult>
+                                        )}
+                                        {this.state.showResultInfo && this.state.gameState === GameState.DisplayResult && (
+                                            <ResultDetail
+                                                renderSettlementInfo={this.renderSettlementInfo}
+                                                timeToShowInSecond={
+                                                    durations.showResult + (durations.balancingBet ?? 0) - animationDuration
+                                                }
+                                            />
+                                        )}
+                                        {this.state.gameState === GameState.BalancingBet && <OverlayMaskWhite />}
+                                        {this.state.notice && this.renderNotice()}
+                                        {(this.state.showResultInfo || this.state.showWinningAnimation) && this.betWin > 0 && (
+                                            <WinningBet amount={this.betWin} />
+                                        )}
+                                    </BetContainer>
+                                    <div className={`${Styles["mini-round-history"]} ${this.getRoundHistoryTabStyles()}`}>
+                                        {this.state.roundHistory.length > 0 ? this.renderRoundHistory() : <></>}
                                     </div>
-                                    <ScoreboardRoundHistory activeScoreboardTab={activeScoreboardTab}>
-                                        {this.state.roundHistory.length > 0 ? this.renderBoard() : <></>}
-                                    </ScoreboardRoundHistory>
+                                    {viewMode === ViewMode.full && (
+                                        <>
+                                            <div className={`${Styles["statistic"]}`}>
+                                                {this.state.roundHistory.length > 0 ? this.renderStatistic() : <></>}
+                                            </div>
+                                            <ScoreboardRoundHistory activeScoreboardTab={activeScoreboardTab}>
+                                                {this.state.roundHistory.length > 0 ? this.renderBoard() : <></>}
+                                            </ScoreboardRoundHistory>
+                                        </>
+                                    )}
                                 </>
                             )}
+                            {this.renderPopup(displayPopup)}
                         </>
                     )}
-                    {this.renderPopup(displayPopup)}
                 </GameActionsContextProvider>
             </GameContextProvider>
         );

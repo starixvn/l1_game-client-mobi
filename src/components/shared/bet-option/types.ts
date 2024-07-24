@@ -8,7 +8,7 @@ export enum HighlightType {
 export type Props = {
     choice: string;
     odd: number;
-    children: React.ReactNode;
+    children?: React.ReactNode;
     isHighlight: boolean;
     isDisplayOdd?: boolean;
     gameState: GameState;
@@ -17,4 +17,5 @@ export type Props = {
     isShowTooltip?: boolean;
     tooltipMessage?: string;
     isBoostedOdds?: boolean;
+    displayName?: string;
 };

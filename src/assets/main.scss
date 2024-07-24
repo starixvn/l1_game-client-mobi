@@ -13,6 +13,7 @@
 @import "./components/tooltip";
 @import "./components/popover";
 @import "./components/modal";
+@import "./components/layout";
 
 html {
     font-size: 10px !important;
@@ -23,7 +24,7 @@ html {
     --font-family: "SanFranciscoDisplay", arial, sans-serif;
     --font-money: "BebasNeue", Arial, sans-serif;
     --font-number: "SanFranciscoDisplay", Arial, sans-serif;
-    --primary-color: #FF8B20;
+    --primary-color: #ff8b20;
 
     // buttons
     --btn-green-background: #5bb379;
@@ -34,16 +35,16 @@ html {
     --btn-orange-background-hover: #e5a030;
     --btn-orange-color: #fff;
 
-    --btn-blue-background: linear-gradient(176.7deg, #82A1D4 2.64%, #5474A7 96.87%);
-    --btn-blue-background-hover: linear-gradient(176.7deg, #82A1D4 2.64%, #3a5c93 96.87%);
+    --btn-blue-background: linear-gradient(176.7deg, #82a1d4 2.64%, #5474a7 96.87%);
+    --btn-blue-background-hover: linear-gradient(176.7deg, #82a1d4 2.64%, #3a5c93 96.87%);
     --btn-blue-color: #fff;
 
-    --btn-red-background: linear-gradient(176.7deg, #DC5751 2.64%, #B6403A 96.87%);
-    --btn-red-background-hover: linear-gradient(176.7deg, #DC5751 2.64%, #DC5751 96.87%);
+    --btn-red-background: linear-gradient(176.7deg, #dc5751 2.64%, #b6403a 96.87%);
+    --btn-red-background-hover: linear-gradient(176.7deg, #dc5751 2.64%, #dc5751 96.87%);
     --btn-red-color: #fff;
 
-    --btn-grey-background: linear-gradient(180deg, #E0E0E0 0%, #B8B8B8 100%);
-    --btn-grey-background-hover: linear-gradient(180deg, #E0E0E0 0%, #aaaaaa 100%);
+    --btn-grey-background: linear-gradient(180deg, #e0e0e0 0%, #b8b8b8 100%);
+    --btn-grey-background-hover: linear-gradient(180deg, #e0e0e0 0%, #aaaaaa 100%);
     --btn-grey-color: #2c2f3e;
 
     // z-index
@@ -174,7 +175,7 @@ html {
     --page-background-image: url("/static/images/themes/background-theme-light.jpg");
     --text-color: #2c2f3e;
 
-    --border-color: #C5CBDB;
+    --border-color: #c5cbdb;
 
     --opacity-background: rgba(12, 12, 12, 0.36);
     --opacity-background-grey: rgba(221, 221, 221, 0.6);
@@ -194,7 +195,7 @@ html {
     --dropdown-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
     --dropdown-item-color: var(-text-color);
     --dropdown-item-background: #fff;
-    --dropdown-item-background-hover: #F5EEB8;
+    --dropdown-item-background-hover: #f5eeb8;
     --dropdown-item-color-hover: var(-text-color);
 
     --icon-close-background: #eaebf0;
@@ -263,10 +264,10 @@ body {
 .game-container {
     position: relative;
     width: 100%;
-    margin: 0 auto;
+    // margin: 0 auto;
 
     &.game-wrapper {
-        margin-top: 4.4rem;
+        // margin-top: 4.4rem;
     }
 
     @media (min-width: 1260px) {

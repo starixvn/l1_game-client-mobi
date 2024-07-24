@@ -5,6 +5,7 @@ import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameState } from "../game-base/type";
 import Loader from "../loader";
 import styles from "./countdown-timer.module.scss";
+import { getAppSettings } from "../../../common/app-settings";
 
 export type Rotation = "clockwise" | "counterclockwise";
 const CountdownTimer: React.FC = () => {
@@ -71,9 +72,10 @@ const Timer = () => {
         duration: durations.placingBets,
         rotation: "counterclockwise" as Rotation,
     };
+    const { isTesting } = getAppSettings();
 
     return (
-        <div className={`${styles.timer} ${styles[gameName]}`}>
+        <div className={`${styles.timer} ${styles[gameName]} ${isTesting ? styles.isTesting : ""}`}>
             <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF7B7B" : "#15E84B", 1]]}>
                 {({ remainingTime }) => {
                     if (remainingTime === 0) {

@@ -45,6 +45,7 @@ const BetOption: React.FunctionComponent<Props> = ({
     isShowPoolStake = true,
     isShowTooltip = false,
     isBoostedOdds = false,
+    displayName = "",
 }) => {
     const { totalBets, ownBets, rate, gameSetting } = useGameContext();
     const { openPlaceBetModal, placeBet } = useGameActionContext();
@@ -99,28 +100,28 @@ const BetOption: React.FunctionComponent<Props> = ({
         ${Styles[gameSetting.gameName.toLocaleLowerCase()]}`;
 
     const oddsClass = isBoostedOdds ? `${Styles["boosted-odd"]}` : `${Styles["odd"]}`;
-    const oddsValue = formatOdds(odd, fractionalOddsFormat);
+    const oddsValue = formatOdds(odd, true);
     return (
         <>
-            <div className={Styles.container} ref={betChoiceRef}>
-                <div className={betOptionClasses} onClick={onClickBet}>
-                    {isDisplayOdd && <div className={oddsClass}>{odd ? oddsValue : ""}</div>}
-
-                    <div className={Styles["total-bet"]} ref={totalBetRef}>
+            <div className={`${Styles.container} bet-choice-container`} ref={betChoiceRef}>
+                <div className={`${betOptionClasses} bet-choice`} onClick={onClickBet}>
+                    {/* <div className={Styles["total-bet"]} ref={totalBetRef}>
                         {isShowPoolStake &&
                             (gameState === GameState.BalancingBet
                                 ? convertStakeToString(+countUp, rate)
                                 : convertStakeToString(totalBet, rate))}
-                    </div>
+                    </div> */}
 
-                    {children}
-                    <div className={Styles["own-bet"]}>
+                    <span className="choice-name">{displayName}</span>
+                    <span>{odd ? oddsValue : ""}</span>
+
+                    {/* <div className={Styles["own-bet"]}>
                         {ownBets?.[choice] ? (
                             <span key={ownBets[choice]} className={`d-inline-block ${ownBets[choice]}`}>
                                 {numberWithCommas(ownBets[choice])}
                             </span>
                         ) : null}
-                    </div>
+                    </div> */}
                 </div>
             </div>
             {isShowTooltip && <Tooltip message={tooltipMessage} hoverWrapper={betChoiceRef} isShowAtHoverPosition={true} />}
