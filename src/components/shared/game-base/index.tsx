@@ -213,8 +213,8 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         if (data?.from === "ms-parent") {
             const { action } = data;
             if (action === "placeBet" && data.data) {
-                const { amount, choice } = data.data;
-                this.sendBetMessage(choice, +amount);
+                const { amount, choice, gameName } = data.data;
+                gameName === this.props.gameName && this.sendBetMessage(choice, +amount);
             }
         }
     }
