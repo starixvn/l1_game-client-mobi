@@ -14,4 +14,5 @@ window.envConfig = {
     enableMsgpackParser: false,
     system: "L1",
     appType: 2,
+    isTesting: true,
 };
