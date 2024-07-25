@@ -1,11 +1,11 @@
 window.envConfig = {
-    subSocketGatewayDomain: "l2-gw",
+    subSocketGatewayDomain: "l1-gw1",
     serverDomainMapper: {
         localhost: "lumigame.com",
     },
     proxy: {
         ssl: true,
-        subDomain: "l2-proxy",
+        subDomain: "l1-proxy1",
         path: "",
     },
     sentry: {
@@ -15,7 +15,7 @@ window.envConfig = {
     enableSourceMap: true,
     subGuideDomain: "l1-guide",
     enableMsgpackParser: false,
-    system: "L2",
+    system: "L1",
     appType: 2,
     isTesting: true,
 };

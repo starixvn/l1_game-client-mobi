@@ -238,8 +238,9 @@ body {
 body {
     padding: 0;
     margin: 0;
-    background: var(--page-background-color) var(--page-background-image) no-repeat center center fixed;
-    background-size: cover;
+    background: transparent;
+    // background: var(--page-background-color) var(--page-background-image) no-repeat center center fixed;
+    // background-size: cover;
     font: 500 1.4rem/1.5 var(--font-family);
     color: var(--text-color);
     overscroll-behavior: contain;
@@ -270,7 +271,7 @@ body {
         // margin-top: 4.4rem;
     }
 
-    @media (min-width: 1260px) {
-        width: 126.7rem;
-    }
+    // @media (min-width: 1260px) {
+    //     width: 126.7rem;
+    // }
 }

@@ -136,6 +136,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.onDestroy();
         this.messageTransmitter.clearAllListener();
         document.removeEventListener("visibilitychange", this.onVisibilityChange);
+        window.removeEventListener("message", this.handleEventFromParent);
     }
 
     onDestroy() {
@@ -202,8 +203,9 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.onDestroy();
         this.setState({ gameState: GameState.ConnectFailed, signedIn: false, disconnectReason: ConnectFailedReasonKey.lostConnection });
     }
+
     registerEventFromParent() {
-        window.addEventListener("message", this.handleEventFromParent.bind(this));
+        window.addEventListener("message", this.handleEventFromParent);
     }
 
     handleEventFromParent({ data }) {
@@ -747,11 +749,11 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                 data: {
                     amount,
                     choiceId: 1,
-                    choiceName: selectedBetChoice,
+                    choiceName: betChoice,
                     position: { left: betPosition.x, top: betPosition.y },
                     gameName: gameName,
                     gameRoundId: roundId,
-                    odds: this.getOddsByChoice(selectedBetChoice),
+                    odds: this.getOddsByChoice(betChoice),
                 },
             },
             "*"
