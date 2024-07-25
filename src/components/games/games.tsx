@@ -248,6 +248,14 @@ export const Games: React.FC<Props> = ({
         selectCategoryPage(queryCategory, 1);
     }, [queryGame]);
 
+    const renderTestGame = () => {
+        return [1, 2].map((gameId, index) => (
+            <div className="col-12" key={index}>
+                {getGameComponentById(gameId, index)}
+            </div>
+        ));
+    };
+
     const { isTesting } = getAppSettings();
     return (
         <div
@@ -265,7 +273,7 @@ export const Games: React.FC<Props> = ({
                 />
             )}
             <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
-                {isTesting ? getGameComponentById(1, 0) : renderListGames()}
+                {isTesting ? renderTestGame() : renderListGames()}
             </div>
         </div>
     );

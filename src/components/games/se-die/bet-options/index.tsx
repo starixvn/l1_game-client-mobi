@@ -44,21 +44,49 @@ const SeDieBetOptions: React.FunctionComponent<Props> = (props) => {
     const renderLabel = (choice: string) => <div className={`${Styles["bet-choice-name"]} ${Styles[choice]}`}>{t(choice)}</div>;
 
     return (
-        <div className={`${Styles["layout-sedie"]} ${!choices.includes(Choices.red2) && Styles["mini"]}`}>
-            {choices.map((choice) => (
-                <div key={choice} className={Styles[`bet-choice-${choice}`]}>
+        <div className="d-flex">
+            <div className={` ${!choices.includes(Choices.red2) && Styles["mini"]} bet-options-container `}>
+                {[Choices.odd, Choices.even].map((choice) => (
                     <BetOption
+                        key={choice}
                         choice={choice}
                         odd={odds[choice]}
                         isHighlight={settlementResult[choice]}
                         gameState={gameState}
                         isShowWinningEffect={isShowWinningEffect}
                         isBoostedOdds={boostedChoices?.includes(choice)}
-                    >
-                        {MainChoice.includes(choice) ? renderLabel(choice) : renderIcons(choice)}
-                    </BetOption>
-                </div>
-            ))}
+                        displayName={t(choice)}
+                    />
+                ))}
+            </div>
+            <div className={` ${!choices.includes(Choices.red2) && Styles["mini"]} bet-options-container col-bet-choices`}>
+                {[Choices.red3, Choices.red4].map((choice) => (
+                    <BetOption
+                        key={choice}
+                        choice={choice}
+                        odd={odds[choice]}
+                        isHighlight={settlementResult[choice]}
+                        gameState={gameState}
+                        isShowWinningEffect={isShowWinningEffect}
+                        isBoostedOdds={boostedChoices?.includes(choice)}
+                        displayName={t(choice)}
+                    />
+                ))}
+            </div>
+            <div className={` ${!choices.includes(Choices.red2) && Styles["mini"]} bet-options-container col-bet-choices`}>
+                {[Choices.white3, Choices.white4].map((choice) => (
+                    <BetOption
+                        key={choice}
+                        choice={choice}
+                        odd={odds[choice]}
+                        isHighlight={settlementResult[choice]}
+                        gameState={gameState}
+                        isShowWinningEffect={isShowWinningEffect}
+                        isBoostedOdds={boostedChoices?.includes(choice)}
+                        displayName={t(choice)}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

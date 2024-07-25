@@ -36,6 +36,8 @@
     padding: 6px;
     width: 12rem;
     max-width: 12rem;
+    background-color: var(--border-color);
+
     .bet-choice-container {
         width: 100%;
         display: flex;
@@ -49,6 +51,12 @@
             padding: 0 1rem;
         }
     }
+}
+.col-12 {
+    width: 100%;
+}
+.col-bet-choices {
+    margin-left: 1rem;
 }
 .round-history {
 }

@@ -753,7 +753,7 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
                     position: { left: betPosition.x, top: betPosition.y },
                     gameName: gameName,
                     gameRoundId: roundId,
-                    odds: this.getOddsByChoice(betChoice),
+                    odds: (+this.getOddsByChoice(betChoice) || 1) - 1,
                 },
             },
             "*"

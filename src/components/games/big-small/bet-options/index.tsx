@@ -22,7 +22,7 @@ const BigSmallBetOptions: React.FunctionComponent<Props> = (props) => {
     const { t } = useTranslation(gameSetting.gameName.toLowerCase());
     const { odds, boostedChoices } = gameConfigs;
     return (
-        <div className={`bet-options-container `}>
+        <div className={`bet-options-container`}>
             {Object.keys(Choices).map((choice, index) => {
                 return (
                     <BetOption
