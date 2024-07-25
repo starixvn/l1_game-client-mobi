@@ -1,8 +1,8 @@
 [data-theme="light"] .header {
-    --game-header-background: linear-gradient(180deg, #5075AF 0%, #2D4976 100%);
-    --game-header-shadow: inset 0px 2px 4px #A5C7FF;
+    --game-header-background: linear-gradient(180deg, #5075af 0%, #2d4976 100%);
+    --game-header-shadow: inset 0px 2px 4px #a5c7ff;
     --game-header-overlay-image: url(/static/images/game-header-overlay.png?v=1);
-    --game-header-icon-favourite: #FFCC33;
+    --game-header-icon-favourite: #ffcc33;
     --game-header-icon-unfavourite: #fff;
     --game-header-icon-menu: #fff;
     --game-header-icon-menu-background-hover: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 100%);
@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 3rem; 
+    width: 3rem;
 
     &:hover {
         cursor: pointer;
@@ -70,7 +70,7 @@
     }
 }
 
-.zone-none-favorite  {
+.zone-none-favorite {
     width: 1rem;
     height: 100%;
 }
@@ -82,8 +82,8 @@
     .title-roundID {
         display: flex;
         flex-direction: column;
-        justify-content: center;        
-        z-index: 1;        
+        justify-content: center;
+        z-index: 1;
     }
 
     .title {
@@ -99,7 +99,7 @@
 
         @media (max-width: 575.99px) {
             font-size: 1.5rem;
-        }        
+        }
     }
 
     .round {
@@ -187,4 +187,13 @@
         position: relative;
         z-index: calc(var(--popup-guide-history-index) - 1);
     }
+}
+
+.game-name {
+    width: 100%;
+    line-height: 2.6rem;
+    height: 2.6rem;
+    padding-left: 1rem;
+    background-color: #e6e6e6;
+    border-top: 1px solid #ebcec5;
 }

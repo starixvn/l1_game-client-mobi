@@ -1,6 +1,8 @@
 import { useTranslation } from "next-i18next";
-import { useGameContext } from "../../../contexts/game-context/game-context";
+
 import { GameResourceKeys } from "../../../common/resources";
+import { useGameContext } from "../../../contexts/game-context/game-context";
+import Styles from "./game-header.module.scss";
 
 export const GameName = () => {
     const { gameSetting } = useGameContext();
@@ -9,5 +11,5 @@ export const GameName = () => {
 
     const { t } = useTranslation([gameName.toLowerCase()]);
 
-    return <div>{t(GameResourceKeys.GAME_NAME)}</div>;
+    return <div className={Styles["game-name"]}>{t(GameResourceKeys.GAME_NAME)}</div>;
 };

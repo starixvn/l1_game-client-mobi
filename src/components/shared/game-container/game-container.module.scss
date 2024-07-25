@@ -1,6 +1,6 @@
 [data-theme="light"] .game-container {
-    --game-container-background: #fff;
-    --game-container-border: #5674a4;
+    --game-container-background: #ffe0d6;
+    --game-container-border: #ebcec5;
 }
 
 .game-container {
@@ -11,7 +11,7 @@
     min-width: inherit;
     // margin: 0 0.4rem 0.6rem;
     // border: 1px solid var(--game-container-border);
-    border-radius: 0.6rem;
+    border-radius: 0;
     background-color: var(--game-container-background);
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;

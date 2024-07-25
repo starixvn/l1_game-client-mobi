@@ -1,11 +1,11 @@
 import { useTranslation } from "next-i18next";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
+import { getAppSettings } from "../../../common/app-settings";
 import { useGameContext } from "../../../contexts/game-context/game-context";
 import { GameState } from "../game-base/type";
 import Loader from "../loader";
 import styles from "./countdown-timer.module.scss";
-import { getAppSettings } from "../../../common/app-settings";
 
 export type Rotation = "clockwise" | "counterclockwise";
 const CountdownTimer: React.FC = () => {
@@ -76,7 +76,7 @@ const Timer = () => {
 
     return (
         <div className={`${styles.timer} ${styles[gameName]} ${isTesting ? styles.isTesting : ""}`}>
-            <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF7B7B" : "#15E84B", 1]]}>
+            <CountdownCircleTimer {...timerProps} colors={[[ctx.gameState === GameState.LockingBet ? "#FF7B7B" : "#27ab48", 1]]}>
                 {({ remainingTime }) => {
                     if (remainingTime === 0) {
                         return (1).toLocaleString("en-US", { minimumIntegerDigits: 2 });

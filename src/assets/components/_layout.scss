@@ -17,13 +17,13 @@
 }
 
 .game-match {
-    background: linear-gradient(180deg, #5075af, #2d4976);
     height: 100%;
+    border: 1px solid #ebcec5;
 
     .roundId {
-        color: #fff;
+        color: #211d1c;
         font-size: 1.4rem;
-        font-weight: 400;
+        font-weight: bold;
         font-family: "SanFranciscoDisplay", Arial, sans-serif;
     }
 }
@@ -36,7 +36,8 @@
     padding: 6px;
     width: 12rem;
     max-width: 12rem;
-    background-color: var(--border-color);
+    border: 1px solid #ebcec5;
+    border-width: 1px 0;
 
     .bet-choice-container {
         width: 100%;
@@ -55,8 +56,7 @@
 .col-12 {
     width: 100%;
 }
+
 .col-bet-choices {
-    margin-left: 1rem;
-}
-.round-history {
+    border-left: 1px solid #ebcec5;
 }
