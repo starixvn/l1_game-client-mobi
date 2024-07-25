@@ -122,10 +122,12 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
         this.updateUserBalance = this.updateUserBalance.bind(this);
         this.setActiveScoreboardTab = this.setActiveScoreboardTab.bind(this);
         this.copyToClipboard = this.copyToClipboard.bind(this);
+        this.handleEventFromParent = this.handleEventFromParent.bind(this);
     }
 
     componentDidMount() {
         this.registerMessageHandler();
+        this.registerEventFromParent();
         document.addEventListener("visibilitychange", this.onVisibilityChange);
         this.onStart();
     }
@@ -199,6 +201,20 @@ abstract class GameBase<P extends GameBaseProps, S extends GameBaseState<any, an
     onConnectFailed() {
         this.onDestroy();
         this.setState({ gameState: GameState.ConnectFailed, signedIn: false, disconnectReason: ConnectFailedReasonKey.lostConnection });
+    }
+    registerEventFromParent() {
+        window.addEventListener("message", this.handleEventFromParent.bind(this));
+    }
+
+    handleEventFromParent({ data }) {
+        console.log({ ...data });
+        if (data?.from === "ms-parent") {
+            const { action } = data;
+            if (action === "placeBet" && data.data) {
+                const { amount, choice } = data.data;
+                this.sendBetMessage(choice, +amount);
+            }
+        }
     }
 
     registerMessageHandler() {
