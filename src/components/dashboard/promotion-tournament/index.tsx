@@ -64,9 +64,9 @@ export const PromotionTournament = () => {
     return useMemo(
         () =>
             enabledPromotionTournament && (
-                <BaseDialog onCloseModal={onClose} enableBackdrop={true}>
+                <BaseDialog onCloseModal={onClose} enableBackdrop={true} >
                     <div className={Styles["popup-container"]}>
-                        <div className={Styles["title"]}>{t("popupAnnouncement")}</div>
+                        {/* <div className={Styles["title"]}>{t("popupAnnouncement")}</div> */}
                         <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="icon-close"></span>
                         <div className={Styles["main-content"]}>
                             <div className={Styles["container-site"]} ref={wrapperRef}>
