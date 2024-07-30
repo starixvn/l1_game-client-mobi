@@ -15,6 +15,7 @@ type Props = {
     enableBackdrop?: boolean;
     toggleBtnRef?: React.MutableRefObject<HTMLElement>;
     isBlockUI?: boolean;
+    extraClass?: string;
 };
 
 const getClassFollowDevice = () => {
@@ -45,6 +46,7 @@ const BaseDialog: React.FC<Props> = ({
     enableBackdrop,
     toggleBtnRef,
     isBlockUI,
+    extraClass
 }: Props) => {
     const wrapperRef = useRef<HTMLDivElement>(null);
     const classModal = `modal-${ModalType[type].toLocaleLowerCase()}`;
@@ -81,7 +83,7 @@ const BaseDialog: React.FC<Props> = ({
             <div
                 style={getCustomStyle({ betContainerPosition })}
                 ref={wrapperRef}
-                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""} ${getClassFollowDevice()}`}
+                className={`${Styles.popup} ${Styles[classModal]} ${isMobileOnly ? Styles["isMobile"] : ""} ${getClassFollowDevice()} ${extraClass}`}
             >
                 {children}
             </div>

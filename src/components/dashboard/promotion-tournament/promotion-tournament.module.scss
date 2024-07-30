@@ -12,6 +12,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    border-radius: .5rem;
 
     .site-iframe {
         border: none;
@@ -22,4 +23,14 @@
 
 .loading {
     text-align: center;
+}
+
+.override-popup-background {
+    // background: none !important;
+    border: 0px !important;
+}
+
+.icon-close {
+    background: #1b081d !important;
+    color: #716873 !important;
 }
