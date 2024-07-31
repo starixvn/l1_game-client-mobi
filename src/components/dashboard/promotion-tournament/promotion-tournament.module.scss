@@ -26,11 +26,16 @@
 }
 
 .override-popup-background {
-    // background: none !important;
+    background: rgb(21, 15, 15) !important;
+    background: linear-gradient(0deg, rgba(21, 15, 15, 1) 23%, rgba(71, 51, 51, 1) 88%) !important;
     border: 0px !important;
 }
 
 .icon-close {
     background: #1b081d !important;
     color: #716873 !important;
+}
+
+.popup-result-detail {
+    --popup-result-background: rgb(21, 15, 15) !important;
 }
