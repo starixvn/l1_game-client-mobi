@@ -66,8 +66,14 @@ export const PromotionTournament = () => {
             enabledPromotionTournament && (
                 <BaseDialog onCloseModal={onClose} enableBackdrop={true} extraClass={Styles["override-popup-background"]}>
                     <div className={Styles["popup-container"]}>
+                        <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="icon-close"></span>
                         <div className={Styles["main-content"]}>
                             <div className={Styles["container-site"]} ref={wrapperRef}>
+                                {isLoading && (
+                                    <div className={Styles["loading"]}>
+                                        <Loader></Loader>
+                                    </div>
+                                )}
                                 <iframe
                                     ref={wrapperIframeRef}
                                     key={uuidv4()}
