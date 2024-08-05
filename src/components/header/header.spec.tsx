@@ -14,6 +14,14 @@ jest.mock("../../common/constants", () => ({
     },
 }));
 
+jest.mock("../shared/settings", () => {
+    return {
+        Settings: jest.fn(() => {
+            return <></>;
+        }),
+    };
+});
+
 describe("Header", () => {
     const props = {
         user: { UID: 1, name: "name", avatarId: 1, currency: "UUS", red: 2000, isSignedInSM: true, settings: { theme: "light" } },
@@ -29,6 +37,7 @@ describe("Header", () => {
         promotionNotifications: [],
         offerGames: [],
         isShowBoostedOdds: false,
+        isShowToolbarGuide: false,
     };
     test("renders Header component", () => {
         const { getByTestId } = render(<Header {...props} />);
