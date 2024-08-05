@@ -35,12 +35,8 @@ export const useModalContext = () => React.useContext(ModalContext);
 const modalReducer = (state: ModalContextType, action: { type: ModalEventActionType; payload: boolean }) => {
     const { type, payload } = action;
 
-    switch (type) {
-        case ModalEventActionType.TogglePromotionTournamentModal: {
-            return { ...state, enabledPromotionTournament: payload };
-        }
-        default: {
-            return state;
-        }
+    if (type === ModalEventActionType.TogglePromotionTournamentModal) {
+        return { ...state, enabledPromotionTournament: payload };
     }
+    return state;
 };

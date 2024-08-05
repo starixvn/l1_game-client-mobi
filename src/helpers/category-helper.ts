@@ -95,7 +95,7 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
     }
 
     const groups = ["Cash_INH", "GrUSD"];
-    let configs = groups.includes(currencyGroupName) ? GrUSDCategoryConfig : OtherCurrencyGroupCategoryConfig;
+    const configs = groups.includes(currencyGroupName) ? GrUSDCategoryConfig : OtherCurrencyGroupCategoryConfig;
     if (isSabaSystem()) {
         delete configs[Categories.megakeno];
         delete configs[Categories.keno];
