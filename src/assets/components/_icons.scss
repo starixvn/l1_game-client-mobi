@@ -14,7 +14,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-
+.icon-bell:before {
+  content: "\e906";
+}
 .icon-noti:before {
   content: "\e905";
   color: #fff;

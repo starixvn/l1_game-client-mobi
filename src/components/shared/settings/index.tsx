@@ -1,5 +1,5 @@
 import { useTranslation } from "next-i18next";
-import React, { useRef, useState, useMemo } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { isMobileOnly } from "react-device-detect";
 
 import { getAppSettings } from "../../../common/app-settings";
@@ -7,10 +7,10 @@ import { AppTypes } from "../../../common/constants";
 import { FavoriteSetting } from "../../favorite-setting";
 import { getLogoName } from "../../header";
 import { Tooltip } from "../tooltip";
+import { IconPromotionTournament } from "./icon-promotion-tournament";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
-import { IconPromotionTournament } from "./icon-promotion-tournament";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -61,7 +61,7 @@ export const Settings: React.FC<Props> = ({
                         onClick={() => toggleAnnouncementModal()}
                     >
                         {promotionNotifications.length > 0 && (
-                            <span className={`icon-noti ${styles["icon-noti"]}`}>
+                            <span className={`icon-bell ${styles["icon-bell"]}`}>
                                 {<span className={styles["count-label"]}>{promotionNotifications?.length}</span>}
                             </span>
                         )}
