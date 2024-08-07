@@ -11,6 +11,7 @@ import { ModalEventActionType, useModalContext, useModalDispatch } from "../../.
 import { useAuthContext } from "../../../contexts/auth";
 import { LanguageLocaleMapper } from "../../../common/constants";
 
+const CLOSE_PROMOTION_EVENT = "closePromotionPopup";
 export const PromotionTournament = () => {
     const { t, i18n } = useTranslation();
     const { session } = useAuthContext();
@@ -61,12 +62,24 @@ export const PromotionTournament = () => {
         dispatch({ type: ModalEventActionType.TogglePromotionTournamentModal, payload: false });
     };
 
+    useEffect(() => {
+        const handleEvent = ({ data }: { data: string }) => {
+            if (data === CLOSE_PROMOTION_EVENT) {
+                onClose();
+            }
+        };
+        window.addEventListener("message", handleEvent, false);
+
+        return () => {
+            window.removeEventListener("message", handleEvent);
+        };
+    }, []);
+
     return useMemo(
         () =>
             enabledPromotionTournament && (
                 <BaseDialog onCloseModal={onClose} enableBackdrop={true} extraClass={Styles["override-popup-background"]}>
                     <div className={Styles["popup-container"]}>
-                        <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="icon-close"></span>
                         <div className={Styles["main-content"]}>
                             <div className={Styles["container-site"]} ref={wrapperRef}>
                                 {isLoading && (
