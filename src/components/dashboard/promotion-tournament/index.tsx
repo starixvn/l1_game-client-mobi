@@ -9,7 +9,9 @@ import { browserVersion, isIOS, isMobileOnly } from "react-device-detect";
 import { ModalEventActionType, useModalContext, useModalDispatch } from "../../../contexts/modal-context";
 import { useAuthContext } from "../../../contexts/auth";
 import { LanguageLocaleMapper } from "../../../common/constants";
+import LoadingSpinner from "./loading-spinner";
 
+const CLOSE_PROMOTION_EVENT = "closePromotionPopup";
 export const PromotionTournament = () => {
     const { t, i18n } = useTranslation();
     const { session } = useAuthContext();
@@ -17,6 +19,7 @@ export const PromotionTournament = () => {
     const dispatch = useModalDispatch();
     const wrapperRef = useRef<HTMLIFrameElement>();
     const wrapperIframeRef = useRef<HTMLIFrameElement>();
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [heightGuide, setHeightGuide] = useState<number>(0);
     const [widthGuide, setWidthGuide] = useState<number>(0);
 
@@ -39,6 +42,11 @@ export const PromotionTournament = () => {
         }
     };
 
+    const hideSpinner = () => {
+        setIsLoading(false);
+        handleResize();
+    };
+
     useEffect(() => {
         const isIOSBrowserVersion15 = isMobileOnly && isIOS && browserVersion === "15";
         !isIOSBrowserVersion15 && window.addEventListener("resize", handleResize);
@@ -54,14 +62,31 @@ export const PromotionTournament = () => {
         dispatch({ type: ModalEventActionType.TogglePromotionTournamentModal, payload: false });
     };
 
+    useEffect(() => {
+        const handleEvent = ({ data }: { data: string }) => {
+            if (data === CLOSE_PROMOTION_EVENT) {
+                onClose();
+            }
+        };
+        window.addEventListener("message", handleEvent, false);
+
+        return () => {
+            window.removeEventListener("message", handleEvent);
+        };
+    }, []);
+
     return useMemo(
         () =>
             enabledPromotionTournament && (
                 <BaseDialog onCloseModal={onClose} enableBackdrop={true} extraClass={Styles["override-popup-background"]}>
                     <div className={Styles["popup-container"]}>
-                        <span className={`icon-close ${Styles["icon-close"]}`} onClick={onClose} data-testid="icon-close"></span>
                         <div className={Styles["main-content"]}>
                             <div className={Styles["container-site"]} ref={wrapperRef}>
+                                {isLoading && (
+                                    <div className={Styles["loading"]}>
+                                        <LoadingSpinner />
+                                    </div>
+                                )}
                                 <iframe
                                     ref={wrapperIframeRef}
                                     key={uuidv4()}
@@ -71,12 +96,17 @@ export const PromotionTournament = () => {
                                     height={heightGuide}
                                     width={widthGuide}
                                     scrolling="auto"
+                                    onLoad={() =>
+                                        setTimeout(() => {
+                                            hideSpinner();
+                                        }, 300)
+                                    }
                                 />
                             </div>
                         </div>
                     </div>
                 </BaseDialog>
             ),
-        [enabledPromotionTournament, promotionSiteUrl, heightGuide, widthGuide]
+        [enabledPromotionTournament, promotionSiteUrl, isLoading, heightGuide, widthGuide]
     );
 };
