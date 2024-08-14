@@ -11,6 +11,7 @@ import { IconPromotionTournament } from "./icon-promotion-tournament";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
+import { SystemType } from "../../../common/constants/system";
 
 const ButtonSettingClassName = "setting-button";
 
@@ -38,6 +39,7 @@ export const Settings: React.FC<Props> = ({
     const toggleSoundBtnRef = useRef<HTMLDivElement>(null);
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
+    const supportPromotionTournament = getAppSettings().system === SystemType.L2;
 
     return useMemo(() => {
         return (
@@ -54,7 +56,7 @@ export const Settings: React.FC<Props> = ({
                 )}
 
                 <div className={`${styles["setting-right"]} ${styles[getLogoName()]}`}>
-                    <IconPromotionTournament />
+                    {supportPromotionTournament && <IconPromotionTournament />}
                     <div
                         ref={toggleAnnouncementBtnRef}
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
