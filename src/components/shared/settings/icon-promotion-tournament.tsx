@@ -68,7 +68,8 @@ export const IconPromotionTournament = () => {
                 className={`${styles["setting-button"]} ${styles[specialClassByDevice]}`}
                 onClick={() => openPromotionModal()}
             >
-                <span className={`icon-noti ${styles["icon-noti"]}`}>{<span className={styles["hot-label"]}>{t("hot")}</span>}</span>
+
+                <span className={`icon-tournament ${styles["icon-tournament"]}`}>{<span className={`hot-label ${styles["hot-label"]}`} >{t("hot")}</span>}</span>
 
                 <Tooltip message={t("popupAnnouncement")} hoverWrapper={togglePromotionTournamentBtnRef} />
             </div>
