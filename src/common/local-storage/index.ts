@@ -11,6 +11,8 @@ export const localStorageKeys = {
     buildVersion: buildLocalStorageKey("build-version"),
     toolbarGuide: buildLocalStorageKey("toolbarGuide"),
     userStakeLevel: buildLocalStorageKey("user-stake-level"),
+    trackedOpenTournamentPopup: buildLocalStorageKey("tracked_open_tournament_popup")
+
 };
 
 export function removeLocalStorageItem(key: string) {

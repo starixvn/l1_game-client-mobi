@@ -8,25 +8,24 @@ import { Tooltip } from "../tooltip";
 import { ModalEventActionType, useModalDispatch } from "../../../contexts/modal-context";
 import { useAuthContext } from "../../../contexts/auth";
 import { buildPromotionSiteUrl } from "../../../helpers/url-helper";
-import { SSOResponse } from "sc-user-service-client/dist/auth";
+import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../../../common/local-storage";
 
-const isExistPromotionTournament = async (session: SSOResponse) => {
+const getPromotionTournamentNotification = async (params: { sessionId: string, username: string }) => {
     try {
-        const params = {
-            sessionId: Buffer.from(session.ss).toString("base64"),
-            username: session.username,
-        };
         const searchParams = new URLSearchParams();
         Object.keys(params).forEach((key) => params[key] !== undefined && searchParams.append(key, params[key]));
         const url = `${buildPromotionSiteUrl()}/notification/exist-promotion-tournament?${searchParams.toString()}`;
         const response = await axios.get(url);
-        if (response.data?.data) {
-            return true;
-        }
+
+        return response.data?.data;
     } catch (error) {
         console.error(`Get promotion tournament failed: ${error.message}`);
     }
-    return false;
+
+    return {
+        isExistedNotification: false,
+        numerousNewOrRunningTournament: 0
+    };
 };
 
 export const IconPromotionTournament = () => {
@@ -39,9 +38,23 @@ export const IconPromotionTournament = () => {
 
     useEffect(() => {
         let intervalPromotionTournament = null;
+        const params = {
+            sessionId: Buffer.from(session.ss).toString("base64"),
+            username: session.username,
+        };
+        const trackedOpenTournamentPopupKey = `${localStorageKeys.trackedOpenTournamentPopup}_${params.sessionId}`
 
         const checkPromotionTournament = async () => {
-            setIsActive(await isExistPromotionTournament(session));
+            const notification = await getPromotionTournamentNotification(params);
+            if (notification?.numerousNewOrRunningTournament > 0) {
+
+                const trackedOpenTournamentPopup = getLocalStorageItem<number>(trackedOpenTournamentPopupKey) ?? 0;
+
+                trackedOpenTournamentPopup === 0 && dispatch({ type: ModalEventActionType.TogglePromotionTournamentModal, payload: true });;
+                storeLocalStorageItem(trackedOpenTournamentPopupKey, trackedOpenTournamentPopup + 1);
+            }
+
+            setIsActive(notification.isExistedNotification);
         };
 
         if (session?.ss) {
@@ -53,6 +66,7 @@ export const IconPromotionTournament = () => {
         }
 
         return () => {
+            removeLocalStorageItem(trackedOpenTournamentPopupKey);
             intervalPromotionTournament && clearInterval(intervalPromotionTournament);
         };
     }, [session?.ss]);
