@@ -13,7 +13,7 @@ import LoadingSpinner from "./loading-spinner";
 
 const CLOSE_PROMOTION_EVENT = "closePromotionPopup";
 export const PromotionTournament = () => {
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
     const { session } = useAuthContext();
     const { enabledPromotionTournament } = useModalContext();
     const dispatch = useModalDispatch();
