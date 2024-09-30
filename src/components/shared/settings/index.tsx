@@ -1,6 +1,6 @@
 import { useTranslation } from "next-i18next";
 import React, { useMemo, useRef, useState } from "react";
-import { isMobileOnly } from "react-device-detect";
+import { isMobileOnly, isSafari } from "react-device-detect";
 
 import { getAppSettings } from "../../../common/app-settings";
 import { AppTypes } from "../../../common/constants";
@@ -40,7 +40,7 @@ export const Settings: React.FC<Props> = ({
     const favoriteToggleBtnRef = useRef<HTMLDivElement>(null);
     const specialClassByDevice = !isMobileOnly ? "desktop-style" : "";
     const supportPromotionTournament = getAppSettings().system === SystemType.L2;
-
+    const isShowPromotion = !(isShowToolbarGuide && isMobileOnly && isSafari);
     return useMemo(() => {
         return (
             <div className={styles["settings-container"]}>
@@ -56,7 +56,7 @@ export const Settings: React.FC<Props> = ({
                 )}
 
                 <div className={`${styles["setting-right"]} ${styles[getLogoName()]}`}>
-                    {supportPromotionTournament && <IconPromotionTournament />}
+                    {supportPromotionTournament && isShowPromotion && <IconPromotionTournament />}
                     <div
                         ref={toggleAnnouncementBtnRef}
                         className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
@@ -125,5 +125,5 @@ export const Settings: React.FC<Props> = ({
                 )}
             </div>
         );
-    }, [promotionNotifications, showFavoriteSetting, enabledSound, enabledNotification]);
+    }, [promotionNotifications, showFavoriteSetting, enabledSound, enabledNotification, isShowToolbarGuide]);
 };
