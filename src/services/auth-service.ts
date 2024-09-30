@@ -10,6 +10,7 @@ export const sso = async (token: string, appType: number): Promise<SSOResponse> 
 
     if (userSession && userSession.isAuthenticated) {
         storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
+        removeLocalStorageItem(localStorageKeys.isTournamentPopupAutoOpened);
     }
 
     return userSession;

@@ -4,14 +4,14 @@ import { isMobileOnly, isSafari } from "react-device-detect";
 
 import { getAppSettings } from "../../../common/app-settings";
 import { AppTypes } from "../../../common/constants";
+import { SystemType } from "../../../common/constants/system";
 import { FavoriteSetting } from "../../favorite-setting";
 import { getLogoName } from "../../header";
 import { Tooltip } from "../tooltip";
-import { IconPromotionTournament } from "./icon-promotion-tournament";
+import IconPromotionTournament from "./icon-promotion-tournament";
 import { Menu } from "./menu";
 import styles from "./settings.module.scss";
 import { Props } from "./types";
-import { SystemType } from "../../../common/constants/system";
 
 const ButtonSettingClassName = "setting-button";
 

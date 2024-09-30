@@ -11,7 +11,7 @@ export const localStorageKeys = {
     buildVersion: buildLocalStorageKey("build-version"),
     toolbarGuide: buildLocalStorageKey("toolbarGuide"),
     userStakeLevel: buildLocalStorageKey("user-stake-level"),
-    trackedOpenTournamentPopup: buildLocalStorageKey("tracked_open_tournament_popup")
+    isTournamentPopupAutoOpened: buildLocalStorageKey("is_tournament_popup_auto_opened")
 
 };
 
