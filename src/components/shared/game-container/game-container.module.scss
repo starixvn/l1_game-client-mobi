@@ -1,6 +1,6 @@
 [data-theme="light"] .game-container {
     --game-container-background: #fff;
-    --game-container-border: #5674A4;
+    --game-container-border: #5674a4;
 }
 
 .game-container {
@@ -36,7 +36,8 @@
         margin-bottom: 0.6rem;
 
         &:last-child {
-            margin-right: 0;
+            margin-left: auto;
+            margin-right: auto;
             margin-bottom: 0.6rem;
         }
     }
