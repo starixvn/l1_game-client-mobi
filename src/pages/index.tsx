@@ -46,6 +46,7 @@ function Home() {
             if (userSession.isAuthenticated) {
                 setSession(userSession);
                 Sentry.setUser(userSession);
+                gameId && storeLocalStorageItem<number>(localStorageKeys.queryGame, +gameId);
                 setLoading(false);
 
                 window.history.pushState(null, "", location.href.split("?")[0]);

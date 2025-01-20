@@ -34,6 +34,7 @@ import { PromotionTournament } from "./promotion-tournament";
 import { ModalContextProvider } from "../../contexts/modal-context";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
+
 class Dashboard extends React.PureComponent<Props, State> {
     private notificationSocket: Socket = null;
     private reCheckInInterval: NodeJS.Timeout;
@@ -67,7 +68,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             isNewPromotion: false,
             promotionNotifications: [],
             promotions: [],
-            queryGame: this.props.queryGame,
+            queryGame: this.props.queryGame || getLocalStorageItem<number>(localStorageKeys.queryGame) || 0,
             isJoinGame: false,
             settingGames: [],
             openGameId: null,

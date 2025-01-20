@@ -110,6 +110,9 @@ export const Games: React.FC<Props> = ({
     const [isJoinedGame, setIsJoinedGame] = useState(false);
 
     const renderListGames = () => {
+        if (queryGame > 0) {
+            return getGameComponentById(queryGame, 0);
+        }
         const renderGames = getRenderGames(
             currencyGroup,
             selectedCategory,
@@ -244,9 +247,9 @@ export const Games: React.FC<Props> = ({
         window.scrollTo(0, 0);
     }, []);
 
-    useEffect(() => {
-        selectCategoryPage(queryCategory, 1);
-    }, [queryGame]);
+    // useEffect(() => {
+    //     selectCategoryPage(queryCategory, 1);
+    // }, [queryGame]);
 
     return (
         <div
@@ -255,12 +258,12 @@ export const Games: React.FC<Props> = ({
             }`}
         >
             {enabledWinningStreakNotification && <WinningStreak ref={winningStreakRef}></WinningStreak>}
-            <GameCategory
+            {/* <GameCategory
                 favoriteGames={favoriteGames}
                 selectedPage={selectedPage}
                 selectCategoryPage={selectCategoryPage}
                 selectedCategory={selectedCategory}
-            />
+            /> */}
             <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
                 {renderListGames()}
             </div>
