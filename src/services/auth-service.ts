@@ -2,6 +2,9 @@ import { SSOResponse } from "sc-user-service-client/dist/auth";
 
 import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../common/local-storage";
 import { UserClientCommunication } from "./user-client-communication";
+import NameGenerator from "../components/dashboard/register/name-generator";
+import { maximumAvatarId } from "../common/constants";
+import { randomInteger } from "../helpers/number-helper";
 
 const authService = UserClientCommunication?.getUserClientInstance()?.auth;
 
@@ -46,7 +49,13 @@ export const createNickname = async (userSession: SSOResponse, nickname: string,
 };
 
 export const authorize = async (userSession: SSOResponse) => {
-    return authService.authorize(userSession.ss, userSession.username);
+    const response = await authService.authorize(userSession.ss, userSession.username);
+    if (!(response as any).authorized) {
+        const nickname = NameGenerator.generateName();
+        const avatarId = randomInteger(1, maximumAvatarId);
+        return authService.signName(userSession.ss, userSession.username, nickname, avatarId);
+    }
+    return response;
 };
 
 export const getBalance = async (userSession: SSOResponse) => {
