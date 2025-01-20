@@ -22,13 +22,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin-top: 0.4rem;
     margin-bottom: 8.5rem;
     background-color: transparent;
     align-content: flex-start;
 
     @media (min-width: 768px) {
-        margin-top: 4.2rem;
         margin-bottom: 8rem;
     }
 
