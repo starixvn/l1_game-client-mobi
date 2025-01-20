@@ -42,11 +42,11 @@ const Header: React.FC<Props> = (props) => {
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
                         <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
-                            <img
+                            {/* <img
                                 className="header-logo"
                                 alt="UM"
                                 src={`/static/images/logo-desktop-${getLogoName()}.svg?v=${buildVersion}`}
-                            />
+                            /> */}
                         </a>
                         <div className={Styles["header-right"]}>
                             {

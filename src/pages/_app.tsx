@@ -28,15 +28,15 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 }
 
 export const AppTilte = () => {
-    const [title, setTitle] = useState("");
-    useEffect(() => {
-        const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
-        setTitle(getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`));
-    }, []);
+    // const [title, setTitle] = useState("");
+    // useEffect(() => {
+    //     const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
+    //     setTitle(getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`));
+    // }, []);
     return (
         <Head>
-            <title>{title}</title>
-            <link rel="shortcut icon" href={`/favicon-${systemName}.ico?v=${buildVersion}`} />
+            <title>Demo</title>
+            {/* <link rel="shortcut icon" href={`/favicon-${systemName}.ico?v=${buildVersion}`} /> */}
         </Head>
     );
 };

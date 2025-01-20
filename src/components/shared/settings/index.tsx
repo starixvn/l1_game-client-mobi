@@ -95,7 +95,7 @@ export const Settings: React.FC<Props> = ({
                         <Tooltip message={t("popupTitleHistory")} hoverWrapper={toggleHistoryBtnRef} />
                     </div>
 
-                    {getAppSettings().appType !== AppTypes.megaKeno && (
+                    {/* {getAppSettings().appType !== AppTypes.megaKeno && (
                         <div
                             id="favorite-setting"
                             className={`${styles[ButtonSettingClassName]} ${styles[specialClassByDevice]}`}
@@ -105,7 +105,7 @@ export const Settings: React.FC<Props> = ({
                             <span className={`icon-favorite-normal ${styles["icon-favorite-normal"]}`}></span>
                             <Tooltip message={t("menu-favorite-setting")} hoverWrapper={favoriteToggleBtnRef} />
                         </div>
-                    )}
+                    )} */}
 
                     <Menu
                         handleToggleNotification={onToggleNotification}
