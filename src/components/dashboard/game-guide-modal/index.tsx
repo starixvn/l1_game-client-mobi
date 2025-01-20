@@ -5,6 +5,7 @@ import BaseDialog from "../../shared/base-dialog";
 import { GameSelector } from "../../shared/game-selector";
 import GameGuides from "./game-guide";
 import Styles from "./game-guide-modal.module.scss";
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
 export type GameConfigs = {
     maxBet: number;
@@ -20,7 +21,7 @@ export const GameGuideModal: React.FC<{
     settingGames: any;
     fractionalOddsFormat: boolean;
 }> = ({ onCloseModal, userStakeLevel, offerGames, promotions, settingGames, fractionalOddsFormat }) => {
-    const [selectedGameId, setSelectedGameId] = useState<number>(offerGames.filter((game) => offerGames.includes(game))[0]);
+    const [selectedGameId, setSelectedGameId] = useState<number>(getLocalStorageItem<number>(localStorageKeys.queryGame));
     const [isInPromotionTime, setIsInPromotionTime] = useState<boolean>(false);
     const [gameConfigs, setGameConfigs] = useState<GameConfigs>();
     const { t } = useTranslation();
@@ -47,8 +48,8 @@ export const GameGuideModal: React.FC<{
                 <div className={Styles["title"]}>{t("popupTitleGuide")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
-                    <span className={Styles["form-label"]}>{t("common:game")}</span>
-                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
+                    {/* <span className={Styles["form-label"]}>{t("common:game")}</span>
+                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} /> */}
                 </div>
                 <div className={Styles["guide-content"]}>
                     {selectedGameId !== -1 && (

@@ -13,6 +13,7 @@ import ThreeCardsBetHistory from "../../games/three-cards/bet-history";
 import BaseDialog from "../../shared/base-dialog";
 import GameSelector from "../../shared/game-selector";
 import Styles from "./history.module.scss";
+import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
 export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number[]; fractionalOddsFormat: boolean | undefined }> = ({
     onCloseModal,
@@ -20,7 +21,7 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
     fractionalOddsFormat,
 }) => {
     const { t } = useTranslation();
-    const [selectedGameId, setSelectedGameId] = useState<number>(offerGames?.[0] || 0);
+    const [selectedGameId, setSelectedGameId] = useState<number>(getLocalStorageItem<number>(localStorageKeys.queryGame) || 0);
     const closeModal = () => {
         onCloseModal();
     };
@@ -76,8 +77,8 @@ export const HistoryModal: React.FC<{ onCloseModal: Function; offerGames: number
                 <div className={Styles["title"]}>{t("popupTitleHistory")}</div>
                 <span className={`icon-close ${Styles["icon-close"]}`} onClick={closeModal} data-testid="icon-close"></span>
                 <div className={Styles["form"]}>
-                    <span className={Styles["form-label"]}>{t("common:game")}</span>
-                    <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} />
+                    {/* <span className={Styles["form-label"]}>{t("common:game")}</span> */}
+                    {/* <GameSelector onChangeGame={setSelectedGameId} selectedGame={selectedGameId} offerGames={offerGames} /> */}
                 </div>
                 <div className={`w-100 ${Styles["history-content"]}`}>{renderHistory()}</div>
             </div>
