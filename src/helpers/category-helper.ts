@@ -94,7 +94,7 @@ export const GetGameCategoryConfig = (currencyGroupName: string) => {
         return KenoCategoryConfig;
     }
 
-    const groups = ["Cash_INH", "GrUSD"];
+    const groups = ["Cash_INH", "GrUSD", "Cash_GrTEST", "GrTEST"];
     const configs = groups.includes(currencyGroupName) ? GrUSDCategoryConfig : OtherCurrencyGroupCategoryConfig;
     if (!isIncludeMegaCategory()) {
         delete configs[Categories.megakeno];
