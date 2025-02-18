@@ -10,7 +10,7 @@ window.envConfig = {
         environment: "LOCAL_2",
     },
     enableSourceMap: true,
-    enableMsgpackParser: true,
+    enableMsgpackParser: false,
     subGuideDomain: "l2-guide-2",
     system: "L2",
     appType: 4,
