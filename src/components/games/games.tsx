@@ -28,9 +28,15 @@ import MiniKeno from "./mini-keno";
 import { KenoMatchProps } from "../games/keno-match/type";
 import { Props } from "./type";
 import messageTransmitter from "../../helpers/message-transmitter";
-import { AppTypes } from "../../common/constants";
+import { AppTypes, isL1System } from "../../common/constants";
 import { buildSocketGatewayUrl } from "../../helpers/url-helper";
 import { useAuthContext } from "../../contexts/auth";
+import { ToastNotification } from "../toast-notification";
+
+const isSabaKeno = () => {
+    const appSettings = getAppSettings();
+    return appSettings.appType === AppTypes.megaKeno && isL1System();
+};
 
 let gamesOrder = [];
 const getRenderGames = (
@@ -264,6 +270,7 @@ export const Games: React.FC<Props> = ({
             <div className={`${styles["game-list"]} ${isMobileOnly ? styles[isIOS ? "ios-device" : "android-device"] : ""}`}>
                 {renderListGames()}
             </div>
+            {isSabaKeno() && <ToastNotification />}
         </div>
     );
 };
