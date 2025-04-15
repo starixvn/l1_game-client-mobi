@@ -17,9 +17,18 @@ const ResultDetail: React.FC<{ renderSettlementInfo: Function; timeToShowInSecon
         };
     }, []);
 
+    const renderContent = () => {
+        try {
+            return props.renderSettlementInfo();
+        } catch (error) {
+            console.error("Failed to render settlement info:", error);
+            return <div>error</div>;
+        }
+    };
+
     return (
         <div className={`${Styles["result-detail-container"]} ${bindHideAnimationClass ? Styles["hide-result-animation"] : ""}`}>
-            {props.renderSettlementInfo()}
+            {renderContent()}
         </div>
     );
 };
