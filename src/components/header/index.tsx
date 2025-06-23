@@ -29,12 +29,19 @@ type Props = {
     isShowToolbarGuide: boolean;
 };
 
-export const getLogoName = (operator: string) => {
-    if (getAppSettings().appType === AppTypes.megaKeno) {
-        return isL1System() ? "saba-mega-keno" : operator === "SP" ? "sabaplay-keno" : "vgaming-keno";
+export const getLogoName = (operator: string = "VG") => {
+    const isMegaKeno = getAppSettings().appType === AppTypes.megaKeno;
+    const isL1 = isL1System();
+    
+    if (isMegaKeno) {
+        if (isL1) return "saba-mega-keno";
+        if (operator === "SP") return "sabaplay-keno";
+        return "vgaming-keno";
     }
-
-    return isL1System() ? "saba" : operator === "SP" ? "sabaplay" : "vgaming";
+    
+    if (isL1) return "saba";
+    if (operator === "SP") return "sabaplay";
+    return "vgaming";
 };
 
 const Header: React.FC<Props> = (props) => {
