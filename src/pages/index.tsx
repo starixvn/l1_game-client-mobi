@@ -13,7 +13,7 @@ import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
-const getUserSession = (token: string, op: string) => (token ? sso(token, getAppSettings().appType, op as string) : verifySession());
+const getUserSession = (token: string, op: string) => (token ? sso(token, getAppSettings().appType, op) : verifySession());
 
 function Home() {
     const router = useRouter();
