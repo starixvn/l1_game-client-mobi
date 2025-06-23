@@ -1,5 +1,24 @@
 import React from "react";
 
+// Mock crypto for test environment
+Object.defineProperty(global, 'crypto', {
+    value: {
+        getRandomValues: (arr) => {
+            for (let i = 0; i < arr.length; i++) {
+                arr[i] = Math.floor(Math.random() * 400000);
+            }
+            return arr;
+        },
+        randomUUID: () => {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+    }
+});
+
 const hasChildren = (node) => node && (node.children || (node.props && node.props.children));
 
 const getChildren = (node) => (node && node.children ? node.children : node.props && node.props.children);
