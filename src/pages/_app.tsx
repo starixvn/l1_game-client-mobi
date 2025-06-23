@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 import { buildVersion, systemName, Themes, sabaPlayMobileName } from "../common/constants";
 import { getAppSettings } from "../common/app-settings";
 import { useEffect, useState } from "react";
+import { getLocalStorageItem, localStorageKeys } from "../common/local-storage";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -36,7 +37,7 @@ export const AppTilte = () => {
     useEffect(() => {
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
-        setTitle(getBrowserTitle(systemNameKey, op as string));
+        setTitle(getBrowserTitle(systemNameKey, op ? op as string : getLocalStorageItem(localStorageKeys.operator)));
     }, [op]);
     
     return (
