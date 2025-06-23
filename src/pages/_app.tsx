@@ -5,8 +5,9 @@ import { appWithTranslation } from "next-i18next";
 import { ThemeProvider } from "next-themes";
 import App, { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
-import { buildVersion, systemName, Themes } from "../common/constants";
+import { buildVersion, systemName, Themes, sabaPlayMobileName } from "../common/constants";
 import { getAppSettings } from "../common/app-settings";
 import { useEffect, useState } from "react";
 
@@ -29,10 +30,15 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 
 export const AppTilte = () => {
     const [title, setTitle] = useState("");
+    const router = useRouter();
+    const { op } = router.query;
+    
     useEffect(() => {
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
-        setTitle(getBrowserTitle(`system-name-${systemName}${isMegaKenoType}`));
-    }, []);
+        const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
+        setTitle(getBrowserTitle(systemNameKey, op as string));
+    }, [op]);
+    
     return (
         <Head>
             <title>{title}</title>
@@ -40,12 +46,13 @@ export const AppTilte = () => {
         </Head>
     );
 };
-const getBrowserTitle = (systemName) => {
+
+const getBrowserTitle = (systemName: string, operator?: string) => {
     const browserTitle = {
         "system-name-l1": "Saba Mobi",
-        "system-name-l2": "Vgaming Mobi",
+        "system-name-l2": operator === "SP" ? sabaPlayMobileName : "Vgaming Mobi",
         "system-name-l1-mega": "SABA Mega Keno",
-        "system-name-l2-mega": "Vgaming Keno",
+        "system-name-l2-mega": operator === "SP" ? "SABAPLAY Keno" : "Vgaming Keno",
     };
     return browserTitle[systemName] || "";
 };

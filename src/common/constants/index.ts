@@ -29,6 +29,8 @@ export const sabaMobileName = "Saba.mobi";
 export const sabaClubName = "Saba.games";
 export const vGamingMobileName = "Vgaming Mobi";
 export const vGamingName = "Vgaming";
+export const sabaPlayMobileName = "SABAPLAY Table Games";
+export const sabaPlayName = "SABAPLAY";
 
 export const buildVersion = process.env.buildVersion;
 export const AppTypes = {

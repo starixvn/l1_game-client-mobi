@@ -7,6 +7,8 @@ import { AppTypes, buildVersion, isL1System } from "../../common/constants";
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
 import Styles from "./header.module.scss";
+import { useAuthContext } from "../../contexts/auth";
+import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
 
 type Props = {
     user: User;
@@ -27,12 +29,12 @@ type Props = {
     isShowToolbarGuide: boolean;
 };
 
-export const getLogoName = () => {
+export const getLogoName = (operator: string) => {
     if (getAppSettings().appType === AppTypes.megaKeno) {
-        return isL1System() ? "saba-mega-keno" : "vgaming-keno";
+        return isL1System() ? "saba-mega-keno" : operator === "SP" ? "sabaplay-keno" : "vgaming-keno";
     }
 
-    return isL1System() ? "saba" : "vgaming";
+    return isL1System() ? "saba" : operator === "SP" ? "sabaplay" : "vgaming";
 };
 
 const Header: React.FC<Props> = (props) => {
@@ -45,7 +47,7 @@ const Header: React.FC<Props> = (props) => {
                             <img
                                 className="header-logo"
                                 alt="UM"
-                                src={`/static/images/logo-desktop-${getLogoName()}.svg?v=${buildVersion}`}
+                                src={`/static/images/logo-desktop-${getLogoName(getLocalStorageItem(localStorageKeys.operator))}.svg?v=${buildVersion}`}
                             />
                         </a>
                         <div className={Styles["header-right"]}>

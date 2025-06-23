@@ -13,7 +13,7 @@ import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
-const getUserSession = (token: string) => (token ? sso(token, getAppSettings().appType) : verifySession());
+const getUserSession = (token: string, op: string) => (token ? sso(token, getAppSettings().appType, op as string) : verifySession());
 
 function Home() {
     const router = useRouter();
@@ -22,18 +22,18 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [language, setLanguage] = useState<string>(null);
 
-    const { token, lang, gameId } = router.query;
+    const { token, lang, gameId, op } = router.query;
     const { i18n } = useTranslation();
 
     useEffect(() => {
         const signIn = async () => {
-            const userSession = await getUserSession(token as string);
+            const userSession = await getUserSession(token as string, op as string);
 
             if (!userSession) {
                 router.push("timeout");
                 return;
             }
-
+            
             if (userSession.isUM) {
                 storeLocalStorageItem<UMInfo>(localStorageKeys.umInfo, userSession.umInfo);
                 setTimeout(() => {
@@ -90,7 +90,7 @@ function Home() {
         return <SplashScreen locale={language}></SplashScreen>;
     }
 
-    return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm} />;
+    return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm}/>;
 }
 
 export const getStaticProps = async ({ locale }) => {

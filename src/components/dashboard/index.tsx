@@ -3,14 +3,14 @@ import Head from "next/head";
 import { withRouter } from "next/router";
 import React from "react";
 import { isMobileOnly, isMobile } from "react-device-detect";
-import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response } from "sc-user-service-client/dist/auth";
+import { AuthorizeResponse, ReCheckInResponse, UMInfo, Response, SSOResponse } from "sc-user-service-client/dist/auth";
 import { Props, State } from "./type";
 import { getAppSettings } from "../../common/app-settings";
 import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../../common/local-storage";
 import LandscapeMode from "../../components/landscape-mode";
 import { AuthContextProvider } from "../../contexts/auth";
 import { GetLocalizedErrorMessage } from "../../helpers/notice-helper";
-import { authorize, getSettingGames, reCheckIn } from "../../services/auth-service";
+import { authorize, createNickname, getSettingGames, reCheckIn } from "../../services/auth-service";
 import { updateSignInSMStatus, getChipSettings } from "../../services/user-setting-service";
 import BetSettings from "../bet-settings";
 import Games from "../games/games";
@@ -32,8 +32,11 @@ import { SystemContextProvider } from "../../contexts/system";
 import { GetOfferedGames } from "../../helpers/category-helper";
 import { PromotionTournament } from "./promotion-tournament";
 import { ModalContextProvider } from "../../contexts/modal-context";
+import NameGenerator from "./register/name-generator";
+import { randomInteger } from "../../helpers/number-helper";
 
 const orientationType = { portrait: "portrait", landscape: "landscape" };
+const MAX_AVATAR_ID = 40;
 class Dashboard extends React.PureComponent<Props, State> {
     private notificationSocket: Socket = null;
     private reCheckInInterval: NodeJS.Timeout;
@@ -226,16 +229,36 @@ class Dashboard extends React.PureComponent<Props, State> {
             this.checkOfferedGame(offeredGames);
         }
     }
+    
+    autoCreateNickname = async (session: SSOResponse, signOut: Function) => {
+        const nickname = NameGenerator.generateName();
+        const maxAvatarId = MAX_AVATAR_ID;
+        const selectedAvatarId = randomInteger(1, maxAvatarId);
+        const authorizeResponse = (await createNickname(session, nickname, selectedAvatarId)) as AuthorizeResponse;
+        if (authorizeResponse?.authorized) {
+            Object.assign(authorizeResponse.user, { settings: { theme: Themes.light } });
+            authorizeResponse.user.isSignedInSM = true;
+            updateSignInSMStatus(session);
+        } else {
+            signOut?.();
+        }
+    
+        return authorizeResponse;
+    };
 
     async componentDidMount() {
         const { session, i18n } = this.props;
-        const authorizeResponse = await authorize(session);
+        let authorizeResponse = await authorize(session);
 
         const errorResponse = authorizeResponse as Response;
 
         if (errorResponse && errorResponse.errorCode === "SB0002") {
             this.props.router.push("/timeout", "/timeout", { locale: i18n.language });
             return;
+        }
+
+        if (!(authorizeResponse as AuthorizeResponse)?.authorized && getLocalStorageItem(localStorageKeys.operator) === "SP") {
+            authorizeResponse = await this.autoCreateNickname(session, this.signOut);
         }
 
         const authorizeInfo = authorizeResponse as AuthorizeResponse;
