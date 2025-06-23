@@ -30,6 +30,7 @@ export const sabaClubName = "Saba.games";
 export const vGamingMobileName = "Vgaming Mobi";
 export const vGamingName = "Vgaming";
 export const sabaPlayMobileName = "SABAPLAY Table Games";
+export const sabaPlayKenoName = "SABAPLAY Keno";
 export const sabaPlayName = "SABAPLAY";
 
 export const buildVersion = process.env.buildVersion;

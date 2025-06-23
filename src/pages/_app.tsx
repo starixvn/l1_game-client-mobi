@@ -7,7 +7,7 @@ import App, { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { buildVersion, systemName, Themes, sabaPlayMobileName } from "../common/constants";
+import { buildVersion, systemName, Themes, sabaPlayMobileName, sabaPlayKenoName } from "../common/constants";
 import { getAppSettings } from "../common/app-settings";
 import { useEffect, useState } from "react";
 import { getLocalStorageItem, localStorageKeys } from "../common/local-storage";
@@ -40,10 +40,14 @@ export const AppTilte = () => {
         setTitle(getBrowserTitle(systemNameKey, op ? op as string : getLocalStorageItem(localStorageKeys.operator)));
     }, [op]);
     
+    const getFaviconName = () => {
+        return op === "SP" ? "sabaplay" : systemName;
+    };
+    
     return (
         <Head>
             <title>{title}</title>
-            <link rel="shortcut icon" href={`/favicon-${systemName}.ico?v=${buildVersion}`} />
+            <link rel="shortcut icon" href={`/favicon-${getFaviconName()}.ico?v=${buildVersion}`} />
         </Head>
     );
 };
@@ -53,7 +57,7 @@ const getBrowserTitle = (systemName: string, operator?: string) => {
         "system-name-l1": "Saba Mobi",
         "system-name-l2": operator === "SP" ? sabaPlayMobileName : "Vgaming Mobi",
         "system-name-l1-mega": "SABA Mega Keno",
-        "system-name-l2-mega": operator === "SP" ? "SABAPLAY Keno" : "Vgaming Keno",
+        "system-name-l2-mega": operator === "SP" ? sabaPlayKenoName : "Vgaming Keno",
     };
     return browserTitle[systemName] || "";
 };
