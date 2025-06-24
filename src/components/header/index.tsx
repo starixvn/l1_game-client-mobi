@@ -61,7 +61,7 @@ const Header: React.FC<Props> = (props) => {
                             <img
                                 className="header-logo"
                                 alt="UM"
-                                src={`/static/images/logo-desktop-${getLogoName(getLocalStorageItem(localStorageKeys.operator))}.svg?v=${buildVersion}`}
+                                src={`/static/images/logo-${(isMobileOnly && getLocalStorageItem(localStorageKeys.operator) === "SP") ? "mobile" : "desktop"}-${getLogoName(getLocalStorageItem(localStorageKeys.operator))}.svg?v=${buildVersion}`}
                             />
                         </a>
                         <div className={Styles["header-right"]}>
