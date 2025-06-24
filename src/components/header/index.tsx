@@ -52,6 +52,7 @@ export const getLogoName = (operator = "VG") => {
 };
 
 const Header: React.FC<Props> = (props) => {
+    const operator = getLocalStorageItem(localStorageKeys.operator) || "";
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
@@ -61,7 +62,7 @@ const Header: React.FC<Props> = (props) => {
                             <img
                                 className="header-logo"
                                 alt="UM"
-                                src={`/static/images/logo-${(isMobileOnly && getLocalStorageItem(localStorageKeys.operator) === "SP") ? "mobile" : "desktop"}-${getLogoName(getLocalStorageItem(localStorageKeys.operator))}.svg?v=${buildVersion}`}
+                                src={`/static/images/logo-${(isMobileOnly && operator === "SP") ? "mobile" : "desktop"}-${getLogoName(operator as string)}.svg?v=${buildVersion}`}
                             />
                         </a>
                         <div className={Styles["header-right"]}>

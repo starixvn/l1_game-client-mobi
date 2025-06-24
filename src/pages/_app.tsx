@@ -36,10 +36,10 @@ export const AppTilte = () => {
     const { op } = router.query;
 
     useEffect(() => {
-        const operator = op ? op as string : getLocalStorageItem(localStorageKeys.operator) as string;
+        const operator = op ? op : getLocalStorageItem(localStorageKeys.operator);
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
-        setTitle(getBrowserTitle(systemNameKey, operator));
+        setTitle(getBrowserTitle(systemNameKey, operator as string));
         setFaviconName(operator === "SP" ? "sabaplay" : systemName);
     }, [op]);
 
