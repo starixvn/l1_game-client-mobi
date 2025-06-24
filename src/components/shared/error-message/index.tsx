@@ -5,7 +5,6 @@ import BaseDialog from "../base-dialog";
 import { ModalType } from "../base-dialog/type";
 import Styles from "./error-message.module.scss";
 import { ConnectFailedReasonKey, Props } from "./type";
-import { randomUUID } from "crypto";
 
 export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
     useEffect(() => {
@@ -20,7 +19,7 @@ export const ErrorMessage: React.FC<Props> = ({ message, closeModal }) => {
         <div className={Styles["error-message-container"]}>
             <div className={`icon-warning ${Styles["icon-warning"]}`}></div>
             <div className={`icon-close ${Styles["icon-close"]}`} onClick={() => closeModal()}></div>
-            <div className={Styles.message} key={randomUUID()}>
+            <div className={Styles.message} key={Math.random()}>
                 {message}
             </div>
         </div>
