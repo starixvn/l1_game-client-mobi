@@ -87,7 +87,7 @@ function Home() {
     }
 
     if (loading) {
-        return <SplashScreen locale={language}></SplashScreen>;
+        return <SplashScreen locale={language} operator={op as string}></SplashScreen>;
     }
 
     return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm}/>;

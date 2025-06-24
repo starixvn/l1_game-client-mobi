@@ -2,15 +2,26 @@ import React from "react";
 import { buildVersion, isL1System, locales, systemName } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
-export default function SplashScreen({ locale }) {
+export default function SplashScreen({ locale, operator = "VG" }) {
+    const pageClass = operator === "SP" ? `${Styles.page} ${Styles.sabaplayOperator}` : Styles.page;
+    const fileNameSuffix  = operator === "SP" ? "sabaplay" : systemName;
+    const sloganSource = operator === "SP" 
+        ? `/static/images/splash-screen/${locale}/slogan-${fileNameSuffix}.webp?${buildVersion}`
+        : `/static/images/splash-screen/${locale}/slogan.webp?${buildVersion}`;
+    
     return locale ? (
-        <div className={`${Styles.page}`}>
+        <div className={pageClass}>
             <img
-                src={`/static/images/splash-screen/${locale}/logo-${systemName}.svg?${buildVersion}`}
+                src={`/static/images/splash-screen/logo-${fileNameSuffix}.webp?${buildVersion}`}
                 className={Styles["logo"]}
                 width="274"
                 height="96"
                 alt="Logo"
+            />
+            <img
+                src={sloganSource}
+                className={Styles["slogan"]}
+                alt="Slogan"
             />
             {locale === locales.vi && isL1System() && (
                 <img
