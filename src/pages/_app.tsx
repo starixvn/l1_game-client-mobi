@@ -31,23 +31,22 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 
 export const AppTilte = () => {
     const [title, setTitle] = useState("");
+    const [faviconName, setFaviconName] = useState("");
     const router = useRouter();
     const { op } = router.query;
-    
+
     useEffect(() => {
+        const operator = op ? op as string : getLocalStorageItem(localStorageKeys.operator) as string;
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
-        setTitle(getBrowserTitle(systemNameKey, op ? op as string : getLocalStorageItem(localStorageKeys.operator)));
+        setTitle(getBrowserTitle(systemNameKey, operator));
+        setFaviconName(operator === "SP" ? "sabaplay" : systemName);
     }, [op]);
-    
-    const getFaviconName = () => {
-        return op === "SP" ? "sabaplay" : systemName;
-    };
-    
+
     return (
         <Head>
             <title>{title}</title>
-            <link rel="shortcut icon" href={`/favicon-${getFaviconName()}.ico?v=${buildVersion}`} />
+            <link rel="shortcut icon" href={`/favicon-${faviconName}.ico?v=${buildVersion}`} />
         </Head>
     );
 };
