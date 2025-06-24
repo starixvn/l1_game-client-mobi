@@ -62,7 +62,7 @@ const Header: React.FC<Props> = (props) => {
                             <img
                                 className="header-logo"
                                 alt="UM"
-                                src={`/static/images/logo-desktop-${getLogoName(operator as string)}.${(isMobileOnly && operator === "SP") ? "webp" : "svg"}?v=${buildVersion}`}
+                                src={`/static/images/logo-desktop-${getLogoName(operator as string)}.${operator === "SP" ? "webp" : "svg"}?v=${buildVersion}`}
                             />
                         </a>
                         <div className={Styles["header-right"]}>
