@@ -45,6 +45,13 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        img {
+            height: auto;
+            width: auto;
+            max-height: 3.8rem;
+            object-fit: contain;
+        }
     }
 
     &.mobile {
@@ -53,6 +60,8 @@
         
         .site-name > img {
             height: 3rem;
+            width: auto;
+            object-fit: contain;
         }        
     }    
 }
