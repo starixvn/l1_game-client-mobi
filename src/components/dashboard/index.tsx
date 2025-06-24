@@ -111,6 +111,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         this.openGame = this.openGame.bind(this);
         this.closeToolbarGuide = this.closeToolbarGuide.bind(this);
         this.getFavoriteGames = this.getFavoriteGames.bind(this);
+        this.autoCreateNickname = this.autoCreateNickname.bind(this);
 
         const buildId = process.env.buildVersion;
         const buildVersion = getLocalStorageItem(localStorageKeys.buildVersion) ?? 0;
@@ -230,7 +231,7 @@ class Dashboard extends React.PureComponent<Props, State> {
         }
     }
     
-    autoCreateNickname = async (session: SSOResponse, signOut: Function) => {
+    async autoCreateNickname (session: SSOResponse, signOut: Function) {
         const nickname = NameGenerator.generateName();
         const maxAvatarId = MAX_AVATAR_ID;
         const selectedAvatarId = randomInteger(1, maxAvatarId);

@@ -16,6 +16,6 @@ window.envConfig = {
     subGuideDomain: "l2-guide",
     enableMsgpackParser: false,
     system: "L2",
-    appType: 4,
+    appType: 2,
     subPromotionDomain: "l2-promotion",
 };
