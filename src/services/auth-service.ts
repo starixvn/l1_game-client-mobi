@@ -5,12 +5,11 @@ import { UserClientCommunication } from "./user-client-communication";
 
 const authService = UserClientCommunication?.getUserClientInstance()?.auth;
 
-export const sso = async (token: string, appType: number, operator: string): Promise<SSOResponse> => {
+export const sso = async (token: string, appType: number): Promise<SSOResponse> => {
     const userSession = await authService.sso(token, appType);
 
     if (userSession && userSession.isAuthenticated) {
         storeLocalStorageItem<SSOResponse>(localStorageKeys.session, userSession);
-        storeLocalStorageItem(localStorageKeys.operator, operator);
         removeLocalStorageItem(localStorageKeys.isTournamentPopupAutoOpened);
     }
 
