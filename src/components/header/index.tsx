@@ -2,7 +2,7 @@ import React from "react";
 import { isMobileOnly } from "react-device-detect";
 import { User } from "sc-user-service-client/dist/auth";
 import { getAppSettings } from "../../common/app-settings";
-import { AppTypes, buildVersion, isL1System } from "../../common/constants";
+import { AppTypes, buildVersion, isL1System, isSabaPlay } from "../../common/constants";
 
 import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
@@ -36,7 +36,7 @@ export const getLogoName = (operator = "VG") => {
         if (isL1) {
             return "saba-mega-keno";
         }
-        if (operator === "SP") {
+        if (isSabaPlay(operator)) {
             return "sabaplay-keno";
         }
         return "vgaming-keno";
@@ -45,7 +45,7 @@ export const getLogoName = (operator = "VG") => {
     if (isL1) {
         return "saba";
     }
-    if (operator === "SP") {
+    if (isSabaPlay(operator)) {
         return "sabaplay";
     }
     return "vgaming";
@@ -62,7 +62,7 @@ const Header: React.FC<Props> = (props) => {
                             <img
                                 className="header-logo"
                                 alt="UM"
-                                src={`/static/images/logo-desktop-${getLogoName(operator as string)}.${operator === "SP" ? "webp" : "svg"}?v=${buildVersion}`}
+                                src={`/static/images/logo-desktop-${getLogoName(operator as string)}.${isSabaPlay(operator as string) ? "webp" : "svg"}?v=${buildVersion}`}
                             />
                         </a>
                         <div className={Styles["header-right"]}>

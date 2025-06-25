@@ -1,9 +1,19 @@
 import { getAppSettings } from "../app-settings";
+import { getLocalStorageItem, localStorageKeys } from "../local-storage";
 
 export const systemName = getAppSettings().system.toLocaleLowerCase();
 
 export const isL1System = () => {
     return systemName === "l1";
+};
+
+export const isSabaPlay = (operator?: string) => {
+    const storedOperator = typeof window !== "undefined" ? getLocalStorageItem(localStorageKeys.operator) : null;
+    
+    // Use stored operator if it exists and input operator is the default fallback
+    const currentOperator = (storedOperator && operator === "VG") ? storedOperator : (operator || storedOperator || "");
+    
+    return currentOperator === "SP";
 };
 
 export const locales = { en: "en", vi: "vi", th: "th", id: "id", zh_cn: "zh_cn", zh_tw: "zh_tw" };

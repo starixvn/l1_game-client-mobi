@@ -1,12 +1,12 @@
 import React from "react";
 import { isMobileOnly } from "react-device-detect";
-import { buildVersion, isL1System } from "../../../common/constants";
+import { buildVersion, isL1System, isSabaPlay } from "../../../common/constants";
 import Styles from "./container.module.scss";
 import { getLocalStorageItem, localStorageKeys } from "../../../common/local-storage";
 
 const FirstLoginContainer: React.FC = ({ children }) => {
     const operator = getLocalStorageItem(localStorageKeys.operator);
-    const logoTheme = isL1System() ? "logo-custom-saba-orange" : operator === "SP" ? "logo-custom-sabaplay" : "logo-custom-vgaming";
+    const logoTheme = isL1System() ? "logo-custom-saba-orange" : isSabaPlay(operator as string) ? "logo-custom-sabaplay" : "logo-custom-vgaming";
 
     return (
         <div className={`${Styles["wrapper"]} ${isMobileOnly ? Styles["mobile"] : ""}`}>

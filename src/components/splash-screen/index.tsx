@@ -1,11 +1,11 @@
 import React from "react";
-import { buildVersion, isL1System, locales, systemName } from "../../common/constants";
+import { buildVersion, isL1System, locales, systemName, isSabaPlay } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
 export default function SplashScreen({ locale, operator = "VG" }) {
-    const pageClass = operator === "SP" ? `${Styles.page} ${Styles.sabaplayOperator}` : Styles.page;
-    const fileNameSuffix  = operator === "SP" ? "sabaplay" : systemName;
-    const sloganSource = operator === "SP" 
+    const pageClass = isSabaPlay(operator) ? `${Styles.page} ${Styles.sabaplayOperator}` : Styles.page;
+    const fileNameSuffix  = isSabaPlay(operator) ? "sabaplay" : systemName;
+    const sloganSource = isSabaPlay(operator) 
         ? `/static/images/splash-screen/${locale}/slogan-${fileNameSuffix}.webp?${buildVersion}`
         : `/static/images/splash-screen/${locale}/slogan.webp?${buildVersion}`;
     

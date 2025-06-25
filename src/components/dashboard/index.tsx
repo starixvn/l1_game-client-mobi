@@ -24,7 +24,7 @@ import Register from "./register";
 import Styles from "./dashboard.module.scss";
 import { io, Socket } from "socket.io-client";
 import MsgpackParser from "socket.io-msgpack-parser";
-import { Themes } from "../../common/constants";
+import { Themes, isSabaPlay } from "../../common/constants";
 import { AnnouncementModal } from "./announcement";
 import { ToolbarGuide } from "../hide-toolbar-guide";
 import { buildUrl } from "../../helpers/url-helper";
@@ -258,7 +258,7 @@ class Dashboard extends React.PureComponent<Props, State> {
             return;
         }
 
-        if (!(authorizeResponse as AuthorizeResponse)?.authorized && getLocalStorageItem(localStorageKeys.operator) === "SP") {
+        if (!(authorizeResponse as AuthorizeResponse)?.authorized && isSabaPlay()) {
             authorizeResponse = await this.autoCreateNickname(session, this.signOut);
         }
 
