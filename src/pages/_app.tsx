@@ -36,7 +36,7 @@ export const AppTilte = () => {
     const { op } = router.query;
 
     useEffect(() => {
-        const operator = op ? op : getLocalStorageItem(localStorageKeys.operator);
+        const operator = op ? (op as string)?.toUpperCase() : getLocalStorageItem(localStorageKeys.operator);
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
         setTitle(getBrowserTitle(systemNameKey, operator as string));

@@ -13,7 +13,7 @@ import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
 
-const getUserSession = (token: string, op: string) => (token ? sso(token, getAppSettings().appType, op.toUpperCase()) : verifySession());
+const getUserSession = (token: string, op: string) => (token ? sso(token, getAppSettings().appType, op?.toUpperCase()) : verifySession());
 
 function Home() {
     const router = useRouter();
@@ -27,7 +27,7 @@ function Home() {
 
     useEffect(() => {
         const signIn = async () => {
-            const userSession = await getUserSession(token as string, op as string);
+            const userSession = await getUserSession(token as string, (op as string)?.toUpperCase());
 
             if (!userSession) {
                 router.push("timeout");
@@ -87,7 +87,7 @@ function Home() {
     }
 
     if (loading) {
-        return <SplashScreen locale={language} operator={op as string}></SplashScreen>;
+        return <SplashScreen locale={language} operator={(op as string)?.toUpperCase()}></SplashScreen>;
     }
 
     return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm}/>;
