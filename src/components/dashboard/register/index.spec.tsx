@@ -1,3 +1,26 @@
+// Mock dependencies first
+jest.mock("../../../common/app-settings", () => ({
+    getAppSettings: jest.fn(() => ({
+        system: "l2",
+        appType: 2,
+        proxy: { path: "/test-path" },
+    })),
+}));
+
+jest.mock("../../../common/constants", () => ({
+    systemName: "l1",
+    isL1System: jest.fn(() => false),
+    isSabaPlay: jest.fn(() => false),
+    maximumAvatarId: 10,
+}));
+
+jest.mock("../../../common/local-storage", () => ({
+    getLocalStorageItem: jest.fn(() => null),
+    localStorageKeys: {
+        operator: "test-operator-key",
+    },
+}));
+
 import { render, fireEvent } from "@testing-library/react";
 import React from "react";
 
@@ -12,12 +35,6 @@ const setup = () => {
         ...utils,
     };
 };
-
-jest.mock("../../../common/constants", () => ({
-    systemName: "l1",
-    isL1System: () => {},
-    maximumAvatarId: 10,
-}));
 
 describe("Register", () => {
     test("should render correctly", async () => {

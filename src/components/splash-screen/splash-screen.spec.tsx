@@ -3,12 +3,22 @@ import React from "react";
 
 import SplashScreen from ".";
 import { locales } from "../../common/constants";
+
+jest.mock("../../common/local-storage", () => ({
+    getLocalStorageItem: jest.fn(() => null),
+    localStorageKeys: {
+        operator: "test-operator-key",
+    },
+}));
+
 jest.mock("../../common/constants", () => ({
     systemName: "l1",
     isL1System: () => {
         return "l1";
     },
     locales: { vi: "vi" },
+    buildVersion: "1.0.0",
+    isSabaPlay: jest.fn(() => false),
 }));
 
 describe("Splash screen", () => {

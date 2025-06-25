@@ -1,12 +1,22 @@
-import { render, screen } from "@testing-library/react";
-import React from "react";
+// Mock dependencies first
+jest.mock("../../common/app-settings", () => ({
+    getAppSettings: jest.fn(() => ({
+        system: "l2",
+        appType: 2,
+    })),
+}));
 
-import Header, { getLogoName } from ".";
+jest.mock("../../common/local-storage", () => ({
+    getLocalStorageItem: jest.fn(() => null),
+    localStorageKeys: {
+        operator: "test-operator-key",
+    },
+}));
 
-// Mock dependencies
 jest.mock("../../common/constants", () => ({
-    systemName: "l1",
+    systemName: "l2",
     isL1System: jest.fn(),
+    isSabaPlay: jest.fn((operator) => operator === "SP"),
     AppTypes: {
         mobile: 2,
         megaKeno: 4,
@@ -14,16 +24,10 @@ jest.mock("../../common/constants", () => ({
     buildVersion: "1.0.0",
 }));
 
-jest.mock("../../common/app-settings", () => ({
-    getAppSettings: jest.fn(),
-}));
+import { render, screen } from "@testing-library/react";
+import React from "react";
 
-jest.mock("../../common/local-storage", () => ({
-    getLocalStorageItem: jest.fn(),
-    localStorageKeys: {
-        operator: "operator",
-    },
-}));
+import Header, { getLogoName } from ".";
 
 jest.mock("../shared/settings", () => ({
     Settings: jest.fn(() => <div data-testid="settings">Settings</div>),
