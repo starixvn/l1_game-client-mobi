@@ -2,7 +2,7 @@ import React from "react";
 import { buildVersion, isL1System, locales, systemName, isSabaPlay } from "../../common/constants";
 import Styles from "./splash-screen.module.scss";
 
-export default function SplashScreen({ locale, operator = "VG" }) {
+export default function SplashScreen({ locale, operator }) {
     const pageClass = isSabaPlay(operator) ? `${Styles.page} ${Styles.sabaplayOperator}` : Styles.page;
     const fileNameSuffix  = isSabaPlay(operator) ? "sabaplay" : systemName;
     const sloganSource = isSabaPlay(operator) 

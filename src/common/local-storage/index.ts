@@ -23,8 +23,11 @@ export function storeLocalStorageItem<Type>(key: string, data: Type) {
     localStorage.setItem(key, JSON.stringify(data));
 }
 
-export function getLocalStorageItem<Type>(key: string): Type {
-    return JSON.parse(localStorage.getItem(key));
+export function getLocalStorageItem<Type>(key: string): Type | null {
+    if (typeof window !== "undefined" && window.localStorage) {
+        return JSON.parse(localStorage.getItem(key));
+    }
+    return null;
 }
 
 export function buildLocalStorageKey(key: string) {

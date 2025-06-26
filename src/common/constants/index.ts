@@ -8,11 +8,8 @@ export const isL1System = () => {
 };
 
 export const isSabaPlay = (operator?: string) => {
-    const storedOperator = typeof window !== "undefined" ? getLocalStorageItem(localStorageKeys.operator) : null;
-    
-    // Use stored operator if it exists and input operator is the default fallback
-    const currentOperator = (storedOperator && operator === "VG") ? storedOperator : (operator || storedOperator || "");
-    
+    const storedOperator = getLocalStorageItem(localStorageKeys.operator)
+    const currentOperator = storedOperator ? storedOperator : operator;
     return currentOperator === "SP";
 };
 
