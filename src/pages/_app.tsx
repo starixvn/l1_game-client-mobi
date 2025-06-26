@@ -31,7 +31,7 @@ class SabaMobiApp extends App<KenoSoccerAppProps> {
 
 export const AppTilte = () => {
     const [title, setTitle] = useState("");
-    const [faviconName, setFaviconName] = useState("");
+    const [faviconName, setFaviconName] = useState(null);
     const router = useRouter();
     const { op } = router.query;
 
@@ -45,7 +45,7 @@ export const AppTilte = () => {
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
         setTitle(getBrowserTitle(systemNameKey, operator as string));
         setFaviconName(isSabaPlay(operator as string) ? "sabaplay" : systemName);
-    }, [op, router.isReady]);
+    }, [router.isReady]);
 
 
     const getOperator = () => {
