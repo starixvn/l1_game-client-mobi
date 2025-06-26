@@ -36,7 +36,9 @@ export const AppTilte = () => {
     const { op } = router.query;
 
     useEffect(() => {
-        if (!router.isReady) return;
+        if (!router.isReady) {
+            return;
+        }
 
         const operator = getOperator();
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
