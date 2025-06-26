@@ -62,7 +62,7 @@ export const AppTilte = () => {
     return (
         <Head>
             <title>{title}</title>
-            <link rel="shortcut icon" href={`/favicon-${faviconName}.ico?v=${buildVersion}`} />
+            {faviconName && <link rel="shortcut icon" href={`/favicon-${faviconName}.ico?v=${buildVersion}`} />}
         </Head>
     );
 };
