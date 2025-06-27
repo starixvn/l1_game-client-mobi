@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { buildVersion, systemName, Themes, sabaPlayMobileName, sabaPlayKenoName, isSabaPlay } from "../common/constants";
 import { getAppSettings } from "../common/app-settings";
 import { useEffect, useState } from "react";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
+import { getOperator } from "../helpers/operator-helper";
 
 interface KenoSoccerAppProps extends AppProps {
     err: any;
@@ -40,24 +40,12 @@ export const AppTilte = () => {
             return;
         }
 
-        const operator = getOperator();
+        const operator = getOperator(op as string);
         const isMegaKenoType = getAppSettings().appType === 4 ? "-mega" : "";
         const systemNameKey = `system-name-${systemName}${isMegaKenoType}`;
-        setTitle(getBrowserTitle(systemNameKey, operator as string));
-        setFaviconName(isSabaPlay(operator as string) ? "sabaplay" : systemName);
+        setTitle(getBrowserTitle(systemNameKey, operator));
+        setFaviconName(isSabaPlay(operator) ? "sabaplay" : systemName);
     }, [router.isReady]);
-
-
-    const getOperator = () => {
-        if(op) {
-            const operator = (op as string)?.toUpperCase();
-            storeLocalStorageItem(localStorageKeys.operator, operator);
-            
-            return operator;
-        }
-
-        return getLocalStorageItem(localStorageKeys.operator);
-    }
 
     return (
         <Head>

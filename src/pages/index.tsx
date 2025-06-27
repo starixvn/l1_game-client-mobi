@@ -12,6 +12,7 @@ import SplashScreen from "../components/splash-screen";
 import UMPage from "../components/um-page";
 import { sso, verifySession } from "../services/auth-service";
 import * as Sentry from "../utils/sentry";
+import { getOperator } from "../helpers/operator-helper";
 
 const getUserSession = (token: string) => (token ? sso(token, getAppSettings().appType) : verifySession());
 
@@ -87,7 +88,7 @@ function Home() {
     }
 
     if (loading) {
-        return <SplashScreen locale={language} operator={(op as string)?.toUpperCase()}></SplashScreen>;
+        return <SplashScreen locale={language} operator={getOperator(op as string)}></SplashScreen>;
     }
 
     return <Dashboard session={session} queryGame={+gameId} setIsUm={setIsUm}/>;
