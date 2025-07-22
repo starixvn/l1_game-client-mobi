@@ -1,0 +1,18 @@
+{
+    "game_name": "スリーカード",
+    "black": "黒",
+    "red": "赤",
+    "clubs": "クラブ",
+    "diamonds": "ダイヤ",
+    "hearts": "ハート",
+    "spades": "スペード",
+    "blackTextDot": "B",
+    "redTextDot": "R",
+    "suits": "スート",
+    "club": "クラブ",
+    "diamond": "ダイヤ",
+    "heart": "ハート",
+    "spade": "スペード",
+    "redBlackTabs": "赤/黒",
+    "suitsTabs": "スート"
+} 

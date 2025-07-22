@@ -13,9 +13,9 @@ export const isSabaPlay = (operator?: string) => {
     return currentOperator === "SP";
 };
 
-export const locales = { en: "en", vi: "vi", th: "th", id: "id", zh_cn: "zh_cn", zh_tw: "zh_tw" };
+export const locales = { en: "en", vi: "vi", th: "th", id: "id", zh_cn: "zh_cn", zh_tw: "zh_tw", ja: "ja" };
 
-export const languageMapper = { "en-US": "en", "vi-VN": "vi", "th-TH": "th", "id-ID": "id", "zh-CN": "zh_cn", "zh-TW": "zh_tw" };
+export const languageMapper = { "en-US": "en", "vi-VN": "vi", "th-TH": "th", "id-ID": "id", "zh-CN": "zh_cn", "zh-TW": "zh_tw", "ja-JP": "ja" };
 
 export const LanguageLocaleMapper = {
     en: "en-US",
@@ -24,6 +24,7 @@ export const LanguageLocaleMapper = {
     id: "id-ID",
     zh_cn: "zh-CN",
     zh_tw: "zh-TW",
+    ja: "ja-JP",
 };
 
 export const languageNameMapper = { en: "English", vi: "Tiếng Việt" };

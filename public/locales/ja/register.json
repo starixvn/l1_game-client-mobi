@@ -1,0 +1,22 @@
+{
+    "registerName": "ニックネームを作成",
+    "submit": "提出",
+    "yourNickName": "注意",
+    "rule1": "ニックネームの長さは3〜14文字の間である必要があります。",
+    "rule2": "スペース、特殊文字、非英数字を含めることはできません。",
+    "rule3": "提出後はニックネームを変更できません。",
+    "invalidUsername": "入力されたニックネームが無効です。再試行してください。",
+    "changeAvatar": "アバターを変更",
+    "registerTitle1-l1-apptype2": "<strong>{{sabaMobileName}}</strong> へようこそ",
+    "registerTitle2-l1-apptype2": "<strong>{{sabaMobileName}}</strong> は <strong>{{sabaClubName}}</strong> の追加バージョンで、ゲーム体験におけるシンプルなデザインと最適化を好むプレイヤー向けです。",
+    "registerTitle3-l1-apptype2": "<strong>{{sabaClubName}}</strong> のすべてのバージョンは同じゲームラウンドと総ベットで接続されています。",
+    "registerTitle1-l1-apptype4": "SABA Game の Mega Keno (<strong>SABA.games</strong>) へようこそ",
+    "registerTitle2-l1-apptype4": "このロビーはゲーム体験におけるシンプルなデザインと最適化を好むプレイヤー向けです。",
+    "registerTitle3-l1-apptype4": "SABA ゲームのすべてのバージョンは同じゲームラウンドと総ベットで同期されています。",
+    "registerTitle1-l2-apptype2": "<strong>{{vGamingMobileName}}</strong> へようこそ",
+    "registerTitle2-l2-apptype2": "<strong>{{vGamingMobileName}}</strong> は <strong>{{vGamingName}}</strong> の追加バージョンで、ゲーム体験におけるシンプルなデザインと最適化を好むプレイヤー向けです。",
+    "registerTitle3-l2-apptype2": "<strong>{{vGamingName}}</strong> のすべてのバージョンは同じゲームラウンドと総ベットで接続されています。",
+    "registerTitle1-l2-apptype4": "<strong>Vgaming Keno</strong> へようこそ",
+    "registerTitle2-l2-apptype4": "このロビーはゲーム体験におけるシンプルなデザインと最適化を好むプレイヤー向けです。",
+    "registerTitle3-l2-apptype4": "<strong>{{vGamingName}}</strong> のすべてのバージョンは同じゲームラウンドと総ベットで同期されています。"
+} 

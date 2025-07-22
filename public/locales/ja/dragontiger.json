@@ -1,0 +1,12 @@
+{
+    "game_name": "龍虎",
+    "dragon": "ドラゴン",
+    "tiger": "タイガー",
+    "tie": "引き分け",
+    "dragonTextDot": "L",
+    "tigerTextDot": "H",
+    "tieTextDot": "/",
+    "dragonWin": "ドラゴン勝利",
+    "tigerWin": "タイガー勝利",
+    "dragonTigerTabs": "龍/虎"
+} 

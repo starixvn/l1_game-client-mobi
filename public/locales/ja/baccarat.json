@@ -1,0 +1,19 @@
+{
+    "game_name": "バカラ",
+    "banker": "バンカー",
+    "player": "プレイヤー",
+    "big": "大",
+    "small": "小",
+    "tie": "引き分け",
+    "bankerPair": "バンカーペア",
+    "playerPair": "プレイヤーペア",
+    "bankerTextDot": "B",
+    "playerTextDot": "P",
+    "tieTextDot": "/",
+    "bigTextDot": "B",
+    "smallTextDot": "S",
+    "bankerWin": "バンカー勝利",
+    "playerWin": "プレイヤー勝利",
+    "playerBankerTabs": "プレイヤー/バンカー",
+    "bigSmallTabs": "大/小"
+} 

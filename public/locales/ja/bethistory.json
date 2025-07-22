@@ -1,0 +1,18 @@
+{
+    "betHistory": "ベット履歴",
+    "roundId": "ラウンドID",
+    "betAmount": "ベット金額",
+    "winAmount": "勝利金額",
+    "betTime": "ベット時間",
+    "gameType": "ゲームタイプ",
+    "status": "ステータス",
+    "win": "勝利",
+    "lose": "敗北",
+    "pending": "保留中",
+    "noHistory": "履歴がありません",
+    "loadMore": "さらに読み込む",
+    "refresh": "更新",
+    "filter": "フィルター",
+    "allGames": "すべてのゲーム",
+    "dateRange": "日付範囲"
+} 
