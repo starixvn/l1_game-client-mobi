@@ -1,10 +1,8 @@
 {
     "game_name": "ビッグ・スモール",
+    "round": "ラウンド",
     "big": "ビッグ",
     "small": "小",
     "bigTextDot": "B",
-    "smallTextDot": "S",
-    "bigWin": "大勝利",
-    "smallWin": "小勝利",
-    "bigSmallTabs": "大/小"
+    "smallTextDot": "S"
 } 
