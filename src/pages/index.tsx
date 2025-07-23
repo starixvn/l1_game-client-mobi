@@ -6,7 +6,7 @@ import { SSOResponse, UMInfo } from "sc-user-service-client/dist/auth";
 import { getAppSettings } from "../common/app-settings";
 
 import { languageMapper } from "../common/constants";
-import { getLocalStorageItem, localStorageKeys, storeLocalStorageItem } from "../common/local-storage";
+import { getLocalStorageItem, localStorageKeys, removeLocalStorageItem, storeLocalStorageItem } from "../common/local-storage";
 import Dashboard from "../components/dashboard";
 import SplashScreen from "../components/splash-screen";
 import UMPage from "../components/um-page";
@@ -23,8 +23,16 @@ function Home() {
     const [session, setSession] = useState<SSOResponse>(null);
     const [language, setLanguage] = useState<string>(null);
 
-    const { token, lang, gameId, op } = router.query;
+    const { token, lang, gameId, op, rurl } = router.query;
+    
     const { i18n } = useTranslation();
+
+    const handleRurl = (rurl: string | string[] | undefined): void => {
+        if (rurl && typeof rurl === 'string') {
+            removeLocalStorageItem(localStorageKeys.rurl);
+            storeLocalStorageItem(localStorageKeys.rurl, rurl);
+        }
+    };
 
     useEffect(() => {
         const signIn = async () => {
@@ -56,6 +64,8 @@ function Home() {
         };
 
         if (router.isReady) {
+            handleRurl(rurl);
+
             const userSession = getLocalStorageItem<SSOResponse>(localStorageKeys.session);
             const locale = languageMapper[(lang as string) ?? userSession?.language] ?? router.locale;
             setLanguage(locale);

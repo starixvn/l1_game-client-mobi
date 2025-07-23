@@ -13,6 +13,7 @@ export const localStorageKeys = {
     userStakeLevel: buildLocalStorageKey("user-stake-level"),
     isTournamentPopupAutoOpened: buildLocalStorageKey("is_tournament_popup_auto_opened"),
     operator: buildLocalStorageKey("operator"),
+    rurl: buildLocalStorageKey("rurl"),
 };
 
 export function removeLocalStorageItem(key: string) {

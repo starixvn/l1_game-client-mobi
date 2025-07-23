@@ -8,6 +8,7 @@ import { Settings } from "../shared/settings";
 import { UserInfo } from "../user-info";
 import Styles from "./header.module.scss";
 import { getLocalStorageItem, localStorageKeys } from "../../common/local-storage";
+import Base64Util from "../../utils/base64-util";
 
 type Props = {
     user: User;
@@ -53,12 +54,20 @@ export const getLogoName = (operator = "VG") => {
 
 const Header: React.FC<Props> = (props) => {
     const operator = getLocalStorageItem(localStorageKeys.operator) || "";
+
+    const handleClickLogo = () => {
+        const rurl = getLocalStorageItem(localStorageKeys.rurl);
+        if (rurl) {
+            window.location.href = Base64Util.base64Decode(rurl as string);
+        }
+    };
+
     return (
         <>
             <header className={`${Styles.header} ${isMobileOnly ? Styles["mobile"] : ""}`} data-testid="header">
                 <div className="game-container d-flex">
                     <div className={Styles["header-container"]}>
-                        <a onClick={() => window.location.reload()} className={Styles["site-name"]}>
+                        <a onClick={handleClickLogo} className={Styles["site-name"]}>
                             <img
                                 className="header-logo"
                                 alt="UM"
