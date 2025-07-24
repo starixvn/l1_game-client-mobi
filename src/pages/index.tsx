@@ -31,6 +31,8 @@ function Home() {
         if (rurl && typeof rurl === 'string') {
             removeLocalStorageItem(localStorageKeys.rurl);
             storeLocalStorageItem(localStorageKeys.rurl, rurl);
+        } else {
+            removeLocalStorageItem(localStorageKeys.rurl);
         }
     };
 
