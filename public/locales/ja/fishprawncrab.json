@@ -1,13 +1,13 @@
 {
-    "game_name": "魚エビカニ",
+    "game_name": "魚蝦蟹",
     "round": "ラウンド",
     "single": "シングル",
     "double": "ダブル",
     "triple": "トリプル",
-    "stag": "鹿",
+    "stag": "雄鹿",
     "gourd": "ひょうたん",
-    "rooster": "雄鶏",
+    "rooster": "酉",
     "fish": "魚",
     "crab": "カニ",
     "prawn": "エビ"
-} 
+}

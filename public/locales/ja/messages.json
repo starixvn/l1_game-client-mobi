@@ -96,4 +96,4 @@
     "notPermittedToPlay": "<strong>{{gameName}}</strong><br>アカウントはこのゲームをプレイすることができなくなりました。他のゲームをお試しください。",
     "noGameOffer": "お客様のアカウントはこのゲームポータルでサポートされていません。お手数ですが、上司（upline）にお問い合わせください。ありがとうございます。",
     "disallowHedgeBet": "{{betChoice1}} か {{betChoice2}} のどちらかに賭けられます。"
-} 
+}

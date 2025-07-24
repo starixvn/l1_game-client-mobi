@@ -1,8 +1,8 @@
 {
     "game_name": "ビッグ・スモール",
     "round": "ラウンド",
-    "big": "ビッグ",
+    "big": "大",
     "small": "小",
     "bigTextDot": "B",
     "smallTextDot": "S"
-} 
+}
