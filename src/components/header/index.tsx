@@ -59,6 +59,8 @@ const Header: React.FC<Props> = (props) => {
         const rurl = getLocalStorageItem(localStorageKeys.rurl);
         if (rurl) {
             window.location.href = Base64Util.base64Decode(rurl as string);
+        } else { 
+            window.location.reload()
         }
     };
 
