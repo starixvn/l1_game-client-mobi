@@ -14,7 +14,7 @@
         "obfuscator-config-file": "node ./configs/config-obfuscator.js"
     },
     "dependencies": {
-        "@sentry/nextjs": "^6.10.0",
+        "@sentry/nextjs": "^7.0.0",
         "axios": "^0.21.1",
         "jest-util": "^27.3.1",
         "next": "^11.0.1",

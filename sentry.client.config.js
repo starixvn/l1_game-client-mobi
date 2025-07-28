@@ -1,5 +1,10 @@
 import * as Sentry from "@sentry/nextjs";
+import { getAppSettings } from "./src/common/app-settings";
 
-import configs from "./configs.json";
+const appSettings = getAppSettings();
+const sentryConfig = appSettings.sentry || {};
 
-Sentry.init({ ...configs.sentry, ignoreErrors: ["Network Error"] });
+Sentry.init({ 
+    ...sentryConfig, 
+    ignoreErrors: ["Network Error"] 
+});
