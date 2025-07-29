@@ -11,10 +11,15 @@
         "test:watch": "jest --watch",
         "test-coverage": "jest --coverage",
         "reg": "npm set registry http://npm.lumigame.com",
-        "obfuscator-config-file": "node ./configs/config-obfuscator.js"
+        "obfuscator-config-file": "node ./configs/config-obfuscator.js",
+        "tolgee:sync": "node tolgee-generator/index.js sync",
+        "tolgee:add": "node tolgee-generator/index.js add",
+        "tolgee:combine": "node tolgee-generator/combine.js combine",
+        "tolgee:parse": "node tolgee-generator/combine.js parse"
     },
     "dependencies": {
         "@sentry/nextjs": "^6.10.0",
+        "@tolgee/web": "^5.28.6",
         "axios": "^0.21.1",
         "jest-util": "^27.3.1",
         "next": "^11.0.1",
