@@ -170,7 +170,7 @@
         "prawn": "エビ"
     },
     "kenoeast": {
-        "game_name": "キノイースト",
+        "game_name": "Keno East",
         "big": "大",
         "small": "小",
         "even": "偶数",
@@ -372,7 +372,7 @@
         "fullText-liveFTOdd": "フルタイム奇数 (ライブ)"
     },
     "kenomini": {
-        "game_name": "ミニキノ",
+        "game_name": "Keno Mini",
         "big": "大",
         "small": "小",
         "even": "偶数",
@@ -392,7 +392,7 @@
         "evenOddTabs": "奇数/偶数"
     },
     "kenomini2": {
-        "game_name": "ミニキノ2",
+        "game_name": "Keno Mini 2",
         "big": "大",
         "small": "小",
         "even": "偶数",
@@ -412,7 +412,7 @@
         "evenOddTabs": "奇数/偶数"
     },
     "kenonorth": {
-        "game_name": "キノ ノース",
+        "game_name": "Keno North",
         "big": "大",
         "small": "小",
         "even": "偶数",
@@ -432,7 +432,7 @@
         "evenOddTabs": "奇数/偶数"
     },
     "kenopower1": {
-        "game_name": "キノパワー",
+        "game_name": "Keno Power",
         "blue": "青チーム",
         "red": "レッドチーム",
         "sum": "合計",
@@ -491,7 +491,7 @@
         "fullText-redSmall": "赤チーム小"
     },
     "kenopower2": {
-        "game_name": "Keno パワー 2",
+        "game_name": "Keno Power 2",
         "blue": "青チーム",
         "red": "レッドチーム",
         "sum": "合計",
@@ -570,7 +570,7 @@
         "evenOddTabs": "奇数/偶数"
     },
     "kenosouth": {
-        "game_name": "キノ サウス",
+        "game_name": "Keno South",
         "big": "大",
         "small": "小",
         "even": "偶数",
@@ -590,7 +590,7 @@
         "evenOddTabs": "奇数/偶数"
     },
     "kenowest": {
-        "game_name": "キノ・ウェスト",
+        "game_name": "Keno West",
         "big": "大",
         "small": "小",
         "even": "偶数",
