@@ -49,10 +49,18 @@ $number-of-cards: 2;
 
             &.dragon-score {
                 background: linear-gradient(180deg, #ffc66a 0%, #e4900f 83.33%, #ef9710 91.46%, #fcb748 100%);
+                left: -4rem;
+                width: 94%;
+                overflow: hidden;
+                white-space: nowrap;
             }
 
             &.tiger-score {
                 background: linear-gradient(180deg, #f56566 0%, #ce333f 83.33%, #de4a53 91.46%, #fb6667 100%);
+                overflow: hidden;
+                white-space: nowrap;
+                left: -4rem;
+                width: 94%;
             }
             .score-number {
                 font-family: var(--font-number);
