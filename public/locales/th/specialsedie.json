@@ -1,7 +1,8 @@
 {
+    "even": "คู่",
     "game_name": "Special Se Die",
     "odd": "คี่",
-    "even": "คู่",
+    "ok": "โอเค",
     "submit": "ตกลง",
-    "ok": "โอเค"
+    "cancel": "Hủy bỏ"
 }

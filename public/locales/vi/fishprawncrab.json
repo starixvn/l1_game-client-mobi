@@ -1,12 +1,13 @@
 {
-    "game_name": "Bầu Cua",
-    "single": "Đơn",
-    "double": "Đôi",
-    "triple": "Bộ Ba",
-    "stag" : "Nai",
-    "gourd": "Bầu",
-    "rooster": "Gà",
-    "fish": "Cá",
     "crab": "Cua",
-    "prawn": "Tôm"
+    "double": "Đôi",
+    "fish": "Cá",
+    "game_name": "Bầu Cua",
+    "gourd": "Bầu",
+    "prawn": "Tôm",
+    "rooster": "Gà",
+    "round": "Round",
+    "single": "Đơn",
+    "stag": "Nai",
+    "triple": "Bộ Ba"
 }

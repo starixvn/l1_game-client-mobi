@@ -1,14 +1,14 @@
 {
+    "even": "Chẵn",
     "game_name": "Xóc Đĩa",
     "odd": "Lẻ",
-    "even": "Chẵn",
+    "ok": "Đóng",
     "red1": "1 Đỏ",
     "red2": "2 Đỏ",
     "red3": "3 Đỏ",
     "red4": "4 Đỏ",
+    "submit": "Đồng ý",
     "white3": "1 Đỏ",
     "white4": "4 Trắng",
-    "cancel": "Hủy bỏ",
-    "submit": "Đồng ý",
-    "ok": "Đóng"
+    "cancel": "Hủy bỏ"
 }

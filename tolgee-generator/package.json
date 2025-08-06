@@ -1,0 +1,19 @@
+{
+    "name": "tolgee-generator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "generate-tolgee-data": "ts-node ./index.ts"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@tolgee/web": "^5.33.2",
+        "ts-node": "^10.9.1"
+    },
+    "dependencies": {
+        "node-fetch": "^2.7.0"
+    }
+}

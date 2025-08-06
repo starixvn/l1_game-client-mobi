@@ -1,7 +1,8 @@
 {
-    "game_name": "Tài Xỉu",
     "big": "Tài",
+    "bigTextDot": "T",
+    "game_name": "Tài Xỉu",
+    "round": "Round",
     "small": "Xỉu",
-    "bigTextDot":"T",
-    "smallTextDot":"X"
+    "smallTextDot": "X"
 }

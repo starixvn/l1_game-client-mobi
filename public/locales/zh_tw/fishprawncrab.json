@@ -1,13 +1,13 @@
 {
+    "crab": "螃蟹",
+    "double": "雙倍",
+    "fish": "魚",
     "game_name": "魚蝦蟹",
+    "gourd": "葫蘆",
+    "prawn": "蝦",
+    "rooster": "公雞",
     "round": "回合",
     "single": "單",
-    "double": "雙倍",
-    "triple": "三倍",
     "stag": "麈",
-    "gourd": "葫蘆",
-    "rooster": "公雞",
-    "fish": "魚",
-    "crab": "螃蟹",
-    "prawn": "蝦"
+    "triple": "三倍"
 }

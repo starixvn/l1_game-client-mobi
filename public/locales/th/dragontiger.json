@@ -1,11 +1,11 @@
 {
-    "game_name": "เสือมังกร",
-    "tiger": "เสือ",
     "dragon": "มังกร",
-    "tie": "เสมอ",
-    "tigerWin": "เสือชนะ",
-    "dragonWin": "มังกรชนะ",
-    "tigerTextDot": "T",
     "dragonTextDot": "D",
-    "tieTextDot": "/"
+    "dragonWin": "มังกรชนะ",
+    "game_name": "เสือมังกร",
+    "tie": "เสมอ",
+    "tieTextDot": "/",
+    "tiger": "เสือ",
+    "tigerTextDot": "T",
+    "tigerWin": "เสือชนะ"
 }

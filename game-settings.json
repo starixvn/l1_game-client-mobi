@@ -7,6 +7,7 @@
             "namespace": "bigsmall",
             "path": "bigsmall"
         },
+        "tolgeeNamespace": "BigSmall",
         "durations": {
             "wholeRound": 62,
             "placingBets": 50,
@@ -25,6 +26,7 @@
             "namespace": "sedie",
             "path": "sedie"
         },
+        "tolgeeNamespace": "SeDie",
         "durations": {
             "wholeRound": 40,
             "placingBets": 30,
@@ -42,6 +44,7 @@
             "namespace": "fishprawncrab",
             "path": "fishprawncrab"
         },
+        "tolgeeNamespace": "FishPrawnCrab",
         "durations": {
             "wholeRound": 41,
             "placingBets": 30,
@@ -59,6 +62,7 @@
             "namespace": "txturbo",
             "path": "turbobigsmall"
         },
+        "tolgeeNamespace": "TxTurbo",
         "durations": {
             "wholeRound": 39,
             "placingBets": 30,
@@ -77,6 +81,7 @@
             "namespace": "dragontiger",
             "path": "dragontiger"
         },
+        "tolgeeNamespace": "DragonTiger",
         "durations": {
             "wholeRound": 37,
             "placingBets": 30,
@@ -94,6 +99,7 @@
             "namespace": "kenopromax",
             "path": "kenopromax"
         },
+        "tolgeeNamespace": "KenoProMax",
         "durations": {
             "wholeRound": 41,
             "placingBets": 30,
@@ -111,6 +117,7 @@
             "namespace": "minisedie",
             "path": "minisedie"
         },
+        "tolgeeNamespace": "MiniSeDie",
         "durations": {
             "wholeRound": 38,
             "placingBets": 30,
@@ -128,6 +135,7 @@
             "namespace": "baccarat",
             "path": "baccarat"
         },
+        "tolgeeNamespace": "Baccarat",
         "durations": {
             "wholeRound": 46,
             "placingBets": 30,
@@ -145,6 +153,7 @@
             "namespace": "vipsedie",
             "path": "vsedie"
         },
+        "tolgeeNamespace": "VIPSedie",
         "durations": {
             "wholeRound": 40,
             "placingBets": 30,
@@ -162,6 +171,7 @@
             "namespace": "specialsedie",
             "path": "specialsedie"
         },
+        "tolgeeNamespace": "SpecialSeDie",
         "durations": {
             "wholeRound": 40,
             "placingBets": 30,
@@ -180,6 +190,7 @@
             "namespace": "vipbaccarat",
             "path": "vipbaccarat"
         },
+        "tolgeeNamespace": "VIPBaccarat",
         "durations": {
             "wholeRound": 46,
             "placingBets": 30,
@@ -197,6 +208,7 @@
             "namespace": "threecards",
             "path": "threecards"
         },
+        "tolgeeNamespace": "ThreeCards",
         "durations": {
             "wholeRound": 40,
             "placingBets": 30,
@@ -214,6 +226,7 @@
             "path": "kenomatch"
         },
         "supportMD5": true,
+        "tolgeeNamespace": "KenoMatch1",
         "durations": {
             "wholeRound": 78,
             "showFullTimeSettlementResult": 73,
@@ -240,6 +253,7 @@
             "path": "kenomatch"
         },
         "supportMD5": true,
+        "tolgeeNamespace": "KenoMatch2",
         "durations": {
             "wholeRound": 86,
             "showFullTimeSettlementResult": 81,
@@ -266,6 +280,7 @@
             "path": "kenopower"
         },
         "supportMD5": true,
+        "tolgeeNamespace": "KenoPower1",
         "durations": {
             "wholeRound": 51,
             "placingBets": 42,
@@ -283,6 +298,7 @@
             "path": "kenopower"
         },
         "supportMD5": true,
+        "tolgeeNamespace": "KenoPower2",
         "durations": {
             "wholeRound": 55,
             "placingBets": 42,
@@ -300,6 +316,7 @@
             "namespace": "kenomini",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoMini",
         "durations": {
             "wholeRound": 52,
             "placingBets": 40,
@@ -317,6 +334,7 @@
             "namespace": "kenomini2",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoMini2",
         "durations": {
             "wholeRound": 42,
             "placingBets": 30,
@@ -334,6 +352,7 @@
             "namespace": "kenoeast",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoEast",
         "durations": {
             "wholeRound": 44,
             "placingBets": 30,
@@ -351,6 +370,7 @@
             "namespace": "kenowest",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoWest",
         "durations": {
             "wholeRound": 44,
             "placingBets": 30,
@@ -368,6 +388,7 @@
             "namespace": "kenosouth",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoSouth",
         "durations": {
             "wholeRound": 44,
             "placingBets": 30,
@@ -385,6 +406,7 @@
             "namespace": "kenonorth",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "KenoNorth",
         "durations": {
             "wholeRound": 44,
             "placingBets": 30,
@@ -402,6 +424,7 @@
             "namespace": "megakeno",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "MegaKeno",
         "durations": {
             "wholeRound": 59,
             "placingBets": 45,
@@ -419,6 +442,7 @@
             "namespace": "megakeno2",
             "path": "minikeno"
         },
+        "tolgeeNamespace": "MegaKeno2",
         "durations": {
             "wholeRound": 44,
             "placingBets": 30,

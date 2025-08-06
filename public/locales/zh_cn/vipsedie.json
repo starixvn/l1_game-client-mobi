@@ -1,13 +1,14 @@
 {
+    "cancel": "Hủy bỏ",
+    "even": "双",
     "game_name": "VIP 色碟",
     "odd": "单",
-    "even": "双",
+    "ok": "好的",
     "red1": "1 红",
     "red2": "2 红",
     "red3": "3 红",
     "red4": "4 红",
-    "white3": "1 红",
-    "white4": "4 白",
     "submit": "提交",
-    "ok": "好的"
+    "white3": "1 红",
+    "white4": "4 白"
 }

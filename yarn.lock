@@ -1057,7 +1057,14 @@
   resolved "http://npm.lumigame.com/@tolgee/core/-/core-5.33.2.tgz#2c16130ef4ac06dec00f1349ebeb7238b7eabacb"
   integrity sha512-iuqbvFB9En8rfnKLIoEDdX3H2ubVuDHEZZ4OSOnixSzkbMukVMqIzt6SjDTzfpMeTn3O0b5M8hNPYN+RyRLrPA==
 
-"@tolgee/web@^5.28.6":
+"@tolgee/react@^5.28.6":
+  version "5.33.2"
+  resolved "http://npm.lumigame.com/@tolgee/react/-/react-5.33.2.tgz#d6e850eec1595da9f72c0195d1997dc7fc42d2fe"
+  integrity sha512-CFIL7j24sXmQcpAXcvJK53Qu2MfgPRu/4U0wLNo0b9F2gtT1LPZp6Bn/lF28RR7KjJi7qBVjB41TiaIQF2mSAg==
+  dependencies:
+    "@tolgee/web" "5.33.2"
+
+"@tolgee/web@5.33.2", "@tolgee/web@^5.28.6":
   version "5.33.2"
   resolved "http://npm.lumigame.com/@tolgee/web/-/web-5.33.2.tgz#1e6b58ef242628212f70bded072de66cde9b8f97"
   integrity sha512-pmiLbw0seAONwOEhuOYj3ckfg97GGqaQSi2upJkj1a8A7/vZNGt4X2bEpBn6hXR9c/HNkLbEVJK+HWQVWWmXIg==
@@ -7299,7 +7306,7 @@ source-map-resolve@^0.6.0:
     atob "^2.1.2"
     decode-uri-component "^0.2.0"
 
-source-map-support@0.5.21:
+source-map-support@0.5.21, source-map-support@^0.5.17:
   version "0.5.21"
   resolved "http://npm.lumigame.com/source-map-support/-/source-map-support-0.5.21.tgz"
   integrity sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==
@@ -7314,7 +7321,7 @@ source-map-support@^0.4.15:
   dependencies:
     source-map "^0.5.6"
 
-source-map-support@^0.5.17, source-map-support@^0.5.6:
+source-map-support@^0.5.6:
   version "0.5.19"
   resolved "http://npm.lumigame.com/source-map-support/-/source-map-support-0.5.19.tgz"
   integrity sha512-Wonm7zOCIJzBGQdB+thsPar0kYuCIzYvxZwlBa87yi/Mdjv7Tip2cyVbLj5o0cFPN4EVkuTwb3GDDyUx2DGnGw==
@@ -7852,7 +7859,7 @@ ts-jest@^27.0.5:
 
 ts-node@^9.1.1:
   version "9.1.1"
-  resolved "http://npm.lumigame.com/ts-node/-/ts-node-9.1.1.tgz"
+  resolved "http://npm.lumigame.com/ts-node/-/ts-node-9.1.1.tgz#51a9a450a3e959401bda5f004a72d54b936d376d"
   integrity sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==
   dependencies:
     arg "^4.1.0"

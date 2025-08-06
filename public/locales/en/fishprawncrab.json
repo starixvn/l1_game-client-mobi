@@ -1,13 +1,13 @@
 {
+    "crab": "Crab",
+    "double": "Double",
+    "fish": "Fish",
     "game_name": "Fish Prawn Crab",
+    "gourd": "Gourd",
+    "prawn": "Prawn",
+    "rooster": "Rooster",
     "round": "Round",
     "single": "Single",
-    "double": "Double",
-    "triple": "Triple",
     "stag": "Stag",
-    "gourd": "Gourd",
-    "rooster": "Rooster",
-    "fish": "Fish",
-    "crab": "Crab",
-    "prawn": "Prawn"
+    "triple": "Triple"
 }

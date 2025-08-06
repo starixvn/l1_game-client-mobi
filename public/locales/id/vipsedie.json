@@ -1,13 +1,14 @@
 {
+    "cancel": "Hủy bỏ",
+    "even": "Genap",
     "game_name": "VIP Se Die",
     "odd": "Ganjil",
-    "even": "Genap",
+    "ok": "Ok",
     "red1": "1 Merah",
     "red2": "2 Merah",
     "red3": "3 Merah",
     "red4": "4 Merah",
-    "white3": "1 Merah",
-    "white4": "4 Putih",
     "submit": "Kirimkan",
-    "ok": "Ok"
+    "white3": "1 Merah",
+    "white4": "4 Putih"
 }

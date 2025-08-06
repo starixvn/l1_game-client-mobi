@@ -1,13 +1,13 @@
 {
+    "crab": "Kepiting",
+    "double": "Dobel",
+    "fish": "Ikan",
     "game_name": "Ikan Udang Kepiting",
+    "gourd": "Kundur",
+    "prawn": "Udang",
+    "rooster": "Ayam Jantan",
     "round": "Babak",
     "single": "Single",
-    "double": "Dobel",
-    "triple": "Tripel",
     "stag": "Rusa Jantan",
-    "gourd": "Kundur",
-    "rooster": "Ayam Jantan",
-    "fish": "Ikan",
-    "crab": "Kepiting",
-    "prawn": "Udang"
+    "triple": "Tripel"
 }

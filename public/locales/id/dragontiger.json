@@ -1,11 +1,11 @@
 {
-    "game_name": "Dragon Tiger",
-    "tiger": "Tiger",
     "dragon": "Dragon",
-    "tie": "Seri",
-    "tigerWin": "TIGER MENANG",
-    "dragonWin": "DRAGON MENANG",
-    "tigerTextDot": "T",
     "dragonTextDot": "D",
-    "tieTextDot": "/"
+    "dragonWin": "DRAGON MENANG",
+    "game_name": "Dragon Tiger",
+    "tie": "Seri",
+    "tieTextDot": "/",
+    "tiger": "Tiger",
+    "tigerTextDot": "T",
+    "tigerWin": "TIGER MENANG"
 }

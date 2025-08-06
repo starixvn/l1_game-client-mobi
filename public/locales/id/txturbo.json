@@ -1,7 +1,7 @@
 {
-    "game_name": "Besar Kecil Turbo",
     "big": "Besar",
-    "small": "Kecil",
     "bigTextDot": "B",
+    "game_name": "Besar Kecil Turbo",
+    "small": "Kecil",
     "smallTextDot": "S"
 }

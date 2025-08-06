@@ -1,7 +1,8 @@
 {
+    "even": "双",
     "game_name": "特别色碟",
     "odd": "单",
-    "even": "双",
+    "ok": "好的",
     "submit": "提交",
-    "ok": "好的"
+    "cancel": "Hủy bỏ"
 }

@@ -1,7 +1,8 @@
 {
+    "even": "Genap",
     "game_name": "Special Se Die",
     "odd": "Ganjil",
-    "even": "Genap",
+    "ok": "OK",
     "submit": "KIRIMKAN",
-    "ok": "OK"
+    "cancel": "Hủy bỏ"
 }

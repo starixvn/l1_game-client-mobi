@@ -1,11 +1,11 @@
 {
-    "game_name": "龙虎",
-    "tiger": "虎",
     "dragon": "龙",
-    "tie": "平局",
-    "tigerWin": "虎赢",
-    "dragonWin": "龙赢",
-    "tigerTextDot": "T",
     "dragonTextDot": "D",
-    "tieTextDot": "/"
+    "dragonWin": "龙赢",
+    "game_name": "龙虎",
+    "tie": "平局",
+    "tieTextDot": "/",
+    "tiger": "虎",
+    "tigerTextDot": "T",
+    "tigerWin": "虎赢"
 }
