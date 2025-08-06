@@ -1,0 +1,17 @@
+{
+    "apiConnectFailed": "連接不穩定。請稍後再試。",
+    "betChoice": "投注選擇",
+    "betDetails": "投注詳情",
+    "betType": "投注類型",
+    "choice": "選擇",
+    "details": "細節",
+    "noBetHistory": "無可用數據。",
+    "onlyRefund": "退款",
+    "refund": "退款",
+    "result": "結果",
+    "round": "圓形的",
+    "roundTime": "時間",
+    "stake": "賭注",
+    "totalStake": "總賭注",
+    "win": "贏"
+}

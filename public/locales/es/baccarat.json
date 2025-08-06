@@ -1,0 +1,19 @@
+{
+    "banker": "เจ้ามือ",
+    "bankerPair": "เจ้ามือคู่",
+    "bankerTextDot": "B",
+    "bankerWin": "เจ้ามือชนะ",
+    "big": "ใหญ่",
+    "bigSmallTabs": "ใหญ่/เล็ก",
+    "bigTextDot": "B",
+    "game_name": "บาคาร่า",
+    "player": "ผู้เล่น",
+    "playerBankerTabs": "ผู้เล่น/เจ้ามือ",
+    "playerPair": "ผู้เล่นคู่",
+    "playerTextDot": "P",
+    "playerWin": "ผู้เล่นชนะ",
+    "small": "เล็ก",
+    "smallTextDot": "S",
+    "tie": "เสมอ",
+    "tieTextDot": "/"
+}

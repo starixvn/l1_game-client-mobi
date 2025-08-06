@@ -1,3 +1,4 @@
+// Polyfill for Headers and fetch API in Node.js environment
 if (typeof global !== 'undefined') {
     if (!global.Headers) {
         global.Headers = require('node-fetch').Headers;
@@ -12,7 +13,7 @@ const fs = require("fs");
 const path = require("path");
 const gameSettings = require("../game-settings.json");
 
-const locales = { en: "en", vi: "vi", id: "id", th: "th", "zh-Hans": "zh-Hans", "zh-Hant": "zh-Hant" };
+const locales = { en: "en", vi: "vi", id: "id", th: "th", "zh-Hans": "zh-Hans", "zh-Hant": "zh-Hant", "es": "es" };
 
 const folderNameMapping: { [key: string]: string } = {
     "zh-Hans": "zh_cn",
@@ -76,7 +77,7 @@ tg.on("initialLoad", async () => {
     // Initialize languages object
     Object.values(locales).forEach((languageId: string) => {
         languages[languageId] = {};
-        namespaces.forEach((namespace: string) => {
+        namespaces.forEach((namespace: any) => {
             languages[languageId][namespace] = {};
         });
     });
@@ -86,7 +87,7 @@ tg.on("initialLoad", async () => {
         await tg.changeLanguage(languageId);
         
         tg.getAllRecords().forEach((record) => {
-            namespaces.forEach((namespace: string) => {
+            namespaces.forEach((namespace: any) => {
                 if (record.namespace === namespace) {
                     record.data.forEach((value, key) => {
                         languages[languageId as string][namespace][key] = value as string;
@@ -97,7 +98,7 @@ tg.on("initialLoad", async () => {
     }
 
     Object.values(locales).forEach((languageId) => {
-        namespaces.forEach((namespace: string) => {
+        namespaces.forEach((namespace: any) => {
             const namespaceData = languages[languageId as string][namespace];
 
             if (Object.keys(namespaceData).length > 0) {

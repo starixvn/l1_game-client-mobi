@@ -1,0 +1,18 @@
+{
+    "black": "黑",
+    "blackTextDot": "B",
+    "club": "梅花",
+    "clubs": "梅花",
+    "diamond": "方塊",
+    "diamonds": "方塊",
+    "game_name": "斗三張",
+    "heart": "紅心",
+    "hearts": "紅心",
+    "red": "紅",
+    "redBlackTabs": "紅/黑",
+    "redTextDot": "R",
+    "spade": "黑桃",
+    "spades": "黑桃",
+    "suits": "花色",
+    "suitsTabs": "花色"
+}

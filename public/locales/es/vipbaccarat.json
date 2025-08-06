@@ -1,0 +1,19 @@
+{
+    "banker": "莊家",
+    "bankerPair": "莊家一對",
+    "bankerTextDot": "B",
+    "bankerWin": "莊家贏",
+    "big": "大",
+    "bigSmallTabs": "大/小",
+    "bigTextDot": "B",
+    "game_name": "VIP 百家樂",
+    "player": "閒家",
+    "playerBankerTabs": "閒家/莊家",
+    "playerPair": "閒家一對",
+    "playerTextDot": "P",
+    "playerWin": "閒家贏",
+    "small": "小",
+    "smallTextDot": "S",
+    "tie": "平局",
+    "tieTextDot": "/"
+}
