@@ -103,9 +103,8 @@ tg.on("initialLoad", async () => {
 
             if (Object.keys(namespaceData).length > 0) {
                 const filename = namespace.toLowerCase();
-                // Use folder name mapping for zh-cn and zh-tw
                 const folderName = folderNameMapping[languageId] || languageId;
-                console.log(`Writing file: ${folderName}/${filename}`);
+                
                 writeFile(`../public/locales/${folderName}/${filename}`, JSON.stringify(namespaceData, null, 4));
             }
         });

@@ -1,14 +1,14 @@
 {
-    "cancel": "Hủy bỏ",
-    "even": "雙",
-    "game_name": "VIP 色碟",
-    "odd": "單",
-    "ok": "好的",
-    "red1": "1 紅",
-    "red2": "2 紅",
-    "red3": "3 紅",
-    "red4": "4 紅",
-    "submit": "提交",
-    "white3": "1 紅",
-    "white4": "4 白"
+    "cancel": "Cancelar",
+    "even": "Par",
+    "game_name": "Se Die VIP",
+    "odd": "Impar",
+    "ok": "Aceptar",
+    "red1": "1 Rojo",
+    "red2": "2 Rojos",
+    "red3": "3 Rojos",
+    "red4": "4 Rojos",
+    "submit": "Enviar",
+    "white3": "1 Rojo",
+    "white4": "4 Blancos"
 }

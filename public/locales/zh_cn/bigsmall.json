@@ -1,8 +1,8 @@
 {
-    "big": "ใหญ่",
+    "big": "大",
     "bigTextDot": "B",
-    "game_name": "ใหญ่/เล็ก",
-    "round": "รอบ",
-    "small": "เล็ก",
+    "game_name": "大小",
+    "round": "回合",
+    "small": "小",
     "smallTextDot": "S"
 }

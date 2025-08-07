@@ -1,14 +1,14 @@
 {
-    "even": "คู่",
+    "even": "Par",
     "game_name": "Se Die",
-    "odd": "คี่",
-    "ok": "โอเค",
-    "red1": "1 แดง",
-    "red2": "2 แดง",
-    "red3": "3 แดง",
-    "red4": "4 แดง",
-    "submit": "ตกลง",
-    "white3": "1 แดง",
-    "white4": "4 ขาว",
-    "cancel": "Hủy bỏ"
+    "odd": "Impar",
+    "ok": "Aceptar",
+    "red1": "1 Rojo",
+    "red2": "2 Rojos",
+    "red3": "3 Rojos",
+    "red4": "4 Rojos",
+    "submit": "Enviar",
+    "white3": "1 Rojo",
+    "white4": "4 Blancos",
+    "cancel": "Su cuenta no es compatible con este portal de juego. Por favor, póngase en contacto con su agente, gracias."
 }

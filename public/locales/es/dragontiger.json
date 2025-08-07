@@ -1,11 +1,11 @@
 {
-    "dragon": "龍",
+    "dragon": "Dragón",
     "dragonTextDot": "D",
-    "dragonWin": "龍贏",
-    "game_name": "龍虎",
-    "tie": "平局",
+    "dragonWin": "Victoria del Dragón",
+    "game_name": "Dragón Tigre",
+    "tie": "Empate",
     "tieTextDot": "/",
-    "tiger": "虎",
+    "tiger": "Tigre",
     "tigerTextDot": "T",
-    "tigerWin": "虎贏"
+    "tigerWin": "Victoria del Tigre"
 }
