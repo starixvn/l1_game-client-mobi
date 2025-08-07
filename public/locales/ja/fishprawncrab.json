@@ -1,13 +1,13 @@
 {
-    "game_name": "魚蝦蟹",
+    "crab": "蟹",
+    "double": "ダブル",
+    "fish": "魚",
+    "game_name": "魚・海老・蟹",
+    "gourd": "瓢箪",
+    "prawn": "海老",
+    "rooster": "鶏",
     "round": "ラウンド",
     "single": "シングル",
-    "double": "ダブル",
-    "triple": "トリプル",
-    "stag": "雄鹿",
-    "gourd": " 瓢箪",
-    "rooster": "雄鶏",
-    "fish": "魚",
-    "crab": "カニ",
-    "prawn": "エビ"
+    "stag": "鹿",
+    "triple": "トリプル"
 }

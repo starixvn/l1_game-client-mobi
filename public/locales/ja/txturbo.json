@@ -1,7 +1,7 @@
 {
-    "game_name": "ターボ大小",
     "big": "大",
-    "small": "小",
     "bigTextDot": "B",
-    "smallTextDot": "S"
+    "game_name": "ターボ大小",
+    "small": "小",
+    "smallTextDot": " 小"
 }

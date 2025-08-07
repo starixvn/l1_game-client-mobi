@@ -13,7 +13,7 @@ const fs = require("fs");
 const path = require("path");
 const gameSettings = require("../game-settings.json");
 
-const locales = { en: "en", vi: "vi", id: "id", th: "th", "zh-Hans": "zh-Hans", "zh-Hant": "zh-Hant", "es": "es" };
+const locales = { en: "en", vi: "vi", id: "id", th: "th", "zh-Hans": "zh-Hans", "zh-Hant": "zh-Hant", "ja": "ja", "es": "es" };
 
 const folderNameMapping: { [key: string]: string } = {
     "zh-Hans": "zh_cn",

@@ -1,11 +1,11 @@
 {
-    "game_name": "ドラゴンタイガー",
-    "tiger": "タイガー",
     "dragon": "ドラゴン",
-    "tie": "引き分け",
-    "tigerWin": "タイガーの勝ち",
-    "dragonWin": "ドラゴンの勝ち",
-    "tigerTextDot": "T",
     "dragonTextDot": "D",
-    "tieTextDot": "/"
+    "dragonWin": "龍勝利",
+    "game_name": "ドラゴンタイガー",
+    "tie": "引き分け",
+    "tieTextDot": "/",
+    "tiger": "タイガー",
+    "tigerTextDot": "三",
+    "tigerWin": "虎勝利"
 }
