@@ -133,7 +133,6 @@ $tab-active: rgba(254, 107, 21, 1);
 }
 
 .tab-switch:checked + label + .tab-content {
-  //z-index: 2;
   display: block;
   transition: all 0.35s;
 }

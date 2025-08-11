@@ -1,7 +1,6 @@
 @import "../../../assets/components/dropdown";
 
 .selector-container {
-    //position: relative;
     display: table-cell;
 }
 
@@ -42,15 +41,6 @@
     @media (min-width: 768px) {
         width: 34.3rem;
     }
-    // @media (min-device-width: 768px) {
-    //     max-height: calc(100vh - 14rem);
-    // }
-    // @media (min-device-width: 768px) and (min-height: 768px) {
-    //     max-height: 51.8rem;
-    // }
-    // &.mobile {
-    //     max-height: calc(100vh - 24.4rem);
-    // }
 }
 
 .dropdown-item {

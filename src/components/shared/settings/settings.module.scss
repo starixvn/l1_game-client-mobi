@@ -94,14 +94,6 @@
     line-height: 3.2rem;
 }
 
-// .desktop-style {
-//     .icon-sound-on::before,
-//     .icon-sound-off::before,
-//     .icon-history::before,
-//     .icon-favorite-normal::before {
-//         color: #fff;
-//     }
-// }
 
 %icon-notify {
     @extend %icon;
@@ -138,13 +130,3 @@
     @extend %icon-notify;
     background-position: -36px -58px;
 }
-
-// .icon-favorite {
-//     @extend %icon-notify;
-//     background-position: var(--position-icon-favorite);
-//     position: relative;
-//     top: -1px;
-//     &:before {
-//         content: none;
-//     }
-// }

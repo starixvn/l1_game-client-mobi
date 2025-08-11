@@ -12,14 +12,12 @@
         --game-category-text-active-color: #FE6B15;
     }
 
-    //--paging-item-hover-background: linear-gradient(180deg, #ffffff 0%, #c8c9c9 100%);
     --paging-item-hover-background: #6582B1;
     --paging-item-border: #5574AE;
     --paging-item-text-color: #5574AE;
 }
 
 .category-container {
-    //border-bottom: 0.1rem solid var(--game-category-border);
     background: var(--game-category-background);
     overflow-x: auto;
     overflow-y: hidden;
@@ -126,7 +124,6 @@
                     width: 3.6rem;
                     height: 0.4rem;
                     transform: skewX(-30deg);
-                    //border-radius: 2rem;
                     background-color: var(--game-category-border-active-color);
                 }
             }

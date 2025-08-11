@@ -85,11 +85,10 @@ $number-count: 20;
     .settle-info-4 {
         position: relative;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         grid-gap: 1rem;
         align-items: center;
         padding: 1rem 1.2rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
 
         &:before {
             content: "";
@@ -427,12 +426,10 @@ $number-count: 20;
 
 @keyframes show-result-label {
     from {
-        //opacity: 0;
         right: -8rem;
     }
 
     to {
-        //opacity: 1;
         right: 0.5rem;
     }
 }

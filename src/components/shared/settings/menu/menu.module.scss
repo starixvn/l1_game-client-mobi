@@ -13,7 +13,6 @@
 }
 
 .menu-toggle-btn {
-    // min-width: 4rem;
     @media (max-width: 767px) {
         text-align: right;
     }
@@ -55,11 +54,6 @@
     line-height: 3.2rem;
 }
 
-// .desktop-style {
-//     .icon-menu::before {
-//         color: #fff;
-//     }
-// }
 
 .icon-menu-light {
     @extend %icon-menu;
