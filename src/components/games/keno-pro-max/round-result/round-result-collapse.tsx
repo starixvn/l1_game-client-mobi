@@ -41,7 +41,8 @@ export const KenoProMaxRoundResultCollapse: React.FC<{
             </div>           
 
             <div className={`${Styles["result-label"]} ${Styles[animClass]} ${Styles["rows-" + rows]}`}>
-                <span className={Styles["total-point"]}>{total}</span>-{` ${t(settlementResult?.big ? "big" : "small")}`}
+                <span className={Styles["total-point"]}>{total}</span>
+                <span className={Styles["settle-text"]}>{t(settlementResult?.big ? "big" : "small")}</span>
             </div>
         </div>
     );
