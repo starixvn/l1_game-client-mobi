@@ -1,16 +1,20 @@
 import { render } from "@testing-library/react";
 import React, { useRef } from "react";
-import { mocked } from "ts-jest/utils";
 import * as rdd from "react-device-detect";
 
 import { Tooltip } from ".";
 
-const useMockRef = mocked(useRef);
+const useMockRef = jest.mocked(useRef);
+
+// Mock react-device-detect
+jest.mock("react-device-detect", () => ({
+    isDesktop: true,
+}));
 
 describe("Tooltip", () => {
     it("should render Tooltip component", () => {
         // Arrange
-        rdd.isDesktop = true;
+        // rdd.isDesktop is already mocked to true
 
         // Act
         render(<Tooltip message={"Tooltip"} hoverWrapper={useMockRef as any} isShowAtHoverPosition={true} />);

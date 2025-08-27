@@ -1,6 +1,7 @@
 export default {
     collectCoverageFrom: ["**/*.{js,jsx,ts,tsx}", "!**/*.d.ts", "!**/node_modules/**"],
     moduleNameMapper: {
+        "^uuid$": "<rootDir>/__mocks__/uuid.js",
         /* Handle CSS imports (with CSS modules)
         https://jestjs.io/docs/webpack#mocking-css-modules */
         "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",

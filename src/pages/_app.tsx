@@ -63,5 +63,6 @@ const getBrowserTitle = (systemName: string, operator?: string) => {
         "system-name-l2-mega": isSabaPlay(operator) ? sabaPlayKenoName : "Vgaming Keno",
     };
     return browserTitle[systemName] || "";
-};
-export default appWithTranslation(SabaMobiApp);
+}
+
+export default appWithTranslation(SabaMobiApp as any);

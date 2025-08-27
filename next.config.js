@@ -22,13 +22,17 @@ module.exports = withSentryConfig({
         return uuidv4();
     },
     excludeFile: (str) => /\*.{spec,test}.js/.test(str),
+    // Next.js has built-in support for static assets, no need for url-loader
     webpack: (config, options) => {
+        // Disable source maps
+        config.devtool = false;
+
         config.module.rules.push({
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3)$/,
-            use: {
-                loader: "url-loader",
-                options: {
-                    limit: 100000,
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3|webp)$/,
+            type: 'asset',  
+            parser: {
+                dataUrlCondition: {
+                    maxSize: 100 * 1024,
                 },
             },
         });
