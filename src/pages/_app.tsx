@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { getOperator } from "../helpers/operator-helper";
 
 interface KenoSoccerAppProps extends AppProps {
-    err: any;
+    err?: any;
 }
 
 class SabaMobiApp extends App<KenoSoccerAppProps> {
@@ -65,4 +65,4 @@ const getBrowserTitle = (systemName: string, operator?: string) => {
     return browserTitle[systemName] || "";
 }
 
-export default appWithTranslation(SabaMobiApp as any);
+export default appWithTranslation(SabaMobiApp);
