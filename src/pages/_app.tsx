@@ -16,17 +16,13 @@ interface KenoSoccerAppProps extends AppProps {
     err?: any;
 }
 
-class SabaMobiApp extends App<KenoSoccerAppProps> {
-    render() {
-        const { Component, pageProps, err } = this.props;
-
-        return (
-            <ThemeProvider defaultTheme={Themes.light}>
-                <AppTilte />
-                <Component {...pageProps} err={err} />
-            </ThemeProvider>
-        );
-    }
+function SabaMobiApp({ Component, pageProps, err }: KenoSoccerAppProps) {
+    return (
+        <ThemeProvider defaultTheme={Themes.light}>
+            <AppTilte />
+            <Component {...pageProps} err={err} />
+        </ThemeProvider>
+    );
 }
 
 export const AppTilte = () => {
